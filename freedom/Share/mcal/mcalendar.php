@@ -45,14 +45,16 @@ html {background-color:#eeeeee}
 
 <?php
 $rwhat = '/what/WHAT/Layout/';
+$rxml = '/what/jsXMLParser/Layout/';
+$rmcal = '/what/mcal/Layout/';
 echo '
 <script type="text/javascript" src="'.$rwhat.'geometry.js"></script>
 <script type="text/javascript" src="'.$rwhat.'DHTMLapi.js"></script>
 <script type="text/javascript" src="'.$rwhat.'AnchorPosition.js"></script>
-<script type="text/javascript" src="'.$rmcal.'xmldom.js"></script>
-<script type="text/javascript" src="'.$rmcal.'/test/mcallib.js"></script>
-<script type="text/javascript" src="'.$rmcal.'/test/mcalmenu.js"></script>
-<script type="text/javascript" src="'.$rmcal.'/test/mcalendar.js"></script>
+<script type="text/javascript" src="'.$rxml.'xmldom.js"></script>
+<script type="text/javascript" src="'.$rmcal.'mcallib.js"></script>
+<script type="text/javascript" src="'.$rmcal.'mcalmenu.js"></script>
+<script type="text/javascript" src="'.$rmcal.'mcalendar.js"></script>
 ';
 ?>
 
@@ -73,32 +75,27 @@ echo '
     }
 
 var menu = [
-    { id:'newevent', label:'Nouveau RV', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
-      icon:'mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
+    { id:'newevent', label:'a cette heure', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
       atarget:'', ascript:'mhandler', aevent:0 },
-    { id:'newevent', label:'RV toute la journée', desc:'Nouveau rendez-vous, toute la journée', status:2, type:1,
-      icon:'mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
+    { id:'newevent', label:'toute la journee', desc:'Nouveau rendez-vous, toute la journée', status:2, type:1,
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
       atarget:'', ascript:'mhandler', aevent:0 },
     ];
 
+//   { id:'getevents', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&' },
+//   { id:'eventcard', request:'mcalendar_detail.php?id=%EVID%' },
 var sm = [ 
-    { id:'getevents', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&' },
-    { id:'geteventsdiff', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&lr=%LR%' },
-    { id:'eventresume', request:'mcalendar_resume.php?id=%EVID%' },
-    { id:'eventcard', request:'mcalendar_detail.php?id=%EVID%' },
-    ];
+  { id:'getevents', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&zone=FREEEVENT:XMLEVLIST:T&latest=Y&tmime=text/xml&id=1025&ts=%TS%&te=%TE%&lastrev=%LR%' },
+  { id:'geteventsdiff', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&lr=%LR%' },
+  { id:'eventresume', request:'mcalendar_resume.php?id=%EVID%' },
+  { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=FDL_CARD&props=N&abstract=N&id=%EVID%' }  
+  ];
 
     var cal = new MCalendar('calendarRoot', sm, menu);
-
     cal.CalDaysCount = 7;
     cal.CalHoursPerDay = 10;
-
-    cal.dayBaseCss = 'day';
-    cal.dayCss = [ 'day0', 'day1' ];
-    cal.dayCurrentCss = 'dayc';
-    cal.dayWeekEndCss = [ 'daywe0', 'daywe1' ];
-    cal.daynhCss = 'daynh';
-    cal.dayTitleCss = 'dayh';
+    cal.refreshDelay = 10000; // 10 seconds
     cal.Display();
 </script>
 

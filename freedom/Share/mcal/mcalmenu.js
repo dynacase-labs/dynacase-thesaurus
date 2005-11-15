@@ -151,7 +151,7 @@ MCalMenu.MenuId = '';
 MCalMenu.HandlerCtx = '';
 MCalMenu.HandlerFunc = '';
 MCalMenu.HandlerArgs = new Array;
-MCalMenu.showMenu = function(e, mid, items, handlercontext, hfunction, hargs) {
+MCalMenu.showMenu = function(e, xpos, ypos, mid, items, handlercontext, hfunction, hargs) {
   var cm = new MCalMenu(mid);
   if (!cm) return false;
   MCalMenu.MenuId = mid;
@@ -159,8 +159,12 @@ MCalMenu.showMenu = function(e, mid, items, handlercontext, hfunction, hargs) {
   MCalMenu.HandlerFunc = hfunction;
   MCalMenu.HandlerArgs = hargs;
   MCalMenu.stopTempo(mid);
-  var evcoord = mcalEventXY(e);
-  cm.__displayMenu(evcoord.x, evcoord.y, items);
+  if (xpos==0 && ypos==0) {
+    var evcoord = mcalEventXY(e);
+    cm.__displayMenu(evcoord.x, evcoord.y, items);
+  } else {
+    cm.__displayMenu(xpos, ypos, items);
+  }
   mcalCancelEvent(e);
 }
 
@@ -191,11 +195,15 @@ MCalMenu.activateItem = function(event, mid, iid) {
    
 // --------------------------------------------------------------------------------------
 // Attach menu to element
-MCalMenu.prototype.attachToElt = function(elt, useitem, handmode, handlerFunction, handlerArgs) {
+// when x and are set, menu is opened at this position elsewhere event position is used
+  MCalMenu.prototype.attachToElt = function(elt, x, y, useitem, handmode, handlerFunction, handlerArgs) {
 
   var thismenu = this.menuId;
   var items = useitem;
   var targs = new Array;
+  var xpos = x;
+  var ypos = y;
+
   if (document.getElementById(elt)) {
     var elti = document.getElementById(elt);
     switch (handmode) {
@@ -208,7 +216,7 @@ MCalMenu.prototype.attachToElt = function(elt, useitem, handmode, handlerFunctio
 		      var hmode = handmode; 
 		      var hfunction = handlerFunction;
 		      var hargs = handlerArgs;
-		      MCalMenu.showMenu(e, lmenu, items, hmode, hfunction, hargs); }, 
+		      MCalMenu.showMenu(e, xpos, ypos, lmenu, items, hmode, hfunction, hargs); }, 
 		    true);
      break;
       
@@ -220,7 +228,7 @@ MCalMenu.prototype.attachToElt = function(elt, useitem, handmode, handlerFunctio
 		      var hmode = handmode; 
 		      var hfunction = handlerFunction;
 		      var hargs = handlerArgs;
-		      MCalMenu.showMenu(e, lmenu, items, hmode, hfunction, hargs); }, 
+		      MCalMenu.showMenu(e, xpos, ypos, lmenu, items, hmode, hfunction, hargs); }, 
 		    true);
     }
 
@@ -245,8 +253,8 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
 
   this.__undisplayMenu();
 
-  var x = xinit - 20;
-  var y = yinit - 10;
+  var x = xinit;
+  var y = yinit;
   var w = this.menuWidth - (2*this.yBorder);
   var h = [ this.menuHeight , this.menuHeight, 1 ];
   

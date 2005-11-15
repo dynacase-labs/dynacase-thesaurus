@@ -1,6 +1,5 @@
-[IF xmlResume]<event id="[id]" rid="evt[id]" dmode="[dmode]" time="[time]" duration="[duration]"><title>[title]</title>
-<content><div id="evt[id]" class="evXmlResume">[title]</div></content>
-<menu>[BLOCK MENUITEM]
-<item default="[muse]" type="[mtype]" action="[maction]" target="[mtarget]">[mlabel]</item>[ENDBLOCK MENUITEM]
-</menu>
-</event>[ENDIF xmlResume]
+[IF xmlResume]<event id="[id]" revstatus="[revstatus]" revdate="[revdate]" rid="evt[id]" cid="evc[id]" dmode="[displaymode]" time="[time]" duration="[duration]">[IF setRefMenu]<menuref id="[menuref]" use="[BLOCK miUse][itemState],[ENDBLOCK miUse]"/>[ENDIF setRefMenu]
+<title>[title]</title><content>
+<styleinfo>[BLOCK style]<style id="[sid]" val="[sval]"/>[ENDBLOCK style]</styleinfo>
+<chtml><div style="vertical-align:top;"><img style=" border:0" src="/freedom/[evfamicon]" width="16"/> <span style="vertical-align:top; text-decoration:underline;font-weight:bold">[evtitle]</span></div><span style="text-decoration:italic">[evstart] - [evend]</span></chtml>
+</content></event>[ENDIF xmlResume]

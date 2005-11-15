@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE eventlist [
-<!ELEMENT eventlist (event)+>
-<!ELEMENT event (title, content, menu)>
-<!ELEMENT title (#PCDATA)>
-<!ELEMENT content (#PCDATA)>
-<!ELEMENT menu (item)+>
-<!ELEMENT item (#PCDATA)>
+<!DOCTYPE eventdesc [
+<!ELEMENT eventdesc (menu, (event)+)>
+<!ELEMENT menu (item+)>
+<!ELEMENT item (label, description, action)>
+<!ELEMENT label (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT action (#PCDATA)>
+<!ELEMENT event (menuref, title, content)>
+<!ELEMENT event (styleinfo, chtml)>
+<!ELEMENT styleinfo (style)+>
+<!ELEMENT style (#PCDATA)>
+<!ELEMENT chtml (#PCDATA)>
 ]>
-<eventlist start="[start]" end="[end]" readablestart="[fstart]" readableend="[fend]">
+<eventdesc start="[start]" end="[end]" readablestart="[fstart]" readableend="[fend]" uptime="[uptime]">
+[IF withMenu]<menu id="menuname">
+[BLOCK items]<item id="[itemname]" status="[itemstatus]" type="[itemtype]" [IF hasIcon]ico="[itemico]"[ENDIF hasIcon]>
+<label>[itemlabel]</label>
+<description>[itemdescription]</description>
+<action aid="[actionid]" amode="[actionmode]" aevent="[actionevent]" atarget="[actiontarget]" ascript="[actionscript]"/>
+</item>[ENDBLOCK items]
+</menu>[ENDIF withMenu]
 [BLOCK EVENTS][cevent]
 [ENDBLOCK EVENTS]
-</eventlist>
+</eventdesc>

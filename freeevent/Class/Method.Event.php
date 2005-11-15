@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.9 2005/11/04 11:25:18 marc Exp $
+ * @version $Id: Method.Event.php,v 1.10 2005/11/15 18:18:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -62,29 +62,45 @@ function XmlCard() {
 
 function XmlResume() {
   global $action;
-  $this->lay->set("id", $this->id);
-  $this->lay->set("title", $this->parseContent($this->getValue("evt_title")));
-  $this->lay->set("dmode", 0);
-  $this->lay->set("time", FrenchDateToUnixTs($this->getValue("evt_begdate")));
-  $dur = FrenchDateToUnixTs($this->getValue("evt_enddate")) - FrenchDateToUnixTs($this->getValue("evt_begdate"));
-  $dur = ($dur<0 ? -$dur : $dur);
-  $this->lay->set("duration", $dur);
+  $lastrev = GetHttpVars("lastrev", 0);
+  if ($this->revdate>$lastrev) {
+    $this->lay->set("id", $this->id);
+    $this->lay->set("revdate", $this->revdate);
+    $this->lay->set("revstatus", ($this->doctype=='Z' ? 2 : 1));
+    $this->lay->set("title", htmlentities($this->getValue("evt_title")));
+    $this->lay->set("displaymode", 1);
+    $this->lay->set("content", htmlentities($this->viewdoc($this->defaultabstract)));
+    $this->lay->set("time", FrenchDateToUnixTs($this->getValue("evt_begdate")));
+    $dur = FrenchDateToUnixTs($this->getValue("evt_enddate")) - FrenchDateToUnixTs($this->getValue("evt_begdate"));
+    $dur = ($dur<0 ? -$dur : $dur);
+    $this->lay->set("duration", $dur);
 
-  // Menus
-  $urlbase = $action->getParam("CORE_SSTANDURL");
-  $menus = array();
-  $menus[] = array( "muse" => 1,
-		    "mtype" => "ACTION",
-		    "mlabel" => $this->parseContent("Afficher"),
-		    "mtarget" => "evdisplay",
-		    "micon" => "",
-		    "maction" => $this->parseContent("$urlbase&sole=Y&app=FDL&action=FDL_CARD&zone=EVXML&view=F&id=".$this->id));
-  $this->lay->setBlockData("MENUITEM", $menus);
-  $this->lay->set("xmlResume", true);
-}
+    $bgcolor = "white";
+    $color = "blue";
+    $style = array( array("sid" => "background-color", "sval" => $bgcolor),
+		    array("sid" => "color", "sval" => $color),
+		    array("sid" => "border", "sval" => "1px dotted $color") );
 
-function parseContent($ct) {
-  return htmlentities($ct);  // ereg_replace( "&", "&amp;", $ct);
+    $this->lay->set("evtitle", htmlentities($this->getValue("evt_title")));
+    $this->lay->set("evfamicon", $this->getIcon($this->getValue("evt_frominitiatoricon")));
+    $this->lay->set("evstart", substr($this->getValue("evt_begdate"),0,16));
+    $this->lay->set("evend", substr($this->getValue("evt_enddate"),0,16));
+    $this->lay->setBlockData("style", $style);
+
+    $mref = GetHttpVars("mref");
+    $this->lay->set("setRefMenu", false);
+    $this->lay->setBlockData("miUse", array());
+    $this->lay->set("menuRef", $mref);
+    if ($mref!=="") {
+      //     $this->lay->set("hasMenu", true);
+      //     $this->lay->set("menuRef", $mref);
+      //     $this->lay->setBlockData("miUse", array());
+    }
+    $this->lay->set("xmlResume", true);
+  } else {
+    $this->lay->set("xmlResume", false);
+  }
+  return;
 }
 
 ?>

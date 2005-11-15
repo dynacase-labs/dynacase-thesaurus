@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.28 2005/11/04 15:18:08 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.29 2005/11/15 18:18:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -336,17 +336,22 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
   $sd1 = strftime("%d/%m/%Y %H:%M", $d1);
   $sd2 = strftime("%d/%m/%Y %H:%M", $d2);
   $tevt = array();
-  $tevt=$this->getEvents($sd1,$sd2);
+  $tevt=$this->getEvents($sd1,$sd2, array("doctype = 'Z'"));
   $evt = array();
   foreach ($tevt as $k=>$v) {
     $ev = getDocObject($this->dbaccess, $v);
     $evt[]["cevent"] = $ev->viewdoc($ev->evXml);
   }
+
   $this->lay->set("fstart", $sd1);
   $this->lay->set("fend", $sd2);
   $this->lay->set("start", $d1);
   $this->lay->set("end", $d2);
+  $this->lay->set("uptime", time());
   $this->lay->setBlockData("EVENTS", $evt);
+
+  $this->lay->set("withMenu", false);
+
   return;
 }
 ?>

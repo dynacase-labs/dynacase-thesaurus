@@ -1,8 +1,17 @@
 // This source IS NOT DISTRIBUTED UNDER FREE LICENSE (like GPL or Artistic...)
 // For any usage -commercial, private or other- you have to pay Marc Claverie.
 
+
+MCalendar.InstallDir = '/what/mcal/';
+MCalendar.Images = MCalendar.InstallDir + 'Images/';
+
 function MCalendar(instance, serverAction, hmenu, style) 
 {
+
+  // try  { var t = new XMLDocu; }
+  // catch(e) { mcalShowError('Missing jsXMLParser include'); return; }
+
+
   if (!document.__mcal) document.__mcal = new Array;
 
   if (document.__mcal[instance]) {
@@ -49,6 +58,7 @@ function MCalendar(instance, serverAction, hmenu, style)
     this.lastGetDate = document.__mcal[instance].lastGetDate;
     this.lastRequest = document.__mcal[instance].lastRequest;
     this.hMenu = document.__mcal[instance].lastRequest;
+    this.refreshDelay = document.__mcal[instance].refreshDelay;
 
   } else {
 
@@ -126,6 +136,7 @@ function MCalendar(instance, serverAction, hmenu, style)
       this.style.evenDayWEBackground = '#eff1f9';
     }
   
+    this.refreshDelay = 0;
   
 
     document.__mcal[this.CalRootElt] = this;
@@ -141,6 +152,10 @@ MCalendar.prototype.__deleteElt = function(ev) {
     if (this.TEventElt[mode][ielt].ref==ev && document.getElementById(this.TEventElt[mode][ielt].id)) {
       var e = document.getElementById(this.TEventElt[mode][ielt].id);
       e.parentNode.removeChild(e);
+      if (document.getElementById(this.TEventElt[mode][ielt].rid)) {
+	var ec = document.getElementById(this.TEventElt[mode][ielt].rid);
+	ec.parentNode.removeChild(ec);
+      }
     }
   }
 }
@@ -185,6 +200,9 @@ MCalendar.prototype.Compute = function()
 
   this.Dim = mcalGetZoneCoord(this.CalRootElt);
 
+  this.Dim.x = 1;
+  this.Dim.y = 1;
+
   if (this.CalHourHSize=='auto') 
     this.CalHourHeight = Math.floor( (this.Dim.h-this.CalKTitleDayH) / (this.CalHoursPerDay+2));
   else this.CalHourHeight = parseInt(this.CalHourHSize);
@@ -203,22 +221,25 @@ MCalendar.prototype.Compute = function()
   var tmenu = [
     { id:'title', label:'Calendrier', type:0 },
     { id:'weekend', label:'show/hide we', desc:'display or undisplay week-end zone', status:2, type:1,
-      icon:'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
+      icon:MCalendar.Images+'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
     { id:'sep0', type:2 },
     { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
-      icon:'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
+      icon:MCalendar.Images+'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();', aevent:0 },
     { id:'prevperiod', label:'Reculer', desc:'Afficher la période précédente', status:2, type:1,
-      icon:'mcalendar-prev.png', onmouse:'', amode:3, aevent:0, 
+      icon:MCalendar.Images+'mcalendar-prev.png', onmouse:'', amode:3, aevent:0,
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();', aevent:0 },
     { id:'currentperiod', label:'Revenir', desc:'Afficher la période initiale', status:2, type:1,
-      icon:'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
+      icon:MCalendar.Images+'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
     { id:'sep1', type:2 },
-    { id:'resize', label:'resize', desc:'resize calendar', status:2, type:1,
-      icon:'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 }
+    { id:'resize', label:'Retaille', desc:'Redimmensionner le calendrier', status:2, type:1,
+      icon:MCalendar.Images+'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 },
+    { id:'reload', label:'Recharger', desc:'Recharger le calendrier', status:2, type:1,
+      icon:MCalendar.Images+'mcalendar-reload.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Reload();', aevent:0 }
     ];
   var style = { bg:'#F8F1FB', fg:'black', tbg:'#F1D998', tfg:'black', abg:'#EAE9C1', afg:'black' };
   this.calmenu = new MCalMenu( '__gmenu', tmenu, style );
@@ -230,8 +251,8 @@ MCalendar.prototype.Compute = function()
   return;
 }
 
-MCalendar.prototype.__getEvents = function() 
-{
+MCalendar.prototype.__getEvents = function()  {
+
   if (!this.serverMethod['getevents']) return;
   var rq;
   try {
@@ -242,9 +263,11 @@ MCalendar.prototype.__getEvents = function()
   rq.instanceName = this.CalRootElt;
   
   rq.onreadystatechange =  function() {
-  if (rq.readyState == 4) {
-    var instance = document.__mcal[rq.instanceName];
-    if (rq.responseXML && rq.status==200) {
+    if (rq.readyState == 4) {
+      
+      var instance = document.__mcal[rq.instanceName];
+      if (rq.responseXML && rq.status==200) {
+	instance.__SetZoneInformation('Affichage des evenements...');
 	var xmlstr;
  	try {
  	  var s = new XMLSerializer();
@@ -255,12 +278,12 @@ MCalendar.prototype.__getEvents = function()
  	}
 	
 	// TODO some code to detect XML error : malformed, empty ...
-
-//  var text = xmlstr;
-//  var t2 = text.replace(/</g, '&lt;');
-//  mcalShowTrace("<pre>" + t2.replace(/>/g, '&gt;') +"</pre>");
-
-	var xmlDom = new XMLDoc(xmlstr, mcalShowError);
+	
+	//  var text = xmlstr;
+	//  var t2 = text.replace(/</g, '&lt;');
+	//  mcalShowTrace("<pre>" + t2.replace(/>/g, '&gt;') +"</pre>");
+	
+	var xmlDom = new XMLDoc(xmlstr, alert);
 	var xmlDomTree = xmlDom.docNode;// Get all events
 	var events = xmlDomTree.getElements("event");
 	var menus = xmlDomTree.getElements("menu");
@@ -274,10 +297,11 @@ MCalendar.prototype.__getEvents = function()
 	var item;
 	var param;
         var vstyles = new Array;
-
+	var cd = new Date;
+	instance.__SetZoneInformation('Mise à jour / '+events.length+' évènement'+(events.length>1?'s':'')+' reçu'+(events.length>1?'s':'')+' / '+menus.length+' menu'+(menus.length>1?'s':'')+' reçu'+(menus.length>1?'s':''));
 	for (var ie=0; ie<menus.length; ie++) {
 	  var mid = menus[ie].getAttribute("id");
-
+	  
 	  var mst = menus[ie].getElements("style");
 	  var size = fgcolor = bgcolor = afgcolor = abgcolor = tfgcolor = tbgcolor = '';
 	  if (mst.length>0) {
@@ -291,7 +315,7 @@ MCalendar.prototype.__getEvents = function()
 	    tbgcolor = (mst[0].getAttribute('tbgcolor')?mst[0].getAttribute('tbgcolor'):'');
 	  }
 	  var style = { sz:size, fg:fgcolor, bg:bgcolor, afg:afgcolor, abg:abgcolor, tfg:tfgcolor, tbg:tbgcolor };
-	    
+	  
 	  var tmenu = new Array();
 	  var items = menus[ie].getElements("item");
 	  var iid = -1;
@@ -322,9 +346,8 @@ MCalendar.prototype.__getEvents = function()
 	      if (actions[0].getAttribute("ascript")) ascript = actions[0].getAttribute("ascript");
 	    }
 	    if (!iid) {
-	      mcalShowError('Invalid menu '+mid+' item ('+(it+1)+') : missing mandatory id attribute');
+	      instance.__SetZoneInformation('Invalid menu '+mid+' item ('+(it+1)+') : missing mandatory id attribute');
 	    } else {
-//  	      mcalShowTrace("id="+iid+" label="+ilabel+" desc="+idescr+" status="+istatus+" type="+itype+" icon="+iicon+" amode="+amode+" atarget="+atarget+" ascript="+ascript+" aevent="+aevent+"");
 	      tmenu[it] = {
 		id      : iid,
 		label   : ilabel,
@@ -342,57 +365,80 @@ MCalendar.prototype.__getEvents = function()
 	    }
 	  }
 	}
-
-
+		
 	for (var ie=0; ie<events.length; ie++) {
-
+	  
 	  id = events[ie].getAttribute("id");
 	  rid = events[ie].getAttribute("rid");
 	  idcard = events[ie].getAttribute("cid");
-	  status = events[ie].getAttribute("status"); // C change D delete 
+	  status = events[ie].getAttribute("revstatus"); // C change D delete 
 	  dmode = events[ie].getAttribute("dmode");
 	  etime = events[ie].getAttribute("time");
 	  duration = events[ie].getAttribute("duration");
 	  title = events[ie].getElements("title");
-
+	  
+	  instance.logMessage('Event['+id+'], status='+status+' display mode='+dmode);
 	  var menuref = events[ie].getElements("menuref");
 	  var evmenu = null;
-	  var ref = menuref[0].getAttribute('id');
-	  if (!ref || !instance.menus[ref]) mcalShowError('Event['+(ie+1)+'], menu reference : attribute id empty or referenced menu '+(ref?ref:'')+' does not exist');
-	  else {
-	    var sref = new String(menuref[0].getAttribute('use'));
-	    if (!sref) mcalShowError('Event['+(ie+1)+'], menu reference : use attribute missing or empty');
+	  if (menuref.length>0) {
+	    var ref = menuref[0].getAttribute('id');
+	    if (!ref || !instance.menus[ref]) instance.__SetZoneInformation('Event['+(ie+1)+'], menu reference : attribute id empty or referenced menu '+(ref?ref:'')+' does not exist');
 	    else {
-	      evmenu = { ref:ref, use:sref.split(',') };
+	      var sref = new String(menuref[0].getAttribute('use'));
+	      if (!sref) instance.__SetZoneInformation('Event['+(ie+1)+'], menu reference : use attribute missing or empty');
+	      else {
+		evmenu = { ref:ref, use:sref.split(',') };
+	      }
 	    }
 	  }
-
-	  content = events[ie].getElements("content")[0];
-	  tstyle = content.getElements('styleinfo')[0];
-	  styles = tstyle.getElements('style');
+	  
+	  
 	  vstyles = [];
-	  for (var ist=0; ist<styles.length; ist++) {
-	    vstyles[vstyles.length] = { id:styles[ist].getAttribute('id'), val:styles[ist].getAttribute('val') };
-	  }
-	  var hcontent = content.getElements('chtml')[0];
-	  tcontent = hcontent.getUnderlyingXMLText();
-	  var tcontent2 = hcontent.getElements();
 	  scontent = '';
-	  for (var iet=0; iet<tcontent2.length; iet++) {
-	    scontent += tcontent2[iet].getUnderlyingXMLText();
+	  content = events[ie].getElements('content');
+	  if (!content || content.length==0) instance.__SetZoneInformation('Event['+(ie+1)+']: no content');
+	  else {
+	    
+	    tstyle = content[0].getElements('styleinfo');
+	    if (tstyle && tstyle.length>0) {
+	      styles = tstyle[0].getElements('style');
+	      if (styles && styles.length>0) {
+		for (var ist=0; ist<styles.length; ist++) {
+		  vstyles[vstyles.length] = { id:styles[ist].getAttribute('id'), val:styles[ist].getAttribute('val') };
+		}
+	      }
+	    }
+	    
+	    content = content[0].getElements('chtml');
+	    if (!content || content.length==0) instance.__SetZoneInformation('Event['+(ie+1)+']: no content');
+	    else {
+	      content = content[0];
+	      tcontent = content.getElements();
+	      scontent = '';
+	      for (var iet=0; iet<tcontent.length; iet++) {
+		scontent += tcontent[iet].getUnderlyingXMLText();
+	      }
+	    }
+	    if (vstyles.length==0) {
+	       vstyles = [
+		 { id:'overflow', val:'hidden' },
+		 { id:'padding', val:'1px' },
+		 { id:'border', val:'1px dotted red' },
+		 { id:'background-color', val:'white' },
+		 { id:'color', val:'red' }
+		 ];
+	    }
+	    if (scontent=='') scontent = 'No content';
+	    instance.ProcessEvent(id, status, idcard, rid, dmode, parseInt(etime*1000), parseInt(duration*1000), 
+			      title[0].getText(), scontent, vstyles, evmenu);
 	  }
-          instance.AddEvent(id, idcard, rid, dmode, parseInt(etime*1000), parseInt(duration*1000), 
-			    title[0].getText(), scontent, vstyles, evmenu);
 	}
-	instance.__hideMessage();
-        if (instance.TEvent.length>0) instance.__displayEvents();
+	if (instance.TEvent.length>0) instance.__displayEvents();
+	instance.__SetZoneMessage(' ');
       } else {
-        instance.__hideMessage();
-        var zTs = Math.round(instance.CalPeriod[0].ds.getTime()/1000);
-        var zTe = Math.round(instance.CalPeriod[(instance.CalPeriod.length-1)].de.getTime()/1000);
-        mcalShowError("Can't get serveur response (XML datas) ["+rq.statusText+"]<br>Http request = "+this.serverMethod['getevents']);
+	instance.__SetZoneMessage("Can\'t get serveur response (XML datas) ["+rq.status+":"+rq.statusText+"] Request = "+instance.serverMethod['getevents']);
       }
-    }
+    } // End of retrieving events function
   }
   var debugs = '(';
   var zTs = Math.round(this.CalPeriod[0].ds.getTime()/1000);
@@ -404,16 +450,17 @@ MCalendar.prototype.__getEvents = function()
   this.lastRequest = this.serverMethod['getevents'];
   this.lastGetDate = Math.floor(dld.getTime()/1000);
   debugs += 'request=['+this.lastRequest+'] last date=['+ldate+'])';
-  MCalendar.__waitingServer();
+  this.__waitingServer();
+  this.logMessage(serverreq);
   rq.open("GET", serverreq, true);
   rq.send(null);
 }
-
+  
 
 MCalendar.prototype.__drawTitleBar = function() 
 {		  
-  var eltn = '<img width="14" title="" src="mcalendar-showhidewe.png" title="Afficher/Cacher les week-ends" onclick="document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();" style="border:0; cursor:pointer">';
-  eltn += '<img width="14" title="" src="mcalendar-resize.png" title="Retailler" onclick="document.__mcal.'+this.CalRootElt+'.Resize();" style="border:0; cursor:pointer">';
+  var eltn = '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-showhidewe.png" title="Afficher/Cacher les week-ends" onclick="document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();" style="border:0; cursor:pointer">';
+  eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-resize.png" title="Retailler" onclick="document.__mcal.'+this.CalRootElt+'.Resize();" style="border:0; cursor:pointer">';
 
   var tbW  = this.CalKTitleHourW;
   for (var ip=0; ip<this.CalPeriod.length; ip++) tbW += (this.CalPeriod[ip].hide ? 0 : (2*this.xborder)+this.CalHourWidth);
@@ -423,8 +470,8 @@ MCalendar.prototype.__drawTitleBar = function()
 }
 
 
-MCalendar.__waitingServer = function() {
-  MCalendar.__showMessage('<img style="vertical-align:middle; border:0; height:15" src="mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...</span>');
+MCalendar.prototype.__waitingServer = function() {
+  this.__SetZoneMessage('<img style="vertical-align:middle; border:0; height:15" src="'+MCalendar.Images+'mcalendar-waitserver.gif">&nbsp;<span style="vertical-align:middle;">Interrogation du serveur...</span>');
 }
 
 MCalendar.__showMessage = function(info) {
@@ -438,15 +485,6 @@ MCalendar.__showMessage = function(info) {
   ];
   mcalDrawRectAbsolute('__mcalendarinfo', '', 2, 2, 200, this.CalKTitleDayH-1, 2001, '', true, info, false, style);
 }
-
-MCalendar.prototype.__hideMessage = function(trace) { 
-  if (this.debug) {
-    var dt = new Date()
-    stop = dt.getTime();
-    mcalShowTrace("Dur&eacute;e d'interrogation du serveur : "+((stop-this.start)/1000)+" seconds");
-  }
-  document.getElementById('__mcalendarinfo').style.display='none'; 
-};
 
 // -----------------------------------------------------------------------------------
 MCalendar.prototype.Display = function() {
@@ -467,7 +505,7 @@ MCalendar.prototype.__display = function() {
   var eltn = '';
   var cx, cy, cw, ch;
   var idh, ida;
-  var dayXPos = 1;
+  var dayXPos = this.Dim.x;
   var dayOfWeek = -1;
   var totalW = 0; 
   var hide = false;
@@ -511,7 +549,7 @@ MCalendar.prototype.__display = function() {
       idel = 'd'+ida+'h'+idh;
       eltn = '' ;
       if (this.showNavButton) {
-	if (ida==0 && idh==0) eltn += '<img width="16" title="" src="mcalendar-gmenu.png">';
+	if (ida==0 && idh==0) eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-gmenu.png">';
       }
 
       // Set style
@@ -545,7 +583,7 @@ MCalendar.prototype.__display = function() {
       }
       
       if (idh==0) {
-	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder)+1:1);
+	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):0) + this.Dim.y;
 	ch = this.CalKTitleDayH;
 	if (ida>0 && (this.CalPeriod[(ida-1)].ds.toLocaleDateString() == today.toLocaleDateString())) {
 	  style[style.length] = { id:'text-decoration', val:'underline' };
@@ -561,18 +599,65 @@ MCalendar.prototype.__display = function() {
 	];
       mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
       if (ida==0 && idh==0) 
-	this.calmenu.attachToElt( idel, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, dayXPos, cy+ch+2, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
       else if (ida==0 || idh==0)
-	this.calmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, 0,0, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
       else 
-	if (this.hourmenu) this.hourmenu.attachToElt( idel, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + (idh-2)*3600*1000), (this.CalPeriod[ip].ds.getTime() + (idh-1)*3600*1000) ]);
+	if (this.hourmenu) this.hourmenu.attachToElt( idel, 0, 0, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + (idh-2)*3600*1000), (this.CalPeriod[ip].ds.getTime() + (idh-1)*3600*1000) ]);
     }
     if (!hide) dayXPos += cw;
   }  
-  if (this.showTitleBar) this.__drawTitleBar();
 
+  this.Dim.w = dayXPos - (2*this.yborder);
+  this.Dim.h = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):this.Dim.y) + (this.CalKTitleDayH+(2*this.yborder)) + ((this.CalHoursPerDay+2) * (this.CalHourHeight+(2*this.yborder)));
+
+  this.__SetZoneMessage('');
+  this.__SetZoneInformation('');
+
+  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.CalRootElt+'.Reload()', this.refreshDelay);
   return;
 }
+
+MCalendar.prototype.__SetZoneMessage = function(m) {
+  // display footer bar
+  var footw = (this.Dim.w / 2);
+  var footx = (this.Dim.x+(2*this.xborder)+footw);
+  var footy = this.Dim.y + this.Dim.h;
+  var footh = this.CalKTitleDayH + (2*this.yborder);
+  style = [ 
+    { id:'cursor', val:'pointer' },
+    { id:'font-size', val: parseInt(this.style.fontSize) },
+    { id:'font-family', val: this.style.fontFam },
+    { id:'position', val: 'absolute' },
+    { id:'border-style', val: 'outset' },
+    { id:'border-width', val: '1px' },
+    { id:'border-color', val: this.style.currentDayBackground },
+    { id:'background-color', val:this.style.titleBackground },
+    ];
+  mcalDrawRectAbsolute('__mcalmessage', this.CalRootElt, footx, footy, footw, footh, 500, '', true, m, false, style);
+}
+
+MCalendar.prototype.__SetZoneInformation = function(m) {
+  // display footer bar
+  var tt = '<img src="'+MCalendar.Images+'mcalendar-log.png" width="16" style="border:0px" title="Afficher le journal" onclick="document.__mcal.'+this.CalRootElt+'.displayLog();">&nbsp;'+m;
+  var footw = (this.Dim.w / 2);
+  var footx = this.Dim.x;
+  var footy = this.Dim.y + this.Dim.h;
+  var footh = this.CalKTitleDayH + (2*this.yborder);
+  style = [ 
+    { id:'cursor', val:'pointer' },
+    { id:'font-size', val: parseInt(this.style.fontSize) },
+    { id:'font-family', val: this.style.fontFam },
+    { id:'position', val: 'absolute' },
+    { id:'border-style', val: 'outset' },
+    { id:'border-width', val: '1px' },
+    { id:'border-color', val: this.style.currentDayBackground },
+    { id:'background-color', val:this.style.titleBackground },
+    ];
+  mcalDrawRectAbsolute('__mcalinformation', this.CalRootElt, footx, footy, footw, footh, 500, '', true, tt, false, style);
+  if (m!='') this.logMessage(m);
+}
+
       
 // -----------------------------------------------------------------------------------
 MCalendar.prototype.CalGetDayOfWeekLabel = function(d) {
@@ -587,6 +672,56 @@ MCalendar.prototype.CalGetMonthLabel = function(d) {
 }
 
       
+MCalendar.prototype.logMessage = function(m) {
+  if (!this.messages) this.messages = new Array;
+  var cd = new Date;
+  var sm = '['+mcalDateS(cd)+'] '+m;
+  if (this.messages.length==100) this.messages.splice(1,1);
+  this.messages[this.messages.length] = sm;
+}
+
+MCalendar.prototype.displayLog = function() {
+  if (!this.messages) this.messages = new Array;
+  var logtag = '__mcallog';
+  var content = '';
+  var isnew = false;
+  try { 
+    var dlog = document.getElementById(logtag);
+    var ddlog = (dlog.style.display == 'none' ? true : false );
+  } catch (e) { 
+    isnew = true; 
+    var ddlog = true;
+  }
+
+  if (!ddlog) {
+    dlog.style.display = 'none';
+  } else {
+    var istyle = [
+      { id:'padding', val:'5px' },
+      { id:'border', val:'3px groove orange' },
+      { id:'background-color', val:'black' },
+      { id:'color', val:'yellow' },
+      { id:'cursor', val:'pointer' },	      
+      { id:'overflow', val:'scroll' },	      
+      ];
+    
+    if (this.messages.length>0) {
+      for (var ilog=0; ilog<this.messages.length; ilog++) {
+	content += '<div>'+this.messages[ilog]+'</div>';
+      }
+    } else content += '<div>Pas de message journalisé</div>';
+    mcalDrawRectAbsolute(logtag, '', 
+			 1, 
+			 (this.Dim.h - ((this.Dim.h * 0.75) + this.CalKTitleDayH + 2)), 
+			 (this.Dim.w * 0.75), (this.Dim.h * 0.75), 
+			 20000, '', true, content, false, istyle); 
+  }
+  return;
+}
+
+
+
+
 
 // --------------------------------------------------------------
 // Event manipulation
@@ -595,53 +730,38 @@ MCalendar.prototype.__getEventById = function(idev) {
   for (var iev=0; iev<this.TEvent.length; iev++) {
     if (idev==this.TEvent[iev].id) return iev;
   }
-  return false;
-}
-
-  MCalendar.prototype.AddEvent = function(id, idcard, rid, dmode, time, duration, title, content, style, menu) 
-{ 
-  var idx = this.__getEventById(id);
-  if (!idx) idx = this.TEvent.length;
-  this.TEvent[idx] = { id:id, 
-		       idcard:idcard, 
-		       rid:rid, 
-		       mode:(dmode>=0||dmode<=2?dmode:1), 
-		       time:time, 
-		       duration:duration, 
-		       title:title, 
-		       content:content, 
-		       style:style, 
-		       menu:menu };
-}
-
-MCalendar.prototype.__printEvent = function(iev) 
-{
-  if (!this.TEvent[iev]) return;
-  var pev = '';
-  var de = new Date();
-  de.setTime(this.TEvent[iev].time);
-  pev = 'Event['+this.TEvent[iev].id+'::'+this.TEvent[iev].rid+'] = {<br>'
-  +     '\t\tTitre = '+this.TEvent[iev].title+'<br>'
-  +     '\t\tDate = '+this.sDT(de)+' ('+this.TEvent[iev].time+')<br>'
-  +     '\t\tDuree = '+this.TEvent[iev].duration+'<br>'
-  +     '\t\tMode d\'affichage = '+this.TEvent[iev].mode+'<br>';
-  pev += '}';
-  mcalShowTrace(pev);
+  return -1;
 }
   
-
+  MCalendar.prototype.ProcessEvent = function(id, status, idcard, rid, dmode, time, duration, title, content, style, menu)  { 
+    var idx = this.__getEventById(id);
+    if (idx!=-1 && status==2) this.__deleteEvent(idx, true);
+    else {
+      if (idx!=-1) this.__deleteEvent(idx, false);
+      else idx = this.TEvent.length;
+      this.TEvent[idx] = { id:id, 
+			   status:status, 
+			   idcard:idcard, 
+			   rid:rid, 
+			   mode:(dmode>=0||dmode<=2?dmode:1), 
+			   time:time, 
+			   duration:duration, 
+			   title:title, 
+			   content:content, 
+			   style:style, 
+			   menu:menu };
+    }
+  }
+    
 MCalendar.prototype.__deleteEvent = function(iev, deleteEntry) {
-
   if (iev==-1) {
     // delete all
-    for (var ie=0; ie<this.TEvent.length; ie++) {
-      this.__deleteElt(ie);
-    }
+    for (var ie=0; ie<this.TEvent.length; ie++) this.__deleteElt(ie);
     if (deleteEntry) this.TEvent.splice(0);
-    
+      
   }  else if (iev>=this.TEvent.length) {
     return false;
-
+      
   } else {
     // delete one !
     this.__deleteElt(iev);
@@ -756,19 +876,19 @@ MCalendar.prototype.__computeRealElt= function() {
 	
 	selt = 'd'+(id+1)+'h'+(shour-this.CalDayStartHour+2);
 	coords = mcalGetZoneCoord(selt);
-	coords.y = coords.y + (smin * this.CalPixelForMinute);
+	coords.y = coords.y + Math.floor(smin * this.CalPixelForMinute);
 	
 	ehour = eevent.getHours();
 	emin  = eevent.getMinutes();
 	
 	eelt = 'd'+(id+1)+'h'+(ehour-this.CalDayStartHour+2);
 	coorde = mcalGetZoneCoord(eelt);
-	coorde.y = coorde.y + (emin * this.CalPixelForMinute);
+	coorde.y = coorde.y + Math.ceil(emin * this.CalPixelForMinute);
 	
 	co = { x : parseInt(coords.x), 
 	       y : parseInt(coords.y), 
 	       w : parseInt(coords.w), 
-	       h : parseInt(coorde.y - coords.y), 
+	       h : parseInt(coorde.y - coords.y) - (2*this.xborder), 
 	       z : (mode==0?1800:2000),
 	       day : id,
 	       offset : 0, // 6 eric
@@ -850,11 +970,11 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
   var evAttr = new Array;
   evAttr = [
     { id:'onclick', val:'if (event.shiftKey) alert("shift"); else if (event.ctrlKey) alert("ctrl"); else document.__mcal.'+this.CalRootElt+'.__showDetail(event, \''+id+'\',\''+idcard+'\')' },
-    { id:'title', val:this.TEvent[evRef].title+' (click to show details)' },
+    { id:'title', val:this.TEvent[evRef].title+' (cliquer pour afficher le détail)' },
     { id:'onmouseover', val:'' },
     { id:'onmouseout', val:'' }
   ];
-  if (this.TEvent[evRef].menu.ref && this.menus[this.TEvent[evRef].menu.ref]) usemenu = true;
+  if (this.TEvent[evRef].menu && this.TEvent[evRef].menu.ref && this.menus[this.TEvent[evRef].menu.ref]) usemenu = true;
   
 
   var calealacon = 2;
@@ -884,7 +1004,7 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
 			evAttr, evStyle);
   
   if (usemenu) {
-    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id,
+    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id, 0, 0,
 							 this.TEvent[evRef].menu.use,
 							 'contextmenu',
 							 'MCalendar.GHandler',
@@ -1003,7 +1123,7 @@ MCalendar.prototype.__showDetail = function(event, idev, ridev) {
     rq.onreadystatechange =  function() {
       if (rq.readyState == 4) {
 	var instance = document.__mcal[rq.instanceName];
-	instance.__hideMessage();
+	instance.__SetZoneMessage(' ');
 	if (rq.status==200) {
 	  if (rq.responseText) {
 	    var istyle = [
@@ -1024,8 +1144,9 @@ MCalendar.prototype.__showDetail = function(event, idev, ridev) {
 	}
       }
     }
-    MCalendar.__waitingServer();
+    this.__waitingServer();
     var serverreq = mcalParseReq( this.serverMethod['eventcard'], [ 'EVID' ], [ idev ]);
+    this.logMessage(serverreq);
     rq.open("GET", serverreq, true);
     rq.send(null);
   }
@@ -1062,11 +1183,6 @@ MCalendar.prototype.sDT = function(d)
   return d.toLocaleDateString()+' '+d.toLocaleTimeString(); 
 }
 
-MCalendar.prototype.sDTs = function(ts) 
-{ 
-  d = new Date(ts); 
-  return this.sDT(d); 
-}
       
       
 // Inline event creation
@@ -1083,7 +1199,7 @@ MCalendar.prototype.createNewEvent = function(evt)
 	{
 	  // Submit form or send xmlHTTPRequest...
 	  var dd = new Date();
-	  this.AddEvent(EventTime, 3600, 0, 'evrx', '', '' );
+	  this.ProcessEvent(EventTime, 3600, 0, 'evrx', '', '' );
 	  this.__displayEvents();
 	  document.getElementById('inputzone').style.display = 'none';
 	  return false;
@@ -1227,7 +1343,6 @@ MCalendar.prototype.ShowHideWeekEnd = function()
 {
   this.CalShowWeekEnd = (this.CalShowWeekEnd?false:true);
   this.isComputed = false;
-  this.__deleteEvent(-1, false);
   this.__display();
   this.__displayEvents();
   return true;
@@ -1239,6 +1354,14 @@ MCalendar.prototype.Resize = function()
   this.__deleteEvent(-1, false);
   this.__display();
   this.__displayEvents();
+  return true;
+}
+
+MCalendar.prototype.Reload = function() 
+{
+  this.isComputed = false;
+  this.__getEvents();
+  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.CalRootElt+'.Reload()', this.refreshDelay);
   return true;
 }
 
@@ -1254,7 +1377,7 @@ MCalendar.deleteEvent = function(event, calendar, eid) {
   var cal = new MCalendar(calendar);
   if (cal.__deleteEvent && cal.__getEventById ) {
     var iev = cal.__getEventById(eid);
-    if (iev) cal.__deleteEvent(iev, true);
+    if (iev!=-1) cal.__deleteEvent(iev, true);
   }
 }
 

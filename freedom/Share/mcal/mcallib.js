@@ -97,11 +97,10 @@ mcalDrawRectAbsolute = function(id, father, x, y, w, h, z, c, v, t, oAttr, oStyl
 
 
 mcalGetZoneCoord = function(z) {
-  if (!document.getElementById(z)) 
-    {
-      mcalShowError('GetZoneCoord: Element '+z+' not found');
-      return;
-    }
+  if (!document.getElementById(z)) {
+    mcalShowError('GetZoneCoord: Element '+z+' not found');
+    return;
+  }
   var coord = getAnchorPosition(z);
   coord.w = getObjectWidth(document.getElementById(z));
   coord.h = getObjectHeight(document.getElementById(z));
@@ -143,3 +142,10 @@ mcalParseReq = function(rstr, params, vals) {
   return ret;
 }
 
+  mcalDateS = function(d) {
+    return d.toLocaleDateString()+' '+d.toLocaleTimeString(); 
+  }
+  mcalDateTs = function(ts) {
+    d = new Date(ts); 
+    return mcalDateS(d); 
+  }
