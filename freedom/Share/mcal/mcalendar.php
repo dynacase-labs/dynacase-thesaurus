@@ -53,6 +53,7 @@ echo '
 <script type="text/javascript" src="'.$rwhat.'AnchorPosition.js"></script>
 <script type="text/javascript" src="'.$rxml.'xmldom.js"></script>
 <script type="text/javascript" src="'.$rmcal.'mcallib.js"></script>
+<script type="text/javascript" src="'.$rmcal.'mcalCookie.js"></script>
 <script type="text/javascript" src="'.$rmcal.'mcalmenu.js"></script>
 <script type="text/javascript" src="'.$rmcal.'mcalendar.js"></script>
 ';
@@ -92,10 +93,12 @@ var sm = [
   { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=FDL_CARD&props=N&abstract=N&id=%EVID%' }  
   ];
 
-    var cal = new MCalendar('calendarRoot', sm, menu);
-    cal.CalDaysCount = 7;
+ var cd = new Date;
+ cd.setTime(cd.getTime()-(2*24*3600*1000));
+ 
+ var cal = new MCalendar('calendarRoot', sm, menu, false, cd.getTime());
     cal.CalHoursPerDay = 10;
-    cal.refreshDelay = 10000; // 10 seconds
+    cal.refreshDelay = (60*1000); // seconds * 1000
     cal.Display();
 </script>
 

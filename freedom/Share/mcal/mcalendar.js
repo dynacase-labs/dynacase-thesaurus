@@ -5,7 +5,7 @@
 MCalendar.InstallDir = '/what/mcal/';
 MCalendar.Images = MCalendar.InstallDir + 'Images/';
 
-function MCalendar(instance, serverAction, hmenu, style) 
+function MCalendar(instance, serverAction, hmenu, style, initTime) 
 {
 
   // try  { var t = new XMLDocu; }
@@ -59,13 +59,13 @@ function MCalendar(instance, serverAction, hmenu, style)
     this.lastRequest = document.__mcal[instance].lastRequest;
     this.hMenu = document.__mcal[instance].lastRequest;
     this.refreshDelay = document.__mcal[instance].refreshDelay;
-
   } else {
 
     this.CalRootElt = instance; // element where i am inserted
     this.CalDaysCount = 7;            // number of days displayed
     this.CalHoursPerDay = 10;         // number of time by day
     var cd = new Date();             
+    if (initTime && initTime>0) cd.setTime(initTime);
     this.CalOriginalTime = this.CalInitTime = cd.getTime();  // Init time = current time
     this.CalDayStartHour = 8;         // First hour for day
     this.CalShowWeekEnd = true;       // Show / hide week end
@@ -135,12 +135,16 @@ function MCalendar(instance, serverAction, hmenu, style)
       this.style.oddDayWEBackground = '#edeff7';
       this.style.evenDayWEBackground = '#eff1f9';
     }
-  
     this.refreshDelay = 0;
-  
-
     document.__mcal[this.CalRootElt] = this;
   }
+  this.petitbeurre = new Cookie(document, this.CalRootElt, (24*365), '/');
+  if (this.petitbeurre.load()) {
+    this.CalShowWeekEnd = (parseInt(this.petitbeurre.viewweekend)==1?true:false);
+    this.CalDaysCount = (parseInt(this.petitbeurre.nbdays)>0?parseInt(this.petitbeurre.nbdays):1);
+  }
+  this.reloadEvent = true;
+  
 }
 
 
@@ -183,7 +187,7 @@ MCalendar.prototype.Compute = function()
 
   // First compte the days count
   this.CalDisplayedDaysCount = this.CalDaysCount;
-  if (!this.CalShowWeekEnd) 
+  if (this.CalShowWeekEnd==false) 
     {
       var ndays = this.CalDaysCount;
       var ida;
@@ -194,7 +198,6 @@ MCalendar.prototype.Compute = function()
 	  if (dayOfWeek==6 || dayOfWeek==0) this.CalDisplayedDaysCount--;
 	}
     }
-
   this.CalZonePStart = 'd1h1';
   this.CalZonePEnd = 'd'+(this.CalDisplayedDaysCount)+'h'+(this.CalHoursPerDay+1);
 
@@ -220,9 +223,12 @@ MCalendar.prototype.Compute = function()
   // System menus
   var tmenu = [
     { id:'title', label:'Calendrier', type:0 },
-    { id:'weekend', label:'show/hide we', desc:'display or undisplay week-end zone', status:2, type:1,
+    { id:'weekend', label:'Afficher/masquer les WE', desc:'Afficher ou masquer les week-end (samedis et dimanches)', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
+    { id:'OneTwoWeek', label:'1 ou 2 semaines', desc:'Afficher 1 ou 2 semaines', status:2, type:1,
+      icon:MCalendar.Images+'mcalendar-onetwoweek.png', onmouse:'', amode:3, aevent:0, 
+      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.OneTwoWeek();', aevent:0 },
     { id:'sep0', type:2 },
     { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
@@ -234,7 +240,7 @@ MCalendar.prototype.Compute = function()
       icon:MCalendar.Images+'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
     { id:'sep1', type:2 },
-    { id:'resize', label:'Retaille', desc:'Redimmensionner le calendrier', status:2, type:1,
+    { id:'resize', label:'Ajuster la taille', desc:'Redimmensionner le calendrier', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
       atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 },
     { id:'reload', label:'Recharger', desc:'Recharger le calendrier', status:2, type:1,
@@ -440,22 +446,31 @@ MCalendar.prototype.__getEvents = function()  {
       }
     } // End of retrieving events function
   }
-  var debugs = '(';
   var zTs = Math.round(this.CalPeriod[0].ds.getTime()/1000);
   var zTe = Math.round(this.CalPeriod[(this.CalPeriod.length-1)].de.getTime()/1000);
   var dld = new Date;
   var ldate = this.lastGetDate;
-  if (this.serverMethod['getevents']!=this.lastRequest) ldate=0;
+  if (this.serverMethod['getevents']!=this.lastRequest) this.reloadEvent = true;
+  if (this.reloadEvent) ldate=0;
   var serverreq = mcalParseReq( this.serverMethod['getevents'], [ 'TS', 'TE', 'LR' ], [ zTs, zTe, ldate ]);
   this.lastRequest = this.serverMethod['getevents'];
   this.lastGetDate = Math.floor(dld.getTime()/1000);
-  debugs += 'request=['+this.lastRequest+'] last date=['+ldate+'])';
+  this.reloadEvent = false;
   this.__waitingServer();
   this.logMessage(serverreq);
   rq.open("GET", serverreq, true);
   rq.send(null);
 }
   
+
+MCalendar.prototype.__navigationContent = function() 
+{
+  var eltn  = '';
+//   eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-current.png" title="Avancer" onclick="document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();" style="border:0; cursor:pointer">';
+  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-prev.png" title="Reculer" onclick="document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();" style="border:0; cursor:pointer">';
+  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-next.png" title="Avancer" onclick="document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();" style="border:0; cursor:pointer">';
+  return eltn;
+}
 
 MCalendar.prototype.__drawTitleBar = function() 
 {		  
@@ -575,7 +590,11 @@ MCalendar.prototype.__display = function() {
 	    +     ' ' + this.CalGetMonthLabel(this.CalPeriod[ip].ds.getMonth());
       }
       
-      if (ida==0 && idh>1 && idh<=this.CalHoursPerDay+1) eltn += this.CalDayStartHour + (idh-2)+ 'h00';    
+      if (ida==0) {
+	if (idh>1 && idh<=this.CalHoursPerDay+1) eltn += this.CalDayStartHour + (idh-2)+ 'h00';    
+	if (idh==1 || idh==(this.CalHoursPerDay+2)) eltn += this.__navigationContent();
+      }
+
       if (ida>0) {
 	var title = this.CalPeriod[ip].ds.toLocaleDateString() 
 	  + ', '+ (this.CalDayStartHour + (idh-2)) + 'h00 ' 
@@ -593,10 +612,12 @@ MCalendar.prototype.__display = function() {
 	ch = this.CalHourHeight;
       }
       
-      var attr = [ 
+      var attr = [];
+      if (idh!=0 && ida!=0) attr = [ 
  	{ id:'onmouseover', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px inset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackgroundOver+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackgroundOver+"';" },
  	{ id:'onmouseout', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px outset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackground+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackground+"';" },
 	];
+    
       mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
       if (ida==0 && idh==0) 
 	this.calmenu.attachToElt( idel, dayXPos, cy+ch+2, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
@@ -1303,45 +1324,74 @@ MCalendar.prototype.GetTimeFromXY = function(e) {
   
 
 
-
-MCalendar.prototype.gotoPrevPeriod = function()
+MCalendar.prototype.OneTwoWeek = function()
 {
-  cD = new Date(this.CalInitTime);
-  dPrev = new Date(cD.getFullYear(), cD.getMonth(), (cD.getDate() - this.CalDaysCount), 0, 0, 0, 0);
-  this.CalInitTime = dPrev.getTime();
+  this.logMessage('Bascule 1/2 semaines');  
+  this.petitbeurre.nbweek = (this.petitbeurre.nbweek==1?2:1);
+  this.petitbeurre.store();
+  this.viewXDays(this.petitbeurre.nbweek*7);
+}
+
+MCalendar.prototype.viewXDays = function(x)
+{
+  if (x==this.CalDaysCount) return;
+  this.CalDaysCount = x;
+  this.petitbeurre.nbdays = this.CalDaysCount;
+  this.petitbeurre.store();
   this.isComputed = false;
-  this.__deleteEvent(-1, true);
   this.__display();
+  this.reloadEvent = true;
   this.__getEvents();
   return;
 }
 
 MCalendar.prototype.gotoNextPeriod = function()
 {
+  this.logMessage('Avance à la prochaine période');
   cD = new Date(this.CalInitTime);
   dNext = new Date(cD.getFullYear(), cD.getMonth(), (cD.getDate() + this.CalDaysCount), 0, 0, 0, 0);
   this.CalInitTime = dNext.getTime();
   this.isComputed = false;
   this.__deleteEvent(-1, true);
   this.__display();
+  this.reloadEvent = true;
+  this.__getEvents();
+  return;
+}
+
+MCalendar.prototype.gotoPrevPeriod = function()
+{
+  this.logMessage('Recul à la période précédente');
+  cD = new Date(this.CalInitTime);
+  dPrev = new Date(cD.getFullYear(), cD.getMonth(), (cD.getDate() - this.CalDaysCount), 0, 0, 0, 0);
+  this.CalInitTime = dPrev.getTime();
+  this.isComputed = false;
+  this.__deleteEvent(-1, true);
+  this.__display();
+  this.reloadEvent = true;
   this.__getEvents();
   return;
 }
 
 MCalendar.prototype.gotoCurrentPeriod = function()
 {
+  this.logMessage('Retour à la période initiale');
   cD = new Date(this.CalOriginalTime);
   this.CalInitTime = cD.getTime();
   this.isComputed = false;
   this.__deleteEvent(-1, true);
   this.__display();
+  this.reloadEvent = true;
   this.__getEvents();
   return;
 }
 
 MCalendar.prototype.ShowHideWeekEnd = function() 
 {
+  this.logMessage('Bascule de l\'affichage des journées de week-end');  
   this.CalShowWeekEnd = (this.CalShowWeekEnd?false:true);
+  this.petitbeurre.viewweekend = (this.CalShowWeekEnd?1:0);
+  this.petitbeurre.store();
   this.isComputed = false;
   this.__display();
   this.__displayEvents();
@@ -1350,6 +1400,7 @@ MCalendar.prototype.ShowHideWeekEnd = function()
 
 MCalendar.prototype.Resize = function() 
 {
+  this.logMessage('Recalcul de la taille');  
   this.isComputed = false;
   this.__deleteEvent(-1, false);
   this.__display();
