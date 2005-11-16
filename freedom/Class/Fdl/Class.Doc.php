@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.284 2005/10/28 16:16:58 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.285 2005/11/16 16:31:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1624,8 +1624,8 @@ final public function PostInsert()  {
 		if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
 		if ($mm == 0) $mm=1; // 1st january
 		if ($dd == 0) $dd=1; // 1st day
-		$tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm,
-					  ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
+		$tvalues[$kvalue]=sprintf("%04d-%02d-%02d",
+					  ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy),$mm,$dd);
 		break;
 	      }
 	    }
