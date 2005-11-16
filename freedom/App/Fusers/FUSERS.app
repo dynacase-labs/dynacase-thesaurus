@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS.app,v 1.4 2005/11/15 12:58:44 eric Exp $
+// $Id: FUSERS.app,v 1.5 2005/11/16 16:26:55 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -38,7 +38,7 @@ $app_acl = array (
   array(
    "name"               =>"FUSERS",
    "description"        =>N_("To create and modify users and groups"),
-   "group_default"       =>"Y"),
+   "group_default"       =>"N"),
  
   array(
    "name"               =>"FUSERS_MASTER",
