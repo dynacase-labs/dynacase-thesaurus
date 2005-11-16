@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.13 2005/10/28 15:14:22 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.14 2005/11/16 16:31:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -101,6 +101,7 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
     }
   }
   $this->lay->setBlockData("LI",$tgroup);
+  uasort($groupuniq, array (get_class($this), "_cmpgroup"));
   $this->lay->setBlockData("SELECTGROUP",$groupuniq);
 
 }
@@ -110,6 +111,7 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
  * use to compute displayed group tree
  */
 function _getChildsGroup($id,$groups) {
+   
   $tlay=array();
   foreach ($groups as $k=>$v) {
     if ($v["idgroup"]==$id) {
@@ -122,9 +124,15 @@ function _getChildsGroup($id,$groups) {
   if (count($tlay)==0) return "";
   global $action;
   $lay = new Layout("USERCARD/Layout/ligroup.xml",$action);
+  uasort($tlay, array (get_class($this), "_cmpgroup"));
   $lay->setBlockData("LI",$tlay);
   return $lay->gen();
 }
+/**
+ * to sort group by name
+ */
+static function _cmpgroup($a,$b) {return strcasecmp($a['lastname'],$b['lastname']);}
+
 /**
  * affect new groups to the user
  * @global gidnew  Http var : egual Y to say effectif change (to not suppress group if gid not set)
