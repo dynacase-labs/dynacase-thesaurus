@@ -28,6 +28,7 @@ if [ "$1" = "I" ] ; then
      createlang --username=postgres --dbname=$dbfreename --pglib=/usr/lib/postgresql plpgsql
   fi
   
+  echo "ALTER DATABASE $dbfreename set DateStyle = sql,european;" | psql  --username=postgres $dbpsql
   psql $dbfreename anakeen -f $wpub/WHAT/getprivilege.sql
   psql $dbfreename anakeen -f $wpub/FDL/fdl.sql
   /usr/bin/php -q $wpub/API/updateclass.php --dbname=$dbfreename --appc=FDL --class=Doc
