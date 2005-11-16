@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.17 2005/11/15 12:58:44 eric Exp $
+// $Id: USERCARD.app,v 1.18 2005/11/16 16:31:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -101,7 +101,7 @@ $action_desc = array (
   array(
    "name"               =>"FADDBOOK_MAINCOLS",
    "short_name"         =>N_("address book choose main view column"),
-   "acl"                =>"USERCARD_READ",
+   "acl"                =>"USERCARD_MANAGER",
    "root"               =>"N"
   ),
   array(

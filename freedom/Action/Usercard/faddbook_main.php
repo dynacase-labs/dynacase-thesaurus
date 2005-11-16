@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.18 2005/11/10 16:00:14 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.19 2005/11/16 16:31:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -40,8 +40,7 @@ function faddbook_main(&$action)
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $pstart = GetHttpVars("sp", 0);
-  $action->lay->set("choosecolumn", ($action->parent->Haspermission("USERCARD","USERCARD_MANAGER")==1?true:false));
-
+  $action->lay->set("choosecolumn", ($action->Haspermission("USERCARD_MANAGER","USERCARD")==1?true:false));
   $chattr = GetHttpVars("chgAttr", "");
   $chid   = GetHttpVars("chgId", "");
   $chval  = GetHttpVars("chgValue", "");
