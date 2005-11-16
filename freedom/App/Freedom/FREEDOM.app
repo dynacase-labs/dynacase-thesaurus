@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.38 2005/11/15 12:58:44 eric Exp $
+// $Id: FREEDOM.app,v 1.39 2005/11/16 16:26:04 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,7 +52,7 @@ $app_acl = array (
   array(
    "name"               =>"FREEDOM_GED",
    "description"        =>N_("Access To Main Interface"),
-   "group_default"       =>"Y")
+   "group_default"       =>"N")
 );
 
 $action_desc = array (
