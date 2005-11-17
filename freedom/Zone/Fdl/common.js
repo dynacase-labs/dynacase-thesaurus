@@ -280,14 +280,16 @@ function getAltern(c,ct,l) {
 
   var r,g,b;
   var validcolor=false;
-  var rgb;
+  var rgb,dhsl;
 
   hsl= getHSL(c);
   
 
   if (hsl) {
-    dhsl=getHSL(ct);
-    if (dhsl[2] > 128) l=l-200; // dark color
+    if ((!isNetscape) || (ct.substr(0,1) == "#")) {
+      dhsl=getHSL(ct);
+      if (dhsl[2] > 128) l=l-200; // dark color
+    }
     // trgb=HSL2RGB (hsl[0],hsl[1], hsl[2]);
     trgb=HSL2RGB (hsl[0],hsl[1], l);
     for (i=0;i<3;i++) {

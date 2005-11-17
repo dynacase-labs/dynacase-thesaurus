@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.81 2005/11/03 08:27:38 eric Exp $
+ * $Id: freedom.css,v 1.82 2005/11/17 17:07:11 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -95,7 +95,7 @@ FIELDSET {
    -moz-border-radius: 6;
    background-color: [CORE_BGCELLCOLOR];
 [IFNOT ISIE]  background-image:url('[IMG:op20.png]'); [ENDIF ISIE]
-[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:op20.png]',sizingMethod='scale');[ENDIF ISIE]	
+
 }
 
 TABLE.barmenu {
