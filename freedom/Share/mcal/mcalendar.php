@@ -51,6 +51,8 @@ echo '
 <script type="text/javascript" src="'.$rwhat.'geometry.js"></script>
 <script type="text/javascript" src="'.$rwhat.'DHTMLapi.js"></script>
 <script type="text/javascript" src="'.$rwhat.'AnchorPosition.js"></script>
+<script language="JavaScript" src="'.$rwhat.'logmsg.js"></script>
+<script language="JavaScript" src="'.$rwhat.'subwindow.js"></script>
 <script type="text/javascript" src="'.$rxml.'xmldom.js"></script>
 <script type="text/javascript" src="'.$rmcal.'mcallib.js"></script>
 <script type="text/javascript" src="'.$rmcal.'mcalCookie.js"></script>
@@ -77,20 +79,18 @@ echo '
 
 var menu = [
     { id:'newevent', label:'a cette heure', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
-      icon:'Images/mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
-      atarget:'', ascript:'mhandler', aevent:0 },
-    { id:'newevent', label:'toute la journee', desc:'Nouveau rendez-vous, toute la journée', status:2, type:1,
-      icon:'Images/mcalendar-new.gif', onmouse:'', amode:2, aevent:0, 
-      atarget:'', ascript:'mhandler', aevent:0 },
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=0&ts=%TS%\');' },
+    { id:'newevent', label:'sans heure', desc:'Nouveau rendez-vous, sans heure', status:2, type:1,
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?&sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=1\');' },
     ];
 
 //   { id:'getevents', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&' },
 //   { id:'eventcard', request:'mcalendar_detail.php?id=%EVID%' },
 var sm = [ 
   { id:'getevents', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&zone=FREEEVENT:XMLEVLIST:T&latest=Y&tmime=text/xml&id=1025&ts=%TS%&te=%TE%&lastrev=%LR%' },
-  { id:'geteventsdiff', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&lr=%LR%' },
-  { id:'eventresume', request:'mcalendar_resume.php?id=%EVID%' },
-  { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=FDL_CARD&props=N&abstract=N&id=%EVID%' }  
+  { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&id=%EVPID%' }  
   ];
 
  var cd = new Date;

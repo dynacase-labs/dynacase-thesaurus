@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.29 2005/11/15 18:18:26 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.30 2005/11/17 06:13:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -335,13 +335,21 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
   $d2 = GetHttpVars("te",time() + (24*3600*30));
   $sd1 = strftime("%d/%m/%Y %H:%M", $d1);
   $sd2 = strftime("%d/%m/%Y %H:%M", $d2);
-  $tevt = array();
-  $tevt=$this->getEvents($sd1,$sd2, array("doctype = 'Z'"));
   $evt = array();
+  $tevt = array();
+  // first search existing  event
+  $tevt=$this->getEvents($sd1,$sd2, true);
   foreach ($tevt as $k=>$v) {
     $ev = getDocObject($this->dbaccess, $v);
-    $evt[]["cevent"] = $ev->viewdoc($ev->evXml);
+    $evt[count($evt)]["cevent"] = $ev->viewdoc($ev->evXml);
   }
+  // and search deleted event
+  $tevt = array();
+  $tevt=$this->getEvents($sd1,$sd2, true, array("doctype = 'Z'"));
+  foreach ($tevt as $k=>$v) {
+    $ev = getDocObject($this->dbaccess, $v);
+    $evt[count($evt)]["cevent"] = $ev->viewdoc($ev->evXml);
+  } 
 
   $this->lay->set("fstart", $sd1);
   $this->lay->set("fend", $sd2);

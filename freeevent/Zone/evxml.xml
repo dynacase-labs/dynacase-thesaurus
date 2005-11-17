@@ -1,5 +1,6 @@
-[IF xmlResume]<event id="[id]" revstatus="[revstatus]" revdate="[revdate]" rid="evt[id]" cid="evc[id]" dmode="[displaymode]" time="[time]" duration="[duration]">[IF setRefMenu]<menuref id="[menuref]" use="[BLOCK miUse][itemState],[ENDBLOCK miUse]"/>[ENDIF setRefMenu]
+[IF xmlResume]<event id="[id]" pid="[pid]"  revstatus="[revstatus]" revdate="[revdate]" rid="evt[id]" cid="evc[id]" dmode="[displaymode]" time="[time]" duration="[duration]">[IF setRefMenu]<menuref id="[menuref]" use="[BLOCK miUse][itemState],[ENDBLOCK miUse]"/>[ENDIF setRefMenu]
 <title>[title]</title><content>
 <styleinfo>[BLOCK style]<style id="[sid]" val="[sval]"/>[ENDBLOCK style]</styleinfo>
-<chtml><div style="vertical-align:top;"><img style=" border:0" src="/freedom/[evfamicon]" width="16"/> <span style="vertical-align:top; text-decoration:underline;font-weight:bold">[evtitle]</span></div><span style="text-decoration:italic">[evstart] - [evend]</span></chtml>
+<chtml><div style="vertical-align:top;"><img style=" border:0" src="/freedom/[evfamicon]" width="16"/> <span style="vertical-align:top; text-decoration:underline;font-weight:bold">[evtitle]</span></div><span style="text-decoration:italic">[evstart] - [evend]</span>
+</chtml>
 </content></event>[ENDIF xmlResume]
