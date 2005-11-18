@@ -1,6 +1,7 @@
 TABLE.rowright24  TR TD {  
   border-width:0px 1px 0px 0px;	 
   border-color:[CORE_BGCOLORALTERN];
+  color:black;
   border-style:solid;
   background-color:transparent;
   text-align:right;
@@ -9,6 +10,7 @@ TABLE.rowright24  TR TD {
 }
 DIV.monthOdd {
 	background-color:yellow;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 	text-align:center;
@@ -21,6 +23,7 @@ DIV.monthOdd {
 }
 DIV.monthEven {
 	background-color:orange;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -35,6 +38,7 @@ DIV.monthEven {
 
 DIV.weekOdd {
 	background-color:lightyellow;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -48,6 +52,7 @@ DIV.weekOdd {
 }
 DIV.weekEven {
 	background-color:wheat;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -61,6 +66,7 @@ DIV.weekEven {
 }
 DIV.dayOdd {
 	background-color:lightblue;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -74,6 +80,7 @@ DIV.dayOdd {
 }
 DIV.dayEven {
 	background-color:cornflowerblue;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 /*	-moz-opacity:.8;*/
@@ -87,6 +94,7 @@ DIV.dayEven {
 }
 DIV.year {
 	background-color:gold;
+	color:black;
 	overflow:hidden;
 	text-align:center;
 	position:absolute;
@@ -100,6 +108,7 @@ DIV.year {
 DIV.event {
 	/*-moz-border-radius:9px;*/
 	overflow:hidden;
+	color:black;
 	border:solid  1px;
 	cursor:pointer;
 	position:absolute;
@@ -111,6 +120,7 @@ DIV.event {
 .ressource {	
 	overflow:hidden;
 	position:absolute;
+	color:black;
 	left:0px;
 	top:0px;
 	font-size:7pt;
@@ -171,24 +181,31 @@ TABLE.tinputs TD {
 }
 #bpyear, #bnyear {
   background-color:gold;
+  color:black;
 }
 #bnweek {
   background-color:wheat;
+  color:black;
 }
 #bpweek {
   background-color:lightyellow;
+  color:black;
 }
 #bnmonth {
   background-color:yellow;
+  color:black;
 }
 #bpmonth {
   background-color:orange;
+  color:black;
 }
 #bnday {
   background-color:lightblue;
+  color:black;
 }
 #bpday {
   background-color:cornflowerblue;
+  color:black;
 }
 BUTTON.bnav {
   [IFNOT ISIE]background-image:url('[IMG:7hi.png]');[ENDIF ISIE]
