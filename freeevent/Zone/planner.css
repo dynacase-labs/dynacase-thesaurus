@@ -128,6 +128,9 @@ DIV.event {
   [IF ISIE]filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:7hi.png]',sizingMethod='scale');[ENDIF ISIE]
 	/*-moz-border-radius:9px 9px 0px 0px;*/
 }
+DIV.ressource B {
+	color:black;
+}
 DIV.xgrid {
 	overflow:hidden;
 	background:none;
