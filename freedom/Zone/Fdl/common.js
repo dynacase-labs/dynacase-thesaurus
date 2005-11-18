@@ -286,7 +286,7 @@ function getAltern(c,ct,l) {
   
 
   if (hsl) {
-    if ((!isNetscape) || (ct.substr(0,1) == "#")) {
+    if ((isNetscape) || (ct.substr(0,1) == "#")) {
       dhsl=getHSL(ct);
       if (dhsl[2] > 128) l=l-200; // dark color
     }
