@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.105 2005/11/18 13:24:13 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.106 2005/11/18 17:34:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -73,10 +73,7 @@ function getSqlSearchDoc($dbaccess,
 			 $sqlfilters=array(),
 			 $distinct=false,// if want distinct without locked
 			 $latest=true,
-			 $trash="no") {// only latest document
-
- 
-
+			 $trash="") {// only latest document
   $table="doc";$only="";
   if ($fromid == -1) $table="docfam";
   elseif ($fromid < 0) {$only="only" ;$fromid=-$fromid;}
@@ -101,10 +98,11 @@ function getSqlSearchDoc($dbaccess,
     //-------------------------------------------
     // search in all Db
     //-------------------------------------------
-    
-    if ($trash=="no") $sqlfilters[-3] = "doctype != 'Z'";
-    elseif ($trash=="only") $sqlfilters[-3] = "doctype = 'Z'";
-    if (($latest) &&($trash=="no")) $sqlfilters[-1] = "locked != -1";
+    if ($trash=="only") $sqlfilters[-3] = "doctype = 'Z'";
+    elseif ($trash=="also") ;
+    else $sqlfilters[-3] = "doctype != 'Z'";
+      
+    if (($latest) && (($trash=="no")||(!$trash))) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
     $qsql= "select $selectfields ".
@@ -178,11 +176,14 @@ function getSqlSearchDoc($dbaccess,
 	  // $sqlM=$ldocsearch[0]["query"];
 
 	  $fld=new_Doc($dbaccess,$dirid);
-	  $tsqlM=$fld->getQuery();
+	  if ($trash) $fld->setValue("se_trash",$trash);
+	  else $trash=$fld->getValue("se_trash");
+
+	  $tsqlM=$fld->getQuery();	
 	  foreach ($tsqlM as $sqlM) {
 	    if ($sqlM != false) {
 	      if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-		 $sqlfilters[-3] = "doctype != 'Z'";	   
+		if (($trash != "also")&&($trash != "only")) $sqlfilters[-3] = "doctype != 'Z'";	   
 		ksort($sqlfilters);
 		if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
 	      }
@@ -199,6 +200,7 @@ function getSqlSearchDoc($dbaccess,
     }
 
   }
+
   if (is_array($qsql)) return $qsql;
   return array($qsql);
 }
@@ -285,7 +287,7 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true,$trash="no") {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true,$trash="") {
   
   global $action;
 
@@ -354,7 +356,7 @@ function getChildDoc($dbaccess,
 	{
 	  $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      // print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+      //       print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          
@@ -441,7 +443,7 @@ function getMSearchDoc($dbaccess,$dirid,
 /**
  * return array of documents
  *
- * based on {@see getChilDoc()} it return document with enum attribute condition
+ * based on {@see getChildDoc()} it return document with enum attribute condition
  * return document which the $aid attribute has the value $kid 
  *
  * @param string $dbaccess database specification

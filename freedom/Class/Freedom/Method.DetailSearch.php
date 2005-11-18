@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.42 2005/11/18 15:26:06 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.43 2005/11/18 17:34:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -49,16 +49,12 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
        
   } else $cdirid=0;;
 
-
-
   $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
 
   $cond=$this->getSqlDetailFilter();
   if ($cond === false) return array(false);
-
+ 
   if ($cond != "") $filters[]=$cond;
-
-
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes",$this->getValue("se_trash"));
 
   return $query;
