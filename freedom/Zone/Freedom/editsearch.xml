@@ -1,4 +1,19 @@
-
+<script>
+function verifytrash() {
+  var o=document.getElementById("se_trash");
+  var v,d;
+  if (o) {
+    v=o.options[o.selectedIndex].value;
+    if (v != 'no') d='hidden';
+    else d='';
+    o=document.getElementById("se_latest");
+    if (o) o.style.visibility=d;
+    o=document.getElementById("ifromdir");
+    if (o) o.style.visibility=d;
+    
+  }
+}
+</script>
 
 <table width="100%" cellspacing="0">
 <tbody>
@@ -29,7 +44,7 @@
 <tr class="FREEDOMBack1">
   <td  align="center" colspan="2">
  
- <input type="button" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH','[rtarget]')"> </td>
+ <input type="submit" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH','[rtarget]');return false"> </td>
  
   <td>&nbsp</td>
 </tr>
@@ -50,7 +65,7 @@
   <td class="FREEDOMLabel" align="right">
        [TEXT:from current folder]&nbsp;: </td>
   <td   >
-      <input type="checkbox" name="fromdir" value="true" 
+      <input type="checkbox" id="ifromdir" name="fromdir" value="true" 
              onclick="document.getElementById('se_idfld').value=(this.checked)?parent.ffolder.dirid:'0';document.getElementById('se_cfld').value=(this.checked)?'dossier':' ';" > 
       <input type="hidden" id="se_idfld" name="_se_idfld" value="0" >
       <input type="hidden" id="se_cfld" name="_se_cfld" value=" " ></td>
@@ -60,11 +75,14 @@
 <tr class="FREEDOMBack1">
   <td class="FREEDOMLabel" align="right">
        [TEXT:case sensitive]&nbsp;: </td>
-  <td >
-      <input type="checkbox" 
-             onclick="document.getElementById('se_case').value=(this.checked)?'yes':'no';" 
-	     name="sensitive" value="true" > 
-      <input type="hidden" id="se_case" name="_se_case" value="no" ></td>
+  <td >[V_SE_CASE]</td>
+  <td>&nbsp</td>
+</tr>
+
+<tr class="FREEDOMBack1">
+  <td class="FREEDOMLabel" align="right">
+       [L_SE_TRASH]&nbsp;: </td>
+  <td onmouseout="verifytrash()">[V_SE_TRASH]</td>
   <td>&nbsp</td>
 </tr>
  

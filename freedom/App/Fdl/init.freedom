@@ -155,6 +155,7 @@ ATTR;SE_FAM;SE_CRIT;famille;N;Y;text;130;W;;%S%&app=FDL&action=FDL_CARD&id=%SE_I
 ATTR;SE_FAMID;SE_CRIT;fid amille;N;N;docid;140;H;;;;;;;
 ATTR;SE_CFLD;SE_CRIT;à partir du dossier;N;N;text;150;R;;%S%&app=FDL&action=FDL_CARD&id=%SE_IDFLD%;;;;;
 ATTR;SE_IDFLD;SE_CRIT;dossier racine;N;N;docid;160;H;;;;;;;
+ATTR;SE_TRASH;SE_CRIT;dans la poubelle;N;N;enum;165;W;;;;no|non,only|seulement,also|aussi;;;bmenu=no|system=yes
 ATTR;SE_SUBLEVEL;SE_CRIT;profondeur de recherche;N;N;int;170;H;;;;;;;
 ATTR;SE_SQLSELECT;SE_CRIT;requête sql;N;N;text;180;H;;;;;;;
 ATTR;SE_IDCFLD;SE_CRIT;id dossier père courant;N;N;docid;190;H;;;;::getTitle(SE_IDCFLD):SE_CFLD;;;

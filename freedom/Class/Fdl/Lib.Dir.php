@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.104 2005/10/27 14:37:27 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.105 2005/11/18 13:24:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,13 +56,24 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
       
 }
 
-
+/**
+ * compose qury to serach document
+ *
+ * @param string $dbaccess database specification
+ * @param array  $dirid the array of id or single id of folder where search document (0 => in all DB)
+ * @param string $fromid for a specific familly (0 => all familly) (<0 strict familly)
+ * @param array $sqlfilters array of sql filter
+ * @param bool $distinct
+ * @param bool $latest set false if search in all revised doc
+ * @param string $trash (no|only|also) search in trash or not
+*/
 function getSqlSearchDoc($dbaccess, 
-			 $dirid,  // in a specific folder (0 => in all DB)
-			 $fromid, // for a specific familly (0 => all familly) (<0 strict familly)
+			 $dirid, 
+			 $fromid, 
 			 $sqlfilters=array(),
 			 $distinct=false,// if want distinct without locked
-			 $latest=true) {// only latest document
+			 $latest=true,
+			 $trash="no") {// only latest document
 
  
 
@@ -91,8 +102,9 @@ function getSqlSearchDoc($dbaccess,
     // search in all Db
     //-------------------------------------------
     
-    $sqlfilters[-3] = "doctype != 'Z'";
-    if ($latest) $sqlfilters[-1] = "locked != -1";
+    if ($trash=="no") $sqlfilters[-3] = "doctype != 'Z'";
+    elseif ($trash=="only") $sqlfilters[-3] = "doctype = 'Z'";
+    if (($latest) &&($trash=="no")) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
     $qsql= "select $selectfields ".
@@ -111,7 +123,7 @@ function getSqlSearchDoc($dbaccess,
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
 
-      $sqlfilters[-3] = "doctype != 'Z'";
+      //if ($fld->getValue("se_trash")!="yes") $sqlfilters[-3] = "doctype != 'Z'";
     
       if ($latest) $sqlfilters[-1] = "locked != -1";
       ksort($sqlfilters);
@@ -155,9 +167,7 @@ function getSqlSearchDoc($dbaccess,
       $docsearch = new QueryDb($dbaccess,"QueryDir");
       $docsearch ->AddQuery("dirid=$dirid");
       $docsearch ->AddQuery("qtype != 'S'");
-      $ldocsearch = $docsearch ->Query(0,0,"TABLE");
-      
-      
+      $ldocsearch = $docsearch ->Query(0,0,"TABLE");      
       
       // for the moment only one query search
       if (($docsearch ->nb) > 0) {
@@ -172,7 +182,7 @@ function getSqlSearchDoc($dbaccess,
 	  foreach ($tsqlM as $sqlM) {
 	    if ($sqlM != false) {
 	      if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-		$sqlfilters[-3] = "doctype != 'Z'";	   
+		 $sqlfilters[-3] = "doctype != 'Z'";	   
 		ksort($sqlfilters);
 		if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
 	      }
@@ -268,13 +278,14 @@ function getChildDocError($dbaccess,
  * @param bool $distinct if true all revision of the document are returned else only latest
  * @param string $orderby field order
  * @param bool $latest if true only latest else all revision
+ * @param string $trash (no|only|also) search in trash or not
  * @return array/Doc
  */
 function getChildDoc($dbaccess, 
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true) {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true,$trash="no") {
   
   global $action;
 
@@ -296,7 +307,7 @@ function getChildDoc($dbaccess,
       if (is_array($td)) return $td;
     } 
   }
-  $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest);
+  $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest,$trash);
 
   $tretdocs=array();
   foreach ($tqsql as $qsql) {
@@ -343,7 +354,7 @@ function getChildDoc($dbaccess,
 	{
 	  $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      // print "<HR><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+      // print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          

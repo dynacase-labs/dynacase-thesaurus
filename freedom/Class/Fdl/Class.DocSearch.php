@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.34 2005/09/21 16:02:21 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.35 2005/11/18 13:24:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -161,9 +161,8 @@ Class DocSearch extends PDocSearch {
 
     
     $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
-  
 
-    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes");
+    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"));
     return $query;
   }
 

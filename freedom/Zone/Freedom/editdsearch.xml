@@ -179,7 +179,7 @@
 <tr class="FREEDOMBack1">
   <td  align="right" colspan="2" >
  
- <input type="button" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH')"> </td>
+ <input type="submit" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH');return false"> </td>
   <td  align="right"></td>
 </tr>
 
