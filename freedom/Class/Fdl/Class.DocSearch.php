@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.35 2005/11/18 13:24:13 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.36 2005/11/18 15:37:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -249,7 +249,7 @@ Class DocSearch extends PDocSearch {
   function getContent($controlview=true,$filter=array(),$famid="") {
     if ($controlview) $uid=$this->userid;
     else $uid=1;
-    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid);
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid,false,"title",true,$this->getValue("se_trash"));
     return $tdoc;
     
   }
