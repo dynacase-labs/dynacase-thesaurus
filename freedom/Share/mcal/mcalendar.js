@@ -19,6 +19,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     this.CalRootElt = document.__mcal[instance].CalRootElt;
     this.CalDaysCount = document.__mcal[instance].CalDaysCount;
     this.CalHoursPerDay = document.__mcal[instance].CalHoursPerDay;
+    this.CalHourDivision = document.__mcal[instance].CalHourDivision;
     this.CalOriginalTime = document.__mcal[instance].CalOriginalTime;
     this.CalDayStartHour = document.__mcal[instance].CalDayStartHour;
     this.CalShowWeekEnd = document.__mcal[instance].CalShowWeekEnd;
@@ -69,6 +70,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     var cd = new Date();             
     if (initTime && initTime>0) cd.setTime(initTime);
     this.CalOriginalTime = this.CalInitTime = cd.getTime();  // Init time = current time
+    this.CalHourDivision = 1;         // First hour for day
     this.CalDayStartHour = 8;         // First hour for day
     this.CalShowWeekEnd = true;       // Show / hide week end
     this.CalHourHSize = 'auto';       // or px;
@@ -132,8 +134,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
       this.style.currentDayBackground = '#F2FFDB';
       this.style.titleBackground = '#F1D998';
       this.style.titleBackgroundOver = 'orange';
-      this.style.oddDayBackground = '#F8F1FB';
-      this.style.evenDayBackground = '#F8F1FB';
+       this.style.oddDayBackground = this.style.evenDayBackground = '#fffef4';
       this.style.oddDayWEBackground = '#edeff7';
       this.style.evenDayWEBackground = '#eff1f9';
     }
@@ -451,15 +452,22 @@ MCalendar.prototype.__getEvents = function()  {
       }
     } // End of retrieving events function
   }
-  var zTs = Math.round(this.CalPeriod[0].ds.getTime()/1000);
-  var zTe = Math.round(this.CalPeriod[(this.CalPeriod.length-1)].de.getTime()/1000);
+  var pS = this.CalPeriod[0].ds;
+  var pE = this.CalPeriod[(this.CalPeriod.length-1)].de;
+
+  var zTs = new Date(pS.getFullYear(), pS.getMonth(), pS.getDate(), 0, 0, 0, 0);
+  var rzTs = Math.round(zTs.getTime()/1000);
+  var zTe = new Date(pE.getFullYear(), pE.getMonth(), pE.getDate(), 23, 59, 59, 0);
+  var rzTe = Math.round(zTe.getTime()/1000);
+  //var zTs = Math.round(this.CalPeriod[0].ds.getTime()/1000);
+  //var zTe = Math.round(this.CalPeriod[(this.CalPeriod.length-1)].de.getTime()/1000);
+
   var dld = new Date;
   var ldate = this.lastGetDate;
   if (this.serverMethod['getevents']!=this.lastRequest) this.reloadEvent = true;
   if (this.reloadEvent) ldate=0;
-  var serverreq = mcalParseReq( this.serverMethod['getevents'], [ 'TS', 'TE', 'LR' ], [ zTs, zTe, ldate ]);
+  var serverreq = mcalParseReq( this.serverMethod['getevents'], [ 'TS', 'TE', 'LR' ], [ rzTs, rzTe, ldate ]);
   this.lastRequest = this.serverMethod['getevents'];
-  this.lastGetDate = Math.floor(dld.getTime()/1000);
   this.reloadEvent = false;
   this.__waitingServer();
   this.logMessage(serverreq);
@@ -616,6 +624,12 @@ MCalendar.prototype.__display = function() {
 	cy = (this.showTitleBar?this.CalKTitleDayH+(2*this.yborder):1) + (this.CalKTitleDayH+(2*this.yborder)) + ((idh-1) * (this.CalHourHeight+(2*this.yborder)));
 	ch = this.CalHourHeight;
       }
+
+      if ((idh>(1+(this.CalShowTitleBar?1:0)) && idh<=(this.CalHoursPerDay+1)) && ida>0 && this.CalHourDivision>1) {
+        for (idiv=0; idiv<this.CalHourDivision; idiv++) {
+          eltn += '<div style="display:block; position:relative; z-index:550; border-style:none none dotted none; border-width:1px; border-color:orange; left:'+4+'; top:'+(ch/this.CalHourDivision)*idiv+'; width:'+(cw-8)+'; height:'+(ch/this.CalHourDivision)+';"></div>';
+        }
+      }
       
       var attr = [];
       if (idh!=0 && ida!=0) attr = [ 
@@ -632,7 +646,7 @@ MCalendar.prototype.__display = function() {
 	if (this.hourmenu) this.hourmenu.attachToElt( idel, 0, 0, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh-1)*3600*1000)), (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh)*3600*1000)) ]);
       }
     }
-    if (!hide) dayXPos += cw;
+    if (!hide) dayXPos += cw  + (2*this.xborder);
   }  
 
   this.Dim.w = dayXPos - (2*this.yborder);

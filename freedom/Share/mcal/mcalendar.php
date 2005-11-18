@@ -98,7 +98,8 @@ var sm = [
  
  var cal = new MCalendar('calendarRoot', sm, menu, false, cd.getTime());
     cal.CalHoursPerDay = 10;
-    cal.refreshDelay = (60*1000); // seconds * 1000
+    //cal.refreshDelay = (60*1000); // seconds * 1000
+    //cal.CalHourDivision = 2;
     cal.Display();
 </script>
 
