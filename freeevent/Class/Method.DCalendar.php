@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.30 2005/11/17 06:13:03 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.31 2005/11/18 06:19:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -331,21 +331,30 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 
 
 function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
+
+  $lastrev = GetHttpVars("lastrev", 0);
   $d1 = GetHttpVars("ts",time() - (24*3600*30));
   $d2 = GetHttpVars("te",time() + (24*3600*30));
+
   $sd1 = strftime("%d/%m/%Y %H:%M", $d1);
   $sd2 = strftime("%d/%m/%Y %H:%M", $d2);
   $evt = array();
   $tevt = array();
+
+  $this->lay->set("uptime", time());
+
+  $filter[] = "revdate>=".$lastrev;
+
   // first search existing  event
-  $tevt=$this->getEvents($sd1,$sd2, true);
+  $tevt=$this->getEvents($sd1,$sd2, true, $filter);
   foreach ($tevt as $k=>$v) {
     $ev = getDocObject($this->dbaccess, $v);
     $evt[count($evt)]["cevent"] = $ev->viewdoc($ev->evXml);
   }
   // and search deleted event
+  $filter[] = "doctype = 'Z'";
   $tevt = array();
-  $tevt=$this->getEvents($sd1,$sd2, true, array("doctype = 'Z'"));
+  $tevt=$this->getEvents($sd1,$sd2, true, $filter);
   foreach ($tevt as $k=>$v) {
     $ev = getDocObject($this->dbaccess, $v);
     $evt[count($evt)]["cevent"] = $ev->viewdoc($ev->evXml);
@@ -355,7 +364,6 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
   $this->lay->set("fend", $sd2);
   $this->lay->set("start", $d1);
   $this->lay->set("end", $d2);
-  $this->lay->set("uptime", time());
   $this->lay->setBlockData("EVENTS", $evt);
 
   $this->lay->set("withMenu", false);

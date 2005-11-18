@@ -292,8 +292,13 @@ MCalendar.prototype.__getEvents = function()  {
 	
 	var xmlDom = new XMLDoc(xmlstr, alert);
 	var xmlDomTree = xmlDom.docNode;// Get all events
-	var repdesc = xmlDomTree.getElements("eventdesc");
-	var repdate = repdesc[0].getAttribute("uptime");
+        var repdate = 0;
+	var eventdesc = xmlDomTree.getElements("stlist");
+        if (eventdesc.length==0) {
+          instance.logMessage('La liste n\' est pas correctement constituée, balise <stlist> absente');
+        } else {
+          repdate = eventdesc[0].getAttribute("uptime");
+        }
 	var events = xmlDomTree.getElements("event");
 	var menus = xmlDomTree.getElements("menu");
 	var id;
@@ -1018,7 +1023,7 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
   }
 
   content += '<div id="tbar_"+this.TEventElt[mode][ie].id+" style="border:0px; width:'+w+'; height:0"></div>';
-  this.TEvent[evRef].content;
+  content += this.TEvent[evRef].content;
   content += '<div id="bbar_"+this.TEventElt[mode][ie].id+" style="border:0px; width:'+w+'; height:0"></div>';
 
   mcalDrawRectAbsolute( this.TEventElt[mode][ie].id,

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE eventdesc [
-<!ELEMENT eventdesc (menu, (event)+)>
+<!ELEMENT eventdesc (stlist, menu, (event)+)>
+<!ELEMENT stlist EMPTY>
 <!ELEMENT menu (item+)>
 <!ELEMENT item (label, description, action)>
 <!ELEMENT label (#PCDATA)>
@@ -12,7 +13,8 @@
 <!ELEMENT style (#PCDATA)>
 <!ELEMENT chtml (#PCDATA)>
 ]>
-<eventdesc start="[start]" end="[end]" readablestart="[fstart]" readableend="[fend]" uptime="[uptime]">
+<eventdesc>
+<stlist start="[start]" end="[end]" readablestart="[fstart]" readableend="[fend]" uptime="[uptime]"/>
 [IF withMenu]<menu id="menuname">
 [BLOCK items]<item id="[itemname]" status="[itemstatus]" type="[itemtype]" [IF hasIcon]ico="[itemico]"[ENDIF hasIcon]>
 <label>[itemlabel]</label>
