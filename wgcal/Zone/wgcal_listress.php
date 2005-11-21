@@ -7,6 +7,9 @@ function wgcal_listress(&$action)
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+
+  $action->lay->set("BetaVersion", ($action->getParam("WGCAL_G_USEBETA") == "Yes" ? true : false ));
+
   $ico = "down";
   $vis = "none";
   $state = WGCalToolIsVisible($action, CAL_T_CALSELECTOR);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.54 2005/10/12 07:55:16 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.55 2005/11/21 18:08:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,6 +21,8 @@ include_once('WGCAL/Lib.Agenda.php');
 
 function wgcal_toolbar(&$action) {
 
+  $action->lay->set("BetaVersion", ($action->getParam("WGCAL_G_USEBETA") == "Yes" ? true : false ));
+  
   $action->lay->set("refresh",$action->getParam("WGCAL_U_RELOADTOOLBAR", 0));
   
   if ($action->getParam("WGCAL_U_TBCONTACTS",0)) $action->lay->set("SHOWCONTACTS", true);

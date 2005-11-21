@@ -16,7 +16,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
 
   if (document.__mcal[instance]) {
     
-    this.CalRootElt = document.__mcal[instance].CalRootElt;
+    this.calendarId = document.__mcal[instance].calendarId;
     this.CalDaysCount = document.__mcal[instance].CalDaysCount;
     this.CalHoursPerDay = document.__mcal[instance].CalHoursPerDay;
     this.CalHourDivision = document.__mcal[instance].CalHourDivision;
@@ -61,10 +61,13 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     this.hMenu = document.__mcal[instance].lastRequest;
     this.refreshDelay = document.__mcal[instance].refreshDelay;
     this.style = document.__mcal[instance].style;
+    this.waitDetails = document.__mcal[instance].waitDetails;
+    this.detailTimeOut = document.__mcal[instance].detailTimeOut;
+
 
   } else {
 
-    this.CalRootElt = instance; // element where i am inserted
+    this.calendarId = instance; // element where i am inserted
     this.CalDaysCount = 7;            // number of days displayed
     this.CalHoursPerDay = 10;         // number of time by day
     var cd = new Date();             
@@ -124,6 +127,10 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
 
     this.hMenu = hmenu;
 
+ 
+    this.waitDetails = { id:-1, pid:-1, x:0, y:0, t:-1 };
+    this.detailTimeOut = 500;
+
     if (style) this.style = style;
     else {
       this.style = new Object;
@@ -134,20 +141,19 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
       this.style.currentDayBackground = '#F2FFDB';
       this.style.titleBackground = '#F1D998';
       this.style.titleBackgroundOver = 'orange';
-       this.style.oddDayBackground = this.style.evenDayBackground = '#fffef4';
+      this.style.oddDayBackground = this.style.evenDayBackground = '#fffef4';
       this.style.oddDayWEBackground = '#edeff7';
       this.style.evenDayWEBackground = '#eff1f9';
     }
     this.refreshDelay = 0;
-    document.__mcal[this.CalRootElt] = this;
+    document.__mcal[this.calendarId] = this;
   }
-  this.petitbeurre = new Cookie(document, this.CalRootElt, (24*365), '/');
+  this.petitbeurre = new Cookie(document, this.calendarId, (24*365), '/');
   if (this.petitbeurre.load()) {
     this.CalShowWeekEnd = (parseInt(this.petitbeurre.viewweekend)==1?true:false);
     this.CalDaysCount = (parseInt(this.petitbeurre.nbdays)>0?parseInt(this.petitbeurre.nbdays):1);
   }
   this.reloadEvent = true;
-  
 }
 
 
@@ -168,8 +174,8 @@ MCalendar.prototype.__deleteElt = function(ev) {
 }
 
 MCalendar.prototype.Delete = function() {
-  if (document.getElementById(this.CalRootElt)) {
-    var mc = document.getElementById(this.CalRootElt);
+  if (document.getElementById(this.calendarId)) {
+    var mc = document.getElementById(this.calendarId);
     var kids = mc.childNodes;
     var numkids = kids.length;
     for(var i=(kids.length-1); i >= 0; i--) {       // Loop through kids
@@ -204,7 +210,7 @@ MCalendar.prototype.Compute = function()
   this.CalZonePStart = 'd1h1';
   this.CalZonePEnd = 'd'+(this.CalDisplayedDaysCount)+'h'+(this.CalHoursPerDay+1);
 
-  this.Dim = mcalGetZoneCoord(this.CalRootElt);
+  this.Dim = mcalGetZoneCoord(this.calendarId);
 
   this.Dim.x = 1;
   this.Dim.y = 1;
@@ -216,39 +222,33 @@ MCalendar.prototype.Compute = function()
   if (this.CalHourWSize=='auto') this.CalHourWidth = Math.floor( (this.Dim.w-(this.CalKTitleHourW+(2*this.xborder))) / this.CalDisplayedDaysCount);
   else this.CalHourWidth = this.CalHourWSize;
   
-  mcalDrawRectAbsolute('__MCal'+this.CalRootElt, 
-			this.CalRootElt, 
-			this.Dim.x, 
-			this.Dim.y, 
-			this.Dim.w , 
-			this.Dim.h, 
-			1000, '', false, '', false, false);
+
   // System menus
   var tmenu = [
     { id:'title', label:'Calendrier', type:0 },
     { id:'weekend', label:'WE Afficher/non', desc:'Afficher ou masquer les week-end (samedis et dimanches)', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-showhidewe.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.ShowHideWeekEnd();', aevent:0 },
     { id:'OneTwoWeek', label:'1 ou 2 semaines', desc:'Afficher 1 ou 2 semaines', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-onetwoweek.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.OneTwoWeek();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.OneTwoWeek();', aevent:0 },
     { id:'sep0', type:2 },
     { id:'nextperiod', label:'Avancer', desc:'Afficher la période suivante', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-next.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.gotoNextPeriod();', aevent:0 },
     { id:'prevperiod', label:'Reculer', desc:'Afficher la période précédente', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-prev.png', onmouse:'', amode:3, aevent:0,
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.gotoPrevPeriod();', aevent:0 },
     { id:'currentperiod', label:'Revenir', desc:'Afficher la période initiale', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-current.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.gotoCurrentPeriod();', aevent:0 },
     { id:'sep1', type:2 },
     { id:'resize', label:'Ajuster la taille', desc:'Redimmensionner le calendrier', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-resize.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Resize();', aevent:0 },
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.Resize();', aevent:0 },
     { id:'reload', label:'Recharger', desc:'Recharger le calendrier', status:2, type:1,
       icon:MCalendar.Images+'mcalendar-reload.png', onmouse:'', amode:3, aevent:0, 
-      atarget:'', ascript:'document.__mcal.'+this.CalRootElt+'.Reload();', aevent:0 }
+      atarget:'', ascript:'document.__mcal.'+this.calendarId+'.Reload();', aevent:0 }
     ];
   var style = { bg:'#F8F1FB', fg:'black', tbg:'#F1D998', tfg:'black', abg:'#EAE9C1', afg:'black' };
   this.calmenu = new MCalMenu( '__gmenu', tmenu, style );
@@ -269,7 +269,7 @@ MCalendar.prototype.__getEvents = function()  {
   } catch (e) {
     rq = new ActiveXObject("Msxml2.XMLHTTP");
   }
-  rq.instanceName = this.CalRootElt;
+  rq.instanceName = this.calendarId;
   
   rq.onreadystatechange =  function() {
     if (rq.readyState == 4) {
@@ -304,7 +304,6 @@ MCalendar.prototype.__getEvents = function()  {
 	var menus = xmlDomTree.getElements("menu");
 	var id;
 	var pid;
-	var rid;
 	var evstatus;
 	var dmode;
 	var etime;
@@ -386,8 +385,6 @@ MCalendar.prototype.__getEvents = function()  {
 	  
 	  id = events[ie].getAttribute("id");
 	  pid = events[ie].getAttribute("pid");
-	  rid = events[ie].getAttribute("rid");
-	  idcard = events[ie].getAttribute("cid");
 	  status = events[ie].getAttribute("revstatus"); // C change D delete 
 	  dmode = events[ie].getAttribute("dmode");
 	  etime = events[ie].getAttribute("time");
@@ -440,7 +437,7 @@ MCalendar.prototype.__getEvents = function()  {
                vstyles = [ { id:'background-color',  val:'white' }, { id:'opacity',  val:'0.75' }, { id:'color', val:'red' }, { id:'border', val:'1px dotted red' } ];
 	    }
 	    if (scontent=='') scontent = 'No content';
-	    instance.ProcessEvent(id, pid, status, idcard, rid, dmode, parseInt(etime*1000), parseInt(duration*1000), 
+	    instance.ProcessEvent(id, pid, status, dmode, parseInt(etime*1000), parseInt(duration*1000), 
 			      title[0].getText(), scontent, vstyles, evmenu);
 	  }
 	}
@@ -479,21 +476,21 @@ MCalendar.prototype.__getEvents = function()  {
 MCalendar.prototype.__navigationContent = function() 
 {
   var eltn  = '';
-//   eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-current.png" title="Avancer" onclick="document.__mcal.'+this.CalRootElt+'.gotoCurrentPeriod();" style="border:0; cursor:pointer">';
-  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-prev.png" title="Reculer" onclick="document.__mcal.'+this.CalRootElt+'.gotoPrevPeriod();" style="border:0; cursor:pointer">';
-  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-next.png" title="Avancer" onclick="document.__mcal.'+this.CalRootElt+'.gotoNextPeriod();" style="border:0; cursor:pointer">';
+//   eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-current.png" title="Avancer" onclick="document.__mcal.'+this.calendarId+'.gotoCurrentPeriod();" style="border:0; cursor:pointer">';
+  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-prev.png" title="Reculer" onclick="document.__mcal.'+this.calendarId+'.gotoPrevPeriod();" style="border:0; cursor:pointer">';
+  eltn += '<img width="16" title="" src="'+MCalendar.Images+'mcalendar-next.png" title="Avancer" onclick="document.__mcal.'+this.calendarId+'.gotoNextPeriod();" style="border:0; cursor:pointer">';
   return eltn;
 }
 
 MCalendar.prototype.__drawTitleBar = function() 
 {		  
-  var eltn = '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-showhidewe.png" title="Afficher/Cacher les week-ends" onclick="document.__mcal.'+this.CalRootElt+'.ShowHideWeekEnd();" style="border:0; cursor:pointer">';
-  eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-resize.png" title="Retailler" onclick="document.__mcal.'+this.CalRootElt+'.Resize();" style="border:0; cursor:pointer">';
+  var eltn = '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-showhidewe.png" title="Afficher/Cacher les week-ends" onclick="document.__mcal.'+this.calendarId+'.ShowHideWeekEnd();" style="border:0; cursor:pointer">';
+  eltn += '<img width="14" title="" src="'+MCalendar.Images+'mcalendar-resize.png" title="Retailler" onclick="document.__mcal.'+this.calendarId+'.Resize();" style="border:0; cursor:pointer">';
 
   var tbW  = this.CalKTitleHourW;
   for (var ip=0; ip<this.CalPeriod.length; ip++) tbW += (this.CalPeriod[ip].hide ? 0 : (2*this.xborder)+this.CalHourWidth);
 
-  mcalDrawRectAbsolute('__caltitle', this.CalRootElt, 1, 1, tbW, this.CalKTitleDayH, 2000, 'dayh', true, eltn+'&nbsp;'+this.Title, false, false);
+  mcalDrawRectAbsolute('__caltitle', this.calendarId, 1, 1, tbW, this.CalKTitleDayH, 2000, 'dayh', true, eltn+'&nbsp;'+this.Title, false, false);
   this.Dim.y += this.CalKTitleDayH;
 }
 
@@ -521,8 +518,8 @@ MCalendar.prototype.Display = function() {
 
 // -----------------------------------------------------------------------------------
 MCalendar.prototype.__display = function() {
-  if (!document.getElementById(this.CalRootElt)) {
-    mcalShowError('no such element '+this.CalRootElt);
+  if (!document.getElementById(this.calendarId)) {
+    mcalShowError('no such element '+this.calendarId);
     return;
   }
 	
@@ -637,13 +634,13 @@ MCalendar.prototype.__display = function() {
  	{ id:'onmouseout', val:"document.getElementById('d"+ida+"h"+idh+"').style.border = '1px outset "+this.style.currentDayBackground+"'; document.getElementById('d0h"+idh+"').style.backgroundColor = '"+this.style.titleBackground+"'; document.getElementById('d"+ida+"h0').style.backgroundColor = '"+this.style.titleBackground+"';" },
 	];
     
-      mcalDrawRectAbsolute(idel, this.CalRootElt, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
+      mcalDrawRectAbsolute(idel, this.calendarId, dayXPos,cy,cw,ch, 500, '', (hide?false:true), eltn, attr, style);
       if (ida==0 && idh==0) 
-	this.calmenu.attachToElt( idel, dayXPos, cy+ch+2, [ 0 ], 'click', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, dayXPos, cy+ch+2, [ 0 ], 'click', 'MCalendar.GHandler', [ this.calendarId, 0, 0 ]);
       else if (ida==0 || idh==0)
-	this.calmenu.attachToElt( idel, 0,0, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0 ]);
+	this.calmenu.attachToElt( idel, 0,0, false, 'contextmenu', 'MCalendar.GHandler', [ this.calendarId, 0, 0 ]);
       else { 
-	if (this.hourmenu) this.hourmenu.attachToElt( idel, 0, 0, false, 'contextmenu', 'MCalendar.GHandler', [ this.CalRootElt, 0, 0, (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh-1)*3600*1000)), (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh)*3600*1000)) ]);
+	if (this.hourmenu) this.hourmenu.attachToElt( idel, 0, 0, false, 'contextmenu', 'MCalendar.GHandler', [ this.calendarId, 0, 0, (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh-1)*3600*1000)), (this.CalPeriod[ip].ds.getTime() + ((this.CalDayStartHour+idh)*3600*1000)) ]);
       }
     }
     if (!hide) dayXPos += cw  + (2*this.xborder);
@@ -655,7 +652,7 @@ MCalendar.prototype.__display = function() {
   this.__SetZoneMessage('');
   this.__SetZoneInformation('');
 
-  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.CalRootElt+'.Reload()', this.refreshDelay);
+  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.calendarId+'.Reload()', this.refreshDelay);
   return;
 }
 
@@ -675,12 +672,12 @@ MCalendar.prototype.__SetZoneMessage = function(m) {
     { id:'border-color', val: this.style.currentDayBackground },
     { id:'background-color', val:this.style.titleBackground },
     ];
-  mcalDrawRectAbsolute('__mcalmessage', this.CalRootElt, footx, footy, footw, footh, 500, '', true, m, false, style);
+  mcalDrawRectAbsolute('__mcalmessage', this.calendarId, footx, footy, footw, footh, 500, '', true, m, false, style);
 }
 
 MCalendar.prototype.__SetZoneInformation = function(m) {
   // display footer bar
-  var tt = '<img src="'+MCalendar.Images+'mcalendar-log.png" width="16" style="border:0px" title="Afficher le journal" onclick="document.__mcal.'+this.CalRootElt+'.displayLog();">&nbsp;'+m;
+  var tt = '<img src="'+MCalendar.Images+'mcalendar-log.png" width="16" style="border:0px" title="Afficher le journal" onclick="document.__mcal.'+this.calendarId+'.displayLog();">&nbsp;'+m;
   var footw = (this.Dim.w / 2);
   var footx = this.Dim.x;
   var footy = this.Dim.y + this.Dim.h;
@@ -695,7 +692,7 @@ MCalendar.prototype.__SetZoneInformation = function(m) {
     { id:'border-color', val: this.style.currentDayBackground },
     { id:'background-color', val:this.style.titleBackground },
     ];
-  mcalDrawRectAbsolute('__mcalinformation', this.CalRootElt, footx, footy, footw, footh, 500, '', true, tt, false, style);
+  mcalDrawRectAbsolute('__mcalinformation', this.calendarId, footx, footy, footw, footh, 500, '', true, tt, false, style);
   if (m!='') this.logMessage(m);
 }
 
@@ -774,17 +771,16 @@ MCalendar.prototype.__getEventById = function(idev) {
   return -1;
 }
   
-  MCalendar.prototype.ProcessEvent = function(id, pid, status, idcard, rid, dmode, time, duration, title, content, style, menu)  { 
+  MCalendar.prototype.ProcessEvent = function(id, pid, status, dmode, time, duration, title, content, style, menu)  { 
     var idx = this.__getEventById(id);
-    if (idx!=-1 && status==2) this.__deleteEvent(idx, true);
-    else {
+    if (status==2) {
+      if (idx!=-1) this.__deleteEvent(idx, true);
+    } else {
       if (idx!=-1) this.__deleteEvent(idx, false);
       else idx = this.TEvent.length;
       this.TEvent[idx] = { id:id, 
 			   pid:pid,
 			   status:status, 
-			   idcard:idcard, 
-			   rid:rid, 
 			   mode:(dmode>=0||dmode<=2?dmode:1), 
 			   time:time, 
 			   duration:duration, 
@@ -1001,8 +997,7 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
   var evRef = this.TEventElt[mode][ie].ref;
   var content = '';
   var id = this.TEvent[evRef].id;
-  var rid = this.TEvent[evRef].rid;
-  var idcard = this.TEvent[evRef].idcard;
+  var pid = this.TEvent[evRef].pid;
   
   var evStyle = new Array;
   for (var is=0; is<this.TEvent[evRef].style.length; is++) {
@@ -1014,10 +1009,8 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
   var usemenu = false;
   var evAttr = new Array;
   evAttr = [
-    { id:'onclick', val:'if (event.shiftKey) alert("shift"); else if (event.ctrlKey) alert("ctrl"); else document.__mcal.'+this.CalRootElt+'.__showDetail(event, \''+id+'\',\''+idcard+'\')' },
-    { id:'title', val:this.TEvent[evRef].title+' (cliquer pour afficher le détail)' },
-    { id:'onmouseover', val:'document.__mcal.'+this.CalRootElt+'.__setEventBar('+mode+','+ie+')' },
-    { id:'onmouseout', val:'document.__mcal.'+this.CalRootElt+'.__unsetEventBar('+mode+','+ie+')' }
+    { id:'onmouseover', val:'document.__mcal.'+this.calendarId+'.__showDetailTempo(event, \''+id+'\',\''+pid+'\')' },
+    { id:'onmouseout', val:'MCalendar.__hideDetail(\''+this.calendarId+'\')' },
   ];
   if (this.TEvent[evRef].menu && this.TEvent[evRef].menu.ref && this.menus[this.TEvent[evRef].menu.ref]) usemenu = true;
   
@@ -1041,7 +1034,7 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
   content += '<div id="bbar_"+this.TEventElt[mode][ie].id+" style="border:0px; width:'+w+'; height:0"></div>';
 
   mcalDrawRectAbsolute( this.TEventElt[mode][ie].id,
-			this.CalRootElt, 
+			this.calendarId, 
   			x, 
 			this.TEventElt[mode][ie].co.y, 
 			w,
@@ -1057,7 +1050,7 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
 							 this.TEvent[evRef].menu.use,
 							 'contextmenu',
 							 'MCalendar.GHandler',
-							 [ this.CalRootElt, this.TEvent[evRef].id, this.TEvent[evRef].pid, this.TEvent[evRef].rid ] );
+							 [ this.calendarId, this.TEvent[evRef].id, this.TEvent[evRef].pid, this.TEvent[evRef].rid ] );
   }
   return;
 }
@@ -1149,14 +1142,38 @@ function sortRealElt(a,b) {
 // ----------------------------------------------------------------------------
 // ----------------------------------------------------------------------------
 
-MCalendar.prototype.__showDetail = function(event, idev, ridev) {
+MCalendar.prototype.__showDetailTempo = function(event, idev, pidev) {
+  var evcoord = mcalEventXY(event);
+  this.waitDetails = { id:idev, pid:pidev, x:evcoord.x, y:evcoord.y, t:0 };
+  this.waitDetails.t = setTimeout('MCalendar.__showDetail(\''+this.calendarId+'\')', this.detailTimeOut);
+}
+
+MCalendar.__hideDetail = function(ical) {
+  var cal = new MCalendar(ical);
+  if (!cal) return;
+  if (cal.waitDetails.pid!=-1 && cal.waitDetails.t!=-1) {
+    clearTimeout(cal.waitDetails.t);
+    var ridev = '_evc_'+cal.waitDetails.pid;
+    cal.waitDetails = { id:-1, pid:-1, x:0, y:0, t:-1 };
+    if (document.getElementById(ridev)) {
+      document.getElementById(ridev).style.display = 'none';
+    }
+  }
+}
+
+MCalendar.__showDetail = function(ical) {
+
+  var cal = new MCalendar(ical);
+  if (!cal) return;
+
+  if (cal.waitDetails.pid==-1) return;
+  var ridev = '_evc_'+cal.waitDetails.pid;
 
   if (document.getElementById(ridev)) {
     var vev = document.getElementById(ridev);
-    var evcoord = mcalEventXY(event);
     with (vev) {
-      style.left = evcoord.x - 20;
-      style.top = evcoord.y - 20;
+      style.left =  cal.waitDetails.x + 20;
+      style.top = cal.waitDetails.y + 20;
       style.display = '';
     }
   } else {
@@ -1167,8 +1184,8 @@ MCalendar.prototype.__showDetail = function(event, idev, ridev) {
     } catch (e) {
       rq = new ActiveXObject("Msxml2.XMLHTTP");
     }
-    rq.instanceName = this.CalRootElt;
-    rq.evcoord = mcalEventXY(event);
+    rq.instanceName = cal.calendarId;
+    rq.evdetails = cal.waitDetails;
     rq.onreadystatechange =  function() {
       if (rq.readyState == 4) {
 	var instance = document.__mcal[rq.instanceName];
@@ -1181,21 +1198,16 @@ MCalendar.prototype.__showDetail = function(event, idev, ridev) {
 		{ id:'background-color', val:'white' },
 		{ id:'cursor', val:'pointer' },	      
 		];
-	    var iattr = [
-		{ id:'onmouseout', val:"setTimeout('document.getElementById(\\'"+ridev+"\\').style.display = \\'none\\'', 2000);" },
-		{ id:'onclick', val:'document.getElementById(\''+ridev+'\').style.display=\'none\'' },
-		{ id:'title', val:'click to close' }
-	      ];
-	    mcalDrawRectAbsolute(ridev, '', rq.evcoord.x-20, rq.evcoord.y-20, 'auto', 'auto', 20000, '', true, rq.responseText, iattr, istyle); 
+	    mcalDrawRectAbsolute(ridev, instance.calendarId, rq.evdetails.x+20, rq.evdetails.y+20, 'auto', 'auto', 20000, '', true, rq.responseText, false, istyle); 
 	  }
 	} else {
 	  mcalShowError("Erreur de communication avec le serveur : "+req.statusText);
 	}
       }
     }
-    this.__waitingServer();
-    var serverreq = mcalParseReq( this.serverMethod['eventcard'], [ 'EVID', 'EVPID' ], [ idev, (idev-1) ]);
-    this.logMessage(serverreq);
+    cal.__waitingServer();
+    var serverreq = mcalParseReq( cal.serverMethod['eventcard'], [ 'EVID', 'EVPID' ], [ cal.waitDetails.id, cal.waitDetails.pid ]);
+    cal.logMessage(serverreq);
     rq.open("GET", serverreq, true);
     rq.send(null);
   }
@@ -1440,7 +1452,7 @@ MCalendar.prototype.Reload = function()
 {
   this.isComputed = false;
   this.__getEvents();
-  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.CalRootElt+'.Reload()', this.refreshDelay);
+  if (this.refreshDelay>0) setTimeout('document.__mcal.'+this.calendarId+'.Reload()', this.refreshDelay);
   return true;
 }
 
@@ -1465,12 +1477,11 @@ MCalendar.GHandler  = function(event, mode, type, action, target, hmode, hparam)
   var calendar = hparam[0];
   var id = hparam[1]
   var pid = hparam[2]
-  var eidcard = hparam[3]
 
   var oparam = new Array;
   for (var ip=3; ip<hparam.length; ip++) oparam[oparam.length] = hparam[ip];
 
-  MCalendar.UserHandler(event, calendar, id, pid, eidcard, mode, action, target, oparam);
+  MCalendar.UserHandler(event, calendar, id, pid, mode, action, target, oparam);
   MCalendar.SystemHandler(event, calendar, id, type);
   return;
 }
@@ -1489,7 +1500,7 @@ MCalendar.SystemHandler  = function(event, calendar, eid, type ) {
   }
 }
 
-  MCalendar.UserHandler = function(event, calendar, eid, epid, eidcard, type, action, target, oparam ) {
+  MCalendar.UserHandler = function(event, calendar, eid, epid, type, action, target, oparam ) {
   if (!action && action=='') return false;
 
   var cal = new MCalendar(calendar);
@@ -1498,7 +1509,6 @@ MCalendar.SystemHandler  = function(event, calendar, eid, type ) {
   switch (parseInt(type)) {
 
   case 0:
-    cal.__showDetail(event, eid, eidcard);   
     break;
 
   case 1: // Create new window....
@@ -1506,7 +1516,7 @@ MCalendar.SystemHandler  = function(event, calendar, eid, type ) {
     break;
 
   case 2: // JS function call with standard arguments : event, calendar and id
-    eval(pscript)(event, calendar, eid, eidcard, oparam);
+    eval(pscript)(event, calendar, eid, epid, oparam);
     break;
 
   case 3: // Full user spec JS function call

@@ -30,7 +30,6 @@ function mcalEventXY(event) {
   return c;
 }
 
-// mcalSetDisplay(rid, coords.x+4, coords.y, coords.w-10, H-2, 2000);
 mcalSetDisplay = function(eid, x, y, w, h, z) {
   if (document.getElementById(eid)) {
     var elt = document.getElementById(eid)

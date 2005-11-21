@@ -91,6 +91,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_WAITRV", "short_name" =>N_("see the waiting rv"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_GVIEW", "short_name" =>N_("calendar generic view"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CALENDAR", "short_name" =>N_("calendar view"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_DCAL", "short_name" =>N_("dyn calendar view"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_VIEWEVCARD", "short_name" =>N_("event card"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_VIEW", "short_name" =>N_("calendar view"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTMONTH", "short_name" =>N_("month text"), "toc" => "N", "root" =>"N"),

@@ -89,7 +89,7 @@ var menu = [
 //   { id:'getevents', request:'mcalendar-rep.php?ts=%TS%&te=%TE%&' },
 //   { id:'eventcard', request:'mcalendar_detail.php?id=%EVID%' },
 var sm = [ 
-  { id:'getevents', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&zone=FREEEVENT:XMLEVLIST:T&latest=Y&tmime=text/xml&id=1025&ts=%TS%&te=%TE%&lastrev=%LR%' },
+  { id:'getevents', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&zone=FREEEVENT:XMLEVLIST:T&latest=Y&tmime=text/xml&id=1026&ts=%TS%&te=%TE%&lastrev=%LR%' },
   { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&id=%EVPID%' }  
   ];
 

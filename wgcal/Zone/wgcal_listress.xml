@@ -210,8 +210,8 @@ function updateCalendar() {
       <input type="hidden" value="-1" name="sid">
 </form>
 
-<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
-
+<form id="updatecal" target="wgcal_calendar" name="updatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
+Used version = [IFNOT BetaVersion]Normal[ENDIF BetaVersion][IF BetaVersion]Beta[ENDIF BetaVersion]
 <form id="f_saveress" target="wgcal_hidden" name="saveress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVERESSOURCES"><input id="savelist" name="savelist" type="hidden" value=""></form>
 
 <form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>

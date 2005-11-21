@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.12 2005/11/18 06:19:08 marc Exp $
+ * @version $Id: Method.Event.php,v 1.13 2005/11/21 18:07:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -17,7 +17,8 @@ var $calVShortText  = "FREEEVENT:CALVSHORTTEXT";
 
 var $calPopupMenu = array();
 
-var $evXml =  "FREEEVENT:EVXML";
+var $XmlResume =  "FREEEVENT:XMLRESUME";
+var $XmlHtmlContent =  "FREEEVENT:XMLHTMLCONTENT";
 
 /**
  * return all atomic event found in period between $d1 and $d2 for this event
@@ -56,10 +57,6 @@ function evXml() {
   
 }
 
-function XmlCard() {
-  $this->lay->set("xmlCard", true);
-}
-
 function XmlResume() {
   global $action;
   $this->lay->set("id", $this->id);
@@ -73,16 +70,11 @@ function XmlResume() {
   $dur = ($dur<0 ? -$dur : $dur);
   $this->lay->set("duration", $dur);
   
-  $this->lay->set("evtitle", htmlentities($this->getValue("evt_title")));
-  $this->lay->set("evfamicon", $this->getIcon($this->getValue("evt_icon")));
-  $this->lay->set("evstart", substr($this->getValue("evt_begdate"),0,16));
-  $this->lay->set("evend", substr($this->getValue("evt_enddate"),0,16));
-  
   $style = $this->displayStyles();
   $this->lay->setBlockData("style", $style);
   
-  $content = $this->viewdoc($this->calVResume);
-  $this->lay->set("content", $content);
+  $content = $this->viewdoc($this->XmlHtmlContent);
+  $this->lay->set("content", utf8_encode($this->viewdoc($this->XmlHtmlContent)));
   
   $mref = GetHttpVars("mref");
   $this->lay->set("setRefMenu", false);
@@ -94,7 +86,14 @@ function XmlResume() {
     //     $this->lay->set("menuRef", $mref);
     //     $this->lay->setBlockData("miUse", array());
   }
-  $this->lay->set("xmlResume", true);
+  return;
+}
+
+function XmlHtmlContent() {
+  $this->lay->set("evtitle", $this->getValue("evt_title"));
+  $this->lay->set("evfamicon", $this->getIcon($this->getValue("evt_icon")));
+  $this->lay->set("evstart", substr($this->getValue("evt_begdate"),0,16));
+  $this->lay->set("evend", substr($this->getValue("evt_enddate"),0,16));
   return;
 }
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.7 2005/10/11 15:53:56 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.8 2005/11/21 18:08:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -241,4 +241,10 @@ function getJs2DateField($fdate="") {
     return $r;
   }
   return false;
+}
+
+
+function XmlHtmlContent() {
+  $this->lay->set("id", $this->id);
+  $this->lay->set("title", $this->title);
 }

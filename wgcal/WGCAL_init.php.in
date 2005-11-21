@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.48 2005/11/17 09:44:12 eric Exp $
+// $Id: WGCAL_init.php.in,v 1.49 2005/11/21 18:08:17 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -108,6 +108,7 @@ array(
 "WGCAL_SYNCVERSION" => array("global" => "Y", "val"=>"2.0", "descr"=>N_("Sync Version Needed")),
 "WGCAL_USEDGROUPS" => array("global" => "Y", "val"=>"", "descr"=>N_("used groups")),
 
+"WGCAL_G_USEBETA" => array("global" => "Y", "val"=>"No", "kind"=>"enum(No|Yes)", "descr"=>N_("use beta fonction")),
 
 "VERSION" => "@VERSION@-@RELEASE@",
 "INIT" => "yes"

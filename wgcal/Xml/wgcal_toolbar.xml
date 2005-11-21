@@ -5,7 +5,7 @@
 <form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
 <input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
 
-<form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR"></form>
+<form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
 </div>
 <div style="left:0%;top:0%;" title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0">
