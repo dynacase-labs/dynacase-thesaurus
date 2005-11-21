@@ -20,19 +20,21 @@ oldac=null; newac=null; zdx=1; mx=0; my=0;
 
 function hidebox(id){
 if(w3c){
-d.getElementById(id+'_b').style.display='none';
-d.getElementById(id+'_s').style.display='none';
+  d.getElementById(id+'_c').style.display='none';
+  d.getElementById(id+'_b').style.display='none';
+  d.getElementById(id+'_s').style.display='none';
 }}
 
 function showbox(id){
 if(w3c){
 var bx=d.getElementById(id+'_b');
 var sh=d.getElementById(id+'_s');
-bx.style.display='block';
-sh.style.display='block';
+bx.style.display='';
+sh.style.display='';
 sh.style.zIndex=++zdx;
 bx.style.zIndex=++zdx;
 changez(bx);
+d.getElementById(id+'_c').style.display='';
 }}
 
 function changecontent(id,text){
