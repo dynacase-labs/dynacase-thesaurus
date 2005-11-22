@@ -63,7 +63,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     this.style = document.__mcal[instance].style;
     this.waitDetails = document.__mcal[instance].waitDetails;
     this.detailTimeOut = document.__mcal[instance].detailTimeOut;
-
+    this.allowCookies = document.__mcal[instance].allowCookies;
 
   } else {
 
@@ -84,6 +84,7 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     this.showTitleBar = false;
     this.showNavButton = true;
     this.Title = 'MCalendar (c) Marc &lt;marc.claverie (@) gmail.com&gt;';
+    this.allowCookies = false;
     
     this.serverMethod = Array();
     var ok = false;
@@ -148,12 +149,21 @@ function MCalendar(instance, serverAction, hmenu, style, initTime)
     this.refreshDelay = 0;
     document.__mcal[this.calendarId] = this;
   }
-  this.petitbeurre = new Cookie(document, this.calendarId, (24*365), '/');
-  if (this.petitbeurre.load()) {
-    this.CalShowWeekEnd = (parseInt(this.petitbeurre.viewweekend)==1?true:false);
-    this.CalDaysCount = (parseInt(this.petitbeurre.nbdays)>0?parseInt(this.petitbeurre.nbdays):1);
+
+  if (this.allowCookies) {
+    this.petitbeurre = new Cookie(document, this.calendarId, (24*365), '/');
+    if (this.petitbeurre.load()) {
+      this.CalShowWeekEnd = (parseInt(this.petitbeurre.viewweekend)==1?true:false);
+      this.CalDaysCount = (parseInt(this.petitbeurre.nbdays)>0?parseInt(this.petitbeurre.nbdays):1);
+    }
+  } else {
+    this.petitbeurre = new Object;
+    this.petitbeurre.viewweekend = (this.CalShowWeekEnd?1:0);
+    this.petitbeurre.nbdays = this.CalDaysCount;
   }
+
   this.reloadEvent = true;
+
 }
 
 
@@ -358,7 +368,7 @@ MCalendar.prototype.__getEvents = function()  {
 	      if (actions[0].getAttribute("amode")) amode = actions[0].getAttribute("amode");
 	      if (actions[0].getAttribute("aevent")) aevent = actions[0].getAttribute("aevent");
 	      if (actions[0].getAttribute("atarget")) atarget = actions[0].getAttribute("atarget");
-	      if (actions[0].getAttribute("ascript")) ascript = actions[0].getAttribute("ascript");
+	      if (actions[0].getUnderlyingXMLText()) ascript = actions[0].getUnderlyingXMLText();
 	    }
 	    if (!iid) {
 	      instance.__SetZoneInformation('Invalid menu '+mid+' item ('+(it+1)+') : missing mandatory id attribute');
@@ -376,9 +386,9 @@ MCalendar.prototype.__getEvents = function()  {
 		ascript : ascript,
 		aevent  : aevent
 	      };
-	      instance.menus[mid] = new MCalMenu( mid, tmenu, style );
 	    }
 	  }
+	  instance.menus[mid] = new MCalMenu( mid, tmenu, style );
 	}
 		
 	for (var ie=0; ie<events.length; ie++) {
@@ -1046,7 +1056,8 @@ MCalendar.prototype.__displayEventElt = function(mode, ie)
 			evAttr, evStyle);
   
   if (usemenu) {
-    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id, 0, 0,
+    this.menus[this.TEvent[evRef].menu.ref].attachToElt( this.TEventElt[mode][ie].id, 
+							 0, 0,
 							 this.TEvent[evRef].menu.use,
 							 'contextmenu',
 							 'MCalendar.GHandler',
@@ -1368,7 +1379,7 @@ MCalendar.prototype.OneTwoWeek = function()
 {
   this.logMessage('Bascule 1/2 semaines');  
   this.petitbeurre.nbweek = (this.petitbeurre.nbweek==1?2:1);
-  this.petitbeurre.store();
+  if (this.allowCookies) this.petitbeurre.store();
   this.viewXDays(this.petitbeurre.nbweek*7);
 }
 
@@ -1377,7 +1388,7 @@ MCalendar.prototype.viewXDays = function(x)
   if (x==this.CalDaysCount) return;
   this.CalDaysCount = x;
   this.petitbeurre.nbdays = this.CalDaysCount;
-  this.petitbeurre.store();
+  if (this.allowCookies) this.petitbeurre.store();
   this.isComputed = false;
   this.__display();
   this.reloadEvent = true;
@@ -1431,7 +1442,7 @@ MCalendar.prototype.ShowHideWeekEnd = function()
   this.logMessage('Bascule de l\'affichage des journées de week-end');  
   this.CalShowWeekEnd = (this.CalShowWeekEnd?false:true);
   this.petitbeurre.viewweekend = (this.CalShowWeekEnd?1:0);
-  this.petitbeurre.store();
+  if (this.allowCookies) this.petitbeurre.store();
   this.isComputed = false;
   this.__display();
   this.__displayEvents();

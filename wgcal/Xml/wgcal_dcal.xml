@@ -1,0 +1,35 @@
+<html>
+<head>
+[CSS:REF]
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]" >
+[JS:REF]
+</head>
+<body>
+<div id="rcalendar[id]" style="top:0px; left:0px; width:95%; height:90%; position:absolute"></div>
+<script type="text/javascript">
+
+var menu = [
+    { id:'newevent', label:'a cette heure', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=0&ts=%TS%\');' },
+    { id:'newevent', label:'sans heure', desc:'Nouveau rendez-vous, sans heure', status:2, type:1,
+      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?&sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=1\');' },
+    ];
+
+var sm = [ 
+  { id:'getevents', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&zone=FREEEVENT:XMLEVLIST:T&latest=Y&tmime=text/xml&id=[id]&ts=%TS%&te=%TE%&lastrev=%LR%' },
+  { id:'eventcard', request:'/freedom/index.php?sole=Y&&app=FDL&action=VIEWSCARD&id=%EVPID%' }  
+  ];
+
+var cal = new MCalendar('rcalendar[id]', sm, menu, false, [startTime]);
+
+cal.CalHoursPerDay = [hoursPerDay];
+cal.CalHourDivision = [hourDiv];
+// cal.refreshDelay = (60*1000);
+
+cal.Display();
+
+</script>
+</body>
+</html>

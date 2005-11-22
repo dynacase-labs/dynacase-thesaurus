@@ -267,7 +267,7 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
   // Compute menu real size
   var rh = 0;
   for (var num=0; num<this.menuItem.length; num++ ) {    
-    if (items[num]!=0) this.menuItem[num].typerh += h[this.menuItem[num].type] + 2;
+    if (items[num]!=-1) this.menuItem[num].typerh += h[this.menuItem[num].type] + 2;
   }
   // correct position the menu according to available space
   var ww = getFrameWidth();
@@ -280,7 +280,7 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
   
   for (var num=0; num<this.menuItem.length; num++ ) {
     
-    if (items[num]==0) {
+    if (items[num]==-1) {
       
       // hidden...
 

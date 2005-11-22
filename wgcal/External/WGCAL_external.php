@@ -157,6 +157,11 @@ function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
   return $r;
 }
 
-
+function  WGCalUParam($pname, $def="", $uid=-1) {
+  global $action;
+  $uid = ($uid==-1 ? $action->user->id : $uid);
+  $r = $action->parent->param->getUParam($pname, $uid, $action->parent->GetIdFromName("WGCAL"));
+  return ($r=="" ? $def : $r);
+}
 
 ?>

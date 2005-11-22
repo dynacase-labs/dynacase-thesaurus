@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.13 2005/11/21 18:07:05 marc Exp $
+ * @version $Id: Method.Event.php,v 1.14 2005/11/22 17:25:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -45,18 +45,6 @@ function getEventIcon() {
   return "";
 }
 
-function evXml() {
-
-  $view = GetHttpVars("vxml", "R");
-  $this->lay->set("xmlResume", true);
-  $this->lay->set("xmlCard", true);
-  switch ($view) {
-  case "C": $this->XmlCard(); break;
-  default: $this->XmlResume();
-  }
-  
-}
-
 function XmlResume() {
   global $action;
   $this->lay->set("id", $this->id);
@@ -73,19 +61,15 @@ function XmlResume() {
   $style = $this->displayStyles();
   $this->lay->setBlockData("style", $style);
   
-  $content = $this->viewdoc($this->XmlHtmlContent);
   $this->lay->set("content", utf8_encode($this->viewdoc($this->XmlHtmlContent)));
   
   $mref = GetHttpVars("mref");
   $this->lay->set("setRefMenu", false);
   
   $this->lay->setBlockData("miUse", array());
-  $this->lay->set("menuRef", $mref);
-  if ($mref!=="") {
-    //     $this->lay->set("hasMenu", true);
-    //     $this->lay->set("menuRef", $mref);
-    //     $this->lay->setBlockData("miUse", array());
-  }
+
+  $this->setMenuRef();
+
   return;
 }
 
@@ -101,7 +85,13 @@ function XmlHtmlContent() {
 function displayMode() {
   return 1;
 }
+
 function displayStyles() {
   return array( array("sid" => "color", "sval" => "green"), array("sid" => "background-color", "sval" => "white"));
 }
+
+function setMenuRef() {
+  $this->set("setRefMenu", false);
+}
+
 ?>

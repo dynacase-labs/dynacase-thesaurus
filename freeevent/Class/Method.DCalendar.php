@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.34 2005/11/21 18:07:05 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.35 2005/11/22 17:25:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -344,6 +344,10 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
 
   $this->lay->set("uptime", time());
 
+
+  $evmenu = array();
+  $items = array();
+
   $filter[] = "revdate>=".$lastrev;
 
   if ($lastrev>0) $this->setValue("se_trash","also");
@@ -351,6 +355,10 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
   foreach ($tevt as $k=>$v) {
     $ev = getDocObject($this->dbaccess, $v);
     $evt[count($evt)]["cevent"] = $ev->viewdoc($ev->XmlResume);
+    if (!isset($evmenu[$ev->fromid]) && isset($ev->XmlMenuDef)) {
+      $evmenu[$ev->fromid]["famid"] = $ev->fromid;
+      $items[$ev->fromid] = utf8_encode($ev->XmlMenuDef);
+    }
   }
 
   $this->lay->set("fstart", $sd1);
@@ -359,8 +367,10 @@ function XmlEvList($target="finfo",$ulink=true,$abstract="N") {
   $this->lay->set("end", $d2);
   $this->lay->setBlockData("EVENTS", $evt);
 
-  $this->lay->set("withMenu", false);
-
+  $this->lay->setBlockData("MENUS", $evmenu);
+  foreach ($evmenu as $k => $v) {
+    $this->lay->setBlockData("MITEMS$k", $items[$k]);
+  }
   return;
 }
 ?>

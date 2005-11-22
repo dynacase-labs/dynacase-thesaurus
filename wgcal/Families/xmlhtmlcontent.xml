@@ -1,0 +1,5 @@
+[IF headSet]<div id="evth[id]" style="border:0px; background-color:[evglobalstate];border-top-width:3px;  border-top-style:solid; border-top-color:[evglobalstate]; "></div>[ENDIF headSet]
+<div id="evta[id]" style="background-color:[bgresumecolor]; border:1px solid [borderColor]; height:100%; width:100%; color:[textcolor]; text-transform:lowercase;">
+[BLOCK icons]<img style="border:0px" src="[iconsrc]" width="15"/>[ENDBLOCK icons]
+[title]
+</div>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.8 2005/11/21 18:08:17 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.9 2005/11/22 17:25:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -243,8 +243,161 @@ function getJs2DateField($fdate="") {
   return false;
 }
 
+/*
+ * Xml production
+ *
+ */
+
+
+var $XmlHtmlContent =  "WGCAL:XMLHTMLCONTENT";
+
+var $XmlMenuDef = array(
+			array( "item" => "accept", 
+			       "status"=>2, 
+			       "type"=>1, 
+			       "icon"=>"[IMG:wm-evaccept.gif]",
+			       "label" => "[TEXT:accept this]", 
+			       "descr" => "[TEXT:accept this]",
+			       "actionmode" => 1, 
+			       "actionevent" => 0, 
+			       "actiontarget" => "wwwww", 
+			       "action" => "[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVID%")
+			);
 
 function XmlHtmlContent() {
+
+  include_once("EXTERNALS/WGCAL_external.php");
+  global $action;
+
   $this->lay->set("id", $this->id);
   $this->lay->set("title", $this->title);
+
+  $medisplayed = $this->isDisplayed($action->user->fid);
+  $myst = $this->myState();
+
+  //echo "[".$this->title."] Displayed : ".($medisplayed?"true":"false")." St $myst<br>";
+
+  $this->lay->set("headSet", false);
+  if (count($this->getTValue("evfc_listattid"))>1) {
+    if ($myst!=-99) {
+      $this->lay->set("headSet", true);
+      $this->lay->set("evglobalstate", WGCalGetColorState($myst));
+    }
+  }
+
+  $color = '';
+  if ($color=='' && $medisplayed && $myst!=-99) $color = $this->getUColor($action->user->fid);
+  if ($color=='' && $this->getValue("evt_idcreator")!=$action->user->fid && $this->isDisplayed($this->getValue("evt_idcreator"))) $color = $this->getUColor($this->getValue("evt_idcreator"));
+  if ($color=="") $color = $this->getUColor($this->getUFirstDisplayed());
+
+
+  $this->lay->set("bgresumecolor", $color);
+  $this->lay->set("textcolor", "black");
+  $this->lay->set("borderColor",$color);
+
+  $this->lay->setBlockData("icons", $this->getIcons());
 }
+
+function  isDisplayed($fid) {
+  global $action;
+  $r = $action->parent->param->getUParam("WGCAL_U_RESSDISPLAYED", $action->user->id, $action->parent->GetIdFromName("WGCAL"));
+  $dcals = explode("|", $r);
+  if (count($dcals)>0) {
+    foreach ($dcals as $k => $v) {
+      if ($v=="") continue;
+      $tc = explode("%", $v);
+      if ($tc[0]==$fid && $tc[1]==1) return true;
+    } 
+  }
+  return false;
+}
+
+function getUFirstDisplayed() {
+  global $action;
+  $r = $action->parent->param->getUParam("WGCAL_U_RESSDISPLAYED", $action->user->id, $action->parent->GetIdFromName("WGCAL"));
+  $dcals = explode("|", $r);
+  if (count($dcals)>0) {
+    foreach ($dcals as $k => $v) {
+      if ($v=="") continue;
+      $tc = explode("%", $v);
+      if ($tc[1]==1) return $tc[0];
+    } 
+  }
+  return -1;
+}
+function getUColor($ufid) {
+  global $action;
+  $r = $action->parent->param->getUParam("WGCAL_U_RESSDISPLAYED", $action->user->id, $action->parent->GetIdFromName("WGCAL"));
+  $dcals = explode("|", $r);
+  if (count($dcals)>0) {
+    foreach ($dcals as $k => $v) {
+      if ($v=="") continue;
+      $tc = explode("%", $v);
+      if ($tc[0]==$ufid) return $tc[2];
+    } 
+  }
+  return "";
+}
+
+function getIcons() {
+  global $action;
+  $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
+				      "icontitle" => _("icon text confidential event") ),
+		   "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), 
+				     "icontitle" => _("icon text invitation") ),
+		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
+					"icontitle" => _("icon text visibility private") ),
+		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
+				       "icontitle" => _("icon text visibility group") ),
+		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
+				      "icontitle" => _("icon text repeat event") ),
+		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), 
+					   "icontitle" => _("icon text private calendar") ),
+		   "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
+				     "icontitle" => _("icon text alarm") ),
+		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
+				     "icontitle" => _("icon text with attendees") ));
+
+  $icons = array();
+  if ($action->parent->param->getUParam("WGCAL_U_RESUMEICON", $action->user->id, $action->parent->GetIdFromName("WGCAL"))==1) {
+    if ($this->isConfidential())  $icons[] = $ricons["CONFID"];
+    else {
+      if ($this->getValue("EVFC_CALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
+      if ($this->getValue("EVFC_VISIBILITY") == 1)  $icons[] = $ricons["VIS_PRIV"];
+      if ($this->getValue("EVFC_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
+      if ($this->getValue("EVFC_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
+      if ((count($this->getTValue("EVFC_LISTATTID"))>1))  $icons[] = $ricons["GROUP"];
+    }
+  }
+  return $icons;
+}
+
+function myState() {
+  global $action;
+  $attid = $this->getTValue("evfc_listattid");
+  $attst = $this->getTValue("evfc_listattst");
+  foreach ($attid as $k => $v) {
+    if ($action->user->fid == $v) return $attst[$k];
+  }
+  return -99;
+}
+
+
+function setEventMenu() {
+  global $action;
+  $lay = new Layout(getLayoutFile("WGCAL","xmleventpopup.xml"), $action);
+  
+  $lay->set("famid", $this->getValue("fromid"));
+  $lay->set("popupIcon", ($action->parent->param->getUParam("WGCAL_U_ICONPOPUP", $action->user->id, $action->parent->GetIdFromName("WGCAL"))==1));
+  $lay->set("action", utf8_encode(htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVID%")));
+  return $lay->gen();
+  
+}
+    
+
+function setMenuRef() {
+  $this->lay->set("setRefMenu", true);
+  $this->lay->set("menuref", "evt_menu_".$this->getValue("fromid"));
+  $this->lay->setBlockData("miUse", array());
+}
+
