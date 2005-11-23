@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.62 2005/10/07 12:40:59 eric Exp $
+ * @version $Id: viewcard.php,v 1.63 2005/11/23 14:01:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,20 +81,37 @@ function viewcard(&$action) {
 	     "FDL_CONFIDENTIAL&id=".$doc->id);
   }
 
-  if (($vid != "") && ($doc->cvid > 0)) {
+  if ($doc->cvid > 0) {
     // special controlled view
     $cvdoc= new_Doc($dbaccess, $doc->cvid);
     $cvdoc->set($doc);
-    
-    $err = $cvdoc->control($vid); // control special view
-    if ($err != "") $action->exitError($err);
-  
-
-    $tview = $cvdoc->getView($vid);
-    $doc->setMask($tview["CV_MSKID"]);
-    if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+    if ($vid != "") {    
+      $err = $cvdoc->control($vid); // control special view
+      if ($err != "") $action->exitError($err);  
+    } else  {
+      // search preferred view	
+      $tv=$cvdoc->getAValues("CV_T_VIEWS");
+      // sort
+      usort($tv,"cmp_cvorder3");
+      foreach ($tv as $k=>$v) {
+	if ($v["cv_order"]>0) {
+	  if ($v["cv_kview"]=="VCONS") {
+	    $err = $cvdoc->control($v["cv_idview"]); // control special view
+	    if ($err == "") {
+	      $vid=$v["cv_idview"];
+	      setHttpVar("vid",$vid);
+	      break;
+	    }
+	  }
+	}
+      }      
+    } 
+    if ($vid != "") {
+      $tview = $cvdoc->getView($vid);
+      $doc->setMask($tview["CV_MSKID"]);
+      if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+    }
   }
-
   // set emblem
   if ($doc->confidential >0) $action->lay->set("emblem", $action->getImageUrl("confidential.gif"));
   else if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
@@ -209,8 +226,7 @@ function viewcard(&$action) {
     $action->lay->Set("cview", _("no view control"));
     $action->lay->Set("displaylcv", "none");
     $action->lay->Set("displaycv", "");
-  } else {
-    $cvdoc = new_Doc($dbaccess, abs($doc->cvid));
+  } else {    
     $action->lay->Set("cview", $cvdoc->title);
     $action->lay->Set("cvid", $cvdoc->id);
     $action->lay->Set("displaylcv", "");
@@ -287,4 +303,10 @@ function viewcard(&$action) {
 }
 
 
+function cmp_cvorder3($a, $b) {
+   if ($a["cv_order"] == $b["cv_order"]) {
+       return 0;
+   }
+   return ($a["cv_order"] < $b["cv_order"]) ? -1 : 1;
+}
 ?>
