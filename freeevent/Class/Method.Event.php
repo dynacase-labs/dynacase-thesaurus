@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.14 2005/11/22 17:25:21 marc Exp $
+ * @version $Id: Method.Event.php,v 1.15 2005/11/23 19:19:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -63,12 +63,14 @@ function XmlResume() {
   
   $this->lay->set("content", utf8_encode($this->viewdoc($this->XmlHtmlContent)));
   
-  $mref = GetHttpVars("mref");
-  $this->lay->set("setRefMenu", false);
   
-  $this->lay->setBlockData("miUse", array());
-
-  $this->setMenuRef();
+  $this->lay->set("menuref", $this->fromid);
+  $mref = $this->setMenuRef();
+  if (count($mref)>0) 
+    $this->lay->setBlockData("miUse", implode(",",$mref));
+  else 
+    $this->lay->setBlockData("miUse", "");
+  $this->lay->set("setRefMenu", true);
 
   return;
 }
@@ -90,8 +92,12 @@ function displayStyles() {
   return array( array("sid" => "color", "sval" => "green"), array("sid" => "background-color", "sval" => "white"));
 }
 
+function setEventMenu() {
+  return array();
+}
+
 function setMenuRef() {
-  $this->set("setRefMenu", false);
+  return array();
 }
 
 ?>

@@ -368,7 +368,7 @@ MCalendar.prototype.__getEvents = function()  {
 	      if (actions[0].getAttribute("amode")) amode = actions[0].getAttribute("amode");
 	      if (actions[0].getAttribute("aevent")) aevent = actions[0].getAttribute("aevent");
 	      if (actions[0].getAttribute("atarget")) atarget = actions[0].getAttribute("atarget");
-	      if (actions[0].getUnderlyingXMLText()) ascript = actions[0].getUnderlyingXMLText();
+	      if (actions[0].getText()) ascript = actions[0].getText();
 	    }
 	    if (!iid) {
 	      instance.__SetZoneInformation('Invalid menu '+mid+' item ('+(it+1)+') : missing mandatory id attribute');

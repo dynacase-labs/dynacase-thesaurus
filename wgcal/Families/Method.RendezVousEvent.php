@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.9 2005/11/22 17:25:30 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.10 2005/11/23 19:18:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -14,15 +14,6 @@ var $calVCard       = "WGCAL:CALEV_CARD";
 var $calVLongText   = "WGCAL:CALEV_VIEWLTEXT";
 var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
 
-var $calPopupMenu = array( 
-       "acceptrv" => array( "label" => "accept this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>2)),
-       "rejectrv" => array( "label" => "reject this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>3)),
-       "tbcrv" => array( "label" => "to be confirm this", "app"=>"WGCAL", "action"=>"WGCAL_SETEVENTSTATE", "params" => array("st"=>4)),
-       "editrv" => array( "label" => "edit this", "app"=>"WGCAL", "action"=>"WGCAL_EDITEVENT"),
-       "viewrv" => array( "label" => "view this", "app"=>"WGCAL", "action"=>"WGCAL_VIEWEVENT"),
-       "deleterv" => array( "label" => "delete this", "app"=>"WGCAL", "action"=>"WGCAL_DELETEEVENT"),
-       "historyrv" => array( "label"=> "delete this", "app"=>"WGCAL", "action"=>"WGCAL_HISTO")  
-       );		    
 
 function explodeEvt($d1, $d2) {
   include_once("FDL/Lib.Util.php");  
@@ -251,18 +242,6 @@ function getJs2DateField($fdate="") {
 
 var $XmlHtmlContent =  "WGCAL:XMLHTMLCONTENT";
 
-var $XmlMenuDef = array(
-			array( "item" => "accept", 
-			       "status"=>2, 
-			       "type"=>1, 
-			       "icon"=>"[IMG:wm-evaccept.gif]",
-			       "label" => "[TEXT:accept this]", 
-			       "descr" => "[TEXT:accept this]",
-			       "actionmode" => 1, 
-			       "actionevent" => 0, 
-			       "actiontarget" => "wwwww", 
-			       "action" => "[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVID%")
-			);
 
 function XmlHtmlContent() {
 
@@ -385,19 +364,97 @@ function myState() {
 
 function setEventMenu() {
   global $action;
-  $lay = new Layout(getLayoutFile("WGCAL","xmleventpopup.xml"), $action);
-  
-  $lay->set("famid", $this->getValue("fromid"));
-  $lay->set("popupIcon", ($action->parent->param->getUParam("WGCAL_U_ICONPOPUP", $action->user->id, $action->parent->GetIdFromName("WGCAL"))==1));
-  $lay->set("action", utf8_encode(htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVID%")));
-  return $lay->gen();
+  $url = htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVID%");
+  $pico = ($action->parent->param->getUParam("WGCAL_U_ICONPOPUP", $action->user->id, $action->parent->GetIdFromName("WGCAL"))==1);
+  $menu = array(
+		array( "item" => "accept", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evaccept.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:accept this]", "descr" => "[TEXT:accept this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=2&id=%EVPID%") ),
+		array( "item" => "reject", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evrefuse.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:reject this]", "descr" => "[TEXT:reject this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=3&id=%EVPID%") ),
+		array( "item" => "tbcrv", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evconfirm.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:to be confirm this]", "descr" => "[TEXT:to be confirm this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&st=4&id=%EVPID%") ),
+		array( "item" => "sep1", "status"=>2, "type"=>2, "popupIcon" => false),
+		array( "item" => "view", 
+		       "status"=>2, 
+		       "type"=>1, 
+		       "icon"=>"[IMG:wm-evview.gif]",
+		       "label" => "[TEXT:view this]", 
+		       "descr" => "[TEXT:view this]",
+		       "actionmode" => 1, 
+		       "actionevent" => 0, 
+		       "actiontarget" => "EditCalendarEvent", 
+		       "action" => htmlentities("[CORE_STANDURL]app=FDL&action=IMPCARD&id=%EVPID%"),
+		       "popupIcon" => $pico ),
+		array( "item" => "edit", 
+		       "status"=>2, 
+		       "type"=>1, 
+		       "icon"=>"[IMG:wm-evedit.gif]",
+		       "label" => "[TEXT:edit this]", 
+		       "descr" => "[TEXT:edit this]",
+		       "actionmode" => 3, 
+		       "actionevent" => 0, 
+		       "actiontarget" => "EditCalendarEvent", 
+		       "action" => htmlentities("subwindow(400,600,'rvedit','[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&id=%EVPID%')"),
+		       "popupIcon" => $pico ),
+		array( "item" => "deloccur", 
+		       "status"=>2, 
+		       "type"=>1, 
+		       "icon"=>"[IMG:wm-deloccur.gif]",
+		       "label" => "[TEXT:delete this occurence]", 
+		       "descr" => "[TEXT:delete this occurence]",
+		       "actionmode" => 1, 
+		       "actionevent" => 0, 
+		       "actiontarget" => "EditCalendarEvent", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_DELOCCUR&id=%EVPID%&evocc=%TS%"),
+		       "popupIcon" => $pico ),
+		array( "item" => "delete", 
+		       "status"=>2, 
+		       "type"=>1, 
+		       "icon"=>"[IMG:wm-evdelete.gif]",
+		       "label" => "[TEXT:delete this]", 
+		       "descr" => "[TEXT:delete this]",
+		       "actionmode" => 1, 
+		       "actionevent" => 0, 
+		       "actiontarget" => "EditCalendarEvent", 
+		       "action" => htmlentities("[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT&id=%EVPID%"),
+		       "popupIcon" => $pico ),
+		array( "item" => "history", 
+		       "status"=>2, 
+		       "type"=>1, 
+		       "icon"=>"[IMG:wm-evhistory.gif]",
+		       "label" => "[TEXT:history]", 
+		       "descr" => "[TEXT:history]",
+		       "actionmode" => 3, 
+		       "actionevent" => 0, 
+		       "actiontarget" => "EditCalendarEvent", 
+		       "action" => htmlentities("subwindow(200,450,'rvhisto','[CORE_STANDURL]&app=WGCAL&action=WGCAL_HISTO&id=%EVPID%')"),
+		       "popupIcon" => $pico ),
+		array( "item" => "dactions", "status"=>2, "type"=>0, "label" => "[TEXT:Delegation]", "popupIcon" => false),
+		array( "item" => "daccept", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evaccept.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:accept this]", "descr" => "[TEXT:accept this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&owner=1&st=2&id=%EVPID%") ),
+		array( "item" => "reject", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evrefuse.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:reject this]", "descr" => "[TEXT:reject this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&owner=1&st=3&id=%EVPID%") ),
+		array( "item" => "tbcrv", "status"=>2, "type"=>1, "icon"=>"[IMG:wm-evconfirm.gif]", "popupIcon" => $pico,
+		       "label" => "[TEXT:to be confirm this]", "descr" => "[TEXT:to be confirm this]",
+		       "actionmode" => 1, "actionevent" => 0, "actiontarget" => "wwwww", 
+		       "action" => htmlentities("[CORE_STANDURL]app=WGCAL&action=WGCAL_SETEVENTSTATE&owner=1&st=4&id=%EVPID%") ),
+		);
+  return $menu;
   
 }
     
 
 function setMenuRef() {
-  $this->lay->set("setRefMenu", true);
-  $this->lay->set("menuref", "evt_menu_".$this->getValue("fromid"));
-  $this->lay->setBlockData("miUse", array());
+  return array();
 }
 

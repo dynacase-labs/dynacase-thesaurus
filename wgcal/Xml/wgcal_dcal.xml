@@ -9,11 +9,12 @@
 <script type="text/javascript">
 
 var menu = [
+    { id:'tevent', label:'Rendez-vous', desc:'', icon:'Images/mcalendar-new.gif', status:2, type:0 },
     { id:'newevent', label:'a cette heure', desc:'Nouveau rendez-vous, heure courante', status:2, type:1,
-      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      onmouse:'', amode:3, aevent:1, 
       atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=0&ts=%TS%\');' },
     { id:'newevent', label:'sans heure', desc:'Nouveau rendez-vous, sans heure', status:2, type:1,
-      icon:'Images/mcalendar-new.gif', onmouse:'', amode:3, aevent:1, 
+      onmouse:'', amode:3, aevent:1, 
       atarget:'editevent', ascript:'subwindow(400, 700, \'editEvent\', \'/freedom/?&sole=Y&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh=1\');' },
     ];
 

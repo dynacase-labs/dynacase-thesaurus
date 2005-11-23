@@ -18,10 +18,10 @@
 [BLOCK MENUS]
 <menu id="evt_menu_[famid]">
 [BLOCK MITEMS[famid]]
-<item id="evt_menu_[famid]_[item]" status="[status]" type="[type]" [IF popupIcon]icon="[icon]"[ENDIF popupIcon]>
+<item id="[item]" status="[status]" type="[type]" [IF popupIcon]icon="[icon]"[ENDIF popupIcon]>
   <label>[label]</label><description>[descr]</description>
   <action aid="evt_menu_[famid]_[item]" amode="[actionmode]" aevent="[actionevent]" atarget="[actiontarget]">[action]</action>
-</item>[BLOCK MITEMS[famid]]
+</item>[ENDBLOCK MITEMS[famid]]
 </menu>[ENDBLOCK MENUS]
 [BLOCK EVENTS][cevent]
 [ENDBLOCK EVENTS]

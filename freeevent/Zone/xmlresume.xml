@@ -1,4 +1,4 @@
-<event id="[id]" pid="[pid]"  revstatus="[revstatus]" revdate="[revdate]" dmode="[displaymode]" time="[time]" duration="[duration]">[IF setRefMenu]<menuref id="[menuref]" use="[BLOCK miUse][itemState],[ENDBLOCK miUse]"/>[ENDIF setRefMenu]
+<event id="[id]" pid="[pid]"  revstatus="[revstatus]" revdate="[revdate]" dmode="[displaymode]" time="[time]" duration="[duration]">[IF setRefMenu]<menuref id="evt_menu_[menuref]" use="[BLOCK miUse][itemState],[ENDBLOCK miUse]"/>[ENDIF setRefMenu]
 <title>[title]</title><content>
 <styleinfo>[BLOCK style]<style id="[sid]" val="[sval]"/>[ENDBLOCK style]</styleinfo>
 <chtml>[content]</chtml>

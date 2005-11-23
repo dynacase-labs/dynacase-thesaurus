@@ -762,20 +762,15 @@ function EventSetDate($dstart, $dend, $type, $ro)
   else $this->lay->set("HVISIBLE", "visible");
   
   
-  $start_y = gmdate("Y", $dstart);
-  $start_m = gmdate("m", $dstart);
-  $start_d = gmdate("d", $dstart);
-  $lstart = gmmktime(0,0,0,$start_m,$start_d,$start_y);
-  $this->lay->set("START", $lstart);
-  $this->lay->set("mSTART", $lstart*1000);
-  $this->lay->set("STARTREAD", w_strftime($lstart, WD_FMT_DAYFTEXT));
-  $this->lay->set("H_START", gmdate("H", $dstart));
+  $start_H = strftime("%H", $dstart);
+  $start_M = strftime("%M", $dstart);
+  $this->lay->set("START", ($dstart*1000));
+  $this->lay->set("STARTREAD", ucwords(strftime("%A %d %b %Y", $dstart)));
   $th = array();
-//   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
-   for ($h=0; $h<24; $h++) {
+  for ($h=0; $h<24; $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
-    $th[$h]["optselect"] = ($h==gmdate("H", $dstart)?"selected":"");
+    $th[$h]["optselect"] = ($h==$start_H?"selected":"");
   }
   $this->lay->setBlockData("SHSEL", $th);
   $th = array();
@@ -783,36 +778,26 @@ function EventSetDate($dstart, $dend, $type, $ro)
   for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
-    $minu = gmdate("i", $dstart);
-    $th[$h]["optselect"] = ( $h >= $minu && $minu < $h+$incm ? "" :  "selected");
+    $th[$h]["optselect"] = ( $h >=$start_M  && $start_M < $h+$incm ? "" :  "selected");
   }
   $this->lay->setBlockData("SHMSEL", $th);
-  $this->lay->set("M_START", gmdate("i", $dstart));
-  $this->lay->set("FSTART", $dstart);
   
-  $end_y = gmdate("Y", $dend);
-  $end_m = gmdate("m", $dend);
-  $end_d = gmdate("d", $dend);
-  $lend = gmmktime(0,0,0,$end_m,$end_d,$end_y);
-  $this->lay->set("END", $lend);
-  $this->lay->set("mEND", $lend*1000);
-  $this->lay->set("ENDREAD", w_strftime($lend, WD_FMT_DAYFTEXT));
-  $this->lay->set("H_END", gmdate("H", $dend));
-  $this->lay->set("M_END", gmdate("i", $dend));
-  $this->lay->set("FEND", $dend);
+  $end_H = strftime("%H", $dend);
+  $end_M = strftime("%M", $dend);
+  $this->lay->set("END", $dend*1000);
+  $this->lay->set("ENDREAD", ucwords(strftime("%A %d %b %Y", $dstart)));
   $th = array();
-//   for ($h=$action->getParam("WGCAL_U_HSUSED",7); $h<$action->getParam("WGCAL_U_HEUSED",19); $h++) {
    for ($h=0; $h<24; $h++) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
-    $th[$h]["optselect"] = ($h==gmdate("H", $dend)?"selected":"");
+    $th[$h]["optselect"] = ($h==$end_H?"selected":"");
   }
   $this->lay->setBlockData("EHSEL", $th);
   $th = array();
   for ($h=0; $h<60; $h+=$this->getWgcalUParam("WGCAL_U_MINCUSED",15)) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
-    $th[$h]["optselect"] = ($h>=gmdate("i", $dend-60) && $h<=gmdate("i", $dend+240)?"selected":"");
+    $th[$h]["optselect"] = ($h>=$end_M && $h<=$end_M?"selected":"");
   }
   $this->lay->setBlockData("EHMSEL", $th);
  

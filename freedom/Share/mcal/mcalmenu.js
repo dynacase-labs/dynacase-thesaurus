@@ -293,9 +293,9 @@ MCalMenu.prototype.__displayMenu = function(xinit, yinit, items) {
       else {
 	itext = '<span style="vertical-align:middle">'+m.label+'</span>';
 	var itico = '';
-	if (this.setIcons && m.type>0) {
-	  if (m.icon && m.icon!='') itico = '<img src="' + m.icon + '" style="vertical-align:middle; border:0; width:16; height:16">&nbsp;';
-	  else itico = '<span style="padding-left:16">&nbsp;</span>';
+	if (this.setIcons) {
+	  if (m.icon && m.icon!='') itico = '<img src="' + m.icon + '" style="vertical-align:middle; border:0; width:12; height:12">&nbsp;';
+	  else itico = '<span style="padding-left:12">&nbsp;</span>';
 	}
 	itext = itico + itext;
       }
