@@ -87,7 +87,7 @@ a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuIte
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
   font-size: 70%;
-  font-weight: medium;
+  font-weight: normal;
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;

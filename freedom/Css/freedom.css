@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.82 2005/11/17 17:07:11 eric Exp $
+ * $Id: freedom.css,v 1.83 2005/11/23 14:02:19 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -196,7 +196,7 @@ TD.und {
 TD.tlist {
    border-width : 1px;
    border-style : dashed none none none;
-   border-color : [CORE_BGCOLOR];
+   border-color : [CORE_FGCOLOR];
 }
 
 DIV.unselect {
@@ -263,7 +263,7 @@ TABLE.tarray  TR TD {
 TABLE.tarray  TR TH {  
   border-width:0px 0px 1px 0px;	 
   background-color:[CORE_BGCOLORALTERN];
-  border-color:[CORE_BGCOLOR];
+  border-color:[CORE_FGCOLOR];
   border-style:none none solid none;
   padding:0px;
   -moz-border-radius:10px;
@@ -296,7 +296,6 @@ TABLE.tablehead {
   color:black;
   cursor: pointer;
   border-style: none;
-  align: center;
 }
 
 .ongleth {
@@ -321,7 +320,6 @@ TABLE.tablehead {
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
-  align: center;
 }
 .ongletvg {
   font-size: 90%;
@@ -330,16 +328,16 @@ TABLE.tablehead {
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
-  align: center;
 }
 .ongletvgie {
   font-size: 90%;
   background-color:[CORE_BGCOLORALTERN];;
-  color:[CORE_TEXTFGCOLOR];  
+  color:[CORE_TEXTFGCOLOR]; 
+[IF ISIE]
   filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');
+[ENDIF ISIE]
   cursor: pointer;
   border-style: none;
-  align: center;
 }
 .ongletvs {
   font-size: 90%;
@@ -354,7 +352,9 @@ TABLE.tablehead {
   font-size: 90%;
   cursor: pointer;
   background-color:[CORE_BGCOLORALTERN];;
+[IF ISIE]
   filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvig.png]',sizingMethod='scale');
+[ENDIF ISIE]
   color:[CORE_TEXTBGCOLOR];
   font-weight: bold;
   border-style: none;
@@ -418,7 +418,7 @@ TR.selhead:hover {
 TR.dash TD {
    border-width : 1px;
    border-style : dashed none none none;
-   border-color : [CORE_BGCOLOR];
+   border-color : [CORE_FGCOLOR];
 }
 
 TR.selecta TD{
@@ -808,8 +808,7 @@ TABLE.reportVGreen {
    DIV.folder  {width:100%;
                 border-style: none;      
                 display:block;
-                cursor: default;
-                position:block;}
+                cursor: default}
 
    .urltext {
       cursor:pointer;
