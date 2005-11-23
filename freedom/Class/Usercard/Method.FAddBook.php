@@ -106,6 +106,7 @@ function menuab(&$ta) {
     if ($k!="editdoc" &&
 	$k!="duplicate" &&
 	$k!="histo" &&
+	$k!="us_vcard" &&
         $k!="delete" ) $ta[$k] = POPUP_INVISIBLE;
   }
   $ta["us_viewagenda"] =  $ta["us_nrendezvous"] = POPUP_INACTIVE;

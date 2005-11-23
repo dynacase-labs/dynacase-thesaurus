@@ -3,13 +3,13 @@
  * Class use to import and export VCARD format with FREEDOM USER Family
  *
  * @author Anakeen 2001
- * @version \$Id: Class.UsercardVcard.php,v 1.15 2003/08/18 15:47:04 eric Exp $
+ * @version \$Id: Class.UsercardVcard.php,v 1.16 2005/11/23 14:04:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
 // ---------------------------------------------------------------
-// $Id: Class.UsercardVcard.php,v 1.15 2003/08/18 15:47:04 eric Exp $
+// $Id: Class.UsercardVcard.php,v 1.16 2005/11/23 14:04:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Usercard/Class.UsercardVcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -84,12 +84,12 @@ Class UsercardVcard
 		      "ADR;HOME;POSTALCODE" => "322",
 		      "ADR;HOME;COUNTRYNAME" => "",
 			
-		      "TEL;WORK" => "US_PHONE",
-		      "TEL;WORK;VOICE" => "US_PHONE",
+		      "TEL;WORK" => "US_PPHONE",
+		      "TEL;WORK;VOICE" => "US_PPHONE",
 		      "TEL;HOME" => "",
 		      "TEL;VOICE" => "",
-		      "TEL;FAX" => "US_FAX",
-		      "TEL;WORK;FAX" => "US_FAX",
+		      "TEL;FAX" => "US_PFAX",
+		      "TEL;WORK;FAX" => "US_PFAX",
 		      "TEL;MSG" => "",
 		      "TEL;CELL" => "US_MOBILE",
 		      "TEL;CELL;VOICE" => "US_MOBILE",
