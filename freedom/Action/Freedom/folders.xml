@@ -87,8 +87,7 @@ function initmicon() {
        /*border-style: inset;*/
        background-color:[CORE_BGCOLORALTERN];
        display:block;
-       cursor: default;
-       position:block;}
+       cursor: default}
 
 
 [CSS:CODE]

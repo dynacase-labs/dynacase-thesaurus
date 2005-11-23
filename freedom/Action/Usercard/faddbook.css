@@ -64,7 +64,6 @@ DIV.fabzone, TR.fabzone TD {
 }
 
 TR.fabheadlist TD {
-  valign:absmiddle;
   background-color: [CORE_BGCOLORALTERN];
   border-style: inset none inset none;
   border-color: [CORE_BGCOLORALTERN];
@@ -343,7 +342,7 @@ A {
   color: [CORE_ERRORCOLOR];
   font-weight: bold;
   padding:20px;
-  background-color:[CORE_BGCOLOR];
+  background:[CORE_BGCOLOR];
 
   border:solid 1px;
   text-align:center;
