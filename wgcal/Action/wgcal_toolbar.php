@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.55 2005/11/21 18:08:17 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.56 2005/11/24 17:29:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -14,7 +14,6 @@
 include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.WGCal.php");
-include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
 include_once('WGCAL/Lib.wTools.php');
 include_once('WGCAL/Lib.Agenda.php');
@@ -58,16 +57,19 @@ function wgcal_toolbar(&$action) {
 
   // Set last outlook syncro date
   $action->lay->set("LSYNC", false);
-  if ($action->getParam("WGCAL_U_OSYNCVDATE",1)) {
-    $action->lay->set("LSYNC", true);
-    $db = WSyncGetAdminDb();
-    $lsync = GetLastSyncDate($db);
-    if ($lsync!="") {
-      $action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
-      $action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
-    } else {
-      $action->lay->set("lastsync", _("no sync made"));
-      $action->lay->set("lsyncstyle", "");
+  if ($action->HasPermission("WGCAL_OSYNC")) {
+    if ($action->getParam("WGCAL_U_OSYNCVDATE",1)) {
+      include_once("osync/Lib.WgcalSync.php");
+      $action->lay->set("LSYNC", true);
+      $db = WSyncGetAdminDb();
+      $lsync = GetLastSyncDate($db);
+      if ($lsync!="") {
+	$action->lay->set("lastsync", substr(WSyncTs2Outlook($lsync),0,16));
+	$action->lay->set("lsyncstyle", ((time()-$lsync)>(24*3600*7)?"color:red":""));
+      } else {
+	$action->lay->set("lastsync", _("no sync made"));
+	$action->lay->set("lsyncstyle", "");
+      }
     }
   }
   

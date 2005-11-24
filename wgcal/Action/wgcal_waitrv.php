@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.6 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.7 2005/11/24 17:29:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,6 @@ include_once("FDL/Class.Doc.php");
 include_once('FDL/Lib.Dir.php');
 include_once('Lib.wTools.php');
 include_once("WGCAL/Lib.wTools.php");
-include_once("osync/Lib.WgcalSync.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
 

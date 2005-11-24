@@ -15,14 +15,19 @@ $app_desc= array (
 $app_acl = array (
   array ( "name" => "WGCAL_ADMIN", "description" => N_("admin access"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_MGR",   "description" => N_("manager"), "group_default"  => "N" ),
-  array ( "name" => "WGCAL_OSYNC", "description" => N_("allow outlook sync."), "group_default"  => "N" ),
   array ( "name" => "WGCAL_VCAL",  "description" => N_("allow to manage calendar visibility"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_USER",  "description" => N_("user access"), "group_default"  => "N" ),
   array ( "name" => "WGCAL_NONE",  "description" => N_("no access"), "group_default"  => "Y" ),
   array ( "name" => "WGCAL_HIDDEN", "description" => N_("invisible"), "group_default"  => "N" )
 );
 
+include_once("Lib.Prefix.php");
+global $pubdir;
 
+if (is_dir("$pubdir/osync")) {
+  $app_acl[]=
+    array ( "name" => "WGCAL_OSYNC", "description" => N_("allow outlook sync."), "group_default"  => "Y" );  
+}
 $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CSS", "layout" => "wgcal.css", "short_name" =>N_("css manager"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MAIN", "short_name" =>N_("main view"), "toc" => "N", "root" =>"Y"),
