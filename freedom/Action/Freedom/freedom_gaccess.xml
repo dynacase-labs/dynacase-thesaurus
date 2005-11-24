@@ -24,7 +24,7 @@ function enablefrom(th) {
 <thead>
 
 <TR >
-<TD colspan="2"class="CORETblHeadCell"><span class="CORETblHead"><B>[title]</B></span></TD>
+<TD colspan="2"class="CORETblHeadCell"><span class="CORETblHeadBold">[title]</span></TD>
  [BLOCK DACLS]<TD class="CORETblHeadCell" align="center" valign="top" title="[acldesc]" style="cursor:help"><span class="CORETblHead">[aclname]</span></TD>
  [ENDBLOCK DACLS]
 </TR>

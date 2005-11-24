@@ -15,11 +15,17 @@
   text-decoration: none;
   z-index:10;
 }
+
+.popup a.menuItem * {
+  color: [CORE_TEXTBGCOLOR];
+}
+
 @media print {
   .popup {
     display:none;
   }
 }
+
 a.menuItem, a.menuItem:link, a.menuItem:visited {
   color: [CORE_TEXTBGCOLOR];
   cursor: default;
@@ -65,20 +71,26 @@ a.separator {
 
 a.separator:hover {
   text-decoration: none;
-  color: [CORE_BGCOLORALTERN];
+  color: [CORE_BGCOLORALTERN]!important;
   background-color: [CORE_FGCOLOR];  
   background-image: [CORE_FGIMGMENU];	
 }
 
-a.menuItem:hover,a.menuItemCtrl:hover  {
-  color: [CORE_TEXTFGCOLOR];
+.popup a.menuItem:hover,.popup a.menuItemCtrl:hover  {
+  color: [CORE_TEXTFGCOLOR]!important;
   background-color: [CORE_BGCOLORALTERN];
   text-decoration: none;	
 }
-a.menuItemDisabled:hover,a.menuItemCtrlDisabled:hover {
-  color: [CORE_BGCOLORALTERN];
+.popup a.menuItemDisabled:hover,.popup a.menuItemCtrlDisabled:hover {
+  color: [CORE_BGCOLORALTERN]!important;
   background-color: [CORE_BGCOLORALTERN];
   text-decoration: none;	
+}
+.popup a.menuItem:hover *,.popup a.menuItemCtrl:hover *  {
+  color: [CORE_TEXTFGCOLOR];
+}
+.popup a.menuItemDisabled:hover *,.popup a.menuItemCtrlDisabled:hover * {
+  color: [CORE_BGCOLORALTERN]	
 }
 
 a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuItemCtrlDisabled,a.menuItemCtrlDisabled:link,a.menuItemCtrlDisabled:visited { 

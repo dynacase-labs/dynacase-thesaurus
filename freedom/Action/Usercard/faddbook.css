@@ -6,12 +6,12 @@ color: [CORE_TEXTFGCOLOR];
 font-size : [CORE_FONTBASESIZE];
 }
 
-TABLE TR TD {
+TABLE.fabtable TR TD {
 padding : 0px;
 margin : 0px;
 font-size : 70%;
 }
-TH {
+TABLE.fabtable TH {
 padding : 0px;
 margin : 0px;
 font-size : 70%;
@@ -282,6 +282,9 @@ DIV.tab {
 }
 TABLE.tab TD {
 	vertical-align:top;
+}
+TABLE.noborder TD {
+	border:none;
 }
 DIV.tabh SPAN  {
   -moz-border-radius: 8 8 0 0;	
