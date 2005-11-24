@@ -1,12 +1,12 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Display Prefered personns
  *
- * @author Anakeen 2000 
- * @version $Id: faddbook_prefered.php,v 1.6 2005/10/12 08:03:33 eric Exp $
+ * @author Anakeen 2005
+ * @version $Id: faddbook_prefered.php,v 1.7 2005/11/24 13:48:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage WGCAL
+ * @subpackage USERCARD
  */
  /**
  */

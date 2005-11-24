@@ -1,4 +1,15 @@
 <?php
+/**
+ * Choose attribute column to display
+ *
+ * @author Anakeen 2005
+ * @version $Id: faddbook_maincols.php,v 1.6 2005/11/24 13:48:17 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 include_once("FDL/Lib.Dir.php");
 
 

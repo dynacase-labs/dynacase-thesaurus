@@ -1,3 +1,16 @@
+<?php
+/**
+ * For test Calendar Widget
+ *
+ * @author Anakeen 2005
+ * @version $Id: mcalendar.php,v 1.13 2005/11/24 13:47:51 eric Exp $
+ * @license http://license.i-cesam.com/license.php
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+?>
 <html>
 
 <head>

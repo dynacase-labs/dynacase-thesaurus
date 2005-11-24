@@ -1,4 +1,15 @@
 <?php
+/**
+ * Adsress book methods for persons
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.FAddBook.php,v 1.13 2005/11/24 13:48:17 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 public $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
 public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:U";
 public $specialmenu=array("menuab");

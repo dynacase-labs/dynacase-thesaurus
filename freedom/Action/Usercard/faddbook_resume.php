@@ -1,4 +1,15 @@
 <?php
+/**
+ * Display thumb person card
+ *
+ * @author Anakeen 2005
+ * @version $Id: faddbook_resume.php,v 1.2 2005/11/24 13:48:17 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 include_once("FDL/freedom_util.php");
 
 function faddbook_resume(&$action) 

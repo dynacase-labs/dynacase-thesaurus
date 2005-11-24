@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * Add a Prefered personns
+ *
+ * @author Anakeen 2005
+ * @version $Id: faddbook_addprefered.php,v 1.5 2005/11/24 13:48:17 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
 function faddbook_addprefered(&$action) {
 
   $cid = GetHttpVars("cid", -1);

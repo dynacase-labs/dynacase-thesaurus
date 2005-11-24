@@ -1,3 +1,16 @@
+<?php
+/**
+ *  Address book methods for societies
+ *
+ * @author Anakeen 2005
+ * @version $Id: Method.FAddBookSociety.php,v 1.6 2005/11/24 13:48:17 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage USERCARD
+ */
+ /**
+ */
+
 var $faddbook_card = "USERCARD:FADDBOOKSOC_CARD:U";
 var $faddbook_resume = "USERCARD:FADDBOOKSOC_RESUME:T";
 
@@ -58,3 +71,4 @@ function faddbooksoc_card($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("HasLogo",($logo!=""));
   
 }
+?>

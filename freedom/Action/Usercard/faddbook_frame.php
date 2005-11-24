@@ -2,11 +2,11 @@
 /**
  * Display main interface for address book
  *
- * @author Anakeen 2000 
- * @version $Id: faddbook_frame.php,v 1.2 2005/10/06 13:18:42 eric Exp $
+ * @author Anakeen 2005 
+ * @version $Id: faddbook_frame.php,v 1.3 2005/11/24 13:48:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage WGCAL
+ * @subpackage USERCARD
  */
  /**
  */
