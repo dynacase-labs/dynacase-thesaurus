@@ -14,89 +14,6 @@ function swstate(s) {
 }
 
 
-function ShowDate(ts) {
-  var da = new Date();
-  da.setTime((parseInt(ts) * 1000));
-  t = da.getUTCHours()+':'+da.getUTCMinutes()+' '+da.getUTCDate()+'/'+parseInt(da.getUTCMonth()+1)+'/'+da.getUTCFullYear();
-  return 'TS : '+ts+' : '+t;
-}
-
-function ComputeTime(id) {
-
-  document.getElementById('tUstart').style.display = 'none';
-  document.getElementById('tUend').style.display = 'none';
-
-  var allday = document.getElementById('allday');
-  var nohour = document.getElementById('nohour');
-
-  var startTime = document.getElementById('Fstart');
-  var endTime = document.getElementById('Fend');
-
-  var textTime = document.getElementById('T'+id);
-  var daysTime = document.getElementById('D'+id);
-  var hourTime = document.getElementById('H'+id);
-  htval = hourTime.options[hourTime.selectedIndex].value;
-  var minuTime = document.getElementById('M'+id);
-  mtval = minuTime.options[minuTime.selectedIndex].value;
-  var fullTime = document.getElementById('F'+id);
-
-  oldtime = fullTime.value;
-  ftime = parseInt(daysTime.value) + (parseInt(htval) * 3600) + (parseInt(mtval) * 60);
-
-  if (!allday.checked && !nohour.checked) {
-    if (id=='start') {
-      var diffT = endTime.value - ftime;
-      if (endTime.value - ftime < 0) {
-	document.getElementById('tUtime').style.display = '';
-	return;
-      }
-    }
-    if (id=='end') {
-      var diffT = ftime - startTime.value;
-      if (ftime - startTime.value< 0) {
-	document.getElementById('tUtime').style.display = '';
-	return;
-      }
-    }
-  }
-
-  fullTime.value = ftime;
-
-  return;
-}
-
-function checkTime() {
-  var startTime = document.getElementById('Fstart');
-  var endTime = document.getElementById('Fend');
-  if (endTime - startTime < 0) return false;
-  return true;
-}
-
-function showtimes() {
-  var start = document.getElementById('Fstart').value;
-  var end = document.getElementById('Fend').value;
-  alert('start='+start+' end='+end);
-}
-
-function UpdateTime(elt, time) {
-
-  var textTime = document.getElementById('T'+elt);
-  var daysTime = document.getElementById('D'+elt);
-  var hourTime = document.getElementById('H'+elt);
-  var minuTime = document.getElementById('M'+elt);
-  var fullTime = document.getElementById('F'+elt);
-
-
-   var da = new Date();
-   uTime = parseInt(time);
-   da.setTime(uTime*1000);
-
-
-   minuTime.value = da.getUTCMinutes();
-   hourTime.value = da.getUTCHours();
-   fullTime.value = da.getTime();
-   daysTime.value = da.getUTCSeconds();
-}
 
 
 function ChangeAlarm() {
@@ -125,7 +42,141 @@ function changeAlarmT() {
   return;
 }
 
+function ComputeDateFromStart() {
 
+  var o_stime = parseInt(document.getElementById('TsStart').value);
+  var od_stime = new Date();
+  od_stime.setTime(o_stime);
+
+  var o_etime = parseInt(document.getElementById('TsEnd').value);
+  var od_etime = new Date();
+  od_etime.setTime(o_etime);
+
+  var tdiff = (o_etime - o_stime);
+
+  // Compute new start time
+  var tsS = parseInt(document.getElementById('DayTsStart').value) * 1000;
+  var hts = new Date();
+  hts.setTime(tsS);
+  var Hstart = parseInt(document.getElementById('Hstart').options[document.getElementById('Hstart').selectedIndex].value);
+  var Mstart = parseInt(document.getElementById('Mstart').options[document.getElementById('Mstart').selectedIndex].value);
+  var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), Hstart, Mstart, 0, 0);
+  var nE = new Date();
+  nE.setTime(nS.getTime() + tdiff);
+
+
+  // Updating all fields....
+  document.getElementById('TsStart').value = nS.getTime();
+  document.getElementById('DayTsStart').value = (nS.getTime() / 1000);
+  document.getElementById('DayStart').innerHTML = nS.print('%a %d %b %Y');
+
+  document.getElementById('TsEnd').value = nE.getTime();
+  document.getElementById('DayTsEnd').value = (nE.getTime() / 1000);
+  document.getElementById('DayEnd').innerHTML = nE.print('%a %d %b %Y');
+  document.getElementById('Hend').selectedIndex = nE.getHours();
+  UpdateEndMinutes(nE.getMinutes());
+  
+}
+
+function UpdateEndMinutes(min) {
+  var init = -1;
+  var sb = document.getElementById('Mend');
+  for (var ib=(sb.options.length-1); ib>=0 && init==-1; ib--) {
+    if (parseInt(min)>=parseInt(sb.options[ib].value)) init=ib;
+  }
+  sb.selectedIndex = init;
+}
+
+function ComputeDateFromEnd() {
+
+  var o_stime = parseInt(document.getElementById('TsStart').value);
+  var od_stime = new Date();
+  od_stime.setTime(o_stime);
+
+  var o_etime = parseInt(document.getElementById('TsEnd').value);
+  var od_etime = new Date();
+  od_etime.setTime(o_etime);
+
+
+  // Compute new old time
+  var tsE = parseInt(document.getElementById('DayTsEnd').value) * 1000;
+  var hte = new Date();
+  hte.setTime(tsE);
+  var Hend = parseInt(document.getElementById('Hend').options[document.getElementById('Hend').selectedIndex].value);
+  var Mend = parseInt(document.getElementById('Mend').options[document.getElementById('Mend').selectedIndex].value);
+  var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
+
+  if (nE.getTime()<=od_stime.getTime()) {
+    alert('La date demandée est antérieure à celle de début');
+    nE.setTime(od_etime.getTime());
+  }
+  document.getElementById('TsEnd').value = nE.getTime();
+  document.getElementById('DayTsEnd').value = (nE.getTime() / 1000);
+  document.getElementById('DayEnd').innerHTML = nE.print('%a %d %b %Y');
+  document.getElementById('Hend').selectedIndex = nE.getHours();
+  UpdateEndMinutes(nE.getMinutes());
+  return;
+}
+
+
+function ShowStartCalendar() {
+  var cts = parseInt(document.getElementById('DayTsStart').value)*1000;
+  var cd = new Date;
+  cd.setTime(cts);
+  var calO = { 
+    date:cd, 
+    firstDay:1, 
+    inputField:'DayTsStart', 
+    ifFormat:'%s', 
+    button:'ButStart',
+    date:cd };
+  Calendar.setup( calO );
+  return;
+}
+
+function ShowEndCalendar() {
+  var cts = parseInt(document.getElementById('DayTsEnd').value)*1000;
+  var cd = new Date;
+  cd.setTime(cts);
+  var calO = { 
+    date:cd, 
+    firstDay:1, 
+    inputField:'DayTsEnd', 
+    ifFormat:'%s', 
+    button:'ButEnd',
+    date:cd };
+  Calendar.setup( calO );
+  return;
+}
+
+
+
+function ChangeAllDay() {
+
+  var nohour = document.getElementById('nohour');
+  var tnohour = document.getElementById('tnohour');
+  var allday = document.getElementById('allday');
+  var hstart = document.getElementById('start_hour');
+  var hend1 = document.getElementById('end_hour1');
+  var hend2 = document.getElementById('end_hour2');
+  var hend3 = document.getElementById('end_hour3');
+
+  if (allday.checked) {
+    nohour.checked = false;
+    tnohour.style.visibility = 'hidden';
+    hend1.style.visibility = 'hidden';
+    hend2.style.visibility = 'hidden';
+    hend3.style.visibility = 'hidden';
+    hstart.style.visibility = 'hidden';
+  } else {
+    tnohour.style.visibility = 'visible';
+    hend1.style.visibility = 'visible';
+    hend2.style.visibility = 'visible';
+    hend3.style.visibility = 'visible';
+    hstart.style.visibility = 'visible';
+  }
+  return;
+}
 
 
 function ChangeNoHour() {
@@ -196,34 +247,6 @@ function HideShowAtt(show) {
     }
   }
 }
-
-function ChangeAllDay() {
-
-  var nohour = document.getElementById('nohour');
-  var tnohour = document.getElementById('tnohour');
-  var allday = document.getElementById('allday');
-  var hstart = document.getElementById('start_hour');
-  var hend1 = document.getElementById('end_hour1');
-  var hend2 = document.getElementById('end_hour2');
-  var hend3 = document.getElementById('end_hour3');
-
-  if (allday.checked) {
-    nohour.checked = false;
-    tnohour.style.visibility = 'hidden';
-    hend1.style.visibility = 'hidden';
-    hend2.style.visibility = 'hidden';
-    hend3.style.visibility = 'hidden';
-    hstart.style.visibility = 'hidden';
-  } else {
-    tnohour.style.visibility = 'visible';
-    hend1.style.visibility = 'visible';
-    hend2.style.visibility = 'visible';
-    hend3.style.visibility = 'visible';
-    hstart.style.visibility = 'visible';
-  }
-  return;
-}
-     
 
 function SwitchZone(view) {
 
@@ -372,7 +395,7 @@ function saveEvent() {
     return false;
   }
   if (EventSelectAll(fs)) { 
-     if (checkTime()) fs.submit();
+      fs.submit();
   }
   return false;
 }
@@ -494,7 +517,7 @@ function viewattdispo(url) {
 
   var withme = document.getElementById('withMe');
   var me = document.getElementById('ownerid').value;
-  var rvs = document.getElementById('Fstart').value;
+  var rvs = document.getElementById('TsStart').value;
   var js;
   var je;
 
@@ -510,7 +533,7 @@ function viewattdispo(url) {
   }
   
   var td = new Date();
-  td.setTime(rvs*1000);
+  td.setTime(rvs);
   var ye  = parseFloat(td.getFullYear());
   var mo  = parseFloat(td.getMonth()) + 1.0;
   var da  = parseFloat(td.getDate());

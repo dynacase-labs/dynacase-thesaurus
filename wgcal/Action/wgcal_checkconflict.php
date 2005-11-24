@@ -27,8 +27,8 @@ function wgcal_checkconflict(&$action) {
     return;
   }
    
-  $ds = GetHttpVars("Fstart", 0);
-  $de = GetHttpVars("Fend", 0);
+  $ds = (GetHttpVars("TsStart", 0)/1000);
+  $de = (GetHttpVars("TsEnd", 0)/1000);
   $start = ts2db(($ds+60), "Y-m-d H:i:s");
   $end = ts2db(($de-60), "Y-m-d H:i:s");
   if (GetHttpVars("nohour", "") == "on") {

@@ -59,8 +59,8 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
   $event->setValue("CALEV_CATEGORY", GetHttpVars("evcategory", 0));
   
-  $ds = GetHttpVars("Fstart", 0);
-  $de = GetHttpVars("Fend", 0);
+  $ds = (GetHttpVars("TsStart", 0)/1000);
+  $de = (GetHttpVars("TsEnd", 0)/1000);
   $start = w_datets2db($ds).":00";
   $end = w_datets2db($de).":00";
   $htype = 0;

@@ -67,58 +67,16 @@
 
 
 
-<!-- NOUVEAU -->
-<script>
-
-function ComputeDateFromStart() {
-
-  var o_stime = parseInt(document.getElementById('TsStart').value);
-  var od_stime = new Date();
-  od_stime.setTime(o_stime);
-
-  var o_etime = parseInt(document.getElementById('TsEnd').value);
-  var od_etime = new Date();
-  od_etime.setTime(o_etime);
-
-  var tdiff = (o_etime - o_stime);
-
-  // Compute new start time
-  alert(document.getElementById('DayTsStart').value);
-  var tsS = parseInt(document.getElementById('DayTsStart').value) * 1000;
-  var hts = new Date();
-  hts.setTime(tsS);
-  var Hstart = parseInt(document.getElementById('Hstart').options[document.getElementById('Hstart').selectedIndex].value);
-  var Mstart = parseInt(document.getElementById('Mstart').options[document.getElementById('Mstart').selectedIndex].value);
-  var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), Hstart, Mstart, 0, 0);
-  var nE = new Date();
-  nE.setTime(nS.getTime() + tdiff);
-
-  alert('Old date = [ '+od_stime.toLocaleDateString()+' '+od_stime.toLocaleTimeString()+' , '+od_etime.toLocaleDateString()+' '+od_etime.toLocaleTimeString()+' ]\n'
-        +'New date = [ '+nS.toLocaleDateString()+' '+nS.toLocaleTimeString()+' , '+nE.toLocaleDateString()+' '+nE.toLocaleTimeString()+' ]\n'                  );
-  
-
-  // Updating all fields....
-  document.getElementById('TsStart').value = nS.getTime();
-  document.getElementById('TsEnd').value = nE.getTime();
-  
-}
-
-function ComputeDateFromEnd() {
-  alert('ComputeDateFromEnd');
-}
-
-</script>
-
 <tr>
 <td align="right" nowrap>[TEXT:start date] : </td>
 <td align="left" nowrap>
 <input type="hidden" value="[START]" id="TsStart">
-<input type="hidden" value="[START]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
-<span onmousedown="cdate = document.getElementById('DayTsStart').value; alert(cdate); Calendar.setup( { date:new Date(cdate), firstDay:1, inputField:'DayTsStart', daFormat:'%A %d %b %Y', ifFormat:'%s', button:'ButStart', displayArea:'DayStart' } ); " onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
-<img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
+<input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
+<span onclick="ShowStartCalendar()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
+<script>ShowStartCalendar()</script><img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
 </td>
 <td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
-&nbsp;<select [DATERO] id="Hstart" name="Hstart" onchange="ComputeDateFromStart();">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select>: <select [DATERO] id="Mstart" name="Mstart" onchange="ComputeDateFromStart();">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
+&nbsp;<select [DATERO] id="Hstart" name="Hstart" onchange="ComputeDateFromStart();">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select> : <select [DATERO] id="Mstart" name="Mstart" onchange="ComputeDateFromStart();">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
 </td>
 
 </tr>
@@ -127,40 +85,17 @@ function ComputeDateFromEnd() {
 <td align="right" id="end_hour1" style="visibility:[HVISIBLE]" nowrap>[TEXT:end date] : </td>
 <td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
 <input type="hidden" value="[END]" id="TsEnd">
-<span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButEnd" style="cursor:pointer;"
-      title="[TEXT:click here to enter the end date]">
-<img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
-<input type="hidden" value="[END]" id="Dend" name="DayTsEnd" onchange="ComputeDateFromEnd();">
-<script type="text/javascript">
-  Calendar.setup(
-    {
-      inputField   : "DayTsEnd",
-      displayArea  : "DayEnd",
-      ifFormat     : "%s",
-      daFormat     : "[DFMT]",
-      showsTime    : false,
-      button       : "ButEnd",
-      date         : new Date([END]),
-      weekNumbers  : true,
-      firstDay     : 1
-    }
-  );
-</script>
+<input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
+<span onload="ShowEndCalendar()" onclick="ShowEndCalendar()"  onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButEnd" style="cursor:pointer;" title="[TEXT:click here to enter the end date]">
+<script>ShowEndCalendar()</script><img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
 </td>
 <td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>
-&nbsp;<select [DATERO] id="Hend" name="Hend" onchange="ComputeDateFromEnd();">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select>: <select [DATERO] id="Mend" name="Mend" onchange="ComputeFromEnd();">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
+&nbsp;<select [DATERO] id="Hend" name="Hend" onchange="ComputeDateFromEnd();">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select> : <select [DATERO] id="Mend" name="Mend" onchange="ComputeDateFromEnd();">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
 </td>
 </tr>
 
-<!-- FIN NOUVEAU -->
-
-
-
 
 <tr><td colspan="3">
-<div id="tUtime" name="tUtime" style="display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time after end time, please correct this]</div>
-<div id="tUstart" name="tUstart" style="z-index:2000; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:start time update according end time]</div>
-<div id="tUend" name="tUend" style="z-index:2000; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:end time update according start time]</div>
 </td></tr>
 
 <tr>
