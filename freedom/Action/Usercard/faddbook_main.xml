@@ -8,6 +8,7 @@
 
 [JS:REF]
 
+[CSS:REF]
 <script type="text/javascript">
 
 [JS:CODE]
@@ -85,17 +86,18 @@ addEvent(window,"load",viewfirst);
 <input type="hidden" name="viewone" value="[viewone]">
 <input type="hidden" name="usedefaultview" value="[usedefaultview]">
 <input type="hidden" name="cols" value="[cols]">
-<table width="100%" align="center" cellspacing="0">
+<table class="fabtable" width="100%" align="center" cellspacing="0">
 <tr class="fabzone">
 <td colspan="[colspan]">
 
-<table width="100%" align="center" cellspacing="0">
+<table  class="fabtable" width="100%" align="center" cellspacing="0">
 <td><img title="Page précédente" style="visibility:[IF PrevPage]visible[ENDIF PrevPage][IFNOT PrevPage]hidden[ENDIF PrevPage]; cursor:pointer; border:0" src="[IMG:faddbook_prevpage.gif]" onclick="getElementById('sp').value='[pprev]'; getElementById('suser').submit();">
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[dirtitle]
 </td>
 <td><span style="font-weight:bold; border:1px outset; cursor:pointer" title="[TEXT:click here to create a new]" onmouseover="this.className='fabcontactsel'" onmouseout="this.className=''"   onclick="subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=[famid]');">[famsearch]&nbsp;<img width="16px" src="[IMG:faddbook_ico_newdoc.png]" border="0"></span></td>
 <td class="fabzone">[TEXT:lignes par page] : <select name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select></td>
+<td align="right">[ZONE [APPNAME]:FADDBOOK_MENU?dfamid=[dfam]]</td>
 </tr>
 </table>
 

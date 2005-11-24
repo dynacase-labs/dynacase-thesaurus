@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.38 2005/09/22 08:08:36 eric Exp $
+ * @version $Id: barmenu.php,v 1.39 2005/11/24 13:45:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -130,6 +130,7 @@ function barmenu(&$action) {
 		       "murl"=>addslashes($fdoc->urlWhatEncode($v->link)));
     
       popupAddItem('helpmenu',  $v->id);
+      $vis=MENU_ACTIVE;
       if ($v->precond != "") $vis=$fdoc->ApplyMethod($v->precond,MENU_ACTIVE);
       if ($vis==MENU_ACTIVE)  popupActive("helpmenu",1,$v->id); 
     }    
@@ -155,8 +156,7 @@ function barmenu(&$action) {
    else  popupInvisible("helpmenu",1,'memosearch'); 
    
   if ($action->HasPermission("GENERIC_MASTER"))  {
-    popupActive("helpmenu",1,'imvcard');
-  
+    popupActive("helpmenu",1,'imvcard');  
   }   else {
     popupInvisible("helpmenu",1,'imvcard'); 
   }
