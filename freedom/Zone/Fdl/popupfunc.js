@@ -166,7 +166,8 @@ function openMenuXY(event, menuid, x, y) {
     el.style.visibility = "hidden";
     el.style.display = "";
     if (bm) {
-      w2=getObjectWidth(document.getElementById('barmenu'));
+      //w2=getObjectWidth(document.getElementById('barmenu'));
+      w2=getFrameWidth();
       // display right or left to maximize width
       w1=getObjectWidth(el);
 
@@ -184,6 +185,7 @@ function openMenuXY(event, menuid, x, y) {
     } else {
       x2=x;
     }
+    //    alert('x2:'+x2+',w1:'+w1+'w2:'+w2);
     el.style.left = x2 + "px";
     el.style.display = "none";
     el.style.display = "";
