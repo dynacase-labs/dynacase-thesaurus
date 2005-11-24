@@ -70,7 +70,7 @@
 <tr>
 <td align="right" nowrap>[TEXT:start date] : </td>
 <td align="left" nowrap>
-<input type="hidden" value="[START]" id="TsStart">
+<input type="hidden" value="[START]" id="TsStart" name="TsStart">
 <input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
 <span onclick="ShowStartCalendar()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
 <script>ShowStartCalendar()</script><img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
@@ -84,7 +84,7 @@
 <tr>
 <td align="right" id="end_hour1" style="visibility:[HVISIBLE]" nowrap>[TEXT:end date] : </td>
 <td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
-<input type="hidden" value="[END]" id="TsEnd">
+<input type="hidden" value="[END]" id="TsEnd" name="TsEnd">
 <input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
 <span onload="ShowEndCalendar()" onclick="ShowEndCalendar()"  onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButEnd" style="cursor:pointer;" title="[TEXT:click here to enter the end date]">
 <script>ShowEndCalendar()</script><img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
