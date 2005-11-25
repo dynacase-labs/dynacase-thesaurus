@@ -1,4 +1,4 @@
-Alias /whatsync @prefix@/osync
+#Alias /whatsync @prefix@/osync
 <Directory @prefix@/osync>
     php_value include_path ".:@prefix@:@prefix@/WHAT:/home/httpd/advGraph:/usr/share/pear"
     php_value session.use_cookies 1
