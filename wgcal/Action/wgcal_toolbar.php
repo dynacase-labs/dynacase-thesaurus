@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.56 2005/11/24 17:29:00 eric Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.57 2005/11/25 10:01:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -59,7 +59,7 @@ function wgcal_toolbar(&$action) {
   $action->lay->set("LSYNC", false);
   if ($action->HasPermission("WGCAL_OSYNC")) {
     if ($action->getParam("WGCAL_U_OSYNCVDATE",1)) {
-      include_once("osync/Lib.WgcalSync.php");
+      if (@include_once("osync/Lib.WgcalSync.php")) {
       $action->lay->set("LSYNC", true);
       $db = WSyncGetAdminDb();
       $lsync = GetLastSyncDate($db);
@@ -69,6 +69,7 @@ function wgcal_toolbar(&$action) {
       } else {
 	$action->lay->set("lastsync", _("no sync made"));
 	$action->lay->set("lsyncstyle", "");
+      }
       }
     }
   }
