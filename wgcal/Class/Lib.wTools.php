@@ -26,7 +26,7 @@ function wDebugMode() {
 }
 
 function w_dbdate2ts($dbtime) {
-  return gmmktime(w_dbhou($dbtime), 
+  return mktime(w_dbhou($dbtime), 
 		w_dbmin($dbtime), 
 		w_dbsec($dbtime), 
 		w_dbmon($dbtime), 
@@ -35,12 +35,12 @@ function w_dbdate2ts($dbtime) {
 }
 
 function ts2db($t, $f="H:i d/m/Y") {
-  return gmdate($f, $t);
+  return date($f, $t);
 }
 
 function w_datets2db($d, $hm = true) {  	 
   $fmt = ($hm ? "d/m/Y H:i" : "d/m/Y" ); 	 
-  $s = gmdate($fmt, $d); 	 
+  $s = date($fmt, $d); 	 
   return $s; 	 
 }
 
@@ -80,7 +80,7 @@ function w_GetFirstDayOfWeek($ts)
 	$dd = strftime("%d", $tsfwd);
  	$mm = strftime("%m", $tsfwd);
  	$yy = strftime("%Y", $tsfwd);
-	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
+	$fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
 	return $fwdt;
 }
 

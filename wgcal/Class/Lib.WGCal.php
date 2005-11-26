@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.55 2005/11/24 17:29:00 eric Exp $
+ * @version $Id: Lib.WGCal.php,v 1.56 2005/11/26 07:18:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,6 +11,7 @@
  /**
  */
 include_once("FDL/mailcard.php");
+include_once("osync/Class.WSyncDate.php");
 include_once("WGCAL/Lib.wTools.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
@@ -112,7 +113,7 @@ function dbdate2ts($dbtime) {
 }
 function localFrenchDateToUnixTs($fdate) {
   if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
-    $ds = gmmktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+    $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
   } else {
     $ds = -1;
   }
@@ -276,7 +277,6 @@ function WGCalEvSetColor(&$action, &$event) {
 }
 
 function GetLastSyncDate($db) {
-  include_once("osync/Class.WSyncDate.php");
   global $action;
   $syncdate = new WSyncDate($db, $action->parent->user->fid);
   return ($syncdate->outlook_date);

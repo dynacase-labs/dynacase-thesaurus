@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.58 2005/11/14 13:01:53 eric Exp $
+ * @version $Id: wgcal_calendar.php,v 1.59 2005/11/26 07:18:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -131,8 +131,9 @@ function wgcal_calendar(&$action) {
   for ($i=0; $i<$ndays; $i++) { 
     $tabdays[$i]["iday"] =  $i;
     $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
-    $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstart-1));
-    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*($hstop)); //+ (SEC_PER_HOUR*$hstop) -1;
+    $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstart - (3600/$hdiv));
+    $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop + 3600 + (3600/$hdiv));
+//AddWarningMsg("hdiv=$hdiv vend=".strftime("%d/%m/%Y %T %Z",$tabdays[$i]["vend"])."]");
     if ($cdate==$tabdays[$i]["days"]) {
       $class[$i] = "WGCAL_DayCur";
       $classh[$i] = "WGCAL_DayLineCur";

@@ -776,10 +776,14 @@ function EventSetDate($dstart, $dend, $type, $ro)
   $this->lay->setBlockData("SHSEL", $th);
   $th = array();
   $incm = $this->getWgcalUParam("WGCAL_U_MINCUSED",15);
+  $mselect = false;
   for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
+    if (!$mselect) { 
+       $th[$h]["optselect"] = ($start_M>=$h && $start_M<($h+$incm) ? "selected" : "" );
+       $mselect = $th[$h]["optselect"];
+    } else $th[$h]["optselect"] = "";
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
-    $th[$h]["optselect"] = ( $h >=$start_M  && $start_M < $h+$incm ? "" :  "selected");
   }
   $this->lay->setBlockData("SHMSEL", $th);
   
@@ -796,9 +800,14 @@ function EventSetDate($dstart, $dend, $type, $ro)
   }
   $this->lay->setBlockData("EHSEL", $th);
   $th = array();
-  for ($h=0; $h<60; $h+=$this->getWgcalUParam("WGCAL_U_MINCUSED",15)) {
+  $mselect = false;
+  for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
-    $th[$h]["optselect"] = ($h>=$end_M && $h<=$end_M?"selected":"");
+    $th[$h]["optvalue"] = $h;
+        if (!$mselect) {
+       $th[$h]["optselect"] = ($end_M>=$h && $end_M<($h+$incm) ? "selected" : "" );
+       $mselect = $th[$h]["optselect"];
+    } else $th[$h]["optselect"] = "";
     $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
   }
   $this->lay->setBlockData("EHMSEL", $th);

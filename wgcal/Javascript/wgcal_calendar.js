@@ -331,8 +331,8 @@ function WGCalAddEvent(n, tstart, tend)
   var cEv;
   var dd = new Date();
 //   var Tz =  dd.getTimezoneOffset() * 60;
-   var Tz = -3600;
-   //  var Tz = 0;
+//   var Tz = -3600;
+  var Tz = 0;
   var tstart;
   var tend;
   var id;
@@ -363,17 +363,17 @@ function WGCalAddEvent(n, tstart, tend)
     vend   = tend;
 
     if (tend==tstart) {
-      vstart = Days[id].vstart - (YDivMinute * 60);
-      vend   = Days[id].vstart;
+      vstart = Days[id].vstart;
+      vend   = Days[id].vstart + (YDivMinute * 60);
     } else {
       
       // Heure de début antérieure à l'heure de début de la journée....
-      if (tstart<Days[id].vstart) {
-	vstart = Days[id].vstart - (YDivMinute * 60);;
+      if (tstart < Days[id].vstart - (YDivMinute * 60 / YDivCount)) {
+	vstart = Days[id].vstart;
 	
 	// Heure de début postérieure à l'heure de fin de la journée....
-      } else if (tstart>=(Days[id].vend + (YDivMinute * 60))) {
-	vstart = Days[id].vend;
+      } else if (tstart>=(Days[id].vend)) {
+	vstart = Days[id].vend - (YDivMinute * 60);
 	
       } else {
  	vstart += Tz;
@@ -381,12 +381,12 @@ function WGCalAddEvent(n, tstart, tend)
       
       
       // Heure de fin supérieure à la fin de la journée....
-      if (tend>=Days[id].vend + (2 * (YDivMinute * 60))) {
-	vend = Days[id].vend + (YDivMinute * 60);
+      if (tend>=Days[id].vend) {
+	vend = Days[id].vend;
 
 	// Heure de fin antérieur au début de la journée....
       } else if (tend<=Days[id].vstart) {
-      	vend = Days[id].vstart;
+      	vend = Days[id].vstart + (YDivMinute * 60);
 	
       } else {
 	vend += Tz;
