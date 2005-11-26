@@ -979,10 +979,12 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   
 
   // Excluded dates
+  $this->lay->set("displayExcludedDays", false);
   if (is_array($recxlude) && count($recxlude)>0) {
     $ide = 0;
     foreach ($recxlude as $kd => $vd) {
       if ($vd!="" && $vd>0) {
+        $this->lay->set("displayExcludedDays", true);
         $ld = dbdate2ts($vd);
         $rx[$ide]["rDate"] = w_strftime($ld, WD_FMT_DAYFTEXT);
         $rx[$ide]["mDate"] = $ld;
@@ -1121,17 +1123,21 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   if (count($to)>0) {
     wUSort($to, "resstitle");
     $this->lay->setBlockData("DRESS", $to);
+    $this->lay->setBlockData("DLIST", $to);
     $this->lay->set("hasDisplayed", true);
   } else {
-    $this->lay->setBlockData("DRESS", null);
+    $this->lay->setBlockData("DLIST", $to);
+    $this->lay->setBlockData("DLIST", null);
     $this->lay->set("hasDisplayed", false);
   }
   if (count($ts)>0) {
     wUSort($ts, "resstitle");
     $this->lay->setBlockData("SRESS", $ts);
+    $this->lay->setBlockData("SLIST", $ts);
     $this->lay->set("hasSelected", true);
   } else {
     $this->lay->setBlockData("SRESS", null);
+    $this->lay->setBlockData("SLIST", null);
     $this->lay->set("hasSelected", false);
   }
 
@@ -1161,9 +1167,11 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   if (count($to)>0) {
     wUSort($to, "resstitle");
     $this->lay->setBlockData("PRESS", $to);
+    $this->lay->setBlockData("PLIST", $to);
     $this->lay->set("hasPrefered", true);
   } else {
     $this->lay->setBlockData("PRESS", null);
+    $this->lay->setBlockData("PLIST", null);
     $this->lay->set("hasPrefered", false);
   }
 }

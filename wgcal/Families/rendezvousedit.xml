@@ -46,7 +46,7 @@
 <tr><td width="45%" valign="top">
 
 <table width="100%" cellspacing="0"><tr>
-<td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="30px" title="[TEXT:event description]" style="border:0px" ></td>
+<td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="22px" title="[TEXT:event description]" style="border:0px" ></td>
 <td valign="bottom" align="right">
 [IF mforuser]<select onchange="document.getElementById('icuser').value = this.options[this.selectedIndex].value; document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value); SetGroupsList(this.options[this.selectedIndex].value);">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
@@ -54,7 +54,7 @@
 
 [IF mforusermod]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:140%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforusermod]
 
-<fieldset width="100%">
+<div style="border:1px dotted red" width="100%">
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 
@@ -159,7 +159,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 </table>
 
-</fieldset>
+</div>
 
 <table width="100%" style="margin-top: 0em;">
 <tr>
@@ -178,8 +178,6 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </td>
 <td height="100%" valign="top" align="left">
 
-<fieldset>
-<legend>
 <img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
     onClick="SwitchZone('evattendees'); autoHresize(); autoVresize();" >
@@ -189,10 +187,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <img id="butevgroups" src="[IMG:wgcal_choosegroups.gif]" class="WGCalZoneDefault"
     height="22"  title="[TEXT:manage groups]" style="display:[vis_groups]; border:0px" 
     onClick="SwitchZone('evgroups'); autoHresize(); autoVresize();" >
-</legend>
 
 
-<div width="100%" height="100%" style="display:[fullattendees]" id="fullattendees">
+<div width="100%" height="100%" style="border:1px dotted green; display:[fullattendees]" id="fullattendees">
 
 <table id="evattendees" height="100%"  width="100%">
 
@@ -203,32 +200,41 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td><input class="textBorder" id="stmptext" onkeypress="return SearchIUser(event, false);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
 <img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(event, true)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
 </td></tr>
-
-<tr><td>&nbsp;</td></tr>
-
-<tr><td nowrap>
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
-</td></tr>
-
 <tr><td>&nbsp;</td></tr>
 
 [IF hasPrefered]<tr><td nowrap>
-<span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
+<span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('plist').style.display = 'block'" onmouseout="this.style.background=''; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
+<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="plist" >
+[BLOCK PLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK PLIST]
+</div>
 </td></tr>[ENDIF hasPrefered]
 
 
 [IF hasDisplayed]<tr><td nowrap>
-<span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
+<span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.style.background=''; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
+<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="dlist" >
+[BLOCK DLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK DLIST]
+</div>
 </td></tr>[ENDIF hasDisplayed]
 
 [IF hasSelected]<tr><td nowrap>
-<span id="sress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
+<span id="sress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('slist').style.display = 'block';" onmouseout="this.style.background=''; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
+<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="slist" >
+[BLOCK SLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK SLIST]
+</div>
 </td></tr>[ENDIF hasSelected]
 
 <tr><td>&nbsp;</td></tr>
 
 <tr><td>
 <span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
+</td></tr>
+
+
+<tr><td>&nbsp;</td></tr>
+
+<tr><td nowrap>
+<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
@@ -294,7 +300,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 
 <!-- Repeat zone -->
 
-<div id="evrepeatzone" style="display:none">
+<div id="evrepeatzone" style="height:auto; border:1px dotted blue; display:none">
 
 
 <div>
@@ -357,7 +363,8 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 <div style="display:none">[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
 <hr>
 
-<fieldset><legend>[TEXT:exclude days]</legend>
+[IF displayExcludedDays]
+[TEXT:exclude days]
 
 <div>
 <select id="listexcldate" name="listexcldate[]" width="20" size="5" multiple>
@@ -369,22 +376,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 <img title="[TEXT:del selected dates]" height="12" src="WGCAL/Images/wgcal-minus.gif">
 [TEXT:del selected dates]</div>
 
-<input onChange="addExclDate();" type="hidden" id="nexcldate" >
-<script type="text/javascript">
-Calendar.setup(
-    {
-        inputField   : "nexcldate",        
-        ifFormat     : "%s",   
-        showsTime    : false,
-        button       : "nexcldatebut",
-        date         : new Date(),
-        weekNumbers  : false,
-        firstDay     : 1
-      }
-    );
-</script>
-</fieldset>
-
+[ENDIF displayExcludedDays]
 </div>
 
 </div> <!-- end of repeat zone -->
@@ -409,7 +401,6 @@ SetGroupsForOwner([ownerid]);
 SetGroupsList([ownerid]);
   
 </script>
-</fieldset>
 </td></tr></table>
 
 
