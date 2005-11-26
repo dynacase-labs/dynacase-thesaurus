@@ -13,7 +13,7 @@ function wgcal_todostore(&$action) {
   $id = GetHttpVars("idtodo", -1);
   $title = GetHttpVars("title", -1);
   $fdate = GetHttpVars("Dstart", 0);
-  $date = substr(w_datets2db($fdate),0,11)." 00:00:00 CEST";
+  $date = substr(w_datets2db($fdate),0,11)." 00:00:00";
   $note =GetHttpVars("note");
 
   if ($id == -1) {
