@@ -144,12 +144,18 @@ function ShowEndCalendar() {
     inputField:'DayTsEnd', 
     ifFormat:'%s', 
     button:'ButEnd',
-    date:cd };
+    date:cd,
+    disableFunc: checkEndTime
+ };
   Calendar.setup( calO );
   return;
 }
 
-
+function checkEndTime(cd) {
+  var st = document.getElementById('TsEnd').value;
+  if (cd.getTime()>=st) return false;
+  return true;
+}
 
 function ChangeAllDay() {
 
