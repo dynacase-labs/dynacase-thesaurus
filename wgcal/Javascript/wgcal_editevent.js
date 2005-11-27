@@ -145,7 +145,7 @@ function ShowEndCalendar() {
     ifFormat:'%s', 
     button:'ButEnd',
     date:cd,
-    disableFunc: checkEndTime
+//     disableFunc: checkEndTime
  };
   Calendar.setup( calO );
   return;

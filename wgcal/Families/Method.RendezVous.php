@@ -806,7 +806,7 @@ function EventSetDate($dstart, $dend, $type, $ro)
   $end_M = strftime("%M", $dend);
   $this->lay->set("END", $dend*1000);
   $this->lay->set("ENDsec", $dend);
-  $this->lay->set("ENDREAD", ucwords(strftime("%a %d %b %Y", $dstart)));
+  $this->lay->set("ENDREAD", ucwords(strftime("%a %d %b %Y", $dend)));
   $th = array();
    for ($h=0; $h<24; $h++) {
     $th[$h]["optvalue"] = $h;
