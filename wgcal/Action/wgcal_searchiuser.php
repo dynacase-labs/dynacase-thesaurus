@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.14 2005/10/13 09:29:32 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.15 2005/11/27 14:16:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -22,6 +22,9 @@ function wgcal_searchiuser(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess);
   
+  $ifam = GetHttpVars("ifam", "");
+  $itext = GetHttpVars("itext", "");
+
   $cuser = GetHttpVars("cuser", $action->user->fid);
   $proto = GetHttpVars("proto", "default");
   $limit = GetHttpVars("lim", 25);
@@ -29,11 +32,17 @@ function wgcal_searchiuser(&$action) {
   $sgrp = GetHttpVars("sgrp", 0); // 1 : Only user in my groups
   $sgrp = ($sgrp!=0 && $sgrp!=1 ? 0 : $sgrp);
 
+
   $iuserfam = getFamIdFromName($dbaccess, "IUSER");
-  $filter[0] = "title ~* '".GetHttpVars("iusertext", "")."'";
-  $filter[1] = "fromid=$iuserfam";
-  $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $limit, $filter, 
-		      $action->user->id, "TABLE", $iuserfam );
+  $filter[0] = "title ~* '".$itext."'";
+  $tsfam = explode("|", $ifam);
+  foreach ($tsfam as $k => $v) {
+    if ($v=="") continue;
+    if (!is_numeric($v)) $filter[1] .= ($filter[1]=="" ? "" : " OR ") . "fromid=".getFamIdFromName($dbaccess, $v)."";
+    else $filter[1] .= ($filter[1]=="" ? "" : " OR ") . "fromid=$v";
+  }
+  $filter[1] = "( " . $filter[1] . " )";
+  $rdoc = getChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $limit, $filter,  $action->user->id, "TABLE");
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
     if ($cuser != $v["id"]) {

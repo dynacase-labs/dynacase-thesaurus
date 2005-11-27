@@ -8,6 +8,19 @@ body {
   color: [WTH_TEXTCOLOR_1];
 }
 
+.elist {
+  margin : 0px;
+  padding : 3px;
+  font-size: [WTH_FONTSIZE_SMALL]pt; 
+  font-family: [WTH_FONTLIST];
+  background: [WTH_BGIMG]; 
+  color: [WTH_TEXTCOLOR_1];
+  border:1px solid [WTH_TEXTCOLOR_1];
+  z-index : 1000;
+  position:absolute; 
+}
+
+
 table {
   font-size: [WTH_FONTSIZE_NORMAL]pt;
   font-family: [WTH_FONTLIST];
@@ -285,6 +298,16 @@ TD {
   border : 1px inset [WTH_COLOR_1];
   padding : 2px;
 }
+.wZone {
+  border : 2px solid [WTH_COLOR_3];
+  padding : 2px;
+}
+.wAttList {
+  border-style:solid none solid none ;
+  border-width: 1px;
+  font-weight : bold;
+  padding : 2px;
+}
 .wMonthTextTitle {
   font-weight : bold;
   font-size : [WTH_FONTSIZE_BIG]pt;
@@ -339,7 +362,15 @@ TD {
  cursor:pointer; 
  border: 1px outset;
 }
+.wSmallButtonPulled {
+  filter:alpha(opacity=55);
+  -moz-opacity:.50;
+ cursor:pointer; 
+ border: 1px outset;
+}
 .wSmallButtonPushed {
+  filter:alpha(opacity=99);
+  -moz-opacity:.99;
  cursor:pointer; 
  border: 1px inset;
 }

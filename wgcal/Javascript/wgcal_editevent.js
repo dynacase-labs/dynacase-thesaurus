@@ -492,16 +492,18 @@ function everyInfo() {
 
 function EventSelectAll(f) {
 
-  var list = document.getElementById('listexcldate');
   var excdate = document.getElementById('excludedate');
-  var n = "";
-  for (i=(list.options.length-1); i>=0; i--) {
-    list.options[i].select = true;
-    sep = (n==''?'':'|');
-    n += sep + list.options[i].value;
+  excdate.value = '';
+  if (document.getElementById('listexcldate')) {
+    var list = document.getElementById('listexcldate');
+    var n = "";
+    for (i=(list.options.length-1); i>=0; i--) {
+      list.options[i].select = true;
+      sep = (n==''?'':'|');
+      n += sep + list.options[i].value;
+    }
+    excdate.value = n;
   }
-  excdate.value = n;
-  
   alist = document.getElementById('attendees');
   nlist = '';
   me  = document.getElementById('withMe');
@@ -632,21 +634,6 @@ function ViewRessourceHelper(url) {
   }		
 }
   
-
-function SearchIUser(evt, force) {
-  evt = (evt) ? evt : ((event) ? event : null );
-  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
-  var nitem = document.getElementById('stmptext');
-  if (force || ((cc == 13)  && (nitem.value != ""))) {
-    var fvl = document.getElementById('fgetiuser');
-    var val = document.getElementById('iusertext');
-    val.value = nitem.value;
-    fvl.submit();
-    if (nitem) nitem.value = '';
-    return false;
-  }
-  return true;
-}
 
 // RV group visibility
 

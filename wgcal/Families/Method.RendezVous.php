@@ -558,6 +558,7 @@ function RendezVousEdit() {
 
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_editevent.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_searchcontacts.js");
   
   $cssfile = $action->GetLayoutFile("calendar-default.css");
   $csslay = new Layout($cssfile,$action);
@@ -718,6 +719,20 @@ function RendezVousEdit() {
     }
   }
   $ownerlist[$ownerid] = $ownerid;
+
+  // Display searchable ressource families
+  $sfamr = $famr = array();
+  $iuser = getFamIdFromName($this->dbaccess, "IUSER");
+  $rclass = WGCalGetRessourceFamilies($this->dbaccess);
+  foreach ($rclass as $k => $v) {
+    $famr[] = array( "fid" => $v["id"], 
+		     "ftitle" => addslashes(ucwords(strtolower($v["title"]))),
+		     "ficon" => Doc::GetIcon($v["icon"]),
+		     "fselect" => ($v["id"]==$iuser?true:false) );
+    if ($v["id"]==$iuser) $sfamr[]["fid"] = $v["id"];
+  }
+  $this->lay->setBlockData("FAMR", $famr);
+  $this->lay->setBlockData("sFAMR", $sfamr);
 
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);

@@ -50,6 +50,8 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCH", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_ASEARCHQUERY", "short_name" =>N_("advanced search event"), "toc" => "N", "root" =>"N"),
 
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHCONTACTS", "short_name" =>N_("contact search"), "toc" => "N", "root" =>"N"),
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHIUSER", "short_name" =>N_("search iuser"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHCONTACT", "short_name" =>N_("search contact"), "toc" => "N", "root" =>"N"),
 

@@ -629,16 +629,16 @@ msgid "vew disponibility"
 msgstr "Voir les disponibilités"
 
 msgid "confirm delete all attendees"
-msgstr "confirmez la suppression de toutes les personnes conviées"
+msgstr "confirmez la suppression de tous les participants"
 
 msgid "delete all attendees"
-msgstr "Suppression de toutes les personnes conviées"
+msgstr "Suppression de tous les participants"
 
 msgid "one ressource or you in event"
 msgstr "Utiliser les ressources pour les rendez-vous"
 
 msgid "list of attendees"
-msgstr "Liste des personnes conviées..."
+msgstr "Liste des participants..."
 
 msgid "click on ressource to select/unselect"
 msgstr "Cliquer pour sélectionner/déselectionner "

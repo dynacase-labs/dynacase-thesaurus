@@ -5,7 +5,8 @@
 <form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>
 
 <form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
-<input id="iusertext" name="iusertext" type="hidden">
+<input id="itext" name="itext" type="hidden">
+<input id="ifam" name="ifam" type="hidden">
 <input id="icuser" name="cuser" type="hidden" value="[ownerid]">
 </form>
 
@@ -52,9 +53,9 @@
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
 </tr></table>
 
-[IF mforusermod]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:140%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforusermod]
+[IF mforusermod]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:120%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforusermod]
 
-<div style="border:1px dotted red" width="100%">
+<div class="wZone">
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 
@@ -176,7 +177,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 
 </td>
-<td height="100%" valign="top" align="left">
+<td height="97%" valign="top" align="left">
 
 <img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
@@ -189,37 +190,51 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
     onClick="SwitchZone('evgroups'); autoHresize(); autoVresize();" >
 
 
-<div width="100%" height="100%" style="border:1px dotted green; display:[fullattendees]" id="fullattendees">
+<div class="wZone" style="display:[fullattendees]" id="evattendees">
 
-<table id="evattendees" height="100%"  width="100%">
 
-<tr><td width="40%" valign="top">
+<!-- BLOCK DE RECHERCHE --><div style="width:100%; margin:5px; vertical-align:top;">
+
+<div id="sfamres" class="elist" style="display:none"></div>
+
+<script type="text/javascript">
+[BLOCK sFAMR]addSFamilie([fid]);
+[ENDBLOCK sFAMR]</script>
+
+[BLOCK FAMR]
+<img class="[IFNOT fselect]wSmallButtonPulled[ENDIF fselect][IF fselect]wSmallButtonPushed[ENDIF fselect]" style="vertical-align:top; height:16px" src="[ficon]" title="[ftitle]" onclick="if (this.className!='wSmallButtonPulled') { if (removeSFamilie([fid])) this.className='wSmallButtonPulled'; } else { this.className='wSmallButtonPushed'; addSFamilie([fid]); }">[ENDBLOCK FAMR]
+<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeypress="return searchSFamilie(event, false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
+
+</div><!-- FIN BLOCK DE RECHERCHE -->
+
+<table height="100%"  width="100%">
+
+<tr><td valign="top">
 
 <table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
 
-<tr><td><input class="textBorder" id="stmptext" onkeypress="return SearchIUser(event, false);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
-<img id="stmpbutton" style="cursor:pointer;" onclick="SearchIUser(event, true)" height="10" src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
+<tr><td>
 </td></tr>
 <tr><td>&nbsp;</td></tr>
 
 [IF hasPrefered]<tr><td nowrap>
-<span id="press" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('plist').style.display = 'block'" onmouseout="this.style.background=''; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
-<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="plist" >
+<span id="press" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('plist').style.display = 'block'" onmouseout="this.className='wTextNormal'; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
+<div class="elist" style="display:none" id="plist" >
 [BLOCK PLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK PLIST]
 </div>
 </td></tr>[ENDIF hasPrefered]
 
 
 [IF hasDisplayed]<tr><td nowrap>
-<span id="dress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.style.background=''; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
-<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="dlist" >
+<span id="dress" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
+<div class="elist" style="display:none" id="dlist" >
 [BLOCK DLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK DLIST]
 </div>
 </td></tr>[ENDIF hasDisplayed]
 
 [IF hasSelected]<tr><td nowrap>
-<span id="sress" style="cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'; document.getElementById('slist').style.display = 'block';" onmouseout="this.style.background=''; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
-<div class="WGCFamSelected" style="border:3px groove; padding:5px; z-index:1000; position:absolute; display:none" id="slist" >
+<span id="sress" class="wTextNormal"  onmouseover="this.className='wTextActive'; document.getElementById('slist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
+<div class="elist" style="display:none" id="slist" >
 [BLOCK SLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK SLIST]
 </div>
 </td></tr>[ENDIF hasSelected]
@@ -245,33 +260,19 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 </table>
 
-
-</td><td heidht="100%" width="60%" valign="top">
-
-<table cellspacing="0" cellpadding="0" width="100%">
-<tr><td width="100%" align="left">
-
-   <img id="address" class="wSmallButton" style="cursor:pointer;" height="20" onclick="if (this.className!='wSmallButton') this.className='wSmallButton'; else this.className='wSmallButtonPushed'; ViewRessourceHelper('[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');"; title="[TEXT:ressources advanced search]" src="[IMG:wm-moreressources.gif]">
-
-   <img id="viewplan" class="wSmallButton" style="display:[voneatt];" height="20"
-          onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&idfamref=[idfamref]&byres=Y&id=[planid]');";
-          src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
-
-   <img id="delall" class="wSmallButton" style="display:[voneatt]; cursor:pointer;" height="20"
-          onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);";
-          src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
 </td>
+<td valign="top">
 
-</tr>
-</table>
-
-<div style="height:100%; width:100%; overflow:auto" id="attlist">
 
 <div id="errAtt" name="errAtt" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:one ressource or you in event]</div>
 
  
-<table cellspacing="0" style="border:1px outset grey" cellpadding="0" width="100%">
-<thead><td colspan="2" nowrap>[TEXT:list of attendees]</td></thead>
+<table cellspacing="0" cellpadding="0" width="100%">
+<thead><td class="wAttList" align="left" style="vertical-align:top" colspan="2" nowrap>
+[TEXT:list of attendees]&nbsp;
+<img id="viewplan" class="wSmallButton" style="vertical-align:top; display:[voneatt];" height="16px" onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&idfamref=[idfamref]&byres=Y&id=[planid]');" src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
+<img id="delall" class="wSmallButton" style="vertical-align:top; display:[voneatt];" height="16px" onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);" src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
+</td></thead>
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
 <td id="cp%RID%" style="border: 1px outset" width="3px"></td>
@@ -283,7 +284,6 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </tr>
 </tbody>
 </table>
-</div>
 </td></tr></table>
 
 <script type="text/javascript">
@@ -296,11 +296,12 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 </script>
 
 </div>
+</div><!-- End of Attendees zone -->
 
 
 <!-- Repeat zone -->
 
-<div id="evrepeatzone" style="height:auto; border:1px dotted blue; display:none">
+<div id="evrepeatzone" class="wZone" style="display:none">
 
 
 <div>
@@ -322,7 +323,8 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 [BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
-  <div id="d_rmonth" style="left:10%; display:[D_RMONTH]"><!-- 
+  <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
+<!-- 
    [TEXT:month repetition] : <br>
     <span onclick="clickB('rmonth0')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
     <span onclick="clickB('rmonth1')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
@@ -343,7 +345,6 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
  <span id="runtildatebutton" name="runtildatebutton" style="display:[RUNUNTIL_DATE_DISPLAY]; cursor:pointer" title="[TEXT:click to select a date]" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"> 
  <img style="display:[repeatvie]; cursor:pointer" title="[TEXT:click to select a date]"  height="15" src="WGCAL/Images/cal-other.gif">
 
- <input type="hidden" id="Vruntildate" name="Vruntildate" value="[Vruntildate]">
  <span id="runtildate">[uDate]</span>
  <script type="text/javascript">
     Calendar.setup(
@@ -361,9 +362,9 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
     );
    </script></span>
 <div style="display:none">[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
-<hr>
 
 [IF displayExcludedDays]
+<hr>
 [TEXT:exclude days]
 
 <div>
@@ -381,7 +382,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 
 </div> <!-- end of repeat zone -->
 
-<div id="evgroups" style="display:none">
+<div id="evgroups" class="wZone" style="display:none">
 
 [BLOCK allgroups]<span id="showg[gownerid]" style="display:[gownerdispl]">
 [BLOCK [gownerid]]<div id="o[gowner]d[gid]" style="margin:2px" class="[IF gisused]WGCRessSelected[ENDIF gisused][IFNOT gisused]WGCRessDefault[ENDIF gisused]" onmouseover="if (this.className!='WGCRessSelected') this.className='WGCRessOver'" onmouseout="if (this.className!='WGCRessSelected') this.className='WGCRessDefault'" title="[TEXT:click to selec/unselect group] [gtitle]" onclick="changeVisGrp([gowner],[gid])">&nbsp;&nbsp;<img src="[gicon]"  border="0" height="15px">&nbsp;&nbsp;[gtitle]</div>
