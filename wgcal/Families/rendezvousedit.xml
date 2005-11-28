@@ -73,7 +73,7 @@
 <td align="left" nowrap>
 <input type="hidden" value="[START]" id="TsStart" name="TsStart">
 <input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
-<span onclick="ShowStartCalendar()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
+<span onclick="ShowStartCalendar()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
 <script>ShowStartCalendar()</script><img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
 </td>
 <td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
@@ -87,7 +87,7 @@
 <td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
 <input type="hidden" value="[END]" id="TsEnd" name="TsEnd">
 <input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
-<span onload="ShowEndCalendar()" onclick="ShowEndCalendar()"  onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="ButEnd" style="cursor:pointer;" title="[TEXT:click here to enter the end date]">
+<span onload="ShowEndCalendar()" onclick="ShowEndCalendar()"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
 <script>ShowEndCalendar()</script><img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
 </td>
 <td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>
@@ -101,18 +101,12 @@
 
 <tr>
 <td colspan="3" align="center">
-<span id="tnohour" style="cursor:pointer; visibility:[NOHOURDISP]"
-      onclick="clickB('nohour'); ChangeNoHour(false,0);"
-      onmouseover="this.style.background='[CORE_BGCOLORALTERN]'"
-      onmouseout="this.style.background=''">
+<span id="tnohour" style="visibility:[NOHOURDISP]" onclick="clickB('nohour'); ChangeNoHour(false,0);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
 <input [NOHOURINIT]  id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" 
 onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [TEXT:no hour]
 </span>
-<span id="tallday" style="cursor:pointer; visibility:[ALLDAYDISP]" 
-      onclick="clickB('allday'); ChangeAllDay(false,0);" 
-      onmouseover="this.style.background='[CORE_BGCOLORALTERN]'"
-      onmouseout="this.style.background=''">
+<span id="tallday" style="cursor:pointer; visibility:[ALLDAYDISP]" onclick="clickB('allday'); ChangeAllDay(false,0);"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
 <input [ALLDAYINIT]  id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday'); ChangeAllDay(false,0);"></input>
 [TEXT:all the day]
 </span>
@@ -147,7 +141,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </tr>
 
 <tr>
-<td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
+<td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
 <td colspan="2" >
 <span id="AlarmVis" style="visibility:[ALRMVIS]">
 <select id="alarmday" name="alarmdayhour" onchange="changeAlarmT()">[BLOCK ALARM_DA]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_DA]</select>d
@@ -242,20 +236,20 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td>&nbsp;</td></tr>
 
 <tr><td>
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
+<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
 </td></tr>
 
 
 <tr><td>&nbsp;</td></tr>
 
 <tr><td nowrap>
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
+<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
 
 [IF SendMailToExternal]<tr><td>
-<span style="align:right; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onclick="ShowHideStatus('mext', 'evmailext');" title="[TEXT:mail to external contact]"><input id="mext" name="mext" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mext', 'evmailext');" [mailtoexternals]>[TEXT:mail to externals...]</span>
+<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mext', 'evmailext');" title="[TEXT:mail to external contact]"><input id="mext" name="mext" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mext', 'evmailext');" [mailtoexternals]>[TEXT:mail to externals...]</span>
 </td></tr>[ENDIF SendMailToExternal]
 
 </table>
@@ -308,11 +302,11 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 
   <div style="width:100%; left:20px;">
    [TEXT:every] : 
-<span onclick="if (clickB('repeattype0')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype0')) everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [repeatdis] [REPEATTYPE_0]>[TEXT:none]</span>
-<span onclick="if (clickB('repeattype1')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype1')) everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [repeatdis] [REPEATTYPE_1]>[TEXT:day]</span>
-<span onclick="if (clickB('repeattype2')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype2')) everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:week]</span>
-<span onclick="if (clickB('repeattype3')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype3')) everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:month]</span>
-<span onclick="if (clickB('repeattype4')) everyInfo();" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="if (clickB('repeattype4')) everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4" [repeatdis] [REPEATTYPE_4]>[TEXT:year]</span>
+<span onclick="if (clickB('repeattype0')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype0')) everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0" [repeatdis] [REPEATTYPE_0]>[TEXT:none]</span>
+<span onclick="if (clickB('repeattype1')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype1')) everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1" [repeatdis] [REPEATTYPE_1]>[TEXT:day]</span>
+<span onclick="if (clickB('repeattype2')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype2')) everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2" [repeatdis] [REPEATTYPE_2]>[TEXT:week]</span>
+<span onclick="if (clickB('repeattype3')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype3')) everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3" [repeatdis] [REPEATTYPE_3]>[TEXT:month]</span>
+<span onclick="if (clickB('repeattype4')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype4')) everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4" [repeatdis] [REPEATTYPE_4]>[TEXT:year]</span>
    
   </div>
 
@@ -320,14 +314,14 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 
   <div id="d_rweekday" style="left:10%; width:100%; align:center; display:[RWEEKDISPLAY]">
    [TEXT:day repetition] : <br>
-[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="rweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
+[BLOCK D_RWEEKDISPLAY]<span onclick="clickB('rweekday[dayn]')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="evrweekday[]" value="[dayn]" [rdstate] [repeatdis]>[tDay]</span>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
 <!-- 
    [TEXT:month repetition] : <br>
-    <span onclick="clickB('rmonth0')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
-    <span onclick="clickB('rmonth1')" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
+    <span onclick="clickB('rmonth0')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
+    <span onclick="clickB('rmonth1')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     <br>
    --></div>
 
@@ -337,19 +331,20 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 <div width="100%">
 
   <br>[TEXT:repeat until] : 
-  <span onclick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');"
+  <span onclick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');"
          value="0" [D_RUNTIL_INFI] [repeatdis]>[TEXT:forever]</span>
-  <span onclick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" style="cursor:pointer" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" 
+  <span onclick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" 
          value="1" [D_RUNTIL_DATE] [repeatdis]>[TEXT:this date]</span>&nbsp;:&nbsp;
 
- <span id="runtildatebutton" name="runtildatebutton" style="display:[RUNUNTIL_DATE_DISPLAY]; cursor:pointer" title="[TEXT:click to select a date]" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''"> 
+ <span id="runtildatebutton" name="runtildatebutton" style="display:[RUNUNTIL_DATE_DISPLAY]; cursor:pointer" title="[TEXT:click to select a date]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"> 
  <img style="display:[repeatvie]; cursor:pointer" title="[TEXT:click to select a date]"  height="15" src="WGCAL/Images/cal-other.gif">
 
+ <input id="evruntildate" name="evruntildate" type="hidden" value="[usDate]">
  <span id="runtildate">[uDate]</span>
  <script type="text/javascript">
     Calendar.setup(
       {
-        inputField   : "Vruntildate",        
+        inputField   : "evruntildate",        
         displayArea  : "runtildate",        
         ifFormat     : "%s",   
         daFormat     : "[DFMT]",
@@ -373,7 +368,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 </select>
 </div>
 
-<div style="display:[repeatvie]; cursor:pointer;" onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" onClick="delExclDate()" ">
+<div style="display:[repeatvie]; cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onClick="delExclDate()">
 <img title="[TEXT:del selected dates]" height="12" src="WGCAL/Images/wgcal-minus.gif">
 [TEXT:del selected dates]</div>
 

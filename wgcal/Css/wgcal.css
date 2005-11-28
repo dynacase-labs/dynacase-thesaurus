@@ -347,10 +347,13 @@ TD {
 .wTextActive {
   background-color: [WTH_COLOR_2];
   cursor:pointer;
+  border-style: none none solid none;
+  border-width: 1px;
 }
 .wTextNormal {
   background-color: ;
   cursor:default;
+  border-style:none none none none;
 }
 .wTextEvent {
   cursor:pointer;

@@ -315,7 +315,7 @@ function RendezVousView() {
   $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
   if (!$private) {
     $rmode = $this->getValue("CALEV_REPEATMODE", 0);
-    $rday = $this->getTValue("CALEV_REPEATWEEKDAY", -1);
+    $rday = $this->getValue("CALEV_REPEATWEEKDAY", 0);
     $rmonth = $this->getValue("CALEV_REPEATMONTH", -1);
     $runtil = $this->getValue("CALEV_REPEATUNTIL", 0);
     $runtild = $this->getValue("CALEV_REPEATUNTILDATE", "");
@@ -329,7 +329,7 @@ function RendezVousView() {
       case 2:
         $tr = _("weekly");
         $tr .= ": ";
-        foreach ($rday as $kd => $vd) $tr .= $tday[$vd]." ";
+	for ($i=0; $i<6; $i++) $tr .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
         break;
       case 3:
         $tr = _("monthly");
@@ -590,7 +590,7 @@ function RendezVousEdit() {
       $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
       $ogrp = $this->getValue("CALEV_CONFGROUPS");
       $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
-      $evrweekd = $this->getTValue("CALEV_REPEATWEEKDAY", 0);
+      $evrweekd = $this->getValue("CALEV_REPEATWEEKDAY", 0);
       $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
       $evruntil = $this->getValue("CALEV_REPEATUNTIL", 0);
       $evruntild = w_dbdate2ts($this->getValue("CALEV_REPEATUNTILDATE"));
@@ -630,7 +630,7 @@ function RendezVousEdit() {
       $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
       $ogrp    = "-";
       $evrepeat = 0;
-      $evrweekd = array( (strftime("%u", time())-1));
+      $evrweekd = 0;
       $evrmonth = 0;
       $evruntil = -1;
       $evruntild = $timee + (7*24*3600);
@@ -969,16 +969,14 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
 
   $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
   for ($i=0; $i<=6; $i++) {
+    $td[$i]["rdstate"] = (($rday & pow(2,$i)) == pow(2,$i) ? "checked" : "" );
     $td[$i]["dayn"] = $i;
     $td[$i]["repeatdis"] = ($ro?"disabled":"");
     $td[$i]["tDay"] = $tday[$i];
-    $td[$i]["rdstate"] = "";
     if ($i==4) $td[$i]["weekend"] = true;
     else $td[$i]["weekend"] = false;
   }
-  foreach ($rday as $kd => $vd) $td[$vd]["rdstate"] = "checked";
   $this->lay->SetBlockData("D_RWEEKDISPLAY", $td);
-
   $this->lay->set("RWEEKDISPLAY", ($rmode==2?"":"none"));
 
   $this->lay->set("D_RMONTH", ($rmode==3?"":"none"));
@@ -991,6 +989,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   
   $this->lay->set("uDate", w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $this->lay->set("umDate", $runtildate*1000);
+  $this->lay->set("usDate", $runtildate);
   
 
   // Excluded dates

@@ -74,8 +74,8 @@ function searchSFamilie(evt, force) {
       result.style.display = 'none';
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>0) {
-	  result.innerHTML = '<div align="right" style="border-style:none none solid none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="14px" src="Images/wm-hide.gif"></div>';
-	  result.innerHTML += rq.responseText;
+	  result.innerHTML = rq.responseText;
+	  result.innerHTML += '<div align="right" style="border-style: solid none none none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="14px" src="Images/wm-hide.gif"></div>';
 	  result.style.left = po.x; 
 	  result.style.top = po.y + 20; 
 	  result.style.display = 'block';

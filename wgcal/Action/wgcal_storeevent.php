@@ -112,10 +112,15 @@ function wgcal_storeevent(&$action) {
   // repeat 
   $rmode = GetHttpVars("repeattype", 0);
   $event->setValue("CALEV_REPEATMODE", GetHttpVars("repeattype", 0));
-  $event->setValue("CALEV_REPEATWEEKDAY", GetHttpVars("rweekday", -1));
+
+  $rweekday = GetHttpVars("evrweekday", 0);
+  $daymask = 0;
+  foreach ($rweekday as $k => $v) $daymask = $daymask | pow(2,$v);
+  $event->setValue("CALEV_REPEATWEEKDAY", $daymask);
+
   $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
   $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
-  $date = GetHttpVars("Vruntildate");
+  $date = GetHttpVars("evruntildate");
   if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_datets2db($date));
   $excl = GetHttpVars("excludedate", "");
   $event->deleteValue("CALEV_EXCLUDEDATE");
