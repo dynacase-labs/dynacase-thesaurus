@@ -1,0 +1,2 @@
+[IFNOT noResult][BLOCK result]
+<div id="rc[id]" class="[class]" title="[title]" [IF handlerSet]onclick="[handler]('rc[id]', [fid], [id], '[title]', '[icon]')"[ENDIF handlerSet]><img style="border:Opx; height:16px" src="[icon]">&nbsp;[title]</div>[ENDBLOCK result][ENDIF noResult]
