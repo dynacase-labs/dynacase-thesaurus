@@ -217,23 +217,23 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </td></tr>
 <tr><td>&nbsp;</td></tr>
 
-[IF hasPrefered]<tr><td nowrap>
-<span id="press" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('plist').style.display = 'block'" onmouseout="this.className='wTextNormal'; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add my prefered ressource]">&nbsp;[TEXT:use my prefered ressource]</span>
+[IF hasPrefered]<tr><td nowrap align="right">
+<span id="press" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('plist').style.display = 'block'" onmouseout="this.className='wTextNormal'; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]">[TEXT:use my prefered ressource]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add my prefered ressource]"></span>
 <div class="elist" style="display:none" id="plist" >
 [BLOCK PLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK PLIST]
 </div>
 </td></tr>[ENDIF hasPrefered]
 
 
-[IF hasDisplayed]<tr><td nowrap>
-<span id="dress" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add displayed ressources]">&nbsp;[TEXT:use displayed ressources]</span>
+[IF hasDisplayed]<tr><td nowrap align="right">
+<span id="dress" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]">[TEXT:use displayed ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add displayed ressources]"></span>
 <div class="elist" style="display:none" id="dlist" >
 [BLOCK DLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK DLIST]
 </div>
 </td></tr>[ENDIF hasDisplayed]
 
-[IF hasSelected]<tr><td nowrap>
-<span id="sress" class="wTextNormal"  onmouseover="this.className='wTextActive'; document.getElementById('slist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]"><img height="10px" src="Images/wgcal-plus.gif" title="[TEXT:add selected ressources]">&nbsp;[TEXT:use selected ressources]</span>
+[IF hasSelected]<tr><td nowrap align="right">
+<span id="sress" class="wTextNormal"  onmouseover="this.className='wTextActive'; document.getElementById('slist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]">[TEXT:use selected ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add selected ressources]"></span>
 <div class="elist" style="display:none" id="slist" >
 [BLOCK SLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK SLIST]
 </div>

@@ -1,13 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
-<!-- POPUP DIVISION -->
-<div  style="z-index:2000; display:none" id="cellpopup" class="wgcalpopup">
-<a href="#" id="addrv" onclick=" closeMenu('cellpopup')">[TEXT:new rendez-vous]</a>
-<a href="#" id="cancelevent" onclick="closeMenu('cellpopup')"  >[TEXT:Cancel]</a>
-</div> <!-- end POPUP DIVISION -->
-
-<div id="root">
+<div id="root"></div>
 <table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
 
   <tr height="[WGCAL_U_HLINETITLE]px">
@@ -16,17 +10,16 @@
       <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:prev period]" 
 	   onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" 
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="12px"></td>
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="16px"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:current period]" 
           onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=[sm]&vm=[vm]&ress=[ress]'"
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="12"></td>
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="16px"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:next period]" 
           onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="12"></td>
+          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
-      <td class="WGCAL_Period" align="center" width="50" title="[TEXT:change hours division]">[IFNOT standAlone]<select style="cursor:pointer;" id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>[ENDIF standAlone][IF standAlone]&nbsp;[ENDIF standAlone]</td>
       </tr>
       </table> 
      </td>
@@ -34,12 +27,12 @@
     
  <tr height="[WGCAL_U_HLINETITLE]px">
     <td width="[hcolsize]%" class="WGCAL_Period"></td>
-    [BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times]);">[LABEL1]<br>[LABEL2]</td>[ENDBLOCK DAYS_LINE]
+    [BLOCK DAYS_LINE]<td id="D[IDD]" width="[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
  </tr>
 [BLOCK HOURS]<tr height="[HLINEHOURS]px">
 <td id="L[LID]" width="[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
 </tr>[ENDBLOCK HOURS]
-</table>[ZONE WGCAL:WGCAL_INFOS]</div>
+</table>[ZONE WGCAL:WGCAL_INFOS]
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]

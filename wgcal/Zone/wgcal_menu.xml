@@ -27,8 +27,9 @@
 </td>
 
 
-<td class="wMainMenu" align="center" width="30" title="[TEXT:view/hide week-end]">
-<input style="cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></td>
+<td class="wMainMenu" valign="top" align="center" width="80">
+<span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>
+<input style="vertical-align:top; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></span></td>
 
 
 <td align="center" class="wMainMenu" width="60">

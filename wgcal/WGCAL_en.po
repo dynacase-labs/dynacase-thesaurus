@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-24 06:07+0100\n"
+"POT-Creation-Date: 2005-11-28 04:15+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -524,9 +524,6 @@ msgstr ""
 msgid "change color for ressource"
 msgstr ""
 
-msgid "I can't set end hour before start"
-msgstr ""
-
 msgid "event description"
 msgstr ""
 
@@ -581,10 +578,10 @@ msgstr ""
 msgid "manage groups"
 msgstr ""
 
-msgid "I participe to this meeting"
+msgid "enter search string here"
 msgstr ""
 
-msgid "I participe..."
+msgid "check for search contact containing (by default containing)"
 msgstr ""
 
 msgid "add my prefered ressources"
@@ -614,13 +611,22 @@ msgstr ""
 msgid "convocation..."
 msgstr ""
 
+msgid "I participe to this meeting"
+msgstr ""
+
+msgid "I participe..."
+msgstr ""
+
 msgid "mail to external contact"
 msgstr ""
 
 msgid "mail to externals..."
 msgstr ""
 
-msgid "ressources advanced search"
+msgid "one ressource or you in event"
+msgstr ""
+
+msgid "list of attendees"
 msgstr ""
 
 msgid "vew disponibility"
@@ -630,12 +636,6 @@ msgid "confirm delete all attendees"
 msgstr ""
 
 msgid "delete all attendees"
-msgstr ""
-
-msgid "one ressource or you in event"
-msgstr ""
-
-msgid "list of attendees"
 msgstr ""
 
 msgid "click on ressource to select/unselect"
@@ -1146,9 +1146,6 @@ msgstr ""
 msgid "manager"
 msgstr ""
 
-msgid "allow outlook sync."
-msgstr ""
-
 msgid "allow to manage calendar visibility"
 msgstr ""
 
@@ -1159,6 +1156,9 @@ msgid "no access"
 msgstr ""
 
 msgid "invisible"
+msgstr ""
+
+msgid "allow outlook sync."
 msgstr ""
 
 msgid "css manager"
@@ -1201,6 +1201,9 @@ msgid "search event"
 msgstr ""
 
 msgid "advanced search event"
+msgstr ""
+
+msgid "contact search"
 msgstr ""
 
 msgid "search iuser"

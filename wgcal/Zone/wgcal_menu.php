@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.18 2005/10/17 06:59:46 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.19 2005/11/28 06:41:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -15,6 +15,14 @@ include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_menu(&$action) {
   include_once("FDL/popup_util.php");
+
+  $hdiv   = $action->GetParam("WGCAL_U_HOURDIV", 1);
+  for ($h=0; $h<=3; $h++) {
+    $tdiv[$h]["value"] = $h+1;
+    $tdiv[$h]["descr"] = ($h==0?"1h":"1/".($h+1)."h");
+    $tdiv[$h]["selected"] = ($hdiv==$h+1?"selected":"");
+  }
+  $action->lay->SetBlockData("CHHDIV", $tdiv);
 
   $setIcons = $action->getParam("WGCAL_U_ICONPOPUP", true);
   $action->lay->set("POPUPICONS", $setIcons);

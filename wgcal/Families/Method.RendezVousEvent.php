@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.10 2005/11/23 19:18:58 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.11 2005/11/28 06:41:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -56,6 +56,7 @@ function explodeEvt($d1, $d2) {
     $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
     $hstart = substr($this->getValue("evt_begdate"), 11, 5);
   
+//     AddWarningMsg("intervalle : ".jd2cal($start, 'FrenchLong')." - ".jd2cal($stop, 'FrenchLong'));
     for ($iday=$start; $iday<=$stop; $iday++) {
       if (!$this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) {
 	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;

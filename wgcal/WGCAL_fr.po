@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-24 06:07+0100\n"
+"POT-Creation-Date: 2005-11-28 04:15+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -488,7 +488,7 @@ msgstr "Mes délégations"
 
 msgid ""
 "send me a mail for all action -edition, approvement,...- done by delegation"
-msgstr "Je veux recevoir un mail pour tout les actions déléguées effectuées"
+msgstr "Je veux recevoir un mail pour toutes les actions déléguées effectuées"
 
 msgid "I delegate to..."
 msgstr "Délégation pour..."
@@ -525,9 +525,6 @@ msgstr "Sauvegarder la liste des calendriers"
 
 msgid "change color for ressource"
 msgstr "Modifier la couleur du calendrier"
-
-msgid "I can't set end hour before start"
-msgstr ""
 
 msgid "event description"
 msgstr "Description de l'évènement"
@@ -583,11 +580,12 @@ msgstr "Gérer les répétitions"
 msgid "manage groups"
 msgstr "Gérer les groupes"
 
-msgid "I participe to this meeting"
-msgstr "je participe à la réunion"
+#, fuzzy
+msgid "enter search string here"
+msgstr "entrer les mots recherchés"
 
-msgid "I participe..."
-msgstr "Je participe..."
+msgid "check for search contact containing (by default containing)"
+msgstr ""
 
 msgid "add my prefered ressources"
 msgstr "Ajouter mes contacts préférés"
@@ -616,14 +614,23 @@ msgstr "Cochez la case pour convoquer les contacts..."
 msgid "convocation..."
 msgstr "Convocation"
 
+msgid "I participe to this meeting"
+msgstr "je participe à la réunion"
+
+msgid "I participe..."
+msgstr "Je participe..."
+
 msgid "mail to external contact"
 msgstr "Cochez la case pour expédier un mail aux contacts extérieurs"
 
 msgid "mail to externals..."
 msgstr "Mail pour les extérieurs"
 
-msgid "ressources advanced search"
-msgstr "Recherche avancée de contact"
+msgid "one ressource or you in event"
+msgstr "Utiliser les ressources pour les rendez-vous"
+
+msgid "list of attendees"
+msgstr "Liste des participants..."
 
 msgid "vew disponibility"
 msgstr "Voir les disponibilités"
@@ -633,12 +640,6 @@ msgstr "confirmez la suppression de tous les participants"
 
 msgid "delete all attendees"
 msgstr "Suppression de tous les participants"
-
-msgid "one ressource or you in event"
-msgstr "Utiliser les ressources pour les rendez-vous"
-
-msgid "list of attendees"
-msgstr "Liste des participants..."
 
 msgid "click on ressource to select/unselect"
 msgstr "Cliquer pour sélectionner/déselectionner "
@@ -1150,9 +1151,6 @@ msgstr "Acces administrateur"
 msgid "manager"
 msgstr "Super utilisateur"
 
-msgid "allow outlook sync."
-msgstr "Autorise la synchronisation Outlook"
-
 msgid "allow to manage calendar visibility"
 msgstr "Autorise la gestion de la visibilité de son calendrier"
 
@@ -1164,6 +1162,9 @@ msgstr "Pas d'accès"
 
 msgid "invisible"
 msgstr "Affiche les fonctions invisibles (en développement)"
+
+msgid "allow outlook sync."
+msgstr "Autorise la synchronisation Outlook"
 
 msgid "css manager"
 msgstr "Gestion des CSS"
@@ -1206,6 +1207,10 @@ msgstr "recherche d'évènement"
 
 msgid "advanced search event"
 msgstr "Recherche avancée"
+
+#, fuzzy
+msgid "contact search"
+msgstr "Recherche rapide carnet d'adresse"
 
 msgid "search iuser"
 msgstr "Rechercher un utilisateur"
@@ -1355,6 +1360,9 @@ msgstr "Créé à partir d'Outlook oid="
 msgid "outlook modification"
 msgstr "Modification depuis Outlook"
 
+#~ msgid "ressources advanced search"
+#~ msgstr "Recherche avancée de contact"
+
 #~ msgid "start time after end time, please correct this"
 #~ msgstr ""
 #~ "La date de début est postérieure à celle de fin.<br>Merci de le corriger."
@@ -1446,9 +1454,6 @@ msgstr "Modification depuis Outlook"
 
 #~ msgid "all state"
 #~ msgstr "tout état"
-
-#~ msgid "enter words here"
-#~ msgstr "entrer les mots recherchés"
 
 #~ msgid "event proposal"
 #~ msgstr "Proposition de rendez-vous"

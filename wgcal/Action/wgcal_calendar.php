@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.59 2005/11/26 07:18:56 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.60 2005/11/28 06:41:59 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -95,37 +95,27 @@ function wgcal_calendar(&$action) {
   $pafter = $sdate + ($ndays * SEC_PER_DAY);
   $pbefore = $sdate - ($ndays * SEC_PER_DAY);
 
-  $year  = strftime("%Y",$sdate);
-  $month = strftime("%B",$sdate);
-  $week  = strftime("%V",$sdate);
-  $iday  = strftime("%u",$sdate);
-  $day   = strftime("%d",$sdate);
+  $year  = strftime("%Y",$firstWeekDay);
+  $month = strftime("%B",$firstWeekDay);
+  $emonth = strftime("%B",$edate);
+  $week  = strftime("%V",$firstWeekDay);
+  $iday  = strftime("%u",$firstWeekDay);
+  $day   = strftime("%d",$firstWeekDay);
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
   $hdiv   = $action->GetParam("WGCAL_U_HOURDIV", 1);
-  for ($h=0; $h<=3; $h++) {
-    $tdiv[$h]["value"] = $h+1;
-    $tdiv[$h]["descr"] = ($h==0?"1h":"1/".($h+1)."h");
-    $tdiv[$h]["selected"] = ($hdiv==$h+1?"selected":"");
-  }
-  $action->lay->SetBlockData("CHHDIV", $tdiv);
   if ($hdiv>1) $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40) / ($hdiv - 1);
   else $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40);
   
-
-  $action->lay->set("DIVSTART", "calareastart");
-  $action->lay->set("DIVEND", "calareaend");
-  
   $action->lay->set("colspan", $ndays+1 );
   $action->lay->set("week", $week);
-  $action->lay->set("month", $month);
+  $action->lay->set("month", ucwords($month.($month!=$emonth?", $emonth":"")));
   $action->lay->set("year", $year);
   $action->lay->set("pafter", $pafter);
   $action->lay->set("pbefore", $pbefore);
   $action->lay->set("pcurrent", time());
 
-  $action->lay->set("WEEKNUMBER", $week);
   $curday = -1;
   $tabdays = array(); $itd=0;
   for ($i=0; $i<$ndays; $i++) { 
@@ -133,7 +123,6 @@ function wgcal_calendar(&$action) {
     $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstart - (3600/$hdiv));
     $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop + 3600 + (3600/$hdiv));
-//AddWarningMsg("hdiv=$hdiv vend=".strftime("%d/%m/%Y %T %Z",$tabdays[$i]["vend"])."]");
     if ($cdate==$tabdays[$i]["days"]) {
       $class[$i] = "WGCAL_DayCur";
       $classh[$i] = "WGCAL_DayLineCur";
@@ -150,8 +139,7 @@ function wgcal_calendar(&$action) {
     $t[$i]["IDD"] = $i;
     $t[$i]["colsize"] = $colsize;
     $t[$i]["CSS"] = $classh[$i];
-    $t[$i]["LABEL1"] = w_strftime($firstWeekDay+($i*SEC_PER_DAY), WD_FMT_TDAY);
-    $t[$i]["LABEL2"] = w_strftime($firstWeekDay+($i*SEC_PER_DAY), WD_FMT_TMONTH);
+    $t[$i]["LABEL1"] = ucwords(strftime("%a %d", $firstWeekDay+($i*SEC_PER_DAY)));
     $t[$i]["times"] = $tabdays[$i]["vstart"] ;
     $t[$i]["timee"] = $t[$i]["times"] +  SEC_PER_HOUR;
   }
