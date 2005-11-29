@@ -212,18 +212,42 @@ function wGetRessDisplayed() {
   return $r;
 }
 
+function initCategories() {
+  global $action;
+  $dbaccess = $action->getParam("FREEDOM_DB");
+  $calf = getIdFromName($dbaccess, "CALEVENT");
+  $glist = GetChildDoc($dbaccess, 0, 0, "ALL", array("catg_famid = $calf"), $action->user->id, "LIST", "CATEGORIES");
+  if (count($glist)==0) {
+    $catl = createDoc($dbaccess,"CATEGORIES");
+    if (!$catl) {
+      return false;
+    }
+    $catl->setValue("catg_famid", getFamIdFromName($dbaccess, "CALEVENT"));
+    $rv = new_Doc($dbaccess, "CALEVENT");
+    $catl->setValue("catg_fam", $rv->getTitle());
+    $catl->setValue("catg_id",array(0));
+    $catl->setValue("catg_name",array(_("no category")));
+    $catl->setValue("catg_order",array(0));
+    $catl->setValue("catg_color",array("transparent"));
+    $catl->Add();
+  } else {
+    $catl = $glist[0];
+  }
+  return $catl;
+}
+
 function wGetCategories() {
   global $action;
-  $freedomdb = $action->getParam("FREEDOM_DB");
-  $dt = new_Doc($freedomdb, "CALEVENT");
-  $ctg = $dt->GetAttribute("CALEV_CATEGORY");
-  $enum = $ctg->getEnum();
-  return $enum;
-}
-function wGetCategorieColor($cat) {
-  $col = array( "#00FF66", "#990099", "#FF3366", "#0066FF", "#CC99FF", "#CC99FF", "#FFFF00", "#66FF66", "#FF9933" );
-  if ($cat<0 || $cat>count($col)) return $col[count($col)-1];
-  return $col[$cat];
+  $dbaccess = $action->getParam("FREEDOM_DB");
+  $catl = initCategories();
+  $ids = $catl->getTValue("catg_id");
+  $col = $catl->getTValue("catg_color");
+  $nam = $catl->getTValue("catg_name");
+  $tc = array();
+  foreach ($ids as $k=>$v) {
+    $tc[] = array( "id" => $ids[$k], "label" => $nam[$k], "color" => $col[$k] );
+  }
+  return $tc;
 }
 
 global $aTrace;

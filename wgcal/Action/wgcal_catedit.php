@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_catedit.php,v 1.1 2005/11/29 15:51:33 marc Exp $
+ * @version $Id: wgcal_catedit.php,v 1.2 2005/11/29 18:46:22 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,6 +12,7 @@
  */
 include_once('FDL/Lib.Dir.php');
 include_once('FDL/Class.Doc.php');
+include_once('WGCAL/Lib.wTools.php');
 
 function wgcal_catedit(&$action) {
 
@@ -24,13 +25,13 @@ function wgcal_catedit(&$action) {
   $dbaccess = $action->getParam("FREEDOM_DB");
 
   $calf = getIdFromName($dbaccess, "CALEVENT");
-  $glist = GetChildDoc($dbaccess, 0, 0, "ALL", array("catg_famid = $calf"), $action->user->id, "LIST", "CATEGORIES");
-  if (count($glist)==0) {
-    $action->lay->set("nocat", true);
+  $catl = initCategories();
+  if (!$catl) {
+    $action->lay->set("nocat", true); 
     return;
   }
-  $action->lay->set("nocat", false);
-  $catl = $glist[0];
+  $action->lay->set("nocat", false); 
+ 
 
   $ncatname = GetHttpVars("ncatname", "");
   $ncatorder = GetHttpVars("ncatorder", "");
@@ -48,11 +49,6 @@ function wgcal_catedit(&$action) {
     $lastcat = 0;
     foreach ($catid as $k => $v) $lastcat = ($lastcat<$v?$v:$lastcat);
     $lastcat++;
-//     echo "OK lascat = $lastcat<br>";
-//     print_r2($catid);
-//     print_r2($catcolor);
-//     print_r2($catorder);
-//     print_r2($catname);
     if ($ncatname!="" && $ncatorder!="" && $ncatcolor!="") {
       $catid[] = $lastcat;
       $catorder[] = $ncatorder;
@@ -78,13 +74,14 @@ function wgcal_catedit(&$action) {
 		     "catorder" => $cat_order[$kg],
 		     "catname" => $cat_name[$kg],
 		     "catcolor" => $cat_color[$kg],
+		     "catw" => ($cat_id[$kg]==0?false:read),
 		     );
     $maxorder = ($vg>$maxorder?$vg:$maxorder);
   }
   usort($catg, catgsort);
   $action->lay->setBlockData("CATG", $catg);
   $action->lay->set("maxorder", ($maxorder+10));
- 
+
   return;
 }
 

@@ -266,19 +266,19 @@ function RendezVousView() {
     $this->lay->set("modifdate", strftime("%d %B %y %H:%M",$this->revdate));
     $this->lay->set("ShowCalendar", true);
     $this->lay->set("incalendar", $this->getValue("CALEV_EVCALENDAR"));
-    $hasCat = false;
-    $show = ($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
+    $show = true ; //($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
+    $this->lay->set("hasCat", false);
     if ($show) {
-      $this->lay->set("ShowCategories", $show);
       $catg = wGetCategories();
       $cat = $this->getValue("CALEV_CATEGORY");
-      if (isset($catg[$cat])) $tc = $catg[$cat];
-      else $tc = "";
-      $this->lay->set("category", $tc);
-      $this->lay->set("catcolor", wGetCategorieColor($cat));
-      $hasCat = ($cat==0?false:true);
+      foreach ($catg as $k=>$v) {
+	if ($v["id"] == $cat) {
+	  $this->lay->set("category", $v["label"]);
+	  $this->lay->set("catcolor", $v["color"]);
+	  $this->lay->set("hasCat", true);
+	}
+      }
     }
-    $this->lay->set("hasCat", $hasCat);
     $title = $this->getValue("CALEV_EVTITLE");
   } else {
     $title =_("confidential event");
@@ -787,9 +787,9 @@ function EventSetCategory($evcategory) {
     $catg = wGetCategories();
     $tcat = array(); $ntc = 0;
     foreach ($catg as $k => $v) {
-      $tcat[$ntc]["value"] = $k;
-      $tcat[$ntc]["descr"] = $v;
-      $tcat[$ntc]["selected"] = ($k == $evcategory ? "selected" : "");
+      $tcat[$ntc]["value"] = $v["id"];
+      $tcat[$ntc]["descr"] = $v["label"];
+      $tcat[$ntc]["selected"] = ($v["id"] == $evcategory ? "selected" : "");
       $ntc++;
     }
     $this->lay->setBlockData("RVCATEGORY", $tcat);
