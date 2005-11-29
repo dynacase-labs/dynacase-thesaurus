@@ -333,10 +333,42 @@ function RendezVousView() {
         break;
       case 3:
         $tr = _("monthly");
-        if ($rmonth==0) $tr .= " ("._("by date").")";
-        if ($rmonth==1) $tr .= " ("._("by day").")";
+	$day = substr($this->getValue("CALEV_START"),0,2);
+	if ($rmonth!=1) {
+	  $tr .= " (les $day du mois)";
+	} else {
+	  $ts = w_dbdate2ts($this->getValue("CALEV_START", ""));
+	  $dayn = strftime("%u", $ts);
+	  $dayt = strftime("%A", $ts);
+	  $rday = 0;
+	  $cancel = false;
+	  while (!$cancel) {
+	    if ($day-($rday*7)>0) $rday++;
+	    else $cancel = true;
+	  }
+	  $tr .= " (les $rday".($rday>1?"ème":"er")." $dayt du mois)";
+	}
         break;
-      case 4: $tr = _("yearly"); break;
+      case 4: 
+	$tr = _("yearly");
+ 	$day = substr($this->getValue("CALEV_START"),0,2);
+ 	$month = substr($this->getValue("CALEV_START"),3,2);
+	$ts = w_dbdate2ts($this->getValue("CALEV_START", ""));
+	$dayn = strftime("%u", $ts);
+	$dayt = strftime("%A", $ts);
+	$montht = strftime("%B", $ts);
+	if ($rmonth!=1) {
+	  $tr .= " (le $day $montht)";
+	} else {
+	  $rday = 0;
+	  $cancel = false;
+	  while (!$cancel) {
+	    if ($day-($rday*7)>0) $rday++;
+	    else $cancel = true;
+	  }
+	  $tr .= " (les $rday".($rday>1?"ème":"er")." $dayt de $montht)";
+	}
+	break;
       }
       $tru = "";
       if ($runtil==1 && $runtild>0) $tru = " "._("until")." ".substr($runtild,0,10);
