@@ -1,0 +1,48 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD]
+
+<script type="text/javascript">
+
+var cp = new ColorPicker('window');
+var ecol = '';
+function pickColor(color) {
+  document.getElementById(ecol).style.backgroundColor = color;
+  document.getElementById(ecol).value = color;
+}
+function showColorPicker(event, ide) {
+  ecol = ide;
+  cp.show(ide);
+}
+
+</script>
+[IF nocat]<div class="WEvTitle">[TEXT:no categories set, contact your administrator]</div>[ENDIF nocat]
+[IFNOT nocat]
+<form id="fcat" target="_self" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CATEDIT">
+<div class="WEvTitle" align="left">&nbsp;<img src="[IMG:wgcal_choosecategories.gif]" height="16px">&nbsp;[TEXT:agenda categories]
+&nbsp;<img src="[IMG:wgcal-plus.gif]" height="12px" title="[TEXT:add new category]" class="WGCalAction" onclick="document.getElementById('ncat').style.display = 'block'; document.getElementById('vglob').style.display = 'none'; "></div>
+
+<div id="ncat" class="elist" style="display:none; padding:12px; position:absolute; z-index:1000; border:3px groove">
+<table width="100%" cellspacing="0">
+<tr><td align="right">[TEXT:categorie order] : </td><td><input style="font-size:90%; border:1px inset;"  type="text" id="ncatorder" name="ncatorder" size="2" value="[maxorder]"></td></tr>
+<tr><td align="right">[TEXT:categorie name] : </td><td><input style="font-size:90%; border:1px inset;" type="text" id="ncatname" size="10" name="ncatname"></td></tr>
+<tr><td align="right">[TEXT:categorie color] : </td><td><input style="font-size:90%; border:1px inset;" type="text" name="ncatcolor" value="red" id="ncatcolor" readonly size="7" style="background-color:red; cursor:pointer" onclick="showColorPicker(event,'ncatcolor');"></input> </td></tr>
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td class="WEvTitle" colspan="2" align="right"><img src="[IMG:wm-close.gif]" id="btnCancel" height="12px" title="[TEXT:cancel]" class="WGCalAction" onclick="if (confirm('[TEXT:cancel modification]')) { document.getElementById('ncat').style.display = 'none'; document.getElementById('vglob').style.display = ''; }">&nbsp;<img src="[IMG:wm-save.gif]" id="btnApply" height="12px" title="[TEXT:save]" class="WGCalAction" onclick="document.getElementById('fcat').submit(); "></td></tr>
+</table>
+</div>
+
+[BLOCK CATG]
+<div id="cat[idcat]" style="padding:3px; border-style:none none dotted none; border-width:1px;">
+<input id="catv[idcat]" name="catlist[]" value="[idcat]|[catorder]|[catname]|[catcolor]" type="hidden">
+<img width="12px" src="[IMG:wm-delete.gif]" title="[TEXT:suppress categorie] [catname]" onclick="if (confirm('[TEXT:delete this category]')) { document.getElementById('catv[idcat]').value=-1; e=document.getElementById('cat[idcat]'); e.parentNode.removeChild(e); document.getElementById('fcat').submit(); } ">&nbsp;
+
+<input id="cati[idcat]" name="catid[]" value="[idcat]" type="hidden"/>&nbsp;
+<input readonly style="font-size:80%; background-color:[catcolor]; border:1px outset; cursor:pointer;" id="catc[idcat]" name="catcolor[]" onclick="showColorPicker(event,'catc[idcat]'); " width="20px" title="[TEXT:click here to change category color]" value="[catcolor]" size="7"/>&nbsp;
+<input style="font-size:90%; border:1px inset;" id="cato[idcat]" name="catorder[]" value="[catorder]" type="text" size="2"/>&nbsp;
+<input style="font-size:90%; border:1px inset;" id="catt[idcat]" name="catname[]" value="[catname]" type="text" size="20"/>&nbsp;</div>[ENDBLOCK CATG]
+
+</form>
+<table id="vglob" width="100%" cellspacing="0">
+<tr><td class="WEvTitle" colspan="2" align="right"><img src="[IMG:wm-close.gif]" id="btnCancel" height="12px" title="[TEXT:cancel]" class="WGCalAction" onclick="if (confirm('[TEXT:cancel modification]')) { document.getElementById('ncat').style.display = 'none'; document.getElementById('vglob').style.display = ''; }">&nbsp;<img src="[IMG:wm-save.gif]" id="btnApply" height="12px" title="[TEXT:save]" class="WGCalAction" onclick="document.getElementById('fcat').submit(); "></td></tr>
+</table>
+[ENDIF nocat]
+[ZONE WGCAL:WGCAL_HTMLFOOT]
