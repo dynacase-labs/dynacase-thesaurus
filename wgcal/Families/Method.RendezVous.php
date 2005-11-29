@@ -316,7 +316,7 @@ function RendezVousView() {
   if (!$private) {
     $rmode = $this->getValue("CALEV_REPEATMODE", 0);
     $rday = $this->getValue("CALEV_REPEATWEEKDAY", 0);
-    $rmonth = $this->getValue("CALEV_REPEATMONTH", -1);
+    $rmonth = $this->getValue("CALEV_REPEATMONTH", 0);
     $runtil = $this->getValue("CALEV_REPEATUNTIL", 0);
     $runtild = $this->getValue("CALEV_REPEATUNTILDATE", "");
     $rexclude = $this->getValue("CALEV_EXCLUDEDATE", array());
@@ -632,7 +632,7 @@ function RendezVousEdit() {
       $evrepeat = 0;
       $evrweekd = 0;
       $evrmonth = 0;
-      $evruntil = -1;
+      $evruntil = 0;
       $evruntild = $timee + (7*24*3600);
       $evrexcld  = array();
       $evstatus = EVST_ACCEPT;
@@ -963,7 +963,6 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
 {
 
   $this->lay->set("REPEAT_SELECTED", "");
-  $this->lay->set("FREQVALUE", $freq);
   
   for ($i=0; $i<=4; $i++) $this->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
@@ -990,6 +989,12 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   $this->lay->set("uDate", w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $this->lay->set("umDate", $runtildate*1000);
   $this->lay->set("usDate", $runtildate);
+  
+
+  // Frequency
+  $tif = array();
+  for ($if=1; $if<=12; $if++) $tif[] = array( "iFreq" => $if, "IFreqSel" => ($freq==$if?"selected":""));
+  $this->lay->setBlockData("BFREQ", $tif);
   
 
   // Excluded dates

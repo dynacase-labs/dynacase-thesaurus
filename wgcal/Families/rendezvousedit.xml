@@ -318,12 +318,10 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
-<!-- 
    [TEXT:month repetition] : <br>
     <span onclick="clickB('rmonth0')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
     <span onclick="clickB('rmonth1')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
-    <br>
-   --></div>
+    <br></div>
 
 </div>
 
@@ -331,10 +329,8 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 <div width="100%">
 
   <br>[TEXT:repeat until] : 
-  <span onclick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');"
-         value="0" [D_RUNTIL_INFI] [repeatdis]>[TEXT:forever]</span>
-  <span onclick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" 
-         value="1" [D_RUNTIL_DATE] [repeatdis]>[TEXT:this date]</span>&nbsp;:&nbsp;
+  <span onclick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" value="0" [D_RUNTIL_INFI] [repeatdis]>[TEXT:forever]</span>
+  <span onclick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" value="1" [D_RUNTIL_DATE] [repeatdis]>[TEXT:this date]</span>&nbsp;:&nbsp;
 
  <span id="runtildatebutton" name="runtildatebutton" style="display:[RUNUNTIL_DATE_DISPLAY]; cursor:pointer" title="[TEXT:click to select a date]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"> 
  <img style="display:[repeatvie]; cursor:pointer" title="[TEXT:click to select a date]"  height="15" src="WGCAL/Images/cal-other.gif">
@@ -356,7 +352,11 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
       }
     );
    </script></span>
-<div style="display:none">[TEXT:frequency] <input id="rfrequency" class="textBorder" name="rfrequency" size="1" type="text" value="[FREQVALUE]" readonly [repeatdis]></div>
+<br>
+<!-- div style="display:">[TEXT:frequency] : <select class="textBorder" id="rfrequency" name="rfrequency" [repeatdis]>
+[BLOCK BFREQ]<option value="[iFreq]" [IFreqSel]>[iFreq]</option>[ENDBLOCK BFREQ]
+</select>
+</div -->
 
 [IF displayExcludedDays]
 <hr>

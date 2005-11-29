@@ -84,7 +84,7 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_START", $start);
   $event->setValue("CALEV_END", $end);
   
-  $event->setValue("CALEV_FREQUENCY", GetHttpVars("frequency",1));
+  $event->setValue("CALEV_FREQUENCY", GetHttpVars("rfrequency",1));
   
   $calid = GetHttpVars("evcalendar", -1);
   $caltitle = _("main calendar");
