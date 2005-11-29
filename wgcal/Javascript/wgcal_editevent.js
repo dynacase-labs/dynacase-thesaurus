@@ -485,7 +485,7 @@ function everyInfo() {
   document.getElementById('d_rmonth').style.display = 'none';
 
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
-  if (checkone==3) document.getElementById('d_rmonth').style.display = '';
+  if (checkone==3 || checkone==4) document.getElementById('d_rmonth').style.display = '';
 
 }
 
