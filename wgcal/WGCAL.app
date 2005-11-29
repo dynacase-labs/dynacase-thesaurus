@@ -109,8 +109,9 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_APROPOS", "toc" => "N"),
 
 
-  array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_ROOMSCARS", "toc" => "N"),
-  array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_CHOOSEGROUPS", "toc" => "N"),
+  array( "acl" => "WGCAL_MGR", "name" => "WGCAL_ROOMSCARS", "toc" => "N"),
+  array( "acl" => "WGCAL_MGR", "name" => "WGCAL_CHOOSEGROUPS", "toc" => "N"),
+  array( "acl" => "WGCAL_MGR", "name" => "WGCAL_CATEDIT", "toc" => "N"),
   array( "acl" => "WGCAL_ADMIN", "name" => "WGCAL_SETGROUPS", "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_SETUGROUPS", "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_DELEGATE", "toc" => "N"),

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 10:36+0100\n"
+"POT-Creation-Date: 2005-11-29 15:22+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -308,12 +308,6 @@ msgstr "hebdomadaire"
 msgid "monthly"
 msgstr "mensuelle"
 
-msgid "by date"
-msgstr "par date"
-
-msgid "by day"
-msgstr "par jour"
-
 msgid "yearly"
 msgstr "annuelle"
 
@@ -349,6 +343,12 @@ msgstr "Réunion"
 
 msgid "public calendar"
 msgstr "Mon agenda public"
+
+msgid "by date"
+msgstr "par date"
+
+msgid "by day"
+msgstr "par jour"
 
 msgid "small"
 msgstr "Petite"
@@ -1016,6 +1016,36 @@ msgstr "Rendez-vous en attente"
 msgid "alert for new event ?"
 msgstr "me prévenir pour les évènements en attente"
 
+msgid "no categories set, contact your administrator"
+msgstr ""
+
+msgid "agenda categories"
+msgstr "Catégories des rendez-vous de l'Agenda"
+
+msgid "add new category"
+msgstr "Ajout d'une nouvelle catégorie"
+
+msgid "categorie order"
+msgstr "Ordre"
+
+msgid "categorie name"
+msgstr "Nom"
+
+msgid "categorie color"
+msgstr "Couleur"
+
+msgid "cancel modification"
+msgstr "Annuler les éventuelles modifications"
+
+msgid "suppress categorie"
+msgstr "Supprimer la catégorie"
+
+msgid "delete this category"
+msgstr "Supprimer la catégorie"
+
+msgid "click here to change category color"
+msgstr "cliquer pour modifier la couleur de la catégorie"
+
 msgid "to be confirm"
 msgstr "à confirmer"
 
@@ -1518,9 +1548,6 @@ msgstr "Utilisation des fonctions en cours de test"
 
 #~ msgid "add new event"
 #~ msgstr "Ajout d'un nouveau rendez-vous"
-
-#~ msgid "add new call"
-#~ msgstr "Ajout d'un nouvel appel"
 
 #~ msgid "one week view"
 #~ msgstr "Une semaine"

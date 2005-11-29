@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-28 10:36+0100\n"
+"POT-Creation-Date: 2005-11-29 15:22+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -302,12 +302,6 @@ msgstr ""
 msgid "monthly"
 msgstr ""
 
-msgid "by date"
-msgstr ""
-
-msgid "by day"
-msgstr ""
-
 msgid "yearly"
 msgstr ""
 
@@ -342,6 +336,12 @@ msgid "icon text with attendees"
 msgstr ""
 
 msgid "public calendar"
+msgstr ""
+
+msgid "by date"
+msgstr ""
+
+msgid "by day"
 msgstr ""
 
 msgid "small"
@@ -1008,6 +1008,36 @@ msgid "waiting rv"
 msgstr ""
 
 msgid "alert for new event ?"
+msgstr ""
+
+msgid "no categories set, contact your administrator"
+msgstr ""
+
+msgid "agenda categories"
+msgstr ""
+
+msgid "add new category"
+msgstr ""
+
+msgid "categorie order"
+msgstr ""
+
+msgid "categorie name"
+msgstr ""
+
+msgid "categorie color"
+msgstr ""
+
+msgid "cancel modification"
+msgstr ""
+
+msgid "suppress categorie"
+msgstr ""
+
+msgid "delete this category"
+msgstr ""
+
+msgid "click here to change category color"
 msgstr ""
 
 msgid "to be confirm"
