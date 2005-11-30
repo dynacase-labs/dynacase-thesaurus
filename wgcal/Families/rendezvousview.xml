@@ -41,9 +41,10 @@
 
 <tr>
  <td colspan="2" valign="top">[IFNOT Confidential]
-<span style="font-size:80%; font-style:italic">[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]
-[IF ShowCalendar]<br>[TEXT:in calendar] : [incalendar][ENDIF ShowCalendar][IF hasCat] - [TEXT:category] : [category][ENDIF hasCat]
-[IF ShowGroups]<br>[TEXT:view groups] : [groups][ENDIF ShowGroups]</span>
-  [ENDIF Confidential]</td>
+<span style="font-size:80%; font-style:italic">
+[IF ShowCalendar][TEXT:in calendar] : [incalendar][ENDIF ShowCalendar][IF hasCat] - [TEXT:category] : [category][ENDIF hasCat]
+[IF ShowGroups]<br>[TEXT:view groups] : [groups][ENDIF ShowGroups]
+<br>[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]</span>
+[ENDIF Confidential]</td>
 </tr>
 </table>

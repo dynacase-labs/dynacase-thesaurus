@@ -1,2 +1,1 @@
-[IFNOT noResult][BLOCK result]
-<div id="rc[id]" class="[class]" title="[title]" [IF handlerSet]onclick="[handler]('rc[id]', [fid], [id], '[title]', '[icon]')"[ENDIF handlerSet]><img style="border:Opx; height:16px" src="[icon]">&nbsp;[title]</div>[ENDBLOCK result][ENDIF noResult]
+[IFNOT noResult][BLOCK result]<div id="rc[id]" class="[class]" title="[title]" [IF handlerSet]onclick="[handler]('rc[id]', [fid], [id], '[title]', '[icon]')"[ENDIF handlerSet]><img style="border:Opx; height:16px" src="[icon]">&nbsp;[title]</div>[ENDBLOCK result]<div align="right" style="border-style: solid none none none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="12px" src="Images/wm-hide.gif"></div>[ENDIF noResult]

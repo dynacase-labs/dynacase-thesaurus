@@ -264,18 +264,19 @@ function RendezVousView() {
   if (!$private) {
     $this->lay->set("ShowDate", true);
     $this->lay->set("modifdate", strftime("%d %B %y %H:%M",$this->revdate));
-    $this->lay->set("ShowCalendar", true);
     $this->lay->set("incalendar", $this->getValue("CALEV_EVCALENDAR"));
     $show = true ; //($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
     $this->lay->set("hasCat", false);
     if ($show) {
       $catg = wGetCategories();
       $cat = $this->getValue("CALEV_CATEGORY");
-      foreach ($catg as $k=>$v) {
-	if ($v["id"] == $cat) {
-	  $this->lay->set("category", $v["label"]);
-	  $this->lay->set("catcolor", $v["color"]);
-	  $this->lay->set("hasCat", true);
+      if ($cat>0) {
+	foreach ($catg as $k=>$v) {
+	  if ($v["id"] == $cat) {
+	    $this->lay->set("category", $v["label"]);
+	    $this->lay->set("catcolor", $v["color"]);
+	    $this->lay->set("hasCat", true);
+	  }
 	}
       }
     }

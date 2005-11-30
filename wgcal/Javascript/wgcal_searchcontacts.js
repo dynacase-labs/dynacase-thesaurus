@@ -13,7 +13,10 @@ function insertContact(domid, famid, id, title, iconsrc) {
   addRessource(id, title, iconsrc, st, col, 'nouveau', true, false);
   if (document.getElementById(domid)) {
     var e = document.getElementById(domid);
-    e.parentNode.removeChild(e);
+    var pe = e.parentNode;
+    alert(pe.innerHTML);
+    pe.removeChild(e);
+    if (pe.childNodes.length==1) pe.style.display='none';
   }
 }
 
@@ -75,7 +78,7 @@ function searchSFamilie(evt, force) {
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>0) {
 	  result.innerHTML = rq.responseText;
-	  result.innerHTML += '<div align="right" style="border-style: solid none none none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="14px" src="Images/wm-hide.gif"></div>';
+// 	  result.innerHTML += '<div align="right" style="border-style: solid none none none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="12px" src="Images/wm-hide.gif"></div>';
 	  result.style.left = po.x; 
 	  result.style.top = po.y + 20; 
 	  result.style.display = 'block';
