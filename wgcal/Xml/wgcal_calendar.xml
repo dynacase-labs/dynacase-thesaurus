@@ -9,15 +9,15 @@
       <table width="100%"  cellspacing="0" border="0"><tr>
       <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:prev period]" 
-	   onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" 
+	   onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" 
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="16px"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:current period]" 
-          onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&sm=[sm]&vm=[vm]&ress=[ress]'"
+          onclick="window.location.href  = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pcurrent]&sm=[sm]&vm=[vm]&ress=[ress]'"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="16px"></td>
        <td align="center" width="30" style="cursor:pointer;" 
           title="[TEXT:next period]" 
-          onclick="document.location = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
+          onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
       <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
       </tr>

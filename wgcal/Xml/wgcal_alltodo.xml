@@ -5,7 +5,7 @@
 </tr>
 </tr></table>
 
-[ZONE WGCAL:TODO?S=1&dtodo=-1]
+[ZONE WGCAL:WGCAL_TODOVIEW?S=1&dtodo=-1]
 
 <table cellspacing="0" cellpadding="0" width="100%"><tr><td class="wMonthTextTitle"  align="right">
 <img src="[IMG:wm-close.gif]" id="btnCancel" height="12" title="[TEXT:cancel]" class="WGCalAction" onclick="window.close();"></td></tr></table>

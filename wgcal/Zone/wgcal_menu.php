@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.20 2005/11/29 14:27:08 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.21 2005/11/30 07:38:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -41,7 +41,6 @@ function wgcal_menu(&$action) {
 						 "ico" => "wgcal-small.gif",
 						 "rig" => "WGCAL_USER" 
 						 ),
-		                       	   array( "key" => "separator" ),
 		                       	   array( 
 						 "key" => "m_todo_new", 
 						 "txt" => _("m_txt_todo_new"), 
@@ -50,14 +49,14 @@ function wgcal_menu(&$action) {
 						 "ico" => "todo-new.gif",
 						 "rig" => "WGCAL_USER" 
 						 ),
-		                       	   array( 
-						 "key" => "m_todo_viewall", 
-						 "txt" => _("m_txt_todo_viewall"), 
-						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO",
-						 "tgt" => "wgcal_alltodo", 
-						 "ico" => "todo-all.gif",
-						 "rig" => "WGCAL_USER" 
-						 )
+// 		                       	   array( 
+// 						 "key" => "m_todo_viewall", 
+// 						 "txt" => _("m_txt_todo_viewall"), 
+// 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_ALLTODO",
+// 						 "tgt" => "wgcal_alltodo", 
+// 						 "ico" => "todo-all.gif",
+// 						 "rig" => "WGCAL_USER" 
+// 						 )
 					   )
 			 ),
                   array( "menu"  => "m_view",

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.15 2005/10/13 14:11:54 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.16 2005/11/30 07:38:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -157,7 +157,7 @@ function wgcal_prefs_look(&$action) {
   foreach ($minc as $k => $v) { 
     $opt[$i]["optvalue"] = $v;
     $opt[$i]["optdescr"] = $k;
-    $opt[$i]["optselect"] = ($v==$action->parent->param->GetUParam("WGCAL_U_RVDEFDUR", $uid, 60) ? "selected" : "");
+     $opt[$i]["optselect"] = ($v==$action->getParam("WGCAL_U_RVDEFDUR", 60) ? "selected" : "");
     $i++;
   }
   $action->lay->SetBlockData("RVDEFDUR", $opt);

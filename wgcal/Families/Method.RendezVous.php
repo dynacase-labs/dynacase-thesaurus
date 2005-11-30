@@ -324,15 +324,15 @@ function RendezVousView() {
       $this->lay->set("repeatdisplay", "");
       switch ($rmode) {
       case 1:
-        $tr = _("dayly");
+        $tr = ucwords(_("dayly"));
         break;
       case 2:
-        $tr = _("weekly");
+        $tr = ucwords(_("weekly"));
         $tr .= ": ";
 	for ($i=0; $i<6; $i++) $tr .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
         break;
       case 3:
-        $tr = _("monthly");
+        $tr = ucwords(_("monthly"));
 	$day = substr($this->getValue("CALEV_START"),0,2);
 	if ($rmonth!=1) {
 	  $tr .= " (les $day du mois)";
@@ -350,7 +350,7 @@ function RendezVousView() {
 	}
         break;
       case 4: 
-	$tr = _("yearly");
+	$tr = ucwords(_("yearly"));
  	$day = substr($this->getValue("CALEV_START"),0,2);
  	$month = substr($this->getValue("CALEV_START"),3,2);
 	$ts = w_dbdate2ts($this->getValue("CALEV_START", ""));
@@ -599,7 +599,7 @@ function RendezVousEdit() {
 
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());
-  $timee = GetHttpVars("te", $times + ($this->getWgcalUParam("WGCAL_U_RVDEFDUR", 60) * 60));
+  $timee = GetHttpVars("te", $times+3600);
   $withress = GetHttpVars("wress", "");
 
   if ($this->isAffected()) 

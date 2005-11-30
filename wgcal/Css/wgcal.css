@@ -126,7 +126,8 @@ TD {
   cursor:pointer;
   border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
-  background-color : [WTH_COLOR_2];
+  background-color : red;
+/*  background-color : [WTH_COLOR_2]; */
 }
 
 .WGCAL_DayNoHours {
@@ -166,21 +167,11 @@ TD {
   border-right: 1px solid [WTH_COLOR_3];
   background-color : #fafafa;
 }
-.WGCAL_DayWE {
-	border-top: 0px;
-	border-left: 0px;
-	border-bottom-color: [WTH_COLOR_3];
-	border-bottom-style: dotted;
-	border-bottom-width: 1px;
-	border-right-color: [WTH_COLOR_3];
-	border-right-style: dotted;
-	border-right-width: 1px;
-        background-color : [WTH_CALWEEKEND];
-}
 .WGCAL_DayCur {
-	border-bottom: 1px dotted [WTH_COLOR_3];
-  	border-right: 1px dotted [WTH_COLOR_3];
         background-color : [WTH_CALTODAY];
+}
+.WGCAL_DayWE {
+        background-color : [WTH_CALWEEKEND];
 }
 
 .WGCWaitingRv {

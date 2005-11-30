@@ -202,7 +202,7 @@ function SetCurrentEvent(id, cd) {
 // --------------------------------------------------------
 function ClickCalendarCell(urlroot, nh,times,timee) {
   closeMenu('calpopup');
-  subwindow(400, 700, 'EditEvent', urlroot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times);
+  subwindow(400, 700, 'EditEvent', urlroot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
 }
 
 // --------------------------------------------------------

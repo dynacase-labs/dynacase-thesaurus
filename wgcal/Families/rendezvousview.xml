@@ -1,6 +1,6 @@
 <table width="auto" cellspacing="0" border="0">
 <tr>
-  <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="15" title="[icontitle]">[ENDBLOCK icons]</td>
+  <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="pointer:crosshair; border:0px" src="[iconsrc]" width="14px" title="[icontitle]">[ENDBLOCK icons]</td>
   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white; border: 1px outset;">
     <table  width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
       <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
@@ -26,9 +26,9 @@
   <fieldset style="display:[attdisplay]"><legend>[TEXT:attendees]</legend>
 <table cellpadding="0" cellspacing="0" border="0">
 [BLOCK attlist]<tr>
-<td nowrap><img height="15" src="[atticon1]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle1]"><span style="background-color:[attcolor1]">&nbsp;</span>&nbsp;[atttitle1]</span><!-- &nbsp;<span style="font-style:italic">([attstate1]) </span> --></td>
+<td nowrap><img height="12px" src="[atticon1]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle1]"><span style="background-color:[attcolor1]">&nbsp;</span>&nbsp;[atttitle1]</span><!-- &nbsp;<span style="font-style:italic">([attstate1]) </span> --></td>
 [IF TWOCOL]<td>&nbsp;&nbsp;&nbsp;</td>
-<td nowrap><img height="15" src="[atticon2]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle2]"><span style="background-color:[attcolor2]">&nbsp;</span>&nbsp;[atttitle2]</span><!-- &nbsp;<span style="font-style:italic">([attstate2])</span> --></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
+<td nowrap><img height="12px" src="[atticon2]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle2]"><span style="background-color:[attcolor2]">&nbsp;</span>&nbsp;[atttitle2]</span><!-- &nbsp;<span style="font-style:italic">([attstate2])</span> --></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
 </table>
   </fieldset></td>
 </tr>
