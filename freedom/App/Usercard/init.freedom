@@ -37,7 +37,7 @@ ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1100;W;;;;;;;esize=7
 ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1110;W;;;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
 ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;;;
+ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;;;system=yes
 ATTR;US_VCARD;;Vcard;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;;;ltarget=_self
 ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=yes|onlyglobal=yes|lconfirm=yes
 ATTR;US_IMPORTVCARD;;Importation VCARD;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_EDITIMPORTVCARD;;::canExecute(USERCARD,USERCARD_IMPORTVCARD);;;global=yes|onlyglobal=yes|lconfirm=no|ltarget=finfo
@@ -100,7 +100,7 @@ ATTR;US_WHATID;US_FR_INTRANET;identifiant;N;N;text;240;R;;;;;;;esize=4
 ATTR;US_GROUPS;US_FR_INTRANET;groupes d'appartenance;N;N;array;250;R;;;;;;;
 ATTR;US_GROUP;US_GROUPS;groupe;N;N;text;260;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDGROUP%;fdl.php;lfamilly(D,{GROUP},US_GROUP):US_IDGROUP,US_GROUP;;;
 ATTR;US_IDGROUP;US_GROUPS;id groupe;N;N;docid;270;H;;;;;;;
-ATTR;US_STATUS;US_FR_INTRANET;état;N;N;enum;280;R;;;;A|activé,D|désactivé;;;
+ATTR;US_STATUS;US_FR_INTRANET;état;N;N;enum;280;R;;;;A|activé,D|désactivé;;;system=yes
 ATTR;US_EXPIRES;US_FR_INTRANET;date d'expiration epoch;N;N;int;290;H;;;;;;;
 ATTR;US_DAYDELAY;US_FR_INTRANET;délai d'expiration en jours;\q;N;int;300;R;;;;;;;elabel=mettre -1 pour annuler l'expiration|esize=3
 ATTR;US_EXPIRESD;US_FR_INTRANET;date d'expiration;N;N;date;310;R;;;;;;::ConstraintExpires(US_EXPIRESD,US_EXPIREST,US_DAYDELAY);
@@ -116,7 +116,7 @@ ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_
 ;;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;;
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1051;H;;;-;;;;
+ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1051;H;;;-;;;;system=yes
 ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=yes|onlyglobal=yes|lconfirm=yes
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;

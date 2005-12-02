@@ -7,35 +7,35 @@ ATTR;FR_BASIC;;basique;N;N;frame;0;W;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;Y;N;text;1;O;Y;;;
 ;;;;;;;;;;;;
 END;0;-1;;;;;;;;;;
-// famille dossier;;;id;class;name;;;;;;;;
-BEGIN;1;dossier;2;Dir;DIR;;;;;;;;
-TYPE;C;;;;;;;;;;;;
-ICON;dossier.gif;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
-ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;
-ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;
-ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;R;;;;;
-ATTR;FLD_ALLBUT;FLD_FR_REST;tout ou rien;N;N;enum;1000;W;;;-;0|tout sauf,1|seulement;
-ATTR;FLD_TFAM;FLD_FR_REST;familles filtrées;N;N;array;1005;W;;;;;
-ATTR;FLD_FAM;FLD_TFAM;familles;N;N;text;1010;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_FAMIDS%;fdl.php;lfamilies(D,FLD_FAM):FLD_FAMIDS,FLD_FAM;
-ATTR;FLD_FAMIDS;FLD_TFAM;id familles;N;N;docid;1020;H;;;;;
-ATTR;FLD_FR_PROF;;Profils par défaut;N;N;frame;0;R;;;;;
-ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDOCID%;fdl.php;lfamilly(D,PDOC,FLD_PDOC):FLD_PDOCID,FLD_PDOC;
-ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;docid;1040;H;;;;;
-ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;
-ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;docid;1060;H;;;;;
-;;;;;;;;;;;;;
-ATTR;FLD_ROOT;;nouvelle racine;N;N;menu;10;R;;C[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;
-ATTR;FLD_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;
-ATTR;FLD_COPYBASKET;;insérer le porte-document;N;N;menu;30;R;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;
-ATTR;FLD_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;40;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;;
-;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-END;;;;;;;;;;;;;
-;;;;;;;;;;;;;
-//DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;
-DOC;2;9;;racine;;;;;;;;;
-DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;
+// famille dossier;;;id;class;name;;;;;;;;;;
+BEGIN;1;dossier;2;Dir;DIR;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+ICON;dossier.gif;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
+ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;;
+ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;;;
+ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;R;;;;;;;
+ATTR;FLD_ALLBUT;FLD_FR_REST;tout ou rien;N;N;enum;1000;W;;;-;0|tout sauf,1|seulement;;;system=yes
+ATTR;FLD_TFAM;FLD_FR_REST;familles filtrées;N;N;array;1005;W;;;;;;;
+ATTR;FLD_FAM;FLD_TFAM;familles;N;N;text;1010;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_FAMIDS%;fdl.php;lfamilies(D,FLD_FAM):FLD_FAMIDS,FLD_FAM;;;
+ATTR;FLD_FAMIDS;FLD_TFAM;id familles;N;N;docid;1020;H;;;;;;;
+ATTR;FLD_FR_PROF;;Profils par défaut;N;N;frame;0;R;;;;;;;
+ATTR;FLD_PDOC;FLD_FR_PROF;profil par défaut de document;N;N;text;1030;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDOCID%;fdl.php;lfamilly(D,PDOC,FLD_PDOC):FLD_PDOCID,FLD_PDOC;;;
+ATTR;FLD_PDOCID;FLD_FR_PROF;id profil par défaut de document;N;N;docid;1040;H;;;;;;;
+ATTR;FLD_PDIR;FLD_FR_PROF;profil par défaut de dossier;N;N;text;1050;W;;%S%app=FDL&action=FDL_CARD&id=%FLD_PDIRID%;fdl.php;lfamilly(D,PDIR,FLD_PDIR):FLD_PDIRID,FLD_PDIR;;;
+ATTR;FLD_PDIRID;FLD_FR_PROF;id profil par défaut de dossier;N;N;docid;1060;H;;;;;;;
+;;;;;;;;;;;;;;;
+ATTR;FLD_ROOT;;nouvelle racine;N;N;menu;10;R;;C[ffolder]%S%app=FREEDOM&action=FOLDERS&dirid=%I%;;;;;
+ATTR;FLD_OPEN;;ouvrir;N;N;menu;20;R;;%S%app=FREEDOM&action=FREEDOM_VIEW&dirid=%I%;;;;;
+ATTR;FLD_COPYBASKET;;insérer le porte-document;N;N;menu;30;R;;C%S%app=FREEDOM&action=FREEDOM_INSERTFLD&id=%I%&dirid={FREEDOM_IDBASKET}&clean=Y;;;;;
+ATTR;FLD_OPENFOLIO;;ouvrir comme une chemise;N;N;menu;40;R;;C%S%app=FREEDOM&action=OPENFOLIO&id=%I%;;;;;
+;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+END;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+//DOC;Famille;<special id>;<special dirid>;titre;;;;;;;;;;;
+DOC;2;9;;racine;;;;;;;;;;;
+DOC;2;10;9;import;Documents importés lors d'installation;;;;;;;;;;
 // famille chemise;;;id;class;name;;;;;;;;
 BEGIN;2;chemise;17;;PORTFOLIO;;;;;;;;
 TYPE;C;;;;;;;;;;;;
@@ -101,14 +101,14 @@ TYPE;C;;;;;;;;;;;;;;
 ICON;cview.gif;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;CV_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;;
 ATTR;CV_FAMID;FR_BASIC;family id;N;N;docid;30;H;;;;::getTitle(CV_FAMID):CV_FAM;;;
 ATTR;CV_FAM;FR_BASIC;famille;Y;N;text;40;W;;%S%app=FDL&action=FDL_CARD&id=%CV_FAMID%;fdl.php;lfamilies(D,CV_FAM):CV_FAMID,CV_FAM;;;
 ATTR;CV_T_VIEWS;FR_BASIC;vues;N;N;array;100;W;;;;;;;
 ATTR;CV_IDVIEW;CV_T_VIEWS;id vues;N;N;text;110;W;;;;;;;
 ATTR;CV_LVIEW;CV_T_VIEWS;label;N;N;text;120;W;;;;;;;
-ATTR;CV_KVIEW;CV_T_VIEWS;type;N;N;enum;130;W;;;-;VCONS|Consultation,VEDIT|Edition;;;
+ATTR;CV_KVIEW;CV_T_VIEWS;type;N;N;enum;130;W;;;-;VCONS|Consultation,VEDIT|Edition;;;system=yes
 ATTR;CV_ZVIEW;CV_T_VIEWS;zone;N;N;text;140;W;;;fdl.php;lzone(D,CV_KVIEW,CV_FAMID):CV_ZVIEW;;;
 ATTR;CV_MSKID;CV_T_VIEWS;id masque;N;N;docid;150;H;;;;::getTitle(CV_MSKID):CV_MSK;;;
 ATTR;CV_MSK;CV_T_VIEWS;masque;N;N;text;160;W;N;%S%app=FDL&action=FDL_CARD&id=%CV_MSKID%;fdl.php;lmask(D,CV_MSK,CV_FAMID):CV_MSKID,CV_MSK;;;
@@ -124,21 +124,21 @@ ATTR;DPDOC_FAMID;DPDOC_FR_DYN;family id;N;N;docid;210;H;;;;::getTitle(DPDOC_FAMI
 ATTR;DPDOC_FAM;DPDOC_FR_DYN;famille;N;N;text;220;W;;%S%app=FDL&action=FDL_CARD&id=%DPDOC_FAMID%;fdl.php;lfamilies(D,DPDOC_FAM):DPDOC_FAMID,DPDOC_FAM;;;
 DEFAULT;CV_DISPLAYED;1;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;
-// famille dossier;inherit;;id;class;name;;;;;;;
-BEGIN;0;mail;15;;MAIL;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;dmail.gif;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;
-ATTR;MAIL_FROM;MAIL_FR;De;N;Y;text;20;R;;;;
-ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;
-ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|À,cc|Cc,bcc|Bcc
-ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;50;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP
-ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;60;W;;;;
-ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;
-ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;70;W;;;;
-ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;80;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF
-END;0;;;;;;;;;;;
+// famille dossier;inherit;;id;class;name;;;;;;;;;;
+BEGIN;0;mail;15;;MAIL;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+ICON;dmail.gif;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
+ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;;;;
+ATTR;MAIL_FROM;MAIL_FR;De;N;Y;text;20;R;;;;;;;
+ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;;;;
+ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|À,cc|Cc,bcc|Bcc;;;system=yes
+ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;50;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP;;;
+ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;60;W;;;;;;;
+ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;70;F;;;;;;;
+ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;70;W;;;;;;;
+ATTR;MAIL_FORMAT;MAIL_FR_CM;Format;N;Y;enum;80;W;;;;html|HTML,pdf|PDF,htmlpdf|HTML & PDF;;;system=yes
+END;0;;;;;;;;;;;;;;
 // famille recherche;;;id;class;name;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 BEGIN;BASE;recherche;5;DocSearch;SEARCH;;;;;;;;;;
@@ -222,8 +222,8 @@ ATTR;REP_TCOLS;REP_FR_PRESENTATION;Colonnes;N;N;array;250;W;;;;;;;
 ATTR;REP_LCOLS;REP_TCOLS;label;N;N;text;260;W;;;fdl.php;getDocAttr(D,SE_FAMID,REP_LCOLS):REP_IDCOLS,REP_LCOLS;;;
 ATTR;REP_IDCOLS;REP_TCOLS;id colonnes;N;N;text;270;H;;;;;;;
 ATTR;REP_COLORS;REP_TCOLS;couleur;N;N;color;280;W;;;;;;;
-ATTR;REP_FOOTS;REP_TCOLS;pied de tableau;N;N;enum;290;W;;;-;NONE| ,SUM|Somme,MOY|Moyenne,CARD|Cardinal;;;
-ATTR;REP_STYLE;REP_FR_PRESENTATION;style;N;N;enum;300;W;;;-;reportHBlue|Bleu horizontal,reportVGreen|Vert vertical,reportHYellow|Jaune horizontal,reportHInverse|Inverse vidéo;;;
+ATTR;REP_FOOTS;REP_TCOLS;pied de tableau;N;N;enum;290;W;;;-;NONE| ,SUM|Somme,MOY|Moyenne,CARD|Cardinal;;;system=yes
+ATTR;REP_STYLE;REP_FR_PRESENTATION;style;N;N;enum;300;W;;;-;reportHBlue|Bleu horizontal,reportVGreen|Vert vertical,reportHYellow|Jaune horizontal,reportHInverse|Inverse vidéo;;;system=yes
 ATTR;REP_EXCEL; ;vers tableur;N;N;menu;10;W;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N&ext=xls&mime=application/ms-excel;;;;;
 ATTR;REP_IMP; ;version imprimable;N;N;menu;20;W;;%S%app=FDL&action=IMPCARD&props=N&id=%I%&ulink=N;;;;;
 ATTR;REP_CSV; ;version csv;N;N;menu;20;W;;C%S%app=FDL&action=EXPORTFLD&id=%I%;;;;;
@@ -345,18 +345,18 @@ ATTR;TXT_T_IMG;TXT_FR_ANX;images;N;N;array;40;W;;;;
 ATTR;TXT_IMG;TXT_T_IMG;images;N;N;image;50;O;;;;
 ATTR;TXT_IMG_ORI;TXT_T_IMG;source;N;N;file;60;O;;;;
 END;-;;;;;;;;;;;
-// recherche detaille;fromid;;id;class;name;;;;;;;
-;;;;;;;;;;;;
-BEGIN;SEARCH;Recherche Plein Texte;32;;FTEXTSEARCH;;;;;;;
-TYPE;C;;;;;;;;;;;
-ICON;ftextsearch.gif;;;;;;;;;;;
-METHOD;Method.FullTextSearch.php;;;;;;;;;;;
-//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc
-ATTR;SE_KEY;idattr;mot-clef;N;Y;text;100;N;;;;
-ATTR;FTS_SEARCH;;Recherche plein texte;N;N;frame;1000;F;;;;
-ATTR;FTS_WHERE;FTS_SEARCH;Chercher les mots;N;Y;enum;1010;W;;;;WHITIN|contenant,ENTIRE|entiers,BEGIN|commençant par,ENDING|finissant par
-ATTR;FTS_LOGICAL;FTS_SEARCH;Chercher...;N;Y;enum;1020;W;;;;ONE|Un des mots,ALL|Tous,PHRASE|La phrase entière
-END;0;;;;;;;;;;;
+// recherche detaille;fromid;;id;class;name;;;;;;;;;;
+;;;;;;;;;;;;;;;
+BEGIN;SEARCH;Recherche Plein Texte;32;;FTEXTSEARCH;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+ICON;ftextsearch.gif;;;;;;;;;;;;;;
+METHOD;Method.FullTextSearch.php;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
+ATTR;SE_KEY;idattr;mot-clef;N;Y;text;100;N;;;;;;;
+ATTR;FTS_SEARCH;;Recherche plein texte;N;N;frame;1000;F;;;;;;;
+ATTR;FTS_WHERE;FTS_SEARCH;Chercher les mots;N;Y;enum;1010;W;;;;WHITIN|contenant,ENTIRE|entiers,BEGIN|commençant par,ENDING|finissant par;;;system=yes
+ATTR;FTS_LOGICAL;FTS_SEARCH;Chercher...;N;Y;enum;1020;W;;;;ONE|Un des mots,ALL|Tous,PHRASE|La phrase entière;;;system=yes
+END;0;;;;;;;;;;;;;;
 // famille dossier;;;id;class;name;;;;;;;;
 BEGIN;0;post it;27;;POSTIT;;;;;;;;
 TYPE;C;;;;;;;;;;;;
