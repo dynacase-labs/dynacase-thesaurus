@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_menu.php,v 1.1 2005/11/24 13:45:55 eric Exp $
+ * @version $Id: faddbook_menu.php,v 1.2 2005/12/02 17:28:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,7 @@ function faddbook_menu(&$action) {
   
 
   $action->lay->Set("famid", $famid);
+  $action->lay->Set("topid", $fdoc->dfldid);
 
 
   include_once("FDL/popup_util.php");
