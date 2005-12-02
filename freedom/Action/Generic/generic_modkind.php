@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Modify item os enumerate attributes
  *
  * @author Anakeen 2000 
- * @version $Id: generic_modkind.php,v 1.4 2004/09/09 12:58:27 eric Exp $
+ * @version $Id: generic_modkind.php,v 1.5 2005/12/02 11:03:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: generic_modkind.php,v 1.4 2004/09/09 12:58:27 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_modkind.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 
 include_once("FDL/Class.Doc.php");
@@ -86,9 +64,25 @@ function generic_modkind(&$action) {
     refreshPhpPgDoc($dbaccess, $famid);
   }
 		      
+  $fdoc=new_doc($dbaccess,$famid);
+  $a = $fdoc->getAttribute($aid);
+  if ($a) { 
+    $enum=$a->getenum();
+    foreach ($enum as $kk=>$ki) {
+	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
+			"level" =>  substr_count($kk, '.')*20,
+			"kid" => $kk);
+	
+      }
 
-  redirect($action,GetHttpVars("app"),"GENERIC_TAB",
-	   $action->GetParam("CORE_STANDURL"));
+
+    $action->lay->SetBlockData("vkind", $tvkind);
+    
+  }
+  
+  $action->lay->Set("desc", sprintf(_("Modification for attribute %s for family %s"),
+				    $a->labelText,
+				    $fdoc->title));
 
 }
 

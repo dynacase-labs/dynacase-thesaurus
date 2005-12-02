@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.5 2005/11/15 12:58:07 eric Exp $
+ * @version $Id: fusers_list.php,v 1.6 2005/12/02 11:03:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -24,7 +24,7 @@ function fusers_list(&$action) {
  
 
  
-
+  // create group tree
 
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/mktree.js");
 
@@ -64,6 +64,29 @@ function fusers_list(&$action) {
   $action->lay->setBlockData("SELECTGROUP",$groupuniq);
 
   $action->lay->set("expand", (count($groups) < 30));
+
+
+  // add button to change categories
+  $tcf=array();
+  foreach (array("IUSER","IGROUP") as $fid) {
+
+  $fdoc=new_doc($dbaccess,$fid);
+  
+  $lattr = $fdoc->getNormalAttributes();
+  foreach ($lattr as $k=>$a) {
+     if ((($a->type == "enum") || ($a->type == "enumlist")) &&
+	 (($a->phpfile == "") || ($a->phpfile == "-"))&&
+	 ($a->getOption("system")!="yes")) {
+
+       $tcf[]=array("label"=>$a->labelText,
+		    "famid"=>$a->docid,
+		    "ftitle"=>$fdoc->getTitle($a->docid),
+		    "kindid"=>$a->id);
+     }
+  }
+     
+  }
+  $action->lay->setBlockData("CATG",$tcf);
 }
 
 /**

@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Edit enum attribute items
  *
  * @author Anakeen 2000 
- * @version $Id: generic_editcatg.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_editcatg.php,v 1.6 2005/12/02 11:03:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 

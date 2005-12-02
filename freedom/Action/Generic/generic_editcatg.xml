@@ -22,7 +22,6 @@
 <body class="freedom" onload="correctlevel()" >
 <H2>[TITLE]</H2>
 <form  name="addcatg"  method="POST" 
-       target="flist"
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MODKIND" >
 
 <input type="hidden" name="aid" value="[aid]">
