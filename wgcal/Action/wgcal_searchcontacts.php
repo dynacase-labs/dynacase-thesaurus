@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.1 2005/11/28 09:34:20 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.2 2005/12/02 11:09:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,12 +15,11 @@ include_once('FDL/Class.Doc.php');
 include_once("EXTERNALS/WGCAL_external.php");
 
 
-// http://sn.marc.i-cesam.com/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam=VEHICLE|USER|IUSER&stext=peu&cmode=R&smode=C&cfunc=toto
 function wgcal_searchContacts(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $minLength = 3;
-  $resultCountMax = 25;
+  $resultCountMax = 10;
   $iuserfam = getFamIdFromName($dbaccess, "IUSER");
   
   $sfam = GetHttpVars("sfam", "");
@@ -49,12 +48,18 @@ function wgcal_searchContacts(&$action) {
   }
   $filter[1] = "title ~* '".$sf.$sText."'";
  
-//   print_r2($filter);
   $tres = array();
-  $rdoc = getChildDoc($dbaccess, 0, 0, $resultCountMax, $filter, $action->user->id, "TABLE");
-//   print_r2($rdoc);
+  $rdoc = getChildDoc($dbaccess, 0, 0, ($resultCountMax+1), $filter, $action->user->id, "TABLE");
   if (count($rdoc)>0) {
+    $action->lay->set("noResult", true);
+    $action->lay->set("moreResult", false);
+    $ci = 0;
+    if (count($rdoc)>$resultCountMax) {
+      $action->lay->set("moreResult", true);
+      $action->lay->set("moreResultT", sprintf(_("only %s first"), $resultCountMax));
+    }
     foreach ($rdoc as $k => $v) {
+      if ($ci>=$resultCountMax) continue;
       if ($action->user->id == $v["id"]) continue;
       if ($v["fromid"] == $iuserfam && $cmode=="R") {
 	$cal = getUserPublicAgenda($v["id"], false);
@@ -70,9 +75,10 @@ function wgcal_searchContacts(&$action) {
 			"id" => $v["id"],
 			"fid" => $v["fromid"],
 			"icon" => Doc::GetIcon($v["icon"]),
-			"title" => ucwords(strtolower(addslashes(($v["title"])))) 
+			"title" => ucwords(strtolower(addslashes($v["title"]))),
 			);
       }
+      $ci++;
     }
     if (count($tres)>0) {
       $action->lay->set("noResult", false);

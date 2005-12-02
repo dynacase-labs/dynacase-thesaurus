@@ -14,7 +14,6 @@ function insertContact(domid, famid, id, title, iconsrc) {
   if (document.getElementById(domid)) {
     var e = document.getElementById(domid);
     var pe = e.parentNode;
-    alert(pe.innerHTML);
     pe.removeChild(e);
     if (pe.childNodes.length==1) pe.style.display='none';
   }
@@ -39,16 +38,21 @@ function removeSFamilie(idf) {
   return true;
 }
 
+var sfTimer = -1;
+
 function searchSFamilie(evt, force) {
+
+  if( sfTimer!=-1) clearTimeout(sfTimer);
+  var sfTimer = -1;
+
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
   result.style.display = 'none';
+  
   if (sFam.length==0) return true;
+
   var stext = document.getElementById('sFamText');
-  if (stext.value.length<2) return true;
-  var smode = (document.getElementById('sMode').checked ? 'C' : 'B' );
-  var fams = sFam.join("|");
-  var url = "/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+fams+"&stext="+stext.value+"&cmode=W&smode="+smode+"&cfunc="+cHandler+'&iclass='+cclass;
+  if (stext.value.length<4) return true;
 
   evt = (evt) ? evt : ((event) ? event : null );
   var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
@@ -58,11 +62,34 @@ function searchSFamilie(evt, force) {
     var val = document.getElementById('itext');
     var fval = document.getElementById('ifam');
     val.value = stext.value;
-    fval.value = fams;
+    fval.value = sFam.join("|");
     fvl.submit();
     if (stext) stext.value = '';
     return false;
   }
+
+  sfText = stext.value;
+  sfMode = (document.getElementById('sMode').checked ? 'C' : 'B' );
+  sfFams = sFam.join("|");
+
+  sfTimer = setTimeout("runSearchSFamilie('"+sfFams+"','"+sfText+"','"+sfMode+"')", 1000);
+
+//   alert('Timer sfTimer='+sfTimer+'  sfText='+sfText+' sfMode='+sfMode+' sfFams='+sfFams ); return;
+  return true;
+}  
+
+
+function runSearchSFamilie(f, t, m) {
+
+//   alert('C parti sfText='+f+' sfMode='+t+' sfFams='+m ); return;
+  var result = document.getElementById('sfamres');
+  result.innerHTML = '';
+  result.style.display = 'none';
+  
+
+  if (f=='' || t=='' || m=='') return;
+
+  var url = "/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
 
   var po = getAnchorPosition('sFamText');
   var rq;
@@ -78,7 +105,6 @@ function searchSFamilie(evt, force) {
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>0) {
 	  result.innerHTML = rq.responseText;
-// 	  result.innerHTML += '<div align="right" style="border-style: solid none none none; border-width:1px; cursor:pointer;" onclick="this.parentNode.style.display=\'none\'"><img width="12px" src="Images/wm-hide.gif"></div>';
 	  result.style.left = po.x; 
 	  result.style.top = po.y + 20; 
 	  result.style.display = 'block';

@@ -134,11 +134,11 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </td>
 </tr>
 
-<tr>
-<td align="right">[TEXT:calendar]&nbsp;:&nbsp;</td>
+<!-- <tr>
+<td align="right">[TEXT:in calendar]&nbsp;:&nbsp;</td>
 <td colspan="2" ><select id="rvcalendar" name="rvcalendar" onchange="SetSelectedItem('rvcalendar', 'evcalendar');" [rvcalro]>[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
 </td>
-</tr>
+</tr> -->
 
 <tr>
 <td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
@@ -197,7 +197,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 [BLOCK FAMR]
 <img class="[IFNOT fselect]wSmallButtonPulled[ENDIF fselect][IF fselect]wSmallButtonPushed[ENDIF fselect]" style="vertical-align:top; height:16px" src="[ficon]" title="[ftitle]" onclick="if (this.className!='wSmallButtonPulled') { if (removeSFamilie([fid])) this.className='wSmallButtonPulled'; } else { this.className='wSmallButtonPushed'; addSFamilie([fid]); }">[ENDBLOCK FAMR]
-<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeypress="return searchSFamilie(event, false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
+<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
 
 </div><!-- FIN BLOCK DE RECHERCHE -->
 
