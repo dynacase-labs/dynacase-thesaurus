@@ -3,7 +3,7 @@
  * Import document from CSV file
  *
  * @author Anakeen 2004
- * @version $Id: generic_editimport.php,v 1.17 2005/10/31 11:49:30 eric Exp $
+ * @version $Id: generic_editimport.php,v 1.18 2005/12/02 17:29:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,6 +28,7 @@ function generic_editimport(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/selectbox.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $homefld = new_Doc( $dbaccess, getDefFld($action));
+
 
   
   $stree=array();
