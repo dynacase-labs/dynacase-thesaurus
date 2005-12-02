@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.25 2005/10/28 15:14:22 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.26 2005/12/02 17:28:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -102,9 +102,9 @@ function PostModify() {
   $fid=$this->id;        
   $user=$this->getWUser();
   if (!$user) {
-      $user=new User(""); // create new user
-      $this->wuser=&$user;
-    }
+    $user=new User(""); // create new user
+    $this->wuser=&$user;
+  }
   $err.=$user->SetGroups($fid,$gname,
 			 $login,
 			 $iddomain);   
@@ -117,8 +117,19 @@ function PostModify() {
     $this->RefreshGroup();
     $this->refreshParentGroup();
     $err=$this->RefreshLdapCard();  
-  } 
 
+    // add in default folder root groups : usefull for import
+    $tgid=$this->getTValue("GRP_IDPGROUP");
+    $fdoc=$this->getFamdoc();
+    $dfldid=$fdoc->dfldid;
+    if ($dfldid != "") {
+      $dfld=new_doc($this->dbaccess,$dfldid);
+      if ($dfld->isAlive()) {
+	if (count($tgid)==0)  $dfld->AddFile($this->initid);
+	else  $dfld->delFile($this->initid);
+      }      
+    }    
+  } 
 
 
   if ($err=="") $err="-"; // don't do modify after because it is must be set by USER::setGroups
