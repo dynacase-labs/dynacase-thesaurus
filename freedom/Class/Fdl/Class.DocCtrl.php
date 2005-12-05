@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.29 2005/09/20 09:17:16 marc Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.30 2005/12/05 14:43:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -418,6 +418,32 @@ Class DocCtrl extends DbObj
     return array("err"=>$err,
 		 "sug"=>$sug);
   }
+  /** 
+   * verify if a document is corrertly linked to other one
+   * @param string document title use for verification
+   * @param string document identificator use for verification
+   */
+  public function isDocLinked($title,$docid) {
+
+    $err="";
+    $sug=array(); // suggestions
+    if (trim($title)!="") {
+      if (trim($docid)=="") $err=_("the document id is empty");
+      else {
+	$d=new_doc($this->dbaccess,$docid);
+	if (! $d->isAlive()) $err=sprintf(_("the document id [%s]for this attribute is not valid"),$docid);
+	else if ($d->title != $title) $err=sprintf(_("the title of document [%s] is not conform to original [%s]"),$title,$d->title);
+      }
+      if ($err) {
+	$sug[]=_("clic to the ... button to link document correctly");
+      }
+    }
+    return array("err"=>$err, "sug"=>$sug);
+  }
+
+
+
+
 /** 
    * return true if user can execute the specified action
    * @param string $appname application name
