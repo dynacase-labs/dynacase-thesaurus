@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.29 2005/10/28 15:14:22 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.30 2005/12/05 14:42:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -202,6 +202,9 @@ function PostModify() {
       if (ereg("([0-9][0-9])/([0-9][0-9])/(2[0-9][0-9][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])", 
 	       $expdate, $reg)) {   
 	$expires=mktime($reg[4],$reg[5],$reg[6],$reg[2],$reg[1],$reg[3]);
+      } else  if (ereg("(2[0-9][0-9][0-9])-([0-9][0-9])-([0-9][0-9]) ([0-2][0-9]):([0-5][0-9]):([0-5][0-9])", 
+	       $expdate, $reg)) {   
+	$expires=mktime($reg[4],$reg[5],$reg[6],$reg[2],$reg[3],$reg[1]);
       }
       
     }
