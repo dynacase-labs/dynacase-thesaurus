@@ -16,7 +16,7 @@ HTMLArea.Config.prototype.ConfigIuser = function () {
 
 <tr class="FREEDOMBack1"><td colspan="2" align="center"> 
 [V_PUBM_BGIMG]
-<input type="button" onclick="editorpubm_body.insertHTML('<hr>');return false" value="H">
+<input style="display:none" type="button" onclick="editorpubm_body.insertHTML('<hr>');return false" value="H">
 </td></tr>
 <tr class="FREEDOMBack1"><td colspan="2" align="center"> 
 [V_PUBM_BODY]
