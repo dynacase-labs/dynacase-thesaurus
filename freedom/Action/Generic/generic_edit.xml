@@ -90,17 +90,17 @@ addEvent(window,"load",focusFirst);
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead>
 </table>
-[ENDIF HEAD]
 <div id="fixspanhead" style="visibility:hidden;padding:0px;margin:0px;"></div>
+[ENDIF HEAD]
 [ZONE FDL:EDITCARD]
-<div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>
+[IF FOOT]<div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;"></div>
 <table id="fixtablefoot" class="[tablefoot]"   cellspacing="0" width="100%">
-<tfoot >
+<tfoot >[ENDIF FOOT]
 [IFNOT NOFORM][IFNOT NOSAVE]
 [ZONE FDL:EDITSTATE][ENDIF NOSAVE]
 [ENDIF NOFORM]
-<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 [IF FOOT]
+<tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 <tr class="FREEDOMBack1">
   <td colspan="3"  align="right" id="editbutton">
  [BLOCK INPUTCONSTRAINT]
@@ -120,9 +120,9 @@ addEvent(window,"load",focusFirst);
   </td>
   
 </tr>
-[ENDIF FOOT]
 </tfoot>
 </table>
+[ENDIF FOOT]
 [IFNOT NOFORM]
 </form>
 <!--  FOOT HTML -->
