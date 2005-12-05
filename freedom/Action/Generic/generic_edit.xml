@@ -58,11 +58,9 @@ addEvent(window,"load",focusFirst);
 <input type="hidden" name="attrid">
 <input type="hidden" name="type_attr">
 </form>
-[ENDIF NOFORM]
 
 <!-- end for idoc -->
 
-[IFNOT NOFORM]
 <!-- Title Table -->
 <form  id="fedit"  
        class="fborder" 
@@ -70,13 +68,13 @@ addEvent(window,"load",focusFirst);
        onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
-[ENDIF NOFORM]
 <INPUT TYPE="hidden" name="classid" value="[classid]"></input>
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <input type="hidden" name="vid" value="[vid]">
 <input type="hidden" name="rzone" value="[rzone]">
 <input type="hidden" name="noredirect" value="0">
+[ENDIF NOFORM]
 [IF HEAD]
 <table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
 <thead >
