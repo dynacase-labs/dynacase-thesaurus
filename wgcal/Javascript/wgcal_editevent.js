@@ -119,8 +119,10 @@ function ComputeDateFromEnd() {
 }
 
 
-function ShowStartCalendar() {
-  var cts = parseInt(document.getElementById('DayTsStart').value)*1000;
+function InitStartCalendar() {
+  var e = document.getElementById('DayTsStart');
+  if (!e) return;
+  var cts = parseInt(e.value)*1000;
   var cd = new Date;
   cd.setTime(cts);
   var calO = { 
@@ -134,8 +136,10 @@ function ShowStartCalendar() {
   return;
 }
 
-function ShowEndCalendar() {
-  var cts = parseInt(document.getElementById('DayTsEnd').value)*1000;
+function InitEndCalendar() {
+  var e = document.getElementById('DayTsEnd');
+  if (!e) return;
+  var cts = parseInt(e.value)*1000;
   var cd = new Date;
   cd.setTime(cts);
   var calO = { 
@@ -144,9 +148,8 @@ function ShowEndCalendar() {
     inputField:'DayTsEnd', 
     ifFormat:'%s', 
     button:'ButEnd',
-    date:cd,
-//     disableFunc: checkEndTime
- };
+    date:cd
+  };
   Calendar.setup( calO );
   return;
 }

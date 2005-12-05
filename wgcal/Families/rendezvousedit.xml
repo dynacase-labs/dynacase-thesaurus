@@ -73,7 +73,8 @@
 <td align="left" nowrap>
 <input type="hidden" value="[START]" id="TsStart" name="TsStart">
 <input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
-<span onclick="ShowStartCalendar()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
+<script type="text/javascript">InitStartCalendar();</script>
 <img style="display:[DATEBUTVIS]" src="WGCAL/Images/cal-other.gif" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
 </td>
 <td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
@@ -87,7 +88,8 @@
 <td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
 <input type="hidden" value="[END]" id="TsEnd" name="TsEnd">
 <input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
-<span onclick="ShowEndCalendar()"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
+<script type="text/javascript">InitEndCalendar();</script>
 <img style="display:[DATEBUTVIS];" src="WGCAL/Images/cal-other.gif" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
 </td>
 <td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>
@@ -141,7 +143,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </tr> -->
 
 <tr>
-<td align="right"><span style="cursor:pointer" onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
+<td align="right"><span onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
 <td colspan="2" >
 <span id="AlarmVis" style="visibility:[ALRMVIS]">
 <select id="alarmday" name="alarmdayhour" onchange="changeAlarmT()">[BLOCK ALARM_DA]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_DA]</select>d
@@ -212,7 +214,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td>&nbsp;</td></tr>
 
 [IF hasPrefered]<tr><td nowrap align="right">
-<span id="press" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('plist').style.display = 'block'" onmouseout="this.className='wTextNormal'; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]">[TEXT:use my prefered ressource]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add my prefered ressource]"></span>
+<span id="press" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('plist').style.display = ''" onmouseout="this.className='wTextNormal'; document.getElementById('plist').style.display = 'none'" onclick="ImportRessources('press', PreferedRess);" title="[TEXT:add my prefered ressources]">[TEXT:use my prefered ressource]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add my prefered ressource]"></span>
 <div class="elist" style="display:none" id="plist" >
 [BLOCK PLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK PLIST]
 </div>
@@ -220,14 +222,14 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 
 [IF hasDisplayed]<tr><td nowrap align="right">
-<span id="dress" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('dlist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]">[TEXT:use displayed ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add displayed ressources]"></span>
+<span id="dress" class="wTextNormal" onmouseover="this.className='wTextActive'; document.getElementById('dlist').style.display = '';" onmouseout="this.className='wTextNormal'; document.getElementById('dlist').style.display = 'none'" onclick="ImportRessources('dress', DisplayedRess);" title="[TEXT:add displayed ressources]">[TEXT:use displayed ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add displayed ressources]"></span>
 <div class="elist" style="display:none" id="dlist" >
 [BLOCK DLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK DLIST]
 </div>
 </td></tr>[ENDIF hasDisplayed]
 
 [IF hasSelected]<tr><td nowrap align="right">
-<span id="sress" class="wTextNormal"  onmouseover="this.className='wTextActive'; document.getElementById('slist').style.display = 'block';" onmouseout="this.className='wTextNormal'; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]">[TEXT:use selected ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add selected ressources]"></span>
+<span id="sress" class="wTextNormal"  onmouseover="this.className='wTextActive'; document.getElementById('slist').style.display = '';" onmouseout="this.className='wTextNormal'; document.getElementById('slist').style.display = 'none'" onclick="ImportRessources('sress', SelectedRess);" title="[TEXT:add selected ressources]">[TEXT:use selected ressources]&nbsp;<img src="Images/wgcal-addrlist.gif" title="[TEXT:add selected ressources]"></span>
 <div class="elist" style="display:none" id="slist" >
 [BLOCK SLIST]<div><img height="16px" src="[ressico]">&nbsp;[resstitle]</div>[ENDBLOCK SLIST]
 </div>

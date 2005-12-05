@@ -593,10 +593,6 @@ function RendezVousEdit() {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_editevent.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_searchcontacts.js");
   
-  $cssfile = $action->GetLayoutFile("calendar-default.css");
-  $csslay = new Layout($cssfile,$action);
-  $action->parent->AddCssCode($csslay->gen());
-  
 
   $nh = GetHttpVars("nh", 0);
   $times = GetHttpVars("ts", time());

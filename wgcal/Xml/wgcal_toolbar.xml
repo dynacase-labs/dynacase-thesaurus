@@ -127,8 +127,7 @@
 
 
 <!-- todo zone -->
-<iframe id="icaltodo" name="icaltodo" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]">
-</iframe>
+<iframe id="icaltodo" name="icaltodo" style="margin:0px; border:1px none red; width:100%; height:auto;" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]"></iframe>
  
 [IF VContactSBottom]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSBottom]
 

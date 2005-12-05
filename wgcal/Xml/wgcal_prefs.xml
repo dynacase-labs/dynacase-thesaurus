@@ -13,18 +13,23 @@ var Zone = new Array();
 
 function SetZone(iz) {
   var e = document.getElementById('p'+iz);
+  var b = document.getElementById('b'+iz);
   if (e) {
     for (izx=0; izx<Zone.length; izx++) {
       document.getElementById('p'+Zone[izx]).style.display = 'none';
+      document.getElementById('b'+Zone[izx]).className = 'wSmallButtonPulled';
     }
     e.style.display = '';
+    b.className = 'wSmallButtonPushed';
   }
 }
 </script>
 <fieldset><legend>[BLOCK ZoneIcons]
-<img id="b[tzone]" src="WGCAL/Images/wm-[tzone].gif" height="22" title="[dzone]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]
+<img id="b[tzone]" src="WGCAL/Images/wm-[tzone].gif" height="22" title="[dzone]" class="[IF zSet]wSmallButtonPushed[ENDIF zSet][IFNOT zSet]wSmallButtonPulled[ENDIF zSet]" style="border:0px; cursor:pointer;" onClick="SetZone('[tzone]');" >[ENDBLOCK ZoneIcons]</legend>
 
 
 [BLOCK ZoneXml]<div id="p[tzone]" style="display:[vzone]">[ZONE WGCAL:WGCAL_PREFS_[azone]?uid=[uid]]</div>[ENDBLOCK ZoneXml]
+
+</fieldset>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

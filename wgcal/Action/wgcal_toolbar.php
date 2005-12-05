@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.57 2005/11/25 10:01:09 eric Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.58 2005/12/05 17:12:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -74,18 +74,22 @@ function wgcal_toolbar(&$action) {
     }
   }
   
-  _navigator($action);
+  _navigator();
 
-  _listress($action);
+  _listress();
 
+  _todo();
+}
 
-  // how many days for todos ?
+function _todo() {
+  global $action;
   $action->lay->set("tododays", $action->getParam("WGCAL_U_TODODAYS", 7));
 }
 
 
 
-function _navigator(&$action) {
+function _navigator() {
+  global $action;
 
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $cmtime = $ctime * 1000;
@@ -104,8 +108,8 @@ function _navigator(&$action) {
 
 
 
-function _listress(&$action)
-{
+function _listress() {
+  global $action;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 

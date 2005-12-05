@@ -10,7 +10,7 @@ function insertContact(domid, famid, id, title, iconsrc) {
     col = 'red';
     st = 0;
   }
-  addRessource(id, title, iconsrc, st, col, 'nouveau', true, false);
+  addRessource(id, title, iconsrc, st, 'nouveau', col,  true, false);
   if (document.getElementById(domid)) {
     var e = document.getElementById(domid);
     var pe = e.parentNode;
@@ -104,10 +104,10 @@ function runSearchSFamilie(f, t, m) {
       result.style.display = 'none';
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>0) {
+	  result.style.display = '';
 	  result.innerHTML = rq.responseText;
-	  result.style.left = po.x; 
-	  result.style.top = po.y + 20; 
-	  result.style.display = 'block';
+	  result.style.left = parseInt(po.x); 
+	  result.style.top = parseInt(po.y + 20); 
 	} else {
 	  result.style.display = 'none';
 	}

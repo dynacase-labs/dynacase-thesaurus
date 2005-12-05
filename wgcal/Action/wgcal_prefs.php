@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs.php,v 1.9 2005/08/29 17:35:15 marc Exp $
+ * @version $Id: wgcal_prefs.php,v 1.10 2005/12/05 17:12:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -64,6 +64,7 @@ function wgcal_prefs(&$action) {
       $tz[$itz]["azone"] = strtoupper($kz);
       $tz[$itz]["vzone"] = ($itz==0?"":"none");
       $tz[$itz]["uid"] = $userid;
+      $tz[$itz]["zSet"] = ($itz==0?true:false);
       $itz++;
     }
   }

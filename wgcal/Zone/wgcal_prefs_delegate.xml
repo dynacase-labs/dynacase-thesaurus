@@ -11,10 +11,8 @@
 
 <table width="100%" style="margin:0px;">
 <thead></thead><tbody id="dtab">
-<tr style="display:none;" id="dtrsample"><td class="WGCRessDefault" onmouseover="this.className='WGCRessSelected'" onmouseout="this.className='WGCRessDefault'">
-<img src="[IMG:wm-delete.gif]" height="15px" title="[TEXT:suppress delegation]" onclick="if (confirm('[TEXT:suppress delegation for] %duname%')) removeDelegate(%duid%);">&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="checkbox" id="md%duid%" name="md%duid%" title="[TEXT:selected : delegate all my event to this person]" onchange="delegateChangeMode(%duid%)">&nbsp;
-%duname%</td>
+<tr style="display:none;" id="dtrsample">
+<td class="WGCRessDefault" onmouseover="this.className='WGCRessSelected'" onmouseout="this.className='WGCRessDefault'"><img src="[IMG:wm-delete.gif]" height="15px" title="[TEXT:suppress delegation]" onclick="if (confirm('[TEXT:suppress delegation for] %duname%')) removeDelegate(%duid%);">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" id="md%duid%" name="md%duid%" title="[TEXT:delegate all my event to this person]" onchange="delegateChangeMode(%duid%)">&nbsp;%duname%</td>
 </tbody>
 <tfoot><tr><td></td></tr></tfoot>
 </table>
@@ -22,7 +20,7 @@
 
 </td><td width="30%">
 
-<fieldset border="0"><legend>[TEXT:add delegation ...]</legend>
+<div>[TEXT:add delegation ...]</div>
 
 <div>
 <input class="textBorder" id="dusearchtext" onkeypress="return dSearchIUser(event, false);" type="text" size="15" value="" title="[TEXT:search for a contact...]"></input>
@@ -35,7 +33,6 @@
 <input id="ifam" name="ifam" type="hidden" value="IUSER">
 </form>
 <iframe name="wgcal_diuser" id="wgcal_diuser" style="display:none"></iframe>
-</fieldset>
 
 </td></tr>
 </table>
