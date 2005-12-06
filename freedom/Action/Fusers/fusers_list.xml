@@ -80,7 +80,8 @@ TABLE.tableborder TBODY TR TD{
 <button title="[TEXT:Refresh users characteristics from system]" onclick="if (confirm('[TEXT:Refersh users may take long time. Sure ?]')) subwindow(50,300,'_blank','[CORE_STANDURL]&app=FUSERS&action=FUSERS_IUSER')" >[TEXT:Refresh users]</button><br/>
 
 <button title="[TEXT:Refresh LDAP]" onclick="if (confirm('[TEXT:Refresh LDAP may take long time. Sure ?]')) subwindow(50,300,'_blank','[CORE_STANDURL]&app=FUSERS&action=FUSERS_LDAPINIT')" >[TEXT:Refresh LDAP]</button><br/>
-<button title="[TEXT:CSV Import Users]" onclick="subwindow(50,300,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDITIMPORT&famid=IUSER')" >[TEXT:Import Users]</button>
+<button title="[TEXT:CSV Import Users]" onclick="subwindow(50,300,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDITIMPORT&famid=IUSER')" >[TEXT:Import Users]</button><br/>
+<button title="[TEXT:CSV Import Groups]" onclick="subwindow(50,300,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDITIMPORT&famid=IGROUP')" >[TEXT:Import Groups]</button>
 
 
 <fieldset><legend>[TEXT:Modify categories]</legend>
