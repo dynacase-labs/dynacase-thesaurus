@@ -178,6 +178,11 @@ declare
 begin
 NEW.values:='''';
 NEW.attrids:='''';
+
+if (NEW.doctype = ''Z'') and (NEW.name is not null) then
+	delete from docname where name=NEW.name;
+end if;	
+
 return NEW;
 end;
 ' language 'plpgsql';
