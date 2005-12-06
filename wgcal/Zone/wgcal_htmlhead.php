@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.11 2005/10/13 14:11:54 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.12 2005/12/06 07:44:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.11 2005/10/13 14:11:54 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.12 2005/12/06 07:44:08 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -63,7 +63,6 @@ function wgcal_htmlhead(&$action) {
   } else {
     $action->lay->set("resize", false);
   } 
-
   $rs = strtoupper(GetHttpVars("RZ", ""));
   $Hresize = $Vresize = false;
   if (strpos($rs,"H")!==false) $Hresize=true; 

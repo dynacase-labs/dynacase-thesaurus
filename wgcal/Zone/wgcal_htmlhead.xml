@@ -31,10 +31,10 @@
    [JS:REF]
 
    <script language="JavaScript">
-    [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
     [JS:CODE]
-    [IF Hresize] addEvent(window,"load",autoHresize);[ENDIF Hresize]
-    [IF Vresize] addEvent(window,"load",autoVresize);[ENDIF Vresize]
+    [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
+    [IF Hresize]addEvent(window,"load",autoHresize);[ENDIF Hresize]
+    [IF Vresize]addEvent(window,"load",autoVresize);[ENDIF Vresize]
 
 </script>
 </head>

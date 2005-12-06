@@ -39,7 +39,7 @@
 </td>
 <td align="center" width="40" class="wMainMenu">
 <img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="parent.wgcal_calendar.print()" src="[IMG:wm-print.gif]">
-<img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(300, 500, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS');" src="[IMG:wgcal-prefs.gif]" height="12" >
+<img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(0, 0, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&RZ=HV');" src="[IMG:wgcal-prefs.gif]" height="12" >
 &nbsp;</td>
 </tr>
 </table>

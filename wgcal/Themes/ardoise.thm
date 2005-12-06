@@ -6,17 +6,17 @@ $theme->WTH_BGIMG = "url('WGCAL/Images/bg-default.gif')";
 // Colors
 $theme->WTH_TEXTCOLOR_1           =  "midnightblue";
 $theme->WTH_TEXTCOLOR_2           =  "snow";
-$theme->WTH_COLOR_1               =  "#DEDEEF";
-$theme->WTH_COLOR_2               =  "lightsteelblue";
-$theme->WTH_COLOR_3               =  "#93A3C5";
+$theme->WTH_COLOR_1               =  "#e3f0ff";
+$theme->WTH_COLOR_2               =  "#dbe4ff";
+$theme->WTH_COLOR_3               =  "#7fa0ff";
 $theme->WTH_ALERT                 =  "red";
 
 // Calendar specific colors
-$theme->WTH_COLOR_TOOL            =  "#bbd2e5";
-$theme->WTH_CALWEEKEND            =  "#DEDEEF";
+$theme->WTH_COLOR_TOOL            =  "#becfff";
+$theme->WTH_CALWEEKEND            =  "#eef1fa";
 $theme->WTH_CALTODAY              =  "#E2EBFF";
 
-// Fonts 
-$theme->WTH_FONTLIST              =  "Tahoma, Helvetica, Arial, sans-serif";
+// Fonts
+$theme->WTH_FONTLIST              =  "Sans";
 
 ?>

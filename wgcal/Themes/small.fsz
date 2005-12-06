@@ -1,5 +1,5 @@
 <?php
-$theme->WTH_FONTSIZE_NORMAL       =  "7";
+$theme->WTH_FONTSIZE_SMALL        =  "7";
+$theme->WTH_FONTSIZE_NORMAL       =  "8";
 $theme->WTH_FONTSIZE_BIG          =  "9";
-$theme->WTH_FONTSIZE_SMALL        =  "6";
 ?>
