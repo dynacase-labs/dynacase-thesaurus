@@ -182,7 +182,7 @@ function rewriteOrder() {
 <fieldset><legend title="[TEXT:values use for new document (not for update)]"
           style="cursor:pointer" onclick="viewornot('deditdefault')">[TEXT:default import values]</legend>
 <div  id="deditdefault" style="display:none" >
-[ZONE FDL:EDITCARD?classid=[classid]&zone=FDL:EDITBODYCARD]
+[ZONE FDL:EDITCARD?classid=[classid]]
 </div></fieldset>
 <HR><label for="vcardfile"> [TEXT:Import description file]&nbsp;:</label><INPUT NAME="vcardfile" SIZE=48 TYPE="file" accept="text/x-vcard,text/*.csv" VALUE=""><HR>
  <input type="checkbox" name="analyze" checked value="Y">[TEXT:Analyze only]</input> 
