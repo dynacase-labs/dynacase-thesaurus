@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.101 2005/11/15 12:57:49 eric Exp $
+ * @version $Id: import_file.php,v 1.102 2005/12/06 16:33:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -583,6 +583,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       $attr=$lattr[$attrid];
       if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
 	$dv = str_replace('\n',"\n",$data[$iattr]);
+	if (isUTF8($dv))    $dv=utf8_decode($dv);
 	if (($attr->type == "file") || ($attr->type == "image")) {
 	  // insert file
 	  $absfile="$ldir/$dv";
@@ -609,7 +610,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
   // update title in finish
   $doc->refresh(); // compute read attribute
-  if (($doc->id == "")&& ($doc->name == "")){
+  if (($doc->id == "")){
 
     switch ($policy) {
     case "add": 
@@ -641,7 +642,6 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       // test if same doc in database
       $doc->RefreshTitle();
       $lsdoc = $doc->GetDocWithSameTitle($tkey[0],$tkey[1]);
-
       if (count($lsdoc) == 0) {
 	$tcr["action"]="added";
 	if (! $analyze) {
@@ -663,8 +663,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	} else {	    
 	  $tcr["msg"]=sprintf(_("%s to be add"),$doc->title);
 	}
-      } elseif (count($lsdoc) == 1) {
-	 
+      } elseif (count($lsdoc) == 1) {	 
 	// no double title found
 	$tcr["action"]="updated";# N_("updated")
 	$lsdoc[0]->transfertValuesFrom($doc);
@@ -679,7 +678,6 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	  $tcr["msg"]=sprintf(_("to be update %s [%d] "),$doc->title,$doc->id);
 	  
 	}
-	
       } else {
 	//more than one double
 	$tcr["action"]="ignored";# N_("ignored")
@@ -739,9 +737,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       }
     }
   }
-    
-  
-
+      
   $tcr["title"]=$doc->title;
   if (! $analyze) {
     
@@ -774,7 +770,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	    $tcr["err"].=$dir->AddFile($doc->id);
 	  }
 	}
-	$msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
+	$tcr["msg"].= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
       }
     } else if ($ndirid ==  0) {
       if ($dirid > 0) {
@@ -788,11 +784,10 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	      $tcr["err"].=$dir->AddFile($doc->id);
 	    }
 	  }
-	  $msg .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
+	  $tcr["msg"] .= $err." ".sprintf(_("and add in %s folder "),$dir->title); 
 	}
       }
     }
-    $tcr["msg"]=$msg;
   }    
 
   return $tcr;
