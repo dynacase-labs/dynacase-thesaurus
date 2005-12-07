@@ -17,6 +17,6 @@ $theme->WTH_CALWEEKEND            =  "#eef1fa";
 $theme->WTH_CALTODAY              =  "#E2EBFF";
 
 // Fonts
-$theme->WTH_FONTLIST              =  "Sans";
+$theme->WTH_FONTLIST              =  "Arial, Sans";
 
 ?>
