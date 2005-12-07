@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.59 2005/09/22 08:27:09 eric Exp $
+ * @version $Id: mailcard.php,v 1.60 2005/12/07 08:14:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.59 2005/09/22 08:27:09 eric Exp $
+// $Id: mailcard.php,v 1.60 2005/12/07 08:14:44 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -446,7 +446,7 @@ function sendCard(&$action,
     $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to)); 
     $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $to));   
   } else {
-    print ($cmd);
+    $action->log->warning($cmd);
     $err=sprintf(_("%s cannot be sent"),$doc->title);
     $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
     $action->addwarningmsg(sprintf(_("%s cannot be sent"),$doc->title));
