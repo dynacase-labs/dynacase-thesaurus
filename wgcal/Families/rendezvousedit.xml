@@ -161,7 +161,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table width="100%" style="margin-top: 0em;">
 <tr>
 <td align="left">
-[IF sendMail]<img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton" onclick="[mailcommand]">[ENDIF sendMail]
+[IF sendMail]<img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton" onclick="subwindow(400,600,'fmailev','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[EVENTID]');">[ENDIF sendMail]
 [IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent]&nbsp;
 </td>
 <td align="right">

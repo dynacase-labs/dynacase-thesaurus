@@ -1456,19 +1456,17 @@ function setAccessibility() {
   $attendeesstate = $this->getTValue("calev_attstate");
   $attgrps = array();
   foreach ($attendeesid as $k => $v) {
-    if ($attendeesstate[$k]!=-1) {
-      $ugrp = wGetUserGroups($v);
-      if (count($ugrp)>0) {
-	foreach ($ugrp as $kg => $vg) {
-	  $thisg = getTDoc($this->dbaccess, $kg);
-	  if (!isset($rvcgroup[$thisg["us_whatid"]])) {
-	    $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
-	  }
+    $ugrp = wGetUserGroups($v);
+    if (count($ugrp)>0) {
+      foreach ($ugrp as $kg => $vg) {
+	$thisg = getTDoc($this->dbaccess, $kg);
+	if (!isset($rvcgroup[$thisg["us_whatid"]])) {
+	  $attgrps[$thisg["us_whatid"]] = $thisg["us_whatid"];
 	}
       }
     }
   }
-
+  
   $aclvals = array();
   foreach ($aclv as $ka => $va) {
     foreach ($aclv["all"] as $kr => $vr) {
@@ -1507,9 +1505,7 @@ function setAccessibility() {
   
   // Attendees -> read, confidential and execute at least
   foreach ($attendeeswid as $k => $v) {
-    if ($attendeesstate[$k]!=-1) {
-      if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
-    }
+    if ($v!=$ownerwid && $v!=$creatorwid) $acls[$v] = $aclvals["read_conf_state"];
   }
 
   // Owner, creator and delegate ==> owner rights

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.3 2005/12/05 17:12:32 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.4 2005/12/07 10:21:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -61,7 +61,7 @@ function wgcal_searchContacts(&$action) {
     foreach ($rdoc as $k => $v) {
       if ($ci>=$resultCountMax) continue;
       if ($action->user->id == $v["id"]) continue;
-      if ($v["fromid"] == $iuserfam && $cmode=="R") {
+      if ($v["fromid"] == $iuserfam && $calMode=="W") {
 	$cal = getUserPublicAgenda($v["id"], false);
 	if ($cal && $cal->isAffected())  $writeaccess = ($cal->Control("invite")==""?true:false);
 	else $writeaccess = false;

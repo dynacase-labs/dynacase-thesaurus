@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.18 2005/10/04 15:42:14 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.19 2005/12/07 10:21:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -36,6 +36,8 @@ function wgcal_gview(&$action) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
   }
   $filter = array();
+  $dd[0] = strftime("%Y-%m-%d 00:00:00", time());
+  $dd[1] = strftime("%Y-%m-%d 23:59:59", time()+(3600*24*365));
   if (count($ff)>0) {
     foreach ($ff as $k => $v) {
       switch ($k) {

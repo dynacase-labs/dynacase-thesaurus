@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.58 2005/12/05 17:12:32 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.59 2005/12/07 10:21:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -152,7 +152,7 @@ function _listress() {
     $rd = new_Doc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
     $writeaccess = $readaccess = false;
-    if ($rd->fromid==getFamIdFromName($dbaccess, "IUSER")) {
+    if ($rd->fromid==getFamIdFromName($dbaccess, "IUSER") && $rd->id!=$action->user->fid ) {
       $cal = getUserPublicAgenda($rid, false);
       if ($cal && $cal->isAffected()) {
 	$writeaccess = ($cal->Control("invite")==""?true:false);

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.16 2005/12/02 15:54:03 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.17 2005/12/07 10:21:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,7 +23,7 @@ function wgcal_searchiuser(&$action) {
   $doc = new_Doc($dbaccess);
   
   $ifam = GetHttpVars("ifam", "");
-  $itext = GetHttpVars("iusertext", "");
+  $itext = GetHttpVars("itext", "");
 
   $cuser = GetHttpVars("cuser", $action->user->fid);
   $proto = GetHttpVars("proto", "default");
