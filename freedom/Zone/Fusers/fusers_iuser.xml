@@ -10,7 +10,7 @@ addEvent(window,"load",viewFirstTab);
 
 <div class="fabcard">
 
-<table width="100%" cellspacing="0" border="0">
+<table  cellspacing="0" border="0">
 
 <tr>
 <td width="80px" align="center">
@@ -85,7 +85,7 @@ addEvent(window,"load",viewFirstTab);
 [BLOCK TABS]
 <span style="font-size:80%"  onclick="showAttributes(event,this,[aids])">[tabtitle]</span>
 [ENDBLOCK TABS]</div>
-<table class="tab" width="100%" id="tothers">
+<table class="tab" [IFNOT ISIE]width="100%"[ENDIF ISIE] id="tothers">
 [BLOCK OTHERS]
 <tr class="tro" id="TR[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fablabel">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]><span class="fabvalue">[vothers]</span></td></tr>
 [ENDBLOCK OTHERS]

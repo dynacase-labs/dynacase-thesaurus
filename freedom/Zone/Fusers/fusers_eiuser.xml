@@ -97,10 +97,12 @@ addEvent(window,"load",function al(event) {viewTab(event,'tabsystem');});
 [BLOCK TABS]
 <span style="font-size:80%"  onclick="showAttributes(event,this,[aids])">[tabtitle]</span>
 [ENDBLOCK TABS]</div>
-<table class="tab" width="100%" id="tothers">
+<table class="tab"  id="tothers">
 [BLOCK OTHERS]
 <tr class="tro" id="TR[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fablabel">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]>[vothers]</td></tr>
 [ENDBLOCK OTHERS]
 </table>
+</div>
+
 </div>
 

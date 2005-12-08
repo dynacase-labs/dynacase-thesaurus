@@ -10,7 +10,7 @@ addEvent(window,"load",viewFirstTab);
 
 <div class="fabcard">
 
-<table class="fabtable" width="100%" cellspacing="0" border="0">
+<table class="fabtable" cellspacing="0" border="0">
 
 <tr>
 <td width="80px" align="center">

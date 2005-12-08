@@ -160,9 +160,10 @@ text-transform:capitalize;
 /* Carte */
 
 DIV.fabcard {
--moz-border-radius: 8;
-margin:0pt;
 padding:5pt;
+margin:0pt;
+[IFNOT ISIE]
+-moz-border-radius: 8;[ENDIF ISIE]
 border-width : 2px;
 border-style : outset;
 border-color : [CORE_BGCOLORALTERN];
