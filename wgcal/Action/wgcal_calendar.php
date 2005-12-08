@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.61 2005/11/30 07:38:07 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.62 2005/12/08 06:08:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -98,7 +98,21 @@ function wgcal_calendar(&$action) {
   $year  = strftime("%Y",$firstWeekDay);
   $month = strftime("%B",$firstWeekDay);
   $emonth = strftime("%B",$edate);
+  $eyear = strftime("%Y",$edate);
+  if ($eyear!=$year) {
+    $strmonth = $month." ".$year.", ".$emonth." ".$eyear;
+  } else if ($month!=$emonth) {
+    $strmonth = $month.", ".$emonth." ".$year;
+  } else {
+    $strmonth = $month." ".$year;
+  }
   $week  = strftime("%V",$firstWeekDay);
+  $eweek  = strftime("%V",$edate);
+  $action->lay->set("plusweek", "");
+  if ($week!=$eweek) {
+        $week = $week." - ".$eweek;
+        $action->lay->set("plusweek", "s");
+  }
   $iday  = strftime("%u",$firstWeekDay);
   $day   = strftime("%d",$firstWeekDay);
 
@@ -110,8 +124,7 @@ function wgcal_calendar(&$action) {
   
   $action->lay->set("colspan", $ndays+1 );
   $action->lay->set("week", $week);
-  $action->lay->set("month", ucwords($month.($month!=$emonth?", $emonth":"")));
-  $action->lay->set("year", $year);
+  $action->lay->set("month", ucwords($strmonth));
   $action->lay->set("pafter", $pafter);
   $action->lay->set("pbefore", $pbefore);
   $action->lay->set("pcurrent", time());

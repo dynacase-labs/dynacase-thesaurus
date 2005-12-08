@@ -19,7 +19,7 @@
           title="[TEXT:next period]" 
           onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
           class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
-      <td align="center" class="WGCAL_Period">[TEXT:week] [week] - [month] [year]</td>
+      <td align="center" class="WGCAL_Period">[TEXT:week][plusweek] [week] - [month]</td>
       </tr>
       </table> 
      </td>
