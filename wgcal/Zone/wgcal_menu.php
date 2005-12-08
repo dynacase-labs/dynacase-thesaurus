@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.23 2005/12/08 15:57:33 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.24 2005/12/08 15:58:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -155,7 +155,6 @@ function wgcal_menu(&$action) {
                                                 "key" => "m_help",
                                                 "txt" => "Help",
                                                 "ico" => "wm-help.gif",
-                                                "jsc" => "alert('Bientôt l\'aide en ligne !')", 
 						"act" => "[CORE_STANDURL]app=CORE&action=HELPVIEW&filename=Agenda.pdf",
 						"tgt" => "_self",
                                                 "rig" => "WGCAL_USER"
