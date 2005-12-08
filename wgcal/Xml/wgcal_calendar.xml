@@ -2,7 +2,7 @@
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
 <div id="root"></div>
-<table style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
+<table onmouseover="closeAllMenu()" style="z-index:2000;" width="100%" cellspacing="0" border="0" id="week">
 
   <tr height="[WGCAL_U_HLINETITLE]px">
     <td align="center" colspan="[colspan]">

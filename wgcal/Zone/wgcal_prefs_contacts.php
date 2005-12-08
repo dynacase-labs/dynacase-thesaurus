@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_contacts.php,v 1.6 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: wgcal_prefs_contacts.php,v 1.7 2005/12/08 15:57:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -24,9 +24,9 @@ function wgcal_prefs_contacts(&$action) {
 
   // Prefered contact list
   $tco = array();
-  $used = $action->parent->param->GetUParam("WGCAL_U_USEPREFRESSOURCES", $uid, 1);
+  $used = $action->GetParam("WGCAL_U_USEPREFRESSOURCES",  1);
   $action->lay->set("usecontactstate", ($used==1?"checked":""));
-  $contacts = $action->parent->param->GetUParam("WGCAL_U_PREFRESSOURCES", $uid, "");
+  $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
   $tcontacts = explode("|", $contacts);
   if (count($tcontacts)>0) {
     foreach ($tcontacts as $kc => $vc) {

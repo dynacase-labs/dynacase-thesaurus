@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.22 2005/12/07 17:51:49 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.23 2005/12/08 15:57:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -155,8 +155,9 @@ function wgcal_menu(&$action) {
                                                 "key" => "m_help",
                                                 "txt" => "Help",
                                                 "ico" => "wm-help.gif",
-                                                "jsc" => "alert('Bientôt l\'aide en ligne !')", // "act" => "[CORE_STANDURL]app=CORE&action=HELPVIEW&filename=Agenda.pdf",
-                                                //"tgt" => "_self",
+                                                "jsc" => "alert('Bientôt l\'aide en ligne !')", 
+						"act" => "[CORE_STANDURL]app=CORE&action=HELPVIEW&filename=Agenda.pdf",
+						"tgt" => "_self",
                                                 "rig" => "WGCAL_USER"
                                                 ),
 					  array( 
@@ -188,16 +189,16 @@ function wgcal_menu(&$action) {
                                                  "ico" => "vehicle.gif",
                                                  "rig" => "WGCAL_MGR"
                                                  ),
-					   array( "key" => "separator" ),
-					   array( 
-						 "key" => "m_userspref", 
-						 "txt" => _("m_txt_userspref"), 
-						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&upref=1",
-						 "tgt" => "wgcal_userspref", 
-						 "ico" => "wgcal_userspref.gif",
-						 "rig" => "WGCAL_ADMIN"
-						 ),
-					  array( "key" => "separator" ),
+// 					   array( "key" => "separator" ),
+// 					   array( 
+// 						 "key" => "m_userspref", 
+// 						 "txt" => _("m_txt_userspref"), 
+// 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&upref=1",
+// 						 "tgt" => "wgcal_userspref", 
+// 						 "ico" => "wgcal_userspref.gif",
+// 						 "rig" => "WGCAL_ADMIN"
+// 						 ),
+// 					  array( "key" => "separator" ),
 					   array( 
 						 "key" => "m_choosegroups", 
 						 "txt" => _("m_txt_choosegroups"), 
@@ -242,7 +243,6 @@ function wgcal_menu(&$action) {
       $items[$imi]["POPUPICONS"] = $picons;
       $imi++;
     }
-    $litems[$imi] = "close_".$vm["menu"];
     $mLay->SetBlockData("MITEMS", $items);
     $bmenus[$imenu]["MITEM"] =  $mLay->Gen();
 
@@ -251,7 +251,6 @@ function wgcal_menu(&$action) {
       if ($action->HasPermission($vi["rig"])) PopupActive($vm["menu"], 1, $vi["key"]);
       else PopupInvisible($vm["menu"], 1, $vi["key"]);
     }
-    PopupActive($vm["menu"], 1, "close_".$vm["menu"]);
     popupGen(1);
     $imenu++;
   }

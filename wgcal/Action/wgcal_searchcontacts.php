@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.4 2005/12/07 10:21:43 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.5 2005/12/08 15:57:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -13,7 +13,7 @@
 include_once('FDL/Lib.Dir.php');
 include_once('FDL/Class.Doc.php');
 include_once("EXTERNALS/WGCAL_external.php");
-
+include_once("WGCAL/Lib.Agenda.php");
 
 function wgcal_searchContacts(&$action) {
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.12 2005/10/07 10:17:06 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.13 2005/12/08 15:57:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -83,7 +83,7 @@ function wgcal_prefs_others(&$action) {
     $toptchk[$io]["paramoption"] = $vo[1];
     $toptchk[$io]["trefresh"] = $vo[2];
     $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
     $toptchk[$io]["uid"] = $uid;
     $io++;
   }
@@ -97,7 +97,7 @@ function wgcal_prefs_others(&$action) {
     $tb[$io]["paramoption"] = $vo[1];
     $tb[$io]["trefresh"] = $vo[2];
     $tb[$io]["arefresh"] = $vo[3];
-    $tb[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $tb[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
     $tb[$io]["uid"] = $uid;
     $io++;
   }
@@ -106,7 +106,7 @@ function wgcal_prefs_others(&$action) {
   $toptchk = array(); 
   $io = 0;
   foreach ($toolbaropt as $ko => $vo) {
-    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
+    $cVal = $action->GetParam($vo[1]);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
@@ -130,7 +130,7 @@ function wgcal_prefs_others(&$action) {
   $toptchk = array(); 
   $io = 0;
   foreach ($portal as $ko => $vo) {
-    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
+    $cVal = $action->GetParam($vo[1]);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];
@@ -158,7 +158,7 @@ function wgcal_prefs_others(&$action) {
     $toptchk[$io]["paramoption"] = $vo[1];
     $toptchk[$io]["trefresh"] = $vo[2];
     $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->parent->param->GetUParam($vo[1], $uid) == 1 ? "checked" : "");
+    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
     $toptchk[$io]["uid"] = $uid;
     $io++;
   }

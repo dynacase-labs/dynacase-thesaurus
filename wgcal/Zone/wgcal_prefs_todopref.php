@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.6 2005/09/22 08:22:11 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.7 2005/12/08 15:57:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -52,7 +52,7 @@ function wgcal_prefs_todopref(&$action) {
   $toptchk = array(); 
   $io = 0;
   foreach ($optchk as $ko => $vo) {
-    $cVal = $action->parent->param->GetUParam($vo[1], $uid);
+    $cVal = $action->GetParam($vo[1]);
     $toptchk[$io]["iSel"] = $ko;
     $toptchk[$io]["iText"] = $vo[0];
     $toptchk[$io]["iVar"] = $vo[1];

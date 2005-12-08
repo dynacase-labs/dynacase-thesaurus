@@ -1,16 +1,9 @@
 <!-- Menu Bar -->
 <script type="text/javascript"> 
 [JS:CODE]
-</script>
-[BLOCK MENU]
-<!-- POPUP MENUS -->
+</script>[BLOCK MENU]
 <div  style="z-index:3000; display:none" id="[menu]" class="wgcalpopup">
-[MITEM]
-<a class="separator"></a>
-<a href="#" id="close_[menu]" onclick="closeMenu('[menu]')">[IF POPUPICONS]
-<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
-</div>
-[ENDBLOCK MENU]
+[MITEM]</div>[ENDBLOCK MENU]
 
 <table cellspacing="0" cellpadding="0"width="100%" style="position:fixed;  z-index:500;">
 <tr>
