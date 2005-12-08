@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.106 2005/11/18 17:34:12 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.107 2005/12/08 10:59:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -597,7 +597,7 @@ function hasChildFld($dbaccess, $dirid,$issearch=false) {
 	if (ereg("doctype( *)=",$reg[2],$treg)) return false; // do not test if special doctype searches
 	$nq=sprintf("select count(%s) from %s and ((doctype='D')or(doctype='S')) limit 1",$reg[1],$reg[2]);
 	$count=$query->Query(0,0,"TABLE",$nq);
-	if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+	if (($query->nb > 0) && (is_array($count)) && ($count[0]["count"] > 0)) return true;
       }
       
     }
