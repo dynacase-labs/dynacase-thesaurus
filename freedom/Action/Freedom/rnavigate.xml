@@ -1,0 +1,113 @@
+[ZONE FDL:HTMLHEAD]
+<script>
+var inprogress=false;
+var ccol=1; // current column
+function viewrel(docid) {
+  if (inprogress) return; // one request only
+    // branch for native XMLHttpRequest object
+    if (window.XMLHttpRequest) {
+        req = new XMLHttpRequest(); 
+    } else if (window.ActiveXObject) {
+      // branch for IE/Windows ActiveX version
+      isIE = true;
+      req = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (req) {
+        req.onreadystatechange = processReqChange;
+        req.open("POST", '[CORE_STANDURL]&app=FREEDOM&action=RNAVIGATE2', true);
+	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+        req.send("id="+docid);
+	inprogress=true;
+
+
+    }
+    
+
+
+}
+
+function processReqChange() {
+  // only if req shows "loaded"
+  inprogress=false; 
+  var o=document.getElementById('easycr');
+  var i,j,docid,icon,title,elt,oa,ods,od,w;
+  if (o) o.innerHTML='Done';
+  if (req.readyState == 4) {
+    // only if "OK"
+    if (req.status == 200) {
+      // ...processing statements go here...
+      //  alert(req.responseText);
+      if (req.responseXML) {
+	var elts = req.responseXML.getElementsByTagName("relation");
+	if (elts.length > 0) {
+	  ccol++;
+	  od=document.getElementById('col'+ccol);
+	  if (!od) {
+	    //create new col
+	     od=  document.createElement("div");
+	     od.id='col'+ccol;
+	     od.className='mh';
+	     document.getElementById('dbody').appendChild(od);
+	     ods=document.getElementsByTagName("div");
+	     w=parseInt(100/(ods.length-1)-1)+'%';
+	     x=0;
+	     for (j=0;j<ods.length;j++) {
+	       if (ods[j].className=='mh') {
+		 ods[j].style.width=w;
+		 
+	       }
+	     }
+
+	  }
+	  for (i=0;i<elts.length;i++) {
+	    elt=elts[i];
+	    sdocid=elt.getAttribute("docid");
+	    icon=elt.getElementsByTagName("icon")[0].firstChild.nodeValue;
+	    title=elt.getElementsByTagName("title")[0].firstChild.nodeValue;
+	    oa=  document.createElement("a");
+	    oa.onclick=new Function("viewrel('"+sdocid+"');");
+	    oa.innerHTML='<img height="16px" src="'+icon+'">'+title+'<br/>';
+	    od.appendChild(oa);
+	    
+	  }
+	  
+	 
+	} else {
+	  alert('no elt\n'+req.responseText);
+	      
+	}
+      } else {
+	alert('no xml\n'+req.responseText);
+	displaynext();
+      }
+	  
+	  
+    } else {
+      alert("There was a problem retrieving the XML data:\n" +
+	    req.statusText);
+      displaynext();
+    }
+  }
+}
+</script>
+<style>
+TABLE.relation TD {
+   vertical-align:top;
+}
+.mh {
+   vertical-align:top;
+   overflow:scroll;
+   height:400px;
+   border:red 2px solid;
+   float:left;
+   width:100%;
+}
+</style>[Title]
+
+<div id="dbody">
+<div id="col1" class="mh">
+[BLOCK RELS]
+<a style="width:100%" onclick="viewrel('[cinitid]')"><img height="16px" src="[iconsrc]">[title]</a><br/>
+[ENDBLOCK RELS]</div>
+</div>
+[ZONE FDL:HTMLFOOT]

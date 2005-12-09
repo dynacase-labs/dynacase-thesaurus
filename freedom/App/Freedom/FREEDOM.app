@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.39 2005/11/16 16:26:04 eric Exp $
+// $Id: FREEDOM.app,v 1.40 2005/12/09 17:21:42 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -486,6 +486,19 @@ array(
    "name"		=>"FREEDOM_SEARCHPROCESS",
    "short_name"		=>N_("search processes"),
    "acl"		=>"FREEDOM"
+  )   ,
+  array( 
+   "name"		=>"RNAVIGATE",
+   "short_name"		=>N_("navigate between relations"),
+   "acl"		=>"FREEDOM_READ"
+  )  ,
+  array( 
+   "name"		=>"RNAVIGATE2",
+   "short_name"		=>N_("navigate between relations next"),
+   "acl"		=>"FREEDOM_READ",
+   "function"           =>"rnavigate2",
+   "layout"		=>"rnavigate2.xml",
+   "script"		=>"rnavigate.php"
   ) 
                       );
    
