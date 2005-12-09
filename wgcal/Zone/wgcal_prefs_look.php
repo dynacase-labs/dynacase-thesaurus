@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.17 2005/12/08 15:57:33 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.18 2005/12/09 11:21:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -73,25 +73,6 @@ function wgcal_prefs_look(&$action) {
     $i++;
   }
   $action->lay->SetBlockData("FONTSZ", $opt);
-
-  // Display icons in events ----------------------------------------------------------
-  $optchk = array(
-		  "useicon" => array(_("view icon in event"),"WGCAL_U_RESUMEICON", "wgcal_calendar", "WGCAL_CALENDAR")
-		  );
-  
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  $toptchk = array(); 
-  $io = 0;
-  foreach ($optchk as $ko => $vo) {
-    $toptchk[$io]["idoption"] = $ko;
-    $toptchk[$io]["textoption"] = $vo[0];
-    $toptchk[$io]["paramoption"] = $vo[1];
-    $toptchk[$io]["trefresh"] = $vo[2];
-    $toptchk[$io]["arefresh"] = $vo[3];
-    $toptchk[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
-    $io++;
-  }
-  $action->lay->SetBlockData("OPTCHK", $toptchk);
 
   $popuppos = array( "Float" => _("floating, follows the pointer"),
 		     "LeftTop" => _("on the left top"), 

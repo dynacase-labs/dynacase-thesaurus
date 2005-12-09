@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_todopref.php,v 1.7 2005/12/08 15:57:33 marc Exp $
+ * @version $Id: wgcal_prefs_todopref.php,v 1.8 2005/12/09 11:21:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,6 +15,8 @@ include_once("EXTERNALS/WGCAL_external.php");
 
 
 function wgcal_prefs_todopref(&$action) {
+  
+  $todob  =  array( "todo" => array(_("display todos"), "WGCAL_U_TBTODOS", "fbody", "WGCAL_MAIN")  );
   
   $optchk = array(
 		  "ordertodo" => array(_("order todo "), 
@@ -49,6 +51,21 @@ function wgcal_prefs_todopref(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $uid = GetHttpVars("uid", $action->user->id);
+
+  $tb = array(); 
+  $io = 0;
+  foreach ($todob as $ko => $vo) {
+    $tb[$io]["idoption"] = $ko;
+    $tb[$io]["textoption"] = $vo[0];
+    $tb[$io]["paramoption"] = $vo[1];
+    $tb[$io]["trefresh"] = $vo[2];
+    $tb[$io]["arefresh"] = $vo[3];
+    $tb[$io]["stateoption"] = ($action->GetParam($vo[1]) == 1 ? "checked" : "");
+    $tb[$io]["uid"] = $uid;
+    $io++;
+  }
+  $action->lay->SetBlockData("TodoTb", $tb);
+
   $toptchk = array(); 
   $io = 0;
   foreach ($optchk as $ko => $vo) {

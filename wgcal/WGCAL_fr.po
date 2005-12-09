@@ -369,7 +369,7 @@ msgid "the default theme"
 msgstr "défaut"
 
 msgid "view icon in event"
-msgstr "Afficher les icones et les heures sur l'agenda"
+msgstr "Afficher les icones sur l'agenda"
 
 msgid "floating, follows the pointer"
 msgstr "Flottant, suivant le pointeur de la souris"

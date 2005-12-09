@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.13 2005/12/08 15:57:33 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.14 2005/12/09 11:21:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,13 +21,13 @@ function wgcal_prefs_others(&$action) {
 		  "mailcc" => array(_("send me event mail copy"), "WGCAL_U_RVMAILCC", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "conflict" => array(_("check for conflicts"), "WGCAL_U_CHECKCONFLICT", "wgcal_hidden", "WGCAL_HIDDEN"),
 		  "dispref" => array(_("display refused meetings"), "WGCAL_U_DISPLAYREFUSED", "wgcal_calendar", "WGCAL_CALENDAR"),
-		  "iconpopup" => array(_("show icons in popup menus"), "WGCAL_U_ICONPOPUP", "wgcal_toolbar", "WGCAL_TOOLBAR")
+		  "iconpopup" => array(_("show icons in popup menus"), "WGCAL_U_ICONPOPUP", "wgcal_toolbar", "WGCAL_TOOLBAR"),
+		  "useicon" => array(_("view icon in event"),"WGCAL_U_RESUMEICON", "wgcal_calendar", "WGCAL_CALENDAR")
 		  );
+  
   $toolbar = 
     array(
-	  //"contacts" => array(_("display contacts"), "WGCAL_U_TBCONTACTS", "wgcal_toolbar", "WGCAL_TOOLBAR"),
-	  "search" => array(_("display search"), "WGCAL_U_TBSEARCH", "wgcal_toolbar", "WGCAL_TOOLBAR"),
-	  "todo" => array(_("display todos"), "WGCAL_U_TBTODOS", "wgcal_toolbar", "WGCAL_TOOLBAR")
+	  "search" => array(_("display search"), "WGCAL_U_TBSEARCH", "wgcal_toolbar", "WGCAL_TOOLBAR")
 	  );
   
   $toolbaropt = array( "refresh" => array(_("toolbar refresh time"), 
@@ -163,6 +163,7 @@ function wgcal_prefs_others(&$action) {
     $io++;
   }
   $action->lay->SetBlockData("OSYNC", $toptchk);
+
 
   return;
 }

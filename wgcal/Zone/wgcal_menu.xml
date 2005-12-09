@@ -36,4 +36,4 @@
 &nbsp;</td>
 </tr>
 </table>
-[IF PasIE]<div style="height:20px"></div>[ENDIF PasIE]
+[IF PasIE]<div style="height:24px"></div>[ENDIF PasIE]

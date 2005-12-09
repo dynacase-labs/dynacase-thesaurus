@@ -5,7 +5,6 @@
 
 [BLOCK MAILOPTCHK]<tr><td></td><td align="left" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]"><input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]> [textoption]</span></td></tr>[ENDBLOCK MAILOPTCHK]
 
-
 <tr class="wTextActive"><td colspan="3">[TEXT:toolbar tools]</td></tr>
 
 [BLOCK TOOLBARTOOLS]<tr><td></td><td align="left" colspan="2"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]"><input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]> [textoption]</span></td></tr>[ENDBLOCK TOOLBARTOOLS]

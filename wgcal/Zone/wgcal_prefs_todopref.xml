@@ -1,5 +1,7 @@
-<h4>[TEXT:todos...]</h4>
+<h4>[BLOCK TodoTb]<span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]"> [textoption] <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span>[ENDBLOCK TodoTb]
+</h4>
 <table width="100%" cellspacing="0" style="margin:0px;">
+
 
 <tr class="wTextActive"><td colspan="2">[TEXT:todos options]</td></tr>
 

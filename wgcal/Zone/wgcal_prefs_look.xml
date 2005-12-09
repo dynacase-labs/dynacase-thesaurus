@@ -7,9 +7,9 @@
 
 <tr class="wTextActive"><td colspan="3">[TEXT:general options]</td></tr>
 
-<tr><td width="10%"></td><td align="right">[TEXT:theme caracteristics] : </td><td><select style="cursor:pointer" id="theme" onchange="changeUPref('[uid]','WGCAL_U_THEME', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR'); document.location.reload(true);">[BLOCK THEME]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK THEME]</select></td></tr>
+<tr><td width="10%"></td><td align="right">[TEXT:theme caracteristics] : </td><td><select style="cursor:pointer" id="theme" onchange="changeUPref('[uid]','WGCAL_U_THEME', this.options[this.selectedIndex].value, 'fbody', 'WGCAL_MAIN'); document.location.reload(true);">[BLOCK THEME]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK THEME]</select></td></tr>
 
-<tr><td width="10%"></td><td align="right">[TEXT:fonts size] : </td><td><select style="cursor:pointer" id="fontsz" onchange="changeUPref('[uid]','WGCAL_U_FONTSZ', this.options[this.selectedIndex].value, 'wgcal_toolbar', 'WGCAL_TOOLBAR'); document.location.reload(true);">[BLOCK FONTSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK FONTSZ]</select></td></tr>
+<tr><td width="10%"></td><td align="right">[TEXT:fonts size] : </td><td><select style="cursor:pointer" id="fontsz" onchange="changeUPref('[uid]','WGCAL_U_FONTSZ', this.options[this.selectedIndex].value, 'fbody', 'WGCAL_MAIN'); document.location.reload(true);">[BLOCK FONTSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK FONTSZ]</select></td></tr>
 
 
 <tr class="wTextActive"><td colspan="3">[TEXT:information popup management]</td></tr>
@@ -26,8 +26,6 @@
 
 
 <tr><td width="10%"></td><td align="right">[TEXT:hours division size] : </td><td><select style="cursor:pointer" id="hdiv" onchange="changeUPref('[uid]', 'WGCAL_U_HLINEHOURS', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');">[BLOCK HDIVSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HDIVSZ]</select></td></tr>
-
-[BLOCK OPTCHK]<tr><td width="10%"></td><td align="right"><span style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" title="[textoption]">[textoption] : <input id="[idoption]" name="[idoption]" type="checkbox" style="cursor:pointer;" onclick="SetChkPref('[uid]', '[idoption]', '[paramoption]', '[trefresh]', '[arefresh]');" [stateoption]></span></td><td></td></tr>[ENDBLOCK OPTCHK]
 
 <tr class="wTextActive"><td colspan="3">[TEXT:meetings edition]</td></tr>
 

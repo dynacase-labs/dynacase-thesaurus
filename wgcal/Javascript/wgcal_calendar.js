@@ -368,8 +368,8 @@ function WGCalAddEvent(n, tstart, tend)
     } else {
       
       // Heure de début antérieure à l'heure de début de la journée....
-      if (tstart < Days[id].vstart - (YDivMinute * 60 / YDivCount)) {
-	vstart = Days[id].vstart;
+      if (tstart <= parseInt(Days[id].vstart - (YDivMinute * 60 / YDivCount))) {
+	vstart = parseInt(Days[id].vstart);
 	
 	// Heure de début postérieure à l'heure de fin de la journée....
       } else if (tstart>=(Days[id].vend)) {

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_main.php,v 1.10 2005/09/27 15:29:35 marc Exp $
+ * @version $Id: wgcal_main.php,v 1.11 2005/12/09 11:21:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -22,6 +22,7 @@ function wgcal_main(&$action) {
   else include_once("WGCAL/Themes/default.fsz");
   $action->lay->set("bordercolor", $theme->WTH_COLOR_2);
   $action->lay->set("toolbarwidth", $action->getParam("WGCAL_U_TOOLBARSZ", 250));
+  $action->lay->set("viewTodo", ($action->getParam("WGCAL_U_TBTODOS") == 1 ? true : false));
   $action->parent->param->set("WGCAL_U_CALCURDATE", time(), PARAM_USER.$action->user->id, $action->parent->id);
 
 }
