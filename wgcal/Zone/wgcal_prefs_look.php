@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.18 2005/12/09 11:21:28 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.19 2005/12/09 15:34:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -101,6 +101,17 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("ALTTIMER", $opt);
 
+
+  $opt = array(); $i = 0;
+  $navb = array ( 0 => _("no"), 1 => _("yes"));
+  foreach ($navb as $k => $v) {
+    $opt[$i]["optvalue"] = $k;
+    $opt[$i]["optdescr"] = $v;
+    $opt[$i++]["optselect"] = ($k==$action->GetParam("WGCAL_U_BARMNAVDATE") ? "selected" : "");
+  }
+  $action->lay->SetBlockData("NAVB", $opt);
+    
+  
   $opt = array(); $i = 0;
   for ($i=0; $i<13; $i++) {
     $opt[$i]["optvalue"] = $i;

@@ -20,6 +20,9 @@ function wgcal_textmonth(&$action)
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);

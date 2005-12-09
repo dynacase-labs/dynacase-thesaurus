@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.63 2005/12/09 10:06:15 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.64 2005/12/09 15:34:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -21,6 +21,11 @@ include_once('WHAT/Lib.Common.php');
 function wgcal_calendar(&$action) {
 
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+
+  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
+
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 

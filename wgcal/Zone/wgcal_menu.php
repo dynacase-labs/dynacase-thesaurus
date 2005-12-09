@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.24 2005/12/08 15:58:29 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.25 2005/12/09 15:34:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -15,6 +15,11 @@ include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_menu(&$action) {
   include_once("FDL/popup_util.php");
+
+  $action->lay->set("NavDate", ($action->GetParam("WGCAL_U_BARMNAVDATE", 0)==1?true:false));
+  $action->lay->set("CmTIME", ($action->GetParam("WGCAL_U_CALCURDATE", time())*1000));
+  $action->lay->set("CmTIMEnm", (($action->GetParam("WGCAL_U_CALCURDATE", time()) + (3600*24*31))*1000));
+  setToolsLayout($action, 'nav');
 
   $hdiv   = $action->GetParam("WGCAL_U_HOURDIV", 1);
   for ($h=0; $h<=3; $h++) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.49 2005/11/21 18:08:17 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.50 2005/12/09 15:34:20 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -87,6 +87,7 @@ array(
 "WGCAL_U_TOOLBARSZ" => array("kind"=>"static", "val"=>"250", "descr"=>N_("toolbar size"),"user"=>"Y"),
 "WGCAL_U_PORTALPERIOD" => array("kind"=>"static", "val"=>"0", descr=>N_("contact search position"), "user"=>"Y"),
 
+"WGCAL_U_BARMNAVDATE" => array("kind"=>"static", "val"=>"0", "kind"=>"enum(0|1)", descr=>N_("barmenu date navigator"), "user"=>"Y"),
 
 // Synchro 
 "WGCAL_S_LASTSYNC_OUTLOOK" => array("kind"=>"static", "val"=>0, "descr"=>N_("last sync date for Outlook"), "user"=>"Y"),

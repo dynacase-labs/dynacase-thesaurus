@@ -151,10 +151,10 @@ function WGCalChangeVisibility(tool) {
   bel = document.getElementById('b'+tool);
   if (el.style.display=='') {
     el.style.display = 'none';
-    bel.className = 'wToolButtonSelect';
-  } else {
+    if (bel) bel.className = 'wToolButtonSelect';
+  } else { 
     el.style.display = '';
-    bel.className = 'wToolButtonUnselect';
+    if (bel) bel.className = 'wToolButtonUnselect';
   }
   WGCalSaveToolsVisibility();
   return;

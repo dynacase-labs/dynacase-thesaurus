@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.60 2005/12/09 11:21:28 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.61 2005/12/09 15:34:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -88,6 +88,8 @@ function _todo() {
 
 function _navigator() {
   global $action;
+
+  $action->lay->set("NavDate", ($action->GetParam("WGCAL_U_BARMNAVDATE", 0)==0?true:false));
 
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $cmtime = $ctime * 1000;

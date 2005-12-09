@@ -25,7 +25,7 @@
 
  [IF VContactSTop]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSTop]
 
-<!-- NAVIGATOR  -->
+[IF NavDate]
 <table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
 <td id="inav" align="left" onclick="WGCalChangeVisibility('nav');">[TEXT:date selector]</td>
@@ -53,6 +53,7 @@
         flatCallback   :    WGCalSetDate   
     });</script></div>
 </div>
+[ENDIF NavDate]
 
 <!-- LISTE DES AGENDAS -->
 
@@ -131,7 +132,7 @@
 
 <script type="text/javascript">
 
-var  toolList = new Array( 'nav', 'cals', 'waitrv', 'todo', 'contacts');
+var  toolList = new Array( [IF NavDate]'nav',[ENDIF NavDate] 'cals', 'waitrv', 'todo', 'contacts');
 
 [BLOCK L_RESS]
 InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]', [ROMODE]);[ENDBLOCK L_RESS]

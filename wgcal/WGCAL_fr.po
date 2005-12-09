@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-02 11:22+0100\n"
+"POT-Creation-Date: 2005-12-09 15:34+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -90,6 +90,7 @@ msgstr "Suppression de l'occurrence du "
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
 
+#, c-format
 msgid "only %s first"
 msgstr "Les %s premiers..."
 
@@ -368,9 +369,6 @@ msgstr "Grande"
 msgid "the default theme"
 msgstr "défaut"
 
-msgid "view icon in event"
-msgstr "Afficher les icones sur l'agenda"
-
 msgid "floating, follows the pointer"
 msgstr "Flottant, suivant le pointeur de la souris"
 
@@ -397,6 +395,12 @@ msgstr "1 seconde"
 
 msgid "1,5 second"
 msgstr "1,5 seconde"
+
+msgid "no"
+msgstr "Non"
+
+msgid "yes"
+msgstr "Oui"
 
 msgid "event menu"
 msgstr "Evènements"
@@ -455,9 +459,6 @@ msgstr "Edition des catégories"
 msgid "m_txt_roomscars"
 msgstr "Véhicules & Salles"
 
-msgid "m_txt_userspref"
-msgstr "Préférences utilisateurs"
-
 msgid "m_txt_choosegroups"
 msgstr "Choix des groupes"
 
@@ -482,11 +483,11 @@ msgstr "Afficher les évènements refusés"
 msgid "show icons in popup menus"
 msgstr "Afficher les icones dans les menus popup"
 
+msgid "view icon in event"
+msgstr "Afficher les icones sur l'agenda"
+
 msgid "display search"
 msgstr "Afficher la recherche"
-
-msgid "display todos"
-msgstr "Afficher les tâches"
 
 msgid "toolbar refresh time"
 msgstr "Intervallle de rafraichissement de la barre d'outil"
@@ -544,6 +545,9 @@ msgstr "Mois"
 
 msgid "display last sync date"
 msgstr "Afficher la date de la dernière synchro Outlook"
+
+msgid "display todos"
+msgstr "Afficher les tâches"
 
 msgid "order todo "
 msgstr "Classement des tâches"
@@ -1100,6 +1104,12 @@ msgstr "Enlever la ressource"
 msgid "change color for ressource"
 msgstr "Modifier la couleur du calendrier"
 
+msgid "close"
+msgstr "Fermer"
+
+msgid "goto data"
+msgstr "Aller à une date"
+
 msgid "view/hide week-end"
 msgstr "Afficher / cacher les week-end"
 
@@ -1166,6 +1176,9 @@ msgstr "Position d'affichage"
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
 
+msgid "date navigator in barmenu"
+msgstr "Navigateur de date dans la barre de menu"
+
 msgid "day start hour"
 msgstr "Heure de début de la journée"
 
@@ -1208,9 +1221,6 @@ msgstr "Portail"
 msgid "osync params"
 msgstr "Synchronisation Outlook"
 
-msgid "todos..."
-msgstr "Tâches..."
-
 msgid "todos options"
 msgstr "Options des tâches"
 
@@ -1236,8 +1246,8 @@ msgstr "Supprimer la délégation"
 msgid "suppress delegation for"
 msgstr "Supprimer la délégation pour "
 
-msgid "selected : delegate all my event to this person"
-msgstr ""
+msgid "delegate all my event to this person"
+msgstr "délégation de tout mes rendez-vous à cette personne"
 
 msgid "add delegation ..."
 msgstr "Ajout d'une délégation..."
@@ -1355,6 +1365,9 @@ msgstr "Afficher les contacts"
 msgid "toolbar size"
 msgstr "Largeur de la barre d'outils"
 
+msgid "barmenu date navigator"
+msgstr ""
+
 msgid "last sync date for Outlook"
 msgstr "Date de la dernière synchro Outlook"
 
@@ -1388,6 +1401,12 @@ msgstr "Groupes utilisés"
 
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "m_txt_userspref"
+#~ msgstr "Préférences utilisateurs"
+
+#~ msgid "todos..."
+#~ msgstr "Tâches..."
 
 #, fuzzy
 #~ msgid "limit search to"
@@ -1433,9 +1452,6 @@ msgstr "Utilisation des fonctions en cours de test"
 
 #~ msgid "view all todo"
 #~ msgstr "Afficher toutes les tâches"
-
-#~ msgid "only for events set by this person"
-#~ msgstr "délégation pour les seuls rendez-vous créé par cette personne"
 
 #~ msgid "give all permissions (edition and approvment)"
 #~ msgstr "Donner tous les droits (édition et acceptations)"

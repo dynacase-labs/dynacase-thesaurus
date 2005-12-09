@@ -17,9 +17,51 @@
      onClick="closeAllMenu(); DeactiveMenu(this); selectMenu(this);openMenuXY(event, '[menu]',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset()+2);return false">[label]</div>[ENDBLOCK DMENU]
 </td></tr></table>
 
+[IF NavDate]
+<script type="text/javascript">
+function contentShowHide() {
+  var e1 = document.getElementById('gotodateall');
+  if (!e1) return;
+  if (e1.style.display!='none') e1.style.display='none';
+  else e1.style.display='';
+} 
+</script>
+<div id="vnav" class="wToolButtonSelect" style="border:3px groove; position:absolute; width:auto; height:auto; top:20; z-index:4000; display:[vnav]">
+<img src="[IMG:wm-catup.gif]" height="12px" title="[TEXT:show/hide]" class="WGCalAction" onclick="contentShowHide();">
+<img src="[IMG:wm-close.gif]" height="12px" title="[TEXT:close]" class="WGCalAction" onclick="WGCalChangeVisibility('nav');">
+<img src="[IMG:wgcal-gotodate.gif]" height="12px" title="[TEXT:display two months]" class="WGCalAction" onclick="if (document.getElementById('gotodate2').style.display!='none') document.getElementById('gotodate2').style.display='none'; else document.getElementById('gotodate2').style.display=''">
+<div align="center" id="gotodateall" style="border:0px; position:relative; display:">
+<script type="text/javascript">
+var  toolList = new Array( 'nav');
+Calendar.setup({
+        ifFormat       :    "%s",       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        firstDay       :    1,
+        date           :    new Date([CmTIME]),
+        weekNumbers    :    true,
+        flat           :    "gotodateall",
+        flatCallback   :    WGCalSetDate
+    });
+</script>
+<div align="center" id="gotodate2" style="border:0px; position:relative; display:none">
+<script type="text/javascript">
+Calendar.setup({
+        ifFormat       :    "%s",       // format of the input field
+        showsTime      :    false,            // will display a time selector
+        firstDay       :    1,
+        date           :    new Date([CmTIMEnm]),
+        weekNumbers    :    true,
+        flat           :    "gotodate2",
+        flatCallback   :    WGCalSetDate
+    });
+</script>
+</div></div>[ENDIF NavDate]
 </td>
 
 
+[IF NavDate]<td align="center" class="wMainMenu" width="20">
+<img id="pbnav" name="pbnav"  height="16" style="cursor:pointer" title="[TEXT:goto data]"  onclick="WGCalChangeVisibility('nav');" src="[IMG:wgcal-gotodate.gif]">
+</td>[ENDIF NavDate]
 <td class="wMainMenu" valign="top" align="center" width="80">
 <span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>
 <input style="vertical-align:top; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></span></td>
