@@ -173,7 +173,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 
 </td>
-<td height="97%" valign="top" align="left">
+<td style="padding:1em" valign="top" align="left">
 
 <img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
@@ -266,7 +266,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <table cellspacing="0" cellpadding="0" width="100%">
 <thead><td class="wAttList" align="left" style="vertical-align:top" colspan="2" nowrap>
 [TEXT:list of attendees]&nbsp;
-<img id="viewplan" class="wSmallButton" style="vertical-align:top; display:[voneatt];" height="16px" onclick="viewattdispo('[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=FREEEVENT:PLANNER:T&idfamref=[idfamref]&byres=Y&id=[planid]');" src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
+<img id="viewplan" class="wSmallButton" style="vertical-align:top; display:[voneatt];" height="16px" onclick="viewattdispo('[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&vm=7&sm=1&ress=');" src="[IMG:wm-planner.gif]" title="[TEXT:vew disponibility]">
 <img id="delall" class="wSmallButton" style="vertical-align:top; display:[voneatt];" height="16px" onclick="ok=confirm('[TEXT:confirm delete all attendees]'); if (ok) deleteAttendee(-1);" src="[IMG:wm-delete.gif]" title="[TEXT:delete all attendees]">
 </td></thead>
 <tbody id="tabress">

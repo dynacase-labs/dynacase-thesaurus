@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.62 2005/12/08 06:08:11 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.63 2005/12/09 10:06:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,7 +32,7 @@ function wgcal_calendar(&$action) {
   
 //   // Init start time, view mode (month, week, ...)
   $vm = GetHttpVars("vm", "");
-  if ($vm=="" || !is_int($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+  if ($vm=="" || !is_numeric($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
 

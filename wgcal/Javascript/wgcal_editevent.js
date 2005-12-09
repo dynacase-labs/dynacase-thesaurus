@@ -553,13 +553,9 @@ function viewattdispo(url) {
   var se  = 0; // parseFloat(td.getSeconds());
   
   var sdb =  '';
-//   sdb += 'Year:'+ye+' Month:'+mo+' Day:'+da+' Hour:'+ho+' Min:'+mn+' Sec:'+se+'\n';
   js = cal_to_jd( "CEST", ye, mo, da, ho, mn, se);
   je = parseFloat(js) + 14.0;
-//   sdb += 'A l\'envers : ['+jd_to_cal(js,'-')+','+jd_to_cal(je,'-')+']\n';
-//    sdb += 'ViewDispo '+url+'&jdstart='+js+'&jdend='+je+'&idres='+rll;
-//   alert(sdb);
-  subwindow(300, 700, 'ViewDispo', url+'&jdstart='+js+'&jdend='+je+'&idres='+rll);
+  subwindow(500, 600, 'ViewDispo', url+rll);
 }
 
 function clickB(idb) {

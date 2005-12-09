@@ -1,18 +1,14 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<table width="100%" id="btodo" class="[btodo]" cellspacing="0" cellpadding="0">
-<tr><td style="border:1px none red;" onclick="idb=getElementById('btodo'); idelt=getElementById('vtodo'); if (idelt.style.display!='') { idb.className='wToolButtonUnselect'; idelt.style.display=''; } else { idb.className='wToolButtonSelect'; idelt.style.display='none'; }" align="left">[TEXT:my todo] ([todocount])</td><td align="right" ><img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&RZ=HV&target=icaltodo&idtodo=-1');" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]"></td></tr></table>
-<div id="vtodo" style="display:[vtodo]" class="wToolArea">
 <form style="display:none" id="tododone" name="tododone" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE"><input type="hidden" value="-1" name="idtodo" id="idtodo"></form>
-[IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo]</div>[ENDIF Todos]
-[BLOCK TodoList]
-<div onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'">
-<table width="100%" cellspacing="0px" cellpadding="0%">
-<tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td width="10%"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();">&nbsp;</td>
-<td id="[idTodo]" style="border-left:3px solid [colorTodo];" onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="left">&nbsp;[sTextTodo]</td>
-<td onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="right">([dateTodo])</td>
-</tr></table>
-</div>
-[ENDBLOCK TodoList]
-</div>
+<table width="100%" id="btodo" cellspacing="0" cellpadding="0">
+<tr class="wToolButtonUnselect">
+<td>[TEXT:my todo] ([todocount])</td>
+<td align="right"><img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&RZ=HV&target=icaltodo&idtodo=-1');" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">&nbsp;</td>
+</tr>
+[IFNOT Todos]<tr><td colspan="2" class="WGCRessDefault">[TEXT: no todo]</td></tr>[ENDIF Todos]
+[IF Todos]
+[BLOCK TodoList]<tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
+<td colspan="2"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();">&nbsp;<span class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" id="[idTodo]" style="border-left:3px solid [colorTodo];" onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="left">&nbsp;[sTextTodo]&nbsp;<span style="font-size:80%">([dateTodo])</span></span>
+</td></tr>
+[ENDBLOCK TodoList]</table>[ENDIF Todos]
 [ZONE WGCAL:WGCAL_HTMLFOOT]

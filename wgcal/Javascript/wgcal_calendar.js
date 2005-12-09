@@ -210,15 +210,15 @@ function OverCalendarCell(ev, elt, lref, cref) {
   closeMenu('calpopup');
   WGCalCleanAllFullView();
   elt.className = 'WGCAL_PeriodSelected'; //WGCAL_DayLineOver';
-  document.getElementById(lref).className = 'WGCAL_PeriodSelected';
-  document.getElementById(cref).className = 'WGCAL_PeriodSelected';
+  if (document.getElementById(lref)) document.getElementById(lref).className = 'WGCAL_PeriodSelected';
+  if (document.getElementById(cref)) document.getElementById(cref).className = 'WGCAL_PeriodSelected';
 }
 
 // --------------------------------------------------------
 function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
   elt.className = cclass;
-  document.getElementById(lref).className = dayclass;
-  document.getElementById(cref).className = hourclass;
+  if (document.getElementById(lref)) document.getElementById(lref).className = dayclass;
+  if (document.getElementById(cref)) document.getElementById(cref).className = hourclass;
 }
 
 // --------------------------------------------------------
