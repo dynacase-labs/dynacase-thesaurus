@@ -11,13 +11,14 @@ body {
 .elist {
   margin : 0px;
   padding : 3px;
+  text-align:center;
   font-size: [WTH_FONTSIZE_NORMAL]pt; 
   font-family: [WTH_FONTLIST];
   background: [WTH_BGIMG]; 
   color: [WTH_TEXTCOLOR_1];
   border:1px solid [WTH_TEXTCOLOR_1];
   z-index : 1000;
-  position:absolute; 
+  position:absolute;
   width : auto;
 }
 
