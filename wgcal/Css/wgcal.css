@@ -11,7 +11,7 @@ body {
 .elist {
   margin : 0px;
   padding : 3px;
-  text-align:center;
+  text-align:left;
   font-size: [WTH_FONTSIZE_NORMAL]pt; 
   font-family: [WTH_FONTLIST];
   background: [WTH_BGIMG]; 
