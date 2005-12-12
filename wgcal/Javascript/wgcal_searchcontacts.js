@@ -15,7 +15,11 @@ function insertContact(domid, famid, id, title, iconsrc) {
     var e = document.getElementById(domid);
     var pe = e.parentNode;
     pe.removeChild(e);
-    if (pe.childNodes.length==1) pe.style.display='none';
+    var ic = 0;
+    for (var ip=0; ip<pe.childNodes.length; ip++) {
+      if (pe.childNodes[ip].nodeName=='DIV') ic++;
+    }
+    if (ic==1) pe.style.display='none';
   }
 }
 
