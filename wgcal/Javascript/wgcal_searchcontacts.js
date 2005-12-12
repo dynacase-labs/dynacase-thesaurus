@@ -78,10 +78,8 @@ function searchSFamilie(evt, force) {
 
   sfTimer = setTimeout("runSearchSFamilie('"+sfFams+"','"+sfText+"','"+sfMode+"')", 1000);
 
-//   alert('Timer sfTimer='+sfTimer+'  sfText='+sfText+' sfMode='+sfMode+' sfFams='+sfFams ); return;
   return true;
 }  
-
 
 function runSearchSFamilie(f, t, m) {
 
@@ -102,6 +100,7 @@ function runSearchSFamilie(f, t, m) {
   } catch (e) {
     rq = new ActiveXObject("Msxml2.XMLHTTP");
   }
+
   rq.onreadystatechange =  function() {
     if (rq.readyState == 4) {
       result.innerHTML = '';
