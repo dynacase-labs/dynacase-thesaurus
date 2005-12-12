@@ -1119,22 +1119,24 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
     $a++;
   }
   $this->lay->setBlockData("GROUPS", $tallgrp);
+
   if ($a==0) {
     $this->lay->set("voneatt", "none");
     $this->lay->set("vnatt", "none");
+    $this->lay->set("diparticipe", "none");
+    $this->lay->set("dconvocation", "none");
   } else {
     $this->lay->set("voneatt", "");
     $this->lay->set("vnatt", "");
+    $this->lay->set("diparticipe", "");
+    $this->lay->set("dconvocation", "");
   }
-  if ($ro) $this->lay->set("voneatt", "none");
 
   $this->lay->set("vnatt", "none");
-  $this->lay->set("WITHMERO", ($ro?"disabled":""));
   if ($ownerid==$action->user->fid) {
     if (!$onlyme) $this->lay->set("vnatt", "");
   }
   $this->lay->setBlockData("ADD_RESS", $att);
-  $this->lay->set("attendeesro", ($ro?"none":""));
 
   $iuserfam = getFamIdFromName($dbaccess, "IUSER");
     

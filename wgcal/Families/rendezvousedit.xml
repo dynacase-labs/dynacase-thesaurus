@@ -207,7 +207,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr><td valign="top">
 
-<table id="vnatt" cellspacing="0" cellpadding="0" width="100%">
+<table cellspacing="0" cellpadding="0" width="100%">
 
 <tr><td>
 </td></tr>
@@ -238,14 +238,14 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td>&nbsp;</td></tr>
 
 <tr><td>
-<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
+<span id="dconvocation" style="align:right; display:[dconvocation]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
 </td></tr>
 
 
 <tr><td>&nbsp;</td></tr>
 
 <tr><td nowrap>
-<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME] [WITHMERO]>[TEXT:I participe...]</span>
+<span id="diparticipe" style="align:right; display:[diparticipe]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME]>[TEXT:I participe...]</span>
 </td></tr>
 
 <tr><td>&nbsp;</td></tr>
