@@ -76,6 +76,20 @@ function calprop(&$trv,&$tuf) {
        }
       $send=sprintf("%04d-%02d-%02d %02d:%02d",$y,$m, $d,$h,$mi);
 
+    } else if (($du <= 0)&&($st>0)) {
+      $trv[$kc]["calev_timetype"]="0";
+      $st=$st/100;
+      $h=floor($st/100);
+      $mi=$st-($h*100);
+      $sdate=sprintf("%04d-%02d-%02d %02d:%02d",$y,$m, $d,$h,$mi);
+      $h+=floor($du/60);
+      $mi+=30;
+      if ($mi >= 60) {
+        $h += floor($mi/60);
+        $mi = ($mi % 60);
+      }
+      $send=sprintf("%04d-%02d-%02d %02d:%02d",$y,$m, $d,$h,$mi);
+
     } else {
       if ($st < 0) $trv[$kc]["calev_timetype"]="2";
       else $trv[$kc]["calev_timetype"]="1";
