@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.1 2005/12/09 17:21:42 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.2 2005/12/16 12:04:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,8 +15,10 @@ include_once("Class.DbObj.php");
 Class DocRel extends DbObj {
   public $fields = array ( "sinitid", // source id
 			   "cinitid",  // cible id
-			   "title", // title of cible
-			   "icon", // icon of cible
+			   "ctitle", // title of cible
+			   "cicon", // icon of cible
+			   "stitle", // title of source
+			   "sicon", // icon of source
 			   "type"); // relation kind);
 
   /**
@@ -50,8 +52,10 @@ Class DocRel extends DbObj {
   public $sqlcreate = "
 create table docrel ( sinitid int not null,                   
                    cinitid int not null,
-                   title text,
-                   icon text,
+                   stitle text,
+                   ctitle text,
+                   sicon text,
+                   cicon text,
                    type text  );
 create index i_docrelc on docrel(cinitid);
 create index i_docrels on docrel(sinitid);";
@@ -64,5 +68,19 @@ create index i_docrels on docrel(sinitid);";
     $l=$q->Query(0,0,"TABLE");
     if (is_array($l))  return $l;
     return array();
+  }
+  public function getIRelations() {
+    include_once("Class.QueryDb.php");
+    $q=new QueryDb($this->dbaccess,get_class($this));
+    $q->AddQuery("cinitid=".$this->sinitid);
+    $l=$q->Query(0,0,"TABLE");
+    if (is_array($l))  return $l;
+    return array();
+  }
+  
+  public function resetRelations() {
+    if ($this->sinitid > 0) {
+      $this->exec_query("delete from docrel where sinitid=".$this->sinitid);
+    }
   }
 }

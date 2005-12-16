@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.286 2005/12/14 15:35:35 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.287 2005/12/16 12:04:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -461,8 +461,37 @@ final public function PostInsert()  {
     if ($this->hasChanged) {
       $this->computeDProfil();
       $this->UpdateVaultIndex();
+      //      $this->updateRelations();
     }
     $this->hasChanged=false;
+  }
+
+  /**
+   * Set relation doc id use on docrel table
+   */
+  function updateRelations() {
+    include_once("FDL/Class.DocRel.php");
+    $nattr = $this->GetNormalAttributes();
+    $or=new DocRel($this->dbaccess);
+    $or->sinitid=$this->initid;
+    $or->resetRelations();
+
+    foreach($nattr as $k=>$v) {
+      if (isset($this->$k) && ($this->$k != "") && ($v->type=="docid")) {
+	if ($v->inArray()) $tv=$this->getTValue($v->id);
+	else $tv=array($this->$k);
+	foreach ($tv as $val) {
+	  $t=getTDoc($this->dbaccess,$val);
+	  $or->cinitid=$t["initid"];
+	  $or->ctitle=$t["title"];
+	  $or->cicon=$t["icon"];
+	  $or->stitle=$this->title;
+	  $or->sicon=$this->icon;
+	  $or->type=$v->id;
+	  $or->Add();
+	}
+      }
+    }
   }
 
   /**
