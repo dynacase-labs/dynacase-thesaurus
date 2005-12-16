@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.41 2005/09/21 16:02:21 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.42 2005/12/16 15:22:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -107,6 +107,7 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
     $err=$this->exec_query("delete from fld where dirid=".$this->initid);
+    $this->updateFldRelations();
     return $err;
 
   }
@@ -237,6 +238,7 @@ Class Dir extends PDir
     }
 
     if ($err == "") {
+      $this->updateFldRelations();
       // use post virtual method
       if (!$noprepost) $err=$this->postInsertDoc($docid,false);
     }
@@ -306,7 +308,10 @@ Class Dir extends PDir
 
 
     // use post virtual method
-    if (!$noprepost) $err.=$this->postMInsertDoc($tAddeddocids);
+    if (!$noprepost){
+      $this->updateFldRelations();
+      $err.=$this->postMInsertDoc($tAddeddocids);
+    }
 
     return $err;
   }
@@ -333,6 +338,7 @@ Class Dir extends PDir
     }
 
     $err=$qf->Adds($tcopy,true);
+    $this->updateFldRelations();
     
     return $err;
   }
@@ -354,6 +360,7 @@ Class Dir extends PDir
     $err=$this->exec_Query(sprintf("insert INTO fld (select %d,query,childid,qtype from fld where dirid=%d);",$this->initid,$docid));
     
     
+    $this->updateFldRelations();
     return $err;
   }
   // --------------------------------------------------------------------
@@ -423,7 +430,10 @@ Class Dir extends PDir
     AddLogMsg(sprintf(_("Delete %d in %s folder"), $docid, $this->title));
 
     // use post virtual method
-    if (!$noprepost) $err=$this->postUnlinkDoc($docid);
+    if (!$noprepost) {
+      $this->updateFldRelations();
+      $err=$this->postUnlinkDoc($docid);
+    }
   
     return $err;
   }
@@ -515,8 +525,36 @@ Class Dir extends PDir
     if ($controlview) $uid=$this->userid;
     else $uid=1;
     $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid="");
-    return $tdoc;
-    
+    return $tdoc;    
+  }
+
+  /**
+   * update folder relations
+   */
+  function updateFldRelations() {
+    return;
+    include_once("FDL/Class.DocRel.php");
+    $nattr = $this->GetNormalAttributes();
+    $or=new DocRel($this->dbaccess);
+    $or->sinitid=$this->initid;
+    $or->resetRelations("folder");
+    $q=new QueryDb($this->dbaccess,"QueryDir");
+    $tv=$q->Query(0,0,"TABLE","select childid from fld where dirid=".$this->initid." and qtype='S'");
+    if (is_array($tv)) {
+    foreach ($tv as $tq) {
+      $val=$tq["childid"];
+      $t=getTDoc($this->dbaccess,$val);
+      if ($t) {
+	  $or->cinitid=$t["initid"];
+	  $or->ctitle=$t["title"];
+	  $or->cicon=$t["icon"];
+	  $or->stitle=$this->title;
+	  $or->sicon=$this->icon;
+	  $or->type="folder";
+	  $or->Add();
+	}
+    }
+  }
   }
 }
 

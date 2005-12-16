@@ -117,12 +117,13 @@ TABLE.relation TD {
 }
 .mh {
    vertical-align:top;
-   overflow:scroll;
+   overflow:auto;
    height:400px;
-   border:red 2px solid;
+   border:[CORE_FGCOLOR] 2px ridge!important;
    float:left;
    width:100%;
-   -moz-border-radius:20px;
+   -moz-border-radius:10px;
+   background-color:[CORE_BGCELLCOLOR];
 }
 A.mha {
   width:100%;
