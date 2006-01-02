@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.27 2006/01/02 13:17:11 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.28 2006/01/02 15:45:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -525,30 +525,40 @@ function fusers_eigroup() {
   $tabs=array();
   foreach ($la as $k=>$v) {
     $va=$this->getValue($v->id);
-    if (!$v->inArray() && (! in_array($v->id,$ta)))  {
-	  
-    
-      if ((($v->mvisibility == "W") || ($v->mvisibility == "O"))) {
+    if (!$v->inArray() && (! in_array($v->id,$ta)))  {	      
+      if ($v->mvisibility != "I") {
 	if ($v->type=="array") {
 	  $hv=getHtmlInput($this,$v,$va);
 	  if ($hv) {
-	    $to[]=array("lothers"=>$v->labelText,
-		      "aid"=>$v->id,
-		      "vothers"=>$hv,
-		      "isarray"=>true);	
-	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	    if ($v->mvisibility != "H") {
+	      $to[]=array("lothers"=>$v->labelText,
+			  "aid"=>$v->id,
+			  "vothers"=>$hv,
+			  "isarray"=>true);
+	      $tabs[$v->fieldSet->labelText][]=$v->id;
+	    } else {
+	      $th[]=array("aid"=>$v->id,
+			  "vothers"=>getHtmlInput($this,$v,$va));
+	    }
 	  }
 	} else {
-	  $to[]=array("lothers"=>$v->labelText,
-		      "aid"=>$v->id,
-		      "vothers"=>getHtmlInput($this,$v,$va),
-		      "isarray"=>false);
-	$tabs[$v->fieldSet->labelText][]=$v->id;
+	  if ($v->mvisibility != "H") {
+	    $to[]=array("lothers"=>$v->labelText,
+			"aid"=>$v->id,
+			"vothers"=>getHtmlInput($this,$v,$va),
+			"isarray"=>false);
+	    $tabs[$v->fieldSet->labelText][]=$v->id;
+	  } else {
+	    $th[]=array("aid"=>$v->id,
+			"vothers"=>getHtmlInput($this,$v,$va));
+	    
+	  }	
 	}
       }
     }
   }
   $this->lay->setBlockData("OTHERS",$to);
+  $this->lay->setBlockData("IHIDDENS",$th);
   $ltabs=array();
   foreach ($tabs as $k=>$v) {
     $ltabs[$k]=array("tabtitle"=>$k,

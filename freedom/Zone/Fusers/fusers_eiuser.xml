@@ -102,6 +102,8 @@ addEvent(window,"load",function al(event) {viewTab(event,'tabsystem');});
 <tr class="tro" id="TR[aid]">[IFNOT isarray]<td width="30%" align="right" ><span class="fablabel">[lothers]&nbsp;:</span></td>[ENDIF isarray]<td [IF isarray]colspan="2"[ENDIF isarray]>[vothers]</td></tr>
 [ENDBLOCK OTHERS]
 </table>
+[BLOCK IHIDDENS][vothers]
+[ENDBLOCK IHIDDENS]
 </div>
 
 </div>
