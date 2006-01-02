@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.26 2005/12/02 17:28:09 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.27 2006/01/02 13:17:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -41,27 +41,41 @@ function specRefresh() {
 
   return $err;
 }
-function getExchangeLDAP() {
-    return $this->exportLdap;  
-}
-function specLDAPexport(&$infoldap) {
-  $tu=$this->getTValue("GRP_IDRUSER");
 
-  $tmid=array();
-  foreach ($tu as $k=>$v) {
-    $td=getTDoc($this->dbaccess,$v);
-    if ($td["us_uidnumber"] > 0) $tmid[]=$td["us_uidnumber"];
-    
-    
-  }
-  if (count($tmid) > 0) $infoldap["memberUid"]=$tmid;
-}
 /**
  * test if the document can be set in LDAP
  */
 function canUpdateLdapCard() {
   return  true;
 
+}
+/**
+ * get DN of document
+ */
+function getIGROUPDN($path="") {
+  if ($path=="") $dn = "uid=".$this->getValue("us_login").",".$this->racine;
+  else  $dn = "uid=".$this->getValue("us_login").",$path,".$this->racine;
+  return $dn;
+}
+/**
+ * get LDAP title for group
+ */
+function getLDAPTitle() {
+  return sprintf(_("%s group"),$this->title);
+}
+/**
+ * get LDAP array of members
+ * @return array
+ */
+function getLDAPMember() {
+  $t=$this->getTValue("GRP_IDUSER");
+
+  foreach ($t as $k=>$v) {
+    $du=getTDoc($this->dbaccess,$v);
+    $d=getDocObject($this->dbaccess,$du);
+    $tdn[]=$d->getLDAPDN("dc=users");
+  }
+  return $tdn;
 }
 /**
  * recompute only parent group 

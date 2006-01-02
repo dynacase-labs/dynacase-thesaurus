@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.32 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.33 2006/01/02 13:17:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -18,7 +18,6 @@
   
 var $dbaccess;
 var $action;
-var $ldapobjectclass="inetOrgPerson";
   
   var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
   
@@ -84,15 +83,9 @@ function SpecRefresh() {
     $this->setValue("US_FAX",$this->getValue("US_PFAX"," "));
     
   }
-  
 }
 
 
-function getExchangeLDAP() {
-    include_once("FDL/Class.UsercardLdif.php");
-    $oldif=new UsercardLdif();
-    return $oldif->import;  
-}
 
 
 
@@ -117,10 +110,6 @@ function canUpdateLdapCard() {
 
 
 
-/**
- * need to complete export array if needed
- */
-function specLDAPexport(&$infoldap) {;}
 
   // --------------------------------------------------------------------
   function SetPrivacity() { // priv  {P, R, W}

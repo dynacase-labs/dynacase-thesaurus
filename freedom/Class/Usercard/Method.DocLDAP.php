@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.3 2005/10/11 12:51:34 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.4 2006/01/02 13:17:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -25,36 +25,37 @@
  * @return bool true if organization has been created or its already created
  */
 function OrgInit() {
-    if (! $this->useldap) false;
-  
+  if (! $this->useldap) false;
 
-	    // ------------------------------
-	    // include LDAP organisation first
-	    $orgldap["objectclass"]="organization";
-	    if (ereg(".*o=(.*),.*", $this->racine, $reg))
-	      $orgldap["o"]=$reg[1]; // get organisation from LDAP_ROOT
-	    else
-		$orgldap["o"]="unknown";
+  // ------------------------------
+  // include LDAP organisation first
+  $orgldap["objectclass"]="organization";
+  if (ereg(".*o=(.*),.*", $this->racine, $reg))
+    $orgldap["o"]=$reg[1]; // get organisation from LDAP_ROOT
+  else
+    $orgldap["o"]="unknown";
 
-	    $dn=$this->racine;
-	    $ds=ldap_connect($this->serveur,$this->port);
+  $dn=$this->racine;
+  $ds=ldap_connect($this->serveur,$this->port);
 	    
-	    if ($ds) {
-	      ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
-	      if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
+  if ($ds) {
+    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
+    if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 		
-		if ((@ldap_search($ds, $dn, "", array()))  || 
-		    (ldap_add($ds, $dn, $orgldap))) {
+      if ((@ldap_search($ds, $dn, "", array()))  || 
+	  (ldap_add($ds, $dn, $orgldap))) {
 		  
-		  return true;
-		}
-	      }
-	    }
-	    return false;
+	return true;
+      }
+    }
+  }
+  return false;
 }
 
-  // --------------------------------------------------------------------
-  function SetLdapParam() {
+/**
+ * initialialize LDAP coordonates
+ */
+function SetLdapParam() {
     global $action;
     $this->serveur=$action->GetParam("LDAP_SERVEUR");
     $this->port=   $action->GetParam("LDAP_PORT");
@@ -64,9 +65,7 @@ function OrgInit() {
     $this->useldap= ($action->GetParam("LDAP_ENABLED","no") == "yes");
 
     $this->action = $action;
-
-    $this->exchangeLDAP=$this->getExchangeLDAP();
-  }
+}
 
 /**
  * update or delete LDAP card
@@ -76,7 +75,7 @@ function RefreshLdapCard() {
   if (! $this->useldap) return false;
 
   if ($this->canUpdateLdapCard()) {
-    $err=$this->UpdateLdapCard();
+    $err=$this->ConvertToLdap();
   } else {
     $err=$this->DeleteLdapCard();
   }
@@ -84,7 +83,6 @@ function RefreshLdapCard() {
 }
 
   function DeleteLdapCard()
-  // --------------------------------------------------------------------
     {
 
       if (! $this->useldap) return;
@@ -97,7 +95,7 @@ function RefreshLdapCard() {
 	    
 	  ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 	  if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
-	     $r=@ldap_delete($ds,"cn=".$this->id.",".$this->racine);
+	     $r=@ldap_delete($ds,$this->getLDAPDN());
 	  }
 	  
 	  
@@ -107,109 +105,135 @@ function RefreshLdapCard() {
       
     } 
 
-function getLDAPtitle() {
-  return $this->title;
+
+/**
+ * get DN of document
+ */
+function getLDAPDN($path="") {
+  if ($path=="") $dn = "uid=".$this->initid.",".$this->racine;
+  else  $dn = "uid=".$this->initid.",$path,".$this->racine;
+  return $dn;
 }
 
 /**
+ * get Attribute mapping FREEDOM -> LDAP
+ * @return array
+ */  
+function getMapAttributes() {
+  include_once("FDL/Class.DocAttrLDAP.php");
+  $fids=$this->GetFromDoc();
+
+  include_once("Class.QueryDb.php");
+  $q=new QueryDb($this->dbaccess,"DocAttrLDAP");
+  $q->AddQuery(getSqlCond($fids,"famid"));
+  $q->order_by="famid";
+  $l=$q->Query(0,0,"TABLE");
+  $this->ldapmap=array();
+  foreach ($l as $v) {
+    $this->ldapmap[$v["ldapname"]]=$v;
+  }
+  return $this->ldapmap;
+}
+/**
  * update LDAP card from user document
  */
-  function UpdateLdapCard()    {
-      if (! $this->useldap) return false;
-      if (! $this->canUpdateLdapCard()) return false;
+function ConvertToLdap()    {
+  if (! $this->useldap) return false;
+  if (! $this->canUpdateLdapCard()) return false;
 
-      $infoldap=array();
+  $infoldap=array();
 	      
-      $infoldap["cn"]=utf8_encode($this->getLDAPtitle());
-      $values=$this->GetValues();
-      foreach($values as $k=>$v) {
+  $tmap=$this->getMapAttributes();
+ 
+ 
+  foreach ($tmap as $k=>$v) {
+    $map=$v["ldapmap"];
+    if ($map) {
+      if (substr($map,0,2)=="::") {
+	// call method 
+	$value=$this->ApplyMethod($map);
+	if ($value){
+	  print_r2($value);
+	  if (is_array($value)) $infoldap[$k]=array_map("utf8_encode",$value);
+	  else $infoldap[$k]=utf8_encode ($value);
+	  $infoldap["objectclass"][$v["ldapclass"]]=$v["ldapclass"];
+	}
+      } else {
+	switch ($map) {
+	case "I":
+	  $infoldap[$k]=$this->initid;
+	  break;
+	case "T":
+	  $infoldap[$k]=utf8_encode($this->title);
+	  break;
+	default:
+	  $oa=$this->getAttribute($map);
+	  $value=$this->getValue($map);
 
-
-	$lvalue=$v;
-	  //print $i.":".$lvalue."<BR>";
-	  if ($lvalue != "")
-	    {
-
-	      // create attributes to LDAP update
-	      $oattr=$this->GetAttribute($k);
-	    
-	      $ldapattr = array_search(strtoupper($k),$this->exchangeLDAP);
-
-	      // particularity for URI need http://
-	      if ($k == "us_workweb") $lvalue="http://".$lvalue;
-	      if ($k == "us_passwd") $lvalue="{CRYPT}".$lvalue;
-	    
-	      if ($ldapattr ) { 
-
-		switch ($oattr->type)
-		  {
-		  case "image":
-		    if (ereg ("(.*)\|(.*)", $lvalue, $reg)) {
-
-		      $vf = newFreeVaultFile($this->dbaccess);
-		      if ($vf->Retrieve ($reg[2], $info) == "") { 
-		    $fd=fopen($info->path, "r");
-      
-		    if ($fd)
-		      {
-			$contents = @fread($fd, filesize ($info->path));
-		  
-			$infoldap[$ldapattr]=  ($contents);
-
-			fclose ($fd);
-		      }
-		      }
-		    }
-		    break;
-		  default:
-		    if ($k == "us_passwd")$infoldap[$ldapattr]= ($lvalue);
-		    else $infoldap[$ldapattr]=utf8_encode ($lvalue);
+	  if ($value) {
+	    $infoldap["objectclass"][$v["ldapclass"]]=$v["ldapclass"];
+	    switch ($oa->type) {
+	    case "image":
+	      if (ereg ("(.*)\|(.*)", $value, $reg)) {
+		$vf = newFreeVaultFile($this->dbaccess);
+		if ($vf->Retrieve ($reg[2], $info) == "") { 
+		  $fd=fopen($info->path, "r");      
+		  if ($fd) {
+		    $contents = @fread($fd, filesize ($info->path));		  
+		    $infoldap[$k]=  ($contents);
+		    fclose ($fd);
 		  }
+		}
 	      }
+	      break;
+	    case "password":
+	      $infoldap[$k]= "{CRYPT}".($value);
+	      break;	      
+	    default:
+	      $infoldap[$k]=utf8_encode ($value);
 	    }
-    
-      
+	  }
+	}
       }
-      $this->specLDAPexport($infoldap);
-
-      return ($this->ModifyLdapCard($infoldap));
+    }
+  }
+  
+  $n=0;
+  foreach ($infoldap["objectclass"] as $k =>$v) {
+    $infoldap["objectclass"][$n++]=$v;
+    unset($infoldap["objectclass"][$k]);
+  }
+  return ($this->ModifyLdapCard($infoldap));
 	
       
 
-    } 
+} 
 
-  // --------------------------------------------------------------------
-  function ModifyLdapCard( $infoldap, $objectclass="inetOrgPerson") {
-  // --------------------------------------------------------------------
+/**
+ * modify in LDAP database information
+ */
+function ModifyLdapCard( $infoldap, $objectclass="inetOrgPerson") {
 
-    if (! $this->useldap) return;
-    $retour = "";
-    if ($this->serveur != "")
-      {
-
-	if ($this->OrgInit()) {
+  if (! $this->useldap) return;
+  $retour = "";
+  if ($this->serveur != "")   {
+      if ($this->OrgInit()) {
 	  
 	// ------------------------------
 	// update LDAP values
-	  if (is_array($this->ldapobjectclass)) {
-	    foreach ($this->ldapobjectclass as $k=>$v) $infoldap["objectclass"][$k]=$v;
-	  } else  $infoldap["objectclass"]=$this->ldapobjectclass;
+
 	if (! isset($ds)) {
 	  $ds=ldap_connect($this->serveur,$this->port);
 	}
 
 	if ($ds)
 	  {
-	    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
-	    if (! isset($infoldap["uid"])) $infoldap["uid"]=$this->id;
-	    $dn = "uid=".$infoldap["uid"].",".$this->racine;
-	    
-	    if (@ldap_bind($ds, $this->rootdn, $this->rootpw))
-	      {
-
+	    ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);	   
+	    $dn = $infoldap["dn"];
+	    unset($infoldap["dn"]);
+	    if (@ldap_bind($ds, $this->rootdn, $this->rootpw))  {
 		$sr = @ldap_search($ds, $dn, "", array());
-		if ( $sr )
-		
+		if ( $sr )		
 		  {
 		    // to modify need to delete and then add
 		    // the ldap_modify function cannot perform
@@ -217,24 +241,37 @@ function getLDAPtitle() {
 		    //ldap_modify($ds, $dn, $infoldap);
 		  
 		    ldap_delete($ds, $dn);
-
-
 		  }
+	    }
 
-
-	      }
-	    if (! @ldap_add($ds, $dn, $infoldap))     $retour = _("errldapadd");	    
-	    ldap_close($ds);
+	    if (! @ldap_add($ds, $dn, $infoldap)) $retour = sprintf(_("errldapadd:%s\n%s\n%d:%s"),$dn,ldap_error($ds),ldap_errno($ds),ldap_err2str(ldap_errno($ds)));
+	    ldap_close($ds);	     
 	  }
 	else
 	  {	    
-	      $retour = _("errldapconnect");
+	    $retour = _("errldapconnect");
 	  }
-	} else {
-	      $retour = _("errldaporginit");
+      } else {
+	$retour = _("errldaporginit");
 	  
-	}
       }
+    }
     
-    return $retour;
+  return $retour;
+}
+
+function createLDAPDc($n) {	
+  if (! isset($ds)) {
+    $ds=ldap_connect($this->serveur,$this->port);
+  }	
+  if ($ds) {
+    if (! @ldap_add($ds, "dc=$n,".$this->racine, 
+		    array("objectclass"=>array("dcObject",
+					       "organizationalUnit"),
+			  "dc"=>"$n",
+			  "ou"=>"$n")))
+      return ldap_error($ds);
   }
+}
+
+?>

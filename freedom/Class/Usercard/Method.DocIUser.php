@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.30 2005/12/05 14:42:57 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.31 2006/01/02 13:17:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -14,30 +14,11 @@ var $cviews=array("FUSERS:FUSERS_IUSER");
 var $eviews=array("USERCARD:CHOOSEGROUP");
 var $defaultview="FUSERS:FUSERS_IUSER:T";
 var $defaultedit="FUSERS:FUSERS_EIUSER:T";
-  var $exportLdap = array(
-
-		      // posixAccount
-		      "uidNumber" => "US_UIDNUMBER",
-		      "gidNumber" => "US_GIDNUMBER",
-		      "loginShell" => "US_LOGINSHELL",
-		      "gecos" => "US_GECOS",
-		      "description" => "US_DESCRIPTION",
-		      "homeDirectory" => "US_HOMEDIRECTORY",
-
-		      // shadow Account
-		      "shadowLastChange" => "US_SHADOWLASTCHANGE",
-		      "shadowMin" => "US_SHADOWMIN",
-		      "shadowMax" => "US_SHADOWMAX",
-		      "shadowWarning" => "US_SHADOWWARNING",
-		      "shadowInactive" => "US_SHADOWINACTIVE",
-		      "shadowExpire" => "US_SHADOWEXPIRE",
-		      "shadowFlag" => "US_SHADOWFLAG"  );
-var $ldapobjectclass=array("inetOrgPerson",
-			   "posixAccount",
-			   "shadowAccount");
+ 
 
 function SpecRefresh() {
   $err=_USER::SpecRefresh();
+
     $this->AddParamRefresh("US_WHATID","US_LOGIN,US_GROUP");
     $this->AddParamRefresh("US_AUTOMAIL","US_EXTMAIL");
     if ($this->getValue("US_IDDOMAIN",1) > 1) $this->AddParamRefresh("US_WHATID","US_DOMAIN");
@@ -55,7 +36,15 @@ function SpecRefresh() {
     }
     return $err;
 }
-
+/**
+ * get DN of document
+ */
+function getLDAPDN($path="") {
+  if (! $this->racine) $this->SetLdapParam();
+  if ($path=="") $dn = "uid=".$this->getValue("us_login").",".$this->racine;
+  else  $dn = "uid=".$this->getValue("us_login").",$path,".$this->racine;
+  return $dn;
+}
 /**
  * test if the document can be set in LDAP
  */
@@ -64,12 +53,7 @@ function canUpdateLdapCard() {
 
 }
 
-function getExchangeLDAP() {
-    include_once("FDL/Class.UsercardLdif.php");
-    $oldif=new UsercardLdif();
 
-    return array_merge($oldif->import,  $this->exportLdap);
-}
 
   
 function GetOtherGroups() {
