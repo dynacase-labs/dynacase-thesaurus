@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.102 2005/12/06 16:33:43 eric Exp $
+ * @version $Id: import_file.php,v 1.103 2006/01/02 13:17:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,6 +18,7 @@ include_once("FDL/Class.DocSearch.php");
 include_once("FDL/Class.Dir.php");
 include_once("FDL/Class.QueryDir.php");
 include_once("FDL/Lib.Attr.php");
+include_once("FDL/Class.DocAttrLDAP.php");
 
 function add_import_file(&$action, $fimport="") {
   // -----------------------------------
@@ -487,6 +488,34 @@ function add_import_file(&$action, $fimport="") {
 	  }
 	}
       }
+      break;
+    case "LDAPMAP":      
+      if (is_numeric($data[1])) $fid=$data[1];
+      else $fid=getFamIdFromName($dbaccess,$data[1]);
+      $aid=(trim($data[2]));
+      $oa=new DocAttrLDAP($dbaccess,array($fid,$aid));
+      
+	//	print_r2($oa);  
+      if (substr($data[2],0,2)== "::") $oa->ldapname=$data[2];
+      else $oa->ldapname=strtolower(trim($data[2]));
+
+      $oa->ldapclass=trim($data[4]);
+      $oa->famid=$fid;
+      $oa->ldapmap=$data[3];
+      $oa->ldapname=$aid;
+     
+      if ($oa->isAffected()) {
+	if (! $analyze) $err=$oa->modify();
+	$tcr[$nline]["msg"]=sprintf(_("LDAP Attribute modified to %s %s"), $oa->ldapname,$oa->ldapmap);
+	$tcr[$nline]["action"]="updated";
+      } else {	
+	if (! $analyze) $err=$oa->add();
+
+	$tcr[$nline]["msg"]=sprintf(_("LDAP Attribute added to %s %s"), $oa->ldapname,$oa->ldapmap);
+	$tcr[$nline]["action"]="added";
+      }
+      $tcr[$nline]["err"].=$err;
+      
       break;
     default:
       // uninterpreted line
