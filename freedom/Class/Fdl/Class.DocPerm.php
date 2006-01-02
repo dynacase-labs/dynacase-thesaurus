@@ -3,7 +3,7 @@
  * Document permissions
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.12 2004/11/12 10:16:49 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.13 2006/01/02 10:59:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -14,7 +14,7 @@
 
 
 
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.12 2004/11/12 10:16:49 eric Exp $';
+$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.13 2006/01/02 10:59:52 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -127,25 +127,47 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
   }
 
 
-  // --------------------------------------------------------------------
+  /**
+   * no control for anyone
+   */
   function UnSetControl() {
-  // --------------------------------------------------------------------
     $this->upacl=0;
     $this->unacl=0;
     $this->cacl=1;
   }  
 
-  // --------------------------------------------------------------------
-  function SetControlP($pos) {
-  // --------------------------------------------------------------------
-    $this->upacl = $this->upacl | (1 << ($pos ));
+  /**
+   * set positive ACL in specified position
+   * @param int $pos column number (0 is the first right column)
+   */
+  function SetControlP($pos) {  
+    $this->upacl = $this->upacl | (1 << $pos);
+    $this->UnSetControlN($pos);
+  }
+  /**
+   * unset positive ACL in specified position
+   * @param int $pos column number (0 is the first right column)
+   */
+  function UnSetControlP($pos) {
+    $this->upacl = $this->upacl & (~(1 << $pos));
   }
 
-  // --------------------------------------------------------------------
+  /**
+   * set negative ACL in specified position
+   * @param int $pos column number (0 is the first right column)
+   */
   function SetControlN($pos) {
-  // --------------------------------------------------------------------
-    $this->unacl = $this->unacl | (1 << ($pos ));
-    
+    $this->unacl = $this->unacl | (1 << $pos);
+    $this->UnSetControlP($pos);
   }
+
+  /**
+   * unset negative ACL in specified position
+   * @param int $pos column number (0 is the first right column)
+   */
+  function UnSetControlN($pos) {
+    $this->unacl = $this->unacl & (~(1 << $pos));
+  }
+
 }
 ?>

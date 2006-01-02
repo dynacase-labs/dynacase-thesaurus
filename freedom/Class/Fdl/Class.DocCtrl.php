@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.30 2005/12/05 14:43:29 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.31 2006/01/02 10:59:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -254,12 +254,14 @@ Class DocCtrl extends DbObj
   }
 
   /**
-   * add control for a specific user
+   * modify control for a specific user
    *
    * @param int uid user identificator 
    * @param string $aclname name of the acl (edit, view,...)
+   * @param bool $deletecontrol set true if want delete a control 
+   * @param bool $negativecontrol set true if want add a negative control (explicit no permission)
    */
-  function AddControl($uid,$aclname) {
+  function ModifyControl($uid,$aclname,$deletecontrol=false,$negativecontrol=false) {
     if (! isset($this->dacls[$aclname])) {
       return sprintf(_("unknow privilege %s"),$aclname);
     }    
@@ -283,13 +285,42 @@ Class DocCtrl extends DbObj
 
     if ($uid > 0) {      
       $perm = new DocPerm($this->dbaccess, array($this->id,$uid));
-      $perm->SetControlP($pos);
+      if ($deletecontrol) {
+	if ($negativecontrol) $perm->UnsetControlN($pos);
+	else $perm->UnsetControlP($pos);
+      } else {
+	if ($negativecontrol) $perm->SetControlN($pos);
+	else $perm->SetControlP($pos);
+      }
       if ($perm->isAffected()) $err=$perm->modify();
       else {
 	$err=$perm->Add();
       }
     } 
     return $err;
+  }
+
+  /**
+   * add control for a specific user
+   *
+   * @param int uid user identificator 
+   * @param string $aclname name of the acl (edit, view,...)
+   * @param bool $negativecontrol set true if want add a negative control (explicit no permission)
+   */
+  function AddControl($uid,$aclname,$negativecontrol=false) {
+    return $this->ModifyControl($uid,$aclname,false,$negativecontrol);
+  }
+
+ /**
+   * suppress control for a specific user
+   *
+   * is not a negative control
+   * @param int uid user identificator 
+   * @param string $aclname name of the acl (edit, view,...)
+   * @param bool $negativecontrol set true if want suppress a negative control
+   */
+  function DelControl($uid,$aclname,$negativecontrol=false) {
+    return $this->ModifyControl($uid,$aclname,true,$negativecontrol);    
   }
 
   /**
