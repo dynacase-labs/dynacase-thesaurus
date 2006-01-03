@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.12 2006/01/02 13:18:59 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.13 2006/01/03 17:31:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,28 +51,29 @@ if ($clean) {
   wbar(1,-1,_("LDAP cleaned")); 
  }
 $famid=getFamIdFromName($dbaccess,"USER");
-$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"TABLE",$famid);
-
+$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM",$famid);
+print_r2($ldoc);
 $udoc= createDoc($dbaccess,"USER");
 $uidoc= createDoc($dbaccess,"IUSER");
 $total=count($ldoc);
 $reste=$total;
-foreach($ldoc as $k=>$tdoc) {
-  if (getv($tdoc,"us_whatid")=="") $doc=$udoc;  
-  else $doc=$uidoc;
-  $doc->Affect($tdoc,true);
-  $priv=$doc->GetValue("US_PRIVCARD");
-  $err="";
+
+$reste=countDocs($ldoc);
+foreach($ldoc as $k=>$res) {
+
+  while ($doc=getNextDoc($dbaccess,$res)) {
+
+    //print $doc->title."\n";
 
     // update LDAP only no private card
-      $doc->SetLdapParam();
-      $err=$doc->ConvertToLdap();
-      if (($err == "") && ($err !== false)) print UPDTCOLOR.$reste.")".$doc->title.": updated".STOPCOLOR."\n";
-      else print SKIPCOLOR.$reste.")".$doc->title.": skipped : $err".STOPCOLOR."\n";
-      $reste--;
+    $err=$doc->RefreshLdapCard();
+    if (($err == "") && ($err !== false)) print UPDTCOLOR.$reste.")".$doc->title.": updated".STOPCOLOR."\n";
+    else print SKIPCOLOR.$reste.")".$doc->title.": skipped : $err".STOPCOLOR."\n";
+    $reste--;
 
     wbar($reste,$total);  
   }
+}
 	
   
   if ($fbar) { unlink($fbar);}

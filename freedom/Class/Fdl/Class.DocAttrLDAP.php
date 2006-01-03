@@ -3,7 +3,7 @@
  * Mapping Attributes between LDAP & FREEDOM
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocAttrLDAP.php,v 1.1 2006/01/02 13:19:26 eric Exp $
+ * @version $Id: Class.DocAttrLDAP.php,v 1.2 2006/01/03 17:32:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,7 +16,8 @@ Class DocAttrLDAP extends DbObj {
   public $fields = array ( "famid", // family id
 			   "ldapname",  // 
 			   "ldapmap", // 
-			   "ldapclass"); 
+			   "ldapclass",
+			   "index"); 
 
   /**
    * identificator of the family document
@@ -41,7 +42,7 @@ Class DocAttrLDAP extends DbObj {
   public $ldapclass;
 
 
-  public $id_fields = array ("famid","ldapname");
+  public $id_fields = array ("famid","ldapname","index");
 
   public $dbtable = "docattrldap";
 
@@ -49,7 +50,8 @@ Class DocAttrLDAP extends DbObj {
   public $sqlcreate = "create table docattrldap (famid  int not null,                   
                     ldapname text not null,
                     ldapmap text,
-                    ldapclass text  );
+                    ldapclass text,
+                    index char);
 create index i_docattrldap on docattrldap(famid,ldapname);";
 
 

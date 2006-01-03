@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.103 2006/01/02 13:17:41 eric Exp $
+ * @version $Id: import_file.php,v 1.104 2006/01/03 17:31:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -493,7 +493,8 @@ function add_import_file(&$action, $fimport="") {
       if (is_numeric($data[1])) $fid=$data[1];
       else $fid=getFamIdFromName($dbaccess,$data[1]);
       $aid=(trim($data[2]));
-      $oa=new DocAttrLDAP($dbaccess,array($fid,$aid));
+      $index=$data[5];
+      $oa=new DocAttrLDAP($dbaccess,array($fid,$aid,$index));
       
 	//	print_r2($oa);  
       if (substr($data[2],0,2)== "::") $oa->ldapname=$data[2];
@@ -502,6 +503,7 @@ function add_import_file(&$action, $fimport="") {
       $oa->ldapclass=trim($data[4]);
       $oa->famid=$fid;
       $oa->ldapmap=$data[3];
+      $oa->index=$index;
       $oa->ldapname=$aid;
      
       if ($oa->isAffected()) {

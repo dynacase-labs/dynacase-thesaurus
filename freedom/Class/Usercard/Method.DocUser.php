@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.33 2006/01/02 13:17:11 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.34 2006/01/03 17:31:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -103,11 +103,27 @@ function SpecRefresh() {
  * test if the document can be set in LDAP
  */
 function canUpdateLdapCard() {
-  $priv=$this->GetValue("US_PRIVCARD");
-  if ($priv == "P") return false;
+  // $priv=$this->GetValue("US_PRIVCARD");
+  if ($priv == "S") return false;
   return true;
 }
 
+/**
+ * return different DN if is a private or not private card
+ */
+function getUserLDAPDN($rdn,$path="") {
+  $priv=$this->GetValue("US_PRIVCARD");
+  if ($priv == "P") {
+    $u=new User("",$this->owner);
+    if ($u->isAffected()) {
+      $this->infoldap[$this->cindex]["ou"]=$u->login;      
+      return sprintf("%s=%s,ou=%s,%s,%s",$rdn,$this->infoldap[$this->cindex][$rdn],$u->login,
+		     $path,$this->racine);
+    }
+  } else {
+    return $this->getLDAPDN($rdn,$path);
+  }
+}
 
 
 
