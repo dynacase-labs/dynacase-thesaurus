@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.32 2006/01/02 15:45:39 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.33 2006/01/03 17:31:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -36,15 +36,7 @@ function SpecRefresh() {
     }
     return $err;
 }
-/**
- * get DN of document
- */
-function getLDAPDN($path="") {
-  if (! $this->racine) $this->SetLdapParam();
-  if ($path=="") $dn = "uid=".$this->getValue("us_login").",".$this->racine;
-  else  $dn = "uid=".$this->getValue("us_login").",$path,".$this->racine;
-  return $dn;
-}
+
 /**
  * test if the document can be set in LDAP
  */
@@ -54,8 +46,6 @@ function canUpdateLdapCard() {
 }
 
 
-
-  
 function GetOtherGroups() {
   if ($this->id == 0) return array();
   

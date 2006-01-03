@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.107 2005/12/08 10:59:56 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.108 2006/01/03 17:31:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -353,8 +353,9 @@ function getChildDoc($dbaccess,
  
  
       if ($query->nb > 0)
-	{
-	  $tretdocs=array_merge($tretdocs,$tableq);
+	{ if ($qtype=="ITEM") {
+	    $tretdocs[]=$tableq;
+	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
       //       print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 

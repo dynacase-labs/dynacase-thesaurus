@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.28 2006/01/02 15:45:39 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.29 2006/01/03 17:31:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -49,14 +49,7 @@ function canUpdateLdapCard() {
   return  true;
 
 }
-/**
- * get DN of document
- */
-function getIGROUPDN($path="") {
-  if ($path=="") $dn = "uid=".$this->getValue("us_login").",".$this->racine;
-  else  $dn = "uid=".$this->getValue("us_login").",$path,".$this->racine;
-  return $dn;
-}
+
 /**
  * get LDAP title for group
  */
@@ -69,11 +62,13 @@ function getLDAPTitle() {
  */
 function getLDAPMember() {
   $t=$this->getTValue("GRP_IDUSER");
-
+  $tdn=array();
   foreach ($t as $k=>$v) {
     $du=getTDoc($this->dbaccess,$v);
     $d=getDocObject($this->dbaccess,$du);
-    $tdn[]=$d->getLDAPDN("dc=users");
+    $d->SetLdapParam();
+    $d->ConvertToLdap();
+    $tdn[]=$d->getLDAPValue("dn");;
   }
   return $tdn;
 }

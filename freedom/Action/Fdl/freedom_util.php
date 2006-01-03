@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.74 2005/10/05 14:37:58 eric Exp $
+ * @version $Id: freedom_util.php,v 1.75 2006/01/03 17:31:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -301,7 +301,25 @@ function getDocObject($dbaccess,$v) {
 
   return $_OgetDocObject[$v["fromid"]];
 }
-
+/**
+ * return the next document in sql select ressources
+ * use with "ITEM" type searches
+ * return Doc the next doc (false if the end)
+ */
+function getNextDoc($dbaccess,$res) {
+  $tdoc= pg_fetch_array($res, NULL, PGSQL_ASSOC);
+  return getDocObject($dbaccess,$tdoc);
+}
+/**
+ * count returned document in sql select ressources
+ * @param array $tres of ressources
+ * return Doc the next doc (false if the end)
+ */
+function countDocs($tres) {
+  $n=0;
+  foreach ($tres as $res)  $n+=pg_num_rows($res);
+  return $n;
+}
 
 /**
  * return the identificator of a family from internal name
