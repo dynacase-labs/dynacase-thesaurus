@@ -105,4 +105,4 @@ function hasDelegation($agendaownerfid, $fid=-1) {
 }
 
 
-?> 
+?>

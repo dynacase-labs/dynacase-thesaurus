@@ -1372,6 +1372,7 @@ function setConfidentiality() {
 function setAccessibility() {
 
   include_once("WGCAL/Lib.wTools.php");
+  include_once('WGCAL/Lib.Agenda.php');
 
   define("DEFGROUP", 2);
 
@@ -1513,10 +1514,11 @@ function setAccessibility() {
   // Owner, creator and delegate ==> owner rights
   $acls[$ownerwid] = $aclvals["all"];
   if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
-  $duid = Doc::_val2array($userf["us_wgcal_dguid"]);
+  $ownercal = getUserPublicAgenda($ownerid, false);
+  $duid = $ownercal->getTValue("agd_dfid");
   if (count($duid)>0) {
-    $duwid = Doc::_val2array($userf["us_wgcal_dguwid"]);
-    $dumode = Doc::_val2array($userf["us_wgcal_dgumode"]);
+    $duwid = $ownercal->getTValue("agd_dwid");
+    $dumode = $ownercal->getTValue("agd_dmode");
     foreach ($duid as $k=>$v) {
       if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
     }
