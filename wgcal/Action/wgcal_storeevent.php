@@ -292,7 +292,7 @@ function wgcal_storeevent(&$action) {
   
   if ($action->user->fid!=$owner && $mail_who!=-1) {
     $title = "[Agenda $creatortitle] ".$event->getValue("calev_evtitle");
-    sendRv($action, $event, 0, $title, _("event set/change by")." ".$creatortitle." -- ".$mail_msg);
+    sendRv($action, $event, 0, $title, "<i>"._("event set/change by")." ".$creatortitle."</i><br><br>".$mail_msg);
   }
 
   $event->unlock(true);
