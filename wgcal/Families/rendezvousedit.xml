@@ -314,8 +314,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
   </div>
 
   <div id="d_rmonth" style="left:10%; display:[D_RMONTH]">
-   [TEXT:month repetition] : <br>
-    <span onclick="clickB('rmonth0')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
+   [TEXT:month/year repetition] : <span onclick="clickB('rmonth0')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0" [repeatdis] [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
     <span onclick="clickB('rmonth1')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1" [repeatdis] [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     <br></div>
 
