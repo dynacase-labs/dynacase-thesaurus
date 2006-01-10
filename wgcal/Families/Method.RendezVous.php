@@ -159,6 +159,12 @@ function vcalendar() {
   $this->lay->set("title", $this->getValue("calev_evtitle"));
 }
 
+function _WsetDateTime($d="") {
+  $r = "";
+  $r = $this->_WsetDate($d)."T".$this->_WsetHour($d)."00Z";
+  return $r;
+}
+
 function _WsetDate($d="") {
   $r = "";
   if ($d!="") $r = substr($d,6,4).substr($d,3,2).substr($d,0,2);
@@ -1549,4 +1555,181 @@ function setAccessibility() {
     }
   }
 //     AddWarningMsg(  $sdeb );
+}
+
+
+function sifevent() {
+
+  global $action;
+
+  include_once('WGCAL/Lib.WGCal.php');
+  include_once("WGCAL/Lib.wTools.php");
+
+  $eltList = array( "Subject",
+		    "Body",
+		    "Start",
+		    "End",
+		    "AllDayEvent",
+		    "NoEndDate",
+		    "Duration",
+		    "Sensitivity",
+		    "Importance",
+		    "Categories",
+		    "Companies",
+		    "Location",
+		    "Status",
+		    "MeetingStatus",
+		    "Mileage",
+		    "ReminderMinutesBeforeStart",
+		    "ReminderSet",
+		    "ReminderSoundFile",
+		    "ReminderOptions",
+		    "ReplyTime",
+		    "IsRecurring",
+		    "RecurrenceType",
+		    "Interval",
+		    "MonthOfYear",
+		    "DayOfMonth",
+		    "DayOfWeekMask",
+		    "Instance",
+		    "PatternStartDate",
+		    "PatternEndDate",
+		    "BusyStatus" );
+
+  // Initialize all fields to empty
+  foreach ($eltList as $k => $v) {
+    $this->lay->set("s_$v", false);
+  }
+
+  $this->lay->set("v_Subject", utf8_encode($this->getValue("calev_evtitle")));
+  $this->lay->set("s_Subject", true);
+
+  $this->lay->set("v_Body", utf8_encode($this->getValue("calev_evnote")));
+  $this->lay->set("s_Body", true);
+
+
+  $this->lay->set("v_Start", $this->_WsetDateTime($this->getValue("calev_start")));
+  $this->lay->set("s_Start", true);
+
+  $this->lay->set("v_End", $this->_WsetDateTime($this->getValue("calev_end")));
+  $this->lay->set("s_End", true);
+
+  $allday = "False";
+  $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
+  if ($this->getValue("calev_timetype")==1 || $this->getValue("calev_timetype")==2) {
+    $dur = 1440;
+    $allday = "True";
+  }
+  $this->lay->set("v_Duration", $dur);
+  $this->lay->set("s_Duration", true);
+
+  $this->lay->set("v_AllDayEvent", $allday);
+  $this->lay->set("s_AllDayEvent", true);
+  
+  $this->lay->set("v_BusyStatus", 2);  $this->lay->set("s_BusyStatus", true);
+
+  if ($this->getValue("calev_category")>0) {
+    $catg = wGetCategories();
+    $this->lay->set("v_Categories", utf8_encode($catg[$this->getValue("calev_category")]["label"]));
+    $this->lay->set("s_Categories", true);
+  }
+
+  // Sensitivity
+  $sen = 0;
+  switch ($this->getValue("calev_visibility)")) {
+  case 1 : // Private --> olConfidential
+    $sen = 3;
+    break;
+  case 2 : // My groups --> Private
+    $sen = 2;
+    break;
+  }
+  $this->lay->set("v_Sensitivity", $sen);
+  $this->lay->set("s_Sensitivity", true);
+  
+
+  $this->lay->set("v_Importance", 1);
+  $this->lay->set("s_Importance", true);
+
+  // Meeting or not meeting
+  $attFid = $this->getTValue("calev_attid");
+  $attSta = $this->getTValue("calev_attstate");
+  $meeting = 0;
+  if (count($attFid)>1 || $attFid[0]!=$action->user->fid) {
+    $r = -1;
+    foreach ($attFid as $k => $v) if ($v==$action->user->fid) $r=$k;
+    if ($r>=0) {
+      switch ($âttStat[$r]) {
+      case 0:
+      case 1:
+      case 4:
+	$meeting = 3;
+	break;
+      case 2:
+	$meeting = 1;
+	break;
+      case 3:
+	$meeting = 5;
+	break;
+      }
+    }
+  }
+  $this->lay->set("v_MeetingStatus", $meeting);
+  $this->lay->set("s_MeetingStatus", true);
+ 
+
+  // Recurring
+  $isRecurring = "False";
+  $rmode = $this->getValue("calev_repeatmode");
+  if ($rmode>0 && $rmode<5) {
+    $isRecurring = "True";
+    switch ($rmode) {
+    case 1: // Dayly
+      $rType = 0;
+      break;
+    case 2: // Weekly 
+      $olPow = array( 0=>2, 1=>4,  2=>6, 3=>16, 4=>32, 5=>64, 6=>1 );
+      $rType = 1;
+      $dm = 0;
+      $rday = $this->getValue("calev_repeatweekday", 0);
+      for ($i=0; $i<6; $i++) $dm += (($rday & pow(2,$i)) == pow(2,$i) ? $olPow[$i] : 0 );
+      $this->lay->set("v_DayOfWeekMask", $dm);
+      $this->lay->set("s_DayOfWeekMask", true);
+      break;
+    case 3: 
+      if ($rmonth!=1) {  // Monthly by date
+	$rType = 2;
+      } else {            // Monthly by day (Nth day of the month)
+	$rType = 3;
+      }
+      break;
+    case 4: 
+      if ($rmonth!=1) {  // Yearly by date
+	$rType = 2;
+      } else {            // Yearly by day (Nth day of the year)
+	$rType = 3;
+      }
+      break;
+    }
+    $this->lay->set("v_RecurrenceType", $rType);
+    $this->lay->set("s_RecurrenceType", true);
+    $this->lay->set("v_Interval", 1);
+    $this->lay->set("s_Interval", true);
+    if ($this->getValue("calev_repeatuntil")==0) $this->lay->set("v_NoEndDate", "False");
+    else $this->lay->set("v_NoEndDate", "True");
+    $this->lay->set("s_NoEndDate", true);
+    
+    $this->lay->set("v_PatternStartDate", $this->_WsetDate($this->getValue("calev_start")));
+    $this->lay->set("s_PatternStartDate", true);
+    if ($this->getValue("calev_repeatuntil")!=0) {
+      $this->lay->set("v_PatternEndDate", $this->_WsetDate($this->getValue("calev_repeatuntildate")));
+      $this->lay->set("s_PatternEndDate", true);
+    }
+  }
+  $this->lay->set("v_IsRecurring", $isRecurring);
+  $this->lay->set("s_IsRecurring", true);
+    
+      
+    
+    
 }

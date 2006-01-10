@@ -119,7 +119,10 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_ALERT", "short_name" =>N_("alert"), "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_TESTP", "toc" => "N"),
-  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_HIDDEN", "toc" => "N")
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_HIDDEN", "toc" => "N"),
+
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_SIFE", "toc" => "N"),
+  
 
 );
 

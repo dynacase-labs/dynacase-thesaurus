@@ -1,0 +1,10 @@
+#!/bin/bash
+outf="sifevent.xml"
+data=`cat sifevent.xml.eltlist`
+echo -n '<?xml version="1.0" ?>' > $outf
+echo -n '<appointement>' >> $outf
+for elt in $data; do
+  echo "--> $elt"
+  echo -n "[IF s_$elt]<$elt>[v_$elt]</$elt>[ENDIF s_$elt][IFNOT s_$elt]<$elt/>[ENDIF s_$elt]" >> $outf
+done
+echo -n '</appointement>' >> $outf
