@@ -15,6 +15,8 @@ var $defaultedit = "WGCAL:RENDEZVOUSEDIT:U";
 
 var $vcalendarview = "WGCAL:VCALENDAR:U";
 
+var $sifeview = "WGCAL:SIFEVENT:U";
+
 var $popup_name = 'calpopup';
 var $popup_item = array('editrv', 
 			'deloccur', 
