@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.4 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: import_tar.php,v 1.5 2006/01/16 16:11:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -201,8 +201,19 @@ function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,&$dfldid,$analyze) {
 	$dfldid =  $data[1];
 	//print "\n\n change dfldid to $dfldid\n";
 	break; 
+      case "ORDER":  
+	if (is_numeric($data[1]))   $orfromid = $data[1];
+	else $orfromid = getFamIdFromName($dbaccess,$data[1]);
+      
+	$tcolorder[$orfromid]=getOrder($data);
+	$tr[$index]["action"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$orfromid]));
+      
+      break;
       case "DOC":
-	$tr[$index]=csvAddDoc($dbaccess, $data, $dirid,$analyze,$ldir);
+	if (is_numeric($data[1]))   $fromid = $data[1];
+	else $fromid = getFamIdFromName($dbaccess,$data[1]);
+	$tr[$index]=csvAddDoc($dbaccess, $data, $dirid,$analyze,$ldir,"update",
+			      array("title"),array(),$tcolorder[$fromid]);
 	if ($tr[$index]["err"]=="") $nbdoc++;
 	if ($tr[$index]["action"]!="") $tr[$index]["action"]=_($tr[$index]["action"]);
 	 

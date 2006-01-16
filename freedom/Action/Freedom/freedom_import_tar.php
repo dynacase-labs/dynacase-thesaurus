@@ -3,7 +3,7 @@
  * Import document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import_tar.php,v 1.2 2004/03/16 15:37:09 eric Exp $
+ * @version $Id: freedom_import_tar.php,v 1.3 2006/01/16 16:11:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -94,12 +94,12 @@ function extractTar($tar,$untardir,$mime="") {
     case "application/x-compressed-tar":
     case "application/x-gzip":
       system("/bin/rm -fr \"$untardir\";mkdir -p \"$untardir\"",$status);
-      system("cd \"$untardir\" && tar xfz $tar >/dev/null",$status);
+      system("cd \"$untardir\" && tar xfz \"$tar\" >/dev/null",$status);
      
       break;
     case "bzip2":
       system("/bin/rm -fr \"$untardir\";mkdir -p \"$untardir\"",$status);
-      system("cd \"$untardir\" &&  tar xf $tar --use-compress-program bzip2 >/dev/null",$status);
+      system("cd \"$untardir\" &&  tar xf \"$tar\" --use-compress-program bzip2 >/dev/null",$status);
      
       break;
     case "Zip":
