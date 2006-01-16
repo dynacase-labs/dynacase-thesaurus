@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.45 2005/11/14 13:34:03 eric Exp $
+ * @version $Id: generic_edit.php,v 1.46 2006/01/16 16:12:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ function generic_edit(&$action) {
   // -----------------------------------
 
   // Get All Parameters
-  $docid = GetHttpVars("id",0);        // document to edit
+  $docid = trim(GetHttpVars("id",0));        // document to edit
   $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
 
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
