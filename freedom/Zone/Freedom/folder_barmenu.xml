@@ -45,6 +45,7 @@
      
   <a id="insertbasket"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_INSERTFLD&dirid=[FREEDOM_IDBASKET]&id=[dirid]&clean=Y[pds]','_self');closeAllMenu()" >[TEXT:Basket to here]</a>
   <a id="applybatch"  href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_APPLYBATCH&id=[dirid][pds]','fdoc');closeAllMenu()" >[TEXT:Create a batch]</a>
+     <a  id="export" href="#" onClick="activate(this,'[CORE_STANDURL]app=FDL&action=EXPORTFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Export Folder]</a>
      <a  id="clear" href="#" onClick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=FREEDOM_CLEARFLD&id=[dirid]','basket');closeAllMenu();">[TEXT:Clear Folder]</a>
 </div>
 
