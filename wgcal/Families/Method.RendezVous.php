@@ -39,6 +39,12 @@ function postModify() {
   if ($err!="") print_r2($err);
 }
 
+function postCreated() {
+  $err = $this->setSync4jGuid(); 
+  if ($err!="") print_r2($err);
+}
+
+
 function getEventOwner() {
   $uo = new_Doc($this->dbaccess, $this->getValue("CALEV_OWNERID"));
   return $uo->getValue("us_whatid");
@@ -1638,7 +1644,7 @@ function sifevent() {
 
   // Sensitivity
   $sen = 0;
-  switch ($this->getValue("calev_visibility)")) {
+  switch ($this->getValue("calev_visibility")) {
   case 1 : // Private --> olConfidential
     $sen = 3;
     break;
@@ -1661,7 +1667,7 @@ function sifevent() {
     $r = -1;
     foreach ($attFid as $k => $v) if ($v==$action->user->fid) $r=$k;
     if ($r>=0) {
-      switch ($âttStat[$r]) {
+      switch ($attStat[$r]) {
       case 0:
       case 1:
       case 4:
@@ -1732,6 +1738,9 @@ function sifevent() {
   $this->lay->set("s_IsRecurring", true);
     
       
-    
+  function setSync4jGuid() {
+    if ($this->getValue("calev_s4j_guid")=="") 
+      $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
+  }    
     
 }

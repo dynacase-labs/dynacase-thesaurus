@@ -82,7 +82,8 @@ ATTR;CALEV_ATTTITLE;CALEV_T_ATTENDEES;Invités;N;N;text;540;R;;%S%app=FDL&action
 ATTR;CALEV_ATTSTATE;CALEV_T_ATTENDEES;Acceptation;N;N;enum;550;R;;;WGCAL_external.php;[hcheck]WGCalGetStates();
 ATTR;CALEV_ATTGROUP;CALEV_T_ATTENDEES;Groupe d'appartenance;N;N;integer;560;R;;;;;
 ;;;;;;;;;;;;;
-;;;;;;;;;;;;;
+ATTR;CALEV_SYNC4J;;Sync4j Synchronisation information;N;N;frame;600;;;;;;
+ATTR;CALEV_S4J_GUID;CALEV_SYNC4J;Sync4j Unique Indentifier;N;N;text;602;R;;;;;
 ATTR;CALEV_M_SIFE;;SIF Event format;N;N;menu;0;M;;%S%app=FDL&action=VIEWSCARD&zone=WGCAL:SIFEVENT:U&tmime=text/xml&id=%I%;ltarget=_sifevent;;
 ;;;;;;;;;;;;;
 END;;;;;;;;;;;;;
