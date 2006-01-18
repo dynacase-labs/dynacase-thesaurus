@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.63 2005/11/23 14:01:46 eric Exp $
+ * @version $Id: viewcard.php,v 1.64 2006/01/18 10:26:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -247,25 +247,9 @@ function viewcard(&$action) {
     $action->lay->Set("viewstate", "none");
     $action->lay->Set("state", "");
   }
-    
-
-
-
-
-      
-
-      
-      
-    
- 
 
   $action->lay->Set("TITLE", $doc->title);
   $action->lay->Set("id", $docid);
-
-
-
-
-  
 
   if ($props) {
     $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
@@ -298,7 +282,9 @@ function viewcard(&$action) {
   $owner = new User("", abs($doc->owner));
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
 
-
+  // update access date
+  $doc->adate=$doc->getTimeDate();
+  $doc->modify(true,array("adate"),true);
 
 }
 
