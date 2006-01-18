@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.287 2005/12/16 12:04:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.288 2006/01/18 09:23:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -461,7 +461,7 @@ final public function PostInsert()  {
     if ($this->hasChanged) {
       $this->computeDProfil();
       $this->UpdateVaultIndex();
-      //      $this->updateRelations();
+      $this->updateRelations();
     }
     $this->hasChanged=false;
   }
@@ -483,12 +483,14 @@ final public function PostInsert()  {
 	foreach ($tv as $val) {
 	  $t=getTDoc($this->dbaccess,$val);
 	  $or->cinitid=$t["initid"];
-	  $or->ctitle=$t["title"];
-	  $or->cicon=$t["icon"];
-	  $or->stitle=$this->title;
-	  $or->sicon=$this->icon;
-	  $or->type=$v->id;
-	  $or->Add();
+	  if ($or->cinitid>0) {
+	    $or->ctitle=$t["title"];
+	    $or->cicon=$t["icon"];
+	    $or->stitle=$this->title;
+	    $or->sicon=$this->icon;
+	    $or->type=$v->id;
+	    $or->Add();
+	  }
 	}
       }
     }
