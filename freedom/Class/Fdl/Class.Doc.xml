@@ -101,15 +101,16 @@ end;
     $this->AddParamRefresh("[niargs]","[rarg]");
     if ($arraycount > 0) {
       $tv=array();
+      $tvi=$this->getTValue("[rarg]");
       for ($c=0;$c<$arraycount;$c++) {
 	$tiargs=array(); // parameters for each row
-	reset($iargs);
-	while (list($k, $va) = each($iargs)) {
+	foreach($iargs as $k=>$va) {
 	  if (is_array($va)) $tiargs[]=$va[$c];
 	  else $tiargs[]=$va;
 	}
-	$tv[] = call_user_method_array("[method]",$this,$tiargs);
-	
+	$vi=call_user_method_array("[method]",$this,$tiargs);
+	if ($vi !== "") $tv[] = call_user_method_array("[method]",$this,$tiargs);
+	else $tv[]=$tvi[$c];
       }
       $this->setValue("[rarg]",$tv); 
     } else {
