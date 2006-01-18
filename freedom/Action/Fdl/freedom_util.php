@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.75 2006/01/03 17:31:18 eric Exp $
+ * @version $Id: freedom_util.php,v 1.76 2006/01/18 10:19:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -308,6 +308,7 @@ function getDocObject($dbaccess,$v) {
  */
 function getNextDoc($dbaccess,$res) {
   $tdoc= pg_fetch_array($res, NULL, PGSQL_ASSOC);
+  if ($tdoc===false) return false;
   return getDocObject($dbaccess,$tdoc);
 }
 /**
