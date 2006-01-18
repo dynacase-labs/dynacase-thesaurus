@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.288 2006/01/18 09:23:44 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.289 2006/01/18 10:27:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,6 +67,8 @@ Class Doc extends DocCtrl
 			"lmodify",
 			"profid",
 			"usefor",
+			"cdate",
+			"adate",
 			"revdate",
 			"comment",
 			"classname",
@@ -152,13 +154,23 @@ Class Doc extends DocCtrl
    */
   public $usefor;
   /**
-   * date of the last modification (the revision date for fixed docuemnt)
+   * date of the last modification (the revision date for fixed document)
    * @public int
    */
   public $revdate;
   /**
-   * comment for the history
-   * @public string
+   * date of creation
+   * @public date
+   */
+  public $cdate;
+  /**
+   * date of latest access
+   * @public date
+   */
+  public $adate;
+  /**
+   * date of the last modification (the revision date for fixed docuemnt)
+   * @public int
    */
   public $comment;
   /**
@@ -261,6 +273,8 @@ create table doc ( id int not null,
                    profid int DEFAULT 0,
                    usefor char  DEFAULT 'N',
                    revdate int,  
+                   cdate timestamp,  
+                   adate timestamp,  
                    comment text,
                    classname varchar(64),
                    state varchar(64),
@@ -363,7 +377,9 @@ final public function PostInsert()  {
 	$this->Addcomment(_("creation"));
       }
       $this->Select($this->id);
-      $this->modify(true,array("lmodify"),true); // to force execute sql trigger
+      $this->cdate=$this->getTimeDate();
+      $this->adate=$this->cdate;
+      $this->modify(true,array("cdate","adate"),true); // to force also execute sql trigger
       if ($this->doctype != "T") {
 	$this->PostCreated(); 
 	if ($this->dprofid >0) {
