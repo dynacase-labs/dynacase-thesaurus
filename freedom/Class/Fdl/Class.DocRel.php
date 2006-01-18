@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.3 2005/12/16 15:22:12 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.4 2006/01/18 10:26:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,7 +81,7 @@ create index i_docrels on docrel(sinitid);";
   public function resetRelations($type="") {
     if ($this->sinitid > 0) {
       if ($type != "")  $this->exec_query("delete from docrel where sinitid=".$this->sinitid." and type='$type'");
-      else $this->exec_query("delete from docrel where sinitid=".$this->sinitid);
+      else $this->exec_query("delete from docrel where sinitid=".$this->sinitid." and type != 'folder'");
     }
   }
 }
