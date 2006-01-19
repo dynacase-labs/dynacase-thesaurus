@@ -1736,11 +1736,10 @@ function sifevent() {
   }
   $this->lay->set("v_IsRecurring", $isRecurring);
   $this->lay->set("s_IsRecurring", true);
-    
-      
-  function setSync4jGuid() {
-    if ($this->getValue("calev_s4j_guid")=="") 
-      $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
-  }    
-    
+   
 }
+
+function setSync4jGuid() {
+//   if ($this->getValue("calev_s4j_guid")=="") $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
+}    
+
