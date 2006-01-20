@@ -37,7 +37,11 @@ ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1100;W;;;;;;;esize=7
 ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1110;W;;;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
 ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1140;W;;;-;W|carte publique - accès écriture,R|carte publique - accès lecture,P|carte privée,S|spécifique;;;system=yes
+ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1140;;;;;;;;
+ATTR;US_PRIVCARD;US_FR_PRIVACY;niveau de restriction;N;N;enum;1150;W;;;;W|publique - accès écriture,R|publique - accès lecture,P|privée,G|groupes,S|spécifique;;;system=yes|bmenu=no
+ATTR;US_T_PRIVGROUPS;US_FR_PRIVACY;groupe restreint;N;N;array;1160;W;;;;;;;
+ATTR;US_IDPRIVGROUP;US_T_PRIVGROUPS;id groupe autorisé;N;N;docid;1170;H;;;;;;;
+ATTR;US_PRIVGROUP;US_T_PRIVGROUPS;groupe autorisé;N;N;text;1180;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDPRIVGROUP%;fdl.php;lfamily(D,IGROUP,US_PRIVGROUP):US_IDPRIVGROUP,US_PRIVGROUP;;;
 ATTR;US_VCARD;;Vcard;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;;;ltarget=_self
 ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=yes|onlyglobal=yes|lconfirm=yes
 ATTR;US_IMPORTVCARD;;Importation VCARD;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_EDITIMPORTVCARD;;::canExecute(USERCARD,USERCARD_IMPORTVCARD);;;global=yes|onlyglobal=yes|lconfirm=no|ltarget=finfo
@@ -110,6 +114,7 @@ ATTR;US_IDDOMAIN;US_FR_INTRANET;id domaine;N;N;int;340;H;Y;;;;;;
 ATTR;US_DOMAIN;US_FR_INTRANET;domaine;N;N;text;350;R;Y;;usercard.php;[hlist]getdomainiuser():US_IDDOMAIN,US_DOMAIN,US_EXTMAIL,US_AUTOMAIL;;;
 ATTR;US_AUTOMAIL;US_FR_INTRANET;mail auto ?;N;N;text;350;H;;;;;;;
 ATTR;US_EXTMAIL;US_FR_INTRANET;mail externe;N;N;text;360;O;;;;;;::parseMail(US_EXTMAIL);esize=30
+ATTR;US_LDAPDN;US_FR_INTRANET;login LDAP;N;N;text;370;R;;;;;;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;S;Y;;;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;S;Y;;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_MAIL);
@@ -132,7 +137,7 @@ CPROFID;505;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 METHOD;Method.DocIGroup.php;;;;;;;;;;;;;;
-METHOD;*Method.DocLDAP.php;;;;;;;;;;;;;;
+METHOD;+Method.DocLDAP.php;;;;;;;;;;;;;;
 METHOD;+Method.DocIntranet.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;GRP_FR_INTRANET;;Identification intranet;N;N;frame;0;W;;;;;;;

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.29 2006/01/03 17:31:18 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.30 2006/01/20 16:23:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -70,6 +70,7 @@ function getLDAPMember() {
     $d->ConvertToLdap();
     $tdn[]=$d->getLDAPValue("dn");;
   }
+  if (count($tdn)==0) $tdn="cn=nobody,dc=users,".$this->racine;
   return $tdn;
 }
 /**

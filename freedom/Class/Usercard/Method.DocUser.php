@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.35 2006/01/20 13:19:19 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.36 2006/01/20 16:23:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,17 +12,12 @@
  */
 
 
+  
+  
+var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";     
+var $cviews=array("USERCARD:VIEWABSTRACTCARD");
 
 
-
-  
-var $dbaccess;
-var $action;
-  
-  var $defaultabstract= "USERCARD:VIEWABSTRACTCARD";
-  
-   
-  var $cviews=array("USERCARD:VIEWABSTRACTCARD");
 // -----------------------------------
    function viewabstractcard($target="finfo",$ulink=true,$abstract="Y") {
      // -----------------------------------
@@ -36,7 +31,7 @@ var $action;
 
  
 
-  // no in postUpdate method :: call this only if real change (values)
+
 function PostModify() {
   $err="";
 
@@ -89,15 +84,13 @@ function SpecRefresh() {
 
 
 
-  // --------------------------------------------------------------------
-  function PostDelete()    
-  // --------------------------------------------------------------------
-    {
+/**
+ * refresh LDAP
+ */
+function PostDelete()  {
       $this->SetLdapParam();
       $this->DeleteLdapCard();
-    }
-  // --------------------------------------------------------------------
-
+}
 
 /**
  * test if the document can be set in LDAP
@@ -142,48 +135,73 @@ function getUserLDAPDN($rdn,$path="") {
 
 
 
-  // --------------------------------------------------------------------
-  function SetPrivacity() { // priv  {P, R, W}
-  // --------------------------------------------------------------------
-    
-    $priv=$this->GetValue("US_PRIVCARD");
-    $err="";
+/**
+ * recompute profil with privacy attribute value
+ * 5 possibilities :
+ *  W : public in read/write
+ *  R : public in read mode
+ *  P : private
+ *  G : group restriction
+ *  S : specific profil : do nothing
+ */
+function SetPrivacity() {     
+  $priv=$this->GetValue("US_PRIVCARD");
+  $err="";
 
-    switch ($priv) {
-    case "P":	
-      if ($this->profid == "0") {
-	$err=$this->setControl();	
-	$this->profid=$this->id;
-	$err=$this->modify();	
-      }
-      $err=$this->lock();
-
-    break;
-    case "R":	
-      if ($this->profid != "0") {	
-	$err=$this->unsetControl();	
-	$this->profid=0;
-	$err=$this->modify();;
-      }
-      $this->lock();
-    break;
-    case "W":	
-      if ($this->profid != "0") {	
-	$err=$this->unsetControl();	
-	$this->profid=0;
-	$err=$this->modify();;
-      }
-      $this->unlock();
-    break;
-
+  switch ($priv) {
+  case "P":	
+    if ($this->profid == "0") {
+      $err=$this->setControl();	
+      $this->profid=$this->id;
+      $err=$this->modify();	
     }
-    if ($err != "") AddLogMsg($this->title.":".$err);
+    $err=$this->lock();
+
+    break;
+  case "R":	
+    if ($this->profid != "0") {	
+      $err=$this->unsetControl();	
+      $this->profid=0;
+      $err=$this->modify();;
+    }
+    $this->lock();
+    break;
+  case "W":	
+    if ($this->profid != "0") {	
+      $err=$this->unsetControl();	
+      $this->profid=0;
+      $err=$this->modify();;
+    }
+    $this->unlock();
+    break;
+  case "G":	
+    if ($this->profid == "0") {
+      $err=$this->setControl();	
+      $this->profid=$this->id;
+      $err=$this->modify();	
+    } elseif ($this->profid == $this->id) {
+      //already profil :reset
+      $this->RemoveControl();
+      $err=$this->setControl();		
+    }
+    if ($this->profid == $this->id) {
+	
+      $tidg=$this->getTValue("us_idprivgroup");
+      foreach ($tidg as $k=>$idg) {
+	$t=getTDoc($this->dbaccess,$idg);
+	$gid=getv($t,"us_whatid");
+
+	$this->AddControl($gid,"view");
+      }
+    }
+      
+    $err=$this->lock();
+
+    break;
+
   }
-
-
-
-
-  
+  if ($err != "") AddLogMsg($this->title.":".$err);
+}
 
 
 ?>

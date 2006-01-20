@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.6 2006/01/20 13:19:19 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.7 2006/01/20 16:23:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -42,11 +42,16 @@ function OrgInit() {
     ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
     if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 		
-      if ((@ldap_search($ds, $dn, "", array()))  || 
-	  (ldap_add($ds, $dn, $orgldap))) {
-		  
-	return true;
-      }
+
+      if (@ldap_search($ds, $dn, "", array())) return true;
+      else {
+	if (ldap_add($ds, $dn, $orgldap)) {
+	  $err=$this->createLDAPDc($ds,"users");
+	  if ($err == "")$err=$this->createLDAPDc($ds,"people");
+	  if ($err) AddWarningMsg($err);
+	  return true;
+	}
+      }    
     }
   }
   return false;
@@ -282,10 +287,12 @@ function ModifyLdapCard( $tinfoldap) {
   return $retour;
 }
 
-function createLDAPDc($n) {	
-  if (! isset($ds)) {
-    $ds=ldap_connect($this->serveur,$this->port);
-  }	
+
+/**
+ * created an LDAP DC object in root directory
+ */
+function createLDAPDc($ds,$n) {	
+ 	
   if ($ds) {
     if (! @ldap_add($ds, "dc=$n,".$this->racine, 
 		    array("objectClass"=>array("dcObject",

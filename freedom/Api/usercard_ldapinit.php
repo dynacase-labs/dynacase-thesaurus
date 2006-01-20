@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.14 2006/01/20 13:21:10 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.15 2006/01/20 16:23:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,10 +50,10 @@ if ($clean) {
   system("ldapdelete -r -h $ldaphost -D '$ldapdn' -x -w '$ldappw' '$ldapr'");
   wbar(1,-1,_("LDAP cleaned")); 
  }
-$famid=getFamIdFromName($dbaccess,"USER");
-$ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM",$famid);
 
-
+$ldoc1 = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM","USER");
+$ldoc2 = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM","IGROUP");
+$ldoc=array_merge($ldoc1,$ldoc2);
 $reste=countDocs($ldoc);
 foreach($ldoc as $k=>$res) {
 
