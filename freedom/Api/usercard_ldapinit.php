@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.13 2006/01/03 17:31:57 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.14 2006/01/20 13:21:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -52,11 +52,7 @@ if ($clean) {
  }
 $famid=getFamIdFromName($dbaccess,"USER");
 $ldoc = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM",$famid);
-print_r2($ldoc);
-$udoc= createDoc($dbaccess,"USER");
-$uidoc= createDoc($dbaccess,"IUSER");
-$total=count($ldoc);
-$reste=$total;
+
 
 $reste=countDocs($ldoc);
 foreach($ldoc as $k=>$res) {
