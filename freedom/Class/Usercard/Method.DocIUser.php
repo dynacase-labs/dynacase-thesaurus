@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.33 2006/01/03 17:31:18 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.34 2006/01/20 13:19:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -131,7 +131,8 @@ function RefreshDocUser() {
       }
       $err=$this->modify();
 
-      $err.=$this->RefreshLdapCard();
+      $errldap=$this->RefreshLdapCard();
+      if ($errldap!="") AddWarningMsg($errldap);
 
     } else     {
       $err= sprintf(_("user %d does not exist"),$wid);
@@ -223,7 +224,7 @@ function PostModify() {
     }
   }
 
-
+  $this->setValue("US_LDAPDN",$this->getLDAPValue("dn",1));
   return $err;
 
 }

@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.34 2006/01/03 17:31:57 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.35 2006/01/20 13:19:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -120,6 +120,21 @@ function getUserLDAPDN($rdn,$path="") {
       return sprintf("%s=%s,ou=%s,%s,%s",$rdn,$this->infoldap[$this->cindex][$rdn],$u->login,
 		     $path,$this->racine);
     }
+  } elseif ($priv == "G") {
+    $tidg=$this->getTValue("us_idprivgroup");
+ 
+    $tdn=array(); // array od DN
+    foreach ($tidg as $k=>$idg) {
+      $t=getTDoc($this->dbaccess,$idg);
+      $login=getv($t,"us_login");
+      $this->infoldap[$this->cindex]["ou"]=$login;      
+      $tdn[]=sprintf("%s=%s,ou=%s,%s,%s",$rdn,$this->infoldap[$this->cindex][$rdn],$login,
+		     $path,$this->racine);
+
+    }
+    if (count($tdn)==0) return "";
+    elseif (count($tdn)==1)return $tdn[0];
+    return $tdn;
   } else {
     return $this->getLDAPDN($rdn,$path);
   }

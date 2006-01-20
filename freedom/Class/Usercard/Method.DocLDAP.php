@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.5 2006/01/03 17:31:57 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.6 2006/01/20 13:19:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -29,7 +29,7 @@ function OrgInit() {
 
   // ------------------------------
   // include LDAP organisation first
-  $orgldap["objectclass"]="organization";
+  $orgldap["objectClass"]="organization";
   if (ereg(".*o=(.*),.*", $this->racine, $reg))
     $orgldap["o"]=$reg[1]; // get organisation from LDAP_ROOT
   else
@@ -83,7 +83,9 @@ function RefreshLdapCard() {
   return $err;
 }
 
-
+/**
+ * delete LDAP card of document
+ */
 function DeleteLdapCard()    {
       if (! $this->useldap) return;
      
@@ -155,7 +157,7 @@ function ConvertToLdap()    {
 	  if (is_array($value)) $this->infoldap[$index][$k]=array_map("utf8_encode",$value);
 	  else $this->infoldap[$index][$k]=utf8_encode ($value);
 
-	  if ((!isset($this->infoldap[$index]["objectclass"])) || ( !in_array($v["ldapclass"],$this->infoldap[$index]["objectclass"]))) $this->infoldap[$index]["objectclass"][]=$v["ldapclass"];
+	  if ((!isset($this->infoldap[$index]["objectClass"])) || ( !in_array($v["ldapclass"],$this->infoldap[$index]["objectClass"]))) $this->infoldap[$index]["objectClass"][]=$v["ldapclass"];
 
 	}
       } else {
@@ -171,7 +173,7 @@ function ConvertToLdap()    {
 	  $value=$this->getValue($map);
 
 	  if ($value) {
-	    if ((!isset($this->infoldap[$index]["objectclass"])) || ( !in_array($v["ldapclass"],$this->infoldap[$index]["objectclass"]))) $this->infoldap[$index]["objectclass"][]=$v["ldapclass"];
+	    if ((!isset($this->infoldap[$index]["objectClass"])) || ( !in_array($v["ldapclass"],$this->infoldap[$index]["objectClass"]))) $this->infoldap[$index]["objectClass"][]=$v["ldapclass"];
 	    
 	    switch ($oa->type) {
 	    case "image":
@@ -193,7 +195,7 @@ function ConvertToLdap()    {
 	    default:
 	      $this->infoldap[$index][$k]=utf8_encode ($value);
 	    }
-	  }
+	  } 
 	}
       }
     }
@@ -209,7 +211,10 @@ function ConvertToLdap()    {
  * @return string the value
  */
 function getLDAPValue($idattr,$index="") {
-  if (! isset($this->infoldap)) $this->ConvertToLdap();
+  if (! isset($this->infoldap)) {
+    $this->SetLdapParam();
+    $this->ConvertToLdap();
+  }
   if ($index == "") $tldap=current($this->infoldap);
   else $tldap=$this->infoldap[$index];
   
@@ -222,7 +227,6 @@ function getLDAPValue($idattr,$index="") {
  * modify in LDAP database information
  */
 function ModifyLdapCard( $tinfoldap) {
-
   if (! $this->useldap) return;
   $retour = "";
   if ($this->serveur != "")   {
@@ -240,21 +244,28 @@ function ModifyLdapCard( $tinfoldap) {
 
 	if (@ldap_bind($ds, $this->rootdn, $this->rootpw))  {
 	  foreach ($tinfoldap as $k=>$infoldap) {
-	    $dn = $infoldap["dn"];
+	    $tdn = $infoldap["dn"];
 	    unset($infoldap["dn"]);
-	    $sr = @ldap_search($ds, $dn, "", array());
-	    if ( $sr )		
-	      {
-		// to modify need to delete and then add
-		// the ldap_modify function cannot perform
-		// add and replace attribute in all configuration
-		//ldap_modify($ds, $dn, $infoldap);
-		  
-		ldap_delete($ds, $dn);
-	      }
-	  
+	    if (! is_array($tdn)) $tdn=array($tdn);
+	    foreach ($tdn as $dn) {
 
-	    if (! @ldap_add($ds, $dn, $infoldap)) $retour .= sprintf(_("errldapadd:%s\n%s\n%d:%s\n"),$dn,ldap_error($ds),ldap_errno($ds),ldap_err2str(ldap_errno($ds)));
+	      $sr = @ldap_read($ds, $dn, "objectClass=*");
+	   
+	      if ( $sr )	   {
+		$attrs=ldap_get_attributes($ds, ldap_first_entry($ds,$sr));
+		// need to reset all values in case of deleted values
+		$delldap=array();
+		for ($i=0; $i<$attrs["count"]; $i++) {
+		  if (!isset($infoldap[$attrs[$i]])) $delldap[$attrs[$i]]=array();
+		}
+		if (count($delldap)>0) {
+		  ldap_mod_del($ds, $dn, $delldap);
+		}
+		ldap_mod_replace($ds, $dn, $infoldap);
+	      } else {
+	        if (! @ldap_add($ds, $dn, $infoldap)) $retour .= sprintf(_("errldapadd:%s\n%s\n%d:%s\n"),$dn,ldap_error($ds),ldap_errno($ds),ldap_err2str(ldap_errno($ds)));
+	      }	  
+	    }
 	  }
 	}
 	ldap_close($ds);	     
@@ -268,7 +279,6 @@ function ModifyLdapCard( $tinfoldap) {
 	  
     }
   }
-    
   return $retour;
 }
 
@@ -278,7 +288,7 @@ function createLDAPDc($n) {
   }	
   if ($ds) {
     if (! @ldap_add($ds, "dc=$n,".$this->racine, 
-		    array("objectclass"=>array("dcObject",
+		    array("objectClass"=>array("dcObject",
 					       "organizationalUnit"),
 			  "dc"=>"$n",
 			  "ou"=>"$n")))
