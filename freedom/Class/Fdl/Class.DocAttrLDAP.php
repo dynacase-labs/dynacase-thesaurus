@@ -3,7 +3,7 @@
  * Mapping Attributes between LDAP & FREEDOM
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocAttrLDAP.php,v 1.2 2006/01/03 17:32:06 eric Exp $
+ * @version $Id: Class.DocAttrLDAP.php,v 1.3 2006/01/23 17:08:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,7 +39,12 @@ Class DocAttrLDAP extends DbObj {
    * LDAP class of attribute
    * @public string
    */
-  public $ldapclass;
+  public $ldapclass;		  
+  /**
+   * indice to indicate the card reference in case of multi-card LDAP for one document
+   * @public character
+   */
+  public $index;
 
 
   public $id_fields = array ("famid","ldapname","index");

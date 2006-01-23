@@ -27,6 +27,7 @@ if [ "$1" = "U" ] ; then
 
   $wpub/wsh.php --app=USERCARD --action=USERCARD_INIT 
   $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/userinit.csv
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/personnldap.csv
 #  $wpub/wsh.php --api=usercard_iuser
 
 fi

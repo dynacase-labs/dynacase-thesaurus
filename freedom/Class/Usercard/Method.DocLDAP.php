@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.7 2006/01/20 16:23:36 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.8 2006/01/23 17:09:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -43,17 +43,19 @@ function OrgInit() {
     if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
 		
 
-      if (@ldap_search($ds, $dn, "", array())) return true;
-      else {
-	if (ldap_add($ds, $dn, $orgldap)) {
-	  $err=$this->createLDAPDc($ds,"users");
-	  if ($err == "")$err=$this->createLDAPDc($ds,"people");
-	  if ($err) AddWarningMsg($err);
-	  return true;
-	}
-      }    
+      if (@ldap_search($ds, "dc=users,".$dn, "", array())) return true;
+      else { 
+	if (! @ldap_search($ds, "dc=users,".$dn, "", array())) {
+	  ldap_add($ds, $dn, $orgldap);
+	} 
+	$err=$this->createLDAPDc($ds,"users");
+	if ($err == "")$err=$this->createLDAPDc($ds,"people");
+	if ($err) AddWarningMsg($err);
+	return true;
+      }
     }
-  }
+  }    
+
   return false;
 }
 
@@ -71,7 +73,31 @@ function SetLdapParam() {
 
     $this->action = $action;
 }
-
+/**
+ * get DNs created in LDAP database from this document
+ * @return array of Dns indexed by card index which comes from definition of mapping
+ */
+function getDNs() {
+  if ($this->ldapdn == "") return array();
+  return $this->_val2array($this->ldapdn);
+}
+/**
+ * set new DNs created in LDAP database from this document
+ * suppress old DNs card from LDAP if exists
+ * @param resource $ds LDAP connection ressouce
+ * @param array $tdn array of DN new DN
+ * @return void
+ */
+function setDNs($ds,$tdn) {
+  $toldn=$this->getDNs();
+  foreach ($toldn as $k=>$dn) {
+    if (! in_array($dn,$tdn)) {
+      ldap_delete($ds, $dn);
+    }
+  }
+  $this->ldapdn=$this->_array2val($tdn);
+  $this->modify(true,array("ldapdn"),true); 
+}
 /**
  * update or delete LDAP card
  */
@@ -89,7 +115,7 @@ function RefreshLdapCard() {
 }
 
 /**
- * delete LDAP card of document
+ * delete LDAP cards of document
  */
 function DeleteLdapCard()    {
       if (! $this->useldap) return;
@@ -101,7 +127,7 @@ function DeleteLdapCard()    {
 	    
 	  ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 	  if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
-	     $r=@ldap_delete($ds,$this->getLDAPDN());
+	    $this->setDNs($ds,array());
 	  }
 	  
 	  
@@ -141,7 +167,7 @@ function getMapAttributes() {
   return $this->ldapmap;
 }
 /**
- * return array of ldap values LDAP card from user document
+ * return array(card) of array of ldap values LDAP card from user document
  */
 function ConvertToLdap()    {
 
@@ -161,9 +187,7 @@ function ConvertToLdap()    {
 	if ($value){
 	  if (is_array($value)) $this->infoldap[$index][$k]=array_map("utf8_encode",$value);
 	  else $this->infoldap[$index][$k]=utf8_encode ($value);
-
 	  if ((!isset($this->infoldap[$index]["objectClass"])) || ( !in_array($v["ldapclass"],$this->infoldap[$index]["objectClass"]))) $this->infoldap[$index]["objectClass"][]=$v["ldapclass"];
-
 	}
       } else {
 	switch ($map) {
@@ -248,6 +272,7 @@ function ModifyLdapCard( $tinfoldap) {
 	ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 
 	if (@ldap_bind($ds, $this->rootdn, $this->rootpw))  {
+	  $tnewdn=array();
 	  foreach ($tinfoldap as $k=>$infoldap) {
 	    $tdn = $infoldap["dn"];
 	    unset($infoldap["dn"]);
@@ -267,11 +292,18 @@ function ModifyLdapCard( $tinfoldap) {
 		  ldap_mod_del($ds, $dn, $delldap);
 		}
 		ldap_mod_replace($ds, $dn, $infoldap);
+		$tnewdn[]=$dn;
 	      } else {
-	        if (! @ldap_add($ds, $dn, $infoldap)) $retour .= sprintf(_("errldapadd:%s\n%s\n%d:%s\n"),$dn,ldap_error($ds),ldap_errno($ds),ldap_err2str(ldap_errno($ds)));
+	        if (! @ldap_add($ds, $dn, $infoldap)) {
+		  $retour .= sprintf(_("errldapadd:%s\n%s\n%d\n"),$dn,ldap_error($ds),ldap_errno($ds));
+		} else {
+		  // add OK
+		  $tnewdn[]=$dn;		  
+		}
 	      }	  
 	    }
 	  }
+	  $this->setDNs($ds,$tnewdn); // suppress old DN if needed
 	}
 	ldap_close($ds);	     
       }
