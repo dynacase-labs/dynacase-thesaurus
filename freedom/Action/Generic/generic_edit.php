@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.47 2006/01/18 10:23:34 eric Exp $
+ * @version $Id: generic_edit.php,v 1.48 2006/01/23 17:06:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -88,7 +88,7 @@ function generic_edit(&$action) {
       $action->lay->Set("editaction", _("Save"));
     }
     
-  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE"))); 
+  $action->lay->Set("STITLE",addJsSlashes($action->lay->get("TITLE"))); // for include in JS
   if ($zonebodycard == "") {
     if ($doc->cvid > 0) {
       $cvdoc= new_Doc($dbaccess, $doc->cvid);

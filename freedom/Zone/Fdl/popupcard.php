@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.58 2005/12/06 16:32:31 eric Exp $
+ * @version $Id: popupcard.php,v 1.59 2006/01/23 17:06:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ function popupcard(&$action) {
   $fdoc=getTDoc($dbaccess,$doc->fromid);
 
   $action->lay->Set("id", $docid);
-  $action->lay->Set("ftitle", addslashes($fdoc["title"]));
+  $action->lay->Set("ftitle", addjsslashes($fdoc["title"]));
   $action->lay->Set("profid", $doc->profid);
   $action->lay->Set("ddocid", $doc->ddocid); // default doc id for pre-inserted values
   include_once("FDL/popup_util.php");
@@ -121,7 +121,7 @@ function popupcard(&$action) {
     popupCtrlInactive('popupcard',$kdiv,'editprof');
     popupInactive('popupcard',$kdiv,'editcprof');
   }
-  $action->lay->Set("dtitle", AddSlashes($doc->title));
+  $action->lay->Set("dtitle", AddJsSlashes($doc->title));
   if ($doc->PreDocDelete() == "") {
     popupActive('popupcard',$kdiv,'delete');    
   } else {
