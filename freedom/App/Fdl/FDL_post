@@ -59,6 +59,7 @@ if [ "$1" = "U" ] ; then
   $wpub/wsh.php --api=freedom_groups
 
   $wpub/wsh.php --app=FDL --action=FREEDOM_INIT  
+  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/freeaction.csv
 
   su - postgres -c "psql $dbfree -f $wpub/WHAT/getprivilege.sql"
   su - postgres -c "psql $dbfree -f $wpub/FDL/fdl.sql"

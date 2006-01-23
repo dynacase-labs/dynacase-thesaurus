@@ -8,3 +8,4 @@ fi
 
 echo "alter table doc add column adate timestamp;" | psql $dbfree
 echo "alter table doc add column cdate timestamp;" | psql $dbfree
+echo "alter table doc add column ldapdn text;" | psql $dbfree

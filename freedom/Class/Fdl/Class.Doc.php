@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.289 2006/01/18 10:27:28 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.290 2006/01/23 17:08:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,7 +81,8 @@ Class Doc extends DocCtrl
 			"name",
 			"dprofid",
 			"atags",
-			"confidential");
+			   "confidential",
+			   "ldapdn");
 
   /**
    * identificator of the document
@@ -231,6 +232,12 @@ Class Doc extends DocCtrl
    * @public int
    */
   public $confidential;
+  /**
+   * Distinguish Name for LDAP use
+   * 
+   * @public text
+   */
+  public $ldapdn;
 
   /**
    * identification of special views
@@ -286,7 +293,8 @@ create table doc ( id int not null,
                    name text,
                    dprofid int DEFAULT 0,
                    atags text,
-                   confidential int DEFAULT 0
+                   confidential int DEFAULT 0,
+                   ldapdn text
                    );
 create table docfrom ( id int not null,
                    primary key (id),
