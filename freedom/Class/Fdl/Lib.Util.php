@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.12 2005/07/29 16:21:05 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.13 2006/01/23 17:07:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -263,8 +263,15 @@ function jd2cal( $jd,$dformat='' ) {
   }
   return $retiso8601;
 }
-  
 
+
+
+/**
+ * backslash quote and replace double-quote by html entity
+ */
+function addJsSlashes($s) {
+  return str_replace(array("'","\""),array("\\'","&#34;"),$s);
+}
 
 
 ?>
