@@ -37,7 +37,7 @@ ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1100;W;;;;;;;esize=7
 ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1110;W;;;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
 ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
-ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1140;;;;;;;;
+ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1140;W;;;;;;;
 ATTR;US_PRIVCARD;US_FR_PRIVACY;niveau de restriction;N;N;enum;1150;W;;;;W|publique - accès écriture,R|publique - accès lecture,P|privée,G|groupes,S|spécifique;;;system=yes|bmenu=no
 ATTR;US_T_PRIVGROUPS;US_FR_PRIVACY;groupe restreint;N;N;array;1160;W;;;;;;;
 ATTR;US_IDPRIVGROUP;US_T_PRIVGROUPS;id groupe autorisé;N;N;docid;1170;H;;;;;;;
@@ -121,7 +121,7 @@ ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_
 ;;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;;
-ATTR;US_PRIVCARD;US_FR_SOC;confidentialité;N;N;enum;1051;H;;;-;;;;system=yes
+ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1051;W;;;;;;;
 ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=yes|onlyglobal=yes|lconfirm=yes
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
