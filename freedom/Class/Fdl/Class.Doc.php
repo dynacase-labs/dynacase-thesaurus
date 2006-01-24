@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.290 2006/01/23 17:08:54 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.291 2006/01/24 10:05:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -908,15 +908,14 @@ final public function PostInsert()  {
 
 
 	if (!$nopost) $msg=$this->PostDelete();
-
+	$this->modify(true,array("doctype","revdate","locked"),true);
 
 	// delete all revision also
 	$rev=$this->GetRevisions();
 	foreach($rev as $k=>$v) {	
 	  if ($v->doctype != 'Z') {
 	    $v->doctype='Z'; // Zombie Doc
-	    $v->locked= -1; 
-	    $v->modify();
+	    if ($v->locked == -1)  $v->modify(true,array("doctype"),true);
 	  }	    
 	}
       }
