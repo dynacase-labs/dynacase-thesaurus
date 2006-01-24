@@ -1740,9 +1740,9 @@ function sifevent() {
 }
 
 function setSync4jGuid($force=false) {
-  if ($force || (!$force && $this->getValue("calev_s4j_guid")=="")) { echo "calev_s4j_guid = ".$this->getValue("calev_s4j_guid");
-	 $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
-}
+  if ($force || (!$force && $this->getValue("calev_s4j_guid")=="")) { 
+     $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
+  }
 }    
 
 function forceSync4jGuid() {
