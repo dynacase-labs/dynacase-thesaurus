@@ -1,0 +1,4 @@
+#!/bin/bash
+. /etc/freedom.conf
+wchoose -b
+wsh --api=freedom_refresh --famid=CALEVENT --method=forceSync4jGuid
