@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.14 2005/11/16 16:31:49 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.15 2006/01/24 15:24:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -230,5 +230,13 @@ function getWuser($nocache=false) {
   if (! isset($this->wuser)) return false;
   return $this->wuser;
 			       
+}
+
+
+/**
+ * reset wuser
+ */
+function Complete() {
+  if (isset($this->wuser)) unset($this->wuser);
 }
 ?>
