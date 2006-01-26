@@ -1687,14 +1687,23 @@ function sifevent() {
  
 
   // Recurring
-  $isRecurring = "False";
+  $this->lay->set("v_Instance", 1);
+  $this->lay->set("s_Instance", true);
+  $this->lay->set("v_Interval", 1);
+  $this->lay->set("s_Interval", true);
+  $isRecurring = 0;
   $rmode = $this->getValue("calev_repeatmode");
   if ($rmode>0 && $rmode<5) {
-    $isRecurring = "True";
+    $isRecurring = 1;
+    $this->lay->set("v_Interval", 1);
+    $this->lay->set("s_Interval", true);
+
     switch ($rmode) {
+    
     case 1: // Dayly
       $rType = 0;
       break;
+    
     case 2: // Weekly 
       $olPow = array( 0=>2, 1=>4,  2=>6, 3=>16, 4=>32, 5=>64, 6=>1 );
       $rType = 1;
@@ -1704,25 +1713,61 @@ function sifevent() {
       $this->lay->set("v_DayOfWeekMask", $dm);
       $this->lay->set("s_DayOfWeekMask", true);
       break;
+    
     case 3: 
       if ($rmonth!=1) {  // Monthly by date
 	$rType = 2;
+	$this->lay->set("v_DayOfTheMonth", substr($this->getValue("calev_start"), 0, 2));
+	$this->lay->set("s_DayOfTheMonth", true);
       } else {            // Monthly by day (Nth day of the month)
 	$rType = 3;
+	$sd = $this->getValue("calev_start");
+	$date = substr($sd,0,2);
+	$rday = 0;
+	$cancel = false;
+	while (!$cancel) {
+	  if ($date-($rday*7)>0) $rday++;
+	  else $cancel = true;
+	}
+	$this->lay->set("v_Instance", $rday);
+	$this->lay->set("s_Instance", true);
+	$d = strftime("%u", gmmktime( substr($sd,11,2),
+				      substr($sd,14,2),
+				      substr($sd,17,2),
+				      substr($sd,3,2),
+				      substr($sd,0,2),
+				      substr($sd,6,4) ));
+	$this->lay->set("v_DayOfWeekMask", $olPow[($d-1)]);
+	$this->lay->set("s_DayOfWeekMask", true);
       }
       break;
     case 4: 
       if ($rmonth!=1) {  // Yearly by date
-	$rType = 2;
+	$rType = 5;
+	$this->lay->set("v_MonthOfYear", substr($this->getValue("calev_start"), 3, 2));
+	$this->lay->set("s_MonthOfYear", true);
+	$this->lay->set("v_DayOfMonth", substr($this->getValue("calev_start"), 0, 2));
+	$this->lay->set("s_DayOfMonth", true);
       } else {            // Yearly by day (Nth day of the year)
-	$rType = 3;
+	$rType = 6;
+	$sd = $this->getValue("calev_start");
+	$d = strftime("%u", gmmktime( substr($sd,11,2),
+				      substr($sd,14,2),
+				      substr($sd,17,2),
+				      substr($sd,3,2),
+				      substr($sd,0,2),
+				      substr($sd,6,4) ));
+	$this->lay->set("v_DayOfWeekMask", $olPow[($d-1)]);
+	$this->lay->set("s_DayOfWeekMask", true);
+	$this->lay->set("v_MonthOfYear", substr($sd, 3, 2));
+	$this->lay->set("s_MonthOfYear", true);
+	$this->lay->set("v_Instance", substr($this->getValue("calev_start"), 3, 2));
+	$this->lay->set("s_Instance", true);
       }
       break;
     }
     $this->lay->set("v_RecurrenceType", $rType);
     $this->lay->set("s_RecurrenceType", true);
-    $this->lay->set("v_Interval", 1);
-    $this->lay->set("s_Interval", true);
     if ($this->getValue("calev_repeatuntil")==0) $this->lay->set("v_NoEndDate", "False");
     else $this->lay->set("v_NoEndDate", "True");
     $this->lay->set("s_NoEndDate", true);
@@ -1736,7 +1781,6 @@ function sifevent() {
   }
   $this->lay->set("v_IsRecurring", $isRecurring);
   $this->lay->set("s_IsRecurring", true);
-   
 }
 
 function setSync4jGuid($force=false) {
