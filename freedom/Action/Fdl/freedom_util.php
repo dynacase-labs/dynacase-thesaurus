@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.76 2006/01/18 10:19:36 eric Exp $
+ * @version $Id: freedom_util.php,v 1.77 2006/01/26 10:50:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -303,12 +303,27 @@ function getDocObject($dbaccess,$v) {
 }
 /**
  * return the next document in sql select ressources
- * use with "ITEM" type searches
+ * use with "ITEM" type searches direct in QueryDb
  * return Doc the next doc (false if the end)
  */
-function getNextDoc($dbaccess,$res) {
+function getNextDbObject($dbaccess,$res) {
   $tdoc= pg_fetch_array($res, NULL, PGSQL_ASSOC);
   if ($tdoc===false) return false;
+  return getDocObject($dbaccess,$tdoc);
+}
+/**
+ * return the next document in sql select ressources
+ * use with "ITEM" type searches with getChildDoc
+ * return Doc the next doc (false if the end)
+ */
+function getNextDoc($dbaccess,&$tres) {
+  $tdoc= pg_fetch_array(current($tres), NULL, PGSQL_ASSOC);
+  if ($tdoc===false) {
+    $n=next($tres);
+    if ($n === false) return false;
+    $tdoc= pg_fetch_array(current($tres), NULL, PGSQL_ASSOC);
+    if ($tdoc===false) return false;
+  }
   return getDocObject($dbaccess,$tdoc);
 }
 /**

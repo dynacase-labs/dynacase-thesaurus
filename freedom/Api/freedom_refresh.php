@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.15 2006/01/18 10:24:07 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.16 2006/01/26 10:50:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -74,7 +74,7 @@ if ($query->nb > 0)	{
   else  $usemethod=false;
 
   $k=0;
-  while ($doc=getNextDoc($dbaccess,$pgres)) {
+  while ($doc=getNextDbObject($dbaccess,$pgres)) {
 
     $usemethod= ($method && (method_exists ($doc,$method)));
 		
