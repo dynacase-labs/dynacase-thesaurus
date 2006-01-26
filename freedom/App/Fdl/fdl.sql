@@ -175,6 +175,8 @@ end;
 create or replace function resetvalues() 
 returns trigger as '
 declare 
+   lname text;
+   cfromid int;
 begin
 NEW.values:='''';
 NEW.attrids:='''';
@@ -182,7 +184,19 @@ NEW.attrids:='''';
 if (NEW.doctype = ''Z'') and (NEW.name is not null) then
 	delete from docname where name=NEW.name;
 end if;	
-
+if (NEW.name is not null and OLD.name is null) then
+  if (NEW.doctype = ''C'') then 
+       cfromid=-1; -- for families
+     else
+       cfromid=NEW.fromid;
+     end if;
+     select into lname name from docname where name= NEW.name;
+     if (lname = NEW.name) then 
+ 	 update docname set fromid=cfromid,id=NEW.id where name=NEW.name;	
+     else 
+	 insert into docname (id,fromid,name) values (NEW.id, cfromid, NEW.name);
+     end if;
+  end if;
 return NEW;
 end;
 ' language 'plpgsql';
