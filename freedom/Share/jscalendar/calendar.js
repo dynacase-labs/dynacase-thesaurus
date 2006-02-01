@@ -10,7 +10,7 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.4 2005/09/19 13:58:08 eric Exp $
+// $Id: calendar.js,v 1.5 2006/02/01 15:41:27 eric Exp $
 
 /** The Calendar object constructor. */
 Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -1718,11 +1718,8 @@ function control_date(event, th) {
   if ((th.value!="") && (th.value!=" ")) {
 
 
-    if (r != null) {
-    
-      nd.setFullYear(r[3]);
-      nd.setMonth(r[2]-1);
-      nd.setDate(r[1]);
+    if (r != null) {    
+      nd.setFullYear(r[3],r[2]-1,r[1]);
       th.disabled=true; // to say OK
       th.value= padout2(nd.getDate())+'/'+padout2(nd.getMonth()+1)+'/'+padout4(nd.getFullYear());
 		     
