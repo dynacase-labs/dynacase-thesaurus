@@ -10,7 +10,7 @@ METHOD;+Method.FAddBook.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;options
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;;;
 ATTR;US_FR_IDENT;;Etat civil;N;N;frame;10;W;;;;;;;
-ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;Y;;; | ,Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;;;
+ATTR;US_CIVILITY;US_FR_IDENT;civilité;N;N;enum;10;W;N;;; | ,Monsieur|Monsieur,Madame|Madame,Mademoiselle|Mademoiselle,Docteur|Docteur,Professeur|Professeur;;;
 ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;;;;;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;;;
@@ -121,7 +121,7 @@ ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;R;;mailto:%US_MAIL%;;;;::parseMail(US_
 ;;;;;;;;;;;;;;;
 ATTR;US_SERVICE;US_FR_SOC;service;N;N;text;1042;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSERVICE%;fdl.php;lkfamily(D,IGROUP,grp_type,service,US_SERVICE):US_IDSERVICE,US_SERVICE;;;
 ATTR;US_IDSERVICE;US_FR_SOC;service id;N;N;docid;1041;H;;;;;;;
-ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1051;W;;;;;;;
+ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1051;H;;;;;;;
 ATTR;US_INITUSER;;Raffraichir les utilisateurs;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_IUSER;;::canExecute(FUSERS,FUSERS_IUSER);;;global=yes|onlyglobal=yes|lconfirm=yes
 END;0;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
