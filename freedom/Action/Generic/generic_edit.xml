@@ -36,7 +36,7 @@ addEvent(window,"load",focusFirst);
 
 <body class="freedom" id="terrible"
       onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
-      onUnLoad="closechoose();if (! document.isCancelled) autoUnlock('[id]')"
+      onUnLoad="if (! document.isCancelled) autoUnlock('[id]');closechoose();"
      >
 <!-- for idoc -->
 <form id="fviewidoc"
