@@ -1,0 +1,89 @@
+#! /bin/rpm
+#
+#  File: 
+#  $Id: FREEDOM-WS.spec.in,v 1.1 2006/02/01 13:49:02 eric Exp $
+#
+#  This is the SPEC file for the What Users Module
+#  Anakeen What Application
+#
+
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%if %{cerbere}
+%define destdir /home/httpd/what
+%define httpuser http
+%define apacheconfdir /etc/httpd/httpd.conf
+%else
+%define destdir /usr/share/what
+%define apacheconfdir /etc/httpd/conf.d
+%define httpuser apache
+%endif
+
+Summary: The What Users Management Module
+Name: @PACKAGE@
+Version: @VERSION@
+%if %{cerbere}
+Release: @RELEASE@
+%else
+Release: @RELEASE@fc
+%endif
+License: GPL
+Group: Applications/Web
+Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
+# post-2.2.0 fix (can go away with next release):
+Vendor: Anakeen           
+URL: http://www.anakeen.com/
+Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+BuildArchitectures: noarch
+BuildRoot: /tmp/anakeen-root
+Requires: php >= 5.0
+Requires: php-soap
+Prereq: FREEDOM >= 2.0
+Prereq: WHAT >= 2.2.0
+
+
+%description
+Web Services available for FREEDOM document management
+
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+
+%install
+autoconf
+./configure --with-pubrule=`pwd`
+make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+install -d $RPM_BUILD_ROOT/%{destdir}/services
+cd $RPM_BUILD_ROOT/%{destdir}/services
+ln -s ../@PACKAGE@/Class*.php ../@PACKAGE@/services.php  .
+
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+%post
+
+
+
+%preun
+%postun
+
+
+
+%files
+%defattr(-,%{httpuser},%{httpuser})
+%dir %{destdir}/%{name}
+%{destdir}/%{name}/*
+#%{destdir}/FDL/*
+%{destdir}/services/*
+#%{destdir}/locale/*
+
+#%config(noreplace) %{destdir}/%{name}/*.conf
+
+
+
+%changelog
+* Tue Oct 30 2000 Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+- Build first RPM
+

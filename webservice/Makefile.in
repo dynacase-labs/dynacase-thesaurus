@@ -1,0 +1,33 @@
+# ============================================
+# $Id: Makefile.in,v 1.1 2006/02/01 13:49:02 eric Exp $
+# ============================================
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir=@PUBRULE@
+appname = @PACKAGE@
+pubdir = @prefix@
+srcdir = @srcdir@
+
+export pubdir utildir appname
+
+TAR = gtar
+GZIP_ENV = --best
+
+export targetdir PACKAGE
+
+SUBDIR= Class
+
+include $(utildir)/PubRule
+
+DISTFILES += $(SUBDIR) \
+            RELEASE VERSION  	    
+
+
+
+# $(pubdir)/services :
+# 	mkdir -p $@
+
+# $(pubdir)/services/services.php : $(pubdir)/services services.php
+# 	cp services.php $(pubdir)/services
+
+# publish: $(pubdir)/services/services.php
