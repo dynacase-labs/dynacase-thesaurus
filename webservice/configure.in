@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.1 2006/02/01 13:49:02 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.2 2006/02/02 09:38:12 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -53,4 +53,9 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile  FREEDOM-WS.spec)
+AC_SUBST(APACHECONFDIR)
+APACHECONFDIR=/etc/httpd/httpd.conf
+AC_ARG_WITH(apacheconfdir,
+[  --with-apacheconfdir=apache config dir (default /etc/httpd/httpd.conf)], APACHECONFDIR=$withval)
+
+AC_OUTPUT(Makefile  FREEDOM-WS.spec apache_ws.conf)

@@ -1,0 +1,12 @@
+<Directory "@prefix@">
+   
+    <Files  "services.php">
+      AuthType Basic
+      AuthName 'FREEDOM Connection'
+      AuthPAM_Enabled  on
+      AuthPAM_FallThrough off
+      AuthPAM_Service httpd
+      Require valid-user
+    </Files>
+ 
+</Directory>

@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2006/02/01 13:49:02 eric Exp $
+# $Id: Makefile.in,v 1.2 2006/02/02 09:38:12 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -23,11 +23,8 @@ DISTFILES += $(SUBDIR) \
             RELEASE VERSION  	    
 
 
+$(pubdir)/$(appname)/apache_ws.conf: apache_ws.conf
+	cp $< $(pubdir)/$(appname)
 
-# $(pubdir)/services :
-# 	mkdir -p $@
 
-# $(pubdir)/services/services.php : $(pubdir)/services services.php
-# 	cp services.php $(pubdir)/services
-
-# publish: $(pubdir)/services/services.php
+publish: $(pubdir)/$(appname)/apache_ws.conf
