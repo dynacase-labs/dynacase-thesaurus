@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.57 2006/01/05 16:35:53 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.58 2006/02/02 16:57:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -170,6 +170,8 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
  // Compute From:
  $fid = $event->getValue("CALEV_OWNERID");
  $uid = new_Doc($action->GetParam("FREEDOM_DB"), $fid);
+
+ if ($uid->getValue("us_mail")=="") return;
  $from = addslashes($uid->getValue("TITLE"))." <".$uid->getValue("us_mail").">";
  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
