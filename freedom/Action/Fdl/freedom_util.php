@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.78 2006/02/03 08:11:35 eric Exp $
+ * @version $Id: freedom_util.php,v 1.79 2006/02/03 15:59:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -350,6 +350,7 @@ function getFamIdFromName($dbaccess, $name) {
   global $tFamIdName;
 
   if (! isset($tFamIdName)) {
+    $tFamIdName=array();
     $q = new QueryDb($dbaccess, "DocFam");
     $ql=$q->Query(0,0,"TABLE");
     
@@ -357,7 +358,6 @@ function getFamIdFromName($dbaccess, $name) {
       if ($v["name"] != "") $tFamIdName[$v["name"]]=$v["id"];
     }
   }
-
   if (isset($tFamIdName[$name])) return $tFamIdName[$name];
   return 0; 
   
