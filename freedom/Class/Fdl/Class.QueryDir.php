@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.17 2006/02/03 08:10:54 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.18 2006/02/03 16:07:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,10 +11,6 @@
  */
 
 
-
-
-
-$CLASS_CONTACT_PHP = '$Id: Class.QueryDir.php,v 1.17 2006/02/03 08:10:54 eric Exp $';
 include_once("Class.DbObj.php");
 include_once("Class.QueryDb.php");
 include_once("Class.Log.php");
@@ -47,7 +43,7 @@ create table fld (
 create index fld_iqd on fld(qtype,dirid);
 create unique index fld_u on fld(qtype,dirid,childid);
 create sequence seq_id_fld start 100
-CREATE TRIGGER tfldrel after insert or update  on fld FOR EACH ROW execute procedure relfld();";
+CREATE TRIGGER tfldrel after insert or update or delete on fld FOR EACH ROW execute procedure relfld();";
 
   var $relatedCacheClass= array("doc"); // class must ne cleaned also in case of modify
 

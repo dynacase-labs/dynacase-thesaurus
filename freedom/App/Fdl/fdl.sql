@@ -360,6 +360,11 @@ if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
   end if;
 end if;
  
+if (TG_OP = ''DELETE'') then
+	delete from docrel where sinitid=OLD.dirid and cinitid=OLD.childid and type=''folder'';
+end if;
+
+
 return NEW;
 end;
 ' language 'plpgsql';
