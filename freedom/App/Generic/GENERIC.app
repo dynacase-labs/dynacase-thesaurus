@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.17 2005/11/15 12:58:44 eric Exp $
+// $Id: GENERIC.app,v 1.18 2006/02/03 17:03:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -88,6 +88,16 @@ $action_desc = array (
   array( 
    "name"		=>"GENERIC_MODKIND",
    "short_name"		=>N_("change king in enum attribute"),
+   "acl"		=>"GENERIC_MASTER"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_CHOOSEENUMATTR",
+   "short_name"		=>N_("choose for edit enum attribute"),
+   "acl"		=>"GENERIC_MASTER"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_EDITFAMCATG",
+   "short_name"		=>N_("interface to edit enum attribute"),
    "acl"		=>"GENERIC_MASTER"
   ) ,
   array( 

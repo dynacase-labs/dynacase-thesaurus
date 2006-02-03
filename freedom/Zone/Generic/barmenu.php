@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.39 2005/11/24 13:45:55 eric Exp $
+ * @version $Id: barmenu.php,v 1.40 2006/02/03 17:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -87,7 +87,6 @@ function barmenu(&$action) {
 		     "vkind"=>"kind".$a->id);
       $tvkind=array();
       $tmkind=array();
-      $tmkind[]=$a->id."kedit";
       $enum=$a->getenum();
       while (list($kk,$ki) = each($enum)) {
 	$tvkind[]=array("ktitle" => strstr($ki, '/')?strstr($ki, '/'):$ki,
@@ -102,8 +101,6 @@ function barmenu(&$action) {
       while (list($km,$vid) = each($tmkind)) {
 	popupActive($a->id."menu",1,$vid); 
       }
-
-      if (($a->phpfile != "") || (! $action->HasPermission("GENERIC_MASTER"))) popupInvisible($a->id."menu",1,$a->id."kedit");
     }
 
   }
@@ -117,7 +114,7 @@ function barmenu(&$action) {
 
   popupInit("newmenu",  $tnewmenu   );
 
-  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview'));
+  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview','kindedit'));
 
   $lmenu = $fdoc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {    
@@ -139,6 +136,8 @@ function barmenu(&$action) {
   $action->lay->setBlockData("FAMMENU",$tmenu);
   
 
+  if  ($action->HasPermission("GENERIC_MASTER"))  popupActive("helpmenu",1,'kindedit'); 
+  else popupInvisible("helpmenu",1,'kindedit');
 
 
   if ($action->HasPermission("GENERIC"))  {

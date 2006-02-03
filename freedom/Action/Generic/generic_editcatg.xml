@@ -20,7 +20,7 @@
  </head>
 
 <body class="freedom" onload="correctlevel()" >
-<H2>[TITLE]</H2>
+<img align="right"src="[icon]"><H3>[TITLE]</H3>
 <form  name="addcatg"  method="POST" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MODKIND" >
 

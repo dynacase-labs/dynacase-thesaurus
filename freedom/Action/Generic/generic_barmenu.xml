@@ -56,7 +56,7 @@ testSplit();
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
-[TEXT:Creation]</span>
+<span>[TEXT:Creation]</span>
 </td>
 <td  class="MenuInactive"  
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();document.getElementById('keyword').select()" 
@@ -71,7 +71,7 @@ testSplit();
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
-[kindname]
+<div>[kindname]</div>
 </td>
 [ENDBLOCK KIND]
 <td  class="MenuInactive"  
@@ -142,7 +142,6 @@ function SendSearch(e) {
 [BLOCK [vkind]]
 <a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&famid=[famid]&kid=[kid]&aid=[kindid]&catg=[catg][pds]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
-<a  id="[kindid]kedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITCATG&fid=[famid]&aid=[kindid]';closeAllMenu()"><I>[TEXT:Edit kind]</I></a>
 </div>
 [ENDBLOCK MKIND]
 
@@ -162,7 +161,8 @@ function SendSearch(e) {
 <a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="memosearch" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fhidden','[CORE_STANDURL]app=GENERIC&action=GENERIC_MEMOSEARCH&famid=[famid]&psearchid=[catg]');closeAllMenu()">[TEXT:memosearch]</a>
-<a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a><a class="separator"></a>
+<a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
+<a  id="kindedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITFAMCATG&fid=[famid]&aid=[kindid]';closeAllMenu()">[TEXT:Edit attribute kinds]</a><a class="separator"></a>
 [BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
 [ENDBLOCK FAMMENU]
 </div>

@@ -3,7 +3,7 @@
  * Edit enum attribute items
  *
  * @author Anakeen 2000 
- * @version $Id: generic_editcatg.php,v 1.6 2005/12/02 11:03:39 eric Exp $
+ * @version $Id: generic_editcatg.php,v 1.7 2006/02/03 17:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,6 +39,7 @@ function generic_editcatg(&$action) {
 
   $action->lay->set("TITLE",sprintf(_("definition of enumerate attribute %s of %s family"),
 				   $a->labelText, $doc->title));
+  $action->lay->set("icon",$doc->getIcon());
   $tref=array();
   $tlabel=array();
   $tlevel=array();
