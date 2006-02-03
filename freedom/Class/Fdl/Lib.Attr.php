@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.55 2006/01/20 13:20:11 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.56 2006/02/03 16:08:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -277,7 +277,6 @@ function AttrToPhp($dbaccess, $tdoc) {
     $phpAdoc->Set("DocParent",$phpAdoc->Get("docNameIndirect"));
     
   }
-
   return $phpAdoc->gen();
     
 }
@@ -310,7 +309,6 @@ function PgUpdateFamilly($dbaccess, $docid) {
       $pgatt[$row["attname"]]=$row["attname"];
 	
     }
-   
     // -----------------------------
     // add column attribute
     $classname="Doc".$docid;
@@ -405,13 +403,13 @@ function createDocFile($dbaccess, $tdoc) {
 
 
 function activateTrigger($dbaccess, $docid) {
-    $cdoc = createDoc($dbaccess, $docid);
-
+  $cdoc = createDoc($dbaccess, $docid);
     $msg=$cdoc->exec_query($cdoc->sqltcreate,1);
   //  print $cdoc->sqltcreate;
     $sqlcmds = explode(";",$cdoc->SqlTrigger());
-    $cdoc = new_Doc($dbaccess, $docid);
-  //  print $cdoc->SqlTrigger();
+
+    //$cdoc = new_Doc($dbaccess, $docid);
+    //  print $cdoc->SqlTrigger();
     while (list($k,$sqlquery)=each($sqlcmds)) {
       if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);
     }
