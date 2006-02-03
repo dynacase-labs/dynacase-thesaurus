@@ -3,7 +3,7 @@
 <relations>
 <path><![CDATA[[Title]]]></path>
 [BLOCK RELS]
-<relation docid="[initid]" ><icon>[iconsrc]</icon><title><![CDATA[[title]]]></title><kind><![CDATA[[type]]]></kind>
+<relation docid="[initid]" ><icon><![CDATA[[iconsrc]]]></icon><title><![CDATA[[title]]]></title><kind><![CDATA[[type]]]></kind>
 </relation>
 [ENDBLOCK RELS]
 </relations>
