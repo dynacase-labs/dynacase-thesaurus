@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.90 2006/01/24 15:25:39 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.91 2006/02/03 08:11:58 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -11,6 +11,7 @@
 
 %if %{cerbere}
 %define destdir /home/httpd/what
+%define httpuser http
 %define ldapuser slapd
 %else
 %define destdir /usr/share/what
