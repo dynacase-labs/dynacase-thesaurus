@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.43 2006/01/18 10:24:49 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.44 2006/02/03 16:06:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -107,7 +107,7 @@ Class Dir extends PDir
     if ($err!= "") return $err;
 
     $err=$this->exec_query("delete from fld where dirid=".$this->initid);
-    $this->updateFldRelations();
+    //    $this->updateFldRelations();
     return $err;
 
   }
@@ -238,7 +238,7 @@ Class Dir extends PDir
     }
 
     if ($err == "") {
-      $this->updateFldRelations();
+      //      $this->updateFldRelations();
       // use post virtual method
       if (!$noprepost) $err=$this->postInsertDoc($docid,false);
     }
@@ -309,7 +309,7 @@ Class Dir extends PDir
 
     // use post virtual method
     if (!$noprepost){
-      $this->updateFldRelations();
+      //      $this->updateFldRelations();
       $err.=$this->postMInsertDoc($tAddeddocids);
     }
 
@@ -338,7 +338,7 @@ Class Dir extends PDir
     }
 
     $err=$qf->Adds($tcopy,true);
-    $this->updateFldRelations();
+    //    $this->updateFldRelations();
     
     return $err;
   }
@@ -360,7 +360,7 @@ Class Dir extends PDir
     $err=$this->exec_Query(sprintf("insert INTO fld (select %d,query,childid,qtype from fld where dirid=%d);",$this->initid,$docid));
     
     
-    $this->updateFldRelations();
+    //    $this->updateFldRelations();
     return $err;
   }
   // --------------------------------------------------------------------
@@ -431,7 +431,7 @@ Class Dir extends PDir
 
     // use post virtual method
     if (!$noprepost) {
-      $this->updateFldRelations();
+      //      $this->updateFldRelations();
       $err=$this->postUnlinkDoc($docid);
     }
   
