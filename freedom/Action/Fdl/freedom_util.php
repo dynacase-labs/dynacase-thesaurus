@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.77 2006/01/26 10:50:29 eric Exp $
+ * @version $Id: freedom_util.php,v 1.78 2006/02/03 08:11:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -293,13 +293,13 @@ function tordered($a, $b) {
  * @param array $v values of document
  * @return Doc the document object 
  */
-function getDocObject($dbaccess,$v) {
+function getDocObject($dbaccess,$v,$k=0) {
   static $_OgetDocObject;
   
-  if (! isset($_OgetDocObject[$v["fromid"]])) $_OgetDocObject[$v["fromid"]] = createDoc($dbaccess,$v["fromid"],false);
-  $_OgetDocObject[$v["fromid"]]->Affect($v,true);
+  if (! isset($_OgetDocObject[$k][$v["fromid"]])) $_OgetDocObject[$k][$v["fromid"]] = createDoc($dbaccess,$v["fromid"],false);
+  $_OgetDocObject[$k][$v["fromid"]]->Affect($v,true);
 
-  return $_OgetDocObject[$v["fromid"]];
+  return $_OgetDocObject[$k][$v["fromid"]];
 }
 /**
  * return the next document in sql select ressources
@@ -309,7 +309,7 @@ function getDocObject($dbaccess,$v) {
 function getNextDbObject($dbaccess,$res) {
   $tdoc= pg_fetch_array($res, NULL, PGSQL_ASSOC);
   if ($tdoc===false) return false;
-  return getDocObject($dbaccess,$tdoc);
+  return getDocObject($dbaccess,$tdoc,intval($res));
 }
 /**
  * return the next document in sql select ressources
@@ -324,7 +324,7 @@ function getNextDoc($dbaccess,&$tres) {
     $tdoc= pg_fetch_array(current($tres), NULL, PGSQL_ASSOC);
     if ($tdoc===false) return false;
   }
-  return getDocObject($dbaccess,$tdoc);
+  return getDocObject($dbaccess,$tdoc,intval(current($tres)));
 }
 /**
  * count returned document in sql select ressources
