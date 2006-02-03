@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.34 2006/01/20 13:19:19 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.35 2006/02/03 08:10:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -211,7 +211,7 @@ function PostModify() {
       $this->setValue("US_WHATID",$user->id);
       $this->RefreshDocUser();
       $this->modify(true,array("us_whatid"));
-      $this->refreshParentGroup();
+      //      $this->refreshParentGroup();
     } 
 
   } else { 
