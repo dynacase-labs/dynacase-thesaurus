@@ -3,7 +3,7 @@
  * Get database coordonate for freedom access by psql
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_dbaccess.php,v 1.1 2005/07/01 15:08:57 eric Exp $
+ * @version $Id: fdl_dbaccess.php,v 1.2 2006/02/03 16:03:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,7 +16,7 @@ if ($dbaccess != "") {
   if (ereg('dbname=[ ]*([a-z_0-9]*)',$dbaccess,$reg)) {  
       $dbname=$reg[1];
     }
-    if (ereg('host=[ ]*([a-z_0-9]*)',$dbaccess,$reg)) {  
+    if (ereg('host=[ ]*([a-z_0-9\.]*)',$dbaccess,$reg)) {  
       $dbhost=$reg[1];
     }
     if (ereg('port=[ ]*([a-z_0-9]*)',$dbaccess,$reg)) {  
