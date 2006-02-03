@@ -314,3 +314,52 @@ end;
 ' language 'plpgsql' ;
 
 
+create or replace function getdoc(int) 
+returns record as '
+declare 
+  docid alias for $1;
+  r record;
+   dfromid int;
+begin
+    select into dfromid fromid from docfrom where id=docid;
+  if (dfromid > 0) then
+ FOR r IN EXECUTE ''select * from only doc'' || dfromid || ''  where id= '' || docid LOOP 
+
+  END LOOP;
+  end if;
+  return r;
+end;
+' language 'plpgsql' STABLE ;
+
+
+create or replace function relfld() 
+returns trigger as '
+declare 
+  rs record;
+  rc record;
+  cfromid int;
+  sfromid int;
+begin
+
+
+if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
+
+  select into sfromid fromid from docfrom where id=NEW.dirid;
+  select into cfromid fromid from docfrom where id=NEW.childid;
+  if (cfromid > 0) and (sfromid > 0) then
+  FOR rs IN EXECUTE ''select * from only doc'' || sfromid || ''  where id= '' || NEW.dirid || ''and doctype != ''''Z'''''' LOOP   
+  END LOOP;
+ FOR rc IN EXECUTE ''select * from only doc'' || cfromid || ''  where id= '' || NEW.childid  || ''and doctype != ''''Z'''''' LOOP 
+  BEGIN
+  INSERT INTO docrel (sinitid,cinitid,stitle,ctitle,sicon,cicon,type) VALUES (rs.initid,rc.initid,rs.title,rc.title,rs.icon,rc.icon,''folder'');
+	EXCEPTION
+	 WHEN UNIQUE_VIOLATION THEN
+	    sfromid := cfromid;
+	END;
+  END LOOP;
+  end if;
+end if;
+ 
+return NEW;
+end;
+' language 'plpgsql';

@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.4 2006/01/18 10:26:02 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.5 2006/02/03 08:10:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,7 +58,9 @@ create table docrel ( sinitid int not null,
                    cicon text,
                    type text  );
 create index i_docrelc on docrel(cinitid);
-create index i_docrels on docrel(sinitid);";
+create index i_docrels on docrel(sinitid);
+create unique index docrel_u on docrel(sinitid,cinitid,type);
+";
 
 
   public function getRelations() {
