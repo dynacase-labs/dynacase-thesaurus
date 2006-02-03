@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.291 2006/01/24 10:05:00 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.292 2006/02/03 16:06:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -502,7 +502,7 @@ final public function PostInsert()  {
 
     foreach($nattr as $k=>$v) {
       if (isset($this->$k) && ($this->$k != "") && ($v->type=="docid")) {
-	if ($v->inArray()) $tv=$this->getTValue($v->id);
+	if ($v->inArray()) $tv=array_unique($this->getTValue($v->id));
 	else $tv=array($this->$k);
 	foreach ($tv as $val) {
 	  $t=getTDoc($this->dbaccess,$val);
