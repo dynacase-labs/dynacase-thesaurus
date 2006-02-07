@@ -1,0 +1,6 @@
+<div class="WEvDefault"><span style="font-size:80%">[hours]</span> <span style="font-weight:bold">[text]</span>
+[IF vCategorie]<span style="font-size:80%; font-decoration:italic;"> -[Categorie]-</span>[ENDIF vCategorie]
+[IF vLieu]<span style="font-size:80%; font-decoration:italic;"> ([Lieu])</span>[ENDIF vLieu]
+[IF vNote]<div style="border:1px solid white; margin-left:4em; font-size:80%; font-decoration:italic">[note]</div>[ENDIF vNote]
+[IF vInvite]<div style="border:1px solid white; margin-left:4em; font-size:80%; font-decoration:italic">Invité par [Invite]</div>[ENDIF vInvite]
+</div>

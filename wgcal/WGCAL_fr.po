@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-07 10:52+0100\n"
+"POT-Creation-Date: 2006-02-07 15:40+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -192,6 +192,33 @@ msgstr "Pas de résultat..."
 
 msgid "Cars and rooms management"
 msgstr "Véhicules et salles"
+
+msgid "current week"
+msgstr "Semaine actuelle"
+
+msgid "monday"
+msgstr "Lundi"
+
+msgid "thursday"
+msgstr "Jeudi"
+
+msgid "tuesday"
+msgstr "Mardi"
+
+msgid "friday"
+msgstr "Vendredi"
+
+msgid "wenesday"
+msgstr "Mercredi"
+
+msgid "saturday"
+msgstr "Samedi"
+
+msgid "sunday"
+msgstr "Dimanche"
+
+msgid "print date"
+msgstr "Imprimé le"
 
 msgid "calendar creation"
 msgstr "Sélection des calendriers"
@@ -893,27 +920,6 @@ msgstr "Utilisation des fonctions en cours de test"
 msgid "confidential event"
 msgstr "Evènement confidentiel"
 
-msgid "monday"
-msgstr "Lundi"
-
-msgid "tuesday"
-msgstr "Mardi"
-
-msgid "wenesday"
-msgstr "Mercredi"
-
-msgid "thursday"
-msgstr "Jeudi"
-
-msgid "friday"
-msgstr "Vendredi"
-
-msgid "saturday"
-msgstr "Samedi"
-
-msgid "sunday"
-msgstr "Dimanche"
-
 msgid "dayly"
 msgstr "journalière"
 
@@ -1045,6 +1051,9 @@ msgstr "Deux semaines"
 
 msgid "m_txt_view_monthtext"
 msgstr "Un mois"
+
+msgid "m_txt_weektext"
+msgstr "Vue hebdomadaire (impression)"
 
 msgid "calendar menu"
 msgstr "Calendriers"
@@ -1328,6 +1337,10 @@ msgstr "Recherche d'évènement"
 
 msgid "month text"
 msgstr "Vue mensuelle texte"
+
+#, fuzzy
+msgid "week text"
+msgstr "Une semaine"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"

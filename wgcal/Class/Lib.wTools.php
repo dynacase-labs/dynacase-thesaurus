@@ -343,7 +343,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 
   $fl =  $action->getParam("WGCAL_G_VFAM", "CALEVENT");
 
-
   $famr = GetHttpVars("famref", $fl);
   $famrt = explode("|", $famr);
   $fti = array();
@@ -375,7 +374,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   } else {
     setHttpVar("idres","|");
   }
-  
+    
   $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
 
   $events = array();
@@ -439,7 +438,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
       $tout[] = $item;
     }
   } 
-//         AddWarningMsg($sdebug);
+//          AddWarningMsg($sdebug);
 //   echo      "$sdebug";
  return $tout;
 }

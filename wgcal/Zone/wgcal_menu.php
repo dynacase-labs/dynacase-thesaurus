@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.26 2006/01/10 18:20:05 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.27 2006/02/07 16:07:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -95,7 +95,15 @@ function wgcal_menu(&$action) {
 						 "jsc" => "setDaysViewed(-1);",
 						 "ico" => "wm-viewtext.gif",
 						 "rig" => "WGCAL_USER"
-						 )
+						 ),
+		                       	   array( "key" => "separator" ),
+					   array( "key" => "m_weektext", 
+						  "txt" => _("m_txt_weektext"), 
+						  "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTWEEK",
+						  "tgt" => "wgcal_weektext", 
+						  "ico" => "wgcal-weektext.gif",
+						  "rig" => "WGCAL_USER"
+						  ),
 					   )
 			 ),
                   array( "menu"  => "m_calendar",

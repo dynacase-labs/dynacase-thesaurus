@@ -22,6 +22,11 @@ body {
   width : auto;
 }
 
+@media print {
+  .noprint {
+    display:none;
+  }
+}
 
 table {
   font-size: [WTH_FONTSIZE_NORMAL]pt;
