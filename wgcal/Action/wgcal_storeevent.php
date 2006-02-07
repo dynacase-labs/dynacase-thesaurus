@@ -100,6 +100,7 @@ function wgcal_storeevent(&$action) {
   $conf = GetHttpVars("evconfidentiality", 0);
   $event->setValue("CALEV_VISIBILITY", $conf);
   $event->confidential = ($conf>0 ? "1" : "0");
+  AddWarningMsg("confidentialité = $conf");
 
   $confg = GetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);

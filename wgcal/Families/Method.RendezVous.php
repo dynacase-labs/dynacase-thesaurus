@@ -415,6 +415,8 @@ function showIcons($private, $withme) {
 				      "icontitle" => _("icon text confidential event") ),
 		   "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), 
 				     "icontitle" => _("icon text invitation") ),
+		   "VIS_CONFI" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
+					"icontitle" => _("icon text visibility confidendial") ),
 		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
 					"icontitle" => _("icon text visibility private") ),
 		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
@@ -434,8 +436,9 @@ function showIcons($private, $withme) {
     if ($private)  $icons[] = $ricons["CONFID"];
     else {
       if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
-      if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_PRIV"];
+      if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_CONFI"];
       if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
+      if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = $ricons["VIS_PRIV"];
       if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
       if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
       if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
@@ -1496,7 +1499,12 @@ function setAccessibility() {
   $acls = array();
 
   switch ($conf) {
-  case 1: // Private
+
+  case 3: // Private
+    $acls[2] = $aclvals["read"];
+    break;
+
+  case 1: // Confidential
     if ($calgvis==0) $acls[2] = $aclvals["read"];
     else $acls[2] = $aclvals["none"];
     foreach ($vcal as $k => $v) $acls[$k] = $aclvals["read"] ;
@@ -1527,17 +1535,18 @@ function setAccessibility() {
 
   // Owner, creator and delegate ==> owner rights
   $acls[$ownerwid] = $aclvals["all"];
-  if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
-  $ownercal = getUserPublicAgenda($ownerid, false);
-  $duid = $ownercal->getTValue("agd_dfid");
-  if (count($duid)>0) {
-    $duwid = $ownercal->getTValue("agd_dwid");
-    $dumode = $ownercal->getTValue("agd_dmode");
-    foreach ($duid as $k=>$v) {
-      if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
+  if ($conf!=3) {
+    if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
+    $ownercal = getUserPublicAgenda($ownerid, false);
+    $duid = $ownercal->getTValue("agd_dfid");
+    if (count($duid)>0) {
+      $duwid = $ownercal->getTValue("agd_dwid");
+      $dumode = $ownercal->getTValue("agd_dmode");
+      foreach ($duid as $k=>$v) {
+	if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
+      }
     }
   }
-
 
   $this->RemoveControl();
   foreach ($acls as $user => $uacl) {

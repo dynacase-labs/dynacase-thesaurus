@@ -65,7 +65,7 @@ function WGCalGetColorState($state, $def="transparent") {
  ** Return event visibilities in attribute value format
  */
 function CAL_getEventVisibilities($dbaccess, $fmt="A") {
-  $evvis = array ( _("public"), _("private"), _('my groups'));
+  $evvis = array ( _("public"), _("confidential"), _('my groups'), _("private"), );
   return array2attrval($evvis, $fmt);
 }
 
