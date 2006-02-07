@@ -125,7 +125,7 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
   $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
   $date = GetHttpVars("evruntildate");
-  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_datets2db($date));
+  if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", w_datets2db($date, false)." 23:59:39");
   $excl = GetHttpVars("excludedate", "");
   $event->deleteValue("CALEV_EXCLUDEDATE");
   if ($excl != "") {
