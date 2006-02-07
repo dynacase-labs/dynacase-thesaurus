@@ -62,6 +62,7 @@ ATTR;CALEV_TIMETYPE;CALEV_EVENT;Mode;N;N;enum;160;R;;;-;[hcheck]0|times,1|no tim
 ATTR;CALEV_FREQUENCY;CALEV_EVENT;Fréquence;N;N;integer;170;R;;;;;
 ATTR;CALEV_CATEGORY;CALEV_EVENT;Catégorie;N;N;enum;150;R;;;;0|none;
 ATTR;CALEV_CONFGROUPS;CALEV_EVENT;Groupe en visibilité;N;N;text;160;R;;;;;
+ATTR;CALEV_LOCATION;CALEV_EVENT;Lieu;N;N;text;170;R;;;;;
 ;;;;;;;;;;;;;
 ATTR;CALEV_REPEAT;;Répétition;N;N;frame;300;;;;;;
 ATTR;CALEV_REPEATMODE;CALEV_REPEAT;Mode;N;N;enum;310;R;;;-;[hcheck]0|none,1|daily,2|weekly,3|monthly,4|yearly;

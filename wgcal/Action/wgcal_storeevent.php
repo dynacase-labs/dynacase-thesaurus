@@ -86,6 +86,8 @@ function wgcal_storeevent(&$action) {
   
   $event->setValue("CALEV_FREQUENCY", GetHttpVars("rfrequency",1));
   
+  $event->setValue("calev_location", GetHttpVars("rvlocation",""));
+
   $calid = GetHttpVars("evcalendar", -1);
   $caltitle = _("main calendar");
   if (!$newevent) $oldcal = $event->getValue("CALEV_EVCALENDARID");
@@ -100,7 +102,6 @@ function wgcal_storeevent(&$action) {
   $conf = GetHttpVars("evconfidentiality", 0);
   $event->setValue("CALEV_VISIBILITY", $conf);
   $event->confidential = ($conf>0 ? "1" : "0");
-  AddWarningMsg("confidentialité = $conf");
 
   $confg = GetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);

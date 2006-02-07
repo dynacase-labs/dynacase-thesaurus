@@ -266,6 +266,13 @@ function RendezVousView() {
   }
   $this->lay->set("iconevent", $this->getIcon($this->icon));
 
+  $this->lay->set("v_location", false);
+  if ($this->getValue("calev_location")!="") {
+    $this->lay->set("v_location", true);
+    $this->lay->set("rvlocation", $this->getValue("calev_location"));
+  }
+  $this->lay->set("iconevent", $this->getIcon($this->icon));
+
   $otitle = ucwords(strtolower($this->getValue("CALEV_OWNER")));
   if ($this->getValue("calev_ownerid")!=$this->getValue("calev_creatorid") && $this->getValue("calev_creatorid")>0) $otitle .= " (".$this->getValue("calev_creator").")";
   $this->lay->set("owner", $otitle);
@@ -779,6 +786,8 @@ function RendezVousEdit() {
   }
   $this->lay->setBlockData("FAMR", $famr);
   $this->lay->setBlockData("sFAMR", $sfamr);
+
+  $this->lay->set("rvlocation", $this->getValue("calev_location"));
 
   $this->EventSetDate($evstart, $evend, $evtype, $ro);
   $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);

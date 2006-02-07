@@ -143,6 +143,12 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </tr> -->
 
 <tr>
+<td align="right">[TEXT:location]&nbsp;:&nbsp;</td>
+<td colspan="2" ><input class="textBorder" id="rvlocation" name="rvlocation" onchange="" type="text" size="15" value="[rvlocation]"
+</td>
+</tr>
+
+<!-- <tr>
 <td align="right"><span onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
 <td colspan="2" >
 <span id="AlarmVis" style="visibility:[ALRMVIS]">
@@ -152,7 +158,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [TEXT:before]
 </span>
 </td>
-</tr>
+</tr> -->
 
 </table>
 
