@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.13 2005/09/27 16:16:50 eric Exp $
+ * @version $Id: viewhisto.php,v 1.14 2006/02/07 10:05:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,12 +36,32 @@ function viewhisto(&$action)
   $ldoc = $doc->GetRevisions("TABLE");
 
   $trdoc= array();
-  while(list($k,$zdoc) = each($ldoc)) {
+  $tversion=array();
+  $iversion=0;
+  foreach($ldoc as $k=>$zdoc) {
     $rdoc=getDocObject($dbaccess,$zdoc);
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
+    $trdoc[$k]["version"]= $rdoc->version;
     $trdoc[$k]["state"]= ($rdoc->state=="")?"":(($rdoc->locked==-1)?_($rdoc->state):_("current"));
+    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+      setlocale (LC_TIME, "fr_FR");
+      $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
+    } else {
+      $trdoc[$k]["date"]= strftime ("%x<BR>%T",$rdoc->revdate);        
+    }
+
+    // special table for versions
+    if (! in_array($rdoc->version, array_keys($tversion))) {
+      $tversion[$rdoc->version]="vtr".$iversion++;
+      $trdoc[$k]["cversion"]= true;
+    } else {
+      $trdoc[$k]["cversion"]= false;
+    }
+    $trdoc[$k]["vername"]= $tversion[$rdoc->version];
+
+
     $trdoc[$k]["COMMENT"]="COMMENT$k";
     $tc = explode("\n",$rdoc->comment);
     $tlc = array();
@@ -72,16 +92,10 @@ function viewhisto(&$action)
     $trdoc[$k]["id"]= $rdoc->id;
     $trdoc[$k]["divid"]= $k;
 
-    if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-      setlocale (LC_TIME, "fr_FR");
-      $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
-    } else {
-      $trdoc[$k]["date"]= strftime ("%x<BR>%T",$rdoc->revdate);
     
-    
-    }
   }
-
+  // not display detail display 
+  $action->lay->Set("nodetail",($iversion>1));
   $action->lay->SetBlockData("TABLEBODY",$trdoc);
   // js : manage icons
   $licon = new Layout($action->GetLayoutFile("manageicon.js"),$action);

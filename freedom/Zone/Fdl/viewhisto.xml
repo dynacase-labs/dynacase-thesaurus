@@ -1,4 +1,32 @@
 
+<script>
+function displaytr(event,o,n) {
+  var t=document.getElementsByName(n);
+  var i=0;
+  var d;
+  
+  if (t.length > 0) {
+    if (t[0].style.display=='none') {
+      d='';
+      o.src='[IMG:minus.gif]';
+    } else {
+      d='none';
+      o.src='[IMG:plus.gif]';
+    }
+    for ( i=0; i< t.length; i++) {
+      t[i].style.display=d;
+    }
+  }
+
+  if (!event) event=window.event;
+  if (event.stopPropagation) event.stopPropagation();
+    else event.cancelBubble=true;
+    if (event.preventDefault) event.preventDefault();
+    else event.returnValue=true;
+    return false;
+}
+</script>
+
 
 
 
@@ -6,30 +34,28 @@
 <table class="tablesimple" cellspacing="0"  width="100%" >
 <thead>
 <tr><td class="CORETblHeadBold" align="center" colspan="5">[title]</td><tr>
-<tr><td class="CORETblHeadBold">[TEXT:rev]</td>
+<tr><td width="40px" class="CORETblHeadBold">[TEXT:version]</td>
+    <td width="20px" class="CORETblHeadBold">[TEXT:rev]</td>
     <td class="CORETblHeadBold">[TEXT:state]</td>
     <td class="CORETblHeadBold">[TEXT:author]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[TEXT: date]</td>
 </tr>
 </thead>
 <tbody>
-
-
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 <tr class="selhead" id="d[id]"
-    style="cursor:pointer"
-     onMouseDown="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
+    [IFNOT cversion]name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail][ENDIF cversion] 
+    onMousedown="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
+<td width="60px">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
 <td>[revision]</td>
 <td><b>[state]</b></td>
      <td title="[TEXT:revised by]"><I>[owner]</I></td>
      <td  >[date]</td>
-
-    
 </tr>
 
      [BLOCK [COMMENT]]
-<tr class="dash"><td colspan="2"  >  
+<tr class="dash" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
        <P style="margin-left:20pt;color:black"> [ccomment]</P>
 </td><td><I>[cauthor]</I></td><td>[cdate]</td> </tr>
        [ENDBLOCK [COMMENT]]

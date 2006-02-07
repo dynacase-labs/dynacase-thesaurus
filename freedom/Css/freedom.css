@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.85 2006/02/03 16:09:02 eric Exp $
+ * $Id: freedom.css,v 1.86 2006/02/07 10:05:25 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -411,8 +411,11 @@ TBODY.unselect:hover TR {
   background-color:[CORE_BGCOLORHIGH];
 }
 TR.selhead {
-  cursor: crosshair;
-  background:[CORE_BGCOLORALTERN];
+  cursor: pointer;
+  background-color:[CORE_BGCOLORALTERN];
+[IFNOT ISIE]background-image:url('[IMG:tabvig.png]');[ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale'); float:right;width:100%;
+  text-transform:capitalize;[ENDIF ISIE]
 }
 TR.selhead:hover {
   background-color:[CORE_BGCOLORHIGH];
