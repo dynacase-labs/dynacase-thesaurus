@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-06 17:21+0100\n"
+"POT-Creation-Date: 2006-02-07 15:53+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -26,22 +26,6 @@ msgstr ""
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
 
 msgid "no import file specified"
 msgstr ""
@@ -165,6 +149,14 @@ msgid "unknow acl %s"
 msgstr "Modify"
 
 #, c-format
+msgid "LDAP Attribute modified to %s %s"
+msgstr ""
+
+#, c-format
+msgid "LDAP Attribute added to %s %s"
+msgstr ""
+
+#, c-format
 msgid "update id [%d] "
 msgstr ""
 
@@ -266,6 +258,29 @@ msgstr "Address"
 
 msgid "no avalaible persons found"
 msgstr ""
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "root for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
+msgstr "Start search"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -818,6 +833,10 @@ msgid "send a document"
 msgstr ""
 
 #, fuzzy
+msgid "difference between 2 documents"
+msgstr "Delete"
+
+#, fuzzy
 msgid "edit mail"
 msgstr "Email"
 
@@ -1271,6 +1290,12 @@ msgstr "Edit"
 msgid "search processes"
 msgstr "Start search"
 
+msgid "navigate between relations"
+msgstr ""
+
+msgid "navigate between relations next"
+msgstr ""
+
 msgid "Users"
 msgstr ""
 
@@ -1375,6 +1400,12 @@ msgid "add category"
 msgstr "Category"
 
 msgid "change king in enum attribute"
+msgstr ""
+
+msgid "choose for edit enum attribute"
+msgstr ""
+
+msgid "interface to edit enum attribute"
 msgstr ""
 
 msgid "edit to add category"
@@ -1596,13 +1627,46 @@ msgstr "Start search"
 msgid "main view columns"
 msgstr "Start search"
 
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
 msgid "no message : post-it creation aborted"
+msgstr ""
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
 msgstr ""
 
 #, fuzzy
@@ -1716,45 +1780,6 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -1975,6 +2000,12 @@ msgstr ""
 msgid "Twprocess_public"
 msgstr ""
 
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "%s attribute"
 msgstr "Update Title Cards"
@@ -2075,11 +2106,30 @@ msgstr ""
 msgid "Action"
 msgstr "Edit"
 
+#, fuzzy, c-format
+msgid ""
+"errldapadd:%s\n"
+"%s\n"
+"%d\n"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
+
 #, c-format
 msgid "group #%d does not exist"
 msgstr ""
 
 msgid "group has not identificator"
+msgstr ""
+
+#, c-format
+msgid "%s group"
 msgstr ""
 
 #, c-format
@@ -2126,17 +2176,6 @@ msgid ""
 "what id already set in freedom\n"
 "This kind of document can not be duplicated"
 msgstr ""
-
-msgid "errldapadd"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
 
 #, fuzzy
 msgid "direct"
@@ -2266,6 +2305,10 @@ msgstr "Start search"
 msgid "no view control"
 msgstr "Start search"
 
+#, c-format
+msgid "current (<i>%s</i>)"
+msgstr ""
+
 msgid "cannot see unknow folder"
 msgstr ""
 
@@ -2345,19 +2388,31 @@ msgstr "Start search"
 msgid "Close"
 msgstr "Create"
 
-msgid "Properties:"
-msgstr ""
-
-#, fuzzy
-msgid "option: "
-msgstr "Edit"
-
 #, fuzzy
 msgid "Constraint test"
 msgstr "Edit"
 
 msgid "suggestions"
 msgstr ""
+
+#, fuzzy
+msgid "document differences"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view all attributes"
+msgstr "Title"
+
+#, fuzzy
+msgid "attributes"
+msgstr "Update Title Cards"
+
+msgid "Properties:"
+msgstr ""
+
+#, fuzzy
+msgid "option: "
+msgstr "Edit"
 
 msgid "workflow has been recomposed"
 msgstr ""
@@ -2970,6 +3025,26 @@ msgstr ""
 msgid "Create a new  process document"
 msgstr ""
 
+msgid "Refresh users characteristics from system"
+msgstr ""
+
+msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh users"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh LDAP"
+msgstr "Delete"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr ""
+
+msgid "Generic Management"
+msgstr ""
+
 msgid "users list"
 msgstr ""
 
@@ -2988,29 +3063,20 @@ msgstr "Create"
 msgid "view detail"
 msgstr "Start search"
 
-msgid "Refresh users characteristics from system"
-msgstr ""
-
-msgid "Refersh users may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh users"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh LDAP"
-msgstr "Delete"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr ""
-
 #, fuzzy
 msgid "CSV Import Users"
 msgstr "Import"
 
 #, fuzzy
 msgid "Import Users"
+msgstr "Import"
+
+#, fuzzy
+msgid "CSV Import Groups"
+msgstr "Import"
+
+#, fuzzy
+msgid "Import Groups"
 msgstr "Import"
 
 #, fuzzy
@@ -3028,17 +3094,6 @@ msgstr ""
 msgid "Modify"
 msgstr "Modify"
 
-msgid "Generic Management"
-msgstr ""
-
-#, fuzzy
-msgid "CSV Import Groups"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import Groups"
-msgstr "Import"
-
 #, fuzzy
 msgid "Sort"
 msgstr "Export selected cards"
@@ -3046,10 +3101,6 @@ msgstr "Export selected cards"
 #, fuzzy
 msgid "All document"
 msgstr "Delete"
-
-#, fuzzy
-msgid "Edit kind"
-msgstr "Edit"
 
 #, fuzzy
 msgid "invert order"
@@ -3076,6 +3127,10 @@ msgstr ""
 #, fuzzy
 msgid "memosearch"
 msgstr "Start search"
+
+#, fuzzy
+msgid "Edit attribute kinds"
+msgstr "Update Title Cards"
 
 msgid "level"
 msgstr ""
@@ -3212,6 +3267,10 @@ msgstr "Category"
 #, fuzzy
 msgid "toedit"
 msgstr "Edit"
+
+#, fuzzy
+msgid "enum attribute list"
+msgstr "Update Title Cards"
 
 #, fuzzy
 msgid "set as first family view"
@@ -3422,39 +3481,6 @@ msgstr "Category"
 #, fuzzy
 msgid "VCARD Import Result"
 msgstr "Import"
-
-msgid "enumerate input not found"
-msgstr ""
-
-#, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
-
-msgid "NOT Clear"
-msgstr ""
-
-#, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
-
-#, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
-msgstr ""
 
 #, fuzzy
 msgid "fromdate"
@@ -3712,6 +3738,13 @@ msgstr "Print this page"
 msgid "family manual"
 msgstr "Start search"
 
+#, fuzzy
+msgid "Version"
+msgstr "Organisation"
+
+msgid "View historique"
+msgstr ""
+
 msgid "author"
 msgstr ""
 
@@ -3763,12 +3796,20 @@ msgid "current folder"
 msgstr "Modify"
 
 #, fuzzy
+msgid "version"
+msgstr "Organisation"
+
+#, fuzzy
 msgid "rev"
 msgstr "Create"
 
 #, fuzzy
-msgid " date"
+msgid "date"
 msgstr "Edit"
+
+#, fuzzy
+msgid "diff"
+msgstr "Modify"
 
 #, fuzzy
 msgid "revised by"
@@ -3797,6 +3838,39 @@ msgid "it is the first"
 msgstr ""
 
 msgid "PubliPreview"
+msgstr ""
+
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "NOT Clear"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
 msgstr ""
 
 #, fuzzy
@@ -3890,6 +3964,10 @@ msgid "Create a batch"
 msgstr "Create"
 
 #, fuzzy
+msgid "Export Folder"
+msgstr "Delete"
+
+#, fuzzy
 msgid "Clear Folder"
 msgstr "Delete"
 
@@ -3981,6 +4059,14 @@ msgstr "No embed file"
 
 msgid "number of members"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Edit kind"
+#~ msgstr "Edit"
+
+#, fuzzy
+#~ msgid " date"
+#~ msgstr "Edit"
 
 #, fuzzy
 #~ msgid "no privilege %s"
@@ -4204,10 +4290,6 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "designation"
-#~ msgstr "Edit"
-
-#, fuzzy
-#~ msgid "date"
 #~ msgstr "Edit"
 
 #, fuzzy

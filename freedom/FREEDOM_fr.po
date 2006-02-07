@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-06 17:21+0100\n"
-"PO-Revision-Date: 2005-12-06 17:25+0100\n"
+"POT-Creation-Date: 2006-02-07 15:53+0100\n"
+"PO-Revision-Date: 2006-02-07 16:01+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,19 +24,6 @@ msgstr "la référence logique '%s' est inconnue"
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
 
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
@@ -160,6 +147,14 @@ msgid "unknow acl %s"
 msgstr "ACL  inconnu : %s"
 
 #, c-format
+msgid "LDAP Attribute modified to %s %s"
+msgstr "Attribut LDAP modifié %s %s"
+
+#, c-format
+msgid "LDAP Attribute added to %s %s"
+msgstr "Attribut LDAP ajouté à %s %s"
+
+#, c-format
 msgid "update id [%d] "
 msgstr "mise à jour id [%d] "
 
@@ -257,6 +252,26 @@ msgstr "absence d'adresse couriel"
 
 msgid "no avalaible persons found"
 msgstr "pas de personnes valides trouvées"
+
+msgid "cannot compare two document which comes from two different family"
+msgstr "la comparaison de 2 documents de famille différente ne peut être effectuée"
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
+msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -800,6 +815,9 @@ msgstr "exportation du premier fichier pour consultation"
 msgid "send a document"
 msgstr "envoyer un document"
 
+msgid "difference between 2 documents"
+msgstr "différence entre 2 documents"
+
 msgid "edit mail"
 msgstr "éditer un mail"
 
@@ -1206,6 +1224,12 @@ msgstr "création de processus"
 msgid "search processes"
 msgstr "recherche de processus"
 
+msgid "navigate between relations"
+msgstr "navigation entre relations"
+
+msgid "navigate between relations next"
+msgstr "navigation entre relations suivantes"
+
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -1308,6 +1332,12 @@ msgstr "ajout de catégorie"
 
 msgid "change king in enum attribute"
 msgstr "changer la catégorie d'un attribut énuméré"
+
+msgid "choose for edit enum attribute"
+msgstr "choix pour editer les attributs énumérés"
+
+msgid "interface to edit enum attribute"
+msgstr "interface pour éditer les attributs énumérés"
 
 msgid "edit to add category"
 msgstr "éditer pour l'ajout de catégorie"
@@ -1501,14 +1531,53 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
 msgid "no message : post-it creation aborted"
 msgstr "pas de message : création de post-it abandonné"
+
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
 
 msgid "creation"
 msgstr "création"
@@ -1618,51 +1687,6 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -1873,6 +1897,12 @@ msgstr "vers privé"
 msgid "Twprocess_public"
 msgstr "vers public"
 
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
 #, c-format
 msgid "%s attribute"
 msgstr "attribut %s"
@@ -1963,12 +1993,32 @@ msgstr "N"
 msgid "Action"
 msgstr "Action"
 
+#, fuzzy, c-format
+msgid ""
+"errldapadd:%s\n"
+"%s\n"
+"%d\n"
+msgstr ""
+"La fiche n'a pue être modifiée dans le serveur LDAP : %s\n"
+"%s\n"
+"%d\n"
+
+msgid "errldapconnect"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "errldaporginit"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
 #, c-format
 msgid "group #%d does not exist"
 msgstr "le groupe n°%d n'existe pas"
 
 msgid "group has not identificator"
 msgstr "Le groupe n'a pas d'identificateur"
+
+#, c-format
+msgid "%s group"
+msgstr "groupe %s"
 
 #, c-format
 msgid "group %d does not exist"
@@ -2016,17 +2066,6 @@ msgid ""
 "what id already set in freedom\n"
 "This kind of document can not be duplicated"
 msgstr "ce type de document ne peut être dupliqué"
-
-msgid "errldapadd"
-msgstr ""
-"La fiche n'a pue être modifiée dans le serveur LDAP : un de ces attributs "
-"n'est pas conforme"
-
-msgid "errldapconnect"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
-msgid "errldaporginit"
-msgstr "Le server LDAP n'a pas pu être contacté"
 
 msgid "direct"
 msgstr "direct"
@@ -2156,6 +2195,10 @@ msgstr "contrôle dynamique"
 msgid "no view control"
 msgstr "pas de contrôle de vues"
 
+#, c-format
+msgid "current (<i>%s</i>)"
+msgstr "courant (<i>%s</i>)"
+
 msgid "cannot see unknow folder"
 msgstr "dossier inconnu, ne peut être consulté"
 
@@ -2221,17 +2264,26 @@ msgstr " choisir une valeur"
 msgid "Close"
 msgstr "Fermer"
 
-msgid "Properties:"
-msgstr "Propriétés:"
-
-msgid "option: "
-msgstr "option: "
-
 msgid "Constraint test"
 msgstr "test des contraintes"
 
 msgid "suggestions"
 msgstr "suggestions"
+
+msgid "document differences"
+msgstr "différences de documents"
+
+msgid "view all attributes"
+msgstr "Voir tous les attributs"
+
+msgid "attributes"
+msgstr "attributs"
+
+msgid "Properties:"
+msgstr "Propriétés:"
+
+msgid "option: "
+msgstr "option: "
 
 msgid "workflow has been recomposed"
 msgstr "le cycle de vie a été regénéré"
@@ -2729,21 +2781,6 @@ msgstr "Choix des actions pour un traitement"
 msgid "Create a new  process document"
 msgstr "Créer un nouveau document processus"
 
-msgid "users list"
-msgstr "liste des utilisateurs"
-
-msgid "Groups"
-msgstr "Groupes"
-
-msgid "Admin"
-msgstr "Admin"
-
-msgid "Create new group"
-msgstr "Créer un nouveau groupe"
-
-msgid "view detail"
-msgstr "voir détails"
-
 msgid "Refresh users characteristics from system"
 msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
 
@@ -2760,11 +2797,35 @@ msgstr "Actualiser LDAP"
 msgid "Refresh LDAP may take long time. Sure ?"
 msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
 
+msgid "Generic Management"
+msgstr "Gestion générique"
+
+msgid "users list"
+msgstr "liste des utilisateurs"
+
+msgid "Groups"
+msgstr "Groupes"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Create new group"
+msgstr "Créer un nouveau groupe"
+
+msgid "view detail"
+msgstr "voir détails"
+
 msgid "CSV Import Users"
 msgstr "Importation utilisateurs par CSV"
 
 msgid "Import Users"
 msgstr "Importation d'utilisateurs"
+
+msgid "CSV Import Groups"
+msgstr "Importation Groupes par CSV"
+
+msgid "Import Groups"
+msgstr "Importation de groupes"
 
 msgid "Modify categories"
 msgstr "Modifier les catégories"
@@ -2778,23 +2839,11 @@ msgstr "Ajouter uo modifier des valeurs de catégorie"
 msgid "Modify"
 msgstr "Modifier"
 
-msgid "Generic Management"
-msgstr "Gestion générique"
-
-msgid "CSV Import Groups"
-msgstr "Importation Groupes par CSV"
-
-msgid "Import Groups"
-msgstr "Importation de groupes"
-
 msgid "Sort"
 msgstr "Tri"
 
 msgid "All document"
 msgstr "tous les documents"
-
-msgid "Edit kind"
-msgstr " éditer une catégorie"
 
 msgid "invert order"
 msgstr "ordre inverse"
@@ -2816,6 +2865,9 @@ msgstr "Inverser le découpage"
 
 msgid "memosearch"
 msgstr "mémo recherche"
+
+msgid "Edit attribute kinds"
+msgstr "Éditer les catégories"
 
 msgid "level"
 msgstr "niveau"
@@ -2941,6 +2993,9 @@ msgstr "ajout nouvelle catégorie"
 
 msgid "toedit"
 msgstr "éditer"
+
+msgid "enum attribute list"
+msgstr "liste des attributs énumérés"
 
 msgid "set as first family view"
 msgstr "enregistrer la famille comme la première à voir"
@@ -3120,36 +3175,6 @@ msgstr "Catégorie"
 
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
-
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
-
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
-
-msgid "NOT Clear"
-msgstr "Non effacé"
-
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
-
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
-
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
-
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
-
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
-
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
-
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -3368,6 +3393,12 @@ msgstr "imprimer"
 msgid "family manual"
 msgstr "Manuel de description de famille"
 
+msgid "Version"
+msgstr "Version"
+
+msgid "View historique"
+msgstr "Voir l'historique"
+
 msgid "author"
 msgstr "auteur"
 
@@ -3407,11 +3438,17 @@ msgstr "contrôle de vue de création"
 msgid "current folder"
 msgstr "dossier courant"
 
+msgid "version"
+msgstr "version"
+
 msgid "rev"
 msgstr "rev"
 
-msgid " date"
-msgstr " date"
+msgid "date"
+msgstr "date"
+
+msgid "diff"
+msgstr "diff"
 
 msgid "revised by"
 msgstr "révisé par"
@@ -3439,6 +3476,36 @@ msgstr "premier"
 
 msgid "PubliPreview"
 msgstr "prévisualisation"
+
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -3514,6 +3581,9 @@ msgstr "Insérer le porte-documents"
 
 msgid "Create a batch"
 msgstr "Créer un traitement"
+
+msgid "Export Folder"
+msgstr "Exportation du dossier"
 
 msgid "Clear Folder"
 msgstr "Vider le dossier"
@@ -3592,6 +3662,12 @@ msgstr "Membres"
 
 msgid "number of members"
 msgstr "Nombre de membres"
+
+#~ msgid "Edit kind"
+#~ msgstr " éditer une catégorie"
+
+#~ msgid " date"
+#~ msgstr " date"
 
 #~ msgid "cannot lock file %s (rev %d) : fixed. Get the latest version"
 #~ msgstr ""
@@ -4006,9 +4082,6 @@ msgstr "Nombre de membres"
 #~ msgid "serial number"
 #~ msgstr "n°série"
 
-#~ msgid "date"
-#~ msgstr "date"
-
 #~ msgid "double title %s <B>ignored</B> "
 #~ msgstr "titre en double %s <B>ignoré</B> "
 
@@ -4100,9 +4173,6 @@ msgstr "Nombre de membres"
 #~ msgstr ""
 #~ "Changement d'état : le changement d'état a été réalisé.\n"
 #~ "Par contre la fonction %s a retourné l'erreur suivante : %s."
-
-#~ msgid "Reference document"
-#~ msgstr "Documents référence"
 
 #~ msgid "Freedom : incident %s : transition to %s"
 #~ msgstr "Incident %s : transition vers %s"
