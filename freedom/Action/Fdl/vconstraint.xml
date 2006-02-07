@@ -110,7 +110,7 @@ function cok() {
 </script>   
  </head>
 
-<body style="padding:0pt;marging:0pt"
+<body style="padding:0pt;margin:0pt"
       onLoad="cok();autoHresize()">
 
 

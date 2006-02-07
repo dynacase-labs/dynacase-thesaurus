@@ -46,7 +46,7 @@ notalone=[notalone];
 </script>   
  </head>
 
-<body style="padding:0pt;marging:0pt"
+<body style="padding:0pt;margin:0pt"
       onLoad="autoClose();autoWresize()">
 
 
@@ -62,7 +62,6 @@ notalone=[notalone];
 <tr><td>
 [BLOCK SELECTSINGLE]
 <select id="schoose" 
-        style="align:center" 
 	onchange="completechoice(this.options[this.selectedIndex].value,tattrid,tattrv,winfo);setTimeout('self.close()',200);" > 
                     [BLOCK SELECT]
 <option value="[cindex]" >[choice]</option>        

@@ -6,7 +6,7 @@
  <tbody id="tbody[attrid]" >
   
      [BLOCK EATTR]<tr onmouseup="sdrag(event);" ><td width="50px" align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
-    [BLOCK [bevalue]]<td style="visibility2:[ehvis]" width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
+    [BLOCK [bevalue]]<td width="[vhw]">[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 <tr id="lasttr[attrid]">
 <td class="und" width="50px" align="right" >
@@ -14,7 +14,7 @@
 </td><td colspan="[footspan]"><img id="tiadd[attrid]" src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></td></tr>
   </tbody>
    <tfoot><tr style="display:none" onmouseup="sdrag(event);" id="tnew[attrid]"><td width="50px" align="left"><img   name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
-    [BLOCK IATTR]<td  style="visibility2:[ihvis]" width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
+    [BLOCK IATTR]<td  width="[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>
 </table>
