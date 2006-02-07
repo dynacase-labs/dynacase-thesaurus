@@ -1,0 +1,84 @@
+<?php
+/**
+ * Difference between 2 documents
+ *
+ * @author Anakeen 2006
+ * @version $Id: diffdoc.php,v 1.1 2006/02/07 14:51:55 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+
+
+
+include_once("FDL/Class.Dir.php");
+
+
+/**
+ * Compare 2 documents
+ * @param Action &$action current action
+ * @global id1 Http var : first document identificator to compare
+ * @global id2 Http var : second document identificator to compare
+ */
+function diffdoc(&$action) {  
+  $docid1 = GetHttpVars("id1");
+  $docid2 = GetHttpVars("id2");
+  if ($docid1 > $docid2) {   
+    $docid2 = GetHttpVars("id1");
+    $docid1 = GetHttpVars("id2");
+  }
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $d1=new_doc($dbaccess,$docid1);
+  $err=$d1->control("view");
+  if ($err != "") $action->exitError($err);
+  $d2=new_doc($dbaccess,$docid2);
+  $err=$d2->control("view");
+  if ($err != "") $action->exitError($err);
+
+  if ($d1->fromid != $d2->fromid) $action->exitError(sprintf(_("cannot compare two document which comes from two different family")));
+
+  $la=$d1->GetNormalAttributes();
+
+  foreach ($la as $k=>$a) {
+    $v1=$d1->getValue($a->id);
+    $v2=$d2->getValue($a->id);
+    if ($v1 == $v2) $cdiff="eq";
+    else $cdiff="ne";
+    switch ($a->type) {
+      case  "image":
+      $tattr[$a->id]=array("attname"=>$a->labelText,
+			   "v1"=>sprintf("<img src=\"%s\">",$d1->getHtmlValue($a,$v1)),
+			   "v2"=>sprintf("<img src=\"%s\">",$d2->getHtmlValue($a,$v2)),
+			   "cdiff"=>$cdiff);
+      break;
+    default:
+      $tattr[$a->id]=array("attname"=>$a->labelText,
+			 "v1"=>$d1->getHtmlValue($a,$v1),
+			 "v2"=>$d2->getHtmlValue($a,$v2),
+			 "cdiff"=>$cdiff);
+    }
+  }
+
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
+  $action->lay->set("document1",$d1->title);
+  $action->lay->set("id1",$d1->id);
+  $action->lay->set("date1",strftime ("%a %d %b %Y %H:%M",$d1->revdate));
+  $action->lay->set("version1",$d1->version);
+  $action->lay->set("revision1",$d1->revision);
+
+  $action->lay->set("document2",$d2->title);
+  $action->lay->set("id2",$d2->id);
+  $action->lay->set("date2",strftime ("%a %d %b %Y %H:%M",$d2->revdate));
+  $action->lay->set("version2",$d2->version);
+  $action->lay->set("revision2",$d2->revision);
+
+  $action->lay->set("title",sprintf(_("comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"),
+				    $d1->title,$d1->revision,
+				    $d2->title,$d2->revision));
+				    
+  $action->lay->setBlockData("ATTRS",$tattr);
+}
+?>

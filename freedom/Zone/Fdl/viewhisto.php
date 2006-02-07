@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.14 2006/02/07 10:05:33 eric Exp $
+ * @version $Id: viewhisto.php,v 1.15 2006/02/07 14:51:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,6 +26,7 @@ function viewhisto(&$action)
   $comment = GetHttpVars("comment",_("no comment"));
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
 
   $doc= new_Doc($dbaccess,$docid);
   $action->lay->Set("title",$doc->title);
@@ -97,10 +98,7 @@ function viewhisto(&$action)
   // not display detail display 
   $action->lay->Set("nodetail",($iversion>1));
   $action->lay->SetBlockData("TABLEBODY",$trdoc);
-  // js : manage icons
-  $licon = new Layout($action->GetLayoutFile("manageicon.js"),$action);
-  $licon->Set("nbdiv",1);
-  $action->parent->AddJsCode($licon->gen());
+ 
 }
 
 ?>

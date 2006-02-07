@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.30 2005/11/15 12:58:44 eric Exp $
+// $Id: FDL.app,v 1.31 2006/02/07 14:52:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -116,6 +116,11 @@ $action_desc = array (
   array( 
    "name"		=>"MAILCARD",
    "short_name"		=>N_("send a document"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"DIFFDOC",
+   "short_name"		=>N_("difference between 2 documents"),
    "acl"		=>"NORMAL"
   ) ,
   array( 

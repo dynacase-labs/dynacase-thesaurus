@@ -1,0 +1,43 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:document differences]]
+<style>
+TR.eq {
+  display:none;
+}
+TR.ne  {
+  background-color:[CORE_FGCOLOR];
+  color:[CORE_TEXTBGCOLOR];
+}
+</style>
+<script>
+function displaytr(event) {
+  var t=document.getElementsByName("eq");
+  var i=0;
+  var d;
+  if (t.length > 0) {
+    if (t[0].className=='eq')   d='';      
+    else d='eq';
+    
+    for ( i=0; i< t.length; i++) {      
+      t[i].className=d;
+    }
+  }
+  stopPropagation(event);
+  return false;
+}
+</script>
+<h3 style="text-align:center">[title]</h3>
+<table width="100%">
+<thead>
+<tr><th><a title="[TEXT:view all attributes]" onmousedown="displaytr(event,this);return false">[TEXT:attributes]</a></th>
+<th><a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id1]')">[document1]</a> [version1]/[revision1] - [date1] </th>
+<th><a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id2]')">[document2]</a> [version2]/[revision2] - [date2]</th></tr>
+</thead>
+<tbody>
+[BLOCK ATTRS]
+<tr name="[cdiff]" class="[cdiff]"><td>[attname]</td><td>[v1]</td><td>[v2]</td></tr>
+[ENDBLOCK ATTRS]
+</tbody>
+</table>
+
+
+[ZONE FDL:HTMLFOOT]
