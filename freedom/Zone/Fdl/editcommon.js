@@ -1547,12 +1547,7 @@ function sdrag(event) {
   
 }
 
-function stopPropagation(event) {
-  if (event.stopPropagation) event.stopPropagation();
-  else event.cancelBubble=true;
-  if (event.preventDefault) event.preventDefault();
-  else event.returnValue=true;  
-}
+
 function dragtr(event) {  
   if (dro && draggo) {
     GetXY(event); 

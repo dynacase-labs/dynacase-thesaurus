@@ -147,16 +147,19 @@ function trackMenuKey(event)
   if (((intKeyCode ==  93))) {
     // Ctrl-Menu
     openMenu(event,'popupcard',1);
+    stopPropagation(event);
     
-    if (event.stopPropagation) event.stopPropagation();
-    else event.cancelBubble=true;
-    if (event.preventDefault) event.preventDefault();
-    else event.returnValue=true;
     return false;
   }
   return true;
 }
-
+function stopPropagation(event) {
+  if (!event) event=window.event;
+  if (event.stopPropagation) event.stopPropagation();
+  else event.cancelBubble=true;
+  if (event.preventDefault) event.preventDefault();
+  else event.returnValue=true;  
+}
 // JScript source code
 //Red : 0..255
 //Green : 0..255
