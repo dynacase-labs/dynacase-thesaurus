@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.14 2005/11/29 05:52:01 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.15 2006/02/07 06:56:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -60,8 +60,11 @@ function explodeEvt($d1, $d2) {
       if ($this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) continue;
       $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
       $jdhs = StringDateToJD($hs);
-      $he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
-      $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+      $jdhe = $jdhs+$jdDuration;
+      $he = jd2cal($jdhe, 'FrenchLong');
+      if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+	$eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+      }
     }
     break;
 
@@ -72,10 +75,13 @@ function explodeEvt($d1, $d2) {
       if ($this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) continue;
       $id = (jdWeekDay($iday) - 1);
       if ($days[$id]) {
-	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
-	$jdhs = StringDateToJD($hs);
-	$he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
-        $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+        $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
+        $jdhs = StringDateToJD($hs);
+        $jdhe = $jdhs+$jdDuration;
+        $he = jd2cal(($jdhe), 'FrenchLong');
+        if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+          $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+        }
       }
     }
     break;
@@ -90,8 +96,11 @@ function explodeEvt($d1, $d2) {
 	if ($dayn != $rdaynum || $this->CalEvIsExclude(jd2cal($iday, 'FrenchLong'))) continue;
 	$hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
 	$jdhs = StringDateToJD($hs);
-	$he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
-	$eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+        $jdhe = $jdhs+$jdDuration;
+	$he = jd2cal($jdhe, 'FrenchLong');
+        if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+          $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+        }
       }
     } else {
       $odate = jd2cal($jdDateStart, 'FrenchLong');
@@ -113,8 +122,11 @@ function explodeEvt($d1, $d2) {
 	  if ($sd> 0 && $sd<7) {
 	    $hs = substr($fdate,0,10)." ".$hstart;
 	    $jdhs = StringDateToJD($hs);
-	    $he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
-	    $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+	    $jdhe = $jdhs+$jdDuration;
+	    $he = jd2cal($jdhe, 'FrenchLong');
+	    if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+	      $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
+	    }
 	  }
 	}
       }
