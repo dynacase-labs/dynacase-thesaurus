@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.292 2006/02/03 16:06:00 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.293 2006/02/07 10:04:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,32 +55,29 @@ define ("MAXGDOCS", 20);
  */
 Class Doc extends DocCtrl
 {
-  public $fields = array ( "id",
-			"owner",
-			"title",
-			"revision",
-			"initid",
-			"fromid",
-			"doctype",
-			"locked",
-			"icon",
-			"lmodify",
-			"profid",
-			"usefor",
-			"cdate",
-			"adate",
-			"revdate",
-			"comment",
-			"classname",
-			"state",
-			"wid",
-			"values",
-			"attrids",
-			"postitid",
-			"cvid",
-			"name",
-			"dprofid",
-			"atags",
+  public $fields = array ( "id","owner","title",
+			   "revision","version",
+			   "initid","fromid",
+			   "doctype",
+			   "locked",
+			   "icon",
+			   "lmodify",
+			   "profid",
+			   "usefor",
+			   "cdate",
+			   "adate",
+			   "revdate",
+			   "comment",
+			   "classname",
+			   "state",
+			   "wid",
+			   "values",
+			   "attrids",
+			   "postitid",
+			   "cvid",
+			   "name",
+			   "dprofid",
+			   "atags",
 			   "confidential",
 			   "ldapdn");
 
@@ -104,6 +101,11 @@ Class Doc extends DocCtrl
    * @public int
    */
   public $revision;
+  /**
+   * tag for version
+   * @public string
+   */
+  public $version;
   /**
    * identificator of the first revision document
    * @public int
@@ -279,7 +281,8 @@ create table doc ( id int not null,
                    lmodify char DEFAULT 'N',
                    profid int DEFAULT 0,
                    usefor char  DEFAULT 'N',
-                   revdate int,  
+                   revdate int, 
+                   version text,
                    cdate timestamp,  
                    adate timestamp,  
                    comment text,
@@ -440,6 +443,7 @@ final public function PostInsert()  {
       // set creation date
       $date = gettimeofday();
       $this->revdate = $date['sec'];
+      $this->version=$this->getVersion();
 
       if ($this->wid > 0) {
 	$wdoc = new_Doc($this->dbaccess,$this->wid);
@@ -470,6 +474,7 @@ final public function PostInsert()  {
 	// set modification date
 	$date = gettimeofday();
 	$this->revdate = $date['sec'];
+	$this->version=$this->getVersion();
 	//	$this->postModify(); // in modcard function
       }
       
@@ -1061,6 +1066,25 @@ final public function PostInsert()  {
 
     return $rev[0]["id"];
   }
+
+  /**
+   * get version of document 
+   * must be redefined by child document classes if needed
+   * @return string
+   */
+  final public function getVersion() { 
+    $tversion=array();
+    if (isset($this->attributes->attr)) {
+      foreach($this->attributes->attr as $k=>$v) {
+	if ((get_class($v) == "NormalAttribute") && ($v->getOption("version") == "yes")) {
+	  $tversion[]=$this->getValue($v->id);
+	}
+      }
+    }
+    $version=implode(" ",$tversion);
+    return $version;
+  }
+
 
   /**
    * return the string label text for a id
@@ -2967,7 +2991,7 @@ final public function PostInsert()  {
 	if ($attr->type != "image") {	
 	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
-	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="";
+	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="inherit";
 	  else $tableframe[$v]["ndisplay"]="none";
 	  $tableframe[$v]["classback"]=($attr->usefor=="O")?"FREEDOMOpt":"FREEDOMBack1";
 	  $v++;

@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.56 2006/02/03 16:08:39 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.57 2006/02/07 10:04:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -393,11 +393,15 @@ function createDocFile($dbaccess, $tdoc) {
   $dfile = "$pubdir/FDL$GEN/Class.Doc".$tdoc["id"].".php";
 
   $fphp=fopen($dfile,"w");
-  if ($fphp) {
-      fwrite($fphp,AttrtoPhp($dbaccess,$tdoc));
-      fclose($fphp);
-      @chmod ($dfile, 0666);  // write for nobody
+  if ($fphp) {    
+    $err=fwrite($fphp,AttrtoPhp($dbaccess,$tdoc));
+    if ($err === false) print_r2("cannot access $dfile");
+    fclose($fphp);
+    @chmod ($dfile, 0666);  // write for nobody
+  } else {
+    print_r2("cannot access $dfile");
   }
+
   return $dfile;
 }
 
