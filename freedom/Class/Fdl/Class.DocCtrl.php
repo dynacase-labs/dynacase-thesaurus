@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.31 2006/01/02 10:59:52 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.32 2006/02/07 17:20:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -14,7 +14,7 @@
 
 
 
-include_once("Class.DbObj.php");
+include_once("Class.DocLDAP.php");
 include_once("FDL/Class.DocPerm.php");
 include_once("FDL/Class.VGroup.php");
 
@@ -44,8 +44,7 @@ define ("POS_WF", 12); // begin of workflow privilege definition
  * @package FREEDOM
  *
  */
-Class DocCtrl extends DbObj
-{ 
+Class DocCtrl extends DocLDAP { 
   var $isCacheble= false;
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------

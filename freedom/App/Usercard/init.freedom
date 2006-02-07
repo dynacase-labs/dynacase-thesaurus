@@ -5,7 +5,6 @@ DFLDID;121;;;;;;;;;;;;;;
 ICON;personne.gif;;;;;;;;;;;;;;
 SCHAR;S;;;;;;;;;;;;;;
 METHOD;Method.DocUser.php;;;;;;;;;;;;;;
-METHOD;+Method.DocLDAP.php;;;;;;;;;;;;;;
 METHOD;+Method.FAddBook.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;options
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;;;
@@ -137,7 +136,6 @@ CPROFID;505;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;
 METHOD;Method.DocIGroup.php;;;;;;;;;;;;;;
-METHOD;+Method.DocLDAP.php;;;;;;;;;;;;;;
 METHOD;+Method.DocIntranet.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;GRP_FR_INTRANET;;Identification intranet;N;N;frame;0;W;;;;;;;
