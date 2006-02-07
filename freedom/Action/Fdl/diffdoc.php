@@ -3,7 +3,7 @@
  * Difference between 2 documents
  *
  * @author Anakeen 2006
- * @version $Id: diffdoc.php,v 1.1 2006/02/07 14:51:55 eric Exp $
+ * @version $Id: diffdoc.php,v 1.2 2006/02/07 16:35:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,22 +42,40 @@ function diffdoc(&$action) {
   $la=$d1->GetNormalAttributes();
 
   foreach ($la as $k=>$a) {
-    $v1=$d1->getValue($a->id);
-    $v2=$d2->getValue($a->id);
-    if ($v1 == $v2) $cdiff="eq";
-    else $cdiff="ne";
+
+    if ($a->type=="array") {
+      $v1=$d1->getAValues($a->id);
+      $v2=$d2->getAValues($a->id);
+      if ($v1 == $v2) $cdiff="eq";
+      else $cdiff="ne";
+      
+    } else {
+      $v1=$d1->getValue($a->id);
+      $v2=$d2->getValue($a->id);
+      if ($v1 == $v2) $cdiff="eq";
+      else $cdiff="ne";
+    }
+
+    if ($a->visibility == "H") $vdiff="hi";
+    else $vdiff=$cdiff;
+
+    if (! $a->inArray()) {
+
     switch ($a->type) {
       case  "image":
       $tattr[$a->id]=array("attname"=>$a->labelText,
 			   "v1"=>sprintf("<img src=\"%s\">",$d1->getHtmlValue($a,$v1)),
 			   "v2"=>sprintf("<img src=\"%s\">",$d2->getHtmlValue($a,$v2)),
-			   "cdiff"=>$cdiff);
+			   "cdiff"=>$cdiff,
+			   "vdiff"=>$vdiff);
       break;
     default:
       $tattr[$a->id]=array("attname"=>$a->labelText,
 			 "v1"=>$d1->getHtmlValue($a,$v1),
 			 "v2"=>$d2->getHtmlValue($a,$v2),
-			 "cdiff"=>$cdiff);
+			   "cdiff"=>$cdiff,
+			   "vdiff"=>$vdiff);
+    }
     }
   }
 
