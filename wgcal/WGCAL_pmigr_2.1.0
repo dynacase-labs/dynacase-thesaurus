@@ -1,4 +1,7 @@
 #!/bin/bash
-. /etc/freedom.conf
-wchoose -b
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
 $wpub/wsh.php --api=freedom_refresh --famid=CALEVENT --method=forceSync4jGuid
