@@ -3,7 +3,7 @@
 
 <tr>
 <td align="left" colspan="2" class="wMonthTextTitlePrevNext">
-<div style="font-size:120%;" width="100%" align="left">&nbsp;[month] - [TEXT:week] [week]</div>
+<div style="font-size:120%;" width="100%" align="left">&nbsp;[month] ([TEXT:week] [week])</div>
 <div witdh="100%" align="right">[IFNOT mforuser][owner][ENDIF mforuser]
 [IF mforuser]<select onchange="document.getElementById('ress').value = this.options[this.selectedIndex].value; document.getElementById('showWeek').submit();">[BLOCK foruser]<option value="[fid]" [selected]>[name][ENDBLOCK foruser]</select>
 [ENDIF mforuser]&nbsp;</div></td>
@@ -40,7 +40,16 @@
 </td></tr>
 
 <tr>
-<td align="left" colspan="2" class="wMonthTextTD">[TEXT:print date] [printdate][ZONE WGCAL:WGCAL_INFOS]</td>
+<td align="left" colspan="2" class="wMonthTextTD">
+
+<table  style="padding:0px;" align="center" width="100%" cellspacing="0px">
+<tr>
+<td class="wMonthTextTitlePrevNext">[TEXT:print date] [printdate][ZONE WGCAL:WGCAL_INFOS]</td>
+<td class="wMonthTextTitlePrevNext" align="right"><img height="35px" src="[IMG:wgcal.gif]"></td>
+</tr>
+</table>
+
+</td>
 </tr>
 </table>
 

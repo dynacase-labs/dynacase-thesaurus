@@ -49,6 +49,8 @@ function wgcal_textweek(&$action) {
   // prepare header & footer informations
   // ------------------------------------
   $ltext = "";
+  $f_tday = ucfirst(strftime("%A %d", $firstday));
+  $l_tday = ucfirst(strftime("%A %d", $lastday));
   $f_month = ucfirst(strftime("%B", $firstday));
   $l_month = ucfirst(strftime("%B", $lastday));
   $f_nmonth = ucfirst(strftime("%m", $firstday));
@@ -56,10 +58,10 @@ function wgcal_textweek(&$action) {
   $f_year = strftime("%Y", $firstday);
   $l_year = strftime("%Y", $lastday);
   if (strcmp($f_month,$l_month)!=0) {
-    if ($f_year!=$l_year)  $ltext = $f_month." ".$f_year.", ".$l_month." ".$l_year;
-    else $ltext = $f_month." ".$l_month." ".$l_year;
+    if ($f_year!=$l_year)  $ltext = $f_tday." ".$f_month." ".$f_year." - ".$l_tday." ".$l_month." ".$l_year;
+    else $ltext = $f_tday." ".$f_month." - ".$l_tday." ".$l_month.", ".$l_year;
   } else {
-    $ltext = $f_month." ".$l_year;
+    $ltext = $f_tday." - ".$l_tday.", ".$f_month." ".$l_year;
   }
   
   $action->lay->set("week", strftime("%V",$firstday));
@@ -78,12 +80,10 @@ function wgcal_textweek(&$action) {
   $catg = wGetCategories();
   $evlay = new Layout("WGCAL/Layout/wgcal_textweek_event.xml", $action );
   $daysev = array();
-
   setHttpVar("ress",$ress);
   $d1 = "".$f_year."-".$f_nmonth."-".$f_day." 00:00:00";
   $d2 = "".$l_year."-".$l_nmonth."-".$l_day." 23:59:59";
   $tevents = wGetEvents($d1, $d2);
-
   // sort by date....
   usort($tevents, cmpRv);
   
