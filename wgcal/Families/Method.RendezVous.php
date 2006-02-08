@@ -811,7 +811,7 @@ function EventSetCategory($evcategory) {
     $tcat = array(); $ntc = 0;
     foreach ($catg as $k => $v) {
       $tcat[$ntc]["value"] = $v["id"];
-      $tcat[$ntc]["descr"] = $v["label"];
+      $tcat[$ntc]["descr"] = ucwords(strtolower($v["label"]));
       $tcat[$ntc]["selected"] = ($v["id"] == $evcategory ? "selected" : "");
       $ntc++;
     }
@@ -956,7 +956,7 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
   foreach ($avis as $k => $v) {
     if ($none && $k==2) continue;
     $tconf[$ic]["value"] = $k;
-    $tconf[$ic]["descr"] = $v;
+    $tconf[$ic]["descr"] = ucwords(strtolower($v));
     $tconf[$ic]["selected"] = ($vis==$k?"selected":"");
     $ic++;
   }

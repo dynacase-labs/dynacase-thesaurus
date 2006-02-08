@@ -563,7 +563,7 @@ msgid "suppress delegation for"
 msgstr "Supprimer la délégation pour "
 
 msgid "delegate all my event to this person"
-msgstr "délégation de tout mes rendez-vous à cette personne"
+msgstr "délégation de tous mes rendez-vous à cette personne"
 
 msgid "add delegation ..."
 msgstr "Ajout d'une délégation..."
@@ -707,7 +707,7 @@ msgid "click on ressource to select/unselect"
 msgstr "Cliquer pour sélectionner/déselectionner "
 
 msgid "every"
-msgstr "Tout les"
+msgstr "Tous les"
 
 msgid "none"
 msgstr "jamais"
