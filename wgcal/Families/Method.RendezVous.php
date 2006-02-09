@@ -666,8 +666,6 @@ function RendezVousEdit() {
 	  if ($m) $mailadd .= ($mailadd==""?"":", ").$u->getValue("US_FNAME")." ".$u->getValue("US_LNAME")." <".$m.">";
 	}
       }
-      $ro = false;
-      
     } 
   else 
     {
@@ -683,7 +681,7 @@ function RendezVousEdit() {
       $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
       $ogrp    = "-";
       $evrepeat = 0;
-      $evrweekd = 0;
+      $evrweekd = pow(2, strftime("%u",$evstart)-1);
       $evrmonth = 0;
       $evruntil = 0;
       $evruntild = $timee + (7*24*3600);
@@ -709,8 +707,6 @@ function RendezVousEdit() {
       $creatorid = $action->user->fid;
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
       $ownertitle = $attru["title"];
-      $ro = false;
-
     }
 
   $this->lay->set("EVENTID", $eventid);
@@ -789,13 +785,13 @@ function RendezVousEdit() {
 
   $this->lay->set("rvlocation", $this->getValue("calev_location"));
 
-  $this->EventSetDate($evstart, $evend, $evtype, $ro);
-  $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp, $ro);
-  $this->EventSetCalendar($evcal, $ro);
+  $this->EventSetDate($evstart, $evend, $evtype);
+  $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp);
+  $this->EventSetCalendar($evcal);
   $this->EventSetAlarm();
-  $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld, $ro);
+  $this->EventSetRepeat($evrepeat, $evrweekd, $evrmonth, $evruntil, $evruntild, $evfreq, $evrexcld);
   $this->EventSetCategory($evcategory);
-  $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme, $ro);
+  $this->EventAddAttendees($ownerid, $attendees, $attendeesState, $attendeesGroup, $withme);
 
   return;  
 }    
@@ -819,14 +815,12 @@ function EventSetCategory($evcategory) {
   }
 }
 
-function EventSetDate($dstart, $dend, $type, $ro) 
+function EventSetDate($dstart, $dend, $type) 
 {
   global $action;
   $this->lay->set("NOHOURINIT", ($type==1?"checked":""));
-  $this->lay->set("NOHOURRO", ($ro?"disabled":""));
   $this->lay->set("NOHOURDISP", ($type==2?"hidden":"visible"));
   $this->lay->set("ALLDAYINIT", ($type==2?"checked":""));
-  $this->lay->set("ALLDAYRO", ($ro?"disabled":""));
   $this->lay->set("ALLDAYDISP", ($type==1?"hidden":"visible"));
   if ($type==1 || $type==2) $this->lay->set("HVISIBLE", "hidden");
   else $this->lay->set("HVISIBLE", "visible");
@@ -882,17 +876,9 @@ function EventSetDate($dstart, $dend, $type, $ro)
   }
   $this->lay->setBlockData("EHMSEL", $th);
  
-  if ($ro) {
-    $this->lay->set("DATEBUTVIS", "none");
-    $this->lay->set("DATERO", "disabled");
-  } else {
-    $this->lay->set("DATEBUTVIS", "");
-    $this->lay->set("DATERO", "");
-  }
-  $this->lay->set("DATEVIS", (($allday || $nohour)?"none":""));
 }
 
-function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
+function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp) {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
 
@@ -966,7 +952,7 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp, $ro) {
 
 }
   
-function EventSetCalendar($cal, $ro) {
+function EventSetCalendar($cal) {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
   $acal = WGCalGetMyCalendars($action->GetParam("FREEDOM_DB"));
@@ -979,7 +965,6 @@ function EventSetCalendar($cal, $ro) {
     $ic++;
   }
   $this->lay->SetBlockData("CALS", $tconf);
-  $this->lay->set("rvcalro", ($ro?"disabled":""));
   $this->lay->set("fullattendees", ($cal==-1?"":"none"));
 }
 
@@ -1014,7 +999,7 @@ function EventSetAlarm() {
 }
 
 function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
-			$runtildate, $freq, $recxlude = array(), $ro = false )
+			$runtildate, $freq, $recxlude = array())
 {
 
   $this->lay->set("REPEAT_SELECTED", "");
@@ -1025,7 +1010,6 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   for ($i=0; $i<=6; $i++) {
     $td[$i]["rdstate"] = (($rday & pow(2,$i)) == pow(2,$i) ? "checked" : "" );
     $td[$i]["dayn"] = $i;
-    $td[$i]["repeatdis"] = ($ro?"disabled":"");
     $td[$i]["tDay"] = $tday[$i];
     if ($i==4) $td[$i]["weekend"] = true;
     else $td[$i]["weekend"] = false;
@@ -1068,8 +1052,6 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
     }
     if ($ide>0) $this->lay->setBlockData("EXCLDATE", $rx);
   }
-  $this->lay->set("repeatvie", ($ro?"none":""));
-  $this->lay->set("repeatdis", ($ro?"disabled":""));
   
 }
 

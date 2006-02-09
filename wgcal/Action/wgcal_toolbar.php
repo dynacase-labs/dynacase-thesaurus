@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.61 2005/12/09 15:34:20 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.62 2006/02/09 11:31:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -178,7 +178,8 @@ function _listress() {
       PopupActive('resspopup', $rd->id, 'changeresscolor');
       PopupActive('resspopup', $rd->id, 'rcalendar');
       PopupActive('resspopup', $rd->id, 'rrendezvous');
-      PopupActive('resspopup', $rd->id, 'removeress');
+      if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
+      else PopupActive('resspopup', $rd->id, 'removeress');
       PopupInvisible('resspopup', $rd->id, 'onlyme');
       PopupActive('resspopup', $rd->id, 'rvprefered');
       PopupActive('resspopup', $rd->id, 'displayallr');
