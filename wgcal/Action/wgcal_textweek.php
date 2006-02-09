@@ -7,8 +7,8 @@ function wgcal_textweek(&$action) {
   include_once("WGCAL/Lib.Agenda.php");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->lay->set("dayheight", "300");
-  $action->lay->set("daywidth", "180");
+  $action->lay->set("dayheight", "300px");
+  $action->lay->set("daywidth", "50%");
 
   $week = GetHttpVars("week", 0);
   if ($week>0) $ctime = $week;
@@ -98,10 +98,10 @@ function wgcal_textweek(&$action) {
       $hours = "("._("no hour").")"; 
       break;
     case 2: 
-      $hours = "("._("all the day").")"; 
+      $hours = "("._("all the day _ short").")"; 
       break;
     default:
-      $hours = $lstart." - ".$lend;
+      $hours = $lstart." ".$lend;
     }
 
     
@@ -131,7 +131,13 @@ function wgcal_textweek(&$action) {
   $dayl = array( "monday", "tuesday", "wenesday", "thursday", "friday", "saturday", "sunday" );
   for ($day=0; $day<7; $day++) {
     $action->lay->set($dayl[$day]."_num", strftime("%d", $firstday + ($day*3600*24)));
-    $action->lay->setBlockData("b_".$dayl[$day], $daysev[$day]);
+    $action->lay->set($dayl[$day]."_month", strftime("%B", $firstday + ($day*3600*24)));
+    if (count($daysev[$day])>0) {
+      $action->lay->setBlockData("b_".$dayl[$day], $daysev[$day]);
+      $action->lay->set("s_".$dayl[$day], true);
+    } else{
+      $action->lay->set("s_".$dayl[$day], false);
+    }
   }
 
 }

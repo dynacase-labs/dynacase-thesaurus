@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.27 2006/02/07 16:07:00 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.28 2006/02/09 15:57:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -102,7 +102,8 @@ function wgcal_menu(&$action) {
 						  "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTWEEK",
 						  "tgt" => "wgcal_weektext", 
 						  "ico" => "wgcal-weektext.gif",
-						  "rig" => "WGCAL_USER"
+						  "rig" => "WGCAL_USER",
+						  "showmbar" => "true"
 						  ),
 					   )
 			 ),
@@ -253,6 +254,7 @@ function wgcal_menu(&$action) {
       $items[$imi]["jscode"] = (isset($vmi["jsc"]) && $vmi["jsc"]!="" ? true : false);
       $items[$imi]["launch"] = (isset($vmi["act"]) && $vmi["act"]!="" ? true : false);
       $items[$imi]["POPUPICONS"] = $picons;
+      $items[$imi]["showmbar"] = (isset($vmi["showmbar"]) ? $vmi["showmbar"] : "false");
       $imi++;
     }
     $mLay->SetBlockData("MITEMS", $items);

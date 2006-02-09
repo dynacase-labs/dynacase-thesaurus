@@ -1,46 +1,70 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?W=700&H=800&RZ=HV]
-<table  style="padding:1em;" align="center" width="100%" cellspacing="2px">
+[ZONE WGCAL:WGCAL_HTMLHEAD?H=800&W=700]
+<style>
+.impT { 
+  border : 0px;
+  margin : 0px;
+  padding : 2px;
+}
+</style>
+<table  border="1" align="center" width="100%" cellspacing="2px">
 
 <tr>
 <td align="left" colspan="2" class="wMonthTextTitlePrevNext">
-<div style="font-size:120%;" width="100%" align="left">&nbsp;[month] ([TEXT:week] [week])</div>
+<div style="font-size:150%;" width="100%" align="left">&nbsp;[month] ([TEXT:week] [week])</div>
 <div witdh="100%" align="right">[IFNOT mforuser][owner][ENDIF mforuser]
 [IF mforuser]<select onchange="document.getElementById('ress').value = this.options[this.selectedIndex].value; document.getElementById('showWeek').submit();">[BLOCK foruser]<option value="[fid]" [selected]>[name][ENDBLOCK foruser]</select>
 [ENDIF mforuser]&nbsp;</div></td>
 </tr>
 
-<tr class="noprint" valign="top">
-<td class="wMonthTextTD" width="[daywidth]px"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="self.print()">[TEXT:print]</span> ] </td>
-<td align="right" class="wMonthTextTD" width="[daywidth]px"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [prevweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lprevweek]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [curweek]; document.getElementById('showWeek').submit()">[TEXT:current week]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [nextweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lnextweek]</span> ] </td></tr>
+<tr class="noprint" valign="top"><td class="wMonthTextTD" style="width:[daywidth]"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="self.print()">[TEXT:print]</span> ] </td><td align="right" class="wMonthTextTD" style="width:[daywidth]"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [prevweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lprevweek]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [curweek]; document.getElementById('showWeek').submit()">[TEXT:current week]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [nextweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lnextweek]</span> ] </td></tr>
 
-<tr valign="top"><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[monday_num]&nbsp;</span>&nbsp;[TEXT:monday]</div>
+<tr valign="top">
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<table class="impT" width="100%" cellspacing="0">
+<tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:monday] [monday_num] [monday_month]</td></tr>
 [BLOCK b_monday][eventsdesc][ENDBLOCK b_monday]
-</td><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[thursday_num]&nbsp;</span>&nbsp;[TEXT:thursday]</div>
+</table>
+</td>
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<table class="impT" width="100%" cellspacing="0">
+<tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:thursday] [thursday_num] [thursday_month]</td></tr>
 [BLOCK b_thursday][eventsdesc][ENDBLOCK b_thursday]
+</table>
 </td></tr>
 
-<tr valign="top"><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[tuesday_num]&nbsp;</span>&nbsp;[TEXT:tuesday]</div>
+<tr valign="top">
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<table class="impT" width="100%" cellspacing="0">
+<tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:tuesday] [tuesday_num] [tuesday_month]</td></tr>
 [BLOCK b_tuesday][eventsdesc][ENDBLOCK b_tuesday]
-</td><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[friday_num]&nbsp;</span>&nbsp;[TEXT:friday]</div>
+</table>
+</td>
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<table class="impT" width="100%" cellspacing="0">
+<tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:friday] [friday_num] [friday_month]</td></tr>
 [BLOCK b_friday][eventsdesc][ENDBLOCK b_friday]
+</table>
 </td></tr>
 
-<tr valign="top"><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[wenesday_num]&nbsp;</span>&nbsp;[TEXT:wenesday]</div>
+<tr valign="top">
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<table class="impT" width="100%" cellspacing="0">
+<tr><td colspan="2"  class="wMonthTextDayTitle">[TEXT:wenesday] [wenesday_num] [wenesday_month]</td></tr>
 [BLOCK b_wenesday][eventsdesc][ENDBLOCK b_wenesday]
-</td><td height="[dayheight]px" class="wMonthTextTD" width="[daywidth]px">
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[saturday_num]&nbsp;</span>&nbsp;[TEXT:saturday]</div>
-[BLOCK b_saturday][eventsdesc][ENDBLOCK b_saturday]
-<div class="wMonthTextDayTitle"><span class="wMonthTextTitlePrevNext" align="left">&nbsp;[sunday_num]&nbsp;</span>&nbsp;[TEXT:sunday]</div>
-[BLOCK b_sunday][eventsdesc][ENDBLOCK b_sunday]
+</table>
+</td>
+<td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
+<div style="height:50%"><table class="impT" width="100%" cellspacing="0">
+  <tr><td class="wMonthTextDayTitle">[TEXT:saturday] [saturday_num] [saturday_month]</td></tr>
+  [BLOCK b_saturday][eventsdesc][ENDBLOCK b_saturday]
+</table></div>
+<div style="height:50%"><table class="impT" width="100%" cellspacing="0">
+  <tr><td class="wMonthTextDayTitle">[TEXT:sunday] [sunday_num] [sunday_month]</td></tr>
+  [BLOCK b_sunday][eventsdesc][ENDBLOCK b_sunday]
+</table></div>
 </td></tr>
 
-<tr>
-<td align="left" colspan="2" class="wMonthTextTD">
+<tr><td align="left" colspan="2" class="wMonthTextTD">
 
 <table  style="padding:0px;" align="center" width="100%" cellspacing="0px">
 <tr>

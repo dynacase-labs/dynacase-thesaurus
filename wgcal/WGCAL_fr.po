@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 11:34+0100\n"
+"POT-Creation-Date: 2006-02-09 16:39+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -87,6 +87,9 @@ msgstr "Ce rendez-vous a été positionné ou modifié par"
 
 msgid "all the day"
 msgstr "Toute la journée"
+
+msgid "all the day _ short"
+msgstr "La journée"
 
 msgid "no sync made"
 msgstr "jamais synchronisé"
@@ -649,9 +652,6 @@ msgstr "Confidentialité"
 
 msgid "in calendar"
 msgstr "Calendrier"
-
-msgid "location"
-msgstr "Lieu"
 
 msgid "alarm"
 msgstr "Alarme"
@@ -1437,6 +1437,9 @@ msgstr "Groupes utilisés"
 
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "location"
+#~ msgstr "Lieu"
 
 #, fuzzy
 #~ msgid "text location"
