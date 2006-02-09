@@ -55,11 +55,11 @@
 </td>
 <td height="[dayheight]" class="wMonthTextTD" style="width:[daywidth]">
 <div style="height:50%"><table class="impT" width="100%" cellspacing="0">
-  <tr><td class="wMonthTextDayTitle">[TEXT:saturday] [saturday_num] [saturday_month]</td></tr>
+  <tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:saturday] [saturday_num] [saturday_month]</td></tr>
   [BLOCK b_saturday][eventsdesc][ENDBLOCK b_saturday]
 </table></div>
 <div style="height:50%"><table class="impT" width="100%" cellspacing="0">
-  <tr><td class="wMonthTextDayTitle">[TEXT:sunday] [sunday_num] [sunday_month]</td></tr>
+  <tr><td colspan="2" class="wMonthTextDayTitle">[TEXT:sunday] [sunday_num] [sunday_month]</td></tr>
   [BLOCK b_sunday][eventsdesc][ENDBLOCK b_sunday]
 </table></div>
 </td></tr>
