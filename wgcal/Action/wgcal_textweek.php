@@ -3,12 +3,15 @@
 
 function wgcal_textweek(&$action) {
 
+  global $_SERVER;
+
   include_once("WGCAL/Lib.wTools.php");
   include_once("WGCAL/Lib.Agenda.php");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->lay->set("dayheight", "300px");
   $action->lay->set("daywidth", "50%");
+  $action->lay->set("server", $_SERVER["HTTP_HOST"]);
 
   $week = GetHttpVars("week", 0);
   if ($week>0) $ctime = $week;
