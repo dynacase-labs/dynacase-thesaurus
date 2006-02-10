@@ -3,7 +3,7 @@
  * Generate Php Document Classes
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.15 2006/02/03 16:02:52 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.16 2006/02/10 15:32:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -59,17 +59,7 @@ if ($query->nb > 0)	{
 
   $pubdir = $appl->GetParam("CORE_PUBDIR");
 
-
-  foreach ($tid as $k=>$v)   {	     
-    if ($v["usefor"] != "W") { 
-      $phpfile=createDocFile($dbaccess,$v);
-      print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
-      $msg=PgUpdateFamilly($dbaccess, $v["id"]);
-      print $msg;    
-      activateTrigger($dbaccess, $v["id"]);
-    }    
-  }	 
-  // workflow at the end
+ // workflow at the end
   foreach ($tid as $k=>$v)   {	     
     if ($v["usefor"] == "W") { 
       $phpfile=createDocFile($dbaccess,$v);
@@ -81,7 +71,18 @@ if ($query->nb > 0)	{
       $wdoc->CreateProfileAttribute();// add special attribute for workflow
       activateTrigger($dbaccess, $v["id"]);
     }    
-  }	   
+  }
+
+  foreach ($tid as $k=>$v)   {	     
+    if ($v["usefor"] != "W") { 
+      $phpfile=createDocFile($dbaccess,$v);
+      print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
+      $msg=PgUpdateFamilly($dbaccess, $v["id"]);
+      print $msg;    
+      activateTrigger($dbaccess, $v["id"]);
+    }    
+  }	 
+ 	   
  }      
     
 
