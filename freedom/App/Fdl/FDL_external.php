@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.41 2005/10/21 15:26:00 eric Exp $
+ * @version $Id: FDL_external.php,v 1.42 2006/02/10 15:32:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -318,7 +318,7 @@ function getDocAttr($dbaccess, $famid, $name="") {
 function getSortAttr($dbaccess, $famid, $name="",$sort=true) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   
-  $doc = createDoc($dbaccess, $famid);
+  $doc = createDoc($dbaccess, $famid,false);
   // internal attributes
   $ti = array("title" => _("doctitle"),
 	      "revdate" => _("revdate"),
