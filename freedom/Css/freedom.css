@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.86 2006/02/07 10:05:25 eric Exp $
+ * $Id: freedom.css,v 1.87 2006/02/10 15:33:45 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -843,6 +843,30 @@ DIV.fldh {
 }
 DIV.fldh IMG:hover {
        background-color:[CORE_BGCOLORHIGH];
+}
+DIV.line {
+  border-style:solid none none none;
+  border-width:1px;
+  border-color: [CORE_BGCOLORHIGH];
+  clear:both;	
+}
+DIV.tabsh SPAN  {
+  border-width : 1px;
+  border-style :outset;
+  border-color : [CORE_BGCOLORALTERN];
+[IFNOT ISIE]  background-image:url('[IMG:tabvig.png]');
+  -moz-border-radius: 8 8 0 0;	 [ENDIF ISIE]
+[IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
+  background-color : [CORE_BGCOLORALTERN];
+  padding:2px;
+  cursor:pointer;
+  float:left;
+}
+
+
+DIV.tabsh SPAN.tabsel  {
+  background-color : [CORE_FGCOLOR];
+  color : [CORE_TEXTBGCOLOR];	
 }
 #thefolderh {
    border:solid [CORE_BGCOLORALTERN] 1px;

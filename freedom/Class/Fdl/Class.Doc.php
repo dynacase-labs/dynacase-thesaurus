@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.293 2006/02/07 10:04:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.294 2006/02/10 15:33:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -2906,10 +2906,10 @@ final public function PostInsert()  {
     $changeframe=false; // is true when need change frame
     $tableframe=array();
     $tableimage=array();
-     
+    $ttabs=array();
 
     $iattr=0;
-    while (list($i,$attr) = each($listattr)) {
+    foreach($listattr as $i=>$attr) {
       $iattr++;
 
       //------------------------------
@@ -2945,6 +2945,14 @@ final public function PostInsert()  {
 				      
 	      $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
 	      $frames[$k]["frameid"]=$currentFrameId;
+	      $frames[$k]["tag"]="";
+	      $frames[$k]["TAB"]=false;;
+	      if (($currentFrame->fieldSet->id!="")&&($currentFrame->fieldSet->id!="FIELD_HIDDENS")) {
+		$frames[$k]["tag"]="TAG".$currentFrame->fieldSet->id;
+		$frames[$k]["TAB"]=true;
+		$ttabs[$currentFrame->fieldSet->id]=array("tabid"=>$currentFrame->fieldSet->id,
+							    "tabtitle"=>ucfirst($currentFrame->fieldSet->labelText));
+	      }
 	      $frames[$k]["rowspan"]=$v+1; // for images cell
 	      $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
@@ -2983,7 +2991,10 @@ final public function PostInsert()  {
 		
 	  }
 
-	if (($attr->fieldSet->mvisibility!="H")&&($htmlvalue!=="")) $currentFrameId = $attr->fieldSet->id;
+	if (($attr->fieldSet->mvisibility!="H")&&($htmlvalue!=="")) {
+	  $currentFrameId = $attr->fieldSet->id;
+	  $currentFrame = $attr->fieldSet;
+	}
 
 
 	
@@ -3010,6 +3021,14 @@ final public function PostInsert()  {
 				      
 	$frames[$k]["frametext"]=$this->GetLabel($currentFrameId);
 	$frames[$k]["frameid"]=$currentFrameId;
+	$frames[$k]["tag"]="";
+	$frames[$k]["TAB"]=false;;
+	if (($currentFrame->fieldSet->id!="")&&($currentFrame->fieldSet->id!="FIELD_HIDDENS")) {
+	  $frames[$k]["tag"]="TAG".$currentFrame->fieldSet->id;
+	  $frames[$k]["TAB"]=true;
+	  $ttabs[$currentFrame->fieldSet->id]=array("tabid"=>$currentFrame->fieldSet->id,
+						      "tabtitle"=>ucfirst($currentFrame->fieldSet->labelText));
+	}
 	$frames[$k]["rowspan"]=$v+1; // for images cell
 	$frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 
@@ -3024,11 +3043,10 @@ final public function PostInsert()  {
 
 
     $this->lay->SetBlockData("TABLEBODY",$frames);
+    $this->lay->SetBlockData("TABS",$ttabs);
+    $this->lay->Set("ONETAB",count($ttabs)>0);
+    if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
   
-
-
-
-
   }
   
   /**
@@ -3250,6 +3268,7 @@ final public function PostInsert()  {
     $ih = 0; // index for hidden values
     $thidden =array();
     $tableframe=array();
+    $ttabs=array();
 
     $iattr=0;
 
@@ -3281,6 +3300,14 @@ final public function PostInsert()  {
 	      
 	  $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
 	  $frames[$k]["frameid"]=$currentFrameId;
+	  $frames[$k]["tag"]="";
+	  $frames[$k]["TAB"]=false;;
+	  if (($currentFrame->fieldSet->id!="")&&($currentFrame->fieldSet->id!="FIELD_HIDDENS")) {
+	    $frames[$k]["tag"]="TAG".$currentFrame->fieldSet->id;
+	    $frames[$k]["TAB"]=true;
+	    $ttabs[$currentFrame->fieldSet->id]=array("tabid"=>$currentFrame->fieldSet->id,
+						      "tabtitle"=>ucfirst($currentFrame->fieldSet->labelText));
+	  }
 	  $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
 	  $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
 				   $tableframe);
@@ -3297,6 +3324,7 @@ final public function PostInsert()  {
     
 	      
       $currentFrameId = $listattr[$i]->fieldSet->id;
+      $currentFrame = $listattr[$i]->fieldSet;
       if ( ($listattr[$i]->mvisibility == "H") || 
 	   ($listattr[$i]->mvisibility == "R") ) {
 	// special case for hidden values
@@ -3345,6 +3373,14 @@ final public function PostInsert()  {
       $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
       $frames[$k]["frameid"]=$currentFrameId;
       $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
+      $frames[$k]["tag"]="";
+      $frames[$k]["TAB"]=false;;
+      if (($currentFrame->fieldSet->id!="")&&($currentFrame->fieldSet->id!="FIELD_HIDDENS")) {
+	$frames[$k]["tag"]="TAG".$currentFrame->fieldSet->id;
+	$frames[$k]["TAB"]=true;
+	$ttabs[$currentFrame->fieldSet->id]=array("tabid"=>$currentFrame->fieldSet->id,
+						      "tabtitle"=>ucfirst($currentFrame->fieldSet->labelText));
+      }
       $this->lay->SetBlockData($frames[$k]["TABLEVALUE"],
 			       $tableframe);
 	    
@@ -3352,6 +3388,9 @@ final public function PostInsert()  {
     
     $this->lay->SetBlockData("HIDDENS",$thidden);
     $this->lay->SetBlockData("TABLEBODY",$frames);
+    $this->lay->SetBlockData("TABS",$ttabs);
+    $this->lay->Set("ONETAB",count($ttabs)>0);
+    if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
   
   
 

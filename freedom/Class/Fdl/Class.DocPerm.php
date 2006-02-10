@@ -3,7 +3,7 @@
  * Document permissions
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.13 2006/01/02 10:59:52 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.14 2006/02/10 15:33:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -11,10 +11,6 @@
  */
 
 
-
-
-
-$CLASS_DOCPERM_PHP = '$Id: Class.DocPerm.php,v 1.13 2006/01/02 10:59:52 eric Exp $';
 include_once("Class.DbObj.php");
 
 /**
@@ -66,9 +62,9 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
 
   function getUperm($docid, $userid) {
     $q = new QueryDb($this->dbaccess, "docperm");
-    $t = $q -> Query(0,1,"TABLE","select getuperm($userid,$docid) as uperm");
-
-    return $t[0]["uperm"];
+    $t = $q->Query(0,1,"TABLE","select getuperm($userid,$docid) as uperm");
+    
+    return (($q->nb>0)?$t[0]["uperm"]:0);
   }
   function recomputeControl() {
     if ($this->docid > 0) 

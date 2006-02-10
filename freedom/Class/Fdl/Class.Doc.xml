@@ -6,8 +6,8 @@ include_once("FDL[GEN]/Class.[DocParent1].php");
 Class ADoc[docid] extends [AParent] {
     // for familly : [title]
 
-   function ADoc[docid] () {
-      [AParent]::[AParent]();
+   function __construct () {
+      [AParent]::__construct();
 
      [BLOCK AATTR]
      $this->attr["[attrid]"]=new ActionAttribute("[attrid]", "[docid]","[label]",[order],"[visibility]","[wapplication]","[waction]","[options]");
@@ -18,7 +18,7 @@ Class ADoc[docid] extends [AParent] {
     
      [ENDBLOCK MATTR]
      [BLOCK FATTR]
-     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]","[visibility]","[usefor]");
+     $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]","[visibility]","[usefor]","[type]",$this->attr["[frame]"]);
 
      [ENDBLOCK FATTR]
      [BLOCK NATTR]

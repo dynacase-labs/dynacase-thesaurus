@@ -4,7 +4,7 @@
 
 <input type="hidden" name="title" value="[TITLE]"></input>
 
-<fieldset class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
+<fieldset id="F[frameid]" [IF TAB]name="[tag]" style="display:none" [ENDIF TAB]class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
 
 <div id="T[frameid]" >
             [BLOCK [TABLEVALUE]]
@@ -33,3 +33,12 @@
 [inputtype]
 [ENDBLOCK HIDDENS]
 </div>
+
+[IF ONETAB]
+<div id="ttabs" class="tabsh" >
+[BLOCK TABS]
+<span  name="spantabs" onclick="showFieldset(event,this,'TAG[tabid]')">[tabtitle]</span>
+[ENDBLOCK TABS]</div>
+<div class="line" id="toptab"></div>
+  <script>moveFieldset();showFirstFieldset()</script>
+[ENDIF ONETAB]

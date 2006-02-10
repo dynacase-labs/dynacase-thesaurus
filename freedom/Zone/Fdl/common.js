@@ -402,3 +402,56 @@ function showDiv(th,id) {
     th.className='tabsel';
   }
 }
+
+function moveFieldset() {
+  var ttr=document.getElementsByTagName('fieldset');
+  var i,ln;
+  var ltop=document.getElementById('toptab');
+  var lf=new Array();
+  for ( i=0;i<ttr.length;i++) {
+    ln=ttr[i].getAttribute('name');
+    if (ln) {
+      lf.push(ttr[i].id);
+    }
+  }
+  for ( i=0;i<lf.length;i++) {
+    ln=document.getElementById(lf[i]);
+    if (ln) {      
+      ltop.parentNode.appendChild(ln);
+    }
+  }
+  
+}
+
+function showFirstFieldset(event) {
+  var elt,i;
+  var ltr;
+  ltr=document.getElementsByName('spantabs');
+ 
+  if (ltr.length > 0) {
+    ltr[0].onclick.apply(ltr[0],[event]);
+    ltr[0].className='tabsel';
+  }  
+}
+// display element fieldset with this name
+function showFieldset(event,o,n) {
+
+  var ttr=document.getElementsByTagName('fieldset');
+  var btag=document.getElementsByName(o.getAttribute('name'));
+  var ln,i;
+  for ( i=0;i<btag.length;i++) {
+    btag[i].className='';
+  }
+  o.className='tabsel';
+  for ( i=0;i<ttr.length;i++) {
+    ln=ttr[i].getAttribute('name');
+    if (ln) {
+      if (ln == n) {
+	ttr[i].style.display='';
+      } else {
+	ttr[i].style.display='none';	
+      }
+    }
+  }
+  
+}

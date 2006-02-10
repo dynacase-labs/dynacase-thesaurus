@@ -1,12 +1,7 @@
-<table  width="100%" cellspacing="0" >
-<tbody>
-
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 
-
-<tr >
-  <td ><fieldset class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
+<fieldset id="F[frameid]" [IF TAB]name="[tag]" style="display:none" [ENDIF TAB]class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
 <table width="100%" id="T[frameid]" >
 
 <tr class="FREEDOMBack1">
@@ -17,7 +12,7 @@
 </tr>
 [BLOCK [TABLEVALUE]]
 
-<tr class="[classback]">
+<tr  class="[classback]">
   <td valign="top"  class="FREEDOMlabel"  width="[wvalue]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
   <td valign="top" class="FREEDOMText" >[value]</td>
 </tr>
@@ -25,9 +20,13 @@
 [ENDBLOCK [TABLEVALUE]]
 </table>
 </fieldset>
-</td></tr>
 [ENDBLOCK TABLEBODY]
 
-
-</tbody>
-</table>
+[IF ONETAB]
+<div id="ttabs" class="tabsh" >
+[BLOCK TABS]
+<span  name="spantabs" onclick="showFieldset(event,this,'TAG[tabid]')">[tabtitle]</span>
+[ENDBLOCK TABS]</div>
+<div class="line" id="toptab"></div>
+  <script>moveFieldset();showFirstFieldset()</script>
+[ENDIF ONETAB]

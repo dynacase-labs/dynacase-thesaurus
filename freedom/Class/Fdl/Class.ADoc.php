@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.11 2005/10/27 14:37:09 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.12 2006/02/10 15:33:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,7 +18,7 @@ include_once("FDL/Class.DocAttribute.php");
  */
 Class ADoc  {
 
-   function ADoc () {
+   function __construct () {
      $this->attr["FIELD_HIDDENS"] = new FieldSetAttribute("FIELD_HIDDENS",0, "hiddens");
    }
 
