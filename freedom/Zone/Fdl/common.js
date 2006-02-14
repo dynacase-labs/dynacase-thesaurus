@@ -425,13 +425,16 @@ function moveFieldset() {
 
 function showFirstFieldset(event) {
   var elt,i;
-  var ltr;
-  ltr=document.getElementsByName('spantabs');
- 
-  if (ltr.length > 0) {
-    ltr[0].onclick.apply(ltr[0],[event]);
-    ltr[0].className='tabsel';
-  }  
+  var to,ltr;
+  to=document.getElementById('ttabs');
+  if (to) {
+    ltr=to.getElementsByTagName('span');
+    if (ltr.length > 0) {
+      ltr[0].onclick.apply(ltr[0],[event]);
+      ltr[0].className='tabsel';
+    }
+  }
+  
 }
 // display element fieldset with this name
 function showFieldset(event,o,n) {
