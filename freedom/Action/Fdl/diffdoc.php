@@ -3,7 +3,7 @@
  * Difference between 2 documents
  *
  * @author Anakeen 2006
- * @version $Id: diffdoc.php,v 1.2 2006/02/07 16:35:02 eric Exp $
+ * @version $Id: diffdoc.php,v 1.3 2006/02/14 16:59:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,14 +67,16 @@ function diffdoc(&$action) {
 			   "v1"=>sprintf("<img src=\"%s\">",$d1->getHtmlValue($a,$v1)),
 			   "v2"=>sprintf("<img src=\"%s\">",$d2->getHtmlValue($a,$v2)),
 			   "cdiff"=>$cdiff,
-			   "vdiff"=>$vdiff);
+			   "vdiff"=>$vdiff,
+			   "EQ"=>($cdiff=="eq"));
       break;
     default:
       $tattr[$a->id]=array("attname"=>$a->labelText,
 			 "v1"=>$d1->getHtmlValue($a,$v1),
-			 "v2"=>$d2->getHtmlValue($a,$v2),
+			   "v2"=>$d2->getHtmlValue($a,$v2),
 			   "cdiff"=>$cdiff,
-			   "vdiff"=>$vdiff);
+			   "vdiff"=>$vdiff,
+			   "EQ"=>($cdiff=="eq"));
     }
     }
   }
