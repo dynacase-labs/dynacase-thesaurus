@@ -44,7 +44,7 @@ function removeSFamilie(idf) {
 
 var sfTimer = -1;
 
-function searchSFamilie(evt, force) {
+function searchSFamilie(evt, bUrl, force) {
 
   if( sfTimer!=-1) clearTimeout(sfTimer);
   var sfTimer = -1;
@@ -76,12 +76,12 @@ function searchSFamilie(evt, force) {
   sfMode = (document.getElementById('sMode').checked ? 'C' : 'B' );
   sfFams = sFam.join("|");
 
-  sfTimer = setTimeout("runSearchSFamilie('"+sfFams+"','"+sfText+"','"+sfMode+"')", 1000);
+  sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", 1000);
 
   return true;
 }  
 
-function runSearchSFamilie(f, t, m) {
+function runSearchSFamilie(burl, f, t, m) {
 
 //   alert('C parti sfText='+f+' sfMode='+t+' sfFams='+m ); return;
   var result = document.getElementById('sfamres');
@@ -91,7 +91,7 @@ function runSearchSFamilie(f, t, m) {
 
   if (f=='' || t=='' || m=='') return;
 
-  var url = "/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
+  var url = burl + "app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
 
   var po = getAnchorPosition('sFamText');
   var rq;
