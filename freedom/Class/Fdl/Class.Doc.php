@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.294 2006/02/10 15:33:45 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.295 2006/02/14 17:03:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1014,7 +1014,7 @@ final public function PostInsert()  {
       if (! isset($this->childs)) $this->childs=array();
       $query = new QueryDb($this->dbaccess, "DocFam");
       $query->AddQuery("fromid = ".$id);
-      if ($controlcreate) $query->AddQuery("hasdocprivilege(".$this->userid.",profid,".(1<<intval(POS_CREATE)).")");
+      if ($controlcreate) $query->AddQuery("hasdocprivilege(".$this->userid.",profid,".(1<<intval(POS_ICREATE)).")");
       $table1 = $query->Query(0,0,"TABLE");
       if ($table1) {
 	while (list($k,$v) = each($table1)) {
@@ -1587,20 +1587,20 @@ final public function PostInsert()  {
     $a=$this->getAttribute($idAttr);
     if ($a->type=="array") {
       $ta=$this->attributes->getArrayElements($a->id);
-      //init transpose
-      $c=count($this->getTValue(current(array_keys($ta)))); // number of rows for first index
       $ti=array();
-      for ($i=0;$i<$c;$i++) {
-	$ti[$i]=array();
-      }
       // transpose
       foreach($ta as $k=>$v) {
-	$tv[$k]=$this->getTValue($k);
-	$ix=count($tv[$k]);
-	for ($i=0;$i<$ix;$i++) {	 
-	  $ti[$i]+=array($k=>$tv[$k][$i]);
-	}
+        $tv[$k]=$this->getTValue($k);
+	$ix=max($ix,count($tv[$k]));
       }
+      for ($i=0;$i<$ix;$i++) {
+        $ti[$i]=array();
+      }
+      foreach($ta as $k=>$v) {
+        for ($i=0;$i<$ix;$i++) {
+          $ti[$i]+=array($k=>$tv[$k][$i]);
+        }
+      }    
       if ($index==-1) return $ti;
       else return $ti[$index];
     }
