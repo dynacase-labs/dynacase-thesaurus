@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-07 15:53+0100\n"
+"POT-Creation-Date: 2006-02-14 17:45+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -207,6 +207,13 @@ msgstr "Update LDAP server"
 msgid "and add in %s folder "
 msgstr ""
 
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
+msgstr ""
+
 msgid "no family"
 msgstr ""
 
@@ -257,13 +264,6 @@ msgid "no email address found"
 msgstr "Address"
 
 msgid "no avalaible persons found"
-msgstr ""
-
-msgid "cannot compare two document which comes from two different family"
-msgstr ""
-
-#, c-format
-msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr ""
 
 #, fuzzy, c-format
@@ -1631,45 +1631,6 @@ msgid "no message : post-it creation aborted"
 msgstr ""
 
 #, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy
 msgid "creation"
 msgstr "Edit"
 
@@ -1780,6 +1741,45 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2021,6 +2021,21 @@ msgstr ""
 msgid "Error : Process %s [%d]: status %d"
 msgstr ""
 
+#, fuzzy, c-format
+msgid ""
+"errldapadd:%s\n"
+"%s\n"
+"%d\n"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
+
 #, fuzzy
 msgid "include"
 msgstr "Modify"
@@ -2105,21 +2120,6 @@ msgstr ""
 #, fuzzy
 msgid "Action"
 msgstr "Edit"
-
-#, fuzzy, c-format
-msgid ""
-"errldapadd:%s\n"
-"%s\n"
-"%d\n"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
 
 #, c-format
 msgid "group #%d does not exist"
@@ -2332,6 +2332,22 @@ msgid "createdate"
 msgstr "Create"
 
 #, fuzzy
+msgid "document differences"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view equality attributes"
+msgstr "Title"
+
+#, fuzzy
+msgid "attributes"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "view hidden attributes"
+msgstr "Title"
+
+#, fuzzy
 msgid "mail edition"
 msgstr "Edit"
 
@@ -2394,18 +2410,6 @@ msgstr "Edit"
 
 msgid "suggestions"
 msgstr ""
-
-#, fuzzy
-msgid "document differences"
-msgstr "Delete"
-
-#, fuzzy
-msgid "view all attributes"
-msgstr "Title"
-
-#, fuzzy
-msgid "attributes"
-msgstr "Update Title Cards"
 
 msgid "Properties:"
 msgstr ""
@@ -3025,26 +3029,6 @@ msgstr ""
 msgid "Create a new  process document"
 msgstr ""
 
-msgid "Refresh users characteristics from system"
-msgstr ""
-
-msgid "Refersh users may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh users"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh LDAP"
-msgstr "Delete"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr ""
-
-msgid "Generic Management"
-msgstr ""
-
 msgid "users list"
 msgstr ""
 
@@ -3062,6 +3046,23 @@ msgstr "Create"
 #, fuzzy
 msgid "view detail"
 msgstr "Start search"
+
+msgid "Refresh users characteristics from system"
+msgstr ""
+
+msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh users"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh LDAP"
+msgstr "Delete"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr ""
 
 #, fuzzy
 msgid "CSV Import Users"
@@ -3093,6 +3094,13 @@ msgstr ""
 #, fuzzy
 msgid "Modify"
 msgstr "Modify"
+
+msgid "Generic Management"
+msgstr ""
+
+#, fuzzy
+msgid "enum attribute list"
+msgstr "Update Title Cards"
 
 #, fuzzy
 msgid "Sort"
@@ -3269,10 +3277,6 @@ msgid "toedit"
 msgstr "Edit"
 
 #, fuzzy
-msgid "enum attribute list"
-msgstr "Update Title Cards"
-
-#, fuzzy
 msgid "set as first family view"
 msgstr "Organisation"
 
@@ -3291,6 +3295,34 @@ msgstr "Start search"
 #, fuzzy
 msgid "choose user families"
 msgstr "Start search"
+
+msgid "click here to create a new"
+msgstr ""
+
+msgid "lignes par page"
+msgstr ""
+
+#, fuzzy
+msgid "manage columns"
+msgstr "Add new contact card"
+
+msgid "search all containing"
+msgstr ""
+
+#, fuzzy
+msgid "filter on"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edit contact card"
+msgstr "Create"
+
+#, fuzzy
+msgid "add to prefered"
+msgstr "Modify"
+
+msgid "freedom address book"
+msgstr ""
 
 #, fuzzy
 msgid "Import vcard"
@@ -3370,33 +3402,20 @@ msgstr ""
 msgid "Pages Jaunes"
 msgstr ""
 
-msgid "freedom address book"
-msgstr ""
-
-msgid "click here to create a new"
-msgstr ""
-
-msgid "lignes par page"
-msgstr ""
+#, fuzzy
+msgid "view sub families"
+msgstr "Start search"
 
 #, fuzzy
-msgid "manage columns"
-msgstr "Add new contact card"
+msgid "Choose family to create"
+msgstr "Category"
 
-msgid "search all containing"
+#, fuzzy
+msgid "lines"
+msgstr "Delete"
+
+msgid "lines per page"
 msgstr ""
-
-#, fuzzy
-msgid "filter on"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "edit contact card"
-msgstr "Create"
-
-#, fuzzy
-msgid "add to prefered"
-msgstr "Modify"
 
 #, fuzzy
 msgid "choose colums"
