@@ -1,4 +1,3 @@
-<!-- TABLEBODY -->
 [BLOCK TABLEBODY]
 
 <fieldset id="F[frameid]" [IF TAB]name="[tag]" style="display:none" [ENDIF TAB]class="mfield" ><legend style="cursor:pointer" onclick="viewornot('T[frameid]')">[frametext]</legend>
