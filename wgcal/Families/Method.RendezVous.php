@@ -1791,5 +1791,5 @@ function setSync4jGuid($force=false) {
 
 function forceSync4jGuid() {
   $this->setSync4jGuid(true);
-  $this->modify();
+  $this->modify(true, array("calev_s4j_guid"));
 }

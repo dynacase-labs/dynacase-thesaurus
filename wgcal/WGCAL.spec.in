@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.28 2006/02/07 06:56:07 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.29 2006/02/14 14:18:00 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -49,7 +49,6 @@ Requires: @PACKAGE@ = %{version}
 %description SYNC
 Synchronise event calendar with Microsoft Outlook
 
-
 %prep
 %setup -q -n %{name}-%{version}
 
@@ -88,28 +87,19 @@ ln -sf ../@PACKAGE@/wgcal_alert.php $RPM_BUILD_ROOT/%{destdir}/API/wgcal_alert.p
 
 
 %files
-
 %defattr(-,%{httpuser},%{httpuser})
-
 %dir %{destdir}/%{name}
 %{destdir}/%{name}/*
-
-
 %{destdir}/EXTERNALS/*
-
 %{destdir}/API/*
 %{destdir}/FDL/Method*
-
 %{destdir}/locale/*
-
-
 
 %files SYNC
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/osync
 %{destdir}/osync/*
 %attr(640,root,root) %config(noreplace) %verify(not size mtime md5) %{apacheconfdir}/73_mod_wgcalosync.conf
-
 
 %changelog
 * Thu Nov 23 2004 Marc Claverie <marc.claverie@i-cesam.com>
