@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.19 2005/11/16 16:31:07 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.20 2006/02/14 17:03:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -26,6 +26,7 @@ include_once("FDL/Lib.Dir.php");
  * @global dirid Http var : folder/search id to restric searches
  * @global cols Http var : attributes id for column like : us_fname|us_lname
  * @global viewone Http var : (Y|N) set Y if want display detail doc if only one found
+ * @global createsubfam Http var : (Y|N) set N if no want view possibility to create subfamily
  */
 function faddbook_main(&$action) 
 { 
@@ -46,7 +47,7 @@ function faddbook_main(&$action)
   $chval  = GetHttpVars("chgValue", "");
   $usedefaultview  = (GetHttpVars("usedefaultview","N")=="Y");
   $viewone  = (GetHttpVars("viewone","N")=="Y");
-
+  $createsubfam = (GetHttpVars("createsubfam","Y")=="Y");
   $etarget  = GetHttpVars("etarget");
   $target  = GetHttpVars("target","finfo");
   $dirid  = GetHttpVars("dirid"); // restrict search
@@ -111,6 +112,21 @@ function faddbook_main(&$action)
       }	
     }
     
+  }
+
+  // add sub families for creation
+  
+  if (($dnfam->control("create") == "")&&($dnfam->control("icreate") == "")) {
+    $child[$famid] = array("title"=> $dnfam->title,
+			   "id" => $dnfam->id);
+  } else $child=array();
+
+  if ($createsubfam) {
+    $child += $dnfam->GetChildFam($dnfam->id,true);
+    $action->lay->set("viewsubfam",count($child)>1);
+    $action->lay->setBlockData("NEW",$child);
+  } else {
+    $action->lay->set("viewsubfam",false);    
   }
 
   $orderby = "title";
