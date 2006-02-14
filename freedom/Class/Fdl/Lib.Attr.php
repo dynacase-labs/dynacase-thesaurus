@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.58 2006/02/10 15:33:45 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.59 2006/02/14 17:03:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,7 +105,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 					     "options"=>str_replace("\"","\\\"",$v->options),
 					     "precond"=>$v->phpfunc);
 	break;
-      case "tag": 
+      case "tab": 
       case "frame": // frame
 	$tfield[strtolower($v->id)] = array("attrid"=>strtolower($v->id),
 					    "visibility"=>$v->visibility,
@@ -322,7 +322,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $qattr->AddQuery("docid=".$docid);
     $qattr->AddQuery("type != 'menu'");
     $qattr->AddQuery("type != 'frame'");
-    $qattr->AddQuery("type != 'tag'");
+    $qattr->AddQuery("type != 'tab'");
     $qattr->AddQuery("type != 'action'");
     //$qattr->AddQuery("type != 'array'");
     $qattr->AddQuery("visibility != 'M'");
