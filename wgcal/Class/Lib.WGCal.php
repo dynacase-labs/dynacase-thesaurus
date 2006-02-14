@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.58 2006/02/02 16:57:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.59 2006/02/14 10:14:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -111,9 +111,10 @@ function dbdate2ts($dbtime) {
   $yea = substr($dbtime,6,4);
   return gmmktime($hou, $min, $sec, $mon, $day, $yea);
 }
-function localFrenchDateToUnixTs($fdate) {
+function localFrenchDateToUnixTs($fdate, $utc=false) {
   if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
-    $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+    if ($utc) $ds = gmmktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+    else $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
   } else {
     $ds = -1;
   }

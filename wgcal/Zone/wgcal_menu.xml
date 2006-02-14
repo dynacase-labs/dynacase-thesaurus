@@ -2,7 +2,7 @@
 <script type="text/javascript"> 
 [JS:CODE]
 </script>[BLOCK MENU]
-<div  style="z-index:3000; display:none" id="[menu]" class="wgcalpopup">
+<div  style="z-index:3000; display:none;" id="[menu]" class="wgcalpopup">
 [MITEM]</div>[ENDBLOCK MENU]
 
 <table cellspacing="0" cellpadding="0"width="100%" style="position:fixed;  z-index:500;">

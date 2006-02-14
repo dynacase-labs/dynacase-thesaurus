@@ -80,7 +80,7 @@ function w_GetFirstDayOfWeek($ts)
 	$dd = strftime("%d", $tsfwd);
  	$mm = strftime("%m", $tsfwd);
  	$yy = strftime("%Y", $tsfwd);
-	$fwdt = mktime ( 0, 0, 0, $mm, $dd, $yy);
+	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
 	return $fwdt;
 }
 
@@ -393,9 +393,8 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $item = array( "ID" => $v["id"],
 		   "TSSTART" => $v["evt_begdate"],
 		   "TSEND" => $end,
-// 		   "__event" => $v,
-		   "START" => localFrenchDateToUnixTs($v["evt_begdate"]),
-		   "END" => localFrenchDateToUnixTs($end), 
+ 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"], true),
+ 		   "END" => localFrenchDateToUnixTs($end, true), 
 		   "IDP" =>  $v["evt_idinitiator"],
 		   "FIDP" => $v["evt_frominitiatorid"],
 		   "IDC" =>  $v["evt_idcreator"] );

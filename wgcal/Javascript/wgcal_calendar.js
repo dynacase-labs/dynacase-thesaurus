@@ -323,6 +323,7 @@ function TraceOnDoc(s) {
   document.write(s+'<br>');
 }
 
+
 // --------------------------------------------------------
 function WGCalAddEvent(n, tstart, tend) 
 {
@@ -331,7 +332,7 @@ function WGCalAddEvent(n, tstart, tend)
   var cEv;
   var dd = new Date();
 //   var Tz =  dd.getTimezoneOffset() * 60;
-//   var Tz = -3600;
+//    var Tz = -3600;
   var Tz = 0;
   var tstart;
   var tend;
@@ -352,6 +353,7 @@ function WGCalAddEvent(n, tstart, tend)
   dstart = Math.floor((tstart - Days[0].start)/ (24*3600));
   dstart= (dstart<0 ? 0 : (dstart>=XDays ? (XDays-1) : dstart) );
   dstart = (dstart>=XDays ? (XDays-1) : dstart);
+
   dend = Math.floor((tend - Days[0].start) / (24*3600));
   dend = (dend<dstart ? dstart : (dend>=XDays ? (XDays-1) : dend) );
 
@@ -359,8 +361,8 @@ function WGCalAddEvent(n, tstart, tend)
   mdays = (dstart!=dend ? true : false);
 
   for (id=dstart ; id<=dend; id++) {
-    vstart = tstart;
-    vend   = tend;
+    vstart = tstart + Tz;
+    vend   = tend + Tz;
 
     if (tend==tstart) {
       vstart = Days[id].vstart;
@@ -376,7 +378,7 @@ function WGCalAddEvent(n, tstart, tend)
 	vstart = Days[id].vend - (YDivMinute * 60);
 	
       } else {
- 	vstart += Tz;
+ 	vstart += 0;
       }
       
       
@@ -389,7 +391,7 @@ function WGCalAddEvent(n, tstart, tend)
       	vend = Days[id].vstart + (YDivMinute * 60);
 	
       } else {
-	vend += Tz;
+	vend += 0;
       }
     }
 
@@ -411,26 +413,7 @@ function WGCalAddEvent(n, tstart, tend)
   }
 }
 
-function WGCalPrintAllEvents() {
-  var iday; 
-  var str = '';
-  for (iday=0; iday<XDays; iday++) {
-    str += '[day '+iday+'] '+PrintTEvent(Days[iday])+'\n';
-  }
- TraceOnDoc('WGCalPrintAllEvents::\n'+str);
-}
-
-function PrintTEvent(tev) {
-  var s = '';
-  var ite;
-  for (ite=0; ite<tev.length; ite++) s += PrintEvent(tev[ite])+'\n';
-  return s;  
-}
   
-function PrintEvent(e) {
-  return '['+e.id+'] day='+e.curday+' start='+e.vstart+' end='+e.vend;
-}
-
 function WGCalDisplayAllEvents() {
   var iday; 
   for (iday=0; iday<XDays; iday++) {

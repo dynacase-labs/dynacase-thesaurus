@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.64 2005/12/09 15:34:20 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.65 2006/02/14 10:14:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -215,7 +215,8 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("DAYS", $tabdays);
   
   $action->lay->set("DAYCOUNT", $ndays);
-  $action->lay->set("HSTART", ($hstart - 1)); // Minutes
+//   $action->lay->set("HSTART", ($hstart - 1)); 
+  $action->lay->set("HSTART", ($hstart )); // Minutes
   $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HDIV", $hdiv); // Minutes
   $action->lay->set("YDURATION", (60/$hdiv) );

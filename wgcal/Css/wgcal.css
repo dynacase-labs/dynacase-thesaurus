@@ -348,7 +348,7 @@ TD {
   border-width: 1px;
 }
 .wTextNormal {
-  background-color: ;
+  background-color: transparent;
   cursor:default;
   border-style:none none none none;
 }
@@ -528,7 +528,8 @@ TD {
 
 .calendar tbody td.today { /* Cell showing today date */
   font-weight: bold;
-  color: [WTH_COLOR_3]
+  color: [WTH_TEXTCOLOR_1];
+  background-color: [WTH_COLOR_1];
   border: 1px outset [WTH_COLOR_2];
 }
 
@@ -691,8 +692,8 @@ TD {
   font-size: [WTH_FONTSIZE_POPUP]pt;
   z-index:10;
   font-family: [WTH_FONTLIST_POPUP];
-  font-weight: none;
 }
+
 @media print {
   .wgcalpopup {
     display:none;
@@ -709,7 +710,7 @@ TD {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   font-family: [WTH_FONTLIST_POPUP];
-  font-weight: none;
+  font-weight: normal;
 }
 
 .wgcalpopup a.menuItemInvisible { 
