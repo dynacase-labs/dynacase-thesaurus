@@ -293,8 +293,12 @@ function wgcal_storeevent(&$action) {
   }
   
   if ($action->user->fid!=$owner && $mail_who!=-1) {
-    $title = "[Agenda $creatortitle] ".$event->getValue("calev_evtitle");
-    sendRv($action, $event, 0, $title, "<i>"._("event set/change by")." ".$creatortitle."</i><br><br>".$mail_msg);
+    // Get Agenda delegation information : does the owner want to received mail ?
+    $owneragenda = getUserAgenda($owner, true, "", false);
+    if ($owneragenda[0]->isAffected() && $owneragenda[0]->getValue("agd_dmail")==1) {
+      $title = "[Agenda $creatortitle] ".$event->getValue("calev_evtitle");
+      sendRv($action, $event, 0, $title, "<i>"._("event set/change by")." ".$creatortitle."</i><br><br>".$mail_msg);
+    }
   }
 
   $event->unlock(true);

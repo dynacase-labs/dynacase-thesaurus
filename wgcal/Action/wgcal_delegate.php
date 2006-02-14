@@ -35,7 +35,7 @@ function wgcal_delegate(&$action)
 	}
       }
       if (count($dg_uid)>0) {
-	print_r2($dg_name);
+//	print_r2($dg_name);
 	$dcal->setValue("agd_dname", $dg_name);
 	$dcal->setValue("agd_dfid", $dg_uid);
 	$dcal->setValue("agd_dwid", $dg_uwid);
