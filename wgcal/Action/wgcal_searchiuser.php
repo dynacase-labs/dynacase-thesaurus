@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.17 2005/12/07 10:21:43 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.18 2006/02/16 15:46:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -46,7 +46,8 @@ function wgcal_searchiuser(&$action) {
   $t = array(); $i = 0;
   foreach ($rdoc as $k => $v) {
     if ($cuser != $v["id"]) {
-      if ($v["fromid"] == $iuserfam) {
+      $inter = wIsFamilieInteractive($v["fromid"]);
+      if ($inter) {
 	$cal = getUserPublicAgenda($v["id"], false);
 	if ($cal && $cal->isAffected())  $writeaccess = ($cal->Control("invite")==""?true:false);
 	else $writeaccess = false;
@@ -56,10 +57,9 @@ function wgcal_searchiuser(&$action) {
 	$t[$i]["attIcon"] = $doc->GetIcon($v["icon"]);
 	$t[$i]["attTitle"] = ucwords(strtolower(addslashes(($v["title"]))));
 	$t[$i]["attState"] = EVST_NEW;
-	$t[$i]["attLabel"] = WGCalGetLabelState(EVST_NEW);
-	$t[$i]["attColor"] = WGCalGetColorState(EVST_NEW);
+ 	$t[$i]["attLabel"] = WGCalGetLabelState(EVST_NEW);
+	$t[$i]["attColor"] = ($inter?WGCalGetColorState(EVST_NEW):"");
 	$t[$i]["attSelect"] = "true";
-	
 	$t[$i]["romode"] = ($writeaccess ? "false":"true");
 	$i++;
       }

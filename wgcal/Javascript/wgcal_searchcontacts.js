@@ -3,10 +3,10 @@ var sFam = new Array;
 var cHandler = "insertContact";
 var cclass = 'WGCRessDefault';
 
-function insertContact(domid, famid, id, title, iconsrc) {
+function insertContact(domid, isInter, id, title, iconsrc) {
   var col = 'transparent';
   var st = -1;
-  if (famid==128) {
+  if (isInter) {
     col = 'red';
     st = 0;
   }

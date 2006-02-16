@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.51 2006/02/09 16:50:46 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.52 2006/02/16 15:46:21 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -108,6 +108,7 @@ array(
 "WGCAL_G_VFAM" => array("global" => "Y", "val"=>"CALEVENT", "descr"=>N_("viewed events (from producters)")),
 "WGCAL_SYNCVERSION" => array("global" => "Y", "val"=>"2.0", "descr"=>N_("Sync Version Needed")),
 "WGCAL_USEDGROUPS" => array("global" => "Y", "val"=>"", "descr"=>N_("used groups")),
+"WGCAL_FAMRUSED" => array("global" => "Y", "val"=>"USER,0,0|ROOMS,0,0|VEHICLE,0,0|IUSER,1,1" , "descr"=>N_("used families in events")),
 
 "WGCAL_G_USEBETA" => array("global" => "Y", "val"=>"No", "kind"=>"enum(No|Yes)", "descr"=>N_("use beta fonction")),
 

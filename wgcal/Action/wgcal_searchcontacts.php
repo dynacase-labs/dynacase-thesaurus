@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.5 2005/12/08 15:57:33 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.6 2006/02/16 15:46:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -12,7 +12,7 @@
  */
 include_once('FDL/Lib.Dir.php');
 include_once('FDL/Class.Doc.php');
-include_once("EXTERNALS/WGCAL_external.php");
+include_once("WGCAL/Lib.wTools.php");
 include_once("WGCAL/Lib.Agenda.php");
 
 function wgcal_searchContacts(&$action) {
@@ -61,7 +61,8 @@ function wgcal_searchContacts(&$action) {
     foreach ($rdoc as $k => $v) {
       if ($ci>=$resultCountMax) continue;
       if ($action->user->id == $v["id"]) continue;
-      if ($v["fromid"] == $iuserfam && $calMode=="W") {
+      $inter = wIsFamilieInteractive($v["fromid"]);
+      if ($inter && $calMode=="W") {
 	$cal = getUserPublicAgenda($v["id"], false);
 	if ($cal && $cal->isAffected())  $writeaccess = ($cal->Control("invite")==""?true:false);
 	else $writeaccess = false;
@@ -73,7 +74,7 @@ function wgcal_searchContacts(&$action) {
 			"handler" => $cFHandler,
 			"class" => $iClass,
 			"id" => $v["id"],
-			"fid" => $v["fromid"],
+			"fid" => ($inter?"true":"false"),
 			"icon" => Doc::GetIcon($v["icon"]),
 			"title" => ucwords(strtolower(addslashes(str_replace(" ", "&nbsp;", $v["title"])))),
 			);

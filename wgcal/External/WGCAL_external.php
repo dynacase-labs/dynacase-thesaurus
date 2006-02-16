@@ -12,19 +12,6 @@ function array2attrval($a, $fmt) {
 }
   
 /*
- ** List families used as ressources for calendars
- */
-function WGCalGetRessourceFamilies($dbaccess) {
-  global $action;
-  $filter = array ( "doctype='C'", "atags='R'");
-  $rdocs = array();
-  $rdocs = getChildDoc($dbaccess, 0, 0, 100, $filter, 
-			$action->user->id, "TABLE");
-  return $rdocs;
-}
-
-
-/*
  ** Return event states in attribute value format
  */
 define(EVST_NEW, 0);
@@ -114,49 +101,6 @@ function CAL_getContacts($dbaccess, $filter) {
   return $r;
 }
   
-/*
- ** Return ressources list
- */
-function CAL_getRessources($dbaccess, $filterTitle) {
-  global $action;
-  $r = array();
-  $fam = WGCalGetRessourceFamilies($dbaccess);
-  $doc = new_Doc($dbaccess);
-  $filter = array( );
-  if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
-  foreach ($fam as $kf => $vf) { 
-    if ($vf == "" ) continue;
-    $rdoc = getChildDoc($dbaccess, 0, 0, 100, $filter, 
-			$action->user->id, "TABLE", $vf);
-
-    foreach ($rdoc as $k => $v) {
-      $r[] = array( $v["title"], $v["id"], $v["title"]);
-    }
-  }
-  return $r;
-}
-
-/*
- ** Return ressources list
- */
-function CAL_getRessourcesOwner($dbaccess, $filterTitle) {
-  global $action;
-  $r = array();
-  $fam = WGCalGetRessourceFamilies($dbaccess);
-  $doc = new_Doc($dbaccess);
-  $filter = array( );
-  if ($filterTitle!="") $filter[] = "title ~* '".$filterTitle."'";
-  foreach ($fam as $kf => $vf) { 
-    if ($vf == "" ) continue;
-    $rdoc = getChildDoc($dbaccess, 0, 0, 100, $filter, 
-			$action->user->id, "TABLE", $vf);
-    foreach ($rdoc as $k => $v) {
-      $r[] = array( $v["title"], $v["id"], $v["title"]);
-    }
-  }
-  return $r;
-}
-
 function  WGCalUParam($pname, $def="", $uid=-1) {
   global $action;
   $uid = ($uid==-1 ? $action->user->id : $uid);

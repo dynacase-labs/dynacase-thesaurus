@@ -334,15 +334,15 @@ function getAttendeeIdx(aid) {
       
 function SetModeRo(b) { ROMode = b; }
 
-function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect, ro) {
-  if (getAttendeeIdx(rid)!=-1 || ro) return;
+function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
+  if (getAttendeeIdx(rid)!=-1) return;
   var idx = attendeesList.length;
   attendeesList[idx] = new Object();
   attendeesList[idx].id = rid;
   attendeesList[idx].title = rtitle;
   attendeesList[idx].icon = ricon;
   attendeesList[idx].state = rstate; /* confirmation status */
-  attendeesList[idx].status = 0; /* displayed status */
+  attendeesList[idx].status = 0;     /* displayed status    */
   attendeesList[idx].label = rsLabel;
   attendeesList[idx].bgcolor = rsColor;
   attendeesList[idx].select = rselect;

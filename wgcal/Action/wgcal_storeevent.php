@@ -200,7 +200,7 @@ function wgcal_storeevent(&$action) {
 	if ($convoc==1) {
 	  $attendeesstate[$attcnt] = -1;
 	} else {
-	  if ($att->fromid==128) {
+	  if (wIsFamilieInteractive($att->fromid)) {
 	    $attendeesstate[$attcnt] = 0;
 	    foreach ($oldatt_id as $ko => $vo) {
 	      if ($vo == $va["fid"]) $attendeesstate[$attcnt] = $oldatt_state[$ko];

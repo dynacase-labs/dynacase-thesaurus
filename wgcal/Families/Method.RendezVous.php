@@ -771,14 +771,14 @@ function RendezVousEdit() {
 
   // Display searchable ressource families
   $sfamr = $famr = array();
-  $iuser = getFamIdFromName($this->dbaccess, "IUSER");
-  $rclass = WGCalGetRessourceFamilies($this->dbaccess);
-  foreach ($rclass as $k => $v) {
+  $rf = wGetUsedFamilies();
+  foreach ($rf as $k => $v) {
     $famr[] = array( "fid" => $v["id"], 
 		     "ftitle" => addslashes(ucwords(strtolower($v["title"]))),
-		     "ficon" => Doc::GetIcon($v["icon"]),
-		     "fselect" => ($v["id"]==$iuser?true:false) );
-    if ($v["id"]==$iuser) $sfamr[]["fid"] = $v["id"];
+		     "ficon" => $v["icon"],
+		     "fselect" => $v["isSelected"],
+		     "finter" => $v["isInteractive"]);
+    if ($v["isSelected"]) $sfamr[]["fid"] = $v["id"];
   }
   $this->lay->setBlockData("FAMR", $famr);
   $this->lay->setBlockData("sFAMR", $sfamr);

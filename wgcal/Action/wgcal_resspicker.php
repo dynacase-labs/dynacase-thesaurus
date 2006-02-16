@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.17 2005/10/17 06:59:46 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.18 2006/02/16 15:46:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,7 +11,7 @@
  /**
  */
 include_once('FDL/Lib.Dir.php');
-include_once('EXTERNALS/WGCAL_external.php');
+include_once('WGCAL/Lib.wTools.php');
 
 function wgcal_resspicker(&$action) {
 
@@ -45,24 +45,15 @@ function wgcal_resspicker(&$action) {
   $action->lay->SetBlockData("PREFCONTACT", $tc);
 
   // Get classses used for ressource
-  $rclass = WGCalGetRessourceFamilies($dbaccess);
+  $rclass = wGetUsedFamilies();
   $i = 0;
-  $df = new_Doc($dbaccess);
   foreach ($rclass as $k => $v) {
     $t[$i]["FAMID"] = $v["id"];
-    $t[$i]["FAMICON"] = $df->GetIcon($v["icon"]);
+    $t[$i]["FAMICON"] = $v["icon"];
     $t[$i]["FAMTITLE"] = addslashes(ucwords(strtolower($v["title"])));
     $t[$i]["FAMSEL"] = "false";
     $i++;
   }
-
-  // Add statics calendars 
-  //   $t[$i]["FAMID"] = getIdFromName($dbaccess,"SCALENDAR");
-  //   $df = new_Doc($dbaccess, $t[$i]["FAMID"]);
-  //   $t[$i]["FAMICON"] = $df->GetIcon();
-  //   $t[$i]["FAMTITLE"] = _("my calendars");
-  //   $t[$i]["FAMSEL"] = "false";
-
   $action->lay->SetBlockData("FAMRESS", $t);
   $action->lay->SetBlockData("FAMRESSJS", $t);
   $action->lay->set("updt", $target);

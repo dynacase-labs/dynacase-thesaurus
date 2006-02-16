@@ -437,11 +437,42 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
       $tout[] = $item;
     }
   } 
-//          AddWarningMsg($sdebug);
-//   echo      "$sdebug";
- return $tout;
+  return $tout;
 }
 
+function wGetUsedFamilies() {
+  global $action;
+  $dbaccess = $action->getParam("FREEDOM_DB");
+  $famused = array();
+  $ftu = $action->GetParam("WGCAL_FAMRUSED", "IUSER,1,1|");
+  $ftt = explode("|", $ftu);
+  $doct = createDoc($dbaccess, "BASE", false);
+  foreach ($ftt as $k => $v) {
+    if ($v=="") continue;
+    $suf = explode(",", $v);
+    $dt = getTDoc($dbaccess, getIdFromName($dbaccess, $suf[0]));
+    $id = getV($dt, "id");
+    if (!is_numeric($id) || !$id>0) continue;
+    $famused[] = array( "id" => $id,
+			"title" => getV($dt, "title"),
+			"icon" => $doct->getIcon(getV($dt, "icon")),
+			"isSelected" => ($suf[1]==1? true : false ),
+			"isInteractive" => ($suf[2]==1? true : false ) );
+  }
+  return $famused;
+}
+
+function wIsFamilieInteractive($fid) {
+  global $action;
+  $dbaccess = $action->getParam("FREEDOM_DB");
+  if (!is_numeric($fid)) $fid = getIdFromName($dbaccess, $fid);
+  if (!$fid>0) return false;
+  $rf = wGetUsedFamilies();
+  foreach ($rf as $k => $v) {
+    if ($v["id"]==$fid && $v["isInteractive"]) return true;
+  }
+  return false;
+}
 
 function GetFilesByExt($dir=".", $ext="") {
   $flist = array();

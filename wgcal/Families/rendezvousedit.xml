@@ -407,7 +407,7 @@ SetGroupsList([ownerid]);
 
 
 <script type="text/javascript">
-[BLOCK ADD_RESS] addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);
+[BLOCK ADD_RESS]addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);
 [ENDBLOCK ADD_RESS] 
 document.getElementById('rvtitle').focus();
 </script>
