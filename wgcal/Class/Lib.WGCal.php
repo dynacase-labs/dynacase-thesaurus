@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.59 2006/02/14 10:14:31 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.60 2006/02/17 10:23:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -11,7 +11,6 @@
  /**
  */
 include_once("FDL/mailcard.php");
-include_once("osync/Class.WSyncDate.php");
 include_once("WGCAL/Lib.wTools.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
@@ -280,6 +279,7 @@ function WGCalEvSetColor(&$action, &$event) {
 }
 
 function GetLastSyncDate($db) {
+  include_once("osync/Class.WSyncDate.php");
   global $action;
   $syncdate = new WSyncDate($db, $action->parent->user->fid);
   return ($syncdate->outlook_date);
