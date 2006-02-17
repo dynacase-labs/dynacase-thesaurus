@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 16:39+0100\n"
+"POT-Creation-Date: 2006-02-17 14:38+0100\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -161,7 +161,7 @@ msgid "search event"
 msgstr "recherche d'évènement"
 
 msgid "advanced search event"
-msgstr "Recherche avancée"
+msgstr "Recherche de ressources avancée"
 
 #, fuzzy
 msgid "contact search"
@@ -688,6 +688,9 @@ msgstr "entrer les mots recherchés"
 
 msgid "check for search contact containing (by default containing)"
 msgstr "Rechercher les contacts 'contenant'... (commençant par défaut)"
+
+msgid "ressources advanced search"
+msgstr "Recherche avancée de contact"
 
 msgid "add my prefered ressources"
 msgstr "Ajouter mes contacts préférés"
@@ -1314,129 +1317,126 @@ msgstr "Synchronisation Outlook"
 msgid "todos options"
 msgstr "Options des tâches"
 
-msgid "lang"
-msgstr "Language"
+#~ msgid "lang"
+#~ msgstr "Language"
 
-msgid "current day color"
-msgstr "couleur du jour courant"
+#~ msgid "current day color"
+#~ msgstr "couleur du jour courant"
 
-msgid "week end days color"
-msgstr "couleur des jours de week-end"
+#~ msgid "week end days color"
+#~ msgstr "couleur des jours de week-end"
 
-msgid "selected day color"
-msgstr "couleur du jour sélectionné"
+#~ msgid "selected day color"
+#~ msgstr "couleur du jour sélectionné"
 
-msgid "title line height"
-msgstr "Hauteur de la ligne de titre"
+#~ msgid "title line height"
+#~ msgstr "Hauteur de la ligne de titre"
 
-msgid "hour lines height"
-msgstr "Hauteur des lignes d'heure"
+#~ msgid "hour lines height"
+#~ msgstr "Hauteur des lignes d'heure"
 
-msgid "hour in day column width"
-msgstr "Largeur des colonne des jours"
+#~ msgid "hour in day column width"
+#~ msgstr "Largeur des colonne des jours"
 
-msgid "menu icons height"
-msgstr "Hauteur des icones"
+#~ msgid "menu icons height"
+#~ msgstr "Hauteur des icones"
 
-msgid "display week end"
-msgstr "Affichage des week-end"
+#~ msgid "display week end"
+#~ msgstr "Affichage des week-end"
 
-msgid "view count days"
-msgstr "Nombre de jours affichés"
+#~ msgid "view count days"
+#~ msgstr "Nombre de jours affichés"
 
-msgid "hour division"
-msgstr "Division de l'heure"
+#~ msgid "hour division"
+#~ msgstr "Division de l'heure"
 
-msgid "tool display state"
-msgstr "Etat d'affiche de l'outil"
+#~ msgid "tool display state"
+#~ msgstr "Etat d'affiche de l'outil"
 
-msgid "Current displayed date"
-msgstr "Date courante affichée"
+#~ msgid "Current displayed date"
+#~ msgstr "Date courante affichée"
 
-msgid "WGCAL_U_RESSDISPLAYED"
-msgstr "Ressource affichées"
+#~ msgid "WGCAL_U_RESSDISPLAYED"
+#~ msgstr "Ressource affichées"
 
-msgid "use prefered ressource for event setting"
-msgstr "Utiliser mes contacts préférés pour les rendez-vous"
+#~ msgid "use prefered ressource for event setting"
+#~ msgstr "Utiliser mes contacts préférés pour les rendez-vous"
 
-msgid "displayed refused events"
-msgstr "Afficher les évènements refusé :"
+#~ msgid "displayed refused events"
+#~ msgstr "Afficher les évènements refusé :"
 
-msgid "show icons in resume"
-msgstr "Afficher les icones et les heures sur l'agenda"
+#~ msgid "show icons in resume"
+#~ msgstr "Afficher les icones et les heures sur l'agenda"
 
-msgid "alt postion is fixed"
-msgstr "Position des popup fixe"
+#~ msgid "alt postion is fixed"
+#~ msgstr "Position des popup fixe"
 
-msgid "general theme"
-msgstr "Thème"
+#~ msgid "general theme"
+#~ msgstr "Thème"
 
-msgid "start hour used for event setting"
-msgstr "Heure de début utilsée pour la saisie de RV"
+#~ msgid "start hour used for event setting"
+#~ msgstr "Heure de début utilsée pour la saisie de RV"
 
-msgid "end hour used for event setting"
-msgstr "Heure de fin utilsée pour la saisie de RV"
+#~ msgid "end hour used for event setting"
+#~ msgstr "Heure de fin utilsée pour la saisie de RV"
 
-msgid "minutes increment used for event setting"
-msgstr "Incrément pour les minutes en saisie de RV"
+#~ msgid "minutes increment used for event setting"
+#~ msgstr "Incrément pour les minutes en saisie de RV"
 
-msgid "order todos"
-msgstr "Tri des tâches"
+#~ msgid "order todos"
+#~ msgstr "Tri des tâches"
 
-msgid "view todos for ... days"
-msgstr "Afficher les tâches pour ... jours"
+#~ msgid "view todos for ... days"
+#~ msgstr "Afficher les tâches pour ... jours"
 
-msgid "warn for todo having a date in the ... days"
-msgstr "M'avertir pour les tâches à faire durant les ... jours "
+#~ msgid "warn for todo having a date in the ... days"
+#~ msgstr "M'avertir pour les tâches à faire durant les ... jours "
 
-msgid "set todo date to today + ... days"
-msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
+#~ msgid "set todo date to today + ... days"
+#~ msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
 
-msgid "default confidentiality for new event"
-msgstr "confidentialité par défaut pour les nouveau rv"
+#~ msgid "default confidentiality for new event"
+#~ msgstr "confidentialité par défaut pour les nouveau rv"
 
-msgid "display contacts"
-msgstr "Afficher les contacts"
+#~ msgid "display contacts"
+#~ msgstr "Afficher les contacts"
 
-msgid "toolbar size"
-msgstr "Largeur de la barre d'outils"
+#~ msgid "toolbar size"
+#~ msgstr "Largeur de la barre d'outils"
 
-msgid "barmenu date navigator"
-msgstr ""
+#~ msgid "last sync date for Outlook"
+#~ msgstr "Date de la dernière synchro Outlook"
 
-msgid "last sync date for Outlook"
-msgstr "Date de la dernière synchro Outlook"
+#~ msgid "last sync date for WGCal"
+#~ msgstr "Date de la dernière synchro Outlook"
 
-msgid "last sync date for WGCal"
-msgstr "Date de la dernière synchro Outlook"
-
-msgid "show rv categories"
-msgstr "Utiliser les catégories de RV"
+#~ msgid "show rv categories"
+#~ msgstr "Utiliser les catégories de RV"
 
 #, fuzzy
-msgid "mail command"
-msgstr "Calendrier public"
+#~ msgid "mail command"
+#~ msgstr "Calendrier public"
 
-msgid "mails send"
-msgstr "Envoi des mails"
+#~ msgid "mails send"
+#~ msgstr "Envoi des mails"
 
-msgid "mails send to externals"
-msgstr "Envoi des mails aux contacts extérieurs"
+#~ msgid "mails send to externals"
+#~ msgstr "Envoi des mails aux contacts extérieurs"
 
-msgid "mail title mark"
-msgstr "Marquage (Sujet) des mails émis"
+#~ msgid "mail title mark"
+#~ msgstr "Marquage (Sujet) des mails émis"
 
-msgid "viewed events (from producters)"
-msgstr "Famille des producteurs des évènements affichés"
+#~ msgid "viewed events (from producters)"
+#~ msgstr "Famille des producteurs des évènements affichés"
 
-msgid "Sync Version Needed"
-msgstr "Version du synchroniseur attendue"
+#~ msgid "Sync Version Needed"
+#~ msgstr "Version du synchroniseur attendue"
 
-msgid "used groups"
-msgstr "Groupes utilisés"
+#~ msgid "used groups"
+#~ msgstr "Groupes utilisés"
 
-msgid "use beta fonction"
-msgstr "Utilisation des fonctions en cours de test"
+#~ msgid "use beta fonction"
+#~ msgstr "Utilisation des fonctions en cours de test"
 
 #~ msgid "location"
 #~ msgstr "Lieu"
@@ -1466,9 +1466,6 @@ msgstr "Utilisation des fonctions en cours de test"
 
 #~ msgid "change hours division"
 #~ msgstr "Division de l'heure"
-
-#~ msgid "ressources advanced search"
-#~ msgstr "Recherche avancée de contact"
 
 #~ msgid "start time after end time, please correct this"
 #~ msgstr ""

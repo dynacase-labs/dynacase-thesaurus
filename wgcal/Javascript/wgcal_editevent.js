@@ -283,9 +283,10 @@ function refreshAttendees() {
         mynodereplacestr(nTr, '%RSTATE%', attendeesList[idx].state);
 	nTr.style.display = '';
         tab.appendChild(nTr);
-	if (attendeesList[idx].select) 	  document.getElementById(attendeesList[idx].id).className = classSelected;
-	else  document.getElementById(attendeesList[idx].id).className = classUnSelected;
-        capp = document.getElementById('cp'+attendeesList[idx].id);
+// 	if (attendeesList[idx].select) 	  document.getElementById(attendeesList[idx].id).className = classSelected;
+// 	else  document.getElementById(attendeesList[idx].id).className = classUnSelected;
+        document.getElementById(attendeesList[idx].id).className = classSelected;
+	capp = document.getElementById('cp'+attendeesList[idx].id);
         capp.style.backgroundColor = attendeesList[idx].bgcolor;
       }
     }
@@ -298,7 +299,7 @@ function refreshAttendeesCtx() {
   var vress = document.getElementById('tabress');
   var vdispo = document.getElementById('viewplan');
   var vdelall = document.getElementById('delall');
-  var viparticipe = document.getElementById('diparticipe');
+//   var viparticipe = document.getElementById('diparticipe');
   var vconvocation = document.getElementById('dconvocation');
 
   var showtab = false;
@@ -311,15 +312,15 @@ function refreshAttendeesCtx() {
     vress.style.display = '';
     vdispo.style.display = '';
     vdelall.style.display = '';
-    viparticipe.style.display = '';
+//     viparticipe.style.display = '';
     vconvocation.style.display = '';
   }  else {
     vress.style.display = 'none';
     vdispo.style.display = 'none';
     vdelall.style.display = 'none';
-    viparticipe.style.display = 'none';
+//     viparticipe.style.display = 'none';
     vconvocation.style.display = 'none';
-    document.getElementById('withMe').checked = true;
+//     document.getElementById('withMe').checked = true;
   }
   return; 
 }
@@ -332,8 +333,6 @@ function getAttendeeIdx(aid) {
   return idx;
 }
       
-function SetModeRo(b) { ROMode = b; }
-
 function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
   if (getAttendeeIdx(rid)!=-1) return;
   var idx = attendeesList.length;
@@ -345,7 +344,7 @@ function addRessource(rid, rtitle, ricon, rstate, rsLabel, rsColor, rselect) {
   attendeesList[idx].status = 0;     /* displayed status    */
   attendeesList[idx].label = rsLabel;
   attendeesList[idx].bgcolor = rsColor;
-  attendeesList[idx].select = rselect;
+  attendeesList[idx].select = true;
   refreshAttendees();
 }
 
@@ -487,13 +486,14 @@ function EventSelectAll(f) {
   }
   alist = document.getElementById('attendees');
   nlist = '';
-  me  = document.getElementById('withMe');
+//   me  = document.getElementById('withMe');
   for (att=0; att<attendeesList.length; att++) {
     if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
     sep = (nlist==''?'':'|');
     nlist = nlist+sep+attendeesList[att].id;
   }
-  if (nlist=='' && !me.checked) {
+//   if (nlist=='' && !me.checked) {
+  if (nlist=='') {
     document.getElementById('errAtt').style.display = '';
     return false;
   }
@@ -504,7 +504,7 @@ function EventSelectAll(f) {
 
 function viewattdispo(url) {
 
-  var withme = document.getElementById('withMe');
+//   var withme = document.getElementById('withMe');
   var me = document.getElementById('ownerid').value;
   var rvs = document.getElementById('TsStart').value;
   var js;
@@ -516,10 +516,10 @@ function viewattdispo(url) {
     if (rll!='') rll += '|';
     rll += attendeesList[att].id;
   }
-  if (withme.checked) {
+//   if (withme.checked) {
     if (rll!='') rll += '|';
     rll += me;
-  }
+//   }
   
   var td = new Date();
   td.setTime(rvs);
@@ -600,17 +600,6 @@ function RessourceSelect(idr) {
   }
 }
 
-
-function ViewRessourceHelper(url) {
-  var pst = document.getElementById('_addatt'); 
-  if (pst.style.display=='none') {
-    parent.wgcal_addatt.location.href=url; 
-    pst.style.display  = ''; 
-  } else {
-    pst.style.display  = 'none';
-  }		
-}
-  
 
 // RV group visibility
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.62 2006/02/09 11:31:57 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.63 2006/02/17 14:22:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -56,7 +56,7 @@ function wgcal_toolbar(&$action) {
   // Set last outlook syncro date
   $action->lay->set("LSYNC", false);
   if ($action->HasPermission("WGCAL_OSYNC")) {
-    if ($action->getParam("WGCAL_U_OSYNCVDATE",1)) {
+    if ($action->getParam("WGCAL_U_OSYNCVDATE",0)) {
       if (@include_once("osync/Lib.WgcalSync.php")) {
       $action->lay->set("LSYNC", true);
       $db = WSyncGetAdminDb();

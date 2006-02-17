@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.52 2006/02/16 15:46:21 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.53 2006/02/17 14:22:12 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -90,8 +90,6 @@ array(
 "WGCAL_U_BARMNAVDATE" => array("kind"=>"static", "val"=>"0", "kind"=>"enum(0|1)", descr=>N_("barmenu date navigator"), "user"=>"Y"),
 
 // Synchro 
-"WGCAL_S_LASTSYNC_OUTLOOK" => array("kind"=>"static", "val"=>0, "descr"=>N_("last sync date for Outlook"), "user"=>"Y"),
-"WGCAL_S_LASTSYNC" => array("kind"=>"static", "val"=>0, "descr"=>N_("last sync date for WGCal"), "user"=>"Y"),
 "WGCAL_U_OSYNCVDATE" => array("kind"=>"static", "val"=>0, "descr"=>N_("display last sync date"), "user"=>"Y"),
 
 // Portal
@@ -100,7 +98,6 @@ array(
 
 
 // Globals
-"WGCAL_G_SHOWCATEGORIES" => array("global" => "Y", "val"=>"0", "kind"=>"enum(0|1)", "descr"=>N_("show rv categories")),
 "WGCAL_G_MAILTO" => array("global" => "Y", "val"=>"mailto:%TO%", "descr"=>N_("mail command")),
 "WGCAL_G_SENDMAILS" => array("global" => "Y", "val"=>"1", "descr"=>N_("mails send")),
 "WGCAL_G_SENDMAILS_EXTERN" => array("global" => "Y", "val"=>"0", "descr"=>N_("mails send to externals")),

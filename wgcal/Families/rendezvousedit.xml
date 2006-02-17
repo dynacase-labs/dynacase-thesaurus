@@ -127,14 +127,11 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr><td colspan="3">&nbsp;</td></tr>
 
-[IF ShowCategories]
 <tr>
 <td  align="right">[TEXT:category]&nbsp;:&nbsp;</td>
 <td colspan="2"><select id="rvcategory" onchange="SetSelectedItem('rvcategory', 'evcategory')">[BLOCK RVCATEGORY]<option value="[value]" [selected]>[descr][ENDBLOCK RVCATEGORY]</select>
 </td>
 </tr>
-[ENDIF ShowCategories]
-
 
 <tr>
 <td  align="right">[TEXT:confidentiality]&nbsp;:&nbsp;</td>
@@ -205,8 +202,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 [BLOCK FAMR]
 <img class="[IFNOT fselect]wSmallButtonPulled[ENDIF fselect][IF fselect]wSmallButtonPushed[ENDIF fselect]" style="vertical-align:top; height:16px" src="[ficon]" title="[ftitle]" onclick="if (this.className!='wSmallButtonPulled') { if (removeSFamilie([fid])) this.className='wSmallButtonPulled'; } else { this.className='wSmallButtonPushed'; addSFamilie([fid]); }">[ENDBLOCK FAMR]
-<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
-
+<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="position:relative; left:-20px; cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">&nbsp;<img style="vertical-align:top;" id="address" class="wSmallButton" style="cursor:pointer;" height="16" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');" title="[TEXT:ressources advanced search]" src="[IMG:wm-attendees.gif]">
 </div><!-- FIN BLOCK DE RECHERCHE -->
 
 <table height="100%"  width="100%">
@@ -244,9 +240,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <tr><td>&nbsp;</td></tr>
 
-<tr><td nowrap>
+<!-- <tr><td nowrap>
 <span id="diparticipe" style="align:right; display:[diparticipe]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME]>[TEXT:I participe...]</span>
-</td></tr>
+</td></tr> -->
 
 <tr><td>&nbsp;</td></tr>
 

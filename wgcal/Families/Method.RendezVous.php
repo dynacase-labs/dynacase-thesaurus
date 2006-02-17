@@ -276,7 +276,6 @@ function RendezVousView() {
   $otitle = ucwords(strtolower($this->getValue("CALEV_OWNER")));
   if ($this->getValue("calev_ownerid")!=$this->getValue("calev_creatorid") && $this->getValue("calev_creatorid")>0) $otitle .= " (".$this->getValue("calev_creator").")";
   $this->lay->set("owner", $otitle);
-  $this->lay->set("ShowCategories", false);
   $this->lay->set("ShowDate", false);
   $this->lay->set("modifdate", "");
   $this->lay->set("ShowCalendar", false);
@@ -286,18 +285,15 @@ function RendezVousView() {
     $this->lay->set("ShowDate", true);
     $this->lay->set("modifdate", strftime("%d %B %y %H:%M",$this->revdate));
     $this->lay->set("incalendar", $this->getValue("CALEV_EVCALENDAR"));
-    $show = true ; //($action->getParam("WGCAL_G_SHOWCATEGORIES",0)==1 ? true : false);
     $this->lay->set("hasCat", false);
-    if ($show) {
-      $catg = wGetCategories();
-      $cat = $this->getValue("CALEV_CATEGORY");
-      if ($cat>0) {
-	foreach ($catg as $k=>$v) {
-	  if ($v["id"] == $cat) {
-	    $this->lay->set("category", $v["label"]);
-	    $this->lay->set("catcolor", $v["color"]);
-	    $this->lay->set("hasCat", true);
-	  }
+    $catg = wGetCategories();
+    $cat = $this->getValue("CALEV_CATEGORY");
+    if ($cat>0) {
+      foreach ($catg as $k=>$v) {
+	if ($v["id"] == $cat) {
+	  $this->lay->set("category", $v["label"]);
+	  $this->lay->set("catcolor", $v["color"]);
+	  $this->lay->set("hasCat", true);
 	}
       }
     }
@@ -799,20 +795,16 @@ function RendezVousEdit() {
 function EventSetCategory($evcategory) {
   global $action;
   include_once("WGCAL/Lib.wTools.php");
-  $show = true; // ($action->GetParam("WGCAL_G_SHOWCATEGORIES", 0) ==1 ? true : false);
   $this->lay->set("evcategory", $evcategory);
-  $this->lay->set("ShowCategories", $show);
-  if ($show) {
-    $catg = wGetCategories();
-    $tcat = array(); $ntc = 0;
-    foreach ($catg as $k => $v) {
-      $tcat[$ntc]["value"] = $v["id"];
-      $tcat[$ntc]["descr"] = ucwords(strtolower($v["label"]));
-      $tcat[$ntc]["selected"] = ($v["id"] == $evcategory ? "selected" : "");
-      $ntc++;
-    }
-    $this->lay->setBlockData("RVCATEGORY", $tcat);
+  $catg = wGetCategories();
+  $tcat = array(); $ntc = 0;
+  foreach ($catg as $k => $v) {
+    $tcat[$ntc]["value"] = $v["id"];
+    $tcat[$ntc]["descr"] = ucwords(strtolower($v["label"]));
+    $tcat[$ntc]["selected"] = ($v["id"] == $evcategory ? "selected" : "");
+    $ntc++;
   }
+  $this->lay->setBlockData("RVCATEGORY", $tcat);
 }
 
 function EventSetDate($dstart, $dend, $type) 

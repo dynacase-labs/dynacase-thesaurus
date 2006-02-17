@@ -198,14 +198,14 @@ TD {
   background-color : white;
 }
 .WGCRessOver {
-  border : 1px outset [WTH_COLOR_3];
+  background-color : [WTH_COLOR_2];
+  border : 1px outset [WTH_COLOR_1];
   cursor:pointer;
 }
 .WGCRessDefault {
-  border : 1px;
+  border : 1px outset [WTH_COLOR_1];
   cursor:pointer;
 }
-
 .WGCRessSelected {
   background-color : [WTH_COLOR_2];
   border : 1px inset [WTH_COLOR_1];
