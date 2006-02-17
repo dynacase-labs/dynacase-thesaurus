@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.44 2006/02/03 16:06:48 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.45 2006/02/17 15:45:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -102,6 +102,7 @@ Class Dir extends PDir
    * @return string error message, if no error empty string
    */
   function Clear() {
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
@@ -166,7 +167,9 @@ Class Dir extends PDir
    * @param bool $noprepost if true if the virtuals methods {@link preInsertDoc()} and {@link postInsertDoc()} are not called
    * @return string error message, if no error empty string
    */
-  function AddFile($docid, $mode="latest",$noprepost=false) {    
+  function AddFile($docid, $mode="latest",$noprepost=false) {     
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
+    
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
@@ -256,6 +259,7 @@ Class Dir extends PDir
    */
   function InsertMDoc($tdocs, $mode="latest",$noprepost=false) {
     
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
@@ -326,6 +330,7 @@ Class Dir extends PDir
    */
   function QuickInsertMSDocId($tdocids) {
     
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
@@ -352,6 +357,7 @@ Class Dir extends PDir
    */
   function insertFolder($docid) {
     if (!is_numeric($docid)) return sprintf(_("Dir::insertFolder identificator [%s] must be numeric"),$docid);
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
@@ -397,9 +403,8 @@ Class Dir extends PDir
    * @param bool $noprepost if true then the virtuals methods {@link preUnlinkDoc()} and {@link postUnlinkDoc()} are not called
    * @return string error message, if no error empty string
    */
-  function DelFile($docid,$noprepost=false ) {
-    
-
+  function DelFile($docid,$noprepost=false ) {      
+    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
 
     // need this privilege
     $err = $this->Control("modify");

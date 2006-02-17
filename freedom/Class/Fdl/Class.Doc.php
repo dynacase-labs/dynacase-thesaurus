@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.295 2006/02/14 17:03:04 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.296 2006/02/17 15:45:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -727,10 +727,14 @@ final public function PostInsert()  {
   /** 
    * test if the document is locked
    * @see CanLockFile()
+   * @param bool $my if true test if it is lock of current user
    * 
-   * @return bool true if locked
+   * @return bool true if locked. If $my return true if it is locked by another user
    */
-  final public function isLocked() {
+  final public function isLocked($my=false) {
+    if ($my) {      
+      if (($this->user->id == 1) || ($this->locked == $this->userid)) return false;
+    }
     return (($this->locked > 0) || ($this->locked < -1));
   }
 
