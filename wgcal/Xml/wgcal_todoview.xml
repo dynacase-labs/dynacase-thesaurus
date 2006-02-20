@@ -6,11 +6,13 @@
 <td align="right"><img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&RZ=HV&target=icaltodo&idtodo=-1');" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">&nbsp;</td>
 </tr>
 </table></div>
-<table width="100%" cellspacing="0" cellpadding="0"><tr>
-[IFNOT Todos]<tr><td colspan="2" class="WGCRessDefault">[TEXT: no todo]</td></tr>[ENDIF Todos]
-[IF Todos]
-[BLOCK TodoList]<tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td colspan="2"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();">&nbsp;<span class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" id="[idTodo]" style="border-left:3px solid [colorTodo];" onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" align="left">&nbsp;[sTextTodo]&nbsp;<span style="font-size:80%">([dateTodo])</span></span>
-</td></tr>
-[ENDBLOCK TodoList]</table>[ENDIF Todos]
+
+[IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo][ENDIF Todos]
+<table width="100%" cellspacing="0">
+[IF Todos][BLOCK TodoList]
+<tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
+<td class="WGCRessDefault" ><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
+<td class="WGCRessDefault" width="100%" style="border-right:4px solid [colorTodo];" onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" >[sTextTodo]&nbsp;<span style="font-size:80%">([dateTodo])</span></td>
+</tr>[ENDBLOCK TodoList]</table>
+[ENDIF Todos]
 [ZONE WGCAL:WGCAL_HTMLFOOT]
