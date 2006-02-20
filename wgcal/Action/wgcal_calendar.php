@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.66 2006/02/14 10:37:08 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.67 2006/02/20 15:01:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -52,8 +52,9 @@ function wgcal_calendar(&$action) {
   $sdate = w_GetDayFromTs($stdate); 
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
-
-  $tout = wGetEvents(ts2db($firstWeekDay, "Y-m-d H:i:s"), ts2db($edate, "Y-m-d H:i:s"));
+  $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
+  $d2 = ts2db($edate, "Y-m-d 23:59:59");
+  $tout = wGetEvents($d1, $d2);
   $popuplist = array();
   foreach ($tout as $k => $v) {
     $IsRV = ($v["FIDP"]==getIdFromName($dbaccess,"CALEVENT") ? true : false);
