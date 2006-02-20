@@ -493,10 +493,10 @@ function EventSelectAll(f) {
     nlist = nlist+sep+attendeesList[att].id;
   }
 //   if (nlist=='' && !me.checked) {
-  if (nlist=='') {
-    document.getElementById('errAtt').style.display = '';
-    return false;
-  }
+//  if (nlist=='') {
+//    document.getElementById('errAtt').style.display = '';
+//    return false;
+//  }
   alist.value = nlist;
   return true;
 }
