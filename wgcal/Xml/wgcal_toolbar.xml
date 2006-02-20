@@ -101,8 +101,8 @@
 
 </div> <!-- end POPUP DIVISION -->
 
-<div id="vcals" style="display:[vcals]" width="100%" class="wToolArea" >
-<table width="100%" cellspacing="0" cellpadding="0">
+<div id="vcals" style="display:[vcals];  overflow:auto;" class="wToolArea" >
+<table align="center" width="95%" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
 
@@ -120,7 +120,6 @@
 
 <tfoot>
 <tr><td colspan="2"></td></tr>
-<tr>
 </tfoot>
 </table>
 </div>

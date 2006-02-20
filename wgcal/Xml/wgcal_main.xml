@@ -5,9 +5,9 @@
 <frameset name="wgcal" id="wgcal" frameborder="yes" framespacing="3" border="3" bordercolor="[bordercolor]" border="0"
 resize cols="[toolbarwidth]pt,*">
 
-  <frameset name="wgcal_frtool" id="wgcal_frtool" frameborder="no" framespacing="0" border="0" rows="[IF viewTodo]80%,*%[ENDIF viewTodo][IFNOT viewTodo]*,0pt[ENDIF viewTodo]">
+  <frameset name="wgcal_frtool" id="wgcal_frtool" frameborder="yes" framespacing="3" border="3" rows="[IF viewTodo]70%,*%[ENDIF viewTodo][IFNOT viewTodo]*,0pt[ENDIF viewTodo]">
     <frame id="wgcal_toolbar" name="wgcal_toolbar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TOOLBAR" scrolling="no">
-    <frame id="icaltodo" name="icaltodo" scrolling="needed" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]"><
+    <frame id="icaltodo" name="icaltodo" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOVIEW&dtodo=[tododays]" scrolling="no">
   </frameset>
 
   <frameset name="wgcal_frmain" id="wgcal_frmain" frameborder="no" framespacing="0" border="0" rows="*,0pt">
