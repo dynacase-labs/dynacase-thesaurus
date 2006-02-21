@@ -87,55 +87,74 @@ function wgcal_textweek(&$action) {
   $d1 = "".$f_year."-".$f_nmonth."-".$f_day." 00:00:00";
   $d2 = "".$l_year."-".$l_nmonth."-".$l_day." 23:59:59";
   $tevents = wGetEvents($d1, $d2);
-  // sort by date....
-  usort($tevents, cmpRv);
   
   foreach ($tevents as $k => $v) {
 
-    $nday = strftime("%u", $v["START"]) - 1;
     $rv = new_Doc($dbaccess, $v["IDP"]);
-    $lstart = substr($rv->getValue("calev_start"),11,5);
-    $lend = substr($rv->getValue("calev_end"),11,5);
-    switch($rv->getValue("calev_timetype",0)) {
-    case 1: 
-      $hours = "("._("no hour").")"; 
-      break;
-    case 2: 
-      $hours = "("._("all the day _ short").")"; 
-      break;
-    default:
-      $hours = $lstart." ".$lend;
-    }
+    $startday = strftime("%u", $v["START"]) - 1;
+    $endday = strftime("%u", $v["END"]) - 1;
 
+    for ($iday=intval($startday); $iday<=intval($endday); $iday++) {
     
-    $evlay->set("hours", $hours);
-    $evlay->set("text", $rv->getValue("calev_evtitle"));
-
-    $evlay->set("Categorie", $catg[$rv->getValue("calev_category")]["label"]);
-    $evlay->set("vCategorie", ($rv->getValue("calev_category")>0?true:false));
+      $lstart = substr($rv->getValue("calev_start"),11,5);
+      $lend = substr($rv->getValue("calev_end"),11,5);
+      switch($rv->getValue("calev_timetype",0)) {
+      case 1: 
+	$hours = "("._("no hour").")"; 
+	$p = 0;
+	break;
+      case 2: 
+	$hours = "("._("all the day _ short").")"; 
+	$p = 1;
+	break;
+      default:
+	if (intval($startday)==intval($endday)) {
+	  $hours = $lstart." ".$lend;
+	  $p = 4;
+	} else {
+	  if ($iday==intval($startday)) {
+	    $p = 4;
+	    $hours = $lstart." 23h59";
+	  } else if ($iday==intval($endday)) {
+	    $hours = "00h00 ".$lend;
+	    $p = 2;
+	  } else {
+	    $p = 1;
+	    $hours = "("._("all the day _ short").")";
+	  }
+	}
+      }
     
-    $evlay->set("Lieu", $rv->getValue("calev_location"));
-    $evlay->set("vLieu", ($rv->getValue("calev_location")==""?false:true));
-
-    $evlay->set("note", $rv->getValue("calev_evnote"));
-    $evlay->set("vNote", ($rv->getValue("calev_evnote")==""?false:true));
-
-    $evlay->set("vInvite", false);
-    if ($rv->getValue("calev_ownerid") != $ress) {
-      $evlay->set("Invite", $rv->getValue("calev_owner"));
-      $evlay->set("vInvite", true);
+      $evlay->set("hours", $hours);
+      $evlay->set("text", $rv->getValue("calev_evtitle"));
+      
+      $evlay->set("Categorie", $catg[$rv->getValue("calev_category")]["label"]);
+      $evlay->set("vCategorie", ($rv->getValue("calev_category")>0?true:false));
+      
+      $evlay->set("Lieu", $rv->getValue("calev_location"));
+      $evlay->set("vLieu", ($rv->getValue("calev_location")==""?false:true));
+      
+      $evlay->set("note", $rv->getValue("calev_evnote"));
+      $evlay->set("vNote", ($rv->getValue("calev_evnote")==""?false:true));
+      
+      $evlay->set("vInvite", false);
+      if ($rv->getValue("calev_ownerid") != $ress) {
+	$evlay->set("Invite", $rv->getValue("calev_owner"));
+	$evlay->set("vInvite", true);
+      }
+      
+      $daysev[$iday][] = array( "p" => $p, "hours" => $hours, "eventsdesc" => $evlay->gen() );
     }
-
-    $daysev[$nday][] = array( "hours" => $hours, 
-			      "eventsdesc" => $evlay->gen() );
   }
 
   // set week view
   $dayl = array( "monday", "tuesday", "wenesday", "thursday", "friday", "saturday", "sunday" );
   for ($day=0; $day<7; $day++) {
+    // sort by date....
     $action->lay->set($dayl[$day]."_num", strftime("%d", $firstday + ($day*3600*24)));
     $action->lay->set($dayl[$day]."_month", strftime("%B", $firstday + ($day*3600*24)));
     if (count($daysev[$day])>0) {
+      usort($daysev[$day], cmpRv);
       $action->lay->setBlockData("b_".$dayl[$day], $daysev[$day]);
       $action->lay->set("s_".$dayl[$day], true);
     } else{
@@ -146,6 +165,7 @@ function wgcal_textweek(&$action) {
 }
 
 function cmpRv($e1, $e2) {
-  return $e1["START"] > $e2["START"];
+  if ($e1["p"]==$e2["p"] && $e2["p"]>3) return strcmp($e1["hours"], $e2["hours"]);
+  return $e1["p"] > $e2["p"];
 }
 ?>
