@@ -3,7 +3,7 @@
  * Generate Php Document Classes
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.16 2006/02/10 15:32:18 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.17 2006/02/21 08:43:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,22 +51,27 @@ if ($docid > 0) {
   // sort id by dependance
   $table1 = $query->Query(0,0,"TABLE");
   $tid=array();
-  pushfam(0, $tid, $table1);  
+  pushfam(0, $tid, $table1); 
+  
 }      
 
     
 if ($query->nb > 0)	{
 
   $pubdir = $appl->GetParam("CORE_PUBDIR");
+  if ($query->nb > 1) {
+    $tii=array(1,2,3,4,5,6,20,21);
+    foreach ($tii as $ii) {     
+      updateDoc($dbaccess,$tid[$ii]);
+      unset($tid[$ii]);
+    }
+  }
 
  // workflow at the end
   foreach ($tid as $k=>$v)   {	     
     if ($v["usefor"] == "W") { 
-      $phpfile=createDocFile($dbaccess,$v);
-      print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
+      updateDoc($dbaccess,$v);
 
-      $msg=PgUpdateFamilly($dbaccess, $v["id"]);
-      print $msg;
       $wdoc= createDoc($dbaccess,$v["id"]);
       $wdoc->CreateProfileAttribute();// add special attribute for workflow
       activateTrigger($dbaccess, $v["id"]);
@@ -75,16 +80,21 @@ if ($query->nb > 0)	{
 
   foreach ($tid as $k=>$v)   {	     
     if ($v["usefor"] != "W") { 
-      $phpfile=createDocFile($dbaccess,$v);
-      print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
-      $msg=PgUpdateFamilly($dbaccess, $v["id"]);
-      print $msg;    
-      activateTrigger($dbaccess, $v["id"]);
+      updateDoc($dbaccess,$v);
     }    
   }	 
- 	   
+ 
+
+	   
  }      
     
+  function updateDoc($dbaccess,$v) {
+    $phpfile=createDocFile($dbaccess,$v);
+    print "$phpfile [".$v["title"]."(".$v["name"].")]\n";
+    $msg=PgUpdateFamilly($dbaccess, $v["id"]);
+    print $msg;    
+    activateTrigger($dbaccess, $v["id"]);    
+  }
 
 // recursive sort by fromid
 function pushfam($fromid, &$tid, $tfam) {
