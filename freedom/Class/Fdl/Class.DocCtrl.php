@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.32 2006/02/07 17:20:27 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.33 2006/02/21 08:41:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -155,6 +155,7 @@ Class DocCtrl extends DocLDAP {
    */
   function setProfil($profid, $fromdocidvalues=0) {
 
+    if (! is_numeric($profid)) $profid=getIdFromName($this->dbaccess,$profid);
     $this->profid = $profid;
     if (($profid > 0) && ($profid != $this->id)) {
       // make sure that the profil is activated

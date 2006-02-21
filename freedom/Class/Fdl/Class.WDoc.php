@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.49 2005/09/27 13:37:16 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.50 2006/02/21 08:41:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -84,8 +84,8 @@ Class WDoc extends Doc {
   function changeProfil($newstate) {
 
     if ($newstate != "") {
-      $profid=intval($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
-      
+      $profid=($this->getValue($this->attrPrefix."_ID".strtoupper($newstate)));
+      if (! is_numeric($profid)) $profid=getIdFromName($this->dbaccess,$profid);
       if ($profid > 0) {
 	// change only if new profil
 	$this->doc->setProfil($profid);
@@ -114,7 +114,7 @@ Class WDoc extends Doc {
       $oattr->visibility="F";
       $oattr->type="frame";
       $oattr->id=$aidframe;
-      $oattr->frameid=$oattr->id;
+      $oattr->frameid="";
       $oattr->labeltext=sprintf(_("parameters for %s state"),_($state));
       $oattr->link="";
       $oattr->phpfunc="";
@@ -131,7 +131,7 @@ Class WDoc extends Doc {
       $oattr = new DocAttr($this->dbaccess, array($cid,$aidprofilid));
       $oattr->docid=$cid;
       $oattr->visibility="H";
-      $oattr->type="text";
+      $oattr->type="docid";
       $oattr->id=$aidprofilid;
       $oattr->labeltext=sprintf(_("id %s profile"),_($state));
       $oattr->link="";
