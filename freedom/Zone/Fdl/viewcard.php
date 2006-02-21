@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.65 2006/02/07 10:05:33 eric Exp $
+ * @version $Id: viewcard.php,v 1.66 2006/02/21 08:42:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -240,7 +240,7 @@ function viewcard(&$action) {
   
 
   if ($doc->wid > 0) { // see only if it is a transitionnal doc
-    if ($doc->locked == -1)    $action->lay->Set("state", $action->text($doc->state));
+    if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($doc->state));
     else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($doc->state)));
     $action->lay->Set("viewstate", "inherit");
     $action->lay->Set("wid", $doc->wid);
