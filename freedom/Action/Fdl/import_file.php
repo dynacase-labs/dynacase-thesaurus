@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.104 2006/01/03 17:31:57 eric Exp $
+ * @version $Id: import_file.php,v 1.105 2006/02/21 15:42:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -52,6 +52,7 @@ function add_import_file(&$action, $fimport="") {
     if ($num < 1) continue;
     $tcr[$nline]=array("err"=>"",
 	     "msg"=>"",
+	     "specmsg"=>"",
 	     "folderid"=>0,
 	     "foldername"=>"",
 	     "filename"=>"",
@@ -146,10 +147,12 @@ function add_import_file(&$action, $fimport="") {
       // case of specific order
       if (is_numeric($data[1]))   $fromid = $data[1];
       else $fromid = getFamIdFromName($dbaccess,$data[1]);
-      if (!isset($torder[$fromid])) $torder[$fromid]=array();
+
+      if (isset($tkeys[$fromid])) $tk=$tkeys[$fromid];
+      else $tk=array("title");
 
       $tcr[$nline]=csvAddDoc($dbaccess, $data, $dirid,$analyze,
-		    '',$policy,array("title"),array(),$tcolorder[$fromid]);
+			     '',$policy,$tk,array(),$tcolorder[$fromid]);
       if ($tcr[$nline]["err"]=="") $nbdoc++;
       break;    
       // -----------------------------------
@@ -406,6 +409,19 @@ function add_import_file(&$action, $fimport="") {
       $tcr[$nline]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$orfromid]));
       
       break;
+    case "KEYS":  
+      if (is_numeric($data[1]))   $orfromid = $data[1];
+      else $orfromid = getFamIdFromName($dbaccess,$data[1]);
+      
+      $tkeys[$orfromid]=getOrder($data); 
+      if (($tkeys[$orfromid][0]=="") || (count($tkeys[$orfromid])==0)) {	
+	$tcr[$nline]["err"]=sprintf(_("error in import keys : %s"),implode(" - ",$tkeys[$orfromid]));
+	unset($tkeys[$orfromid]);
+	$tcr[$nline]["action"]="ignored";
+      } else {
+	$tcr[$nline]["msg"]=sprintf(_("new import keys : %s"),implode(" - ",$tkeys[$orfromid]));
+      }
+      break;
     case "PROFIL":  
       if (is_numeric($data[1]))   $pid = $data[1];
       else $pid =  getIdFromName($dbaccess,$data[1],3);
@@ -556,6 +572,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   // return structure
   $tcr=array("err"=>"",
 	     "msg"=>"",
+	     "specmsg"=>"",
 	     "folderid"=>0,
 	     "foldername"=>"",
 	     "filename"=>"",
@@ -575,6 +592,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   $msg =""; // information message
   $doc->fromid = $fromid;
   $tcr["familyid"]=$doc->fromid;
+  $tcr["familyname"]=$doc->getTitle($doc->fromid);
   if  ($data[2] > 0) $doc->id= $data[2]; // static id
   elseif (trim($data[2]) != "") {
     if (! is_numeric(trim($data[2]))) {
@@ -774,7 +792,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     
 
     if ($doc->isAffected()) {
-      $msg.=$doc->Refresh(); // compute read attribute
+      $tcr["specmsg"]=$doc->Refresh(); // compute read attribute
       $err=$doc->PostModify(); // compute read attribute
       if ($err=="") $doc->modify();
       if ($err=="-") $err=""; // not really an error add addfile must be tested after
@@ -786,7 +804,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   //------------------
   // add in folder
 
-  if ($err=="") {
+  if (($err=="") && ($data[3]!="-")){
     $msg .= $doc->title;
     if (is_numeric($data[3])) $ndirid=$data[3];
     else $ndirid=getIdFromName($dbaccess,$data[3],2);

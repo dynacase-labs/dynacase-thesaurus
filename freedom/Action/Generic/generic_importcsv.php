@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.15 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.16 2006/02/21 15:42:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -88,8 +88,11 @@ function generic_importcsv(&$action) {
     switch ($data[0]) {
 	
     case "DOC":
+      if (isset($tkeys[$fromid])) $tk=$tkeys[$fromid];
+      else $tk=array($key1,$key2);
+
       $cr[$line] =csvAddDoc($dbaccess, $data,getDefFld($action),
-			    $analyze,'',$policy, array($key1,$key2),
+			    $analyze,'',$policy, $tk,
 			    $ddoc->getValues(),$tcolorder[$fromid]);
       if ($cr[$line]["err"]!="") {
       } else {
@@ -116,6 +119,7 @@ function generic_importcsv(&$action) {
     case "ORDER":
       $cr[$line]=array("err"=>"",
 	     "msg"=>"",
+	     "specmsg"=>"",
 	     "folderid"=>0,
 	     "foldername"=>"",
 	     "filename"=>"",
@@ -127,9 +131,30 @@ function generic_importcsv(&$action) {
 	     "action"=>" ");
       $tcolorder[$fromid]=getOrder($data);
       $cr[$line]["msg"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$fromid]));
-      
- 
-      
+           
+      break;
+    case "KEYS":
+      $cr[$line]=array("err"=>"",
+	     "msg"=>"",
+	     "specmsg"=>"",
+	     "folderid"=>0,
+	     "foldername"=>"",
+	     "filename"=>"",
+	     "title"=>"",
+	     "id"=>"",
+	     "values"=>array(),
+	     "familyid"=>0,
+	     "familyname"=>"",
+	     "action"=>" ");
+      $tkeys[$fromid]=getOrder($data);
+      if (($tkeys[$fromid][0]=="") || (count($tkeys[$fromid])==0)) {	
+	$cr[$line]["err"]=sprintf(_("error in import keys : %s"),implode(" - ",$tkeys[$fromid]));
+	unset($tkeys[$fromid]);
+	$cr[$line]["action"]="ignored";
+      } else {
+	$cr[$line]["msg"]=sprintf(_("new import keys : %s"),implode(" - ",$tkeys[$fromid]));
+      }
+           
       break;
     }
   }
@@ -145,7 +170,6 @@ function generic_importcsv(&$action) {
       $cr[$k]["svalues"].= "<LI>[$ka:$va]</LI>"; // 
     }
   }
-
   $action->lay->SetBlockData("ADDEDDOC",$cr);
   $nbdoc=count(array_filter($cr,"isdoc2"));
   $action->lay->Set("nbdoc","$nbdoc");
