@@ -1,7 +1,7 @@
 
 <script>
 function displaytr(event,o,n) {
-  var t=document.getElementsByName(n);
+  var t=getElementsByNameTag(document,n,'tr');
   var i=0;
   var d;
   

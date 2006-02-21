@@ -16,7 +16,7 @@ TR.hi {
 var vieweq=false;
 var viewhi=false;
 function displaytr(event) {
-  var t=document.getElementsByName("eq");
+  var t=getElementsByNameTag(document,'eq','tr');
   var i=0;
   var d;
   if (t.length > 0) {
@@ -36,14 +36,14 @@ function displaytr(event) {
   return false;
 }
 function displayhi(event,o) {
-  var t=document.getElementsByName("eq");
+  var t=getElementsByNameTag(document,'eq','tr');
   var i=0;
   if (t.length > 0) {   
       for ( i=0; i< t.length; i++) {      
 	if (t[i].className=='hi') t[i].className='eq';
       }
   }    
-  t=document.getElementsByName("ne");
+  t=getElementsByNameTag(document,'ne','tr');
   if (t.length > 0) {   
       for ( i=0; i< t.length; i++) {      
 	if (t[i].className=='hi') t[i].className='ne';

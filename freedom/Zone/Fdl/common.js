@@ -458,3 +458,23 @@ function showFieldset(event,o,n) {
   }
   
 }
+
+
+// correct getElementsByName for IE
+function getElementsByNameTag(o,n,t) {
+  var tt;
+  if (isNetscape) return o.getElementsByName(n);
+
+  
+  var tt=o.getElementsByTagName(t);
+  var lf=new Array();
+  
+  for (var i=0;i<tt.length;i++) {
+    ln=tt[i].getAttribute('name');
+    if (ln && (ln==n)) {
+      lf.push(tt[i]);
+    }
+  }
+  return lf;
+  
+}
