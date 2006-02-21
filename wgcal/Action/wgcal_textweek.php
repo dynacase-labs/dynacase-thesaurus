@@ -114,13 +114,13 @@ function wgcal_textweek(&$action) {
 	} else {
 	  if ($iday==intval($startday)) {
 	    $p = 4;
-	    $hours = $lstart." 23h59";
+	    $hours = $lstart." 24:00";
 	  } else if ($iday==intval($endday)) {
-	    $hours = "00h00 ".$lend;
+	    $hours = "00:00 ".$lend;
 	    $p = 2;
 	  } else {
 	    $p = 1;
-	    $hours = "("._("all the day _ short").")";
+ 	    $hours = "("._("all the day _ short").")";
 	  }
 	}
       }
