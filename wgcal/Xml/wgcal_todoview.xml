@@ -7,7 +7,7 @@
 </tr>
 </table></div>
 [IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo][ENDIF Todos]
-[IF Todos]<div height="100%" style="height:100%; overflow:auto">
+[IF Todos]<div class="wToolArea" style="overflow:auto" >
 <table width="100%" cellspacing="0">
 [BLOCK TodoList]
 <tr class="WGCRessDefault" onmouseover="this.className='WGCRessOver'" onmouseout="this.className='WGCRessDefault'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">

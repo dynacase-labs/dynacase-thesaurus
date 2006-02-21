@@ -72,7 +72,7 @@
 
 <!-- POPUP DIVISION -->
 
-<div  style="display:none" id="resspopup" class="wgcalpopup">
+<div style="display:none" id="resspopup" class="wgcalpopup">
 
 <a href="#" id="displayress" onclick="vuvRessource(); closeMenu('resspopup')">[IF POPUPICONS]
 <img style="border:0px" src="[IMG:wm-ressshowhide.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:show/hide this ressource]</a>
@@ -101,8 +101,8 @@
 
 </div> <!-- end POPUP DIVISION -->
 
-<div id="vcals" style="display:[vcals];  overflow:auto;" class="wToolArea" >
-<table align="center" width="95%" cellspacing="0" cellpadding="0">
+<div id="vcals"  class="wToolArea" style="display:[vcals];  overflow:auto;" >
+<table style="border:0px; margin:0px; padding:0px; width:100%;" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
 
