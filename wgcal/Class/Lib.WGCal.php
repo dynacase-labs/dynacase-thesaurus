@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.60 2006/02/17 10:23:35 eric Exp $
+ * @version $Id: Lib.WGCal.php,v 1.61 2006/02/21 17:16:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -183,7 +183,7 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
    foreach ($attid as $k => $v) {
      if ($v != $uid->id) {
        $u = new_Doc($action->GetParam("FREEDOM_DB"), $v);
-       if (($u->fromid!=128 && $sendtoext) || $u->fromid==128) {
+       if ((!wIsFamilieInteractive($u->fromid) && $sendtoext) || wIsFamilieInteractive($u->fromid)) {
 	 $fullname = $u->getValue("TITLE");
 	 $mail = $u->getValue("us_mail");
 	 if ($mail!="") $to .= ($to==""?"":", ").addslashes($fullname)." <".$mail.">";
