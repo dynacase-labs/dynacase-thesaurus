@@ -2,6 +2,11 @@
 var sFam = new Array;
 var cHandler = "insertContact";
 var cclass = 'WGCRessDefault';
+var STimeOut = 400;
+var SResultPosLeftShift = 20;
+var SResultPosTopShift = 40;
+var SearchMinLength = 2;
+var rq = false;
 
 function insertContact(domid, isInter, id, title, iconsrc) {
   var col = 'transparent';
@@ -46,8 +51,12 @@ var sfTimer = -1;
 
 function searchSFamilie(evt, bUrl, force) {
 
-  if( sfTimer!=-1) clearTimeout(sfTimer);
-  var sfTimer = -1;
+  if (sfTimer!=-1) clearTimeout(sfTimer);
+  sfTimer = -1;
+
+  evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  if (cc<48||cc>90) return true;
 
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
@@ -56,10 +65,8 @@ function searchSFamilie(evt, bUrl, force) {
   if (sFam.length==0) return true;
 
   var stext = document.getElementById('sFamText');
-  if (stext.value.length<4) return true;
+  if (stext.value.length<SearchMinLength) return true;
 
-  evt = (evt) ? evt : ((event) ? event : null );
-  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
 
   if (cc==13 || force) {
     var fvl = document.getElementById('fgetiuser');
@@ -76,30 +83,33 @@ function searchSFamilie(evt, bUrl, force) {
   sfMode = (document.getElementById('sMode').checked ? 'C' : 'B' );
   sfFams = sFam.join("|");
 
-  sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", 1000);
-
+  sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", STimeOut);
   return true;
 }  
 
 function runSearchSFamilie(burl, f, t, m) {
 
-//   alert('C parti sfText='+f+' sfMode='+t+' sfFams='+m ); return;
+  var url = burl + "app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
+//    alert('Go('+sfTimer+'):url='+url); return;
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
   result.style.display = 'none';
   
+  if (!rq) {
+    try {
+      rq = new XMLHttpRequest();
+    } catch (e) {
+      rq = new ActiveXObject("Msxml2.XMLHTTP");
+    }
+  } else {
+    rq.abort();
+  }
 
   if (f=='' || t=='' || m=='') return;
 
-  var url = burl + "app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
 
   var po = getAnchorPosition('sFamText');
-  var rq;
-  try {
-    rq = new XMLHttpRequest();
-  } catch (e) {
-    rq = new ActiveXObject("Msxml2.XMLHTTP");
-  }
+  var pwi = getObjectWidth(document.getElementById('sFamText'));
 
   rq.onreadystatechange =  function() {
     if (rq.readyState == 4) {
@@ -109,8 +119,8 @@ function runSearchSFamilie(burl, f, t, m) {
 	if (rq.responseText.length>0) {
 	  result.style.display = '';
 	  result.innerHTML = rq.responseText;
-	  result.style.left = parseInt(po.x); 
-	  result.style.top = parseInt(po.y + 20); 
+	  result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
+	  result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
 	} else {
 	  result.style.display = 'none';
 	}

@@ -193,8 +193,8 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 
 <!-- BLOCK DE RECHERCHE --><div style="width:100%; margin:5px; vertical-align:top;">
-
-<div id="sfamres" class="elist" style="display:none"></div>
+<!-- this.style.display='none' -->
+<div id="sfamres" class="elist" onmouseout="" style="display:none"></div>
 
 <script type="text/javascript">
 [BLOCK sFAMR]addSFamilie([fid]);

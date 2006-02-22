@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.6 2006/02/16 15:46:21 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.7 2006/02/22 17:28:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,7 +29,6 @@ function wgcal_searchContacts(&$action) {
   $calMode = GetHttpVars("cmode", "R"); // [R]ead [W]rite
   $iClass = GetHttpVars("iclass", ""); 
   
-  $action->lay->set("noResult", true);
   if ($sfam=="" || strlen($sText)<$minLength) return;
 
   $filter = array();
@@ -50,9 +49,9 @@ function wgcal_searchContacts(&$action) {
  
   $tres = array();
   $rdoc = getChildDoc($dbaccess, 0, 0, ($resultCountMax+1), $filter, $action->user->id, "TABLE");
+  $action->lay->set("moreResult", false);
+  $action->lay->set("oneResult", false);
   if (count($rdoc)>0) {
-    $action->lay->set("noResult", true);
-    $action->lay->set("moreResult", false);
     $ci = 0;
     if (count($rdoc)>$resultCountMax) {
       $action->lay->set("moreResult", true);
@@ -81,8 +80,11 @@ function wgcal_searchContacts(&$action) {
       }
       $ci++;
     }
-    if (count($tres)>0) {
-      $action->lay->set("noResult", false);
+    
+    $nr = count($tres);
+    if ($nr>0) {
+      if ($nr==1) $action->lay->set("oneResult", true);
+      $action->lay->set("moreResult", true);
       $action->lay->setBlockData("result", $tres);
     }
   }

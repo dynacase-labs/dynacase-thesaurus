@@ -16,10 +16,14 @@ body {
   font-family: [WTH_FONTLIST];
   background: [WTH_BGIMG]; 
   color: [WTH_TEXTCOLOR_1];
-  border:1px solid [WTH_TEXTCOLOR_1];
+  /* border:1px solid [WTH_TEXTCOLOR_1]; */
+  border-width: 3px;
+  border-color: [WTH_COLOR_2];
+  border-style: outset;
   z-index : 1000;
   position:absolute;
   width : auto;
+  nowrap;
 }
 
 @media print {
