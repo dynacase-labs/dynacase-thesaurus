@@ -1,15 +1,10 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?HBUL=SaveFrameWidth()&refresh=[refresh]]
-<div id="toolbarmain style="display:none">
-<form id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
-
-<form id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE">
-<input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
-
-<form id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
-</div>
-<div style="left:0%;top:0%;" title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
+<form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
+<form style="display:none" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
+<form style="display:none" id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
+<div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0"><tr>
-<td align="center"><img src="[IMG:wm-reloadsync.gif]" height="20px">
+<td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
 <td align="center"><div><span style="font-weight:bold">[owner]</span><span style="font-size:80%"> [today]</span></div>
 [IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]</td></tr>
 </table>
