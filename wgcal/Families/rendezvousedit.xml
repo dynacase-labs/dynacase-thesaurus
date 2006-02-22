@@ -2,15 +2,15 @@
 
 <script type="text/javascript"> var closeMsg = '[TEXT: cancel modifications]';</script>
 
-<form id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>
+<form style="display:none" id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>
 
-<form id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
+<form style="display:none" id="fgetiuser" target="wgcal_iuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&wre=1">
 <input id="itext" name="itext" type="hidden">
 <input id="ifam" name="ifam" type="hidden">
 <input id="icuser" name="cuser" type="hidden" value="[ownerid]">
 </form>
 
-<form id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
+<form style="display:none" id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
 
 <form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
@@ -176,7 +176,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 
 </td>
-<td style="padding:1em" valign="top" align="left">
+<td style="padding-left:1em" valign="top" align="left">
 
 <img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
     height="22" title="[TEXT:meeting]" style="border:0px" 
@@ -424,4 +424,3 @@ glist[[igroup]] = [gid];[ENDBLOCK GLIST]
 <iframe name="wgcal_iuser" id="wgcal_iuser" style="display:none"></iframe>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
- 

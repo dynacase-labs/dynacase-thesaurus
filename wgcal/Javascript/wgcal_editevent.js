@@ -3,18 +3,6 @@
  **
  **
 */
-/*
- * Global mode 
- */
-var ROMode = false;
-
-function swstate(s) {
-  if (s==1) return 0;
-  else return 1;
-}
-
-
-
 
 function ChangeAlarm() {
   chk = document.getElementById('AlarmCheck');
