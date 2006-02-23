@@ -490,7 +490,7 @@ function EventSelectAll(f) {
 }
 
 
-function viewattdispo(url) {
+function viewattdispo(url, rlist) {
 
 //   var withme = document.getElementById('withMe');
   var me = document.getElementById('ownerid').value;
@@ -498,17 +498,20 @@ function viewattdispo(url) {
   var js;
   var je;
 
-  rll = "";
-  for (att=0; att<attendeesList.length; att++) {
-    if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
-    if (rll!='') rll += '|';
-    rll += attendeesList[att].id;
+  if (!rlist) {
+    rll = "";
+    for (att=0; att<attendeesList.length; att++) {
+      if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
+      if (rll!='') rll += '|';
+      rll += attendeesList[att].id;
+    }
+    //   if (withme.checked) {
+    //     if (rll!='') rll += '|';
+    //     rll += me;
+    //   }
+  } else {
+    rll = rlist;
   }
-//   if (withme.checked) {
-    if (rll!='') rll += '|';
-    rll += me;
-//   }
-  
   var td = new Date();
   td.setTime(rvs);
   var ye  = parseFloat(td.getFullYear());
