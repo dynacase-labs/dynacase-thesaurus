@@ -434,7 +434,7 @@ function showIcons($private, $withme) {
 				     "icontitle" => _("icon text with attendees") )
 		   );
   $icons = array();
-  $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 0);
+  $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 1);
   if ($sico == 1) {
     if ($private)  $icons[] = $ricons["CONFID"];
     else {
