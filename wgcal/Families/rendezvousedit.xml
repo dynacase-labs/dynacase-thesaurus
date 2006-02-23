@@ -268,7 +268,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tbody id="tabress">
 <tr style="display:none" id="trsample">
 <td id="cp%RID%" style="border: 1px outset" width="3px"></td>
-<td nowrap style="cursor:pointer" id="%RID%" title="%RDESCR%, [TEXT:click on ressource to select/unselect]" onmouseover="ViewGroup(this,true);"  onmouseout="ViewGroup(this,false);" onclick="RessourceSelect('%RID%');">&nbsp;%RDESCR%&nbsp;</td>
+<td nowrap style="cursor:pointer" id="%RID%" title="%RDESCR%, [TEXT:click on ressource to select/unselect]" onmouseover="ViewGroup(this,true);" onmouseout="ViewGroup(this,false);" onclick="RessourceSelect('%RID%');">&nbsp;%RDESCR%&nbsp;</td>
 <td align="center"><img id="im%RID%" height="15px" class="wSmallButton" align="absbottom" title="%RDESCR%, [TEXT:vew disponibility]" src="%RICON%" onclick="viewattdispo('[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&vm=7&sm=1&ress=', '%RID%');"></td>
 </tr>
 </tbody>
