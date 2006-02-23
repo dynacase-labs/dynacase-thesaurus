@@ -1,7 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<table>
+<table align="center">
 <tr>
-<td><img src="WGCAL/Images/wgcal.gif"></td>
+<td><img onclick="document.getElementById('thanks').style.display=''" src="WGCAL/Images/wgcal.gif"></td>
 <td style="border: 1px inset; padding: 20px; font-size:120%">L'Agenda de groupe Freedom<br>
 The Freedom Groupware Calendar</td>
 </tr>
@@ -9,6 +9,26 @@ The Freedom Groupware Calendar</td>
 Version [appversion] (c) Césam Net / Anakeen 2005<br>
 For more informations, see the <a target="_new" href="http://freedom.i-cesam.com">Freedom Site</a>
 </td></tr>
+</table>
+
+<br>
+
+<table id="thanks" style="display:none" align="center" width="80%">
+<tr valign="top">
+<td align="right">Remerciements...</td>
+<td><li><a href="mailto:marc.claverie (at) anakeen.com">Marc Claverie</a> (frontend) <a href="mailto:eric.brison (at) anakeen.com">Eric Brison</a> (backend)<br>design and development
+</td>
+</tr>
+<tr>
+<td></td>
+<td><li><a href="mailto:caroline.fuentes (at) cesamnet.fr">Caroline Fuentes</a> & <a href="mailto:yannick.lebriquer (at) anakeen.com">Yannick Le Briquer</a><br>pour leurs remarques pertinentes et surtout la patience suffisante pour supporter les 2 ci-dessus...
+</td>
+</tr>
+<tr>
+<td></td>
+<td><li><a href="mailto:support (at) cesamnet.fr">L'équipe technique</a> pour ses relectures et tests efficaces
+</td>
+</tr>
 
 </table>
 [ZONE WGCAL:WGCAL_HTMLFOOT]
