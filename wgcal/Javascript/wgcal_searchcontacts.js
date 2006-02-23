@@ -116,11 +116,12 @@ function runSearchSFamilie(burl, f, t, m) {
       result.innerHTML = '';
       result.style.display = 'none';
       if (rq.responseText && rq.status==200) {
-	if (rq.responseText.length>0) {
+	if (rq.responseText.length>1) {
 	  result.style.display = '';
 	  result.innerHTML = rq.responseText;
 	  result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
 	  result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
+	  alert('['+rq.responseText.length+']');
 	} else {
 	  result.style.display = 'none';
 	}
