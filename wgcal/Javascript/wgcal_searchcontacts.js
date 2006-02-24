@@ -121,7 +121,6 @@ function runSearchSFamilie(burl, f, t, m) {
 	  result.innerHTML = rq.responseText;
 	  result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
 	  result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
-	  alert('['+rq.responseText.length+']');
 	} else {
 	  result.style.display = 'none';
 	}
