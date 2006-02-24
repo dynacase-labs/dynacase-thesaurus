@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.68 2006/02/24 14:34:18 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.69 2006/02/24 18:00:44 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -51,7 +51,7 @@ function wgcal_calendar(&$action) {
   if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
   $sdate = w_GetDayFromTs($stdate); 
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
-  echo "date : ".strftime("%X %x", $firstWeekDay);
+  echo "date : ".gmdate("c", $firstWeekDay);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
@@ -120,8 +120,8 @@ function wgcal_calendar(&$action) {
         $week = $week." - ".$eweek;
         $action->lay->set("plusweek", "s");
   }
-  $iday  = strftime("%u",$firstWeekDay);
-  $day   = strftime("%d",$firstWeekDay);
+  $iday  = gmdate("w",$firstWeekDay);
+  $day   = gmdate("d",$firstWeekDay);
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
@@ -139,7 +139,7 @@ function wgcal_calendar(&$action) {
   $tabdays = array(); $itd=0;
   for ($i=0; $i<$ndays; $i++) { 
     $tabdays[$i]["iday"] =  $i;
-    $tabdays[$i]["days"] =  strftime("%s", $firstWeekDay+($i*SEC_PER_DAY));
+    $tabdays[$i]["days"] =  $firstWeekDay+($i*SEC_PER_DAY);
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstart - (3600/$hdiv));
     $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop + 3600 + (3600/$hdiv));
     $class[$i] = "WGCAL_Day";
@@ -187,7 +187,7 @@ function wgcal_calendar(&$action) {
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
 	$tcell[$itc]["colsize"] = ($i==0?$Hcolsize:$colsize);
 	$tcell[$itc]["urlroot"] = $urlroot;
-	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+(($h-1)*SEC_PER_HOUR) + ($hd*$mdiv);
+	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+($h*SEC_PER_HOUR) + ($hd*$mdiv);
 	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + ($action->getParam("WGCAL_U_RVDEFDUR", 60)*60);
 	$tcell[$itc]["rtime"] = w_strftime($firstWeekDay+($id*SEC_PER_DAY), WD_FMT_DAYLTEXT);
 	if ($h==($hstart-1) || $h==($hstop+1)) {

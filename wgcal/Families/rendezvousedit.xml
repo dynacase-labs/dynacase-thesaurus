@@ -13,6 +13,8 @@
 <form style="display:none" id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
 
 <form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
+<input type="hidden" id="EvTsStart" name="EvTsStart" value="0">
+<input type="hidden" id="EvTsEnd" name="EvTsEnd" value="0">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
 <input type="hidden" id="eventid" name="eventid" value="[EVENTID]">
 <input type="hidden" id="ownerid" name="ownerid" value="[ownerid]">

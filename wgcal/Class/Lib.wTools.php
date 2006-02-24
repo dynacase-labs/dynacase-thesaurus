@@ -26,7 +26,7 @@ function wDebugMode() {
 }
 
 function w_dbdate2ts($dbtime) {
-  return mktime(w_dbhou($dbtime), 
+  return gmmktime(w_dbhou($dbtime), 
 		w_dbmin($dbtime), 
 		w_dbsec($dbtime), 
 		w_dbmon($dbtime), 
@@ -35,12 +35,12 @@ function w_dbdate2ts($dbtime) {
 }
 
 function ts2db($t, $f="H:i d/m/Y") {
-  return date($f, $t);
+  return gmdate($f, $t);
 }
 
 function w_datets2db($d, $hm = true) {  	 
   $fmt = ($hm ? "d/m/Y H:i" : "d/m/Y" ); 	 
-  $s = date($fmt, $d); 	 
+  $s = gmdate($fmt, $d); 	 
   return $s; 	 
 }
 
@@ -74,12 +74,12 @@ function w_strftime($ts, $fmt=0, $ucw=true) {
 function w_GetFirstDayOfWeek($ts) 
 {
 	if ($ts<=0) return false;
- 	$iday  = strftime("%u",$ts);
+ 	$iday  = gmdate("w",$ts);
 	$dt = 1-$iday;
         $tsfwd = $ts - (($iday-1) * SEC_PER_DAY);
-	$dd = strftime("%d", $tsfwd);
- 	$mm = strftime("%m", $tsfwd);
- 	$yy = strftime("%Y", $tsfwd);
+	$dd = gmdate("d", $tsfwd);
+ 	$mm = gmdate("n", $tsfwd);
+ 	$yy = gmdate("Y", $tsfwd);
 	$fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
 	return $fwdt;
 }
@@ -87,9 +87,9 @@ function w_GetFirstDayOfWeek($ts)
 function w_GetDayFromTs($ts) 
 {
   if ($ts<=0) return false;
-  $dd = strftime("%d", $ts);
-  $mm = strftime("%m", $ts);
-  $yy = strftime("%Y", $ts);
+  $dd = gmdate("d", $ts);
+  $mm = gmdate("n", $ts);
+  $yy = gmdate("Y", $ts);
   $fwdt = gmmktime ( 0, 0, 0, $mm, $dd, $yy);
   return $fwdt;
 }

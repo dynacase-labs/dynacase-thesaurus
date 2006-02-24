@@ -369,7 +369,15 @@ function saveEvent() {
     return false;
   }
   if (EventSelectAll(fs)) { 
-      fs.submit();
+    var sd = new Date();
+    sd.setTime(document.getElementById('TsStart').value);
+    document.getElementById('EvTsStart').value = sd.valueOf();
+    var ed = new Date();
+    ed.setTime(document.getElementById('TsEnd').value);
+    document.getElementById('EvTsEnd').value = ed.valueOf();
+var ok = confirm("début=["+sd.toUTCString()+" ("+sd.valueOf()+")]\nfin=["+ed.toUTCString()+" ("+ed.valueOf()+"]");
+if (!ok) return false;
+    fs.submit();
   }
   return false;
 }

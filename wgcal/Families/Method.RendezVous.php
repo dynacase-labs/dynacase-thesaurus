@@ -677,7 +677,7 @@ function RendezVousEdit() {
       $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
       $ogrp    = "-";
       $evrepeat = 0;
-      $evrweekd = pow(2, strftime("%u",$evstart)-1);
+      $evrweekd = pow(2, gmdate("w",$evstart)-1);
       $evrmonth = 0;
       $evruntil = 0;
       $evruntild = $timee + (7*24*3600);
@@ -818,8 +818,8 @@ function EventSetDate($dstart, $dend, $type)
   else $this->lay->set("HVISIBLE", "visible");
   
   
-  $start_H = strftime("%H", $dstart);
-  $start_M = strftime("%M", $dstart);
+  $start_H = gmdate("H", $dstart);
+  $start_M = gmdate("i", $dstart);
   $this->lay->set("START", ($dstart*1000));
   $this->lay->set("STARTsec", $dstart);
   $this->lay->set("STARTREAD", ucwords(strftime("%a %d %b %Y", $dstart)));
@@ -843,8 +843,8 @@ function EventSetDate($dstart, $dend, $type)
   }
   $this->lay->setBlockData("SHMSEL", $th);
   
-  $end_H = strftime("%H", $dend);
-  $end_M = strftime("%M", $dend);
+  $end_H = date("H", $dend);
+  $end_M = date("i", $dend);
   $this->lay->set("END", $dend*1000);
   $this->lay->set("ENDsec", $dend);
   $this->lay->set("ENDREAD", ucwords(strftime("%a %d %b %Y", $dend)));
