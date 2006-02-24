@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.67 2006/02/20 15:01:26 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.68 2006/02/24 14:34:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -51,6 +51,7 @@ function wgcal_calendar(&$action) {
   if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
   $sdate = w_GetDayFromTs($stdate); 
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
+  echo "date : ".strftime("%X %x", $firstWeekDay);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
