@@ -1,4 +1,7 @@
 <?php
+  //
+  // $Id: wgcal_initpubuser.php,v 1.3 2006/02/26 10:48:22 marc Exp $
+  //
 include_once('FDL/Lib.Dir.php');
 include_once("WGCAL/Lib.Agenda.php");
 
