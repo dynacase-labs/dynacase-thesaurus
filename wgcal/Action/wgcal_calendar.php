@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.69 2006/02/24 18:00:44 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.70 2006/02/26 11:40:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -51,7 +51,6 @@ function wgcal_calendar(&$action) {
   if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
   $sdate = w_GetDayFromTs($stdate); 
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
-  echo "date : ".gmdate("c", $firstWeekDay);
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
@@ -155,7 +154,7 @@ function wgcal_calendar(&$action) {
     $t[$i]["CSS"] = $classh[$i];
     $t[$i]["LABEL1"] = ucwords(strftime("%a %d", $firstWeekDay+($i*SEC_PER_DAY)));
     $t[$i]["times"] = $tabdays[$i]["vstart"] ;
-    $t[$i]["timee"] = $t[$i]["times"] +  SEC_PER_HOUR;
+    $t[$i]["timee"] = $tabdays[$i]["vstart"] +  SEC_PER_HOUR;
   }
   $action->lay->SetBlockData("DAYS_LINE", $t);
   
