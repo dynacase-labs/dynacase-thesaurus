@@ -388,7 +388,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
   $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
-  $action->log->info(basename(__FILE__)."(".__LINE__.") d:$d1 e:$d2 r:$idres famid:".getIdFromName($dbaccess, $famid));
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results --------------
