@@ -59,20 +59,20 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
   $event->setValue("CALEV_CATEGORY", GetHttpVars("evcategory", 0));
   
-  $ds = (GetHttpVars("EvTsStart", 0)/1000);
-  $de = (GetHttpVars("EvTsEnd", 0)/1000);
-  $start = w_datets2db($ds).":00";
-  $end = w_datets2db($de).":00";
+  $ds = (GetHttpVars("TsStart", 0)/1000);
+  $de = (GetHttpVars("TsEnd", 0)/1000);
+  $start = date("d/m/Y H:i:00",$ds);
+  $end = date("d/m/Y H:i:00",$de);
   $htype = 0;
   if (GetHttpVars("nohour", "") == "on") {
     $htype = 1;
-    $start = w_datets2db($ds, false) . " 00:00:00";
-    $end = w_datets2db($ds, false) . " 00:00:00";
+    $start =date("d/m/Y 00:00:00",$ds);
+    $end = date("d/m/Y 00:00:00",$ds);
   }
   if (GetHttpVars("allday", "") == "on") {
     $htype = 2;
-    $start = w_datets2db($ds, false)." 00:00:00";
-    $end = w_datets2db($ds, false)." 23:59:59";
+    $start =date("d/m/Y 00:00:00",$ds);
+    $end = date("d/m/Y 23:59:59",$ds); 
   }
   if (!$newevent) {
     $ott = $event->getValue("CALEV_TIMETYPE"); 

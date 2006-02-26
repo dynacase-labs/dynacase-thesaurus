@@ -25,13 +25,21 @@ function wDebugMode() {
   return (file_exists("WGCAL/wgcal.debug") && $action->user->id==1);
 }
 
-function w_dbdate2ts($dbtime) {
-  return gmmktime(w_dbhou($dbtime), 
-		w_dbmin($dbtime), 
-		w_dbsec($dbtime), 
-		w_dbmon($dbtime), 
-		w_dbday($dbtime), 
-		w_dbyea($dbtime));
+function w_dbdate2ts($dbtime, $utc=true) {
+  if ($utc) 
+    return gmmktime(w_dbhou($dbtime), 
+			       w_dbmin($dbtime), 
+			       w_dbsec($dbtime), 
+			       w_dbmon($dbtime), 
+			       w_dbday($dbtime), 
+			       w_dbyea($dbtime));
+  else 
+    return gmmktime(w_dbhou($dbtime), 
+		    w_dbmin($dbtime), 
+		    w_dbsec($dbtime), 
+		    w_dbmon($dbtime), 
+		    w_dbday($dbtime), 
+		    w_dbyea($dbtime));
 }
 
 function ts2db($t, $f="H:i d/m/Y") {
@@ -380,6 +388,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
   $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
+  $action->log->info(basename(__FILE__)."(".__LINE__.") d:$d1 e:$d2 r:$idres famid:".getIdFromName($dbaccess, $famid));
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results --------------
@@ -437,6 +446,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
       $tout[] = $item;
     }
   } 
+//   AddWarningMsg($sdebug);
   return $tout;
 }
 

@@ -26,24 +26,22 @@ function wgcal_checkconflict(&$action) {
     $action->lay->set("NOCF", true);
     return;
   }
-   
   $ds = (GetHttpVars("TsStart", 0)/1000);
   $de = (GetHttpVars("TsEnd", 0)/1000);
-  $start = ts2db(($ds+60), "Y-m-d H:i:s");
-  $end = ts2db(($de-60), "Y-m-d H:i:s");
+  $start = date("Y-m-d H:i:00",($ds+60));
+  $end = date("Y-m-d H:i:00",($de-60));
   if (GetHttpVars("nohour", "") == "on") {
-    $start = ts2db(($ds+60), "Y-m-d 00:00:00");
-    $end = ts2db(($ds-60), "Y-m-d 00:00:00");
+    $start =date("Y-m-d 00:00:00",($ds+60));
+    $end = date("Y-m-d 00:00:00",($ds-60));
   }
   if (GetHttpVars("allday", "") == "on") {
-    $start = ts2db(($ds+60), "Y-m-d 00:00:00");
-    $end = ts2db(($ds-60), "Y-m-d 23:59:59");
+    $start =date("Y-m-d 00:00:00",($ds+60));
+    $end = date("Y-m-d 23:59:59",($ds-60));
   }
-  $withme = GetHttpVars("evwithme", "1");
   $attendees = array();
   $attl = GetHttpVars("attendees", "");
   if ($attl!="") $attendees = explode("|", $attl);
-  if ($withme==1) $attendees[count($attendees)] = $ownerid;
+  $attendees[count($attendees)] = $ownerid;
   
   $conflict = array();
   
@@ -61,7 +59,6 @@ function wgcal_checkconflict(&$action) {
   if (count($tevtmp)>0) {
     foreach ($tevtmp as $k=>$v) {
       $ressd = wgcalGetRessourcesMatrix($v["IDP"]);
-//       if ($v["IDP"]!=$event && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT)) {
       if ($v["IDP"]!=$event) {
 	if ((isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]==EVST_REJECT)) continue;
 	$d = new_Doc($dbaccess, $v["IDP"]);
@@ -75,8 +72,8 @@ function wgcal_checkconflict(&$action) {
     $action->lay->set("NOCF", (count($tev)>0 ? false : true));
     $action->lay->SetBlockData("CONFLICTS", $tev);
   }
-  if (count($tev)==0) $action->lay->set("NOCF", true);
-  else $action->lay->set("NOCF", false);
+   if (count($tev)==0) $action->lay->set("NOCF", true);
+   else $action->lay->set("NOCF", false);
   
   return;
 }

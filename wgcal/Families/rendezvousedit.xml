@@ -399,6 +399,7 @@ SetGroupsList([ownerid]);
 
 </div>
 
+<script type="text/javascript">ComputeDateFromStart();</script>
 
 
 <script type="text/javascript">

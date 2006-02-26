@@ -843,8 +843,8 @@ function EventSetDate($dstart, $dend, $type)
   }
   $this->lay->setBlockData("SHMSEL", $th);
   
-  $end_H = date("H", $dend);
-  $end_M = date("i", $dend);
+  $end_H = gmdate("H", $dend);
+  $end_M = gmdate("i", $dend);
   $this->lay->set("END", $dend*1000);
   $this->lay->set("ENDsec", $dend);
   $this->lay->set("ENDREAD", ucwords(strftime("%a %d %b %Y", $dend)));
