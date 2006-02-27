@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.8 2006/02/24 14:03:27 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.9 2006/02/27 17:55:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,8 +29,10 @@ function wgcal_searchContacts(&$action) {
   $calMode = GetHttpVars("cmode", "R"); // [R]ead [W]rite
   $iClass = GetHttpVars("iclass", ""); 
   
-  $action->lay->set("moreResult", false);
+  $action->lay->set("count", 0);
   $action->lay->set("oneResult", false);
+  $action->lay->set("moreResult", false);
+  $action->lay->set("moreResultT", "");
 
   if ($sfam=="" || strlen($sText)<$minLength) return;
 
@@ -50,14 +52,14 @@ function wgcal_searchContacts(&$action) {
   }
   $filter[1] = "title ~* '".$sf.$sText."'";
  
+  $action->lay->set("moreResultT", "");
   $tres = array();
   $rdoc = getChildDoc($dbaccess, 0, 0, ($resultCountMax+1), $filter, $action->user->id, "TABLE");
   if (count($rdoc)>0) {
-    $ci = 0;
     if (count($rdoc)>$resultCountMax) {
-      $action->lay->set("moreResult", true);
       $action->lay->set("moreResultT", sprintf(_("only %s first"), $resultCountMax));
     }
+    $ci = 0;
     foreach ($rdoc as $k => $v) {
       if ($ci>=$resultCountMax) continue;
       if ($action->user->id == $v["id"]) continue;
@@ -77,17 +79,21 @@ function wgcal_searchContacts(&$action) {
 			"fid" => ($inter?"true":"false"),
 			"icon" => Doc::GetIcon($v["icon"]),
 			"title" => ucwords(strtolower(addslashes(str_replace(" ", "&nbsp;", $v["title"])))),
+			"jstitle" => ucwords(strtolower(addslashes($v["title"]))),
 			);
       }
       $ci++;
-    }
-    
-    $nr = count($tres);
-    if ($nr>0) {
-      if ($nr==1) $action->lay->set("oneResult", true);
-      $action->lay->set("moreResult", true);
-      $action->lay->setBlockData("result", $tres);
-    }
+    }    
+  }
+
+  $nr = count($tres);
+  $action->lay->set("count", $nr);
+  if ($nr==1) {
+    $action->lay->set("oneResult", true);
+    $action->lay->setBlockData("result", $tres);
+  } else if ($nr>1) {
+    $action->lay->set("moreResult", true);
+    $action->lay->setBlockData("result", $tres);
   }
   return;
 }

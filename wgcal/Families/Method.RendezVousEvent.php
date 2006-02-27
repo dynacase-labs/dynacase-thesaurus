@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.15 2006/02/07 06:56:07 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.16 2006/02/27 17:55:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -28,11 +28,8 @@ function explodeEvt($d1, $d2) {
     return $eve;
   }
 
-  $sdeb = "";
-
   $jd1 = ($d1==""?0:Iso8601ToJD($d1));
   $jd2 = ($d2==""?5000000:Iso8601ToJD($d2));
-//   $sdeb .= "Periode [".$this->__trcJdDate($jd1).":".$this->__trcJdDate($jd2)."\n";
 
   $jdDateStart = StringDateToJD($this->getValue("evt_begdate"));
   $jdDateEnd   = StringDateToJD($this->getValue("evfc_realenddate"));
@@ -49,8 +46,6 @@ function explodeEvt($d1, $d2) {
   $stop = ($jdREndDate<$jd2 ?  $jdREndDate : $jd2);
   $hstart = substr($this->getValue("evt_begdate"), 11, 5);
 
-//   $sdeb .= "Event Start:".$this->__trcJdDate($start)." End:".$this->__trcJdDate($stop);
-//   $sdeb .= "\nRealEndDate:".$this->__trcJdDate($jdREndDate)." Dur".$this->__trcJdDate($jdDuration)."\n";
   $ix = 0;
   switch ($this->getValue("evfc_repeatmode")) {
     
@@ -62,7 +57,7 @@ function explodeEvt($d1, $d2) {
       $jdhs = StringDateToJD($hs);
       $jdhe = $jdhs+$jdDuration;
       $he = jd2cal($jdhe, 'FrenchLong');
-      if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+      if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
 	$eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
       }
     }
@@ -79,7 +74,7 @@ function explodeEvt($d1, $d2) {
         $jdhs = StringDateToJD($hs);
         $jdhe = $jdhs+$jdDuration;
         $he = jd2cal(($jdhe), 'FrenchLong');
-        if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+	if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
           $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
         }
       }
@@ -98,7 +93,7 @@ function explodeEvt($d1, $d2) {
 	$jdhs = StringDateToJD($hs);
         $jdhe = $jdhs+$jdDuration;
 	$he = jd2cal($jdhe, 'FrenchLong');
-        if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+	if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
           $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
         }
       }
@@ -124,7 +119,7 @@ function explodeEvt($d1, $d2) {
 	    $jdhs = StringDateToJD($hs);
 	    $jdhe = $jdhs+$jdDuration;
 	    $he = jd2cal($jdhe, 'FrenchLong');
-	    if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>=$jd1 && $jdhs<=$jd2) || ($jdhe>=$jd1 && $jdhe<=$jd2)) {
+	    if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
 	      $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
 	    }
 	  }
@@ -190,7 +185,6 @@ function explodeEvt($d1, $d2) {
     break;
     
   }
-//    AddWarningMsg($sdeb);
   return $eve;
 }
 

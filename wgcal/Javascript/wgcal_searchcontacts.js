@@ -49,26 +49,26 @@ function removeSFamilie(idf) {
 
 var sfTimer = -1;
 
-function searchSFamilie(evt, bUrl, force) {
-
+function resetSearchTimeout() {
   if (sfTimer!=-1) clearTimeout(sfTimer);
   sfTimer = -1;
+}  
+
+function searchSFamilie(evt, bUrl, force) {
 
   evt = (evt) ? evt : ((event) ? event : null );
   var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
-  if (cc<48||cc>90) return true;
+  if (!force && (cc<48||cc>90) && cc!=109 && cc!=222 && cc!=8 && cc!=13) return true;
+
+  if (sFam.length==0) return true;
+  var stext = document.getElementById('sFamText');
+  if (stext.value.length<SearchMinLength) return true;
 
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
   result.style.display = 'none';
   
-  if (sFam.length==0) return true;
-
-  var stext = document.getElementById('sFamText');
-  if (stext.value.length<SearchMinLength) return true;
-
-
-  if (cc==13 || force) {
+  if (force) {
     var fvl = document.getElementById('fgetiuser');
     var val = document.getElementById('itext');
     var fval = document.getElementById('ifam');
@@ -83,14 +83,19 @@ function searchSFamilie(evt, bUrl, force) {
   sfMode = (document.getElementById('sMode').checked ? 'C' : 'B' );
   sfFams = sFam.join("|");
 
-  sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", STimeOut);
+  resetSearchTimeout();
+  if (cc==13) {
+    runSearchSFamilie(bUrl, sfFams, sfText, sfMode);
+  } else {
+    sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", STimeOut);
+  }
+
   return true;
 }  
 
 function runSearchSFamilie(burl, f, t, m) {
 
   var url = burl + "app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
-//    alert('Go('+sfTimer+'):url='+url); return;
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
   result.style.display = 'none';
@@ -117,10 +122,15 @@ function runSearchSFamilie(burl, f, t, m) {
       result.style.display = 'none';
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>1) {
-	  result.style.display = '';
 	  result.innerHTML = rq.responseText;
-	  result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
-	  result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
+	  if (document.getElementById('rcount')) {
+	    result.style.display = '';
+	    result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
+	    result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
+	  } else {
+// 	    alert(rq.responseText);
+	    eval(rq.responseText);
+	  }
 	} else {
 	  result.style.display = 'none';
 	}

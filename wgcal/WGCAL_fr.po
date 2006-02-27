@@ -714,7 +714,7 @@ msgid "use selected ressources"
 msgstr "ressources selectionnées"
 
 msgid "select for a convocation"
-msgstr "Cochez la case pour convoquer les contacts..."
+msgstr "Cochez la case pour convoquer les participants..."
 
 msgid "convocation..."
 msgstr "Convocation"
@@ -726,7 +726,7 @@ msgid "I participe..."
 msgstr "Je participe..."
 
 msgid "mail to external contact"
-msgstr "Cochez la case pour expédier un mail aux contacts extérieurs"
+msgstr "Cochez la case pour expédier un mail aux participants extérieurs"
 
 msgid "mail to externals..."
 msgstr "Mail pour les extérieurs"

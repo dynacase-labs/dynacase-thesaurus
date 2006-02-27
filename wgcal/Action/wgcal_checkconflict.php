@@ -52,7 +52,6 @@ function wgcal_checkconflict(&$action) {
   }
   $idres = implode("|", $nrl);
   setHttpVar("ress",$idres);
-
   $tevtmp = wGetEvents($start, $end);
   $tev = array();
   $itev = 0;

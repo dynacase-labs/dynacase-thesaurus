@@ -1053,7 +1053,7 @@ function EventAddAttendees($ownerid, $attendees = array(), $attendeesState = arr
   $udbaccess = $action->GetParam("COREUSER_DB");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $sendmext = ($action->GetParam("WGCAL_G_SENDMAILS_EXTERN", 0) == 1 ? true : false);
+  $sendmext = ($action->getParam("WGCAL_G_SENDMAILS_EXTERN", 0) == 1 ? true : false);
   $this->lay->set("SendMailToExternal", $sendmext);
   $this->lay->set("mailtoexternals", "");
   $this->lay->set("evmailext", 0);
