@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.33 2006/02/21 08:41:01 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.34 2006/02/27 15:57:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -266,6 +266,15 @@ Class DocCtrl extends DocLDAP {
       return sprintf(_("unknow privilege %s"),$aclname);
     }    
     $pos=$this->dacls[$aclname]["pos"];
+    
+    if (! is_numeric($uid)) {
+      $uiid=getIdFromName($this->dbaccess,$uid);
+      if ($uiid) {
+	$udoc= new_Doc($this->dbaccess,$uiid);
+	if ($udoc->isAlive()) $uid=$udoc->getValue("us_whatid");
+      }
+    }
+
     if (! is_numeric($uid)) {
       // logical name
       $vg = new VGroup($this->dbaccess,strtolower($uid));
