@@ -505,10 +505,8 @@ function viewattdispo(url, rlist) {
       if (rll!='') rll += '|';
       rll += attendeesList[att].id;
     }
-    //   if (withme.checked) {
-    //     if (rll!='') rll += '|';
-    //     rll += me;
-    //   }
+    if (rll!='') rll += '|';
+    rll += me;
   } else {
     rll = rlist;
   }
