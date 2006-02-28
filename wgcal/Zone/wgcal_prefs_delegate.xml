@@ -1,8 +1,8 @@
 [IF showdelegate]
 <h4>[TEXT:my delegations]</h4>
 
-<div id="dmailmediv" onclick="mailDelegate();" style="display:none; padding:2px;" 
-     class="[IF dmail]WGCRessSelected[ENDIF dmail][IFNOT dmail]WGCRessOver[ENDIF dmail]"><img src="[IMG:wm-mail.gif]" height="15px">&nbsp;&nbsp;[TEXT:send me a mail for all action -edition, approvement,...- done by delegation]</div>
+<div id="dmailmediv" onclick="mailDelegate();" style="display:none; padding:2px;" class="[IF dmail]WGCRessSelected[ENDIF dmail][IFNOT dmail]WGCRessOver[ENDIF dmail]"><img src="[IMG:wm-mail.gif]" height="15px">
+&nbsp;<input type="checkbox" id="dmailbox" [IF dmail]checked[ENDIF dmail]>&nbsp;[TEXT:send me a mail for all action -edition, approvement,...- done by delegation]</div>
 
 <table width="100%" style="margin:0px;">
 <tr valign="top"><td width="70%">
@@ -30,7 +30,7 @@
  
 <form id="fgetdiuser" target="wgcal_diuser" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHIUSER&proto=duser&sgrp=1&lim=[uslimit]">
 <input id="diuser" name="itext" type="hidden">
-<input id="ifam" name="ifam" type="hidden" value="IUSER">
+<input id="ifam" name="ifam" type="hidden" value="[famlist]">
 </form>
 <iframe name="wgcal_diuser" id="wgcal_diuser" style="display:none"></iframe>
 
@@ -140,12 +140,15 @@ function delegateChangeMode(id) {
 function mailDelegate() {
   var fdelmail = document.getElementById('dmail');
   var fdivmail = document.getElementById('dmailmediv');
+  var fdivbox = document.getElementById('dmailbox');
   if (fdelmail.value==0) {
     fdelmail.value = 1;
     fdivmail.className = 'WGCRessSelected';
+    fdivbox.checked = true;
   } else if (fdelmail.value==1) {
     fdelmail.value = 0;
     fdivmail.className = 'WGCRessOver';
+    fdivbox.checked = false;
   }
   saveDelegate();
   return false;

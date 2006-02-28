@@ -463,6 +463,7 @@ function wGetUsedFamilies() {
     $id = getV($dt, "id");
     if (!is_numeric($id) || !$id>0) continue;
     $famused[] = array( "id" => $id,
+			"name" => $suf[0],
 			"title" => getV($dt, "title"),
 			"icon" => $doct->getIcon(getV($dt, "icon")),
 			"isSelected" => ($suf[1]==1? true : false ),

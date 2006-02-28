@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.18 2006/02/16 15:46:21 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.19 2006/02/28 16:08:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,8 +32,6 @@ function wgcal_searchiuser(&$action) {
   $sgrp = GetHttpVars("sgrp", 0); // 1 : Only user in my groups
   $sgrp = ($sgrp!=0 && $sgrp!=1 ? 0 : $sgrp);
 
-
-  $iuserfam = getFamIdFromName($dbaccess, "IUSER");
   $filter[0] = "title ~* '".$itext."'";
   $tsfam = explode("|", $ifam);
   foreach ($tsfam as $k => $v) {

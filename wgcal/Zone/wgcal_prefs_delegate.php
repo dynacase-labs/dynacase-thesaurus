@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_delegate.php,v 1.4 2005/09/27 15:29:36 marc Exp $
+ * @version $Id: wgcal_prefs_delegate.php,v 1.5 2006/02/28 16:08:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -41,6 +41,14 @@ function wgcal_prefs_delegate(&$action) {
 			"dall" => $dg_umode[$k] );
     }
   }
+  // Get interactive families
+  $fams = wGetUsedFamilies();
+  $famlist = "";
+  foreach ($fams as $k => $v) {
+    if (!$v["isInteractive"]) continue;
+    $famlist .= (strlen($famlist)>0 ? "|" : "").$v["name"];
+  }
+  $action->lay->set("famlist", $famlist);
   $action->lay->set("uslimit", 3);
   $action->lay->set("dmail", $dg_mail);
   $action->lay->setBlockData("dadduser", $duser);
