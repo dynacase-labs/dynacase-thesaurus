@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.109 2006/03/03 15:14:55 eric Exp $
+ * @version $Id: import_file.php,v 1.110 2006/03/03 16:03:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -612,10 +612,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     $tcr["id"]=$doc->id;
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
   }
-      
-  if (($err == "") && (! $analyze)) {
-    $err=$doc->preImport();
-  }
+    
   if ($err != "") {
     global $nline, $gerr;
     $tcr["action"]="ignored";    
@@ -663,11 +660,31 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
   // update title in finish
   $doc->refresh(); // compute read attribute
+
+  if (($err == "") && (! $analyze)) {
+    if (($doc->id > 0) || ($policy != "update")) {      
+      $err=$doc->preImport();
+    }
+  }
+  if ($err != "") {
+    $tcr["action"]="ignored";    
+    $tcr["err"]=$err;
+    return $tcr;
+  }  
+
+
   if ($doc->id == ""){
     switch ($policy) {
     case "add": 
       $tcr["action"]="added"; # N_("added")
       if (! $analyze) {
+	$err=$doc->preImport();
+	if ($err != "") {
+	  $tcr["action"]="ignored";
+	  $tcr["err"]=sprintf(_("pre-import:%s"),$err);
+	  return $tcr;
+	}  
+	
 	if ($doc->id == "") {
 	  // insert default values
 	  foreach($prevalues as $k=>$v) {
@@ -691,9 +708,9 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 
 	
     case "update": 
-      // test if same doc in database
       $doc->RefreshTitle();
       $lsdoc = $doc->GetDocWithSameTitle($tkey[0],$tkey[1]);
+      // test if same doc in database
       if (count($lsdoc) == 0) {
 	$tcr["action"]="added";
 	if (! $analyze) {
@@ -718,6 +735,14 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       } elseif (count($lsdoc) == 1) {	 
 	// no double title found
 	$tcr["action"]="updated";# N_("updated")
+	if (! $analyze) {
+	  $err=$lsdoc[0]->preImport();
+	  if ($err != "") {
+	    $tcr["action"]="ignored";
+	    $tcr["err"]=sprintf(_("pre-import:%s"),$err);
+	    return $tcr;
+	  }  
+	}
 	$lsdoc[0]->transfertValuesFrom($doc);
 	$doc=$lsdoc[0];
 	$tcr["id"]=$doc->id;
@@ -735,14 +760,13 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	$tcr["action"]="ignored";# N_("ignored")
 	$tcr["err"]=sprintf(_("too many similar document %s <B>ignored</B> "),$doc->title);
 	$msg .= $err.$tcr["err"];
-	  
+	return $tcr;
       }
     
       break;
     case "keep": 
       $doc->RefreshTitle();
       $lsdoc = $doc->GetDocWithSameTitle($tkey[0],$tkey[1]);
-
       if (count($lsdoc) == 0) { 
 	$tcr["action"]="added";
 	if (! $analyze) {
@@ -763,7 +787,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	$tcr["action"]="ignored";
 	$tcr["err"]=sprintf(_("similar document %s found. keep similar"),$doc->title);
 	$msg .= $err.$tcr["err"];
-	  
+	return $tcr;
       }
 	
       break;
