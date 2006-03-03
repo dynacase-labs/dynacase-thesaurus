@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.106 2006/03/03 11:02:43 eric Exp $
+ * @version $Id: import_file.php,v 1.107 2006/03/03 13:24:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -603,17 +603,21 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
 
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
-    $tcr["action"]="added";
-    
+    $tcr["action"]="added";    
   } else {
+    if ($doc->locked == -1) {
+       $doc = new_Doc($doc->dbaccess,$doc->latestId());
+    }
     $tcr["action"]="updated";
     $tcr["id"]=$doc->id;
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
-    
   }
       
   if (($err == "") && (! $analyze)) {
+    print "docid1=".$doc->id;
+
     $err=$doc->preImport();
+    print "docid2=".$doc->id;
   }
   if ($err != "") {
     global $nline, $gerr;
@@ -661,8 +665,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
   // update title in finish
   $doc->refresh(); // compute read attribute
-  if (($doc->id == "")){
-
+  if ($doc->id == ""){
     switch ($policy) {
     case "add": 
       $tcr["action"]="added"; # N_("added")
