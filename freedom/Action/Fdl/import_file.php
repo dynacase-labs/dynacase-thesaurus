@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.108 2006/03/03 13:25:07 eric Exp $
+ * @version $Id: import_file.php,v 1.109 2006/03/03 15:14:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -581,7 +581,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	     "values"=>array(),
 	     "familyid"=>0,
 	     "familyname"=>"",
-	     "action"=>" ");
+	     "action"=>"-");
   // like : DOC;120;...
   $err="";
   if (is_numeric($data[1]))   $fromid = $data[1];
@@ -618,9 +618,10 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
   if ($err != "") {
     global $nline, $gerr;
+    $tcr["action"]="ignored";    
     $gerr="\nline $nline:".$err;
     $tcr["err"]=$err;
-    return false;
+    return $tcr;
   }  
 
   if (count($torder) == 0) {
