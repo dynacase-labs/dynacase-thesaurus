@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.13 2006/01/23 17:07:27 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.14 2006/03/03 16:13:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -89,10 +89,10 @@ function Iso8601ToJD($isodate) {
 
 
 function cal2jd( $era, $y, $m, $d, $h, $mn, $s ) {
-  if (($y>1969) && ($y<2038)) {
+  if (($y>1969) && ($y<2038) ) {
     $nd=unixtojd(mktime($h,$mn,$s,$m,$d,$y));
     $nm=(($h*60+$mn)-720)/1440;
-    $nd+=round($nm,3);
+    $nd+=round($nm,5);
     return $nd;
   } else {	
     
