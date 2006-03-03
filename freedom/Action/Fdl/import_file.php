@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.105 2006/02/21 15:42:25 eric Exp $
+ * @version $Id: import_file.php,v 1.106 2006/03/03 11:02:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -612,6 +612,9 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     
   }
       
+  if (($err == "") && (! $analyze)) {
+    $err=$doc->preImport();
+  }
   if ($err != "") {
     global $nline, $gerr;
     $gerr="\nline $nline:".$err;
@@ -625,7 +628,6 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   } else {
     $lattr = $doc->GetNormalAttributes();
   }
-
   $iattr = 4; // begin in 5th column
   foreach ($torder as $attrid) {
     if (isset($lattr[$attrid])) {
@@ -796,7 +798,10 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       $err=$doc->PostModify(); // compute read attribute
       if ($err=="") $doc->modify();
       if ($err=="-") $err=""; // not really an error add addfile must be tested after
-      if ($err=="") $doc->AddComment(sprintf(_("updated by import")));
+      if ($err=="") {
+	$doc->AddComment(sprintf(_("updated by import")));
+	$msg.=$doc->postImport();
+      }
       $tcr["err"].=$err;
       $tcr["msg"].=$msg;
     }

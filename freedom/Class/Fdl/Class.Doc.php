@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.296 2006/02/17 15:45:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.297 2006/03/03 11:02:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -1503,6 +1503,19 @@ final public function PostInsert()  {
     return "";
   }
 
+
+  /**
+   * call when doc is being imported before any modification
+   * if return non null string import will ne aborted
+   * @return string error message, if no error empty string
+   */
+  function preImport() {}
+  /**
+   * call when doc is imported after databases modification
+   * the error message will appeared like message
+   * @return string warning message, if no warning empty string
+   */
+  function postImport() {}
 
   /**
    * recompute values from title
