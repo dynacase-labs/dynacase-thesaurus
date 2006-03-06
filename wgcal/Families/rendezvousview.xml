@@ -1,46 +1,51 @@
-<table width="auto" cellspacing="0" border="0">
+<table cellspacing="0" border="0">
+
 <tr>
-  <td width="15" style="border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">[BLOCK icons]<img style="cursor:crosshair; border:0px" src="[iconsrc]" width="14px" title="[icontitle]">[ENDBLOCK icons]</td>
-  <td valign="top" colspan="2" style="background-color:[bgcolor]; color:white; border: 1px outset;">
-    <table  width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
-      <td align="left"><span style="color:[textcolor];font-size:120%; font-weight:bold">[TITLE]</span></td>
-      <td align="right"><img src="[iconevent]" border="0px" height="20"></td>
-    </tr></table>
- </td>
+  <td style="width:15px; border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">
+  <img src="[iconevent]" style="border:0px; width:14px;">
+  [BLOCK icons]<img style="width:14px, cursor:crosshair; border:0px" src="[iconsrc]">[ENDBLOCK icons]
+  </td>
+  <td valign="top" colspan="2" style="background-color:[bgcolor]; color:[textcolor];font-size:120%; font-weight:bold; border: 1px outset;">[TITLE]</td>
 </tr>
 
 <tr>
-  <td valign="top"> 
-  <table cellpadding="0" cellspacing="0" border="0" width="auto">
-    <tr><td colspan="2">&nbsp;</td></tr>
-    <tr><td nowrap align="right" style="font-weight:bold">[D_HL]</td><td nowrap align="right" style="font-weight:bold">[D_HR]</td></tr>
-    <tr><td nowrap align="right" style="font-weight:bold">[D_LL]</td><td nowrap align="right" style="font-weight:bold">[D_LR]</td></tr>
-  </table>
-  <table style="display:[repeatdisplay];" cellpadding="0" cellspacing="0" border="0" width="auto">
-    <tr><td></td></tr>
-    <tr><td>[repeatinfos]</td></tr>
-    <tr><td>[repeatuntil]</td></tr>
+
+  <td style="vertical-align:top; border:0px; padding:3px"> 
+  <table cellspacing="0" border="0">
+  <tr><td nowrap style="padding-top:3px; overflow:hidden; font-weight:bold">[D_HL] [D_HR]</td></tr>
+  <tr><td nowrap style="overflow:hidden; font-weight:bold">[D_LL] [D_LR]</td></tr>
+  <tr><td nowrap style="padding-top:3px; display:[repeatdisplay];">[repeatinfos]</td></tr>
+  [IF s_repeatmoreinfos]<tr><td nowrap style="font-size:80%; display:[repeatdisplay];">[repeatmoreinfos]</td></tr>[ENDIF s_repeatmoreinfos]
+  <tr><td nowrap style="font-size:80%; display:[repeatdisplay];">[repeatuntil]</td></tr>
   </table>
   </td>
+
   <td valign="top">
   <fieldset style="display:[attdisplay];"><legend>[TEXT:attendees]</legend>
-<table cellpadding="0" cellspacing="0" border="0">
-[BLOCK attlist]<tr>
-<td nowrap><img height="12px" src="[atticon1]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle1]"><span style="background-color:[attcolor1]">&nbsp;</span>&nbsp;[atttitle1]</span><!-- &nbsp;<span style="font-style:italic">([attstate1]) </span> --></td>
-[IF TWOCOL]<td>&nbsp;&nbsp;&nbsp;</td>
-<td nowrap><img height="12px" src="[atticon2]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle2]"><span style="background-color:[attcolor2]">&nbsp;</span>&nbsp;[atttitle2]</span><!-- &nbsp;<span style="font-style:italic">([attstate2])</span> --></td>[ENDIF TWOCOL]</tr>[ENDBLOCK attlist]
-</table>
+    <table cellpadding="0" cellspacing="0" border="0">
+    [BLOCK attlist]<tr>
+      <td nowrap>
+         <img height="12px" src="[atticon1]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle1]">
+         <span style="background-color:[attcolor1]">&nbsp;</span>&nbsp;[atttitle1]</span>
+      </td>
+      [IF TWOCOL]<td>&nbsp;&nbsp;&nbsp;</td>
+      <td nowrap>
+         <img height="12px" src="[atticon2]" style="border:0">&nbsp;<span style="text-decoration:[attnamestyle2]">
+         <span style="background-color:[attcolor2]">&nbsp;</span>&nbsp;[atttitle2]</span>
+      </td>[ENDIF TWOCOL]
+    </tr>[ENDBLOCK attlist]
+    </table>
   </fieldset></td>
 </tr>
 
 <tr style="display:[displaynote];">
  <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div style="border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:100%; border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
  </td>
 </tr>
 
 <tr>
- <td colspan="2" valign="top">[IFNOT Confidential]
+ <td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]
 <span style="font-size:80%; font-style:italic">
 [IF v_location]<div>[TEXT:location_1stUpcase] : [rvlocation]</div>[ENDIF v_location]
 [IF ShowCalendar][TEXT:in calendar] : [incalendar] - [ENDIF ShowCalendar][IF hasCat][TEXT:Category] : [category][ENDIF hasCat]

@@ -330,6 +330,7 @@ function RendezVousView() {
 
   // repeat informations
   $this->lay->set("repeatdisplay", "none");
+  $this->lay->set("s_repeatmoreinfos", false);
   $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
   if (!$private) {
     $rmode = $this->getValue("CALEV_REPEATMODE", 0);
@@ -340,20 +341,22 @@ function RendezVousView() {
     $rexclude = $this->getValue("CALEV_EXCLUDEDATE", array());
     if ($rmode>0 && $rmode<5) {
       $this->lay->set("repeatdisplay", "");
+      $tr2 = "";
       switch ($rmode) {
       case 1:
         $tr = ucwords(_("dayly"));
         break;
       case 2:
         $tr = ucwords(_("weekly"));
-        $tr .= ": ";
-	for ($i=0; $i<6; $i++) $tr .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
+	$tr2 = "(";
+	for ($i=0; $i<6; $i++) $tr2 .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
+	$tr2 .= ")";
         break;
       case 3:
         $tr = ucwords(_("monthly"));
 	$day = substr($this->getValue("CALEV_START"),0,2);
 	if ($rmonth!=1) {
-	  $tr .= " (les $day du mois)";
+	  $tr2 = "(les $day du mois)";
 	} else {
 	  $ts = w_dbdate2ts($this->getValue("CALEV_START", ""));
 	  $dayn = strftime("%u", $ts);
@@ -364,7 +367,7 @@ function RendezVousView() {
 	    if ($day-($rday*7)>0) $rday++;
 	    else $cancel = true;
 	  }
-	  $tr .= " (les $rday".($rday>1?"ème":"er")." $dayt du mois)";
+	  $tr2 = "(les $rday".($rday>1?"ème":"er")." $dayt du mois)";
 	}
         break;
       case 4: 
@@ -376,7 +379,7 @@ function RendezVousView() {
 	$dayt = strftime("%A", $ts);
 	$montht = strftime("%B", $ts);
 	if ($rmonth!=1) {
-	  $tr .= " (le $day $montht)";
+	  $tr2 = "(le $day $montht)";
 	} else {
 	  $rday = 0;
 	  $cancel = false;
@@ -384,7 +387,7 @@ function RendezVousView() {
 	    if ($day-($rday*7)>0) $rday++;
 	    else $cancel = true;
 	  }
-	  $tr .= " (les $rday".($rday>1?"ème":"er")." $dayt de $montht)";
+	  $tr2 = "(les $rday".($rday>1?"ème":"er")." $dayt de $montht)";
 	}
 	break;
       }
@@ -392,6 +395,8 @@ function RendezVousView() {
       if ($runtil==1 && $runtild>0) $tru = " "._("until")." ".substr($runtild,0,10);
       if (count($rexclude)>0) $tru .= " "._("there is excluded days");
       $this->lay->set("repeatinfos", $tr);
+      $this->lay->set("s_repeatmoreinfos", (strlen($tr2)>0?true:false));
+      $this->lay->set("repeatmoreinfos", $tr2);
       $this->lay->set("repeatuntil", $tru);
     }
   }
