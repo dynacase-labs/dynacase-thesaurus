@@ -999,6 +999,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
 			$runtildate, $freq, $recxlude = array())
 {
 
+  $this->lay->set("D_RUNTIL", ($runtil==0?"none":""));
   $this->lay->set("REPEAT_SELECTED", "");
   
   for ($i=0; $i<=4; $i++) $this->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
@@ -1022,7 +1023,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   $this->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"":"none"));
   
-  $this->lay->set("uDate", w_strftime($runtildate, WD_FMT_DAYLTEXT));
+  $this->lay->set("uDate", ucwords(strftime("%a %d %b %Y", $runtildate))); //w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $this->lay->set("umDate", $runtildate*1000);
   $this->lay->set("usDate", $runtildate);
   

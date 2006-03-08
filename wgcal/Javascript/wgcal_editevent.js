@@ -451,7 +451,9 @@ function everyInfo() {
 
   document.getElementById('d_rweekday').style.display = 'none';
   document.getElementById('d_rmonth').style.display = 'none';
+  document.getElementById('d_until').style.display = 'none';
 
+  if (checkone>0) document.getElementById('d_until').style.display = '';
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
   if (checkone==3 || checkone==4) document.getElementById('d_rmonth').style.display = '';
 
@@ -528,6 +530,7 @@ function viewattdispo(url, rlist) {
 function clickB(idb) {
   var eb = document.getElementById(idb);
   if (!eb) return false;
+  if (eb.type=='radio' && eb.checked) return false;
   eb.checked = (eb.checked ? "" : "checked" );
   return true;
 }
