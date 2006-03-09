@@ -40,7 +40,7 @@
 
 <tr style="display:[displaynote];">
  <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:100%; border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
  </td>
 </tr>
 

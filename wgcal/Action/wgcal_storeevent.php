@@ -273,7 +273,8 @@ function wgcal_storeevent(&$action) {
       $event->resetAcceptStatus();
     } else {
       if ($change["attendees"]) {
-	$comment = _("event modification attendees list");
+	$mail_msg = $comment = _("event modification attendees list");
+	$mail_who = 2;
       } else {
 	if ($change["status"]) {
 	  $mail_msg = _("event acceptation status message");
@@ -300,8 +301,7 @@ function wgcal_storeevent(&$action) {
 
   $event->unlock(true);
 
-//   Header("Location: ".$_SERVER["HTTP_REFERER"]);
-   redirect($action, "WGCAL", "WGCAL_CALENDAR");
+  redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 
@@ -344,7 +344,7 @@ function rvDiff( $old, $new) {
     case "calev_repeatweekday":
     case "calev_repeatmonth":
 //     case "calev_repeatuntil":
-    case "calev_repeatuntildate":
+//     case "calev_repeatuntildate":
     case "calev_excludedate":
       $result["hours"] = true;
       break;
@@ -358,6 +358,8 @@ function rvDiff( $old, $new) {
       $result["others"] = true;
     }
   }
+//    print_r2($diff);
+//    print_r2($result);
   return $result;
 }
   

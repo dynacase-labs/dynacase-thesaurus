@@ -150,16 +150,11 @@ function ShowEvInfos() {
     evtc = document.getElementById(TimerOnElt);
     evtc.style.position = 'absolute';
     evtc.style.zIndex = 1001;
-    evtc.style.display = 'inline'; 
+    evtc.style.display = ''; 
     SetAltCoord(evtc);
     evtc.style.left = AltCoord.x+'px';
     evtc.style.top = AltCoord.y+'px';
     var w = getObjectWidth(evtc);
-    if (w>(ww/2)) {
-      evtc.style.width = (ww/2)+'px';
-    }
-    evtc.style.display = ''; 
-//     alert('(x,y)=('+evtc.style.left+','+evtc.style.top+') w='+evtc.style.width);
   }
   ResetSetTimerOnMO();
 }
