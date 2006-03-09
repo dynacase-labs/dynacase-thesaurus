@@ -11,5 +11,3 @@ echo "alter table doc add column cdate timestamp;" | psql $dbfree
 echo "alter table doc add column ldapdn text;" | psql $dbfree
 echo "alter table doc add column version text;" | psql $dbfree
 
-/usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocRel
-/usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=QueryDir
