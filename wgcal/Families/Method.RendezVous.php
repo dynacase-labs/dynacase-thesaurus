@@ -393,7 +393,7 @@ function RendezVousView() {
       }
       $tru = "";
       if ($runtil==1 && $runtild>0) $tru = " "._("until")." ".substr($runtild,0,10);
-      if (count($rexclude)>0) $tru .= " "._("there is excluded days");
+      if (count($rexclude)>0) $tru .= " <br>("._("there is excluded days").")";
       $this->lay->set("repeatinfos", $tr);
       $this->lay->set("s_repeatmoreinfos", (strlen($tr2)>0?true:false));
       $this->lay->set("repeatmoreinfos", $tr2);

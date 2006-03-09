@@ -26,6 +26,11 @@ function wgcal_deloccur(&$action) {
       if ($err!="") AddWarningMsg("$err");
     }
     $event->AddComment(_("delete repeat occurrence for ").substr($occ,0,11));
+    $mail_msg = _("event time modification message");
+    $mail_who = 2;
+    $comment = _("event modification time");
+    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
+    sendRv($action, $event, $mail_who, $title, $mail_msg, true);
   }
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
