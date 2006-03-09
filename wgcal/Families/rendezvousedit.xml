@@ -340,27 +340,17 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
       }
     );
    </script></span></div>
+</div>
+
 <!-- div style="display:">[TEXT:frequency] : <select class="textBorder" id="rfrequency" name="rfrequency" >
 [BLOCK BFREQ]<option value="[iFreq]" [IFreqSel]>[iFreq]</option>[ENDBLOCK BFREQ]
 </select>
 </div -->
 
 [IF displayExcludedDays]
-<hr>
-[TEXT:exclude days]
-
-<div>
-<select id="listexcldate" name="listexcldate[]" width="20" size="5" multiple>
+<div style="vertical-align:top; padding-top:1em">[TEXT:exclude days] <select style="vertical-align:top;" id="listexcldate" name="listexcldate[]" width="20" size="3" multiple>
 [BLOCK EXCLDATE]<option id="exdate[iDate]" value="[mDate]">[rDate]</option>[ENDBLOCK EXCLDATE]
-</select>
-</div>
-
-<div style="cursor:pointer;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onClick="delExclDate()">
-<img title="[TEXT:del selected dates]" height="12" src="[IMG:wgcal-minus.gif]">
-[TEXT:del selected dates]</div>
-
-[ENDIF displayExcludedDays]
-</div>
+</select> <img onClick="delExclDate()" title="[TEXT:del selected dates]" height="12" class="wSmallButton" src="[IMG:wgcal-minus.gif]"> </div>[ENDIF displayExcludedDays]
 
 </div> <!-- end of repeat zone -->
 

@@ -644,7 +644,7 @@ function RendezVousEdit() {
       $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
       $ogrp = $this->getValue("CALEV_CONFGROUPS");
       $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
-      $evrweekd = $this->getValue("CALEV_REPEATWEEKDAY", 0);
+      $evrweekd = $this->getValue("CALEV_REPEATWEEKDAY", pow(2, gmdate("w",$evstart)-1));
       $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
       $evruntil = $this->getValue("CALEV_REPEATUNTIL", 0);
       $tt = $this->getValue("CALEV_REPEATUNTILDATE");

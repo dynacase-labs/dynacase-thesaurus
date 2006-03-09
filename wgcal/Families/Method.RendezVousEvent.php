@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.18 2006/03/09 16:11:32 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.19 2006/03/09 18:10:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -55,9 +55,9 @@ function explodeEvt($d1, $d2) {
       $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
       $jdhs = StringDateToJD($hs);
       $jdhe = $jdhs+$jdDuration;
-      AddWarningMsg("Per [".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\nEvt [".$this->__trcJdDate($jdhs).";".$this->__trcJdDate($jdhe)."]");
+//       AddWarningMsg("Per [".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\nEvt [".$this->__trcJdDate($jdhs).";".$this->__trcJdDate($jdhe)."]");
       $he = jd2cal($jdhe, 'FrenchLong');
-      if (($jdhs<=$jd1 && $jdhe>=$jd2) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
+      if (($jdhs<=$jd2 && $jdhe>=$jd1)) {
 	$eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
       }
     }
@@ -74,7 +74,7 @@ function explodeEvt($d1, $d2) {
         $jdhs = StringDateToJD($hs);
         $jdhe = $jdhs+$jdDuration;
         $he = jd2cal(($jdhe), 'FrenchLong');
-	if (($jdhs<=$jd1 && ($jdhe>=$jd2||$jdhe==$jdhs)) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
+	if (($jdhs<=$jd2 && $jdhe>=$jd1)) {
 	  $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
         }
       }
@@ -93,7 +93,7 @@ function explodeEvt($d1, $d2) {
 	$jdhs = StringDateToJD($hs);
         $jdhe = $jdhs+$jdDuration;
 	$he = jd2cal($jdhe, 'FrenchLong');
-	if (($jdhs<=$jd1 && ($jdhe>=$jd2||$jdhe==$jdhs)) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
+	if (($jdhs<=$jd2 && $jdhe>=$jd1)) {
           $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
         }
       }
@@ -119,7 +119,7 @@ function explodeEvt($d1, $d2) {
 	    $jdhs = StringDateToJD($hs);
 	    $jdhe = $jdhs+$jdDuration;
 	    $he = jd2cal($jdhe, 'FrenchLong');
-	    if (($jdhs<=$jd1 && ($jdhe>=$jd2||$jdhe==$jdhs)) || ($jdhs>$jd1 && $jdhs<$jd2) || ($jdhe>$jd1 && $jdhe<$jd2)) {
+	    if (($jdhs<=$jd2 && $jdhe>=$jd1)) {
 	      $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
 	    }
 	  }
