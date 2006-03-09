@@ -647,7 +647,8 @@ function RendezVousEdit() {
       $evrweekd = $this->getValue("CALEV_REPEATWEEKDAY", 0);
       $evrmonth = $this->getValue("CALEV_REPEATMONTH", 0);
       $evruntil = $this->getValue("CALEV_REPEATUNTIL", 0);
-      $evruntild = w_dbdate2ts($this->getValue("CALEV_REPEATUNTILDATE"));
+      $tt = $this->getValue("CALEV_REPEATUNTILDATE");
+      $evruntild = mktime(w_dbhou($tt), w_dbmin($tt), w_dbsec($tt), w_dbmon($tt), w_dbday($tt), w_dbyea($tt));
       $evrexcld  = $this->getTValue("CALEV_EXCLUDEDATE", array());
       $attendees = $this->getTValue("CALEV_ATTID", array());
       $attendeesWid = $this->getTValue("CALEV_ATTWID", array());
