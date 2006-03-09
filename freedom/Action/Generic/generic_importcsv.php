@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.16 2006/02/21 15:42:25 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.17 2006/03/09 08:06:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,8 +78,9 @@ function generic_importcsv(&$action) {
 
 
   $line=0;
-  while ($data = fgetcsv ($fdoc, 1000, ";")) {
-    
+  while (!feof($fdoc)) {     
+    $buffer = rtrim(fgets($fdoc, 4096));
+    $data=explode(";",$buffer);
     $line++;
     $num = count ($data);
     if ($num < 1) continue;
