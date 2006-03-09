@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.14 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.15 2006/03/09 09:41:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.14 2005/06/28 13:53:13 eric Exp $
+// $Id: Method.Mask.php,v 1.15 2006/03/09 09:41:28 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -246,6 +246,7 @@ function editmask() {
   uasort($tattr,"tordered"); 
   foreach($tattr as $k=>$attr) {
     if ($attr->usefor=="Q") continue; // not parameters
+    if ($attr->docid ==0) continue; // not parameters
     $newelem[$k]["attrid"]=$attr->id;
     $newelem[$k]["attrname"]=$attr->labelText;
     $newelem[$k]["visibility"]=$labelvis[$attr->visibility];
@@ -262,8 +263,8 @@ function editmask() {
       $newelem[$k]["disabled"]="disabled";
     }
 
-
-    $newelem[$k]["framelabel"]=$attr->fieldSet->labelText;
+    if ($attr->fieldSet->docid >0)   $newelem[$k]["framelabel"]=$attr->fieldSet->labelText;
+    else  $newelem[$k]["framelabel"]="";
     if ($attr->waction!="") $newelem[$k]["framelabel"]=_("Action");
 
     reset($selectvis);
