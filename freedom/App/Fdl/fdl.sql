@@ -351,7 +351,7 @@ if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
   END LOOP;
  FOR rc IN EXECUTE ''select * from only doc'' || cfromid || ''  where id= '' || NEW.childid  || ''and doctype != ''''Z'''''' LOOP 
   BEGIN
-  INSERT INTO docrel (sinitid,cinitid,stitle,ctitle,sicon,cicon,type) VALUES (rs.initid,rc.initid,rs.title,rc.title,rs.icon,rc.icon,''folder'');
+  INSERT INTO docrel (sinitid,cinitid,stitle,ctitle,sicon,cicon,type,doctype) VALUES (rs.initid,rc.initid,rs.title,rc.title,rs.icon,rc.icon,''folder'',rc.doctype);
 	EXCEPTION
 	 WHEN UNIQUE_VIOLATION THEN
 	    sfromid := cfromid;

@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.5 2006/02/03 08:10:54 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.6 2006/03/09 09:41:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,8 @@ Class DocRel extends DbObj {
 			   "cicon", // icon of cible
 			   "stitle", // title of source
 			   "sicon", // icon of source
-			   "type"); // relation kind);
+			   "type",// relation kind
+			   "doctype");
 
   /**
    * identificator of the source document
@@ -56,18 +57,25 @@ create table docrel ( sinitid int not null,
                    ctitle text,
                    sicon text,
                    cicon text,
-                   type text  );
+                   type text,
+                   doctype text  );
 create index i_docrelc on docrel(cinitid);
 create index i_docrels on docrel(sinitid);
 create unique index docrel_u on docrel(sinitid,cinitid,type);
 ";
 
 
-  public function getRelations() {
+  public function getRelations($reltype="",$doctype="") {
+    global $action;
     include_once("Class.QueryDb.php");
     $q=new QueryDb($this->dbaccess,get_class($this));
     $q->AddQuery("sinitid=".$this->sinitid);
+    if ($reltype!="") $q->AddQuery("type='$reltype'");
+    if ($doctype!="") $q->AddQuery("doctype='$doctype'");
+    $userid=$action->user->id;
+    if ($userid!=1) $q->AddQuery("(profid <= 0 or hasviewprivilege($userid, profid))");
     $l=$q->Query(0,0,"TABLE");
+        print_r2($q);
     if (is_array($l))  return $l;
     return array();
   }
