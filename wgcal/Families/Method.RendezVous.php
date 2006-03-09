@@ -283,7 +283,7 @@ function RendezVousView() {
   $this->lay->set("Confidential", $private);
   if (!$private) {
     $this->lay->set("ShowDate", true);
-    $this->lay->set("modifdate", strftime("%d %B %y %H:%M",$this->revdate));
+    $this->lay->set("modifdate", strftime("%d %B %Y %H:%M",$this->revdate));
     $this->lay->set("incalendar", $this->getValue("CALEV_EVCALENDAR"));
     $this->lay->set("hasCat", false);
     $catg = wGetCategories();
