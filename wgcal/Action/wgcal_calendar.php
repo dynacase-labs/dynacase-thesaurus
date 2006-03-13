@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.71 2006/03/09 16:11:32 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.72 2006/03/13 18:19:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -54,17 +54,21 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
+  $t0 = microtime(true);
   $tout = wGetEvents($d1, $d2);
+  $t1 = microtime(true);
+//   AddWarningMsg("wGetEvent : ".($t1 - $t0)); 
   $calfid = getIdFromName($dbaccess,"CALEVENT");
   $popuplist = array();
   foreach ($tout as $k => $v) {
     $IsRV = ($v["FIDP"]==$calfid ? true : false);
-     $d = new_Doc($dbaccess, $v["IDP"]);  
-//     $dt = getTDoc($dbaccess, $v["IDP"]);
-//     $d = getDocObject($dbaccess, $dt);
-    $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
+    $d = new_Doc($dbaccess, $v["IDP"]);  
     $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
+    $tout[$k]["EvPCard"] = "";
+    $tout[$k]["hasPCard"] = false;
     if ($IsRV) {
+      $tout[$k]["hasPCard"] = true;
+      $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
       $tout[$k]["vRv"] = true;
       $tout[$k]["edit"] = ($d->Control("edit")==""?true:false);
       if ($tout[$k]["edit"]) $tout[$k]["vRv"] = false;
@@ -80,6 +84,9 @@ function wgcal_calendar(&$action) {
   }
   popupGen(count($tout));
 
+  $t2 = microtime(true);
+//   AddWarningMsg("Post traitement : ".($t2 - $t1)); 
+  
   // Display results ------------------------------------------------------------------------------------
 
   $action->lay->set("sm", $sm);

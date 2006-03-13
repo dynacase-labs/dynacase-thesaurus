@@ -23,7 +23,6 @@ body {
   z-index : 1000;
   position:absolute;
   width : auto;
-  nowrap;
 }
 
 @media print {
@@ -81,7 +80,6 @@ TD {
   border : 0px;
 }
 .WGCalButton {
-  filter:alpha(opacity=65);
   -moz-opacity:.55;	
   cursor : pointer;
   border : 0px;
@@ -92,12 +90,10 @@ TD {
 }
 
 .WGCalZoneSelected {
-  filter:alpha(opacity=99);
   -moz-opacity:.99;	
   cursor : pointer;
 }
 .WGCalZoneDefault {
-  filter:alpha(opacity=50);
   -moz-opacity:.5;	
   cursor : pointer;
 }
@@ -367,13 +363,11 @@ TD {
  border: 1px outset;
 }
 .wSmallButtonPulled {
-  filter:alpha(opacity=55);
   -moz-opacity:.50;
  cursor:pointer; 
  border: 1px outset;
 }
 .wSmallButtonPushed {
-  filter:alpha(opacity=99);
   -moz-opacity:.99;
  cursor:pointer; 
  border: 1px inset;

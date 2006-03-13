@@ -119,7 +119,7 @@ function WGCalCleanAllFullView() {
   for (id=0; id<XDays; id++) {
     for (i=0; i<Days[id].ev.length; i++) {
       evtc = document.getElementById('evtc'+Days[id].ev[i].n);
-      evtc.style.display = 'none';
+      if (evtc) evtc.style.display = 'none';
     }
   }
 }
@@ -148,13 +148,15 @@ function ShowEvInfos() {
   if (TimerOnElt!='') {
     WGCalCleanAllFullView();
     evtc = document.getElementById(TimerOnElt);
-    evtc.style.position = 'absolute';
-    evtc.style.zIndex = 1001;
-    evtc.style.display = ''; 
-    SetAltCoord(evtc);
-    evtc.style.left = AltCoord.x+'px';
-    evtc.style.top = AltCoord.y+'px';
-    var w = getObjectWidth(evtc);
+    if (evtc) {
+      evtc.style.position = 'absolute';
+      evtc.style.zIndex = 1001;
+      evtc.style.display = ''; 
+      SetAltCoord(evtc);
+      evtc.style.left = AltCoord.x+'px';
+      evtc.style.top = AltCoord.y+'px';
+      var w = getObjectWidth(evtc);
+    }
   }
   ResetSetTimerOnMO();
 }
@@ -523,8 +525,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   if (!cEv.mdays) {
     eE = document.getElementById('evt'+cEv.n); // Event abstract container
     eC = document.getElementById('evtc'+cEv.n); // Card
-    content = h - foot - head;
-    root.appendChild(eC);
+    if (eC) root.appendChild(eC);
   } else {
     etmp = document.getElementById('evt'+cEv.n); 
     eE = etmp.cloneNode(true);

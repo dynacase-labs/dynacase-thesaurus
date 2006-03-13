@@ -87,7 +87,6 @@ function wgcal_textweek(&$action) {
   $d1 = "".$f_year."-".$f_nmonth."-".$f_day." 00:00:00";
   $d2 = "".$l_year."-".$l_nmonth."-".$l_day." 23:59:59";
   $tevents = wGetEvents($d1, $d2);
-  
   foreach ($tevents as $k => $v) {
 
     $rv = new_Doc($dbaccess, $v["IDP"]);

@@ -53,41 +53,41 @@ function wgcal_textmonth(&$action)
   $tevents = wGetEvents($d1, $d2);
 
   $popuplist = array();
-  foreach ($tevents as $k => $v) {
-    $d = new_Doc($dbaccess, $v["IDP"]);  
-    $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
-    $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-    $tevents[$k]["edit"] = ($d->Control("edit")==""?true:false);
-    if (!isset($popuplist[$d->popup_name])) {
-      $popuplist[$d->popup_name] = true;
-      popupInit($d->popup_name,  $d->popup_item);
-    }
-    $d->RvSetPopup($k);
-  }
-  popupGen(count($tout));
-
-  $action->lay->setBlockData("CARDS", $tevents);
-
   $tdays = array();
-  foreach ($tevents as $ke => $ve) {
-    $dstart = substr($ve["TSSTART"], 0, 2);
-    $dend = substr($ve["TSEND"], 0, 2);
+  foreach ($tevents as $k => $v) {
+    $d = new_Doc($dbaccess, $v["IDP"]);
+    if (isset($d->defaultshorttext)) $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
+    else $tevents[$k]["EvSTCard"] = substr($v["TSSTART"],11,5)."-".substr($v["TSEND"],11,5)." ".$d->getValue("title");
+    $tevents[$k]["hasCard"] = false;
+    if (isset($d->popup_name)) { 
+      $tevents[$k]["hasCard"] = true;
+      $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
+      if ( !isset($popuplist[$d->popup_name])) {
+	$popuplist[$d->popup_name] = true;
+	popupInit($d->popup_name,  $d->popup_item);
+      }
+      $d->RvSetPopup($k);
+    }
 
+    $dstart = substr($v["TSSTART"], 0, 2);
+    $dend = substr($v["TSEND"], 0, 2);
     for ($id=intval($dstart); $id<=intval($dend); $id++) {
       if (!is_array($tdays[$id]->events)) {
         $tdays[$id]->ecount = 0;
         $tdays[$id]->events = array();
       }
-      $s = $ve["START"];  
-      $e = $ve["END"];
+      $s = $v["START"];  
+      $e = $v["END"];
       if ($id>$dstart) $s = 0;
       if ($id<$dend) $e = 0;
-      $tdays[$id]->events[$tdays[$id]->ecount] = $ve;
+      $tdays[$id]->events[$tdays[$id]->ecount] = $tevents[$k];
       $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
       $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
       $tdays[$id]->ecount++;
     }
   }
+  popupGen(count($tout));
+  $action->lay->setBlockData("CARDS", $tevents);
 
   $displayWE = ($action->GetParam("WGCAL_U_VIEWWEEKEND", "yes") == "yes" ? true : false);
   $dayperline  = ($displayWE ? 7 : 5);
@@ -146,13 +146,11 @@ function wgcal_textmonth(&$action)
 
 	    $rt = $st.$tdays[$cday]->events[$ie]["TITLE"];
 	    $d[$ie]["EvSTCard"] = $tdays[$cday]->events[$ie]["EvSTCard"];
-
-	    $d[$ie]["title"] = (strlen($rt)>$title_len?substr($rt,0,$title_len)." ...":$rt);
 	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
 	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
 	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
 	    $d[$ie]["IDP"] = $tdays[$cday]->events[$ie]["IDP"];
-	    $d[$ie]["edit"] = $tdays[$cday]->events[$ie]["edit"];
+	    $d[$ie]["hasCard"] = $tdays[$cday]->events[$ie]["hasCard"];
 	  }
 	}
 	$h->SetBlockData("HLine", $d);

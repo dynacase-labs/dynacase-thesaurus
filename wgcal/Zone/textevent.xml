@@ -3,9 +3,9 @@
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>
 [BLOCK HLine]<div class="WEvDefault"
-  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[IDP]');"
-onmouseover="this.className='WEvOver'; WGCalEvOnMouseOver(event, '[RG]');" 
+  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=FDL&action=IMPCARD&id=[IDP]');"
+onmouseover="this.className='WEvOver'; [IF hasCard]WGCalEvOnMouseOver(event, '[RG]');[ENDIF hasCard]" 
 onmouseout="this.className='WEvDefault';WGCalEvOnMouseOut(event, '[RG]');" 
-onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
-onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
+[IF hasCard]onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
+onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}"[ENDIF hasCard]
 style="cursor:crosshair" >[EvSTCard]</div>[ENDBLOCK HLine]
