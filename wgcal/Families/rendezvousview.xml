@@ -38,11 +38,11 @@
   </fieldset></td>
 </tr>
 
-<tr style="display:[displaynote];">
+[IF displaynote]<tr>
  <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px;">[NOTE]</div>
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="width:auto; max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px;">[NOTE]</div>
  </td>
-</tr>
+</tr>[ENDIF displaynote]
 
 <tr>
  <td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]

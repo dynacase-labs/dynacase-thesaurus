@@ -407,10 +407,10 @@ function RendezVousView() {
 
   $nota = str_replace("\n", "<br>", $this->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
-    $this->lay->set("displaynote", "inherit");
+    $this->lay->set("displaynote", true);
     $this->lay->set("NOTE", $nota);
   } else {
-    $this->lay->set("displaynote", "none");
+    $this->lay->set("displaynote", false);
   }    
 }
 
