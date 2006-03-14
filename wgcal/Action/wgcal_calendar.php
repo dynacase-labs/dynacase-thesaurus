@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.72 2006/03/13 18:19:39 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.73 2006/03/14 08:18:01 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -26,38 +26,33 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
 
-
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  
   $ress = GetHttpVars("ress", "");
   setHttpVar("ress", $ress);
-
+  
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
   
-//   // Init start time, view mode (month, week, ...)
+  //   // Init start time, view mode (month, week, ...)
   $vm = GetHttpVars("vm", "");
   if ($vm=="" || !is_numeric($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
-
+  
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
-  if ($swe!="yes") $ndays = $dayperweek - 2;
+  if ($swe!="yes") $ndays = $dayperweek - round(($dayperweek) / 7);
   else $ndays = $dayperweek;
-
   $ts = GetHttpVars("ts", 0);
   $stdate = $ts;
   if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
   if (!$sm) $action->parent->param->set("WGCAL_U_CALCURDATE", $stdate, PARAM_USER.$action->user->id, $action->parent->id);
   $sdate = w_GetDayFromTs($stdate); 
   $firstWeekDay = w_GetFirstDayOfWeek($sdate);
-  $edate = $firstWeekDay + ($ndays * SEC_PER_DAY) - 1;
+  $edate = $firstWeekDay + ($dayperweek * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
-  $t0 = microtime(true);
   $tout = wGetEvents($d1, $d2);
-  $t1 = microtime(true);
-//   AddWarningMsg("wGetEvent : ".($t1 - $t0)); 
   $calfid = getIdFromName($dbaccess,"CALEVENT");
   $popuplist = array();
   foreach ($tout as $k => $v) {
@@ -83,34 +78,32 @@ function wgcal_calendar(&$action) {
     }
   }
   popupGen(count($tout));
-
-  $t2 = microtime(true);
-//   AddWarningMsg("Post traitement : ".($t2 - $t1)); 
+  
   
   // Display results ------------------------------------------------------------------------------------
-
+  
   $action->lay->set("sm", $sm);
   $action->lay->set("vm", $vm);
   $action->lay->set("ts", $ts);
   $action->lay->set("ress", $ress);
-
+  
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-
+  
   $action->lay->set("standAlone", $sm);
-
+  
   $Hcolsize = 5;
   $action->lay->set("hcolsize", $Hcolsize);
   $colsize = floor((100-$Hcolsize) / ($ndays));
-
+  
   $cdate = w_GetDayFromTs(time());
-  $pafter = $sdate + ($ndays * SEC_PER_DAY);
-  $pbefore = $sdate - ($ndays * SEC_PER_DAY);
-
+  $pafter = $sdate + ($dayperweek * SEC_PER_DAY);
+  $pbefore = $sdate - ($dayperweek * SEC_PER_DAY);
+  
   $year  = strftime("%Y",$firstWeekDay);
   $month = strftime("%B",$firstWeekDay);
   $emonth = strftime("%B",$edate);
@@ -123,11 +116,10 @@ function wgcal_calendar(&$action) {
     $strmonth = $month." ".$year;
   }
   $week  = strftime("%V",$firstWeekDay);
-  $eweek  = strftime("%V",$edate);
   $action->lay->set("plusweek", "");
-  if ($week!=$eweek) {
-        $week = $week." - ".$eweek;
-        $action->lay->set("plusweek", "s");
+  if ($dayperweek>7) {
+    $week = $week."/".($week + 1);
+    $action->lay->set("plusweek", "s");
   }
   $iday  = gmdate("w",$firstWeekDay);
   $day   = gmdate("d",$firstWeekDay);
@@ -144,13 +136,17 @@ function wgcal_calendar(&$action) {
   $action->lay->set("pafter", $pafter);
   $action->lay->set("pbefore", $pbefore);
   $action->lay->set("pcurrent", time());
-
+  
   $tabdays = array(); $itd=0;
-  for ($i=0; $i<$ndays; $i++) { 
+  for ($i=0; $i<$dayperweek; $i++) { 
+
+    $numd = strftime("%u",$firstWeekDay+($i*SEC_PER_DAY));
+    
     $tabdays[$i]["iday"] =  $i;
     $tabdays[$i]["days"] =  $firstWeekDay+($i*SEC_PER_DAY);
     $tabdays[$i]["vstart"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstart - (3600/$hdiv));
     $tabdays[$i]["vend"] =  $tabdays[$i]["days"] + (SEC_PER_HOUR*$hstop + 3600 + (3600/$hdiv));
+    $tabdays[$i]["view"] =  ($numd>=6 && $swe!="yes" ? "false" : "true");
     $class[$i] = "WGCAL_Day";
     $classh[$i] = "WGCAL_DayLine"; 
     if (strftime("%Y%m%d", $firstWeekDay+($i*SEC_PER_DAY)) == strftime("%Y%m%d", time())) {
@@ -158,13 +154,15 @@ function wgcal_calendar(&$action) {
     } else {
       $iwe = $i % 7;
       if ($iwe==5 || $iwe==6) $class[$i] .= " WGCAL_DayWE";
-    }      
-    $t[$i]["IDD"] = $i;
-    $t[$i]["colsize"] = $colsize;
-    $t[$i]["CSS"] = $classh[$i];
-    $t[$i]["LABEL1"] = ucwords(strftime("%a %d", $firstWeekDay+($i*SEC_PER_DAY)));
-    $t[$i]["times"] = $tabdays[$i]["vstart"] ;
-    $t[$i]["timee"] = $tabdays[$i]["vstart"] +  SEC_PER_HOUR;
+    }   
+    if ($tabdays[$i]["view"] == "true") {
+      $t[$i]["IDD"] = $i;
+      $t[$i]["colsize"] = $colsize;
+      $t[$i]["CSS"] = $classh[$i];
+      $t[$i]["LABEL1"] = ucwords(strftime("%a %d", $firstWeekDay+($i*SEC_PER_DAY)));
+      $t[$i]["times"] = $tabdays[$i]["vstart"] ;
+      $t[$i]["timee"] = $tabdays[$i]["vstart"] +  SEC_PER_HOUR;
+    }
   }
   $action->lay->SetBlockData("DAYS_LINE", $t);
   
@@ -190,7 +188,9 @@ function wgcal_calendar(&$action) {
       }
       $tcell = array();
       $itc = 0;
-      for ($id=0; $id<$ndays; $id++) {
+      for ($id=0; $id<$dayperweek; $id++) {
+	$numd = strftime("%u",$firstWeekDay+($id*SEC_PER_DAY));
+	if ($numd>=6 && $swe!="yes") continue;
 	if ($id>6) $mo = $id;
 	else $mo = $id % 7;
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
@@ -213,7 +213,8 @@ function wgcal_calendar(&$action) {
 	else $tcell[$itc]["cclass"] = $class[$id];
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
-	$tcell[$itc]["cellcontent"] = "";
+ 	$tcell[$itc]["cellcontent"] = "";
+// 	$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"]; //"";
 	$itc++;
       }
       $lcell->SetBlockData("CELLS", $tcell);
@@ -225,8 +226,7 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("HOURS", $thr);
   $action->lay->SetBlockData("DAYS", $tabdays);
   
-  $action->lay->set("DAYCOUNT", $ndays);
-//   $action->lay->set("HSTART", ($hstart - 1)); 
+  $action->lay->set("DAYCOUNT", $dayperweek);
   $action->lay->set("HSTART", ($hstart )); // Minutes
   $action->lay->set("HCOUNT", (($hstop - $hstart + 1) * $hdiv ) + 1 ); // Minutes
   $action->lay->set("HDIV", $hdiv); // Minutes

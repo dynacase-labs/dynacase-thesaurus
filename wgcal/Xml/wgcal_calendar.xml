@@ -51,7 +51,7 @@
 var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]
-Days[[iday]] = new Object(); Days[[iday]].start  = [days]; Days[[iday]].vstart = [vstart]; Days[[iday]].vend   = [vend]; Days[[iday]].ev = new Array();[ENDBLOCK DAYS]
+Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
 
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';

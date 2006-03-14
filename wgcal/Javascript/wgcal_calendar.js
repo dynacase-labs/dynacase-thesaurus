@@ -101,11 +101,6 @@ function GetTimeInfoFromTs(ts) {
 }
 
 // --------------------------------------------------------
-function GetXForDay(d) {
-  return (Wday * d) + Xs;
-}
-
-// --------------------------------------------------------
 function GetYForTime(ts) {
   var tinf = GetTimeInfoFromTs(ts);
   yp = (( 1 + ((tinf.hours-(Ystart)) * YDivCount)) * YDivMinute ) + tinf.minutes;
@@ -275,6 +270,17 @@ function WGCalComputeCoord() {
   AltCoord.y = Hzone - 15;
  
   PixelByMinute = (hr - gamma) / YDivMinute;
+
+  // Set day col position
+  var ida=0;
+  var incr=0;
+  for (ida=0; ida<Days.length; ida++) {
+    if (Days[ida].view) {
+      Days[ida].cpos = (Wday * incr) + Xs;
+      incr++;
+    }
+  }      
+
 //   DrawRect(os.x,os.y,w,(hr-gamma),'yellow');
 //     DrawRect(Xs,Ys,Wzone,Hzone,'yellow','(x,y,w,h)=('+Xs+','+Ys+','+Wzone+','+Hzone+')');
 }
@@ -322,7 +328,7 @@ function TraceOnDoc(s) {
 
 
 // --------------------------------------------------------
-function WGCalAddEvent(n, tstart, tend) 
+function WGCalAddEvent(n, tstart, tend, tdeb) 
 {
   var evt = new Object;
   var id;
@@ -350,63 +356,60 @@ function WGCalAddEvent(n, tstart, tend)
   dstart = Math.floor((tstart - Days[0].start)/ (24*3600));
   dstart= (dstart<0 ? 0 : (dstart>=XDays ? (XDays-1) : dstart) );
   dstart = (dstart>=XDays ? (XDays-1) : dstart);
-
   dend = Math.floor((tend - Days[0].start) / (24*3600));
   dend = (dend<dstart ? dstart : (dend>=XDays ? (XDays-1) : dend) );
-
-
   mdays = (dstart!=dend ? true : false);
-
   for (id=dstart ; id<=dend; id++) {
-    vstart = tstart + Tz;
-    vend   = tend + Tz;
-
-    if (tend==tstart) {
-      vstart = Days[id].vstart;
-      vend   = Days[id].vstart + (YDivMinute * 60);
-    } else {
+    if (Days[id].view) {
+      vstart = tstart + Tz;
+      vend   = tend + Tz;
       
-      // Heure de début antérieure à l'heure de début de la journée....
-      if (tstart <= parseInt(Days[id].vstart - (YDivMinute * 60 / YDivCount))) {
-	vstart = parseInt(Days[id].vstart);
-	
-	// Heure de début postérieure à l'heure de fin de la journée....
-      } else if (tstart>=(Days[id].vend)) {
-	vstart = Days[id].vend - (YDivMinute * 60);
-	
+      if (tend==tstart) {
+	vstart = Days[id].vstart;
+	vend   = Days[id].vstart + (YDivMinute * 60);
       } else {
- 	vstart += 0;
+	
+	// Heure de début antérieure à l'heure de début de la journée....
+	if (tstart <= parseInt(Days[id].vstart - (YDivMinute * 60 / YDivCount))) {
+	  vstart = parseInt(Days[id].vstart);
+	  
+	  // Heure de début postérieure à l'heure de fin de la journée....
+	} else if (tstart>=(Days[id].vend)) {
+	  vstart = Days[id].vend - (YDivMinute * 60);
+	  
+	} else {
+	  vstart += 0;
+	}
+	
+	
+	// Heure de fin supérieure à la fin de la journée....
+	if (tend>=Days[id].vend) {
+	  vend = Days[id].vend;
+	  
+	  // Heure de fin antérieur au début de la journée....
+	} else if (tend<=Days[id].vstart) {
+	  vend = Days[id].vstart + (YDivMinute * 60);
+	  
+	} else {
+	  vend += 0;
+	}
       }
       
-      
-      // Heure de fin supérieure à la fin de la journée....
-      if (tend>=Days[id].vend) {
-	vend = Days[id].vend;
-
-	// Heure de fin antérieur au début de la journée....
-      } else if (tend<=Days[id].vstart) {
-      	vend = Days[id].vstart + (YDivMinute * 60);
-	
-      } else {
-	vend += 0;
-      }
+      // Add event
+      cEv = Days[id].ev.length; 
+      Days[id].ev[cEv] = new Object();
+      Days[id].ev[cEv].n = n;
+      Days[id].ev[cEv].curday = id;
+      Days[id].ev[cEv].dstart = dstart;
+      Days[id].ev[cEv].dend = dend;
+      Days[id].ev[cEv].vstart = vstart;
+      Days[id].ev[cEv].vend = vend;
+      Days[id].ev[cEv].weight = ((vend - vstart) * P_DURATION) - (vstart  * P_DEB);
+      Days[id].ev[cEv].mdays = mdays;
+      Days[id].ev[cEv].base = -1;
+      Days[id].ev[cEv].col = 0;
+      Days[id].ev[cEv].ncol = 0;
     }
-
-    // Add event
-    cEv = Days[id].ev.length; 
-    Days[id].ev[cEv] = new Object();
-    Days[id].ev[cEv].n = n;
-    Days[id].ev[cEv].curday = id;
-    Days[id].ev[cEv].dstart = dstart;
-    Days[id].ev[cEv].dend = dend;
-    Days[id].ev[cEv].vstart = vstart;
-    Days[id].ev[cEv].vend = vend;
-    Days[id].ev[cEv].weight = ((vend - vstart) * P_DURATION) - (vstart  * P_DEB);
-    Days[id].ev[cEv].mdays = mdays;
-    Days[id].ev[cEv].base = -1;
-    Days[id].ev[cEv].col = 0;
-    Days[id].ev[cEv].ncol = 0;
-
   }
 }
 
@@ -517,7 +520,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   head = 3;
   cWidth = Wday - (2*head);
   
-  startX = GetXForDay(cEv.curday);
+  startX = Days[cEv.curday].cpos; 
   startY = GetYForTime(cEv.vstart);
   endY = GetYForTime(cEv.vend);
 
