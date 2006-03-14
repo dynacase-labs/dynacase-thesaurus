@@ -56,7 +56,7 @@ Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
-[BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END]);
+[BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END], '[TITLE]');
 [ENDBLOCK EVENTSSC]
 WGCalDisplayAllEvents();
 </script>

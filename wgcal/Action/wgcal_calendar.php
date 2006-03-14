@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.73 2006/03/14 08:18:01 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.74 2006/03/14 10:44:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -41,8 +41,10 @@ function wgcal_calendar(&$action) {
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
   
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
-  if ($swe!="yes") $ndays = $dayperweek - round(($dayperweek) / 7);
-  else $ndays = $dayperweek;
+  if ($swe!="yes") {
+    $vd = floor(($dayperweek) / 7);
+    $ndays = $dayperweek - (2 * $vd);
+  } else $ndays = $dayperweek;
   $ts = GetHttpVars("ts", 0);
   $stdate = $ts;
   if ($stdate == 0) $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
@@ -59,6 +61,7 @@ function wgcal_calendar(&$action) {
     $IsRV = ($v["FIDP"]==$calfid ? true : false);
     $d = new_Doc($dbaccess, $v["IDP"]);  
     $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
+    $tout[$k]["TITLE"] = $d->getValue("title");
     $tout[$k]["EvPCard"] = "";
     $tout[$k]["hasPCard"] = false;
     if ($IsRV) {
@@ -213,8 +216,8 @@ function wgcal_calendar(&$action) {
 	else $tcell[$itc]["cclass"] = $class[$id];
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
- 	$tcell[$itc]["cellcontent"] = "";
-// 	$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"]; //"";
+  	$tcell[$itc]["cellcontent"] = "";
+//  	$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"]; //"";
 	$itc++;
       }
       $lcell->SetBlockData("CELLS", $tcell);

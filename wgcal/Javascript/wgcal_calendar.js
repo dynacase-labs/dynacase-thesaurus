@@ -113,8 +113,10 @@ function GetYForTime(ts) {
 function WGCalCleanAllFullView() {
   for (id=0; id<XDays; id++) {
     for (i=0; i<Days[id].ev.length; i++) {
-      evtc = document.getElementById('evtc'+Days[id].ev[i].n);
-      if (evtc) evtc.style.display = 'none';
+      if (Days[id].view) {
+	evtc = document.getElementById('evtc'+Days[id].ev[i].n);
+	if (evtc) evtc.style.display = 'none';
+      }
     }
   }
 }
@@ -417,7 +419,7 @@ function WGCalAddEvent(n, tstart, tend, tdeb)
 function WGCalDisplayAllEvents() {
   var iday; 
   for (iday=0; iday<XDays; iday++) {
-    WGCalDisplayDailyEvents(Days[iday].ev);
+    if (Days[iday].view) WGCalDisplayDailyEvents(Days[iday].ev);
   }
 }
 
