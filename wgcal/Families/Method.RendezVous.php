@@ -340,7 +340,7 @@ function RendezVousView() {
     $runtild = $this->getValue("CALEV_REPEATUNTILDATE", "");
     $rexclude = $this->getValue("CALEV_EXCLUDEDATE", array());
     if ($rmode>0 && $rmode<5) {
-      $this->lay->set("repeatdisplay", "");
+      $this->lay->set("repeatdisplay", "inherit");
       $tr2 = "";
       switch ($rmode) {
       case 1:
@@ -407,7 +407,7 @@ function RendezVousView() {
 
   $nota = str_replace("\n", "<br>", $this->getValue("CALEV_EVNOTE"));
   if ($nota!="" && !$private) {
-    $this->lay->set("displaynote", "");
+    $this->lay->set("displaynote", "inherit");
     $this->lay->set("NOTE", $nota);
   } else {
     $this->lay->set("displaynote", "none");

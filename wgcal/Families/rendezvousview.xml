@@ -3,7 +3,7 @@
 <tr>
   <td style="width:15px; border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">
   <img src="[iconevent]" style="border:0px; width:14px;">
-  [BLOCK icons]<img style="width:14px, cursor:crosshair; border:0px" src="[iconsrc]">[ENDBLOCK icons]
+  [BLOCK icons]<img style="width:14px; cursor:crosshair; border:0px" src="[iconsrc]">[ENDBLOCK icons]
   </td>
   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:[textcolor];font-size:120%; font-weight:bold; border: 1px outset;">[TITLE]</td>
 </tr>
@@ -40,7 +40,7 @@
 
 <tr style="display:[displaynote];">
  <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px; width:auto">[NOTE]</div>
+ <span style="font-weight:bold">[TEXT:note] : </span><div style="max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px;">[NOTE]</div>
  </td>
 </tr>
 

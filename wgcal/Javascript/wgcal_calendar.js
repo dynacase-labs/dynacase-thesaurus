@@ -1,7 +1,3 @@
-function WGCalShowR() { 
-//   alert('12'); 
-}
-
 
 function WGCalResetSizes() {
 //  alert("resize");
@@ -296,14 +292,6 @@ function WGCalChangeClass(event, id, refclass, nclass)
 }
 
 
-// --------------------------------------------------------
-function WGCalSortEventInDay( e1, e2) {
-  if (e1.y <= e2.y) return e2.h - e1.h;
-  return e1.y - e2.y;
-}
-
-
-
 
 
 // --------------------------------------------------------
@@ -314,18 +302,6 @@ function WGCalIntersect(asy,aey,bsy,bey) {
   if (bsy==asy && bey==aey) IsInt = true;
      //alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
   return IsInt;
-}
-
-
-function TextDate(ts) {
-  var dt = "";
-  var dd = new Date();
-  dd.setTime((ts*1000));
-  return dd.toString();
-}
-
-function TraceOnDoc(s) {
-  document.write(s+'<br>');
 }
 
 
