@@ -144,7 +144,7 @@ function ShowEvInfos() {
     if (evtc) {
       evtc.style.position = 'absolute';
       evtc.style.zIndex = 1001;
-      evtc.style.display = ''; 
+      evtc.style.display = 'block'; 
       SetAltCoord(evtc);
       evtc.style.left = AltCoord.x+'px';
       evtc.style.top = AltCoord.y+'px';
@@ -190,9 +190,9 @@ function SetCurrentEvent(id, cd) {
 
 
 // --------------------------------------------------------
-function ClickCalendarCell(urlroot, nh,times,timee) {
+function ClickCalendarCell(nh,times,timee) {
   closeMenu('calpopup');
-  subwindow(400, 700, 'EditEvent', urlroot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
+  subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
 }
 
 // --------------------------------------------------------
@@ -520,7 +520,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   eE.style.width = (xw-2)+"px";
   eE.style.height = (h-2)+"px";
   eE.style.position = 'absolute';
-  eE.style.display = '';
+  eE.style.display = 'block';
 
   root.appendChild(eE);
   return;

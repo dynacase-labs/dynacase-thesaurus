@@ -8,9 +8,7 @@
   <td valign="top" colspan="2" style="background-color:[bgcolor]; color:[textcolor];font-size:120%; font-weight:bold; border: 1px outset;">[TITLE]</td>
 </tr>
 
-<tr>
-
-  <td style="vertical-align:top; border:0px; padding:3px"> 
+<tr><td style="vertical-align:top; border:0px; padding:3px"> 
   <table cellspacing="0" border="0">
   <tr><td nowrap style="padding-top:3px; overflow:hidden; font-weight:bold">[D_HL] [D_HR]</td></tr>
   <tr><td nowrap style="overflow:hidden; font-weight:bold">[D_LL] [D_LR]</td></tr>
@@ -38,19 +36,9 @@
   </fieldset></td>
 </tr>
 
-[IF displaynote]<tr>
- <td colspan="2" valign="top">
- <span style="font-weight:bold">[TEXT:note] : </span><div style="width:auto; max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px;">[NOTE]</div>
- </td>
-</tr>[ENDIF displaynote]
+[IF displaynote]<tr><td colspan="2" valign="top"><span style="font-weight:bold">[TEXT:note] : </span><div style="width:auto; max-height:10em; overflow:auto; border: 1px inset; padding:5px; margin:5px;">[NOTE]</div></td></tr>[ENDIF displaynote]
 
-<tr>
- <td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]
-<span style="font-size:80%; font-style:italic">
-[IF v_location]<div>[TEXT:location_1stUpcase] : [rvlocation]</div>[ENDIF v_location]
-[IF ShowCalendar][TEXT:in calendar] : [incalendar] - [ENDIF ShowCalendar][IF hasCat][TEXT:Category] : [category][ENDIF hasCat]
-[IF ShowGroups]<br>[TEXT:view groups] : [groups][ENDIF ShowGroups]
-<br>[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]</span>
-[ENDIF Confidential]</td>
+<tr><td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]<span style="font-size:80%; font-style:italic">[IF v_location]<div>[TEXT:location_1stUpcase] : [rvlocation]</div>[ENDIF v_location][IF ShowCalendar][TEXT:in calendar] : [incalendar] - [ENDIF ShowCalendar][IF hasCat][TEXT:Category] : [category][ENDIF hasCat][IF ShowGroups]<div>[TEXT:view groups] : [groups]</div>[ENDIF ShowGroups]<div>[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]</div></span>[ENDIF Confidential]</td>
 </tr>
+
 </table>

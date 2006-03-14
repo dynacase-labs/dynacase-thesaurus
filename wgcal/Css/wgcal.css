@@ -373,7 +373,17 @@ TD {
  border: 1px inset;
 }
 
+.wEvCard {
+  display:none;
+  position:relative; 
+  padding:3px; 
+  overflow:hidden; 
+  border:1px outset; 
+  background-color:white;
+}
 .wEvResume {
+  display:none;
+  overflow:hidden;
   background-color: #d1d2db;
   cursor:crosshair; 
   margin:0px; 

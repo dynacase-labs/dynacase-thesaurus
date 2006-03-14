@@ -3,32 +3,20 @@
 
 <div id="root"></div>
 <table onmouseover="closeAllMenu()" style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
-
-  <tr height="[WGCAL_U_HLINETITLE]px">
-    <td align="center" colspan="[colspan]">
-      <table style="width:100%; border:0px"  cellspacing="0"><tr>
-      <td align="center" style="width:30px;cursor:pointer;" 
-          title="[TEXT:prev period]" 
-	   onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" 
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="16px"></td>
-       <td align="center" style="width:30px;cursor:pointer;" 
-          title="[TEXT:current period]" 
-          onclick="window.location.href  = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pcurrent]&sm=[sm]&vm=[vm]&ress=[ress]'"
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="16px"></td>
-       <td align="center" style="width:30px; cursor:pointer;" 
-          title="[TEXT:next period]" 
-          onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';"
-          class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
-      <td align="center" class="WGCAL_Period">[TEXT:week][plusweek] [week] - [month]</td>
-      </tr>
-      </table> 
-     </td>
- </tr>
-    
- <tr height="[WGCAL_U_HLINETITLE]px">
-    <td style="width:[hcolsize]%" class="WGCAL_Period"></td>
-    [BLOCK DAYS_LINE]<td id="D[IDD]" style="width:[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
- </tr>
+<tr height="[WGCAL_U_HLINETITLE]px">
+ <td align="center" colspan="[colspan]">
+  <table style="width:100%; border:0px"  cellspacing="0"><tr>
+   <td align="center" style="width:30px;cursor:pointer;" title="[TEXT:prev period]" onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="16px"></td>
+   <td align="center" style="width:30px;cursor:pointer;" title="[TEXT:current period]" onclick="window.location.href  = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pcurrent]&sm=[sm]&vm=[vm]&ress=[ress]'" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="16px"></td>
+   <td align="center" style="width:30px; cursor:pointer;" title="[TEXT:next period]" onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
+  <td align="center" class="WGCAL_Period">[TEXT:week][plusweek] [week] - [month]</td>
+ </tr></table> 
+ </td>
+</tr>
+<tr height="[WGCAL_U_HLINETITLE]px">
+ <td style="width:[hcolsize]%" class="WGCAL_Period"></td>
+[BLOCK DAYS_LINE]<td id="D[IDD]" style="width:[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
+</tr>
 [BLOCK HOURS]<tr height="[HLINEHOURS]px">
 <td id="L[LID]" style="width:[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
 </tr>[ENDBLOCK HOURS]
@@ -36,23 +24,16 @@
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
-<div id="evt[RG]"
-  onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=[IF vRv]IMPCARD[ENDIF vRv][IFNOT vRv]FDL_CARD[ENDIF vRv][ENDIF edit]&id=[IDP]');"
-  [IF hasPCard]onmouseover="closeMenu('calpopup'); WGCalEvOnMouseOver(event, '[RG]');" 
-  onmouseout="WGCalEvOnMouseOut(event, '[RG]');" 
-  [ENDIF hasPCard]onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" 
-  onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}"
-  style="display:none;overflow:hidden;" class="wEvResume">[EvRCard]</div>
-
-[IF hasPCard]<div id="evtc[RG]" onmouseover="closeMenu('calpopup')" style="display:none; position:relative; padding:3px; overflow:hidden; border:1px outset; background-color:white">[EvPCard]</div>[ENDIF hasPCard][ENDBLOCK EVENTS]
+<div id="evt[RG]" class="wEvResume" onclick="subwindow(400, 650, 'ViewEvent[IDP]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=[IF vRv]IMPCARD[ENDIF vRv][IFNOT vRv]FDL_CARD[ENDIF vRv][ENDIF edit]&id=[IDP]');" [IF hasPCard]onmouseover="closeMenu('calpopup'); WGCalEvOnMouseOver(event, '[RG]');" onmouseout="WGCalEvOnMouseOut(event, '[RG]');" [ENDIF hasPCard]onContextMenu="SetCurrentEvent([IDP], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([IDP], '[TSSTART]');openMenu(event,'calpopup',[RG])}">[EvRCard]</div>
+[IF hasPCard]<div id="evtc[RG]" class="wEvCard">[EvPCard]</div>[ENDIF hasPCard][ENDBLOCK EVENTS]
 
 
 <script type="text/javascript"> 
+var UrlRoot = '[CORE_STANDURL]';
 var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
-
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
@@ -60,6 +41,5 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [
 [ENDBLOCK EVENTSSC]
 WGCalDisplayAllEvents();
 </script>
-
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
