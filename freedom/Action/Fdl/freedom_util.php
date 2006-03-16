@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.79 2006/02/03 15:59:27 eric Exp $
+ * @version $Id: freedom_util.php,v 1.80 2006/03/16 11:08:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -317,11 +317,13 @@ function getNextDbObject($dbaccess,$res) {
  * return Doc the next doc (false if the end)
  */
 function getNextDoc($dbaccess,&$tres) {
-  $tdoc= pg_fetch_array(current($tres), NULL, PGSQL_ASSOC);
+  $n=current($tres);
+  if ($n === false) return false;
+  $tdoc= pg_fetch_array($n, NULL, PGSQL_ASSOC);
   if ($tdoc===false) {
     $n=next($tres);
     if ($n === false) return false;
-    $tdoc= pg_fetch_array(current($tres), NULL, PGSQL_ASSOC);
+    $tdoc= pg_fetch_array($n, NULL, PGSQL_ASSOC);
     if ($tdoc===false) return false;
   }
   return getDocObject($dbaccess,$tdoc,intval(current($tres)));
