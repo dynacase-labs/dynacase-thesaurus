@@ -168,6 +168,27 @@ function stopPropagation(event) {
 //Lum : 0,0..1,0<=>0..255
 //Sat : 0,0..1,0<=>0..255
 
+// o the object
+// en the event name : mouseup, mouseodwn
+function sendEvent(o,en) {  
+  if (o) {
+    if( document.createEvent ) {    
+      var ne=document.createEvent("MouseEvents");
+      ne.initEvent(en,true,true);
+      o.dispatchEvent(ne);
+    }
+    else {	
+      try {
+	o.fireEvent( "on"+en );
+      }
+      catch (ex) {
+	;
+      }
+
+    } 
+  }
+}
+
 //Retourne un tableau de 3 valeurs : H,S,L
 function RGB2HSL (r, g, b)
 {
