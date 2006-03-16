@@ -46,7 +46,7 @@
 
 [ZONE FDL:POPUPCARD]
 
-<div width="100%" class="tableborder" id="terrible"
+<div width="100%" class="tablesimple" id="terrible"
      style="cursor:crosshair;"
      onContextMenu="openMenu(event,'popupcard',1);return false" 
      onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
