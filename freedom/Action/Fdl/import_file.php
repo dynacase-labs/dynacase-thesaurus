@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.110 2006/03/03 16:03:04 eric Exp $
+ * @version $Id: import_file.php,v 1.111 2006/03/16 18:50:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -673,7 +673,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }  
 
 
-  if ($doc->id == ""){
+  if (($doc->id == "") && ($doc->name == "")) {
     switch ($policy) {
     case "add": 
       $tcr["action"]="added"; # N_("added")
