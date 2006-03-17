@@ -403,25 +403,6 @@ function deleteEvent(text) {
   self.close();
 }
 
-var ExcludeDate = 0;
-
-function addExclDate() {
-
-  var list = document.getElementById('listexcldate');
-  var nOpt = new Option();
-  var ndate = document.getElementById('nexcldate').value;
-
-  var jdate = new Date();
-  jdate.setTime(ndate*1000);
-
-  nOpt.id = 'exdate'+ExcludeDate;
-  nOpt.value = ndate;
-  nOpt.text  = calendar.date.print("%A %d %B %Y");
-  i = list.options.length;
-  list.options[i] = nOpt;
-  ExcludeDate++;
-}
-
 function delExclDate() {
   var list = document.getElementById('listexcldate');
   for (i=(list.options.length-1); i>=0; i--) {
@@ -527,11 +508,15 @@ function viewattdispo(url, rlist) {
   subwindow(500, 600, 'ViewDispo', url+rll);
 }
 
-function clickB(idb) {
+function clickB(idb,frombutton) {
   var eb = document.getElementById(idb);
   if (!eb) return false;
-  if (eb.type=='radio' && eb.checked) return false;
-  eb.checked = (eb.checked ? "" : "checked" );
+  if (eb.type=='radio') {
+    if (!frombutton && eb.type=='radio' && eb.checked) return false;
+    eb.checked = (eb.checked ? "" : "checked" );
+  } else {
+    eb.checked = (eb.checked ? "" : "checked" );
+  }
   return true;
 }
 

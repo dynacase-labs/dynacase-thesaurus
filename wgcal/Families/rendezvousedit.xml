@@ -297,11 +297,11 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 
 
 <div>[TEXT:every] : </div>
-<div style="padding-left:3em"><span onclick="if (clickB('repeattype0')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype0')) everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0"  [REPEATTYPE_0]>[TEXT:none]</span></div>
-<div style="padding-left:3em"><span onclick="if (clickB('repeattype1')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype1')) everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1"  [REPEATTYPE_1]>[TEXT:day]</span>
-<span onclick="if (clickB('repeattype2')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype2')) everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2"  [REPEATTYPE_2]>[TEXT:week]</span>
-<span onclick="if (clickB('repeattype3')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype3')) everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3"  [REPEATTYPE_3]>[TEXT:month]</span>
-<span onclick="if (clickB('repeattype4')) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype4')) everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4"  [REPEATTYPE_4]>[TEXT:year]</span>
+<div style="padding-left:3em"><span onclick="if (clickB('repeattype0',false)) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype0',true)) everyInfo()" type="radio" id="repeattype0" name="repeattype" value="0"  [REPEATTYPE_0]>[TEXT:none]</span></div>
+<div style="padding-left:3em"><span onclick="if (clickB('repeattype1',false)) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype1',true)) everyInfo()" type="radio" id="repeattype1" name="repeattype" value="1"  [REPEATTYPE_1]>[TEXT:day]</span>
+<span onclick="if (clickB('repeattype2',false)) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype2',true)) everyInfo()" type="radio" id="repeattype2" name="repeattype" value="2"  [REPEATTYPE_2]>[TEXT:week]</span>
+<span onclick="if (clickB('repeattype3',false)) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype3',true)) everyInfo()" type="radio" id="repeattype3" name="repeattype" value="3"  [REPEATTYPE_3]>[TEXT:month]</span>
+<span onclick="if (clickB('repeattype4',false)) everyInfo();" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="if (clickB('repeattype4',true)) everyInfo()" type="radio" id="repeattype4" name="repeattype" value="4"  [REPEATTYPE_4]>[TEXT:year]</span>
 </div>
    
 
@@ -310,15 +310,15 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
 [BLOCK D_RWEEKDISPLAY]<div style="padding-left:3em"><span onclick="clickB('rweekday[dayn]')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rweekday[dayn]')" type="checkbox" id="rweekday[dayn]" name="evrweekday[]" value="[dayn]" [rdstate] >[tDay]</div>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]</span></div>
 
   <div id="d_rmonth" style="padding-top:1em; display:[D_RMONTH]">
-   [TEXT:month/year repetition] : <span onclick="clickB('rmonth0')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0')"  type="radio" id="rmonth0" name="rmonth" value="0"  [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
-    <span onclick="clickB('rmonth1')" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1')"  type="radio" id="rmonth1" name="rmonth" value="1"  [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
+   [TEXT:month/year repetition] : <span onclick="clickB('rmonth0',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0',true)"  type="radio" id="rmonth0" name="rmonth" value="0"  [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
+    <span onclick="clickB('rmonth1',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1',true)"  type="radio" id="rmonth1" name="rmonth" value="1"  [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     </div>
 
 <div id="d_until" style="padding-top:1em; display:[D_RUNTIL]">
 
   <div>[TEXT:repeat until] : </div>
-  <div style="padding-left:3em"><span onclick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil')) ViewElement('runtild', 'runtildatebutton');" value="0" [D_RUNTIL_INFI] >[TEXT:forever]</span></div>
-  <div style="padding-left:3em"><span onclick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild')) ViewElement('runtild', 'runtildatebutton');" value="1" [D_RUNTIL_DATE] >[TEXT:this date]</span>&nbsp;:&nbsp;
+  <div style="padding-left:3em"><span onclick="if (clickB('runtil',false)) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtil" name="runtil" onClick="if (clickB('runtil',true)) ViewElement('runtild', 'runtildatebutton');" value="0" [D_RUNTIL_INFI] >[TEXT:forever]</span></div>
+  <div style="padding-left:3em"><span onclick="if (clickB('runtild',false)) ViewElement('runtild', 'runtildatebutton');" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input type="radio" id="runtild" name="runtil" onClick="if (clickB('runtild',true)) ViewElement('runtild', 'runtildatebutton');" value="1" [D_RUNTIL_DATE] >[TEXT:this date]</span>&nbsp;:&nbsp;
 
  <span id="runtildatebutton" name="runtildatebutton" style="display:[RUNUNTIL_DATE_DISPLAY]; cursor:pointer" title="[TEXT:click to select a date]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"> 
  <img style="cursor:pointer" title="[TEXT:click to select a date]"  height="15" src="[IMG:cal-other.gif]">
