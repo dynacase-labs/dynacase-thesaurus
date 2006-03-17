@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.74 2006/03/14 10:44:16 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.75 2006/03/17 06:28:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -157,6 +157,7 @@ function wgcal_calendar(&$action) {
     } else {
       $iwe = $i % 7;
       if ($iwe==5 || $iwe==6) $class[$i] .= " WGCAL_DayWE";
+      if ($iwe==0) $class[$i] .= " WGCAL_DayMonday";
     }   
     if ($tabdays[$i]["view"] == "true") {
       $t[$i]["IDD"] = $i;
@@ -212,7 +213,7 @@ function wgcal_calendar(&$action) {
 	}
 	$tcell[$itc]["lref"] = "L".$nl;
 	$tcell[$itc]["cref"] = "D".$id;
-        if ($h<$hstart || $h>$hstop) $tcell[$itc]["cclass"] = "WGCAL_DayNoHours";
+        if ($h<$hstart || $h>$hstop) $tcell[$itc]["cclass"] = "WGCAL_DayNoHours".($numd==1?" WGCAL_DayMonday":"");
 	else $tcell[$itc]["cclass"] = $class[$id];
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];

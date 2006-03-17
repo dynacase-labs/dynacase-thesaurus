@@ -128,14 +128,6 @@ TD {
   border : 1px outset [WTH_COLOR_2];
   font-weight: bold;
 }
-.WGCAL_DayLineCur {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  cursor:pointer;
-  border : 1px outset [WTH_COLOR_1];
-  font-weight: bold;
-  background-color : red;
-/*  background-color : [WTH_COLOR_2]; */
-}
 
 .WGCAL_DayNoHours {
   font-size: [WTH_FONTSIZE_SMALL]pt;
@@ -179,6 +171,9 @@ TD {
 }
 .WGCAL_DayWE {
         background-color : [WTH_CALWEEKEND];
+}
+.WGCAL_DayMonday {
+        border-left : 1px solid red;
 }
 
 .WGCWaitingRv {
