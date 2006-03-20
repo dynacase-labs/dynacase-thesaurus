@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.80 2005/08/08 16:03:28 eric Exp $
+ * @version $Id: modcard.php,v 1.81 2006/03/20 19:29:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -211,7 +211,7 @@ function setPostVars(&$doc) {
 	  }
 	  else $value = stripslashes($v);
 
-	  $err=$doc->SetValue($attrid, $value);	      
+	  $doc->SetValue($attrid, $value);	      
 	      
 	      
 	}      
