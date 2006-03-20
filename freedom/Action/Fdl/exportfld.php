@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.19 2005/08/16 07:46:11 eric Exp $
+ * @version $Id: exportfld.php,v 1.20 2006/03/20 19:28:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -104,21 +104,23 @@ function exportfld(&$action, $aflid="0", $famid="")
 	
 	$tpu=array();
 	$tpa=array();
-	foreach ($acls as $va) {
-	  $up=$va["upacl"];
-	  $uid=$va["userid"];
-	  foreach ($doc->acls as $acl) {
-	    if ($doc->ControlUp($up,$acl) == "") {
-	      if ($uid >= STARTIDVGROUP) {
-		$vg=new Vgroup($dbaccess,$uid);
-		$qvg=new QueryDb($dbaccess,"VGroup");
-		$qvg->AddQuery("num=$uid");
-		$tvu=$qvg->Query(0,1,"TABLE");
-		$uid=$tvu[0]["id"];
-	      }
+	if ($acls) {
+	  foreach ($acls as $va) {
+	    $up=$va["upacl"];
+	    $uid=$va["userid"];
+	    foreach ($doc->acls as $acl) {
+	      if ($doc->ControlUp($up,$acl) == "") {
+		if ($uid >= STARTIDVGROUP) {
+		  $vg=new Vgroup($dbaccess,$uid);
+		  $qvg=new QueryDb($dbaccess,"VGroup");
+		  $qvg->AddQuery("num=$uid");
+		  $tvu=$qvg->Query(0,1,"TABLE");
+		  $uid=$tvu[0]["id"];
+		}
 
-	      $tpu[]=$uid;
-	      $tpa[]=$acl;
+		$tpu[]=$uid;
+		$tpa[]=$acl;
+	      }
 	    }
 	  }
 	}
