@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.75 2006/03/17 06:28:30 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.76 2006/03/20 18:29:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -89,7 +89,11 @@ function wgcal_calendar(&$action) {
   $action->lay->set("vm", $vm);
   $action->lay->set("ts", $ts);
   $action->lay->set("ress", $ress);
-  
+
+  // Init slidder
+  setHttpVar("sliddate", $stdate);
+  setHttpVar("slidurl", $action->getParam("CORE_STANDURL")."&app=WGCAL&action=WGCAL_CALENDAR&ts=%TS%&sm=$sm&vm=$vm&ress=$ress");
+
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");

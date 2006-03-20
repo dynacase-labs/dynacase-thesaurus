@@ -8,6 +8,48 @@ body {
   color: [WTH_TEXTCOLOR_1];
 }
 
+.slid_noweek {
+  float : left;
+  font-size: [WTH_FONTSIZE_SMALL]pt;
+  text-align: center;
+  background: [WTH_COLOR_2]; 
+}
+.slid_week {
+  font-size: [WTH_FONTSIZE_SMALL]pt;
+  font-weight: normal;
+  text-align: center;
+  float : left;
+  background: [WTH_COLOR_2]; 
+  border-top : 1px solid [WTH_COLOR_2];
+  border-left : 1px solid [WTH_COLOR_2];
+  border-right : 1px solid [WTH_TEXTCOLOR_1];
+  border-bottom : 1px solid [WTH_COLOR_2];
+}
+.slid_curweek {
+  background: white; 
+  font-weight: bold;
+}
+.slid_weekOver {
+  border-top : 1px solid [WTH_ALERT];
+  border-left : 1px solid [WTH_ALERT];
+  border-right : 1px solid [WTH_ALERT];
+  border-bottom : 1px solid [WTH_ALERT];
+  background: [WTH_COLOR_1]; 
+  cursor : pointer;
+}
+.slid_cday {
+  background : [WTH_ALERT]; 
+  height:3px;
+}
+.slid_oddm {
+  background : [WTH_COLOR_3]; 
+  height:3px;
+}
+.slid_evenm {
+  background : [WTH_TEXTCOLOR_1]; 
+  height:3px;
+}
+
 .elist {
   margin : 0px;
   padding : 3px;

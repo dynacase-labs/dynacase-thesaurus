@@ -1,18 +1,15 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
-<div id="root"></div>
-<table onmouseover="closeAllMenu()" style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
-<tr height="[WGCAL_U_HLINETITLE]px">
- <td align="center" colspan="[colspan]">
-  <table style="width:100%; border:0px"  cellspacing="0"><tr>
-   <td align="center" style="width:30px;cursor:pointer;" title="[TEXT:prev period]" onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pbefore]&sm=[sm]&vm=[vm]&ress=[ress]';" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-pperiod.gif]" height="16px"></td>
-   <td align="center" style="width:30px;cursor:pointer;" title="[TEXT:current period]" onclick="window.location.href  = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pcurrent]&sm=[sm]&vm=[vm]&ress=[ress]'" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-cperiod.gif]" height="16px"></td>
-   <td align="center" style="width:30px; cursor:pointer;" title="[TEXT:next period]" onclick="window.location.href = '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR&ts=[pafter]&sm=[sm]&vm=[vm]&ress=[ress]';" class="WGCAL_Period" onmouseover="this.className='WGCAL_PeriodSelected';" onmouseout="this.className='WGCAL_Period';"><img src="[IMG:wm-nperiod.gif]" height="16px"></td>
-  <td align="center" class="WGCAL_Period">[TEXT:week][plusweek] [week] - [month]</td>
- </tr></table> 
- </td>
-</tr>
+<div onmouseover="closeAllMenu()" id="root">
+
+<table style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
+
+<tr><td class="WGCAL_Period" colspan="[colspan]">
+<div id="slidder" style="width:70%">[ZONE WGCAL:WGCAL_SLIDER]</div>
+<div style="text-align:right; width:30%; float:left">[TEXT:week][plusweek] [week] - [month]</div>
+</td></tr>
+
 <tr height="[WGCAL_U_HLINETITLE]px">
  <td style="width:[hcolsize]%" class="WGCAL_Period"></td>
 [BLOCK DAYS_LINE]<td id="D[IDD]" style="width:[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
@@ -20,7 +17,8 @@
 [BLOCK HOURS]<tr height="[HLINEHOURS]px">
 <td id="L[LID]" style="width:[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
 </tr>[ENDBLOCK HOURS]
-</table>[ZONE WGCAL:WGCAL_INFOS]
+</table></div>
+[ZONE WGCAL:WGCAL_INFOS]
 
 [ZONE WGCAL:WGCAL_POPUP]
 [BLOCK EVENTS]
@@ -41,5 +39,6 @@ WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [
 [ENDBLOCK EVENTSSC]
 WGCalDisplayAllEvents();
 </script>
+
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
