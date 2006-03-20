@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.80 2006/03/16 11:08:41 eric Exp $
+ * @version $Id: freedom_util.php,v 1.81 2006/03/20 19:27:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -182,6 +182,24 @@ function createDoc($dbaccess,$fromid,$control=true) {
   return new_Doc($dbaccess);
 
 }
+/**
+ * create a temporary  document object in type concordance
+ *
+ * the document is set with default values and has no profil 
+ * the create privilege is not tested in this case
+ * @param string $dbaccess database specification
+ * @param string $fromid identificator of the family document (the number or internal name)
+ * @return Doc may be return false if no hability to create the document
+ */
+function createTmpDoc($dbaccess,$fromid) {
+  $d=createDoc($dbaccess,$fromid,false);
+  if ($d) {
+    $d->doctype='T';// tag has temporary document
+    $d->profid=0; // no privilege
+  }
+  return $d;
+}
+
 /**
  * return document table value
  * @param string $dbaccess database specification
