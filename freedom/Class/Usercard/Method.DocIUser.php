@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.36 2006/02/27 15:57:48 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.37 2006/03/20 19:29:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -328,7 +328,7 @@ function fusers_eiuser() {
   $firsttab=getHttpVars("tab"); // first tab displayed
   
   // list of attributes displayed directly in layout
-  $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_idsociety","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown","us_groups","us_whatid","us_state","us_login","us_status","us_domain","us_iddomain","us_expiresd","us_expirest","us_daydelay","us_passwd1","us_passwd2","us_extmail","us_role","us_scatg","us_pfax","us_pphone","us_job","us_type","us_initials","us_service","us_idservice");
+  $ta=array("us_workweb","us_photo","us_lname","us_fname","us_society","us_idsociety","us_civility","us_mail","us_phone","us_mobile","us_fax","us_intphone","us_workaddr","us_workcedex","us_country","us_workpostalcode","us_worktown","us_groups","us_whatid","us_state","us_login","us_status","us_domain","us_iddomain","us_expiresd","us_expirest","us_daydelay","us_passwd1","us_passwd2","us_extmail","us_role","us_scatg","us_pfax","us_pphone","us_job","us_type","us_initials","us_service","us_idservice","us_socaddr");
   //$ta["ident"]=array("us_lo
 
   $la=$this->getNormalAttributes();
