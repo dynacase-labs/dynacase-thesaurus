@@ -423,7 +423,6 @@ TD {
 .wEvResume {
   display:none;
   overflow:hidden;
-  background-color: #d1d2db;
   cursor:crosshair; 
   margin:0px; 
   border-top-width:1px; 
