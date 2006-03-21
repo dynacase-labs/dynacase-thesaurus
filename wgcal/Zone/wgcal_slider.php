@@ -6,7 +6,8 @@ function wgcal_slider(&$action) {
   $bweek = GetHttpVars("bweek", 3); // display 2 week before current
   $ddate = GetHttpVars("sliddate", time()); // Timestamp for current disply date
   $url = GetHttpVars("slidurl", ""); // Url for cell click action
-  
+  $title = GetHttpVars("slidtitle", ""); // Slidder title
+ 
   $c1 = "slid_oddm";
   $c2 = "slid_evenm";
   
@@ -51,6 +52,7 @@ function wgcal_slider(&$action) {
   } 
   $action->lay->setBlockData("SLWEEK", $weeks);
   $action->lay->set("Swidth", floor(90/$vweek));
+  $action->lay->set("Stitle", $title);
 
   return;
 }

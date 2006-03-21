@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.76 2006/03/20 18:29:58 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.77 2006/03/21 09:24:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -105,6 +105,7 @@ function wgcal_calendar(&$action) {
   
   $Hcolsize = 5;
   $action->lay->set("hcolsize", $Hcolsize);
+  $action->lay->set("acolsize", floor(100-$Hcolsize));
   $colsize = floor((100-$Hcolsize) / ($ndays));
   
   $cdate = w_GetDayFromTs(time());
@@ -123,11 +124,13 @@ function wgcal_calendar(&$action) {
     $strmonth = $month." ".$year;
   }
   $week  = strftime("%V",$firstWeekDay);
-  $action->lay->set("plusweek", "");
+  $plusweek = "";
   if ($dayperweek>7) {
     $week = $week."/".($week + 1);
-    $action->lay->set("plusweek", "s");
+    $plusweek = "s";
   }
+  setHttpVar("slidtitle", _("week").$plusweek." $week $strmonth");
+
   $iday  = gmdate("w",$firstWeekDay);
   $day   = gmdate("d",$firstWeekDay);
 
@@ -137,6 +140,7 @@ function wgcal_calendar(&$action) {
   if ($hdiv>1) $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40) / ($hdiv - 1);
   else $hhight = $action->GetParam("WGCAL_U_HLINEHOURS",40);
   
+  $action->lay->set("ncolspan", $ndays );
   $action->lay->set("colspan", $ndays+1 );
   $action->lay->set("week", $week);
   $action->lay->set("month", ucwords($strmonth));

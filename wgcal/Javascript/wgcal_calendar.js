@@ -1,9 +1,4 @@
 
-function WGCalResetSizes() {
-//  alert("resize");
-//  WGCalComputeCoord();
-//  WGCalRefreshAll();
-}
 // --------------------------------------------------------
 var Days = new Array();
 
@@ -246,6 +241,7 @@ function DrawRect(x,y,w,h,c,t) {
 function WGCalComputeCoord() {
 
   var gamma = 0; //0.25;
+  var ida=0;
 
   // compute area coord left/top (Xs,Ys) right/bottom (Xe,Ye)
   var os = getAnchorPosition(IdStart);
@@ -254,6 +250,10 @@ function WGCalComputeCoord() {
   var oe = getAnchorPosition(IdEnd);
   var w = getObjectWidth(document.getElementById(IdEnd));
   var h = getObjectHeight(document.getElementById(IdEnd));
+
+  var wroot = getObjectWidth(document.getElementById('root'));
+  document.getElementById('root').style.width=parseInt(wroot)+'px'; 
+
   Xs = os.x;
   Ys = os.y;
   Xe = oe.x + w;
@@ -270,7 +270,6 @@ function WGCalComputeCoord() {
   PixelByMinute = (hr - gamma) / YDivMinute;
 
   // Set day col position
-  var ida=0;
   var incr=0;
   for (ida=0; ida<Days.length; ida++) {
     if (Days[ida].view) {
@@ -300,7 +299,6 @@ function WGCalIntersect(asy,aey,bsy,bey) {
   if ((bsy>asy && bsy<aey)) IsInt = true;
   if ((bey>asy && bey<aey)) IsInt = true;
   if (bsy==asy && bey==aey) IsInt = true;
-     //alert('a(s,e) b(s,e) = a('+asy+','+aey+')  b('+bsy+','+bey+') Intersect='+IsInt); 
   return IsInt;
 }
 
@@ -312,8 +310,6 @@ function WGCalAddEvent(n, tstart, tend, tdeb)
   var id;
   var cEv;
   var dd = new Date();
-//   var Tz =  dd.getTimezoneOffset() * 60;
-//    var Tz = -3600;
   var Tz = 0;
   var tstart;
   var tend;

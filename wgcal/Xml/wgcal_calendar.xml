@@ -1,22 +1,18 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
+
+<div onmouseover="closeAllMenu()" class="WGCAL_Period noprint">[ZONE WGCAL:WGCAL_SLIDER]</div>
+
 <div onmouseover="closeAllMenu()" id="root">
-
 <table style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
-
-<tr><td class="WGCAL_Period" colspan="[colspan]">
-<div id="slidder" style="width:70%">[ZONE WGCAL:WGCAL_SLIDER]</div>
-<div style="text-align:right; width:30%; float:left">[TEXT:week][plusweek] [week] - [month]</div>
-</td></tr>
-
-<tr height="[WGCAL_U_HLINETITLE]px">
- <td style="width:[hcolsize]%" class="WGCAL_Period"></td>
-[BLOCK DAYS_LINE]<td id="D[IDD]" style="width:[colsize]%" align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
-</tr>
-[BLOCK HOURS]<tr height="[HLINEHOURS]px">
-<td id="L[LID]" style="width:[hcolsize]%" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
-</tr>[ENDBLOCK HOURS]
+<thead><tr height="[WGCAL_U_HLINETITLE]px">
+ <td id="DH" width="5%" class="WGCAL_Period"></td>
+[BLOCK DAYS_LINE]<td id="D[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
+</tr></thead>
+<tbody>[BLOCK HOURS]<tr height="[HLINEHOURS]px">
+<td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
+</tr>[ENDBLOCK HOURS]</tbody>
 </table></div>
 [ZONE WGCAL:WGCAL_INFOS]
 
