@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.1 2006/02/07 17:20:27 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.2 2006/03/21 19:28:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -162,8 +162,10 @@ Class DocLDAP extends DbObj {
     $q->order_by="famid,ldapclass";
     $l=$q->Query(0,0,"TABLE");
     $this->ldapmap=array();
-    foreach ($l as $v) {
-      $this->ldapmap[$v["ldapname"].$v["index"]]=$v;
+    if ($l) {
+      foreach ($l as $v) {
+	$this->ldapmap[$v["ldapname"].$v["index"]]=$v;
+      }
     }
     return $this->ldapmap;
   }

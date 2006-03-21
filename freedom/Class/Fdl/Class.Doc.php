@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.297 2006/03/03 11:02:43 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.298 2006/03/21 19:28:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -941,20 +941,22 @@ final public function PostInsert()  {
    * @return void
    */
   final public function Affect($array,$more=false) { 
-    if ($more)  $this->ResetMoreValues();
-    $this->ofields = $this->fields;
-    $this->fields=array();
-    unset($this->uperm); // force recompute privileges
-    foreach($array as $k=>$v) {
-      if (!is_integer($k)) {
-	if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
-	$this->$k = $v;
+    if (is_array($array)) {
+      if ($more)  $this->ResetMoreValues();
+      $this->ofields = $this->fields;
+      $this->fields=array();
+      unset($this->uperm); // force recompute privileges
+      foreach($array as $k=>$v) {
+	if (!is_integer($k)) {
+	  if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
+	  $this->$k = $v;
+	}
       }
-    }
-    $this->Complete();
-    if ($more)  $this->GetMoreValues();
+      $this->Complete();
+      if ($more)  $this->GetMoreValues();
       
-    $this->isset = true;
+      $this->isset = true;
+    }
   }
   /** 
    * Set to default values before add new doc
