@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.77 2006/03/21 09:24:07 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.78 2006/03/21 11:54:27 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -129,7 +129,8 @@ function wgcal_calendar(&$action) {
     $week = $week."/".($week + 1);
     $plusweek = "s";
   }
-  setHttpVar("slidtitle", _("week").$plusweek." $week $strmonth");
+//   setHttpVar("slidtitle", _("week").$plusweek." $week $strmonth");
+   setHttpVar("slidtitle", ucwords($strmonth));
 
   $iday  = gmdate("w",$firstWeekDay);
   $day   = gmdate("d",$firstWeekDay);
@@ -143,6 +144,7 @@ function wgcal_calendar(&$action) {
   $action->lay->set("ncolspan", $ndays );
   $action->lay->set("colspan", $ndays+1 );
   $action->lay->set("week", $week);
+  $action->lay->set("plusweek", $plusweek);
   $action->lay->set("month", ucwords($strmonth));
   $action->lay->set("pafter", $pafter);
   $action->lay->set("pbefore", $pbefore);

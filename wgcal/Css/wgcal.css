@@ -67,10 +67,12 @@ body {
   width : auto;
 }
 
+.onlyprint { display : none }
 @media print {
-  .noprint {
-    display:none;
-  }
+  .onlyprint { display:block; }
+}
+@media print {
+  .noprint { display:none; }
 }
 
 table {

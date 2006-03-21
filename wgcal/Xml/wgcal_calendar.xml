@@ -2,6 +2,7 @@
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
 
+<div class="WGCAL_Period onlyprint">[TEXT:week][plusweek] [week] [month]</div>
 <div onmouseover="closeAllMenu()" class="WGCAL_Period noprint">[ZONE WGCAL:WGCAL_SLIDER]</div>
 
 <div onmouseover="closeAllMenu()" id="root">

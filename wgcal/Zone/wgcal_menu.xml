@@ -5,7 +5,7 @@
 <div  style="z-index:3000; display:none;" id="[menu]" class="wgcalpopup">
 [MITEM]</div>[ENDBLOCK MENU]
 
-<table cellspacing="0" style="padding:0px; width:100%;position:fixed;z-index:500;">
+<table cellspacing="0" class="noprint" style="padding:0px; width:100%;position:fixed;z-index:500;">
 <tr>
 <td align="left" class="wMainMenu">
 <table style="cursor:default; border:0px; width:80%"  id="barmenu" cellspacing="0" cellpadding="0">
