@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-17 14:38+0100\n"
+"POT-Creation-Date: 2006-03-22 13:41+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -17,6 +17,12 @@ msgid "event deletion information message"
 msgstr ""
 
 msgid "delete repeat occurrence for "
+msgstr ""
+
+msgid "event time modification message"
+msgstr ""
+
+msgid "event modification time"
 msgstr ""
 
 msgid "look preferences"
@@ -64,12 +70,6 @@ msgid "event creation information message"
 msgstr ""
 
 msgid "event creation"
-msgstr ""
-
-msgid "event time modification message"
-msgstr ""
-
-msgid "event modification time"
 msgstr ""
 
 msgid "event modification attendees list"
@@ -421,6 +421,9 @@ msgid "m_txt_confsynch"
 msgstr ""
 
 msgid "m_txt_synchronizer"
+msgstr ""
+
+msgid "wgcal_help"
 msgstr ""
 
 msgid "administration menu"
@@ -828,15 +831,6 @@ msgstr ""
 msgid "search"
 msgstr ""
 
-msgid "prev period"
-msgstr ""
-
-msgid "current period"
-msgstr ""
-
-msgid "next period"
-msgstr ""
-
 msgid "no categories set, contact your administrator"
 msgstr ""
 
@@ -939,7 +933,7 @@ msgstr ""
 msgid "mail"
 msgstr ""
 
-msgid "no ressource result"
+msgid "close"
 msgstr ""
 
 msgid "view calendar"
@@ -1140,9 +1134,6 @@ msgstr ""
 msgid "show/hide"
 msgstr ""
 
-msgid "close"
-msgstr ""
-
 msgid "goto data"
 msgstr ""
 
@@ -1304,4 +1295,121 @@ msgid "osync params"
 msgstr ""
 
 msgid "todos options"
+msgstr ""
+
+msgid "lang"
+msgstr ""
+
+msgid "current day color"
+msgstr ""
+
+msgid "week end days color"
+msgstr ""
+
+msgid "selected day color"
+msgstr ""
+
+msgid "title line height"
+msgstr ""
+
+msgid "hour lines height"
+msgstr ""
+
+msgid "hour in day column width"
+msgstr ""
+
+msgid "menu icons height"
+msgstr ""
+
+msgid "display week end"
+msgstr ""
+
+msgid "view count days"
+msgstr ""
+
+msgid "hour division"
+msgstr ""
+
+msgid "tool display state"
+msgstr ""
+
+msgid "Current displayed date"
+msgstr ""
+
+msgid "WGCAL_U_RESSDISPLAYED"
+msgstr ""
+
+msgid "use prefered ressource for event setting"
+msgstr ""
+
+msgid "displayed refused events"
+msgstr ""
+
+msgid "show icons in resume"
+msgstr ""
+
+msgid "alt postion is fixed"
+msgstr ""
+
+msgid "general theme"
+msgstr ""
+
+msgid "start hour used for event setting"
+msgstr ""
+
+msgid "end hour used for event setting"
+msgstr ""
+
+msgid "minutes increment used for event setting"
+msgstr ""
+
+msgid "order todos"
+msgstr ""
+
+msgid "view todos for ... days"
+msgstr ""
+
+msgid "warn for todo having a date in the ... days"
+msgstr ""
+
+msgid "set todo date to today + ... days"
+msgstr ""
+
+msgid "default confidentiality for new event"
+msgstr ""
+
+msgid "display contacts"
+msgstr ""
+
+msgid "toolbar size"
+msgstr ""
+
+msgid "barmenu date navigator"
+msgstr ""
+
+msgid "mail command"
+msgstr ""
+
+msgid "mails send"
+msgstr ""
+
+msgid "mails send to externals"
+msgstr ""
+
+msgid "mail title mark"
+msgstr ""
+
+msgid "viewed events (from producters)"
+msgstr ""
+
+msgid "Sync Version Needed"
+msgstr ""
+
+msgid "used groups"
+msgstr ""
+
+msgid "used families in events"
+msgstr ""
+
+msgid "use beta fonction"
 msgstr ""
