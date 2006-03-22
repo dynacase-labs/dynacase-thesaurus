@@ -142,6 +142,20 @@ function InitEndCalendar() {
   return;
 }
 
+function checkrdays(ic) {
+  var ix=0;
+  for (ix=0; ix<7; ix++) {
+    if (document.getElementById('rweekday'+ix)) {
+      if (document.getElementById('rweekday'+ix).checked) return true;
+    } else {
+      alert('Err: elt rweekday'+ix);
+    }
+  }
+  document.getElementById('rweekday'+ic).checked = 'checked';
+  return true;
+}
+    
+  
 function checkEndTime(cd) {
   var st = document.getElementById('TsEnd').value;
   if (cd.getTime()>=st) return false;
