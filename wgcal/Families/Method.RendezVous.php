@@ -465,6 +465,8 @@ function ev_showattendees($ressd, $private, $dcolor="") {
   include_once('WGCAL/Lib.WGCal.php');
   global $action;
 
+  $dbaccess = $action->getParam("FREEDOM_DB");
+
   $globalstate = $dcolor;
   $d = new_Doc($this->dbaccess);
   $headSet = false;
@@ -495,7 +497,10 @@ function ev_showattendees($ressd, $private, $dcolor="") {
 	  $globalstate = WGCalGetColorState($v["state"], $globalstate);
 	}
 	$attru = GetTDoc($action->GetParam("FREEDOM_DB"), $k);
- 	$t[$a]["atticon$curcol"] = $d->GetIcon($attru["icon"]);
+	$imgaccess = $d->GetIcon($attru["icon"]);
+	if (strncmp($imgaccess,"FDL",3)==0) $t[$a]["atticon$curcol"] = $action->getParam("CORE_ABSURL")."/".$imgaccess;
+	else $t[$a]["atticon$curcol"] = $imgaccess;
+// 	AddWarningMsg($attru["icon"]."...".$t[$a]["atticon$curcol"]);
 	$t[$a]["attcolor$curcol"] = WGCalGetColorState($v["state"]);
 	$t[$a]["atttitle$curcol"] = ucwords(strtolower($attru["title"]));
 	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");
