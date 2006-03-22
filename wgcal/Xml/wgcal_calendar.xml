@@ -9,7 +9,7 @@
 <table style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
 <thead><tr height="[WGCAL_U_HLINETITLE]px">
  <td id="DH" width="5%" class="WGCAL_Period"></td>
-[BLOCK DAYS_LINE]<td id="D[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell('[CORE_STANDURL]',2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
+[BLOCK DAYS_LINE]<td id="D[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell(2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
 </tr></thead>
 <tbody>[BLOCK HOURS]<tr height="[HLINEHOURS]px">
 <td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
