@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.20 2006/03/20 19:28:02 eric Exp $
+ * @version $Id: exportfld.php,v 1.21 2006/03/22 11:24:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -98,6 +98,8 @@ function exportfld(&$action, $aflid="0", $famid="")
       if ($wprof && ($doc->profid == $doc->id)) {
 	// import its profile
 	$doc = new_Doc($dbaccess,$doc->id); // needed to have special acls
+	$doc->acls[]="viewacl";
+	$doc->acls[]="modifyacl";
 	$q= new QueryDb($dbaccess,"DocPerm");
 	$q->AddQuery("docid=".$doc->profid);
 	$acls=$q->Query(0,0,"TABLE");
@@ -108,6 +110,7 @@ function exportfld(&$action, $aflid="0", $famid="")
 	  foreach ($acls as $va) {
 	    $up=$va["upacl"];
 	    $uid=$va["userid"];
+
 	    foreach ($doc->acls as $acl) {
 	      if ($doc->ControlUp($up,$acl) == "") {
 		if ($uid >= STARTIDVGROUP) {
