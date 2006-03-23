@@ -1,14 +1,12 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
-
-<div class="WGCAL_Period onlyprint">[TEXT:week][plusweek] [week] [month]</div>
-<div onmouseover="closeAllMenu()" class="WGCAL_Period noprint">[ZONE WGCAL:WGCAL_SLIDER]</div>
+<div id="headscreen" onmouseover="closeAllMenu()" class="WGCAL_Period">[ZONE WGCAL:WGCAL_SLIDER]</div>
 
 <div onmouseover="closeAllMenu()" id="root">
-<table style="z-index:2000;width:100%;border:0px;" cellspacing="0" id="week">
+<table style="z-index:2000;width:100%;" cellspacing="0" id="week">
 <thead><tr height="[WGCAL_U_HLINETITLE]px">
- <td id="DH" width="5%" class="WGCAL_Period"></td>
+ <td id="DH" width="5%" class="WGCAL_Period">&nbsp;</td>
 [BLOCK DAYS_LINE]<td id="D[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell(2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
 </tr></thead>
 <tbody>[BLOCK HOURS]<tr height="[HLINEHOURS]px">
@@ -31,10 +29,13 @@ var Days = new Array();
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
-WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
-[BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END], '[TITLE]');
-[ENDBLOCK EVENTSSC]
-WGCalDisplayAllEvents();
+function displayInit() {
+  WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
+  [BLOCK EVENTSSC]WGCalAddEvent([RG], [START], [END], '[TITLE]');
+  [ENDBLOCK EVENTSSC]
+  WGCalDisplayAllEvents();
+}
+addEvent(window, 'load', displayInit);
 </script>
 
 

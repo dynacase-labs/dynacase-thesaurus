@@ -3,8 +3,8 @@ body {
   padding : 0px;
   margin : 0px;
   font-size: [WTH_FONTSIZE_NORMAL]pt; 
-  font-family: [WTH_FONTLIST];
   background: [WTH_BGIMG]; 
+  font-family: [WTH_FONTLIST];
   color: [WTH_TEXTCOLOR_1];
 }
 
@@ -58,7 +58,6 @@ body {
   font-family: [WTH_FONTLIST];
   background: [WTH_BGIMG]; 
   color: [WTH_TEXTCOLOR_1];
-  /* border:1px solid [WTH_TEXTCOLOR_1]; */
   border-width: 3px;
   border-color: [WTH_COLOR_2];
   border-style: outset;
@@ -72,7 +71,10 @@ body {
   .onlyprint { display:block; }
 }
 @media print {
-  .noprint { display:none; }
+  .noprinthide { visibility:hidden; }
+}
+@media print {
+  .noprintremove { display : none; }
 }
 
 table {
@@ -81,9 +83,7 @@ table {
   color: [WTH_TEXTCOLOR_1];
 }
 
-IMG {
- 	border : 0px;
-} 
+IMG { border : 0px; } 
 
 INPUT {
 	font-size: [WTH_FONTSIZE_NORMAL]pt;
@@ -112,11 +112,8 @@ INPUT.Mandatory {
 	font-weight: bold;
 	border : 2px inset [WTH_ALERT];
 }
-TR {
-}
-TD {
-	empty-cells: show;
-}
+TR { }
+TD {	empty-cells: show; }
 
 
 .WGCalAction {
@@ -173,43 +170,35 @@ TD {
   font-weight: bold;
 }
 
+.WGCAL_DayHours, .WGCAL_DayMin, .WGCAL_DayNoHours {
+  font-size        : [WTH_FONTSIZE_SMALL]pt;
+  background-color : [WTH_COLOR_2];
+  font-weight      : bold;
+  border-width     : 1px 1px 1px 1px;
+  border-style     : solid solid solid solid;
+  border-color     : [WTH_COLOR_2] [WTH_COLOR_3] [WTH_COLOR_3] [WTH_COLOR_2];
+}
+.WGCAL_DayMin {
+  font-weight  : normal;
+  font-size    : 80%;
+}
 .WGCAL_DayNoHours {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  border-top: 0px inset;
-  border-left: 0px inset;
-  border-bottom: 1px dotted [WTH_COLOR_3];
-  border-right: 1px  dotted [WTH_COLOR_3];
   background-color : [WTH_COLOR_1];
 }
 
-.WGCAL_DayHours {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  background-color : [WTH_COLOR_2];
-  font-weight: bold;
-  border-top : 0px outset [WTH_COLOR_2];
-  border-bottom : 1px outset [WTH_COLOR_3];
-  border-left : 1px outset [WTH_COLOR_3];
-  border-right : 1px outset [WTH_COLOR_3];
-}
-.WGCAL_DayMin {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  background-color : [WTH_COLOR_2];
-  border-top : 0px outset [WTH_COLOR_2];
-  border-bottom : 1px outset [WTH_COLOR_3];
-  border-left : 1px outset [WTH_COLOR_3];
-  border-right : 1px outset [WTH_COLOR_3];
-}
 
 .WGCAL_DayLineOver {
   background-color : [WTH_COLOR_1];
   border : 1px inset [WTH_COLOR_2];
 }
 
-.WGCAL_Day {
-  border-bottom: 1px solid [WTH_COLOR_3];
-  border-right: 1px solid [WTH_COLOR_3];
-  background-color : #fafafa;
+.WGCAL_Day, .WGCAL_DayCur, .WGCAL_DayWE, .WGCAL_DayMonday {
+  background-color : white;
+  border-width : 1px 1px 1px 1px;
+  border-style : solid inset inset solid;
+  border-color : white [WTH_COLOR_3] [WTH_COLOR_3] white;
 }
+
 .WGCAL_DayCur {
         background-color : [WTH_CALTODAY];
 }
@@ -219,6 +208,20 @@ TD {
 .WGCAL_DayMonday {
         border-left : 1px solid red;
 }
+
+
+
+/* TODO */
+.tododef, .todoover {
+  background-color : white;
+  border-width     : 1px 1px 1px 1px;
+  border-style     : inset solid inset solid;
+  border-color     : [WTH_COLOR_3] white [WTH_COLOR_3] white;
+  cursor : pointer;
+}
+.todoover {
+}
+
 
 .WGCWaitingRv {
   border : 2px outset [WTH_ALERT];
@@ -420,17 +423,32 @@ TD {
   border:1px outset; 
   background-color:white;
 }
+@media print {
 .wEvResume {
-  display:none;
-  overflow:hidden;
-  cursor:crosshair; 
-  margin:0px; 
-  border-top-width:1px; 
-  border-top-color:#d1d2db; 
-  border-top-style:solid; 
-  border-left-width:1px; 
-  border-left-color:#d1d2db; 
-  border-left-style:solid; 
+    font-size: [WTH_FONTSIZE_SMALL]pt;
+    display:none;
+    overflow:hidden;
+    cursor:crosshair; 
+    margin:0px; 
+    border-top    : 1px solid black; 
+    border-bottom : 1px solid black; 
+    border-left   : 1px solid black; 
+    border-right  : 1px solid black; 
+    background-color : yellow;
+  }
+}
+@media screen {
+  .wEvResume {
+    font-size: [WTH_FONTSIZE_SMALL]pt;
+    display:none;
+    overflow:hidden;
+    cursor:crosshair; 
+    margin:0px; 
+    border-top-width:1px; 
+    border-top-style:none; 
+    border-left-width:1px; 
+    border-left-style:none; 
+  }
 }
 
 .wgUserDelegate {

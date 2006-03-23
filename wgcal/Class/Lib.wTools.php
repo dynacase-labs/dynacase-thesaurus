@@ -499,4 +499,12 @@ function GetFilesByExt($dir=".", $ext="") {
   return $flist;
 }
 
+function getThemeValue($var, $def="") {
+  $themef = getParam("WGCAL_U_THEME", "default");
+  @include_once("WGCAL/Themes/default.thm");
+  @include_once("WGCAL/Themes/".$themef.".thm");
+  $vars = get_object_vars($theme);
+  if (isset($theme->$var)) return $theme->$var;
+  return $def;
+}
 ?>

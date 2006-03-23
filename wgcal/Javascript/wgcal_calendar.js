@@ -251,8 +251,10 @@ function WGCalComputeCoord() {
   var w = getObjectWidth(document.getElementById(IdEnd));
   var h = getObjectHeight(document.getElementById(IdEnd));
 
-  var wroot = getObjectWidth(document.getElementById('root'));
-  document.getElementById('root').style.width=parseInt(wroot)+'px'; 
+  var wroot = parseInt(getObjectWidth(document.getElementById('root')));
+  document.getElementById('root').style.width=wroot+'px'; 
+  document.getElementById('headscreen').style.width=wroot+'px'; 
+  document.getElementById('wgcalmenu').style.width=wroot+'px'; 
 
   Xs = os.x;
   Ys = os.y;
@@ -270,16 +272,15 @@ function WGCalComputeCoord() {
   PixelByMinute = (hr - gamma) / YDivMinute;
 
   // Set day col position
+  var xt;
   var incr=0;
   for (ida=0; ida<Days.length; ida++) {
     if (Days[ida].view) {
-      Days[ida].cpos = (Wday * incr) + Xs;
+      xt = getAnchorPosition('D'+ida+'H0');
+      Days[ida].cpos = xt.x; //(Wday * incr) + Xs;
       incr++;
     }
-  }      
-
-//   DrawRect(os.x,os.y,w,(hr-gamma),'yellow');
-//     DrawRect(Xs,Ys,Wzone,Hzone,'yellow','(x,y,w,h)=('+Xs+','+Ys+','+Wzone+','+Hzone+')');
+  }
 }
 
 // --------------------------------------------------------

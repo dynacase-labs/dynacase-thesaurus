@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.1 2005/09/22 08:22:11 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.2 2006/03/23 19:13:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -45,7 +45,7 @@ function wgcal_todoview(&$action) {
     $td[$itd]["sTextTodo"] = (strlen($v["todo_title"])>$todoshort ? substr($v["todo_title"],0,$todoshort)."..." : $v["todo_title"]);
     $td[$itd]["jsTextTodo"] = addslashes($td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
-    $td[$itd]["dateTodo"] = w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYSTEXT);
+    $td[$itd]["dateTodo"] = strftime("%d/%m", w_dbdate2ts($v["todo_date"]));
 
     $cdate = w_dbdate2ts($v["todo_date"]);
     $td[$itd]["warning"] = false;

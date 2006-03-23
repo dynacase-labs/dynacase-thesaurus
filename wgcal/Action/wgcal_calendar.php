@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.79 2006/03/21 18:45:16 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.80 2006/03/23 19:13:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -163,11 +163,11 @@ function wgcal_calendar(&$action) {
     $class[$i] = "WGCAL_Day";
     $classh[$i] = "WGCAL_DayLine"; 
     if (strftime("%Y%m%d", $firstWeekDay+($i*SEC_PER_DAY)) == strftime("%Y%m%d", time())) {
-      $class[$i] .= " WGCAL_DayCur";
+      $class[$i] = "WGCAL_DayCur";
     } else {
       $iwe = $i % 7;
-      if ($iwe==5 || $iwe==6) $class[$i] .= " WGCAL_DayWE";
-      if ($iwe==0) $class[$i] .= " WGCAL_DayMonday";
+      if ($iwe==5 || $iwe==6) $class[$i] = "WGCAL_DayWE";
+      if ($iwe==0) $class[$i] = "WGCAL_DayMonday";
     }   
     if ($tabdays[$i]["view"] == "true") {
       $t[$i]["IDD"] = $i;
@@ -192,15 +192,15 @@ function wgcal_calendar(&$action) {
       $thr[$nl]["HLINEHOURS"] = $hhight;
       $thr[$nl]["HCLASS"] = "WGCAL_DayHours";
       if ($h==($hstart-1) || $h==$hstop+1) 
-	$thr[$nl]["HOURR"] = "";
+	$thr[$nl]["HOURR"] = "&nbsp;";
       else if ($hd==0) {
 	$thr[$nl]["HOURR"] = ($h==($hstart-1)?"":$h)."H00";
-	$thr[$nl]["HCLASS"] = "WGCAL_DayHours";
       } else {
 	$thr[$nl]["HOURR"] = printhdiv(($h==($hstart-1)?"":$h), $ndiv,$hd);
 	$thr[$nl]["HCLASS"] = "WGCAL_DayMin";
       }
       $tcell = array();
+
       $itc = 0;
       for ($id=0; $id<$dayperweek; $id++) {
 	$numd = strftime("%u",$firstWeekDay+($id*SEC_PER_DAY));
@@ -209,11 +209,11 @@ function wgcal_calendar(&$action) {
 	else $mo = $id % 7;
 	$tcell[$itc]["cellref"] = 'D'.$id.'H'.$nl;
 	$tcell[$itc]["colsize"] = ($i==0?$Hcolsize:$colsize);
-	$tcell[$itc]["urlroot"] = $urlroot;
+ 	$tcell[$itc]["urlroot"] = $urlroot;
 	$tcell[$itc]["times"] = $firstWeekDay + ($id*SEC_PER_DAY)+($h*SEC_PER_HOUR) + ($hd*$mdiv);
 	$tcell[$itc]["timee"] = $tcell[$itc]["times"] + ($action->getParam("WGCAL_U_RVDEFDUR", 60)*60);
 	$tcell[$itc]["rtime"] = w_strftime($firstWeekDay+($id*SEC_PER_DAY), WD_FMT_DAYLTEXT);
-	if ($h==($hstart-1) || $h==($hstop+1)) {
+ 	if ($h==($hstart-1) || $h==($hstop+1)) {
 	  $tcell[$itc]["nh"] = 1;
 	  $tcell[$itc]["rtime"] .= " "._("no hour");
 	} else {
@@ -223,12 +223,11 @@ function wgcal_calendar(&$action) {
 	}
 	$tcell[$itc]["lref"] = "L".$nl;
 	$tcell[$itc]["cref"] = "D".$id;
-        if ($h<$hstart || $h>$hstop) $tcell[$itc]["cclass"] = "WGCAL_DayNoHours".($numd==1?" WGCAL_DayMonday":"");
+        if ($h<$hstart || $h>$hstop) $tcell[$itc]["cclass"] = "WGCAL_DayNoHours";
 	else $tcell[$itc]["cclass"] = $class[$id];
 	$tcell[$itc]["dayclass"] = $thr[$nl]["HCLASS"];
 	$tcell[$itc]["hourclass"] = $classh[$id];
-  	$tcell[$itc]["cellcontent"] = "";
-//  	$tcell[$itc]["cellcontent"] = $tcell[$itc]["cellref"]; //"";
+  	$tcell[$itc]["cellcontent"] = "&nbsp;"; //  $tcell[$itc]["cellref"];
 	$itc++;
       }
       $lcell->SetBlockData("CELLS", $tcell);
