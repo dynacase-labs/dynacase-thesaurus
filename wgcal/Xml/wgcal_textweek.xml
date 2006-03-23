@@ -8,12 +8,12 @@
 </style>
 <table  border="1" align="center" width="100%" cellspacing="2px">
 
-<tr>
-<td align="left" colspan="2" class="wMonthTextTD"  class="wMonthTextTitlePrevNext">
-<div class="wMonthTextDayTitle" style="padding:4px; font-size:150%;" width="100%" align="left">&nbsp;[month] ([TEXT:week] [week])</div>
-<div class="wMonthTextDayTitle" witdh="100%" align="right">[IFNOT mforuser][owner][ENDIF mforuser]
+<tr class="wMonthTextDayTitle">
+<td align="left" colspan="2" >
+<div style="padding:4px; font-size:120%; float:left; width:70%; text-align:left;">[month] ([TEXT:week] [week])</div>
+<div style="padding:4px; width:30%; text-align:right;">[IFNOT mforuser][owner][ENDIF mforuser]
 [IF mforuser]<select onchange="document.getElementById('ress').value = this.options[this.selectedIndex].value; document.getElementById('showWeek').submit();">[BLOCK foruser]<option value="[fid]" [selected]>[name][ENDBLOCK foruser]</select>
-[ENDIF mforuser]&nbsp;</div></td>
+[ENDIF mforuser]</div></td>
 </tr>
 
 <tr class="noprint" valign="top"><td class="wMonthTextTD" style="width:[daywidth]"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="self.print()">[TEXT:print]</span> ] </td><td align="right" class="wMonthTextTD" style="width:[daywidth]"> [ <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [prevweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lprevweek]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [curweek]; document.getElementById('showWeek').submit()">[TEXT:current week]</span> | <span class="wTextNormal" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"  onclick="document.getElementById('week').value = [nextweek]; document.getElementById('showWeek').submit()">[TEXT:week] [lnextweek]</span> ] </td></tr>
@@ -69,7 +69,7 @@
 <table  style="padding:0px;" align="center" width="100%" cellspacing="0px">
 <tr>
 <td >[TEXT:print date] [printdate] <span style="font-size:80%;">[[server]]</span>[ZONE WGCAL:WGCAL_INFOS]</td>
-<td  align="right"><img height="35px" src="[IMG:wgcal.gif]"></td>
+<td  align="right"><img height="25px" src="[IMG:wgcal.gif]"></td>
 </tr>
 </table>
 

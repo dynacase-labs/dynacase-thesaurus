@@ -9,7 +9,7 @@ function wgcal_textweek(&$action) {
   include_once("WGCAL/Lib.Agenda.php");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $action->lay->set("dayheight", "300px");
+  $action->lay->set("dayheight", "290px");
   $action->lay->set("daywidth", "50%");
   $action->lay->set("server", $_SERVER["HTTP_HOST"]);
 
