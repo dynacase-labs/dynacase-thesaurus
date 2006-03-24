@@ -152,7 +152,9 @@ TD {	empty-cells: show; }
   font-weight: bold;
   font-size: [WTH_FONTSIZE_NORMAL]pt;
 }
+
 /* Periode selectionne : mise en évidence jour / heure */
+
 .WGCAL_PeriodSelected {
   font-size: [WTH_FONTSIZE_SMALL]pt;
   background-color : [WTH_COLOR_3];
@@ -160,7 +162,11 @@ TD {	empty-cells: show; }
   border : 1px outset [WTH_COLOR_1];
   font-weight: bold;
 }
-      
+
+#week {
+  border : 1px     [WTH_COLOR_3] solid;
+}
+  
 /* Journée courante */
 .WGCAL_DayLine {
   font-size: [WTH_FONTSIZE_SMALL]pt;
@@ -184,6 +190,7 @@ TD {	empty-cells: show; }
 }
 .WGCAL_DayNoHours {
   background-color : [WTH_COLOR_1];
+  border-color     : [WTH_COLOR_2] white [WTH_COLOR_2] [WTH_COLOR_2];
 }
 
 
@@ -214,16 +221,13 @@ TD {	empty-cells: show; }
 /* TODO */
 .tododef, .todoover {
   background-color : white;
-  border-width     : 1px ;
-  border-style     : outset;
-  border-color     : [WTH_COLOR_3];
+  border-width     : 1px 1px 1px 1px;
+  border-style     : solid solid solid solid;
+  border-color     : white white [WTH_COLOR_3] white;
   cursor : pointer;
 }
 .todoover {
   background-color : [WTH_COLOR_1];
-  border-width     : 1px ;
-  border-style     : inset;
-  border-color     : [WTH_COLOR_3];
 }
 
 
@@ -243,12 +247,16 @@ TD {	empty-cells: show; }
   border : 2px outset [WTH_COLOR_1];
   background-color : white;
 }
-.WGCRessOver {
-  background-color : [WTH_COLOR_2];
-  border : 1px outset [WTH_COLOR_1];
+
+.WGCRessDefault, .WGCRessOver, .WGCRessSelected {
+  border-color: white white  [WTH_COLOR_1] white;
+  border-style: solid solid solid solid;
+  border-width: 1px  1px 1px 1px;
+  background-color : white;
   cursor:pointer;
 }
-.WGCRessDefault {
+.WGCRessOver {
+  background-color : [WTH_COLOR_3];
   border : 1px outset [WTH_COLOR_1];
   cursor:pointer;
 }
