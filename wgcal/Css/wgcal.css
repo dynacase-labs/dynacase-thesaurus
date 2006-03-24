@@ -456,10 +456,7 @@ TD {	empty-cells: show; }
     overflow:hidden;
     cursor:crosshair; 
     margin:0px; 
-    border-top-width:1px; 
-    border-top-style:none; 
-    border-left-width:1px; 
-    border-left-style:none; 
+    border:thin outset white; 
   }
 }
 

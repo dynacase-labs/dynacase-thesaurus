@@ -220,22 +220,6 @@ function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart, ydivc, ydmin) {
 
 
 
-// --------------------------------------------------------
-function DrawRect(x,y,w,h,c,t) {
-  //text = '(x,y,w,h)=('+x+','+y+','+w+','+h+')';
-  text = t;
-  nText = document.createElement('div');
-  content = document.createTextNode(text);
-  nText.appendChild(content);
-  nText.style.position = 'absolute';
-  nText.style.background = c;
-  nText.style.left = x+"px";
-  nText.style.top = y+"px";
-  nText.style.width = w+"px";
-  nText.style.height = h+"px";
-  nText.style.border = '1px solid black';
-  document.getElementById(Root).appendChild(nText);
-}
 
 // --------------------------------------------------------
 function WGCalComputeCoord() {
