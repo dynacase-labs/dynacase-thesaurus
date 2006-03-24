@@ -56,8 +56,7 @@ function wgcal_seteventstate(&$action) {
       $event->enableEditControl();
     }
   }
-  Header("Location: ".$_SERVER["HTTP_REFERER"]);
-//   redirect($action, "WGCAL", $raction);
+  redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 
