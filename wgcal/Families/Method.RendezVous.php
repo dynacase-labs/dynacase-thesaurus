@@ -1288,12 +1288,23 @@ function RvSetPopup($rg) {
   PopupInvisible($this->popup_name,$rg, 'cancelrv');
   PopupInvisible($this->popup_name,$rg, 'showaccess');
 
-  $delegate = hasDelegation($this->getValue("calev_ownerid"));
-  if ($delegate==1 || ($delegate==0 && ($this->getValue("calev_creatorid")==$action->user->fid))) {
-    $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
-    if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
-    if ($ownerstate>-1 && $ownerstate!=3) PopupActive($this->popup_name,$rg, 'drejectrv');
-    if ($ownerstate>-1 && $ownerstate!=4) PopupActive($this->popup_name,$rg, 'dtbcrv');
+
+  if ($this->RvIsMeeting()) {
+
+    $delegate = hasDelegation($this->getValue("calev_ownerid"));
+    if ($delegate==1 || ($delegate==0 && ($this->getValue("calev_creatorid")==$action->user->fid))) {
+      $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
+      if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
+      if ($ownerstate>-1 && $ownerstate!=3) PopupActive($this->popup_name,$rg, 'drejectrv');
+      if ($ownerstate>-1 && $ownerstate!=4) PopupActive($this->popup_name,$rg, 'dtbcrv');
+    }
+    
+    if ($this->UHaveAccess("execute")) {
+      $mystate = $this->RvAttendeeState($action->user->fid);
+      if ($mystate>-1 && $mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
+      if ($mystate>-1 && $mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
+      if ($mystate>-1 && $mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
+    }
   }
 
 
@@ -1302,13 +1313,6 @@ function RvSetPopup($rg) {
   if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
     PopupActive($this->popup_name,$rg, 'historyrv');
     PopupActive($this->popup_name,$rg, 'viewrv');
-  }
-
-  if ($this->UHaveAccess("execute")) {
-    $mystate = $this->RvAttendeeState($action->user->fid);
-    if ($mystate>-1 && $mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
-    if ($mystate>-1 && $mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
-    if ($mystate>-1 && $mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
   }
 
   if ($this->UHaveAccess("edit")) {
@@ -1320,6 +1324,20 @@ function RvSetPopup($rg) {
     if ($this->getValue("calev_repeatmode") > 0) PopupActive($this->popup_name,$rg, 'deloccur');
   }
       
+}
+
+function RvIsMeeting() {
+  global $action;
+  $atts = $this->getTValue("calev_attid");
+  $owner = $this->getValue("calev_ownerid");
+  $redac = $this->getValue("calev_creatorid");
+
+  foreach ($atts as $k => $v) {
+    if ($owner==$v) continue;
+    $dt = getTDoc(getParam("FREEDOM_DB"), $v);
+    if (wIsFamilieInteractive($dt["fromid"])) return true;
+  }
+  return false;
 }
 
 function RvAttendeeState($ufid) {
