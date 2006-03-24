@@ -8,13 +8,14 @@
 </table></div>
 
 [IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo][ENDIF Todos]
-[IF Todos]<div class="wToolArea" style="overflow:scroll" >
-<table width="100%" cellspacing="0">
+[IF Todos]<div class="wToolArea">
 [BLOCK TodoList]
-<tr class="tododef" onmouseover="this.className='todoover'" onmouseout="this.className='tododef'" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px" title="[TEXT:todo done]" height="15" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
+<div class="tododef" onmouseover="this.className='todoover'" onmouseout="this.className='tododef'" ><table width="100%" cellspacing="0">
+<tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
+<td><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px; width:12px" title="[TEXT:todo done]" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
 <td onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" >[sTextTodo]</td>
-<td style="font-size:80%; border-color: [colorTodo]; border-style: none solid solid none; border-width:1px">[dateTodo]</td>
-</tr>[ENDBLOCK TodoList]</table>
+<td style="text-align:right; font-size:80%;">([dateTodo])&nbsp;</td>
+<td style="background-color:[colorTodo]; width:5px">&nbsp;</td>
+</tr></table></div>[ENDBLOCK TodoList]
 </div>[ENDIF Todos]
 [ZONE WGCAL:WGCAL_HTMLFOOT]

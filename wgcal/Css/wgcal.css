@@ -214,12 +214,16 @@ TD {	empty-cells: show; }
 /* TODO */
 .tododef, .todoover {
   background-color : white;
-  border-width     : 1px 1px 1px 1px;
-  border-style     : inset solid inset solid;
-  border-color     : [WTH_COLOR_3] white [WTH_COLOR_3] white;
+  border-width     : 1px ;
+  border-style     : outset;
+  border-color     : [WTH_COLOR_3];
   cursor : pointer;
 }
 .todoover {
+  background-color : [WTH_COLOR_1];
+  border-width     : 1px ;
+  border-style     : inset;
+  border-color     : [WTH_COLOR_3];
 }
 
 
