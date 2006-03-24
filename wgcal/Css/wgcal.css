@@ -249,8 +249,8 @@ TD {	empty-cells: show; }
 }
 
 .WGCRessDefault, .WGCRessOver, .WGCRessSelected {
-  border-color: white white  [WTH_COLOR_1] white;
-  border-style: solid solid solid solid;
+  border-color: white [WTH_COLOR_1]  [WTH_COLOR_1] white;
+  border-style: solid outset outset solid;
   border-width: 1px  1px 1px 1px;
   background-color : white;
   cursor:pointer;
