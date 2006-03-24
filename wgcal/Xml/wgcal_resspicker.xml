@@ -55,8 +55,7 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 
 <form id="fgettext" target="wgcal_mresspicker_list" name="fgettext" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKERLIST&updt=[updt]&wre=[wre]">
 <fieldset><legend>[TEXT:searched families]</legend>
-[BLOCK FAMRESS]
-<div id="[FAMID]"  class="WGCRessDefault" style="height:50%; overflow:auto"
+[BLOCK FAMRESS]<div id="[FAMID]"  class="WGCRessDefault"
      onmouseover="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessOver');" 
      onmouseout="WGCalChangeClass(event, '[FAMID]', 'WGCFamSelected', 'WGCRessDefault');"
      onclick="SetFamily('[FAMID]', 'WGCFamSelected', 'WGCRessDefault');" >
@@ -69,13 +68,13 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst) {
 <img id="sbutton" style="cursor:pointer;" onclick="document.getElementById('fgettext').submit();" height="15"
      src="[IMG:wm-searchiuser.gif]" title="[TEXT:search]">
 </div>
+<br>
 </fieldset>
 <fieldset><legend>[TEXT:my prefered contacts]</legend>
-[BLOCK PREFCONTACT]
-<div id="[ID]"  class="WGCRessDefault" height="50%" style="overflow:auto"
-     onmouseover="WGCalChangeClass(event, '[ID]', 'WGCFamSelected', 'WGCRessOver');" 
-     onmouseout="WGCalChangeClass(event, '[ID]', 'WGCFamSelected', 'WGCRessDefault');"
-     onclick="SelectRessource('[ID]', '[TITLE]', '[ICON]', '[STATE]', '[TSTATE]', '[CSTATE]');" >
+[BLOCK PREFCONTACT]<div id="[ID]"  class="WGCRessDefault" 
+onmouseover="WGCalChangeClass(event, '[ID]', 'WGCFamSelected', 'WGCRessOver');" 
+onmouseout="WGCalChangeClass(event, '[ID]', 'WGCFamSelected', 'WGCRessDefault');"
+onclick="SelectRessource('[ID]', '[TITLE]', '[ICON]', '[STATE]', '[TSTATE]', '[CSTATE]');" >
   <img height="15"  src="[ICON]" title="[TITLE]"/>[TITLE]
 </div>[ENDBLOCK PREFCONTACT]
 </div>

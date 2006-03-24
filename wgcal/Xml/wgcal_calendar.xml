@@ -1,8 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
-
 <div id="headscreen" onmouseover="closeAllMenu()" class="WGCAL_Period">[ZONE WGCAL:WGCAL_SLIDER]</div>
-
 <div onmouseover="closeAllMenu()" id="root">
 <table style="z-index:2000;width:100%;" cellspacing="0" id="week">
 <thead><tr height="[WGCAL_U_HLINETITLE]px">

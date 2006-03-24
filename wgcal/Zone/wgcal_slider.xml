@@ -1,4 +1,4 @@
-<table width="100%" cellspacing="0"><tr>
-<td width="70%">[BLOCK SLWEEK]<div title="[title]" class="[class]" style="width:[Swidth]%" onclick="window.location.href='[url]'" onmouseover="this.className='slid_week slid_weekOver'" onmouseout="this.className='[class]'">[IF showm]<table cellspacing="0" style="empty-cells:show; width:100%"><tr>[BLOCK SLDAY[week]]<td class="[style]"></td>[ENDBLOCK SLDAY[week]]</tr></table>[ENDIF showm]<div>[stitle]</div></div>[ENDBLOCK SLWEEK]</td>
-<td style="font-weight:bold; text-align:right" width="30%">[Stitle]</td>
+<table width="100%" border="0" cellspacing="0"><tr>
+<td width="30%">[BLOCK SLWEEK]<div title="[title]" class="[class]" style="width:[Swidth]%" onclick="window.location.href='[url]'" onmouseover="this.className='slid_week slid_weekOver'" onmouseout="this.className='[class]'">[IF showm]<table cellspacing="0" style="empty-cells:show; width:100%"><tr>[BLOCK SLDAY[week]]<td class="[style]"></td>[ENDBLOCK SLDAY[week]]</tr></table>[ENDIF showm]<div>[stitle]</div></div>[ENDBLOCK SLWEEK]</td>
+<td width="30%" style="font-weight:bold; text-align:right">[Stitle]</td>
 </tr></table>
