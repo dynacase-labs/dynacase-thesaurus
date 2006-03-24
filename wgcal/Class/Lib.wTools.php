@@ -111,7 +111,41 @@ function w_DaysInMonth($ts)
   return ($thisDay-1);
 } 
 
+/*
+ * Return N for date, Nth day in month
+ */
+function wComputeNWeekDayInMonth($date) {
+  $year  = substr($date,6,4);
+  $month = substr($date,3,2);
+  $day   = substr($date,0,2);
+  $dayinweek = gmdate("w", gmmktime(0,0,0,$month,$day,$year));
+  $t_dayinweek = gmdate("D", gmmktime(0,0,0,$month,$day,$year));
+  
+  $start = 1;
+  
+  $occur = 0;
+  for ($i=$start; $i<=$day; $i++) {
+    $cd = gmdate("w", gmmktime(0,0,0,$month,$i,$year));
+    if ($cd==$dayinweek) $occur++;
+  }
+//   echo "Le $day - $month - $year, le $occur ieme $t_dayinweek du mois \n";
+  return $occur;
+}
 
+// return day nu (1..31) for Nth weekday (0..6) in month in year
+function wGetNWeekDayForMonth($n, $weekday, $month, $year) {
+  $firstday = 1;
+  $lastday  = gmdate("d", gmmktime(0,0,0,$month+1,0,$year));
+  $occ = 0;
+  $day = 0;
+  for ($i=$firstday; $i<=$lastday && $day==0; $i++) {
+    $cd = gmdate("w", gmmktime(0,0,0,$month,$i,$year));
+    if ($cd==$weekday) $occ++;
+    if ($occ==$n) $day=$i;
+  }
+//   echo "Le $n $weekday du  mois de $month/$year est le $day\n";
+  return $day;
+}
 
 // ----------------------------------------------------
 // Groups....
