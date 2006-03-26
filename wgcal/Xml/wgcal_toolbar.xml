@@ -22,7 +22,7 @@
 [IF NavDate]
 <table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
-<td id="inav" align="left" onclick="WGCalChangeVisibility('nav');">[TEXT:date selector]</td>
+<td id="inav" style="text-align:left;" onclick="WGCalChangeVisibility('nav','[IMG:plus.gif]','[IMG:minus.gif]');"><img style="vertical-align:middle;" id="onav" src="[IF onav][IMG:minus.gif][ENDIF onav][IFNOT onav][IMG:plus.gif][ENDIF onav]">&nbsp;[TEXT:date selector]</td>
 <td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]" style="cursor:pointer"></td>
 </tr>
 </table>
@@ -53,7 +53,7 @@
 
 <table id="bcals" class="[bcals]"  width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
-<td id="icals" onclick="WGCalChangeVisibility('cals');" align="left">[TEXT:calendar selector]</td>
+<td id="icals" onclick="WGCalChangeVisibility('cals','[IMG:plus.gif]','[IMG:minus.gif]');" align="left"><img style="vertical-align:middle;" id="ocals" src="[IF ocals][IMG:minus.gif][ENDIF ocals][IFNOT ocals][IMG:plus.gif][ENDIF ocals]">&nbsp;[TEXT:calendar selector]</td>
 <td align="right">
 <img id="caldiraccess" class="wSmallButton"  onclick="sic=document.getElementById('icalselframe'); if (sic.style.visibility!='hidden') { this.className='wSmallButton'; sic.style.display = 'none'; sic.style.visibility = 'hidden'; } else { sic.src='[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHICAL'; this.className='wSmallButtonPushed'; sic.style.display = ''; sic.style.visibility = 'visible'; } "
  height="15" src="[IMG:wm-caldirectaccess.gif]" title="[TEXT:calendar direct access]">

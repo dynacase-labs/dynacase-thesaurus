@@ -146,15 +146,18 @@ var isNetscape = navigator.appName=="Netscape";
 
 // --------------------------------------------------------
 
-function WGCalChangeVisibility(tool) {
+function WGCalChangeVisibility(tool, iclose, iopen) {
   el = document.getElementById('v'+tool);
   bel = document.getElementById('b'+tool);
+  oel = document.getElementById('o'+tool);
   if (el.style.display=='') {
     el.style.display = 'none';
     if (bel) bel.className = 'wToolButtonSelect';
+    if (iopen && oel) oel.src = iclose;
   } else { 
     el.style.display = '';
     if (bel) bel.className = 'wToolButtonUnselect';
+    if (iopen && oel) oel.src = iopen;
   }
   WGCalSaveToolsVisibility();
   return;

@@ -1027,7 +1027,7 @@ msgid "display two months"
 msgstr "afficher 2 mois"
 
 msgid "calendar selector"
-msgstr "Sélection des agendas"
+msgstr "Agendas"
 
 msgid "calendar direct access"
 msgstr "Accès direct aux calendriers"

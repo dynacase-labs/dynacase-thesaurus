@@ -233,6 +233,7 @@ function setToolsLayout(&$action, $tool="") {
   $vis = ($s ? "" : "none" );
   $action->lay->set( "v".$tool, $vis);
   $action->lay->set( "b".$tool, ($s==1? "wToolButtonUnselect":"wToolButtonSelect"));
+  $action->lay->set( "o".$tool, ($s==1? true : false ));
   return;
 }
 

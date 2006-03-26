@@ -25,7 +25,7 @@ var CEventText = '';
 
 <table id="bwaitrv" class="[bwaitrv]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
-<td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv');"[ENDIF intoolbar] align="left">[TEXT:waiting rv] ([RVCOUNT])</td>
+<td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv','[IMG:plus.gif]','[IMG:minus.gif]');"[ENDIF intoolbar] align="left"><img style="vertical-align:middle;" id="owaitrv" src="[IF owaitrv][IMG:minus.gif][ENDIF owaitrv][IFNOT owaitrv][IMG:plus.gif][ENDIF owaitrv]">&nbsp;[TEXT:waiting rv] ([RVCOUNT])</td>
 <td align="right"><input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('[RTARGET]', '[RACTION]')" [alertwrv] title="[TEXT:alert for new event ?]"></td>
 </tr>
 </table>
