@@ -18,7 +18,7 @@ function wgcal_searchical(&$action) {
     // Init popup
     $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
     include_once("FDL/popup_util.php");
-    popupInit('mRess',  array('radd', 'rrendezvous', 'rcalendar', 'rprefered', 'rclose'));
+    popupInit('mRess',  array('radd', 'rrendezvous', 'rcalendar', 'rprefered'));
 
     $filter[0] = "title ~* '".$sical."'";
     $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $max, $filter, 
@@ -46,7 +46,6 @@ function wgcal_searchical(&$action) {
           else PopupInactive('mRess', $vd["id"], 'rrendezvous');
 	  PopupActive('mRess', $vd["id"], 'rcalendar');
 	  PopupActive('mRess', $vd["id"], 'rprefered');
-	  PopupActive('mRess', $vd["id"], 'rclose');
 	}
       }
     }

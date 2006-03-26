@@ -25,17 +25,15 @@ function SelectRessource(id) {
 <a href="#" id="rrendezvous" onclick="subwindow(450, 700, 'iNrv', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&wress='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wgcal-small.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:m_txt_event_new]</a>
 <a href="#" id="radd" onclick="SelectRessource(ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-attendees.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to viewed calendars]</a>
 <a href="#" id="rprefered" onclick="subwindow(450, 700, 'wgcal_hidden', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDTOPREFCALS&id='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-newcontact.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to prefered]</a>
-<a class="separator"></a>
-<a href="#" id="rclose" onclick="closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div>
 
-<div style="margin:5px; border: 1px ouset">
+<div style="margin:5px;" onmouseover="if (closeAllMenu) closeAllMenu();" >
 <form name="searchical" id="searchical" target="_self" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHICAL">
 [TEXT:search cal] : <input id="sical" value="[sical]" name="sical" type="text" size="20" class="textBorder">
 <form>
 </div>
 [IF showrlist]
-<table width="100%" cellspacing="0" cellpadding="0">
+<table width="100%" cellspacing="0" cellpadding="0" onmouseover="if (closeAllMenu) closeAllMenu();" >
 <tr><td align="center">([TEXT:limit display to] [max])</td></tr>
 [BLOCK rlist]<tr>
 <td nowrap id="[id]" class="WGCRessDefault" style="cursor:crosshair" 

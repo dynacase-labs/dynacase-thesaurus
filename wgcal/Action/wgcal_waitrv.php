@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.7 2005/11/24 17:29:00 eric Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.8 2006/03/26 20:58:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -70,14 +70,13 @@ function wgcal_waitrv(&$action) {
   if (count($wrv)>0) {
     // Init popup
     include_once("FDL/popup_util.php");
-    popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'gotoperiod', 'cancelevent'));
+    popupInit('waitpopup',  array('acceptevent',  'refuseevent', 'viewevent', 'gotoperiod'));
     foreach ($wrv as $k => $v) {
       PopupActive('waitpopup', $k, 'acceptevent');
       PopupActive('waitpopup', $k, 'refuseevent');
       PopupActive('waitpopup', $k, 'viewevent');
       if ($intoolbar) PopupActive('waitpopup', $k, 'gotoperiod');
       else PopupInvisible('waitpopup', $k, 'gotoperiod');
-      PopupActive('waitpopup', $k, 'cancelevent');
       $wrv[$k]["waitrg"] = $k;
     }
     popupGen(count($wrv));

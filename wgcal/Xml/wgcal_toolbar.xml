@@ -2,7 +2,7 @@
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 <form style="display:none" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
 <form style="display:none" id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
-<div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
+<div title="[TEXT:click here to refresh toolbar]" onmouseover="closeAllMenu();" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0"><tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
 <td align="center"><div><span style="font-weight:bold">[owner]</span><span style="font-size:80%"> [today]</span></div>
@@ -20,13 +20,13 @@
  [IF VContactSTop]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSTop]
 
 [IF NavDate]
-<table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
+<table onmouseover="closeAllMenu();" id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
 <td id="inav" style="text-align:left;" onclick="WGCalChangeVisibility('nav','[IMG:plus.gif]','[IMG:minus.gif]');"><img style="vertical-align:middle;" id="onav" src="[IF onav][IMG:minus.gif][ENDIF onav][IFNOT onav][IMG:plus.gif][ENDIF onav]">&nbsp;[TEXT:date selector]</td>
 <td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]" style="cursor:pointer"></td>
 </tr>
 </table>
-<div align="center" class="wToolArea" width="100%" id="vnav" style="overflow:auto; display:[vnav]">
+<div onmouseover="closeAllMenu();" align="center" class="wToolArea" width="100%" id="vnav" style="overflow:auto; display:[vnav]">
 <script type="text/javascript">Calendar.setup({
         ifFormat       :    "%s",       // format of the input field
         showsTime      :    false,            // will display a time selector
@@ -51,7 +51,7 @@
 
 <!-- LISTE DES AGENDAS -->
 
-<table id="bcals" class="[bcals]"  width="100%" cellspacing="0" cellpadding="0">
+<table onmouseover="closeAllMenu();" id="bcals" class="[bcals]"  width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
 <td id="icals" onclick="WGCalChangeVisibility('cals','[IMG:plus.gif]','[IMG:minus.gif]');" align="left"><img style="vertical-align:middle;" id="ocals" src="[IF ocals][IMG:minus.gif][ENDIF ocals][IFNOT ocals][IMG:plus.gif][ENDIF ocals]">&nbsp;[TEXT:calendar selector]</td>
 <td align="right">
@@ -90,13 +90,14 @@
 
 <a href="#" id="hideallr" onclick="showHideAllRess(-1); closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-resshideall.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:hide all ressources]</a>
 
+<!-- 
 <a class="separator"></a>
-
 <a href="#" id="cancelress" onclick="closeMenu('resspopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
+-->
 
 </div> <!-- end POPUP DIVISION -->
 
-<div id="vcals"  class="wToolArea" style="display:[vcals];  overflow:auto;" >
+<div onmouseover="closeAllMenu();" id="vcals"  class="wToolArea" style="display:[vcals];  overflow:auto;" >
 <table style="border:0px; margin:0px; padding:0px; width:100%;" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">

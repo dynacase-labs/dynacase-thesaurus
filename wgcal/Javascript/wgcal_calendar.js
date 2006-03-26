@@ -238,7 +238,7 @@ function WGCalComputeCoord() {
   var wroot = parseInt(getObjectWidth(document.getElementById('root')));
   document.getElementById('root').style.width=wroot+'px'; 
   document.getElementById('headscreen').style.width=wroot+'px'; 
-  document.getElementById('wgcalmenu').style.width=wroot+'px'; 
+  if (document.getElementById('wgcalmenu')) document.getElementById('wgcalmenu').style.width=wroot+'px'; 
 
   Xs = os.x;
   Ys = os.y;

@@ -18,8 +18,6 @@ var CEventText = '';
 <a class="separator"></a>
 <a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] ? \n'+CEventText); if (ok) SetEventState(CEventId, 2, '[RTARGET]', '[RACTION]'); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
 <a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] ? \n'+CEventText); if (ok) SetEventState(CEventId, 3, '[RTARGET]', '[RACTION]'); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
-<a class="separator"></a>
-<a href="#" id="cancelevent" onclick="closeMenu('waitpopup')"  >[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-closepopup.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:close menu]</a>
 </div> 
 <!-- end POPUP DIVISION [bwaitrv] -->
 
