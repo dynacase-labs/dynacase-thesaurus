@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.20 2006/03/24 17:58:18 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.21 2006/03/26 20:34:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -35,6 +35,7 @@ function explodeEvt($d1, $d2) {
   $jdDateEnd   = StringDateToJD($this->getValue("evfc_realenddate"));
   $jdDuration = $jdDateEnd - $jdDateStart;
   $jdREndDate  = StringDateToJD($this->getValue("evt_enddate"));
+//   AddWarningMsg("start=".$this->__trcJdDate($jdDateStart)." end=".$this->__trcJdDate($jdREndDate));
   if ($this->getValue("evfc_repeatmode")==0 || $jdREndDate<$jd1 || $jdDateStart>$jd2 ) {
     return array();
   }
@@ -103,24 +104,24 @@ function explodeEvt($d1, $d2) {
     } else {
 
       $odate = jd2cal($jdDateStart, 'FrenchLong');
-      $sdeb .= "dayweek = $dayweek";
-      $month = substr($odate,0,2);
+      $day = substr($odate,0,2);
       $month = substr($odate,3,2);
       $year  = substr($odate,6,4);
       $dayweek = gmdate("w", gmmktime(0,0,0,$month,$day,$year));
       $occur = wComputeNWeekDayInMonth($odate);
       $sdeb = "[".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\n$odate dayweek=$dayweek occur=$occur";
-
       for ($iday=$jd1; $iday<=$jd2; $iday++) {
 	$thed = jd2cal($iday, 'FrenchLong');
 	$thedn = substr($thed,0,2);
+	$themn = substr($thed,3,2);
+// 	if ($themn!=$month) continue;
         $sdeb .= "\n[$thed ";
 	if ($this->CalEvIsExclude($thed)) continue;
         $sdeb .= " -OK-";
 	$ndate = wGetNWeekDayForMonth($occur, $dayweek, substr($thed,3,2), substr($thed,6,4));
         $sdeb .= " ndate=$ndate";
 	if ($ndate==$thedn) {
-	  $hs = $ndate."/".substr($thed,3,2)."/".substr($thed,6,4)." ".$hstart;
+	  $hs = str_pad($ndate,2,"0",STR_PAD_LEFT)."/".substr($thed,3,2)."/".substr($thed,6,4)." ".$hstart;
 	  $jdhs = StringDateToJD($hs);
 	  $jdhe = $jdhs+$jdDuration;
 	  $he = jd2cal($jdhe, 'FrenchLong');
@@ -129,7 +130,7 @@ function explodeEvt($d1, $d2) {
 	}
 	$sdeb .= "]";
      }
-      AddWarningMsg($sdeb);
+//       AddWarningMsg($sdeb);
     }
     break;
 
@@ -160,32 +161,32 @@ function explodeEvt($d1, $d2) {
       }
     } else {
       $odate = jd2cal($jdDateStart, 'FrenchLong');
-      $tsodate = FrenchDateToUnixTs($odate);
-      $dayn = jdWeekDay($jdDateStart); // Monday, Tuesday....
-      $date = substr($odate, 0, 2);
-      $tdate = strftime("%A", $tsodate);
-      $month = substr($odate, 3, 2);
-      $tmonth = strftime("%B", $tsodate);
-      $rday = 0;
-      $cancel = false;
-      while (!$cancel) {
-	if ($date-($rday*7)>0) $rday++;
-	else $cancel = true;
-      }
-      for ($iday=$start; $iday<=$stop; $iday++) {
-	$fdate = jd2cal($iday, 'FrenchLong');
-	$cmonth = substr($fdate, 3, 2);
-	$cdate = substr($fdate, 0, 2);
-	if ($cmonth==$month && jdWeekDay($iday)==$dayn && !$this->CalEvIsExclude($fdate)) {
-	  $sd = $cdate-(($rday-1)*7);
-	  if ($sd> 0 && $sd<7) {
-	    $hs = substr($fdate,0,10)." ".$hstart;
-	    $jdhs = StringDateToJD($hs);
-	    $he = jd2cal(($jdhs+$jdDuration), 'FrenchLong');
-	    $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
-	  }
+      $day = substr($odate,0,2);
+      $month = substr($odate,3,2);
+      $year  = substr($odate,6,4);
+      $dayweek = gmdate("w", gmmktime(0,0,0,$month,$day,$year));
+      $occur = wComputeNWeekDayInMonth($odate);
+      $sdeb = "[".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\n$odate dayweek=$dayweek occur=$occur";
+      for ($iday=$jd1; $iday<=$jd2; $iday++) {
+	$thed = jd2cal($iday, 'FrenchLong');
+	$thedn = substr($thed,0,2);
+	$themn = substr($thed,3,2);
+ 	if ($themn!=$month) continue;
+        $sdeb .= "\n[$thed ";
+	if ($this->CalEvIsExclude($thed)) continue;
+        $sdeb .= " -OK-";
+	$ndate = wGetNWeekDayForMonth($occur, $dayweek, substr($thed,3,2), substr($thed,6,4));
+        $sdeb .= " ndate=$ndate";
+	if ($ndate==$thedn) {
+	  $hs = str_pad($ndate,2,"0",STR_PAD_LEFT)."/".substr($thed,3,2)."/".substr($thed,6,4)." ".$hstart;
+	  $jdhs = StringDateToJD($hs);
+	  $jdhe = $jdhs+$jdDuration;
+	  $he = jd2cal($jdhe, 'FrenchLong');
+	  $sdeb .= " YES > ".$hs."-".$hs;
+	  $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
 	}
-      }
+	$sdeb .= "]";
+     }
     }
     break;
     
