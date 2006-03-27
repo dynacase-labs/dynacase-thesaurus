@@ -5,10 +5,11 @@ include_once('WGCAL/Lib.wTools.php');
 include_once('WGCAL/Lib.Agenda.php');
 
 function wgcal_searchical(&$action) {
-  $sical = GetHttpVars("sical", "");
-
   $max = 25;
-
+  $sical = GetHttpVars("sical", "");
+  
+  include_once("FDL/popup_util.php");
+  popupInit('mRess',  array('radd', 'rrendezvous', 'rcalendar', 'rprefered'));
   $action->lay->set("max", $max);
   $action->lay->set("sical", $sical);
 
@@ -17,8 +18,6 @@ function wgcal_searchical(&$action) {
 
     // Init popup
     $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
-    include_once("FDL/popup_util.php");
-    popupInit('mRess',  array('radd', 'rrendezvous', 'rcalendar', 'rprefered'));
 
     $filter[0] = "title ~* '".$sical."'";
     $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $max, $filter, 
@@ -51,7 +50,6 @@ function wgcal_searchical(&$action) {
     }
     if (count($rlist)>0) {
       wUSort($rlist, "title");
-      popupGen(count($rlist));
       $contacts = $action->GetParam("WGCAL_U_PREFRESSOURCES", "");
       $tcontacts = explode("|", $contacts);
       $rplist = "";
@@ -68,6 +66,7 @@ function wgcal_searchical(&$action) {
     $action->lay->setBlockData("rlist", $rlist);
     $action->lay->setBlockData("jsRlist", $rlist);
   }
+  popupGen(count($rlist));
   $action->lay->set("showrlist", (count($rlist)>0?true:false));
 }
 ?>
