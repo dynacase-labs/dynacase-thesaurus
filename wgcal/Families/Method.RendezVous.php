@@ -349,7 +349,7 @@ function RendezVousView() {
       case 2:
         $tr = ucwords(_("weekly"));
 	$tr2 = "(";
-	for ($i=0; $i<6; $i++) $tr2 .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
+	for ($i=0; $i<=6; $i++) $tr2 .= ( ($rday & pow(2,$i)) == pow(2,$i) ? $tday[$i]." " : "" );
 	$tr2 .= ")";
         break;
       case 3:
