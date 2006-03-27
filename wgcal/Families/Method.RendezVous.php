@@ -356,18 +356,13 @@ function RendezVousView() {
         $tr = ucwords(_("monthly"));
 	$day = substr($this->getValue("CALEV_START"),0,2);
 	if ($rmonth!=1) {
-	  $tr2 = "(les $day du mois)";
+	  $tr2 = "($day du mois)";
 	} else {
+	  $occur = wComputeNWeekDayInMonth($this->getValue("CALEV_START"));
 	  $ts = w_dbdate2ts($this->getValue("CALEV_START", ""));
 	  $dayn = strftime("%u", $ts);
 	  $dayt = strftime("%A", $ts);
-	  $rday = 0;
-	  $cancel = false;
-	  while (!$cancel) {
-	    if ($day-($rday*7)>0) $rday++;
-	    else $cancel = true;
-	  }
-	  $tr2 = "(les $rday".($rday>1?"ème":"er")." $dayt du mois)";
+	  $tr2 = "($occur".($occur>1?"ième":"ier")." $dayt du mois)";
 	}
         break;
       case 4: 
@@ -387,7 +382,7 @@ function RendezVousView() {
 	    if ($day-($rday*7)>0) $rday++;
 	    else $cancel = true;
 	  }
-	  $tr2 = "(les $rday".($rday>1?"ème":"er")." $dayt de $montht)";
+	  $tr2 = "($rday".($rday>1?"ème":"er")." $dayt de $montht)";
 	}
 	break;
       }
