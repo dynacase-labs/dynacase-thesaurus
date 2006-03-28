@@ -51,7 +51,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 <tr class="FREEDOMBack1">
   <td   align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="48px" SRC="[iconsrc]"><br>
+    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="48px" SRC="[ficonsrc]"><br>
      <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a></td>
   <td   class="FREEDOMText">[TEXT:author]</td>
   <td  ><span class="FREEDOMText">[username]</span></td>

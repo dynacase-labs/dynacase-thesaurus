@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.66 2006/02/21 08:42:02 eric Exp $
+ * @version $Id: viewcard.php,v 1.67 2006/03/28 17:29:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -190,6 +190,7 @@ function viewcard(&$action) {
   if ($doc->fromid > 0) {
     $cdoc = $doc->getFamDoc();
     $action->lay->Set("classtitle", $cdoc->title);
+    $action->lay->Set("ficonsrc", $cdoc->getIcon());
     if (getFamilyHelpFile($action,$doc->fromid) ) {
       
       $action->lay->Set("dhelp", "");
