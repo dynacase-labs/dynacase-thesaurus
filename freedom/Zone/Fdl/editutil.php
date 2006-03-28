@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.102 2005/10/28 15:15:35 eric Exp $
+ * @version $Id: editutil.php,v 1.103 2006/03/28 17:29:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -410,6 +410,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	$phpfunc=$oattr->phpfunc;
 	// capture title
 	$ititle=_("choose inputs");
+	if ($oattr->getOption("ititle") != "") $ititle=str_replace("\"","'",$oattr->getOption("ititle"));
+	
 	
 	if ($phpfunc[0] == "[") {
 	  if (ereg('\[(.*)\](.*)', $phpfunc, $reg)) {   
