@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.10 2005/11/10 16:01:39 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.11 2006/03/30 12:38:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -71,6 +71,19 @@ Class VaultFileDisk extends DbObj {
     return '';
   }
 
+function seems_utf8($Str) {
+ for ($i=0; $i<strlen($Str); $i++) {
+  if (ord($Str[$i]) < 0x80) $n=0; # 0bbbbbbb
+  elseif ((ord($Str[$i]) & 0xE0) == 0xC0) $n=1; # 110bbbbb
+  elseif ((ord($Str[$i]) & 0xF0) == 0xE0) $n=2; # 1110bbbb
+  elseif ((ord($Str[$i]) & 0xF0) == 0xF0) $n=3; # 1111bbbb
+  else return false; # Does not match any model
+  for ($j=0; $j<$n; $j++) { # n octets that match 10bbbbbb follow ?
+   if ((++$i == strlen($Str)) || ((ord($Str[$i]) & 0xC0) != 0x80)) return false;
+  }
+ }
+ return true;
+}
 
   // --------------------------------------------------------------------
   function Store($infile, $public_access, &$idf) {
@@ -86,6 +99,7 @@ Class VaultFileDisk extends DbObj {
     $this->id_dir = $id_dir;
     $this->public_access = $public_access;
     $this->name = basename($infile);
+    if ($this->seems_utf8( $this->name)) $this->name=utf8_decode($this->name);
 
     $msg = $this->Add();
     if ($msg != '') return($msg);
