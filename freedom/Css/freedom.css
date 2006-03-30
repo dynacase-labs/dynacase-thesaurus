@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.87 2006/02/10 15:33:45 eric Exp $
+ * $Id: freedom.css,v 1.88 2006/03/30 09:25:41 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -94,7 +94,7 @@ LEGEND {
 FIELDSET {
    -moz-border-radius: 6;
    background-color: [CORE_BGCELLCOLOR];
-[IFNOT ISIE]  background-image:url('[IMG:op20.png]'); [ENDIF ISIE]
+/*[IFNOT ISIE]  background-image:url('[IMG:op20.png]'); [ENDIF ISIE]*/
 
 }
 
