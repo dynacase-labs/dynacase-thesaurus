@@ -22,11 +22,7 @@ if [ "$1" = "I" ] ; then
     echo "cannot create db $dbfreename"
     exit 1
   fi
-  if [ -f /usr/lib/pgsql/plpgsql.so ]; then
-     createlang --username=postgres --dbname=$dbfreename --pglib=/usr/lib/pgsql plpgsql 
-  else
-     createlang --username=postgres --dbname=$dbfreename --pglib=/usr/lib/postgresql plpgsql
-  fi
+   
   
   echo "ALTER DATABASE $dbfreename set DateStyle = sql,european;" | psql  --username=postgres $dbpsql
   psql $dbfree -f $wpub/WHAT/getprivilege.sql
