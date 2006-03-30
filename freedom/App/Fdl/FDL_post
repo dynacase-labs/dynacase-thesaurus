@@ -34,6 +34,7 @@ if [ "$1" = "I" ] ; then
   /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=Doc
   /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocPerm
   /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=VGroup
+  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocRel
   /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --class=Group
   #copy postgres group table
   $wpub/wsh.php --api=freedom_groups
