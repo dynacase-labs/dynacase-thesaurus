@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.21 2006/03/26 20:34:13 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.22 2006/03/31 07:19:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -13,6 +13,66 @@ var $calVResume     = "WGCAL:CALEV_ABSTRACT";
 var $calVCard       = "WGCAL:CALEV_CARD";
 var $calVLongText   = "WGCAL:CALEV_VIEWLTEXT";
 var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
+
+
+var $wcalResume     = "WGCAL:WCALRESUME";
+
+function wcalResume() {
+  global $action;
+  include_once("WGCAL/Lib.wTools.php");
+
+  $this->lay->set("id", $this->id);
+  $this->lay->set("pid", $this->getValue("evt_idinitiator"));
+  $this->lay->set("title", $this->getValue("evt_title"));
+
+  $mycolor = wgcalGetRColor($action->user->fid);
+  $this->lay->set("bgcolor", $mycolor);
+  $this->lay->set("textcolor", "#000000");
+  
+  // Categories
+  $this->lay->set("hasCat", false);
+  $catg = wGetCategories();
+  $cat = $this->getValue("evfc_category");
+  if ($cat>0) {
+    foreach ($catg as $k=>$v) {
+      if ($v["id"] == $cat) {
+	$this->lay->set("category", $v["label"]);
+	$this->lay->set("catcolor", $v["color"]);
+	$this->lay->set("hasCat", true);
+      }
+    }
+  }
+
+  // Creator tag
+  $this->lay->set("MeCreator", false);
+  if ($this->getValue("evfc_ownerid")!=$this->getValue("evfc_creatorid") && $this->getValue("evfc_creatorid")==$action->user->fid) {
+    $this->lay->set("mycolor", $mycolor);
+    $this->lay->set("MeCreator", true);
+  }
+
+  // Acceptation status
+  $attfids = $this->getTValue("evfc_listattid");
+  $attstat = $this->getTValue("evfc_listattst");
+  $headSet = false;
+  $mystate = $mycolor;
+  if (count($attfids)>1) {
+    foreach ($attfids as $k => $v) {
+      if ($v==$action->user->fid) {
+	$headSet = true;
+	$mystate = WGCalGetColorState($attstat[$k]);
+      }
+    }
+  }
+  $this->lay->set("headSet", $headSet);
+  $this->lay->set("rvstate", $mystate);
+  $state = WGCalGetColorState($mystate, "white");
+
+
+  // Icons
+  $icom = $this->getValue("evfc_icomask");
+  $ticons = wGetIcons($icom);
+  $this->lay->setBlockData("icons", $ticons);
+}
 
 
 function explodeEvt($d1, $d2) {
@@ -56,7 +116,6 @@ function explodeEvt($d1, $d2) {
       $hs = substr(jd2cal($iday, 'FrenchLong'),0,10)." ".$hstart;
       $jdhs = StringDateToJD($hs);
       $jdhe = $jdhs+$jdDuration;
-//       AddWarningMsg("Per [".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\nEvt [".$this->__trcJdDate($jdhs).";".$this->__trcJdDate($jdhe)."]");
       $he = jd2cal($jdhe, 'FrenchLong');
       if (($jdhs<=$jd2 && $jdhe>=$jd1)) {
 	$eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
@@ -109,28 +168,20 @@ function explodeEvt($d1, $d2) {
       $year  = substr($odate,6,4);
       $dayweek = gmdate("w", gmmktime(0,0,0,$month,$day,$year));
       $occur = wComputeNWeekDayInMonth($odate);
-      $sdeb = "[".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\n$odate dayweek=$dayweek occur=$occur";
       for ($iday=$jd1; $iday<=$jd2; $iday++) {
 	$thed = jd2cal($iday, 'FrenchLong');
 	$thedn = substr($thed,0,2);
 	$themn = substr($thed,3,2);
-// 	if ($themn!=$month) continue;
-        $sdeb .= "\n[$thed ";
 	if ($this->CalEvIsExclude($thed)) continue;
-        $sdeb .= " -OK-";
 	$ndate = wGetNWeekDayForMonth($occur, $dayweek, substr($thed,3,2), substr($thed,6,4));
-        $sdeb .= " ndate=$ndate";
 	if ($ndate==$thedn) {
 	  $hs = str_pad($ndate,2,"0",STR_PAD_LEFT)."/".substr($thed,3,2)."/".substr($thed,6,4)." ".$hstart;
 	  $jdhs = StringDateToJD($hs);
 	  $jdhe = $jdhs+$jdDuration;
 	  $he = jd2cal($jdhe, 'FrenchLong');
-	  $sdeb .= " YES > ".$hs."-".$hs;
 	  $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
 	}
-	$sdeb .= "]";
      }
-//       AddWarningMsg($sdeb);
     }
     break;
 
@@ -166,27 +217,21 @@ function explodeEvt($d1, $d2) {
       $year  = substr($odate,6,4);
       $dayweek = gmdate("w", gmmktime(0,0,0,$month,$day,$year));
       $occur = wComputeNWeekDayInMonth($odate);
-      $sdeb = "[".$this->__trcJdDate($jd1).";".$this->__trcJdDate($jd2)."]\n$odate dayweek=$dayweek occur=$occur";
       for ($iday=$jd1; $iday<=$jd2; $iday++) {
 	$thed = jd2cal($iday, 'FrenchLong');
 	$thedn = substr($thed,0,2);
 	$themn = substr($thed,3,2);
  	if ($themn!=$month) continue;
-        $sdeb .= "\n[$thed ";
 	if ($this->CalEvIsExclude($thed)) continue;
-        $sdeb .= " -OK-";
 	$ndate = wGetNWeekDayForMonth($occur, $dayweek, substr($thed,3,2), substr($thed,6,4));
-        $sdeb .= " ndate=$ndate";
 	if ($ndate==$thedn) {
 	  $hs = str_pad($ndate,2,"0",STR_PAD_LEFT)."/".substr($thed,3,2)."/".substr($thed,6,4)." ".$hstart;
 	  $jdhs = StringDateToJD($hs);
 	  $jdhe = $jdhs+$jdDuration;
 	  $he = jd2cal($jdhe, 'FrenchLong');
-	  $sdeb .= " YES > ".$hs."-".$hs;
 	  $eve[$ix++] = $this->CalEvDupEvent($ref, $hs, $he);
 	}
-	$sdeb .= "]";
-     }
+      }
     }
     break;
     

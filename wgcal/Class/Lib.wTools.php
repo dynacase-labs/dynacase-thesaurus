@@ -430,58 +430,18 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $first = false;
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
+  $rg = 0;
   foreach ($events as $k=>$v) {
+    $events[$k]["rg"] = $rg++;
+    $ev = getDocObject($dbaccess, $v);
+    $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-    $sdebug .= "[".$v["evt_frominitiatorid"]."::".$v["evt_idinitiator"]."] title=[".$v["evt_title"]."]";
-    $item = array( "ID" => $v["id"],
-		   "TSSTART" => $v["evt_begdate"],
-		   "TSEND" => $end,
- 		   "START" => localFrenchDateToUnixTs($v["evt_begdate"], true),
- 		   "END" => localFrenchDateToUnixTs($end, true), 
-		   "IDP" =>  $v["evt_idinitiator"],
-		   "FIDP" => $v["evt_frominitiatorid"],
-		   "IDC" =>  $v["evt_idcreator"] );
-    $displayEvent = true;
-
-    // Traitement de refus => spécifique à CALEVENT
-    if ($v["evt_frominitiatorid"] == $rvfamid) {
-
-      $displayEvent = false;
-      
-      // Affichage
-      // - si une ressource affiché est dedans et pas refusé
-      $attlist  = Doc::_val2array($v["evfc_listattid"]);
-      $attrstat = Doc::_val2array($v["evfc_listattst"]);
-      $attinfo = array();
-      foreach ($attlist as $kat => $vat) {
-	$attinfo[$vat]["status"] = $attrstat[$kat];
-	$attinfo[$vat]["display"] = isset($tr[$vat]);
-      }
-      
-      foreach ($attinfo as $kat => $vat) {
-	
-	if ($vat["display"]) {
-	  if ($action->user->fid!=$kat) {
-	    if ($vat["status"]!=EVST_REJECT) {
-	      $displayEvent = true;
-	    }
-	  } else {
-	    if ($vat["status"]!=EVST_REJECT || $showrefused==1) {
-	      $displayEvent = true;
-	    }
-	  }
-	}
-      }
-    }
-
-    $sdebug .= " display=[".($displayEvent?"true":"false")."]\n";
-    if ($displayEvent) { 
-      $item["RG"] = count($tout);
-      $tout[] = $item;
-    }
+    $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
+    $events[$k]["resume"] = $ev->viewdoc($ev->wcalResume);
+    if (!isset($events[$k]["evfc_catg"]))  $events[$k]["evfc_catg"] = 0;
+    if (!isset($events[$k]["evfc_dhour"]))  $events[$k]["evfc_dhour"] = 0;
   } 
-//     AddWarningMsg($sdebug);
-  return $tout;
+  return $events;
 }
 
 function wGetUsedFamilies() {
@@ -541,5 +501,55 @@ function getThemeValue($var, $def="") {
   $vars = get_object_vars($theme);
   if (isset($theme->$var)) return $theme->$var;
   return $def;
+}
+
+function setThemeValue() {
+  global $action;
+  $themef = getParam("WGCAL_U_THEME", "default");
+  @include_once("WGCAL/Themes/default.thm");
+  @include_once("WGCAL/Themes/".$themef.".thm");
+  $vars = get_object_vars($theme);
+  foreach ($vars as $k => $v) $action->lay->set($k, $v);
+  return $def;
+}
+
+
+
+
+function wGetIcons($icomask) {
+  global $action;
+  $icondef = array( 
+		   0 =>  array( "icosrc" => $action->getImageUrl("wm-confidential.gif"),
+				"icotitle" => _("icon for confidential event"),
+				),
+		   1 =>  array( "icosrc" => $action->getImageUrl("wm-invitation.gif"),
+				"icotitle" => _("icon for invitation"),
+				),
+		   2 => array( "icosrc" => $action->getImageUrl("wm-private.gif"),
+			       "icotitle" => _("icon for private event"),
+			       ),
+		   3 => array( "icosrc" => $action->getImageUrl("wm-privgroup.gif"),
+			       "icotitle" => _("icon for group private event"),
+			       ),
+		   4 => array( "icosrc" => $action->getImageUrl("wm-icorepeat.gif"),
+			       "icotitle" => _("icon for repeat event"),
+			       ),
+		   5 => array( "icosrc" => $action->getImageUrl("wm-attendees.gif"),
+			       "icotitle" => _("icon for meting"),
+			       ),
+		   6 => array( "icosrc" => $action->getImageUrl("wm-attendees.gif"),
+			       "icotitle" => _("icon for meting"),
+			       ),
+		   7 => array( "icosrc" => $action->getImageUrl("wm-alarm.gif"),
+			       "icotitle" => _("icon for event with alarm set"),
+			       ),
+		    );
+  $ticons = array();
+  for ($i=0; $i<count($icondef); $i++) {
+    if (($icomask && pow(2, $i)) == pow(2, $i)) {
+      $ticons[] = $icondef[$i];
+    }
+  }
+  return $ticons;
 }
 ?>

@@ -187,7 +187,8 @@ function SetCurrentEvent(id, cd) {
 // --------------------------------------------------------
 function ClickCalendarCell(nh,times,timee) {
   closeMenu('calpopup');
-  subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
+  fastEditInit(ev, 'nouveau',times,timee,0);
+  //subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
 }
 
 // --------------------------------------------------------
@@ -289,15 +290,13 @@ function WGCalIntersect(asy,aey,bsy,bey) {
 
 
 // --------------------------------------------------------
-function WGCalAddEvent(n, tstart, tend, tdeb) 
+function WGCalAddEvent(nev) 
 {
   var evt = new Object;
   var id;
   var cEv;
   var dd = new Date();
   var Tz = 0;
-  var tstart;
-  var tend;
   var id;
   var dstart;
   var dend;
@@ -306,6 +305,10 @@ function WGCalAddEvent(n, tstart, tend, tdeb)
   var weight;
   var mdays;
 
+  var tstart = Events[nev].start;
+  var tend  = Events[nev].end;
+
+  calInfo('processing event '+nev+' #'+Events[nev].id);
   if (tend<tstart) {
     t = tend;
     tend = tstart;
@@ -357,7 +360,9 @@ function WGCalAddEvent(n, tstart, tend, tdeb)
       // Add event
       cEv = Days[id].ev.length; 
       Days[id].ev[cEv] = new Object();
-      Days[id].ev[cEv].n = n;
+      Days[id].ev[cEv].n = nev;
+      Days[id].ev[cEv].tstart = tstart;
+      Days[id].ev[cEv].tend  = tend;
       Days[id].ev[cEv].curday = id;
       Days[id].ev[cEv].dstart = dstart;
       Days[id].ev[cEv].dend = dend;
@@ -375,6 +380,10 @@ function WGCalAddEvent(n, tstart, tend, tdeb)
   
 function WGCalDisplayAllEvents() {
   var iday; 
+  var iev;
+  for (iev=0; iev<Events.length; iev++) {
+     WGCalAddEvent(iev);
+  }
   for (iday=0; iday<XDays; iday++) {
     if (Days[iday].view) WGCalDisplayDailyEvents(Days[iday].ev);
   }

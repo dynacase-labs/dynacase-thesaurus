@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.80 2006/03/23 19:13:04 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.81 2006/03/31 07:19:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -25,6 +25,14 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
+  $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
+  $action->parent->AddJsRef("WHAT/Layout/geometry.js");
+  $action->parent->AddJsRef("FDL/Layout/iframe.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
+  $action->parent->AddJsRef("WGCAL/Layout/nWgcal.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
@@ -55,33 +63,32 @@ function wgcal_calendar(&$action) {
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
   $tout = wGetEvents($d1, $d2);
-  $calfid = getIdFromName($dbaccess,"CALEVENT");
-  $popuplist = array();
-  foreach ($tout as $k => $v) {
-    $IsRV = ($v["FIDP"]==$calfid ? true : false);
-    $d = new_Doc($dbaccess, $v["IDP"]);  
-    $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
-    $tout[$k]["TITLE"] = addslashes($d->getValue("title"));
-    $tout[$k]["EvPCard"] = "";
-    $tout[$k]["hasPCard"] = false;
-    if ($IsRV) {
-      $tout[$k]["hasPCard"] = true;
-      $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-      $tout[$k]["vRv"] = true;
-      $tout[$k]["edit"] = ($d->Control("edit")==""?true:false);
-      if ($tout[$k]["edit"]) $tout[$k]["vRv"] = false;
-      if (!isset($popuplist[$d->popup_name])) {
-	$popuplist[$d->popup_name] = true;
-	popupInit($d->popup_name,  $d->popup_item);
-      }
-      $d->RvSetPopup($k);
-    } else {
-      $tout[$k]["edit"] = false;
-      $tout[$k]["vRv"] = false;
-    }
-  }
-  popupGen(count($tout));
-  
+//   $calfid = getIdFromName($dbaccess,"CALEVENT");
+//   $popuplist = array();
+//   foreach ($tout as $k => $v) {
+//     $IsRV = ($v["FIDP"]==$calfid ? true : false);
+//     $d = new_Doc($dbaccess, $v["IDP"]);  
+//     $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
+//     $tout[$k]["TITLE"] = addslashes($d->getValue("title"));
+//     $tout[$k]["EvPCard"] = "";
+//     $tout[$k]["hasPCard"] = false;
+//     if ($IsRV) {
+//       $tout[$k]["hasPCard"] = true;
+//       $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
+//       $tout[$k]["vRv"] = true;
+//       $tout[$k]["edit"] = ($d->Control("edit")==""?true:false);
+//       if ($tout[$k]["edit"]) $tout[$k]["vRv"] = false;
+//       if (!isset($popuplist[$d->popup_name])) {
+// 	$popuplist[$d->popup_name] = true;
+// 	popupInit($d->popup_name,  $d->popup_item);
+//       }
+//       $d->RvSetPopup($k);
+//     } else {
+//       $tout[$k]["edit"] = false;
+//       $tout[$k]["vRv"] = false;
+//     }
+//   }
+  popupGen(0);
   
   // Display results ------------------------------------------------------------------------------------
   
@@ -93,13 +100,6 @@ function wgcal_calendar(&$action) {
   // Init slidder
   setHttpVar("sliddate", $stdate);
   setHttpVar("slidurl", $action->getParam("CORE_STANDURL")."&app=WGCAL&action=WGCAL_CALENDAR&ts=%TS%&sm=$sm&vm=$vm&ress=$ress");
-
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-  $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
-  $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
-  $action->parent->AddJsRef("WHAT/Layout/geometry.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   
   $action->lay->set("standAlone", $sm);
   
@@ -254,8 +254,23 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
   $action->lay->SetBlockData("EVENTS", $tout);
-  $action->lay->SetBlockData("EVENTSSC", $tout);
+  $action->lay->SetBlockData("EVENTDIV", $tout);
 
+  setThemeValue();
+
+
+  // Fast edit zone
+  $ag = "";
+  $uagenda = getParam("WGCAL_U_AGENDASELECTED", $action->user->fid);
+  if ($uagenda!=$action->user->fid) {
+    $ag = "(".getUserAgenda($uagenda).")";
+  }
+  $action->lay->set("agendaowner", $ag );
+  $catg = wGetCategories();
+  $tcat = array(); 
+  foreach ($catg as $k => $v) $tcat[] = array( "fe_catv" => $v["id"], "fe_catt" =>  ucwords(strtolower($v["label"]))); 
+  $action->lay->setBlockData("category", $tcat);
+  
 }
 
 

@@ -66,6 +66,18 @@ body {
   width : auto;
 }
 
+#fastedit {
+  background: white; 
+  border : 1em solid [WTH_COLOR_2];
+  border : 3px outset [WTH_COLOR_2];
+}
+
+.fasteditcontent {
+  background: [WTH_BGIMG]; 
+  padding   : 1em;
+  border : 3px groove [WTH_COLOR_2];
+}
+
 .onlyprint { display : none }
 @media print {
   .onlyprint { display:block; }

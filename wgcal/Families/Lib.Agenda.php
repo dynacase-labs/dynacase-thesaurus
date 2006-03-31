@@ -64,6 +64,7 @@ function  getUserPublicAgenda($fid=-1, $t=true) {
  */
 function  getUserAgenda($fid=-1, $public=true, $namefilter="", $t=true) 
 {
+  include_once("FDL/Lib.Dir.php");
   global $action;
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $fid = ($fid!=-1 ? $fid : $action->user->fid);  
