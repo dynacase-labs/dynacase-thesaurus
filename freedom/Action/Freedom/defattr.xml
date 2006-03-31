@@ -144,7 +144,7 @@
 <tr>
   <td colspan="11" >
  <input type="submit" value="[TEXT:Validate]"
-        onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_LOGO'"> 
+        onclick="setTimeout('self.close()',2000)"> 
   </td>
 </tr>
 

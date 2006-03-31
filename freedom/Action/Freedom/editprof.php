@@ -3,7 +3,7 @@
  * Profil edition
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.19 2005/08/17 09:08:14 eric Exp $
+ * @version $Id: editprof.php,v 1.20 2006/03/31 12:29:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -30,7 +30,7 @@ function editprof(&$action)
 
   if ($createp) $action->lay->Set("TITLE",_("change creation profile"));
   else  $action->lay->Set("TITLE",_("change profile"));
-
+  $action->lay->Set("NOCREATE",(!$createp));
 
   $doc= new_Doc($dbaccess,$docid);
   // build values type array

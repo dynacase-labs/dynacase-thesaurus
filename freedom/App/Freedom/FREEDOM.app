@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.40 2005/12/09 17:21:42 eric Exp $
+// $Id: FREEDOM.app,v 1.41 2006/03/31 12:29:30 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -241,6 +241,16 @@ $action_desc = array (
   array( 
    "name"		=>"DEFATTR",
    "short_name"		=>N_("attributes definitions"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"CREATEFAM",
+   "short_name"		=>N_("edit create family"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"CREATETHEFAM",
+   "short_name"		=>N_("create family"),
    "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 

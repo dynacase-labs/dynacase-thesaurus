@@ -53,7 +53,8 @@
          [BLOCK SELECTPROF]
            <option VALUE="[idpdoc]" [selected]>[profname]</option>   
          [ENDBLOCK SELECTPROF]
-           <option VALUE="[docid]" [selected_spec]>[TEXT:specific control]</option> 
+	 [IF NOCREATE]
+           <option VALUE="[docid]" [selected_spec]>[TEXT:specific control]</option> [ENDIF NOCREATE]
     </select>
    </td>
 </tr>

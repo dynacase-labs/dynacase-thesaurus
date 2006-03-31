@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.24 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: modattr.php,v 1.25 2006/03/31 12:29:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -152,7 +152,7 @@ function modattr(&$action) {
 
 
   
-  redirect($action,GetHttpVars("app"),"QUERYTITLE&id=".$doc->id,
+  redirect($action,"FDL","FDL_CARD&id=".$doc->id,
 	   $action->GetParam("CORE_STANDURL"));
 }
 
