@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.8 2006/03/26 20:58:10 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.9 2006/04/03 14:53:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,10 +20,10 @@ include_once("EXTERNALS/WGCAL_external.php");
 
 function wgcal_waitrv(&$action) {
 
-  $rtarget = GetHttpVars("RTARGET", "_self");
-  $action->lay->set("RTARGET", $rtarget);
-  $raction = GetHttpVars("RACTION", "WGCAL_WAITRV");
-  $action->lay->set("RACTION", $raction);
+  $oapp = GetHttpVars("oapp", "WGCAL");
+  $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
+  $action->lay->set("oapp", $oapp);
+  $action->lay->set("oact", $oact);
   $intoolbar = (GetHttpVars("tb", "N")=="Y"?true:false);
   $action->lay->set("intoolbar", $intoolbar);
 

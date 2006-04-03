@@ -12,10 +12,9 @@ function wgcal_seteventstate(&$action) {
   $forowner = GetHttpVars("owner", 0);
   $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
-
-  global $_SERVER;
-  // print_r2($_SERVER);
-  // [HTTP_REFERER] => http://obeone.tlse.i-cesam.com/what/index.php?sole=Y&&app=WGCAL&action=WGCAL_PORTAL
+  
+  $oapp = GetHttpVars("oapp", "WGCAL");
+  $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
 
   if (!$event->isAffected() || $evstate==-1) {
     AddWarningMsg("wgcal_seteventstate: error, can't find event #$evi");
@@ -56,7 +55,7 @@ function wgcal_seteventstate(&$action) {
       $event->enableEditControl();
     }
   }
-  redirect($action, "WGCAL", "WGCAL_CALENDAR");
+  redirect($action, $oapp, $oact);
 }
 
 

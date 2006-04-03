@@ -1,8 +1,8 @@
-function setwrvalert(target, action) {
+function setwrvalert(tg,act) {
   rf = document.getElementById('alertwrv');
   if (rf.checked) val = 1;
   else val = 0;
-  usetparam(-1, "WGCAL_U_WRVALERT", val,target, action) ;
+  usetparam(-1, "WGCAL_U_WRVALERT", val, tg, act);
 }
 
 
@@ -11,12 +11,10 @@ function ViewEvent(urlroot, cevent) {
   return;
 }
 
-function SetEventState(cevent, state, target, action) {
+function SetEventState(cevent, state) {
   var frm = document.getElementById('feventstate');
   frm.cev.value = cevent;
   frm.st.value = state;
-  frm.ra.value = action;
-  frm.target = target;
   frm.submit();
   return;
 }

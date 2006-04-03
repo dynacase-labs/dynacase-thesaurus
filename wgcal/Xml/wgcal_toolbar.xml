@@ -11,7 +11,7 @@
 </div>
 
 <!-- Rendez-vous en attente -->
-[ZONE WGCAL:WGCAL_WAITRV?tb=Y&RTARGET=wgcal_toolbar&RACTION=WGCAL_TOOLBAR]
+[ZONE WGCAL:WGCAL_WAITRV?tb=Y&oact=WGCAL_TOOLBAR]
 
 <!-- search zone -->
 [IF SHOWSEARCH] [ZONE WGCAL:SEARCH] [ENDIF SHOWSEARCH]
