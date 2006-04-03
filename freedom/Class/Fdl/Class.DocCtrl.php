@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.34 2006/02/27 15:57:09 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.35 2006/04/03 13:50:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -459,7 +459,7 @@ Class DocCtrl extends DocLDAP {
 		 "sug"=>$sug);
   }
   /** 
-   * verify if a document is corrertly linked to other one
+   * verify if a document title and its link are for the same document
    * @param string document title use for verification
    * @param string document identificator use for verification
    */
@@ -471,7 +471,7 @@ Class DocCtrl extends DocLDAP {
       if (trim($docid)=="") $err=_("the document id is empty");
       else {
 	$d=new_doc($this->dbaccess,$docid);
-	if (! $d->isAlive()) $err=sprintf(_("the document id [%s]for this attribute is not valid"),$docid);
+	if (! $d->isAlive()) $err=sprintf(_("the document id [%s] for this attribute is not valid"),$docid);
 	else if ($d->title != $title) $err=sprintf(_("the title of document [%s] is not conform to original [%s]"),$title,$d->title);
       }
       if ($err) {
@@ -481,8 +481,29 @@ Class DocCtrl extends DocLDAP {
     return array("err"=>$err, "sug"=>$sug);
   }
 
-
-
+/** 
+   * verify if a link of document is alive
+   * @param string document title use for verification
+   * @param string document identificator use for verification
+   */
+public function isValidLink($title, $docid){
+    $err = "";
+    $sug = array();
+    if (trim($title) != "") {
+        if (trim($docid) == "") {
+            $err = _("the document id is empty");
+        } else {
+            $d = new_doc($this->dbaccess, $docid);
+            if (! $d->isAlive()) $err = sprintf(_("the document id [%s] for this attribute is not valid"), $docid);
+        }
+        if ($err) {
+            $sug[] = _("clic to the [...] button to link document correctly");
+        }
+    } else {
+        if (trim($docid) != "") $err = _("the document title is empty");           
+    }
+    return array("err" => $err, "sug" => $sug);
+}
 
 /** 
    * return true if user can execute the specified action
