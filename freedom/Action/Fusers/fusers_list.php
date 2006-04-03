@@ -3,10 +3,10 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.6 2005/12/02 11:03:39 eric Exp $
+ * @version $Id: fusers_list.php,v 1.7 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package WHAT
- * @subpackage CORE
+ * @package FREEDOM
+ * @subpackage FUSERS
  */
  /**
  */

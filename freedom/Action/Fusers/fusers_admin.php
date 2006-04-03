@@ -3,10 +3,10 @@
  * progress bar tool
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_admin.php,v 1.1 2004/08/12 10:24:44 eric Exp $
+ * @version $Id: fusers_admin.php,v 1.2 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package WHAT
- * @subpackage CORE
+ * @package FREEDOM
+ * @subpackage FUSERS
  */
  /**
  */

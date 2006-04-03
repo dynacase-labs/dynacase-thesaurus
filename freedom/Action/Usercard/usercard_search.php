@@ -3,10 +3,10 @@
  * progress bar tool
  *
  * @author Anakeen 2000
- * @version $Id: usercard_search.php,v 1.6 2005/05/12 14:01:43 caroline Exp $
+ * @version $Id: usercard_search.php,v 1.7 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package WHAT
- * @subpackage CORE
+ * @package FREEDOM
+ * @subpackage USERCARD
  */
  /**
  */

@@ -3,10 +3,9 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.299 2006/03/30 09:52:49 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.300 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
 /**
  */

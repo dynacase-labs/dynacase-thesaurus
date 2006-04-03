@@ -3,10 +3,9 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.25 2005/09/09 16:24:13 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.26 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

@@ -3,10 +3,9 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.31 2006/02/10 15:33:45 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.32 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

@@ -3,10 +3,9 @@
  * Process Workflow
  *
  * @author Anakeen 2002
- * @version \$Id: Class.WProcess.php,v 1.1 2005/05/19 13:34:09 eric Exp $
+ * @version \$Id: Class.WProcess.php,v 1.2 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage INCIDENT
  */
 /**
  */

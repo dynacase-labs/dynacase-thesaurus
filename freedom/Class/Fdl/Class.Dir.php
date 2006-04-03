@@ -3,10 +3,9 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.45 2006/02/17 15:45:20 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.46 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

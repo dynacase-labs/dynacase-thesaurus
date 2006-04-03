@@ -3,10 +3,9 @@
  * Mapping Attributes between LDAP & FREEDOM
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocAttrLDAP.php,v 1.3 2006/01/23 17:08:41 eric Exp $
+ * @version $Id: Class.DocAttrLDAP.php,v 1.4 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
 /**
  */

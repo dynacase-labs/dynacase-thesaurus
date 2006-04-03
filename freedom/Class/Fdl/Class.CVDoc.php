@@ -3,10 +3,9 @@
  *  Control view Class Document
  *
  * @author Anakeen 2003
- * @version $Id: Class.CVDoc.php,v 1.6 2005/06/28 13:53:13 eric Exp $
+ * @version $Id: Class.CVDoc.php,v 1.7 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

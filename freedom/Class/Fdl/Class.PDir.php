@@ -3,10 +3,9 @@
  * Profile for folders
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDir.php,v 1.10 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Class.PDir.php,v 1.11 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

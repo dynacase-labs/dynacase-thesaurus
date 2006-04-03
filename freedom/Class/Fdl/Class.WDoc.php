@@ -3,10 +3,9 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.50 2006/02/21 08:41:01 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.51 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

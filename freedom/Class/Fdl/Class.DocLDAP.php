@@ -3,10 +3,9 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.3 2006/04/03 13:50:49 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.4 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */

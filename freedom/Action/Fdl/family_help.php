@@ -3,10 +3,9 @@
  * Return Help Files
  *
  * @author Anakeen 2000 
- * @version $Id: family_help.php,v 1.2 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: family_help.php,v 1.3 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package WHAT
- * @subpackage CORE
+ * @package FREEDOM
  */
  /**
  */

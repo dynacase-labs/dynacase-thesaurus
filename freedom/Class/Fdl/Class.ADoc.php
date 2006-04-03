@@ -3,10 +3,9 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.ADoc.php,v 1.12 2006/02/10 15:33:45 eric Exp $
+ * @version $Id: Class.ADoc.php,v 1.13 2006/04/03 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
- * @subpackage 
  */
 /**
  */

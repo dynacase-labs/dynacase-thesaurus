@@ -4,10 +4,9 @@
  * for files attached to a Freedom document
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocVaultIndex.php,v 1.4 2005/11/24 13:48:17 eric Exp $
+ * @version $Id: Class.DocVaultIndex.php,v 1.5 2006/04/03 14:56:26 eric Exp $
  * @license http://license.i-cesam.com/license.php
  * @package FREEDOM
- * @subpackage 
  */
  /**
  */
