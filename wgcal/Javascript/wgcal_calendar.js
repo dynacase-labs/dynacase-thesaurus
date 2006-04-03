@@ -39,16 +39,21 @@ var  P_FIN = 1;
 
 function SetAltCoord(alt) {
   
-  var delta = 50;
-  
+  var delta = 10;
+
   var ww = getFrameWidth();
   var wh = getFrameHeight();
   var h = getObjectHeight(alt);
   var w = getObjectWidth(alt);
 
-//   alert('(ww,wh)=('+ww+','+wh+') \n object='+alt+'(h,w)=('+h+','+w+')');
-  
   var recompute = false;
+
+  var w1 = TimerMouseX;
+  var w2 = ww - TimerMouseX;
+  var h1 = TimerMouseY;
+  var h2 = wh - TimerMouseY;
+
+  AltCoord.x = AltCoord.y = 0;
 
   if (AltIsFixed!='Float') {
     switch(AltIsFixed) {
@@ -68,15 +73,19 @@ function SetAltCoord(alt) {
       AltCoord.x = delta;
       AltCoord.y = delta;
     }
+    if ((TimerMouseX>AltCoord.x && TimerMouseX<(AltCoord.x+w+delta)) 
+	   && (TimerMouseY>AltCoord.y && TimerMouseY<(AltCoord.y+h+delta)) ) recompute = true;
   }
-  if (   (TimerMouseX>AltCoord.x && TimerMouseX<(AltCoord.x+w+delta)) 
-      && (TimerMouseY>AltCoord.y && TimerMouseY<(AltCoord.y+h+delta)) ) recompute = true;
-  if (AltIsFixed=='Float' || recompute) {
-    if ((TimerMouseX + w + 30) > ww) AltCoord.x = TimerMouseX - 15 - w;
-    else AltCoord.x = TimerMouseX + 15;
-    if ((TimerMouseY + h + 30)> wh) AltCoord.y = TimerMouseY - 15 - h;
-    else AltCoord.y = TimerMouseY + 15;
-  }
+  
+  if (w < (w2+delta)) AltCoord.x = TimerMouseX + delta;
+  else if (w < (w1+delta)) AltCoord.x = TimerMouseX - delta - w;
+  else AltCoord.x = delta;
+
+  if (h < (h2+delta)) AltCoord.y = TimerMouseY + delta;
+  else if (h < (h1+delta)) AltCoord.y = TimerMouseY - delta - h;
+  else AltCoord.y = delta;
+
+
   return;
 }
 
