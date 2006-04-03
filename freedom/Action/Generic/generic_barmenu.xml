@@ -157,8 +157,8 @@ function SendSearch(e) {
 <div  id="helpmenu" class="popup" style="position:[positionstyle];">
   <a id="help" target="[fhelp]" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
-<a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Abstract card]</a>
-<a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0';closeAllMenu()">[TEXT:Column mode]</a>
+<a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0&famid=[famid]';closeAllMenu()">[TEXT:Abstract card]</a>
+<a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0&famid=[famid]';closeAllMenu()">[TEXT:Column mode]</a>
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="memosearch" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fhidden','[CORE_STANDURL]app=GENERIC&action=GENERIC_MEMOSEARCH&famid=[famid]&psearchid=[catg]');closeAllMenu()">[TEXT:memosearch]</a>
 <a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
