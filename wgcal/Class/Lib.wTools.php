@@ -220,7 +220,7 @@ function wPbool($b) {
   return ($b?"true":"false");
 }
 
-function setToolsLayout(&$action, $tool="") {
+function setToolsLayout(&$action, $tool="", $forced=false) {
 
   // Set initial visibility
   $all =  explode("|", $action->GetParam("WGCAL_U_TOOLSSTATE", ""));
@@ -231,9 +231,15 @@ function setToolsLayout(&$action, $tool="") {
   }
   $s = (isset($state[$tool]) ? $state[$tool] : 1 );
   $vis = ($s ? "" : "none" );
-  $action->lay->set( "v".$tool, $vis);
-  $action->lay->set( "b".$tool, ($s==1? "wToolButtonUnselect":"wToolButtonSelect"));
-  $action->lay->set( "o".$tool, ($s==1? true : false ));
+  if ($forced) {
+     $action->lay->set( "b".$tool, "wToolButtonUnselect");
+     $action->lay->set( "o".$tool, true);
+     $action->lay->set( "v".$tool, "");
+  } else {
+     $action->lay->set( "b".$tool, ($s==1? "wToolButtonUnselect":"wToolButtonSelect"));
+     $action->lay->set( "o".$tool, ($s==1? true : false ));
+     $action->lay->set( "v".$tool, $vis);
+  }
   return;
 }
 

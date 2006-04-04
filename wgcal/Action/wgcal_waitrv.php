@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.9 2006/04/03 14:53:18 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.10 2006/04/04 04:06:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -62,10 +62,11 @@ function wgcal_waitrv(&$action) {
     }
   }
 
-  $action->lay->set("zonealertsize", $action->GetParam("WGCAL_U_ZWRVALERTSIZE", 100));
-  $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
-  $action->lay->set("alertwrv", "checked");
-  if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
+  if (!$intoolbar) {
+    $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
+    $action->lay->set("alertwrv", "checked");
+    if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
+  }
 
   if (count($wrv)>0) {
     // Init popup
@@ -82,22 +83,17 @@ function wgcal_waitrv(&$action) {
     popupGen(count($wrv));
     $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
     
-    
-    $rd=getIdFromName($dbaccess,"WG_WAITRV");
     $action->lay->set("RVCOUNT", count($wrv));
     $action->lay->SetBlockData("WAITRV", $wrv);
-    if ($alertfornewevent>0) AddWarningMsg(_("You have waiting events").". (".count($wrv).")"); 
+    if (!$intoolbar && $alertfornewevent>0) AddWarningMsg(_("You have waiting events").". (".count($wrv).")"); 
   } else {
     $action->lay->SetBlockData("WAITRV", null);
     $action->lay->set("RVCOUNT", "0");
   }
 
-  setToolsLayout($action, 'waitrv');
+  setToolsLayout($action, 'waitrv', ($intoolbar?false:true));
 
   
 }
-
-
-
 
 ?>
