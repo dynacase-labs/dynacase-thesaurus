@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FUSERS.app,v 1.5 2005/11/16 16:26:55 eric Exp $
+// $Id: FUSERS.app,v 1.6 2006/04/06 16:48:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fusers/FUSERS.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,6 +78,13 @@ $action_desc = array (
 			    "short_name"		=>N_("refresh ldap entries"),
 			    "script"           => "fusers_iuser.php",
 			    "function"           =>"fusers_ldapinit",
+			    "acl"		=>"FUSERS_MASTER"
+			    ),
+		      array( 
+			    "name"		=>"FUSERS_IGROUP",
+			    "short_name"		=>N_("refresh groups"),
+			    "script"           => "fusers_iuser.php",
+			    "function"           =>"fusers_igroup",
 			    "acl"		=>"FUSERS_MASTER"
 			    )
 		      );

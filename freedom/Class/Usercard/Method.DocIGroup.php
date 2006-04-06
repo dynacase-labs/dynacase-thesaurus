@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.30 2006/01/20 16:23:36 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.31 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -39,6 +39,7 @@ function specRefresh() {
     return _("group has not identificator");
   }
 
+  if ($this->getValue("grp_isrefreshed")=="0") $err.= _("this groups must be refreshed");
   return $err;
 }
 
@@ -65,10 +66,11 @@ function getLDAPMember() {
   $tdn=array();
   foreach ($t as $k=>$v) {
     $du=getTDoc($this->dbaccess,$v);
-    $d=getDocObject($this->dbaccess,$du);
-    $d->SetLdapParam();
-    $d->ConvertToLdap();
-    $tdn[]=$d->getLDAPValue("dn");;
+    $tdnu=explode("\n",$du["ldapdn"]);
+    if (count($tdnu)>0) {
+      $dnu=$tdnu[0];
+      if ($dnu) $tdn[]=$dnu;
+    }
   }
   if (count($tdn)==0) $tdn="cn=nobody,dc=users,".$this->racine;
   return $tdn;
@@ -87,6 +89,10 @@ function RefreshGroup() {
    $err.=$this->SetGroupMail(($this->GetValue("US_IDDOMAIN")>1));
    $err.=$this->Modify();
    //  AddWarningMsg(sprintf("RefreshGroup %d %s",$this->id, $this->title));
+   if ($err == "") {
+     $this->setValue("grp_isrefreshed","1");
+     $this->modify(true,array("grp_isrefreshed"),true);
+   }
   return $err;
 }
 
@@ -275,6 +281,8 @@ function insertGroups() {
  */
 function insertMember($docid) { 
   $err = $this->AddFile($docid,"latest",true); // without postInsert
+  $this->setValue("grp_isrefreshed","0");
+  $this->modify(true,array("grp_isrefreshed"),true);
 
   return $err;
 }
@@ -287,6 +295,8 @@ function insertMember($docid) {
  */
 function deleteMember($docid) { 
   $err = $this->DelFile($docid,true); // without postInsert
+  $this->setValue("grp_isrefreshed","0");
+  $this->modify(true,array("grp_isrefreshed"),true);
 
   return $err;
 }

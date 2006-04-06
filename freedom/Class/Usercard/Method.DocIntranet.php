@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.15 2006/01/24 15:24:19 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.16 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -191,7 +191,8 @@ function setGroups() {
       //if ($user->isgroup=='Y')  $tgid[$user->id]=$user->id;
     }
   }
-  refreshGroups($tgid,true);
+  // it is now set in bacground
+  //  refreshGroups($tgid,true);
   
   return $err;
 }

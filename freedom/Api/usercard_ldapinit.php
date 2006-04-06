@@ -3,7 +3,7 @@
  * Initiate LDAP database
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_ldapinit.php,v 1.16 2006/01/26 10:50:29 eric Exp $
+ * @version $Id: usercard_ldapinit.php,v 1.17 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,7 +55,7 @@ $ldoc1 = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM","USE
 $ldoc2 = getChildDoc($dbaccess, 0,0,"ALL", array(),$action->user->id,"ITEM","IGROUP");
 $ldoc=array_merge($ldoc1,$ldoc2);
 $reste=countDocs($ldoc);
-
+$total=$reste;
 while ($doc=getNextDoc($dbaccess,$ldoc)) {
 
     //print $doc->title."\n";

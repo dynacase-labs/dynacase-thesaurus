@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.4 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.5 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -154,14 +154,16 @@ Class DocLDAP extends DbObj {
   function getMapAttributes() {
     include_once("FDL/Class.DocAttrLDAP.php");
     $fids=$this->GetFromDoc();
-
+    if (!$fids) return array();
     include_once("Class.QueryDb.php");
     $q=new QueryDb($this->dbaccess,"DocAttrLDAP");
+
+
     $q->AddQuery(getSqlCond($fids,"famid"));
     $q->order_by="famid,ldapclass";
     $l=$q->Query(0,0,"TABLE");
     $this->ldapmap=array();
-    if ($l) {
+    if ($l && is_array($l)) {
       foreach ($l as $v) {
 	$this->ldapmap[$v["ldapname"].$v["index"]]=$v;
       }

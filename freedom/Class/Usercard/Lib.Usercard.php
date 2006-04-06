@@ -3,7 +3,7 @@
  * Function utilities to manipulate users
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Usercard.php,v 1.3 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Lib.Usercard.php,v 1.4 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -65,15 +65,20 @@ function array_unset(&$t,$vp) {
 
 
 function refresgOneGroup($gid,$refresh) {
+  global $_SERVER;
   $g=new User("",$gid);
   if ($g->fid > 0) {
     $dbaccess=GetParam("FREEDOM_DB");
     $doc = new_Doc($dbaccess,$g->fid);
     if ($doc->isAlive()) {
+      if ($_SERVER['HTTP_HOST'] == "") print sprintf("\trefreshing %s\n",$doc->title);
       if ($refresh) $doc->refreshMembers();
       $doc->SetGroupMail(($doc->GetValue("US_IDDOMAIN")>1));
       $doc->modify();
       $doc->specPostInsert();
+      $doc->setValue("grp_isrefreshed","1");
+      $doc->modify(true,array("grp_isrefreshed"),true);
+      
     }
   }
 }

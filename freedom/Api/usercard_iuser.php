@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.13 2005/09/15 07:54:17 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.14 2006/04/06 16:48:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,7 +95,7 @@ if ($query->nb > 0)	{
     } else {
       // search in all usercard same title
       if ($mail != "") $filter = array("us_mail = '$mail'");
-      else $filter = array("lower(title) = '$title'");
+      else $filter = array("lower(title) = '".pg_escape_string($title)."'");
       $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
 			  getFamIdFromName($dbaccess,"USER"));
       if (count($tdoc) > 0) {
