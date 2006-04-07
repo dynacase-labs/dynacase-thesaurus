@@ -1,8 +1,8 @@
-#!/bin/sh
-# ---------------------------------------------------------
-# $Id: FREEDOM.cron.in,v 1.2 2005/11/10 16:00:36 eric Exp $
-# 
-# Distribued under GPL 2 licence terms
-# ---------------------------------------------------------
-
-psql freedom anakeen -f @prefix@/API/freedom_realclean.sql > /dev/null
+# $Id: FREEDOM.cron.in,v 1.3 2006/04/07 13:16:04 eric Exp $
+SHELL=/bin/bash	
+# Envoyer les résultats à Paul, sans tenir compte du propriétaire
+MAILTO=root
+# every 52 minutes (why not)
+*/52 * * * *    root . /etc/freedom.conf;$wpub/wsh.php --api=usercard_refreshgroup > /dev/null
+# every days at 01:05 
+5 1 * * * root psql freedom anakeen -f @prefix@/API/freedom_realclean.sql > /dev/null

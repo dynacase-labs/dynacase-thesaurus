@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.8 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: fusers_list.php,v 1.9 2006/04/07 13:16:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FUSERS
@@ -91,7 +91,7 @@ function fusers_list(&$action) {
   $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"TABLE", "IGROUP");
   $ngr=count($tdoc);
   if ($ngr>0) $action->lay->set("textgroup",sprintf(_("<b>%d group(s) to refresh</b>"),$ngr));
-  else $action->lay->set("textgroup",sprintf(_("no need to refresh group")));
+  else $action->lay->set("textgroup",sprintf(_("No need to refresh group")));
 }
 
 /**

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: USERCARD.app,v 1.20 2005/11/24 13:48:53 eric Exp $
+// $Id: USERCARD.app,v 1.21 2006/04/07 13:16:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Usercard/USERCARD.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -73,11 +73,6 @@ $action_desc = array (
    "layout"		=>"usercard_importvcard.xml",
    "acl"		=>"USERCARD_READ"
   ),                                                            
-  array(
-   "name"               =>"USERCARD_SEARCH",
-   "short_name"         =>N_("search usercard"),
-   "acl"                =>"USERCARD_READ"
-  ),
   array(
    "name"               =>"USERCARD_TAB",
    "short_name"         =>N_("tab usercard"),
