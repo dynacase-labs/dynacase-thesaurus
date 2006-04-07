@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.64 2006/03/26 20:58:10 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.65 2006/04/07 14:33:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -118,6 +118,7 @@ function _listress() {
 
 
   $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
+  $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->id);
 
   $lress = explode("|", $curress);
 
@@ -143,7 +144,6 @@ function _listress() {
   // Init popup
   $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
   include_once("FDL/popup_util.php");
-//   popupInit('resspopup',  array('displayress', 'rcalendar', 'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'rrendezvous', 'displayallr', 'hideallr', 'cancelress'));
   popupInit('resspopup',  array('displayress', 'rcalendar', 'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'rrendezvous', 'displayallr', 'hideallr'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
@@ -175,6 +175,12 @@ function _listress() {
       else $t[$i]["ROMODE"] =  ($writeaccess ? "false" : "true" );;
       if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
+
+      // Delegation
+      $dm = hasDelegation($rd->id); // -1 = no delegation 0 = partial 1 full
+      $t[$i]["DG_HAVE"] = ($rd->id==$action->user->fid || hasDelegation($rd->id)>-1 ? "true" : "false"); 
+      $t[$i]["DG_SELECTED"] = ($caledit == $rd->id ? "true" : "false" ); 
+
       PopupActive('resspopup', $rd->id, 'displayress');
       PopupActive('resspopup', $rd->id, 'changeresscolor');
       PopupActive('resspopup', $rd->id, 'rcalendar');
@@ -185,7 +191,6 @@ function _listress() {
       PopupActive('resspopup', $rd->id, 'rvprefered');
       PopupActive('resspopup', $rd->id, 'displayallr');
       PopupInvisible('resspopup', $rd->id, 'hideallr');
-//       PopupActive('resspopup', $rd->id, 'cancelress');
       
       $i++;
     }

@@ -54,7 +54,7 @@ function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro) {
   saveRessources();
 }
 
-function storeRessource(id, color, display, icon, descr, style, romode) {
+function storeRessource(id, color, display, icon, descr, style, romode, adhave, adselected) {
   idx = getRessourcePos(id);
   if (idx==-1)  {
     idx = ressourceList.length;
@@ -67,6 +67,9 @@ function storeRessource(id, color, display, icon, descr, style, romode) {
   ressourceList[idx][4] = descr;
   ressourceList[idx][5] = style;
   ressourceList[idx][6] = romode;
+  ressourceList[idx][7] = adhave;
+  ressourceList[idx][8] = adselected;
+ 
   if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
 }
 
@@ -87,7 +90,7 @@ function printRessource(i) {
   return m;
 }
 
-function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode ) {
+function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, adhave, adselected ) {
   var nTr;
   var tab;
 
@@ -115,7 +118,13 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode ) {
   document.getElementById(rid).className = rstyle;
   if (romode) document.getElementById('imro'+rid).style.display = '';
   else document.getElementById('imro'+rid).style.display = 'none';
-  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle, romode);
+  storeRessource(rid, rcolor, rstate, ricon, rdescr, rstyle, romode, adhave, adselected );
+
+  // delegation
+  if (adhave) document.getElementById('agd'+rid).style.display='block';
+  else document.getElementById('agd'+rid).style.display='none';
+  if (adselected) document.getElementById('agd'+rid).checked = true;
+  else document.getElementById('agd'+rid).checked = false;
 }
 
 var CRessId = -1;

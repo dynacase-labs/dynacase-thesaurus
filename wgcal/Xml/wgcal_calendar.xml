@@ -57,7 +57,7 @@ function editevent(title, url,nh,ts,te) {
 </script>
 <div style="background-color:yellow;" onclick="editevent( '[TEXT:event edition]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT',1,0,0)"> [ Edit ] </div>
 
-<div id="fastedit">
+<div style="display:none" id="fastedit">
 <div class="fasteditcontent">
 
 <table>
@@ -92,7 +92,7 @@ function fastEditSave() {
     if (scat.options[i].selected) fe_categorie = scat.options[i].value;
   }
   
-  var urlsend = "http://sn.marc.i-cesam.com/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&idp="+fePid+"&title="+fe_title+"&ts="+feStart+"&te="+feEnd;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&idp="+fePid+"&title="+fe_title+"&ts="+feStart+"&te="+feEnd;
   calInfo(urlsend);
   var rq;
   try {

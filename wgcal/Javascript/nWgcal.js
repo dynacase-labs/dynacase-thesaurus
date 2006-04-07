@@ -46,7 +46,7 @@ function getCalEvent(pid) {
       }
     }
   }
-  var urlsend = "http://sn.marc.i-cesam.com/freedom/index.php?sole=Y&app=WGCAL&action=WGCAL_VIEWEVENT&id="+pid;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_VIEWEVENT&id="+pid;
   rq.open("GET", urlsend, true);
   rq.send(null);
 }

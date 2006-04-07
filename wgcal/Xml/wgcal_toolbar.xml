@@ -36,7 +36,7 @@
         flat           :    "vnav",
         flatCallback   :    WGCalSetDate
     });</script>
-<div align="center" width=100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
+<div align="center" width="100%" id="cal2" style="display:none"><script type="text/javascript">Calendar.setup({
         ifFormat       :    '%s',       // format of the input field
         showsTime      :    false,            // will display a time selector
         singleClick    :    false,           // double-click mode
@@ -111,6 +111,7 @@
     onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
 &nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%&nbsp;<img id="imro%RID%" height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">
 </td>
+<td align="right" style="border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="alert('%RDESCR% (%RID%)')"></td>
 </tr>
 </tbody>
 
@@ -129,7 +130,7 @@
 var  toolList = new Array( [IF NavDate]'nav',[ENDIF NavDate] 'cals', 'waitrv', 'todo', 'contacts');
 
 [BLOCK L_RESS]
-InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]', [ROMODE]);[ENDBLOCK L_RESS]
+InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]', [ROMODE], [DG_HAVE], [DG_SELECTED] );[ENDBLOCK L_RESS]
 var MyFreedomId = [MyFreedomId];
 saveRessources();
 
