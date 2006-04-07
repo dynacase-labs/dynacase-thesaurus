@@ -14,7 +14,8 @@ ATTR;US_LNAME;US_FR_IDENT;nom;Y;N;text;20;W;Y;;;;;;
 ATTR;US_FNAME;US_FR_IDENT;prénom;Y;N;text;30;W;;;;;;;
 ATTR;US_PHOTO;US_FR_IDENT;photographie;N;N;image;40;W;;;;;;;
 ATTR;US_INITIALS;US_FR_IDENT;initiales;N;N;text;50;W;;;;;;;
-ATTR;US_FR_COORD;;Coordonnées;N;N;frame;60;W;;;;;;;
+ATTR;US_TAB_SOC;;Professionnel;N;N;tab;;W;;;;;;;
+ATTR;US_FR_COORD;US_TAB_SOC;Coordonnées professionelles;N;N;frame;60;W;;;;;;;
 ATTR;US_MAIL;US_FR_COORD;mail;N;Y;text;70;W;;mailto:%US_MAIL%;;;;;
 ATTR;US_PHONE;US_FR_COORD;téléphone;N;Y;text;80;R;;;;;;;esize=12
 ATTR;US_PPHONE;US_FR_COORD;téléphone direct;N;N;text;90;O;;;usercard.php;getSphone(D,US_IDSOCIETY):US_PPHONE;;;esize=12
@@ -22,7 +23,9 @@ ATTR;US_INTPHONE;US_FR_COORD;n°poste;N;N;text;100;W;;;;;;;esize=12
 ATTR;US_PFAX;US_FR_COORD;fax direct;N;N;text;110;O;;;usercard.php;getSFax(D,US_IDSOCIETY):US_PFAX;;;esize=12
 ATTR;US_FAX;US_FR_COORD;fax;N;N;text;120;R;;;;;;;esize=12
 ATTR;US_MOBILE;US_FR_COORD;mobile;N;N;text;130;W;;;;;;;esize=12
-ATTR;US_FR_SOC;;Société;N;N;frame;1000;W;;;;;;;
+ATTR;US_IDSECR;US_FR_COORD;id secrétaire;N;N;docid;140;H;;;;;;;
+ATTR;US_SECR;US_FR_COORD;secrétaire;N;N;text;150;W;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%US_IDSECR%;fdl.php;lfamily(D,USER,US_SECR):US_IDSECR,US_SECR;;;
+ATTR;US_FR_SOC;US_TAB_SOC;Société;N;N;frame;1000;W;;;;;;;
 ATTR;US_IDSOCIETY;US_FR_SOC;id société;N;N;docid;1010;H;;;;;;;
 ATTR;US_SOCADDR;US_FR_SOC;même adresse ?;N;N;text;1020;H;;;;;;;
 ATTR;US_SOCIETY;US_FR_SOC;site société;N;Y;text;1030;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDSOCIETY%;usercard.php;lsite(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%US_IDSOCIETY%&classid={SOCIETY}&si_society=%US_SOCIETY%;;
@@ -36,11 +39,22 @@ ATTR;US_WORKCEDEX;US_FR_SOC;cedex;N;N;text;1100;W;;;;;;;esize=7
 ATTR;US_COUNTRY;US_FR_SOC;pays;N;N;text;1110;W;;;;;;;
 ATTR;US_WORKWEB;US_FR_SOC;web;N;N;text;1120;W;;http://%US_WORKWEB%;;;;;
 ATTR;US_SCATG;US_FR_SOC;catégorie;N;N;enumlist;1130;W;;;usercard.php;enumscatg();;;
-ATTR;US_FR_PRIVACY;;confidentialité;N;N;frame;1140;W;;;;;;;
-ATTR;US_PRIVCARD;US_FR_PRIVACY;niveau de restriction;N;N;enum;1150;W;;;;W|publique - accès écriture,R|publique - accès lecture,P|privée,G|groupes,S|spécifique;;;system=yes|bmenu=no
-ATTR;US_T_PRIVGROUPS;US_FR_PRIVACY;groupe restreint;N;N;array;1160;W;;;;;;;
-ATTR;US_IDPRIVGROUP;US_T_PRIVGROUPS;id groupe autorisé;N;N;docid;1170;H;;;;;;;
-ATTR;US_PRIVGROUP;US_T_PRIVGROUPS;groupe autorisé;N;N;text;1180;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDPRIVGROUP%;fdl.php;lfamily(D,IGROUP,US_PRIVGROUP):US_IDPRIVGROUP,US_PRIVGROUP;;;
+ATTR;US_TAB_HOME;;Personnel;N;N;tab;;W;;;;;;;
+ATTR;US_FR_HOMECOORD;US_TAB_HOME;Coordonnées personnelles;N;N;frame;1140;W;;;;;;;
+ATTR;US_HOMEMAIL;US_FR_HOMECOORD;mail;N;N;text;1200;W;;mailto:%US_HOMEMAIL%;;;;;
+ATTR;US_HOMEPHONE;US_FR_HOMECOORD;téléphone;N;N;text;1210;W;;;;;;;esize=12
+ATTR;US_HOMEMOBILE;US_FR_HOMECOORD;mobile;N;N;text;1220;W;;;;;;;esize=12
+ATTR;US_HOMEADDR;US_FR_HOMECOORD;adresse;N;N;longtext;1230;W;;;;;;;
+ATTR;US_HOMEPOSTALCODE;US_FR_HOMECOORD;code postal;N;N;text;1240;W;;;;;;;esize=5
+ATTR;US_HOMETOWN;US_FR_HOMECOORD;ville;N;N;text;1250;W;;;;;;;
+ATTR;US_HOMECEDEX;US_FR_HOMECOORD;cedex;N;N;text;1260;W;;;;;;;esize=7
+;;;;;;;;;;;;;;;
+ATTR;US_TAB_PRIVACY;;sécurité;N;N;tab;1300;W;;;;;;;
+ATTR;US_FR_PRIVACY;US_TAB_PRIVACY;confidentialité;N;N;frame;1300;W;;;;;;;
+ATTR;US_PRIVCARD;US_FR_PRIVACY;niveau de restriction;N;N;enum;1310;W;;;;W|publique - accès écriture,R|publique - accès lecture,P|privée,G|groupes,S|spécifique;;;system=yes|bmenu=no
+ATTR;US_T_PRIVGROUPS;US_FR_PRIVACY;groupe restreint;N;N;array;1320;W;;;;;;;
+ATTR;US_IDPRIVGROUP;US_T_PRIVGROUPS;id groupe autorisé;N;N;docid;1330;H;;;;;;;
+ATTR;US_PRIVGROUP;US_T_PRIVGROUPS;groupe autorisé;N;N;text;1340;W;;%S%&app=FDL&action=FDL_CARD&id=%US_IDPRIVGROUP%;fdl.php;lfamily(D,IGROUP,US_PRIVGROUP):US_IDPRIVGROUP,US_PRIVGROUP;;;
 ATTR;US_VCARD;;Vcard;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_VCARD&id=%I%;;;;;ltarget=_self
 ATTR;US_INITLDAP;;Initialisation LDAP;N;N;menu;0;W;;%S%&app=FUSERS&action=FUSERS_LDAPINIT;;::canExecute(FUSERS,FUSERS_LDAPINIT);;;global=yes|onlyglobal=yes|lconfirm=yes
 ATTR;US_IMPORTVCARD;;Importation VCARD;N;N;menu;0;W;;%S%&app=USERCARD&action=USERCARD_EDITIMPORTVCARD;;::canExecute(USERCARD,USERCARD_IMPORTVCARD);;;global=yes|onlyglobal=yes|lconfirm=no|ltarget=finfo
@@ -72,7 +86,8 @@ ATTR;GRP_RUSER;GRP_RUSERS;membre;N;N;text;590;R;;%S%app=FDL&action=FDL_CARD&late
 ATTR;GRP_PARENT;GRP_FR;groupes parents;N;N;array;600;R;;;;;;;
 ATTR;GRP_PGROUP;GRP_PARENT;groupe parent;N;N;text;610;R;;%S%app=FDL&action=FDL_CARD&latest=Y&id=%GRP_IDPGROUP%;;;;;
 ATTR;GRP_IDPGROUP;GRP_PARENT;id groupe;N;N;docid;620;H;;;;;;;
-ATTR;GRP_REFRESH;;Raffraichir;N;N;menu;0;M;;[_self]%S%app=FDL&action=FDL_METHOD&method=refreshGroup&id=%I%;;;;;
+ATTR;GRP_ISREFRESHED;GRP_FR;est raffraichi;N;N;enum;630;H;;;;1|oui,0|non;;;system=yes
+ATTR;GRP_REFRESH;;Raffraichir;N;N;menu;0;W;;[_self]%S%app=FDL&action=FDL_METHOD&method=refreshGroup&id=%I%;;;;;
 ATTR;FR_BASIC;;basique;N;N;frame;0;H;;;;;;;
 ATTR;BA_TITLE;FR_BASIC;titre;N;N;text;1;H;N;;;;;;
 ATTR;FLD_FR_REST;;Restrictions;N;N;frame;0;H;;;;;;;
@@ -235,7 +250,7 @@ METHOD;Method.DocSite.php;;;;;;;;;;;;
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------;;;;;;;;;;;;;
 ;;;;;;;;;;;;;
 ATTR;SI_IDSOC;SI_FR_IDENT;id société;N;N;text;11;H;N;;;::getTitle(SI_IDSOC):SI_SOCIETY;
-ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%SI_IDSOC%&classid={SOCIETY}&si_society=%SI_SOCIETY%
+ATTR;SI_SOCIETY;SI_FR_IDENT;société;Y;N;text;31;W;Y;%S%&app=FDL&action=FDL_CARD&id=%SI_IDSOC%;usercard.php;lsociety(D,SI_SOCIETY):SI_IDSOC,SI_SOCIETY;%S%app=GENERIC&action=GENERIC_EDIT&id=%SI_IDSOC%&classid=SOCIETY&si_society=%SI_SOCIETY%
 ATTR;SI_LOCAL;SI_FR_IDENT;nom;Y;N;text;32;W;N;;;;
 ATTR;SI_TOWN;SI_FR_COORD;ville;Y;N;text;130;W;Y;;;;
 END;0;;;;;;;;;;;;
