@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: faddbook_menu.php,v 1.2 2005/12/02 17:28:28 eric Exp $
+ * @version $Id: faddbook_menu.php,v 1.3 2006/04/07 14:04:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,6 +58,7 @@ function faddbook_menu(&$action) {
     if ($v->getOption("global")=="yes") {
       $confirm=($v->getOption("lconfirm")=="yes");
       $tmenu[$k]=array("mid"=>$v->id,
+		       "mtarget"=>($v->getOption("ltarget")!="")?$v->getOption("ltarget"):$v->id,
 		       "mtitle"=>$v->labelText,
 		       "confirm"=>($confirm)?"true":"false",
 		       "tconfirm"=>($confirm)?sprintf(_("Sure %s ?"),addslashes($v->labelText)):"",
