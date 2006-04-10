@@ -78,7 +78,7 @@ function initCalEvent(pid) {
   with (nev) {
     id = 'EVTC'+pid;
     name = 'EVTC'+pid;
-    innerHTML = '<span style="color:white; background-color:red">Waiting server...</span>';
+    innerHTML = '<div style="border:3px outset white; color:black; background-color:white"><img src="WGCAL/Images/fcal-wait.gif"> Waiting server...</div>';
     style.display = 'block';
     style.position = 'absolute';
   }

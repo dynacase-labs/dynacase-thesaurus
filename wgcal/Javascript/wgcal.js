@@ -108,6 +108,41 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
     elt.src = img1;
   }
 }
+ 
+function fcalChangeUPrefDbg() {
+  var argv = fcalChangeUPrefDbg.arguments;
+  var argc = argv.length;
+  var sdb = 'fcalChangeUPrefDbg(';
+  for (var i = 0; i < argc; i++) {
+    sdb = sdb + '\n argv['+i+'] = {'+argv[i] + '}';
+  }
+  sdb += '\n)';
+  alert(sdb);
+}
+
+function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
+  var rq;
+  try {
+    rq = new XMLHttpRequest();
+  } catch (e) {
+    rq = new ActiveXObject("Msxml2.XMLHTTP");
+  }
+  rq.uid = uid;
+  rq.pname = pname;
+  rq.pvalue = pvalue;
+  rq.paction = paction;
+  rq.jspost = jspost;
+  rq.onreadystatechange =  function() {
+    if (rq.readyState == 4) {
+      if (rq.responseText && rq.status==200) {
+	if (rq.jspost) rq.jspost(rq.uid, rq.pname, rq.pvalue, rq.paction, rq.status, rq.responseText);
+      }
+    }
+  }
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+rq.uid+"&pname="+rq.pname+"&pvalue="+rq.pvalue;  if (rq.paction) urlsend += '&taction='+rq.paction;
+  rq.open("GET", urlsend, true);
+  rq.send(null);
+}
 
 function changeUPref(uid, name, value, target, taction) {
    usetparam(uid, name, value, target, taction);
@@ -134,8 +169,6 @@ function usetparam(uid, name, value, updatetarget, updateaction)
   }
   taction.value = updateaction;
   fset.target = updatetarget;
-
-  //alert('USETPARAM['+document.getElementById('uid').value+'] '+document.getElementById('pname').value+'='+document.getElementById('pvalue').value+' [-->'+fset.target+'::'+taction.value+']');
 
   fset.submit();
 }
@@ -174,6 +207,8 @@ function WGCalSaveToolsVisibility() {
       s +=  toolList[i]+'%'+v;
     }
   }
-  usetparam(-1, 'WGCAL_U_TOOLSSTATE', s, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  fcalChangeUPref(-1,'WGCAL_U_TOOLSSTATE', s, null, fcalChangeUPrefDbg); // fcalChangeUPrefDbg);
 }
+
+
                                                                                                                    

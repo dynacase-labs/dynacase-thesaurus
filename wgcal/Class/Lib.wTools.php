@@ -440,6 +440,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   foreach ($events as $k=>$v) {
     $events[$k]["rg"] = $rg++;
     $ev = getDocObject($dbaccess, $v);
+    $events[$k]["evt_title"] = addslashes($events[$k]["evt_title"]);
     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);

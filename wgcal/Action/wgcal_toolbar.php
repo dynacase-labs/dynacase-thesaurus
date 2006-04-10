@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.65 2006/04/07 14:33:45 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.66 2006/04/10 08:00:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -118,7 +118,7 @@ function _listress() {
 
 
   $curress = $action->GetParam("WGCAL_U_RESSDISPLAYED", "");
-  $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->id);
+  $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
 
   $lress = explode("|", $curress);
 

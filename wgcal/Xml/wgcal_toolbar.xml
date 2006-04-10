@@ -101,8 +101,8 @@
 <table style="border:0px; margin:0px; padding:0px; width:100%;" cellspacing="0" cellpadding="0">
 <thead></thead>
 <tbody id="tabress">
-
 <tr style="display:none; border:0px;" id="trsample">
+<td style="border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="fcalChangeUPref(-1, 'WGCAL_U_DCALEDIT', %RID%)"></td>
 <td width="6px" id="cp%RID%" style="border: 1px outset">&nbsp;</td>
 <td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
@@ -111,7 +111,6 @@
     onContextMenu="CRessId=this.id; openMenu(event,'resspopup', CRessId); return false">
 &nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%&nbsp;<img id="imro%RID%" height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">
 </td>
-<td align="right" style="border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="alert('%RDESCR% (%RID%)')"></td>
 </tr>
 </tbody>
 
