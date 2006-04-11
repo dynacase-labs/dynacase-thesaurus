@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.300 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.301 2006/04/11 09:39:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1656,7 +1656,7 @@ final public function PostInsert()  {
       $oattr=$this->GetAttribute($attrid);
       if ($oattr === false) return sprintf(_("attribute %s unknow in family %s [%d]"),$attrid, $this->title, $this->id);
       if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
-      if ($value == " ") {
+      if ($value === " ") {
 	$value=""; // erase value
 	if  ($this->$attrid != "") {
 	  $this->hasChanged=true;
