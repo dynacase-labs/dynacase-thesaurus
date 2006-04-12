@@ -1,9 +1,14 @@
-# $Revision: 1.11 $, $Date: 2005/09/06 09:40:00 $
+# $Revision: 1.12 $, $Date: 2006/04/12 07:58:01 $
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what_access
 Version:	0.3.3
-Release:	1
+%if %{cerbere}
+Release: 2
+%else
+Release: 2.fc5
+%endif
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -61,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what_access.spec,v $
+Revision 1.12  2006/04/12 07:58:01  eric
+Fedora FC5
+
 Revision 1.11  2005/09/06 09:40:00  eric
 security prevent sql inject
 

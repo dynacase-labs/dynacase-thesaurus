@@ -157,8 +157,8 @@ int HasPrivilege(int iduser,
 PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 				    int argc, const char **argv)
 {
-  int retval, i;
-  const char  *userdomain, *passwd;
+  int retval;
+  const char  *userdomain;
   char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
   char query[BUFLEN];
   db_result *result=NULL;
