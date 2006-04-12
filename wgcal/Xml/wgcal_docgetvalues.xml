@@ -1,0 +1,4 @@
+var docValues = { [BLOCK values]
+  [attr] : '[value]',[ENDBLOCK values]
+  status : [status],
+  statustext : '[statustext]' };

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.82 2006/04/12 06:07:01 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.83 2006/04/12 16:44:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -254,7 +254,6 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
   $action->lay->SetBlockData("EVENTS", $tout);
-  $action->lay->SetBlockData("EVENTDIV", $tout);
 
   setThemeValue();
 

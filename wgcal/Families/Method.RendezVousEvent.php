@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.22 2006/03/31 07:19:29 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.23 2006/04/12 16:44:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -15,64 +15,109 @@ var $calVLongText   = "WGCAL:CALEV_VIEWLTEXT";
 var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
 
 
-var $wcalResume     = "WGCAL:WCALRESUME";
-
-function wcalResume() {
+/*
+ * 
+ */
+function getDisplayAttr() {
   global $action;
   include_once("WGCAL/Lib.wTools.php");
+  $myid = $action->user->fid;
+  $attrd = array( "icons" => array(),
+		  "bgColor" => "lightblue",
+		  "fgColor" => "black",
+		  "topColor" => "lightblue",
+		  "rightColor" => "lightblue",
+		  "bottomColor" => "lightblue",
+		  "leftColor" => "lightblue",
+		  );
+  if ($this->getValue( "evfc_iconlist")!='') {
+    $icol = explode('|',$this->getValue( "evfc_iconlist"));
+    foreach ($icol as $k => $v) if ($v!='') $icol[$k] = "'".$v."'";
+    $attrd["icons"] = implode(',', $icol);
+  } else {
+    $attrd["icons"] = "";
+  }
+  $ressd = $this->getRMatrix();
+  $attrd["bgColor"] =  $this->getDisplayColor($ressd);
+  if (count($ressd)>1 && isset($ressd[$myid]) && $ressd[$myid]["displayed"] && $ressd[$myid]["state"]!=-1) 
+    $attrd["topColor"]  = WGCalGetColorState($ressd[$myid]["state"], $attrd["bgColor"]);
+  else $attrd["topColor"] = $attrd["bgColor"];
 
-  $this->lay->set("id", $this->id);
-  $this->lay->set("pid", $this->getValue("evt_idinitiator"));
-  $this->lay->set("title", $this->getValue("evt_title"));
-
-  $mycolor = wgcalGetRColor($action->user->fid);
-  $this->lay->set("bgcolor", $mycolor);
-  $this->lay->set("textcolor", "#000000");
-  
-  // Categories
-  $this->lay->set("hasCat", false);
+  $attrd["rightColor"] = $attrd["bgColor"];
+  $attrd["bottomColor"] = $attrd["bgColor"];
+  $attrd["leftColor"] = $attrd["bgColor"];
+  $cat = $this->getValue("evt_code");
   $catg = wGetCategories();
-  $cat = $this->getValue("evfc_category");
-  if ($cat>0) {
+  if ($catg>0) {
     foreach ($catg as $k=>$v) {
-      if ($v["id"] == $cat) {
-	$this->lay->set("category", $v["label"]);
-	$this->lay->set("catcolor", $v["color"]);
-	$this->lay->set("hasCat", true);
-      }
+      if ($v["id"] == $cat) $attrd["leftColor"] = $v["color"];
     }
   }
-
-  // Creator tag
-  $this->lay->set("MeCreator", false);
-  if ($this->getValue("evfc_ownerid")!=$this->getValue("evfc_creatorid") && $this->getValue("evfc_creatorid")==$action->user->fid) {
-    $this->lay->set("mycolor", $mycolor);
-    $this->lay->set("MeCreator", true);
-  }
-
-  // Acceptation status
-  $attfids = $this->getTValue("evfc_listattid");
-  $attstat = $this->getTValue("evfc_listattst");
-  $headSet = false;
-  $mystate = $mycolor;
-  if (count($attfids)>1) {
-    foreach ($attfids as $k => $v) {
-      if ($v==$action->user->fid) {
-	$headSet = true;
-	$mystate = WGCalGetColorState($attstat[$k]);
-      }
-    }
-  }
-  $this->lay->set("headSet", $headSet);
-  $this->lay->set("rvstate", $mystate);
-  $state = WGCalGetColorState($mystate, "white");
-
-
-  // Icons
-  $icom = $this->getValue("evfc_icomask");
-  $ticons = wGetIcons($icom);
-  $this->lay->setBlockData("icons", $ticons);
+  return $attrd;
 }
+
+
+function getRMatrix() {
+  global $action;
+  $attids = $this->getTValue("evfc_listattid");
+  $attsta = $this->getTValue("evfc_listattst");
+  $attref = $this->getTValue("evfc_rejectattid");
+
+  $ressd = array();
+  foreach ($attids as $k => $v) {
+    if (! isset($ressd[$v]) ) {
+      $ressd[$v]["state"] = $attsta[$k];
+      $ressd[$v]["displayed"] = false;
+      $ressd[$v]["color"] = "white";
+    }
+  }
+  foreach ($attref as $k => $v) {
+    $ressd[$v]["state"] = -1;
+    $ressd[$v]["displayed"] = false;
+    $ressd[$v]["color"] = "white";
+  }
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  while (list($k,$v) = each($cals)) {
+    if ($v!="") {
+      $tc = explode("%", $v);
+      if ($tc[0] != "" && isset($ressd[$tc[0]])) {
+	$ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
+	$ressd[$tc[0]]["color"] = $tc[2];
+      }
+    }
+  }
+  return $ressd;
+}
+  
+
+
+function getDisplayColor($ressd) {
+
+  global $action;
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  $myid = $action->user->fid;
+  $ownerid = $this->getValue("evt_idcreator");
+
+  $color = "";
+  if (isset($ressd[$myid]) 
+      && (($ressd[$myid]["state"]==-1 && $showrefused==1) || $ressd[$myid]["state"]!=-1 )
+      && $ressd[$myid]["displayed"]) {
+    $color = $ressd[$myid]["color"];
+  } else {
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=-1 &&  $ressd[$ownerid]["displayed"]) {
+      $color = $ressd[$ownerid]["color"];
+    } else {
+      while ((list($k,$v) = each($ressd)) && $color=="") {
+	if ($v["state"]!=-1 && $v["displayed"]) {
+	  $color = $v["color"];
+	}
+      }
+    }
+  }
+  $color = ($color!=""?$color:"#d2f5f7");
+  return $color;
+}
+  
 
 
 function explodeEvt($d1, $d2) {

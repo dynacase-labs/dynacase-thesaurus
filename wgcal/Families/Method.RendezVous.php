@@ -57,17 +57,19 @@ function getEventRessources() {
 function  setEventSpec(&$e) {
   include_once('EXTERNALS/WGCAL_external.php');
   include_once('WGCAL/Lib.wTools.php');
-  $e->setValue("EVT_IDCREATOR", $this->getValue("CALEV_OWNERID"));
-  $e->setValue("EVT_CREATOR", $this->getValue("CALEV_OWNER"));
-  $e->setValue("EVT_DESC", $this->getValue("CALEV_EVNOTE"));
-  $e->setValue("EVT_CODE", $this->getValue("CALEV_CATEGORY"));
-  $e->setValue("EVFC_VISIBILITY", $this->getValue("CALEV_VISIBILITY"));
-  $e->setValue("EVFC_REALENDDATE", $this->getValue("CALEV_END"));
-  $e->setValue("EVFC_REPEATMODE", $this->getValue("CALEV_REPEATMODE"));
-  $e->setValue("EVFC_REPEATWEEKDAY", $this->getValue("CALEV_REPEATWEEKDAY"));
-  $e->setValue("EVFC_REPEATMONTH", $this->getValue("CALEV_REPEATMONTH"));
-  $e->setValue("EVFC_REPEATUNTIL", $this->getValue("CALEV_REPEATUNTIL"));
-  $e->setValue("EVFC_REPEATUNTILDATE", $this->getValue("CALEV_REPEATUNTILDATE"));
+
+  $e->setValue("evt_idcreator", $this->getValue("calev_ownerid"));
+  $e->setValue("evt_creator", $this->getValue("calev_owner"));
+  $e->setValue("evfc_idowner", $this->getValue("calev_ownerid"));
+  $e->setValue("evt_desc", $this->getValue("calev_evnote"));
+  $e->setValue("evt_code", $this->getValue("calev_category"));
+  $e->setValue("evfc_visibility", $this->getValue("calev_visibility"));
+  $e->setValue("evfc_realenddate", $this->getValue("calev_end"));
+  $e->setValue("evfc_repeatmode", $this->getValue("calev_repeatmode"));
+  $e->setValue("evfc_repeatweekday", $this->getValue("calev_repeatweekday"));
+  $e->setValue("evfc_repeatmonth", $this->getValue("calev_repeatmonth"));
+  $e->setValue("evfc_repeatuntil", $this->getValue("calev_repeatuntil"));
+  $e->setValue("evfc_repeatuntildate", $this->getValue("calev_repeatuntildate"));
   
   if ($this->getValue("calev_evalarm", 0)==1) {
     $htime = w_dbdate2ts($this->getValue("calev_start"));
@@ -81,25 +83,25 @@ function  setEventSpec(&$e) {
   $e->setValue("evfc_alarmh", $this->getValue("calev_evalarmhour", 0));
   $e->setValue("evfc_alarmm", $this->getValue("calev_evalarmmin", 0));
     
-  $tv = $this->getTValue("CALEV_EXCLUDEDATE");
-  $e->deleteValue("EVFC_EXCLUDEDATE");
+  $tv = $this->getTValue("calev_excludedate");
+  $e->deleteValue("evfc_excludedate");
   if (count($tv)>0) {
     foreach ($tv as $kv => $vv) {
       $texc[] = $vv;
     }
-    $e->setValue("EVFC_EXCLUDEDATE", $texc);
+    $e->setValue("evfc_excludedate", $texc);
   }
-  $e->setValue("EVFC_REPEATFREQ", $this->getValue("CALEV_FREQUENCY"));
-  if ($this->getValue("CALEV_REPEATMODE") > 0) {
-    $renddate = ($this->getValue("CALEV_REPEATUNTIL")==1 ? $this->getValue("CALEV_REPEATUNTILDATE") : jd2cal((5000001), 'FrenchLong') );
+  $e->setValue("evfc_repeatfreq", $this->getValue("calev_frequency"));
+  if ($this->getValue("calev_repeatmode") > 0) {
+    $renddate = ($this->getValue("calev_repeatuntil")==1 ? $this->getValue("calev_repeatuntildate") : jd2cal((5000001), 'FrenchLong') );
     $e->setValue("evt_enddate", $renddate);
   }
 
 
-  $tattid = $this->getTValue("CALEV_ATTID");
-  $tattwid = $this->getTValue("CALEV_ATTWID");
-  $tattst = $this->getTValue("CALEV_ATTSTATE");
-  $tattgp = $this->getTValue("CALEV_ATTGROUP");
+  $tattid = $this->getTValue("calev_attid");
+  $tattwid = $this->getTValue("calev_attwid");
+  $tattst = $this->getTValue("calev_attstate");
+  $tattgp = $this->getTValue("calev_attgroup");
   $nattid = array(); $nattst = array(); $iatt = 0;
   $rejattid = array();  $iratt = 0;
   foreach ($tattid as $ka => $va) {
@@ -111,16 +113,20 @@ function  setEventSpec(&$e) {
       $iratt++;
     }
   }
-  if (count($nattid)==0) $e->deleteValue("EVFC_LISTATTID");
+  if (count($nattid)==0) $e->deleteValue("evfc_listattid");
   else {
-    $e->setValue("EVFC_LISTATTID", $nattid);
-    $e->setValue("EVFC_LISTATTST", $nattst);  
+    $e->setValue("evfc_listattid", $nattid);
+    $e->setValue("evfc_listattst", $nattst);  
   }
-  if (count($rejattid)==0)  $e->deleteValue("EVFC_REJECTATTID");  
-  else $e->setValue("EVFC_REJECTATTID", $rejattid);  
+  if (count($rejattid)==0)  $e->deleteValue("evfc_rejectattid");  
+  else $e->setValue("evfc_rejectattid", $rejattid);  
 
-  $e->setValue("EVFC_CALENDARID", $this->getValue("CALEV_EVCALENDARID"));
+  $e->setValue("evfc_calendarid", $this->getValue("calev_evcalendarid"));
   
+  $icons = $this->showIcons();
+  $icol = "";
+  foreach ($icons as $k => $v) $icol .= ($icol==""?"":"|").$v["iconsrc"];
+  $e->setValue("evfc_iconlist", $icol);
   $e->SetProfil($this->id);
 }
 
@@ -396,7 +402,13 @@ function RendezVousView() {
     }
   }
       
-  $this->showIcons($private, $me_attendee);
+  $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 1);
+  if ($sico==1) {
+    $icons = $this->showIcons();
+    $this->lay->SetBlockData("icons", $icons);
+  } else {
+    $this->lay->SetBlockData("icons", null);
+  }
 
   $this->ev_showattendees($ressd, $private, $bgresumecolor);
 
@@ -412,7 +424,7 @@ function RendezVousView() {
 /*
  *
  */
-function showIcons($private, $withme) {
+function showIcons() {
   global $action;
   $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
 				      "icontitle" => _("icon text confidential event") ),
@@ -433,22 +445,23 @@ function showIcons($private, $withme) {
 		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
 				     "icontitle" => _("icon text with attendees") )
 		   );
+  $myid = $action->user->fid;
+  $ressd = wgcalGetRessourcesMatrix($this->id);
+  $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
+  $private = $this->isConfidential();
   $icons = array();
-  $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 1);
-  if ($sico == 1) {
-    if ($private)  $icons[] = $ricons["CONFID"];
-    else {
-      if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
-      if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_CONFI"];
-      if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
-      if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = $ricons["VIS_PRIV"];
-      if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
-      if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
-      if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
-      if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = $ricons["ALARM"];
-    }
+  if ($private)  $icons[] = $ricons["CONFID"];
+  else {
+    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
+    if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_CONFI"];
+    if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
+    if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = $ricons["VIS_PRIV"];
+    if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
+    if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
+    if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
+    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = $ricons["ALARM"];
   }
-  $this->lay->SetBlockData("icons", $icons);
+  return $icons;
 }
 
 

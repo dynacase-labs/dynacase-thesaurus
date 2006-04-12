@@ -217,7 +217,7 @@ function OutCalendarCell(ev, elt, lref, cref, cclass, hourclass, dayclass) {
 }
 
 // --------------------------------------------------------
-function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart, ydivc, ydmin) {
+function fcalInitView(idstart, idend, xdiv, ydiv, ystart, ydivc, ydmin) {
   IdStart     = idstart;
   IdEnd       = idend;	
   XDays       = parseInt(xdiv);
@@ -225,14 +225,14 @@ function WGCalViewInit(idstart, idend, xdiv, ydiv, ystart, ydivc, ydmin) {
   Ydivision   = parseInt(ydiv);
   YDivCount   = parseInt(ydivc);
   YDivMinute  = parseInt(ydmin);
-  WGCalComputeCoord();
+  fcalComputeCoord();
 }
 
 
 
 
 // --------------------------------------------------------
-function WGCalComputeCoord() {
+function fcalComputeCoord() {
 
   var gamma = 0; //0.25;
   var ida=0;
@@ -317,7 +317,6 @@ function WGCalAddEvent(nev)
   var tstart = Events[nev].start;
   var tend  = Events[nev].end;
 
-  calInfo('processing event '+nev+' #'+Events[nev].id);
   if (tend<tstart) {
     t = tend;
     tend = tstart;
@@ -386,12 +385,27 @@ function WGCalAddEvent(nev)
   }
 }
 
+function fcalInitEvents() {
+  var iev;
+  for (iev=0; iev<Events.length; iev++) {
+    fcalDisplayEvent(iev);
+    WGCalAddEvent(iev);
+  }
+}
+
+function fcalShowEvents() {
+  var iday; 
+  for (iday=0; iday<XDays; iday++) {
+    if (Days[iday].view) WGCalDisplayDailyEvents(Days[iday].ev);
+  }
+}
   
 function WGCalDisplayAllEvents() {
   var iday; 
   var iev;
   for (iev=0; iev<Events.length; iev++) {
-     WGCalAddEvent(iev);
+    fcalDisplayEvent(iev);
+    WGCalAddEvent(iev);
   }
   for (iday=0; iday<XDays; iday++) {
     if (Days[iday].view) WGCalDisplayDailyEvents(Days[iday].ev);
@@ -524,3 +538,59 @@ function WGCalDisplayEvent(cEv, ncol) {
   root.appendChild(eE);
   return;
 }
+
+
+function fcalDisplayEvent(ie) {
+  
+  if (!fcalExistEvent(ie)) fcalCreateEvent(ie);
+  
+}
+
+function fcalExistEvent(ie) {
+  if (document.getElementById('evt'+ie)) return true;
+  return false;
+}
+
+function fcalCreateEvent(ie) {
+  if (fcalExistEvent(ie)) return true;
+  var  root = document.getElementById(Root);
+
+  var rnev = document.createElement('div');
+  rnev.setAttribute('id', 'evt'+ie);
+  rnev.setAttribute('name', 'evt'+ie);
+  rnev.style.setProperty('overflow', 'hidden', '');
+  rnev.className = 'wEvResume';
+  root.appendChild(rnev);
+    
+
+  var nev = document.createElement('div');
+  var inhtml = '('+Events[ie].idp+')';
+  with (nev) { 
+    setAttribute('id', '_evt'+ie);
+    setAttribute('name', '_evt'+ie);
+    setAttribute('onmouseover', 'fcalStartEvDisplay(event, '+Events[ie].idp+')');
+    setAttribute('onmouseout', 'fcalCancelEvDisplay('+Events[ie].idp+')');
+    setAttribute('onclick', 'fcalFastEditEvent(event,'+Events[ie].idp+')');
+    setAttribute('oncontextmenu', 'fcalOpenMenuEvent(event,'+Events[ie].id+')');
+    if (Events[ie].icons.length>0) {
+      for (var iic=0; iic<Events[ie].icons.length; iic++) {
+	inhtml += '<img src="'+Events[ie].icons[iic]+'" width="12px">';
+      }
+    }
+    inhtml += Events[ie].title;
+    innerHTML = inhtml;
+    style.setProperty('display', 'block', '');
+    style.setProperty('height', '100%', '');
+    style.setProperty('width', '100%', '');
+    style.setProperty('position', 'absolute', '');
+    style.setProperty('background-color', Events[ie].bgColor, '');
+    style.setProperty('color', Events[ie].fgColor, '');
+    style.setProperty('border-width', '3px', '');
+    style.setProperty('border-style', 'solid', '');
+    style.setProperty('border-color', Events[ie].topColor+' '+Events[ie].rightColor+' '+Events[ie].bottomColor+' '+Events[ie].leftColor, '');    
+  }
+  rnev.appendChild(nev);
+
+  return true;
+}
+ 

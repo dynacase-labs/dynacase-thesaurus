@@ -437,16 +437,34 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   $rg = 0;
+  $noimgsrc = $action->getImageUrl("noimg.png");
+  $defaults = array( "icons" => array("iconsrc" => "'$noimgsrc'"),
+		     "bgColor" => "lightblue",
+		     "fgColor" => "black",
+		     "topColor" => "lightblue",
+		     "rightColor" => "lightblue",
+		     "bottomColor" => "lightblue",
+		     "leftColor" => "lightblue",
+		     );
   foreach ($events as $k=>$v) {
-    $events[$k]["rg"] = $rg++;
+    $events[$k]["rg"] = $rg;
     $ev = getDocObject($dbaccess, $v);
     $events[$k]["evt_title"] = addslashes($events[$k]["evt_title"]);
     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
-    $events[$k]["resume"] = $ev->viewdoc($ev->wcalResume);
+    $dattr = $defaults;
+    if (method_exists($ev, "getDisplayAttr")) $dattr = $ev->getDisplayAttr();
+    $events[$k]["icons"] = $dattr["icons"];
+    $events[$k]["bgColor"] = $dattr["bgColor"];
+    $events[$k]["fgColor"] = $dattr["fgColor"];
+    $events[$k]["topColor"] = $dattr["topColor"];
+    $events[$k]["bottomColor"] = $dattr["bottomColor"];
+    $events[$k]["rightColor"] = $dattr["rightColor"];
+    $events[$k]["leftColor"] = $dattr["leftColor"];
     if (!isset($events[$k]["evfc_catg"]))  $events[$k]["evfc_catg"] = 0;
     if (!isset($events[$k]["evfc_dhour"]))  $events[$k]["evfc_dhour"] = 0;
+    $rg++;
   } 
   return $events;
 }
@@ -520,43 +538,4 @@ function setThemeValue() {
   return $def;
 }
 
-
-
-
-function wGetIcons($icomask) {
-  global $action;
-  $icondef = array( 
-		   0 =>  array( "icosrc" => $action->getImageUrl("wm-confidential.gif"),
-				"icotitle" => _("icon for confidential event"),
-				),
-		   1 =>  array( "icosrc" => $action->getImageUrl("wm-invitation.gif"),
-				"icotitle" => _("icon for invitation"),
-				),
-		   2 => array( "icosrc" => $action->getImageUrl("wm-private.gif"),
-			       "icotitle" => _("icon for private event"),
-			       ),
-		   3 => array( "icosrc" => $action->getImageUrl("wm-privgroup.gif"),
-			       "icotitle" => _("icon for group private event"),
-			       ),
-		   4 => array( "icosrc" => $action->getImageUrl("wm-icorepeat.gif"),
-			       "icotitle" => _("icon for repeat event"),
-			       ),
-		   5 => array( "icosrc" => $action->getImageUrl("wm-attendees.gif"),
-			       "icotitle" => _("icon for meting"),
-			       ),
-		   6 => array( "icosrc" => $action->getImageUrl("wm-attendees.gif"),
-			       "icotitle" => _("icon for meting"),
-			       ),
-		   7 => array( "icosrc" => $action->getImageUrl("wm-alarm.gif"),
-			       "icotitle" => _("icon for event with alarm set"),
-			       ),
-		    );
-  $ticons = array();
-  for ($i=0; $i<count($icondef); $i++) {
-    if (($icomask && pow(2, $i)) == pow(2, $i)) {
-      $ticons[] = $icondef[$i];
-    }
-  }
-  return $ticons;
-}
 ?>

@@ -74,16 +74,11 @@ $action_desc = array (
          "short_name" =>N_("event history"), "toc" => "N", "root" =>"N"),
 
   // TODOS -----------------------------------
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODODONE", 
-	"short_name" =>N_("mark to done todos"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOEDIT", 
-	"short_name" =>N_("edit todos"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOSTORE", 
-	"short_name" =>N_("edit todos"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOVIEW", 
-	"short_name" =>N_("view todos"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_ALLTODO", 
-	"short_name" =>N_("view all todos"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODODONE", 	"short_name" =>N_("mark to done todos"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOEDIT", 	"short_name" =>N_("edit todos"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOSTORE",	"short_name" =>N_("edit todos"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_TODOVIEW", 	"short_name" =>N_("view todos"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_ALLTODO", 	"short_name" =>N_("view all todos"), "toc" => "N", "root" =>"N"),
 
   // ---------------------------
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_RESSPICKER_MAIN", 
@@ -123,6 +118,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_ALERT", "short_name" =>N_("alert"), "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_TESTP", "toc" => "N"),
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_HIDDEN", "toc" => "N"),
+  array( "acl" => "WGCAL_USER",  "name" => "WGCAL_DOCGETVALUES", "toc" => "N"),
 
   array( "acl" => "WGCAL_USER",  "name" => "WGCAL_SIFE", "toc" => "N"),
   

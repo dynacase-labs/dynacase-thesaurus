@@ -14,8 +14,6 @@
 [ZONE WGCAL:WGCAL_INFOS]
 
 [ZONE WGCAL:WGCAL_POPUP]
-[BLOCK EVENTDIV]
-<div id="evt[rg]" eid="[id]" class="wEvResume">[resume]</div>[ENDBLOCK EVENTDIV]
 
 <script type="text/javascript"> 
 var UrlRoot = '[CORE_STANDURL]';
@@ -25,21 +23,28 @@ var Days = new Array();
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
 var Events = new Array();
 [BLOCK EVENTS]
-Events[[rg]] = {  id:[id], idp:[evt_idinitiator], start:[start], end:[end], dhours:[evfc_dhour],  title:'[evt_title]', cat:[evfc_catg] };[ENDBLOCK EVENTS]
+Events[[rg]] = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], dhours:[evfc_dhour],  title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]'  };[ENDBLOCK EVENTS]
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 function displayInit() {
   var sdate = new Date();
-  WGCalViewInit('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
-  WGCalDisplayAllEvents();
+  fcalInitView('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
+  fcalInitEvents()
+  fcalShowEvents();
   var edate = new Date();
   var tdate = (edate.getTime() - sdate.getTime()) / 1000;
-  calInfo("Durée d'exécution du JS d'affichage "+tdate+" s");
+  calInfo("displayInit() : Durée d'exécution du JS  "+tdate+" s");
+}
+function displayEvents() {
+  var sdate = new Date();
+  fcalShowEvents();
+  var edate = new Date();
+  var tdate = (edate.getTime() - sdate.getTime()) / 1000;
+  calInfo("displayEvents() : Durée d'exécution du JS  "+tdate+" s");
 }
 addEvent(window, 'load', displayInit);
 </script>
 <div style="background-color:black;color:yellow; height:100; overflow:scroll;" id="textinfo"></div>
-<div id="eventlist" style="display:"></div>
 <script type="text/javascript">
 
 function editevent(title, url,nh,ts,te) {
@@ -55,6 +60,7 @@ function editevent(title, url,nh,ts,te) {
 }
 
 </script>
+<div style="background-color:yellow;" onclick="displayEvents()"> [ Reload ] </div>
 <div style="background-color:yellow;" onclick="editevent( '[TEXT:event edition]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT',1,0,0)"> [ Edit ] </div>
 
 <div style="display:none" id="fastedit">
@@ -82,153 +88,7 @@ function editevent(title, url,nh,ts,te) {
 </table>
 </div>
 </div>
-<script type="text/javascript">
 
-  var feChange = false;
-var feHour = 0; // No hour / alla day ? 
-var feStart = 0; // Start time
-var feEnd = 0;   // End time
-var fePid = 0;   // Event producter Id
-var feId = 0;    // Event Id
-
-
-function fastEditSave() {
-
-  var feTitle = document.getElementById('fe_title').value;
-  var loc = document.getElementById('fe_location').value;
-  var note = document.getElementById('fe_note').value;
-  var scat = document.getElementById('fe_categories');
-  var fe_categorie = 0;
-  for (var i=0; i<scat.options.length; i++) {
-    if (scat.options[i].selected) fe_categorie = scat.options[i].value;
-  }
-  
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&oid="+parent.wgcal_toolbar.calCurrentEdit.id+"&ip="+fePid+"&ti="+feTitle+"&nh="+feHour+"&ts="+feStart+"&te="+feEnd+"&ca="+fe_categorie+"&lo="+loc+"&no="+note;
-  calInfo(urlsend);
-  var rq;
-  try {
-    rq = new XMLHttpRequest();
-  } catch (e) {
-    rq = new ActiveXObject("Msxml2.XMLHTTP");
-  }
-  rq.id = fePid;
-  rq.title = fe_title;
-  rq.start = feStart;
-  rq.end = feEnd;
-  rq.onreadystatechange =  function() {
-    if (rq.readyState == 4) {
-      if (rq.status==200) {
-	document.getElementById('fastedit').style.display = 'none';
-	document.location = "index.php?sole=Y&app=WGCAL&action=WGCAL_CALENDAR"; //.reload();
-      }
-    }
-  }
-  rq.open("GET", urlsend, true);
-  rq.send(null);
-  fastEditReset();
-} 
-
-function fastEditOpenFullEdit() {
-  
-  editevent(document.getElementById('fe_title').value,'',feHour,feStart,feEnd);
-  fastEditReset();
-  var fedit = document.getElementById('fastedit');
-  fedit.style.display = 'none';
- }
-
-function fastEditReset() {
-  feChange = false;
-  feHour  = 0;
-  feStart = 0;
-  feEnd = 0;
-  fePid = 0;
-  document.getElementById('btnSave').style.display = 'none';
-}
-  
-  
-function fastEditChangeAlert() {
-  if (!feChange) return true;
-  var ca = confirm('Abandon des modifications en cours ?');
-  if (ca) fastEditReset();
-  return ca;
-}
-
-function fastEditChange(o) {
-  feChange = true;
-  if (o.id=='fe_title' && document.getElementById('fe_title').value!='') {
-    document.getElementById('btnSave').style.display = '';
-  }
-  if (document.getElementById('fe_title').value=='') document.getElementById('btnSave').style.display = 'none';
-  
-}
-
-function fastEditCancel() {
-  if (!fastEditChangeAlert()) return;
-  var fedit = document.getElementById('fastedit');
-  fedit.style.display = 'none';
-}
-
-function fastEditEvent(ev, id) {
-  var ii = 0;
-  for (iev=0; iev<Events.length && ii==0; iev++) {
-    if (Events[iev].id == id) ii = iev;
-  }
-  return fastEditInit(ev, Events[ii].id, Events[ii].idp, Events[ii].title, Events[ii].dhours, Events[ii].start, Events[ii].end, Events[ii].cat );
-}
-
-function fastEditInit(ev, id, pid, title, h, start, end, cat) {
-
-  if (!fastEditChangeAlert()) return;
-
-  var cetitle = parent.wgcal_toolbar.calCurrentEdit.title; 
-  document.getElementById('agendaowner').innerHTML = cetitle;
-
-  var fedit = document.getElementById('fastedit');
-
-  feHour  = h;
-  feStart = start;
-  feEnd = end;
-  fePid = pid;
-  document.getElementById('fe_allday').style.display = 'none'; 
-  document.getElementById('fe_nohour').style.display = 'none'; 
-  document.getElementById('fe_title').value = title;
-  document.getElementById('fe_location').value = '';
-  document.getElementById('fe_note').value = '';
-
-  if (cat>0) {
-    var scat = document.getElementById('fe_categories');
-    for (var i=0; i<scat.options.length; i++) {
-      if (scat.options[i].value == cat) scat.options[i].selected = true;
-    }
-  }
-
-  var textdate = '';
-  var ds = new Date();
-  ds.setTime((feStart*1000) + (ds.getTimezoneOffset()*60*1000));
-  textdate = ds.print('%a %d %b %Y');
-  switch (h) {
-  case 2: 
-    document.getElementById('fe_allday').style.display = 'block'; 
-    break;
-  case 1: 
-    document.getElementById('fe_nohour').style.display = 'block'; 
-    break;
-  default:
-    var de = new Date(feEnd*1000);
-    de.setTime((feEnd*1000) + (de.getTimezoneOffset()*60*1000));
-    textdate = ds.print('%a %d %b %Y, %H:%M - ');
-    if (ds.print('%a %d %b')!=de.print('%a %d %b')) textdate+=de.print('%a %d %b %Y, %H:%M');
-    else textdate+=de.print('%H:%M');
-  }
-  document.getElementById('fe_date').innerHTML = textdate;
-  
-  posM.x = getX(ev);
-  posM.y = getY(ev);
-  computeDivPosition('fastedit', -20);
-  fe_title.focus();
-
-  if (title!='') document.getElementById('btnSave').style.display = '';
-}
-</script>
+<div style="display:none" id="waitmessage"><div style="border:3px outset white; color:black; background-color:white"><img src="[IMG:fcal-wait.gif]">[TEXT:waiting server...]</div></div>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
