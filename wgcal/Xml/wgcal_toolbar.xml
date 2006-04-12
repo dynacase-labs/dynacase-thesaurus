@@ -1,4 +1,10 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?HBUL=SaveFrameWidth()&refresh=[refresh]]
+
+<!-- Globals variables -->
+<script type="text/javascript">
+var calCurrentEdit = { id:[ceId], title:'[ceTitle]' };
+</script>
+
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 <form style="display:none" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
 <form style="display:none" id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
@@ -102,7 +108,7 @@
 <thead></thead>
 <tbody id="tabress">
 <tr style="display:none; border:0px;" id="trsample">
-<td style="border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="fcalChangeUPref(-1, 'WGCAL_U_DCALEDIT', %RID%)"></td>
+<td style="width:10px; border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="calCurrentEdit = { id:%RID%, title:'%RDESCR%' }; fcalChangeUPref(-1, 'WGCAL_U_DCALEDIT', %RID%)"></td>
 <td width="6px" id="cp%RID%" style="border: 1px outset">&nbsp;</td>
 <td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 

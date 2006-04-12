@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.66 2006/04/10 08:00:57 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.67 2006/04/12 06:07:01 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -177,9 +177,12 @@ function _listress() {
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
 
       // Delegation
-      $dm = hasDelegation($rd->id); // -1 = no delegation 0 = partial 1 full
       $t[$i]["DG_HAVE"] = ($rd->id==$action->user->fid || hasDelegation($rd->id)>-1 ? "true" : "false"); 
       $t[$i]["DG_SELECTED"] = ($caledit == $rd->id ? "true" : "false" ); 
+      if ($t[$i]["DG_HAVE"]=="true" && $t[$i]["DG_SELECTED"]=="true") {
+	$action->lay->set("ceId", $rd->id);
+	$action->lay->set("ceTitle", $t[$i]["RDESCR"] );
+      }
 
       PopupActive('resspopup', $rd->id, 'displayress');
       PopupActive('resspopup', $rd->id, 'changeresscolor');

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.81 2006/03/31 07:19:29 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.82 2006/04/12 06:07:01 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -270,6 +270,19 @@ function wgcal_calendar(&$action) {
   $tcat = array(); 
   foreach ($catg as $k => $v) $tcat[] = array( "fe_catv" => $v["id"], "fe_catt" =>  ucwords(strtolower($v["label"]))); 
   $action->lay->setBlockData("category", $tcat);
+
+
+  $avis = CAL_getEventVisibilities($dbaccess, "");
+  $ic = 0;
+  foreach ($avis as $k => $v) {
+    if ($none && $k==2) continue;
+    $tconf[$ic]["value"] = $k;
+    $tconf[$ic]["descr"] = ucwords(strtolower($v));
+    $tconf[$ic]["selected"] = ($vis==$k?"selected":"");
+    $ic++;
+  }
+  $action->lay->SetBlockData("confid", $tconf);
+
   
 }
 

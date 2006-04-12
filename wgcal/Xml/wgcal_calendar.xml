@@ -25,7 +25,7 @@ var Days = new Array();
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
 var Events = new Array();
 [BLOCK EVENTS]
-Events[[rg]] = {  id:[id], idp:[evt_idinitiator], start:[start], end:[end], dhours:[evfc_dhour], title:'[evt_title]', cat:[evfc_catg] };[ENDBLOCK EVENTS]
+Events[[rg]] = {  id:[id], idp:[evt_idinitiator], start:[start], end:[end], dhours:[evfc_dhour],  title:'[evt_title]', cat:[evfc_catg] };[ENDBLOCK EVENTS]
 AltIsFixed = '[ALTFIXED]';
 AltTimerValue = '[ALTTIMER]';
 function displayInit() {
@@ -61,15 +61,24 @@ function editevent(title, url,nh,ts,te) {
 <div class="fasteditcontent">
 
 <table>
-<tr><td colspan="2" class="WGCAL_DayLine" >([agendaowner]) <span id="fe_date"></span>&nbsp;<span id="fe_allday" style="display:none">[TEXT:all the day]</span><span id="fe_nohour" style="display:none">[TEXT:no hour]</span>
+<tr><td colspan="2" class="WGCAL_DayLine" ><span id="fe_date"></span>&nbsp;<span id="fe_allday" style="display:none">[TEXT:all the day]</span><span id="fe_nohour" style="display:none">[TEXT:no hour]</span>
 </td></tr>
-<tr><td>[TEXT:rv title]</td><td><input class="Mandatory" onchange="fastEditChange(this);" onkeypress="fastEditChange(this);" id="fe_title" type="text" size="40"></td></tr>
-<tr><td>[TEXT:category]</td><td><select onchange="fastEditChange(this);" id="fe_categories">[BLOCK category]<option value="[fe_catv]">[fe_catt][ENDBLOCK category]</td></tr>
-<tr><td style="border-bottom:2px ridge white;" colspan="2">&nbsp;</td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><td>[TEXT:rv title]</td><td><input class="Mandatory" onchange="fastEditChange(this);" onmouseout="fastEditChange(this);" id="fe_title" title="[TEXT:rv title]" type="text" size="40"></td></tr>
+<tr><td colspan="2">[TEXT:location_1stUpcase] : <input class="textBorder" title="[TEXT:locationexplain]"  onchange="fastEditChange(this);" id="fe_location" type="text" size="12"> [TEXT:category] : <select onchange="fastEditChange(this);" id="fe_categories">[BLOCK category]<option value="[fe_catv]">[fe_catt][ENDBLOCK category]</td></tr>
+<tr><td align="center" colspan="2"><textarea onchange="fastEditChange(this);" cols="40" title="[TEXT:rv note]" rows="2" id="fe_note" name="fe_note"</textarea></td></tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+
+<tr><td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic; "><span id="agendaowner"></span> <select id="fe_confidentiality">[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select></td></tr>
+
 <tr>
 <td align="left"><img height="12px" src="[IMG:plus.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td>
   <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave();">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
 </tr>
+
 </table>
 </div>
 </div>
@@ -85,14 +94,16 @@ var feId = 0;    // Event Id
 
 function fastEditSave() {
 
-  var fe_title = document.getElementById('fe_title').value;
+  var feTitle = document.getElementById('fe_title').value;
+  var loc = document.getElementById('fe_location').value;
+  var note = document.getElementById('fe_note').value;
   var scat = document.getElementById('fe_categories');
   var fe_categorie = 0;
   for (var i=0; i<scat.options.length; i++) {
     if (scat.options[i].selected) fe_categorie = scat.options[i].value;
   }
   
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&idp="+fePid+"&title="+fe_title+"&ts="+feStart+"&te="+feEnd;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&oid="+parent.wgcal_toolbar.calCurrentEdit.id+"&ip="+fePid+"&ti="+feTitle+"&nh="+feHour+"&ts="+feStart+"&te="+feEnd+"&ca="+fe_categorie+"&lo="+loc+"&no="+note;
   calInfo(urlsend);
   var rq;
   try {
@@ -107,14 +118,14 @@ function fastEditSave() {
   rq.onreadystatechange =  function() {
     if (rq.readyState == 4) {
       if (rq.status==200) {
-	calInfo(rq.status+" ["+rq.responseText+"]");
+	document.getElementById('fastedit').style.display = 'none';
+	document.location = "index.php?sole=Y&app=WGCAL&action=WGCAL_CALENDAR"; //.reload();
       }
     }
   }
   rq.open("GET", urlsend, true);
   rq.send(null);
   fastEditReset();
-  document.getElementById('fastedit').style.display = 'none';
 } 
 
 function fastEditOpenFullEdit() {
@@ -144,7 +155,11 @@ function fastEditChangeAlert() {
 
 function fastEditChange(o) {
   feChange = true;
-  if (o.id=='fe_title') document.getElementById('btnSave').style.display = '';
+  if (o.id=='fe_title' && document.getElementById('fe_title').value!='') {
+    document.getElementById('btnSave').style.display = '';
+  }
+  if (document.getElementById('fe_title').value=='') document.getElementById('btnSave').style.display = 'none';
+  
 }
 
 function fastEditCancel() {
@@ -165,16 +180,20 @@ function fastEditInit(ev, id, pid, title, h, start, end, cat) {
 
   if (!fastEditChangeAlert()) return;
 
+  var cetitle = parent.wgcal_toolbar.calCurrentEdit.title; 
+  document.getElementById('agendaowner').innerHTML = cetitle;
+
   var fedit = document.getElementById('fastedit');
 
   feHour  = h;
   feStart = start;
   feEnd = end;
+  fePid = pid;
   document.getElementById('fe_allday').style.display = 'none'; 
   document.getElementById('fe_nohour').style.display = 'none'; 
-
-  var fe_title = document.getElementById('fe_title');
-  fe_title.value = title;
+  document.getElementById('fe_title').value = title;
+  document.getElementById('fe_location').value = '';
+  document.getElementById('fe_note').value = '';
 
   if (cat>0) {
     var scat = document.getElementById('fe_categories');
@@ -202,12 +221,13 @@ function fastEditInit(ev, id, pid, title, h, start, end, cat) {
     else textdate+=de.print('%H:%M');
   }
   document.getElementById('fe_date').innerHTML = textdate;
-
-  fedit.style.position = 'absolute';
-  fedit.style.top = (getY(ev)-10)+'px';
-  fedit.style.left = (getX(ev)-10)+'px';
-  fedit.style.display = 'block';
+  
+  posM.x = getX(ev);
+  posM.y = getY(ev);
+  computeDivPosition('fastedit', -20);
   fe_title.focus();
+
+  if (title!='') document.getElementById('btnSave').style.display = '';
 }
 </script>
 

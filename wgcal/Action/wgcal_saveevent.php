@@ -9,14 +9,17 @@ function wgcal_saveevent(&$action) {
   
   $dbaccess = getParam("FREEDOM_DB");
 
-  $idp = GetHttpVars("idp", -1);
-  $title = GetHttpVars("title", "");
-  $ts = GetHttpVars("ts", 0);
-  $te = GetHttpVars("te", 0);
-
-  print "idp=[$idp] title=[$title] ts=[$ts] te=[$te]"; 
-  if ($idp==-1 || $title="" || $ts==0 || $te==0) {
-    print "idp=[$idp] title=[$title] ts=[$ts] te=[$te]"; 
+  $oid   = GetHttpVars("oid", $action->user->fid);   // Owner Freedom Id
+  $idp   = GetHttpVars("ip", -1);                    // Prod. Id (if exists)
+  $title = GetHttpVars("ti", "");                    // Title
+  $nh    = GetHttpVars("nh", 0);                     // 0 : ts & te 1:no time 2:all day
+  $ts    = GetHttpVars("ts", 0);                     // Time start
+  $te    = GetHttpVars("te", 0);                     // Time end
+  $lo    = GetHttpVars("lo", "");                    // Location
+  $no    = GetHttpVars("no", "");                    // Note
+  $cat   = GetHttpVars("cat", "0");                  // Categorie
+  echo "nh=$nh<br>";
+  if ($idp==-1 || $title=="" || $ts==0 || $te==0) {
     return;
   }
 
@@ -27,24 +30,37 @@ function wgcal_saveevent(&$action) {
     $event = new_Doc($dbaccess, $idp);
   }
 
-  $event->setValue("calev_ownerid", $action->user->fid);
-  $down = getTDoc($dbaccess, $owner);
-  $event->setValue("calev_owner", $down["title"]);
+  $down = new_Doc($dbaccess, $oid);
+  $dcre = new_Doc($dbaccess, $action->user->fid);
+  $event->setValue("calev_ownerid", $oid);
+  $event->setValue("calev_owner", $down->getValue("title"));
+
   $event->setValue("calev_creatorid", $action->user->fid);
-  $event->setValue("calev_creator", $down["title"]);
+  $event->setValue("calev_creator",$dcre->getValue("title"));
 
   $event->setValue("calev_evtitle", $title);
-  $event->setValue("calev_evnote", "");
-  $event->setValue("calev_category", 0);
+  $event->setValue("calev_evnote", $no);
+  $event->setValue("calev_category", $cat);
+  $event->setValue("calev_location", $lo);
 
-  $event->setValue("calev_start", date("d/m/Y H:i:00",$ts));
-  $event->setValue("calev_end", date("d/m/Y H:i:00",$te));
-  $event->setValue("calev_timetype", 0);
-
+  if ($nh==1) {
+    $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
+    $event->setValue("calev_end", gmdate("d/m/Y 00:00:00",$te));
+    $event->setValue("calev_timetype", 1);
+  } else if ($nh==21) {
+    $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
+    $event->setValue("calev_end", gmdate("d/m/Y 23:59:00",$te));
+    $event->setValue("calev_timetype", 2);
+  } else {
+    $event->setValue("calev_start", gmdate("d/m/Y H:i:00",$ts));
+    $event->setValue("calev_end", gmdate("d/m/Y H:i:00",$te));
+    $event->setValue("calev_timetype", 0);
+  }
+    
   $event->setValue("calev_frequency", 1);
 
   $cal = getUserPublicAgenda();
-  $event->setValue("calev_evcalendarid", $cal["id"] );
+  $event->setValue("calev_evcalendarid", -1); //$cal["id"] );
   $event->setValue("calev_evcalendar", $cal["title"] );
   
   $event->confidential = 0;
@@ -61,20 +77,19 @@ function wgcal_saveevent(&$action) {
 
   $event->setValue("calev_convocation", 0);
 
-  $event->setValue("calev_attid", array());
-  $event->setValue("calev_attwid", array());
-  $event->setValue("calev_attstate", array());
-  $event->setValue("calev_attgroup", array());
+  $event->setValue("calev_attid", array($oid));
+  $event->setValue("calev_attwid", array($down->getValue("us_whatid")));
+  $event->setValue("calev_attstate", array(2));
+  $event->setValue("calev_attgroup", array(-1));
 
   $err = $event->Modify();
-  echo "Modify err=$err<br>";
+//   echo "Modify err=$err<br>";
   $err = $event->PostModify();
-  echo "PostModify err=$err<br>";
+//   echo "PostModify err=$err<br>";
 
   $event->setAccessibility();
   $event->unlock(true);
 
-  print_r2($event->getValues());
   $action->lay->set("OUT", $event->id);
   return ;
 }

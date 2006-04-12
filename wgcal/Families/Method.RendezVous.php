@@ -1639,11 +1639,11 @@ function sifevent() {
   $this->lay->set("v_End", $this->_WsetDateTime($this->getValue("calev_end")));
   $this->lay->set("s_End", true);
 
-  $allday = "False";
+  $allday = 0;
   $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
   if ($this->getValue("calev_timetype")==1 || $this->getValue("calev_timetype")==2) {
     $dur = 1440;
-    $allday = "True";
+    $allday = 1;
   }
   $this->lay->set("v_Duration", $dur);
   $this->lay->set("s_Duration", true);
@@ -1785,8 +1785,8 @@ function sifevent() {
     }
     $this->lay->set("v_RecurrenceType", $rType);
     $this->lay->set("s_RecurrenceType", true);
-    if ($this->getValue("calev_repeatuntil")==0) $this->lay->set("v_NoEndDate", "False");
-    else $this->lay->set("v_NoEndDate", "True");
+    if ($this->getValue("calev_repeatuntil")==0) $this->lay->set("v_NoEndDate", 0);
+    else $this->lay->set("v_NoEndDate", 1);
     $this->lay->set("s_NoEndDate", true);
     
     $this->lay->set("v_PatternStartDate", $this->_WsetDate($this->getValue("calev_start")));

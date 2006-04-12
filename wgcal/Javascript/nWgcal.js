@@ -5,13 +5,6 @@ var evLoaded = new Array();
 var posM = { x:0, y:0 };
 
 function startEvDisplay(ev, pid) {
-  if (document.getElementById('evt'+pid)) {
-    var eir = document.getElementById('evt'+pid);
-    eir.style.background  = 'red';
-    wAddEvent(eir, 'click', "modifyEvent("+pid+")", true);
-  } else {
-    calInfo('evt'+pid+' pas trouvé!');
-  }
   if (evDisplayed!=pid) {
     posM.x = getX(ev);
     posM.y = getY(ev);
@@ -65,8 +58,44 @@ function addCalEvContent(pid, html) {
   if (!document.getElementById('EVTC'+pid)) return;
   var eid = document.getElementById('EVTC'+pid);
   eid.innerHTML = html;
+  if (evDisplayed!=pid) return;
+  computeDivPosition('EVTC'+pid,20);
+  return;
 }
 
+function computeDivPosition(o,delta) {
+
+  if (!document.getElementById(o)) return;
+  var eid = document.getElementById(o);
+
+  eid.style.display = 'block';
+  eid.style.position = 'absolute';
+
+  var ww = getFrameWidth();
+  var wh = getFrameHeight();
+  var h = getObjectHeight(eid);
+  var w = getObjectWidth(eid);
+  var w1 = posM.x;
+  var w2 = ww - posM.x;
+  var h1 = posM.y;
+  var h2 = wh - posM.y;
+  
+  var xp = yp = 0;
+   if (w < (w2+delta)) xp =  posM.x + delta;
+  else if (w < (w1+delta)) xp = posM.x - delta - w;
+  else xp = delta;
+
+  if (h < (h2+delta)) yp = posM.y + delta;
+  else if (h < (h1+delta)) yp = posM.y - delta - h;
+  else yp = delta;
+
+  eid.style.left = parseInt(xp)+'px';
+  eid.style.top = parseInt(yp)+'px';
+
+  return;
+}
+ 
+  
 function initCalEvent(pid) {
   var eid = 'EVTC'+pid;
   if (document.getElementById(eid)) {
@@ -79,8 +108,7 @@ function initCalEvent(pid) {
     id = 'EVTC'+pid;
     name = 'EVTC'+pid;
     innerHTML = '<div style="border:3px outset white; color:black; background-color:white"><img src="WGCAL/Images/fcal-wait.gif"> Waiting server...</div>';
-    style.display = 'block';
-    style.position = 'absolute';
+    computeDivPosition('EVTC'+pid,20);
   }
   getCalEvent(pid);
   return;  
@@ -91,24 +119,8 @@ function showCalEvent(pid) {
   if (evLoaded[pid]) return;
   evLoaded[pid] = true;
   initCalEvent(pid);
-
-  var ref = document.getElementById('EVTC'+pid);
-
-  var ww = getFrameWidth();
-  var wh = getFrameHeight();
-  var h = getObjectHeight(ref);
-  var w = getObjectWidth(ref);
-
-  var x = posM.x + 10;
-  var y = posM.y + 10;
-
-  ref.style.display = 'block';
-  ref.style.position = 'absolute';
-
-//    calInfo("Frame w="+ww+",h="+wh+" Mouse x="+posM.x+",y="+posM.y+"   Elt w="+w+",h="+h);
-
-  ref.style.left = x+'px';
-  ref.style.top = y+'px';
+  
+  computeDivPosition('EVTC'+pid,20);
 }
 
 function hideCalEvent(pid) {
