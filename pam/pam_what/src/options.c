@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <syslog.h>
 
 #include <security/pam_modules.h>
 
