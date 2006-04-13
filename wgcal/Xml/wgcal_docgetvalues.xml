@@ -1,4 +1,5 @@
-var docValues = { [BLOCK values]
-  [attr] : '[value]',[ENDBLOCK values]
-  status : [status],
-  statustext : '[statustext]' };
+[dbgpre]var docValues = { 
+  [BLOCK values][attr]:'[value]', 
+  [ENDBLOCK values] empty:0 }; 
+var fcalStatus = { code : [status], text:'[statustext]' };
+[dbgpost]

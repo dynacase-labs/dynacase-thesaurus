@@ -60,6 +60,8 @@ function  setEventSpec(&$e) {
 
   $e->setValue("evt_idcreator", $this->getValue("calev_ownerid"));
   $e->setValue("evt_creator", $this->getValue("calev_owner"));
+  $e->setValue("evfc_dcreatorid", $this->getValue("calev_creatorid"));
+  $e->setValue("evfc_idowner", $this->getValue("calev_ownerid"));
   $e->setValue("evfc_idowner", $this->getValue("calev_ownerid"));
   $e->setValue("evt_desc", $this->getValue("calev_evnote"));
   $e->setValue("evt_code", $this->getValue("calev_category"));
@@ -70,7 +72,7 @@ function  setEventSpec(&$e) {
   $e->setValue("evfc_repeatmonth", $this->getValue("calev_repeatmonth"));
   $e->setValue("evfc_repeatuntil", $this->getValue("calev_repeatuntil"));
   $e->setValue("evfc_repeatuntildate", $this->getValue("calev_repeatuntildate"));
-  
+
   if ($this->getValue("calev_evalarm", 0)==1) {
     $htime = w_dbdate2ts($this->getValue("calev_start"));
     $hd = ($this->getValue("calev_evalarmday", 0) * 3600 * 24)
@@ -508,7 +510,6 @@ function ev_showattendees($ressd, $private, $dcolor="") {
 	$imgaccess = $d->GetIcon($attru["icon"]);
 	if (strncmp($imgaccess,"FDL",3)==0) $t[$a]["atticon$curcol"] = $action->getParam("CORE_ABSURL")."/".$imgaccess;
 	else $t[$a]["atticon$curcol"] = $imgaccess;
-// 	AddWarningMsg($attru["icon"]."...".$t[$a]["atticon$curcol"]);
 	$t[$a]["attcolor$curcol"] = WGCalGetColorState($v["state"]);
 	$t[$a]["atttitle$curcol"] = ucwords(strtolower($attru["title"]));
 	$t[$a]["attnamestyle$curcol"] = ($v["state"] != EVST_REJECT ? "none" : "line-through");

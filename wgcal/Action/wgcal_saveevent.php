@@ -6,24 +6,30 @@ include_once("FDL/mailcard.php");
 include_once("WGCAL/Lib.Agenda.php");
 
 function wgcal_saveevent(&$action) {
-  
+
   $dbaccess = getParam("FREEDOM_DB");
 
-  $oid   = GetHttpVars("oid", $action->user->fid);   // Owner Freedom Id
-  $idp   = GetHttpVars("ip", -1);                    // Prod. Id (if exists)
+  $idp   = GetHttpVars("id", -1);                    // Prod. Id (if exists)
+  $oid   = GetHttpVars("oi", $action->user->fid);    // Owner Freedom Id
   $title = GetHttpVars("ti", "");                    // Title
   $nh    = GetHttpVars("nh", 0);                     // 0 : ts & te 1:no time 2:all day
   $ts    = GetHttpVars("ts", 0);                     // Time start
   $te    = GetHttpVars("te", 0);                     // Time end
   $lo    = GetHttpVars("lo", "");                    // Location
   $no    = GetHttpVars("no", "");                    // Note
-  $cat   = GetHttpVars("cat", "0");                  // Categorie
-  echo "nh=$nh<br>";
-  if ($idp==-1 || $title=="" || $ts==0 || $te==0) {
+  $cat   = GetHttpVars("ca", "0");                   // Categorie
+  $conf  = GetHttpVars("co", "0");                   // Categorie
+
+//   $action->lay->set("statustext", "id=[$idp] oi=[$oid] ti=[$title] nh=[$nh] ts=[$ts] te=[$te] lo=[$lo] no=[$no] ca=[$cat] co=[$conf] ");
+  
+
+  if ($title=="" || $ts==0 || $te==0) {
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", _("internal server error ").basename(__FILE__)."::".__LINE__);
     return;
   }
 
-  if ($idp==0) {
+  if ($idp==-1) {
     $event = createDoc($dbaccess, "CALEVENT");
     $err = $event->Add();
   } else {
@@ -32,6 +38,7 @@ function wgcal_saveevent(&$action) {
 
   $down = new_Doc($dbaccess, $oid);
   $dcre = new_Doc($dbaccess, $action->user->fid);
+
   $event->setValue("calev_ownerid", $oid);
   $event->setValue("calev_owner", $down->getValue("title"));
 
@@ -47,7 +54,7 @@ function wgcal_saveevent(&$action) {
     $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
     $event->setValue("calev_end", gmdate("d/m/Y 00:00:00",$te));
     $event->setValue("calev_timetype", 1);
-  } else if ($nh==21) {
+  } else if ($nh==2) {
     $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
     $event->setValue("calev_end", gmdate("d/m/Y 23:59:00",$te));
     $event->setValue("calev_timetype", 2);
@@ -63,8 +70,8 @@ function wgcal_saveevent(&$action) {
   $event->setValue("calev_evcalendarid", -1); //$cal["id"] );
   $event->setValue("calev_evcalendar", $cal["title"] );
   
-  $event->confidential = 0;
-  $event->setValue("calev_visibility", 0);
+  $event->confidential = ($conf>0 ? 1 : 0);
+  $event->setValue("calev_visibility", $conf);
 
   $event->setValue("calev_confgroups", 0);
 
@@ -83,14 +90,24 @@ function wgcal_saveevent(&$action) {
   $event->setValue("calev_attgroup", array(-1));
 
   $err = $event->Modify();
-//   echo "Modify err=$err<br>";
+  if ($err!="") {
+    $action->lay->set("status", -1);
+    $action->lay->set("Freedom internal error doc->modify(): $err");
+    return;
+  } 
+
   $err = $event->PostModify();
-//   echo "PostModify err=$err<br>";
+  if ($err!="") {
+    $action->lay->set("status", -1);
+    $action->lay->set("Freedom internal error doc->PostModify(): $err");
+    return;
+  } 
 
   $event->setAccessibility();
   $event->unlock(true);
 
-  $action->lay->set("OUT", $event->id);
+  $action->lay->set("status", 0);
+  $action->lay->set("statustext", "#".$event->id." created");
   return ;
 }
 ?>

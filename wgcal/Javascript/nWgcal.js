@@ -156,12 +156,24 @@ function fastEditSave() {
   var loc = document.getElementById('fe_location').value;
   var note = document.getElementById('fe_note').value;
   var scat = document.getElementById('fe_categories');
-  var fe_categorie = 0;
-  for (var i=0; i<scat.options.length; i++) {
-    if (scat.options[i].selected) fe_categorie = scat.options[i].value;
-  }
+  var cat = 0;
+  for (var i=0; i<scat.options.length; i++) { if (scat.options[i].selected) cat = scat.options[i].value; }
+  var sconf = document.getElementById('fe_confidentiality');
+  var conf = 0;
+  for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
   
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT&oid="+parent.wgcal_toolbar.calCurrentEdit.id+"&ip="+fePid+"&ti="+feTitle+"&nh="+feHour+"&ts="+feStart+"&te="+feEnd+"&ca="+fe_categorie+"&lo="+loc+"&no="+note;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
+  urlsend += "&id="+document.EventInEdition.idp;
+  urlsend += "&oi="+document.EventInEdition.idowner;
+  urlsend += "&ti="+feTitle;
+  urlsend += "&nh="+document.EventInEdition.hmode;
+  urlsend += "&ts="+document.EventInEdition.start;
+  urlsend += "&te="+document.EventInEdition.end;
+  urlsend += "&ca="+cat;
+  urlsend += "&co="+conf;
+  urlsend += "&lo="+loc;
+  urlsend += "&no="+note;
+  
   calInfo(urlsend);
   var rq;
   try {
@@ -169,38 +181,31 @@ function fastEditSave() {
   } catch (e) {
     rq = new ActiveXObject("Msxml2.XMLHTTP");
   }
-  rq.id = fePid;
-  rq.title = fe_title;
-  rq.start = feStart;
-  rq.end = feEnd;
-  rq.onreadystatechange =  function() {
-    if (rq.readyState == 4) {
-      if (rq.status==200) {
-	document.getElementById('fastedit').style.display = 'none';
-	document.location = "index.php?sole=Y&app=WGCAL&action=WGCAL_CALENDAR"; //.reload();
-      }
-    }
-  }
-  rq.open("GET", urlsend, true);
+  rq.open("POST", urlsend, false);
   rq.send(null);
+  eval(rq.responseText);
+  if (fcalStatus.code==-1) {
+    alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
+    return false;
+  }
   fastEditReset();
+  return;
 } 
 
 function fastEditOpenFullEdit() {
   
   editevent(document.getElementById('fe_title').value,'',feHour,feStart,feEnd);
   fastEditReset();
-  var fedit = document.getElementById('fastedit');
-  fedit.style.display = 'none';
  }
 
 function fastEditReset() {
-  feChange = false;
-  feHour  = 0;
-  feStart = 0;
-  feEnd = 0;
-  fePid = 0;
+  document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
+			      title:'', hmode:0, start:0, end:0, 
+			      category:0, note:'', location:'', 
+			      confidentiality:0 };
   document.getElementById('btnSave').style.display = 'none';
+  var fedit = document.getElementById('fastedit');
+  fedit.style.display = 'none';
 }
   
   
@@ -239,57 +244,65 @@ function  fcalGetJSDoc(id) {
   rq.open("GET", urlsend, false);
   rq.send(null);
   eval(rq.responseText);
-  return docValues;
+  if (fcalStatus.code==-1) {
+    alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
+    return false;
+  } else {
+    return docValues;
+  }
 } 
 
 
 function fcalFastEditEvent(ev, id) {
   var ii = 0;
   var dv = fcalGetJSDoc(id) ;
+  if (!dv) return;
   for (iev=0; iev<Events.length && ii==0; iev++) {
     if (Events[iev].id == id) ii = iev;
   }
-  if (dv.status==-1) {
-    alert(dv.statusText);
-    return false;
-  } else {
-    return fastEditInit(ev, Events[ii].id, Events[ii].idp, dv.title, Events[ii].dhours, Events[ii].start, Events[ii].end, dv.calev_category, dv.calev_evnote, dv.calev_location, dv.calev_visibility );
-  }
+  document.EventInEdition = { id:Events[ii].id, idp:Events[ii].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
+			      title:dv.title, hmode:dv.calev_timetype, start:Events[ii].start, end:Events[ii].end, 
+			      category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
+			      confidentiality:dv.calev_visibility };
+  return fastEditInit(ev);
 }
 
-function fastEditInit(ev, id, pid, title, h, start, end, cat, note, location, conf) {
-
-  alert('cat='+cat+' conf='+conf);
-
+function fastEditInit(ev) {
   if (!fastEditChangeAlert()) return;
 
-  var cetitle = parent.wgcal_toolbar.calCurrentEdit.title; 
-  document.getElementById('agendaowner').innerHTML = cetitle;
-
+  if (document.EventInEdition.idowner==-1) {
+    document.EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
+    document.EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
+  }    
+  document.getElementById('agendaowner').innerHTML = document.EventInEdition.titleowner;
+  
   var fedit = document.getElementById('fastedit');
-
-  feHour  = h;
-  feStart = start;
-  feEnd = end;
-  fePid = pid;
+  
   document.getElementById('fe_allday').style.display = 'none'; 
   document.getElementById('fe_nohour').style.display = 'none'; 
-  document.getElementById('fe_title').value = title;
-  document.getElementById('fe_location').value = location;
-  document.getElementById('fe_note').value = note;
+  document.getElementById('fe_title').value = document.EventInEdition.title;
+  document.getElementById('fe_location').value = document.EventInEdition.location;
+  document.getElementById('fe_note').value = document.EventInEdition.note;
 
-  if (cat>0) {
+  if (document.EventInEdition.category>0) {
     var scat = document.getElementById('fe_categories');
     for (var i=0; i<scat.options.length; i++) {
-      if (scat.options[i].value == cat) scat.options[i].selected = true;
+      if (scat.options[i].value == document.EventInEdition.category) scat.options[i].selected = true;
+    }
+  }
+
+  if (document.EventInEdition.confidentiality>0) {
+    var scat = document.getElementById('fe_confidentiality');
+    for (var i=0; i<scat.options.length; i++) {
+      if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
     }
   }
 
   var textdate = '';
   var ds = new Date();
-  ds.setTime((start*1000) + (ds.getTimezoneOffset()*60*1000));
+  ds.setTime((document.EventInEdition.start*1000) + (ds.getTimezoneOffset()*60*1000));
   textdate = ds.print('%a %d %b %Y');
-  switch (h) {
+  switch (document.EventInEdition.hmode) {
   case 2: 
     document.getElementById('fe_allday').style.display = 'block'; 
     break;
@@ -297,8 +310,8 @@ function fastEditInit(ev, id, pid, title, h, start, end, cat, note, location, co
     document.getElementById('fe_nohour').style.display = 'block'; 
     break;
   default:
-    var de = new Date(end*1000);
-    de.setTime((end*1000) + (de.getTimezoneOffset()*60*1000));
+    var de = new Date();
+    de.setTime((document.EventInEdition.end*1000) + (de.getTimezoneOffset()*60*1000));
     textdate = ds.print('%a %d %b %Y, %H:%M - ');
     if (ds.print('%a %d %b')!=de.print('%a %d %b')) textdate+=de.print('%a %d %b %Y, %H:%M');
     else textdate+=de.print('%H:%M');
@@ -310,7 +323,7 @@ function fastEditInit(ev, id, pid, title, h, start, end, cat, note, location, co
   computeDivPosition('fastedit', -20);
 
   document.getElementById('fe_title').focus();
-  if (title!='') document.getElementById('btnSave').style.display = '';
+  if (document.getElementById('fe_title').value!='') document.getElementById('btnSave').style.display = '';
 }
 
 

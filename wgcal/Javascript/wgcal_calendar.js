@@ -194,9 +194,13 @@ function SetCurrentEvent(id, cd) {
 
 
 // --------------------------------------------------------
-function ClickCalendarCell(nh,times,timee) {
+function ClickCalendarCell(event, nh,times,timee) {
   closeMenu('calpopup');
-  fastEditInit(ev, 'nouveau',times,timee,0);
+  document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
+			      title:'', hmode:nh, start:times, end:timee, 
+			      category:0, note:'', location:'', 
+			      confidentiality:0 };
+  fastEditInit(event);
   //subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
 }
 
@@ -564,7 +568,8 @@ function fcalCreateEvent(ie) {
     
 
   var nev = document.createElement('div');
-  var inhtml = '('+Events[ie].idp+')';
+   var inhtml = '('+Events[ie].idp+')';
+//  var inhtml = '';
   with (nev) { 
     setAttribute('id', '_evt'+ie);
     setAttribute('name', '_evt'+ie);

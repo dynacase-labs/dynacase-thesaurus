@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_docgetvalues.php,v 1.1 2006/04/12 16:44:31 marc Exp $
+ * @version $Id: wgcal_docgetvalues.php,v 1.2 2006/04/13 17:16:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,6 +28,7 @@ function wgcal_docgetvalues(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id");
   $latest = GetHttpVars("latest");
+  $dbg = GetHttpVars("dbg", 0);
 
   if ($docid=="") {
     $action->lay->set("status", -1);
@@ -53,10 +54,17 @@ function wgcal_docgetvalues(&$action) {
   $dt = getTDoc($dbaccess, $docid);
   $ob = array();
   foreach ($dt as $k => $v ) {
-    if ($k!='comment') $ob[] = array( "attr" => $k, "value" => addslashes($v) );
+    if ($k!='comment' && $k!='values' && $k!='attrids' ) $ob[] = array( "attr" => $k, "value" => addslashes(str_replace(array("\r","\n"),array("","\£"),$v)));
   }
   $action->lay->setBlockData("values", $ob);
   $action->lay->set("status", 0);
   $action->lay->set("statustext", addslashes($doc->getTitle()));
+
+  $action->lay->set("dbgpre", "");
+  $action->lay->set("dbgpost", "");  
+  if ($dbg==1) {
+   $action->lay->set("dbgpre", "<pre>");
+   $action->lay->set("dbgpost", "</prev>");  
+  }
 }
 ?>
