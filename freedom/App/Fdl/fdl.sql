@@ -368,3 +368,39 @@ end if;
 return NEW;
 end;
 ' language 'plpgsql';
+
+create or replace function reldocfld() 
+returns trigger as '
+declare 
+  rs record;
+  rc record;
+  cfromid int;
+  sfromid int;
+  allfld int[];
+  i int;
+begin
+
+
+if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
+
+  if (NEW.qtype = ''S'') and (NEW.dirid > 0) and (NEW.childid > 0) then
+  i=0;
+ FOR rc IN EXECUTE ''select * from fld where childid= '' || NEW.childid  LOOP 
+  BEGIN
+     allfld[i]=rc.dirid;
+     i=i+1;
+	END;
+  END LOOP;
+--  RAISE NOTICE ''Quantity here is %'',allfld;  
+	update doc set fldrels=allfld where initid=NEW.childid and locked != -1;
+  end if;
+end if;
+ 
+if (TG_OP = ''DELETE'') then
+--	delete from docrel where sinitid=OLD.dirid and cinitid=OLD.childid and type=''folder'';
+end if;
+
+
+return NEW;
+end;
+' language 'plpgsql';

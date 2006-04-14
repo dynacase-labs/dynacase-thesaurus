@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.109 2006/04/14 07:07:54 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.110 2006/04/14 15:06:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -163,6 +163,9 @@ function getSqlSearchDoc($dbaccess,
    	"from $table where $lfldid and  ".
    	"  $sqlcond ";
 
+      $qsql= "select $selectfields ".
+   	"from $table where $dirid = any(fldrels) and  ".
+   	"  $sqlcond ";
 //       $qsql= "select $selectfields ".
 //    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
 //    	"where  $sqlcond ";
@@ -372,7 +375,7 @@ function getChildDoc($dbaccess,
 	    $tretdocs[]=$tableq;
 	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
-             print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+      //      print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          
@@ -410,7 +413,7 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
   $tfld=$q->Query(0,1000,"TABLE");
 
   // use always this mode because is more quickly
-  //  if ($q->nb > 100) return false;
+  if ($q->nb > 100) return false;
   $t=array();
   if ($q->nb > 0) {
     foreach ($tfld as $k=>$v) {   
@@ -423,7 +426,7 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
       }
     }
   }
-  //  print "<HR>"; print " - getFldDoc $dirid<B>".microtime_diff(microtime(),$mc)."</B>";
+  //  print "<HR><br><div style=\"border:red 1px inset;background-color:orange;color:black\">"; print " - getFldDoc $dirid [nbdoc:".count($tfld)."]<B>".microtime_diff(microtime(),$mc)."</B></div>";
   return $t;
 }
 

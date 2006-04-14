@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.20 2006/03/30 09:52:49 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.21 2006/04/14 15:06:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -41,8 +41,10 @@ create table fld (
                     qtype   char
                    );
 create index fld_iqd on fld(qtype,dirid);
+create index fld_iqc on fld(qtype,childid);
 create unique index fld_u on fld(qtype,dirid,childid);
-create sequence seq_id_fld start 100;";
+create sequence seq_id_fld start 100;
+CREATE TRIGGER tflddocrel after insert or update or delete on fld FOR EACH ROW execute procedure reldocfld();";
 
 #CREATE TRIGGER tfldrel after insert or update or delete on fld FOR EACH ROW execute procedure relfld();";
 
