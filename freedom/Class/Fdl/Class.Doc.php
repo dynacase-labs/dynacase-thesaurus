@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.301 2006/04/11 09:39:25 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.302 2006/04/14 07:07:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -77,6 +77,7 @@ Class Doc extends DocCtrl
 			   "name",
 			   "dprofid",
 			   "atags",
+			   "prelid",
 			   "confidential",
 			   "ldapdn");
 
@@ -220,6 +221,13 @@ Class Doc extends DocCtrl
    */
   public $dprofid=0;
   /**
+   * primary relation id
+   * 
+   * generally towards a folder
+   * @public int
+   */
+  public $prelid=0;
+  /**
    * applications tag 
    * use by specifics applications to search documents by these tags
    * 
@@ -294,6 +302,7 @@ create table doc ( id int not null,
                    cvid int,
                    name text,
                    dprofid int DEFAULT 0,
+                   prelid int DEFAULT 0,
                    atags text,
                    confidential int DEFAULT 0,
                    ldapdn text
