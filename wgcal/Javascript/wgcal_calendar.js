@@ -538,7 +538,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   eE.style.height = (h-2)+"px";
   eE.style.position = 'absolute';
   eE.style.display = 'block';
-
+ 
   root.appendChild(eE);
   return;
 }
@@ -573,8 +573,8 @@ function fcalCreateEvent(ie) {
   with (nev) { 
     setAttribute('id', '_evt'+ie);
     setAttribute('name', '_evt'+ie);
-    setAttribute('onmouseover', 'fcalStartEvDisplay(event, '+Events[ie].idp+')');
-    setAttribute('onmouseout', 'fcalCancelEvDisplay('+Events[ie].idp+')');
+    setAttribute('onmouseover', 'fcalSetOpacity(this, 100); fcalStartEvDisplay(event, '+Events[ie].idp+')');
+    setAttribute('onmouseout', 'fcalSetOpacity(this, 60); fcalCancelEvDisplay('+Events[ie].idp+')');
     setAttribute('onclick', 'fcalFastEditEvent(event,'+Events[ie].idp+')');
     setAttribute('oncontextmenu', 'fcalOpenMenuEvent(event,'+Events[ie].id+')');
     if (Events[ie].icons.length>0) {
@@ -592,6 +592,8 @@ function fcalCreateEvent(ie) {
     style.setProperty('color', Events[ie].fgColor, '');
     style.setProperty('border-width', '3px', '');
     style.setProperty('border-style', 'solid', '');
+    style.setProperty('opacity','0.6', '');
+    style.setProperty('filter', 'alpha(opacity=60)', '');
     style.setProperty('border-color', Events[ie].topColor+' '+Events[ie].rightColor+' '+Events[ie].bottomColor+' '+Events[ie].leftColor, '');    
   }
   rnev.appendChild(nev);
@@ -599,3 +601,7 @@ function fcalCreateEvent(ie) {
   return true;
 }
  
+function fcalSetOpacity(o, value) {
+	o.style.opacity = value/100;
+	o.style.filter = 'alpha(opacity=' + value + ')';
+}

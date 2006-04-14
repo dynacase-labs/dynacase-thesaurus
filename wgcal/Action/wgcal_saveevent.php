@@ -20,7 +20,6 @@ function wgcal_saveevent(&$action) {
   $cat   = GetHttpVars("ca", "0");                   // Categorie
   $conf  = GetHttpVars("co", "0");                   // Categorie
 
-//   $action->lay->set("statustext", "id=[$idp] oi=[$oid] ti=[$title] nh=[$nh] ts=[$ts] te=[$te] lo=[$lo] no=[$no] ca=[$cat] co=[$conf] ");
   
 
   if ($title=="" || $ts==0 || $te==0) {
@@ -32,16 +31,19 @@ function wgcal_saveevent(&$action) {
   if ($idp==-1) {
     $event = createDoc($dbaccess, "CALEVENT");
     $err = $event->Add();
+    $new = true;
   } else {
     $event = new_Doc($dbaccess, $idp);
+    $new = false;
   }
 
   $down = new_Doc($dbaccess, $oid);
   $dcre = new_Doc($dbaccess, $action->user->fid);
 
-  $event->setValue("calev_ownerid", $oid);
-  $event->setValue("calev_owner", $down->getValue("title"));
-
+  if ($new) {
+    $event->setValue("calev_ownerid", $oid);
+    $event->setValue("calev_owner", $down->getValue("title"));
+  }
   $event->setValue("calev_creatorid", $action->user->fid);
   $event->setValue("calev_creator",$dcre->getValue("title"));
 
@@ -50,44 +52,44 @@ function wgcal_saveevent(&$action) {
   $event->setValue("calev_category", $cat);
   $event->setValue("calev_location", $lo);
 
-  if ($nh==1) {
-    $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
-    $event->setValue("calev_end", gmdate("d/m/Y 00:00:00",$te));
-    $event->setValue("calev_timetype", 1);
-  } else if ($nh==2) {
-    $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
-    $event->setValue("calev_end", gmdate("d/m/Y 23:59:00",$te));
-    $event->setValue("calev_timetype", 2);
-  } else {
-    $event->setValue("calev_start", gmdate("d/m/Y H:i:00",$ts));
-    $event->setValue("calev_end", gmdate("d/m/Y H:i:00",$te));
-    $event->setValue("calev_timetype", 0);
-  }
+  if ($new) {
+    if ($nh==1) {
+      $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
+      $event->setValue("calev_end", gmdate("d/m/Y 00:00:00",$te));
+      $event->setValue("calev_timetype", 1);
+    } else if ($nh==2) {
+      $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
+      $event->setValue("calev_end", gmdate("d/m/Y 23:59:00",$te));
+      $event->setValue("calev_timetype", 2);
+    } else {
+      $event->setValue("calev_start", gmdate("d/m/Y H:i:00",$ts));
+      $event->setValue("calev_end", gmdate("d/m/Y H:i:00",$te));
+      $event->setValue("calev_timetype", 0);
+    }
     
-  $event->setValue("calev_frequency", 1);
+    $event->setValue("calev_frequency", 1);
 
-  $cal = getUserPublicAgenda();
-  $event->setValue("calev_evcalendarid", -1); //$cal["id"] );
-  $event->setValue("calev_evcalendar", $cal["title"] );
-  
+    $cal = getUserPublicAgenda();
+    $event->setValue("calev_evcalendarid", -1); //$cal["id"] );
+    $event->setValue("calev_evcalendar", $cal["title"] );
+  }
+
   $event->confidential = ($conf>0 ? 1 : 0);
   $event->setValue("calev_visibility", $conf);
-
   $event->setValue("calev_confgroups", 0);
 
-  $event->setValue("calev_evalarm", 0);
-  $event->setValue("calev_evalarmday", 0);
-  $event->setValue("calev_evalarmhour", 0);
-  $event->setValue("calev_evalarmmin", 0);
-
-  $event->setValue("calev_repeatmode", 0);
-
-  $event->setValue("calev_convocation", 0);
-
-  $event->setValue("calev_attid", array($oid));
-  $event->setValue("calev_attwid", array($down->getValue("us_whatid")));
-  $event->setValue("calev_attstate", array(2));
-  $event->setValue("calev_attgroup", array(-1));
+  if ($new) {
+    $event->setValue("calev_evalarm", 0);
+    $event->setValue("calev_evalarmday", 0);
+    $event->setValue("calev_evalarmhour", 0);
+    $event->setValue("calev_evalarmmin", 0);
+    $event->setValue("calev_repeatmode", 0);
+    $event->setValue("calev_convocation", 0);
+    $event->setValue("calev_attid", array($oid));
+    $event->setValue("calev_attwid", array($down->getValue("us_whatid")));
+    $event->setValue("calev_attstate", array(2));
+    $event->setValue("calev_attgroup", array(-1));
+  }
 
   $err = $event->Modify();
   if ($err!="") {
@@ -107,6 +109,7 @@ function wgcal_saveevent(&$action) {
   $event->unlock(true);
 
   $action->lay->set("status", 0);
+//   $action->lay->set("statustext", "id=[$idp] oi=[$oid] ti=[$title] nh=[$nh] ts=[$ts] te=[$te] lo=[$lo] no=[$no] ca=[$cat] co=[$conf] ");
   $action->lay->set("statustext", "#".$event->id." created");
   return ;
 }

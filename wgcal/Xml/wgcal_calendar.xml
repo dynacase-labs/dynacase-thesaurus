@@ -81,14 +81,14 @@ function editevent(title, url,nh,ts,te) {
 <tr><td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic; "><span id="agendaowner"></span> <select id="fe_confidentiality">[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select></td></tr>
 
 <tr>
-<td align="left"><img height="12px" src="[IMG:plus.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td>
-  <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave();">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
+<td align="left"><img height="12px" src="[IMG:plus.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 
+  <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
 </tr>
 
 </table>
 </div>
 </div>
 
-<div style="display:none" id="waitmessage"><div style="border:3px outset white; color:black; background-color:white"><img src="[IMG:fcal-wait.gif]">[TEXT:waiting server...]</div></div>
+<div style="display:none" id="waitmessage"><div style="border:3px outset white; color:black; background-color:white"><img src="[IMG:fcal-wait.gif]"><span id="wmsgtext"></span>&nbsp;</div></div>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]
