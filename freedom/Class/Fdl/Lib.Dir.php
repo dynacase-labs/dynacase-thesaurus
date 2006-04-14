@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.108 2006/01/03 17:31:18 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.109 2006/04/14 07:07:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -148,9 +148,24 @@ function getSqlSearchDoc($dbaccess,
       // 	"where  $sqlcond ";
 
       //  if ($table != "doc") {
+
+      $qfld = new QueryDb($dbaccess,"QueryDir");  
+      $qfld->AddQuery("qtype='S'");
+      $qfld->AddQuery("fld.dirid=$dirid");
+      $lq=$qfld->Query(0,0,"TABLE");
+      $qids=array();
+      foreach ($lq as $v) {
+	$qids[]=$v["childid"];
+      }
+      $lfldid=GetSqlCond($qids,"initid",true);
+      
       $qsql= "select $selectfields ".
-   	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
-   	"where  $sqlcond ";
+   	"from $table where $lfldid and  ".
+   	"  $sqlcond ";
+
+//       $qsql= "select $selectfields ".
+//    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+//    	"where  $sqlcond ";
 
       //     } else {
       //          $qsql= "select * ".
@@ -357,7 +372,7 @@ function getChildDoc($dbaccess,
 	    $tretdocs[]=$tableq;
 	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      //       print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+             print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          
@@ -392,9 +407,10 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array()) {
   $q->AddQuery($sqlfld);
   $q->AddQuery("qtype='S'");
 
-  $tfld=$q->Query(0,0,"TABLE");
+  $tfld=$q->Query(0,1000,"TABLE");
 
-  if ($q->nb > 100) return false;
+  // use always this mode because is more quickly
+  //  if ($q->nb > 100) return false;
   $t=array();
   if ($q->nb > 0) {
     foreach ($tfld as $k=>$v) {   
@@ -603,14 +619,33 @@ function hasChildFld($dbaccess, $dirid,$issearch=false) {
       
     }
   } else {
-    $query = new QueryDb($dbaccess,"QueryDir");  
-    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id");
-    if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+    $qfld = new QueryDb($dbaccess,"QueryDir");  
+    $qfld->AddQuery("qtype='S'");
+    $qfld->AddQuery("fld.dirid=$dirid");
+    $lq=$qfld->Query(0,0,"TABLE");
+    $qids=array();
+    if (! is_array($lq)) return false;
 
+    $query = new QueryDb($dbaccess,"QueryDir");
+    if ($qfld->nb > 100) {  	
+      $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id limit 1");
+      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+      $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id limit 1");
+      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+    } else {
+      // optimize if not many document
+      foreach ($lq as $v) {
+	$qids[]=$v["childid"];
+      }
+      $lfldid=GetSqlCond($qids,"id",true);    
 
-    $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id");
-    if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+      $count = $query->Query(0,0,"TABLE", "select count(*) from doc2 where $lfldid  limit 1");
 
+      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+
+      $count = $query->Query(0,0,"TABLE", "select count(*) from doc5 where $lfldid  limit 1");
+      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
+    }
   }
   return false;
 }
