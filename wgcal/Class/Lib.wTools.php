@@ -538,4 +538,39 @@ function setThemeValue() {
   return $def;
 }
 
+
+function fcalGetIcon($key, $norm=true) {
+  global $action;
+  $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
+				      "iconmini" => $action->getImageUrl("fcal-small-confidential.gif"),
+				      "icontitle" => _("icon text confidential event") ),
+		   "VIS_CONFI" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
+					 "iconmini" => $action->getImageUrl("fcal-small-confidential.gif"),
+					"icontitle" => _("icon text visibility confidendial") ),
+		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
+					"iconmini" => $action->getImageUrl("fcal-small-private.gif"),
+					"icontitle" => _("icon text visibility private") ),
+		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
+					"iconmini" => $action->getImageUrl("fcal-small-privatecalendar.gif"),
+					"icontitle" => _("icon text visibility private") ),
+		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
+				      "iconmini" => $action->getImageUrl("fcal-small-visgroup.gif"),
+				       "icontitle" => _("icon text visibility group") ),
+		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
+				      "iconmini" => $action->getImageUrl("fcal-small-repeat.gif"),
+				      "icontitle" => _("icon text repeat event") ),
+		   "REPEATEXCLUDE" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
+				      "iconmini" => $action->getImageUrl("fcal-small-repeatexclude.gif"),
+				      "icontitle" => _("icon text repeat event") ),
+		   "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
+				     "iconmini" => $action->getImageUrl("fcal-small-alarm.gif"),
+				     "icontitle" => _("icon text alarm") ),
+		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
+				     "iconmini" => $action->getImageUrl("fcal-small-attendees.gif"),
+				     "icontitle" => _("icon text with attendees") )
+		   ); 
+  $ik = ($norm?"iconsrc":"iconmini");
+  return (array("code" => $key, "text" => $ricons[$key]["title"], "src" => $ricons[$key][$ik]));
+}
+
 ?>

@@ -568,8 +568,8 @@ function fcalCreateEvent(ie) {
     
 
   var nev = document.createElement('div');
-   var inhtml = '('+Events[ie].idp+')';
-//  var inhtml = '';
+ //  var inhtml = '('+Events[ie].idp+')';
+  var inhtml = '';
   with (nev) { 
     setAttribute('id', '_evt'+ie);
     setAttribute('name', '_evt'+ie);
@@ -579,7 +579,7 @@ function fcalCreateEvent(ie) {
     setAttribute('oncontextmenu', 'fcalOpenMenuEvent(event,'+Events[ie].id+')');
     if (Events[ie].icons.length>0) {
       for (var iic=0; iic<Events[ie].icons.length; iic++) {
-	inhtml += '<img src="'+Events[ie].icons[iic]+'" width="12px">';
+	inhtml += '<img src="'+Events[ie].icons[iic]+'" width="9px">&nbsp;';
       }
     }
     inhtml += Events[ie].title;

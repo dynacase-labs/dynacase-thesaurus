@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.23 2006/04/12 16:44:31 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.24 2006/04/15 07:29:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -32,7 +32,10 @@ function getDisplayAttr() {
 		  );
   if ($this->getValue( "evfc_iconlist")!='') {
     $icol = explode('|',$this->getValue( "evfc_iconlist"));
-    foreach ($icol as $k => $v) if ($v!='') $icol[$k] = "'".$v."'";
+    foreach ($icol as $k => $v) if ($v!='') {
+      $ics = fcalGetIcon($v, false);
+      $icol[$k] = "'".$ics["src"]."'";
+    }
     $attrd["icons"] = implode(',', $icol);
   } else {
     $attrd["icons"] = "";

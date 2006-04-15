@@ -127,7 +127,7 @@ function  setEventSpec(&$e) {
   
   $icons = $this->showIcons();
   $icol = "";
-  foreach ($icons as $k => $v) $icol .= ($icol==""?"":"|").$v["iconsrc"];
+  foreach ($icons as $k => $v) $icol .= ($icol==""?"":"|").$v["code"];
   $e->setValue("evfc_iconlist", $icol);
   $e->SetProfil($this->id);
 }
@@ -427,41 +427,26 @@ function RendezVousView() {
  *
  */
 function showIcons() {
+  include_once('WGCAL/Lib.wTools.php');
   global $action;
-  $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
-				      "icontitle" => _("icon text confidential event") ),
-		   "INVIT" => array( "iconsrc" => $action->getImageUrl("wm-invitation.gif"), 
-				     "icontitle" => _("icon text invitation") ),
-		   "VIS_CONFI" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
-					"icontitle" => _("icon text visibility confidendial") ),
-		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
-					"icontitle" => _("icon text visibility private") ),
-		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
-				       "icontitle" => _("icon text visibility group") ),
-		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
-				      "icontitle" => _("icon text repeat event") ),
-		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-privatecalendar.gif"), 
-					   "icontitle" => _("icon text private calendar") ),
-		   "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
-				     "icontitle" => _("icon text alarm") ),
-		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
-				     "icontitle" => _("icon text with attendees") )
-		   );
   $myid = $action->user->fid;
   $ressd = wgcalGetRessourcesMatrix($this->id);
   $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
   $private = $this->isConfidential();
   $icons = array();
-  if ($private)  $icons[] = $ricons["CONFID"];
+  if ($private)  $icons[] = fcalGetIcon("CONFID");
   else {
-    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = $ricons["CAL_PRIVATE"];
-    if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = $ricons["VIS_CONFI"];
-    if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = $ricons["VIS_GRP"];
-    if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = $ricons["VIS_PRIV"];
-    if ($this->getValue("CALEV_REPEATMODE") != 0)  $icons[] = $ricons["REPEAT"];
-    if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = $ricons["GROUP"];
-    if ($withme && ($this->getValue("CALEV_OWNERID") != $action->user->fid)) $icons[] = $ricons["INVIT"];
-    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = $ricons["ALARM"];
+    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = fcalGetIcon("CAL_PRIVATE");
+    if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = fcalGetIcon("VIS_CONFI");
+    if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = fcalGetIcon("VIS_GRP");
+    if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = fcalGetIcon("VIS_PRIV");
+    if ($this->getValue("CALEV_REPEATMODE") != 0)  {
+      $texcl = $this->getTValue("calev_excludedate");
+      if (!is_array($texcl) || count($texcl)==0) $icons[] = fcalGetIcon("REPEAT");
+      else $icons[] = fcalGetIcon("REPEATEXCLUDE");
+    }
+    if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
+    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
   }
   return $icons;
 }
