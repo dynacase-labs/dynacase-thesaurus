@@ -125,10 +125,11 @@ function  setEventSpec(&$e) {
 
   $e->setValue("evfc_calendarid", $this->getValue("calev_evcalendarid"));
   
-  $icons = $this->showIcons();
+  $icons = $this->setIcons();
   $icol = "";
   foreach ($icons as $k => $v) $icol .= ($icol==""?"":"|").$v["code"];
   $e->setValue("evfc_iconlist", $icol);
+  $e->confidential = $this->confidential;
   $e->SetProfil($this->id);
 }
 
@@ -221,9 +222,18 @@ function RendezVousView() {
   $conf    = $this->getValue("CALEV_VISIBILITY");
   $private = $this->isConfidential();
 
+  $textvis = "Ooops";
   $visgroup = false;
   $glist = "";
-  if ($conf==2) {
+  switch ($conf) {
+  case 0 : // Public
+    $textvis = _("public");
+    break;
+  case 1 : // Confidential
+    $textvis = _("confidential");
+    break;
+  case 2 : // Groups
+    $textvis = _("view groups");
     $visgroup = true;
     $ogrp = $this->getValue("CALEV_CONFGROUPS");
     $t = explode("|", $ogrp);
@@ -231,11 +241,17 @@ function RendezVousView() {
       if ($v!="") {
 	$du = getDocFromUserId($this->dbaccess, $v);
         if (!$du) continue;
-	$g  = new_Doc($dbaccess, $du->id);
-	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($g->title));
+	$glist .= ($glist=="" ? "" : ", " ) . ucwords(strtolower($du->title));
       }
     }
+    break;
+  case 3: // private
+    $textvis = _("private");
+    break;
+  default: // Ooops
+    $textvis = "Ooops";
   }
+  $this->lay->set("TextVisibility", $textvis);
   $this->lay->set("ShowGroups", $visgroup);
   $this->lay->set("groups", $glist);
   
@@ -406,7 +422,7 @@ function RendezVousView() {
       
   $sico = $this->getWgcalUParam("WGCAL_U_RESUMEICON", 1);
   if ($sico==1) {
-    $icons = $this->showIcons();
+    $icons = $this->setIcons();
     $this->lay->SetBlockData("icons", $icons);
   } else {
     $this->lay->SetBlockData("icons", null);
@@ -426,28 +442,22 @@ function RendezVousView() {
 /*
  *
  */
-function showIcons() {
+function setIcons() {
   include_once('WGCAL/Lib.wTools.php');
   global $action;
   $myid = $action->user->fid;
-  $ressd = wgcalGetRessourcesMatrix($this->id);
-  $me_attendee = (isset($ressd[$myid]) && $ressd[$myid]["state"]!=EVST_REJECT &&  $ressd[$myid]["displayed"]);
-  $private = $this->isConfidential();
   $icons = array();
-  if ($private)  $icons[] = fcalGetIcon("CONFID");
-  else {
-    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = fcalGetIcon("CAL_PRIVATE");
-    if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = fcalGetIcon("VIS_CONFI");
-    if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = fcalGetIcon("VIS_GRP");
-    if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = fcalGetIcon("VIS_PRIV");
-    if ($this->getValue("CALEV_REPEATMODE") != 0)  {
-      $texcl = $this->getTValue("calev_excludedate");
-      if (!is_array($texcl) || count($texcl)==0) $icons[] = fcalGetIcon("REPEAT");
-      else $icons[] = fcalGetIcon("REPEATEXCLUDE");
-    }
-    if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
-    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
+  if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = fcalGetIcon("CAL_PRIVATE");
+  if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = fcalGetIcon("VIS_CONFI");
+  if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = fcalGetIcon("VIS_GRP");
+  if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = fcalGetIcon("VIS_PRIV");
+  if ($this->getValue("CALEV_REPEATMODE") != 0)  {
+    $texcl = $this->getTValue("calev_excludedate");
+    if (!is_array($texcl) || count($texcl)==0) $icons[] = fcalGetIcon("REPEAT");
+    else $icons[] = fcalGetIcon("REPEATEXCLUDE");
   }
+  if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
+  if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
   return $icons;
 }
 
@@ -1808,4 +1818,78 @@ function setSync4jGuid($force=false) {
 function forceSync4jGuid() {
   $this->setSync4jGuid(true);
   $this->modify(true, array("calev_s4j_guid"));
+}
+
+
+
+function getAgendaMenu() {
+  global $action;
+  $t[] = array( "id" => "rendez-vous",
+		"label" => "Rendez Vous",
+		"desc" => "Rendez Vous",
+		"st" => 1,
+		"type" => 0,
+		"icon" => $action->getImageUrl("wgcal-small.gif"),
+		"onmouse" => "",
+		"amode" => 0,
+		"atarget" => "",
+		"ascript" => "",
+		"aevent" => ""  );
+  $t[] = array( "id" => "",
+		"label" => "",
+		"desc" => "",
+		"st" => 1,
+		"type" => 2,
+		"icon" => "",
+		"onmouse" => 0,
+		"amode" => 0,
+		"atarget" => "",
+		"ascript" => "",
+		"aevent" => "0" );
+  $t[] = array( "id" => "history",
+		"label" => _("history"),
+		"desc" => _("event history"),
+		"st" => 2,
+		"type" => 1,
+		"icon" => "",
+		"onmouse" => 0,
+		"amode" => 0,
+		"atarget" => "history",
+		"ascript" => "index.php?sole=Y&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
+		"aevent" => "0" );
+    $t[] = array( "id" => "history",
+		"label" => _("history"),
+		"desc" => _("event history"),
+		"st" => 2,
+		"type" => 1,
+		"icon" => "",
+		"onmouse" => 0,
+		"amode" => 0,
+		"atarget" => "history",
+		"ascript" => "index.php?sole=Y&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
+		"aevent" => "0" );
+  $t[] = array( "id" => "history",
+		"label" => _("history"),
+		"desc" => _("event history"),
+		"st" => 2,
+		"type" => 1,
+		"icon" => "",
+		"onmouse" => 0,
+		"amode" => 0,
+		"atarget" => "history",
+		"ascript" => "index.php?sole=Y&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
+		"aevent" => "0" );
+$t[] = array( "id" => "",
+		"label" => "",
+		"desc" => "",
+		"st" => 1,
+		"type" => 2,
+		"icon" => "",
+		"onmouse" => 0,
+		"amode" => 0,
+		"atarget" => "",
+		"ascript" => "",
+		"aevent" => "0" );
+	       
+  return $t;
 }

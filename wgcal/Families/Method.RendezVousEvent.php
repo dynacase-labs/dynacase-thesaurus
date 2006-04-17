@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.24 2006/04/15 07:29:16 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.25 2006/04/17 11:14:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -40,15 +40,19 @@ function getDisplayAttr() {
   } else {
     $attrd["icons"] = "";
   }
+
   $ressd = $this->getRMatrix();
-  $attrd["bgColor"] =  $this->getDisplayColor($ressd);
+
+  $attrd["bgColor"] =  
+    $attrd["rightColor"] = $attrd["bottomColor"] = $attrd["leftColor"] = $attrd["topColor"] = $this->getDisplayColor($ressd);
+
   if (count($ressd)>1 && isset($ressd[$myid]) && $ressd[$myid]["displayed"] && $ressd[$myid]["state"]!=-1) 
     $attrd["topColor"]  = WGCalGetColorState($ressd[$myid]["state"], $attrd["bgColor"]);
-  else $attrd["topColor"] = $attrd["bgColor"];
 
-  $attrd["rightColor"] = $attrd["bgColor"];
-  $attrd["bottomColor"] = $attrd["bgColor"];
-  $attrd["leftColor"] = $attrd["bgColor"];
+  if ($this->getValue("evfc_dcreatorid")==$myid && $this->getValue("evfc_dcreatorid")!=$this->getValue("evt_idcreator")) {
+    $attrd["rightColor"]  = $this->getUColor($myid);
+  }
+
   $cat = $this->getValue("evt_code");
   $catg = wGetCategories();
   if ($catg>0) {
@@ -396,6 +400,7 @@ function getUFirstDisplayed() {
   }
   return -1;
 }
+
 function getUColor($ufid) {
   global $action;
   $r = $action->parent->param->getUParam("WGCAL_U_RESSDISPLAYED", $action->user->id, $action->parent->GetIdFromName("WGCAL"));

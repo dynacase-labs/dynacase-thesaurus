@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.83 2006/04/12 16:44:31 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.84 2006/04/17 11:14:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,6 +30,8 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
+  $action->parent->AddJsRef("mcal/Layout/mcallib.js");
+  $action->parent->AddJsRef("mcal/Layout/mcalmenu.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/nWgcal.js");
@@ -63,31 +65,6 @@ function wgcal_calendar(&$action) {
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
   $tout = wGetEvents($d1, $d2);
-//   $calfid = getIdFromName($dbaccess,"CALEVENT");
-//   $popuplist = array();
-//   foreach ($tout as $k => $v) {
-//     $IsRV = ($v["FIDP"]==$calfid ? true : false);
-//     $d = new_Doc($dbaccess, $v["IDP"]);  
-//     $tout[$k]["EvRCard"] = $d->viewDoc(($d->defaultabstract=="FDL:VIEWABSTRACTCARD")?"FDL:VIEWTHUMBCARD":$d->defaultabstract);
-//     $tout[$k]["TITLE"] = addslashes($d->getValue("title"));
-//     $tout[$k]["EvPCard"] = "";
-//     $tout[$k]["hasPCard"] = false;
-//     if ($IsRV) {
-//       $tout[$k]["hasPCard"] = true;
-//       $tout[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-//       $tout[$k]["vRv"] = true;
-//       $tout[$k]["edit"] = ($d->Control("edit")==""?true:false);
-//       if ($tout[$k]["edit"]) $tout[$k]["vRv"] = false;
-//       if (!isset($popuplist[$d->popup_name])) {
-// 	$popuplist[$d->popup_name] = true;
-// 	popupInit($d->popup_name,  $d->popup_item);
-//       }
-//       $d->RvSetPopup($k);
-//     } else {
-//       $tout[$k]["edit"] = false;
-//       $tout[$k]["vRv"] = false;
-//     }
-//   }
   popupGen(0);
   
   // Display results ------------------------------------------------------------------------------------

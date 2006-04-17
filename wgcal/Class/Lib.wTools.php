@@ -447,9 +447,15 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 		     "leftColor" => "lightblue",
 		     );
   foreach ($events as $k=>$v) {
-    $events[$k]["rg"] = $rg;
     $ev = getDocObject($dbaccess, $v);
-    $events[$k]["evt_title"] = addslashes($events[$k]["evt_title"]);
+    $events[$k]["rg"] = $rg;
+    if ($ev->Control("confidential")=="" || ($ev->confidential==0 && $ev->Control("view")=="")) {
+      $events[$k]["displayable"] = "true";
+      $events[$k]["evt_title"] = addslashes($events[$k]["evt_title"]);
+    } else {
+      $events[$k]["displayable"] = 'false';
+      $events[$k]["evt_title"] = _("confidential event");
+    }
     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
@@ -462,8 +468,8 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $events[$k]["bottomColor"] = $dattr["bottomColor"];
     $events[$k]["rightColor"] = $dattr["rightColor"];
     $events[$k]["leftColor"] = $dattr["leftColor"];
-    if (!isset($events[$k]["evfc_catg"]))  $events[$k]["evfc_catg"] = 0;
-    if (!isset($events[$k]["evfc_dhour"]))  $events[$k]["evfc_dhour"] = 0;
+    if ($ev->Control("edit")=="") $events[$k]["editable"] = 'true';
+    else $events[$k]["editable"] = 'false';
     $rg++;
   } 
   return $events;
@@ -530,6 +536,9 @@ function getThemeValue($var, $def="") {
 
 function setThemeValue() {
   global $action;
+  $fsz = GetHttpVars("fonts", $action->getParam("WGCAL_U_FONTSZ", "normal"));
+  @include_once("WGCAL/Themes/normal.fsz");
+  if ($fsz!="normal") @include_once("WGCAL/Themes/".$fsz.".fsz");
   $themef = getParam("WGCAL_U_THEME", "default");
   @include_once("WGCAL/Themes/default.thm");
   @include_once("WGCAL/Themes/".$themef.".thm");

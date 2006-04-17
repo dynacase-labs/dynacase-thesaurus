@@ -195,13 +195,19 @@ function SetCurrentEvent(id, cd) {
 
 // --------------------------------------------------------
 function ClickCalendarCell(event, nh,times,timee) {
+  var evt = (evt) ? evt : ((event) ? event : null );
   closeMenu('calpopup');
-  document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
-			      title:'', hmode:nh, start:times, end:timee, 
-			      category:0, note:'', location:'', 
-			      confidentiality:0 };
-  fastEditInit(event);
-  //subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
+  if (!evt.ctrlKey) {
+   if (!fastEditChangeAlert()) return;
+   document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
+			       title:'', hmode:nh, start:times, end:timee, 
+			       category:0, note:'', location:'', 
+			       confidentiality:0 };
+   fastEditInit(event, true);
+  }
+  if (evt.ctrlKey) {
+    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=0&nh='+nh+'&ts='+times+'&te='+timee);
+  }
 }
 
 // --------------------------------------------------------
@@ -389,9 +395,24 @@ function WGCalAddEvent(nev)
   }
 }
 
+function fcalRemoveEvent(i) {
+  if (document.getElementById('evt'+i)) {
+    var ee =  document.getElementById('evt'+i);
+    ee.parentNode.removeChild(ee);
+  }
+  if (document.getElementById('evtc'+i)) {
+    var ee =  document.getElementById('evtc'+i);
+    ee.parentNode.removeChild(ee);
+  }
+}
+
 function fcalInitEvents() {
   var iev;
+  for (iday=0; iday<XDays; iday++) {
+    if (Days[iday].view) Days[iday].ev = new Array();
+  }
   for (iev=0; iev<Events.length; iev++) {
+    fcalRemoveEvent(iev);
     fcalDisplayEvent(iev);
     WGCalAddEvent(iev);
   }
@@ -538,7 +559,6 @@ function WGCalDisplayEvent(cEv, ncol) {
   eE.style.height = (h-2)+"px";
   eE.style.position = 'absolute';
   eE.style.display = 'block';
- 
   root.appendChild(eE);
   return;
 }
@@ -565,28 +585,31 @@ function fcalCreateEvent(ie) {
   rnev.style.setProperty('overflow', 'hidden', '');
   rnev.className = 'wEvResume';
   root.appendChild(rnev);
-    
-
+   
   var nev = document.createElement('div');
- //  var inhtml = '('+Events[ie].idp+')';
   var inhtml = '';
   with (nev) { 
     setAttribute('id', '_evt'+ie);
     setAttribute('name', '_evt'+ie);
-    setAttribute('onmouseover', 'fcalSetOpacity(this, 100); fcalStartEvDisplay(event, '+Events[ie].idp+')');
-    setAttribute('onmouseout', 'fcalSetOpacity(this, 60); fcalCancelEvDisplay('+Events[ie].idp+')');
-    setAttribute('onclick', 'fcalFastEditEvent(event,'+Events[ie].idp+')');
-    setAttribute('oncontextmenu', 'fcalOpenMenuEvent(event,'+Events[ie].id+')');
+    if (Events[ie].display) {
+      setAttribute('onmouseover', 'fcalSetOpacity(this, 100); fcalStartEvDisplay(event, '+Events[ie].idp+')');
+      setAttribute('onmouseout', 'fcalSetOpacity(this, 60); fcalCancelEvDisplay('+Events[ie].idp+')');
+      setAttribute('oncontextmenu', 'fcalOpenMenuEvent(event, \'_evt'+ie+'\', '+Events[ie].idp+')');
+    } else {
+      setAttribute('onmouseover', 'fcalSetOpacity(this, 100)');
+      setAttribute('onmouseout', 'fcalSetOpacity(this, 60)');
+    }      
+    if (Events[ie].edit) {
+      setAttribute('onclick', 'fcalFastEditEvent(event,'+Events[ie].idp+')');
+    }
     if (Events[ie].icons.length>0) {
       for (var iic=0; iic<Events[ie].icons.length; iic++) {
-	inhtml += '<img src="'+Events[ie].icons[iic]+'" width="9px">&nbsp;';
+	inhtml += '<img src="'+Events[ie].icons[iic]+'" witdh="9px">';
       }
     }
-    inhtml += Events[ie].title;
+    inhtml += '&nbsp;'+ Events[ie].title;
     innerHTML = inhtml;
     style.setProperty('display', 'block', '');
-    style.setProperty('height', '100%', '');
-    style.setProperty('width', '100%', '');
     style.setProperty('position', 'absolute', '');
     style.setProperty('background-color', Events[ie].bgColor, '');
     style.setProperty('color', Events[ie].fgColor, '');
@@ -595,6 +618,8 @@ function fcalCreateEvent(ie) {
     style.setProperty('opacity','0.6', '');
     style.setProperty('filter', 'alpha(opacity=60)', '');
     style.setProperty('border-color', Events[ie].topColor+' '+Events[ie].rightColor+' '+Events[ie].bottomColor+' '+Events[ie].leftColor, '');    
+    style.setProperty('height', '100%', '');
+    style.setProperty('width', '100%', '');
   }
   rnev.appendChild(nev);
 

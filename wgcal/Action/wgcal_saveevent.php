@@ -4,6 +4,7 @@ include_once("WHAT/Lib.Common.php");
 include_once("FDL/Class.Doc.php");
 include_once("FDL/mailcard.php");
 include_once("WGCAL/Lib.Agenda.php");
+include_once("WGCAL/Lib.WGCal.php");
 
 function wgcal_saveevent(&$action) {
 
@@ -108,8 +109,44 @@ function wgcal_saveevent(&$action) {
   $event->setAccessibility();
   $event->unlock(true);
 
+  // Get produced event
+  $ev = GetChildDoc($dbaccess, 0, 0, "ALL", array("evt_idinitiator = ".$event->id ), $action->user->id, "LIST", "EVENT_FROM_CAL");
+  if (count($ev)!=1) {
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", "#".$event->id." produced event error (count=".count($ev).")");
+  }
+  $action->lay->set("id", $ev[0]->id);
+  $action->lay->set("fromid", $ev[0]->fromid);
+  $action->lay->set("evt_idinitiator", $ev[0]->getValue("evt_idinitiator"));
+  $action->lay->set("evt_frominitiatorid", $ev[0]->getValue("evt_frominitiatorid"));
+  $action->lay->set("start", localFrenchDateToUnixTs($ev[0]->getValue("evt_begdate"),true));
+  $end = ($ev[0]->getValue("evfc_realenddate") == "" ? $ev[0]->getValue("evt_enddate") : $ev[0]->getValue("evfc_realenddate"));
+  $action->lay->set("end", localFrenchDateToUnixTs($end, true));
+  if ($ev[0]->Control("confidential")=="" || ($ev[0]->confidential==0 && $ev[0]->Control("view")=="")) {
+    $action->lay->set("evt_title", addslashes($ev[0]->getValue("evt_title")));
+    $action->lay->set("displayable", "true");
+  } else {
+    $action->lay->set("displayable", "false");
+    $action->lay->set("evt_title",_("confidential event"));
+  }
+  $dattr = array( "icons" => array("iconsrc" => "'$noimgsrc'"),
+		     "bgColor" => "lightblue",
+		     "fgColor" => "black",
+		     "topColor" => "lightblue",
+		     "rightColor" => "lightblue",
+		     "bottomColor" => "lightblue",
+		     "leftColor" => "lightblue"  );
+  if (method_exists($ev[0], "getDisplayAttr")) $dattr = $ev[0]->getDisplayAttr();
+  $action->lay->set("icons", $dattr["icons"]);
+  $action->lay->set("bgColor", $dattr["bgColor"]);
+  $action->lay->set("fgColor", $dattr["fgColor"]);
+  $action->lay->set("topColor", $dattr["topColor"]);
+  $action->lay->set("rightColor", $dattr["rightColor"]);
+  $action->lay->set("bottomColor", $dattr["bottomColor"]);
+  $action->lay->set("leftColor", $dattr["leftColor"]);
+  $action->lay->set("editable", ($ev[0]->Control("edit")=="" ? "true" : "false"));
+
   $action->lay->set("status", 0);
-//   $action->lay->set("statustext", "id=[$idp] oi=[$oid] ti=[$title] nh=[$nh] ts=[$ts] te=[$te] lo=[$lo] no=[$no] ca=[$cat] co=[$conf] ");
   $action->lay->set("statustext", "#".$event->id." created");
   return ;
 }

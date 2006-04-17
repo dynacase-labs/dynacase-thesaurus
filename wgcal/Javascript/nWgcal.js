@@ -54,15 +54,6 @@ function fcalGetCalEvent(pid) {
   rq.send(null);
 }
 
-var iif = 0;
-function calInfo(t) {
-  if (document.getElementById('textinfo')) {
-    iif++;
-    var nev = document.createElement('div');
-    nev.innerHTML = '['+iif+'] '+t;
-    document.getElementById('textinfo').appendChild(nev);
-  }
-}
 
 function addCalEvContent(pid, html) {
   if (!document.getElementById('EVTC'+pid)) return;
@@ -76,7 +67,7 @@ function addCalEvContent(pid, html) {
 function computeDivPosition(o,delta) {
 
   if (!document.getElementById(o)) {
-    calInfo('Element '+o+' not found');
+    alert('Element '+o+' not found');
     return;
   }
   var eid = document.getElementById(o);
@@ -147,14 +138,6 @@ function modifyEvent(pid) {
   alert('pid='+pid);
 }
 
-  var feChange = false;
-var feHour = 0; // No hour / alla day ? 
-var feStart = 0; // Start time
-var feEnd = 0;   // End time
-var fePid = 0;   // Event producter Id
-var feId = 0;    // Event Id
-
-
 function fastEditSave(ev) {
 
   posM.x = getX(ev);
@@ -196,48 +179,86 @@ function fastEditSave(ev) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
     return false;
   }
-  calInfo('Server status ['+fcalStatus.code+'] : '+fcalStatus.text);
+  if (document.EventInEdition && document.EventInEdition.rg>0) 
+    Events[document.EventInEdition.rg] = newEvent;
+  else
+    Events[Events.length] = newEvent;
+  reloadEvents();
   fastEditReset();
   return;
 } 
 
 function fastEditOpenFullEdit() {
-  
-  editevent(document.getElementById('fe_title').value,'',feHour,feStart,feEnd);
-  fastEditReset();
- }
+  if (fastEditChangeAlert()) {
+    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+document.EventInEdition.idp);
+    fastEditReset();
+  }
+}
 
 function fastEditReset() {
-  document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
+  document.EventInEdition = { rg:-1, id:-1, idp:-1, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
 			      confidentiality:0 };
+  document.getElementById('fe_title').value ='';
+  document.getElementById('fe_location').value ='';
+  document.getElementById('fe_note').value = '';
+  document.getElementById('fe_categories').options[0].selected = true;
+  document.getElementById('fe_confidentiality').options[0].selected = true;
   document.getElementById('btnSave').style.display = 'none';
-  var fedit = document.getElementById('fastedit');
-  fedit.style.display = 'none';
+  document.getElementById('fastedit').style.display = 'none';
+  fcalSetOpacity(document.getElementById('root'), 100);
 }
   
+
+function fastEditContentChanged() {
+  if (document.EventInEdition) {
+    var title = document.getElementById('fe_title').value;
+    var loc = document.getElementById('fe_location').value;
+    var note = document.getElementById('fe_note').value;
+    var scat = document.getElementById('fe_categories');
+    var cat = 0;
+    for (var i=0; i<scat.options.length; i++) { if (scat.options[i].selected) cat = scat.options[i].value; }
+    var sconf = document.getElementById('fe_confidentiality');
+    var conf = 0;
+    for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
+    if (title != document.EventInEdition.title) return true;
+    if (cat != document.EventInEdition.category) return true;
+    if (note != document.EventInEdition.note) return true;
+    if (loc != document.EventInEdition.location) return true;
+    if (conf != document.EventInEdition.confidentiality) return true;
+  }
+  return false;
+}
   
 function fastEditChangeAlert() {
-  if (!feChange) return true;
+  if (!fastEditContentChanged()) return true;
   var ca = confirm('Abandon des modifications en cours ?');
   if (ca) fastEditReset();
   return ca;
 } 
 
 function fastEditChange(o) {
-  feChange = true;
-  if (o.id=='fe_title' && document.getElementById('fe_title').value!='') {
-    document.getElementById('btnSave').style.display = '';
+  if (document.getElementById('fe_title').value!='') document.getElementById('btnSave').style.display = '';
+  else document.getElementById('btnSave').style.display = 'none';
+  return true;
+}
+
+function fastEditFSave(event, o) {
+  var evt = (evt) ? evt : ((event) ? event : null );
+  var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
+  if (cc==13) {
+    fastEditSave(event);
+    return false;
   }
-  if (document.getElementById('fe_title').value=='') document.getElementById('btnSave').style.display = 'none';
-  
+  if (document.getElementById('fe_title').value!='') document.getElementById('btnSave').style.display = '';
+  return true;
 }
 
 function fastEditCancel() {
   if (!fastEditChangeAlert()) return;
-  var fedit = document.getElementById('fastedit');
-  fedit.style.display = 'none';
+  fastEditReset();
+  return true;
 }
 
 
@@ -265,21 +286,29 @@ function  fcalGetJSDoc(id) {
 
 
 function fcalFastEditEvent(ev, id) {
-  var ii = 0;
-  var dv = fcalGetJSDoc(id) ;
-  if (!dv) return;
-  for (iev=0; iev<Events.length && ii==0; iev++) {
-    if (Events[iev].id == id) ii = iev;
+  var evt = (evt) ? evt : ((ev) ? ev : null );
+  if (evt.ctrlKey) {
+    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+id);
+  } else {
+    var ii = 0;
+    var dv = fcalGetJSDoc(id) ;
+    if (!dv) return;
+    for (iev=0; iev<Events.length && ii==0; iev++) {
+      if (Events[iev].idp == id) ii = iev;
+    }
+    document.EventInEdition = { rg:ii, id:Events[ii].id, idp:Events[ii].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
+				title:dv.title, hmode:dv.calev_timetype, start:Events[ii].start, end:Events[ii].end, 
+				category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
+				confidentiality:dv.calev_visibility };
+    return fastEditInit(ev, true);
   }
-  document.EventInEdition = { id:Events[ii].id, idp:Events[ii].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
-			      title:dv.title, hmode:dv.calev_timetype, start:Events[ii].start, end:Events[ii].end, 
-			      category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
-			      confidentiality:dv.calev_visibility };
-  return fastEditInit(ev);
+  return;
 }
 
-function fastEditInit(ev) {
-  if (!fastEditChangeAlert()) return;
+function fastEditInit(ev, init) {
+  if (!init && !fastEditChangeAlert()) return;
+  
+  fcalSetOpacity(document.getElementById('root'), 50);
 
   if (document.EventInEdition.idowner==-1) {
     document.EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
@@ -295,18 +324,14 @@ function fastEditInit(ev) {
   document.getElementById('fe_location').value = document.EventInEdition.location;
   document.getElementById('fe_note').value = document.EventInEdition.note;
 
-  if (document.EventInEdition.category>0) {
-    var scat = document.getElementById('fe_categories');
-    for (var i=0; i<scat.options.length; i++) {
-      if (scat.options[i].value == document.EventInEdition.category) scat.options[i].selected = true;
-    }
+  var scat = document.getElementById('fe_categories');
+  for (var i=0; i<scat.options.length; i++) {
+    if (scat.options[i].value == document.EventInEdition.category) scat.options[i].selected = true;
   }
 
-  if (document.EventInEdition.confidentiality>0) {
-    var scat = document.getElementById('fe_confidentiality');
-    for (var i=0; i<scat.options.length; i++) {
-      if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
-    }
+  var scat = document.getElementById('fe_confidentiality');
+  for (var i=0; i<scat.options.length; i++) {
+    if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
   }
 
   var textdate = '';
@@ -338,8 +363,32 @@ function fastEditInit(ev) {
 }
 
 
-function fcalOpenMenuEvent(event, ie) {
-  alert('Open menu '+ie);
+function fcalOpenMenuEvent(event, id, idp) {
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GETMENU&id="+idp;
+  var rq;
+  showWaitServerMessage('Loading menu');
+  try {
+    rq = new XMLHttpRequest();
+  } catch (e) {
+    rq = new ActiveXObject("Msxml2.XMLHTTP");
+  }
+  rq.id = id;
+  rq.open("GET", urlsend, false);
+  rq.send(null);
+  hideWaitServerMessage();
+  eval(rq.responseText);
+  if (fcalStatus.code<0) {
+    alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
+    return false;
+  } else {
+    var mn = new MCalMenu('m'+id, pmenu, pmstyle);
+    mn.attachToElt( id, 0, 0, true, 'contextmenu', 'fcalActivateMenu', idp);
+    return true;
+  }
+}
+
+function fcalActivateMenu(event, mode, type, action, target, hmode, hparam) {
+  alert(hparam[0]);
 }
 
 function showWaitServerMessage(msg) {
