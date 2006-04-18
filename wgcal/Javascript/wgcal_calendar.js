@@ -255,10 +255,10 @@ function fcalComputeCoord() {
   var w = getObjectWidth(document.getElementById(IdEnd));
   var h = getObjectHeight(document.getElementById(IdEnd));
 
-  var wroot = parseInt(getObjectWidth(document.getElementById('root')));
-  document.getElementById('root').style.width=wroot+'px'; 
-  document.getElementById('headscreen').style.width=wroot+'px'; 
-  if (document.getElementById('wgcalmenu')) document.getElementById('wgcalmenu').style.width=wroot+'px'; 
+  var wroot = '100%';
+  document.getElementById('root').style.width=wroot; 
+  document.getElementById('headscreen').style.width=wroot; 
+  if (document.getElementById('wgcalmenu')) document.getElementById('wgcalmenu').style.width=wroot; 
 
   Xs = os.x;
   Ys = os.y;
@@ -400,8 +400,12 @@ function fcalRemoveEvent(i) {
     var ee =  document.getElementById('evt'+i);
     ee.parentNode.removeChild(ee);
   }
-  if (document.getElementById('evtc'+i)) {
-    var ee =  document.getElementById('evtc'+i);
+  if (document.getElementById('_evt'+i)) {
+    var ee =  document.getElementById('_evt'+i);
+    ee.parentNode.removeChild(ee);
+  }
+  if (document.getElementById('EVTC'+Events[i].idp)) {
+    var ee =  document.getElementById('EVTC'+Events[i].idp);
     ee.parentNode.removeChild(ee);
   }
 }
@@ -543,23 +547,24 @@ function WGCalDisplayEvent(cEv, ncol) {
   h = endY - startY;
   if (!cEv.mdays) {
     eE = document.getElementById('evt'+cEv.n); // Event abstract container
-    eC = document.getElementById('evtc'+cEv.n); // Card
-    if (eC) root.appendChild(eC);
+    eE2 = document.getElementById('_evt'+cEv.n); // Event abstract container
   } else {
     etmp = document.getElementById('evt'+cEv.n); 
     eE = etmp.cloneNode(true);
   }
-  eE.style.top = startY+"px";
-  // Compute width
+  // Compute width and X coord
   xw = cWidth * cEv.rwidth;
-  // Compute X coord
   delta = cWidth / ncol;
-  eE.style.left = startX + head + ((cEv.col-1) * delta) + "px";
-  eE.style.width = (xw-2)+"px";
-  eE.style.height = (h-2)+"px";
-  eE.style.position = 'absolute';
-  eE.style.display = 'block';
-  root.appendChild(eE);
+  with (eE) {
+    style.top = startY+"px";
+    style.left = startX + head + ((cEv.col-1) * delta) + "px";
+    style.width = (xw-2)+"px";
+    style.height = (h-2)+"px";
+    style.position = 'absolute';
+    style.display = 'block';
+  }
+  if (cEv.mdays) root.appendChild(eE);
+  
   return;
 }
 
@@ -609,8 +614,6 @@ function fcalCreateEvent(ie) {
     }
     inhtml += '&nbsp;'+ Events[ie].title;
     innerHTML = inhtml;
-    style.setProperty('display', 'block', '');
-    style.setProperty('position', 'absolute', '');
     style.setProperty('background-color', Events[ie].bgColor, '');
     style.setProperty('color', Events[ie].fgColor, '');
     style.setProperty('border-width', '3px', '');
@@ -618,6 +621,8 @@ function fcalCreateEvent(ie) {
     style.setProperty('opacity','0.6', '');
     style.setProperty('filter', 'alpha(opacity=60)', '');
     style.setProperty('border-color', Events[ie].topColor+' '+Events[ie].rightColor+' '+Events[ie].bottomColor+' '+Events[ie].leftColor, '');    
+    style.setProperty('display', 'block', '');
+    style.setProperty('position', 'absolute', '');
     style.setProperty('height', '100%', '');
     style.setProperty('width', '100%', '');
   }

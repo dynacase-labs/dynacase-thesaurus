@@ -1,3 +1,12 @@
+
+var iTempo = 0;
+function fcalDisplayInitTempo() {
+  if (iTempo!=0) clearTimeout(iTempo);
+  iTempo = self.setTimeout("displayInit()", 500);
+}
+ 
+
+
 var evDisplayed = -1;
 var evLoaded = new Array();
 
@@ -5,6 +14,13 @@ var evLoaded = new Array();
 var posM = { x:0, y:0 };
 var Tempo = 200;
 var TempoId = -1;
+
+function fcalReloadEvents() {
+  showWaitServerMessage('Loading interface');
+  fcalInitEvents();
+  fcalShowEvents();
+  hideWaitServerMessage();
+}
 
 function fcalStartEvDisplay(ev, pid) {
   if (evDisplayed==pid) return;
@@ -179,11 +195,11 @@ function fastEditSave(ev) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
     return false;
   }
-  if (document.EventInEdition && document.EventInEdition.rg>0) 
+  if (document.EventInEdition && document.EventInEdition.rg>=0) 
     Events[document.EventInEdition.rg] = newEvent;
   else
     Events[Events.length] = newEvent;
-  reloadEvents();
+  fcalReloadEvents();
   fastEditReset();
   return;
 } 

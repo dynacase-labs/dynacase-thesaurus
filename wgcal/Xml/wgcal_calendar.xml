@@ -35,13 +35,8 @@ function displayInit() {
   fcalShowEvents();
   hideWaitServerMessage();
 }
-function reloadEvents() {
-  showWaitServerMessage('Loading interface');
-  fcalInitEvents();
-  fcalShowEvents();
-  hideWaitServerMessage();
-}
 addEvent(window, 'load', displayInit);
+addEvent(window, 'resize', fcalDisplayInitTempo);
 </script>
 
 <div style="display:none" id="fastedit">
