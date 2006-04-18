@@ -9,3 +9,4 @@ psql $dbfree -f $wpub/FDL/fdl.sql
 echo "alter table doc add column prelid int;" | psql $dbfree
 echo "alter table doc add column fldrels int[];" | psql $dbfree
 /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=QueryDir
+$wpub/wsh.php --api=migr_2.3.1 | psql $dbfree
