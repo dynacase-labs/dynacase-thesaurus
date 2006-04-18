@@ -128,6 +128,7 @@ function  setEventSpec(&$e) {
   $icons = $this->setIcons();
   $icol = "";
   foreach ($icons as $k => $v) $icol .= ($icol==""?"":"|").$v["code"];
+  $icol = ($icol=="" ? " " : $icol);
   $e->setValue("evfc_iconlist", $icol);
   $e->confidential = $this->confidential;
   $e->SetProfil($this->id);

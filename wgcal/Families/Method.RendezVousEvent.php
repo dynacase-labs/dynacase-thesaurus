@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.25 2006/04/17 11:14:38 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.26 2006/04/18 16:46:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -55,10 +55,8 @@ function getDisplayAttr() {
 
   $cat = $this->getValue("evt_code");
   $catg = wGetCategories();
-  if ($catg>0) {
-    foreach ($catg as $k=>$v) {
-      if ($v["id"] == $cat) $attrd["leftColor"] = $v["color"];
-    }
+  if ($cat>0) {
+    foreach ($catg as $k=>$v) { if ($v["id"] == $cat) $attrd["leftColor"] = $v["color"];  }
   }
   return $attrd;
 }

@@ -277,7 +277,7 @@ function initCategories() {
     $catl->setValue("catg_id",array(0));
     $catl->setValue("catg_name",array(_("no category")));
     $catl->setValue("catg_order",array(0));
-    $catl->setValue("catg_color",array("transparent"));
+    $catl->setValue("catg_color",array(""));
     $catl->Add();
   } else {
     $catl = $glist[0];
@@ -438,7 +438,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
   $rg = 0;
   $noimgsrc = $action->getImageUrl("noimg.png");
-  $defaults = array( "icons" => array("iconsrc" => "'$noimgsrc'"),
+  $defaults = array( "icons" => array(),
 		     "bgColor" => "lightblue",
 		     "fgColor" => "black",
 		     "topColor" => "lightblue",

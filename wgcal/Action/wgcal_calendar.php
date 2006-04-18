@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.84 2006/04/17 11:14:38 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.85 2006/04/18 16:46:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -34,7 +34,6 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("mcal/Layout/mcalmenu.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-  $action->parent->AddJsRef("WGCAL/Layout/nWgcal.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
