@@ -1,69 +1,4 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-<script type="text/javascript"> 
-var UrlRoot = '[CORE_STANDURL]';
-var CurrentTime = -1;
-var Days = new Array();
-[BLOCK DAYS]
-Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
-[BLOCK EVENTS]
-fcalEvents[[rg]] = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]', edit:[editable], display:[displayable], occur:0 };[ENDBLOCK EVENTS]
-
-function displayInit() {
-  AltIsFixed = '[ALTFIXED]';
-  AltTimerValue = '[ALTTIMER]';
-  posM.x = getFrameWidth() / 2;
-  posM.y = getFrameHeight() / 2;
-//   showWaitServerMessage('Loading interface');
-  fcalInitView('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
-  fcalInitEvents();
-  fcalShowEvents();
-//   hideWaitServerMessage();
-}
-</script>
-
-<div style="display:none" id="waitmessage">
-  <div style="border:3px outset white; color:black; background-color:white">
-    <img src="[IMG:fcal-wait.gif]"><span id="wmsgtext"></span>
-  </div>
-</div>
-
-
-<div style="display:none" id="fastedit">
-  <div class="fasteditcontent">
-  <table>
-    <tr><td colspan="2" class="WGCAL_DayLine" ><span id="fe_date"></span><span id="fe_allday" style="display:none">[TEXT:all the day]</span><span id="fe_nohour" style="display:none">[TEXT:no hour]</span></td></tr>
-    <tr><td colspan="2">&nbsp;</td></tr>
-    <tr>
-      <td>[TEXT:rv title]</td>
-      <td><input class="Mandatory" onkeypress="fastEditFSave(event,this)" onchange="fastEditChange(this);" id="fe_title" title="[TEXT:rv title]" type="text" size="40"></td>
-    </tr>
-    <tr>
-      <td colspan="2">[TEXT:location_1stUpcase] <input class="textBorder" title="[TEXT:locationexplain]"  onchange="fastEditChange(this);" id="fe_location" type="text" size="12"> [TEXT:category] <select onchange="fastEditChange(this);" id="fe_categories">[BLOCK category]<option value="[fe_catv]">[fe_catt][ENDBLOCK category]</td>
-    </tr>
-    <tr>
-      <td align="center" colspan="2"><textarea onchange="fastEditChange(this);" cols="40" title="[TEXT:rv note]" rows="2" id="fe_note" name="fe_note"></textarea></td>
-    </tr>
-
-    <tr><td colspan="2">&nbsp;</td></tr>
-
-    <tr>
-      <td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic;"><span id="agendaowner"></span> <select id="fe_confidentiality" onchange="fastEditChange(this);" >[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select></td>
-    </tr>
-
-    <tr>
-     <td align="left"><img height="12px" src="[IMG:wm-evedit.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 
-     <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
-    </tr>
-  </table>
-  </div>
-</div>
-
-<script> 
-addEvent(window, 'load', displayInit );
-addEvent(window, 'resize', fcalDisplayInitTempo);
-</script>
-
-
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 
 <div onmouseover="closeAllMenu()" id="root">
@@ -81,6 +16,64 @@ addEvent(window, 'resize', fcalDisplayInitTempo);
 <td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
 </tr>[ENDBLOCK HOURS]</tbody>
 </table></div>
+
+<div style="display:block" id="fcalDatas"></div>
 [ZONE WGCAL:WGCAL_INFOS]
+
+<div style="display:none" id="waitmessage">
+  <div style="z-index:1100; border:3px outset white; color:black; background-color:white">
+    <img src="[IMG:fcal-wait.gif]"><span id="wmsgtext"></span>
+  </div>
+</div>
+
+<div style="display:none; z-index:1000; background:white" id="fastedit">
+  <div class="fasteditcontent">
+  <table>
+    <tr><td colspan="2" class="WGCAL_DayLine" ><span id="fe_date"></span><span id="fe_allday" style="display:none">[TEXT:all the day]</span><span id="fe_nohour" style="display:none">[TEXT:no hour]</span></td></tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td>[TEXT:rv title]</td>
+      <td><input class="Mandatory" onkeypress="fastEditFSave(event,this)" onchange="fastEditChange(this);" id="fe_title" title="[TEXT:rv title]" type="text" size="40"></td>
+    </tr>
+    <tr>
+      <td colspan="2">[TEXT:location_1stUpcase] <input class="textBorder" title="[TEXT:locationexplain]"  onchange="fastEditChange(this);" id="fe_location" type="text" size="12"> [TEXT:category] <select onchange="fastEditChange(this);" id="fe_categories">[BLOCK category]<option value="[fe_catv]">[fe_catt][ENDBLOCK category]</td>
+    </tr>
+    <tr>
+      <td align="center" colspan="2"><textarea onchange="fastEditChange(this);" cols="40" title="[TEXT:rv note]" rows="2" id="fe_note" name="fe_note"></textarea></td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr>
+      <td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic;"><span id="agendaowner"></span> <select id="fe_confidentiality" onchange="fastEditChange(this);" >[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select></td>
+    </tr>
+    <tr>
+     <td align="left"><img height="12px" src="[IMG:wm-evedit.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 
+     <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
+    </tr>
+  </table>
+  </div>
+</div>
+
+<script> 
+var UrlRoot = '[CORE_STANDURL]';
+var CurrentTime = -1;
+var Days = new Array();
+[BLOCK DAYS]
+Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
+[BLOCK EVENTS]
+fcalEvents[[rg]] = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]', edit:[editable], display:[displayable], occur:0 };[ENDBLOCK EVENTS]
+var AltTimerValue = '[ALTTIMER]';
+function displayInit() {
+  posM.x = getFrameWidth() / 2;
+  posM.y = getFrameHeight() / 2;
+  showWaitServerMessage('Loading interface');
+  fcalInitView('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
+  fcalInitEvents();
+  fcalShowEvents();
+  hideWaitServerMessage();
+}
+addEvent(window, 'load', displayInit );
+addEvent(window, 'resize', fcalDisplayInitTempo);
+</script>
+
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

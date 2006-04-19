@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.14 2005/12/09 11:21:28 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.15 2006/04/19 15:30:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -39,14 +39,6 @@ function wgcal_prefs_others(&$action) {
 						 "180"   => _("3 minutes"),
 						 "600"   => _("10 minutes"),
 						 "1200"   => _("20 minutes"))
-					  ),
-		       "contact" => array(_("contact search position"), 
-					  "WGCAL_U_CONTACSEARCH", 
-					  "wgcal_toolbar", 
-					  "WGCAL_TOOLBAR", 
-					  array( "0" => _("search not displayed"),
-						 "1" => _("search displayed on top"),
-						 "2" => _("search displayed on bottom"))
 					  )		       
 		       );
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.19 2005/12/09 15:34:20 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.20 2006/04/19 15:30:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -155,7 +155,7 @@ function wgcal_prefs_look(&$action) {
   $action->lay->SetBlockData("RVDEFDUR", $opt);
 
   $opt = array(); $i = 0;
-  $minc = array( "2","5","10","15","20","25","30","40","45"); 
+  $minc = array( "5","15","30"); 
   foreach ($minc as $k => $v) {
     $opt[$i]["optvalue"] = $v;
     $opt[$i]["optdescr"] = $v." min.";
