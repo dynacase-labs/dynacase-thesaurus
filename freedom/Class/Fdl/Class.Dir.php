@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.46 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.47 2006/04/20 18:12:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -237,6 +237,10 @@ Class Dir extends PDir
 
 	}
       }
+    }
+    if ($doc->prelid == "") {
+      $doc->prelid=$this->initid;
+      $doc->modify(true,array("prelid"),true);
     }
 
     if ($err == "") {

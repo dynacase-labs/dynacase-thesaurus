@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.32 2006/04/20 07:02:39 eric Exp $
+// $Id: FDL.app,v 1.33 2006/04/20 18:12:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -97,7 +97,7 @@ $action_desc = array (
    "acl"		=>"NORMAL"	
   ),
   array(
-   "name"		=>"POPUPDOC",
+   "name"		=>"POPUPDOCDETAIL",
    "short_name"		=>N_("Document context menu"),
    "acl"		=>"NORMAL"	
   ),

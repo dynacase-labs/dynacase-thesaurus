@@ -4,14 +4,14 @@
 
 
 
-<div   id="popupdoc" class="popup">
+<div   id="popupdoc" class="popup" >
 
 
 
 
 [BLOCK ADDLINK]
 <a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
-    onclick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu]);closeDocMenu();">
+    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu]);closeDocMenu();">
 [descr]</a>
 
 [ENDBLOCK ADDLINK]

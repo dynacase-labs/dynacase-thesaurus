@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.304 2006/04/20 07:00:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.305 2006/04/20 18:12:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2505,9 +2505,9 @@ final public function PostInsert()  {
 	  break;
 	case "longtext":  
 	  $bvalue=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
-
+	  $shtmllink=$htmllink?"true":"false";
 	  $bvalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
-                         "\$this->getDocAnchor('\\1',\"$target\",$htmllink)",
+                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
                          $bvalue);	  
 	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),$bvalue);
 	  break;
@@ -2608,8 +2608,9 @@ final public function PostInsert()  {
 	  break;
 	
 	case htmltext:  
+	  $shtmllink=$htmllink?"true":"false";
 	  $avalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
-                         "\$this->getDocAnchor('\\1',\"$target\",$htmllink)",
+                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
                          $avalue);
 	  $htmlval="<DIV>$avalue</DIV>";	
 	  break;

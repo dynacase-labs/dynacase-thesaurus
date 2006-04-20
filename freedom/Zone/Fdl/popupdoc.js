@@ -1,8 +1,12 @@
 var CTRLKEYMENU=false;
 var INPROGRESSMENU=false;
 var MENUCIBLE=null;
+var MENUSOURCE=null;
 var MENUREQ=null;
 
+var DIVPOPUPMENU=document.createElement("div");
+
+addEvent(window,"load",function adddivpop() {document.body.appendChild(DIVPOPUPMENU)});
 function reqViewMenu() {
   INPROGRESSMENU=false; 
   document.body.style.cursor='auto';
@@ -56,7 +60,7 @@ function reqViewMenu() {
   } 
 }
 
-function menuSend(event,docid,cible) {
+function menuSend(event,menuurl,cible) {
   if (INPROGRESSMENU) return false; // one request only
     // branch for native XMLHttpRequest object
     if (window.XMLHttpRequest) {
@@ -68,7 +72,7 @@ function menuSend(event,docid,cible) {
     }
     if (MENUREQ) {
         MENUREQ.onreadystatechange = reqViewMenu ;
-        MENUREQ.open("POST", 'index.php?sole=Y&app=FDL&action=POPUPDOC&id='+docid, true);
+        MENUREQ.open("POST", menuurl,true); //'index.php?sole=Y&app=FDL&action=POPUPDOCDETAIL&id='+docid, true);
 	MENUREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 	MENUCIBLE=cible;
 
@@ -87,16 +91,29 @@ function menuSend(event,docid,cible) {
     }    
 }
 
-function viewmenu(event,docid) {
+function viewmenu(event,docid,source) {
+  closeDocMenu()
   CTRLKEYMENU=ctrlKeyPushed(event);
-  
+  MENUSOURCE=source;
   GetXY(event);
   XMENU=Xpos;
   YMENU=Ypos;
-  menuSend(event,docid,document.getElementById('popupzone'));
+  //   MENUSOURCE.style.borderStyle='solid';
+  // MENUSOURCE.style.borderColor='black';
+  //MENUSOURCE.style.borderWidth='1px';
+
+  MENUSOURCE.style.borderTop='dashed 1px #777777';
+  MENUSOURCE.style.borderBottom='dashed 1px #777777';
+  menuSend(event,docid,DIVPOPUPMENU);
 }
 
 function closeDocMenu() {
+  var o =DIVPOPUPMENU;
+  if (o) o.style.display='none';
+  if (MENUSOURCE) {
+    MENUSOURCE.style.borderTop='';
+    MENUSOURCE.style.borderBottom='';
+  }
 }
 function sendMenuUrl(th, url, wname,bar) {
   if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {

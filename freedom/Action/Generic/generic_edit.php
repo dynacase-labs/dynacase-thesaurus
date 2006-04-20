@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.48 2006/01/23 17:06:40 eric Exp $
+ * @version $Id: generic_edit.php,v 1.49 2006/04/20 18:12:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,7 +51,10 @@ function generic_edit(&$action) {
 
 
   if (($docid === 0) || ($docid === "") || ($docid === "0") )
-    {     
+    {   
+      if ($classid == "") $action->exitError(sprintf(_("Creation aborded : no family specified")));
+      if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);      
+      if ($classid == "") $action->exitError(sprintf(_("Creation aborded : unknow family %s"), GetHttpVars("classid",getDefFam($action))));
     if ($classid > 0) {
       $cdoc= new_Doc($dbaccess,$classid);
       if ($cdoc->control('create') != "") $action->exitError(sprintf(_("no privilege to create this kind (%s) of document"),$cdoc->title));
