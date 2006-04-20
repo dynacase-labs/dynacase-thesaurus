@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.19 2005/09/27 13:37:16 eric Exp $
+ * @version $Id: popupfam.php,v 1.20 2006/04/20 07:01:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -133,7 +133,6 @@ function popupfam(&$action,&$tsubmenu) {
 
 
   while(list($k,$v) = each($tmenu)) {
-
     if ($tlink[$v]["visibility"]==MENU_INVISIBLE) {
       Popupinvisible('popupcard',$kdiv,$v);
     } else {
@@ -147,7 +146,7 @@ function popupfam(&$action,&$tsubmenu) {
 	}
 	
       } else PopupInactive('popupcard',$kdiv,$v);
-  }
+    }
   }
 
   
