@@ -91,7 +91,7 @@ function ClickCalendarCell(event, nh,times,timee) {
    document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
 			       title:'', hmode:nh, start:times, end:timee, 
 			       category:0, note:'', location:'', 
-			       confidentiality:0 };
+			       confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color};
    fastEditInit(event, true);
   }
   if (evt.ctrlKey) {
@@ -789,7 +789,7 @@ function fastEditReset() {
   document.EventInEdition = { rg:-1, id:-1, idp:-1, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
-			      confidentiality:0 };
+			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color};
   eltId('fe_title').value ='';
   eltId('fe_location').value ='';
   eltId('fe_note').value = '';
@@ -883,7 +883,7 @@ function fcalFastEditEvent(ev, ie) {
     document.EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 				title:dv.title, hmode:dv.calev_timetype, start:fcalEvents[ie].start, end:fcalEvents[ie].end, 
 				category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
-				confidentiality:dv.calev_visibility };
+				confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor };
     return fastEditInit(ev, true);
   }
   return;
@@ -893,14 +893,14 @@ function fastEditInit(ev, init) {
   if (!init && !fastEditChangeAlert()) return;
   
   fcalSetOpacity(document.getElementById(Root), 50);
+  var fedit = eltId('fastedit');
 
   if (document.EventInEdition.idowner==-1) {
     document.EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
     document.EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
   }    
+  eltId('fastedit').style.backgroundColor = document.EventInEdition.rcolor;
   eltId('agendaowner').innerHTML = document.EventInEdition.titleowner;
-  
-  var fedit = eltId('fastedit');
   
   eltId('fe_allday').style.display = 'none'; 
   eltId('fe_nohour').style.display = 'none'; 

@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div style="display:none; z-index:1000; background:white" id="fastedit">
+<div style="display:none; z-index:1000; padding:2px; background:white" id="fastedit">
   <div class="fasteditcontent">
   <table>
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.67 2006/04/12 06:07:01 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.68 2006/04/20 03:16:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -182,6 +182,7 @@ function _listress() {
       if ($t[$i]["DG_HAVE"]=="true" && $t[$i]["DG_SELECTED"]=="true") {
 	$action->lay->set("ceId", $rd->id);
 	$action->lay->set("ceTitle", $t[$i]["RDESCR"] );
+	$action->lay->set("ceColor", $t[$i]["RCOLOR"] );
       }
 
       PopupActive('resspopup', $rd->id, 'displayress');
