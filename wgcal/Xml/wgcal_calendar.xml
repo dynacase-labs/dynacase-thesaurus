@@ -44,8 +44,7 @@
 <td align="left" nowrap>
 <input type="hidden" value="[js_start]" id="js_start" name="js_start">
 <input type="hidden" value="[s_start]" id="s_start" name="s_start" onchange="fcalComputeDateFromStart()">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butstart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
-<script>fcalInitCalendar('start');</script>
+<span style="z-index:10000" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butstart" name="ButStart" style="cursor:pointer;" onclick="fcalInitCalendar('start');" title="[TEXT:click here to enter the start date]">
 <img src="[IMG:cal-other.gif]" height="15" >&nbsp;<span id="t_start">[t_start]</span></span>
 </td>
 
@@ -59,23 +58,7 @@
 <td align="left" id="end_hour2" style="visibility:hidden" nowrap>
 <input type="hidden" value="[js_end]" id="js_end" name="js_end">
 <input type="hidden" value="[s_end]" id="s_end" name="s_end" onchange="fcalComputeDateFromEnd();">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butend" title="[TEXT:click here to enter the end date]">
-<script>
-      Calendar.setup(
-        {
-          inputField   : "s_end",        
-          displayArea  : "t_end",        
-          ifFormat     : "%s",   
-          daFormat     : "a %d %b %Y",
-          showsTime    : false,
-          button       : "butend",
-          date         : new Date([js_end]),
-          weekNumbers  : false,
-          firstDay     : 1
-        }
-      );
-</script>
-<script>fcalInitCalendar('end');</script>
+<span style="z-index:10000" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butend" onclick="fcalInitCalendar('end');" title="[TEXT:click here to enter the end date]">
 <img src="[IMG:cal-other.gif]" height="15">&nbsp;<span id="t_end">[t_end]</span></span>
 </td>
 <td align="left" id="end_hour3" style="visibility:hidden" nowrap>
@@ -110,7 +93,7 @@
     </tr>
     <tr>
      <td align="left"><img height="12px" src="[IMG:wm-evedit.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 
-     <td align="right"><img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="display:none" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
+     <td align="right"><img height="12px" src="[IMG:fcal-checkconflict.gif]" id="btnCConf" style="visibility:hidden" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="fastEditCheckConflict(event);">&nbsp;<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="visibility:hidden" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
     </tr>
   </table>
   </div>

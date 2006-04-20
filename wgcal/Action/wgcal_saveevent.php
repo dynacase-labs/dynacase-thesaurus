@@ -14,8 +14,8 @@ function wgcal_saveevent(&$action) {
   $oid   = GetHttpVars("oi", $action->user->fid);    // Owner Freedom Id
   $title = GetHttpVars("ti", "");                    // Title
   $nh    = GetHttpVars("nh", 0);                     // 0 : ts & te 1:no time 2:all day
-  $ts    = GetHttpVars("ts", 0);                     // Time start
-  $te    = GetHttpVars("te", 0);                     // Time end
+  $ts    = GetHttpVars("ts", time());                     // Time start
+  $te    = GetHttpVars("te", time()+3600);                     // Time end
   $lo    = GetHttpVars("lo", "");                    // Location
   $no    = GetHttpVars("no", "");                    // Note
   $cat   = GetHttpVars("ca", "0");                   // Categorie
@@ -53,23 +53,22 @@ function wgcal_saveevent(&$action) {
   $event->setValue("calev_category", $cat);
   $event->setValue("calev_location", $lo);
 
-  if ($new) {
-    if ($nh==1) {
-      $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
-      $event->setValue("calev_end", gmdate("d/m/Y 00:00:00",$te));
-      $event->setValue("calev_timetype", 1);
-    } else if ($nh==2) {
-      $event->setValue("calev_start", gmdate("d/m/Y 00:00:00",$ts));
-      $event->setValue("calev_end", gmdate("d/m/Y 23:59:00",$te));
-      $event->setValue("calev_timetype", 2);
-    } else {
-      $event->setValue("calev_start", gmdate("d/m/Y H:i:00",$ts));
-      $event->setValue("calev_end", gmdate("d/m/Y H:i:00",$te));
-      $event->setValue("calev_timetype", 0);
-    }
+  if ($nh==1) {
+    $event->setValue("calev_start", date("d/m/Y 00:00:00",$ts));
+    $event->setValue("calev_end", date("d/m/Y 00:00:00",$te));
+    $event->setValue("calev_timetype", 1);
+  } else if ($nh==2) {
+    $event->setValue("calev_start", date("d/m/Y 00:00:00",$ts));
+    $event->setValue("calev_end", date("d/m/Y 23:59:00",$te));
+    $event->setValue("calev_timetype", 2);
+  } else {
+    $event->setValue("calev_start", date("d/m/Y H:i:00",$ts));
+    $event->setValue("calev_end", date("d/m/Y H:i:00",$te));
+    $event->setValue("calev_timetype", 0);
+  }
     
+  if ($new) {
     $event->setValue("calev_frequency", 1);
-
     $cal = getUserPublicAgenda();
     $event->setValue("calev_evcalendarid", -1); //$cal["id"] );
     $event->setValue("calev_evcalendar", $cal["title"] );
@@ -147,7 +146,7 @@ function wgcal_saveevent(&$action) {
   $action->lay->set("editable", ($ev[0]->Control("edit")=="" ? "true" : "false"));
 
   $action->lay->set("status", 0);
-  $action->lay->set("statustext", "#".$event->id." created");
+  $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
   return ;
 }
 ?>

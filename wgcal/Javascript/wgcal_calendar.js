@@ -549,8 +549,8 @@ function fcalCreateEvent(ie,isclone) {
     style.color = fcalEvents[ie].fgColor;
     style.borderWidth = '3px';
     style.borderStyle = 'solid';
-    style.opacity = '0.6';
-    style.filter = 'alpha(opacity=60)';
+//     style.opacity = '0.6';
+//     style.filter = 'alpha(opacity=60)';
     style.borderColor = fcalEvents[ie].topColor+' '+fcalEvents[ie].rightColor+' '+fcalEvents[ie].bottomColor+' '+fcalEvents[ie].leftColor;    
     style.display = 'block';
     style.position = 'absolute';
@@ -561,8 +561,8 @@ function fcalCreateEvent(ie,isclone) {
 }
  
 function fcalSetOpacity(o, value) {
-	o.style.opacity = value/100;
-	o.style.filter = 'alpha(opacity=' + value + ')';
+// 	o.style.opacity = value/100;
+// 	o.style.filter = 'alpha(opacity=' + value + ')';
 }
 
 
@@ -749,9 +749,12 @@ function fastEditSave(ev) {
   urlsend += "&id="+document.EventInEdition.idp;
   urlsend += "&oi="+document.EventInEdition.idowner;
   urlsend += "&ti="+feTitle;
-  urlsend += "&nh="+document.EventInEdition.hmode;
-  urlsend += "&ts="+document.EventInEdition.start;
-  urlsend += "&te="+document.EventInEdition.end;
+  var hmode = 0;
+  if (eltId('nohour') && eltId('nohour').checked) hmode = 1;
+  if (eltId('allday') && eltId('allday').checked) hmode = 2;
+  urlsend += "&nh="+hmode;
+  urlsend += "&ts="+eltId('s_start').value;
+  urlsend += "&te="+eltId('s_end').value;
   urlsend += "&ca="+cat;
   urlsend += "&co="+conf;
   urlsend += "&lo="+loc;
@@ -786,7 +789,7 @@ function fastEditOpenFullEdit() {
 }
 
 function fastEditReset() {
-  document.EventInEdition = { rg:-1, id:-1, idp:-1, idowner:-1, titleowner:'',
+  document.EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
 			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color};
@@ -795,7 +798,7 @@ function fastEditReset() {
   eltId('fe_note').value = '';
   eltId('fe_categories').options[0].selected = true;
   eltId('fe_confidentiality').options[0].selected = true;
-  eltId('btnSave').style.display = 'none';
+  fastEditCanSave(false);
   eltId('fastedit').style.display = 'none';
   fcalSetOpacity(document.getElementById(Root), 100);
 }
@@ -828,9 +831,17 @@ function fastEditChangeAlert() {
   return ca;
 } 
 
+function fastEditCanSave(yn) {
+  if (yn) {
+    eltId('btnSave').style.visibility = 'visible';
+    eltId('btnCConf').style.visibility = 'visible';
+  } else {
+    eltId('btnSave').style.visibility = 'hidden';
+    eltId('btnCConf').style.visibility = 'hidden';
+  }
+}
 function fastEditChange(o) {
-  if (eltId('fe_title').value!='') eltId('btnSave').style.display = '';
-  else eltId('btnSave').style.display = 'none';
+  fastEditCanSave(eltId('fe_title').value!=''?true:false);
   return true;
 }
 
@@ -841,7 +852,7 @@ function fastEditFSave(event, o) {
     fastEditSave(event);
     return false;
   }
-  if (eltId('fe_title').value!='') eltId('btnSave').style.display = '';
+  if (eltId('fe_title').value!='') fastEditCanSave(true);
   return true;
 }
 
@@ -926,10 +937,10 @@ function fastEditInit(ev, init) {
   
   posM.x = getX(ev);
   posM.y = getY(ev);
-  computeDivPosition('fastedit', -20);
+  computeDivPosition('fastedit', -40);
 
   eltId('fe_title').focus();
-  if (eltId('fe_title').value!='') eltId('btnSave').style.display = '';
+  fastEditCanSave((eltId('fe_title').value!=''?true:false));
 }
 
 
@@ -1002,19 +1013,21 @@ function fcalCancelEvent(e) {
 
 
 function fcalInitCalendar(startend) {
-  var e = document.getElementById('s_'+startrend);
+  alert('ts '+startend+' : '+document.getElementById('s_'+startend).value);
+  var e = document.getElementById('s_'+startend);
   if (!e) return;
   var cts = parseInt(e.value)*1000;
   var cd = new Date;
   cd.setTime(cts);
-  var startend = { 
+  var calstartend = { 
     date:cd, 
     firstDay:1, 
     inputField:'s_'+startend, 
     ifFormat:'%s', 
     button:'but'+startend,
-    date:cd };
-  Calendar.setup( startend );
+    date:cd
+     };
+  Calendar.setup( calstartend );
   return;
 }
 
