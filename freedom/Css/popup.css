@@ -28,6 +28,7 @@
 
 a.menuItem, a.menuItem:link, a.menuItem:visited {
   color: [CORE_TEXTBGCOLOR];
+  background-color: transparent; 
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
@@ -36,10 +37,12 @@ a.menuItem, a.menuItem:link, a.menuItem:visited {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   text-transform:capitalize;
+  white-space:nowrap;
 }
 
 a.menuItemCtrl:link, a.menuItemCtrl:visited {
   color: [CORE_TEXTBGCOLOR];
+  background-color: transparent; 
   border-style:none  none none outset;
   border-width:3px;
   cursor: default;
@@ -50,6 +53,7 @@ a.menuItemCtrl:link, a.menuItemCtrl:visited {
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   text-transform:capitalize;
+  white-space:nowrap;
 }
 
 a.separator {
@@ -95,6 +99,7 @@ a.separator:hover {
 
 a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuItemCtrlDisabled,a.menuItemCtrlDisabled:link,a.menuItemCtrlDisabled:visited { 
   color: [CORE_BGCOLORALTERN];
+  background-color: transparent; 
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
