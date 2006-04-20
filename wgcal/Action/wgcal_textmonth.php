@@ -47,47 +47,81 @@ function wgcal_textmonth(&$action)
   $nextyear = strftime("%Y", $nextyeart);
 
   // Search all event for this month
-
+  $hsep = "&nbsp;-&nbsp;";
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
-  $tevents = wGetEvents($d1, $d2);
-
+  $events = wGetEvents($d1, $d2);
   $popuplist = array();
   $tdays = array();
-  foreach ($tevents as $k => $v) {
-    $d = new_Doc($dbaccess, $v["IDP"]);
-    if (isset($d->defaultshorttext)) $tevents[$k]["EvSTCard"] = $d->viewDoc($d->defaultshorttext);
-    else $tevents[$k]["EvSTCard"] = substr($v["TSSTART"],11,5)."-".substr($v["TSEND"],11,5)." ".$d->getValue("title");
-    $tevents[$k]["hasCard"] = false;
-    if (isset($d->popup_name)) { 
-      $tevents[$k]["hasCard"] = true;
-      $tevents[$k]["EvPCard"] = $d->viewDoc($d->defaultview);
-      if ( !isset($popuplist[$d->popup_name])) {
-	$popuplist[$d->popup_name] = true;
-	popupInit($d->popup_name,  $d->popup_item);
+  foreach ($events as $k => $v) {
+
+    $events[$k]["evt_title"] = stripSlashes($v["evt_title"]);
+    $events[$k]["icolist"] = "";
+    $events[$k]["Icons"] = null;
+
+    $events[$k]["haveCat"] = ($v["evt_code"]==0?false:true);
+    $events[$k]["isMeeting"] = ($v["bgColor"]==$v["topColor"]?false:true);
+    $events[$k]["vInvite"] = false;
+    if ($events[$k]["isMeeting"]  && $action->user->fid!=$v["evt_idcreator"]) {
+      $dt = getTDoc($dbaccess, $v["evt_idcreator"]);
+      $events[$k]["Invite"] = $dt["title"];
+      $events[$k]["vInvite"] = true;
+    }
+    
+    $events[$k]["showOwner"] = false;
+    if (!$events[$k]["vInvite"] && $action->user->fid!=$v["evt_idcreator"]) {
+      $dt = getTDoc($dbaccess, $v["evt_idcreator"]);
+      $events[$k]["owner"] = $dt["title"];
+      $events[$k]["showOwner"] = true;
+    }
+    
+    if ($v["icons"]!="") {
+      $it = explode(",", $v["icons"]);
+      if (count($it)>0) {
+	foreach ($it as $ki => $vi) $events[$k]["icolist"] .= "<img src=\"".str_replace("'","",$vi)."\">";
       }
-      $d->RvSetPopup($k);
     }
 
-    $dstart = substr($v["TSSTART"], 0, 2);
-    $dend = substr($v["TSEND"], 0, 2);
+    $dstart = substr($v["evt_begdate"], 0, 2);
+    $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+    $dend = substr($end, 0, 2);
+    $hstart = substr($v["evt_begdate"],11,5);
+    $hend = substr($end,11,5);
     for ($id=intval($dstart); $id<=intval($dend); $id++) {
       if (!is_array($tdays[$id]->events)) {
-        $tdays[$id]->ecount = 0;
-        $tdays[$id]->events = array();
+	$tdays[$id]->ecount = 0;
+	$tdays[$id]->events = array();
       }
-      $s = $v["START"];  
-      $e = $v["END"];
-      if ($id>$dstart) $s = 0;
-      if ($id<$dend) $e = 0;
-      $tdays[$id]->events[$tdays[$id]->ecount] = $tevents[$k];
-      $tdays[$id]->events[$tdays[$id]->ecount]["START"] = $s;
-      $tdays[$id]->events[$tdays[$id]->ecount]["END"] = $e;
+      if ($hstart==$hend && $hend=="00:00") {
+	$hours = "("._("no hour").")";
+ 	$p = 0;
+     } else if ($hstart=="00:00" && $hend=="23:59") {
+	$hours = "("._("all the day _ short").")";
+ 	$p = 1;
+     } else {
+	if ($dend==$dstart) {
+	  $hours = $hstart."$hsep".$hend;
+	  $p = 4;
+	} else { 
+	  if ($id==$dstart) {
+	    $hours = $hstart."$hsep..."; //" 24:00";
+	    $p = 4;
+	  } else if ($id==$dend) {
+	    $hours = "...$hsep".$hend; // "00:00 ".$lend;
+	    $p = 2;
+	  } else {
+	    $hours = "("._("all the day _ short").")";
+	    $p = 1;
+	  }
+	}
+      }
+      $events[$k]["pound"] = $p;
+      $events[$k]["hours"] = $hours;
+      $tdays[$id]->events[$tdays[$id]->ecount] = $events[$k];
       $tdays[$id]->ecount++;
     }
   }
-  popupGen(count($tout));
-  $action->lay->setBlockData("CARDS", $tevents);
+  $action->lay->setBlockData("CARDS", $events);
 
   $displayWE = ($action->GetParam("WGCAL_U_VIEWWEEKEND", "yes") == "yes" ? true : false);
   $dayperline  = ($displayWE ? 7 : 5);
@@ -130,30 +164,8 @@ function wgcal_textmonth(&$action)
 	$h->set("timeb", $tscday + ($hstart)*3600);
 	$h->set("timee", $tscday + ($hstart+1)*3600);
 	$h->set("daylabel",$daylabel);
-	if ($tdays[$cday]->ecount > 0) {
-	  usort($tdays[$cday]->events, cmpEvents);
-	  for ($ie=0; $ie<count($tdays[$cday]->events); $ie++) {
-	    $ievent = $tdays[$cday]->events[$ie]["ID"];
-	    $d[$ie]["hours"] = "";
-	    if ($tdays[$cday]->events[$ie]["START"]>0) $s = substr($tdays[$cday]->events[$ie]["TSSTART"],11,5);
-	    else $s = $hstart.":00";
-	    if ($tdays[$cday]->events[$ie]["END"]>0) $e = substr($tdays[$cday]->events[$ie]["TSEND"],11,5);
-	    else $e = $hstop.":00";
-	    $d[$ie]["hours"] = $s."-".$e;
-
-	    if ($tdays[$cday]->events[$ie]["H"]==1) $d[$ie]["hours"] = "("._("no hour").")";
-	    if ($tdays[$cday]->events[$ie]["H"]==2) $d[$ie]["hours"] = "("._("all the day").")";
-
-	    $rt = $st.$tdays[$cday]->events[$ie]["TITLE"];
-	    $d[$ie]["EvSTCard"] = $tdays[$cday]->events[$ie]["EvSTCard"];
-	    $d[$ie]["id"] = $tdays[$cday]->events[$ie]["ID"];
-	    $d[$ie]["TSSTART"] = $tdays[$cday]->events[$ie]["TSSTART"];
-	    $d[$ie]["RG"] = $tdays[$cday]->events[$ie]["RG"];
-	    $d[$ie]["IDP"] = $tdays[$cday]->events[$ie]["IDP"];
-	    $d[$ie]["hasCard"] = $tdays[$cday]->events[$ie]["hasCard"];
-	  }
-	}
-	$h->SetBlockData("HLine", $d);
+	if (is_array($tdays[$cday]->events)) usort($tdays[$cday]->events, cmpRv);
+	$h->SetBlockData("HLine", $tdays[$cday]->events);
 	$hday[$li]["line"] .= "<td onmouseover=\"closeAllMenu();\" height=\"".$td_height."px\" class=\"wMonthTextTD\">".$h->gen()."</td>";
 	$cday++; 
       } else {
@@ -164,11 +176,16 @@ function wgcal_textmonth(&$action)
     $li++;
   }
   $action->lay->SetBlockData("DLINE", $hday);
+  popupGen(0);
     
   return;
 }
 
 function cmpEvents($e1, $e2) {
   return $e1["START"] > $e2["START"];
+}
+function cmpRv($e1, $e2) {
+  if ($e1["pound"]==$e2["pound"] && $e2["pound"]>3) return strcmp($e1["hours"], $e2["hours"]);
+  return $e1["pound"] > $e2["pound"];
 }
 ?>
