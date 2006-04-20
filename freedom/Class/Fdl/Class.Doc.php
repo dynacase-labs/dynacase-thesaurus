@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.303 2006/04/14 15:06:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.304 2006/04/20 07:00:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -35,8 +35,8 @@ define ("FAM_SEARCH", 5);
 define ("FAM_ACCESSSEARCH", 6);
 define ("FAM_ACCESSFAM", 23);
 define ("MENU_ACTIVE", 1);
-define ("MENU_INVISIBLE", 0);
-define ("MENU_INACTIVE", -1);
+define ("MENU_INVISIBLE", 2);
+define ("MENU_INACTIVE", 0);
 
 define('POPUP_INACTIVE',0);
 define('POPUP_ACTIVE',1);
@@ -922,6 +922,7 @@ final public function PostInsert()  {
 	$this->locked= -1; 
 	$date = gettimeofday();
 	$this->revdate = $date['sec']; // Delete date
+	$this->owner=$this->userid; // to the trash of the current user
 
 	global $action;
 	global $_SERVER;
@@ -933,7 +934,7 @@ final public function PostInsert()  {
 
 
 	if (!$nopost) $msg=$this->PostDelete();
-	$this->modify(true,array("doctype","revdate","locked"),true);
+	$this->modify(true,array("doctype","revdate","locked","owner"),true);
 
 	// delete all revision also
 	$rev=$this->GetRevisions();
