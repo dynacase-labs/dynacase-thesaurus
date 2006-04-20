@@ -378,27 +378,36 @@ declare
   sfromid int;
   allfld int[];
   i int;
+  theqtype char;
+  thechildid int;
+  thedirid int;
 begin
 
 
 if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
+  theqtype=NEW.qtype;
+  thedirid=NEW.dirid;
+  thechildid=NEW.childid;
+end if;
+if (TG_OP = ''DELETE'') then
+  theqtype=OLD.qtype;
+  thedirid=OLD.dirid;
+  thechildid=OLD.childid;
+  
+end if;
 
-  if (NEW.qtype = ''S'') and (NEW.dirid > 0) and (NEW.childid > 0) then
+  if (theqtype = ''S'') and (thedirid > 0) and (thechildid > 0) then
   i=0;
- FOR rc IN EXECUTE ''select * from fld where childid= '' || NEW.childid  LOOP 
+ FOR rc IN EXECUTE ''select * from fld where childid= '' || thechildid  LOOP 
   BEGIN
      allfld[i]=rc.dirid;
      i=i+1;
 	END;
   END LOOP;
 --  RAISE NOTICE ''Quantity here is %'',allfld;  
-	update doc set fldrels=allfld where initid=NEW.childid and locked != -1;
+	update doc set fldrels=allfld where initid=thechildid and locked != -1;
   end if;
-end if;
  
-if (TG_OP = ''DELETE'') then
---	delete from docrel where sinitid=OLD.dirid and cinitid=OLD.childid and type=''folder'';
-end if;
 
 
 return NEW;

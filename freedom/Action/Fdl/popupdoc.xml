@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<status count="1" delay="[delay]" code="[CODE]" warning="[warning]" >
+  <branch><![CDATA[
+
+
+
+<div   id="popupdoc" class="popup">
+
+
+
+
+[BLOCK ADDLINK]
+<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
+    onclick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu]);closeDocMenu();">
+[descr]</a>
+
+[ENDBLOCK ADDLINK]
+
+[IF SEP]
+<a class="separator"></a>
+[ENDIF SEP]
+[BLOCK SUBMENU]
+<a  href="#" id="[idmenu]"       visibility="2"
+    onmouseover="openSubDocMenu(event,this,'popup[idmenu]');">[labelmenu] &gt;</a>
+[ENDBLOCK SUBMENU]
+</div>
+<div  id="popupview" name="popupcard" class="popup">
+[BLOCK SVIEW]
+<a href="#" id="[idview]"     
+    onclick="sendMenuUrl(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&vid=[idview]&id=[id]','',true);closeDocMenu();">[txtview]</a>
+[ENDBLOCK SVIEW]
+</div>
+<div  id="popupedit" name="popupcard" class="popup">
+[BLOCK SEDIT]
+<a href="#" id="[idview]"     
+    onclick="sendMenuUrl(this,'[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&vid=[idview]&id=[id]','',true);closeDocMenu();">[txtview]</a>
+[ENDBLOCK SEDIT]
+</div>
+
+[BLOCK SUBDIVMENU]
+<div  id="popup[idmenu]" name="popupcard" class="popup"></div>   
+[ENDBLOCK SUBDIVMENU]
+
+
+]]></branch>
+</status>
