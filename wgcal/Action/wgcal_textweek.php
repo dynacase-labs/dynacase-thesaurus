@@ -4,6 +4,7 @@
 function wgcal_textweek(&$action) {
 
   global $_SERVER;
+  $hsep = "&nbsp;-&nbsp;";
 
   include_once("WGCAL/Lib.wTools.php");
   include_once("WGCAL/Lib.Agenda.php");
@@ -89,33 +90,28 @@ function wgcal_textweek(&$action) {
   $tevents = wGetEvents($d1, $d2);
   foreach ($tevents as $k => $v) {
 
-    $rv = new_Doc($dbaccess, $v["IDP"]);
-    $startday = strftime("%u", $v["START"]) - 1;
-    $endday = strftime("%u", $v["END"]) - 1;
-
-    for ($iday=intval($startday); $iday<=intval($endday); $iday++) {
-    
-      $lstart = substr($rv->getValue("calev_start"),11,5);
-      $lend = substr($rv->getValue("calev_end"),11,5);
-      switch($rv->getValue("calev_timetype",0)) {
-      case 1: 
-	$hours = "("._("no hour").")"; 
+     $startday = gmstrftime("%u", $v["start"]) - 1;
+     $endday = gmstrftime("%u", $v["end"]) - 1;
+     for ($iday=intval($startday); $iday<=intval($endday); $iday++) {
+      $lstart = substr($v["evt_begdate"],11,5);
+      $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+      $lend = substr($end,11,5);
+      if ($lstart==$lend && $lend=="00:00") {
+	$hours = "("._("no hour").")";
 	$p = 0;
-	break;
-      case 2: 
-	$hours = "("._("all the day _ short").")"; 
+      } else if ($lstart=="00:00" && $lend=="23:59") {
+	$hours = "("._("all the day _ short").")";
 	$p = 1;
-	break;
-      default:
+      } else {
 	if (intval($startday)==intval($endday)) {
-	  $hours = $lstart." ".$lend;
+	  $hours = $lstart.$hsep.$lend;
 	  $p = 4;
 	} else {
 	  if ($iday==intval($startday)) {
 	    $p = 4;
-	    $hours = $lstart." 24:00";
+	    $hours = $lstart."$hsep..."; //" 24:00";
 	  } else if ($iday==intval($endday)) {
-	    $hours = "00:00 ".$lend;
+	    $hours = "...$hsep".$lend; // "00:00 ".$lend;
 	    $p = 2;
 	  } else {
 	    $p = 1;
@@ -123,29 +119,48 @@ function wgcal_textweek(&$action) {
 	  }
 	}
       }
-    
+      $evlay->setBlockData("icons", null);
+      if ($v["icons"]!="") {
+	$it = explode(",", $v["icons"]);
+	if (count($it)>0) {
+	  $itt = array();
+	  foreach ($it as $ki => $vi) $itt[]["iconsrc"] = str_replace("'","",$vi);
+ 	  $evlay->setBlockData("icons", $itt);
+	}
+      }
       $evlay->set("hours", $hours);
-      $evlay->set("text", $rv->getValue("calev_evtitle"));
-      
-      $evlay->set("Categorie", $catg[$rv->getValue("calev_category")]["label"]);
-      $evlay->set("vCategorie", ($rv->getValue("calev_category")>0?true:false));
-      
-      $evlay->set("Lieu", $rv->getValue("calev_location"));
-      $evlay->set("vLieu", ($rv->getValue("calev_location")==""?false:true));
-      
-      $evlay->set("note", $rv->getValue("calev_evnote"));
-      $evlay->set("vNote", ($rv->getValue("calev_evnote")==""?false:true));
-      
+      $evlay->set("title", $v["evt_title"]);
+      $evlay->set("vCategorie", false);
+      if ($v["evt_code"]>0) {
+	$catg = wGetCategories();
+	$evlay->set("Categorie", $catg[$v["evt_code"]]["label"]);
+	$evlay->set("vCategorie", true);
+      }
       $evlay->set("vInvite", false);
-      if ($rv->getValue("calev_ownerid") != $ress) {
-	$evlay->set("Invite", $rv->getValue("calev_owner"));
+      if ($action->user->fid!=$v["evt_idcreator"]) {
+	$dt = getTDoc($dbaccess, $v["evt_idcreator"]);
+	$evlay->set("Invite", $dt["title"]);
 	$evlay->set("vInvite", true);
       }
       
+      $evlay->set("vLieu", false);
+      $evlay->set("vNote", false);
+    
+      $pdoc = getTDoc($dbaccess, $v["evt_idinitiator"]);
+      if ($pdoc["calev_location"]!="") {
+	$evlay->set("Lieu", $pdoc["calev_location"]);
+	$evlay->set("vLieu", true);
+      }
+      
+      if ($pdoc["calev_evnote"]!="") {
+	$evlay->set("note", $pdoc["calev_evnote"]);
+	$evlay->set("vNote", true);
+      }
+      
       $daysev[$iday][] = array( "p" => $p, "hours" => $hours, "eventsdesc" => $evlay->gen() );
-    }
+     }
   }
-
+      
   // set week view
   $dayl = array( "monday", "tuesday", "wenesday", "thursday", "friday", "saturday", "sunday" );
   for ($day=0; $day<7; $day++) {
