@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.110 2006/04/14 15:06:51 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.111 2006/04/20 07:00:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -126,13 +126,13 @@ function getSqlSearchDoc($dbaccess,
       if ($latest) $sqlfilters[-1] = "locked != -1";
       ksort($sqlfilters);
       if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
-      
+      /*
       if (is_array($dirid)) {
 	$sqlfld=GetSqlCond($dirid,"dirid",true);
       } else {
 	$sqlfld = "fld.dirid=$dirid and qtype='S'";
       }
-      
+      */
 
 
      //            $qsql= "select $selectfields ".
@@ -148,7 +148,7 @@ function getSqlSearchDoc($dbaccess,
       // 	"where  $sqlcond ";
 
       //  if ($table != "doc") {
-
+      /*
       $qfld = new QueryDb($dbaccess,"QueryDir");  
       $qfld->AddQuery("qtype='S'");
       $qfld->AddQuery("fld.dirid=$dirid");
@@ -162,7 +162,7 @@ function getSqlSearchDoc($dbaccess,
       $qsql= "select $selectfields ".
    	"from $table where $lfldid and  ".
    	"  $sqlcond ";
-
+      */
       $qsql= "select $selectfields ".
    	"from $table where $dirid = any(fldrels) and  ".
    	"  $sqlcond ";
