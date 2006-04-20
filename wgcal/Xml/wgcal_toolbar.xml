@@ -2,7 +2,7 @@
 
 <!-- Globals variables -->
 <script type="text/javascript">
-var calCurrentEdit = { id:[ceId], title:'[ceTitle]' };
+var calCurrentEdit = { id:[ceId], title:'[ceTitle]', color:'[ceColor]' };
 </script>
 
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
