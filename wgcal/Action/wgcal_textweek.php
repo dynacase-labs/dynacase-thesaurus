@@ -129,7 +129,7 @@ function wgcal_textweek(&$action) {
 	}
       }
       $evlay->set("hours", $hours);
-      $evlay->set("title", $v["evt_title"]);
+      $evlay->set("title", stripslashes($v["evt_title"]));
       $evlay->set("vCategorie", false);
       if ($v["evt_code"]>0) {
 	$catg = wGetCategories();
