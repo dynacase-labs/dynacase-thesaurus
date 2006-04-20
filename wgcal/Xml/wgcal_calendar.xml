@@ -30,59 +30,74 @@
   <div class="fasteditcontent">
   <table>
 
-<tr><td colspan="2">
-<table>
-<tr>
-<td align="right" nowrap>[TEXT:start date] : </td>
-<td align="left" nowrap>
-<input type="hidden" value="[START]" id="TsStart" name="TsStart">
-<input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
-<script type="text/javascript">InitStartCalendar();</script>
-<img src="[IMG:cal-other.gif]" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
-</td>
-<td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
-&nbsp;<select  id="Hstart" name="Hstart" onchange="ComputeDateFromStart();">[BLOCK SHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHSEL]</select> : <select  id="Mstart" name="Mstart" onchange="ComputeDateFromStart();">[BLOCK SHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SHMSEL]</select>
-</td>
-</tr>
-
-<tr>
-<td align="right" id="end_hour1" style="visibility:[HVISIBLE]" nowrap>[TEXT:end date] : </td>
-<td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
-<input type="hidden" value="[END]" id="TsEnd" name="TsEnd">
-<input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
-<script type="text/javascript">InitEndCalendar();</script>
-<img src="[IMG:cal-other.gif]" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
-</td>
-<td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>
-&nbsp;<select  id="Hend" name="Hend" onchange="ComputeDateFromEnd();">[BLOCK EHSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHSEL]</select> : <select  id="Mend" name="Mend" onchange="ComputeDateFromEnd();">[BLOCK EHMSEL]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EHMSEL]</select>
-</td>
-</tr>
-<tr>
-<td></td>
-<td colspan="2" align="left">
-<span id="tnohour" style="visibility:[NOHOURDISP]" onclick="clickB('nohour'); ChangeNoHour(false,0);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
-<input [NOHOURINIT]  id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" 
-onclick="clickB('nohour'); ChangeNoHour(false,0);">
-[TEXT:no hour]
-</span>
-<span id="tallday" style="cursor:pointer; visibility:[ALLDAYDISP]" onclick="clickB('allday'); ChangeAllDay(false,0);"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
-<input [ALLDAYINIT]  id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday'); ChangeAllDay(false,0);"></input>
-[TEXT:all the day]
-</span>
-</td>
-</tr>
-</table>
-</td></tr>
-
-
-    <tr><td colspan="2" class="WGCAL_DayLine" ><span id="fe_date"></span><span id="fe_allday" style="display:none">[TEXT:all the day]</span><span id="fe_nohour" style="display:none">[TEXT:no hour]</span></td></tr>
     <tr><td colspan="2">&nbsp;</td></tr>
     <tr>
       <td>[TEXT:rv title]</td>
       <td><input class="Mandatory" onkeypress="fastEditFSave(event,this)" onchange="fastEditChange(this);" id="fe_title" title="[TEXT:rv title]" type="text" size="40"></td>
     </tr>
+
+<tr><td colspan="2">
+<table>
+<tr>
+
+<td align="right" nowrap>[TEXT:start date] : </td>
+<td align="left" nowrap>
+<input type="hidden" value="[js_start]" id="js_start" name="js_start">
+<input type="hidden" value="[s_start]" id="s_start" name="s_start" onchange="fcalComputeDateFromStart()">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butstart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
+<script>fcalInitCalendar('start');</script>
+<img src="[IMG:cal-other.gif]" height="15" >&nbsp;<span id="t_start">[t_start]</span></span>
+</td>
+
+<td id="start_hour" align="left" style="visibility:hidden" nowrap>
+&nbsp;<select  id="h_start" name="h_start" onchange="fcalComputeDateFromStart();">[BLOCK hs_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK hs_select]</select> : <select  id="m_start" name="m_start" onchange="fcalComputeDateFromStart();">[BLOCK ms_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ms_select]</select>
+</td>
+</tr>
+
+<tr>
+<td align="right" id="end_hour1" style="visibility:hidden" nowrap>[TEXT:end date] : </td>
+<td align="left" id="end_hour2" style="visibility:hidden" nowrap>
+<input type="hidden" value="[js_end]" id="js_end" name="js_end">
+<input type="hidden" value="[s_end]" id="s_end" name="s_end" onchange="fcalComputeDateFromEnd();">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butend" title="[TEXT:click here to enter the end date]">
+<script>
+      Calendar.setup(
+        {
+          inputField   : "s_end",        
+          displayArea  : "t_end",        
+          ifFormat     : "%s",   
+          daFormat     : "a %d %b %Y",
+          showsTime    : false,
+          button       : "butend",
+          date         : new Date([js_end]),
+          weekNumbers  : false,
+          firstDay     : 1
+        }
+      );
+</script>
+<script>fcalInitCalendar('end');</script>
+<img src="[IMG:cal-other.gif]" height="15">&nbsp;<span id="t_end">[t_end]</span></span>
+</td>
+<td align="left" id="end_hour3" style="visibility:hidden" nowrap>
+&nbsp;<select  id="h_end" name="h_end" onchange="fcalComputeDateFromEnd();">[BLOCK he_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK he_select]</select> : <select  id="m_end" name="m_end" onchange="fcalComputeDateFromEnd();">[BLOCK me_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK me_select]</select>
+</td>
+</tr>
+
+<tr>
+<td></td>
+<td colspan="2" align="left">
+
+<span id="nohour_span" style="visibility:hidden" onclick="clickB('nohour');fcalNohourClicked(event);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input readonly id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="clickB('nohour');fcalNohourClicked(event);">
+[TEXT:no hour]</span>
+
+<span id="allday_span" style="cursor:pointer; visibility:hidden" onclick="clickB('allday');fcalAlldayClicked(event);"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
+<input readonly id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday');fcalAlldayClicked(event)"></input>[TEXT:all the day]</span>
+
+</td>
+</tr>
+</table>
+</td></tr>
+
     <tr>
       <td colspan="2">[TEXT:location_1stUpcase] <input class="textBorder" title="[TEXT:locationexplain]"  onchange="fastEditChange(this);" id="fe_location" type="text" size="12"> [TEXT:category] <select onchange="fastEditChange(this);" id="fe_categories">[BLOCK category]<option value="[fe_catv]">[fe_catt][ENDBLOCK category]</td>
     </tr>

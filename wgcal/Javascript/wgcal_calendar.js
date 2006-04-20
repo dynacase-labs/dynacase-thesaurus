@@ -899,11 +899,14 @@ function fastEditInit(ev, init) {
     document.EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
     document.EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
   }    
+  
+  fcalInitDatesTimes(document.EventInEdition.hmode, 
+		     document.EventInEdition.start, 
+		     document.EventInEdition.end);
+  
   eltId('fastedit').style.backgroundColor = document.EventInEdition.rcolor;
   eltId('agendaowner').innerHTML = document.EventInEdition.titleowner;
   
-  eltId('fe_allday').style.display = 'none'; 
-  eltId('fe_nohour').style.display = 'none'; 
   eltId('fe_title').value = document.EventInEdition.title;
   eltId('fe_location').value = document.EventInEdition.location;
   eltId('fe_note').value = document.EventInEdition.note;
@@ -918,25 +921,8 @@ function fastEditInit(ev, init) {
     if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
   }
 
-  var textdate = '';
-  var ds = new Date();
-  ds.setTime((document.EventInEdition.start*1000) + (ds.getTimezoneOffset()*60*1000));
-  textdate = ds.print('%a %d %b %Y');
-  switch (document.EventInEdition.hmode) {
-  case 2: 
-    eltId('fe_allday').style.display = 'block'; 
-    break;
-  case 1: 
-    eltId('fe_nohour').style.display = 'block'; 
-    break;
-  default:
-    var de = new Date();
-    de.setTime((document.EventInEdition.end*1000) + (de.getTimezoneOffset()*60*1000));
-    textdate = ds.print('%a %d %b %Y, %H:%M - ');
-    if (ds.print('%a %d %b')!=de.print('%a %d %b')) textdate+=de.print('%a %d %b %Y, %H:%M');
-    else textdate+=de.print('%H:%M');
-  }
-  eltId('fe_date').innerHTML = textdate;
+
+
   
   posM.x = getX(ev);
   posM.y = getY(ev);
@@ -1010,3 +996,175 @@ function fcalCancelEvent(e) {
   else e.cancelBubble = true;
 }
 
+
+
+// time and date
+
+
+function fcalInitCalendar(startend) {
+  var e = document.getElementById('s_'+startrend);
+  if (!e) return;
+  var cts = parseInt(e.value)*1000;
+  var cd = new Date;
+  cd.setTime(cts);
+  var startend = { 
+    date:cd, 
+    firstDay:1, 
+    inputField:'s_'+startend, 
+    ifFormat:'%s', 
+    button:'but'+startend,
+    date:cd };
+  Calendar.setup( startend );
+  return;
+}
+
+function fcalComputeDateFromStart() {
+
+  var o_stime = parseInt(document.getElementById('js_start').value);
+  var od_stime = new Date();
+  od_stime.setTime(o_stime);
+
+  var o_etime = parseInt(document.getElementById('js_end').value);
+  var od_etime = new Date();
+  od_etime.setTime(o_etime);
+
+  var tdiff = (o_etime - o_stime);
+
+  // Compute new start time
+  var tsS = parseInt(document.getElementById('s_start').value) * 1000;
+  var hts = new Date();
+  hts.setTime(tsS);
+  var Hstart = parseInt(document.getElementById('h_start').options[document.getElementById('h_start').selectedIndex].value);
+  var Mstart = parseInt(document.getElementById('m_start').options[document.getElementById('m_start').selectedIndex].value);
+  var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), Hstart, Mstart, 0, 0);
+  var nE = new Date();
+  nE.setTime(nS.getTime() + tdiff);
+
+
+  // Updating all fields....
+  fcalSetTime('start', nS, false);
+  fcalSetTime('end', nE, false);
+  
+}
+
+function fcalUpdateEndMinutes(min) {
+  var init = -1;
+  var sb = document.getElementById('m_end');
+  for (var ib=(sb.options.length-1); ib>=0 && init==-1; ib--) {
+    if (parseInt(min)>=parseInt(sb.options[ib].value)) init=ib;
+  }
+  sb.selectedIndex = init;
+}
+
+
+function fcalComputeDateFromEnd() {
+
+  var o_stime = parseInt(document.getElementById('js_start').value);
+  var od_stime = new Date();
+  od_stime.setTime(o_stime);
+
+  var o_etime = parseInt(document.getElementById('js_end').value);
+  var od_etime = new Date();
+  od_etime.setTime(o_etime);
+
+
+  // Compute new old time
+  var tsE = parseInt(document.getElementById('s_end').value) * 1000;
+  var hte = new Date();
+  hte.setTime(tsE);
+  var Hend = parseInt(document.getElementById('h_end').options[document.getElementById('h_end').selectedIndex].value);
+  var Mend = parseInt(document.getElementById('m_end').options[document.getElementById('m_end').selectedIndex].value);
+  var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
+
+  if (nE.getTime()<=od_stime.getTime()) {
+    alert('La date demandée est antérieure à celle de début');
+    nE.setTime(od_etime.getTime());
+  }
+
+  fcalSetTime('end', nE, false);
+  return;
+}
+
+function fcalSetTime(startend, oTime, full) {
+  eltId('js_'+startend).value = oTime.getTime();
+  eltId('s_'+startend).value = (oTime.getTime() / 1000);
+  eltId('t_'+startend).innerHTML = oTime.print('%a %d %b %Y');
+  if (startend=='end')  { 
+    eltId('h_'+startend).selectedIndex = oTime.getHours();
+    fcalUpdateEndMinutes(oTime.getMinutes());
+  }
+  if (startend=='start' && full)  { 
+    eltId('h_'+startend).selectedIndex = oTime.getHours();
+    eltId('m_'+startend).selectedIndex = oTime.getMinutes();
+  }
+}
+ 
+  
+  
+  
+
+function fcalAlldayClicked(event) {
+  stopPropagation(event);
+  var o = eltId('allday');
+  if (o && o.checked) fcalAllday(true);
+  else fcalAllday(false);
+  return true;
+}
+function fcalAllday(s) {
+  var showhide = [ 'start_hour', 'end_hour1', 'end_hour2', 'end_hour3', 'nohour_span' ];
+  var vis = 'visible';
+  if (s) vis = 'hidden';
+  for (var i=0; i<showhide.length; i++) {
+    var ot = eltId(showhide[i]);
+    if (ot) ot.style.visibility = vis;
+  }
+  return true;
+}
+  
+
+
+function fcalNohourClicked(event) {
+  stopPropagation(event);
+  var o = eltId('nohour');
+  if (o && o.checked) fcalNohour(true);
+  else fcalNohour(false);
+  return true;
+}
+function fcalNohour(s) {
+  var showhide = [ 'start_hour', 'end_hour1', 'end_hour2', 'end_hour3', 'allday_span' ];
+  var vis = 'visible';
+  if (s) vis = 'hidden';
+  for (var i=0; i<showhide.length; i++) {
+    var ot = eltId(showhide[i]);
+    if (ot) ot.style.visibility = vis;
+  }
+  return true;
+}
+
+function fcalInitTimeO(second) {
+  var otime = new Date();
+  var tzd = otime.getTimezoneOffset()*60*1000;
+  otime.setTime( (second + otime.getTimezoneOffset()*60) * 1000);
+  return otime;
+}
+
+function fcalInitDatesTimes(nh, start, end) {
+  var stime = fcalInitTimeO(start);
+  fcalSetTime('start', stime, true);
+  var etime = new Date();
+  etime = fcalInitTimeO(end);
+  fcalSetTime('end', etime, true);
+  eltId('nohour').checked = '';
+  eltId('allday').checked = '';
+    fcalNohour(false);
+    fcalAllday(false);
+  if (nh==1) {
+    fcalNohour(true);
+    eltId('nohour').checked = 'checked';
+  } else if (nh==2) {
+    fcalAllday(true);
+    eltId('allday').checked = 'checked';
+  } 
+
+  return true;
+}

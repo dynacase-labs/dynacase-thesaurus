@@ -522,18 +522,6 @@ function viewattdispo(url, rlist) {
   subwindow(500, 600, 'ViewDispo', url+rll);
 }
 
-function clickB(idb,frombutton) {
-  var eb = document.getElementById(idb);
-  if (!eb) return false;
-  if (eb.type=='radio') {
-    if (!frombutton && eb.type=='radio' && eb.checked) return false;
-    eb.checked = (eb.checked ? "" : "checked" );
-  } else {
-    eb.checked = (eb.checked ? "" : "checked" );
-  }
-  return true;
-}
-
 function ShowHideStatus(s, v) {
   var evch = document.getElementById(s);
   evch.checked = (evch.checked ? "" : "checked" );

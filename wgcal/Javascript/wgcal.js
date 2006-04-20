@@ -1,3 +1,15 @@
+function clickB(idb,frombutton) {
+  var eb = document.getElementById(idb);
+  if (!eb) return false;
+  if (eb.type=='radio') {
+    if (!frombutton && eb.type=='radio' && eb.checked) return false;
+    eb.checked = (eb.checked ? "" : "checked" );
+  } else {
+    eb.checked = (eb.checked ? "" : "checked" );
+  }
+  return true;
+}
+
 // --------------------------------------------------------
 function getX(e) { 
   var posx = 0; 

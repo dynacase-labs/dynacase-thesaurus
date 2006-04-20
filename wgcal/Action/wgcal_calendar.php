@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.85 2006/04/18 16:46:09 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.86 2006/04/20 11:14:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -257,6 +257,27 @@ function wgcal_calendar(&$action) {
     $ic++;
   }
   $action->lay->SetBlockData("confid", $tconf);
+
+
+  // minutes
+  $incm = getParam("WGCAL_U_MINCUSED",15);
+  for ($h=0; $h<60; $h+=$incm) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optselect"] = "";
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h);
+  }
+  $action->lay->setBlockData("ms_select", $th);
+  $action->lay->setBlockData("me_select", $th);
+  
+  // hours
+  $th = array();
+  for ($h=0; $h<24; $h++) {
+    $th[$h]["optvalue"] = $h;
+    $th[$h]["optdescr"] = (strlen($h)==1?"0".$h:$h)."h";
+    $th[$h]["optselect"] = "";
+  }
+  $action->lay->setBlockData("hs_select", $th);
+  $action->lay->setBlockData("he_select", $th);
 
   
 }
