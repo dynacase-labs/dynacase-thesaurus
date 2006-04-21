@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.26 2006/04/18 16:46:09 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.27 2006/04/21 15:44:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -13,8 +13,9 @@ var $calVResume     = "WGCAL:CALEV_ABSTRACT";
 var $calVCard       = "WGCAL:CALEV_CARD";
 var $calVLongText   = "WGCAL:CALEV_VIEWLTEXT";
 var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
-
-
+ 
+var $viewShortEvent = "WGCAL:VIEWSHORTEVENT:U";
+ 
 /*
  * 
  */
@@ -44,7 +45,10 @@ function getDisplayAttr() {
   $ressd = $this->getRMatrix();
 
   $attrd["bgColor"] =  
-    $attrd["rightColor"] = $attrd["bottomColor"] = $attrd["leftColor"] = $attrd["topColor"] = $this->getDisplayColor($ressd);
+    $attrd["rightColor"] = 
+    $attrd["bottomColor"] = 
+    $attrd["leftColor"] = 
+    $attrd["topColor"] = $this->getDisplayColor($ressd);
 
   if (count($ressd)>1 && isset($ressd[$myid]) && $ressd[$myid]["displayed"] && $ressd[$myid]["state"]!=-1) 
     $attrd["topColor"]  = WGCalGetColorState($ressd[$myid]["state"], $attrd["bgColor"]);
@@ -61,6 +65,77 @@ function getDisplayAttr() {
   return $attrd;
 }
 
+
+function isEditable() {
+  return ($this->Control("edit")=="" ? true : false);
+}
+
+function getTitleInfo() {
+  return ($this->isDisplayable() ? $this->getValue("evt_title") : _("confidential event"));
+}
+
+function isDisplayable() {
+  return ($this->Control("confidential")=="" 
+	  || ($this->confidential==0 && $this->Control("view")==""));
+}
+
+function getIconsBlock() {
+  $tico = null;
+  if ($this->getValue("icons")!="") {
+    $it = explode(",", $this->getValue("icons"));
+    if (count($it)>0) {
+      foreach ($it as $ki => $vi) $tico[]= array("icosrc" => str_replace("'","",$vi));
+    }
+  }
+  return $tico;
+}
+
+function getHoursInfos() {
+  $start = $this->getValue("evt_begdate");
+  $end = ($this->getValue("evfc_realenddate") == "" ? $this->getValue("evt_enddate") : $this->getValue("evfc_realenddate"));
+  $dstart = substr($start, 0, 2);
+  $dend = substr($end, 0, 2);
+  $hstart = substr($start,11,5);
+  $hend = substr($end,11,5);
+  $hour1 = $hour2 = "";
+  $hour1 = substr($start, 0, 2)."/".substr($start, 3, 2)."/".substr($start, 8, 2);
+  if (substr($start, 0, 10)!=substr($end, 0, 10)) {
+    $hour1 .= " ".$hstart;
+    $hour2 = substr($end, 0, 2)."/".substr($end, 3, 2)." ".substr($end, 8, 2);
+    $hour2 .= " ".$hend;
+    $p = 4;
+  } else {
+    if ($hstart==$hend && $hend=="00:00") {
+      $hour2 = "("._("no hour").")";
+      $p = 0;
+    } else if ($hstart=="00:00" && $hend=="23:59") {
+      $hour2 = "("._("all the day _ short").")";
+      $p = 1;
+   } else {
+      $hour2 = $hstart."&nbsp;-&nbsp;".$hend;
+      $p = 4;
+   }
+  }
+  return array($hour1, $hour2, $p);
+}
+
+function viewShortEvent() {
+  $th = $this->getHoursInfos();
+  $hour1 = $th[0];
+  $hour2 = $th[1];
+  $this->lay->set("hour1", $hour1);
+  $this->lay->set("hour2", $hour2);
+ 
+  $this->lay->setBlockData("Icons", $this->getIconsBlock());
+ 
+  $this->lay->set("title", stripSlashes($this->getValue("evt_title")));
+  $this->lay->set("owner", $this->getValue("evt_creator"));
+  $this->lay->set("note", $this->getValue("evt_desc"));
+  $tl = ($this->getValue("evt_desc")!="" || $hour2!="");
+  $this->lay->set("twoLine", $tl);
+ 
+}
+     
 
 function getRMatrix() {
   global $action;

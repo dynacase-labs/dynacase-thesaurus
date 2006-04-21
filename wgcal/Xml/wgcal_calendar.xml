@@ -5,7 +5,7 @@
 
 <div id="headscreen" onmouseover="closeAllMenu()">[ZONE WGCAL:WGCAL_SLIDER]</div>
 
-<table style="z-index:2000;width:100%;" cellspacing="0" id="week">
+<table style="width:100%;" cellspacing="0" id="week">
 <thead>
 <tr height="[WGCAL_U_HLINETITLE]px">
  <td id="DH" width="5%" class="WGCAL_Period">&nbsp;</td>
@@ -21,12 +21,12 @@
 [ZONE WGCAL:WGCAL_INFOS]
 
 <div style="display:none" id="waitmessage">
-  <div style="z-index:1100; border:3px outset white; color:black; background-color:white">
+  <div style="border:3px outset white; color:black; background-color:white">
     <img src="[IMG:fcal-wait.gif]"><span id="wmsgtext"></span>
   </div>
 </div>
 
-<div style="display:none; z-index:1000; padding:2px; background:white" id="fastedit">
+<div style="display:none; padding:2px; background:white" id="fastedit">
   <div class="fasteditcontent">
   <table>
 
@@ -44,8 +44,17 @@
 <td align="left" nowrap>
 <input type="hidden" value="[js_start]" id="js_start" name="js_start">
 <input type="hidden" value="[s_start]" id="s_start" name="s_start" onchange="fcalComputeDateFromStart()">
-<span style="z-index:10000" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butstart" name="ButStart" style="cursor:pointer;" onclick="fcalInitCalendar('start');" title="[TEXT:click here to enter the start date]">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butstart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
 <img src="[IMG:cal-other.gif]" height="15" >&nbsp;<span id="t_start">[t_start]</span></span>
+<script>  
+  var calstartend = { 
+    firstDay:1, 
+    inputField:'s_start', 
+    ifFormat:'%s', 
+    button:'butstart'
+  };
+  Calendar.setup( calstartend );
+</script>
 </td>
 
 <td id="start_hour" align="left" style="visibility:hidden" nowrap>
@@ -58,8 +67,17 @@
 <td align="left" id="end_hour2" style="visibility:hidden" nowrap>
 <input type="hidden" value="[js_end]" id="js_end" name="js_end">
 <input type="hidden" value="[s_end]" id="s_end" name="s_end" onchange="fcalComputeDateFromEnd();">
-<span style="z-index:10000" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butend" onclick="fcalInitCalendar('end');" title="[TEXT:click here to enter the end date]">
+<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="butend" title="[TEXT:click here to enter the end date]">
 <img src="[IMG:cal-other.gif]" height="15">&nbsp;<span id="t_end">[t_end]</span></span>
+<script>  
+  var calstartend = { 
+    firstDay:1, 
+    inputField:'s_end', 
+    ifFormat:'%s', 
+    button:'butend'
+  };
+  Calendar.setup( calstartend );
+</script>
 </td>
 <td align="left" id="end_hour3" style="visibility:hidden" nowrap>
 &nbsp;<select  id="h_end" name="h_end" onchange="fcalComputeDateFromEnd();">[BLOCK he_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK he_select]</select> : <select  id="m_end" name="m_end" onchange="fcalComputeDateFromEnd();">[BLOCK me_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK me_select]</select>
@@ -73,9 +91,8 @@
 <span id="nohour_span" style="visibility:hidden" onclick="clickB('nohour');fcalNohourClicked(event);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input readonly id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="clickB('nohour');fcalNohourClicked(event);">
 [TEXT:no hour]</span>
 
-<span id="allday_span" style="cursor:pointer; visibility:hidden" onclick="clickB('allday');fcalAlldayClicked(event);"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
-<input readonly id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday');fcalAlldayClicked(event)"></input>[TEXT:all the day]</span>
-
+<span id="allday_span" style="cursor:pointer; visibility:hidden" onclick="clickB('allday'); fcalAlldayClicked(event)"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
+<input readonly id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday'); fcalAlldayClicked(event"></input>[TEXT:all the day]</span>
 </td>
 </tr>
 </table>
@@ -97,6 +114,13 @@
     </tr>
   </table>
   </div>
+</div>
+
+<div id="conflict" style="display:none; width:30%; padding:2px; background-color:white">
+<div class="wToolButtonUnselect">
+<img height="12px" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';">
+[TEXT:conflict verfication]</div>
+<div id="conflictcontent" class="fasteditcontent"></div>
 </div>
 
 <script> 

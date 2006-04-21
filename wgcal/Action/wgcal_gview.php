@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.20 2005/12/15 08:33:35 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.21 2006/04/21 15:44:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -19,7 +19,6 @@ include_once('WHAT/Lib.Common.php');
 
 function wgcal_gview(&$action) {
   global $_POST, $_GET, $ZONE_ARGS;
-  global $order;
 
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
@@ -36,22 +35,27 @@ function wgcal_gview(&$action) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
   }
   $filter = array();
+  $explode = true;
   $dd[0] = strftime("%Y-%m-%d 00:00:00", time()-(3600*24*365));
   $dd[1] = strftime("%Y-%m-%d 23:59:59", time()+(3600*24*365));
   if (count($ff)>0) {
     foreach ($ff as $k => $v) {
       switch ($k) {
+      case 'ts':
+	$dd[0] = strftime("%Y-%m-%d %H:%M:00", $v);
+	break;
+      case 'te':
+	$dd[1] = strftime("%Y-%m-%d %H:%M:00", $v);
+	break;
       case 'int':
 	$dd = explode("=", $v);
 	break;
       case 'withme' :
 	setHttpVar("ress", $action->user->fid);
 	break; 
-      case 'title': 
-	$filter[0] .= (strlen($filter[0])>0 ? " or " : "" ) ."evt_title ~* '".$v."'";
-	break;
-      case 'desc': 
-	$filter[0] .= (strlen($filter[0])>0 ? " or " : "" ) ."evt_desc ~* '".$v."'";
+      case 'search': 
+	$sphrase = $v;
+	$filter[] = "(evt_title ~* '".$v."') or (evt_desc ~* '".$v."')";
 	break;
        case 'ress': 
 	setHttpVar("ress", $v);
@@ -60,7 +64,6 @@ function wgcal_gview(&$action) {
       }
     }
   }
-
   $themef = GetHttpVars("theme", $action->getParam("WGCAL_U_THEME", "default"));
   @include_once("WGCAL/Themes/default.thm");
   @include_once("WGCAL/Themes/".$themef.".thm");
@@ -71,87 +74,96 @@ function wgcal_gview(&$action) {
 
   $menu    = GetHttpVars("menu", 1); 
   $famids  = GetHttpVars("famids", ""); 
-  $order   = GetHttpVars("order", "C"); // C chocolatine D Decroissant
   $explode = ((GetHttpVars("explode", 0) == 0)? false : true);
 
+  $action->lay->set("standalone", (GetHttpVars("stda")==1?false:true));
+  $action->lay->set("sphrase", $sphrase);
+
   // Set producer families
-  if ($famids=="") {
-    $famids = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
-  }
+  if ($famids=="") $famids = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
   $ft = explode("|", $famids);
   $fti = array();
   foreach ($ft as $k => $v) $fti[] = getIdFromName($dbaccess, $v);
   $idfamref = implode("|", $fti);
   setHttpVar("idfamref", $idfamref);
-
-  $edre = array();
-  $edre = wGetEvents($dd[0], $dd[1], $explode, $filter); 
-  if (count($edre) > 0) {
-    $popuplist = array();
-    foreach ($edre as $k => $v) {
-
-      if (!isset($drv[$v["IDP"]])) $drv[$v["IDP"]] = new_Doc($dbaccess, $v["IDP"]);
-      if ($drv[$v["IDP"]]->id == "") continue;
-
-      $d = substr($v["TSSTART"],0,2);
-      $m = substr($v["TSSTART"],3,2);
-      $y = substr($v["TSSTART"],6,4);
-      
-      $day = strftime("%d %B %Y",mktime(0,0,0,$m,$d,$y));
-      $sday = strftime("%Y%m%d",mktime(0,0,0,$m,$d,$y));
-      
-      if (!isset($btime[$day]["cnt"])) {
-	$btime[$day]["sdate"] = $sday;
-	$btime[$day]["date"] = $day;
-	$btime[$day]["cnt"] = 0;
-	$devents[$day] = array();
+  $evt = array();
+  $evt = wGetEvents($dd[0], $dd[1], $explode, $filter); 
+  if (count($evt) > 0) {
+    $td = array();
+    $edoc = array();
+    $hsep = "&nbsp;-&nbsp;";
+    foreach ($evt as $ke=> $ve) {
+      if (!isset($edoc[$ve["id"]])) $edoc[$ve["id"]] = getDocObject($dbaccess, $ve);
+      $cday = substr($ve["evt_begdate"],6,4).substr($ve["evt_begdate"],3,2).substr($ve["evt_begdate"],0,2);
+      $j = count($td[$cday]);
+      $td[$cday]["date"] = $cday;
+      $td[$cday]["datestr"] = strftime("%d %B %Y",mktime(0,0,0,substr($ve["evt_begdate"],3,2),substr($ve["evt_begdate"],0,2),substr($ve["evt_begdate"],6,4)));
+      $td[$cday]["ev"][$j]["id"] = $ve["id"];
+      $td[$cday]["ev"][$j]["idp"] = $edoc[$ve["id"]]->getValue("evt_idinitiator");
+      $dstart = substr($ve["evt_begdate"], 0, 2);
+      $end = ($ve["evfc_realenddate"] == "" ? $ve["evt_enddate"] : $ve["evfc_realenddate"]);
+      $dend = substr($end, 0, 2);
+      $hstart = substr($ve["evt_begdate"],11,5);
+      $hend = substr($end,11,5);
+      if ($hstart==$hend && $hend=="00:00") {
+	$hours = "("._("no hour").")";
+ 	$p = 0;
+      } else if ($hstart=="00:00" && $hend=="23:59") {
+	$hours = "("._("all the day _ short").")";
+ 	$p = 1;
+      } else {
+	if ($dend==$dstart) {
+	  $hours = $hstart."$hsep".$hend;
+	  $p = 4;
+	} else { 
+	  if ($id==$dstart) {
+	    $hours = $hstart."$hsep..."; //" 24:00";
+	    $p = 4;
+	  } else if ($id==$dend) {
+	    $hours = "...$hsep".$hend; // "00:00 ".$lend;
+	    $p = 2;
+	  } else {
+	    $hours = "("._("all the day _ short").")";
+	    $p = 1;
+	  }
+	}
       }
-      if (!isset($popuplist[$drv[$v["IDP"]]->popup_name])) {
-	$popuplist[$drv[$v["IDP"]]->popup_name] = true;
-	popupInit($drv[$v["IDP"]]->popup_name,  $drv[$v["IDP"]]->popup_item);
+      $td[$cday]["ev"][$j]["hour"] = $hours;
+      $td[$cday]["ev"][$j]["p"] = $p;
+      $td[$cday]["ev"][$j]["Icons"] = "";
+      $it = $edoc[$ve["id"]]->getIconsBlock();
+      if (count($it)) {
+	foreach ($it as $ki => $vi) $td[$cday]["ev"][$j]["Icons"] .= "<img src=\"".$vi["icosrc"]."\">";
+	$td[$cday]["ev"][$j]["Icons"] .= "&nbsp;";
       }
-      $drv[$v["IDP"]]->RvSetPopup($k);
-
-      $i = $btime[$day]["cnt"];
-      $j = count($devents[$day]);
-
-      $devents[$day][$j]["EvCard"] = $drv[$v["IDP"]]->viewdoc($drv[$v["IDP"]]->defaultshorttext);
-      $devents[$day][$j]["edit"] = ($drv[$v["IDP"]]->Control("edit")=="" ? true : false);
-      $devents[$day][$j]["id"] = $drv[$v["IDP"]]->id;
-      $devents[$day][$j]["TSSTART"] = $drv[$v["IDP"]]->getValue("calev_start");
-      $devents[$day][$j]["RG"] = $v["RG"];
+      $td[$cday]["ev"][$j]["title"] = $edoc[$ve["id"]]->getTitleInfo();
+      $td[$cday]["ev"][$j]["owner"] = $edoc[$ve["id"]]->getValue("evt_creator");
+      $td[$cday]["ev"][$j]["edit"] = $edoc[$ve["id"]]->isEditable();
+      $td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
+      $td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);
+      if ($sphrase!="") {
+	$td[$cday]["ev"][$j]["note"] = preg_replace('/('.$sphrase.'?)/', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["note"]);
+ 	$td[$cday]["ev"][$j]["title"] = preg_replace('/('.$sphrase.'?)/', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["title"]);
+      }
+			 
     }
-    popupGen(count($tout));
-  }
-
-  if (count($btime)>0) {
-    uasort($btime, "daySort");
-    $action->lay->setBlockData("btime", $btime);
-    if (count($devents)>0) {
-      foreach ($devents as $k => $v) { 
- 	uasort($devents[$k], "evSort");
-	$action->lay->setBlockData("devents$k", $devents[$k]);
-      }
-      $action->lay->set("noresult", false);
-    } else {
-      $action->lay->set("noresult", true);
+    uasort($td, "daySort");
+    $action->lay->setBlockData("btime", $td);
+    foreach ($td as $k => $v) {
+      uasort($td[$k], "evSort");
+      $action->lay->setBlockData("devents$k", $td[$k]["ev"]);
     }
+    $action->lay->set("noresult", false);
   } else {
     $action->lay->set("noresult", true);
-  }
-  $action->lay->set("title", $title);
-  $action->lay->set("standalone", (GetHttpVars("standalone",1)==0?false:true));
-
+  }    
 }
 
 function daySort($a, $b) {
-  global $order;
-  if ($a["sdate"] == $b["sdate"]) $r = 0;
-  else if ($order=='C') $r = (($a["sdate"] < $b["sdate"]) ? -1 : 1);
-  else $r = (($a["sdate"] > $b["sdate"]) ? -1 : 1);
-  return $r;
+  return $a["date"] - $b["date"];
 }
 function evSort($a, $b) {
-  return strcmp($a["TSSTART"], $b["TSSTART"]);
+  if ($e1["pound"]==$e2["pound"] && $e2["pound"]>3) return strcmp($e1["hour1"], $e2["hour1"]);
+  return $e1["pound"] > $e2["pound"];
 }
 ?>

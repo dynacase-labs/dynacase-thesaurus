@@ -1,15 +1,15 @@
-[IF standalone]
-[ZONE WGCAL:WGCAL_HTMLHEAD]
-<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:search result]</td></tr></tr></table>
+[IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></tr></table>
 [ENDIF standalone]
 
 [IF noresult]<div width="100%" class="WEvDays">[TEXT:no event]</div>[ENDIF noresult]
-[BLOCK btime]<div class="WEvDays" style="padding:2px" onmouseover="closeMenu('calpopup');">[date]
-<table width="100%" cellspacing="0">
-[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onclick="subwindow(400, 650, 'ViewEvent[id]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[id]');" onmouseout="this.className='WEvDefault'">
-<td onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}">[EvCard]</td>
-</tr>[ENDBLOCK devents[date]]</table></div>[ENDBLOCK btime]
-
-[ZONE WGCAL:WGCAL_POPUP]
+[IFNOT noresult]
+<table cellspacing="0" width="100%" >[BLOCK btime]
+<tr><td colspan="2" class="WEvDays" style="padding:2px" onmouseover="closeMenu('calpopup');">[datestr]</tr>
+[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onclick="subwindow(400, 650, 'ViewEvent[idp]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[idp]');" onmouseout="this.className='WEvDefault'">
+<td>[hour]</td><td>
+<div>[Icons][title] <span style="font-size:80%;">([owner])</span></div>
+[IF vNote]<div>[note][ENDIF vNote]</td>
+</tr>[ENDBLOCK devents[date]][ENDBLOCK btime]</table>
+[ENDIF noresult]
 
 [IF standalone][ZONE WGCAL:WGCAL_HTMLFOOT][ENDIF standalone]

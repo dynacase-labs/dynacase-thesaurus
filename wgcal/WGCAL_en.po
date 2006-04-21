@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-22 13:41+0100\n"
+"POT-Creation-Date: 2006-04-21 16:02+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -23,6 +23,9 @@ msgid "event time modification message"
 msgstr ""
 
 msgid "event modification time"
+msgstr ""
+
+msgid "all the day _ short"
 msgstr ""
 
 msgid "look preferences"
@@ -84,16 +87,29 @@ msgstr ""
 msgid "event set/change by"
 msgstr ""
 
-msgid "all the day"
-msgstr ""
-
-msgid "all the day _ short"
-msgstr ""
-
 msgid "no sync made"
 msgstr ""
 
 msgid "You have waiting events"
+msgstr ""
+
+msgid "internal server error "
+msgstr ""
+
+msgid "confidential event"
+msgstr ""
+
+msgid "document reference no set"
+msgstr ""
+
+msgid "unknow logical reference"
+msgstr ""
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+msgid "no menu defined for Doc #"
 msgstr ""
 
 msgid "workgroup calendar"
@@ -171,6 +187,9 @@ msgstr ""
 msgid "search contact"
 msgstr ""
 
+msgid "get event producter menu"
+msgstr ""
+
 msgid "view event"
 msgstr ""
 
@@ -178,6 +197,9 @@ msgid "edit event"
 msgstr ""
 
 msgid "store event"
+msgstr ""
+
+msgid "save event"
 msgstr ""
 
 msgid "delete event"
@@ -249,6 +271,27 @@ msgstr ""
 msgid "no category"
 msgstr ""
 
+msgid "icon text confidential event"
+msgstr ""
+
+msgid "icon text visibility confidendial"
+msgstr ""
+
+msgid "icon text visibility private"
+msgstr ""
+
+msgid "icon text visibility group"
+msgstr ""
+
+msgid "icon text repeat event"
+msgstr ""
+
+msgid "icon text alarm"
+msgstr ""
+
+msgid "icon text with attendees"
+msgstr ""
+
 msgid "public calendar"
 msgstr ""
 
@@ -261,7 +304,19 @@ msgstr ""
 msgid "pdelegate"
 msgstr ""
 
-msgid "confidential event"
+msgid "public"
+msgstr ""
+
+msgid "confidential"
+msgstr ""
+
+msgid "view groups"
+msgstr ""
+
+msgid "private"
+msgstr ""
+
+msgid "all the day"
 msgstr ""
 
 msgid "monday"
@@ -303,31 +358,13 @@ msgstr ""
 msgid "there is excluded days"
 msgstr ""
 
-msgid "icon text confidential event"
+msgid "history"
 msgstr ""
 
 msgid "icon text invitation"
 msgstr ""
 
-msgid "icon text visibility confidendial"
-msgstr ""
-
-msgid "icon text visibility private"
-msgstr ""
-
-msgid "icon text visibility group"
-msgstr ""
-
-msgid "icon text repeat event"
-msgstr ""
-
 msgid "icon text private calendar"
-msgstr ""
-
-msgid "icon text alarm"
-msgstr ""
-
-msgid "icon text with attendees"
 msgstr ""
 
 msgid "new"
@@ -343,15 +380,6 @@ msgid "reject"
 msgstr ""
 
 msgid "to be confirmed"
-msgstr ""
-
-msgid "public"
-msgstr ""
-
-msgid "confidential"
-msgstr ""
-
-msgid "private"
 msgstr ""
 
 msgid "My public calendar"
@@ -526,18 +554,6 @@ msgid "10 minutes"
 msgstr ""
 
 msgid "20 minutes"
-msgstr ""
-
-msgid "contact search position"
-msgstr ""
-
-msgid "search not displayed"
-msgstr ""
-
-msgid "search displayed on top"
-msgstr ""
-
-msgid "search displayed on bottom"
 msgstr ""
 
 msgid "portal look"
@@ -780,9 +796,6 @@ msgstr ""
 msgid "click to select a date"
 msgstr ""
 
-msgid "frequency"
-msgstr ""
-
 msgid "exclude days"
 msgstr ""
 
@@ -802,9 +815,6 @@ msgid "note"
 msgstr ""
 
 msgid "Category"
-msgstr ""
-
-msgid "view groups"
 msgstr ""
 
 msgid " invalid ressource id"
@@ -829,6 +839,9 @@ msgid "and"
 msgstr ""
 
 msgid "search"
+msgstr ""
+
+msgid "click to open full edition mode"
 msgstr ""
 
 msgid "no categories set, contact your administrator"
@@ -891,7 +904,7 @@ msgstr ""
 msgid "create calendar"
 msgstr ""
 
-msgid "search result"
+msgid "wcal search result for"
 msgstr ""
 
 msgid "no event"
@@ -943,9 +956,6 @@ msgid "add to viewed calendars"
 msgstr ""
 
 msgid "add to prefered"
-msgstr ""
-
-msgid "close menu"
 msgstr ""
 
 msgid "search cal"
@@ -1053,6 +1063,12 @@ msgstr ""
 msgid "hide all ressources"
 msgstr ""
 
+msgid "close menu"
+msgstr ""
+
+msgid "select to edit agenda for"
+msgstr ""
+
 msgid "view this"
 msgstr ""
 
@@ -1081,9 +1097,6 @@ msgid "to be confirm"
 msgstr ""
 
 msgid "edit"
-msgstr ""
-
-msgid "history"
 msgstr ""
 
 msgid "delconfirm"
@@ -1240,16 +1253,7 @@ msgstr ""
 msgid "fonts size"
 msgstr ""
 
-msgid "information popup management"
-msgstr ""
-
-msgid "display popup position"
-msgstr ""
-
 msgid "timeout before displaying popup"
-msgstr ""
-
-msgid "date navigator in barmenu"
 msgstr ""
 
 msgid "day start hour"
@@ -1382,6 +1386,9 @@ msgid "display contacts"
 msgstr ""
 
 msgid "toolbar size"
+msgstr ""
+
+msgid "contact search position"
 msgstr ""
 
 msgid "barmenu date navigator"

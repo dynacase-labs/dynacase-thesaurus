@@ -449,13 +449,8 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   foreach ($events as $k=>$v) {
     $ev = getDocObject($dbaccess, $v);
     $events[$k]["rg"] = $rg;
-    if ($ev->Control("confidential")=="" || ($ev->confidential==0 && $ev->Control("view")=="")) {
-      $events[$k]["displayable"] = "true";
-      $events[$k]["evt_title"] = addslashes($events[$k]["evt_title"]);
-    } else {
-      $events[$k]["displayable"] = 'false';
-      $events[$k]["evt_title"] = _("confidential event");
-    }
+    $events[$k]["displayable"] = $ev->isDisplayable();
+    $events[$k]["evt_title"] = addSlashes($ev->getTitleInfo());
     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
@@ -468,8 +463,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $events[$k]["bottomColor"] = $dattr["bottomColor"];
     $events[$k]["rightColor"] = $dattr["rightColor"];
     $events[$k]["leftColor"] = $dattr["leftColor"];
-    if ($ev->Control("edit")=="") $events[$k]["editable"] = 'true';
-    else $events[$k]["editable"] = 'false';
+    $events[$k]["editable"] = $ev->isEditable();
     $rg++;
   } 
   return $events;

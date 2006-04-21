@@ -499,6 +499,7 @@ TD {	empty-cells: show; }
   display: none; 
   cursor: default;
   font-size: [WTH_FONTSIZE_SMALL]pt;
+  border:1px solid white;
 }
 
 .calendar table {
@@ -507,6 +508,7 @@ TD {	empty-cells: show; }
   border-bottom: 1px solid [WTH_COLOR_1];
   border-left: 1px solid [WTH_COLOR_1];
   background-color : white;
+  border:3px  groove white;
 }
 
 /* Header part -- contains navigation buttons and day names. */

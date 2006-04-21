@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-22 13:41+0100\n"
+"POT-Creation-Date: 2006-04-21 16:02+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -24,6 +24,9 @@ msgstr "L'heure du rendez-vous ci-dessous a été modifiée (ou sa répétition)."
 
 msgid "event modification time"
 msgstr "Modification de l'heure / de la répétition"
+
+msgid "all the day _ short"
+msgstr "La journée"
 
 msgid "look preferences"
 msgstr "Aspect et comportement de l'interface"
@@ -85,17 +88,32 @@ msgstr "Modification des acceptations"
 msgid "event set/change by"
 msgstr "Ce rendez-vous a été positionné ou modifié par"
 
-msgid "all the day"
-msgstr "Toute la journée"
-
-msgid "all the day _ short"
-msgstr "La journée"
-
 msgid "no sync made"
 msgstr "jamais synchronisé"
 
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
+
+msgid "internal server error "
+msgstr ""
+
+msgid "confidential event"
+msgstr "Evènement confidentiel"
+
+#, fuzzy
+msgid "document reference no set"
+msgstr "Préférences des tâches"
+
+#, fuzzy
+msgid "unknow logical reference"
+msgstr "Préférences des tâches"
+
+#, fuzzy, c-format
+msgid "cannot see unknow reference %s"
+msgstr "Modifier les préférences"
+
+msgid "no menu defined for Doc #"
+msgstr ""
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -173,6 +191,10 @@ msgstr "Rechercher un utilisateur"
 msgid "search contact"
 msgstr "Recherche un contact..."
 
+#, fuzzy
+msgid "get event producter menu"
+msgstr "Famille des producteurs des évènements affichés"
+
 msgid "view event"
 msgstr "Aficher"
 
@@ -181,6 +203,10 @@ msgstr "Edition d'un rendez-vous"
 
 msgid "store event"
 msgstr "Stockage d'un rendez-vous"
+
+#, fuzzy
+msgid "save event"
+msgstr "Aficher"
 
 msgid "delete event"
 msgstr "Supression d'un rendez-vous"
@@ -253,6 +279,28 @@ msgstr "La date butée est dépassée"
 msgid "no category"
 msgstr "Sans"
 
+msgid "icon text confidential event"
+msgstr "Rendez-vous confidentiel"
+
+#, fuzzy
+msgid "icon text visibility confidendial"
+msgstr "Privé"
+
+msgid "icon text visibility private"
+msgstr "Privé"
+
+msgid "icon text visibility group"
+msgstr "Visible "
+
+msgid "icon text repeat event"
+msgstr "Rendez-vous répétitif"
+
+msgid "icon text alarm"
+msgstr "Rendez-vous avec alarme"
+
+msgid "icon text with attendees"
+msgstr "Réunion"
+
 msgid "public calendar"
 msgstr "Mon agenda public"
 
@@ -268,8 +316,20 @@ msgstr "Supprimer"
 msgid "pdelegate"
 msgstr "Supprimer"
 
-msgid "confidential event"
-msgstr "Evènement confidentiel"
+msgid "public"
+msgstr "Public"
+
+msgid "confidential"
+msgstr "Confidentiel"
+
+msgid "view groups"
+msgstr "Visibles pour les groupes"
+
+msgid "private"
+msgstr "Privé"
+
+msgid "all the day"
+msgstr "Toute la journée"
 
 msgid "monday"
 msgstr "Lundi"
@@ -310,33 +370,14 @@ msgstr "Jusqu'au"
 msgid "there is excluded days"
 msgstr "il y a des jours exclus"
 
-msgid "icon text confidential event"
-msgstr "Rendez-vous confidentiel"
+msgid "history"
+msgstr "Historique"
 
 msgid "icon text invitation"
 msgstr "Invitation"
 
-#, fuzzy
-msgid "icon text visibility confidendial"
-msgstr "Privé"
-
-msgid "icon text visibility private"
-msgstr "Privé"
-
-msgid "icon text visibility group"
-msgstr "Visible "
-
-msgid "icon text repeat event"
-msgstr "Rendez-vous répétitif"
-
 msgid "icon text private calendar"
 msgstr "Rendez-vous appartenant à un calendrier privé"
-
-msgid "icon text alarm"
-msgstr "Rendez-vous avec alarme"
-
-msgid "icon text with attendees"
-msgstr "Réunion"
 
 msgid "new"
 msgstr "nouveau"
@@ -352,15 +393,6 @@ msgstr "refusé"
 
 msgid "to be confirmed"
 msgstr "à confirmer"
-
-msgid "public"
-msgstr "Public"
-
-msgid "confidential"
-msgstr "Confidentiel"
-
-msgid "private"
-msgstr "Privé"
 
 msgid "My public calendar"
 msgstr "Mon calendrier public"
@@ -535,18 +567,6 @@ msgstr "10 minutes"
 
 msgid "20 minutes"
 msgstr "20 minutes"
-
-msgid "contact search position"
-msgstr "Recherche rapide carnet d'adresse"
-
-msgid "search not displayed"
-msgstr "non affichée"
-
-msgid "search displayed on top"
-msgstr "Affichée en haut"
-
-msgid "search displayed on bottom"
-msgstr "Affichée en bas"
 
 msgid "portal look"
 msgstr "Style du portail"
@@ -788,9 +808,6 @@ msgstr "cette date"
 msgid "click to select a date"
 msgstr "cliquer pour choisir une date"
 
-msgid "frequency"
-msgstr "Fréquence"
-
 msgid "exclude days"
 msgstr "Jours exclus"
 
@@ -811,9 +828,6 @@ msgstr "Note"
 
 msgid "Category"
 msgstr "Catégorie"
-
-msgid "view groups"
-msgstr "Visibles pour les groupes"
 
 msgid " invalid ressource id"
 msgstr "Identifiant de ressource invalide"
@@ -838,6 +852,9 @@ msgstr "et"
 
 msgid "search"
 msgstr "Rechercher"
+
+msgid "click to open full edition mode"
+msgstr "Basculer en mode d'édition complète"
 
 msgid "no categories set, contact your administrator"
 msgstr "Aucune catégorie de disponible. Contactez votre administrateur"
@@ -899,8 +916,8 @@ msgstr "Entrer ici le nom du calendrier"
 msgid "create calendar"
 msgstr "Création d'un calendrier"
 
-msgid "search result"
-msgstr "Résultat de la recherche"
+msgid "wcal search result for"
+msgstr "Résultat de la recherche pour "
 
 msgid "no event"
 msgstr "Pas d'évènement."
@@ -953,9 +970,6 @@ msgstr "Ajouter aux calendriers"
 msgid "add to prefered"
 msgstr "Ajouter aux contacts préférés"
 
-msgid "close menu"
-msgstr "Fermer"
-
 msgid "search cal"
 msgstr "Agenda"
 
@@ -965,9 +979,8 @@ msgstr "Affichage limité à "
 msgid "display calendar (m-left-btn) and more... (m-right-btn)"
 msgstr "(m-left-btn) affiche le calendrier et plus avec (m-right-btn)"
 
-#, fuzzy
 msgid "print"
-msgstr "Privé"
+msgstr "Imprimer"
 
 msgid "current week"
 msgstr "Semaine actuelle"
@@ -1030,10 +1043,10 @@ msgid "calendar selector"
 msgstr "Agendas"
 
 msgid "calendar direct access"
-msgstr "Accès direct aux calendriers"
+msgstr "Accès direct aux agendas"
 
 msgid "modify the list"
-msgstr "Modifier la liste des calendriers"
+msgstr "Modifier la liste des agendas"
 
 msgid "update calendar"
 msgstr "Mise à jour de l'agenda"
@@ -1061,6 +1074,12 @@ msgstr "Tout afficher"
 
 msgid "hide all ressources"
 msgstr "Tout masquer"
+
+msgid "close menu"
+msgstr "Fermer"
+
+msgid "select to edit agenda for"
+msgstr "Agir comme le propriétaire de cet agenda"
 
 msgid "view this"
 msgstr "Afficher"
@@ -1091,9 +1110,6 @@ msgstr "à confirmer"
 
 msgid "edit"
 msgstr "Editer"
-
-msgid "history"
-msgstr "Historique"
 
 msgid "delconfirm"
 msgstr "à confirmer"
@@ -1251,17 +1267,8 @@ msgstr "Thème utilisé"
 msgid "fonts size"
 msgstr "Taille de la police"
 
-msgid "information popup management"
-msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
-
-msgid "display popup position"
-msgstr "Position d'affichage"
-
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
-
-msgid "date navigator in barmenu"
-msgstr "Navigateur de date dans la barre de menu"
 
 msgid "day start hour"
 msgstr "Heure de début de la journée"
@@ -1395,6 +1402,9 @@ msgstr "Afficher les contacts"
 msgid "toolbar size"
 msgstr "Largeur de la barre d'outils"
 
+msgid "contact search position"
+msgstr "Recherche rapide carnet d'adresse"
+
 msgid "barmenu date navigator"
 msgstr ""
 
@@ -1426,6 +1436,27 @@ msgstr "Utiliser pour les RV..."
 
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "search not displayed"
+#~ msgstr "non affichée"
+
+#~ msgid "search displayed on top"
+#~ msgstr "Affichée en haut"
+
+#~ msgid "search displayed on bottom"
+#~ msgstr "Affichée en bas"
+
+#~ msgid "frequency"
+#~ msgstr "Fréquence"
+
+#~ msgid "information popup management"
+#~ msgstr "Gestion de l'affichage des détails des rendez-vous (pop-up)"
+
+#~ msgid "display popup position"
+#~ msgstr "Position d'affichage"
+
+#~ msgid "date navigator in barmenu"
+#~ msgstr "Navigateur de date dans la barre de menu"
 
 #~ msgid "prev period"
 #~ msgstr "Période précédente"

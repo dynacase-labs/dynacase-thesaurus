@@ -88,10 +88,10 @@ function ClickCalendarCell(event, nh,times,timee) {
   closeMenu('calpopup');
   if (!evt.ctrlKey) {
    if (!fastEditChangeAlert()) return;
-   document.EventInEdition = { id:-1, idp:-1, idowner:-1, titleowner:'',
+   document.EventInEdition = { id:0, idp:0, idowner:-1, titleowner:'',
 			       title:'', hmode:nh, start:times, end:timee, 
 			       category:0, note:'', location:'', 
-			       confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color};
+			       confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null };
    fastEditInit(event, true);
   }
   if (evt.ctrlKey) {
@@ -792,7 +792,7 @@ function fastEditReset() {
   document.EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
-			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color};
+			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null};
   eltId('fe_title').value ='';
   eltId('fe_location').value ='';
   eltId('fe_note').value = '';
@@ -800,10 +800,16 @@ function fastEditReset() {
   eltId('fe_confidentiality').options[0].selected = true;
   fastEditCanSave(false);
   eltId('fastedit').style.display = 'none';
+  eltId('nohour').checked = '';
+  eltId('allday').checked = '';
+  eltId('s_start').value = 0;
+  eltId('s_end').value = 0;
   fcalSetOpacity(document.getElementById(Root), 100);
+  datehourChanged = false;
 }
   
 
+var  datehourChanged = false;
 function fastEditContentChanged() {
   if (document.EventInEdition) {
     var title = eltId('fe_title').value;
@@ -820,6 +826,13 @@ function fastEditContentChanged() {
     if (note != document.EventInEdition.note) return true;
     if (loc != document.EventInEdition.location) return true;
     if (conf != document.EventInEdition.confidentiality) return true;
+
+    var hmode = 0;
+    if (eltId('nohour').checked) hmode=1;
+    if (eltId('allday').checked) hmode=2;
+    if (hmode!=document.EventInEdition.hmode) return true;
+
+    if (datehourChanged) return true;
   }
   return false;
 }
@@ -877,9 +890,33 @@ function  fcalGetJSDoc(id) {
     return false;
   } else {
     return docValues;
-  }
+  } 
   hideWaitServerMessage();
 } 
+
+function fastEditCheckConflict(ev) {
+  ev || (ev = window.event);
+  var ts=eltId('s_start').value + 60;
+  var te=eltId('s_end').value - 60;
+  var ress="";
+  for (var io=0; io<document.EventInEdition.eventjs.calev_attid.length; io++) {
+    ress += (ress==''?'':'|')+document.EventInEdition.eventjs.calev_attid[io];
+  }
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_ts="+ts+"&rvfs_te="+te+"rvfs_ress="+ress;
+  var rq;
+  posM.x = getX(ev);
+  posM.y = getY(ev);
+  showWaitServerMessage('Checking for conflicts');
+  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
+  else rq = new ActiveXObject("Microsoft.XMLHTTP");
+  rq.open("GET", urlsend, false);
+  rq.send(null);
+  eltId('conflictcontent').innerHTML = rq.responseText;
+  eltId('conflictcontent').style.display = 'block';
+  computeDivPosition('conflict', -40);
+  hideWaitServerMessage();
+  return;
+}
 
 
 function fcalFastEditEvent(ev, ie) {
@@ -894,7 +931,7 @@ function fcalFastEditEvent(ev, ie) {
     document.EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 				title:dv.title, hmode:dv.calev_timetype, start:fcalEvents[ie].start, end:fcalEvents[ie].end, 
 				category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
-				confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor };
+				confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor, eventjs:dv };
     return fastEditInit(ev, true);
   }
   return;
@@ -932,9 +969,6 @@ function fastEditInit(ev, init) {
     if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
   }
 
-
-
-  
   posM.x = getX(ev);
   posM.y = getY(ev);
   computeDivPosition('fastedit', -40);
@@ -986,7 +1020,6 @@ function hideWaitServerMessage() {
 
 function eltId(eltid) {
   if (document.getElementById(eltid)) return document.getElementById(eltid);
-//   alert('ID '+eltid+' not found '); 
   return false;
 }
 
@@ -1011,25 +1044,6 @@ function fcalCancelEvent(e) {
 
 // time and date
 
-
-function fcalInitCalendar(startend) {
-  alert('ts '+startend+' : '+document.getElementById('s_'+startend).value);
-  var e = document.getElementById('s_'+startend);
-  if (!e) return;
-  var cts = parseInt(e.value)*1000;
-  var cd = new Date;
-  cd.setTime(cts);
-  var calstartend = { 
-    date:cd, 
-    firstDay:1, 
-    inputField:'s_'+startend, 
-    ifFormat:'%s', 
-    button:'but'+startend,
-    date:cd
-     };
-  Calendar.setup( calstartend );
-  return;
-}
 
 function fcalComputeDateFromStart() {
 
@@ -1057,7 +1071,8 @@ function fcalComputeDateFromStart() {
   // Updating all fields....
   fcalSetTime('start', nS, false);
   fcalSetTime('end', nE, false);
-  
+
+  datehourChanged = true;
 }
 
 function fcalUpdateEndMinutes(min) {
@@ -1095,6 +1110,7 @@ function fcalComputeDateFromEnd() {
   }
 
   fcalSetTime('end', nE, false);
+  datehourChanged = true;
   return;
 }
 

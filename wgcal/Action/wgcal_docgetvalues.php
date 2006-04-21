@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_docgetvalues.php,v 1.2 2006/04/13 17:16:03 marc Exp $
+ * @version $Id: wgcal_docgetvalues.php,v 1.3 2006/04/21 15:44:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,23 @@ function wgcal_docgetvalues(&$action) {
   $dt = getTDoc($dbaccess, $docid);
   $ob = array();
   foreach ($dt as $k => $v ) {
-    if ($k!='comment' && $k!='values' && $k!='attrids' ) $ob[] = array( "attr" => $k, "value" => addslashes(str_replace(array("\r","\n"),array("","\£"),$v)));
+    if ($k!='comment' && $k!='values' && $k!='attrids' ) {
+      $attr=$doc->getAttribute($k);
+      if ($attr) {
+	echo "$k : ".($attr->inArray()?"T ":"").$attr->type."<br>";
+	//       $ob[] = array( "attr" => $k, "value" => addslashes(str_replace(array("\r","\n"),array("|","£"),$v)));
+	$tv = $doc->getTValue($k);
+	if (count($tv)>1) {
+	  $ts = '[ ';
+	foreach ($tv as $kv => $vv) $tv[$kv] = "'".$vv."'";
+	$ts .= implode(",",$tv);
+	$ts .= ' ]';
+	} else {
+	  $ts = "'".$tv[0]."'";
+	}
+	$ob[] = array( "attr" => $k, "value" => $ts);
+      }
+    }
   }
   $action->lay->setBlockData("values", $ob);
   $action->lay->set("status", 0);
