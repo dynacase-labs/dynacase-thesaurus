@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.1 2006/04/20 18:12:56 eric Exp $
+ * @version $Id: popupdoc.php,v 1.2 2006/04/21 15:11:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,6 +53,7 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
   $action->lay->SetBlockData("ADDLINK",$tlink);
   $action->lay->SetBlockData("SUBMENU",$tsubmenu);
   $action->lay->SetBlockData("SUBDIVMENU",$tsubmenu);
+  $action->lay->Set("count",count($tlink));
   $action->lay->Set("SEP",true);// to see separator
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
 }

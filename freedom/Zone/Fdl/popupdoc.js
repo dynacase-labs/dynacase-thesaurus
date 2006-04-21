@@ -3,6 +3,8 @@ var INPROGRESSMENU=false;
 var MENUCIBLE=null;
 var MENUSOURCE=null;
 var MENUREQ=null;
+var MENUOUT=true;
+var MENUOUTTIMER=false;
 
 var DIVPOPUPMENU=document.createElement("div");
 
@@ -239,7 +241,18 @@ function openSubDocMenu(event, th, menuid) {
     el.style.display = "";
     el.style.visibility = "visible";
 }
+function menuover() {
+  window.status='menuover';
+  MENUOUT=false;
+  if (MENUOUTTIMER) window.clearTimeout(MENUOUTTIMER);
+  MENUOUTTIMER=false;
+}
 
+function menuout() {
+  window.status='menuout';
+  MENUOUTTIMER=window.setTimeout('closeDocMenu()',1500);
+
+}
 function activeMenuDocItem(event,menuid) {
   //window.status="menu:"+menuid+itemid;
   // active css for animation for 'selid' object
@@ -271,9 +284,11 @@ function activeMenuDocItem(event,menuid) {
 	
       } else if (visibility == 0) {
 	mitem.className = 'menuItemDisabled';
-	mitem.onclick= function () {closeMenu(menuid);}
+	mitem.onclick= function () {closeDocMenu();}
       } 
-      
+      //      mitem.onmouseover=menuover;
+      addEvent(mitem,'mouseover',menuover);
+      addEvent(mitem,'mouseout',menuout);
     }    
     
     // complete sub menu
