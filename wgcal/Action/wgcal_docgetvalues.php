@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_docgetvalues.php,v 1.3 2006/04/21 15:44:35 marc Exp $
+ * @version $Id: wgcal_docgetvalues.php,v 1.4 2006/04/22 05:14:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,20 +57,27 @@ function wgcal_docgetvalues(&$action) {
     if ($k!='comment' && $k!='values' && $k!='attrids' ) {
       $attr=$doc->getAttribute($k);
       if ($attr) {
-	echo "$k : ".($attr->inArray()?"T ":"").$attr->type."<br>";
-	//       $ob[] = array( "attr" => $k, "value" => addslashes(str_replace(array("\r","\n"),array("|","£"),$v)));
-	$tv = $doc->getTValue($k);
-	if (count($tv)>1) {
-	  $ts = '[ ';
-	foreach ($tv as $kv => $vv) $tv[$kv] = "'".$vv."'";
-	$ts .= implode(",",$tv);
-	$ts .= ' ]';
+	//echo "$k : ".($attr->inArray()?"T ":"").$attr->type."<br>";
+	if ($attr->inArray()) {
+	  $tv = $doc->getTValue($k);
+	  if (count($tv)>0) {
+	    $ts = '[ ';
+	    foreach ($tv as $kv => $vv) $tv[$kv] = "'".addslashes($vv)."'";
+	    $ts .= implode(",",$tv);
+	    $ts .= ' ]';
+	  } else {
+	    $ts = 'null';
+	  }
 	} else {
-	  $ts = "'".$tv[0]."'";
+	  $ts = "'".addslashes($doc->getValue($k))."'";
 	}
 	$ob[] = array( "attr" => $k, "value" => $ts);
       }
     }
+  }
+  if (method_exists($doc, "addJsValues")) {
+    $ajs = $doc->addJsValues();
+    foreach ($ajs as $kv => $vv) $ob[] = array( "attr" => $kv, "value" => $vv);
   }
   $action->lay->setBlockData("values", $ob);
   $action->lay->set("status", 0);

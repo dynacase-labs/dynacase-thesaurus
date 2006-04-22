@@ -1894,3 +1894,12 @@ $t[] = array( "id" => "",
 	       
   return $t;
 }
+
+
+function addJsValues() {
+  include_once("WGCAL/Lib.WGCal.php");
+  $t = array( "tsstart" => w_dbdate2ts($this->getValue("calev_start")),
+	      "tsend" => w_dbdate2ts($this->getValue("calev_end")),
+	     );
+  return $t;
+}

@@ -449,7 +449,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   foreach ($events as $k=>$v) {
     $ev = getDocObject($dbaccess, $v);
     $events[$k]["rg"] = $rg;
-    $events[$k]["displayable"] = $ev->isDisplayable();
+    $events[$k]["displayable"] = ($ev->isDisplayable()?"true":"false");
     $events[$k]["evt_title"] = addSlashes($ev->getTitleInfo());
     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
@@ -463,7 +463,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $events[$k]["bottomColor"] = $dattr["bottomColor"];
     $events[$k]["rightColor"] = $dattr["rightColor"];
     $events[$k]["leftColor"] = $dattr["leftColor"];
-    $events[$k]["editable"] = $ev->isEditable();
+    $events[$k]["editable"] = ($ev->isEditable()?"true":"false");
     $rg++;
   } 
   return $events;

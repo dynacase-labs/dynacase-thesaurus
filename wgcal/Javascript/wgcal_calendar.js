@@ -88,7 +88,7 @@ function ClickCalendarCell(event, nh,times,timee) {
   closeMenu('calpopup');
   if (!evt.ctrlKey) {
    if (!fastEditChangeAlert()) return;
-   document.EventInEdition = { id:0, idp:0, idowner:-1, titleowner:'',
+   EventInEdition = { id:0, idp:0, idowner:-1, titleowner:'',
 			       title:'', hmode:nh, start:times, end:timee, 
 			       category:0, note:'', location:'', 
 			       confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null };
@@ -746,8 +746,8 @@ function fastEditSave(ev) {
   for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
   
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
-  urlsend += "&id="+document.EventInEdition.idp;
-  urlsend += "&oi="+document.EventInEdition.idowner;
+  urlsend += "&id="+EventInEdition.idp;
+  urlsend += "&oi="+EventInEdition.idowner;
   urlsend += "&ti="+feTitle;
   var hmode = 0;
   if (eltId('nohour') && eltId('nohour').checked) hmode = 1;
@@ -771,8 +771,8 @@ function fastEditSave(ev) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
     return false;
   }
-  if (document.EventInEdition && document.EventInEdition.rg>=0) {
-    fcalEvents[document.EventInEdition.rg] = newEvent;
+  if (EventInEdition && EventInEdition.rg>=0) {
+    fcalEvents[EventInEdition.rg] = newEvent;
   } else {
     fcalEvents[fcalEvents.length] = newEvent;
   }
@@ -783,13 +783,14 @@ function fastEditSave(ev) {
 
 function fastEditOpenFullEdit() {
   if (fastEditChangeAlert()) {
-    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+document.EventInEdition.idp);
+    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp);
     fastEditReset();
   }
 }
 
+var EventInEdition;
 function fastEditReset() {
-  document.EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
+  EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
 			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null};
@@ -811,7 +812,7 @@ function fastEditReset() {
 
 var  datehourChanged = false;
 function fastEditContentChanged() {
-  if (document.EventInEdition) {
+  if (EventInEdition) {
     var title = eltId('fe_title').value;
     var loc = eltId('fe_location').value;
     var note = eltId('fe_note').value;
@@ -821,16 +822,16 @@ function fastEditContentChanged() {
     var sconf = eltId('fe_confidentiality');
     var conf = 0;
     for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
-    if (title != document.EventInEdition.title) return true;
-    if (cat != document.EventInEdition.category) return true;
-    if (note != document.EventInEdition.note) return true;
-    if (loc != document.EventInEdition.location) return true;
-    if (conf != document.EventInEdition.confidentiality) return true;
+    if (title != EventInEdition.title) return true;
+    if (cat != EventInEdition.category) return true;
+    if (note != EventInEdition.note) return true;
+    if (loc != EventInEdition.location) return true;
+    if (conf != EventInEdition.confidentiality) return true;
 
     var hmode = 0;
     if (eltId('nohour').checked) hmode=1;
     if (eltId('allday').checked) hmode=2;
-    if (hmode!=document.EventInEdition.hmode) return true;
+    if (hmode!=EventInEdition.hmode) return true;
 
     if (datehourChanged) return true;
   }
@@ -896,13 +897,15 @@ function  fcalGetJSDoc(id) {
 
 function fastEditCheckConflict(ev) {
   ev || (ev = window.event);
-  var ts=eltId('s_start').value + 60;
-  var te=eltId('s_end').value - 60;
   var ress="";
-  for (var io=0; io<document.EventInEdition.eventjs.calev_attid.length; io++) {
-    ress += (ress==''?'':'|')+document.EventInEdition.eventjs.calev_attid[io];
+  for (var io=0; io<EventInEdition.eventjs.calev_attid.length; io++) {
+    ress += (ress==''?'':'|')+EventInEdition.eventjs.calev_attid[io];
   }
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_ts="+ts+"&rvfs_te="+te+"rvfs_ress="+ress;
+  
+  // to check conflict use the occurence date !!!
+  var ts = parseInt(EventInEdition.occstart)+60;
+  var te = parseInt(EventInEdition.occend)-60;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
   var rq;
   posM.x = getX(ev);
   posM.y = getY(ev);
@@ -928,10 +931,13 @@ function fcalFastEditEvent(ev, ie) {
     var ii = 0;
     var dv = fcalGetJSDoc(idp) ;
     if (!dv) return;
-    document.EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
-				title:dv.title, hmode:dv.calev_timetype, start:fcalEvents[ie].start, end:fcalEvents[ie].end, 
-				category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
-				confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor, eventjs:dv };
+    EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, 
+		       idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
+		       title:dv.calev_evtitle, hmode:dv.calev_timetype, 
+		       occstart:fcalEvents[ie].start, occend:fcalEvents[ie].end, start:dv.tsstart, end:dv.tsend, 
+		       category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
+		       confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor, 
+		       eventjs:dv };
     return fastEditInit(ev, true);
   }
   return;
@@ -943,30 +949,30 @@ function fastEditInit(ev, init) {
   fcalSetOpacity(document.getElementById(Root), 50);
   var fedit = eltId('fastedit');
 
-  if (document.EventInEdition.idowner==-1) {
-    document.EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
-    document.EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
+  if (EventInEdition.idowner==-1) {
+    EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
+    EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
   }    
   
-  fcalInitDatesTimes(document.EventInEdition.hmode, 
-		     document.EventInEdition.start, 
-		     document.EventInEdition.end);
+  fcalInitDatesTimes(EventInEdition.hmode, 
+		     EventInEdition.start, 
+		     EventInEdition.end);
   
-  eltId('fastedit').style.backgroundColor = document.EventInEdition.rcolor;
-  eltId('agendaowner').innerHTML = document.EventInEdition.titleowner;
+  eltId('fastedit').style.backgroundColor = EventInEdition.rcolor;
+  eltId('agendaowner').innerHTML = EventInEdition.titleowner;
   
-  eltId('fe_title').value = document.EventInEdition.title;
-  eltId('fe_location').value = document.EventInEdition.location;
-  eltId('fe_note').value = document.EventInEdition.note;
+  eltId('fe_title').value = EventInEdition.title;
+  eltId('fe_location').value = EventInEdition.location;
+  eltId('fe_note').value = EventInEdition.note;
 
   var scat = eltId('fe_categories');
   for (var i=0; i<scat.options.length; i++) {
-    if (scat.options[i].value == document.EventInEdition.category) scat.options[i].selected = true;
+    if (scat.options[i].value == EventInEdition.category) scat.options[i].selected = true;
   }
 
   var scat = eltId('fe_confidentiality');
   for (var i=0; i<scat.options.length; i++) {
-    if (scat.options[i].value == document.EventInEdition.confidentiality) scat.options[i].selected = true;
+    if (scat.options[i].value == EventInEdition.confidentiality) scat.options[i].selected = true;
   }
 
   posM.x = getX(ev);
@@ -1075,15 +1081,6 @@ function fcalComputeDateFromStart() {
   datehourChanged = true;
 }
 
-function fcalUpdateEndMinutes(min) {
-  var init = -1;
-  var sb = document.getElementById('m_end');
-  for (var ib=(sb.options.length-1); ib>=0 && init==-1; ib--) {
-    if (parseInt(min)>=parseInt(sb.options[ib].value)) init=ib;
-  }
-  sb.selectedIndex = init;
-}
-
 
 function fcalComputeDateFromEnd() {
 
@@ -1120,14 +1117,23 @@ function fcalSetTime(startend, oTime, full) {
   eltId('t_'+startend).innerHTML = oTime.print('%a %d %b %Y');
   if (startend=='end')  { 
     eltId('h_'+startend).selectedIndex = oTime.getHours();
-    fcalUpdateEndMinutes(oTime.getMinutes());
+    fcalUpdateMinutes(startend, oTime.getMinutes());
   }
   if (startend=='start' && full)  { 
     eltId('h_'+startend).selectedIndex = oTime.getHours();
-    eltId('m_'+startend).selectedIndex = oTime.getMinutes();
+    fcalUpdateMinutes(startend, oTime.getMinutes());
   }
 }
  
+function fcalUpdateMinutes(startend, min) {
+  var init = -1;
+  var sb = document.getElementById('m_'+startend);
+  for (var ib=(sb.options.length-1); ib>=0 && init==-1; ib--) {
+    if (parseInt(min)>=parseInt(sb.options[ib].value)) init=ib;
+  }
+  sb.selectedIndex = init;
+}
+
   
   
   
@@ -1196,4 +1202,13 @@ function fcalInitDatesTimes(nh, start, end) {
   } 
 
   return true;
+}
+
+
+function displayWeekEnd(show) {
+  var st = (show=='yes'?true:false);
+  for (var id=0; id<Days.length; id++) {
+    if (Days.isWE) Days.view = st;
+  }
+  displayInit();
 }

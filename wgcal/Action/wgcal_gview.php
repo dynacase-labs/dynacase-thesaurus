@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.21 2006/04/21 15:44:35 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.22 2006/04/22 05:14:45 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -42,10 +42,10 @@ function wgcal_gview(&$action) {
     foreach ($ff as $k => $v) {
       switch ($k) {
       case 'ts':
-	$dd[0] = strftime("%Y-%m-%d %H:%M:00", $v);
+	$dd[0] = gmdate("Y-m-d H:i:00",$v);
 	break;
       case 'te':
-	$dd[1] = strftime("%Y-%m-%d %H:%M:00", $v);
+	$dd[1] = gmdate("Y-m-d H:i:00",$v);
 	break;
       case 'int':
 	$dd = explode("=", $v);
@@ -57,7 +57,10 @@ function wgcal_gview(&$action) {
 	$sphrase = $v;
 	$filter[] = "(evt_title ~* '".$v."') or (evt_desc ~* '".$v."')";
 	break;
-       case 'ress': 
+       case 'pexc': 
+	$filter[] = "(evt_idinitiator != ".$v.")";
+	break;
+     case 'ress': 
 	setHttpVar("ress", $v);
 	break;
      default:
@@ -74,7 +77,6 @@ function wgcal_gview(&$action) {
 
   $menu    = GetHttpVars("menu", 1); 
   $famids  = GetHttpVars("famids", ""); 
-  $explode = ((GetHttpVars("explode", 0) == 0)? false : true);
 
   $action->lay->set("standalone", (GetHttpVars("stda")==1?false:true));
   $action->lay->set("sphrase", $sphrase);
@@ -87,6 +89,10 @@ function wgcal_gview(&$action) {
   $idfamref = implode("|", $fti);
   setHttpVar("idfamref", $idfamref);
   $evt = array();
+  
+  $evt = array();
+//    echo "start=".$dd[0]." end=".$dd[1]."<br>";
+//    print_r($filter);
   $evt = wGetEvents($dd[0], $dd[1], $explode, $filter); 
   if (count($evt) > 0) {
     $td = array();

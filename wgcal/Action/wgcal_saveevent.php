@@ -10,7 +10,7 @@ function wgcal_saveevent(&$action) {
 
   $dbaccess = getParam("FREEDOM_DB");
 
-  $idp   = GetHttpVars("id", -1);                    // Prod. Id (if exists)
+  $idp   = GetHttpVars("id", 0);                    // Prod. Id (if exists)
   $oid   = GetHttpVars("oi", $action->user->fid);    // Owner Freedom Id
   $title = GetHttpVars("ti", "");                    // Title
   $nh    = GetHttpVars("nh", 0);                     // 0 : ts & te 1:no time 2:all day
@@ -22,6 +22,7 @@ function wgcal_saveevent(&$action) {
   $conf  = GetHttpVars("co", "0");                   // Categorie
 
   
+  $action->lay->set("showevent", false);
 
   if ($title=="" || $ts==0 || $te==0) {
     $action->lay->set("status", -1);
@@ -29,7 +30,7 @@ function wgcal_saveevent(&$action) {
     return;
   }
 
-  if ($idp==-1) {
+  if ($idp==0) {
     $event = createDoc($dbaccess, "CALEVENT");
     $err = $event->Add();
     $new = true;
@@ -94,14 +95,14 @@ function wgcal_saveevent(&$action) {
   $err = $event->Modify();
   if ($err!="") {
     $action->lay->set("status", -1);
-    $action->lay->set("Freedom internal error doc->modify(): $err");
+    $action->lay->set("statustext", "Freedom internal error doc->modify(): $err");
     return;
   } 
 
   $err = $event->PostModify();
   if ($err!="") {
     $action->lay->set("status", -1);
-    $action->lay->set("Freedom internal error doc->PostModify(): $err");
+    $action->lay->set("statustext", "Freedom internal error doc->PostModify(): $err");
     return;
   } 
 
@@ -147,6 +148,7 @@ function wgcal_saveevent(&$action) {
 
   $action->lay->set("status", 0);
   $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
+  $action->lay->set("showevent", true);
   return ;
 }
 ?>

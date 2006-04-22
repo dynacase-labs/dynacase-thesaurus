@@ -128,7 +128,7 @@ var UrlRoot = '[CORE_STANDURL]';
 var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]
-Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], cpos:0, ev:[] };[ENDBLOCK DAYS]
+Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], isWE:[iswe], cpos:0, ev:[] };[ENDBLOCK DAYS]
 [BLOCK EVENTS]
 fcalEvents[[rg]] = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]', edit:[editable], display:[displayable], occur:0 };[ENDBLOCK EVENTS]
 var AltTimerValue = '[ALTTIMER]';
