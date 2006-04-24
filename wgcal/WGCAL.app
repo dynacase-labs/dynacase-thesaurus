@@ -43,7 +43,6 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CREATECALENDAR", "short_name" =>N_("create a new calendar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_NEWCALENDAR", "short_name" =>N_("add a new calendar"), "toc" => "N", "root" =>"N"),
 
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_MENUBAR", "short_name" =>N_("menubar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_USETPARAM", "short_name" =>N_("set user param"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHICAL", "short_name" =>N_("search calendar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCH", "short_name" =>N_("search event"), "toc" => "N", "root" =>"N"),
