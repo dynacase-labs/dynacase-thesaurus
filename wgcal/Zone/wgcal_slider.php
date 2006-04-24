@@ -29,9 +29,9 @@ function wgcal_slider(&$action) {
                     "cweek" => true,
                     );
   for ($iw=0; $iw<$vweek; $iw++) {
-    $cw = gmdate("W",($fdts+($iw*7*24*3600)));
-    $d1 = w_GetFirstDayOfWeek(($fdts+($iw*7*24*3600)));
-    $d2 = $d1 + 7*24*3600;
+    $cw = gmdate("W",($fdts+($iw*6*24*3600)));
+    $d1 = w_GetFirstDayOfWeek(($fdts+($iw*6*24*3600)));
+    $d2 = $d1 + 6*24*3600;
     $days = array();
     $cwclass = $wclass;
     for ($id=0; $id<7; $id++) {
