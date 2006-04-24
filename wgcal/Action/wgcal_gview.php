@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.22 2006/04/22 05:14:45 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.23 2006/04/24 15:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -42,10 +42,10 @@ function wgcal_gview(&$action) {
     foreach ($ff as $k => $v) {
       switch ($k) {
       case 'ts':
-	$dd[0] = gmdate("Y-m-d H:i:00",$v);
+	$dd[0] = date("Y-m-d H:i:00",$v);
 	break;
       case 'te':
-	$dd[1] = gmdate("Y-m-d H:i:00",$v);
+	$dd[1] = date("Y-m-d H:i:00",$v);
 	break;
       case 'int':
 	$dd = explode("=", $v);
@@ -91,8 +91,8 @@ function wgcal_gview(&$action) {
   $evt = array();
   
   $evt = array();
-//    echo "start=".$dd[0]." end=".$dd[1]."<br>";
-//    print_r($filter);
+//     echo "start=".$dd[0]." end=".$dd[1]."<br>";
+//     print_r($filter);
   $evt = wGetEvents($dd[0], $dd[1], $explode, $filter); 
   if (count($evt) > 0) {
     $td = array();
@@ -160,8 +160,10 @@ function wgcal_gview(&$action) {
       $action->lay->setBlockData("devents$k", $td[$k]["ev"]);
     }
     $action->lay->set("noresult", false);
+    $action->lay->set("eventCount", count($evt));
   } else {
     $action->lay->set("noresult", true);
+    $action->lay->set("eventCount", "0");
   }    
 }
 

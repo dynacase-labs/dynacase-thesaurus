@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.27 2006/04/21 15:44:35 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.28 2006/04/24 15:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -19,6 +19,10 @@ var $viewShortEvent = "WGCAL:VIEWSHORTEVENT:U";
 /*
  * 
  */
+function getMenuLoadUrl() {
+  return getParam("CORE_STANDURL")."app=WGCAL&action=WGCAL_GETMENU&id=".$this->getValue("evt_idinitiator");
+}
+
 function getDisplayAttr() {
   global $action;
   include_once("WGCAL/Lib.wTools.php");

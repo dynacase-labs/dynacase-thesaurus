@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getmenu.php,v 1.1 2006/04/17 11:15:16 marc Exp $
+ * @version $Id: wgcal_getmenu.php,v 1.2 2006/04/24 15:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,7 +14,7 @@
 
 
 include_once("FDL/Class.Dir.php");
-
+  include_once("FDL/popupdoc.php");
 
 /**
  * get menu for event producer in JS (like mcalmenu needed)
@@ -28,51 +28,20 @@ function wgcal_getmenu(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id");
-  $dbg   = GetHttpVars("dbg", 0);
+  $ctx   = GetHttpVars("ctx");
+  $occ   = date("d/m/Y", GetHttpVars("occ"));
 
-  if ($docid=="") {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", _("document reference no set"));
-    return;
-  }
-   
+  if ($docid=="")  return _("document reference no set");
   if (! is_numeric($docid)) $docid=getIdFromName($dbaccess,$docid);
-
-  if (intval($docid) == 0) {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", _("unknow logical reference")." : ".$docid);
-    return;
-  }
+  if (intval($docid) == 0) return _("unknow logical reference");
     
   $doc = new_Doc($dbaccess, $docid);
-  if (! $doc->isAffected()) {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", sprintf(_("cannot see unknow reference %s"),$docid));
-    return;
-  }
+  if (! $doc->isAffected()) return  sprintf(_("cannot see unknow reference %s"),$docid);
 
-  if (method_exists($doc, "getAgendaMenu")) {
-    $tmenu = $doc->getAgendaMenu();
-    if (!is_array($tmenu)) {
-      $action->lay->set("status", -1);
-      $action->lay->set("statustext", "Menu generation error [$tmenu]");
-    } else {
-      $action->lay->setBlockData("menuitem", $tmenu);
-      $action->lay->set("status", 0);
-      $action->lay->set("statustext", addslashes($doc->getTitle()));
-    }
-  } else {
-    $action->lay->set("status", 1);
-    $action->lay->set("statustext", _("no menu defined for Doc #".$docid));
+  switch ($ctx) {
+  default:
+    if (method_exists($doc, "agendaMenu")) $menudesc = $doc->agendaMenu($occ);
   }
-
-  setThemeValue();
-
-  $action->lay->set("dbgpre", "");
-  $action->lay->set("dbgpost", "");  
-  if ($dbg==1) {
-   $action->lay->set("dbgpre", "<pre>");
-   $action->lay->set("dbgpost", "</prev>");  
-  }
+  popupdoc($action, $menudesc["main"], $menudesc["sub"]);
 }
 ?>

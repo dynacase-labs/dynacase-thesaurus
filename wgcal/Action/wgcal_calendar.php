@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.87 2006/04/22 05:14:45 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.88 2006/04/24 15:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,12 +30,9 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
-  $action->parent->AddJsRef("mcal/Layout/mcallib.js");
-  $action->parent->AddJsRef("mcal/Layout/mcalmenu.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-
-  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $ress = GetHttpVars("ress", "");
   setHttpVar("ress", $ress);
@@ -261,7 +258,7 @@ function wgcal_calendar(&$action) {
 
 
   // minutes
-  $incm = getParam("WGCAL_U_MINCUSED",15);
+  $incm = $action->getParam("WGCAL_U_MINCUSED",15);
   for ($h=0; $h<60; $h+=$incm) {
     $th[$h]["optvalue"] = $h;
     $th[$h]["optselect"] = "";

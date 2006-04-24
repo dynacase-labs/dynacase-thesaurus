@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.30 2006/03/22 14:47:20 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.31 2006/04/24 15:50:31 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -39,7 +39,7 @@ function wgcal_menu(&$action) {
   $menus = array( array( "menu"  => "m_event",
 			 "label" => _("event menu"),
 			 "right" => "WGCAL_USER",
-			 "items" => array( array( "key" => "m_event_new", 
+			 "items" => array( array("key" => "m_event_new", 
 						 "txt" => _("m_txt_event_new"), 
 						 "act" => "[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT",
 						 "tgt" => "wgcal_edit", 

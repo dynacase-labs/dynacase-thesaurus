@@ -372,40 +372,56 @@ function attkillwins() {
 
 var InSave = false;
 
-function saveEvent() {
+function saveEvent(event, checkconflict) {
   var fs = document.getElementById('editevent');
   var ti = document.getElementById('rvtitle');
   var refi = document.getElementById('editevent');
   InSave = true;
-  if (ti.value=='') {
+
+  if (event && ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
     return false;
   }
-  if (EventSelectAll(fs)) { 
-    fs.submit();
+
+  if (event && checkconflict) {
+    var nbe=normalEditCheckConflict(event);
+    if (nbe>0) {
+//       if (!confirm('[TEXT:there is conflict] ('+nbe+'). '+'[TEXT:confirm to save]')) return false;
+      if (!confirm('Des évènements sont en conflit ('+nbe+').\n'+'Cliquez [OK] pour sauver le rendez-vous, pour le reprendre cliquer [Annuler]')) return false;
+    }
   }
+	
+  if (EventSelectAll(fs)) fs.submit();
+//   delEvent(document, 'beforeunload', forceSaveEvent); 
+  window.close();
   return false;
 }
 
-function GetTitle(evt) {
+function GetTitle(evt, checkconflict) {
   evt = (evt) ? evt : ((event) ? event : null );
   var cc = (evt.keyCode) ? evt.keyCode : evt.charCode;
   var ftitle = document.getElementById('rvtitle');
   if ((cc == 13)  && (ftitle.value != "")) {
-    saveEvent();
+    saveEvent(checkconflict,evt);
     return false;
   }
   return true;
 }
 
-function cancelEvent(force) {
-  if (InSave) return;
+function forceSaveEvent() {
+  ok = confirm(saveForceMsg); 
+  if (ok) saveEvent(false, false);
+  return false;
+}
+  
+function cancelEvent() {
   var ok = false;
-  if (!force) ok = confirm(closeMsg); 
-  if (ok || force) {
+//   delEvent(document, 'beforeunload', forceSaveEvent); 
+  ok = confirm(closeMsg); 
+  if (ok) {
     document.getElementById('unlockevent').submit();
-    self.close();
+    window.close();
   }
 }
 
@@ -414,7 +430,7 @@ function deleteEvent(text) {
   if (!ok) return;
   var fs = document.getElementById('deleteevent');
   fs.submit();
-  self.close();
+  window.close();
 }
 
 function delExclDate() {
@@ -471,17 +487,11 @@ function EventSelectAll(f) {
   }
   alist = document.getElementById('attendees');
   nlist = '';
-//   me  = document.getElementById('withMe');
   for (att=0; att<attendeesList.length; att++) {
     if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
     sep = (nlist==''?'':'|');
     nlist = nlist+sep+attendeesList[att].id;
   }
-//   if (nlist=='' && !me.checked) {
-//  if (nlist=='') {
-//    document.getElementById('errAtt').style.display = '';
-//    return false;
-//  }
   alist.value = nlist;
   return true;
 }
@@ -649,3 +659,32 @@ function showHideElt(elt) {
   }
   return true;
 }
+
+function normalEditCheckConflict(ev) {
+  ev || (ev = window.event);
+  var rll="";
+  var evid = document.getElementById('eventid').value;
+  var me = document.getElementById('ownerid').value;
+  for (att=0; att<attendeesList.length; att++) {
+    if (attendeesList[att].id==-1 || !attendeesList[att].select) continue;
+    if (rll!='') rll += '|';
+    rll += attendeesList[att].id;
+  }
+  if (rll!='') rll += '|';
+  rll += me;
+  
+  var ts = parseInt(document.getElementById('DayTsStart').value) + 60;
+  var te = parseInt(document.getElementById('DayTsEnd').value) - 60;
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+evid+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+rll;
+  var rq;
+  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
+  else rq = new ActiveXObject("Microsoft.XMLHTTP");
+  rq.open("GET", urlsend, false);
+  rq.send(null);
+  document.getElementById('conflictcontent').innerHTML = rq.responseText;
+  document.getElementById('conflict').style.display = 'inline';
+  document.getElementById('conflict').style.visibility = 'visible';
+  computeDivPosition('conflict', getX(ev), getY(ev), -40);
+  return parseInt(eltId('eventCount').innerHTML);
+}
+

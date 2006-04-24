@@ -1,7 +1,0 @@
-[dbgpre]
-var pmenu = [ [BLOCK menuitem]
-   { id:'[id]', label:'[label]', desc:'[desc]', status:'[st]', type:'[type]', icon:'[icon]', onmouse:'[onmouse]', amode:'[amode]', aevent:'[aevent]', atarget:'[atarget]', ascript:'[ascript]' },[ENDBLOCK menuitem] 
-            ];
-var pmstyle = { tgb:'[WTH_COLOR_3]', tfg:'[WTH_TEXTCOLOR_2]', abg:'[WTH_COLOR_1]', afg:'[WTH_TEXTCOLOR_1]', bg:'[WTH_COLOR_2]', fg:'[WTH_TEXTCOLOR_1]', font:'[WTH_FONTLIST]', sz:'[WTH_FONTSIZE_POPUP]' };
-var fcalStatus = { code : [status], text:'[statustext]' };
-[dbgpost]

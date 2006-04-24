@@ -1,6 +1,10 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 
-<script type="text/javascript"> var closeMsg = '[TEXT: cancel modifications]';</script>
+<script>
+var closeMsg = '[TEXT: cancel modifications]';
+var saveForceMsg = '[TEXT:save modification before close]';
+// addEvent(document, 'beforeunload', forceSaveEvent);
+</script>
 
 <form style="display:none" id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>
 
@@ -12,7 +16,7 @@
 
 <form style="display:none" id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
 
-<form id="editevent" name="editevent" method="POST" target="wgcal_conflict" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHECKCONFLICT">
+<form id="editevent" name="editevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT" >
 <input type="hidden" id="EvTsStart" name="EvTsStart" value="0">
 <input type="hidden" id="EvTsEnd" name="EvTsEnd" value="0">
 <input type="hidden" id="cfchecked" name="cfchecked" value="0">
@@ -43,7 +47,7 @@
 </iframe>
 </div>
 
-<div id="evmainzone" style="display:" >
+<div id="evmainzone" style="display:block" >
 
 <table width="100%" style="margin-top: 0em;" cellspacing="0" border="0">
 <tr><td width="45%" valign="top">
@@ -63,7 +67,7 @@
 
 <tr>
 
-<td colspan="3" align="center" style="padding-top:4px; padding-bottom:1em;"><input onkeypress="return GetTitle(event);" onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" class="Mandatory" id="rvtitle" name="rvtitle" size="40" type="text" title="[TEXT:rv title]" value="[TITLE]"><div id="errTitle" name="errTitle" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div></td>
+<td colspan="3" align="center" style="padding-top:4px; padding-bottom:1em;"><input onkeypress="return GetTitle(event,[IF checkConflict]true[ENDIF checkConflict][IFNOT checkConflict]false[ENDIF checkConflict]);" onfocus="document.getElementById('errTitle').style.display='none'; this.style.background='';" class="Mandatory" id="rvtitle" name="rvtitle" size="40" type="text" title="[TEXT:rv title]" value="[TITLE]"><div id="errTitle" name="errTitle" style="width:100px; display:none; background-color:white; margin: 2em; padding:1em; border:2px inset red; color:red; position:absolute" onclick="this.style.display='none'">[TEXT:give a title]</div></td>
 
 
 </tr>
@@ -170,8 +174,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent]&nbsp;
 </td>
 <td align="right">
-<img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent();">
-<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent(false);">
+<img src="[IMG:fcal-checkconflict.gif]" id="btnCConf" height="15" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="normalEditCheckConflict(event);">
+<img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent(event, [IF checkConflict]true[ENDIF checkConflict][IFNOT checkConflict]false[ENDIF checkConflict]);">
+<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent();">
 </td></tr></table>
 
 
@@ -191,8 +196,8 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
     onClick="SwitchZone('evgroups'); autoHresize(); autoVresize();" >
 
 
-<div class="wZone" style="display:[fullattendees]" id="evattendees">
 
+<div class="wZone" style="display:[fullattendees]" id="evattendees">
 
 <!-- BLOCK DE RECHERCHE --><div style="width:100%; margin:5px; vertical-align:top;">
 <!-- this.style.display='none' -->
@@ -411,7 +416,15 @@ document.getElementById('rvtitle').focus();
 glist[[igroup]] = [gid];[ENDBLOCK GLIST]
 </script>
 
-<iframe name="wgcal_conflict" id="wgcal_conflict" style="position:absolute;left:1%;top:1%;width:98%;height:98%;border:1px dotted red;display:none" marginwidth="0" marginheight="0"></iframe>
+<!-- conflict -->
+<div id="conflict" style="position:absolute; display:none; width:50%; padding:2px; background-color:white">
+<table style="width:100%" class="wToolButtonUnselect"><tr>
+<td>[TEXT:conflict verfication]</td>
+<td style="vertical-align:bottom;text-align:right"><img height="12px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
+</tr></table>
+<div id="conflictcontent" class="fasteditcontent"></div>
+</div>
+
 <iframe name="wgcal_iuser" id="wgcal_iuser" style="display:none"></iframe>
 
 [ZONE WGCAL:WGCAL_HTMLFOOT]

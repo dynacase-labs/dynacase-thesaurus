@@ -1,3 +1,51 @@
+
+function eltId(eltid) {
+  if (document.getElementById(eltid)) return document.getElementById(eltid);
+  return false;
+}
+
+
+
+function computeDivPosition(o, xm, ym, delta) {
+
+  if (!eltId(o)) {
+    alert('Element '+o+' not found');
+    return;
+  }
+  var eid = eltId(o);
+
+  eid.style.position = 'absolute';
+  eid.style.visibility = 'hidden';
+  eid.style.display = 'block';
+
+  var ww = getFrameWidth();
+  var wh = getFrameHeight();
+  var h = getObjectHeight(eid);
+  var w = getObjectWidth(eid);
+  var w1 = xm;
+  var w2 = ww - xm;
+  var h1 = ym;
+  var h2 = wh - ym;
+  
+  var xp = yp = 0;
+   if (w < (w2+delta)) xp =  xm + delta;
+  else if (w < (w1+delta)) xp = xm - delta - w;
+  else xp = delta;
+
+  if (h < (h2+delta)) yp = ym + delta;
+  else if (h < (h1+delta)) yp = ym - delta - h;
+  else yp = delta;
+
+  eid.style.left = parseInt(xp)+'px';
+  eid.style.top = parseInt(yp)+'px';
+  eid.style.visibility = 'visible';
+
+  return;
+}
+ 
+
+
+
 function clickB(idb,frombutton) {
   var eb = document.getElementById(idb);
   if (!eb) return false;

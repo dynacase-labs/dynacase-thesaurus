@@ -455,6 +455,10 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
     $dattr = $defaults;
+    if (method_exists($ev, "getMenuLoadUrl")) 
+      $events[$k]["menuurl"] = $ev->getMenuLoadUrl();
+    else 
+      $events[$k]["menuurl"] = "";
     if (method_exists($ev, "getDisplayAttr")) $dattr = $ev->getDisplayAttr();
     $events[$k]["icons"] = $dattr["icons"];
     $events[$k]["bgColor"] = $dattr["bgColor"];

@@ -9,7 +9,7 @@ function wgcal_seteventstate(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
   $evi = GetHttpVars("id", -1);
-  $forowner = GetHttpVars("owner", 0);
+  $forowner = GetHttpVars("ow", 0);
   $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
   
