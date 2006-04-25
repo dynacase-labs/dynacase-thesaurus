@@ -88,7 +88,7 @@ function menuSend(event,menuurl,cible) {
 	cible.style.left = Xpos;
 	cible.style.top  = Ypos;
 	cible.style.width  = '30px';
-	clipboardWait(cible);
+	//	clipboardWait(cible);
 	return true;
     }    
 }
@@ -104,8 +104,10 @@ function viewmenu(event,docid,source) {
   // MENUSOURCE.style.borderColor='black';
   //MENUSOURCE.style.borderWidth='1px';
 
-  MENUSOURCE.style.borderTop='dashed 1px #777777';
-  MENUSOURCE.style.borderBottom='dashed 1px #777777';
+  if (MENUSOURCE) {
+    MENUSOURCE.style.borderTop='dashed 1px #777777';
+    MENUSOURCE.style.borderBottom='dashed 1px #777777';
+  }
   menuSend(event,docid,DIVPOPUPMENU);
 }
 
