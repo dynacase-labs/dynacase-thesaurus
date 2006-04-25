@@ -16,6 +16,10 @@
   z-index:10;
 }
 
+.popup img {
+  width:15px;
+  height:15px;
+}
 .popup a.menuItem * {
   color: [CORE_TEXTBGCOLOR];
 }
