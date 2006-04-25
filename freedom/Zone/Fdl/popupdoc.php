@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.5 2006/04/25 12:48:05 eric Exp $
+ * @version $Id: popupdoc.php,v 1.6 2006/04/25 13:05:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,10 +41,16 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
       
       $tlink[$k]["descr"]=utf8_encode($v["descr"]);
       $tlink[$k]["tconfirm"]=utf8_encode($v["tconfirm"]);
+      if (! isset($v["jsfunction"])) $tlink[$k]["jsfunction"]="";
       if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $tlink[$k]["idlink"]=$k;
       if ((!isset($v["target"])) || ($v["target"]=="")) $tlink[$k]["target"]=$k;
       if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $tlink[$k]["mwidth"]=$action->getParam("FDL_VD2SIZE",300);
       if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $tlink[$k]["mheight"]=$action->getParam("FDL_HD2SIZE",400);
+      if ((isset($v["url"])) && ($v["url"]!="")) $tlink[$k]["URL"]=true;
+      else 	$tlink[$k]["URL"]=false;
+      
+      if ((isset($v["jsfunction"])) && ($v["jsfunction"]!="")) $tlink[$k]["JSFT"]=true;
+      else $tlink[$k]["JSFT"]=false;
       $tlink[$k]["smid"]="";
       if ((isset($v["submenu"])) && ($v["submenu"]!="")) {
 	$smid=base64_encode($v["submenu"]);
@@ -57,7 +63,6 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
     }
   }
 
-          
 
   $action->lay->Set("ICONS",$useicon);
   $action->lay->SetBlockData("ADDLINK",$tlink);

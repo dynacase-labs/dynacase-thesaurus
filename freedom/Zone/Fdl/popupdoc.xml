@@ -11,7 +11,11 @@
 
 [BLOCK ADDLINK]
 <a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
-    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu],'[mwidth]','[mheight]');closeDocMenu();">[IF ICONS]<img src="[icon]">[ENDIF ICONS]
+[IF URL]
+    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu],'[mwidth]','[mheight]');closeDocMenu();">[ENDIF URL]
+[IF JSFT]
+    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) {[jsfunction];}closeDocMenu();">[ENDIF JSFT]
+[IF ICONS]<img src="[icon]">[ENDIF ICONS]
 [descr]</a>
 
 [ENDBLOCK ADDLINK]
