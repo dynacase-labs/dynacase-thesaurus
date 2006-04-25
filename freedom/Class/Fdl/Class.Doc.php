@@ -1,9 +1,9 @@
-e<?php
+<?php
 /**
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.306 2006/04/25 09:55:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.307 2006/04/25 10:01:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
