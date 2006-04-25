@@ -1,9 +1,9 @@
-<?php
+e<?php
 /**
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.305 2006/04/20 18:12:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.306 2006/04/25 09:55:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1179,6 +1179,7 @@ final public function PostInsert()  {
 
     $this->_maskApplied=true;
     // modify visibilities if needed
+    if ((! is_numeric($mid)) && ($mid!="")) $mid=getIdFromName($this->dbaccess,$mid);  
     if ($mid == 0) $mid=$this->mid;
     if ($mid == 0) {
       if (($this->wid > 0) && ($this->wid != $this->id)) {
@@ -1189,6 +1190,7 @@ final public function PostInsert()  {
 	    $wdoc->set($this);
 	  }
 	  $mid = $wdoc->getValue($wdoc->attrPrefix."_MSKID".$this->state);
+	  if ((! is_numeric($mid)) && ($mid!="")) $mid=getIdFromName($this->dbaccess,$mid);  
 	}      
       }	
     }
