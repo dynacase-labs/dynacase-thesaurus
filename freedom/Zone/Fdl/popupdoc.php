@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.4 2006/04/25 10:11:53 eric Exp $
+ * @version $Id: popupdoc.php,v 1.5 2006/04/25 12:48:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,8 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
       $tlink[$k]["tconfirm"]=utf8_encode($v["tconfirm"]);
       if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $tlink[$k]["idlink"]=$k;
       if ((!isset($v["target"])) || ($v["target"]=="")) $tlink[$k]["target"]=$k;
+      if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $tlink[$k]["mwidth"]=$action->getParam("FDL_VD2SIZE",300);
+      if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $tlink[$k]["mheight"]=$action->getParam("FDL_HD2SIZE",400);
       $tlink[$k]["smid"]="";
       if ((isset($v["submenu"])) && ($v["submenu"]!="")) {
 	$smid=base64_encode($v["submenu"]);
