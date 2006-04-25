@@ -145,6 +145,8 @@ function wgcal_saveevent(&$action) {
   $action->lay->set("bottomColor", $dattr["bottomColor"]);
   $action->lay->set("leftColor", $dattr["leftColor"]);
   $action->lay->set("editable", ($ev[0]->Control("edit")=="" ? "true" : "false"));
+  if (method_exists($ev[0], "getMenuLoadUrl")) $action->lay->set("menuurl",  $ev[0]->getMenuLoadUrl());
+  else $action->lay->set("menuurl", "");
 
   $action->lay->set("status", 0);
   $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));

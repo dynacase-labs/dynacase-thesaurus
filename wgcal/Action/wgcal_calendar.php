@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.88 2006/04/24 15:50:31 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.89 2006/04/25 20:58:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,8 +32,11 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  $dbaccess = $action->GetParam("FREEDOM_DB");
-  
+  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
+
   $ress = GetHttpVars("ress", "");
   setHttpVar("ress", $ress);
   
@@ -46,6 +49,8 @@ function wgcal_calendar(&$action) {
   $dayperweek = $vm;
   if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
   
+  popupGen(0);
+
   $swe = $action->GetParam("WGCAL_U_VIEWWEEKEND", "yes");
   if ($swe!="yes") {
     $vd = floor(($dayperweek) / 7);
@@ -61,10 +66,9 @@ function wgcal_calendar(&$action) {
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
   $tout = wGetEvents($d1, $d2);
-  popupGen(0);
   
+
   // Display results ------------------------------------------------------------------------------------
-  
   $action->lay->set("sm", $sm);
   $action->lay->set("vm", $vm);
   $action->lay->set("ts", $ts);

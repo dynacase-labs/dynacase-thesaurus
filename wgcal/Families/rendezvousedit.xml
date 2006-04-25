@@ -3,7 +3,6 @@
 <script>
 var closeMsg = '[TEXT: cancel modifications]';
 var saveForceMsg = '[TEXT:save modification before close]';
-// addEvent(document, 'beforeunload', forceSaveEvent);
 </script>
 
 <form style="display:none" id="deleteevent" name="deleteevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_DELETEEVENT"> <input type="hidden" id="id" name="id" value="[EVENTID]"> </form>

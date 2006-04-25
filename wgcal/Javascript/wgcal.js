@@ -6,7 +6,7 @@ function eltId(eltid) {
 
 
 
-function computeDivPosition(o, xm, ym, delta) {
+function computeDivPosition(o, xm, ym, delta, yratio) {
 
   if (!eltId(o)) {
     alert('Element '+o+' not found');
@@ -14,14 +14,22 @@ function computeDivPosition(o, xm, ym, delta) {
   }
   var eid = eltId(o);
 
+  if (!yratio) yratio=1.0;
+
   eid.style.position = 'absolute';
+  eid.style.left = '20px';
+  eid.style.top = '20px';
   eid.style.visibility = 'hidden';
   eid.style.display = 'block';
 
   var ww = getFrameWidth();
   var wh = getFrameHeight();
-  var h = getObjectHeight(eid);
-  var w = getObjectWidth(eid);
+  var h  = getObjectHeight(eid);
+  var w  = getObjectWidth(eid);
+  if (w>parseInt(ww*yratio)) {
+    w = parseInt(ww*yratio);
+    eid.style.width = 'absolute';
+  }
   var w1 = xm;
   var w2 = ww - xm;
   var h1 = ym;
@@ -181,27 +189,9 @@ function fcalChangeUPrefDbg() {
 }
 
 function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
-  var rq;
-  try {
-    rq = new XMLHttpRequest();
-  } catch (e) {
-    rq = new ActiveXObject("Msxml2.XMLHTTP");
-  }
-  rq.uid = uid;
-  rq.pname = pname;
-  rq.pvalue = pvalue;
-  rq.paction = paction;
-  rq.jspost = jspost;
-  rq.onreadystatechange =  function() {
-    if (rq.readyState == 4) {
-      if (rq.responseText && rq.status==200) {
-	if (rq.jspost) rq.jspost(rq.uid, rq.pname, rq.pvalue, rq.paction, rq.status, rq.responseText);
-      }
-    }
-  }
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+rq.uid+"&pname="+rq.pname+"&pvalue="+rq.pvalue;  if (rq.paction) urlsend += '&taction='+rq.paction;
-  rq.open("GET", urlsend, true);
-  rq.send(null);
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+pvalue;
+  fcalSendRequest(urlsend, false, fcalChangeUPrefDbg);
+
 }
 
 function changeUPref(uid, name, value, target, taction) {
@@ -267,8 +257,36 @@ function WGCalSaveToolsVisibility() {
       s +=  toolList[i]+'%'+v;
     }
   }
-  fcalChangeUPref(-1,'WGCAL_U_TOOLSSTATE', s, null, fcalChangeUPrefDbg); // fcalChangeUPrefDbg);
+  fcalChangeUPref(-1,'WGCAL_U_TOOLSSTATE', s); // fcalChangeUPrefDbg);
 }
 
 
-                                                                                                                   
+// --------------------------------------------------------
+var sreq;
+function fcalSendRequest(url, sync, post) {
+
+  var result = { request:'', status:0, content:'' };
+
+  if (window.XMLHttpRequest) sreq = new XMLHttpRequest();
+  else sreq = new ActiveXObject("Microsoft.XMLHTTP");
+  
+  if (!sync) {
+    sreq.open("GET", url, false);
+    sreq.send(null);
+    result.status = sreq.status;
+    result.content = sreq.responseText;
+    return result;
+  } else {
+    sreq.open("GET", url, true);
+    sreq.send(null);
+    sreq.onreadystatechange =  function() {
+    if (sreq.readyState == 4) {
+      result.request = url;
+      result.status  = sreq.status;
+      result.content = sreq.responseText;
+      if (post) post(result);
+      }
+    }
+  }
+  return;
+}    

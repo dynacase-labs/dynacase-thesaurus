@@ -1,6 +1,10 @@
 # ============================================
-# $Id: Makefile,v 1.1 2004/11/26 18:05:35 marc Exp $
+# $Id: Makefile,v 1.2 2006/04/25 20:58:12 marc Exp $
 # ============================================
 
 include $(utildir)/PubRule
 
+DISTFILES +=  wgcal.ico
+$(pubdir)/$(appname)/wgcal.ico : wgcal.ico
+	cp $< $(pubdir)/$(appname)/Images
+publish: $(pubdir)/$(appname)/wgcal.ico 

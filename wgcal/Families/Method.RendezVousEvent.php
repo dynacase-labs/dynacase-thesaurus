@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.28 2006/04/24 15:50:31 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.29 2006/04/25 20:58:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -16,9 +16,40 @@ var $calVShortText  = "WGCAL:CALEV_VIEWSTEXT";
  
 var $viewShortEvent = "WGCAL:VIEWSHORTEVENT:U";
  
+var $viewCalJsCode  = "WGCAL:VIEWCALJSCODE:U";
+
 /*
  * 
  */
+function viewCalJsCode() {
+//   $this->viewprop();
+  $this->lay->set("ID", $this->id);
+  $this->lay->set("FROMID", $this->fromid);
+  $this->lay->set("EVT_IDINITIATOR", $this->getValue("evt_idinitiator"));
+  $this->lay->set("EVT_FROMINITIATORID", $this->getValue("evt_frominitiatorid"));
+
+  $this->lay->set("displayable", ($this->isDisplayable()?"true":"false"));
+  $this->lay->set("title", addSlashes($this->getTitleInfo()));
+  $this->lay->set("start", localFrenchDateToUnixTs($this->getValue("evt_begdate", true)));
+  $this->lay->set("lstart", $this->getValue("evt_begdate"));
+  $end = ($this->getValue("evfc_realenddate") == "" 
+	  ?  $this->getValue("evt_enddate") : $this->getValue("evfc_realenddate"));
+  $this->lay->set("lend", $end);
+  $this->lay->set("end", localFrenchDateToUnixTs($end, true));
+  $dattr = $defaults;
+  if (method_exists($this, "getMenuLoadUrl")) $this->lay->set("menuurl", $this->getMenuLoadUrl());
+  else  $this->lay->set("menuurl", "");
+  if (method_exists($this, "getDisplayAttr")) $dattr = $this->getDisplayAttr();
+  $this->lay->set("icons", $dattr["icons"]);
+  $this->lay->set("bgColor", $dattr["bgColor"]);
+  $this->lay->set("fgColor", $dattr["fgColor"]);
+  $this->lay->set("topColor", $dattr["topColor"]);
+  $this->lay->set("bottomColor", $dattr["bottomColor"]);
+  $this->lay->set("rightColor", $dattr["rightColor"]);
+  $this->lay->set("leftColor", $dattr["leftColor"]);
+  $this->lay->set("editable", ($this->isEditable()?"true":"false"));
+}
+
 function getMenuLoadUrl() {
   return getParam("CORE_STANDURL")."app=WGCAL&action=WGCAL_GETMENU&id=".$this->getValue("evt_idinitiator");
 }

@@ -432,7 +432,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results --------------
-  $tout=array(); 
   $first = false;
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $rvfamid = getIdFromName($dbaccess, "CALEVENT");
@@ -447,29 +446,33 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 		     "leftColor" => "lightblue",
 		     );
   foreach ($events as $k=>$v) {
-    $ev = getDocObject($dbaccess, $v);
+    $ev = getDocObject($dbaccess, $v); 
     $events[$k]["rg"] = $rg;
-    $events[$k]["displayable"] = ($ev->isDisplayable()?"true":"false");
-    $events[$k]["evt_title"] = addSlashes($ev->getTitleInfo());
-    $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
-    $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-    $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
-    $dattr = $defaults;
-    if (method_exists($ev, "getMenuLoadUrl")) 
-      $events[$k]["menuurl"] = $ev->getMenuLoadUrl();
-    else 
-      $events[$k]["menuurl"] = "";
-    if (method_exists($ev, "getDisplayAttr")) $dattr = $ev->getDisplayAttr();
-    $events[$k]["icons"] = $dattr["icons"];
-    $events[$k]["bgColor"] = $dattr["bgColor"];
-    $events[$k]["fgColor"] = $dattr["fgColor"];
-    $events[$k]["topColor"] = $dattr["topColor"];
-    $events[$k]["bottomColor"] = $dattr["bottomColor"];
-    $events[$k]["rightColor"] = $dattr["rightColor"];
-    $events[$k]["leftColor"] = $dattr["leftColor"];
-    $events[$k]["editable"] = ($ev->isEditable()?"true":"false");
+    $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
     $rg++;
-  } 
+  }
+
+
+//     $events[$k]["rg"] = $rg;
+//     $events[$k]["displayable"] = ($ev->isDisplayable()?"true":"false");
+//     $events[$k]["evt_title"] = addSlashes($ev->getTitleInfo());
+//     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
+//     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+//     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
+//     $dattr = $defaults;
+//     if (method_exists($ev, "getMenuLoadUrl")) $events[$k]["menuurl"] = $ev->getMenuLoadUrl();
+//     else  $events[$k]["menuurl"] = "";
+//     if (method_exists($ev, "getDisplayAttr")) $dattr = $ev->getDisplayAttr();
+//     $events[$k]["icons"] = $dattr["icons"];
+//     $events[$k]["bgColor"] = $dattr["bgColor"];
+//     $events[$k]["fgColor"] = $dattr["fgColor"];
+//     $events[$k]["topColor"] = $dattr["topColor"];
+//     $events[$k]["bottomColor"] = $dattr["bottomColor"];
+//     $events[$k]["rightColor"] = $dattr["rightColor"];
+//     $events[$k]["leftColor"] = $dattr["leftColor"];
+//     $events[$k]["editable"] = ($ev->isEditable()?"true":"false");
+//     $rg++;
+//   } 
   return $events;
 }
 

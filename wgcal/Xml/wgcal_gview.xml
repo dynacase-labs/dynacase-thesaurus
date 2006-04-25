@@ -1,12 +1,13 @@
-[IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></tr></table>
-[ENDIF standalone]
+[IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
+[IF search]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></table>[ENDIF search]
+
 
 [IF noresult]<div width="100%" class="WEvDays">[TEXT:no event]</div>[ENDIF noresult]
 [IFNOT noresult]
 <table cellspacing="0" width="100%" >[BLOCK btime]
 <tr><td colspan="2" class="WEvDays" style="padding:2px">[datestr]</tr>
-[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onclick="subwindow(400, 650, 'ViewEvent[idp]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[idp]');" onmouseout="this.className='WEvDefault'">
-<td>[hour]</td><td>
+[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" [IF menu]oncontextmenu="this.className='WEvOver'; viewmenu(event,'[menuurl]&ctx=RES&occ=[occ]'); return false"[ENDIF menu] onmouseout="this.className='WEvDefault'">
+<td style="border-top: 1px outset white" >[hour]</td><td style="border-top: 1px outset white"  >
 <div>[Icons][title] <span style="font-size:80%;">([owner])</span></div>
 [IF vNote]<div>[note][ENDIF vNote]</td>
 </tr>[ENDBLOCK devents[date]][ENDBLOCK btime]</table>

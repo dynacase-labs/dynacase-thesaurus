@@ -21,8 +21,8 @@
 [ZONE WGCAL:WGCAL_INFOS]
 
 <div style="display:none" id="waitmessage">
-  <div style="border:3px outset white; color:black; background-color:white">
-    <img src="[IMG:fcal-wait.gif]"><span id="wmsgtext"></span>
+  <div style="vertical-align:bottom; padding:1em; border:3px groove white; color:black; background-color:white">
+    <img src="[IMG:fcal-wait.gif]">&nbsp;<span id="wmsgtext"></span>
   </div>
 </div>
 
@@ -121,17 +121,23 @@
 <td>[TEXT:conflict verfication]</td>
 <td style="vertical-align:bottom;text-align:right"><img height="12px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
 </tr></table>
-<div id="conflictcontent" class="fasteditcontent"></div>
+<div id="conflictcontent" class="fasteditcontent">
+</div>
+<table style="width:100%" class="wToolButtonUnselect"><tr>
+<td style="vertical-align:bottom;text-align:right"><img height="12px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
+</tr></table>
 </div>
 
 <script> 
-var UrlRoot = '[CORE_STANDURL]';
+
+     inCalendar = true;
+
 var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], isWE:[iswe], cpos:0, ev:[] };[ENDBLOCK DAYS]
 [BLOCK EVENTS]
-fcalEvents[[rg]] = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]', edit:[editable], display:[displayable], menu:'[menuurl]', occur:0 };[ENDBLOCK EVENTS]
+fcalEvents[[rg]] = [jscode];[ENDBLOCK EVENTS]
 var AltTimerValue = '[ALTTIMER]';
 function displayInit() {
   posM.x = getFrameWidth() / 2;

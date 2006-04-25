@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>[TEXT:freedom groupware calendar][IF bstitle]::[ENDIF bstitle][SubTitle]</title>
-<script language="JavaScript">
+<script>
      [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
 
      function setActiveStyleSheet(title) {
@@ -14,6 +14,8 @@
 	 }
        }
      }
+var UrlRoot = '[CORE_STANDURL]';
+var inCalendar = false;
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
 [IF refresh]<meta http-equiv="refresh" content="[refresh_time];[refresh_url]" target="_self">[ENDIF refresh]
@@ -23,7 +25,6 @@
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]" >
 [BLOCK OTHEMES]<LINK REL="alternate stylesheet" media="screen" title="[title]" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]&fonts=[font]">[ENDBLOCK OTHEMES]
 <style type="text/css">[CSS:CODE]</style>
-<script language="JavaScript" src="WHAT/Layout/subwindow.js"></script>
 [JS:REF]
 <script language="JavaScript">
 [JS:CODE]

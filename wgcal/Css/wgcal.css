@@ -836,3 +836,59 @@ TD {	empty-cells: show; }
   border-bottom : 1px dotted [WTH_COLOR_3];
   display: block;
 }
+
+.popup {
+  background-color: [WTH_COLOR_POPUP];  
+  color: [WTH_TEXTCOLOR_1];
+  border-color: [WTH_COLOR_3];
+  border-style: outset;
+  border-width: 1px; 
+  text-decoration: none;
+  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-family: [WTH_FONTLIST_POPUP];
+}
+
+@media print {
+  .popup {
+    display:none;
+  }
+}
+.popup a.menuItem, 
+.popup a:visited.menuItem, 
+.popup a.menuItemCtrl, 
+.popup a:visited.menuItemCtrl {
+  color: [WTH_TEXTCOLOR_1];
+  cursor: pointer;
+  font-size: [WTH_FONTSIZE_POPUP]pt;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+  font-family: [WTH_FONTLIST_POPUP];
+  font-weight: normal;
+}
+
+.popup img {
+  height : 12px;
+  width : 12px;
+} 
+.popup a.menuItemDisabled, 
+.popup a.menuItemCtrlDisabled { 
+  color: [WTH_COLOR_3];
+  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-style: italic;
+  padding: 2px 12px 2px 8px;
+  text-decoration: none;
+  font-family: [WTH_FONTLIST];
+}
+.popup a.menuItem:hover,
+.popup a.menuItemCtrl:hover,
+.popup a.menuItemDisabled:hover,
+.popup a.menuItemCtrlDisabled:hover {
+  color: [WTH_TEXTCOLOR_2];
+  background-color:[WTH_COLOR_3];
+  text-decoration: none;
+}
+
+.popup a.separator,
+.popup a.separator:hover {
+  border-bottom : 1px dotted [WTH_COLOR_3];
+}

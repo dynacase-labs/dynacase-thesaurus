@@ -534,7 +534,9 @@ function fcalCreateEvent(ie,isclone) {
       });
     }      
     if (fcalEvents[ie].menu && fcalEvents[ie].menu!='') {
-      fcalAddEvent(nev, 'contextmenu', function foo(event) { fcalOpenMenuEvent(event, ie, nev); return false; } );
+      fcalAddEvent(nev, 'contextmenu', function foo(event) { fcalCancelEvDisplay(event, ie);
+                                                             fcalOpenMenuEvent(event, ie, nev);
+                                                             return false; } );
     }
     if (fcalEvents[ie].edit) {
       fcalAddEvent(nev, 'click', function foo(event) { fcalFastEditEvent(event, ie); return; } );
@@ -652,7 +654,7 @@ function addCalEvContent(ie) {
       eid.innerHTML = rq.responseText;
       if (evDisplayed!=ie) return;
       hideWaitServerMessage();
-      computeDivPosition(fcalGetEvtCardName(ie), posM.x, posM.y, 20);
+      fcalSetEvCardPosition(ie,posM.x,posM.y, 20);
     }
   }
   return;
@@ -680,7 +682,13 @@ function fcalShowCalEvent() {
   if (evLoaded[evDisplayed] || evDisplayed<0) return;
   evLoaded[evDisplayed] = true;
   initCalEvent(evDisplayed);
-  computeDivPosition(fcalGetEvtCardName(evDisplayed),posM.x,posM.y, 20);
+  fcalSetEvCardPosition(evDisplayed,posM.x,posM.y, 20);
+}
+
+
+function fcalSetEvCardPosition(evid, x, y, shift) {
+  computeDivPosition(fcalGetEvtCardName(evid),x,y, shift, 0.5);
+  return true;
 }
 
 function hideCalEvent(ie) {
@@ -746,6 +754,56 @@ function fastEditSave(ev) {
   fcalReloadEvents();
   return;
 } 
+
+function fcalGetRgFromIdP(idp) {
+  for (var ir=0; ir<fcalEvents.length; ir++) {
+    if (fcalEvents[ir].idp==idp) return ir;
+  }
+  return false;
+}
+function fcalGetRgFromId(id) {
+  for (var ir=0; ir<fcalEvents.length; ir++) {
+    if (fcalEvents[ir].id==id) return ir;
+  }
+  return false;
+}
+
+function fcalDeleteEvent(event,idp) {
+  var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
+  fcalSendRequest(url, false, false);
+  if (inCalendar) {
+    if (fcalEvents) {
+      var r = fcalGetRgFromIdP(idp);
+      if (r) fcalEvents.splice(r,1);
+      fcalReloadEvents();
+    }
+  } else {
+//     document.location.href = document.location.href;
+    document.location.reload(false);
+  }
+  return true; 
+}
+
+function fcalSetEventState(event,idp,state) {
+  var owner = 0;
+  if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
+
+  var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
+  fcalSendRequest(url, false, false);
+  if (inCalendar) {
+    if (fcalEvents) {
+      var r = fcalGetRgFromIdP(idp);
+      if (r) fcalEvents.splice(r,1);
+      fcalReloadEvents();
+    }
+  } else {
+    alert(document.location.href);
+//     document.location.href = document.location.href;
+    document.location.reload(false);
+  }
+  return true; 
+}
+
 
 function fastEditOpenFullEdit() {
   if (fastEditChangeAlert()) {
@@ -845,22 +903,22 @@ function fastEditCancel() {
 
 function  fcalGetJSDoc(id) {
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
-  var rq;
+  
   showWaitServerMessage('Loading event');
-  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
-  else rq = new ActiveXObject("Microsoft.XMLHTTP");
-  rq.open("GET", urlsend, false);
-  rq.send(null);
-  eval(rq.responseText);
+  var res;
+  res = fcalSendRequest(urlsend, false, false);
+  if (res.status!=200) return false;
+  hideWaitServerMessage();
+  eval(res.content);
   if (fcalStatus.code==-1) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
     return false;
   } else {
     return docValues;
-  } 
-  hideWaitServerMessage();
-} 
-
+  }
+}
+  
+    
 function fastEditCheckConflict(ev) {
   ev || (ev = window.event);
   var ress="";
@@ -872,24 +930,20 @@ function fastEditCheckConflict(ev) {
     ress = parent.wgcal_toolbar.calCurrentEdit.id;
   }
   
-  // to check conflict use the occurence date !!!
-//   var ts = parseInt(EventInEdition.occstart)+60;
-//   var te = parseInt(EventInEdition.occend)-60;
   var ts = parseInt(eltId('s_start').value) + 60;
   var te = parseInt(eltId('s_end').value) - 60;
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
   var rq;
   posM.x = getX(ev);
   posM.y = getY(ev);
-  showWaitServerMessage('Checking for conflicts');
-  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
-  else rq = new ActiveXObject("Microsoft.XMLHTTP");
-  rq.open("GET", urlsend, false);
-  rq.send(null);
-  eltId('conflictcontent').innerHTML = rq.responseText;
-  eltId('conflictcontent').style.display = 'block';
-  computeDivPosition('conflict', posM.x, posM.y, -40);
-  hideWaitServerMessage();
+
+  var res = fcalSendRequest(urlsend, false, false);
+  if (res.status==200) {
+    eltId('conflictcontent').innerHTML = res.content;
+  } else {
+    alert('Oooops>'+res.content);
+  }
+  computeDivPosition('conflict', posM.x, posM.y, -50);
   return;
 }
 
@@ -966,10 +1020,11 @@ function fcalOpenMenuEvent(ev, ie, nev) {
     alert("pas de menu pour "+ie);
     return;
   }
-  var urlmenu = fcalEvents[ie].menu+"&ctx=CAL&occ="+fcalEvents[ie].start;
+  stopPropagation(ev);
+  var urlmenu = fcalEvents[ie].menu+"&ctx=FULL&occ="+fcalEvents[ie].start;
   posM.x = getX(ev);
   posM.y = getY(ev);
-  viewmenu(ev,urlmenu,nev); 
+  viewmenu(ev,urlmenu); 
   return false;
 }
 
@@ -978,6 +1033,7 @@ function fcalActivateMenu(event, mode, type, action, target, hmode, hparam) {
 }
 
 function showWaitServerMessage(msg) {
+  document.body.style.cursor='progress';
   fcalSetOpacity(eltId(Root), 40);
   var ws = eltId('waitmessage'); 
   if (msg) eltId('wmsgtext').innerHTML = msg;
@@ -985,6 +1041,7 @@ function showWaitServerMessage(msg) {
 }
 
 function hideWaitServerMessage() {
+  document.body.style.cursor='auto';
   var ws = eltId('waitmessage'); 
   ws.style.display = 'none';
   fcalSetOpacity(eltId(Root), 100);
@@ -1095,10 +1152,6 @@ function fcalUpdateMinutes(startend, min) {
   sb.selectedIndex = init;
 }
 
-  
-  
-  
-
 function fcalAlldayClicked(event) {
   stopPropagation(event);
   var o = eltId('allday');
@@ -1106,6 +1159,7 @@ function fcalAlldayClicked(event) {
   else fcalAllday(false);
   return true;
 }
+
 function fcalAllday(s) {
   var showhide = [ 'start_hour', 'end_hour1', 'end_hour2', 'end_hour3', 'nohour_span' ];
   var vis = 'visible';

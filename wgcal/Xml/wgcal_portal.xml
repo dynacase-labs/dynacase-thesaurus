@@ -6,14 +6,8 @@
 <td align="right"><img border="0" src="[IMG:wm-reloadportal.gif]" onclick="document.location.reload(true);"></td>
 </tr></table>
 </div>
-<div  width="100%" style="padding:2px;">[ZONE WGCAL:WGCAL_WAITRV?&oact=WGCAL_PORTAL]</div>
+<div  width="100%" style="padding:2px;">[ZONE WGCAL:WGCAL_WAITRV]</div>
 <div  width="100%" style="padding:2px;">
-<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:planned event] [TEXT:from date] [tds] [TEXT:to date] [tde]</td></tr><tr><td></td></tr></table>
-[BLOCK btime]<div class="WEvDays" onmouseover="closeMenu('calpopup');">[date]
-<table width="100%" cellspacing="0">
-[BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" onclick="subwindow(400, 650, 'ViewEvent[id]', '[CORE_STANDURL]&app=[IF edit]GENERIC&action=GENERIC_EDIT[ENDIF edit][IFNOT edit]FDL&action=IMPCARD[ENDIF edit]&id=[id]');" onmouseout="this.className='WEvDefault'">
-<td onContextMenu="SetCurrentEvent([id], '[TSSTART]'); openMenu(event,'calpopup',[RG]);return false" onMouseDown="if (shiftKeyPushed(event)) { SetCurrentEvent([id], '[TSSTART]');openMenu(event,'calpopup',[RG])}">[EvCard]</td>
-</tr>[ENDBLOCK devents[date]]</table></div>[ENDBLOCK btime]
-[ZONE WGCAL:WGCAL_POPUP]
-</div>
+<div width="100%" class="wToolButtonUnselect">[TEXT:planned event] [TEXT:from date] [tds] [TEXT:to date] [tde]</div>
+[ZONE WGCAL:WGCAL_GVIEW]
 [ZONE WGCAL:WGCAL_HTMLFOOT]

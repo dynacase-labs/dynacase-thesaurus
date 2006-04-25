@@ -1258,63 +1258,6 @@ function evColorByOwner() {
   return $event_color;
 }
 
-function RvSetPopup($rg) {
-  include_once('WGCAL/Lib.wTools.php');
-  include_once('WGCAL/Lib.Agenda.php');
-  global $action;
-
-  PopupInvisible($this->popup_name,$rg, 'acceptrv');
-  PopupInvisible($this->popup_name,$rg, 'rejectrv');
-  PopupInvisible($this->popup_name,$rg, 'tbcrv');
-  PopupInvisible($this->popup_name,$rg, 'dacceptrv');
-  PopupInvisible($this->popup_name,$rg, 'drejectrv');
-  PopupInvisible($this->popup_name,$rg, 'dtbcrv');
-  PopupInvisible($this->popup_name,$rg, 'historyrv');
-  PopupInvisible($this->popup_name,$rg, 'viewrv');
-  PopupInvisible($this->popup_name,$rg, 'deloccur');
-  PopupInvisible($this->popup_name,$rg, 'editrv');
-  PopupInvisible($this->popup_name,$rg, 'deleterv');
-  PopupInvisible($this->popup_name,$rg, 'cancelrv');
-  PopupInvisible($this->popup_name,$rg, 'showaccess');
-
-
-  if ($this->RvIsMeeting()) {
-
-    $delegate = hasDelegation($this->getValue("calev_ownerid"));
-    if ($delegate==1 || ($delegate==0 && ($this->getValue("calev_creatorid")==$action->user->fid))) {
-      $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
-      if ($ownerstate>-1 && $ownerstate!=2) PopupActive($this->popup_name,$rg, 'dacceptrv');
-      if ($ownerstate>-1 && $ownerstate!=3) PopupActive($this->popup_name,$rg, 'drejectrv');
-      if ($ownerstate>-1 && $ownerstate!=4) PopupActive($this->popup_name,$rg, 'dtbcrv');
-    }
-    
-    if ($this->UHaveAccess("execute")) {
-      $mystate = $this->RvAttendeeState($action->user->fid);
-      if ($mystate>-1 && $mystate!=2) PopupActive($this->popup_name,$rg, 'acceptrv');
-      if ($mystate>-1 && $mystate!=3) PopupActive($this->popup_name,$rg, 'rejectrv');
-      if ($mystate>-1 && $mystate!=4) PopupActive($this->popup_name,$rg, 'tbcrv');
-    }
-  }
-
-
-  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) PopupActive($this->popup_name,$rg, 'showaccess');
-  
-  if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
-    PopupActive($this->popup_name,$rg, 'historyrv');
-    PopupActive($this->popup_name,$rg, 'viewrv');
-  }
-
-  if ($this->UHaveAccess("edit")) {
-    PopupActive($this->popup_name,$rg, 'editrv');
-  }
-    
-  if ($this->UHaveAccess("delete")) {
-    PopupActive($this->popup_name,$rg, 'deleterv');
-    if ($this->getValue("calev_repeatmode") > 0) PopupActive($this->popup_name,$rg, 'deloccur');
-  }
-      
-}
-
 function RvIsMeeting() {
   global $action;
   $atts = $this->getTValue("calev_attid");
@@ -1812,15 +1755,13 @@ function agendaMenu($occurrence) {
   include_once('WGCAL/Lib.Agenda.php');
   global $action;
 
-  $actorid = $action->getParam("WGCAL_U_DCALEDIT", $action->user->fid);
-
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
   
   $menu["sub"] = array();
   $menu["main"] = 
     array('acceptrv' => array("descr" => _("accept this"),
-			      "url" => $surl."&app=WGCAL&action=WGCAL_SETEVENTSTATE&id=".$this->id."&st=2&ow=".$actorid,
+			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 2)",
 			      "confirm" => "false",
 			      "tconfirm" => "",
 			      "control" => "false",
@@ -1831,7 +1772,7 @@ function agendaMenu($occurrence) {
 			      "barmenu" => "false"
 			      ), 
 	  'rejectrv' => array("descr" => _("reject this"),
-			      "url" => $surl."&app=WGCAL&action=WGCAL_SETEVENTSTATE&id=".$this->id."&st=3&ow=".$actorid,
+			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 3)",
 			      "confirm" => "false",
 			      "tconfirm" => "",
 			      "control" => "false",
@@ -1842,7 +1783,7 @@ function agendaMenu($occurrence) {
 			      "barmenu" => "false"
 			      ), 	  
 	  'confirmrv' => array("descr" => _("to be confirm this"),
-			      "url" => $surl."&app=WGCAL&action=WGCAL_SETEVENTSTATE&id=".$this->id."&st=4&ow=".$actorid,
+			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 4)",
 			      "confirm" => "false",
 			      "tconfirm" => "",
 			      "control" => "false",
@@ -1852,7 +1793,7 @@ function agendaMenu($occurrence) {
 			      "submenu" =>  "",
 			      "barmenu" => "false"
 			      ), 	  
-	  'viewrv' => array("descr" => _("edit this"),
+	  'viewrv' => array("descr" => _("view this"),
 			    "url" => $surl."&app=FDL&action=IMPCARD&id&id=".$this->id,
 			    "confirm" => "false",
 			    "tconfirm" => "",
@@ -1875,7 +1816,7 @@ function agendaMenu($occurrence) {
 			    "barmenu" => "false"
 			    ), 
 	  'deloccur' => array("descr" => _("delete this occurence"),
-			      "url" => $surl."&app=GENERIC&action=WGCAL_DELOCCUR&id=".$this->id."&evocc="."???",
+			      "url" => $surl."&app=WGCAL&action=WGCAL_DELOCCUR&id=".$this->id."&evocc="."???",
 			      "confirm" => "true",
 			      "tconfirm" => _("confirm delete for this occurrence"),
 			      "control" => "false",
@@ -1886,7 +1827,8 @@ function agendaMenu($occurrence) {
 			      "barmenu" => "false"
 			      ), 
 	  'deleterv' => array("descr" => _("delete this"),
-			    "url" => $surl."&app=GENERIC&action=WGCAL_DELOCCUR&id=".$this->id."&evocc=".$occurrence,
+// 			    "url" => $surl."&app=GENERIC&action=WGCAL_DELOCCUR&id=".$this->id,
+			    "jsfunction" => "fcalDeleteEvent(event, ".$this->id.")",
 			    "confirm" => "true",
 			    "tconfirm" => _("confirm delete for this event"),
 			    "control" => "false",
@@ -1896,12 +1838,12 @@ function agendaMenu($occurrence) {
 			    "submenu" =>  "",
 			    "barmenu" => "false"
 			    ), 
-	  'history' => array("descr" => _("history"),
-			     "url" => $surl."&app=GENERIC&action=WGCAL_HISTO&id=".$this->id,
+	  'historyrv' => array("descr" => _("history"),
+			     "url" => $surl."&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
 			     "confirm" => "false",
 			     "tconfirm" => "",
 			     "control" => "false",
-			     "target" => "wgcal_calendar",
+			     "target" => "wgcal_history",
 			     "visibility" => POPUP_INVISIBLE,
 			     "icon" => ($sico?$action->getImageUrl("wm-evhistory.gif"):""),
 			     "submenu" =>  "",
@@ -1919,15 +1861,15 @@ function agendaMenu($occurrence) {
 			     "barmenu" => "false"
 			    ), 
 	  );
-  $menu["main"]["acceptrv"]["visibility"] = POPUP_VISIBLE;
-  $menu["main"]["editrv"]["visibility"] = POPUP_VISIBLE;
+  $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
+  $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
 
 
   if ($this->RvIsMeeting()) {
     $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
     if ($this->UHaveAccess("execute")) {
-      if ($ownerstate>-1 && $ownerstate!=2) $menu["main"]["acceptrv"]["visibility"] = POPUP_VISIBLE;
-      if ($ownerstate>-1 && $ownerstate!=3) $menu["main"]["rejectrv"]["visibility"] = POPUP_VISIBLE;
+      if ($ownerstate>-1 && $ownerstate!=2) $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
+      if ($ownerstate>-1 && $ownerstate!=3) $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
     } else {
       if ($ownerstate>-1 && $ownerstate!=2) $menu["main"]["acceptrv"]["visibility"] = POPUP_INACTIVE;
       if ($ownerstate>-1 && $ownerstate!=3) $menu["main"]["rejectrv"]["visibility"] = POPUP_INACTIVE;
@@ -1935,15 +1877,15 @@ function agendaMenu($occurrence) {
   }
 
   if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
-    $menu["main"]["historyrv"]["visibility"] = POPUP_VISIBLE;
-    $menu["main"]["viewrv"]["visibility"] = POPUP_VISIBLE;
+    $menu["main"]["historyrv"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["viewrv"]["visibility"] = POPUP_ACTIVE;
   }
-  if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["viewrv"] = POPUP_VISIBLE;
+  if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["viewrv"] = POPUP_ACTIVE;
   if ($this->UHaveAccess("delete")) {
-    $menu["main"]["deleterv"]["visibility"] = POPUP_VISIBLE;
-    if ($this->getValue("calev_repeatmode") > 0) $menu["main"]["deloccur"]["visibility"] = POPUP_VISIBLE;
+    $menu["main"]["deleterv"]["visibility"] = POPUP_ACTIVE;
+    if ($this->getValue("calev_repeatmode") > 0) $menu["main"]["deloccur"]["visibility"] = POPUP_ACTIVE;
   }
-  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) $menu["main"]["access"]["visibility"] = POPUP_VISIBLE;
+  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
 
   return $menu;
 }
