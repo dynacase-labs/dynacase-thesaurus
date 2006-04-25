@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.307 2006/04/25 10:01:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.308 2006/04/25 17:12:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1800,13 +1800,12 @@ final public function PostInsert()  {
       $tattrids = explode("£",$this->attrids);
       
       foreach($tvalues as $k=>$v) {
-	$attrid = $tattrids[$k];
-	
-	if ($attrid != "") {
-	  $this->$attrid=$v;
-	  $this->mvalues[$attrid]=$v; // to be use in getValues()
-	}
-      }
+	$attrid = $tattrids[$k];	
+	if (($attrid != "") &&  ($this->$attrid == "")) {
+	    $this->$attrid=$v;
+	    $this->mvalues[$attrid]=$v; // to be use in getValues()
+	  }
+      }      
     }      
   }
 
