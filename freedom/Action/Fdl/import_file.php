@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.111 2006/03/16 18:50:44 eric Exp $
+ * @version $Id: import_file.php,v 1.112 2006/04/25 09:54:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -491,7 +491,11 @@ function add_import_file(&$action, $fimport="") {
 	  foreach ($data as $v) {
 	    $v=trim($v);
 	    if ($v!="") {
-	      if ($analyze) continue;
+	      if ($analyze) {
+		$tcr[$nline]["msg"].="\n".sprintf(_("try add acl %s"),$v);
+		$tcr[$nline]["action"]="added";
+		continue;
+	      }
 	      if (isset($tacl[$v])) {
 		$p->id_acl=$tacl[$v];
 		$err=$p->Add();
