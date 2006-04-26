@@ -13,37 +13,37 @@ function wgcal_seteventstate(&$action) {
   $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
   
-  $oapp = GetHttpVars("oapp", "WGCAL");
-  $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
-
   if (!$event->isAffected() || $evstate==-1) {
-    AddWarningMsg("wgcal_seteventstate: error, can't find event #$evi");
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", "wgcal_seteventstate: error, can't find event #$evi");
+    return;
   } else {
-
-    $attchange = ($forowner==1 ? $event->getValue("calev_ownerid") : $action->user->fid );
-
-    $raction = GetHttpVars("ra", "WGCAL_CALENDAR");
     $found = false;
     $ress = "";
     $att_id    = $event->getTValue("CALEV_ATTID", array());
     $att_state = $event->getTValue("CALEV_ATTSTATE", array());
     $att_title = $event->getTValue("CALEV_ATTTITLE", array());
     foreach ($att_id as $ka => $va) {
-      if ($va == $attchange) {
+      if ($va == $forowner) {
 	$found = true;
 	$att_state[$ka] = $evstate;
 	$ress = $att_title[$ka];
       }
     }
-
+    
     if ($found) {
       $event->disableEditControl();
       $event->setValue("CALEV_ATTSTATE", $att_state); 
       $err = $event->Modify();
-      if ($err!="") AddWarningMsg("$err");
-      else {
+      if ($err!="") {
+	$action->lay->set("status", -1);
+	$action->lay->set("statustext", "Freedom internal error doc->modify(): $err");
+      } else {
 	$err = $event->PostModify();
-	if ($err!="") AddWarningMsg("$err");
+	if ($err!="") {
+	  $action->lay->set("status", -1);
+	  $action->lay->set("statustext", "Freedom internal error doc->PostModify(): $err");
+	}
       }
 
       $uw = new_Doc($dbaccess, $event->getValue("calev_ownerid"));
@@ -54,8 +54,22 @@ function wgcal_seteventstate(&$action) {
       $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
       $event->enableEditControl();
     }
+    // Get changed event
+    $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+    $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+    $sdate = w_GetDayFromTs($stdate); 
+    $firstWeekDay = w_GetFirstDayOfWeek($sdate);
+    $edate = $firstWeekDay + ($vm * SEC_PER_DAY) - 1;
+    $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
+    $d2 = ts2db($edate, "Y-m-d 23:59:59");
+    $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$event->id ));
+    $action->lay->setBlockData("modEvents", $ev);
+    $action->lay->set("status", 0);
+    $action->lay->set("count", count($ev));
+    $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
+    $action->lay->set("showevent", true);
   }
-  redirect($action, $oapp, $oact);
+  
 }
 
 

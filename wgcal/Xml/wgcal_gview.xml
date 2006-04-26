@@ -12,5 +12,6 @@
 [IF vNote]<div>[note][ENDIF vNote]</td>
 </tr>[ENDBLOCK devents[date]][ENDBLOCK btime]</table>
 [ENDIF noresult]
+[ZONE WGCAL:WGCAL_INFOS]
 <span id="eventCount" style="display:none">[eventCount]</span>
 [IF standalone][ZONE WGCAL:WGCAL_HTMLFOOT][ENDIF standalone]

@@ -1,2 +1,2 @@
-[IF showevent]var newEvent = {  id:[id], idf:[fromid], idp:[evt_idinitiator], idpf:[evt_frominitiatorid],  start:[start], end:[end], title:'[evt_title]', icons: new Array( [icons] ), bgColor:'[bgColor]', fgColor:'[fgColor]', topColor:'[topColor]', rightColor:'[rightColor]', bottomColor:'[bottomColor]', leftColor:'[leftColor]', edit:[editable], display:[displayable], menu:'[menuurl]', occur:0 };[ENDIF showevent]
-var fcalStatus = { code : [status], text:'[statustext]' };
+[IF showevent]var _fcalTmpEvents = new Array(); [BLOCK modEvents]_fcalTmpEvents[[rg]] = [jscode];[ENDBLOCK modEvents][ENDIF showevent]
+var fcalStatus = { code : [status], count:[count], text:'[statustext]' };

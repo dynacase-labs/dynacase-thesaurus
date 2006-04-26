@@ -547,7 +547,7 @@ function fcalCreateEvent(ie,isclone) {
       }
     }
 
-//     inhtml += '&nbsp;['+ie+']'+ fcalEvents[ie].title;
+//     inhtml += '&nbsp;['+ie+'] '+ fcalEvents[ie].title;
     inhtml += '&nbsp;'+ fcalEvents[ie].title;
     innerHTML = inhtml;
     style.backgroundColor = fcalEvents[ie].bgColor;
@@ -745,27 +745,41 @@ function fastEditSave(ev) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
     return false;
   }
-  if (EventInEdition && EventInEdition.rg>=0) {
-    fcalEvents[EventInEdition.rg] = newEvent;
+  if (inCalendar) {
+    fcalInsertTmpEvent(_fcalTmpEvents);
   } else {
-    fcalEvents[fcalEvents.length] = newEvent;
+    document.location.reload(false);
   }
-  fastEditReset();
-  fcalReloadEvents();
   return;
 } 
 
-function fcalGetRgFromIdP(idp) {
-  for (var ir=0; ir<fcalEvents.length; ir++) {
-    if (fcalEvents[ir].idp==idp) return ir;
+function fcalInsertTmpEvent(tEv) {
+  var mm = '';
+  for (var iie=0; iie<tEv.length; iie++) {
+    for (var itt=fcalEvents.length-1; itt>=0; itt--) {
+      if (fcalEvents[itt].id==tEv[iie].id) fcalEvents.splice(itt, 1);
+    }
   }
-  return false;
+  for (var iie=0; iie<tEv.length; iie++) {
+     fcalEvents[fcalEvents.length] = tEv[iie];
+  }
+  fastEditReset();
+  fcalReloadEvents();
+}
+
+function fcalGetRgFromIdP(idp) {
+  var rt = new Array();
+  for (var ir=0; ir<fcalEvents.length; ir++) {
+    if (fcalEvents[ir].idp==idp) rt[rt.length] = ir;
+  }
+  return rt;
 }
 function fcalGetRgFromId(id) {
+  var rt = new Array();
   for (var ir=0; ir<fcalEvents.length; ir++) {
-    if (fcalEvents[ir].id==id) return ir;
+    if (fcalEvents[ir].id==id) rt[rt.length] = ir;
   }
-  return false;
+  return rt;
 }
 
 function fcalDeleteEvent(event,idp) {
@@ -789,16 +803,11 @@ function fcalSetEventState(event,idp,state) {
   if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
 
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
-  fcalSendRequest(url, false, false);
-  if (inCalendar) {
-    if (fcalEvents) {
-      var r = fcalGetRgFromIdP(idp);
-      if (r) fcalEvents.splice(r,1);
-      fcalReloadEvents();
-    }
+  var res = fcalSendRequest(url, false, false);
+  if (inCalendar && res.status==200) {  
+    eval(res.content);
+    if (_fcalTmpEvents) fcalInsertTmpEvent(_fcalTmpEvents);
   } else {
-    alert(document.location.href);
-//     document.location.href = document.location.href;
     document.location.reload(false);
   }
   return true; 

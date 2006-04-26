@@ -1260,7 +1260,7 @@ function evColorByOwner() {
 
 function RvIsMeeting() {
   global $action;
-  $atts = $this->getTValue("calev_attid");
+  $atts  = $this->getTValue("calev_attid");
   $owner = $this->getValue("calev_ownerid");
   $redac = $this->getValue("calev_creatorid");
 
@@ -1757,134 +1757,126 @@ function agendaMenu($occurrence) {
 
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
-  
+
   $menu["sub"] = array();
-  $menu["main"] = 
-    array('acceptrv' => array("descr" => _("accept this"),
-			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 2)",
-			      "confirm" => "false",
-			      "tconfirm" => "",
-			      "control" => "false",
-			      "target" => "wgcal_calendar",
-			      "visibility" => POPUP_INVISIBLE,
-			      "icon" => ($sico?$action->getImageUrl("wm-evaccept.gif"):""),
-			      "submenu" =>  "",
-			      "barmenu" => "false"
-			      ), 
-	  'rejectrv' => array("descr" => _("reject this"),
-			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 3)",
-			      "confirm" => "false",
-			      "tconfirm" => "",
-			      "control" => "false",
-			      "target" => "wgcal_calendar",
-			      "visibility" => POPUP_INVISIBLE,
-			      "icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
-			      "submenu" =>  "",
-			      "barmenu" => "false"
-			      ), 	  
-	  'confirmrv' => array("descr" => _("to be confirm this"),
-			      "jsfunction" => "fcalDeleteEvent(event,".$this->id.", 4)",
-			      "confirm" => "false",
-			      "tconfirm" => "",
-			      "control" => "false",
-			      "target" => "wgcal_calendar",
-			      "visibility" => POPUP_INVISIBLE,
-			      "icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
-			      "submenu" =>  "",
-			      "barmenu" => "false"
-			      ), 	  
-	  'viewrv' => array("descr" => _("view this"),
-			    "url" => $surl."&app=FDL&action=IMPCARD&id&id=".$this->id,
-			    "confirm" => "false",
-			    "tconfirm" => "",
-			    "control" => "false",
-			    "target" => "wgcal_view",
-			    "visibility" => POPUP_INVISIBLE,
-			    "icon" => ($sico?$action->getImageUrl("wm-evview.gif"):""),
-			    "submenu" =>  "",
-			    "barmenu" => "false"
-			    ), 
-	  'editrv' => array("descr" => _("edit this"),
-			    "url" => $surl."&app=GENERIC&action=GENERIC_EDIT&id=".$this->id,
-			    "confirm" => "false",
-			    "tconfirm" => "",
-			    "control" => "false",
-			    "target" => "wgcal_edit",
-			    "visibility" => POPUP_INVISIBLE,
-			    "icon" => ($sico?$action->getImageUrl("wm-evedit.gif"):""),
-			    "submenu" =>  "",
-			    "barmenu" => "false"
-			    ), 
-	  'deloccur' => array("descr" => _("delete this occurence"),
-			      "url" => $surl."&app=WGCAL&action=WGCAL_DELOCCUR&id=".$this->id."&evocc="."???",
-			      "confirm" => "true",
-			      "tconfirm" => _("confirm delete for this occurrence"),
-			      "control" => "false",
-			      "target" => "wgcal_calendar",
-			      "visibility" => POPUP_INVISIBLE,
-			      "icon" => ($sico?$action->getImageUrl("wm-deloccur.gif"):""),
-			      "submenu" =>  "",
-			      "barmenu" => "false"
-			      ), 
-	  'deleterv' => array("descr" => _("delete this"),
-// 			    "url" => $surl."&app=GENERIC&action=WGCAL_DELOCCUR&id=".$this->id,
-			    "jsfunction" => "fcalDeleteEvent(event, ".$this->id.")",
-			    "confirm" => "true",
-			    "tconfirm" => _("confirm delete for this event"),
-			    "control" => "false",
-			    "target" => "wgcal_calendar",
-			    "visibility" => POPUP_INVISIBLE,
-			    "icon" => ($sico?$action->getImageUrl("wm-evdelete.gif"):""),
-			    "submenu" =>  "",
-			    "barmenu" => "false"
-			    ), 
-	  'historyrv' => array("descr" => _("history"),
-			     "url" => $surl."&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
-			     "confirm" => "false",
-			     "tconfirm" => "",
-			     "control" => "false",
-			     "target" => "wgcal_history",
-			     "visibility" => POPUP_INVISIBLE,
-			     "icon" => ($sico?$action->getImageUrl("wm-evhistory.gif"):""),
-			     "submenu" =>  "",
-			     "barmenu" => "false"
-			    ), 
-	  'access' => array("descr" => _("view accessibilities"),
-			     "url" => $surl."&app=FREEDOM&action=FREEDOM_ACCESS&id=".$this->id,
-			     "confirm" => "false",
-			     "tconfirm" => "",
-			     "control" => "false",
-			     "target" => "wgcal_showaccess",
-			     "visibility" => POPUP_INVISIBLE,
-			     "icon" => ($sico?$action->getImageUrl("wm-privgroup.gif"):""),
-			     "submenu" =>  "",
-			     "barmenu" => "false"
-			    ), 
-	  );
-  $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
-  $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
-
-
-  if ($this->RvIsMeeting()) {
-    $ownerstate = $this->RvAttendeeState($this->getValue("calev_ownerid"));
-    if ($this->UHaveAccess("execute")) {
-      if ($ownerstate>-1 && $ownerstate!=2) $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
-      if ($ownerstate>-1 && $ownerstate!=3) $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
-    } else {
-      if ($ownerstate>-1 && $ownerstate!=2) $menu["main"]["acceptrv"]["visibility"] = POPUP_INACTIVE;
-      if ($ownerstate>-1 && $ownerstate!=3) $menu["main"]["rejectrv"]["visibility"] = POPUP_INACTIVE;
-    }
+  $menu["main"] =     array(	  
+			    'viewrv' => array("descr" => _("view this"),
+					      "url" => $surl."&app=FDL&action=IMPCARD&id&id=".$this->id,
+					      "jsfunction" => "",
+					      "confirm" => "false",
+					      "tconfirm" => "",
+					      "control" => "false",
+					      "target" => "wgcal_view",
+					      "visibility" => POPUP_INVISIBLE,
+					      "icon" => ($sico?$action->getImageUrl("wm-evview.gif"):""),
+					      "submenu" =>  "",
+					      "barmenu" => "false"
+					      ), 
+			    'acceptrv' => array("descr" => _("accept this"),
+						"jsfunction" => "fcalSetEventState(event,".$this->id.", 2)",
+						"confirm" => "false",
+						"tconfirm" => "",
+						"control" => "false",
+						"target" => "wgcal_calendar",
+						"visibility" => POPUP_INVISIBLE,
+						"icon" => ($sico?$action->getImageUrl("wm-evaccept.gif"):""),
+						"submenu" =>  "",
+						"barmenu" => "false"
+						), 
+			    'rejectrv' => array("descr" => _("reject this"),
+						"jsfunction" => "fcalSetEventState(event,".$this->id.", 3)",
+						"confirm" => "false",
+						"tconfirm" => "",
+						"control" => "false",
+						"target" => "wgcal_calendar",
+						"visibility" => POPUP_INVISIBLE,
+						"icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
+						"submenu" =>  "",
+						"barmenu" => "false"
+						), 	  
+			    'confirmrv' => array("descr" => _("to be confirm this"),
+						 "jsfunction" => "fcalSetEventState(event,".$this->id.", 4)",
+						 "confirm" => "false",
+						 "tconfirm" => "",
+						 "control" => "false",
+						 "target" => "wgcal_calendar",
+						 "visibility" => POPUP_INVISIBLE,
+						 "icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
+						 "submenu" =>  "",
+						 "barmenu" => "false"
+						 ), 	  
+			    'editrv' => array("descr" => _("edit this"),
+					      "url" => $surl."&app=GENERIC&action=GENERIC_EDIT&id=".$this->id,
+					      "confirm" => "false",
+					      "tconfirm" => "",
+					      "control" => "false",
+					      "target" => "wgcal_edit",
+					      "visibility" => POPUP_INVISIBLE,
+					      "icon" => ($sico?$action->getImageUrl("wm-evedit.gif"):""),
+					      "submenu" =>  "",
+					      "barmenu" => "false"
+					      ), 
+			    'deloccur' => array("descr" => _("delete this occurence"),
+						"url" => $surl."&app=WGCAL&action=WGCAL_DELOCCUR&id=".$this->id."&evocc="."???",
+						"confirm" => "true",
+						"tconfirm" => _("confirm delete for this occurrence"),
+						"control" => "false",
+						"target" => "wgcal_calendar",
+						"visibility" => POPUP_INVISIBLE,
+						"icon" => ($sico?$action->getImageUrl("wm-deloccur.gif"):""),
+						"submenu" =>  "",
+						"barmenu" => "false"
+						), 
+			    'deleterv' => array("descr" => _("delete this"),
+						"jsfunction" => "fcalDeleteEvent(event, ".$this->id.")",
+						"confirm" => "true",
+						"tconfirm" => _("confirm delete for this event"),
+						"control" => "false",
+						"target" => "wgcal_calendar",
+						"visibility" => POPUP_INVISIBLE,
+						"icon" => ($sico?$action->getImageUrl("wm-evdelete.gif"):""),
+						"submenu" =>  "",
+						"barmenu" => "false"
+						), 
+			    'historyrv' => array("descr" => _("history"),
+						 "url" => $surl."&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
+						 "confirm" => "false",
+						 "tconfirm" => "",
+						 "control" => "false",
+						 "target" => "wgcal_history",
+						 "visibility" => POPUP_INVISIBLE,
+						 "icon" => ($sico?$action->getImageUrl("wm-evhistory.gif"):""),
+						 "submenu" =>  "",
+						 "barmenu" => "false"
+						 ), 
+			    'access' => array("descr" => _("view accessibilities"),
+					      "url" => $surl."&app=FREEDOM&action=FREEDOM_ACCESS&id=".$this->id,
+					      "confirm" => "false",
+					      "tconfirm" => "",
+					      "control" => "false",
+					      "target" => "wgcal_showaccess",
+					      "visibility" => POPUP_INVISIBLE,
+					      "icon" => ($sico?$action->getImageUrl("wm-privgroup.gif"):""),
+					      "submenu" =>  "",
+					      "barmenu" => "false"
+					      ), 
+			    );
+  if ($this->RvIsMeeting() && $this->UHaveAccess("execute")) {
+    $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
   }
 
   if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
     $menu["main"]["historyrv"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["viewrv"]["visibility"] = POPUP_ACTIVE;
   }
-  if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["viewrv"] = POPUP_ACTIVE;
+  if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
+
   if ($this->UHaveAccess("delete")) {
     $menu["main"]["deleterv"]["visibility"] = POPUP_ACTIVE;
     if ($this->getValue("calev_repeatmode") > 0) $menu["main"]["deloccur"]["visibility"] = POPUP_ACTIVE;
   }
+
   if (wDebugMode())   if ($this->UHaveAccess('viewacl')) $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
 
   return $menu;

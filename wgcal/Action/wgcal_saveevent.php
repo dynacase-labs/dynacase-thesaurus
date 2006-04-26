@@ -110,45 +110,17 @@ function wgcal_saveevent(&$action) {
   $event->unlock(true);
 
   // Get produced event
-  $ev = GetChildDoc($dbaccess, 0, 0, "ALL", array("evt_idinitiator = ".$event->id ), $action->user->id, "LIST", "EVENT_FROM_CAL");
-  if (count($ev)!=1) {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", "#".$event->id." produced event error (count=".count($ev).")");
-  }
-  $action->lay->set("id", $ev[0]->id);
-  $action->lay->set("fromid", $ev[0]->fromid);
-  $action->lay->set("evt_idinitiator", $ev[0]->getValue("evt_idinitiator"));
-  $action->lay->set("evt_frominitiatorid", $ev[0]->getValue("evt_frominitiatorid"));
-  $action->lay->set("start", localFrenchDateToUnixTs($ev[0]->getValue("evt_begdate"),true));
-  $end = ($ev[0]->getValue("evfc_realenddate") == "" ? $ev[0]->getValue("evt_enddate") : $ev[0]->getValue("evfc_realenddate"));
-  $action->lay->set("end", localFrenchDateToUnixTs($end, true));
-  if ($ev[0]->Control("confidential")=="" || ($ev[0]->confidential==0 && $ev[0]->Control("view")=="")) {
-    $action->lay->set("evt_title", addslashes($ev[0]->getValue("evt_title")));
-    $action->lay->set("displayable", "true");
-  } else {
-    $action->lay->set("displayable", "false");
-    $action->lay->set("evt_title",_("confidential event"));
-  }
-  $dattr = array( "icons" => array("iconsrc" => "'$noimgsrc'"),
-		     "bgColor" => "lightblue",
-		     "fgColor" => "black",
-		     "topColor" => "lightblue",
-		     "rightColor" => "lightblue",
-		     "bottomColor" => "lightblue",
-		     "leftColor" => "lightblue"  );
-  if (method_exists($ev[0], "getDisplayAttr")) $dattr = $ev[0]->getDisplayAttr();
-  $action->lay->set("icons", $dattr["icons"]);
-  $action->lay->set("bgColor", $dattr["bgColor"]);
-  $action->lay->set("fgColor", $dattr["fgColor"]);
-  $action->lay->set("topColor", $dattr["topColor"]);
-  $action->lay->set("rightColor", $dattr["rightColor"]);
-  $action->lay->set("bottomColor", $dattr["bottomColor"]);
-  $action->lay->set("leftColor", $dattr["leftColor"]);
-  $action->lay->set("editable", ($ev[0]->Control("edit")=="" ? "true" : "false"));
-  if (method_exists($ev[0], "getMenuLoadUrl")) $action->lay->set("menuurl",  $ev[0]->getMenuLoadUrl());
-  else $action->lay->set("menuurl", "");
-
+  $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+  $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  $sdate = w_GetDayFromTs($stdate); 
+  $firstWeekDay = w_GetFirstDayOfWeek($sdate);
+  $edate = $firstWeekDay + ($vm * SEC_PER_DAY) - 1;
+  $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
+  $d2 = ts2db($edate, "Y-m-d 23:59:59");
+  $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$event->id ));
+  $action->lay->setBlockData("modEvents", $ev);
   $action->lay->set("status", 0);
+  $action->lay->set("count", count($ev));
   $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
   $action->lay->set("showevent", true);
   return ;

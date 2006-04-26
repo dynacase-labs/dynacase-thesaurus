@@ -451,28 +451,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
     $rg++;
   }
-
-
-//     $events[$k]["rg"] = $rg;
-//     $events[$k]["displayable"] = ($ev->isDisplayable()?"true":"false");
-//     $events[$k]["evt_title"] = addSlashes($ev->getTitleInfo());
-//     $events[$k]["start"] = localFrenchDateToUnixTs($v["evt_begdate"], true);
-//     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
-//     $events[$k]["end"] = localFrenchDateToUnixTs($end, true);
-//     $dattr = $defaults;
-//     if (method_exists($ev, "getMenuLoadUrl")) $events[$k]["menuurl"] = $ev->getMenuLoadUrl();
-//     else  $events[$k]["menuurl"] = "";
-//     if (method_exists($ev, "getDisplayAttr")) $dattr = $ev->getDisplayAttr();
-//     $events[$k]["icons"] = $dattr["icons"];
-//     $events[$k]["bgColor"] = $dattr["bgColor"];
-//     $events[$k]["fgColor"] = $dattr["fgColor"];
-//     $events[$k]["topColor"] = $dattr["topColor"];
-//     $events[$k]["bottomColor"] = $dattr["bottomColor"];
-//     $events[$k]["rightColor"] = $dattr["rightColor"];
-//     $events[$k]["leftColor"] = $dattr["leftColor"];
-//     $events[$k]["editable"] = ($ev->isEditable()?"true":"false");
-//     $rg++;
-//   } 
   return $events;
 }
 
@@ -581,6 +559,16 @@ function fcalGetIcon($key, $norm=true) {
 		   ); 
   $ik = ($norm?"iconsrc":"iconmini");
   return (array("code" => $key, "text" => $ricons[$key]["title"], "src" => $ricons[$key][$ik]));
+}
+
+function fcalLocalFrenchDateToUnixTs($fdate, $utc=false) {
+  if (preg_match("/^(\d\d)\/(\d\d)\/(\d\d\d\d)\s?(\d\d)?:?(\d\d)?:?(\d\d)?\s?(\w+)?$/", $fdate,$r)) {   
+    if ($utc) $ds = gmmktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+    else $ds = mktime($r[4], $r[5], $r[6], $r[2], $r[1], $r[3]);
+  } else {
+    $ds = -1;
+  }
+  return $ds;
 }
 
 ?>

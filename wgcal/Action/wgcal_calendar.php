@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.89 2006/04/25 20:58:12 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.90 2006/04/26 10:20:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -65,7 +65,11 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($dayperweek * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
-  $tout = wGetEvents($d1, $d2);
+
+  if ($action->getParam("WGCAL_U_DISPLAYREFUSED")==1) $filter = array();
+  else    $filter = array("((evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y') or (evfc_rejectattid isnull))");
+
+  $tout = wGetEvents($d1, $d2, true, $filter, "EVENT_FROM_CAL");
   
 
   // Display results ------------------------------------------------------------------------------------
