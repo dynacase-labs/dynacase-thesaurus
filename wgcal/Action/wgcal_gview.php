@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.25 2006/04/26 14:23:58 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.26 2006/04/26 16:20:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -139,7 +139,7 @@ function wgcal_gview(&$action) {
 	$td[$cday]["ev"][$j]["menu"] = $menu;
 	if ($menu) {
 	  $td[$cday]["ev"][$j]["menuurl"] = $edoc[$ve["id"]]->getMenuLoadUrl();
-	  $td[$cday]["ev"][$j]["occ"] = strftime("%d/%m/%Y",$dsl+($iday*3600*24));
+	  $td[$cday]["ev"][$j]["occ"] = $dsl+($iday*3600*24);
 	}
 	if ($hstart==$hend && $hend=="00:00") {
 	  $hours = "("._("no hour").")";

@@ -1816,7 +1816,7 @@ function agendaMenu($occurrence) {
 					      "submenu" =>  "",
 					      "barmenu" => "false"
 					      ), 
-			    'deloccur' => array("descr" => _("delete this occurence"),
+			    'deloccur' => array("descr" => _("delete this occurence")." [$occurrence]",
 						"jsfunction" => "fcalDeleteEventOcc(event, ".$this->id.",'".$occurrence."')",
 						"confirm" => "true",
 						"tconfirm" => _("confirm delete for this occurrence"),

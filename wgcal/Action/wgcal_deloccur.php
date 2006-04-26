@@ -47,14 +47,7 @@ function wgcal_deloccur(&$action) {
   
 
  // Get produced event
-  $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
-  $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
-  $sdate = w_GetDayFromTs($stdate); 
-  $firstWeekDay = w_GetFirstDayOfWeek($sdate);
-  $edate = $firstWeekDay + ($vm * SEC_PER_DAY) - 1;
-  $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
-  $d2 = ts2db($edate, "Y-m-d 23:59:59");
-  $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$event->id ));
+  $ev = wGetSinglePEvent($event->id);
   $action->lay->setBlockData("modEvents", $ev);
   $action->lay->set("status", 0);
   $action->lay->set("count", count($ev));
