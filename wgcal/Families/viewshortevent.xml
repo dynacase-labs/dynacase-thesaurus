@@ -1,0 +1,8 @@
+<table style="border:1px outset white"><tr>
+<td>[hour1]</td>
+<td>[BLOCK Icons]<img src="[icosrc]">[ENDBLOCK Icons]&nbsp;[title] <span style="font-size:80%;">([owner])</span></td>
+</tr>
+[IF twoLine]<tr>
+<td>[hour2]</td>
+<td>[note]</td>
+</tr>[ENDIF twoLine]</table>

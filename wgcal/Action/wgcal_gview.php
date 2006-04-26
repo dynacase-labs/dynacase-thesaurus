@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.24 2006/04/25 20:58:12 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.25 2006/04/26 14:23:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -16,7 +16,7 @@ include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once('WHAT/Lib.Common.php');
 
-function wgcal_gview(&$action) {
+function wgcal_gview(&$action) { 
   global $_POST, $_GET, $ZONE_ARGS;
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -29,6 +29,7 @@ function wgcal_gview(&$action) {
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   // Set a filter
+  $action->lay->set("search", false);
   $ff = array();
   if (count($_POST)>0) foreach ($_POST as $k => $v) {
     if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
@@ -85,7 +86,6 @@ function wgcal_gview(&$action) {
 
   $action->lay->set("standalone", (GetHttpVars("stda")==1?false:true));
   $action->lay->set("sphrase", $sphrase);
-  $action->lay->set("search", false);
 
   // Set producer families
   if ($famids=="") $famids = $action->getParam("WGCAL_G_VFAM", "CALEVENT");
@@ -121,7 +121,6 @@ function wgcal_gview(&$action) {
       $dsl = mktime( 0, 0, 0, $m_start, $dstart, $y_start ); 
       $del = mktime( 0, 0, 0, $m_end, $dend, $y_end ); 
       $nb = round(($del - $dsl) / (60*60*24)) + 1; 
-//       echo $ve["id"]." ".$ve["evt_begdate"]." ".$end." > nb = $nb<br>";
       for ($iday=0; $iday<$nb; $iday++) {
 	
 	$cday = strftime("%Y%m%d",$dsl+($iday*3600*24)); 
@@ -139,7 +138,7 @@ function wgcal_gview(&$action) {
 	$td[$cday]["ev"][$j]["idp"] = $edoc[$ve["id"]]->getValue("evt_idinitiator");
 	$td[$cday]["ev"][$j]["menu"] = $menu;
 	if ($menu) {
-	  $td[$cday]["ev"][$j]["menuurl"] = $ve["menuurl"];
+	  $td[$cday]["ev"][$j]["menuurl"] = $edoc[$ve["id"]]->getMenuLoadUrl();
 	  $td[$cday]["ev"][$j]["occ"] = strftime("%d/%m/%Y",$dsl+($iday*3600*24));
 	}
 	if ($hstart==$hend && $hend=="00:00") {
@@ -179,8 +178,8 @@ function wgcal_gview(&$action) {
 	$td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
 	$td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);
 	if ($sphrase!="") {
-	  $td[$cday]["ev"][$j]["note"] = preg_replace('/('.$sphrase.'?)/', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["note"]);
-	  $td[$cday]["ev"][$j]["title"] = preg_replace('/('.$sphrase.'?)/', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["title"]);
+	  $td[$cday]["ev"][$j]["note"] = preg_replace('/('.$sphrase.'?)/i', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["note"]);
+	  $td[$cday]["ev"][$j]["title"] = preg_replace('/('.$sphrase.'?)/i', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["title"]);
 	}
       }
     }

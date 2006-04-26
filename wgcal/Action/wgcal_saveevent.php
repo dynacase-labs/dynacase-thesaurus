@@ -30,6 +30,7 @@ function wgcal_saveevent(&$action) {
     return;
   }
 
+  $oldrv= false;
   if ($idp==0) {
     $event = createDoc($dbaccess, "CALEVENT");
     $err = $event->Add();
@@ -37,6 +38,7 @@ function wgcal_saveevent(&$action) {
   } else {
     $event = new_Doc($dbaccess, $idp);
     $new = false;
+    $oldrv = $event->getValues();
   }
 
   $down = new_Doc($dbaccess, $oid);
@@ -109,7 +111,9 @@ function wgcal_saveevent(&$action) {
   $event->setAccessibility();
   $event->unlock(true);
 
-  // Get produced event
+  $event->postChangeProcess($oldrv);
+
+ // Get produced event
   $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $stdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $sdate = w_GetDayFromTs($stdate); 

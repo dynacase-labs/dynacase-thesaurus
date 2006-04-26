@@ -5,10 +5,8 @@
 <td style="border: 1px inset; padding: 20px; font-size:120%">L'Agenda de groupe Freedom<br>
 The Freedom Groupware Calendar</td>
 </tr>
-<tr><td colspan="2" align="center">
-Version [appversion] (c) Anakeen 2005-2006<br>
-For more informations, see the <a target="_new" href="http://freedom.anakeen.com">Freedom Site</a>
-</td></tr>
+<tr><td colspan="2" align="right">Version [appversion]</td></tr>
+<tr><td colspan="2" align="right">[ZONE WGCAL:WGCAL_INFOS]</td</tr>
 </table>
 
 <br>

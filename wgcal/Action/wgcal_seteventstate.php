@@ -10,9 +10,12 @@ function wgcal_seteventstate(&$action) {
   $db = $action->getParam("FREEDOM_DB");
   $evi = GetHttpVars("id", -1);
   $forowner = GetHttpVars("ow", 0);
+  $forowner = ($forowner==0?$action->user->fid:$forowner);
   $event = new_Doc($db, $evi);
   $evstate  = GetHttpVars("st", -1);
+  $action->lay->set("showevent", false);
   
+
   if (!$event->isAffected() || $evstate==-1) {
     $action->lay->set("status", -1);
     $action->lay->set("statustext", "wgcal_seteventstate: error, can't find event #$evi");
@@ -38,11 +41,13 @@ function wgcal_seteventstate(&$action) {
       if ($err!="") {
 	$action->lay->set("status", -1);
 	$action->lay->set("statustext", "Freedom internal error doc->modify(): $err");
+	return;
       } else {
 	$err = $event->PostModify();
 	if ($err!="") {
 	  $action->lay->set("status", -1);
 	  $action->lay->set("statustext", "Freedom internal error doc->PostModify(): $err");
+	  return;
 	}
       }
 

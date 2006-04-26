@@ -1,5 +1,6 @@
 [IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
-[IF search]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0"><tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></table>[ENDIF search]
+[IF search]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0">
+<tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></table>[ENDIF search]
 
 
 [IF noresult]<div width="100%" class="WEvDays">[TEXT:no event]</div>[ENDIF noresult]
@@ -12,6 +13,7 @@
 [IF vNote]<div>[note][ENDIF vNote]</td>
 </tr>[ENDBLOCK devents[date]][ENDBLOCK btime]</table>
 [ENDIF noresult]
-[ZONE WGCAL:WGCAL_INFOS]
+
+<div width="100%" class="WEvDays">[ZONE WGCAL:WGCAL_INFOS]</div>
 <span id="eventCount" style="display:none">[eventCount]</span>
 [IF standalone][ZONE WGCAL:WGCAL_HTMLFOOT][ENDIF standalone]

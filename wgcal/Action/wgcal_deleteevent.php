@@ -7,22 +7,35 @@ function wgcal_deleteevent(&$action, $optev=-1) {
 
   global $_SERVER;
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $action->lay->set("showevent", false);  
 
   $evi = GetHttpVars("id", -1);
   $event = new_Doc($dbaccess, $evi);
   if (!$event->isAffected()) {
-    AddWarningMsg("No event # $evi $cev ");
-  } else {
-    if ($event->isAlive()) {
-      $err = $event->Delete();
-      if ($err!="") AddWarningMsg("$err");
-      $err = $event->postDelete();
-      if ($err!="") AddWarningMsg("$err");
-    }
-    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
-    sendRv($action, $event, 2, $title, _("event deletion information message"));
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", "wgcal_seteventstate: error, can't find event #$evi");
+    return;
+  } 
+
+  $err = $event->Delete();
+  if ($err!="") {
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", "Freedom internal error doc->delete(): $err");
+    return;
   }
-//   Header("Location: ".$_SERVER["HTTP_REFERER"]);
-   redirect($action, "WGCAL", "WGCAL_CALENDAR");
+
+  $err = $event->postDelete();
+  if ($err!="") {
+    $action->lay->set("status", -1);
+    $action->lay->set("statustext", "Freedom internal error doc->postdelete(): $err");
+    return;
+  }
+  $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
+  sendRv($action, $event, 2, $title, _("event deletion information message"));
+
+  $action->lay->set("status", 0);
+  $action->lay->set("count", 0);
+  $action->lay->set("statustext", "#".$event->id." deleted");
+  $action->lay->set("showevent", false);  
 }
 ?>

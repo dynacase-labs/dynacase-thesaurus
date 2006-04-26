@@ -614,7 +614,7 @@ function RendezVousEdit() {
   $this->lay->set("checkConflict", $action->getParam("WGCAL_U_CHECKCONFLICT", 1));
 
   $nh = GetHttpVars("nh", 0);
-  $times = GetHttpVars("ts", time());
+  $times = GetHttpVars("ts", strftime("%s", time()));
   $timee = GetHttpVars("te", $times+3600);
   $withress = GetHttpVars("wress", "");
 
@@ -1817,7 +1817,7 @@ function agendaMenu($occurrence) {
 					      "barmenu" => "false"
 					      ), 
 			    'deloccur' => array("descr" => _("delete this occurence"),
-						"url" => $surl."&app=WGCAL&action=WGCAL_DELOCCUR&id=".$this->id."&evocc="."???",
+						"jsfunction" => "fcalDeleteEventOcc(event, ".$this->id.",'".$occurrence."')",
 						"confirm" => "true",
 						"tconfirm" => _("confirm delete for this occurrence"),
 						"control" => "false",
@@ -1890,3 +1890,125 @@ function addJsValues() {
 	     );
   return $t;
 }
+
+function postChangeProcess($old=false) {
+
+  global $action;
+
+  $change = array();
+  if (is_array($old)) {
+    $newevent = false;
+    $new = $this->getValues();
+    $change = $this->rvDiff($old, $new);
+  } else {
+    $newevent = true;
+  }
+  // 1) Creation => envoi d'un mail à tout les participants (sauf proprio)
+  // 2) Modification de l'heure, répétition => envoi d'un mail à tout les participants et reset des acceptations
+  // 3) Modification de l'acceptation => envoi d'un mail au proprio D'ICI CA VA ETRE DUR...
+  // Modification du contenu => rien
+  // Modification de la liste des participants => rien
+  
+  $mail_msg = $comment = "";
+  $mail_who = -1;
+
+  if ($newevent) {
+    $mail_msg = _("event creation information message");
+    $mail_who = 2;
+    $comment = _("event creation");
+  } else {
+    if ($change["hours"]) {
+      $mail_msg = _("event time modification message");
+      $mail_who = 2;
+      $comment = _("event modification time");
+      $this->resetAcceptStatus();
+    } else {
+      if ($change["attendees"]) {
+	$mail_msg = $comment = _("event modification attendees list");
+	$mail_who = 2;
+      } else {
+	if ($change["status"]) {
+	  $mail_msg = _("event acceptation status message");
+	  $mail_who = 0;
+	  $comment = _("event modification acceptation status");
+	}
+      }
+    }
+  }
+
+  if ($comment!="") $this->AddComment($comment);
+  if ($mail_who!=-1) {
+    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$this->getValue("calev_evtitle");
+    sendRv($action, $this, $mail_who, $title, $mail_msg, true);
+  }
+  $creatortitle = $this->getValue("calev_creator");
+  $owner = $this->getValue("calev_ownerid");
+  if ($action->user->fid!=$owner && $mail_who!=-1) {
+    // Get Agenda delegation information : does the owner want to received mail ?
+    $owneragenda = getUserAgenda($owner, true, "", false);
+    if ($owneragenda[0]->isAffected() && $owneragenda[0]->getValue("agd_dmail")==1) {
+      $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")."(par $creatortitle) ".$this->getValue("calev_evtitle");
+      sendRv($action, $this, 0, $title, "<i>"._("event set/change by")." ".$creatortitle."</i><br><br>".$mail_msg);
+    }
+  }
+
+}
+
+function rvDiff( $old, $new) {
+  $diff = array();
+  foreach ($old as $ko => $vo) {
+    if (!isset($new[$ko])) {
+      $diff[$ko] = "D";
+    } else {
+      if (strcmp($ko,"calev_start")==0 || strcmp($ko,"calev_end")==0) 
+	{
+	  if (strcmp(substr($vo, 0, 16), substr($new[$ko], 0, 16))!=0) $diff[$ko] = "M";
+	}	
+      else if ($vo!=$new[$ko]) $diff[$ko] = "M";
+    }
+  }
+  foreach ($new as $ko => $vo) {
+    if (!isset($new[$ko])) $diff[$ko] = "A";
+  }
+
+  $result = array( "content" => false, 
+		   "hours" => false, 
+		   "attendees" => false, 
+		   "status" => false, 
+		   "others" => false);
+
+
+   foreach ($diff as $k => $v) {
+
+    switch ($k) {
+    case "calev_evtitle":      
+    case "calev_evnote":
+      $result["content"] = true;
+      break;
+    case "calev_start":
+    case "calev_end":
+    case "calev_timetype":
+    case "calev_frequency":
+    case "calev_repeatmode":
+    case "calev_repeatweekday":
+    case "calev_repeatmonth":
+//     case "calev_repeatuntil":
+//     case "calev_repeatuntildate":
+    case "calev_excludedate":
+      $result["hours"] = true;
+      break;
+    case "calev_attid":
+      $result["attendees"] = true;
+      break;
+    case "calev_attstate":
+      $result["status"] = true;
+      break;
+    default:
+      $result["others"] = true;
+    }
+  }
+//     print_r2($diff);
+//     print_r2($result);
+  return $result;
+}
+  

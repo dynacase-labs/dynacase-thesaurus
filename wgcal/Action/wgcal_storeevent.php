@@ -247,121 +247,14 @@ function wgcal_storeevent(&$action) {
     }
   }
 
-  if (is_array($oldrv)) {
-    $newrv = $event->getValues();
-    $change = rvDiff($oldrv, $newrv);
-  }
-
-  // 1) Creation => envoi d'un mail à tout les participants (sauf proprio)
-  // 2) Modification de l'heure, répétition => envoi d'un mail à tout les participants et reset des acceptations
-  // 3) Modification de l'acceptation => envoi d'un mail au proprio D'ICI CA VA ETRE DUR...
-  // Modification du contenu => rien
-  // Modification de la liste des participants => rien
-  
-  $mail_msg = $comment = "";
-  $mail_who = -1;
-
-  if ($newevent) {
-    $mail_msg = _("event creation information message");
-    $mail_who = 2;
-    $comment = _("event creation");
-  } else {
-    if ($change["hours"]) {
-      $mail_msg = _("event time modification message");
-      $mail_who = 2;
-      $comment = _("event modification time");
-      $event->resetAcceptStatus();
-    } else {
-      if ($change["attendees"]) {
-	$mail_msg = $comment = _("event modification attendees list");
-	$mail_who = 2;
-      } else {
-	if ($change["status"]) {
-	  $mail_msg = _("event acceptation status message");
-	  $mail_who = 0;
-	  $comment = _("event modification acceptation status");
-	}
-      }
-    }
-  }
-  if ($comment!="") $event->AddComment($comment);
-  if ($mail_who!=-1) {
-    $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
-    sendRv($action, $event, $mail_who, $title, $mail_msg, true);
-  }
-  
-  if ($action->user->fid!=$owner && $mail_who!=-1) {
-    // Get Agenda delegation information : does the owner want to received mail ?
-    $owneragenda = getUserAgenda($owner, true, "", false);
-    if ($owneragenda[0]->isAffected() && $owneragenda[0]->getValue("agd_dmail")==1) {
-      $title = "[Agenda $creatortitle] ".$event->getValue("calev_evtitle");
-      sendRv($action, $event, 0, $title, "<i>"._("event set/change by")." ".$creatortitle."</i><br><br>".$mail_msg);
-    }
-  }
-
   $event->unlock(true);
+
+
+  $event->postChangeProcess($oldrv);
 
   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 
-function rvDiff( $old, $new) {
-  $diff = array();
-  foreach ($old as $ko => $vo) {
-    if (!isset($new[$ko])) {
-      $diff[$ko] = "D";
-    } else {
-      if (strcmp($ko,"calev_start")==0 || strcmp($ko,"calev_end")==0) 
-	{
-	  if (strcmp(substr($vo, 0, 16), substr($new[$ko], 0, 16))!=0) $diff[$ko] = "M";
-	}	
-      else if ($vo!=$new[$ko]) $diff[$ko] = "M";
-    }
-  }
-  foreach ($new as $ko => $vo) {
-    if (!isset($new[$ko])) $diff[$ko] = "A";
-  }
-
-  $result = array( "content" => false, 
-		   "hours" => false, 
-		   "attendees" => false, 
-		   "status" => false, 
-		   "others" => false);
-
-
-   foreach ($diff as $k => $v) {
-
-    switch ($k) {
-    case "calev_evtitle":      
-    case "calev_evnote":
-      $result["content"] = true;
-      break;
-    case "calev_start":
-    case "calev_end":
-    case "calev_timetype":
-    case "calev_frequency":
-    case "calev_repeatmode":
-    case "calev_repeatweekday":
-    case "calev_repeatmonth":
-//     case "calev_repeatuntil":
-//     case "calev_repeatuntildate":
-    case "calev_excludedate":
-      $result["hours"] = true;
-      break;
-    case "calev_attid":
-      $result["attendees"] = true;
-      break;
-    case "calev_attstate":
-      $result["status"] = true;
-      break;
-    default:
-      $result["others"] = true;
-    }
-  }
-//     print_r2($diff);
-//     print_r2($result);
-  return $result;
-}
-  
       
 ?>

@@ -784,16 +784,37 @@ function fcalGetRgFromId(id) {
 
 function fcalDeleteEvent(event,idp) {
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
-  fcalSendRequest(url, false, false);
-  if (inCalendar) {
-    if (fcalEvents) {
-      var r = fcalGetRgFromIdP(idp);
-      if (r) fcalEvents.splice(r,1);
-      fcalReloadEvents();
-    }
+  var res = fcalSendRequest(url, false, false);
+  if (res.status!=200) {
+    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
   } else {
-//     document.location.href = document.location.href;
-    document.location.reload(false);
+    if (inCalendar) {
+      if (fcalEvents) {
+	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
+	  if (fcalEvents[iie].idp==idp) fcalEvents.splice(iie,1);
+	}
+	fcalReloadEvents();
+      }
+    } else {
+      //     document.location.href = document.location.href;
+      document.location.reload(false);
+    }
+  }
+  return true; 
+}
+
+function fcalDeleteEventOcc(event,idp,occ) {
+  var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELOCCUR&id='+idp+'&evocc='+occ;
+  var res = fcalSendRequest(url, false, false);
+  if (res.status!=200) {
+    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
+  } else {
+    if (inCalendar) {  
+      eval(res.content);
+      if (_fcalTmpEvents) fcalInsertTmpEvent(_fcalTmpEvents);
+    } else {
+      document.location.reload(false);
+    }
   }
   return true; 
 }
@@ -804,11 +825,15 @@ function fcalSetEventState(event,idp,state) {
 
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
   var res = fcalSendRequest(url, false, false);
-  if (inCalendar && res.status==200) {  
-    eval(res.content);
-    if (_fcalTmpEvents) fcalInsertTmpEvent(_fcalTmpEvents);
+  if (res.status!=200) {
+    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
   } else {
-    document.location.reload(false);
+    if (inCalendar) {  
+      eval(res.content);
+      if (_fcalTmpEvents) fcalInsertTmpEvent(_fcalTmpEvents);
+    } else {
+      document.location.reload(false);
+    }
   }
   return true; 
 }
