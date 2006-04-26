@@ -80,7 +80,7 @@ var catgid=[catg];
 [BLOCK ONGLET]
 <tr><td class="[ongclass]" align="center" onmouseover="if (className != 'onglets') className='ongleth';" 
                        onmouseout="if (className != 'onglets') className='onglet';" 
-                       onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=[ongdir]'">[onglabel]</td></tr>
+                       onclick="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&catg=[catg]&tab=[ongdir]&famid=[famid][pds]'">[onglabel]</td></tr>
 [ENDBLOCK ONGLET]
 </table>
 </td>
