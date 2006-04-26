@@ -390,7 +390,8 @@ function wGetSinglePEvent($id) {
   $edate = $firstWeekDay + ($vm * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
-  $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$id ));
+//   echo "d1=[$d1] d2=[$d2] filter=[evt_idinitiator = $id]<br>";
+  $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$id ), $famid="EVENT");
   return $ev;
 }
 

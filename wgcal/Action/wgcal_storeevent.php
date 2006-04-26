@@ -138,7 +138,7 @@ function wgcal_storeevent(&$action) {
   // --------------------------------------------------------------------------------------------------
   // Attendees
   // --------------------------------------------------------------------------------------------------
-  $convoc = GetHttpVars("evconvocation",0);
+  $convoc = GetHttpVars("evconvocation",0); 
   $event->setValue("calev_convocation", $convoc);
 
   $event->setValue("calev_attextmail", GetHttpVars("evmailext",0));
@@ -223,6 +223,11 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_ATTTITLE", $attendeesname); 
   $event->setValue("CALEV_ATTSTATE", $attendeesstate); 
   $event->setValue("CALEV_ATTGROUP", $attendeesgroup); 
+
+  if (!$newevent) {
+    $oconv = $event->getValue("calev_convocation");
+    if ($oconv==1 && $convoc==0) $event->resetAcceptStatus();
+  }
     
   $err = $event->Modify();
   if ($err!="") AddWarningMsg(__FILE__."::".__LINE__."> $err");

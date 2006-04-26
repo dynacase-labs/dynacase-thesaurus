@@ -66,7 +66,7 @@ function WGCalSetDate(cc)
 { 
   if (cc.dateClicked) {
     var ts = cc.date.print("%s");
-    usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+    usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', UrlRoot+'app=WGCAL&action=WGCAL_CALENDAR');
   }
 }
 
@@ -287,7 +287,10 @@ function WGCalAddEvent(nev)
 
 function fcalGetEvtRName(ie,occ) {   return 'evt'+ie+'_'+occ; }
 function fcalGetEvtSubRName(ie,occ) {   return '_'+fcalGetEvtRName(ie,occ); }
-function fcalGetEvtCardName(ie) {   return 'evtc'+ie; }
+function fcalGetEvtCardName(ie) {   
+  if (fcalEvents[ie]) return 'evtc'+fcalEvents[ie].idp;
+  return '__unknown'+ie;
+}
 
 function fcalRemoveEvent() {
   var r = document.getElementById('fcalDatas');
