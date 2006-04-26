@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.308 2006/04/25 17:12:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.309 2006/04/26 15:51:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -949,6 +949,20 @@ final public function PostInsert()  {
     }
   }
 
+
+  /** 
+   * To restore a document which is in the trash
+   * @return void
+   */
+  final public function revive() { 
+    if (($this->owner == $this->userid) || ($this->userid==1)) {
+      if (! $this->isAlive()) {
+	$this->doctype=$this->defDoctype;
+	$this->locked=0;
+	$this->modify(true,array("doctype","locked"),true);
+      } else return sprintf(_("document %s [%d] is not in the trash"),$doc->title,$doc->id);
+    } else return _("Only owner of document can restore it");
+  }
 
   /** 
    * Adaptation of affect Method from DbObj because of inheritance table
