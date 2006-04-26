@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.1 2006/04/21 15:11:50 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.2 2006/04/26 15:50:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -181,9 +181,15 @@ function popupdocdetail(&$action) {
 
   changeMenuVisibility($action,$tlink,$doc);
 
-  $lmenu = $doc->GetMenuAttributes();
- 
 
+  addFamilyPopup($tlink,$doc);
+
+
+         
+  popupdoc($action,$tlink,$tsubmenu);
+}
+function addFamilyPopup(&$tlink,&$doc) {
+  $lmenu = $doc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {
     
     $confirm=false;
@@ -251,11 +257,7 @@ function popupdocdetail(&$action) {
   }
 
 
-
-         
-  popupdoc($action,$tlink,$tsubmenu);
 }
-
 function changeMenuVisibility(&$action,&$tlink,&$doc) {
    $clf = ($doc->CanLockFile() == "");
   $cuf = ($doc->CanUnLockFile() == "");
