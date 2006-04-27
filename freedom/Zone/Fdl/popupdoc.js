@@ -292,7 +292,7 @@ function activeMenuDocItem(event,menuid) {
       addEvent(mitem,'mouseover',menuover);
       addEvent(mitem,'mouseout',menuout);
     }    
-    
+
     // complete sub menu
     for (var i=0; i<ta.length; i++) {
 
@@ -302,6 +302,7 @@ function activeMenuDocItem(event,menuid) {
 	sdiv=document.getElementById('popup'+submenu);
 	if (sdiv) {
 	   sdiv.appendChild(mitem);
+	   i--;
 	   menuitem=document.getElementById(submenu);
 	   if (menuitem) {
 	     if (mitem.className=='menuItem') menuitem.className='menuItem';

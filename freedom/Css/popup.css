@@ -42,6 +42,7 @@ a.menuItem, a.menuItem:link, a.menuItem:visited {
   text-decoration: none;
   text-transform:capitalize;
   white-space:nowrap;
+  [IF ISIE]width:100%;[ENDIF ISIE]
 }
 
 a.menuItemCtrl:link, a.menuItemCtrl:visited {

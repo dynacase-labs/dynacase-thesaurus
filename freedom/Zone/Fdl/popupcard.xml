@@ -1,4 +1,5 @@
 <!-- ------------ POPUP DIVISION --------------------- -->
+<div style="width:0px;display:block">
 <div  style="display:none" id="popupcard" class="popup">
 
 
@@ -130,6 +131,4 @@
     <script>addSubMenuItems('popupcard','[idmenu]','popup[idmenu]');</script>
 [ENDBLOCK SUBDIVMENU]
 <!-- ------------------ end POPUP DIVISION ------------------ -->
-
-
-
+</div>
