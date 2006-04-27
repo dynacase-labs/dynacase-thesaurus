@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.26 2006/04/26 16:20:43 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.27 2006/04/27 05:04:07 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -27,6 +27,11 @@ function wgcal_gview(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
+
+  $light = (GetHttpVars("mo", "")=="L"?true:false);
+  $action->lay->set("Light", $light);
+
+  $action->lay->set("search", false);
 
   // Set a filter
   $action->lay->set("search", false);
@@ -131,7 +136,8 @@ function wgcal_gview(&$action) {
 	  $td[$cday] = array( "date" => $cday, 
 			      "datestr" => strftime("%d %B %Y",$dsl+($iday*3600*24)),
 			      "ev" => array(),
-			      "cnt" => 0 );
+			      "cnt" => 0,
+			      "Light" => $light);
 	}
 	$j = $td[$cday]["cnt"]; 
 	$td[$cday]["ev"][$j]["id"] = $ve["id"];

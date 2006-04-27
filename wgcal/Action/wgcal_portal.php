@@ -10,6 +10,9 @@ function wgcal_portal(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $lmode = (GetHttpVars("mo", "")=="L" ? true : false );
+  $action->lay->set("LightMode", $lmode);
   
   $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
   
