@@ -10,16 +10,17 @@
 
 
 [BLOCK ADDLINK]
-<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
 [IF URL]
-    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu],'[mwidth]','[mheight]');closeDocMenu();">[ENDIF URL]
+<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
+    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu],'[mwidth]','[mheight]');closeDocMenu();">
+[IF ICONS]<img src="[icon]">[ENDIF ICONS][descr]</a>[ENDIF URL]
 [IF JSFT]
-    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) {[jsfunction];}closeDocMenu();">[ENDIF JSFT]
-[IF ICONS]<img src="[icon]">[ENDIF ICONS]
-[descr]</a>
-
+<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
+    onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) {[jsfunction];}closeDocMenu();">
+[IF ICONS]<img src="[icon]">[ENDIF ICONS][descr]</a>[ENDIF JSFT]
+[IF separator]    
+<a class="separator"></a>[ENDIF separator]
 [ENDBLOCK ADDLINK]
-
 [IF SEP]
 <a class="separator"></a>
 [ENDIF SEP]
