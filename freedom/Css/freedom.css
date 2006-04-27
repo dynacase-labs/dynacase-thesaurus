@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.88 2006/03/30 09:25:41 eric Exp $
+ * $Id: freedom.css,v 1.89 2006/04/27 15:38:13 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -91,13 +91,11 @@ LEGEND {
   text-transform:capitalize;
 }
 
+[IFNOT ISIE]
 FIELDSET {
-   -moz-border-radius: 6;
    background-color: [CORE_BGCELLCOLOR];
-/*[IFNOT ISIE]  background-image:url('[IMG:op20.png]'); [ENDIF ISIE]*/
-
-}
-
+   -moz-border-radius: 6;
+}[ENDIF ISIE]
 TABLE.barmenu {
 /*	background-color: [CORE_BGCOLORALTERN];*/
 	background-color: orange;
