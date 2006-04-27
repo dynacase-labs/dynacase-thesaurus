@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.8 2006/04/27 07:50:57 eric Exp $
+ * @version $Id: popupdoc.php,v 1.9 2006/04/27 08:25:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,44 +30,54 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
 
 
   $useicon=false;
+  $rlink=array();
   foreach ($tlink as $k=>$v) {
-    if ($v["visibility"]==POPUP_INVISIBLE) unset($tlink[$k]);
-    else {
+    if ($v["visibility"]!=POPUP_INVISIBLE)   {
       if ((!isset($v["icon"])) || ($v["icon"]=="")) {
-	$tlink[$k]["icon"]="Images/none.gif";
+	$v["icon"]="Images/none.gif";
       } else {
 	$useicon=true;
       }
+      $v["issubmenu"]=false;
+      $v["descr"]=utf8_encode($v["descr"]);
+      $v["tconfirm"]=utf8_encode($v["tconfirm"]);
+      if (! isset($v["jsfunction"])) $v["jsfunction"]="";
+      if (! isset($v["url"])) $v["url"]="";
+      if (! isset($v["separator"])) $v["separator"]=false;
+      if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $v["idlink"]=$k;
+      if ((!isset($v["target"])) || ($v["target"]=="")) $v["target"]=$k;
+      if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $v["mwidth"]=$action->getParam("FDL_VD2SIZE",300);
+      if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $v["mheight"]=$action->getParam("FDL_HD2SIZE",400);
+      if ((isset($v["url"])) && ($v["url"]!="")) $v["URL"]=true;
+      else 	$v["URL"]=false;
       
-      $tlink[$k]["descr"]=utf8_encode($v["descr"]);
-      $tlink[$k]["tconfirm"]=utf8_encode($v["tconfirm"]);
-      if (! isset($v["jsfunction"])) $tlink[$k]["jsfunction"]="";
-      if (! isset($v["url"])) $tlink[$k]["url"]="";
-      if (! isset($v["separator"])) $tlink[$k]["separator"]=false;
-      if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $tlink[$k]["idlink"]=$k;
-      if ((!isset($v["target"])) || ($v["target"]=="")) $tlink[$k]["target"]=$k;
-      if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $tlink[$k]["mwidth"]=$action->getParam("FDL_VD2SIZE",300);
-      if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $tlink[$k]["mheight"]=$action->getParam("FDL_HD2SIZE",400);
-      if ((isset($v["url"])) && ($v["url"]!="")) $tlink[$k]["URL"]=true;
-      else 	$tlink[$k]["URL"]=false;
-      
-      if ((isset($v["jsfunction"])) && ($v["jsfunction"]!="")) $tlink[$k]["JSFT"]=true;
-      else $tlink[$k]["JSFT"]=false;
-      $tlink[$k]["smid"]="";
+      if ((isset($v["jsfunction"])) && ($v["jsfunction"]!="")) $v["JSFT"]=true;
+      else $v["JSFT"]=false;
+      $v["smid"]="";
       if ((isset($v["submenu"])) && ($v["submenu"]!="")) {
 	$smid=base64_encode($v["submenu"]);
-	$tlink[$k]["smid"]=$smid;
+	$v["smid"]=$smid;
 	if (! isset($tsubmenu[$smid])) {
-	  $tsubmenu[$smid]=array("idmenu"=>$smid,
-				 "labelmenu"=>utf8_encode($v["submenu"]));
+	  $tsubmenu[$smid]=array("idlink"=>$smid,
+				 "descr"=>utf8_encode($v["submenu"]));
+	}
+
+	if (! isset($tsubmenu[$smid]["displayed"])) {
+	  $tsubmenu[$smid]["displayed"]=true;
+	  $tsubmenu[$smid]["issubmenu"]=true;
+	  $tsubmenu[$smid]["URL"]=false;
+	  $tsubmenu[$smid]["JSFT"]=false;
+	  $tsubmenu[$smid]["separator"]=false;
+	  $rlink[]=$tsubmenu[$smid];
 	}
       }
+      $rlink[]=$v;
     }
   }
 
 
   $action->lay->Set("ICONS",$useicon);
-  $action->lay->SetBlockData("ADDLINK",$tlink);
+  $action->lay->SetBlockData("ADDLINK",$rlink);
   $action->lay->SetBlockData("SUBMENU",$tsubmenu);
   $action->lay->SetBlockData("SUBDIVMENU",$tsubmenu);
   $action->lay->Set("count",count($tlink));
