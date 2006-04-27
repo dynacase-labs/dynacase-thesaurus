@@ -1,7 +1,16 @@
 <html>
 <head>
 <title>[TEXT:freedom groupware calendar][IF bstitle]::[ENDIF bstitle][SubTitle]</title>
+[JS:REF]
 <script>
+var UrlRoot = '[CORE_STANDURL]';
+var inCalendar = false;
+
+flogSetZonePos(20,50,40000);
+flogSetZoneParam(false, 5000);
+flogSetZoneStyle('#FF6600', '#000000', 2, 'groove');
+flogDisplayMsg('W');
+
      [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
 
      function setActiveStyleSheet(title) {
@@ -14,8 +23,6 @@
 	 }
        }
      }
-var UrlRoot = '[CORE_STANDURL]';
-var inCalendar = false;
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
 [IF refresh]<meta http-equiv="refresh" content="[refresh_time];[refresh_url]" target="_self">[ENDIF refresh]
@@ -25,7 +32,7 @@ var inCalendar = false;
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]" >
 [BLOCK OTHEMES]<LINK REL="alternate stylesheet" media="screen" title="[title]" type="text/css" HREF="[CORE_SBASEURL]app=WGCAL&action=WGCAL_CSS&theme=[theme]&fonts=[font]">[ENDBLOCK OTHEMES]
 <style type="text/css">[CSS:CODE]</style>
-[JS:REF]
+
 <script language="JavaScript">
 [JS:CODE]
 [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]

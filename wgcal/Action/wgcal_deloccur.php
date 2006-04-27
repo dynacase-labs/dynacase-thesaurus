@@ -53,6 +53,7 @@ function wgcal_deloccur(&$action) {
   $action->lay->set("count", count($ev));
   $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
   $action->lay->set("showevent", true);
+  AddWarningMsg(_("rendez-vous occurrence deleted"));
 }
     
 ?>

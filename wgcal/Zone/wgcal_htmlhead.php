@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.12 2005/12/06 07:44:08 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.13 2006/04/27 16:50:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.12 2005/12/06 07:44:08 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.13 2006/04/27 16:50:32 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -38,6 +38,9 @@ function wgcal_htmlhead(&$action) {
 //   $action->lay->setBlockData("OTHEMES", $themes);
    $action->lay->setBlockData("OTHEMES", null);
 
+
+  $action->parent->AddJsRef("FDL/Layout/common.js");
+  $action->parent->AddJsRef("WGCAL/Layout/freedomLog.js");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $refresh = GetHttpVars("refresh", 0);

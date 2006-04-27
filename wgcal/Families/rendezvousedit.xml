@@ -173,7 +173,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 [IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent]&nbsp;
 </td>
 <td align="right">
-<img src="[IMG:fcal-checkconflict.gif]" id="btnCConf" height="15" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="normalEditCheckConflict(event);">
+<img src="[IMG:fcal-checkconflict.gif]" id="btnCConf" height="15" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="normalEditCheckConflict(event, true);">
 <img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent(event, [IF checkConflict]true[ENDIF checkConflict][IFNOT checkConflict]false[ENDIF checkConflict]);">
 <img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent();">
 </td></tr></table>

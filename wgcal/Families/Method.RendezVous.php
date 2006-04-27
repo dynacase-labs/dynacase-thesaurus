@@ -1755,24 +1755,16 @@ function agendaMenu($occurrence) {
   include_once('WGCAL/Lib.Agenda.php');
   global $action;
 
+  $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
+  $d = getTDoc($this->dbaccess, $caledit);
+  $dt = ucwords(strtolower($d["title"]));
+
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
-
+  
   $menu["sub"] = array();
   $menu["main"] =     array(	  
-			    'viewrv' => array("descr" => _("view this"),
-					      "url" => $surl."&app=FDL&action=IMPCARD&id&id=".$this->id,
-					      "jsfunction" => "",
-					      "confirm" => "false",
-					      "tconfirm" => "",
-					      "control" => "false",
-					      "target" => "wgcal_view",
-					      "visibility" => POPUP_INVISIBLE,
-					      "icon" => ($sico?$action->getImageUrl("wm-evview.gif"):""),
-					      "submenu" =>  "",
-					      "barmenu" => "false"
-					      ), 
-			    'acceptrv' => array("descr" => _("accept this"),
+			    'acceptrv' => array("descr" => _("accept this")." ($dt)",
 						"jsfunction" => "fcalSetEventState(event,".$this->id.", 2)",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -1783,7 +1775,7 @@ function agendaMenu($occurrence) {
 						"submenu" =>  "",
 						"barmenu" => "false"
 						), 
-			    'rejectrv' => array("descr" => _("reject this"),
+			    'rejectrv' => array("descr" => _("reject this")." ($dt)",
 						"jsfunction" => "fcalSetEventState(event,".$this->id.", 3)",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -1794,7 +1786,7 @@ function agendaMenu($occurrence) {
 						"submenu" =>  "",
 						"barmenu" => "false"
 						), 	  
-			    'confirmrv' => array("descr" => _("to be confirm this"),
+			    'confirmrv' => array("descr" => _("to be confirm this")." ($dt)",
 						 "jsfunction" => "fcalSetEventState(event,".$this->id.", 4)",
 						 "confirm" => "false",
 						 "tconfirm" => "",
@@ -1804,7 +1796,10 @@ function agendaMenu($occurrence) {
 						 "icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
 						 "submenu" =>  "",
 						 "barmenu" => "false"
-						 ), 	  
+						 ), 
+			    'sepstate' => array("separator" => true,
+						"visibility" => POPUP_INVISIBLE,
+						),
 			    'editrv' => array("descr" => _("edit this"),
 					      "url" => $surl."&app=GENERIC&action=GENERIC_EDIT&id=".$this->id,
 					      "confirm" => "false",
@@ -1838,6 +1833,21 @@ function agendaMenu($occurrence) {
 						"submenu" =>  "",
 						"barmenu" => "false"
 						), 
+			    'sephisto' => array("separator" => true,
+						"visibility" => POPUP_INVISIBLE,
+						),
+			    'viewrv' => array("descr" => _("view this"),
+					      "url" => $surl."&app=FDL&action=IMPCARD&id&id=".$this->id,
+					      "jsfunction" => "",
+					      "confirm" => "false",
+					      "tconfirm" => "",
+					      "control" => "false",
+					      "target" => "wgcal_view",
+					      "visibility" => POPUP_INVISIBLE,
+					      "icon" => ($sico?$action->getImageUrl("wm-evview.gif"):""),
+					      "submenu" =>  "",
+					      "barmenu" => "false"
+					      ), 
 			    'historyrv' => array("descr" => _("history"),
 						 "url" => $surl."&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
 						 "confirm" => "false",
@@ -1849,6 +1859,8 @@ function agendaMenu($occurrence) {
 						 "submenu" =>  "",
 						 "barmenu" => "false"
 						 ), 
+			    'sepaccess' => array("separator" => true,
+						 "visibility" => POPUP_INVISIBLE ),
 			    'access' => array("descr" => _("view accessibilities"),
 					      "url" => $surl."&app=FREEDOM&action=FREEDOM_ACCESS&id=".$this->id,
 					      "confirm" => "false",
@@ -1864,20 +1876,25 @@ function agendaMenu($occurrence) {
   if ($this->RvIsMeeting() && $this->UHaveAccess("execute")) {
     $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["sepstate"]["visibility"] = POPUP_ACTIVE;
   }
 
   if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
     $menu["main"]["historyrv"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["viewrv"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["sephisto"]["visibility"] = POPUP_ACTIVE;  
   }
+  
   if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
-
   if ($this->UHaveAccess("delete")) {
     $menu["main"]["deleterv"]["visibility"] = POPUP_ACTIVE;
     if ($this->getValue("calev_repeatmode") > 0) $menu["main"]["deloccur"]["visibility"] = POPUP_ACTIVE;
   }
 
-  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
+  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) {
+    $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["sepaccess"]["visibility"] = POPUP_ACTIVE;
+  }
 
   return $menu;
 }

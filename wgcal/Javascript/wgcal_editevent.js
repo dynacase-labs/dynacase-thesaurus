@@ -385,15 +385,16 @@ function saveEvent(event, checkconflict) {
   }
 
   if (event && checkconflict) {
-    var nbe=normalEditCheckConflict(event);
+    var nbe=normalEditCheckConflict(event, false);
     if (nbe>0) {
-//       if (!confirm('[TEXT:there is conflict] ('+nbe+'). '+'[TEXT:confirm to save]')) return false;
-      if (!confirm('Des évènements sont en conflit ('+nbe+').\n'+'Cliquez [OK] pour sauver le rendez-vous, pour le reprendre cliquer [Annuler]')) return false;
+      if (!confirm('Des évènements sont en conflit ('+nbe+').\n'
+		   +'Cliquez [OK] pour sauver le rendez-vous.\n'
+		   +'        [Annuler] pour le modifier')) return false;
     }
   }
 	
+  delEvent(document, 'beforeunload', forceSaveEvent); 
   if (EventSelectAll(fs)) fs.submit();
-//   delEvent(document, 'beforeunload', forceSaveEvent); 
   window.close();
   return false;
 }
@@ -660,7 +661,7 @@ function showHideElt(elt) {
   return true;
 }
 
-function normalEditCheckConflict(ev) {
+function normalEditCheckConflict(ev, displayZero) {
   ev || (ev = window.event);
   var rll="";
   var evid = document.getElementById('eventid').value;
@@ -682,9 +683,12 @@ function normalEditCheckConflict(ev) {
   rq.open("GET", urlsend, false);
   rq.send(null);
   document.getElementById('conflictcontent').innerHTML = rq.responseText;
-  document.getElementById('conflict').style.display = 'inline';
-  document.getElementById('conflict').style.visibility = 'visible';
-  computeDivPosition('conflict', getX(ev), getY(ev), -40);
-  return parseInt(eltId('eventCount').innerHTML);
+  var nbc = parseInt(eltId('eventCount').innerHTML);
+  if ((displayZero || nbc==0) || nbc>0) { 
+    document.getElementById('conflict').style.display = 'inline';
+    document.getElementById('conflict').style.visibility = 'visible';
+    computeDivPosition('conflict', getX(ev), getY(ev), -40);
+  }
+  return nbc;
 }
 

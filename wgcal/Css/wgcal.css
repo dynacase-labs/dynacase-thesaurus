@@ -864,6 +864,9 @@ TD {	empty-cells: show; }
   text-decoration: none;
   font-family: [WTH_FONTLIST_POPUP];
   font-weight: normal;
+  border-color: [WTH_COLOR_POPUP];
+  border-width: 1px;
+  border-style: solid;
 }
 
 .popup img {
@@ -878,17 +881,19 @@ TD {	empty-cells: show; }
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   font-family: [WTH_FONTLIST];
+  border: 1px outset [WTH_COLOR_POPUP];
 }
 .popup a.menuItem:hover,
 .popup a.menuItemCtrl:hover,
 .popup a.menuItemDisabled:hover,
 .popup a.menuItemCtrlDisabled:hover {
   color: [WTH_TEXTCOLOR_2];
-  background-color:[WTH_COLOR_3];
+  background-color: white;
   text-decoration: none;
+  border: 1px inset [WTH_COLOR_POPUP];
 }
 
 .popup a.separator,
 .popup a.separator:hover {
-  border-bottom : 1px dotted [WTH_COLOR_3];
+  border-bottom : 1px groove [WTH_COLOR_POPUP] ;
 }

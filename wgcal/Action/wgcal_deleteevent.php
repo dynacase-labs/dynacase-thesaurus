@@ -37,5 +37,6 @@ function wgcal_deleteevent(&$action, $optev=-1) {
   $action->lay->set("count", 0);
   $action->lay->set("statustext", "#".$event->id." deleted");
   $action->lay->set("showevent", false);  
+  AddWarningMsg(_("rendez-vous deleted"));
 }
 ?>

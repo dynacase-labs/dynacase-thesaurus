@@ -29,6 +29,11 @@ if (is_dir("$pubdir/osync")) {
     array ( "name" => "WGCAL_OSYNC", "description" => N_("allow outlook sync."), "group_default"  => "Y" );  
 }
 $action_desc = array (
+
+// Transfer to CORE ?
+  array( "acl" => "WGCAL_USER", "name" => "FGETMSG", "short_name" =>N_("get server messages"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "FCLEARMSG", "short_name" =>N_("clear server messages"), "toc" => "N", "root" =>"N"),
+
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_CSS", "layout" => "wgcal.css", "short_name" =>N_("css manager"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_MAIN", "short_name" =>N_("main view"), "toc" => "N", "root" =>"Y"),
 

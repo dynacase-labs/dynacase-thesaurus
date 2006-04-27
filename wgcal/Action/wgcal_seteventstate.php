@@ -59,6 +59,9 @@ function wgcal_seteventstate(&$action) {
       $event->AddComment(_("state set to ").WGCalGetLabelState($evstate));
       $event->enableEditControl();
     }
+
+    AddWarningMsg(_("rendez-vous acceptation status changed"));
+
     // Get changed event
     $ev = wGetSinglePEvent($event->id);
     $action->lay->setBlockData("modEvents", $ev);
