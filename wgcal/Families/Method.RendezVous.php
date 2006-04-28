@@ -2052,3 +2052,7 @@ function rvDiff( $old, $new) {
   return $result;
 }
   
+function migr_2_1() {
+  $this->forceSync4jGuid();
+  $this->setEvent();
+}
