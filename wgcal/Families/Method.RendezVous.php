@@ -699,7 +699,7 @@ function RendezVousEdit() {
           $attendeesGroup[] = -1;
         }
       }
-      $ownerid = $action->user->fid;
+      $ownerid = $this->getWgcalUParam("WGCAL_U_DCALEDIT", $action->user->fid);
       $creatorid = $action->user->fid;
       $attru = GetTDoc($action->GetParam("FREEDOM_DB"), $ownerid);
       $ownertitle = $attru["title"];
@@ -732,35 +732,37 @@ function RendezVousEdit() {
   $this->lay->set("creatorid", $creatorid);
 
   // Compute delegation
+  // ---------------------------------------------------
   $ownerlist = array();
   $this->lay->set("mforuser", false);
   $this->lay->set("mforusermod", false);
+  $this->lay->set("mforuseralert", false);
+  $this->lay->set("foruname", $ownertitle);
   if ($eventid == -1) {
     $dcal = myDelegation();
     $tdusers = array();
     if (count($dcal)>0) {
       $this->lay->set("mforuser", true);
-      $tdusers[] = array( "forufid" => $action->user->fid, 
-			  "foruname" => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)), 
-			  "foruselected" => ($ownerid==$action->user->fid ? "selected" : ""));
+      $tdusers[] = array( "forufid"      => $action->user->fid, 
+			  "foruname"     => ucwords(strtolower($action->user->lastname." ".$action->user->firstname)), 
+			  "foruselected" => ($ownerid==$action->user->fid ? "selected" : "") );
       $ownerlist[$action->user->fid] = $action->user->fid;
       foreach ($dcal as $k => $v) {
 	if ($v!="") {
 	  $dcaluser = getTDoc($this->dbaccess, $v["agd_oid"]);
-	  $tdusers[] = array( "forufid" => $dcaluser["id"], 
-			      "foruname" => ucwords(strtolower($dcaluser["title"])),
-			      "foruselected" => ($ownerid==$dcaluser["id"] ? "selected" : ""));
+	  $tdusers[] = array( "forufid"      => $dcaluser["id"], 
+			      "foruname"     => ucwords(strtolower($dcaluser["title"])),
+			      "foruselected" => ($ownerid==$dcaluser["id"] ? "selected" : "") );
 	  $ownerlist[$dcaluser["id"]] = $v["id"];
 	}
       }
       $this->lay->setBlockData("foruser", $tdusers);
-    } else {
-      $this->lay->set("mforuser", false);
     }    
+    if ($ownerid != $action->user->fid) $this->lay->set("mforuseralert", true);
   } else {
     if ($ownerid != $action->user->fid) {
+      $this->lay->set("mforuseralert", true);
       $this->lay->set("mforusermod", true);
-      $this->lay->set("foruname", $ownertitle);
     }
   }
   $ownerlist[$ownerid] = $ownerid;
@@ -1297,15 +1299,17 @@ function getWgcalUParam($pname, $def="", $uid=-1) {
 }
 
 
-function resetAcceptStatus() {
+
+function ResetAttendeesStatus() {
   include_once("WGCAL/Lib.WGCal.php");
-  $att_ids = $this->getTValue("CALEV_ATTID");
+  $att_ids = $this->getTValue("calev_attid");
+  $convoc = $this->getValue("calev_convocation");
   if (count($att_ids)>0) {
-    $att_wid = $this->getTValue("CALEV_ATTWID");
-    $att_sta = $this->getTValue("CALEV_ATTSTATE");
-    $att_grp = $this->getTValue("CALEV_ATTGROUP");
+    $att_wid = $this->getTValue("calev_attwid");
+    $att_sta = $this->getTValue("calev_attstate");
+    $att_grp = $this->getTValue("calev_attgroup");
     foreach ($att_ids as $k => $v) {
-      if ($att_grp[$k]==-1 && $att_sta[$k] != -1) {
+      if ($att_grp[$k]==-1 && ($att_sta[$k]!= -1 || ($att_sta[$k]==-1&&$convoc==0))) {
 	if ($v == $this->getValue("calev_ownerid")) $att_sta[$k] = EVST_ACCEPT;
 	else $att_sta[$k] = EVST_NEW;
       }
@@ -1750,15 +1754,17 @@ function forceSync4jGuid() {
 
 
 
-function agendaMenu($occurrence) {
+function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
   include_once('WGCAL/Lib.wTools.php');
   include_once('WGCAL/Lib.Agenda.php');
   global $action;
 
-  $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
+  if ($ue) $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
+  else $caledit = $action->user->fid;
+
   $d = getTDoc($this->dbaccess, $caledit);
   $dt = ucwords(strtolower($d["title"]));
-
+   
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
   
@@ -1793,7 +1799,7 @@ function agendaMenu($occurrence) {
 						 "control" => "false",
 						 "target" => "wgcal_calendar",
 						 "visibility" => POPUP_INVISIBLE,
-						 "icon" => ($sico?$action->getImageUrl("wm-evrefuse.gif"):""),
+						 "icon" => ($sico?$action->getImageUrl("wm-evconfirm.gif"):""),
 						 "submenu" =>  "",
 						 "barmenu" => "false"
 						 ), 
@@ -1848,6 +1854,18 @@ function agendaMenu($occurrence) {
 					      "submenu" =>  "",
 					      "barmenu" => "false"
 					      ), 
+			    'gotodate' => array("descr" => _("go to date")." ".substr($this->getValue("calev_start"),0,11),
+						"url" => "",
+						"jsfunction" => "loadPeriod('$surl', ".w_dbdate2ts($this->getValue("calev_start")).")",
+						"confirm" => "false",
+						"tconfirm" => "",
+						"control" => "false",
+						"target" => "wgcal_calendar",
+						"visibility" => POPUP_INVISIBLE,
+						"icon" => ($sico?$action->getImageUrl("wm-evdate.gif"):""),
+						"submenu" =>  "",
+						"barmenu" => "false"
+						), 
 			    'historyrv' => array("descr" => _("history"),
 						 "url" => $surl."&app=WGCAL&action=WGCAL_HISTO&id=".$this->id,
 						 "confirm" => "false",
@@ -1873,22 +1891,27 @@ function agendaMenu($occurrence) {
 					      "barmenu" => "false"
 					      ), 
 			    );
-  if ($this->RvIsMeeting() && $this->UHaveAccess("execute")) {
-    $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
-    $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
+  $rvst = $this->RvAttendeeState($caledit);
+  if ($rvst!=-1 && $this->RvIsMeeting() && $this->UHaveAccess("execute")) {
+    if ($rvst!=EVST_ACCEPT) $menu["main"]["acceptrv"]["visibility"] = POPUP_ACTIVE;
+    if ($rvst!=EVST_TBC) $menu["main"]["confirmrv"]["visibility"] = POPUP_ACTIVE;
+    if ($rvst!=EVST_REJECT) $menu["main"]["rejectrv"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["sepstate"]["visibility"] = POPUP_ACTIVE;
   }
 
   if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
     $menu["main"]["historyrv"]["visibility"] = POPUP_ACTIVE;
+    $menu["main"]["gotodate"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["viewrv"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["sephisto"]["visibility"] = POPUP_ACTIVE;  
   }
   
-  if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
-  if ($this->UHaveAccess("delete")) {
-    $menu["main"]["deleterv"]["visibility"] = POPUP_ACTIVE;
-    if ($this->getValue("calev_repeatmode") > 0) $menu["main"]["deloccur"]["visibility"] = POPUP_ACTIVE;
+  if ($ue) {
+    if ($this->UHaveAccess("edit")) $menu["main"]["editrv"]["visibility"] = POPUP_ACTIVE;
+    if ($this->UHaveAccess("delete")) {
+      $menu["main"]["deleterv"]["visibility"] = POPUP_ACTIVE;
+      if ($this->getValue("calev_repeatmode") > 0 && $occurrence!="") $menu["main"]["deloccur"]["visibility"] = POPUP_ACTIVE;
+    }
   }
 
   if (wDebugMode())   if ($this->UHaveAccess('viewacl')) {
@@ -1938,7 +1961,7 @@ function postChangeProcess($old=false) {
       $mail_msg = _("event time modification message");
       $mail_who = 2;
       $comment = _("event modification time");
-      $this->resetAcceptStatus();
+      $this->ResetAttendeesStatus();
     } else {
       if ($change["attendees"]) {
 	$mail_msg = $comment = _("event modification attendees list");

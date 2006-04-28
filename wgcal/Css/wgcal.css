@@ -843,9 +843,11 @@ TD {	empty-cells: show; }
   border-color: [WTH_COLOR_3];
   border-style: outset;
   border-width: 1px; 
+  padding:1px;
   text-decoration: none;
   font-size: [WTH_FONTSIZE_POPUP]pt;
   font-family: [WTH_FONTLIST_POPUP];
+  
 }
 
 @media print {
@@ -866,16 +868,17 @@ TD {	empty-cells: show; }
   font-weight: normal;
   border-color: [WTH_COLOR_POPUP];
   border-width: 1px;
-  border-style: solid;
+  border-style: outset;
 }
 
 .popup img {
-  height : 12px;
-  width : 12px;
+  height : 10px;
+  width : 10px;
+  padding-right:3px;
 } 
 .popup a.menuItemDisabled, 
 .popup a.menuItemCtrlDisabled { 
-  color: [WTH_COLOR_3];
+  color: [WTH_TEXCOLOR_1];
   font-size: [WTH_FONTSIZE_POPUP]pt;
   font-style: italic;
   padding: 2px 12px 2px 8px;
@@ -887,7 +890,7 @@ TD {	empty-cells: show; }
 .popup a.menuItemCtrl:hover,
 .popup a.menuItemDisabled:hover,
 .popup a.menuItemCtrlDisabled:hover {
-  color: [WTH_TEXTCOLOR_2];
+  color: [WTH_TEXTCOLOR_1];
   background-color: white;
   text-decoration: none;
   border: 1px inset [WTH_COLOR_POPUP];
@@ -895,5 +898,6 @@ TD {	empty-cells: show; }
 
 .popup a.separator,
 .popup a.separator:hover {
-  border-bottom : 1px groove [WTH_COLOR_POPUP] ;
+  background-color : [WTH_TEXTCOLOR_1] ;
+  border: 1px outset [WTH_TEXTCOLOR_2];
 }

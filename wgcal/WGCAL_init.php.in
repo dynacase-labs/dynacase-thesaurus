@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.53 2006/02/17 14:22:12 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.54 2006/04/28 14:42:52 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -96,6 +96,7 @@ array(
 "WGCAL_U_PORTALPERIOD" => array("kind"=>"static", "val"=>"week", "descr"=>N_("displayed period"), "user"=>"Y"),
 "WGCAL_U_PORTALSTYLE" => array("kind"=>"static", "val"=>"FIELDSET", "descr"=>N_("normal"), "user"=>"Y"),
 
+"WGCAL_U_DCALEDIT" => array("kind"=>"static", "val"=>"", "descr"=>N_("current user (delegate) for edition"), "user"=>"Y"),
 
 // Globals
 "WGCAL_G_MAILTO" => array("global" => "Y", "val"=>"mailto:%TO%", "descr"=>N_("mail command")),

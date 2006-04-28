@@ -58,7 +58,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
 </tr></table>
 
-[IF mforusermod]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:120%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforusermod]
+[IF mforuseralert]<div id="alertdelegate" onclick="this.style.display='none'" style="font-size:120%; background-color:white; margin: 2em; padding:1em; border:4px inset red; color:red; position:absolute">[TEXT:you work by delegation on an event for] [foruname]</div>[ENDIF mforuseralert]
 
 <div class="wZone">
 

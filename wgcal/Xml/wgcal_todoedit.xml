@@ -36,7 +36,7 @@ firstDay:1 }  );
 </form>
 <script type="text/javascript">
 function TodoAbort() {
-  if (confirm('[TEXT: cancel modifications]')) {
+  if (confirm('[TEXT:cancel modifications]')) {
     window.close();
   }
   return false;

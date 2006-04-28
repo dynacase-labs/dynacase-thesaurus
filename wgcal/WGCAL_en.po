@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-26 18:01+0200\n"
+"POT-Creation-Date: 2006-04-28 16:33+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -16,6 +16,9 @@ msgstr ""
 msgid "event deletion information message"
 msgstr ""
 
+msgid "rendez-vous deleted"
+msgstr ""
+
 msgid "delete repeat occurrence for "
 msgstr ""
 
@@ -23,6 +26,9 @@ msgid "event time modification message"
 msgstr ""
 
 msgid "event modification time"
+msgstr ""
+
+msgid "rendez-vous occurrence deleted"
 msgstr ""
 
 msgid "all the day _ short"
@@ -60,6 +66,9 @@ msgstr ""
 msgid "state set to "
 msgstr ""
 
+msgid "rendez-vous acceptation status changed"
+msgstr ""
+
 msgid "main calendar"
 msgstr ""
 
@@ -76,6 +85,19 @@ msgid "You have waiting events"
 msgstr ""
 
 msgid "internal server error "
+msgstr ""
+
+msgid "rendez-vous saved"
+msgstr ""
+
+msgid "rv document reference no set"
+msgstr ""
+
+msgid "unknow rv logical reference"
+msgstr ""
+
+#, c-format
+msgid "rv cannot see unknow reference %s"
 msgstr ""
 
 msgid "document reference no set"
@@ -110,6 +132,12 @@ msgid "invisible"
 msgstr ""
 
 msgid "allow outlook sync."
+msgstr ""
+
+msgid "get server messages"
+msgstr ""
+
+msgid "clear server messages"
 msgstr ""
 
 msgid "css manager"
@@ -334,9 +362,6 @@ msgstr ""
 msgid "there is excluded days"
 msgstr ""
 
-msgid "view this"
-msgstr ""
-
 msgid "accept this"
 msgstr ""
 
@@ -359,6 +384,12 @@ msgid "delete this"
 msgstr ""
 
 msgid "confirm delete for this event"
+msgstr ""
+
+msgid "view this"
+msgstr ""
+
+msgid "go to date"
 msgstr ""
 
 msgid "history"
@@ -637,6 +668,141 @@ msgstr ""
 msgid "set todo default date to today more "
 msgstr ""
 
+msgid "lang"
+msgstr ""
+
+msgid "current day color"
+msgstr ""
+
+msgid "week end days color"
+msgstr ""
+
+msgid "selected day color"
+msgstr ""
+
+msgid "title line height"
+msgstr ""
+
+msgid "hour lines height"
+msgstr ""
+
+msgid "hour in day column width"
+msgstr ""
+
+msgid "menu icons height"
+msgstr ""
+
+msgid "display week end"
+msgstr ""
+
+msgid "view count days"
+msgstr ""
+
+msgid "day start hour"
+msgstr ""
+
+msgid "day end hour"
+msgstr ""
+
+msgid "hour division"
+msgstr ""
+
+msgid "tool display state"
+msgstr ""
+
+msgid "alert for new event ?"
+msgstr ""
+
+msgid "Current displayed date"
+msgstr ""
+
+msgid "WGCAL_U_RESSDISPLAYED"
+msgstr ""
+
+msgid "use prefered ressource for event setting"
+msgstr ""
+
+msgid "displayed refused events"
+msgstr ""
+
+msgid "show icons in resume"
+msgstr ""
+
+msgid "alt postion is fixed"
+msgstr ""
+
+msgid "general theme"
+msgstr ""
+
+msgid "fonts size"
+msgstr ""
+
+msgid "start hour used for event setting"
+msgstr ""
+
+msgid "end hour used for event setting"
+msgstr ""
+
+msgid "meeting default duration"
+msgstr ""
+
+msgid "minutes increment used for event setting"
+msgstr ""
+
+msgid "order todos"
+msgstr ""
+
+msgid "view todos for ... days"
+msgstr ""
+
+msgid "warn for todo having a date in the ... days"
+msgstr ""
+
+msgid "set todo date to today + ... days"
+msgstr ""
+
+msgid "default confidentiality for new event"
+msgstr ""
+
+msgid "display contacts"
+msgstr ""
+
+msgid "toolbar size"
+msgstr ""
+
+msgid "contact search position"
+msgstr ""
+
+msgid "barmenu date navigator"
+msgstr ""
+
+msgid "mail command"
+msgstr ""
+
+msgid "mails send"
+msgstr ""
+
+msgid "mails send to externals"
+msgstr ""
+
+msgid "mail title mark"
+msgstr ""
+
+msgid "viewed events (from producters)"
+msgstr ""
+
+msgid "Sync Version Needed"
+msgstr ""
+
+msgid "used groups"
+msgstr ""
+
+msgid "used families in events"
+msgstr ""
+
+msgid "use beta fonction"
+msgstr ""
+
 msgid " cancel modifications"
 msgstr ""
 
@@ -853,12 +1019,6 @@ msgstr ""
 msgid " invalid ressource id"
 msgstr ""
 
-msgid "there is conflict"
-msgstr ""
-
-msgid "confirm to save"
-msgstr ""
-
 msgid "my todos..."
 msgstr ""
 
@@ -997,15 +1157,6 @@ msgstr ""
 msgid "display calendar (m-left-btn) and more... (m-right-btn)"
 msgstr ""
 
-msgid "there are conflicts with events (see after)"
-msgstr ""
-
-msgid "ignore conflict"
-msgstr ""
-
-msgid "modify event"
-msgstr ""
-
 msgid "print"
 msgstr ""
 
@@ -1031,6 +1182,9 @@ msgid "todo note"
 msgstr ""
 
 msgid "save todo"
+msgstr ""
+
+msgid "cancel modifications"
 msgstr ""
 
 msgid "my todo"
@@ -1108,19 +1262,10 @@ msgstr ""
 msgid "select to edit agenda for"
 msgstr ""
 
-msgid "goto this period"
-msgstr ""
-
-msgid "accept event"
-msgstr ""
-
-msgid "refuse event"
-msgstr ""
-
 msgid "waiting rv"
 msgstr ""
 
-msgid "alert for new event ?"
+msgid "click-right button to open menu"
 msgstr ""
 
 msgid "to be confirm"
@@ -1265,16 +1410,7 @@ msgstr ""
 msgid "theme caracteristics"
 msgstr ""
 
-msgid "fonts size"
-msgstr ""
-
 msgid "timeout before displaying popup"
-msgstr ""
-
-msgid "day start hour"
-msgstr ""
-
-msgid "day end hour"
 msgstr ""
 
 msgid "hours division size"
@@ -1290,9 +1426,6 @@ msgid "start hour"
 msgstr ""
 
 msgid "end hour"
-msgstr ""
-
-msgid "meeting default duration"
 msgstr ""
 
 msgid "meeting minute increase"
@@ -1316,122 +1449,5 @@ msgstr ""
 msgid "todos options"
 msgstr ""
 
-msgid "lang"
-msgstr ""
-
-msgid "current day color"
-msgstr ""
-
-msgid "week end days color"
-msgstr ""
-
-msgid "selected day color"
-msgstr ""
-
-msgid "title line height"
-msgstr ""
-
-msgid "hour lines height"
-msgstr ""
-
-msgid "hour in day column width"
-msgstr ""
-
-msgid "menu icons height"
-msgstr ""
-
-msgid "display week end"
-msgstr ""
-
-msgid "view count days"
-msgstr ""
-
-msgid "hour division"
-msgstr ""
-
-msgid "tool display state"
-msgstr ""
-
-msgid "Current displayed date"
-msgstr ""
-
-msgid "WGCAL_U_RESSDISPLAYED"
-msgstr ""
-
-msgid "use prefered ressource for event setting"
-msgstr ""
-
-msgid "displayed refused events"
-msgstr ""
-
-msgid "show icons in resume"
-msgstr ""
-
-msgid "alt postion is fixed"
-msgstr ""
-
-msgid "general theme"
-msgstr ""
-
-msgid "start hour used for event setting"
-msgstr ""
-
-msgid "end hour used for event setting"
-msgstr ""
-
-msgid "minutes increment used for event setting"
-msgstr ""
-
-msgid "order todos"
-msgstr ""
-
-msgid "view todos for ... days"
-msgstr ""
-
-msgid "warn for todo having a date in the ... days"
-msgstr ""
-
-msgid "set todo date to today + ... days"
-msgstr ""
-
-msgid "default confidentiality for new event"
-msgstr ""
-
-msgid "display contacts"
-msgstr ""
-
-msgid "toolbar size"
-msgstr ""
-
-msgid "contact search position"
-msgstr ""
-
-msgid "barmenu date navigator"
-msgstr ""
-
-msgid "mail command"
-msgstr ""
-
-msgid "mails send"
-msgstr ""
-
-msgid "mails send to externals"
-msgstr ""
-
-msgid "mail title mark"
-msgstr ""
-
-msgid "viewed events (from producters)"
-msgstr ""
-
-msgid "Sync Version Needed"
-msgstr ""
-
-msgid "used groups"
-msgstr ""
-
-msgid "used families in events"
-msgstr ""
-
-msgid "use beta fonction"
+msgid "current user (delegate) for edition"
 msgstr ""

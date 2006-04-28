@@ -393,7 +393,7 @@ function saveEvent(event, checkconflict) {
     }
   }
 	
-  delEvent(document, 'beforeunload', forceSaveEvent); 
+//   delEvent(document, 'beforeunload', forceSaveEvent); 
   if (EventSelectAll(fs)) fs.submit();
   window.close();
   return false;

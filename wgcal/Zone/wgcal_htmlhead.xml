@@ -7,7 +7,7 @@ var UrlRoot = '[CORE_STANDURL]';
 var inCalendar = false;
 
 flogSetZonePos(20,50,40000);
-flogSetZoneParam(false, 5000);
+flogSetZoneParam(true, 5000);
 flogSetZoneStyle('#FF6600', '#000000', 2, 'groove');
 flogDisplayMsg('W');
 

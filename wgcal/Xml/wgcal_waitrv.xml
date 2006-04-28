@@ -3,21 +3,7 @@
 [JS:REF]
 <script type="text/javascript"> 
 [JS:CODE]
-var CEventTime = 0;
-var CEventId = -1;
-var CEventText = '';
 </script>
-<form style="display:inline; visibility:hidden" id="feventstate" target="_self" name="feventstate" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETEVENTSTATE">
-     <input id="cev" name="id" type="hidden" value="-1"><input id="st" name="st" type="hidden" value="-1"><input id="oapp" name="oapp" type="hidden" value="[oapp]"><input id="oact" name="oact" type="hidden" value="[oact]">
-</form>
-<div  style="display:none" id="waitpopup" class="wgcalpopup">
-<a href="#" id="viewevent" onclick="ViewEvent('[CORE_STANDURL]',CEventId); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evview.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:view this]</a>
-<a href="#" id="gotoperiod" onclick="loadPeriod('[CORE_STANDURL]', CEventTime); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="WGCAL/Images/wm-evdate.gif" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:goto this period]</a>
-<a class="separator"></a>
-<a href="#" id="acceptevent" onclick="ok=confirm('[TEXT:accept event] ? \n'+CEventText); if (ok) SetEventState(CEventId, 2); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evaccept.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:accept this]</a>
-<a href="#" id="refuseevent" onclick="ok=confirm('[TEXT:refuse event] ? \n'+CEventText); if (ok) SetEventState(CEventId, 3); closeMenu('waitpopup')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-evrefuse.gif]" height="12px">&nbsp;[ENDIF POPUPICONS][TEXT:reject this]</a>
-</div> 
-<!-- end POPUP DIVISION [bwaitrv] -->
 
 <table id="bwaitrv" class="[bwaitrv]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
@@ -26,11 +12,13 @@ var CEventText = '';
 </tr>
 </table>
 
-<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px; overflow:auto">
+<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:2px; overflow:auto">
 [BLOCK WAITRV]
-<div id="evt[wrvid]" class="WGCwrvdefault" style="cursor:crosshair; border-left:5px solid [wrvcolor]" 
-     onmouseover="this.className = 'WGCwrvover'; " 
-     onmouseout="this.className = 'WGCwrvdefault'"
-     onContextMenu="CEventTime=[tsdate]; CEventId=[wrvid]; CEventText='[wrvtitlejs]'; openMenu(event,'waitpopup',[waitrg]);return false" 
-     onclick="CEventId=[wrvid]; CEventText='[wrvtitlejs]';ViewEvent('[CORE_STANDURL]',[wrvid]);" >&nbsp;<img id="iwaitrv" src="[wrvicon]" height="15">[wrvtitle] <span style="font-decoration:italic">([owner])</span></div>[ENDBLOCK WAITRV]
+<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="WGCRessDefault" style="cursor:crosshair; border-left:3px solid red'" 
+     onmouseover="this.className = 'WGCRessSelected'; " onmouseout="this.className = 'WGCRessDefault'"
+     onContextMenu="viewmenu(event, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GETMENU&id=[id]&ue=f&ctx=WRV'); return false">
+<div style="margin-left:2px; font-weight:bold; text-decoration:underline">[owner],  [date]</div>
+<div style="margin-left:1em; padding-left:2px; border-left:1px solid black;">[title]</div>
+</div>
+[ENDBLOCK WAITRV]
 </div>

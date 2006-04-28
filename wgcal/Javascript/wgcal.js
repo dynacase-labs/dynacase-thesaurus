@@ -290,3 +290,11 @@ function fcalSendRequest(url, sync, post) {
   }
   return;
 }    
+
+
+// --------------------------------------------------------
+function loadPeriod(urlroot, ts) {
+    usetparam(-1, "WGCAL_U_CALCURDATE", ts, 'wgcal_calendar', urlroot+'&app=WGCAL&action=WGCAL_CALENDAR');
+}
+
+

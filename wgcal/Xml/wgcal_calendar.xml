@@ -7,14 +7,19 @@
 <table style="width:100%;" cellspacing="0" id="week">
 <thead>
 <tr height="[WGCAL_U_HLINETITLE]px">
- <td id="DH" width="5%" class="WGCAL_Period">&nbsp;
-<!-- img src="[IMG:aksm.gif]" onclick="flogDisplayMsg('W');" title"show alert"><img src="[IMG:aksm.gif]" onclick="flogDisplayMsg('I');" title="show infos" --></td>
+ <td id="DH" width="5%" class="WGCAL_Period">&nbsp;</td>
 [BLOCK DAYS_LINE]<td id="D[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell(event,2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
 </tr>
 </thead>
 <tbody>[BLOCK HOURS]<tr height="[HLINEHOURS]px">
 <td id="L[LID]" valign="top" align="right" class="[HCLASS]">[HOURR]</td>[C_LINE]
 </tr>[ENDBLOCK HOURS]</tbody>
+<tfoot>
+<tr height="[WGCAL_U_HLINETITLE]px">
+ <td id="DFH" width="5%" class="WGCAL_Period">&nbsp;</td>
+[BLOCK DAYS_LINE]<td id="DF[IDD]"  align="center" class="[CSS]" onclick="ClickCalendarCell(event,2,[times], [timee]);">[LABEL1]</td>[ENDBLOCK DAYS_LINE]
+</tr>
+</tfoot>
 </table></div>
 
 <div style="display:block" id="fcalDatas"></div>
