@@ -3,7 +3,7 @@
  * Apply sort by family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_usort.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_usort.php,v 1.6 2006/04/28 14:34:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,6 +22,7 @@ function generic_usort(&$action) {
   
   // get all parameters
   $aorder=GetHttpVars("aorder"); // id for controlled object
+  $catg=GetHttpVars("catg"); // id for controlled object
 
   if ($aorder == "-") {
     // invert order
@@ -37,7 +38,7 @@ function generic_usort(&$action) {
   $famid = getDefFam($action);
 
    redirect($action,$action->GetParam("APPNAME","GENERIC"),
-	    "GENERIC_TAB&tab=0&famid=$famid",
+	    "GENERIC_LIST&dirid=$catg&tab=0&famid=$famid",
 	     $action->GetParam("CORE_STANDURL"));
   
  

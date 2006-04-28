@@ -147,9 +147,9 @@ function SendSearch(e) {
 
 <!-- ------------ MENU SORT --------------------- -->
 <div  id="sortmenu" class="popup" style="position:[positionstyle];">
-<a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
+<a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&catg=[dirid]&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
 <a class="separator"></a>
-[BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
+[BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&catg=[dirid]&famid=[famid]&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
 [ENDBLOCK USORT]
 </div>
 
