@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.26 2005/10/11 14:19:45 eric Exp $
+ * @version $Id: generic_mod.php,v 1.27 2006/04/28 14:33:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,7 +56,11 @@ function generic_mod(&$action) {
 	$fld = new_Doc($dbaccess, $dirid);
 	if (method_exists($fld,"AddFile")) {
 	  $err=$fld->AddFile($doc->id);
-	  if ($err != "") $action->AddLogMsg($err);
+	  if ($err != "") {
+	    $action->AddLogMsg($err);
+	  } else {
+	    $action->AddActionDone("ADDFILE",$fld->initid);
+	  }
 	}
       }
     

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: unlockfile.php,v 1.6 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: unlockfile.php,v 1.7 2006/04/28 14:33:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.6 2005/06/28 08:37:46 eric Exp $
+// $Id: unlockfile.php,v 1.7 2006/04/28 14:33:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -57,6 +57,7 @@ function unlockfile(&$action)
 
   if (! $auto)      $action->AddLogMsg(sprintf(_("%s has been unlocked"),$doc->title));
   
+  $action->AddActionDone("UNLOCKFILE",$doc->id);
     
   if (! $autoclose)  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
   
