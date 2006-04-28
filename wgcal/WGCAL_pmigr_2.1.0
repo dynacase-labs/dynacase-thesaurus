@@ -4,4 +4,4 @@ if [ "$dbpsql" == "" ]; then
   . /etc/freedom.conf
    wchoose -b
 fi
-wsh --api=freedom_refresh --famid=CALEVENT --method=migr_2_1
+$wpub/wsh.php --api=freedom_refresh --famid=CALEVENT --method=migr_2_1
