@@ -125,6 +125,8 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   db_result *result;
   const char *userdomain;
   char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
+  char escaped_user[LUSER*2+1],escaped_domain[LDOMAIN*2+1];
+  size_t len;
   char query[BUFLEN];
   int retval;
   static whatuser_t lwu;
@@ -187,10 +189,16 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
       return PAM_AUTH_ERR;
     }
     strcpy(domain,stok);
+    len = PQescapeString(escaped_domain, domain, strlen(domain));
+    if( len < strlen(domain) ) {
+      syslog(LOG_NOTICE, "error escaping domain string (%d < %d)", len, strlen(domain));
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
     /* set up the query string */
     snprintf (query, BUFLEN-1, 
 	      "select iddomain from domain where name='%s' ", 
-	      domain);
+	      escaped_domain);
 
     result = db_exec (conn, query);
     if ( ! result ) {
@@ -219,14 +227,20 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   
   /* set up the query string */
 
+  len = PQescapeString(escaped_user, user, strlen(user));
+  if( len < strlen(user) ) {
+    syslog(LOG_NOTICE, "error escaping user string (%d < %d)", len, strlen(user));
+    db_close(conn);
+    return PAM_AUTH_ERR;
+  }
   if (eflag) {
     snprintf (query, BUFLEN-1, 
 	      "select %s, %s, status from %s where %s='%s' %s order by iddomain limit 1", 
-	      opts->passcol, opts->expcol, opts->table, opts->usercol, user, optdomain);
+	      opts->passcol, opts->expcol, opts->table, opts->usercol, escaped_user, optdomain);
   } else {
     snprintf (query, BUFLEN-1, 
 	      "select %s  from %s where %s='%s' %s order by iddomain limit 1", 
-	      opts->passcol,  opts->table, opts->usercol, user, optdomain);
+	      opts->passcol,  opts->table, opts->usercol, escaped_user, optdomain);
   }
     
   
