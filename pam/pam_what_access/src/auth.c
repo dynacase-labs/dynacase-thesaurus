@@ -160,6 +160,8 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   int retval;
   const char  *userdomain;
   char user[LUSER],optdomain[50+LDOMAIN],*stok,domain[LDOMAIN], userdomaintmp[LUSER+LDOMAIN+1];
+  char escaped_user[LUSER*2+1],escaped_domain[LDOMAIN*2+1];
+  size_t len;
   char query[BUFLEN];
   db_result *result=NULL;
   opt_t *opts=NULL;
