@@ -232,9 +232,15 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
     strcpy(domain,stok);
 
     /* set up the query string */
+    len = PQescapeString(escaped_domain, domain, strlen(domain));
+    if( len < strlen(domain) ) {
+      syslog(LOG_NOTICE, "error escaping domain string (%d < %d)", len, strlen(domain));
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
     snprintf (query, BUFLEN-1, 
 	      "select iddomain from domain where name='%s' ", 
-	      domain);
+	      escaped_domain);
 
     result = db_exec (conn, query);
     if ( ! result ) {
@@ -266,9 +272,15 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   /*------------------------------ SEARCH USER ID ------------------------------ */
   
   /* set up the query string */
+  len = PQescapeString(escaped_user, user, strlen(user));
+  if( len < strlen(user) ) {
+    syslog(LOG_NOTICE, "error escaping user string (%d < %d)", len, strlen(user));
+    db_close(conn);
+    return PAM_AUTH_ERR;
+  }
   snprintf (query, BUFLEN-1, 
 	    "select id from users where login='%s' %s order by iddomain limit 1", 
-	       user, optdomain);
+	       escaped_user, optdomain);
 
     
   
