@@ -1,16 +1,20 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: VAULT.spec.in,v 1.10 2005/11/10 16:01:39 eric Exp $
+#  $Id: VAULT.spec.in,v 1.11 2006/05/09 08:51:40 jerome Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(uname -o | grep -c PLD)
 
 %if %{cerbere}
 %define destdir /home/httpd/what
+%define httpuser http
+%else if %{pld}
+%define destdir /usr/share/what
 %define httpuser http
 %else
 %define destdir /usr/share/what
@@ -20,7 +24,7 @@
 Summary: The What Vault Management
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Release: @RELEASE@
 %else
 Release: @RELEASE@fc
@@ -35,7 +39,7 @@ Packager: Marc Claverie <marc.claverie@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 Requires: php >= 4.0.5
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Requires: apache >= 1.3.12
 %else
 Requires: httpd >= 1.3.12
@@ -43,7 +47,7 @@ Requires: httpd >= 1.3.12
 Requires: postgresql >= 7.0.0
 Requires: php-pgsql >= 4.0.2
 Prereq: WHAT >= 0.1.0
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Prereq: php-cgi >= 4.0.2
 %endif
 Prereq: gettext
@@ -69,7 +73,7 @@ make pubdir=$RPM_BUILD_ROOT%{destdir}
 %post
 %{destdir}/wstop
   mkdir -p /var/log/what-vault
-%if %{cerbere}
+%if %{cerbere} || %{pld}
   chown http: /var/log/what-vault
 %else
   chown apache: /var/log/what-vault
