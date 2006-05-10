@@ -1759,18 +1759,21 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
   include_once('WGCAL/Lib.Agenda.php');
   global $action;
 
-  if ($ue) $caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
+  if ($ue)$caledit = $action->GetParam("WGCAL_U_DCALEDIT", $action->user->fid);
   else $caledit = $action->user->fid;
 
-  $d = getTDoc($this->dbaccess, $caledit);
-  $dt = ucwords(strtolower($d["title"]));
+  if ($caledit == $action->user->fid) $dt = "";
+  else { 
+    $d = getTDoc($this->dbaccess, $caledit);
+    $dt = "(".ucwords(strtolower($d["title"])).")";
+  }
    
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
   
   $menu["sub"] = array();
   $menu["main"] =     array(	  
-			    'acceptrv' => array("descr" => _("accept this")." ($dt)",
+			    'acceptrv' => array("descr" => _("accept this")." $dt",
 						"jsfunction" => "fcalSetEventState(event,".$this->id.", 2)",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -1781,7 +1784,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
 						"submenu" =>  "",
 						"barmenu" => "false"
 						), 
-			    'rejectrv' => array("descr" => _("reject this")." ($dt)",
+			    'rejectrv' => array("descr" => _("reject this")." $dt",
 						"jsfunction" => "fcalSetEventState(event,".$this->id.", 3)",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -1792,7 +1795,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
 						"submenu" =>  "",
 						"barmenu" => "false"
 						), 	  
-			    'confirmrv' => array("descr" => _("to be confirm this")." ($dt)",
+			    'confirmrv' => array("descr" => _("to be confirm this")." $dt",
 						 "jsfunction" => "fcalSetEventState(event,".$this->id.", 4)",
 						 "confirm" => "false",
 						 "tconfirm" => "",

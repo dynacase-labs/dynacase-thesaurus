@@ -88,16 +88,16 @@
 &nbsp;<select  id="h_end" name="h_end" onchange="fcalComputeDateFromEnd();">[BLOCK he_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK he_select]</select> : <select  id="m_end" name="m_end" onchange="fcalComputeDateFromEnd();">[BLOCK me_select]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK me_select]</select>
 </td>
 </tr>
-
+ 
 <tr>
 <td></td>
 <td colspan="2" align="left">
 
-<span id="nohour_span" style="visibility:hidden" onclick="clickB('nohour');fcalNohourClicked(event);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input readonly id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="clickB('nohour');fcalNohourClicked(event);">
+<span id="nohour_span" style="visibility:hidden" onclick="fcalNohourClicked(event);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input id="nohour" style="cursor:pointer;" name="nohour" type="checkbox" onclick="fcalNohourClicked(event);">
 [TEXT:no hour]</span>
 
-<span id="allday_span" style="cursor:pointer; visibility:hidden" onclick="clickB('allday'); fcalAlldayClicked(event)"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
-<input readonly id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="clickB('allday'); fcalAlldayClicked(event)"></input>[TEXT:all the day]</span>
+<span id="allday_span" style="cursor:pointer; visibility:hidden" onclick="return fcalAlldayClicked(event);"  onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">
+<input id="allday" style="cursor:pointer;" name="allday" type="checkbox" onclick="return fcalAlldayClicked(event);"></input>[TEXT:all the day]</span>
 </td>
 </tr>
 </table>

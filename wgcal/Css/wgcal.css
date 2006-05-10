@@ -878,7 +878,7 @@ TD {	empty-cells: show; }
 } 
 .popup a.menuItemDisabled, 
 .popup a.menuItemCtrlDisabled { 
-  color: [WTH_TEXCOLOR_1];
+  color: [WTH_TEXTCOLOR_1];
   font-size: [WTH_FONTSIZE_POPUP]pt;
   font-style: italic;
   padding: 2px 12px 2px 8px;

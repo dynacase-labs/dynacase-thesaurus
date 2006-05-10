@@ -753,7 +753,7 @@ function fastEditSave(ev) {
   } else {
     document.location.reload(false);
   }
-  flogDisplayMsg('W');
+  flogDisplayMsg('I');
   return;
 } 
 
@@ -799,7 +799,7 @@ function fcalDeleteEvent(event,idp) {
 	}
 	fcalReloadEvents();
       }
-      flogDisplayMsg('W');
+      flogDisplayMsg('I');
     } else {
       //     document.location.href = document.location.href;
       document.location.reload(false);
@@ -817,7 +817,7 @@ function fcalDeleteEventOcc(event,idp,occ) {
     if (inCalendar) {  
       eval(res.content);
       if (_fcalTmpEvents) fcalInsertTmpEvent(event, _fcalTmpEvents);
-      flogDisplayMsg('W');
+      flogDisplayMsg('I');
     } else {
       document.location.reload(false);
     }
@@ -837,7 +837,7 @@ function fcalSetEventState(event,idp,state) {
     if (inCalendar) {  
       eval(res.content);
       if (_fcalTmpEvents) fcalInsertTmpEvent(event,_fcalTmpEvents);
-      flogDisplayMsg('W');
+      flogDisplayMsg('I');
     } else {
       document.location.reload(false);
     }
@@ -1247,13 +1247,12 @@ function fcalUpdateMinutes(startend, min) {
 }
 
 function fcalAlldayClicked(event) {
-  stopPropagation(event);
   var o = eltId('allday');
+  o.checked = (o.checked ? "" : "checked");
   if (o && o.checked) fcalAllday(true);
   else fcalAllday(false);
   return true;
 }
-
 function fcalAllday(s) {
   var showhide = [ 'start_hour', 'end_hour1', 'end_hour2', 'end_hour3', 'nohour_span' ];
   var vis = 'visible';
@@ -1268,8 +1267,8 @@ function fcalAllday(s) {
 
 
 function fcalNohourClicked(event) {
-  stopPropagation(event);
   var o = eltId('nohour');
+  o.checked = (o.checked ? "" : "checked");
   if (o && o.checked) fcalNohour(true);
   else fcalNohour(false);
   return true;

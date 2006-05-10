@@ -91,7 +91,7 @@ function __flogDisplayMsg(msg, mtype) {
   if (mtype=='W') bordercolor = flogWarningColor;
   else bordercolor = flogInfosColor;
   try {
-    backgroundcolor = getAltern(bordercolor, '#000000', 200);
+    backgroundcolor = getAltern(bordercolor, '#000000', 240);
   } catch (e) {
     backgroundcolor = 'yellow';
   }
