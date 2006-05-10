@@ -40,7 +40,6 @@ a.menuItem, a.menuItem:link, a.menuItem:visited {
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  text-transform:capitalize;
   white-space:nowrap;
 }
 
@@ -56,7 +55,6 @@ a.menuItemCtrl:link, a.menuItemCtrl:visited {
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  text-transform:capitalize;
   white-space:nowrap;
 }
 
