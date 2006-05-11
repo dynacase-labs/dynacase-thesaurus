@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.5 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.6 2006/05/11 07:14:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -89,14 +89,18 @@ Class DocLDAP extends DbObj {
    * @return void
    */
   function setDNs($ds,$tdn) {
+    $err="";
     $toldn=$this->getDNs();
     foreach ($toldn as $k=>$dn) {
       if (! in_array($dn,$tdn)) {
-	ldap_delete($ds, $dn);
+	if (! @ldap_delete($ds, $dn)) {
+	  $err.= sprintf("cannot delete LDAP entry [%s]",$dn);
+	}
       }
     }
     $this->ldapdn=$this->_array2val($tdn);
     $this->modify(true,array("ldapdn"),true); 
+    return $err;
   }
   /**
    * update or delete LDAP card
@@ -127,7 +131,7 @@ Class DocLDAP extends DbObj {
 	    
 	ldap_set_option($ds,LDAP_OPT_PROTOCOL_VERSION,3);
 	if (@ldap_bind($ds, $this->rootdn, $this->rootpw)) {
-	  $this->setDNs($ds,array());
+	  $err=$this->setDNs($ds,array());
 	}
 	  
 	  
