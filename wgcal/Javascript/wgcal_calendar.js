@@ -753,7 +753,7 @@ function fastEditSave(ev) {
   } else {
     document.location.reload(false);
   }
-  flogDisplayMsg('I');
+  flogDisplayMsg('W');
   return;
 } 
 

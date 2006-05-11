@@ -603,6 +603,9 @@ function RendezVousEdit() {
 
   $action->parent->AddJsRef("FDL/Layout/jdate.js");
 
+  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
+
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
