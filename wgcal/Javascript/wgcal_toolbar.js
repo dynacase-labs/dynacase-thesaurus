@@ -4,11 +4,8 @@ var curRessource = -1;
 
 function pickColor(color) {
   if (curRessource!=-1) {
-    idx = getRessourcePos(curRessource);
-    if (idx==-1) return;
-    ressourceList[idx][1] = color;
+    fcalSetRessourceColor(curRessource, color);
     document.getElementById('cp'+curRessource).style.background = color;
-    saveRessources();
   }
 }
    
@@ -64,25 +61,19 @@ function storeRessource(id, color, display, icon, descr, style, romode, adhave, 
   ressourceList[idx][6] = romode;
   ressourceList[idx][7] = adhave;
   ressourceList[idx][8] = adselected;
- 
-  if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
-}
 
-function showAllRessource() {
-  var tt = '';
-  for (i=0; i<ressourceList.length;i++) {
-    tt += printRessource(i);
-  }
-  alert(tt);
-}
-  
-function printRessource(i) {
-  var m = "";
-  if (ressourceList[i][0] != -1 ) {
-    m = 'Ressource #'+i+' == ';
-    m += ressourceList[i][0]+":"+ressourceList[i][1]+":"+ressourceList[i][2]+":"+ressourceList[i][3]+":"+ressourceList[i][4]+":"+ressourceList[i][5]+"\n";
-  }
-  return m;
+  calRessources[calRessources.length] = {
+    id         : id,
+    color      : color,
+    displayed  : display,
+    icon       : icon,
+    label      : descr,
+    style      : style,
+    readonly   : romode,
+    adhave     : adhave,
+    adselected : adselected
+  };
+  if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
 }
 
 function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, adhave, adselected ) {
@@ -130,18 +121,10 @@ function vuvRessource() {
     alert('[TEXT: invalid ressource id]');
     return;
   }
-  idx = getRessourcePos(CRessId);
-  if (idx==-1) return;
-  if (ressourceList[idx][2] == 1) {
-    ressourceList[idx][2] = 0;
-    rstyle = 'WGCRessDefault';
-  } else {
-    ressourceList[idx][2] = 1;
-    rstyle = 'WGCRessSelected';
-  }
-  ressListChg = true;
+  fcalShowHideRessource(CRessId);
+  if (!fcalRessourceIsDisplayed(CRessId)) rstyle = 'WGCRessDefault';
+  else rstyle = 'WGCRessSelected';
   document.getElementById(CRessId).className = rstyle;
-  saveRessources();
   return;
 }
 
@@ -180,39 +163,33 @@ function showHideAllRess(show) {
 }
 
 function removeRessource() {
-  var eltRess;
   if (CRessId==-1) {
     alert('[TEXT: invalid ressource id]');
     return;
   }
-  var idx = getRessourcePos(CRessId);
-  if (idx!=-1) {
-    ressourceList[idx][0] = -1;
-    if (ressourceList[idx][2] == 1) ressListChg = true;
-    eltRess = document.getElementById('tr'+CRessId);
-    if (!eltRess) return;
-    eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
-    saveRessources();
-  }
+
+  var idress = fcalDeleteRessource(CRessId);
+  var eltRess = document.getElementById('tr'+CRessId);
+  eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
 }
 
-function saveRessources() {
-  var rlist= "";
-  rsList = "";
-  for (i=0; i<ressourceList.length;i++) {
-    if (ressourceList[i][0] != -1 ) {
-      rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
-      if (ressourceList[i][2] == 1) rsList += ressourceList[i][0]+'|';
-    }
-  }
-  if (ressListChg) {
-    usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
-  } else {
-    usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
-  }
-  ressListChg = false;
-  return;
-}
+// function saveRessources() {
+//   var rlist= "";
+//   rsList = "";
+//   for (i=0; i<ressourceList.length;i++) {
+//     if (ressourceList[i][0] != -1 ) {
+//       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
+//       if (ressourceList[i][2] == 1) rsList += ressourceList[i][0]+'|';
+//     }
+//   }
+//   if (ressListChg) {
+//     usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
+//   } else {
+//     usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
+//   }
+//   ressListChg = false;
+//   return;
+// }
 
 function SaveFrameWidth() {
   var w=getFrameWidth(window);

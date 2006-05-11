@@ -21,7 +21,7 @@ function wgcal_saveevent(&$action) {
   $cat   = GetHttpVars("ca", "0");                   // Categorie
   $conf  = GetHttpVars("co", "0");                   // Categorie
 
-  $t0 = microtime();
+  $t0 = microtime(true);
   AddWarningMsg(__FILE__." Start");
 
   
@@ -51,8 +51,8 @@ function wgcal_saveevent(&$action) {
     $event->setValue("calev_ownerid", $oid);
     $event->setValue("calev_owner", $down->getValue("title"));
   }
-  $t1 = microtime();
-  AddWarningMsg(__FILE__." Init doc t=".($t1-$t0));
+  $t1 = microtime(true);
+  AddWarningMsg(" Init doc t=".($t1-$t0));
   $t0 = $t1;
 
   $event->setValue("calev_creatorid", $action->user->fid);
@@ -101,7 +101,7 @@ function wgcal_saveevent(&$action) {
     $event->setValue("calev_attgroup", array(-1));
   }
 
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." Modify start t=".($t1-$t0));
   $t0 = $t1;
   $err = $event->Modify();
@@ -111,7 +111,7 @@ function wgcal_saveevent(&$action) {
     return;
   } 
 
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." Modify done t=".($t1-$t0));
   $t0 = $t1;
   $err = $event->PostModify();
@@ -120,19 +120,19 @@ function wgcal_saveevent(&$action) {
     $action->lay->set("statustext", "Freedom internal error doc->PostModify(): $err");
     return;
   } 
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." PostModify done t=".($t1-$t0));
   $t0 = $t1;
 
   $event->setAccessibility();
   $event->unlock(true);
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." Set accessiblities done t=".($t1-$t0));
   $t0 = $t1;
 
 
   $event->postChangeProcess($oldrv);
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." postChangeProcess done t=".($t1-$t0));
   $t0 = $t1;
 
@@ -145,7 +145,7 @@ function wgcal_saveevent(&$action) {
   $action->lay->set("statustext", "#".$event->id." ".($new?"created":"updated"));
   $action->lay->set("showevent", true);
   AddWarningMsg(_("rendez-vous saved"));
-  $t1 = microtime();
+  $t1 = microtime(true);
   AddWarningMsg(__FILE__." processing done t=".($t1-$t0));
   $t0 = $t1;
   return ;

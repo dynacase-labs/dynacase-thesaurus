@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.68 2006/04/20 03:16:31 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.69 2006/05/11 16:39:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -44,6 +44,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_ressources.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
@@ -148,7 +149,7 @@ function _listress() {
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
-    $sid = ($tt[1]!="" ? $tt[1] : 0);
+    $sid = ($tt[1]==1 ? "true" : "false");
     $cid = ($tt[2]!="" ? $tt[2] : "blue");
     $rd = new_Doc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
@@ -173,7 +174,7 @@ function _listress() {
       $t[$i]["RSTATE"] = $sid;
       if ($rd->id == $action->user->fid) $t[$i]["ROMODE"] = "false";
       else $t[$i]["ROMODE"] =  ($writeaccess ? "false" : "true" );;
-      if ($sid==1) $t[$i]["RSTYLE"] = "WGCRessSelected";
+      if ($sid=="true") $t[$i]["RSTYLE"] = "WGCRessSelected";
       else $t[$i]["RSTYLE"] = "WGCRessDefault";
 
       // Delegation

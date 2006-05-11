@@ -177,20 +177,9 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
   }
 }
  
-function fcalChangeUPrefDbg() {
-  var argv = fcalChangeUPrefDbg.arguments;
-  var argc = argv.length;
-  var sdb = 'fcalChangeUPrefDbg(';
-  for (var i = 0; i < argc; i++) {
-    sdb = sdb + '\n argv['+i+'] = {'+argv[i] + '}';
-  }
-  sdb += '\n)';
-  alert(sdb);
-}
-
 function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+pvalue;
-  fcalSendRequest(urlsend, false, fcalChangeUPrefDbg);
+  fcalSendRequest(urlsend, false, false);
 
 }
 
@@ -257,7 +246,7 @@ function WGCalSaveToolsVisibility() {
       s +=  toolList[i]+'%'+v;
     }
   }
-  fcalChangeUPref(-1,'WGCAL_U_TOOLSSTATE', s); // fcalChangeUPrefDbg);
+  fcalChangeUPref(-1,'WGCAL_U_TOOLSSTATE', s); 
 }
 
 
@@ -265,28 +254,27 @@ function WGCalSaveToolsVisibility() {
 var sreq;
 function fcalSendRequest(url, sync, post) {
 
-  var result = { request:'', status:0, content:'' };
-
   if (window.XMLHttpRequest) sreq = new XMLHttpRequest();
   else sreq = new ActiveXObject("Microsoft.XMLHTTP");
   
   if (!sync) {
     sreq.open("GET", url, false);
     sreq.send(null);
+    var result = { request:'', status:0, content:'' };
     result.status = sreq.status;
     result.content = sreq.responseText;
     return result;
   } else {
-    sreq.open("GET", url, true);
-    sreq.send(null);
     sreq.onreadystatechange =  function() {
-    if (sreq.readyState == 4) {
-      result.request = url;
-      result.status  = sreq.status;
-      result.content = sreq.responseText;
-      if (post) post(result);
+      if (sreq.readyState == 4) {
+	var result = { request:'', status:0, content:'' };
+	result.status = sreq.status;
+	result.content = sreq.responseText;
+	if (post) post(result);
       }
     }
+    sreq.open("GET", url, true);
+    sreq.send(null);
   }
   return;
 }    

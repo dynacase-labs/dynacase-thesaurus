@@ -2,7 +2,10 @@
 
 <!-- Globals variables -->
 <script type="text/javascript">
+
 var calCurrentEdit = { id:[ceId], title:'[ceTitle]', color:'[ceColor]' };
+var calRessources = new Array();
+
 </script>
 
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
@@ -135,10 +138,9 @@ var calCurrentEdit = { id:[ceId], title:'[ceTitle]', color:'[ceColor]' };
 var  toolList = new Array( [IF NavDate]'nav',[ENDIF NavDate] 'cals', 'waitrv', 'todo', 'contacts');
 
 [BLOCK L_RESS]
-InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', '[RSTATE]', [ROMODE], [DG_HAVE], [DG_SELECTED] );[ENDBLOCK L_RESS]
+InsertRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', [RSTATE], [ROMODE], [DG_HAVE], [DG_SELECTED] );[ENDBLOCK L_RESS]
+fcalSaveRessources();
 var MyFreedomId = [MyFreedomId];
-saveRessources();
-
 </script>
 
 
