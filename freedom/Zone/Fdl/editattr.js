@@ -1,0 +1,134 @@
+var INPROGRESSATTR=false;
+var ATTRCIBLE=null;
+var ATTRREADCIBLE=null; // the element  replaced by input
+var INPUTINPROGRESS=false; // true when an input is already done
+var ATTRREQ=null;
+var DIVATTR=document.createElement("div");
+
+
+function reqEditAttr() {
+  INPROGRESSATTR=false; 
+  document.body.style.cursor='auto';
+  var o=ATTRCIBLE;
+ 
+  if (ATTRREQ.readyState == 4) {
+    // only if "OK"
+    if (ATTRREQ.status == 200) {
+      // ...processing statements go here...
+      if (ATTRREQ.responseXML) {
+	var elts = ATTRREQ.responseXML.getElementsByTagName("status");
+
+	if (elts.length == 1) {
+	  var elt=elts[0];
+	  var code=elt.getAttribute("code");
+	  var delay=elt.getAttribute("delay");
+	  var c=elt.getAttribute("count");
+	  var w=elt.getAttribute("warning");
+	  var f=elt.getAttribute("focus");
+
+	  if (w != '') alert(w);
+	  if (code != 'OK') {
+	    //	    alert('code not OK\n'+ATTRREQ.responseText);
+	    if (ATTRREADCIBLE) ATTRREADCIBLE.style.display='';	    
+	    if (o) o.style.display='none';
+	    return;
+	  }
+	  elts = ATTRREQ.responseXML.getElementsByTagName("branch");
+	  elt=elts[0].firstChild.nodeValue;
+	  // alert(elt);
+	  if (o) {
+	    if (ATTRREADCIBLE) ATTRREADCIBLE.style.display='none';
+	    if (c > 0) o.style.display='';
+	    o.style.left = 0;
+	    o.style.top  = 0;
+	    o.innerHTML=elt;
+	    INPUTINPROGRESS=true;
+	    elt=document.getElementById(f);
+	    if (elt) elt.focus();
+
+	  }	  
+	} else {
+	  alert('no status\n'+ATTRREQ.responseText);
+	  return;
+	}
+      } else {
+	alert('no xml\n'+ATTRREQ.responseText);
+	return;
+      } 	  
+    } else {
+      alert("There was a problem retrieving the XML data:\n" +
+	    ATTRREQ.statusText);
+      return;
+    }
+  } 
+}
+
+function attributeSend(event,menuurl,cible) {
+  if (INPROGRESSATTR) return false; // one request only
+    // branch for native XMLHttpRequest object
+    if (window.XMLHttpRequest) {
+        ATTRREQ = new XMLHttpRequest(); 
+    } else if (window.ActiveXObject) {
+      // branch for IE/Windows ActiveX version
+      ATTRREQ = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    if (ATTRREQ) {
+        ATTRREQ.onreadystatechange = reqEditAttr ;
+
+        ATTRREQ.open("POST", menuurl,true); //'index.php?sole=Y&app=FDL&action=POPUPDOCDETAIL&id='+docid, true);
+	ATTRREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+	ATTRCIBLE=cible;
+
+
+	ATTRREQ.send(null);
+	
+	
+	INPROGRESSATTR=true;
+	document.body.style.cursor='progress';	
+	return true;
+    }    
+}
+
+function editattr(event,docid,attrid,cible) {
+
+  var w,h;
+  if (cible) {
+    if (INPUTINPROGRESS) {
+      if (ATTRREADCIBLE) ATTRREADCIBLE.style.display='';
+    }
+    cible.parentNode.insertBefore(DIVATTR,cible);
+    ATTRREADCIBLE=cible;
+    w=getObjectWidth(ATTRREADCIBLE);
+    if (w < 200) w=200;
+    DIVATTR.style.width=w;
+    h=getObjectHeight(ATTRREADCIBLE);
+    if (h < 50) h=50;
+    
+    DIVATTR.style.height=h;
+    DIVATTR.innerHTML='progress...';
+    ATTRREADCIBLE.style.display='none';
+    DIVATTR.style.display='';
+  }
+
+  var menuurl='index.php?sole=Y&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
+  attributeSend(event,menuurl,DIVATTR);
+}
+function modattr(event,docid,attrid,newval) {
+
+ 
+    DIVATTR.innerHTML='';
+    DIVATTR.style.display='none';
+  
+    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid+'&value='+escape(newval);
+
+  attributeSend(event,menuurl,ATTRREADCIBLE);
+}
+function cancelattr(event,docid,attrid) { 
+    DIVATTR.innerHTML='';
+    DIVATTR.style.display='none';
+  
+    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
+
+  attributeSend(event,menuurl,ATTRREADCIBLE);
+}
+

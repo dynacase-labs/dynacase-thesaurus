@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.33 2006/04/20 18:12:56 eric Exp $
+// $Id: FDL.app,v 1.34 2006/05/11 07:15:14 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -249,6 +249,16 @@ $action_desc = array (
   array( 
    "name"		=>"FDL_PUBNAVPREVIEW",
    "short_name"		=>N_("enavpreview"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"EDITATTRIBUTE",
+   "short_name"		=>N_("edit attribute inline"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"MODATTRIBUTE",
+   "short_name"		=>N_("modify attribute inline"),
    "acl"		=>"NORMAL"
   ) 
                       );	
