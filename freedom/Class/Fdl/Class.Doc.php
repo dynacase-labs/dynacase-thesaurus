@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.309 2006/04/26 15:51:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.310 2006/05/11 07:17:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1763,6 +1763,7 @@ final public function PostInsert()  {
 	  }
 	}
 	//   print $oattr->id."-".$oattr->type;print_r2($tvalues);
+	$this->_oldvalue[$attrid]=$this->$attrid;
 	$this->$attrid=implode("\n",$tvalues); 
 
 	
@@ -1800,6 +1801,20 @@ final public function PostInsert()  {
 
   }
   
+
+  /**
+   * return the previous value for a attibute set before Doc::SetValue
+   * can be use in Doc::postModify generaly
+   * @param string $attrid identificator of attribute 
+   * @return string the old value (false if not modified before)
+   * 
+   */
+  final public function getOldValue($attrid) {
+    if (isset($this->_oldvalue[$attrid])) return $this->_oldvalue[$attrid];
+    return false;
+  }
+
+
   final public function DeleteValue($attrid) {
     return $this->SetValue($attrid," ");
   }
