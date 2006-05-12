@@ -60,8 +60,8 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SEARCHCONTACT", "short_name" =>N_("search contact"), "toc" => "N", "root" =>"N"),
 
   // ---------------------------
-  array( "acl" => "WGCAL_USER", "name" => "WGCAL_GETMENU", 
-         "short_name" =>N_("get event producter menu"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_GETRESSMENU", "short_name" =>N_("get ressource menu"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_GETMENU", "short_name" =>N_("get event producter menu"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_VIEWEVENT", 
          "short_name" =>N_("view event"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_EDITEVENT", 

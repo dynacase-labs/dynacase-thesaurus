@@ -1,7 +1,5 @@
-var cp = new ColorPicker('window');
-
+// Color selection
 var curRessource = -1;
-
 function pickColor(color) {
   if (curRessource!=-1) {
     fcalSetRessourceColor(curRessource, color);
@@ -9,15 +7,9 @@ function pickColor(color) {
   }
 }
    
-function showColorPicker(event, idress) {
-  curRessource = idress;
-  cp.show('cp'+idress);
-}
 
-
-
+// Ressource picker 
 var picker = null;
-
 window.onunload = killwins;
 function killwins() {
   if (picker != null) picker.close();
@@ -26,64 +18,35 @@ function killwins() {
 
 
 // ----------------------------------------------
-var ressourceList = new Array();
 var ressListChg = true;
-var rsList = ""; // Idem ressourceList, but in "xxx|yyy|aaa" form (just ids for selected ressources)
 
-function getRessourcePos(rid) {
-  var idx = -1;
-  for (i=0; i<ressourceList.length && idx==-1; i++) {
-    if (ressourceList[i][0] == rid) idx = i;
-  }
-  return idx;
-}
  
 function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro) {
-  idx = getRessourcePos(rid);
+  var idx = fcalGetRessource(rid);
   if (idx!=-1) return;
-  InsertRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', 0, ro);
-  tdiv['resspopup'][rid]=[1,1,1,1,1,1,1,1,1,1];
-  saveRessources();
+  fcalDrawRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', false, ro);
+  fcalSaveRessources();
 }
 
 function storeRessource(id, color, display, icon, descr, style, romode, adhave, adselected) {
-  idx = getRessourcePos(id);
-  if (idx==-1)  {
-    idx = ressourceList.length;
-    ressourceList[idx] = new Array();
-  }
-  ressourceList[idx][0] = id;
-  ressourceList[idx][1] = color;
-  ressourceList[idx][2] = display;
-  ressourceList[idx][3] = icon;
-  ressourceList[idx][4] = descr;
-  ressourceList[idx][5] = style;
-  ressourceList[idx][6] = romode;
-  ressourceList[idx][7] = adhave;
-  ressourceList[idx][8] = adselected;
-
   calRessources[calRessources.length] = {
     id         : id,
     color      : color,
     displayed  : display,
     icon       : icon,
     label      : descr,
-    style      : style,
     readonly   : romode,
     adhave     : adhave,
     adselected : adselected
   };
-  if (ressourceList[idx][2] == 1) rsList += ressourceList[idx][0]+'|';
 }
 
-function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, adhave, adselected ) {
+function fcalDrawRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, adhave, adselected ) {
   var nTr;
   var tab;
 
-  idx = getRessourcePos(rid);
-  if (idx!=-1) {
-    removeRessource(rid);
-  }
+  removeRessource(rid);
+
   tab = document.getElementById('tabress');
   if (!tab) {
     alert('tabress not defined');
@@ -113,83 +76,61 @@ function InsertRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, ad
   else document.getElementById('agd'+rid).checked = false;
 }
 
-var CRessId = -1;
-var CRessText = '';
-
-function vuvRessource() {
-  if (CRessId==-1) {
-    alert('[TEXT: invalid ressource id]');
-    return;
-  }
-  fcalShowHideRessource(CRessId);
-  if (!fcalRessourceIsDisplayed(CRessId)) rstyle = 'WGCRessDefault';
-  else rstyle = 'WGCRessSelected';
-  document.getElementById(CRessId).className = rstyle;
+function vuvRessource(rid) {
+  var rstyle = '';
+  fcalShowHideRessource(rid);
+  var isDisplayed = fcalRessourceIsDisplayed(rid);
+  if (isDisplayed) rstyle = 'WGCRessSelected';
+  else rstyle = 'WGCRessDefault';
+  document.getElementById(rid).className = rstyle;
+  fcalUpdateCalendar();
+  fcalSaveRessources();
   return;
 }
 
 function showHideAllRess(show) {
   var ir;
-  for (ir=0; ir<ressourceList.length; ir++) {
-    if (ressourceList[ir][0]>1) {
-      if (show==-2) {
-	if (ressourceList[ir][2] == 1) {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
-	  ressourceList[ir][2] = 0;
-	} else {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
-	  ressourceList[ir][2] = 1;
-	}
-      } else if (show==-1) {
-	document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
-	ressourceList[ir][2] = 0;
-      } else if (show==0) {
-	document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
-	ressourceList[ir][2] = 1;
-      } else if (show>0) {
-	if (ressourceList[ir][0] == show) {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessSelected';
-	  ressourceList[ir][2] = 1;
-	} else {
-	  document.getElementById(ressourceList[ir][0]).className = 'WGCRessDefault';
-	  ressourceList[ir][2] = 0;
-	}
+  var haveChanged = false;
+  for (ir=0; ir<calRessources.length; ir++) {
+    if (show==-2) {  // Reverse all
+      if (calRessources[ir].display) {
+	document.getElementById(calRessources[ir].id).className = 'WGCRessDefault';
+	calRessources[ir].displayed = false;
+	haveChanged = true;
+      } else {
+	document.getElementById(calRessources[ir].id).className = 'WGCRessSelected';
+	calRessources[ir].displayed = true;
+	haveChanged = true;
+      }
+    } else if (show==-1) {
+      document.getElementById(calRessources[ir].id).className = 'WGCRessDefault';
+      calRessources[ir].displayed = false;
+      haveChanged = true;
+    } else if (show==0) {
+      document.getElementById(calRessources[ir].id).className = 'WGCRessSelected';
+      calRessources[ir].displayed = true;
+      haveChanged = true;
+    } else if (show>0) {
+      if (calRessources[ir].id == show) {
+	document.getElementById(calRessources[ir].id).className = 'WGCRessSelected';
+	calRessources[ir].displayed = true;
+ 	haveChanged = true;
+      } else {
+	document.getElementById(calRessources[ir].id).className = 'WGCRessDefault';
+	calRessources[ir].displayed = false;
+ 	haveChanged = true;
       }
     }
   }
-  ressListChg = true;
-  saveRessources();
+  fcalSaveRessources();
+  if (haveChanged) fcalUpdateCalendar();  
   return;
 }
 
-function removeRessource() {
-  if (CRessId==-1) {
-    alert('[TEXT: invalid ressource id]');
-    return;
-  }
-
-  var idress = fcalDeleteRessource(CRessId);
-  var eltRess = document.getElementById('tr'+CRessId);
-  eltRess.parentNode.deleteRow(eltRess.sectionRowIndex);
+function removeRessource(rid) {
+  fcalDeleteRessource(rid);
+  if (document.getElementById('tr'+rid)) document.getElementById('tr'+rid).parentNode.deleteRow(document.getElementById('tr'+rid).sectionRowIndex);
 }
-
-// function saveRessources() {
-//   var rlist= "";
-//   rsList = "";
-//   for (i=0; i<ressourceList.length;i++) {
-//     if (ressourceList[i][0] != -1 ) {
-//       rlist += ressourceList[i][0]+"%"+ressourceList[i][2]+"%"+ressourceList[i][1]+"|";
-//       if (ressourceList[i][2] == 1) rsList += ressourceList[i][0]+'|';
-//     }
-//   }
-//   if (ressListChg) {
-//     usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_calendar', 'WGCAL_CALENDAR');
-//   } else {
-//     usetparam(-1, "WGCAL_U_RESSDISPLAYED", rlist, 'wgcal_hidden', 'WGCAL_HIDDEN');
-//   }
-//   ressListChg = false;
-//   return;
-// }
 
 function SaveFrameWidth() {
   var w=getFrameWidth(window);

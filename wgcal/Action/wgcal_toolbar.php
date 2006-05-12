@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.69 2006/05/11 16:39:49 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.70 2006/05/12 16:45:37 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -49,6 +49,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
 
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $action->lay->set("MyFreedomId", $action->user->fid);
   $action->lay->set("owner", $action->user->lastname." ".$action->user->firstname);
@@ -143,9 +144,6 @@ function _listress() {
   $action->lay->set("rplist", $rplist);
 
   // Init popup
-  $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
-  include_once("FDL/popup_util.php");
-  popupInit('resspopup',  array('displayress', 'rcalendar', 'changeresscolor', 'removeress', 'onlyme', 'rvprefered', 'rrendezvous', 'displayallr', 'hideallr'));
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -164,8 +162,6 @@ function _listress() {
       $writeaccess = $readaccess = true;
     }
     if ($writeaccess || $readaccess || $rd->id == $action->user->fid) {
-      if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
-      else PopupActive('resspopup', $rd->id, 'removeress');
       $t[$i]["RG"] = $i;
       $t[$i]["RID"] = $rd->id;
       $t[$i]["RDESCR"] = addslashes(ucwords(strtolower($rd->getTitle())));
@@ -186,23 +182,11 @@ function _listress() {
 	$action->lay->set("ceColor", $t[$i]["RCOLOR"] );
       }
 
-      PopupActive('resspopup', $rd->id, 'displayress');
-      PopupActive('resspopup', $rd->id, 'changeresscolor');
-      PopupActive('resspopup', $rd->id, 'rcalendar');
-      PopupActive('resspopup', $rd->id, 'rrendezvous');
-      if ($rd->id == $action->user->fid) PopupInactive('resspopup', $rd->id, 'removeress');
-      else PopupActive('resspopup', $rd->id, 'removeress');
-      PopupInvisible('resspopup', $rd->id, 'onlyme');
-      PopupActive('resspopup', $rd->id, 'rvprefered');
-      PopupActive('resspopup', $rd->id, 'displayallr');
-      PopupInvisible('resspopup', $rd->id, 'hideallr');
-      
       $i++;
     }
     setToolsLayout($action, 'cals');
   }
 
-  popupGen(count($t));
   wUSort($t, "RDESCR"); 
   $action->lay->SetBlockData("L_RESS", $t);
 

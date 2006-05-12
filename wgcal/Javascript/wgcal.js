@@ -178,8 +178,8 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
 }
  
 function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+pvalue;
-  fcalSendRequest(urlsend, false, false);
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+escape(pvalue);
+ fcalSendRequest(urlsend, false, false);
 
 }
 
@@ -251,31 +251,32 @@ function WGCalSaveToolsVisibility() {
 
 
 // --------------------------------------------------------
-var sreq;
 function fcalSendRequest(url, sync, post) {
 
   if (window.XMLHttpRequest) sreq = new XMLHttpRequest();
   else sreq = new ActiveXObject("Microsoft.XMLHTTP");
-  
-  if (!sync) {
-    sreq.open("GET", url, false);
-    sreq.send(null);
-    var result = { request:'', status:0, content:'' };
-    result.status = sreq.status;
-    result.content = sreq.responseText;
-    return result;
-  } else {
-    sreq.onreadystatechange =  function() {
-      if (sreq.readyState == 4) {
-	var result = { request:'', status:0, content:'' };
-	result.status = sreq.status;
-	result.content = sreq.responseText;
-	if (post) post(result);
+  if (sreq) {
+    if (!sync) {
+      sreq.open("POST", url, false);
+      sreq.send('');
+      var result = { request:'', status:0, content:'' };
+      result.status = sreq.status;
+      result.content = sreq.responseText;
+      return result;
+    } else {
+      sreq.onreadystatechange =  function() {
+	if (sreq.readyState == 4) {
+	  var result = { request:'', status:0, content:'' };
+ 	  result.status = sreq.status;
+ 	  result.content = sreq.responseText;
+ 	  if (post) post(result);
+	}
       }
+      sreq.open("POST", url, true);
+      sreq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      sreq.send('');
     }
-    sreq.open("GET", url, true);
-    sreq.send(null);
-  }
+  } else alert('error req');
   return;
 }    
 
