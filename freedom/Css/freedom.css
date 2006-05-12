@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.89 2006/04/27 15:38:13 eric Exp $
+ * $Id: freedom.css,v 1.90 2006/05/12 15:41:43 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -531,6 +531,16 @@ DIV.button:hover {
 	border:outset [CORE_BGCOLORALTERN] 2pt;
 }
 
+BUTTON.binline {
+  border:none;
+  background:none;
+  color:[CORE_ACOLOR];
+  cursor:pointer;
+}
+BUTTON.binline:hover, BUTTON.binline:focus {
+        background-color: [CORE_BGCOLORHIGH]; 
+        text-decoration:  underline;
+}
 
 SPAN.selected {
   cursor: pointer;
