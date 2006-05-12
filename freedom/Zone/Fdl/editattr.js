@@ -132,3 +132,15 @@ function cancelattr(event,docid,attrid) {
   attributeSend(event,menuurl,ATTRREADCIBLE);
 }
 
+function textautovsize(event,o) {
+  if (! event) event=window.event;
+
+  var i=1;
+  var hb=o.clientHeight;
+  var hs=o.scrollHeight;
+
+  if (hs > hb) {
+    o.style.height=hs;
+  }
+  
+}

@@ -3,9 +3,11 @@
   <branch><![CDATA[
 
 
+<div>
+<textarea onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="display:block;width:100%;height:100px">[thetext]</textarea>
 
-<textarea  id="i[docid][attrid]" style="width:100%;height:100%">[thetext]</textarea>
 <div style="float:right;text-align:right;position:relative;top:-5px">
-<button onclick="modattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Save]</button><button onclick="cancelattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Cancel]</button></div>
+<button onclick="modattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Save]</button><button onclick="cancelattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Cancel]</button></div>an w 
+</div>
 ]]></branch>
 </status>
