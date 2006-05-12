@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.310 2006/05/11 07:17:02 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.311 2006/05/12 06:48:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1706,7 +1706,6 @@ final public function PostInsert()  {
 	  $this->hasChanged=true;
 	  //	  print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
-	}
 
 	if ($oattr->repeat) {
 	  $tvalues = $this->_val2array($value);
@@ -1766,6 +1765,7 @@ final public function PostInsert()  {
 	$this->_oldvalue[$attrid]=$this->$attrid;
 	$this->$attrid=implode("\n",$tvalues); 
 
+	}
 	
       }      
     }
@@ -1811,6 +1811,10 @@ final public function PostInsert()  {
    */
   final public function getOldValue($attrid) {
     if (isset($this->_oldvalue[$attrid])) return $this->_oldvalue[$attrid];
+    return false;
+  }
+  final public function getOldValues() {
+    if (isset($this->_oldvalue[$attrid])) return $this->_oldvalue;
     return false;
   }
 
