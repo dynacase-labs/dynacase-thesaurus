@@ -79,7 +79,7 @@ function menuSend(event,menuurl,cible) {
 	MENUCIBLE=cible;
 
 
-	MENUREQ.send(null);
+	MENUREQ.send('');
 	
 	
 	INPROGRESSMENU=true;

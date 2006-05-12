@@ -80,7 +80,7 @@ function attributeSend(event,menuurl,cible) {
 	ATTRCIBLE=cible;
 
 
-	ATTRREQ.send(null);
+	ATTRREQ.send('');
 	
 	
 	INPROGRESSATTR=true;
