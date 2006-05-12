@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.81 2006/03/20 19:29:54 eric Exp $
+ * @version $Id: modcard.php,v 1.82 2006/05/12 06:50:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -132,11 +132,13 @@ function modcard(&$action, &$ndocid) {
     $ndocid = $doc->id;
     if (! $noredirect) { // else quick save
       $doc->refresh();
-      $err=$doc-> PostModify(); 
+      $err=$doc->PostModify(); 
       // add trace to know when and who modify the document
       if ( $docid == 0 ) {
 	//$doc->Addcomment(_("creation"));
       } else {
+	$olds=$doc->getOldValues();
+	
 	$doc->Addcomment(_("change"));
       }
       if ($err=="") {$err.=$doc-> Modify();  }
