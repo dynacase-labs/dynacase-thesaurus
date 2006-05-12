@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.112 2006/04/25 09:54:17 eric Exp $
+ * @version $Id: import_file.php,v 1.113 2006/05/12 06:47:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -424,7 +424,7 @@ function add_import_file(&$action, $fimport="") {
       break;
     case "PROFIL":  
       if (is_numeric($data[1]))   $pid = $data[1];
-      else $pid =  getIdFromName($dbaccess,$data[1],3);
+      else $pid =  getIdFromName($dbaccess,$data[1]);
       
       if (! ($pid>0)) $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
       else {
@@ -462,7 +462,7 @@ function add_import_file(&$action, $fimport="") {
     case "ACCESS":
       if (is_numeric($data[1]))   $wid = $data[1];
       else {
-	$pid =  getIdFromName($dbaccess,$data[1],3);
+	$pid = getIdFromName($dbaccess,$data[1]);
 	$tdoc=getTDoc($dbaccess,$pid);
 	$wid=getv($tdoc,"us_whatid");
       }
