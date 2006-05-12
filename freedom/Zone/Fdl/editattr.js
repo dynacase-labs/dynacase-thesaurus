@@ -102,7 +102,7 @@ function editattr(event,docid,attrid,cible) {
     if (w < 200) w=200;
     DIVATTR.style.width=w;
     h=getObjectHeight(ATTRREADCIBLE);
-    if (h < 50) h=50;
+    if (h < 20) h=20;
     
     DIVATTR.style.height=h;
     DIVATTR.innerHTML='progress...';
@@ -140,7 +140,7 @@ function textautovsize(event,o) {
   var hs=o.scrollHeight;
 
   if (hs > hb) {
-    o.style.height=hs;
+    o.parentNode.style.height=hs;
   }
   
 }

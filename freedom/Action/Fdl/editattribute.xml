@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <status count="[count]" delay="[delay]" code="[CODE]" warning="[warning]" focus="i[docid][attrid]" >
   <branch><![CDATA[
-
-
-<div>
-<textarea onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="display:block;width:100%;height:100px">[thetext]</textarea>
-
+<textarea onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="width:100%;height:100%">[thetext]</textarea>
 <div style="float:right;text-align:right;position:relative;top:-5px">
-<button onclick="modattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Save]</button><button onclick="cancelattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Cancel]</button></div>an w 
-</div>
+<button class="binline" onclick="modattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Save]</button>
+<button class="binline" onclick="cancelattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Cancel]</button></div>
 ]]></branch>
 </status>
