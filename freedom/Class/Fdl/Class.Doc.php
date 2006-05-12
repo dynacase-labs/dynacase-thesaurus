@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.311 2006/05/12 06:48:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.312 2006/05/12 15:40:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -397,11 +397,10 @@ create unique index i_docir on doc(initid, revision);";
 final public function PostInsert()  {
       // controlled will be set explicitly
       //$this->SetControl();
-
       if (($this->revision == 0) && ($this->doctype != "T")) {
 	// increment family sequence
 	$this->nextSequence();
-	$this->Addcomment(_("creation"));
+	$this->Addcomment(_("document creation"));
       }
       $this->Select($this->id);
       $this->cdate=$this->getTimeDate();
@@ -1814,7 +1813,7 @@ final public function PostInsert()  {
     return false;
   }
   final public function getOldValues() {
-    if (isset($this->_oldvalue[$attrid])) return $this->_oldvalue;
+    if (isset($this->_oldvalue)) return $this->_oldvalue;
     return false;
   }
 
