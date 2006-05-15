@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.70 2006/05/12 16:45:37 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.71 2006/05/15 14:35:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -79,6 +79,8 @@ function wgcal_toolbar(&$action) {
   _listress();
 
   _todo();
+
+  $action->lay->set("ReloadAgenda", (GetHttpVars("rag", "0")==1 ? true : false ));
 }
 
 function _todo() {

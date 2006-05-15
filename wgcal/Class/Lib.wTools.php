@@ -258,7 +258,6 @@ function wGetRessDisplayed() {
       }
     }
   }
-  AddWarningMsg("wGetRessDisplayed::".implode("|",$cals));
   return $r;
 }
 
@@ -435,7 +434,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     }
     $idres = implode("|", $tr);
     setHttpVar("idres",$idres);
-    AddWarningMsg(" ress = ($res) [$idres]");
   } else {
     setHttpVar("idres","|");
   }

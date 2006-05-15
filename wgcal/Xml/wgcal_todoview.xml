@@ -1,11 +1,39 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
+
 <form style="display:none" id="tododone" name="tododone" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE"><input type="hidden" value="-1" name="idtodo" id="idtodo"></form>
 <div width="100%" id="btodo" style="cursor:default" class="wToolButtonUnselect">
 <table cellspacing="0" cellpadding="0" width="100%"><tr>
 <td>[TEXT:my todo] ([todocount])</td>
-<td align="right"><img id="addTodo" class="wSmallButton" onclick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&RZ=HV&target=icaltodo&idtodo=-1');" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">&nbsp;</td>
+<td align="right"><img id="addTodo" class="wSmallButton" onclick="todoEdit(event,-1);" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">&nbsp;</td>
 </tr>
 </table></div>
+
+<div id="todoeditzone" style="display:none; border:3px groove [CORE_BGCOLORALTERN]; padding:3px;">
+<div><input class="Mandatory" id="todoTitle" title="[TEXT:give a title]" onkeypress="todoTitleChange(event)"  style="width:100%" type="text" title="[TEXT:enter todo title]" value=""></div>
+<div>
+[TEXT:todo date limit] : <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="todoDate" style="cursor:pointer;" title="[TEXT:click here to set the todo limit date]"<img src="WGCAL/Images/wm-refreshcal.gif" height="15">&nbsp;<span id="todoTextDate"></span></span>
+<input type="hidden" value="0" id="todoStart" name="todoStart">
+<script>  
+  var tododate = { 
+    firstDay:1, 
+    showsTime: false,
+    inputField:'todoStart', 
+    displayArea: 'todoTextDate',        
+    daFormat:'%a %d %b %Y',
+    ifFormat:'%s', 
+    button:'todoDate'
+  };
+  Calendar.setup( tododate );
+</script>
+</div>
+<textarea  style="width:100%" title="[TEXT:todo note]" rows="2" id="todoNote"></textarea>
+<div style="border:1px outset [CORE_BGCOLORALTERN]; text-align:right; width:100%">
+<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="visibility:hidden" title="[TEXT:save]" class="wSmallButton" onclick="todoSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="todoCancelEdit();">
+</div>
+</div>
+
+<div id="todolistzone">
+
 
 [IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo][ENDIF Todos]
 [IF Todos]<div class="wToolArea">
@@ -13,9 +41,11 @@
 <div class="tododef" onmouseover="this.className='todoover'" onmouseout="this.className='tododef'" ><table width="100%" cellspacing="0">
 <tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
 <td style="width:14px; text-align:center"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px; width:12px" title="[TEXT:todo done]" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit();"></td>
-<td style="text-align:left" onClick="subwindow(300, 400, 'AddTodo', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODOEDIT&target=icaltodo&idtodo=[idTodo]');" >[sTextTodo]</td>
+<td style="text-align:left" onClick="todoEdit(event,[idTodo]);" >[sTextTodo]</td>
 <td style="text-align:right; font-size:80%;">([dateTodo])&nbsp;</td>
 <td style="background-color:[colorTodo]; width:5px">&nbsp;</td>
 </tr></table></div>[ENDBLOCK TodoList]
 </div>[ENDIF Todos]
+</div>
+
 [ZONE WGCAL:WGCAL_HTMLFOOT]

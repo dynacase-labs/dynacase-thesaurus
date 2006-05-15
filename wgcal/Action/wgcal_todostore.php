@@ -10,9 +10,9 @@ function wgcal_todostore(&$action) {
 
   $db = $action->getParam("FREEDOM_DB");
 
-  $id = GetHttpVars("idtodo", -1);
+  $id = GetHttpVars("id", -1);
   $title = GetHttpVars("title", -1);
-  $fdate = GetHttpVars("Dstart", 0);
+  $fdate = GetHttpVars("end", 0);
   $date = substr(w_datets2db($fdate),0,11)." 00:00:00";
   $note =GetHttpVars("note");
 

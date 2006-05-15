@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.18 2006/02/16 15:46:21 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.19 2006/05/15 14:35:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,6 +15,7 @@ include_once('WGCAL/Lib.wTools.php');
 
 function wgcal_resspicker(&$action) {
 
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $wre = GetHttpVars("wre", 0);      // 1 : Only Write enabled calendar

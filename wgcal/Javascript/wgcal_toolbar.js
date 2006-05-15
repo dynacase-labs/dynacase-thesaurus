@@ -17,6 +17,10 @@ function killwins() {
 
 
 
+function fcalToolbarSetEvState(event,idp,state) {
+  fcalSetEventState(event,idp,state, true);
+}
+
 // ----------------------------------------------
 var ressListChg = true;
 
@@ -83,8 +87,8 @@ function vuvRessource(rid) {
   if (isDisplayed) rstyle = 'WGCRessSelected';
   else rstyle = 'WGCRessDefault';
   document.getElementById(rid).className = rstyle;
-  fcalUpdateCalendar();
   fcalSaveRessources();
+  fcalUpdateCalendar();
   return;
 }
 

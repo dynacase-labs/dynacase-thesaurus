@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.12 2006/04/28 14:42:52 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.13 2006/05/15 14:35:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -43,7 +43,7 @@ function wgcal_waitrv(&$action) {
 
   $rvtextl =  25;
   $today = w_datets2db(time(), false)." 00:00:00";
-  $filter[] = "(calev_end > '".$today."' ) AND (calev_attid ~* '".$action->user->fid."')";
+  $filter[] = "((calev_repeatuntildate>'".$today."') OR (calev_end > '".$today."' )) AND (calev_attid ~* '".$action->user->fid."')";
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
 		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
 
@@ -57,8 +57,14 @@ function wgcal_waitrv(&$action) {
       if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ||$attst[$ka]==EVST_TBC)) $state = $attst[$ka]; 
     }
     if ($state!=-1) {
+      $date = substr($v["calev_start"],0,11);
+      switch ($v["calev_timetype"]) {
+      case 1: $date .= " "._("no hour"); break;
+      case 2: $date .= " "._("all the day"); break;
+      default: $date .= " ".substr($v["calev_start"],11,5);
+      }
       $wrv[$irv] = array ( "id" => $v["id"],
-			   "date" =>  substr($v["calev_start"],0,16),
+			   "date" =>  $date,
  			   "title" => $v["calev_evtitle"],
 			   "owner" => ucwords(strtolower($v["calev_owner"])) );
       $irv++;

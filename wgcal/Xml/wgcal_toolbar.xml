@@ -12,7 +12,6 @@ var calRessources = new Array();
 
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
 <form style="display:none" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
-<form style="display:none" id="updatecal" target="wgcal_calendar" name="fupdatecal" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=[IFNOT BetaVersion]WGCAL_CALENDAR[ENDIF BetaVersion][IF BetaVersion]WGCAL_DCAL[ENDIF BetaVersion]"></form>
 <div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0"><tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
@@ -110,8 +109,8 @@ var  toolList = new Array( [IF NavDate]'nav',[ENDIF NavDate] 'cals', 'waitrv', '
 [BLOCK L_RESS]
 fcalDrawRessource('[RDESCR]', '[RID]', '[RICON]', '[RCOLOR]', '[RSTYLE]', [RSTATE], [ROMODE], [DG_HAVE], [DG_SELECTED] );[ENDBLOCK L_RESS]
 fcalSaveRessources();
-
 var MyFreedomId = [MyFreedomId];
+[IF ReloadAgenda]fcalUpdateCalendar();[ENDIF ReloadAgenda]
 
 colpick.writeDiv();
 

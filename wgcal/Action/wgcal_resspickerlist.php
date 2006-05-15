@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.16 2006/02/16 15:46:21 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.17 2006/05/15 14:35:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,6 +18,7 @@ include_once("WGCAL/Lib.Agenda.php");
 
 function wgcal_resspickerlist(&$action) {
 
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
 
   $limit = 25;

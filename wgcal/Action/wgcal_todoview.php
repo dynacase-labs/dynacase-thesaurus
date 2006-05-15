@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.2 2006/03/23 19:13:04 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.3 2006/05/15 14:35:19 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -16,6 +16,14 @@ include_once('FDL/Lib.Dir.php');
 include_once('FDL/popup_util.php');
 
 function wgcal_todoview(&$action) {
+
+
+  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
+  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_todo.js");
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $todoshort = 25;
 

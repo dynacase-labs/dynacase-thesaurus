@@ -12,13 +12,10 @@
 </tr>
 </table>
 
-<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:2px; overflow:auto">
-[BLOCK WAITRV]
-<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="WGCRessDefault" style="cursor:crosshair; border-left:3px solid red'" 
+<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px; overflow:auto">[BLOCK WAITRV]
+<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="WGCRessDefault" style="cursor:crosshair" 
      onmouseover="this.className = 'WGCRessSelected'; " onmouseout="this.className = 'WGCRessDefault'"
      onContextMenu="viewmenu(event, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GETMENU&id=[id]&ue=f&ctx=WRV'); return false">
-<div style="margin-left:2px; font-weight:bold; text-decoration:underline">[owner],  [date]</div>
-<div style="margin-left:1em; padding-left:2px; border-left:1px solid black;">[title]</div>
-</div>
-[ENDBLOCK WAITRV]
-</div>
+<div class="WGCFamSelected" style="margin-left:2px; font-weight:bold;">[title]</div>
+<div style="margin-left:1em; padding-left:2px; border-left:1px solid black;">[date], [owner]</div>
+</div>[ENDBLOCK WAITRV]</div>

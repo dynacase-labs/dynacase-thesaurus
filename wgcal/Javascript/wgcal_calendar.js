@@ -568,11 +568,6 @@ function fcalCreateEvent(ie,isclone) {
   return true;
 }
  
-function fcalSetOpacity(o, value) {
-// 	o.style.opacity = value/100;
-// 	o.style.filter = 'alpha(opacity=' + value + ')';
-}
-
 
 // Events to display
 var fcalEvents = new Array();
@@ -825,7 +820,7 @@ function fcalDeleteEventOcc(event,idp,occ) {
   return true; 
 }
 
-function fcalSetEventState(event,idp,state) {
+function fcalSetEventState(event,idp,state,reloadcal) {
   var owner = 0;
   if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
 
@@ -840,6 +835,7 @@ function fcalSetEventState(event,idp,state) {
       flogDisplayMsg('I');
     } else {
       document.location.reload(false);
+      if (reloadcal) parent.wgcal_calendar.document.location.reload(false);
     }
   }
   return true; 
@@ -944,23 +940,6 @@ function fastEditCancel() {
 }
 
 
-function  fcalGetJSDoc(ev, id) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
-  
-  showWaitServerMessage(ev,'Loading event');
-  var res;
-  res = fcalSendRequest(urlsend, false, false);
-  if (res.status!=200) return false;
-  hideWaitServerMessage();
-  eval(res.content);
-  if (fcalStatus.code==-1) {
-    alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
-    return false;
-  } else {
-    return docValues;
-  }
-}
-  
     
 function fastEditCheckConflict(ev) {
   showWaitServerMessage(ev, 'Checking for conflict');
@@ -1004,12 +983,20 @@ function fcalFastEditEvent(ev, ie) {
     var ii = 0;
     var dv = fcalGetJSDoc(ev,idp) ;
     if (!dv) return;
+
+    // compute owner color
+    var rcol = '';
+    for (var ir=0; ir<parent.wgcal_toolbar.calRessources.length && rcol=='' ; ir++) {
+      if (parent.wgcal_toolbar.calRessources[ir].id==dv.calev_ownerid) rcol = parent.wgcal_toolbar.calRessources[ir].color;
+    }
+    rcol = (rcol==''?'white':rcol);
+       
     EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, 
 		       idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 		       title:dv.calev_evtitle, hmode:dv.calev_timetype, 
 		       occstart:fcalEvents[ie].start, occend:fcalEvents[ie].end, start:dv.tsstart, end:dv.tsend, 
 		       category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
-		       confidentiality:dv.calev_visibility, rcolor:fcalEvents[ie].bgColor, 
+		       confidentiality:dv.calev_visibility, rcolor:rcol, 
 		       eventjs:dv };
     return fastEditInit(ev, true);
   }
@@ -1022,9 +1009,11 @@ function fastEditInit(ev, init) {
   fcalSetOpacity(document.getElementById(Root), 50);
   var fedit = eltId('fastedit');
 
+
   if (EventInEdition.idowner==-1) {
     EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
     EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
+    EventInEdition.rcolor = parent.wgcal_toolbar.calCurrentEdit.color;
   }    
   
   fcalInitDatesTimes(EventInEdition.hmode, 
@@ -1050,7 +1039,7 @@ function fastEditInit(ev, init) {
 
   posM.x = getX(ev);
   posM.y = getY(ev);
-  computeDivPosition('fastedit', posM.x, posM.y, -40);
+  computeDivPosition('fastedit', posM.x, posM.y, 0);
 
   eltId('fe_title').focus();
   fastEditCanSave((eltId('fe_title').value!=''?true:false));
@@ -1070,76 +1059,6 @@ function fcalOpenMenuEvent(ev, ie, nev) {
   viewmenu(ev,urlmenu); 
   return false;
 }
-
-function showWaitServerMessage(ev, msg) {
-  globalcursor('progress');
-  fcalSetOpacity(eltId(Root), 40);
-  var ws = eltId('waitmessage'); 
-  if (msg) eltId('wmsgtext').innerHTML = msg;
-  if (!ev) {
-    var xm = posM.x;
-    var ym = posM.y;
-  } else {
-    var xm = getX(ev);
-    var ym = getY(ev);
-  }
-  computeDivPosition('waitmessage',xm, ym, 10);
-}
-
-function hideWaitServerMessage() {
-  var ws = eltId('waitmessage'); 
-  ws.style.display = 'none';
-  fcalSetOpacity(eltId(Root), 100);
-  unglobalcursor();
-}
-
-var  CGCURSOR='auto'; // current global cursor
-
-function globalcursor(c) {
-  if (c==CGCURSOR) return;
-  if (!document.styleSheets) return;
-  unglobalcursor();
-  document.body.style.cursor=c;
-  if (document.styleSheets[1].addRule) {
-    document.styleSheets[1].addRule("*","cursor:"+c+" ! important",0);
-  } else if (document.styleSheets[1].insertRule) {
-    document.styleSheets[1].insertRule("*{cursor:"+c+" ! important;}", 0);
-  }
-  CGCURSOR=c;
-}
-function unglobalcursor() {
-  if (!document.styleSheets) return;
-  var theRules;
-  var theSheet;
-  var r0;
-  var s='';
-  
-  document.body.style.cursor='auto';
-  
-  theSheet=document.styleSheets[1];
-  if (document.styleSheets[1].cssRules)
-    theRules = document.styleSheets[1].cssRules;
-  else if (document.styleSheets[1].rules)
-    theRules = document.styleSheets[1].rules;
-  else return;
-  
-  r0=theRules[0].selectorText;
-  /* for (var i=0; i<theSheet.rules.length; i++) {
-     s=s+'\n'+theSheet.rules[i].selectorText;
-     s=s+'-'+theSheet.rules[i].style;
-     }*/
-  //  alert(s);
-  
-  if ((r0 == '*')||(r0 == '')) {
-    
-    if (document.styleSheets[1].removeRule) {
-      document.styleSheets[1].removeRule(0);
-    } else if (document.styleSheets[1].deleteRule) {
-      document.styleSheets[1].deleteRule(0);
-    }
-  }
-  CGCURSOR='auto';;
-} 
 
 function fcalAddEvent(o, e, f) {
   if (o.addEventListener){ o.addEventListener(e,f,true); return true;   }

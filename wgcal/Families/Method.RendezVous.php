@@ -1777,7 +1777,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
   $menu["sub"] = array();
   $menu["main"] =     array(	  
 			    'acceptrv' => array("descr" => _("accept this")." $dt",
-						"jsfunction" => "fcalSetEventState(event,".$this->id.", 2)",
+						"jsfunction" => ($ctx=="WRV"? "fcalToolbarSetEvState" : "fcalSetEventState")."(event,".$this->id.", 2)",
 						"confirm" => "false",
 						"tconfirm" => "",
 						"control" => "false",
@@ -1788,7 +1788,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
 						"barmenu" => "false"
 						), 
 			    'rejectrv' => array("descr" => _("reject this")." $dt",
-						"jsfunction" => "fcalSetEventState(event,".$this->id.", 3)",
+						"jsfunction" => ($ctx=="WRV"? "fcalToolbarSetEvState" : "fcalSetEventState")."(event,".$this->id.", 3)",
 						"confirm" => "false",
 						"tconfirm" => "",
 						"control" => "false",
@@ -1799,7 +1799,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
 						"barmenu" => "false"
 						), 	  
 			    'confirmrv' => array("descr" => _("to be confirm this")." $dt",
-						 "jsfunction" => "fcalSetEventState(event,".$this->id.", 4)",
+						"jsfunction" => ($ctx=="WRV"? "fcalToolbarSetEvState" : "fcalSetEventState")."(event,".$this->id.", 4)",
 						 "confirm" => "false",
 						 "tconfirm" => "",
 						 "control" => "false",
