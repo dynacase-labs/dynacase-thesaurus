@@ -2,7 +2,7 @@
 
 <!-- Globals variables -->
 <script type="text/javascript">
-
+var me = { id:[freedomId], title:'[freedomTitle]' };
 var colpick = new ColorPicker();
 var calRessMenuUrl="[CORE_STANDURL]sole=Y&app=WGCAL&action=WGCAL_GETRESSMENU&rid=";
 var calCurrentEdit = { id:[ceId], title:'[ceTitle]', color:'[ceColor]' };

@@ -1,6 +1,6 @@
 <script type="text/javascript">
 // proto : [proto]
 [BLOCK LPdefault]
-top.window.addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect]);[ENDBLOCK LPdefault]
+top.window.addRessource([attId], '[attTitle]', '[attIcon]',  '[attState]', '[attLabel]', '[attColor]', [attSelect],[haveDeleg]);[ENDBLOCK LPdefault]
 [BLOCK LPduser]top.window.addUDelegate([attId], '[attTitle]', 0, true);[ENDBLOCK LPduser]
 </script>

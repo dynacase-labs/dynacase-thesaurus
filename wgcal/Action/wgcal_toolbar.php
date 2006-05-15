@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.71 2006/05/15 14:35:19 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.72 2006/05/15 16:31:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,8 +20,9 @@ include_once('WGCAL/Lib.Agenda.php');
 
 function wgcal_toolbar(&$action) {
 
-  $action->lay->set("BetaVersion", ($action->getParam("WGCAL_G_USEBETA") == "Yes" ? true : false ));
-  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  $action->lay->set("BetaVersion", ($action->getParam("WGCAL_G_USEBETA") == "Yes" ? true : false ));  
   $action->lay->set("refresh",$action->getParam("WGCAL_U_RELOADTOOLBAR", 0));
   
   if ($action->getParam("WGCAL_U_TBCONTACTS",0)) $action->lay->set("SHOWCONTACTS", true);
@@ -33,6 +34,9 @@ function wgcal_toolbar(&$action) {
   $action->lay->set("VContactSTop", ($action->getParam("WGCAL_U_CONTACSEARCH",0)==1 ? true : false ));
   $action->lay->set("VContactSBottom", ($action->getParam("WGCAL_U_CONTACSEARCH",0)==2 ? true : false ));
 
+  $action->lay->set("freedomId",$action->user->fid);
+  $rd = new_Doc($dbaccess, $action->user->fid);
+  $action->lay->set("freedomTitle",$rd->getTitle());
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -146,6 +150,7 @@ function _listress() {
   $action->lay->set("rplist", $rplist);
 
   // Init popup
+  $ceset = false;
   foreach ($lress as $k => $v) {
     $tt = explode("%", $v);
     $rid = $tt[0];
@@ -154,6 +159,11 @@ function _listress() {
     $rd = new_Doc($dbaccess, $rid);
     if (!$rd->IsAffected()) continue;
     $writeaccess = $readaccess = false;
+    if (!$ceset && $action->user->fid==$rid) {
+      $action->lay->set("ceId", $rid);
+      $action->lay->set("ceTitle", addslashes(ucwords(strtolower($rd->getTitle()))));
+      $action->lay->set("ceColor", $cid);
+    }
     if ($rd->fromid==getFamIdFromName($dbaccess, "IUSER") && $rd->id!=$action->user->fid ) {
       $cal = getUserPublicAgenda($rid, false);
       if ($cal && $cal->isAffected()) {
@@ -179,6 +189,7 @@ function _listress() {
       $t[$i]["DG_HAVE"] = ($rd->id==$action->user->fid || hasDelegation($rd->id)>-1 ? "true" : "false"); 
       $t[$i]["DG_SELECTED"] = ($caledit == $rd->id ? "true" : "false" ); 
       if ($t[$i]["DG_HAVE"]=="true" && $t[$i]["DG_SELECTED"]=="true") {
+	$ceset = true;
 	$action->lay->set("ceId", $rd->id);
 	$action->lay->set("ceTitle", $t[$i]["RDESCR"] );
 	$action->lay->set("ceColor", $t[$i]["RCOLOR"] );

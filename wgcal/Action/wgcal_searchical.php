@@ -38,6 +38,7 @@ function wgcal_searchical(&$action) {
 	  $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
 	  $rlist[$vd["id"]]["titlejs"] = addslashes(ucwords(strtolower($vd["title"])));
 	  $rlist[$vd["id"]]["romode"] = ($writeaccess?false:true);
+	  $rlist[$vd["id"]]["haveDeleg"] = (hasDelegation($vd["id"])>-1 ? "true" : "false");
 	  
 	  // Active menu items
 	  PopupActive('mRess', $vd["id"], 'radd');

@@ -25,10 +25,10 @@ function fcalToolbarSetEvState(event,idp,state) {
 var ressListChg = true;
 
  
-function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro) {
+function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro, agd) {
   var idx = fcalGetRessource(rid);
   if (idx!=-1) return;
-  fcalDrawRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', false, ro);
+  fcalDrawRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', false, ro, agd, false);
   fcalSaveRessources();
 }
 

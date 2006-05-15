@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchiuser.php,v 1.19 2006/02/28 16:08:26 marc Exp $
+ * @version $Id: wgcal_searchiuser.php,v 1.20 2006/05/15 16:31:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -59,6 +59,7 @@ function wgcal_searchiuser(&$action) {
 	$t[$i]["attColor"] = ($inter?WGCalGetColorState(EVST_NEW):"");
 	$t[$i]["attSelect"] = "true";
 	$t[$i]["romode"] = ($writeaccess ? "false":"true");
+	$t[$i]["haveDeleg"] = (hasDelegation($v["id"])>-1 ? "true" : "false");
 	$i++;
       }
     }
