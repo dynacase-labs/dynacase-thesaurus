@@ -393,7 +393,7 @@ function saveEvent(event, checkconflict) {
     }
   }
 	
-//   delEvent(document, 'beforeunload', forceSaveEvent); 
+  delEvent(document, 'beforeunload', forceSaveEvent); 
   if (EventSelectAll(fs)) fs.submit();
   window.close();
   return false;
@@ -411,19 +411,21 @@ function GetTitle(evt, checkconflict) {
 }
 
 function forceSaveEvent() {
-  ok = confirm(saveForceMsg); 
+  ok = confirm('forceSaveEvent::'+saveForceMsg); 
   if (ok) saveEvent(false, false);
   return false;
 }
   
 function cancelEvent() {
   var ok = false;
-//   delEvent(document, 'beforeunload', forceSaveEvent); 
-  ok = confirm(closeMsg); 
+  delEvent(document, 'beforeunload', forceSaveEvent); 
+  ok = confirm('cancelEvent::'+closeMsg); 
   if (ok) {
     document.getElementById('unlockevent').submit();
     window.close();
+    return true;
   }
+  return false;
 }
 
 function deleteEvent(text) {
@@ -684,7 +686,7 @@ function normalEditCheckConflict(ev, displayZero) {
   rq.send(null);
   document.getElementById('conflictcontent').innerHTML = rq.responseText;
   var nbc = parseInt(eltId('eventCount').innerHTML);
-  if ((displayZero || nbc==0) || nbc>0) { 
+  if ((displayZero && nbc==0) || nbc>0) { 
     document.getElementById('conflict').style.display = 'inline';
     document.getElementById('conflict').style.visibility = 'visible';
     computeDivPosition('conflict', getX(ev), getY(ev), -40);

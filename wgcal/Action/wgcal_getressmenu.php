@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getressmenu.php,v 1.1 2006/05/16 14:21:28 marc Exp $
+ * @version $Id: wgcal_getressmenu.php,v 1.2 2006/05/16 17:05:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,7 +43,7 @@ function wgcal_getressmenu(&$action) {
   $menu = array();
   $menu["sub"] = array();
   $menu["main"] = array(
-			'displayress' => array( "descr" => _('show/hide this ressource'),
+			'displayress' => array( "descr" => _("show/hide this ressource"),
 						"jsfunction" => "vuvRessource(".$rid.")",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -54,7 +54,7 @@ function wgcal_getressmenu(&$action) {
 						"submenu" => "",
 						"barmenu" => "false" ),
 
-			'onlyme' => array( "descr" => _('display only this'),
+			'onlyme' => array( "descr" => _("display only this"),
 					   "jsfunction" => "showHideAllRess(".$rid.")",
 					   "confirm" => "false",
 					   "tconfirm" => "",
@@ -65,7 +65,7 @@ function wgcal_getressmenu(&$action) {
 					   "submenu" => "",
 					   "barmenu" => "false" ),
 
-			'rcalendar' => array( "descr" => _('view his calendar'),
+			'rcalendar' => array( "descr" => _("view his calendar"),
 					      "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$rid."');",
 					      "confirm" => "false",
 					      "tconfirm" => "",
@@ -76,7 +76,7 @@ function wgcal_getressmenu(&$action) {
 					      "submenu" => "",
 					      "barmenu" => "false" ),
 
-			'rrendezvous' => array( "descr" => _('m_txt_event_new'),
+			'rrendezvous' => array( "descr" => _("m_txt_event_new"),
 						"jsfunction" => "subwindow(450, 700, 'iNrv', '".$surl."&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&wress=".$rid."');",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -87,7 +87,7 @@ function wgcal_getressmenu(&$action) {
 						"submenu" => "",
 						"barmenu" => "false" ),
 
-			'removeress' => array( "descr" => _('remove this ressource'),
+			'removeress' => array( "descr" => _("remove this ressource"),
 					       "jsfunction" => "removeRessource(".$rid.")",
 					       "confirm" => "false",
 					       "tconfirm" => "",
@@ -101,7 +101,7 @@ function wgcal_getressmenu(&$action) {
 			'sep1' => array("separator" => true, "visibility" => POPUP_ACTIVE ),
 
 			
-			'rprefered' => array( "descr" => _('view my prefered'),
+			'rprefered' => array( "descr" => _("view my prefered"),
 					       "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=[rplist]')",
 					       "confirm" => "false",
 					       "tconfirm" => "",
@@ -112,7 +112,7 @@ function wgcal_getressmenu(&$action) {
 					       "submenu" => "",
 					       "barmenu" => "false" ),
 
-			'displayallr' => array( "descr" => _('display all ressources'),
+			'displayallr' => array( "descr" => _("display all ressources"),
 						"jsfunction" => "showHideAllRess(0)",
 						"confirm" => "false",
 						"tconfirm" => "",
@@ -123,7 +123,7 @@ function wgcal_getressmenu(&$action) {
 						"submenu" => "",
 						"barmenu" => "false" ),
 
-			'hideallr' => array( "descr" => _('hide all ressources'),
+			'hideallr' => array( "descr" => _("hide all ressources"),
 					     "jsfunction" => "showHideAllRess(-1)",
 					     "confirm" => "false",
 					     "tconfirm" => "",

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-16 11:19+0200\n"
+"POT-Creation-Date: 2006-05-16 17:12+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -102,29 +102,47 @@ msgstr "référence du rendez-vous non fournie"
 msgid "unknow rv logical reference"
 msgstr "rv référence logique inconnue"
 
-#, fuzzy, c-format
 msgid "rv cannot see unknow reference %s"
-msgstr "Modifier les préférences"
+msgstr "Référence de rendez-vous inconnu"
 
-#, fuzzy
 msgid "document reference no set"
-msgstr "référence du Préférences des tâches"
+msgstr "Référence au document non fournie"
 
-#, fuzzy
 msgid "unknow logical reference"
-msgstr "Préférences des tâches"
+msgstr "Référence logique inconnue"
 
-#, fuzzy, c-format
 msgid "cannot see unknow reference %s"
-msgstr "Modifier les préférences"
+msgstr "Référence %s inconnue"
 
-#, fuzzy
 msgid "ressource id not set"
-msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+msgstr "Id de ressource non positionné"
 
-#, fuzzy
 msgid "unknow ressource logical reference"
 msgstr "rv référence logique inconnue"
+
+msgid "show/hide this ressource"
+msgstr "Afficher/Masquer"
+
+msgid "display only this"
+msgstr "Afficher seul"
+
+msgid "view his calendar"
+msgstr "Voir son agenda"
+
+msgid "m_txt_event_new"
+msgstr "Nouveau rendez-vous"
+
+msgid "remove this ressource"
+msgstr "Enlever"
+
+msgid "view my prefered"
+msgstr "Calendriers des contacts préférés"
+
+msgid "display all ressources"
+msgstr "Tout afficher"
+
+msgid "hide all ressources"
+msgstr "Tout masquer"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -205,13 +223,11 @@ msgstr "Rechercher un utilisateur"
 msgid "search contact"
 msgstr "Recherche un contact..."
 
-#, fuzzy
 msgid "get ressource menu"
-msgstr "Pas de résultat..."
+msgstr "Action, menu ressource"
 
-#, fuzzy
 msgid "get event producter menu"
-msgstr "Famille des producteurs des évènements affichés"
+msgstr "get event producter menu"
 
 msgid "view event"
 msgstr "Aficher"
@@ -482,9 +498,6 @@ msgstr "par jour"
 
 msgid "event menu"
 msgstr "Evènements"
-
-msgid "m_txt_event_new"
-msgstr "Nouveau rendez-vous"
 
 msgid "m_txt_todo_new"
 msgstr "Nouvelle tâche"
@@ -1155,6 +1168,10 @@ msgstr "Rechercher un évènement contenant..."
 msgid "search in display ressources events"
 msgstr "Rechercher dans les agendas affichés"
 
+#, fuzzy
+msgid "categorie"
+msgstr "Catégorie"
+
 msgid " ressource list changed, save it ?"
 msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 
@@ -1453,29 +1470,8 @@ msgstr "Familles utilisée dans l'agenda"
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
 
-#~ msgid "show/hide this ressource"
-#~ msgstr "Afficher/Masquer"
-
 #~ msgid "change color for this ressource"
 #~ msgstr "Couleur"
-
-#~ msgid "view his calendar"
-#~ msgstr "Voir son agenda"
-
-#~ msgid "display only this"
-#~ msgstr "Afficher seul"
-
-#~ msgid "remove this ressource"
-#~ msgstr "Enlever"
-
-#~ msgid "view my prefered"
-#~ msgstr "Calendriers des contacts préférés"
-
-#~ msgid "display all ressources"
-#~ msgstr "Tout afficher"
-
-#~ msgid "hide all ressources"
-#~ msgstr "Tout masquer"
 
 #~ msgid "search phrase..."
 #~ msgstr "Texte recherché"

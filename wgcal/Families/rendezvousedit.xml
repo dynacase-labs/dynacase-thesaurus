@@ -13,7 +13,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <input id="icuser" name="cuser" type="hidden" value="[ownerid]">
 </form>
 
-<form style="display:none" id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&id=[EVENTID]"></form>
+<form style="display:none" id="unlockevent" name="unlockevent" method="POST" target="wgcal_hidden" action="[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&autoclose=Y&id=[EVENTID]"></form>
 
 <form id="editevent" name="editevent" method="POST" target="wgcal_calendar" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_STOREEVENT" >
 <input type="hidden" id="EvTsStart" name="EvTsStart" value="0">
@@ -240,20 +240,20 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr><td>&nbsp;</td></tr>
 
 <tr><td>
-<span id="dconvocation" style="align:right; display:[dconvocation]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
+<span id="dconvocation" style="text-align:right; display:[dconvocation]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mconvo', 'evconvocation');" title="[TEXT:select for a convocation]"><input id="mconvo" name="mconvo" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mconvo', 'evconvocation');" [mconvo]>[TEXT:convocation...]</span>
 </td></tr>
 
 
 <tr><td>&nbsp;</td></tr>
 
 <!-- <tr><td nowrap>
-<span id="diparticipe" style="align:right; display:[diparticipe]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME]>[TEXT:I participe...]</span>
+<span id="diparticipe" style="text-align:right; display:[diparticipe]" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('withMe', 'evwithme');" title="[TEXT:I participe to this meeting]"><input id="withMe" name="withMe" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('withMe', 'evwithme');" [WITHME]>[TEXT:I participe...]</span>
 </td></tr> -->
 
 <tr><td>&nbsp;</td></tr>
 
 [IF SendMailToExternal]<tr><td>
-<span style="align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mext', 'evmailext');" title="[TEXT:mail to external contact]"><input id="mext" name="mext" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mext', 'evmailext');" [mailtoexternals]>[TEXT:mail to externals...]</span>
+<span style="text-align:right;" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" onclick="ShowHideStatus('mext', 'evmailext');" title="[TEXT:mail to external contact]"><input id="mext" name="mext" type="checkbox" style="cursor:pointer;" onclick="ShowHideStatus('mext', 'evmailext');" [mailtoexternals]>[TEXT:mail to externals...]</span>
 </td></tr>[ENDIF SendMailToExternal]
 
 </table>

@@ -625,7 +625,7 @@ function RendezVousEdit() {
   if ($this->isAffected()) 
     {
 
-      setHttpVar("HUL", "cancelEvent(true)");
+//       setHttpVar("HUL", "cancelEvent(true)");
       setHttpVar("HBUL", "cancelEvent(true)");
 
       $eventid = $this->id;
