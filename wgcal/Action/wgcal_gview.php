@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.27 2006/04/27 05:04:07 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.28 2006/05/16 07:56:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -37,13 +37,13 @@ function wgcal_gview(&$action) {
   $action->lay->set("search", false);
   $ff = array();
   if (count($_POST)>0) foreach ($_POST as $k => $v) {
-    if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
+    if (substr($k,0,5)=='rvfs_') { $ff[substr($k,5)] = $v; }
   }
   if (count($_GET)>0) foreach ($_GET as $k => $v) {
-    if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
+    if (substr($k,0,5)=='rvfs_') { $ff[substr($k,5)] = $v; }
   }
   if (count($ZONE_ARGS)>0) foreach ($ZONE_ARGS as $k => $v) {
-    if (substr($k,0,5)=='rvfs_') $ff[substr($k,5)] = $v;
+    if (substr($k,0,5)=='rvfs_') { $ff[substr($k,5)] = $v; }
   }
   $filter = array();
   $explode = true;
@@ -63,15 +63,26 @@ function wgcal_gview(&$action) {
 	$dd = explode("=", $v);
 	break;
       case 'search': 
+	$ress = $action->user->fid;
 	$sphrase = $v;
 	$filter[] = "(evt_title ~* '".$v."') or (evt_desc ~* '".$v."')";
 	$action->lay->set("search", true);
+	if ($ff["all"] && $ff["all"]=="true") {
+	  $tress = wGetRessDisplayed();
+	  $tr=array(); 
+	  $ire=0;
+	  foreach ($tress as $kr=>$vr) {
+	    if ($vr->id>0) $tr[$vr->id] = $vr->id;
+	  }
+	  $ress = implode("|", $tr);
+	}
+	setHttpVar("ress", $ress);
 	break;
        case 'pexc': 
 	$filter[] = "(evt_idinitiator != ".$v.")";
 	break;
      case 'ress': 
-       $ress = $v;
+       $ress = $v; 
        setHttpVar("ress", $ress);
        break;
      default:
@@ -102,8 +113,6 @@ function wgcal_gview(&$action) {
   $evt = array();
   
   $evt = array();
-//   echo "ress=$ress start=".$dd[0]." end=".$dd[1]." explode=".($explode?"true":"false")."<br>";
-//   print_r($filter);
   $evt = wGetEvents($dd[0], $dd[1], $explode, $filter); 
   if (count($evt) > 0) {
     $td = array();

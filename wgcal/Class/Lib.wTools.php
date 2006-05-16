@@ -415,7 +415,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $idfamref = implode("|", $fti);
   if ($idfamref=="") $idfamref=" ";
   setHttpVar("idfamref", $idfamref);
-
+  
   // Init the ressources
   $res = GetHttpVars("ress", "");
   if ($res!="x") {
