@@ -90,12 +90,16 @@ function wgcal_textweek(&$action) {
   $tevents = wGetEvents($d1, $d2);
   foreach ($tevents as $k => $v) {
 
-     $startday = gmstrftime("%u", $v["start"]) - 1;
-     $endday = gmstrftime("%u", $v["end"]) - 1;
-     for ($iday=intval($startday); $iday<=intval($endday); $iday++) {
-      $lstart = substr($v["evt_begdate"],11,5);
-      $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
+    $startday = substr(getV($v, "evt_begdate"), 0,2);
+    $endday  = substr(getV($v, "evt_enddate"), 0,2);
+    $basedate = substr(getV($v, "evt_enddate"), 6,4).substr(getV($v, "evt_enddate"), 3,2);
+    for ($iday=intval($startday); $iday<=intval($endday); $iday++) {
+
+      $indexday = strftime("%u", mktime(12,0,0,substr(getV($v, "evt_enddate"), 3,2), $iday, substr(getV($v, "evt_enddate"), 6,4)));
+      
+      $lstart = substr(getV($v, "evt_begdate"),11,5);
       $lend = substr($end,11,5);
+      $end = (getV($v,"evfc_realenddate") == "" ? getV($v,"evt_enddate") : getV($v,"evfc_realenddate"));
       if ($lstart==$lend && $lend=="00:00") {
 	$hours = "("._("no hour").")";
 	$p = 0;
@@ -120,8 +124,8 @@ function wgcal_textweek(&$action) {
 	}
       }
       $evlay->setBlockData("icons", null);
-      if ($v["icons"]!="") {
-	$it = explode(",", $v["icons"]);
+      if ($v["dattr"]["icons"]!="") {
+	$it = explode(",", $v["dattr"]["icons"]);
 	if (count($it)>0) {
 	  $itt = array();
 	  foreach ($it as $ki => $vi) $itt[]["iconsrc"] = str_replace("'","",$vi);
@@ -157,7 +161,7 @@ function wgcal_textweek(&$action) {
 	$evlay->set("vNote", true);
       }
       
-      $daysev[$iday][] = array( "p" => $p, "hours" => $hours, "eventsdesc" => $evlay->gen() );
+      $daysev[$indexday][] = array( "p" => $p, "hours" => $hours, "eventsdesc" => $evlay->gen() );
      }
   }
       
@@ -167,9 +171,9 @@ function wgcal_textweek(&$action) {
     // sort by date....
     $action->lay->set($dayl[$day]."_num", strftime("%d", $firstday + ($day*3600*24)));
     $action->lay->set($dayl[$day]."_month", strftime("%B", $firstday + ($day*3600*24)));
-    if (count($daysev[$day])>0) {
-      usort($daysev[$day], cmpRv);
-      $action->lay->setBlockData("b_".$dayl[$day], $daysev[$day]);
+    if (count($daysev[($day+1)])>0) {
+      usort($daysev[($day+1)], cmpRv);
+      $action->lay->setBlockData("b_".$dayl[$day], $daysev[($day+1)]);
       $action->lay->set("s_".$dayl[$day], true);
     } else{
       $action->lay->set("s_".$dayl[$day], false);
