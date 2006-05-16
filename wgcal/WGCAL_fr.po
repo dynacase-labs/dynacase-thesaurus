@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-28 16:33+0200\n"
+"POT-Creation-Date: 2006-05-16 11:19+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -78,8 +78,14 @@ msgstr "Suppression de l'évènement du calendrier"
 msgid "insert event in calendar"
 msgstr "Ajout de l'évènement dans le calendrier"
 
+msgid "all the day _ very short"
+msgstr "Jour"
+
 msgid "no sync made"
 msgstr "jamais synchronisé"
+
+msgid "all the day"
+msgstr "Toute la journée"
 
 msgid "You have waiting events"
 msgstr "Vous avez des rendez-vous en attente"
@@ -111,6 +117,14 @@ msgstr "Préférences des tâches"
 #, fuzzy, c-format
 msgid "cannot see unknow reference %s"
 msgstr "Modifier les préférences"
+
+#, fuzzy
+msgid "ressource id not set"
+msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
+#, fuzzy
+msgid "unknow ressource logical reference"
+msgstr "rv référence logique inconnue"
 
 msgid "workgroup calendar"
 msgstr "Agenda de groupe"
@@ -190,6 +204,10 @@ msgstr "Rechercher un utilisateur"
 
 msgid "search contact"
 msgstr "Recherche un contact..."
+
+#, fuzzy
+msgid "get ressource menu"
+msgstr "Pas de résultat..."
 
 #, fuzzy
 msgid "get event producter menu"
@@ -325,9 +343,6 @@ msgstr "Visibles pour les groupes"
 
 msgid "private"
 msgstr "Privé"
-
-msgid "all the day"
-msgstr "Toute la journée"
 
 msgid "confidential event"
 msgstr "Evènement confidentiel"
@@ -678,142 +693,6 @@ msgstr "M'avertir pour les tâches dans "
 msgid "set todo default date to today more "
 msgstr "Position la date par défaut à aujourd'hui plus "
 
-msgid "lang"
-msgstr "Language"
-
-msgid "current day color"
-msgstr "couleur du jour courant"
-
-msgid "week end days color"
-msgstr "couleur des jours de week-end"
-
-msgid "selected day color"
-msgstr "couleur du jour sélectionné"
-
-msgid "title line height"
-msgstr "Hauteur de la ligne de titre"
-
-msgid "hour lines height"
-msgstr "Hauteur des lignes d'heure"
-
-msgid "hour in day column width"
-msgstr "Largeur des colonne des jours"
-
-msgid "menu icons height"
-msgstr "Hauteur des icones"
-
-msgid "display week end"
-msgstr "Affichage des week-end"
-
-msgid "view count days"
-msgstr "Nombre de jours affichés"
-
-msgid "day start hour"
-msgstr "Heure de début de la journée"
-
-msgid "day end hour"
-msgstr "Heure de fin de la journée"
-
-msgid "hour division"
-msgstr "Division de l'heure"
-
-msgid "tool display state"
-msgstr "Etat d'affiche de l'outil"
-
-msgid "alert for new event ?"
-msgstr "me prévenir pour les évènements en attente"
-
-msgid "Current displayed date"
-msgstr "Date courante affichée"
-
-msgid "WGCAL_U_RESSDISPLAYED"
-msgstr "Ressource affichées"
-
-msgid "use prefered ressource for event setting"
-msgstr "Utiliser mes contacts préférés pour les rendez-vous"
-
-msgid "displayed refused events"
-msgstr "Afficher les évènements refusé :"
-
-msgid "show icons in resume"
-msgstr "Afficher les icones et les heures sur l'agenda"
-
-msgid "alt postion is fixed"
-msgstr "Position des popup fixe"
-
-msgid "general theme"
-msgstr "Thème"
-
-msgid "fonts size"
-msgstr "Taille de la police"
-
-msgid "start hour used for event setting"
-msgstr "Heure de début utilsée pour la saisie de RV"
-
-msgid "end hour used for event setting"
-msgstr "Heure de fin utilsée pour la saisie de RV"
-
-msgid "meeting default duration"
-msgstr "Durée par défaut des rendez-vous"
-
-msgid "minutes increment used for event setting"
-msgstr "Incrément pour les minutes en saisie de RV"
-
-msgid "order todos"
-msgstr "Tri des tâches"
-
-msgid "view todos for ... days"
-msgstr "Afficher les tâches pour ... jours"
-
-msgid "warn for todo having a date in the ... days"
-msgstr "M'avertir pour les tâches à faire durant les ... jours "
-
-msgid "set todo date to today + ... days"
-msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
-
-msgid "default confidentiality for new event"
-msgstr "confidentialité par défaut pour les nouveau rv"
-
-msgid "display contacts"
-msgstr "Afficher les contacts"
-
-msgid "toolbar size"
-msgstr "Largeur de la barre d'outils"
-
-msgid "contact search position"
-msgstr "Recherche rapide carnet d'adresse"
-
-msgid "barmenu date navigator"
-msgstr ""
-
-#, fuzzy
-msgid "mail command"
-msgstr "Calendrier public"
-
-msgid "mails send"
-msgstr "Envoi des mails"
-
-msgid "mails send to externals"
-msgstr "Envoi des mails aux contacts extérieurs"
-
-msgid "mail title mark"
-msgstr "Marquage (Sujet) des mails émis"
-
-msgid "viewed events (from producters)"
-msgstr "Famille des producteurs des évènements affichés"
-
-msgid "Sync Version Needed"
-msgstr "Version du synchroniseur attendue"
-
-msgid "used groups"
-msgstr "Groupes utilisés"
-
-msgid "used families in events"
-msgstr "Familles utilisée dans l'agenda"
-
-msgid "use beta fonction"
-msgstr "Utilisation des fonctions en cours de test"
-
 msgid " cancel modifications"
 msgstr "Annuler les éventuelles modifications"
 
@@ -1027,9 +906,6 @@ msgstr "Note"
 msgid "Category"
 msgstr "Catégorie"
 
-msgid " invalid ressource id"
-msgstr "Identifiant de ressource invalide"
-
 msgid "my todos..."
 msgstr "Mes tâches..."
 
@@ -1174,9 +1050,6 @@ msgstr "Imprimer"
 msgid "current week"
 msgstr "Semaine actuelle"
 
-msgid "print date"
-msgstr "Imprimé le"
-
 msgid "edit todo"
 msgstr "Editer la tâche"
 
@@ -1243,38 +1116,14 @@ msgstr "Modifier la liste des agendas"
 msgid "update calendar"
 msgstr "Mise à jour de l'agenda"
 
-msgid "show/hide this ressource"
-msgstr "Afficher/Masquer"
-
-msgid "change color for this ressource"
-msgstr "Couleur"
-
-msgid "view his calendar"
-msgstr "Voir son agenda"
-
-msgid "display only this"
-msgstr "Afficher seul"
-
-msgid "remove this ressource"
-msgstr "Enlever"
-
-msgid "view my prefered"
-msgstr "Calendriers des contacts préférés"
-
-msgid "display all ressources"
-msgstr "Tout afficher"
-
-msgid "hide all ressources"
-msgstr "Tout masquer"
-
-msgid "close menu"
-msgstr "Fermer"
-
 msgid "select to edit agenda for"
 msgstr "Agir en tant que "
 
 msgid "waiting rv"
 msgstr "Rendez-vous en attente"
+
+msgid "alert for new event ?"
+msgstr "me prévenir pour les évènements en attente"
 
 msgid "click-right button to open menu"
 msgstr "Cliquez [bouton-droit] pour ouvrir le menu"
@@ -1303,14 +1152,14 @@ msgstr "Rechercher"
 msgid "search event containing..."
 msgstr "Rechercher un évènement contenant..."
 
-msgid "search phrase..."
-msgstr "Texte recherché"
-
 msgid "search in display ressources events"
 msgstr "Rechercher dans les agendas affichés"
 
 msgid " ressource list changed, save it ?"
 msgstr "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
+
+msgid " invalid ressource id"
+msgstr "Identifiant de ressource invalide"
 
 msgid "my calendars"
 msgstr "Mes calendriers"
@@ -1362,6 +1211,9 @@ msgstr "Refuser (pour le propriétaire)"
 
 msgid "to be confirm this for owner"
 msgstr "A Confirmer (pour le propriétaire)"
+
+msgid "close menu"
+msgstr "Fermer"
 
 msgid "event default confidentiality..."
 msgstr "Confidentialité par défaut pour les rendez-vous"
@@ -1423,8 +1275,17 @@ msgstr "Options générales"
 msgid "theme caracteristics"
 msgstr "Thème utilisé"
 
+msgid "fonts size"
+msgstr "Taille de la police"
+
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
+
+msgid "day start hour"
+msgstr "Heure de début de la journée"
+
+msgid "day end hour"
+msgstr "Heure de fin de la journée"
 
 msgid "hours division size"
 msgstr "Division de l'heure"
@@ -1440,6 +1301,9 @@ msgstr "heure de début"
 
 msgid "end hour"
 msgstr "heure de fin"
+
+msgid "meeting default duration"
+msgstr "Durée par défaut des rendez-vous"
 
 msgid "meeting minute increase"
 msgstr "Tranches de minutes selectionnables"
@@ -1462,8 +1326,159 @@ msgstr "Synchronisation Outlook"
 msgid "todos options"
 msgstr "Options des tâches"
 
+msgid "print date"
+msgstr "Imprimé le"
+
+msgid "lang"
+msgstr "Language"
+
+msgid "current day color"
+msgstr "couleur du jour courant"
+
+msgid "week end days color"
+msgstr "couleur des jours de week-end"
+
+msgid "selected day color"
+msgstr "couleur du jour sélectionné"
+
+msgid "title line height"
+msgstr "Hauteur de la ligne de titre"
+
+msgid "hour lines height"
+msgstr "Hauteur des lignes d'heure"
+
+msgid "hour in day column width"
+msgstr "Largeur des colonne des jours"
+
+msgid "menu icons height"
+msgstr "Hauteur des icones"
+
+msgid "display week end"
+msgstr "Affichage des week-end"
+
+msgid "view count days"
+msgstr "Nombre de jours affichés"
+
+msgid "hour division"
+msgstr "Division de l'heure"
+
+msgid "tool display state"
+msgstr "Etat d'affiche de l'outil"
+
+msgid "Current displayed date"
+msgstr "Date courante affichée"
+
+msgid "WGCAL_U_RESSDISPLAYED"
+msgstr "Ressource affichées"
+
+msgid "use prefered ressource for event setting"
+msgstr "Utiliser mes contacts préférés pour les rendez-vous"
+
+msgid "displayed refused events"
+msgstr "Afficher les évènements refusé :"
+
+msgid "show icons in resume"
+msgstr "Afficher les icones et les heures sur l'agenda"
+
+msgid "alt postion is fixed"
+msgstr "Position des popup fixe"
+
+msgid "general theme"
+msgstr "Thème"
+
+msgid "start hour used for event setting"
+msgstr "Heure de début utilsée pour la saisie de RV"
+
+msgid "end hour used for event setting"
+msgstr "Heure de fin utilsée pour la saisie de RV"
+
+msgid "minutes increment used for event setting"
+msgstr "Incrément pour les minutes en saisie de RV"
+
+msgid "order todos"
+msgstr "Tri des tâches"
+
+msgid "view todos for ... days"
+msgstr "Afficher les tâches pour ... jours"
+
+msgid "warn for todo having a date in the ... days"
+msgstr "M'avertir pour les tâches à faire durant les ... jours "
+
+msgid "set todo date to today + ... days"
+msgstr "Positionner la date par défaut à aujourd'hui plus ... jours"
+
+msgid "default confidentiality for new event"
+msgstr "confidentialité par défaut pour les nouveau rv"
+
+msgid "display contacts"
+msgstr "Afficher les contacts"
+
+msgid "toolbar size"
+msgstr "Largeur de la barre d'outils"
+
+msgid "contact search position"
+msgstr "Recherche rapide carnet d'adresse"
+
+msgid "barmenu date navigator"
+msgstr ""
+
 msgid "current user (delegate) for edition"
 msgstr ""
+
+#, fuzzy
+msgid "mail command"
+msgstr "Calendrier public"
+
+msgid "mails send"
+msgstr "Envoi des mails"
+
+msgid "mails send to externals"
+msgstr "Envoi des mails aux contacts extérieurs"
+
+msgid "mail title mark"
+msgstr "Marquage (Sujet) des mails émis"
+
+msgid "viewed events (from producters)"
+msgstr "Famille des producteurs des évènements affichés"
+
+msgid "Sync Version Needed"
+msgstr "Version du synchroniseur attendue"
+
+msgid "used groups"
+msgstr "Groupes utilisés"
+
+msgid "used families in events"
+msgstr "Familles utilisée dans l'agenda"
+
+msgid "use beta fonction"
+msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "show/hide this ressource"
+#~ msgstr "Afficher/Masquer"
+
+#~ msgid "change color for this ressource"
+#~ msgstr "Couleur"
+
+#~ msgid "view his calendar"
+#~ msgstr "Voir son agenda"
+
+#~ msgid "display only this"
+#~ msgstr "Afficher seul"
+
+#~ msgid "remove this ressource"
+#~ msgstr "Enlever"
+
+#~ msgid "view my prefered"
+#~ msgstr "Calendriers des contacts préférés"
+
+#~ msgid "display all ressources"
+#~ msgstr "Tout afficher"
+
+#~ msgid "hide all ressources"
+#~ msgstr "Tout masquer"
+
+#~ msgid "search phrase..."
+#~ msgstr "Texte recherché"
 
 #~ msgid "goto this period"
 #~ msgstr "Aller à cette date"
@@ -1521,9 +1536,6 @@ msgstr ""
 
 #~ msgid "next period"
 #~ msgstr "Période suivante"
-
-#~ msgid "no ressource result"
-#~ msgstr "Pas de résultat..."
 
 #~ msgid "last sync date for Outlook"
 #~ msgstr "Date de la dernière synchro Outlook"
@@ -1660,10 +1672,6 @@ msgstr ""
 
 #~ msgid "change my event color"
 #~ msgstr "Modifier la couleur de mes évènements"
-
-#~ msgid " ressource list saved"
-#~ msgstr ""
-#~ "La liste des ressources a été modifiée, voulez-vous la sauvegarder ?"
 
 #~ msgid "day(s)"
 #~ msgstr "Jour(s)"

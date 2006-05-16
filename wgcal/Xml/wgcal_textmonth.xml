@@ -5,22 +5,25 @@
 <table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 <tr>
 <td nowrap class="wMonthTextTitlePrevNext" align="left" width="20%">
-  <span onclick="setTextView([prevyeart]);">[[prevyear]]</span>
-  <span onclick="setTextView([prevmontht]);">[[prevmonth]]</span>
+  <span class="noprinthide" onclick="setTextView([prevyeart]);">[[prevyear]]</span>
+  <span class="noprinthide" onclick="setTextView([prevmontht]);">[[prevmonth]]</span>
 </td>
 <td class="wMonthTextTitle" align="center" colspan="[titlespan]">[month]</td>
 <td nowrap class="wMonthTextTitlePrevNext" align="right" width="20%">
-  <span onclick="setTextView([nextmontht]);">[[nextmonth]]</span>
-  <span onclick="setTextView([nextyeart]);">[[nextyear]]</span>
+  <span class="noprinthide" onclick="setTextView([nextmontht]);">[[nextmonth]]</span>
+  <span class="noprinthide" onclick="setTextView([nextyeart]);">[[nextyear]]</span>
 </td></tr>
 </table>
 <table  style="border:thin outset grey;" align="center" width="100%" cellspacing="0" cellpadding="2px">
 [BLOCK DLINE]<tr  valign="top">[line]</tr>[ENDBLOCK DLINE]
-<tr><td colspan="[dayperline]">[ZONE WGCAL:WGCAL_INFOS]</td></tr>
 </table>
 
+<div style="width:100%">[ZONE WGCAL:WGCAL_PRINTINFOS]</div>
 
-[BLOCK CARDS]
-<div id="evtc[RG]" style=" display:none; border:1px outset; padding:3px; background-color:white">[EvPCard]</div>[ENDBLOCK CARDS]
-
+<script> 
+var AltTimerValue = 200;
+[BLOCK CARDS]fcalEvents[[rg]] = [jscode];
+[ENDBLOCK CARDS]
+</script> 
+<div id="fcalDatas" style="display:block"></div>
 [ZONE WGCAL:WGCAL_HTMLFOOT]

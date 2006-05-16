@@ -2,11 +2,13 @@
 <span width="30%" class="wMonthTextTitlePrevNext" align="left">&nbsp;[daynum]&nbsp;</span>
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>
-<table>
-[BLOCK HLine]<tr valign="top"><td class="WEvDefault">[hours]</td>
-<td class="WEvDefault"><div  
-style="overflow:hidden; cursor:crosshair; [IFNOT isMeeting]border-top:0px[ENDIF isMeeting][IF isMeeting]border-top:3px solid [topColor][ENDIF isMeeting];border-bottom:0px;[IF haveCat]border-left:3px solid [leftColor][ENDIF haveCat][IFNOT haveCat]border-left:0px[ENDIF haveCat]; border-right:0px;"  
-[IF editable]onclick="subwindow(400, 650, 'EditEvent[evt_idinitiator]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id=[evt_idinitiator]');"[ENDIF editable]
-[IFNOT editable][IF displayable]onclick="subwindow(400, 650, 'ViewEvent[evt_idinitiator]', '[CORE_STANDURL]&app=FDL&action=IMPCARD&id=[evt_idinitiator]');"[[ENDIF displayable][ENDIF editable]
->[icolist]&nbsp;[evt_title][IF showOwner]&nbsp;<span style="font-size:80%;">([owner])</span>[ENDIF showOwner]</div>
-[IF vInvite]<div style="font-size:80%; font-style:italic">Invité par [Invite]</div></td></tr>[ENDIF vInvite][ENDBLOCK HLine]</table>
+
+[BLOCK HLine]<div style="overflow:hidden; cursor:crosshair" oncontextmenu="fcalCancelEvDisplay(event, [rg]); fcalOpenMenuEvent(event, [rg], this)" onmouseover="fcalStartEvDisplay(event, [rg]);" onmouseout="fcalCancelEvDisplay(event, [rg]);" >
+<div class="WEvDefault" style="border-right: 5px solid [ownercolor]; font-weight:bolder; font-size:80%;">[hours]&nbsp;[icolist][IF showOwner]&nbsp;<span style="font-weight:normal;font-style:italic;">([owner])</span>[ENDIF showOwner]</div>
+<div style="padding-left:5px; padding-bottom:5px">
+<div style="color:black">[evt_title]</div>
+[IF otherInfos]<div style="font-size:80%; font-style:italic">
+[IF haveLocation][TEXT:location_1stUpcase] : [location][ENDIF haveLocation]
+[IF haveCat]&nbsp; [TEXT:categorie] : [categorie][ENDIF haveCat]
+</div>[ENDIF otherInfos]</div>
+</div>[ENDBLOCK HLine]

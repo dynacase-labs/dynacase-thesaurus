@@ -18,11 +18,16 @@ function wgcal_textmonth(&$action)
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
+
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
+
+  // for popup menus
+  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
@@ -47,40 +52,51 @@ function wgcal_textmonth(&$action)
   $nextyear = strftime("%Y", $nextyeart);
 
   // Search all event for this month
-  $hsep = "&nbsp;-&nbsp;";
+  $hsep = "&nbsp;"; //"&nbsp;-&nbsp;";
   $d1 = "".$year."-".$month."-01 00:00:00";
   $d2 = "".$year."-".$month."-".$lastday." 23:59:59";
   $events = wGetEvents($d1, $d2);
   $popuplist = array();
   $tdays = array();
+  $catg = wGetCategories();
+  foreach ($catg as $k=>$v)  $textcat[$v["id"]] = $v["label"];
   foreach ($events as $k => $v) {
 
     $events[$k]["evt_title"] = stripSlashes($v["evt_title"]);
+    $events[$k]["ownercolor"] = $events[$k]["dattr"]["bgColor"];
+
+    $events[$k]["otherInfos"] = false;
+
     $events[$k]["icolist"] = "";
     $events[$k]["Icons"] = null;
 
-    $events[$k]["haveCat"] = ($v["evt_code"]==0?false:true);
-    $events[$k]["isMeeting"] = ($v["bgColor"]==$v["topColor"]?false:true);
-    $events[$k]["vInvite"] = false;
-    if ($events[$k]["isMeeting"]  && $action->user->fid!=$v["evt_idcreator"]) {
-      $dt = getTDoc($dbaccess, $v["evt_idcreator"]);
-      $events[$k]["Invite"] = $dt["title"];
-      $events[$k]["vInvite"] = true;
+    $events[$k]["haveLocation"] = (getV($v, "evfc_location")==""?false:true);
+    $events[$k]["location"] = getV($v, "evfc_location"); 
+    if ($events[$k]["haveLocation"]) $events[$k]["otherInfos"] = true;
+
+
+    $tc = getV($v, "evt_code");
+    $events[$k]["haveCat"] = ($tc==0?false:true);
+    if ($tc>0) {
+      $events[$k]["categorie"] = $textcat[$tc];
+      $events[$k]["otherInfos"] = true;
     }
     
     $events[$k]["showOwner"] = false;
-    if (!$events[$k]["vInvite"] && $action->user->fid!=$v["evt_idcreator"]) {
+    if ($action->user->fid!=$v["evt_idcreator"]) {
       $dt = getTDoc($dbaccess, $v["evt_idcreator"]);
       $events[$k]["owner"] = $dt["title"];
       $events[$k]["showOwner"] = true;
     }
-    
-    if ($v["icons"]!="") {
-      $it = explode(",", $v["icons"]);
+
+    if ($v["dattr"]["icons"]!="") {
+      $it = explode(",", $v["dattr"]["icons"]);
       if (count($it)>0) {
 	foreach ($it as $ki => $vi) $events[$k]["icolist"] .= "<img src=\"".str_replace("'","",$vi)."\">";
+	$events[$k]["icolist"] .= "&nbsp;";
       }
     }
+    $events[$k]["topColor"] = $v["dattr"]["topColor"];
 
     $dstart = substr($v["evt_begdate"], 0, 2);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);
@@ -93,10 +109,10 @@ function wgcal_textmonth(&$action)
 	$tdays[$id]->events = array();
       }
       if ($hstart==$hend && $hend=="00:00") {
-	$hours = "("._("no hour").")";
+	$hours = ""; // "("._("no hour").")";
  	$p = 0;
      } else if ($hstart=="00:00" && $hend=="23:59") {
-	$hours = "("._("all the day _ short").")";
+	$hours = "("._("all the day _ very short").")";
  	$p = 1;
      } else {
 	if ($dend==$dstart) {
@@ -115,6 +131,7 @@ function wgcal_textmonth(&$action)
 	  }
 	}
       }
+
       $events[$k]["pound"] = $p;
       $events[$k]["hours"] = $hours;
       $tdays[$id]->events[$tdays[$id]->ecount] = $events[$k];
@@ -161,9 +178,9 @@ function wgcal_textmonth(&$action)
 	$daylabel = strftime("%A",$tscday);
 	$d = array();
 	$h->set("daynum",$daynum);
+	$h->set("daylabel",$daylabel);
 	$h->set("timeb", $tscday + ($hstart)*3600);
 	$h->set("timee", $tscday + ($hstart+1)*3600);
-	$h->set("daylabel",$daylabel);
 	if (is_array($tdays[$cday]->events)) usort($tdays[$cday]->events, cmpRv);
 	$h->SetBlockData("HLine", $tdays[$cday]->events);
 	$hday[$li]["line"] .= "<td onmouseover=\"closeAllMenu();\" height=\"".$td_height."px\" class=\"wMonthTextTD\">".$h->gen()."</td>";

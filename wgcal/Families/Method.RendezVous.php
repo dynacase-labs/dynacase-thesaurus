@@ -48,6 +48,7 @@ function  setEventSpec(&$e) {
   $e->setValue("evfc_idowner", $this->getValue("calev_ownerid"));
   $e->setValue("evt_desc", $this->getValue("calev_evnote"));
   $e->setValue("evt_code", $this->getValue("calev_category"));
+  $e->setValue("evfc_location", $this->getValue("calev_location"));
   $e->setValue("evfc_visibility", $this->getValue("calev_visibility"));
   $e->setValue("evfc_realenddate", $this->getValue("calev_end"));
   $e->setValue("evfc_repeatmode", $this->getValue("calev_repeatmode"));

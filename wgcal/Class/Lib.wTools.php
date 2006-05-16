@@ -463,6 +463,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
     $ev = getDocObject($dbaccess, $v); 
     $events[$k]["rg"] = $rg;
     $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
+    $events[$k]["dattr"] = $ev->getDisplayAttr();
     $rg++;
   }
   return $events;
