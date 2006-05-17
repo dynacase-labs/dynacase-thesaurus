@@ -9,7 +9,7 @@ var inCalendar = false;
 flogSetZonePos(20,50,40000);
 flogSetZoneParam(true, 5000);
 flogSetZoneStyle('#FF6600', '#000000', 2, 'groove');
-flogDisplayMsg('W');
+flogDisplayMsg('I');
 
      [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
 

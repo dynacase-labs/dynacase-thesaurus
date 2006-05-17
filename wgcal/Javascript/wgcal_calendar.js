@@ -748,7 +748,7 @@ function fastEditSave(ev) {
   } else {
     document.location.reload(false);
   }
-  flogDisplayMsg('W');
+  flogDisplayMsg('I');
   return;
 } 
 
@@ -831,7 +831,13 @@ function fcalSetEventState(event,idp,state,reloadcal) {
   } else {
     if (inCalendar) {  
       eval(res.content);
-      if (_fcalTmpEvents) fcalInsertTmpEvent(event,_fcalTmpEvents);
+      if (_fcalTmpEvents.length>0) fcalInsertTmpEvent(event,_fcalTmpEvents);
+      else {
+ 	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
+	  if (fcalEvents[iie].idp==idp) fcalEvents.splice(iie,1);
+	}
+  	fcalReloadEvents();
+      }
       flogDisplayMsg('I');
     } else {
       document.location.reload(false);

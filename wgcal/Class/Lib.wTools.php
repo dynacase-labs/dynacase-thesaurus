@@ -381,8 +381,10 @@ function wgcalGetRessourcesMatrix($ev) {
 
 function wGetSinglePEvent($id) {
   global $action;
-  if ($action->getParam("WGCAL_U_DISPLAYREFUSED")==1) $filter = array();
-  else    $filter = array("((evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y') or (evfc_rejectattid isnull))");
+  $filter = array();
+  if ($action->getParam("WGCAL_U_DISPLAYREFUSED")==0) {
+     $filter[] = "((evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y') OR (evfc_rejectattid is null))";
+  }
   $vm = $action->GetParam("WGCAL_U_DAYSVIEWED");
   $stdate = $action->GetParam("WGCAL_U_CALCURDATE");
   $sdate = w_GetDayFromTs($stdate); 
@@ -391,7 +393,8 @@ function wGetSinglePEvent($id) {
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
 //   echo "d1=[$d1] d2=[$d2] filter=[evt_idinitiator = $id]<br>";
-  $ev = wGetEvents($d1, $d2, true, array("evt_idinitiator = ".$id ), $famid="EVENT");
+  $filter[] = "(evt_idinitiator = ".$id.")";
+  $ev = wGetEvents($d1, $d2, true, $filter, $famid="EVENT_FROM_CAL");
   return $ev;
 }
 
