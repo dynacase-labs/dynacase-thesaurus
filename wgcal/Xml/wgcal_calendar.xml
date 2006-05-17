@@ -111,7 +111,7 @@
     </tr>
     <tr><td colspan="2">&nbsp;</td></tr>
     <tr>
-      <td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic;"><span id="agendaowner"></span> <select id="fe_confidentiality" onchange="fastEditChange(this);" >[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select></td>
+      <td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic;"><span id="agendaowner"></span> <select id="fe_confidentiality" onchange="fastEditChange(this);" >[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select><input type="hidden" value="[defvis]" id="defvis"></td>
     </tr>
     <tr>
      <td align="left"><img height="12px" src="[IMG:wm-evedit.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.90 2006/04/26 10:20:50 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.91 2006/05/17 15:08:27 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -253,6 +253,7 @@ function wgcal_calendar(&$action) {
   $action->lay->setBlockData("category", $tcat);
 
 
+  $defvis = $vis = getParam("WGCAL_U_RVDEFCONF",0);
   $avis = CAL_getEventVisibilities($dbaccess, "");
   $ic = 0;
   foreach ($avis as $k => $v) {
@@ -263,6 +264,7 @@ function wgcal_calendar(&$action) {
     $ic++;
   }
   $action->lay->SetBlockData("confid", $tconf);
+  $action->lay->set("defvis", $defvis);
 
 
   // minutes

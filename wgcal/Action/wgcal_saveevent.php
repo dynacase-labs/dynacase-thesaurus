@@ -87,6 +87,19 @@ function wgcal_saveevent(&$action) {
   $event->confidential = ($conf>0 ? 1 : 0);
   $event->setValue("calev_visibility", $conf);
   $event->setValue("calev_confgroups", 0);
+  if ($conf==2) {
+    $lgroups = array();
+    $u_groups = wGetUserGroups($oid);
+    if (count($u_groups)>0) {
+      foreach ($u_groups as $k => $v) {
+	$dt = getTDoc($dbaccess, $k);
+	$lgroups[] = getV($dt, "us_whatid");
+      }
+      $event->setValue("calev_confgroups", implode("|", $lgroups));
+    } else { // Error, no groups, I set privacy to confidentiel
+      $event->setValue("calev_visibility", 1);
+    }
+  }
 
   if ($new) {
     $event->setValue("calev_evalarm", 0);

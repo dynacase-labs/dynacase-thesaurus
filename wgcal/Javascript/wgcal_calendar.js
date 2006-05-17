@@ -89,9 +89,10 @@ function ClickCalendarCell(event, nh,times,timee) {
   if (!evt.ctrlKey) {
    if (!fastEditChangeAlert()) return;
    EventInEdition = { id:0, idp:0, idowner:-1, titleowner:'',
-			       title:'', hmode:nh, start:times, end:timee, 
-			       category:0, note:'', location:'', 
-			       confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null };
+		      title:'', hmode:nh, start:times, end:timee, 
+		      category:0, note:'', location:'', 
+		      confidentiality:eltId('defvis').value, 
+		      rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null };
    fastEditInit(event, true);
   }
   if (evt.ctrlKey) {
@@ -862,12 +863,12 @@ function fastEditReset() {
   EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
-			      confidentiality:0, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null};
+			      confidentiality:eltId('defvis').value, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null};
   eltId('fe_title').value ='';
   eltId('fe_location').value ='';
   eltId('fe_note').value = '';
   eltId('fe_categories').options[0].selected = true;
-  eltId('fe_confidentiality').options[0].selected = true;
+  eltId('fe_confidentiality').options[eltId('defvis').value].selected = true;
   fastEditCanSave(false);
   eltId('fastedit').style.display = 'none';
   eltId('nohour').checked = '';
