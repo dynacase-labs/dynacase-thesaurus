@@ -417,15 +417,7 @@ function forceSaveEvent() {
 }
   
 function cancelEvent() {
-  var ok = false;
-  delEvent(document, 'beforeunload', forceSaveEvent); 
-  ok = confirm('cancelEvent::'+closeMsg); 
-  if (ok) {
-    document.getElementById('unlockevent').submit();
-    window.close();
-    return true;
-  }
-  return false;
+  return closeMsg;
 }
 
 function deleteEvent(text) {

@@ -175,7 +175,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <td align="right">
 <img src="[IMG:fcal-checkconflict.gif]" id="btnCConf" height="15" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="normalEditCheckConflict(event, true);">
 <img src="[IMG:wm-accept.gif]" id="btnSave" height="15" title="[TEXT:save]" class="wSmallButton" onclick="saveEvent(event, [IF checkConflict]true[ENDIF checkConflict][IFNOT checkConflict]false[ENDIF checkConflict]);">
-<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="cancelEvent();">
+<img src="[IMG:wm-cancel.gif]" id="btnCancel" height="15" title="[TEXT:cancel]" class="wSmallButton" onclick="window.close();">
 </td></tr></table>
 
 

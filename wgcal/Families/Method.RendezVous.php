@@ -625,8 +625,8 @@ function RendezVousEdit() {
   if ($this->isAffected()) 
     {
 
-//       setHttpVar("HUL", "cancelEvent(true)");
-      setHttpVar("HBUL", "cancelEvent(true)");
+//        setHttpVar("HUL", "return 'Je ferme ?'"); //cancelEvent()");
+      setHttpVar("HBUL", "return closeMsg;");
 
       $eventid = $this->id;
       $ownerid = $this->getValue("CALEV_OWNERID", "");

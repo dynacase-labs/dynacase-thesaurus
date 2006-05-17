@@ -707,7 +707,7 @@ msgid "set todo default date to today more "
 msgstr "Position la date par défaut à aujourd'hui plus "
 
 msgid " cancel modifications"
-msgstr "Annuler les éventuelles modifications"
+msgstr "En continuant, les éventuelles modifications seront perdues."
 
 msgid "save modification before close"
 msgstr "Sauvegarde des modifications avec fermeture"
