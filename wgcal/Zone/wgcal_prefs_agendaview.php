@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_agendaview.php,v 1.9 2005/10/04 15:42:14 marc Exp $
+ * @version $Id: wgcal_prefs_agendaview.php,v 1.10 2006/05/17 15:52:15 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -74,7 +74,7 @@ function wgcal_prefs_agendaview(&$action) {
   }
   $action->lay->SetBlockData("evdefconf", $tconf);
   if ($action->getParam("WGCAL_U_RVDEFCONF",0)==2) {
-    $action->lay->set("fshowgroupsd", "");
+    $action->lay->set("fshowgroupsd", "block");
   } else {
     $action->lay->set("fshowgroupsd", "none");
   }
@@ -100,7 +100,7 @@ function wgcal_prefs_agendaview(&$action) {
     $vcalgrp  = $ucal->getTValue("agd_vgroupfid");
     $vcalgrpw  = $ucal->getTValue("agd_vgrouprw");
     $action->lay->set("allsel", ($vcalmode==1 ? false : true));
-    $action->lay->set("vgroup", ($vcalmode==1 ? "" : "none"));
+    $action->lay->set("vgroup", ($vcalmode==1 ? "block" : "none"));
     $action->lay->set("vcalmode", ($vcalmode==1 ? 1 : 0));
     $action->lay->set("vcalgroups", implode("|",$vcalgrp));
 
