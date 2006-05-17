@@ -370,13 +370,12 @@ function attkillwins() {
 }
 
 
-var InSave = false;
+var DocumentSaved = false;
 
 function saveEvent(event, checkconflict) {
   var fs = document.getElementById('editevent');
   var ti = document.getElementById('rvtitle');
   var refi = document.getElementById('editevent');
-  InSave = true;
 
   if (event && ti.value=='') {
     ti.style.background = 'red';
@@ -393,8 +392,8 @@ function saveEvent(event, checkconflict) {
     }
   }
 	
-  delEvent(document, 'beforeunload', forceSaveEvent); 
   if (EventSelectAll(fs)) fs.submit();
+  DocumentSaved = true;
   window.close();
   return false;
 }
@@ -416,10 +415,6 @@ function forceSaveEvent() {
   return false;
 }
   
-function cancelEvent() {
-  return closeMsg;
-}
-
 function deleteEvent(text) {
   ok = confirm(text); 
   if (!ok) return;

@@ -39,8 +39,8 @@ function fcalSetRessourceColor(id, color) {
   for (var ii=0; ii<calRessources.length; ii++) {
     if (calRessources[ii].id==id) {
       calRessources[ii].color = color;
-      if (calRessources[ii].displayed) fcalUpdateCalendar();
       fcalSaveRessources();
+      if (calRessources[ii].displayed) fcalUpdateCalendar();
       return true;
     }
   }
