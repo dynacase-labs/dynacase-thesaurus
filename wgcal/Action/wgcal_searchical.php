@@ -24,15 +24,18 @@ function wgcal_searchical(&$action) {
 			  $action->user->id, "TABLE", getIdFromName($action->GetParam("FREEDOM_DB"), "IUSER"));
     foreach ($rdoc as $kd => $vd) {
       if ($action->user->fid!=$vd["id"] && !isset($rlist[$vd["id"]])) {
-	$tc = getUserAgenda($vd["id"]);
-	$writeaccess = $readaccess = true;
-	if ($tc) {
-	  $cal = new_Doc($action->GetParam("FREEDOM_DB"), $tc[0]["id"]);
-	  $readaccess = ($cal->Control("execute")==""?true:false);
-	  $writeaccess = ($cal->Control("invite")==""?true:false);
+	if (wIsFamilieInteractive($vd["fromid"])) {
+	  $writeaccess = $readaccess = false;
+	  $cal = getUserPublicAgenda($vd["id"], false);
+	  if ($cal && $cal->isAffected()) {
+	    $readaccess = ($cal->Control("execute")==""?true:false);
+	    $writeaccess = ($cal->Control("invite")==""?true:false);
+	  } 
+	} else {
+	  $writeaccess = $readaccess = true;
 	}
-	if ($writeaccess || $readaccess) {
-	  $rlist[$vd["id"]]["fid"] = $vf["id"];
+	if ($writeaccess) {
+	  $rlist[$vd["id"]]["fid"] = $vd["id"];
 	  $rlist[$vd["id"]]["id"] = $vd["id"];
 	  $rlist[$vd["id"]]["icon"] = Doc::GetIcon($vd["icon"]);
 	  $rlist[$vd["id"]]["title"] = ucwords(strtolower($vd["title"]));
