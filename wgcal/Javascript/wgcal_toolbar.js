@@ -26,6 +26,7 @@ var ressListChg = true;
 
  
 function addRessource(rid, rtitle, ricon, rstate, rcolor, rselect, ro, agd) {
+//   alert('addRessource:: rid='+rid+' title='+rtitle+' state='+rstate+' color='+rcolor+' select='+rselect+' ro='+ro+' agd='+agd);
   var idx = fcalGetRessource(rid);
   if (idx!=-1) return;
   fcalDrawRessource( rtitle, rid, ricon, '#00FFFF', 'WGCRessDefault', false, ro, agd, false);

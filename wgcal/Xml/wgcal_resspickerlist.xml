@@ -2,12 +2,12 @@
 
 <script type="text/javascript">
 
-function SelectRessource(fid, ftitle, ficon, st, tst, cst, agd) {
+function SelectRessource(fid, ftitle, ficon, st, tst, cst, romode, agd) {
   var e;
   try {
-    top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst, false, agd);
+    top.opener.addRessource(fid, ftitle, ficon, 0, tst, cst, romode, agd);
   } catch(e) {
-    if (top.window.addRessource) top.window.addRessource(fid, ftitle, ficon, 0, tst, cst, 1, agd)
+    if (top.window.addRessource) top.window.addRessource(fid, ftitle, ficon, 0, tst, cst, romode, agd)
   } ;
   elt = document.getElementById(fid);
   elt.style.display = 'none';
@@ -20,8 +20,8 @@ function SelectRessource(fid, ftitle, ficon, st, tst, cst, agd) {
 <div id="[RESSID]"  class="WGCRessDefault" title="[RESSTITLE]"
      onmouseover="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessOver');" 
      onmouseout="WGCalChangeClass(event, '[RESSID]', 'WGCFamSelected', 'WGCRessDefault');"
-     onclick="SelectRessource('[RESSID]', '[RESSTITLEJS]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]', [AG_DELEGATE]);" >
-  <img height="15"  src="[RESSICON]" title="[RESSTITLE]"/>[RESSTITLE][IF ROMODE]&nbsp;<img height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">[ENDIF ROMODE]
+     onclick="SelectRessource('[RESSID]', '[RESSTITLEJS]', '[RESSICON]', '[STATE]', '[TSTATE]', '[CSTATE]', [ROMODE], [AG_DELEGATE]);" >
+  <img height="15"  src="[RESSICON]" title="[RESSTITLE]"/>[RESSTITLE][IF ROMODEXML]&nbsp;<img height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">[ENDIF ROMODEXML]
 </div>[ENDBLOCK RESSOURCES]
 </fieldset> 
 

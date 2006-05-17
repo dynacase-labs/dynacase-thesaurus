@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspickerlist.php,v 1.18 2006/05/15 16:31:47 marc Exp $
+ * @version $Id: wgcal_resspickerlist.php,v 1.19 2006/05/17 05:59:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -64,8 +64,8 @@ function wgcal_resspickerlist(&$action) {
 	  $t[$v["id"]]["STATE"] = -1;
 	  $t[$v["id"]]["TSTATE"] = "";
 	  $t[$v["id"]]["CSTATE"] = "transparent";
-	  $t[$v["id"]]["ROMODE"] = ($writeaccess?false:true);
-	  $t[$v["id"]]["ROMODEV"] = ($writeaccess?"false":"true");
+	  $t[$v["id"]]["ROMODE"] = (!$writeaccess?"true":"false");
+	  $t[$v["id"]]["ROMODEXML"] = (!$writeaccess?true:false);
 	  $t[$v["id"]]["AG_DELEGATE"] = "false";
 	  if (wIsFamilieInteractive($v["fromid"])) {
 	    $t[$v["id"]]["STATE"] = EVST_NEW;
