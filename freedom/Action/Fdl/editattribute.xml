@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <status count="[count]" delay="[delay]" code="[CODE]" warning="[warning]" focus="i[docid][attrid]" >
+[BLOCK ACTIONS]<action code="[acode]" arg="[aarg]"></action>[ENDBLOCK ACTIONS]
   <branch><![CDATA[
 <textarea onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="width:100%;height:100%">[thetext]</textarea>
 <div style="float:right;text-align:right;position:relative;top:-5px">

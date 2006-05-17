@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.1 2006/05/11 07:15:14 eric Exp $
+ * @version $Id: modattribute.php,v 1.2 2006/05/17 10:07:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,11 +19,13 @@ include_once("FDL/Class.Doc.php");
  * @global docid Http var : document identificator to modify
  * @global attrid Http var : the id of attribute to modify
  * @global value Http var : the new  value for attribute
+ * @global stayedit Http var : stay in edition
  */
 function modattribute(&$action) {
   $docid = GetHttpVars("docid");
   $attrid = GetHttpVars("attrid");
   $value = GetHttpVars("value");
+  $stayedit = (GetHttpVars("stayedit")=="yes");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
@@ -39,7 +41,12 @@ function modattribute(&$action) {
   $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
 
-  $err = $doc->unlock(true); // autounlock
+
+  if (! $stayedit) {
+    $err = $doc->unlock(true); // autounlock
+
+    if ($err=="") $action->AddActionDone("UNLOCKFILE",$doc->id);
+  }
   if ($value != "") {
 
     if ($err != "") {    
@@ -55,7 +62,38 @@ function modattribute(&$action) {
 	$vis=$a->mvisibility;
 	if (strstr("WO", $vis) === false)  $err=sprintf(_("visibility %s does not allow modify attribute %s for document %s"),$vis,$a->labelText,$doc->title);
 	if ($err == "") {    
-	  $err=$doc->setValue($attrid,$value);
+	  if ($a->type == "file") {
+	     $err="file conversion";
+	     $vf = newFreeVaultFile($dbaccess);
+	     $fvalue=$doc->getValue($attrid);
+	     $basename="";
+	     if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+	       $vaultid= $reg[2];
+	       $mimetype=$reg[1];
+	       
+	       $err=$vf->Retrieve($vaultid, $info);
+
+	       if ($err == "") {
+		 $basename=$info->name;
+	       }
+	     }
+	     $filename=uniqid("/tmp/_html").".html";
+	     $nc=file_put_contents($filename,$value);
+	     $err=$vf->Store($filename, false , $vid); 
+	     if ($basename!="") { // keep same file name
+	       $vf->Rename($basename);
+	     }
+	     if ($err == "") {
+	       $mime=trim(`file -ib $filename`);
+	       $value="$mime|$vid";
+	       $err=$doc->setValue($attrid,$value);
+	       //$err="file conversion $mime|$vid";
+	     }
+	     if ($nc>0) unlink($filename);
+	     
+	  } else {
+	    $err=$doc->setValue($attrid,$value);
+	  }
 	  if ($err == "") {    
 	    $err=$doc->modify(); 
 	    if ($err == "") $doc->AddComment(sprintf(_("modify [%s] attribute"),$a->labelText));
@@ -71,6 +109,16 @@ function modattribute(&$action) {
   $action->lay->set("warning",utf8_encode($err));
   $action->lay->set("count",1);
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
+
+  // notify actions done
+  $action->getActionDone($actcode,$actarg);
+  $tact=array();
+  foreach ($actcode as $k=>$v) {
+    $tact[]=array("acode"=>$v,
+		  "aarg"=>$actarg[$k]);
+  }
+  $action->lay->setBlockData("ACTIONS",$tact);
+  $action->clearActionDone();
 }
 
 

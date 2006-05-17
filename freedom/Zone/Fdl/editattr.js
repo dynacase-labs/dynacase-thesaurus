@@ -46,7 +46,18 @@ function reqEditAttr() {
 	    elt=document.getElementById(f);
 	    if (elt) elt.focus();
 
-	  }	  
+	  }	    
+	    var actions=ATTRREQ.responseXML.getElementsByTagName("action");	  
+	    var actcode=new Array();
+	    var actarg=new Array();
+	    for (var i=0;i<actions.length;i++) {
+	      actcode[i]=actions[i].getAttribute("code");
+	      actarg[i]=actions[i].getAttribute("arg");
+	    }
+	    if (window.receiptActionNotification) window.receiptActionNotification(actcode,actarg);
+	    if (window.parent && window.parent.receiptActionNotification) window.parent.receiptActionNotification(actcode,actarg);
+	    if (window.opener && window.opener.receiptActionNotification) window.opener.receiptActionNotification(actcode,actarg);
+	  
 	} else {
 	  alert('no status\n'+ATTRREQ.responseText);
 	  return;
@@ -63,7 +74,7 @@ function reqEditAttr() {
   } 
 }
 
-function attributeSend(event,menuurl,cible) {
+function attributeSend(event,menuurl,cible,newval) {
   if (INPROGRESSATTR) return false; // one request only
     // branch for native XMLHttpRequest object
     if (window.XMLHttpRequest) {
@@ -75,12 +86,12 @@ function attributeSend(event,menuurl,cible) {
     if (ATTRREQ) {
         ATTRREQ.onreadystatechange = reqEditAttr ;
 
-        ATTRREQ.open("POST", menuurl,true); //'index.php?sole=Y&app=FDL&action=POPUPDOCDETAIL&id='+docid, true);
+        ATTRREQ.open("POST", menuurl,true); 
 	ATTRREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 	ATTRCIBLE=cible;
 
-
-	ATTRREQ.send('');
+	if (newval) ATTRREQ.send('value='+escape(newval));
+	else ATTRREQ.send('');
 	
 	
 	INPROGRESSATTR=true;
@@ -119,9 +130,9 @@ function modattr(event,docid,attrid,newval) {
     DIVATTR.innerHTML='';
     DIVATTR.style.display='none';
   
-    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid+'&value='+escape(newval);
+    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
 
-  attributeSend(event,menuurl,ATTRREADCIBLE);
+    attributeSend(event,menuurl,ATTRREADCIBLE,newval);
 }
 function cancelattr(event,docid,attrid) { 
     DIVATTR.innerHTML='';

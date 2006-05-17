@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editattribute.php,v 1.1 2006/05/11 07:15:14 eric Exp $
+ * @version $Id: editattribute.php,v 1.2 2006/05/17 10:07:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,6 +39,7 @@ function editattribute(&$action) {
   if ($err == "") {
     $action->lay->set("docid",$doc->id);
     $err = $doc->lock(true); // autolock
+    if ($err=="") $action->AddActionDone("LOCKFILE",$doc->id);
     if ($err != "") {    
       // test object permission before modify values (no access control on values yet)
       $err=$doc->CanUpdateDoc();
@@ -59,6 +60,16 @@ function editattribute(&$action) {
   if ($err != "")   $action->lay->set("CODE","KO");
   $action->lay->set("warning",utf8_encode($err));
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
+
+  // notify actions done
+  $action->getActionDone($actcode,$actarg);
+  $tact=array();
+  foreach ($actcode as $k=>$v) {
+    $tact[]=array("acode"=>$v,
+		  "aarg"=>$actarg[$k]);
+  }
+  $action->lay->setBlockData("ACTIONS",$tact);
+  $action->clearActionDone();
 }
 
 
