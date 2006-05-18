@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-16 17:12+0200\n"
+"POT-Creation-Date: 2006-05-18 11:42+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -102,6 +102,7 @@ msgstr "référence du rendez-vous non fournie"
 msgid "unknow rv logical reference"
 msgstr "rv référence logique inconnue"
 
+#, fuzzy, c-format
 msgid "rv cannot see unknow reference %s"
 msgstr "Référence de rendez-vous inconnu"
 
@@ -111,6 +112,7 @@ msgstr "Référence au document non fournie"
 msgid "unknow logical reference"
 msgstr "Référence logique inconnue"
 
+#, c-format
 msgid "cannot see unknow reference %s"
 msgstr "Référence %s inconnue"
 
@@ -1195,6 +1197,9 @@ msgstr "Enlever la ressource"
 
 msgid "change color for ressource"
 msgstr "Modifier la couleur du calendrier"
+
+msgid "click to show/hide toolbar"
+msgstr "cliquer pour masquer/afficher la barre d'outil"
 
 msgid "show/hide"
 msgstr "Afficher/Cacher"
