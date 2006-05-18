@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.6 2006/05/18 07:34:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -22,7 +22,8 @@ include_once("FREEDOM/freedom_import_tar.php");
 function freedom_ana_tar(&$action) {
 
   global $_FILES;
- 
+  if (intval(ini_get("max_execution_time")) < 300) ini_set("max_execution_time", 300);
+
   $analyze = GetHttpVars("analyze","Y"); // just analyze
   $filename = GetHttpVars("filename"); // the select filename
 
