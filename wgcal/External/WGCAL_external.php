@@ -29,8 +29,12 @@ $EventStateDescr = array( EVST_NEW => array( _("new"), "red" ),
 
 function WGCalGetState($fmt="A") {
   global $EventStateDescr;
-  foreach ($EventStateDescr as $k => $v ) $evstate[] = $v[0];
-  return array2attrval($evstate, $fmt);
+  static $evstate = false;
+  if ($evstate===false) {
+    foreach ($EventStateDescr as $k => $v ) $evstate[] = $v[0];
+    $evstate = array2attrval($evstate, $fmt);
+  }
+  return $evstate;
 }
 
 function WGCalGetLabelState($state) {

@@ -287,16 +287,19 @@ function initCategories() {
 
 function wGetCategories() {
   global $action;
-  $dbaccess = $action->getParam("FREEDOM_DB");
-  $catl = initCategories();
-  $ids = $catl->getTValue("catg_id");
-  $col = $catl->getTValue("catg_color");
-  $nam = $catl->getTValue("catg_name");
-  $tc = array();
-  foreach ($ids as $k=>$v) {
-    $tc[] = array( "id" => $ids[$k], "label" => $nam[$k], "color" => $col[$k] );
+  static $categories = false;
+  if ($categories===false) {
+    $dbaccess = $action->getParam("FREEDOM_DB");
+    $catl = initCategories();
+    $ids = $catl->getTValue("catg_id");
+    $col = $catl->getTValue("catg_color");
+    $nam = $catl->getTValue("catg_name");
+    $categories = array();
+    foreach ($ids as $k=>$v) {
+      $categories[] = array( "id" => $ids[$k], "label" => $nam[$k], "color" => $col[$k] );
+    }
   }
-  return $tc;
+  return $categories;
 }
 
 global $aTrace;
@@ -332,51 +335,60 @@ function wUSortCmp(&$a, &$b) {
 
 function  wgcalGetRColor($r=-1) {
   global $action;
-  $color = "red";
+  static $rcolor = array();
   $r = ($r==-1 ? $action->user->fid : $r);
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-  while (list($k,$v) = each($cals)) {
-    if ($v!="") {
-      $tc = explode("%", $v);
-      if ($tc[0] != "" && $tc[0]==$r) $color = $tc[2];
+
+  if (!isset($rcolor[$r])) {
+    $color = "red";
+    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+    while (list($k,$v) = each($cals)) {
+      if ($v!="") {
+	$tc = explode("%", $v);
+	if ($tc[0] != "" && $tc[0]==$r) $color = $tc[2];
+      }
     }
+    $rcolor[$r] = $color;
   }
-  return $color;
+  return $rcolor[$r];
 }
 
 function wgcalGetRessourcesMatrix($ev) {
   global $action;
-  
-  $event = new_Doc($action->getParam("FREEDOM_DB"), $ev);
-  
-  $tress  = $event->getTValue("CALEV_ATTID");
-  $tresst = $event->getTValue("CALEV_ATTTITLE");
-  $tresse = $event->getTValue("CALEV_ATTSTATE");
-  $tressg = $event->getTValue("CALEV_ATTGROUP");
 
-  $ressd = array();
-  foreach ($tress as $k => $v) {
-    if (!(isset($ressd[$v]) && $tressg[$k]==-1)) {
-      $ressd[$v]["id"] = $event->id;
-      $ressd[$v]["title"] = $tresst[$k];
-      $ressd[$v]["state"] = $tresse[$k];
-      $ressd[$v]["color"] = "white";
-      $ressd[$v]["displayed"] = false;
-      $ressd[$v]["group"] = $tressg[$k];
+  static $ressd = array();
+
+  if (!isset($ressd[$ev])) {
+
+    $event = new_Doc($action->getParam("FREEDOM_DB"), $ev);
+    
+    $tress  = $event->getTValue("CALEV_ATTID");
+    $tresst = $event->getTValue("CALEV_ATTTITLE");
+    $tresse = $event->getTValue("CALEV_ATTSTATE");
+    $tressg = $event->getTValue("CALEV_ATTGROUP");
+    
+    foreach ($tress as $k => $v) {
+      if (!(isset($ressd[$ev][$v]) && $tressg[$k]==-1)) {
+	$ressd[$ev][$v]["id"] = $event->id;
+	$ressd[$ev][$v]["title"] = $tresst[$k];
+	$ressd[$ev][$v]["state"] = $tresse[$k];
+	$ressd[$ev][$v]["color"] = "white";
+	$ressd[$ev][$v]["displayed"] = false;
+	$ressd[$ev][$v]["group"] = $tressg[$k];
+      }
     }
-  }
 
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-  while (list($k,$v) = each($cals)) {
-    if ($v!="") {
-      $tc = explode("%", $v);
-      if ($tc[0] != "" && isset($ressd[$tc[0]])) {
-	$ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
-	$ressd[$tc[0]]["color"] = $tc[2];
+    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+    while (list($k,$v) = each($cals)) {
+      if ($v!="") {
+	$tc = explode("%", $v);
+	if ($tc[0] != "" && isset($ressd[$ev][$tc[0]])) {
+	  $ressd[$ev][$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
+	  $ressd[$ev][$tc[0]]["color"] = $tc[2];
+	}
       }
     }
   }
-  return $ressd;
+  return $ressd[$ev];
 }
 
 function wGetSinglePEvent($id) {

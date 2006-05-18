@@ -62,41 +62,47 @@ function wgcal_textmonth(&$action)
   foreach ($catg as $k=>$v)  $textcat[$v["id"]] = $v["label"];
   foreach ($events as $k => $v) {
 
-    $events[$k]["evt_title"] = stripSlashes($v["evt_title"]);
+    $edoc = getDocObject($dbaccess, $v);
+    
+    $events[$k]["evt_title"] = $edoc->getTitleInfo();
     $events[$k]["ownercolor"] = $events[$k]["dattr"]["bgColor"];
-
-    $events[$k]["otherInfos"] = false;
 
     $events[$k]["icolist"] = "";
     $events[$k]["Icons"] = null;
-
-    $events[$k]["haveLocation"] = (getV($v, "evfc_location")==""?false:true);
-    $events[$k]["location"] = getV($v, "evfc_location"); 
-    if ($events[$k]["haveLocation"]) $events[$k]["otherInfos"] = true;
-
-
-    $tc = getV($v, "evt_code");
-    $events[$k]["haveCat"] = ($tc==0?false:true);
-    if ($tc>0) {
-      $events[$k]["categorie"] = $textcat[$tc];
-      $events[$k]["otherInfos"] = true;
-    }
-    
+    $events[$k]["haveLocation"] = false;
+    $events[$k]["otherInfos"] = false;
+    $events[$k]["haveCat"] = false;
     $events[$k]["showOwner"] = false;
-    if ($action->user->fid!=$v["evt_idcreator"]) {
-      $dt = getTDoc($dbaccess, $v["evt_idcreator"]);
-      $events[$k]["owner"] = $dt["title"];
-      $events[$k]["showOwner"] = true;
-    }
-
-    if ($v["dattr"]["icons"]!="") {
-      $it = explode(",", $v["dattr"]["icons"]);
-      if (count($it)>0) {
-	foreach ($it as $ki => $vi) $events[$k]["icolist"] .= "<img src=\"".str_replace("'","",$vi)."\">";
-	$events[$k]["icolist"] .= "&nbsp;";
+    if ($edoc->isDisplayable()) {
+      
+      $events[$k]["haveLocation"] = (getV($v, "evfc_location")==""?false:true);
+      $events[$k]["location"] = getV($v, "evfc_location"); 
+      if ($events[$k]["haveLocation"]) $events[$k]["otherInfos"] = true;
+      
+      
+      $tc = getV($v, "evt_code");
+      $events[$k]["haveCat"] = ($tc==0?false:true);
+      if ($tc>0) {
+	$events[$k]["categorie"] = $textcat[$tc];
+	$events[$k]["otherInfos"] = true;
       }
+    
+      if ($action->user->fid!=$v["evt_idcreator"]) {
+	$dt = getTDoc($dbaccess, $v["evt_idcreator"]);
+	$events[$k]["owner"] = $dt["title"];
+	$events[$k]["showOwner"] = true;
+      }
+
+      if ($v["dattr"]["icons"]!="") {
+	$it = explode(",", $v["dattr"]["icons"]);
+	if (count($it)>0) {
+	  foreach ($it as $ki => $vi) $events[$k]["icolist"] .= "<img src=\"".str_replace("'","",$vi)."\">";
+	  $events[$k]["icolist"] .= "&nbsp;";
+	}
+      }
+      $events[$k]["topColor"] = $v["dattr"]["topColor"];
+
     }
-    $events[$k]["topColor"] = $v["dattr"]["topColor"];
 
     $dstart = substr($v["evt_begdate"], 0, 2);
     $end = ($v["evfc_realenddate"] == "" ? $v["evt_enddate"] : $v["evfc_realenddate"]);

@@ -432,17 +432,21 @@ function setIcons() {
   global $action;
   $myid = $action->user->fid;
   $icons = array();
-  if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = fcalGetIcon("CAL_PRIVATE");
-  if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = fcalGetIcon("VIS_CONFI");
-  if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = fcalGetIcon("VIS_GRP");
-  if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = fcalGetIcon("VIS_PRIV");
-  if ($this->getValue("CALEV_REPEATMODE") != 0)  {
-    $texcl = $this->getTValue("calev_excludedate");
-    if (!is_array($texcl) || count($texcl)==0) $icons[] = fcalGetIcon("REPEAT");
-    else $icons[] = fcalGetIcon("REPEATEXCLUDE");
+  if ($this->UHaveAccess("confidential") || ($this->confidential==0 && $this->UHaveAccess("view")) ) {
+    if ($this->getValue("CALEV_EVCALENDARID") > -1)  $icons[] = fcalGetIcon("CAL_PRIVATE");
+    if ($this->getValue("CALEV_VISIBILITY") == 1)  $icons[] = fcalGetIcon("VIS_CONFI");
+    if ($this->getValue("CALEV_VISIBILITY") == 2)  $icons[] = fcalGetIcon("VIS_GRP");
+    if ($this->getValue("CALEV_VISIBILITY") == 3)  $icons[] = fcalGetIcon("VIS_PRIV");
+    if ($this->getValue("CALEV_REPEATMODE") != 0)  {
+      $texcl = $this->getTValue("calev_excludedate");
+      if (!is_array($texcl) || count($texcl)==0) $icons[] = fcalGetIcon("REPEAT");
+      else $icons[] = fcalGetIcon("REPEATEXCLUDE");
+    }
+    if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
+    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
+  } else {
+    $icons[] = fcalGetIcon("CAL_PRIVATE");
   }
-  if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
-  if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
   return $icons;
 }
 
