@@ -6,11 +6,11 @@
 [MITEM]</div>[ENDBLOCK MENU]
 
 <table id="wgcalmenu" cellspacing="0" class="noprinthide" style="padding:0px; width:100%;position:fixed;z-index:500;">
-<tr>
 <td align="left" class="wMainMenu">
 <table style="cursor:default; border:0px; width:80%"  id="barmenu" cellspacing="0" cellpadding="0">
-<tr><td>
-[BLOCK DMENU]
+<tr>
+<td width="16px"><img style="cursor:pointer" id="opencloseimg" title="[TEXT:click to show/hide toolbar]" onclick="window.parent.wgcal_toolbar.hideShowToolbar(this);" src="[IMG:wm-pperiod.gif]"></td>
+<td>[BLOCK DMENU]
 <div class="MenuInactive" 
      onMouseOver="ActiveMenu(this)" 
      onMouseOut="DeactiveMenu(this)" 

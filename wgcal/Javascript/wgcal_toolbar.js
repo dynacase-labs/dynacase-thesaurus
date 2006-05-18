@@ -138,7 +138,9 @@ function removeRessource(rid) {
 }
 
 function SaveFrameWidth() {
-  var w=getFrameWidth(window);
-  usetparam(-1, "WGCAL_U_TOOLBARSZ", w, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  if (toolbarOpen) {
+    var w=getFrameWidth(window);
+    usetparam(-1, "WGCAL_U_TOOLBARSZ", w, 'wgcal_hidden', 'WGCAL_HIDDEN');
+  }
   return;
 }

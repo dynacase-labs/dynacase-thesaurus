@@ -2,7 +2,7 @@
 <head>
   <title>[TEXT:freedom groupware calendar]</title>
 </head>
-<frameset name="wgcal" id="wgcal" frameborder="yes" framespacing="3" border="3" bordercolor="[bordercolor]" border="0"
+<frameset name="wgcal" id="wgcal" frameborder="yes" framespacing="2" border="2"
 resize cols="[toolbarwidth]pt,*">
 
   <frameset name="wgcal_frtool" id="wgcal_frtool" frameborder="yes" framespacing="3" border="3" rows="[IF viewTodo]70%,*%[ENDIF viewTodo][IFNOT viewTodo]*,0pt[ENDIF viewTodo]">

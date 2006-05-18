@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?HBUL=SaveFrameWidth()&refresh=[refresh]]
+[ZONE WGCAL:WGCAL_HTMLHEAD?refresh=[refresh]]
 
 <!-- Globals variables -->
 <script type="text/javascript">
@@ -8,6 +8,27 @@ var calRessMenuUrl="[CORE_STANDURL]sole=Y&app=WGCAL&action=WGCAL_GETRESSMENU&rid
 var calCurrentEdit = { id:[ceId], title:'[ceTitle]', color:'[ceColor]' };
 var calRessources = new Array();
 
+var toolbarOpen = true;
+var toolbarWidth = [toolbarwidth];
+var toolbarOpenImg = '[IMG:wm-nperiod.gif]';
+var toolbarCloseImg = '[IMG:wm-pperiod.gif]';
+function hideShowToolbar(imbut) {
+  var fwgcal = parent.document.getElementById('wgcal');
+  if (fwgcal) {
+    if (!toolbarOpen) {
+      fwgcal.cols=''; 
+      fwgcal.cols=toolbarWidth+'pt,*';
+      fwgcal.style.display = 'block';
+      imbut.src = toolbarCloseImg;
+      toolbarOpen = true;
+    } else {
+      fwgcal.cols=''; 
+      fwgcal.cols='0pt,*';
+      imbut.src = toolbarOpenImg;
+      toolbarOpen = false;
+    }
+  }    
+} 
 </script>
 
 <form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
@@ -16,8 +37,7 @@ var calRessources = new Array();
 <table width="100%" cellspacing="0"><tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
 <td align="center"><div><span style="font-weight:bold">[owner]</span><span style="font-size:80%"> [today]</span></div>
-[IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]</td></tr>
-</table>
+[IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]</td></tr></table>
 </div>
 
 <!-- Rendez-vous en attente -->

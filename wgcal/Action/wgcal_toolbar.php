@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.72 2006/05/15 16:31:47 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.73 2006/05/18 09:36:50 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -22,6 +22,7 @@ function wgcal_toolbar(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
+  $action->lay->set("toolbarwidth", $action->getParam("WGCAL_U_TOOLBARSZ", 250));
   $action->lay->set("BetaVersion", ($action->getParam("WGCAL_G_USEBETA") == "Yes" ? true : false ));  
   $action->lay->set("refresh",$action->getParam("WGCAL_U_RELOADTOOLBAR", 0));
   
