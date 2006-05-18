@@ -36,7 +36,7 @@ function flogSendRequest(url) {
   
   sreq.open("POST", url, false);
   sreq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  sreq.send(null);
+  sreq.send('');
   if (sreq.status!=200) {
     alert('Url : ['+url+']\n'
 	  +' http return code    : '+sreq.status+'\n'

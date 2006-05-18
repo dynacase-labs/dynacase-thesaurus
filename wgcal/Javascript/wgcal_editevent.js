@@ -670,7 +670,7 @@ function normalEditCheckConflict(ev, displayZero) {
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
   rq.open("GET", urlsend, false);
-  rq.send(null);
+  rq.send('');
   document.getElementById('conflictcontent').innerHTML = rq.responseText;
   var nbc = parseInt(eltId('eventCount').innerHTML);
   if ((displayZero && nbc==0) || nbc>0) { 

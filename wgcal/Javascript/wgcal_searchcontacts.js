@@ -139,7 +139,7 @@ function runSearchSFamilie(burl, f, t, m) {
   }
 
   rq.open("GET", url, true);
-  rq.send(null);
+  rq.send('');
  
   return true;
 

@@ -77,7 +77,7 @@ function todoSave(event) {
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
   rq.open("POST", urlsend, false);
-  rq.send(null);
+  rq.send('');
   
   todoChanged = false;
   unglobalcursor();

@@ -640,7 +640,7 @@ function fcalGetCalEvent(ev, ie) {
     rq.onreadystatechange = function foo() { addCalEvContent(ev, ie) };
     var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
     rq.open("GET", urlsend, true);
-    rq.send(null);
+    rq.send('');
   }
 }
 
@@ -737,7 +737,7 @@ function fastEditSave(ev) {
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
   rq.open("POST", urlsend, false);
-  rq.send(null);
+  rq.send('');
   eval(rq.responseText);
   hideWaitServerMessage();
   if (fcalStatus.code==-1) {
