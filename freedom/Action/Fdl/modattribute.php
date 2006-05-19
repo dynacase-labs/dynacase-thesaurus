@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.2 2006/05/17 10:07:30 eric Exp $
+ * @version $Id: modattribute.php,v 1.3 2006/05/19 10:35:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -63,33 +63,7 @@ function modattribute(&$action) {
 	if (strstr("WO", $vis) === false)  $err=sprintf(_("visibility %s does not allow modify attribute %s for document %s"),$vis,$a->labelText,$doc->title);
 	if ($err == "") {    
 	  if ($a->type == "file") {
-	     $err="file conversion";
-	     $vf = newFreeVaultFile($dbaccess);
-	     $fvalue=$doc->getValue($attrid);
-	     $basename="";
-	     if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
-	       $vaultid= $reg[2];
-	       $mimetype=$reg[1];
-	       
-	       $err=$vf->Retrieve($vaultid, $info);
-
-	       if ($err == "") {
-		 $basename=$info->name;
-	       }
-	     }
-	     $filename=uniqid("/tmp/_html").".html";
-	     $nc=file_put_contents($filename,$value);
-	     $err=$vf->Store($filename, false , $vid); 
-	     if ($basename!="") { // keep same file name
-	       $vf->Rename($basename);
-	     }
-	     if ($err == "") {
-	       $mime=trim(`file -ib $filename`);
-	       $value="$mime|$vid";
-	       $err=$doc->setValue($attrid,$value);
-	       //$err="file conversion $mime|$vid";
-	     }
-	     if ($nc>0) unlink($filename);
+	    $err=$doc->SetTextValueInFile($attrid,$value);
 	     
 	  } else {
 	    $err=$doc->setValue($attrid,$value);

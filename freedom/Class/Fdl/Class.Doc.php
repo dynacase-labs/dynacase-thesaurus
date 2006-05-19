@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.312 2006/05/12 15:40:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.313 2006/05/19 10:35:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1768,6 +1768,53 @@ final public function PostInsert()  {
 	
       }      
     }
+  }
+
+   /**
+   * affect text value in $attrid file attribute
+   *
+   * create a new file in Vault to replace old file
+   * @param string $idAttr identificator of file attribute 
+   * @param string $value new value for the attribute
+   * @param string $ftitle the name of file (if empty the same as before)
+   * @return string error message, if no error empty string
+   */
+  final public function SetTextValueInFile($attrid, $value,$ftitle="") {   
+    $a=$this->getAttribute($attrid);     
+    if ($a->type == "file") {
+      $err="file conversion";
+      $vf = newFreeVaultFile($this->dbaccess);
+      $fvalue=$this->getValue($attrid);
+      $basename="";
+      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+	$vaultid= $reg[2];
+	$mimetype=$reg[1];
+	
+	$err=$vf->Retrieve($vaultid, $info);
+
+	if ($err == "") {
+	  $basename=$info->name;
+	}
+      }
+      $filename=uniqid("/tmp/_html").".html";
+      $nc=file_put_contents($filename,$value);
+      $err=$vf->Store($filename, false , $vid);
+      if ($ftitle != "") {
+	  $vf->Rename($ftitle);
+      } else {
+	if ($basename!="") { // keep same file name
+	  $vf->Rename($basename);
+	}
+      }
+      if ($err == "") {
+	$mime=trim(`file -ib $filename`);
+	$value="$mime|$vid";
+	$err=$this->setValue($attrid,$value);
+	//$err="file conversion $mime|$vid";
+      }
+      if ($nc>0) unlink($filename);	     
+    } 	
+    return $err;
   }
 
   /**
