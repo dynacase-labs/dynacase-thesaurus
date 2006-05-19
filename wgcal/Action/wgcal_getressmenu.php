@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getressmenu.php,v 1.2 2006/05/16 17:05:15 marc Exp $
+ * @version $Id: wgcal_getressmenu.php,v 1.3 2006/05/19 12:24:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,7 +14,8 @@
 
 
 include_once("FDL/Class.Dir.php");
-  include_once("FDL/popupdoc.php");
+include_once("FDL/popupdoc.php");
+include_once("WGCAL/Lib.Agenda.php");
 /**
  * get menu for ressource 
  * @global id Http Var : ressource identificator 
@@ -29,13 +30,16 @@ function wgcal_getressmenu(&$action) {
   if ($rid=="")  return _("ressource id not set");
   if (! is_numeric($rid)) $rid=getIdFromName($dbaccess,$rid);
   if (intval($rid) == 0) return _("unknow ressource logical reference");
-    
-  // A terme 
-  //
-  // $doc = new_Doc($dbaccess, $rid);
-  // if (! $doc->isAffected()) return  sprintf(_("rv cannot see unknow reference %s"),$docid);
-  // if (method_exists($doc, "ressAgendaMenu")) $menudesc = $doc->agendaMenu();
-  //
+  
+  $uc = GetTDoc($action->GetParam("FREEDOM_DB"), $rid);  
+  $writeaccess = true;
+  if (wIsFamilieInteractive($uc["fromid"])) {
+    $writeaccess = false;
+    $cal = getUserPublicAgenda($rid, false);
+    if ($cal && $cal->isAffected()) {
+      $writeaccess = ($cal->Control("invite")==""?true:false);
+    } 
+  }
 
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
@@ -82,7 +86,7 @@ function wgcal_getressmenu(&$action) {
 						"tconfirm" => "",
 						"control" => "false",
 						"target" => "wgcal_hidden",
-						"visibility" => ($action->user->fid==$rid?POPUP_INVISIBLE:POPUP_ACTIVE),
+						"visibility" => (!$writeaccess || $action->user->fid==$rid?POPUP_INVISIBLE:POPUP_ACTIVE),
 						"icon" => ($sico?$action->getImageUrl("wgcal-small.gif"):""),
 						"submenu" => "",
 						"barmenu" => "false" ),
@@ -102,7 +106,7 @@ function wgcal_getressmenu(&$action) {
 
 			
 			'rprefered' => array( "descr" => _("view my prefered"),
-					       "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=[rplist]')",
+					       "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$action->getParam("WGCAL_U_PREFRESSOURCES")."')",
 					       "confirm" => "false",
 					       "tconfirm" => "",
 					       "control" => "false",
