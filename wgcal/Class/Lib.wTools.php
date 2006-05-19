@@ -157,13 +157,16 @@ function wPrintGroups() {
 
 function  wGetGroups() {
   global $action;
-  $p = new Param($action->dbaccess, array("WGCAL_USEDGROUPS", PARAM_APP, $action->parent->GetIdFromName("WGCAL")));
-  $tgroups = false;
-  if ($p->val!="") {
-    $tga = explode("|", $p->val);
-    $tgroups = array();
-    foreach ($tga as $kg => $vg) {
-      if ($vg!="") $tgroups[$vg] = $vg;
+  static $tgroups = false;
+  if ($tgroups===false) {
+    $p = new Param($action->dbaccess, array("WGCAL_USEDGROUPS", PARAM_APP, $action->parent->GetIdFromName("WGCAL")));
+    $tgroups = false;
+    if ($p->val!="") {
+      $tga = explode("|", $p->val);
+      $tgroups = array();
+      foreach ($tga as $kg => $vg) {
+	if ($vg!="") $tgroups[$vg] = $vg;
+      }
     }
   }
   return $tgroups;
@@ -184,32 +187,36 @@ function wGroupIsUsed($gfid) {
 
 function wGetUserGroups($fid=-1) {
   global $action;
+
+  static $u_rgroups = array();
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  
   $fid = ($fid==-1 ? $action->user->fid : $fid);
 
-  // get wgcal used groups
-  $wgcal_groups = wGetGroups();
+  if (!isset($u_rgroups[$fid])) {
 
-  // get user groups
-  $user = new_Doc($dbaccess, $fid);
-  $user_groups = $user->getTValue("us_idgroup");
+    // get wgcal used groups
+    $wgcal_groups = wGetGroups();
+    
+    // get user groups
+    $user = new_Doc($dbaccess, $fid);
+    $user_groups = $user->getTValue("us_idgroup");
 
-  // compute user real groups (user groups used in Agenda)
-  $u_rgroups = array();
-  foreach ($user_groups as $kg => $vg) {
-    if (isset($wgcal_groups[$vg])) {
-      $u_rgroups[$vg]["gid"] = $vg;
-      $u_rgroups[$vg]["sel"] = false;
+    // compute user real groups (user groups used in Agenda)
+    $u_rgroups[$fid] = array();
+    foreach ($user_groups as $kg => $vg) {
+      if (isset($wgcal_groups[$vg])) {
+	$u_rgroups[$fid][$vg]["gid"] = $vg;
+	$u_rgroups[$fid][$vg]["sel"] = false;
+      }
+    }
+    
+    $tg = $user->getTValue("us_wgcal_gid");
+    foreach ($tg as $kg => $vg) {
+      if (isset($u_rgroups[$fid][$vg])) $u_rgroups[$fid][$vg]["sel"] = true;
     }
   }
-  
-  $tg = $user->getTValue("us_wgcal_gid");
-  foreach ($tg as $kg => $vg) {
-    if (isset($u_rgroups[$vg])) $u_rgroups[$vg]["sel"] = true;
-  }
-
-  return $u_rgroups;
+  return $u_rgroups[$fid];
 }
 
 
@@ -245,20 +252,23 @@ function setToolsLayout(&$action, $tool="", $forced=false) {
 
 function wGetRessDisplayed() {
   global $action;
-  $r = array();
-  $ir = 0;
-  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-  while (list($k,$v) = each($cals)) {
-    if ($v!="") {
-      $tc = explode("%", $v);
-      if ($tc[0] != "" && $tc[1] == 1) {
-	$r[$ir]->id = $tc[0];
-	$r[$ir]->color = $tc[2]; 
-	$ir++;
+  static $ress = false;
+  if ($ress===false) {
+    $ress = array();
+    $ir = 0;
+    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+    while (list($k,$v) = each($cals)) {
+      if ($v!="") {
+	$tc = explode("%", $v);
+	if ($tc[0] != "" && $tc[1] == 1) {
+	  $ress[$ir]->id = $tc[0];
+	  $ress[$ir]->color = $tc[2]; 
+	  $ir++;
+	}
       }
     }
   }
-  return $r;
+  return $ress;
 }
 
 function initCategories() {
@@ -495,23 +505,26 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 
 function wGetUsedFamilies() {
   global $action;
-  $dbaccess = $action->getParam("FREEDOM_DB");
-  $famused = array();
-  $ftu = $action->GetParam("WGCAL_FAMRUSED", "IUSER,1,1|");
-  $ftt = explode("|", $ftu);
-  $doct = createDoc($dbaccess, "BASE", false);
-  foreach ($ftt as $k => $v) {
-    if ($v=="") continue;
-    $suf = explode(",", $v);
-    $dt = getTDoc($dbaccess, getIdFromName($dbaccess, $suf[0]));
-    $id = getV($dt, "id");
-    if (!is_numeric($id) || !$id>0) continue;
-    $famused[] = array( "id" => $id,
-			"name" => $suf[0],
-			"title" => getV($dt, "title"),
-			"icon" => $doct->getIcon(getV($dt, "icon")),
-			"isSelected" => ($suf[1]==1? true : false ),
-			"isInteractive" => ($suf[2]==1? true : false ) );
+  static $famused = false;
+  if ($famused===false) {
+    $dbaccess = $action->getParam("FREEDOM_DB");
+    $famused = array();
+    $ftu = $action->GetParam("WGCAL_FAMRUSED", "IUSER,1,1|");
+    $ftt = explode("|", $ftu);
+    $doct = createDoc($dbaccess, "BASE", false);
+    foreach ($ftt as $k => $v) {
+      if ($v=="") continue;
+      $suf = explode(",", $v);
+      $dt = getTDoc($dbaccess, getIdFromName($dbaccess, $suf[0]));
+      $id = getV($dt, "id");
+      if (!is_numeric($id) || !$id>0) continue;
+      $famused[] = array( "id" => $id,
+			  "name" => $suf[0],
+			  "title" => getV($dt, "title"),
+			  "icon" => $doct->getIcon(getV($dt, "icon")),
+			  "isSelected" => ($suf[1]==1? true : false ),
+			  "isInteractive" => ($suf[2]==1? true : false ) );
+    }
   }
   return $famused;
 }
