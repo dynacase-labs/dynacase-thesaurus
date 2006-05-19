@@ -81,7 +81,6 @@ function wgcal_textweek(&$action) {
   
 
   // search events
-  $catg = wGetCategories();
   $evlay = new Layout("WGCAL/Layout/wgcal_textweek_event.xml", $action );
   $daysev = array();
   setHttpVar("ress",$ress);
@@ -136,9 +135,9 @@ function wgcal_textweek(&$action) {
       $evlay->set("title", stripslashes($v["evt_title"]));
       $evlay->set("vCategorie", false);
       if ($v["evt_code"]>0) {
-	$catg = wGetCategories();
-	$evlay->set("Categorie", $catg[$v["evt_code"]]["label"]);
-	$evlay->set("vCategorie", true);
+	$catg = wGetCategoriesLabel($v["evt_code"]);
+	$evlay->set("Categorie", $catg);
+	$evlay->set("vCategorie", ($catg==""?false:true));
       }
       $evlay->set("vInvite", false);
       if ($action->user->fid!=$v["evt_idcreator"]) {

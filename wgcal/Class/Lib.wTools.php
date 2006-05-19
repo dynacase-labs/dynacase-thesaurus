@@ -302,6 +302,15 @@ function wGetCategories() {
   return $categories;
 }
 
+function wGetCategoriesLabel($id) {
+  global $action;
+  $catg = wGetCategories();
+  foreach ($catg as $kc => $vc) {
+    if ($id==$vc["id"]) return $vc["label"];
+  }
+  return "";
+}
+
 global $aTrace;
 $aTrace = array();
 function addTrace($s) {
