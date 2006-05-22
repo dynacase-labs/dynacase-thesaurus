@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.92 2006/05/22 09:47:46 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.93 2006/05/22 14:30:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -42,7 +42,16 @@ function wgcal_calendar(&$action) {
   
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
-  
+  if ($sm) {
+    $tr = explode("|", $ress);
+    $atitle = "";
+    foreach ($tr as $k => $v) {
+      $ud = GetTDoc($dbaccess, $v);
+      $atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+    }
+    $action->lay->set("agendatitle", $atitle); 
+  }
+    
   //   // Init start time, view mode (month, week, ...)
   $vm = GetHttpVars("vm", "");
   if ($vm=="" || !is_numeric($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
@@ -65,7 +74,8 @@ function wgcal_calendar(&$action) {
   $edate = $firstWeekDay + ($dayperweek * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
-  
+
+
   $tout = wGetEvents($d1, $d2, true, $filter, "EVENT_FROM_CAL");
   
   // Display results ------------------------------------------------------------------------------------

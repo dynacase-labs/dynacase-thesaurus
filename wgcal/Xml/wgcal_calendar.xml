@@ -1,4 +1,6 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
+
+[IF standAlone]<div class="wMainMenu">Agenda : [agendatitle]</div>[ENDIF standAlone]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 <div onmouseover="closeAllMenu()" id="root">
 
