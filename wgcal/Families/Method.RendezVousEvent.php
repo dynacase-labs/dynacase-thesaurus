@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.31 2006/05/18 16:15:31 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.32 2006/05/22 09:47:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -209,30 +209,29 @@ function getDisplayColor() {
   static $rcolor = false;
 
 //   if ($rcolor===false) {
-    
-    $color = "";
-    $ressd = $this->getRMatrix();
-    
-    $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-    $ownerid = $this->getValue("evt_idcreator");
-    
-    if (isset($ressd[$myid]) 
-	&& (($ressd[$myid]["state"]==-1 && $showrefused==1) || $ressd[$myid]["state"]!=-1 )
-	&& $ressd[$myid]["displayed"]) {
-      $color = $ressd[$myid]["color"];
+  
+  $color = "";
+  $ressd = $this->getRMatrix();
+  
+  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
+  $ownerid = $this->getValue("evt_idcreator");
+  
+  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"] && (($ressd[$myid]["state"]!=3 && $showrefused==0) || $showrefused==1)) {
+    $color = $ressd[$myid]["color"];
+  } else {
+    if ($myid!=$ownerid && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=3 && $ressd[$ownerid]["displayed"])) {
+      $color = $ressd[$ownerid]["color"];
     } else {
-      if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=-1 &&  $ressd[$ownerid]["displayed"]) {
-	$color = $ressd[$ownerid]["color"];
-      } else {
-	while ((list($k,$v) = each($ressd)) && $color=="") {
-	  if ($v["state"]!=-1 && $v["displayed"]) {
-	    $color = $v["color"];
-	  }
+      foreach ($ressd as $kr => $vr) {
+	if ($vr["displayed"]) {
+	  $color = $vr["color"];
+	  break;
 	}
       }
     }
-    $rcolor = ($color!=""?$color:"#d2f5f7");
-//   }
+  }
+  $rcolor = ($color!=""?$color:"#d2f5f7");
+  //   }
   return $rcolor;
 }
   

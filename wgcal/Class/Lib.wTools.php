@@ -413,9 +413,6 @@ function wgcalGetRessourcesMatrix($ev) {
 function wGetSinglePEvent($id) {
   global $action;
   $filter = array();
-  if ($action->getParam("WGCAL_U_DISPLAYREFUSED")==0) {
-     $filter[] = "((evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y') OR (evfc_rejectattid is null))";
-  }
   $vm = $action->GetParam("WGCAL_U_DAYSVIEWED");
   $stdate = $action->GetParam("WGCAL_U_CALCURDATE");
   $sdate = w_GetDayFromTs($stdate); 
@@ -425,11 +422,11 @@ function wGetSinglePEvent($id) {
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
 //   echo "d1=[$d1] d2=[$d2] filter=[evt_idinitiator = $id]<br>";
   $filter[] = "(evt_idinitiator = ".$id.")";
-  $ev = wGetEvents($d1, $d2, true, $filter, $famid="EVENT_FROM_CAL");
+  $ev = wGetEvents($d1, $d2, true, $filter);
   return $ev;
 }
 
-function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
+function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM_CAL") {
 
   include_once("WGCAL/Lib.WGCal.php");
   global $action;
@@ -467,12 +464,23 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
       }
     }
     $idres = implode("|", $tr);
-    setHttpVar("idres",$idres);
   } else {
-    setHttpVar("idres","|");
+    $idres = "|";
+  }
+  setHttpVar("idres", $idres);
+
+  $lr = explode("|", $idres);
+  if (count($lr)==1 ) {
+    $showrefused = true;
+    if (($lr[0] == $action->user->fid) && $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1) $showrefused = false;
+    if (!$showrefused) {
+      $filter[] = "(evfc_rejectattid isnull) OR (evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y')";
+//        echo "Filter = ["."(evfc_rejectattid isnull) OR (evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y')"."]<br>" ;
+    }
   }
     
   $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
+//   echo $sdebug."<br>";
 
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
@@ -480,11 +488,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
   $events = $dre->getEvents($d1, $d2, $explode, $filter);
 
   // Post process search results --------------
-  $first = false;
-  $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
-  $rvfamid = getIdFromName($dbaccess, "CALEVENT");
-  $rg = 0;
-  $noimgsrc = $action->getImageUrl("noimg.png");
   $defaults = array( "icons" => array(),
 		     "bgColor" => "lightblue",
 		     "fgColor" => "black",
@@ -493,13 +496,15 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT") {
 		     "bottomColor" => "lightblue",
 		     "leftColor" => "lightblue",
 		     );
+  $rg = 0;
   foreach ($events as $k=>$v) {
     $ev = getDocObject($dbaccess, $v); 
     $events[$k]["rg"] = $rg;
     $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
-    $events[$k]["dattr"] = $ev->getDisplayAttr();
+    $events[$k]["dattr"] = (method_exists($ev, "getDisplayAttr") ? $ev->getDisplayAttr() : $defaults );
     $rg++;
   }
+//   echo "Event count = ".count($events)."<br>";
   return $events;
 }
 
