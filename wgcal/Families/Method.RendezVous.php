@@ -1249,17 +1249,17 @@ function evColorByOwner() {
   // Si le propriétaire n'est pas affichable => Couleur du premier convié ET AFFICHE et pas refusé.... 
   $showrefused = $this->getWgcalUParam("WGCAL_U_DISPLAYREFUSED", 0);
   $event_color = "";
-  if (isset($ressd[$myid]) 
-      && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )
-      && $ressd[$myid]["displayed"]) {
+  if ( isset($ressd[$myid]) && $ressd[$myid]["displayed"] 
+      && (($ressd[$myid]["state"]==EVST_REJECT && $showrefused==1) || $ressd[$myid]["state"]!=EVST_REJECT )) {
     $event_color = $ressd[$myid]["color"];
   } else {
-    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=EVST_REJECT &&  $ressd[$ownerid]["displayed"]) {
+    if (isset($ressd[$ownerid]) && $ressd[$ownerid]["displayed"]) {
       $event_color = $ressd[$ownerid]["color"];
     } else {
-      while ((list($k,$v) = each($ressd)) && $event_color=="") {
-	if ($v["state"]!=EVST_REJECT && $v["displayed"]) {
+      foreach ($ressd as $k => $v) {
+	if ($v["displayed"]) {
 	  $event_color = $v["color"];
+	  break;
 	}
       }
     }
