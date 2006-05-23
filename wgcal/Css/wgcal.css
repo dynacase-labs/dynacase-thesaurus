@@ -79,15 +79,6 @@ body {
 }
 
 .onlyprint { display : none }
-@media print {
-  .onlyprint { display:block; }
-}
-@media print {
-  .noprinthide { visibility:hidden; }
-}
-@media print {
-  .noprintremove { display : none; }
-}
 
 table {
   font-size: [WTH_FONTSIZE_NORMAL]pt;
@@ -447,35 +438,39 @@ TD {	empty-cells: show; }
   border:1px outset; 
   background-color:white;
 }
+
 @media print {
+
+  .noprintremove { display : none; }
+  .noprinthide { visibility:hidden; }
+  .onlyprint { display:block; }
+  .popup {
+    display:none;
+  }
+
 .wEvResume {
     font-size: [WTH_FONTSIZE_SMALL]pt;
     display:none;
     overflow:hidden;
     cursor:crosshair; 
     margin:0px; 
-    border-top    : 1px solid black; 
-    border-bottom : 1px solid black; 
-    border-left   : 1px solid black; 
-    border-right  : 1px solid black; 
+    border : 1px solid [WTH_COLOR_2]; 
     background-color : yellow;
   }
-}
-@media screen {
-  .wEvResume {
-    font-size: [WTH_FONTSIZE_SMALL]pt;
+
+  .wgcalpopup {
     display:none;
-    overflow:hidden;
-    cursor:crosshair; 
-    margin:0px; 
-/*
-    border-top    : 1px solid #a7a7a7; 
-    border-bottom : 1px solid #a7a7a7; 
-    border-left   : 1px solid #a7a7a7; 
-    border-right  : 1px solid #a7a7a7; 
-*/
-    border:thin outset white;
   }
+
+}
+
+.wEvResume {
+  font-size: [WTH_FONTSIZE_SMALL]pt;
+  display:none;
+  overflow:hidden;
+  cursor:crosshair; 
+  margin:0px; 
+  border:thin outset white;
 }
 
 .wgUserDelegate {
@@ -787,11 +782,6 @@ TD {	empty-cells: show; }
   font-family: [WTH_FONTLIST_POPUP];
 }
 
-@media print {
-  .wgcalpopup {
-    display:none;
-  }
-}
 .wgcalpopup a.menuItem, 
 .wgcalpopup a:visited.menuItem, 
 .wgcalpopup a.menuItemCtrl, 
@@ -850,11 +840,6 @@ TD {	empty-cells: show; }
   
 }
 
-@media print {
-  .popup {
-    display:none;
-  }
-}
 .popup a.menuItem, 
 .popup a:visited.menuItem, 
 .popup a.menuItemCtrl, 

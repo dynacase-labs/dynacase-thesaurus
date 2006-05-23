@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-18 11:42+0200\n"
+"POT-Creation-Date: 2006-05-23 11:46+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -92,9 +92,6 @@ msgstr "Vous avez des rendez-vous en attente"
 
 msgid "internal server error "
 msgstr ""
-
-msgid "rendez-vous saved"
-msgstr "Rendez-vous sauvegardé."
 
 msgid "rv document reference no set"
 msgstr "référence du rendez-vous non fournie"
@@ -1474,6 +1471,9 @@ msgstr "Familles utilisée dans l'agenda"
 
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "rendez-vous saved"
+#~ msgstr "Rendez-vous sauvegardé."
 
 #~ msgid "change color for this ressource"
 #~ msgstr "Couleur"

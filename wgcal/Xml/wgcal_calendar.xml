@@ -1,12 +1,10 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-
-[IF standAlone]<div class="wMainMenu">Agenda : [agendatitle]</div>[ENDIF standAlone]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
-<div onmouseover="closeAllMenu()" id="root">
+<div onmouseover="closeAllMenu()" class="wRootZone" id="root">
+[IF standAlone]<div style="width:100%" class="wMainMenu">Agenda : [agendatitle]</div>[ENDIF standAlone]
+<div style="width:100%" id="headscreen" onmouseover="closeAllMenu()">[ZONE WGCAL:WGCAL_SLIDER]</div>
 
-<div id="headscreen" onmouseover="closeAllMenu()">[ZONE WGCAL:WGCAL_SLIDER]</div>
-
-<table style="width:100%;" cellspacing="0" id="week">
+<table width="100%" cellspacing="0" id="week">
 <thead>
 <tr height="[WGCAL_U_HLINETITLE]px">
  <td id="DH" width="5%" class="WGCAL_Period">&nbsp;</td>
@@ -24,7 +22,6 @@
 </tfoot>
 </table></div>
 
-<div style="display:block" id="fcalDatas"></div>
 [ZONE WGCAL:WGCAL_INFOS]
 
 <div style="display:none" id="waitmessage">
@@ -136,7 +133,7 @@
 </div>
 
 <script> 
-
+     var isIE = [IFNOT ISIE]false[ENDIF ISIE][IF ISIE]true[ENDIF ISIE];
      inCalendar = true;
 
 var CurrentTime = -1;

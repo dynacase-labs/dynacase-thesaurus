@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getressmenu.php,v 1.3 2006/05/19 12:24:35 marc Exp $
+ * @version $Id: wgcal_getressmenu.php,v 1.4 2006/05/23 16:09:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,7 +70,7 @@ function wgcal_getressmenu(&$action) {
 					   "barmenu" => "false" ),
 
 			'rcalendar' => array( "descr" => _("view his calendar"),
-					      "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$rid."');",
+					      "jsfunction" => "subwindowm(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$rid."');",
 					      "confirm" => "false",
 					      "tconfirm" => "",
 					      "control" => "false",
@@ -106,7 +106,7 @@ function wgcal_getressmenu(&$action) {
 
 			
 			'rprefered' => array( "descr" => _("view my prefered"),
-					       "jsfunction" => "subwindow(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$action->getParam("WGCAL_U_PREFRESSOURCES")."')",
+					       "jsfunction" => "subwindowm(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$action->getParam("WGCAL_U_PREFRESSOURCES")."')",
 					       "confirm" => "false",
 					       "tconfirm" => "",
 					       "control" => "false",
