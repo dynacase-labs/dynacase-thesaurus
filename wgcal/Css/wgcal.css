@@ -772,7 +772,7 @@ TD {	empty-cells: show; }
   color: [WTH_TEXTCOLOR_1];
   border-color: [WTH_COLOR_3];
   border-style: outset;
-  border-width: 1px; 
+  border-width: 0px; 
   margin: 0px;
   position: absolute;
   visibility: hidden;
@@ -832,7 +832,7 @@ TD {	empty-cells: show; }
   color: [WTH_TEXTCOLOR_1];
   border-color: [WTH_COLOR_3];
   border-style: outset;
-  border-width: 1px; 
+  border-width: 0px; 
   padding:1px;
   text-decoration: none;
   font-size: [WTH_FONTSIZE_POPUP]pt;

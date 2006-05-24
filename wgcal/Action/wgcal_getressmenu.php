@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getressmenu.php,v 1.4 2006/05/23 16:09:05 marc Exp $
+ * @version $Id: wgcal_getressmenu.php,v 1.5 2006/05/24 07:21:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,8 @@ function wgcal_getressmenu(&$action) {
 
   $surl = $action->getParam("CORE_STANDURL");
   $sico = $action->getParam("WGCAL_U_ICONPOPUP", true);
+  
+  $rprefered = $action->getParam("WGCAL_U_PREFRESSOURCES");
 
   $menu = array();
   $menu["sub"] = array();
@@ -106,12 +108,12 @@ function wgcal_getressmenu(&$action) {
 
 			
 			'rprefered' => array( "descr" => _("view my prefered"),
-					       "jsfunction" => "subwindowm(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$action->getParam("WGCAL_U_PREFRESSOURCES")."')",
+					       "jsfunction" => "subwindowm(450, 700, 'iCalendar', '".$surl."app=WGCAL&action=WGCAL_CALENDAR&sm=1&ress=".$rprefered."')",
 					       "confirm" => "false",
 					       "tconfirm" => "",
 					       "control" => "false",
 					       "target" => "wgcal_hidden",
-					       "visibility" => POPUP_ACTIVE,
+					       "visibility" => ($rprefered==""||$rprefered=="|"?POPUP_INVISIBLE:POPUP_ACTIVE),
 					       "icon" => ($sico?$action->getImageUrl("wm-viewprefered.gif"):""),
 					       "submenu" => "",
 					       "barmenu" => "false" ),
