@@ -1346,7 +1346,7 @@ msgid "todos options"
 msgstr "Options des tâches"
 
 msgid "print date"
-msgstr "Imprimé le"
+msgstr "Généré le"
 
 msgid "lang"
 msgstr "Language"

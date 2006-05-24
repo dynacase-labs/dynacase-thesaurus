@@ -2,7 +2,7 @@
 <script type="text/javascript"> 
 [JS:CODE]
 </script>[BLOCK MENU]
-<div  style="z-index:3000; display:none;" id="[menu]" class="wgcalpopup">
+<div  style="z-index:3000" id="[menu]" class="wgcalpopup">
 [MITEM]</div>[ENDBLOCK MENU]
 
 <table id="wgcalmenu" cellspacing="0" class="noprinthide" style="padding:0px; width:100%;position:fixed;z-index:500;">
@@ -73,7 +73,7 @@ Calendar.setup({
 <img height="12" style="cursor:pointer" title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
 </td>
 <td align="center" style="width:40px" class="wMainMenu">
-<img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="parent.wgcal_calendar.print()" src="[IMG:wm-print.gif]">
+<img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="subwindowm(450, 700, 'iCalendar', '[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&sm=1')" src="[IMG:wm-print.gif]">
 <img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(0, 0, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&RZ=HV');" src="[IMG:wgcal-prefs.gif]" height="12" >
 &nbsp;</td>
 </tr>

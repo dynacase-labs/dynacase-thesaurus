@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.31 2006/04/24 15:50:31 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.32 2006/05/24 16:04:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -135,7 +135,7 @@ function wgcal_menu(&$action) {
 					  array( 
 						"key" => "m_print",
 						"txt" => _("m_txt_print"), 
-						"jsc" => "parent.wgcal_calendar.print()",
+						"jsc" => "subwindowm(450, 700, 'iCalendar', '[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&sm=1')",
 						"ico" => "wm-print.gif",
 						"rig" => "WGCAL_USER" 
 						),

@@ -386,17 +386,16 @@ TD {	empty-cells: show; }
   color : [WTH_TEXTCOLOR_1];
 }
 .wMonthTextTD {
-  border : thin solid [WTH_TEXTCOLOR_1];
+  border-color : [WTH_TEXTCOLOR_1];
+  border-width : 1px;
+  border-style : none solid solid  none;
   width : 14%;
   background-color : white;
   color : [WTH_COLOR_3];
 }
 .wMonthTextTDUnused {
-  border-right : thin solid [WTH_COLOR_1];
-  border-bottom : thin solid [WTH_COLOR_1];
+  border : 1px none [WTH_COLOR_1];
   width : 14%;
-  background-color : [WTH_COLOR_1];
-  color : [WTH_COLOR_3];
 }
 .wTextActive {
   background-color: [WTH_COLOR_2];
@@ -444,11 +443,9 @@ TD {	empty-cells: show; }
   .noprintremove { display : none; }
   .noprinthide { visibility:hidden; }
   .onlyprint { display:block; }
-  .popup {
-    display:none;
-  }
-
-.wEvResume {
+  .popup { display:none; }
+  
+  .wEvResume {
     font-size: [WTH_FONTSIZE_SMALL]pt;
     display:none;
     overflow:hidden;
@@ -457,12 +454,13 @@ TD {	empty-cells: show; }
     border : 1px solid [WTH_COLOR_2]; 
     background-color : yellow;
   }
-
+  
   .wgcalpopup {
     display:none;
   }
-
+  
 }
+.noprintremove { display : block; }
 
 .wEvResume {
   font-size: [WTH_FONTSIZE_SMALL]pt;
@@ -772,7 +770,7 @@ TD {	empty-cells: show; }
   color: [WTH_TEXTCOLOR_1];
   border-color: [WTH_COLOR_3];
   border-style: outset;
-  border-width: 0px; 
+  border-width: 1px; 
   margin: 1px;
   position: absolute;
   visibility: hidden;

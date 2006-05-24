@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.93 2006/05/22 14:30:11 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.94 2006/05/24 16:04:25 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -43,11 +43,20 @@ function wgcal_calendar(&$action) {
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
   if ($sm) {
-    $tr = explode("|", $ress);
     $atitle = "";
-    foreach ($tr as $k => $v) {
-      $ud = GetTDoc($dbaccess, $v);
-      $atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+    if ($ress!="" && $ress!="|") $tr = explode("|", $ress);
+    else $tr = array();
+    if (count($tr)==0) {
+      $tr = wGetRessDisplayed();
+      foreach ($tr as $k => $v) {
+	$ud = GetTDoc($dbaccess, $v->id);
+	$atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+      }
+    } else {
+      foreach ($tr as $k => $v) {
+	$ud = GetTDoc($dbaccess, $v);
+	$atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+      }
     }
     $action->lay->set("agendatitle", $atitle); 
   }
@@ -56,7 +65,7 @@ function wgcal_calendar(&$action) {
   $vm = GetHttpVars("vm", "");
   if ($vm=="" || !is_numeric($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $dayperweek = $vm;
-  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
+  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH&sm=".($sm?"1":"0"));
   
   popupGen(0);
 

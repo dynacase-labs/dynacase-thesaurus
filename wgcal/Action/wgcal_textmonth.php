@@ -9,11 +9,11 @@ include_once('WHAT/Lib.Common.php');
 function wgcal_textmonth(&$action) 
 {
 
-
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  
   $td_height = 80;
   $title_len = 40;
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef("WHAT/Layout/DHTMLapi.js");
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
@@ -31,6 +31,29 @@ function wgcal_textmonth(&$action)
 
   $hstart = $action->GetParam("WGCAL_U_STARTHOUR", 8);
   $hstop  = $action->GetParam("WGCAL_U_STOPHOUR", 20);
+
+  $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
+  $action->lay->set("standAlone", $sm);
+  if ($sm) {
+    $atitle = "";
+    if ($ress!="" && $ress!="|") $tr = explode("|", $ress);
+    else $tr = array();
+    if (count($tr)==0) {
+      $tr = wGetRessDisplayed();
+      foreach ($tr as $k => $v) {
+	$ud = GetTDoc($dbaccess, $v->id);
+	$atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+      }
+    } else {
+      foreach ($tr as $k => $v) {
+	$ud = GetTDoc($dbaccess, $v);
+	$atitle .= ($atitle==""?"":", ").ucwords(strtolower($ud["title"]));
+      }
+    }
+    $action->lay->set("agendatitle", $atitle); 
+  }
+ 
+
 
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $firstMonthDay  = WGCalGetFirstDayOfMonth($ctime);

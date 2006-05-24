@@ -146,11 +146,12 @@ function fcalComputeCoord() {
   var h = getObjectHeight(eltId(IdEnd));
 
 //   var wroot = '100%';
-  var wroot = document.body.clientWidth;
+  var wroot = parseInt(document.body.clientWidth);
   eltId(Root).style.width=wroot; 
   eltId('week').style.width=wroot; 
   eltId('headscreen').style.width=wroot; 
-  if (eltId('wgcalmenu')) eltId('wgcalmenu').style.width=wroot; 
+  if (eltId('agtitle')) eltId('agtitle').style.width=wroot-4; 
+//   if (eltId('wgcalmenu')) eltId('wgcalmenu').style.width=wroot; 
 
   Xs = os.x;
   Ys = os.y;
@@ -299,10 +300,10 @@ function fcalRemoveEvent() {
   var msgd = "";
   for (var iev=fcalEvents.length-1; iev>=0; iev--) {
     var icard = eltId(fcalGetEvtCardName(iev));
-    if (icard) icard.parent.removeChild(icard);
+    if (icard && icard.parentNode) icard.parentNode.removeChild(icard);
     for (var iocc=fcalEvents[iev].occur; iocc>0; iocc--) {
       var iabs = eltId(fcalGetEvtRName(iev,iocc));
-      if (iabs) iabs.parent.removeChild(iabs);
+      if (iabs && iabs.parentNode) iabs.parentNode.removeChild(iabs);
     }
     fcalEvents[iev].occur = 0;
   }
@@ -567,7 +568,19 @@ function fcalCreateEvent(ie,isclone) {
 //     style.opacity = '0.6';
 //     style.filter = 'alpha(opacity=60)';
     style.backgroundColor = fcalEvents[ie].bgColor;
-    style.color = fcalEvents[ie].fgColor;
+
+    var tcol = getHSL(style.backgroundColor);
+    tcol[1] = (tcol[1]+128) % 256;
+    tcol[2] = (tcol[2]+128) % 256;
+    var trgb = HSL2RGB(tcol[0], tcol[1], tcol[2]);
+    for (i=0;i<3;i++) {
+      if (trgb[i]>15)  trgb[i]=trgb[i].toString(16);
+      else trgb[i]='0'+trgb[i].toString(16);
+    }
+    style.color = '#'+trgb.join('');
+   
+
+//     style.color = fcalEvents[ie].fgColor;
     style.borderWidth = '3px';
     style.borderStyle = 'solid';
     style.borderColor = fcalEvents[ie].topColor+' '+fcalEvents[ie].rightColor+' '+fcalEvents[ie].bottomColor+' '+fcalEvents[ie].leftColor;    

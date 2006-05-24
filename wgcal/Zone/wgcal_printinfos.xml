@@ -1,6 +1,6 @@
 <table  style="padding:0px;" align="center" width="100%" cellspacing="0px">
 <tr>
-<td >[TEXT:print date] [printdate] <span style="font-size:80%;">[[server]]</span>[ZONE WGCAL:WGCAL_INFOS]</td>
+<td >[ZONE WGCAL:WGCAL_INFOS]<span style="font-size:80%;">[TEXT:print date] [printdate] [[server]]</span></td>
 <td  align="right"><img height="25px" src="[IMG:wgcal.gif]"></td>
 </tr>
 </table>
