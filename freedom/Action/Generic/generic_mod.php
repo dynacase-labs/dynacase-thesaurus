@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.27 2006/04/28 14:33:39 eric Exp $
+ * @version $Id: generic_mod.php,v 1.28 2006/05/24 14:19:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,10 +33,8 @@ function generic_mod(&$action) {
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
   
   $err = modcard($action, $ndocid); // ndocid change if new doc
-
 
   if ($err != "")  $action->AddWarningMsg($err);
   else {   
@@ -49,7 +47,9 @@ function generic_mod(&$action) {
       AddLogMsg(sprintf(_("%s has been created"),$doc->title));
    
       $cdoc = $doc->getFamDoc();
-      if ($cdoc->dfldid>0)  $dirid=$cdoc->dfldid;
+
+
+      if (($cdoc->dfldid>0) && ($dirid==0))  $dirid=$cdoc->dfldid;
     
 
       if ($dirid > 0) {
@@ -59,13 +59,11 @@ function generic_mod(&$action) {
 	  if ($err != "") {
 	    $action->AddLogMsg($err);
 	  } else {
-	    $action->AddActionDone("ADDFILE",$fld->initid);
+	    if (($doc->doctype=='D')|| ($doc->doctype=='S')) $action->AddActionDone("ADDFOLDER",$fld->initid);
+	    else $action->AddActionDone("ADDFILE",$fld->initid);
 	  }
 	}
-      }
-    
-   
-    
+      }     
     } 
   }
   if ($noredirect) {
