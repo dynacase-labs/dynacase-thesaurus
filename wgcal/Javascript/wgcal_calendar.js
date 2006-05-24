@@ -440,8 +440,8 @@ function WGCalDisplayEvent(cEv, ncol) {
   // cWidth = Wday - (2*head);
   var cWidth =  parseInt(getObjectWidth(eltId('D'+cEv.curday+'H0'))) - (2*head);
   var xt = getAnchorPosition('D'+cEv.curday+'H0');
-  startX = xt.x; 
-  startY = GetYForTime(cEv.vstart);
+  startX = parseInt(xt.x) + 1; 
+  startY = parseInt(GetYForTime(cEv.vstart)) + 1;
   endY = GetYForTime(cEv.vend);
 
   h = endY - startY;
