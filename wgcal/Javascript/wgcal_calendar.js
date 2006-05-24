@@ -145,8 +145,8 @@ function fcalComputeCoord() {
   var w = getObjectWidth(eltId(IdEnd));
   var h = getObjectHeight(eltId(IdEnd));
 
-  //  var wroot = '100%';
-  var wroot = getFrameWidth();
+//   var wroot = '100%';
+  var wroot = document.body.clientWidth;
   eltId(Root).style.width=wroot; 
   eltId('week').style.width=wroot; 
   eltId('headscreen').style.width=wroot; 

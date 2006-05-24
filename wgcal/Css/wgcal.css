@@ -773,7 +773,7 @@ TD {	empty-cells: show; }
   border-color: [WTH_COLOR_3];
   border-style: outset;
   border-width: 0px; 
-  margin: 0px;
+  margin: 1px;
   position: absolute;
   visibility: hidden;
   text-decoration: none;
