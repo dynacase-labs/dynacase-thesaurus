@@ -2,7 +2,7 @@
 <status count="[count]" delay="[delay]" code="[CODE]" warning="[warning]" focus="i[docid][attrid]" >
 [BLOCK ACTIONS]<action code="[acode]" arg="[aarg]"></action>[ENDBLOCK ACTIONS]
   <branch><![CDATA[
-<textarea onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="width:100%;height:100%">[thetext]</textarea>
+<textarea onchange="INPUTCHANGED=this" docid="[docid]" attrid="[attrid]"  onkeyup="textautovsize(event,this)"  id="i[docid][attrid]" style="width:100%;height:100%">[thetext]</textarea>
 <div style="float:right;text-align:right;position:relative;top:-5px">
 <button class="binline" onclick="modattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Save]</button>
 <button class="binline" onclick="cancelattr(event,'[docid]','[attrid]',document.getElementById('i[docid][attrid]').value)">[TEXT:Cancel]</button></div>

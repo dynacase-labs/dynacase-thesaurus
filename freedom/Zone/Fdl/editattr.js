@@ -4,7 +4,7 @@ var ATTRREADCIBLE=null; // the element  replaced by input
 var INPUTINPROGRESS=false; // true when an input is already done
 var ATTRREQ=null;
 var DIVATTR=document.createElement("div");
-
+var INPUTCHANGED=false;
 
 function reqEditAttr() {
   INPROGRESSATTR=false; 
@@ -63,9 +63,13 @@ function reqNotifyEditAttr(xmlres) {
 	  elt.focus();
 	  INPUTINPROGRESS=true;
 	} else {
-	  INPUTINPROGRESS=false;	  
+	  INPUTINPROGRESS=false;
+	  INPUTCHANGED=false;
 	}
-      }	
+      }	else {
+	INPUTINPROGRESS=false;
+	INPUTCHANGED=false;
+      }
       var actions=xmlres.getElementsByTagName("action");	  
       var actcode=new Array();
       var actarg=new Array();
@@ -154,6 +158,14 @@ function editattr(event,docid,attrid,cible) {
   var w,h;
   if (cible) {
     if (INPUTINPROGRESS) {
+      if (INPUTCHANGED) {
+	var odocid=INPUTCHANGED.getAttribute('docid');
+	var oattrid=INPUTCHANGED.getAttribute('attrid');
+	var onewval=INPUTCHANGED.value;
+	
+	modattr(event,odocid,oattrid,onewval);
+	INPUTCHANGED=false;
+      }
       if (ATTRREADCIBLE) ATTRREADCIBLE.style.display='';
     }
     cible.parentNode.insertBefore(DIVATTR,cible);
