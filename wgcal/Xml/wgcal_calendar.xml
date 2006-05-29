@@ -1,8 +1,8 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
-<div onmouseover="closeAllMenu()" class="wRootZone" id="root">
 [IF standAlone]<div id="agtitle" style="text-align:center;" class="WGCAL_Period">Agenda : [agendatitle]</div>[ENDIF standAlone]
 <div style="width:100%" id="headscreen" onmouseover="closeAllMenu()">[ZONE WGCAL:WGCAL_SLIDER]</div>
+<div onmouseover="closeAllMenu()" class="wRootZone" id="root">
 
 <table width="100%" cellspacing="0" id="week">
 <thead>

@@ -151,7 +151,7 @@ function fcalComputeCoord() {
   eltId('week').style.width=wroot; 
   eltId('headscreen').style.width=wroot; 
   if (eltId('agtitle')) eltId('agtitle').style.width=wroot-4; 
-//   if (eltId('wgcalmenu')) eltId('wgcalmenu').style.width=wroot; 
+  if (eltId('wgcalmenu')) eltId('wgcalmenu').style.width=wroot; 
 
   Xs = os.x;
   Ys = os.y;

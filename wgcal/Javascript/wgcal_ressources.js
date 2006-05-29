@@ -1,19 +1,4 @@
 function fcalUpdateCalendar(forcereload) {
-//   var str = '<div style="border:2px solid red;left:0px; top:0px; z-index:10000">';
-//   for (ir=0; ir<calRessources.length; ir++) {
-//     str += '<br>'
-//       + 'id='+calRessources[ir].id+' '
-//       + '<br> -- color='+calRessources[ir].color+' '
-//       + '<br> -- displayed='+calRessources[ir].displayed+' '
-//       + '<br> -- icon='+calRessources[ir].icon+' '
-//       + '<br> -- label='+calRessources[ir].label+' '
-//       + '<br> -- readonly='+calRessources[ir].readonly+' '
-//       + '<br> -- adhave='+calRessources[ir].adhave+' '
-//       + '<br> -- adselected='+calRessources[ir].adselected+' ';
-//   }
-//   parent.wgcal_calendar.document.write(str+'</div>');
-//   parent.wgcal_calendar.document.close();
-
   if (forcereload) parent.wgcal_calendar.document.location.reload(true);
   else parent.wgcal_calendar.document.location.reload(false);
 }
