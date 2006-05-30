@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.67 2006/03/28 17:29:27 eric Exp $
+ * @version $Id: viewcard.php,v 1.68 2006/05/30 16:34:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -113,12 +113,8 @@ function viewcard(&$action) {
     }
   }
   // set emblem
-  if ($doc->confidential >0) $action->lay->set("emblem", $action->getImageUrl("confidential.gif"));
-  else if ($doc->locked == -1) $action->lay->set("emblem", $action->getImageUrl("revised.gif"));
-  else if ((abs($doc->locked) == $action->parent->user->id)) $action->lay->set("emblem",$action->getImageUrl("clef1.gif"));
-  else if ($doc->locked != 0) $action->lay->set("emblem",$action->getImageUrl("clef2.gif"));
-  else if ($doc->control("edit") != "") $action->lay->set("emblem",$action->getImageUrl("nowrite.gif"));
-  else $action->lay->set("emblem",$action->getImageUrl("1x1.gif"));
+  $action->lay->set("emblem",$doc->getEmblem());
+  
     // set view zone
     if ($zonebodycard == "") {
       $zonebodycard = $doc->defaultview;

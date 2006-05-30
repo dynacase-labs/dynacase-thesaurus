@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.313 2006/05/19 10:35:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.314 2006/05/30 16:34:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3989,6 +3989,21 @@ final public function PostInsert()  {
       // suppress
       if (! $doc->isAffected()) $this->deleteValue($nameId);
     }
+  }
+
+
+  /**
+   * get image emblem for the doc like lock/nowrite
+   * @return string the url of the image
+   */
+  function getEmblem() {
+    global $action;
+    if ($this->confidential >0) return  $action->getImageUrl("confidential.gif");
+    else if ($this->locked == -1) return  $action->getImageUrl("revised.gif");
+    else if ((abs($this->locked) == $this->userid)) return $action->getImageUrl("clef1.gif");
+    else if ($this->locked != 0) return $action->getImageUrl("clef2.gif");
+    else if ($this->control("edit") != "") return $action->getImageUrl("nowrite.gif");
+    else return $action->getImageUrl("1x1.gif");
   }
 
   /**
