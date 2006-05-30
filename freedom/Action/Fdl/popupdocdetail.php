@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.2 2006/04/26 15:50:10 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.3 2006/05/30 16:33:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -178,18 +178,15 @@ function popupdocdetail(&$action) {
 				   "submenu"=>"",
 				   "barmenu"=>"false"));
 
-
   changeMenuVisibility($action,$tlink,$doc);
-
-
   addFamilyPopup($tlink,$doc);
-
 
          
   popupdoc($action,$tlink,$tsubmenu);
 }
 function addFamilyPopup(&$tlink,&$doc) {
   $lmenu = $doc->GetMenuAttributes();
+
   foreach($lmenu as $k=>$v) {
     
     $confirm=false;
@@ -225,7 +222,6 @@ function addFamilyPopup(&$tlink,&$doc) {
     if ($v->precond != "") $tlink[$k]["visibility"]=$doc->ApplyMethod($v->precond,POPUP_ACTIVE);
     
   }
-
   // -------------------- Menu action ------------------
   $lactions=$doc->GetActionAttributes();
   foreach($lactions as $k=>$v) {
@@ -279,7 +275,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   } else $tlink["unlockdoc"]["visibility"]=POPUP_INVISIBLE;
 
   if (! $doc->isRevisable()) $tlink["revise"]["visibility"]=POPUP_INVISIBLE;
-  else if (($doc->lmodify == 'Y') && 
+  else if ((($doc->lmodify == 'Y')||($doc->revision==0)) && 
 	   ($cud||$clf)) $tlink["revise"]["visibility"]=POPUP_CTRLACTIVE;
   else $tlink["revise"]["visibility"]=POPUP_CTRLINACTIVE;
 

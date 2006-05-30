@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.59 2006/01/23 17:06:40 eric Exp $
+ * @version $Id: popupcard.php,v 1.60 2006/05/30 16:34:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -103,7 +103,7 @@ function popupcard(&$action) {
   } else popupInvisible('popupcard',$kdiv,'unlockdoc'); 
 
   if (! $doc->isRevisable()) popupInvisible('popupcard',$kdiv,'revise');
-  else if (($doc->lmodify == 'Y') && 
+  else if ((($doc->lmodify == 'Y')||($doc->revision==0)) && 
 	   ($cud||$clf)) popupCtrlActive('popupcard',$kdiv,'revise'); 
   else popupCtrlInactive('popupcard',$kdiv,'revise');
 
