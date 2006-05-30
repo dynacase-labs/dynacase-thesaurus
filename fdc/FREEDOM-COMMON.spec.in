@@ -1,0 +1,80 @@
+#! /bin/rpm
+#
+#  File: 
+#  $Id: FREEDOM-COMMON.spec.in,v 1.1 2006/05/30 16:32:46 eric Exp $
+#
+#  This is the SPEC file for the What Users Module
+#  Anakeen What Application
+#
+
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+
+%if %{cerbere}
+%define destdir /home/httpd/what
+%define httpuser http
+%define ldapuser slapd
+%else
+%define destdir /usr/share/what
+%define httpuser apache
+%define ldapuser ldap
+%endif
+
+%define dirname FDC
+Summary: Common function for Freedom
+Name: @PACKAGE@
+Version: @VERSION@
+Release: @RELEASE@
+License: GPL
+Group: Applications/Web
+Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
+Vendor: Anakeen           
+URL: http://www.anakeen.com/
+Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+BuildArchitectures: noarch
+BuildRoot: /tmp/anakeen-root
+Prereq: gettext
+
+
+%description
+The Gate services management is use to add services for web gate of FREDOM
+
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+
+%install
+autoconf
+./configure --with-pubrule=`pwd` \
+	     --with-httpuser=%{httpuser} \
+	     --prefix=%{destdir}
+make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+%post
+
+
+
+
+
+%preun
+%postun
+
+
+
+%files
+%defattr(-,%{httpuser},%{httpuser})
+%dir %{destdir}/%{dirname}
+%{destdir}/%{dirname}/*
+#%{destdir}/locale/*
+
+
+
+%changelog
+* Fri Apr 30 2004 Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+- Build first RPM
+
