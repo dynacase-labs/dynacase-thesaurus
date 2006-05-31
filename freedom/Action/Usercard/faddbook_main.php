@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.20 2006/02/14 17:03:54 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.21 2006/05/31 09:25:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -125,6 +125,9 @@ function faddbook_main(&$action)
     $child += $dnfam->GetChildFam($dnfam->id,true);
     $action->lay->set("viewsubfam",count($child)>1);
     $action->lay->setBlockData("NEW",$child);
+    $fc=current($child);
+    $action->lay->set("famid", $fc["id"]);
+    $action->lay->set("famsearch", ucwords(strtolower($fc["title"])));
   } else {
     $action->lay->set("viewsubfam",false);    
   }
