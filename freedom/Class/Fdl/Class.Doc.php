@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.314 2006/05/30 16:34:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.315 2006/06/01 12:56:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -656,7 +656,7 @@ final public function PostInsert()  {
   /**
    * test if the document can be revised now
    * it must be locked by the current user
-   * @return bool
+   * @return string empty means user can update else message of the raison
    */
   final public function CanUpdateDoc() {
 
@@ -679,12 +679,38 @@ final public function PostInsert()  {
     }
     
     return($err);
+  }  
+
+  /**
+   * test if the document can be edit by the current user
+   * 
+   * @return string empty means user can update else message of the raison
+   */
+  public function CanEdit() {
+
+    if ($this->locked == -1) {
+      $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
+    }
+
+    if ($this->userid == 1) return "";// admin can do anything but not modify fixed doc
+    $err="";
+  
+    
+    if  (($this->locked != 0) && (abs($this->locked) != $this->userid)) {
+	  
+      $user = new User("", $this->locked);
+      $err = sprintf(_("you are not allowed to update the file %s (rev %d) is locked by %s."), $this->title,$this->revision,$user->firstname." ".$user->lastname); 
+	  
+    } else $err = $this->Control("edit");
+    
+    
+    return($err);
   }
 
   /**
    * test if the document can be locked
    * it is not locked before, and the current user can edit document
-   * @return bool
+   * @return string empty means user can update else message of the raison
    */
   final public function CanLockFile() {
     $err="";
@@ -717,7 +743,7 @@ final public function PostInsert()  {
    * test if the document can be unlocked
    * @see CanLockFile()
    * @see CanUpdateDoc()
-   * @return bool
+   * @return string empty means user can update else message of the raison
    */
   final public function CanUnLockFile() {
     if ($this->userid == 1) return "";// admin can do anything
