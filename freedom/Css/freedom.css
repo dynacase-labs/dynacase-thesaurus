@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.90 2006/05/12 15:41:43 eric Exp $
+ * $Id: freedom.css,v 1.91 2006/06/02 16:07:18 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -207,7 +207,9 @@ DIV.unselect {
   margin: 2px 0px 0px 0px;
 
 }
-
+DIV.normal {
+  background-color:[CORE_BGCELLCOLOR];  
+}
 TR.unselecth, DIV.unselecth {
    border-style : inset;
   background-color:[CORE_BGCOLORHIGH]!important;
