@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.28 2006/05/16 07:56:50 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.29 2006/06/02 15:01:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,9 +29,7 @@ function wgcal_gview(&$action) {
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $light = (GetHttpVars("mo", "")=="L"?true:false);
-  $action->lay->set("Light", $light);
-
-  $action->lay->set("search", false);
+  $action->lay->set("lmode", $light);
 
   // Set a filter
   $action->lay->set("search", false);
@@ -113,6 +111,7 @@ function wgcal_gview(&$action) {
   $evt = array();
   
   $evt = array();
+//   echo "getEvent $ress : ".$dd[0]." ".$dd[1]." "; print_r2($ff);  print_r2($filter);
   $evt = wGetEvents($dd[0], $dd[1], $explode, $filter); 
   if (count($evt) > 0) {
     $td = array();

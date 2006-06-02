@@ -1,0 +1,6 @@
+<select name="period">
+<option value="3days">3 jours
+<option value="week">1 semaine
+<option value="2weeks">2 semaines
+<option value="month">mois
+</select>

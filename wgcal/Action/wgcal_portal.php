@@ -12,9 +12,8 @@ function wgcal_portal(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $lmode = (GetHttpVars("mo", "")=="L" ? true : false );
-  $action->lay->set("LightMode", $lmode);
-  
-  $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
+  $period = GetHttpVars("period", "");
+  if ($period=="") $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
   
   switch($period) {
   case "3days":  $delta = 24*3600*4; break;
@@ -26,16 +25,6 @@ function wgcal_portal(&$action) {
   $stime = mktime( 0, 0, 0, strftime("%m",time()), strftime("%d",time()), strftime("%Y",time()));
   $etime = $stime + $delta;
 
-  $action->lay->set("period", $period);
-  $action->lay->set($period."sel", "selected");
-  $action->lay->set("periodtext", _($period));
-  $action->lay->set("tds", strftime("%d %B %Y",$stime));
-  $action->lay->set("tde", strftime("%d %B %Y",$etime));
-  
-  setHttpVar("rvfs_ress",$action->user->fid);
-  setHttpVar("rvfs_ts",$stime);
-  setHttpVar("rvfs_te",$etime);
-  setHttpVar("standalone",0);
-  setHttpVar("explode",1);
+  Redirect($action, "WGCAL", "WGCAL_GVIEW&rvfs_ress=".$action->user->fid."&rvfs_ts=".$stime."&rvfs_te=".$etime."&mo=L");
 }
 ?>

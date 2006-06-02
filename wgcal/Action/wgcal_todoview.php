@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.3 2006/05/15 14:35:19 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.4 2006/06/02 15:01:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -30,6 +30,15 @@ function wgcal_todoview(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $todoviewday = $action->getParam("WGCAL_U_TODODAYS", -1);
   $todowarn = $action->getParam("WGCAL_U_TODOWARN", 2);
+  $orderby = $action->GetParam("WGCAL_U_TODOORDER", "desc");
+
+
+  $action->lay->set("lmode", false);
+  if (GetHttpVars("mo", "")=="L") {
+    $action->lay->set("lmode", true);
+    $todoviewday= 0;
+    $orderby = "asc";
+  }
 
   setToolsLayout($action, 'todo');
 
@@ -42,7 +51,6 @@ function wgcal_todoview(&$action) {
     $stop = w_datets2db(time()+($todoviewday * 24 * 3600),true);
     $filter[] = "todo_date < '".$stop."'";
   } 
-  $orderby = $action->GetParam("WGCAL_U_TODOORDER", "desc");
   $todos = getChildDoc($dbaccess, 0, 0, "ALL", $filter, $action->user->id, "TABLE", "TODO", false, "todo_date ".$orderby, true);
 
   $td = array(); $itd = 0;

@@ -1,3 +1,5 @@
+[IFNOT lmode]
+
 [IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
 [IF search]<table width="100%" class="wToolButtonUnselect" cellspacing="0" cellpadding="0">
 <tr><td>[TEXT:wcal search result for] <span style="background:yellow">[sphrase]</span></td></tr></table>[ENDIF search]
@@ -7,21 +9,36 @@
 [IFNOT noresult]
 <table cellspacing="0" width="100%" >[BLOCK btime]
 
-[IFNOT Light]<tr><td colspan="2" class="WEvDays" style="padding:2px">[datestr]</tr>
+<tr><td colspan="2" class="WEvDays" style="padding:2px">[datestr]</tr>
 [BLOCK devents[date]]<tr valign="top" class="WEvDefault" onmouseover="this.className='WEvOver'" [IF menu]oncontextmenu="this.className='WEvOver'; viewmenu(event,'[menuurl]&ctx=RES&occ=[occ]'); return false"[ENDIF menu] onmouseout="this.className='WEvDefault'">
 <td style="border-top: 1px outset white" >[hour]</td><td style="border-top: 1px outset white"  >
 <div>[Icons][title] <span style="font-size:80%;">([owner])</span></div>
 [IF vNote]<div>[note][ENDIF vNote]</td>
 </tr>[ENDBLOCK devents[date]]
-[ENDIF Light]
 
-[IF Light]
+
 <tr><td colspan="2">[datestr]</</td></tr>
 [BLOCK devents[date]]<tr><td>[hour]</td><td>[Icons][title] <span style="font-size:80%;">([owner])</span></td></tr>[ENDBLOCK devents[date]]
-[ENDIF Light]
 
 [ENDBLOCK btime]</table>[ENDIF noresult]
 
 <div width="100%" class="WEvDays">[ZONE WGCAL:WGCAL_INFOS]</div>
 <span id="eventCount" style="display:none">[eventCount]</span>
 [IF standalone][ZONE WGCAL:WGCAL_HTMLFOOT][ENDIF standalone]
+
+[ENDIF lmode]
+
+[IF lmode]
+[IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
+[IFNOT noresult]
+<table cellspacing="0" width="100%" >[BLOCK btime]
+<tr><td colspan="2" style="border-bottom:1px solid #CFCFCF">[datestr]</td></tr>
+[BLOCK devents[date]]<tr valign="top">
+<td style="font-size:80%;">&rarr;[hour]</td>
+<td><div>[Icons][title] <span style="font-size:80%;">([owner])</span></div>[IF vNote]<div>[note][ENDIF vNote]</td>
+</tr>
+[ENDBLOCK devents[date]]
+[ENDBLOCK btime]</table>[ENDIF noresult]
+[ENDIF lmode]
+
+

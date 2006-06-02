@@ -42,6 +42,7 @@ $action_desc = array (
 
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_PORTAL", "short_name" =>N_("portal view"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_EPORTAL", "short_name" =>N_("portal parameter edition"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TOOLBAR", "short_name" =>N_("toolbar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETTOOLSTATE", "short_name" =>N_("set display/undisplay tool state in toolbar"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_SETEVENTSTATE", "short_name" =>N_("set event state"), "toc" => "N", "root" =>"N"),
@@ -107,6 +108,7 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTMONTH", "short_name" =>N_("month text"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTWEEK", "short_name" =>N_("week text"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_PREFS", "short_name" =>N_("user preferences"), "toc" => "N", "root" =>"N"),
+  array( "acl" => "WGCAL_USER", "name" => "APPPREFS", "short_name" =>N_("user preferences"), "layout" => "wgcal_prefs.xml","script" => "wgcal_prefs.php", "function" => "wgcal_prefs", "toc" => "N", "root" =>"N"),
 
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_OSYNC", "toc" => "N"),
