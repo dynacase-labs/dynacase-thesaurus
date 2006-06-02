@@ -3,7 +3,7 @@ var ATTRCIBLE=null;
 var ATTRREADCIBLE=null; // the element  replaced by input
 var INPUTINPROGRESS=false; // true when an input is already done
 var ATTRREQ=null;
-var DIVATTR=document.createElement("div");
+var DIVATTR=document.createElement("span");
 var INPUTCHANGED=false;
 
 function reqEditAttr() {
@@ -53,11 +53,23 @@ function reqNotifyEditAttr(xmlres) {
       elt=elts[0].firstChild.nodeValue;
       // alert(elt);
       if (o) {
-	if (ATTRREADCIBLE) ATTRREADCIBLE.style.display='none';
+
+	if (ATTRREADCIBLE) {
+	   ATTRREADCIBLE.style.display='none';
+	}
 	if (c > 0) o.style.display='';
 	o.style.left = 0;
 	o.style.top  = 0;
 	o.innerHTML=elt;
+	
+	var oi=o.getElementsByTagName('textarea');
+
+	if (oi.length > 0) {
+	  var oi1=oi[0];
+	  oi1.style.width=o.style.width;
+	  oi1.style.height=o.style.height;
+	}
+	
 	elt=document.getElementById(f);
 	if (elt) {
 	  elt.focus();
@@ -171,15 +183,16 @@ function editattr(event,docid,attrid,cible) {
     cible.parentNode.insertBefore(DIVATTR,cible);
     ATTRREADCIBLE=cible;
     w=getObjectWidth(ATTRREADCIBLE);
-    if (w < 200) w=200;
-    DIVATTR.style.width=w;
+
+    if (w < 120) w=120;
     h=getObjectHeight(ATTRREADCIBLE);
     if (h < 20) h=20;
     
-    DIVATTR.style.height=h;
     DIVATTR.innerHTML='progress...';
     ATTRREADCIBLE.style.display='none';
     DIVATTR.style.display='';
+    DIVATTR.style.height=h;
+    DIVATTR.style.width=w;
   }
 
   var menuurl='index.php?sole=Y&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
@@ -212,6 +225,7 @@ function textautovsize(event,o) {
   var hs=o.scrollHeight;
 
   if (hs > hb) {
+    o.style.height=hs;
     o.parentNode.style.height=hs;
   }
   
