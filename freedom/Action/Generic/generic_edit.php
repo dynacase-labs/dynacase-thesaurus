@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.49 2006/04/20 18:12:56 eric Exp $
+ * @version $Id: generic_edit.php,v 1.50 2006/06/02 16:33:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,6 +25,7 @@ include_once("GENERIC/generic_util.php");
  * @global id Http var : document identificator to see
  * @global zone Http var : if set, special edit with special zone 
  * @global rzone Http var : if set, to return view with special zone 
+ * @global rtarget Http var : if set, to return result in another window (the window will be closed)
  * @global vid Http var : if set, edit represention describe in view control (can be use only if doc has controlled view)
  * @global mskid Http var : is set special mask applied for edition
  */
@@ -39,12 +40,14 @@ function generic_edit(&$action) {
   $usefor = GetHttpVars("usefor"); // default values for a document
   $zonebodycard = GetHttpVars("zone"); // define view action
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $rtarget = GetHttpVars("rtarget","_self"); // special zone when finish edition return target
 
   $vid = GetHttpVars("vid"); // special controlled view
   $mskid = GetHttpVars("mskid"); // special mask
 
   $action->lay->Set("vid", $vid);
   $action->lay->Set("rzone", $rzone);
+  $action->lay->Set("rtarget", $rtarget);
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
