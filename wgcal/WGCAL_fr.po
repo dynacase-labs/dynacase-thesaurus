@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-23 11:46+0200\n"
+"POT-Creation-Date: 2006-06-05 14:59+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -185,6 +185,9 @@ msgstr ""
 msgid "portal view"
 msgstr "Vue portail"
 
+msgid "portal parameter edition"
+msgstr ""
+
 msgid "toolbar"
 msgstr "Barre d'outils"
 
@@ -307,6 +310,9 @@ msgstr "Préférence de l'utilisateur"
 #, fuzzy
 msgid "alert"
 msgstr "La date butée est dépassée"
+
+msgid "you don't have an email addres, mails are not sended"
+msgstr "Les mails ne sont pas envoyés, vous ne possédez pas d'adresse mail."
 
 msgid "no category"
 msgstr "Sans"

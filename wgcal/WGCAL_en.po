@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-23 11:46+0200\n"
+"POT-Creation-Date: 2006-06-05 14:59+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -185,6 +185,9 @@ msgstr ""
 msgid "portal view"
 msgstr ""
 
+msgid "portal parameter edition"
+msgstr ""
+
 msgid "toolbar"
 msgstr ""
 
@@ -303,6 +306,9 @@ msgid "user preferences"
 msgstr ""
 
 msgid "alert"
+msgstr ""
+
+msgid "you don't have an email addres, mails are not sended"
 msgstr ""
 
 msgid "no category"
