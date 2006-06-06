@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.315 2006/06/01 12:56:17 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.316 2006/06/06 14:49:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -689,7 +689,8 @@ final public function PostInsert()  {
   public function CanEdit() {
 
     if ($this->locked == -1) {
-      $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
+      $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);  
+      return($err);     
     }
 
     if ($this->userid == 1) return "";// admin can do anything but not modify fixed doc
@@ -2837,7 +2838,7 @@ final public function PostInsert()  {
   /**
    * Control Access privilege for document
    *
-   * @param string $aclname identificator of the privilige to test
+   * @param string $aclname identificator of the privilege to test
    * @return string empty means access granted else it is an error message (access unavailable)
    */
   public function Control ($aclname) {
@@ -2942,9 +2943,47 @@ final public function PostInsert()  {
     }
   }
 
-  // --------------------------------------------------------------------
-  // generate HTML code for view doc
-  // --------------------------------------------------------------------
+
+  /**
+   * Return the main path relation
+   * list of prelid properties (primary relation)
+   * the first item is the direct parent, the second:the grand-parent , etc.
+   * @return array key=id , value=title of relation
+   */ 
+  function getMainPath() {
+    $tr=array();
+
+    if ($this->prelid > 0) {
+
+      $d=getTDoc($this->dbaccess,$this->prelid);
+      $fini=false;
+      while (! $fini) {
+	if ($d) {
+	  if (controlTDoc($d,"view")) {
+	    if (! in_array($d["initid"],array_keys($tr))) {
+	      $tr[$d["initid"]]=$d["title"];
+	      if ($d["prelid"] > 0) $d=getTDoc($this->dbaccess,$d["prelid"]);
+	      else $fini=true;
+
+	    } else $fini=true;
+	  } else $fini=true;
+	} else {
+	  $fini=true;
+	}
+	 
+      }
+    }
+    return $tr;
+  }
+
+  /**
+   * generate HTML code for view doc
+   * @param string $layout layout to use to view document
+   * @param string $target window target name for hyperlink destination
+   * @param bool $ulink if false hyperlink are not generated
+   * @param bool $abstract if true only abstract attribute are generated
+   * @param bool $changelayout if true the internal layout ($this->lay) will be replace by the new layout
+   */
   final public function viewDoc($layout="FDL:VIEWBODYCARD",$target="_self",$ulink=true,$abstract=false,$changelayout=false) {
     global $action;
 
