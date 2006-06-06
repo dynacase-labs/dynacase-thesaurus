@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.82 2006/04/14 15:06:51 eric Exp $
+ * @version $Id: freedom_util.php,v 1.83 2006/06/06 14:46:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -305,6 +305,30 @@ function tordered($a, $b) {
 	
 }
 
+
+/** 
+ * control privilege for a document in the array form
+ * the array must provide from getTdoc
+ * the function is equivalent of Doc::Control
+ * @param array $tdoc document
+ * @param string $aclname identificator of the privilege to test
+ * @return bool true if current user has privilege
+ */
+function controlTdoc($tdoc,$aclname) {
+  static $_ODocCtrol=false;
+  static $_Ocuid=false; // current user
+  
+  if (! $_OAclNames) {
+    $cd=new DocCtrl();
+    $_ODocCtrol=$cd;
+    $_Ocuid=$cd->userid;
+  }
+
+  if (($tdoc["profid"]<=0) || ($_Ocuid==1)) return true;
+  $err=$_ODocCtrol->ControlUp($tdoc["uperm"],$aclname);
+
+  return ($err=="");
+}
 /** 
  * get document object from array document values
  * @param string $dbaccess database specification
