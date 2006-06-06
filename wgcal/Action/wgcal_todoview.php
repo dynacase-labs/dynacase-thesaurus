@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.4 2006/06/02 15:01:58 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.5 2006/06/06 16:33:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -62,11 +62,13 @@ function wgcal_todoview(&$action) {
     $td[$itd]["jsTextTodo"] = addslashes($td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
     $td[$itd]["dateTodo"] = strftime("%d/%m", w_dbdate2ts($v["todo_date"]));
+    $td[$itd]["dateTodoL"] = strftime("%d %B %Y", w_dbdate2ts($v["todo_date"]));
 
     $cdate = w_dbdate2ts($v["todo_date"]);
     $td[$itd]["warning"] = false;
     $td[$itd]["alert"] = false;
     
+    $td[$itd]["warn"] = true;
     if ($cdate<$today) {
       $td[$itd]["alert"] = true;
       $td[$itd]["colorTodo"] = "red";
@@ -75,6 +77,7 @@ function wgcal_todoview(&$action) {
       $td[$itd]["colorTodo"] = "orange";
     } else {
       $td[$itd]["colorTodo"] = "#00ff00";
+      $td[$itd]["warn"] = false;
     }
     $itd++;
   }
