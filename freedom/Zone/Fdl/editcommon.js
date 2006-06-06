@@ -1203,20 +1203,35 @@ function fixedPosition() {
   var xy;
   var h;
 
-  if (fspan && ftable) {
-    
-    xy=getAnchorPosition(fspan.id);
-    h=parseInt(getObjectHeight(ftable))-xy.y;
-    if (h>0) fspan.style.height=h+'px';;
-  }
-   fspan=document.getElementById('fixspanfoot');
-   ftable=document.getElementById('fixtablefoot');
 
-  if (fspan && ftable) {
-    fspan.style.height=parseInt(getObjectHeight(ftable))+'px';;
+  if ((document.body.scrollHeight) <= document.body.clientHeight) {    
+    if (fspan && ftable) {
+      ftable.style.position='static';
+      fspan.style.display='none';
+    }
+    fspan=document.getElementById('fixspanfoot');
+    ftable=document.getElementById('fixtablefoot');
+    if (fspan && ftable) {
+      ftable.style.position='static';
+      fspan.style.display='none';
+    }
+  } else {;     
+    if (fspan && ftable) {
+      xy=getAnchorPosition(ftable.id);
+      h=parseInt(getObjectHeight(ftable))-xy.y;
+      if (h>0) {
+	fspan.style.height=getObjectHeight(ftable);
+	fspan.style.top=xy.y;
+      }
+    }
+    fspan=document.getElementById('fixspanfoot');
+    ftable=document.getElementById('fixtablefoot');
+
+    if (fspan && ftable) {
+      fspan.style.height=parseInt(getObjectHeight(ftable))+'px';;
     
+    }
   }
-  
 }
 
 function focusFirst() {
