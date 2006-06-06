@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.50 2006/06/02 16:33:31 eric Exp $
+ * @version $Id: generic_edit.php,v 1.51 2006/06/06 14:47:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,6 +48,7 @@ function generic_edit(&$action) {
   $action->lay->Set("vid", $vid);
   $action->lay->Set("rzone", $rzone);
   $action->lay->Set("rtarget", $rtarget);
+  $action->lay->Set("SELFTARGET",($rtarget=="_self"));
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
    
@@ -81,7 +82,9 @@ function generic_edit(&$action) {
       $docid=$doc->id;
       setHttpVar("id",$doc->id);
       $err = $doc->lock(true); // autolock
-      if ($err != "")   $action->ExitError($err);
+      if ($err != "")   $action->ExitError($err);  
+      if ($err=="") $action->AddActionDone("LOCKFILE",$doc->id);
+
 
       $classid = $doc->fromid;
       if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
