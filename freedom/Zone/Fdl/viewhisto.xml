@@ -53,7 +53,7 @@ function senddiff() {
     <td class="CORETblHeadBold">[TEXT:state]</td>
     <td class="CORETblHeadBold">[TEXT:author]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[TEXT:date]</td>
-    <td class="CORETblHeadBold" style="text-align:left;">[TEXT:diff]</td>
+    <td class="CORETblHeadBold" style="text-align:left;">[IF viewdiff][TEXT:diff][ENDIF viewdiff]</td>
 </tr>
 </thead>
 <tbody>
@@ -67,7 +67,7 @@ function senddiff() {
 <td><b>[state]</b></td>
      <td title="[TEXT:revised by]"><I>[owner]</I></td>
      <td>[date]</td>
-     <td><input type="checkbox" onclick="senddiff()" onmousedown="stopPropagation(event);return false" name="diff" value="[id]"></td>
+     <td>[IF viewdiff]<input type="checkbox" onclick="senddiff()" onmousedown="stopPropagation(event);return false" name="diff" value="[id]">[ENDIF viewdiff]</td>
 </tr>
 
      [BLOCK [COMMENT]]

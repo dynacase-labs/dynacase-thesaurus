@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.15 2006/02/07 14:51:55 eric Exp $
+ * @version $Id: viewhisto.php,v 1.16 2006/06/06 15:44:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -96,6 +96,7 @@ function viewhisto(&$action)
     
   }
   // not display detail display 
+  $action->lay->Set("viewdiff",(count($ldoc)>1));
   $action->lay->Set("nodetail",($iversion>1));
   $action->lay->SetBlockData("TABLEBODY",$trdoc);
  
