@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.316 2006/06/06 14:49:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.317 2006/06/08 16:03:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -17,6 +17,7 @@ include_once("FDL/Class.DocCtrl.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocVaultIndex.php");
 include_once("FDL/Class.DocAttr.php");
+include_once("FDL/Class.DocHisto.php");
 include_once('FDL/Class.ADoc.php');
 include_once("FDL/Lib.Util.php");
 
@@ -400,7 +401,7 @@ final public function PostInsert()  {
       if (($this->revision == 0) && ($this->doctype != "T")) {
 	// increment family sequence
 	$this->nextSequence();
-	$this->Addcomment(_("document creation"));
+	$this->Addcomment(_("document creation"),HISTO_NOTICE,"CREATE");
       }
       $this->Select($this->id);
       $this->cdate=$this->getTimeDate();
@@ -662,6 +663,7 @@ final public function PostInsert()  {
 
     if ($this->locked == -1) {
       $err = sprintf(_("cannot update file %s (rev %d) : fixed. Get the latest version"), $this->title,$this->revision);      
+      return $err;
     }
 
     if ($this->userid == 1) return "";// admin can do anything but not modify fixed doc
@@ -2027,7 +2029,7 @@ final public function PostInsert()  {
    * note : modify is call automatically
    * @param string $comment the comment to add
    */
-  final public function AddComment($comment='') {
+  final public function AddCommentOld($comment='') {
     global $action;
     $commentdate = sprintf("%s [%s %s] %s",
 			   date("d/m/Y H:i"),
@@ -2038,7 +2040,44 @@ final public function PostInsert()  {
     else $this->comment = $commentdate;
     if ($this->isAlive()) $this->modify(true,array("comment"),true);
   }
+  /**
+   * Add a comment line in history document
+   * note : modify is call automatically
+   * @param string $comment the comment to add
+   */
+  final public function AddComment($comment='',$level=HISTO_INFO,$code='') {
+    global $action;
+    $h=new DocHisto($this->dbaccess);
 
+    $h->id=$this->id;
+    $h->initid=$this->initid;
+    $h->comment=$comment;
+    $h->date=date("d-m-Y H:i:s");
+    $h->uname=sprintf("%s %s",$action->user->firstname,$action->user->lastname);
+    $h->uid=$action->user->id;
+    $h->level=$level;
+    $h->code=$code;
+
+    $err=$h->Add();
+    return $err;
+  }
+  /**
+   * Get history for the document
+   * @param bool $all set true if want for all revision
+   * 
+   * @return array of different comment
+   */
+  public function getHisto($allrev=false) {    
+    include_once("Class.QueryDb.php");
+    $q=new QueryDb($this->dbaccess,"dochisto");
+    if ($allrev) $q->AddQuery("initid=".$this->initid);
+    else $q->AddQuery("id=".$this->id);
+    $q->order_by="date desc";
+    $l=$q->Query(0,0,"TABLE");
+
+    if (is_array($l))  return $l;
+    return array();
+  }
   /**
    * Add a application tag for the document
    * if it is already set no set twice
@@ -2077,7 +2116,7 @@ final public function PostInsert()  {
     $this->postitid=0;
     $date = gettimeofday();
     $this->revdate = $date['sec']; // change rev date
-    if ($comment != '') $this->Addcomment($comment);
+    if ($comment != '') $this->Addcomment($comment,HISTO_MESSAGE,"REVISION");
 
 
     $err=$this->modify();
@@ -2130,13 +2169,13 @@ final public function PostInsert()  {
     if ($temporary) $copy->doctype = "T";
     $cdoc= $this->getFamDoc();
     $copy->setProfil($cdoc->cprofid);
-    $copy->addComment(sprintf(_("copy from document #%d -%s-"),$this->id, $this->title));
 
     $err = $copy->PreCopy();
     if ($err != "") return false;
 
     $err = $copy->Add();
     if ($err != "") return $err;
+    $copy->addComment(sprintf(_("copy from document #%d -%s-"),$this->id, $this->title));
 
     $copy->PostCopy();
     if ($err != "") AddWarningMsg($err);
