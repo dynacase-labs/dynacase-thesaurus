@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.83 2006/05/12 15:40:56 eric Exp $
+ * @version $Id: modcard.php,v 1.84 2006/06/08 16:06:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -144,9 +144,9 @@ function modcard(&$action, &$ndocid) {
 	    $keys[]=$oa->labelText;
 	  }
 	  $skeys=implode(",",$keys);
-	  $doc->Addcomment(sprintf(_("change %s"),$skeys));
+	  $doc->Addcomment(sprintf(_("change %s"),$skeys),HISTO_NOTICE,"MODIFY");
 	} else {
-	  $doc->Addcomment(_("change"));
+	  $doc->Addcomment(_("change"),HISTO_NOTICE,"MODIFY");
 	}
       }
       if ($err=="") {$err.=$doc-> Modify();  }
