@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.16 2006/06/06 15:44:35 eric Exp $
+ * @version $Id: viewhisto.php,v 1.17 2006/06/08 16:05:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -23,6 +23,7 @@ function viewhisto(&$action)
   $viewapp = GetHttpVars("viewapp","FDL");
   $viewact = GetHttpVars("viewact","FDL_CARD");
   $target = GetHttpVars("target","doc_properties");
+  $viewrev = (GetHttpVars("viewrev","Y")=="Y");
   $comment = GetHttpVars("comment",_("no comment"));
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -33,6 +34,8 @@ function viewhisto(&$action)
   $action->lay->Set("target",$target);
   $action->lay->Set("VIEWAPP",$viewapp);
   $action->lay->Set("VIEWACT",$viewact);
+  $action->lay->Set("VIEWREV",$viewrev);
+  $action->lay->Set("STATE",($doc->state != ""));
 
   $ldoc = $doc->GetRevisions("TABLE");
 
@@ -64,32 +67,24 @@ function viewhisto(&$action)
 
 
     $trdoc[$k]["COMMENT"]="COMMENT$k";
-    $tc = explode("\n",$rdoc->comment);
+
+    $tc=$rdoc->getHisto();
     $tlc = array();
     $kc=0; // index comment
     foreach ($tc as $vc) {
-      if (ereg("([^\[]*)\[([^]]*)\](.*)",$vc,$reg)) {
-	$kc++;
-	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
+
+      $stime=$vc["date"];
+      /*	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
 		 $reg[1], $regt)) {   
 	  $stime=strftime ("%a %d %b %Y %H:%M",mktime($regt[4],$regt[5],$regt[6],$regt[2],$regt[1],$regt[3]));
 	} else $stime=$reg[1];
-
-	$tlc[$kc]=array("cdate"=>$stime,
-			"cauthor"=>$reg[2],
-			"ccomment"=>$reg[3]);
-      } else {
-	$tlc[$kc]["ccomment"].="<BR>".$vc;
-	if (! isset($tlc[$kc]["cdate"])) {
-	  $tlc[$kc]["cdate"]="";
-	  $tlc[$kc]["cauthor"]="";
-	}
-      }
-      
+      */
+	$tlc[]=array("cdate"=>$stime,
+		     "cauthor"=>$vc["uname"],
+		     "ccomment"=>nl2br(htmlentities($vc["comment"])));            
     }
     $action->lay->SetBlockData("COMMENT$k",$tlc);
 
-    $trdoc[$k]["comment"]= nl2br(htmlentities($rdoc->comment));
     $trdoc[$k]["id"]= $rdoc->id;
     $trdoc[$k]["divid"]= $k;
 
