@@ -3,7 +3,7 @@
  * Duplicate a document
  *
  * @author Anakeen 2000 
- * @version $Id: duplicate.php,v 1.14 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: duplicate.php,v 1.15 2006/06/08 16:06:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -61,6 +61,11 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
   $copy->postmodify();
   $copy->modify();
   // add to the same folder
+  
+  if (($dirid == 0) && ($copy->id > 0)) {
+    $dirid=$doc->prelid;
+  }
+
   
   if (($dirid > 0) && ($copy->id > 0)) {
     $fld = new_Doc($dbaccess, $dirid);
