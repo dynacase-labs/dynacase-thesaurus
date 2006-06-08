@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.7 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.8 2006/06/08 16:04:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -94,3 +94,4 @@ create unique index docrel_u on docrel(sinitid,cinitid,type);
     }
   }
 }
+?>
