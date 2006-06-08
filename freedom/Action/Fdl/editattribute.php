@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editattribute.php,v 1.2 2006/05/17 10:07:30 eric Exp $
+ * @version $Id: editattribute.php,v 1.3 2006/06/08 16:04:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,6 +50,7 @@ function editattribute(&$action) {
       $a=$doc->getAttribute($attrid);
       if (! $a)  $err=sprintf(_("unknown attribute %s for document %s"),$attrid,$doc->title);
       $action->lay->set("attrid",$a->id);
+      $action->lay->set("longtext",($a->type=="longtext"));
       if ($err=="") {
       }
     }

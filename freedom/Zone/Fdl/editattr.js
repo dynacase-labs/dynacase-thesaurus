@@ -4,7 +4,10 @@ var ATTRREADCIBLE=null; // the element  replaced by input
 var INPUTINPROGRESS=false; // true when an input is already done
 var ATTRREQ=null;
 var DIVATTR=document.createElement("span");
+
+
 var INPUTCHANGED=false;
+var corestandurl=window.location.pathname+'?sole=Y';
 
 function reqEditAttr() {
   INPROGRESSATTR=false; 
@@ -63,12 +66,30 @@ function reqNotifyEditAttr(xmlres) {
 	o.innerHTML=elt;
 	
 	var oi=o.getElementsByTagName('textarea');
-
+	var di=o.getElementsByTagName('div');
 	if (oi.length > 0) {
 	  var oi1=oi[0];
 	  oi1.style.width=o.style.width;
 	  oi1.style.height=o.style.height;
 	}
+	if (oi.length == 0) {
+	  oi=o.getElementsByTagName('input');
+	  if (oi.length > 0) {
+	    var oi1=oi[0];
+	    oi1.style.width=o.style.width;
+	  }
+
+	  
+	}
+	if (di.length > 0) {
+	  var di1=di[0];
+	  if (di1.style.position=='absolute') {
+	    di1.style.left=AnchorPosition_getPageOffsetLeft(o);//o.offsetLeft;
+	    di1.style.top=AnchorPosition_getPageOffsetTop(o)+parseInt(o.style.height)-2;//o.offsetTop;
+	    di1.style.width=o.style.width;
+	  }
+	}
+	
 	
 	elt=document.getElementById(f);
 	if (elt) {
@@ -195,7 +216,7 @@ function editattr(event,docid,attrid,cible) {
     DIVATTR.style.width=w;
   }
 
-  var menuurl='index.php?sole=Y&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
+  var menuurl=corestandurl+'&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
   attributeSend(event,menuurl,DIVATTR);
 }
 function modattr(event,docid,attrid,newval) {
@@ -204,7 +225,7 @@ function modattr(event,docid,attrid,newval) {
     DIVATTR.innerHTML='';
     DIVATTR.style.display='none';
   
-    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
+    var menuurl=corestandurl+'&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
 
     attributeSend(event,menuurl,ATTRREADCIBLE,newval);
 }
@@ -212,7 +233,7 @@ function cancelattr(event,docid,attrid) {
     DIVATTR.innerHTML='';
     DIVATTR.style.display='none';
   
-    var menuurl='index.php?sole=Y&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
+    var menuurl=corestandurl+'&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
 
   attributeSend(event,menuurl,ATTRREADCIBLE);
 }

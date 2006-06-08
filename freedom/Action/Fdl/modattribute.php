@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.4 2006/06/06 14:49:53 eric Exp $
+ * @version $Id: modattribute.php,v 1.5 2006/06/08 16:04:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,7 +72,7 @@ function modattribute(&$action) {
 	    $err=$doc->modify(); 
 	    if ($err == "") {
 	      $action->AddActionDone("MODATTR",$a->id);
-	      $doc->AddComment(sprintf(_("modify [%s] attribute"),$a->labelText));
+	      $doc->AddComment(sprintf(_("modify [%s] attribute"),$a->labelText),HISTO_NOTICE,"MODATTR");
 	    }
 	  }
 	}
