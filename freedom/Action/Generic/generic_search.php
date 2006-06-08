@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.27 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_search.php,v 1.28 2006/06/08 16:07:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,7 +70,6 @@ function generic_search(&$action) {
 
   $famid = getDefFam($action);
 
-  if ($keyword != "") $sqlfilter[]= "values ~* '$keyword' ";
 
   $sqlfilter=$sdoc->getSqlGeneralFilters($keyword,"yes",false);
   
