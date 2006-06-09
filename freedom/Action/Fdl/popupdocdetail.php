@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.3 2006/05/30 16:33:49 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.4 2006/06/09 15:06:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -261,8 +261,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   $tlink["toxml"]["visibility"]=POPUP_INVISIBLE;
   //  $tlink["reference"]["visibility"]=POPUP_CTRLACTIVE;
 
-  if (getParam("FREEDOM_IDBASKET") > 0)  $tlink["tobasket"]["visibility"]=POPUP_CTRLACTIVE;
-  else $tlink["tobasket"]["visibility"]=POPUP_INVISIBLE;
+  if (getParam("FREEDOM_IDBASKET") == 0)  $tlink["tobasket"]["visibility"]=POPUP_INVISIBLE;
 
   if ($doc->locked == $doc->userid) $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
   else if (($doc->locked != $doc->userid) && 
