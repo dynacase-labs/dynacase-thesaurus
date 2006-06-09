@@ -5,7 +5,7 @@ var MENUSOURCE=null;
 var MENUREQ=null;
 var MENUOUT=true;
 var MENUOUTTIMER=false;
-
+var XMENU,YMENU;
 var DIVPOPUPMENU=document.createElement("div");
 
 addEvent(window,"load",function adddivpop() {document.body.appendChild(DIVPOPUPMENU)});
@@ -148,7 +148,7 @@ function openDocMenu(event, menuid) {
   var el, x, y;
   var cy,h1,hf;
   
-
+ 
   x=XMENU;y=YMENU;
   if ((x==0) && (y==0)) {
     x=Xold;
@@ -175,7 +175,8 @@ function openDocMenu(event, menuid) {
 
 
   // test if it is on right of the window
-  w2=getObjectWidth(document.body);
+  //  w2=getObjectWidth(document.body);
+  w2=getFrameWidth();
       // display right or left to maximize width
   w1=getObjectWidth(el);
 
@@ -196,11 +197,11 @@ function openDocMenu(event, menuid) {
     if (cy-h1 < 0) y=0;
   }
   if (h1 > hf) y=0;
-    el.style.left = x2 + "px";
-    el.style.top  = y + "px";
-    el.style.display = "none";
-    el.style.display = "";
-    el.style.visibility = "visible";
+  el.style.left = x2 + "px";
+  el.style.top  = y + "px";
+  el.style.display = "none";
+  el.style.display = "";
+  el.style.visibility = "visible";
 
 
  // event.stopPropagation();
