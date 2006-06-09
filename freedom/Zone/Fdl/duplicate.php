@@ -3,7 +3,7 @@
  * Duplicate a document
  *
  * @author Anakeen 2000 
- * @version $Id: duplicate.php,v 1.15 2006/06/08 16:06:38 eric Exp $
+ * @version $Id: duplicate.php,v 1.16 2006/06/09 15:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,6 +75,8 @@ function duplicate(&$action, $dirid, $docid,$temporary=false) {
     if ($err != "") {
       $copy->Delete();
       $action->exitError($err);
+    } else {
+       $action->AddActionDone("ADDFILE",$fld->initid);
     }
     
   } 
