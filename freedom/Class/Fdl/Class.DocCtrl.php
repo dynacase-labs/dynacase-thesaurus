@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.35 2006/04/03 13:50:37 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.36 2006/06/09 15:06:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -506,10 +506,10 @@ public function isValidLink($title, $docid){
 }
 
 /** 
-   * return true if user can execute the specified action
+   * return MENU_ACTIVE if user can execute the specified action
    * @param string $appname application name
    * @param string $actname action name
-   * @return bool
+   * @return int
    *
    */
   static public function canExecute($appname,$actname) {
@@ -520,7 +520,6 @@ public function isValidLink($title, $docid){
     if ($err == "") return MENU_ACTIVE;
     return MENU_INVISIBLE;
   }
-
 }
 
 ?>
