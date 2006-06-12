@@ -53,7 +53,7 @@ function calprop(&$trv,&$tuf) {
     $trv[$kc]["calev_evnote"]=str_replace(";"," - ",$v["cal_description"]);
     $trv[$kc]["calev_visibility"]=($v["cal_access"]=="P")?"0":"1";
     $trv[$kc]["calev_evstatus"]="2";
-    $trv[$kc]["calev_evalarm"]=$v["cal_remind"];
+    $trv[$kc]["calev_evalarm"]="0"; //$v["cal_remind"];
     $trv[$kc]["calev_evalarmtime"]=$v["cal_data"];
     $sd=$v["cal_date"];
     $y=substr($sd,0,4);
