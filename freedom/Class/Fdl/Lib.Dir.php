@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.111 2006/04/20 07:00:51 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.112 2006/06/13 15:47:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -123,7 +123,8 @@ function getSqlSearchDoc($dbaccess,
 
       //if ($fld->getValue("se_trash")!="yes") $sqlfilters[-3] = "doctype != 'Z'";
     
-      if ($latest) $sqlfilters[-1] = "locked != -1";
+      if ($trash=="only") $sqlfilters[-1] = "locked = -1";
+      elseif ($latest) $sqlfilters[-1] = "locked != -1";
       ksort($sqlfilters);
       if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
       /*
@@ -375,7 +376,7 @@ function getChildDoc($dbaccess,
 	    $tretdocs[]=$tableq;
 	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
-      //      print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+      //          print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
     } else {
       // error in query          

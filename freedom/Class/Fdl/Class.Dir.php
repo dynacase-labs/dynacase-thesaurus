@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.47 2006/04/20 18:12:56 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.48 2006/06/13 15:47:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -509,7 +509,7 @@ Class Dir extends PDir
    * return families that can be use in insertion
    * @param int $classid : restrict for same usefor families
    */
-  function isAuthorized($classid) {
+  public function isAuthorized($classid) {
     
     if (! isset($this->norestrict)) {
       $this->getAuthorizedFamilies();
@@ -526,20 +526,21 @@ Class Dir extends PDir
    * @param bool $controlview if false all document are returned else only visible for current user  document are return
    * @param array $filter to add list sql filter for selected document
    * @param int $famid family identificator to restrict search 
+   * @param string $qtype type os result TABLE|LIST|ITEM
    * @return array array of document array
    */
-  function getContent($controlview=true,$filter=array(),$famid="") {
+  public function getContent($controlview=true,$filter=array(),$famid="",$qtype="TABLE",$trash="") {
     include_once("FDL/Lib.Dir.php");
     if ($controlview) $uid=$this->userid;
     else $uid=1;
-    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, "TABLE",$famid="");
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, $qtype,$famid="",false, "title",true,$trash);
     return $tdoc;    
   }
 
   /**
    * update folder relations
    */
-  function updateFldRelations() {
+  public function updateFldRelations() {
     include_once("FDL/Class.DocRel.php");
     $nattr = $this->GetNormalAttributes();
     $or=new DocRel($this->dbaccess);
@@ -563,6 +564,71 @@ Class Dir extends PDir
     }
   }
   }
+
+  /**
+   * return number of item in the static folder
+   * @param boll $onlyprimary set to true if you wnat only document linked by primary relation
+   * @return int -1 if it is not a static folder
+   */
+  public function count($onlyprimary=false) {
+    if ($onlyprimary) {
+      $tdoc = $this->getPrimaryChild();
+      if ($tdoc) return count($tdoc);      
+    } else {
+      $q = new QueryDb($this->dbaccess,"QueryDir");  
+      $tv=$q->Query(0,0,"TABLE","select childid from fld where dirid=".$this->initid." and qtype='S'");
+      if (is_array($tv)) return count($tv);
+    }
+    return -1;
+  }
+
+  
+  /**
+   * get  document which primary relation is this folder
+   * 
+   *
+   * @return array of doc  (array document)
+   */
+  public function getPrimaryChild() {
+    $filter[]="prelid=".$this->initid;
+    return $this->getContent(true,$filter);
+  }
+  
+  /**
+   * delete all document which primary relation is the folder (recurively)
+   * different of {@see Clear()}
+   * all document are put in the trash (zombie mode)
+   * @return int -1 if it is not a static folder
+   */
+  public function deleteItems() {
+    $filter[]="prelid=".$this->initid;
+    $lpdoc= $this->getContent(true,$filter,"","ITEM");
+
+    $terr=array();
+    while ($doc=getNextDoc($this->dbaccess,$lpdoc)) {
+      if ($doc->doctype=='D') $terr=array_merge($terr,$doc->deleteItems());
+      $terr[$doc->id]=$doc->delete();
+    }
+    return $terr;        
+  }
+  /**
+   * restore all document which primary relation is the folder (recurively)
+   * 
+   * 
+   * @return int -1 if it is not a static folder
+   */
+  function reviveItems() {
+    $filter[]="prelid=".$this->initid;
+    $lpdoc= $this->getContent(true,$filter,"","ITEM","only");
+    $terr=array();
+    while ($doc=getNextDoc($this->dbaccess,$lpdoc)) {
+      if ($doc->defDoctype=='D') $terr=array_merge($terr,$doc->reviveItems());
+      $terr[$doc->id]=$doc->revive();
+    }
+    return $terr;        
+  }
+
+
 }
 
 ?>
