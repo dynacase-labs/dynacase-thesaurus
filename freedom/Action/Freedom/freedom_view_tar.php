@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_view_tar.php,v 1.2 2004/03/16 15:37:09 eric Exp $
+ * @version $Id: freedom_view_tar.php,v 1.3 2006/06/14 16:24:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -91,13 +91,15 @@ function see_directory(&$action,$ldir,&$tfile,$level=0) {
     
    if ($file[0] != ".") {
      $afile="$ldir/$file";
-
+     $sfile=$file;
+     
+     if (isUTF8($sfile)) $sfile=utf8_decode($sfile);
      if (is_file($afile)) {
-       $tfile[]=array("name"=>$file,
+       $tfile[]=array("name"=>$sfile,
 		      "level"=>$level*20,
 		      "type"=>"file");
      } else if (is_dir($afile)) {
-       $tfile[]=array("name"=>$file,
+       $tfile[]=array("name"=>$sfile,
 		      "level"=>$level*20,
 		      "type"=>"dir");
        see_directory($action,$afile,$tfile,$level+1);

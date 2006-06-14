@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.5 2006/01/16 16:11:39 eric Exp $
+ * @version $Id: import_tar.php,v 1.6 2006/06/14 16:24:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
   global $importedFiles;
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  $tr=array();
   if (is_dir($ldir)) {
     if ($handle = opendir($ldir)) {
       $lfamid=0;
@@ -97,6 +97,8 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
 	  if (!$onlycsv) { // add also unmarked files
 	  
 	    if (!isset($importedFiles[$absfile])) {
+	      if (isUTF8($file))    $file=utf8_decode($file);
+	      if (isUTF8($ldir))    $ldir=utf8_decode($ldir);
 	      $tr[$index]=array("err"=>($defaultdoc)?"":sprintf(_("you cannot create this kind [%s] of document"),$famid),
 				"folderid"=>0,
 				"foldername"=>$ldir,
@@ -141,6 +143,9 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
 	    }
 	  }
 	} else if (is_dir($absfile) && ($file[0]!='.')) {
+
+	  if (isUTF8($file))    $file=utf8_decode($file);
+	  if (isUTF8($ldir))    $ldir=utf8_decode($ldir);
 	  $tr[$index]=array("err"=>($newdir)?"":sprintf(_("you cannot create this kind [%s] of folder"),$dfldid),
 			    "folderid"=>0,
 			    "foldername"=>$ldir,
