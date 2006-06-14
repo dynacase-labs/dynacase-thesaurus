@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.112 2006/06/13 15:47:07 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.113 2006/06/14 16:25:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -331,59 +331,60 @@ function getChildDoc($dbaccess,
   $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest,$trash);
 
   $tretdocs=array();
-  foreach ($tqsql as $qsql) {
-    if ($qsql != false) {
-      if ($userid > 1) { // control view privilege
-	$qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
-	// and get permission
-	$qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
-      }
+  if ($tqsql) {
+    foreach ($tqsql as $qsql) {
+      if ($qsql != false) {
+	if ($userid > 1) { // control view privilege
+	  $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
+	  // and get permission
+	  $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
+	}
 
 
-      if ($start == "") $start="0";
-      if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
-      else  {
-	if ($fromid == "") $orderby="title";
-	elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
-	if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
-	else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
-      }
+	if ($start == "") $start="0";
+	if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
+	else  {
+	  if ($fromid == "") $orderby="title";
+	  elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
+	  if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
+	  else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+	}
    
 
-      if ($fromid != "") {
-	if ($fromid == -1) {
-	  include_once "FDL$GEN/Class.DocFam.php";
-	  $fromid="Fam";
-	} else {
-	  $fromid=abs($fromid);
-	  if ($fromid > 0) {
-	    $GEN=getGen($dbaccess);
-	    include_once "FDL$GEN/Class.Doc$fromid.php";
+	if ($fromid != "") {
+	  if ($fromid == -1) {
+	    include_once "FDL$GEN/Class.DocFam.php";
+	    $fromid="Fam";
+	  } else {
+	    $fromid=abs($fromid);
+	    if ($fromid > 0) {
+	      $GEN=getGen($dbaccess);
+	      include_once "FDL$GEN/Class.Doc$fromid.php";
+	    }
 	  }
 	}
-      }
 
    
-      $query = new QueryDb($dbaccess,"Doc$fromid");
+	$query = new QueryDb($dbaccess,"Doc$fromid");
   
-      $mb=microtime();
+	$mb=microtime();
 
-      $tableq=$query->Query(0,0,$qtype,$qsql);
+	$tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-      if ($query->nb > 0)
-	{ if ($qtype=="ITEM") {
-	    $tretdocs[]=$tableq;
-	  } else $tretdocs=array_merge($tretdocs,$tableq);
-	}
-      //          print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+	if ($query->nb > 0)
+	  { if ($qtype=="ITEM") {
+	      $tretdocs[]=$tableq;
+	    } else $tretdocs=array_merge($tretdocs,$tableq);
+	  }
+	//          print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
-    } else {
-      // error in query          
+      } else {
+	// error in query          
+      }
     }
+
   }
-
-
   
   reset($tretdocs);
   
