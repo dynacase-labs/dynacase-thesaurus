@@ -6,8 +6,7 @@
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SSTANDURL]app=FDL&action=FDL_CSS" >
 
 [CSS:REF]
-
-<script language="JavaScript" src="WHAT/Layout/geometry.js"></script>
+[JS:REF]
 
    <style type="text/css">
 [CSS:CODE]
