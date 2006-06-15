@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.48 2006/06/13 15:47:07 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.49 2006/06/15 15:59:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -602,15 +602,45 @@ Class Dir extends PDir
    */
   public function deleteItems() {
     $filter[]="prelid=".$this->initid;
-    $lpdoc= $this->getContent(true,$filter,"","ITEM");
+    $lpdoc= $this->getContent(false,$filter,"","ITEM");
 
     $terr=array();
     while ($doc=getNextDoc($this->dbaccess,$lpdoc)) {
-      if ($doc->doctype=='D') $terr=array_merge($terr,$doc->deleteItems());
-      $terr[$doc->id]=$doc->delete();
+      $coulddelete=true;
+      if ($doc->doctype=='D') {
+	$terr=array_merge($terr,$doc->deleteItems());
+	foreach ($terr as $id=>$err) {
+	  if ($err != "") $coulddelete=false;
+	}
+      }
+      if ($coulddelete) $terr[$doc->id]=$doc->delete();
     }
     return $terr;        
   }
+
+
+  /**
+   * delete the folder and its containt
+   * different of {@see Clear()}
+   * all document are put in the trash (zombie mode)
+   * @return string error message, if no error empty string
+   */
+  public function deleteRecursive() {
+    $err=$this->predocdelete(); // test before try recursive deletion
+    if ($err != "") return $err;
+    $coulddelete=true;
+    $terr=$this->deleteItems();
+    $err="";
+    foreach ($terr as $id=>$err1) {
+      if ($err1 != "") {
+	$coulddelete=false;
+	$err.="\n$err1";
+      }
+    }
+    if ($coulddelete) $err=$this->delete();
+    return $err;
+  }
+
   /**
    * restore all document which primary relation is the folder (recurively)
    * 
