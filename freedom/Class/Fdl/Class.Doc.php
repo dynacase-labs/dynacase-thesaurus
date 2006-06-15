@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.317 2006/06/08 16:03:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.318 2006/06/15 16:00:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -685,7 +685,7 @@ final public function PostInsert()  {
 
   /**
    * test if the document can be edit by the current user
-   * 
+   * the diffence between ::canUpdateDoc is that document is not need to be locked
    * @return string empty means user can update else message of the raison
    */
   public function CanEdit() {
@@ -897,9 +897,9 @@ final public function PostInsert()  {
    * @see Doc::Delete()
    */
   function PreDocDelete()    
-    {
-      
+    {      
       if ($this->doctype == 'Z') return _("already deleted");
+      if ($this->isLocked(true)) return _("locked");
       $err = $this->Control("delete");
                         
       return $err;      
@@ -925,7 +925,7 @@ final public function PostInsert()  {
 
     if ($control) {
       // Control if the doc can be deleted
-      $msg = $this->Control("delete");
+      $msg = $this->PreDocDelete();
       if ($msg!='') return $msg;
     }
 
@@ -954,10 +954,8 @@ final public function PostInsert()  {
 
 	global $action;
 	global $_SERVER;
-	$this->AddComment(sprintf(_("delete by %s by action %s on %s from %s"),
-				  $action->user->firstname." ".$action->user->lastname,
+	$this->AddComment(sprintf(_("delete by action %s from %s"),
 				  $_SERVER["REQUEST_URI"],
-				  $_SERVER["HTTP_HOST"],
 				  $_SERVER["REMOTE_ADDR"]));
 
 
@@ -988,6 +986,7 @@ final public function PostInsert()  {
 	$this->doctype=$this->defDoctype;
 	$this->locked=0;
 	$this->modify(true,array("doctype","locked"),true);
+	$this->AddComment(_("revival document"));
       } else return sprintf(_("document %s [%d] is not in the trash"),$doc->title,$doc->id);
     } else return _("Only owner of document can restore it");
   }
@@ -2051,6 +2050,7 @@ final public function PostInsert()  {
 
     $h->id=$this->id;
     $h->initid=$this->initid;
+    if (isUTF8($comment)) $comment=utf8_decode($comment);
     $h->comment=$comment;
     $h->date=date("d-m-Y H:i:s");
     $h->uname=sprintf("%s %s",$action->user->firstname,$action->user->lastname);
