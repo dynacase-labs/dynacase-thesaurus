@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.36 2006/06/09 15:06:46 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.37 2006/06/15 16:01:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -510,12 +510,24 @@ public function isValidLink($title, $docid){
    * @param string $appname application name
    * @param string $actname action name
    * @return int
-   *
    */
   static public function canExecute($appname,$actname) {
     global $action;
     
     $err= $action->canExecute($actname,$appname);
+
+    if ($err == "") return MENU_ACTIVE;
+    return MENU_INVISIBLE;
+  }
+/** 
+   * return MENU_ACTIVE if user can edit document
+   * @param string $appname application name
+   * @param string $actname action name
+   * @return int
+   */
+  public function canEditMenu() {
+    
+    $err= $this->canEdit();
 
     if ($err == "") return MENU_ACTIVE;
     return MENU_INVISIBLE;
