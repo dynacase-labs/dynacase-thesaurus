@@ -4,7 +4,7 @@ var ATTRREADCIBLE=null; // the element  replaced by input
 var INPUTINPROGRESS=false; // true when an input is already done
 var ATTRREQ=null;
 var DIVATTR=document.createElement("span");
-
+var CINPUTDOCID=false; // current docid
 
 var INPUTCHANGED=false;
 var corestandurl=window.location.pathname+'?sole=Y';
@@ -215,7 +215,7 @@ function editattr(event,docid,attrid,cible) {
     DIVATTR.style.height=h;
     DIVATTR.style.width=w;
   }
-
+  CINPUTDOCID=docid;
   var menuurl=corestandurl+'&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
   attributeSend(event,menuurl,DIVATTR);
 }
@@ -237,7 +237,15 @@ function cancelattr(event,docid,attrid) {
 
   attributeSend(event,menuurl,ATTRREADCIBLE);
 }
+function unlockonunload(event) { 
+  if (INPUTINPROGRESS &&(CINPUTDOCID > 0) ) {
+    var menuurl=corestandurl+'&app=FDL&action=MODATTRIBUTE&docid='+CINPUTDOCID;
+    
+    attributeSend(event,menuurl,ATTRREADCIBLE);
+  }
+}
 
+addEvent(window,"unload",unlockonunload)
 function textautovsize(event,o) {
   if (! event) event=window.event;
 

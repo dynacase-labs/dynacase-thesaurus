@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.5 2006/06/08 16:04:24 eric Exp $
+ * @version $Id: modattribute.php,v 1.6 2006/06/15 15:58:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,7 +81,7 @@ function modattribute(&$action) {
     }
 
   } else {
-    $action->lay->set("thetext",$doc->getHtmlAttrValue($attrid));    
+    if ($attrid) $action->lay->set("thetext",$doc->getHtmlAttrValue($attrid)); 
   }
   $action->lay->set("warning",utf8_encode($err));
   $action->lay->set("count",1);
