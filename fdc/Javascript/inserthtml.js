@@ -7,7 +7,7 @@ var SYNCHRO=false; // send synchro mode
 
 // send generic request
 function requestUrlSend(cible,url) {
-  if (INSERTINPROGRESS) alert('request aborted');
+  // if (INSERTINPROGRESS) alert('request aborted');
   if (INSERTINPROGRESS) return false; // one request only
 
   // branch for native XMLHttpRequest object
@@ -43,7 +43,6 @@ function requestUrlSend(cible,url) {
 	}
       } else {
 	INSERTINPROGRESS=true;	
-	globalcursor('progress');
 	clipboardWait(cible);
 	return true;
       }
@@ -53,8 +52,8 @@ function requestUrlSend(cible,url) {
 function XmlInsertHtml() {
   INSERTINPROGRESS=false; 
   //document.body.style.cursor='auto';
-  unglobalcursor();
   if (REQINSERTHTML.readyState == 4) {
+    unglobalcursor();
     // only if "OK"
     //dump('readyState\n');
     if (REQINSERTHTML.status == 200) {
@@ -111,7 +110,7 @@ function insertXMlResponse(xmlres) {
 	  if (! isNetscape) correctPNG();
 
 	} else {
-	  alert('no status\n'+REQINSERTHTML.responseText);
+	  alert('no status for insertXMlResponse\n'+elts.length+'\n'+REQINSERTHTML.responseText);
 	  return;
 	}
       }
