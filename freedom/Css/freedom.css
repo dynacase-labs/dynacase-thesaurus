@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.91 2006/06/02 16:07:18 eric Exp $
+ * $Id: freedom.css,v 1.92 2006/06/16 15:35:40 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -82,9 +82,6 @@ TD.FREEDOMLabelNeeded SPAN:first-letter {
   cursor:move;
   -moz-opacity:.5;	
 	
-}
-LEGEND:first-letter {
-  text-transform:uppercase;
 }
 LEGEND {
   color: [CORE_ACOLOR];
@@ -441,10 +438,6 @@ TBODY.select TR {
   cursor: crosshair;
 } 
  
-.freedom A:hover {
-        background-color: [CORE_BGCOLORHIGH]; 
-        text-decoration:  underline;
-}
 DIV.icon{
   font-weight: normal;
   font-size: 70%;

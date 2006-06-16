@@ -90,8 +90,8 @@ addEvent(window,"load",focusFirst);
 
 <tr class="FREEDOMBack2"><td  colspan="3"><img src="[IMG:1x1.png]" border="0"></td></tr>
 </thead>
-</table>
-<div id="fixspanhead" style="visibility:visible;padding:0px;margin:0px;height:0px"></div>
+</table>[IFNOT ISIE]
+<div id="fixspanhead" style="visibility:visible;padding:0px;margin:0px;height:0px"></div>[ENDIF ISIE]
 [ENDIF HEAD]
 [ZONE FDL:EDITCARD]
 [IF FOOT]<div id="fixspanfoot" style="display:[ddivfoot];visibility:hidden;padding:0px;margin:0px;height:0px"></div>

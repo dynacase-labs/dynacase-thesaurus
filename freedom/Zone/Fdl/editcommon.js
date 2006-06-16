@@ -427,13 +427,13 @@ function disableReadAttribute() {
 	  if (inc) inc.disabled=ndis;
 	 
 	  if (ndis) {
-	    document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
-	    if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	    // document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
+	    //if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
 	  } else {
 	    
 	    if (inc) inc.style.backgroundColor='';
-	    if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
-	      document.getElementById(taout[c][i]).style.backgroundColor == '';
+	    //if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
+	    document.getElementById(taout[c][i]).style.backgroundColor == '';
 	  }
 	}
       } else {
@@ -453,7 +453,7 @@ function disableReadAttribute() {
 	  //	  alert(tain[c].toString()+'['+j+']'+ndis);
 	  if (lin[j].type != 'hidden') {
 	    lin[j].disabled=ndis;
-	    lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
+	    //lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
 	  }
 		
 	}
@@ -480,7 +480,7 @@ function clearInputs(tinput, idx,attrid) {
     if (document.getElementById(iinput)) {
       if (! isInputLocked(iinput)) {	
 	document.getElementById(iinput).value=' ';
-	document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	//	document.getElementById(iinput).style.backgroundColor='[CORE_BGCOLORHIGH]';
 	
       } else {
 	err = err + "\n" + iinput;

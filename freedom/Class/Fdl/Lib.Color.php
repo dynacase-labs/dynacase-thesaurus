@@ -3,7 +3,7 @@
  * Color utilities
  *
  * @author Anakeen 2005
- * @version $Id: Lib.Color.php,v 1.2 2005/01/21 17:42:20 eric Exp $
+ * @version $Id: Lib.Color.php,v 1.3 2006/06/16 15:35:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,9 +15,9 @@
 //Red : 0..255
 //Green : 0..255
 //Blue : 0..255
-//Hue : 0,0..360,0<=>0..255
-//Lum : 0,0..1,0<=>0..255
-//Sat : 0,0..1,0<=>0..255
+//Hue : 0,0..360,
+//Lum : 0,0..1,0
+//Sat : 0,0..1,0
 
 //Retourne un tableau de 3 valeurs : H,S,L
 function RGB2HSL ($r, $g, $b)
@@ -51,7 +51,8 @@ function RGB2HSL ($r, $g, $b)
     if ($hue > 360.0)
       $hue -= 360.0;
   }
-  return array (round ($hue * 255.0 / 360.0), round ($saturation * 255.0), round ($luminance * 255.0));
+  // return array (round ($hue * 255.0 / 360.0), round ($saturation * 255.0), round ($luminance * 255.0));
+  return array ($hue,$saturation, $luminance);
 }
 
 function Magic ($rm1, $rm2, $rh)
@@ -70,7 +71,11 @@ function Magic ($rm1, $rm2, $rh)
   return round ($retval * 255);
 }
 
-//Retourne un tableau de 3 valeurs : R,G,B
+/**
+ * Retourne une chaine: #RRGGBB
+ * @param float $h hue 
+*/
+ 
 function HSL2RGB ($h, $s, $l)
 {
   $hue = $h ;

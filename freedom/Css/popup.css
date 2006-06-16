@@ -75,20 +75,20 @@ a.separator {
   text-decoration: none;
 }
 
-a.separator:hover {
+popup a.separator:hover {
   text-decoration: none;
-  color: [CORE_BGCOLORALTERN]!important;
+  color: [CORE_BGCOLORALTERN];
   background-color: [CORE_FGCOLOR];  
   background-image: [CORE_FGIMGMENU];	
 }
 
 .popup a.menuItem:hover,.popup a.menuItemCtrl:hover  {
-  color: [CORE_TEXTFGCOLOR]!important;
+  color: [CORE_TEXTFGCOLOR];
   background-color: [CORE_BGCOLORALTERN];
   text-decoration: none;	
 }
 .popup a.menuItemDisabled:hover,.popup a.menuItemCtrlDisabled:hover {
-  color: [CORE_BGCOLORALTERN]!important;
+  color: [CORE_BGCOLORALTERN];
   background-color: [CORE_BGCOLORALTERN];
   text-decoration: none;	
 }

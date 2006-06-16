@@ -7,7 +7,7 @@ function completechoice(index,tattrid,tattrv,winfo) {
 	if (winfo.document.getElementById(tattrid[i])) {
 	  winfo.document.getElementById(tattrid[i]).value = tattrv[index][i].replace(/\\n/g,'\n');
 
-	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[COLOR_C8]';
 	} else {
 	  if (notalone) alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
 	}
@@ -17,7 +17,7 @@ function completechoice(index,tattrid,tattrv,winfo) {
 	    ((winfo.document.getElementById(tattrid[i]).value == "") || (winfo.document.getElementById(tattrid[i]).value == " "))) {
 	  rvalue = tattrv[index][i].substring(1).replace(/\\n/g,'\n');
 	  winfo.document.getElementById(tattrid[i]).value = rvalue;
-	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[CORE_BGCOLORHIGH]';
+	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[COLOR_C8]';
 	}
 						      
       }
@@ -52,7 +52,7 @@ function completechoices() {
 	    if (tattrv[index][i] != "") {
 	      cvalues[i] += tattrv[index][i];
 	       cvalues[i] += "\n";
-	      style.backgroundColor='[CORE_BGCOLORHIGH]';
+	      style.backgroundColor='[COLOR_C8]';
 	    }
 	    //       style.fontWeight='bold';
 	  }

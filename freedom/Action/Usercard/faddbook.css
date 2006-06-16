@@ -315,19 +315,12 @@ DIV.tabh SPAN:hover {
   cursor:pointer;	
 }
 
-A:hover {
-background-color:[CORE_BGCOLORHIGH];
-}
 
 A:link, A:visited {
-  color: [CORE_ACOLOR];
   font-family: [CORE_FONTLIST1];
   text-decoration: none;
 }
-A {
-  color: [CORE_ACOLOR];
-  cursor:pointer;
-}
+
 
 .COREError {
   color: [CORE_ERRORCOLOR];

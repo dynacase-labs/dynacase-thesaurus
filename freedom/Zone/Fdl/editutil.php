@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.103 2006/03/28 17:29:12 eric Exp $
+ * @version $Id: editutil.php,v 1.104 2006/06/16 15:35:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,7 +44,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
   else $visibility=$oattr->visibility;
   if ($visibility == "I") return ""; // not editable attribute
  
-  $idisabled = " style=\"background-color:".getParam("CORE_BGCOLORALTERN")."\" disabled readonly title=\""._("read only")."\" ";
+  $idisabled = " disabled readonly title=\""._("read only")."\" ";
   $input="";
 		
   //if (($value == "") && ($docid==0)) {
