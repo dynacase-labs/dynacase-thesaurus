@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.29 2006/06/02 15:01:58 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.30 2006/06/16 10:20:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -168,7 +168,7 @@ function wgcal_gview(&$action) {
 	  } else { 
             if (($iday+$dstart)==$dstart) {
 	      $hours = $hstart."$hsep..."; //" 24:00";
-	      $p = 4;
+	      $p = 3;
             } else if (($iday+$dstart)==$dend) {
 	      $hours = "...$hsep".$hend; // "00:00 ".$lend;
 	      $p = 2;
@@ -200,7 +200,7 @@ function wgcal_gview(&$action) {
     uasort($td, "daySort");
     $action->lay->setBlockData("btime", $td);
     foreach ($td as $k => $v) {
-      uasort($td[$k], "evSort");
+      usort($td[$k]["ev"], "tabevSort");
       $action->lay->setBlockData("devents$k", $td[$k]["ev"]);
     }
     $action->lay->set("noresult", false);
@@ -214,8 +214,8 @@ function wgcal_gview(&$action) {
 function daySort($a, $b) {
   return $a["date"] - $b["date"];
 }
-function evSort($a, $b) {
-  if ($e1["pound"]<4 || $e2["pound"]<4) return $e1["pound"] - $e2["pound"];
-  return strcmp($e1["hour1"], $e2["hour1"]);
+function tabevSort($a, $b) {
+  if ($a["p"]<4 || $b["p"]<4) return $a["p"] - $b["p"];
+  return strcmp($a["hour"], $b["hour"]);
 }
 ?>
