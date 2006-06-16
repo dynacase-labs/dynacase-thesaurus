@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.13 2006/05/15 14:35:19 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.14 2006/06/16 09:50:13 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,6 +29,10 @@ function wgcal_waitrv(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
+  $mode = GetHttpVars("mo", "");
+  if ($mode=="L") $action->lay->set("LightMode", true);
+  else $action->lay->set("LightMode", false);
+
   $oapp = GetHttpVars("oapp", "WGCAL");
   $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
   $action->lay->set("oapp", $oapp);
@@ -43,13 +47,14 @@ function wgcal_waitrv(&$action) {
 
   $rvtextl =  25;
   $today = w_datets2db(time(), false)." 00:00:00";
-  $filter[] = "((calev_repeatuntildate>'".$today."') OR (calev_end > '".$today."' )) AND (calev_attid ~* '".$action->user->fid."')";
+  $filter[] = "((calev_repeatuntildate > '".$today."' and calev_repeatmode!=0) OR (calev_end>'".$today."' and calev_repeatmode=0)) AND (calev_attid ~* '".$action->user->fid."')";
   $rdoc = GetChildDoc($dbaccess, 0, 0, "ALL", $filter, 
 		      $action->user->id, "TABLE", getIdFromName($dbaccess,"CALEVENT"));
 
   $irv = 0;
   foreach ($rdoc as $k => $v)  {
     $doc = getDocObject($action->GetParam("FREEDOM_DB"), $v);
+//      echo "[".$doc->getTitle()."] mode=".$doc->getValue("calev_repeatmode")." rend=".$doc->getValue("calev_repeatuntildate")." end=".$doc->getValue("calev_end")."<br>";
     $attid = $doc->getTValue("calev_attid");
     $attst = $doc->getTValue("calev_attstate");
     $state = -1;
