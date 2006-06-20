@@ -3,18 +3,17 @@ margin : 2px;
 font-family: lucida, arial, sans;
 background: [CORE_BGCOLOR]; 
 color: [CORE_TEXTFGCOLOR];
-font-size : [CORE_FONTBASESIZE];
 }
 
 TABLE.fabtable TR TD {
 padding : 0px;
 margin : 0px;
-font-size : 70%;
+font-size : [SIZE_SMALL];
 }
 TABLE.fabtable TH {
 padding : 0px;
 margin : 0px;
-font-size : 70%;
+font-size : [SIZE_SMALL];
 font-weight : bold;
 text-align:left;
   border-style: none  none solid none;
@@ -25,7 +24,7 @@ FIELDSET {
   -moz-border-radius: 8;
 }
 LEGEND {
-  font-size : 80%; 
+  font-size : [SIZE_SMALL]; 
   font-weight : bold;
   background-color: [CORE_BGCOLORALTERN];
   -moz-border-radius: 8;
@@ -43,7 +42,6 @@ IMG.zoom {
   border-width: 0px;
   border-style: none none none none;
   background-color: transparent;
-  font-size : 100%;
   color: [CORE_TEXTFGCOLOR];
 }
 
@@ -51,7 +49,6 @@ IMG.zoom {
   cursor: pointer;
   border-width: 1px;
   border-color: black;
-  font-size : 100%;
   color: [CORE_TEXTFGCOLOR];
 }
 
@@ -88,7 +85,7 @@ IMG.fabbutunsel {
 .fabcontact, TR.fabcontact TD {
   cursor: crosshair;
   border-style: outset none inset none;
-  border-color: [CORE_BGCOLORHIGH];
+  border-color: [CORE_BGCOLORALTERN];
   border-width: 1px;
   empty-cells: show;
 }
@@ -145,7 +142,7 @@ background-color: [CORE_BGCELLCOLOR];
 .fabresumetitle {
 font-weight : bold;
 font-variant: small-caps;
-font-size : 110%;
+font-size : [SIZE_LARGE];
 } 
 
 .fabresumesoc {
@@ -177,21 +174,21 @@ padding:10px 0px 0px 10px;
 SPAN.fabctitle, .fabctitle {
 font-weight : bold;
 font-variant: small-caps;
-font-size : 200%;
+font-size : [SIZE_XX-LARGE];
 } 
 .fabcsoc {
 font-weight : bold;
 font-variant: small-caps;
-font-size : 160%;
+font-size : [SIZE_X-LARGE];
 } 
 
 SPAN.fabcrub, .fabcrub {
-font-size : 120%;
+font-size : [SIZE_LARGE];
 font-weight : bold;
 }
 .fabcrubbigger {
 font-weight : bold;
-font-size : 140%;
+font-size : [SIZE_X-LARGE];
 }
 .fabccom {   
 }
@@ -205,7 +202,7 @@ font-weight : bold;
 .fabcciv {
 font-style: italic;
 text-transform : lowercase;
-font-size : 120%;
+font-size : [SIZE_LARGE];
 }
 [IFNOT ISIE]
 .fabcciv:first-letter {
@@ -216,7 +213,7 @@ text-transform:capitalize;
 padding:10px 0px 0px 0px;
 font-style: italic;
 text-transform : lowercase;
-font-size : 120%;
+font-size : [SIZE_LARGE];
 border-width : 1px;
 border-style :  none none solid none;
 }

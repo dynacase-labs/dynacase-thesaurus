@@ -55,7 +55,7 @@ function sendgeneric(event,th,docid) {
 [ENDBLOCK SELECTMASTER]
 
 [BLOCK CHOOSEMASTERFAMILIES]
-<BR>
+<BR style="clear:both">
 <input style="float:left;width:[izpx]px"  type="button" value="+" 
        title="[TEXT:master choose families]" 
        onclick="subwindow(250,350,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITMASTERPREF')">
@@ -73,7 +73,7 @@ function sendgeneric(event,th,docid) {
      alt="[ftitle]"
      title="[ftitle]">
 [ENDBLOCK SELECTUSER]
-<BR>
+<BR style="clear:both">
 [BLOCK CHOOSEUSERFAMILIES]
 <input style="float:left;width:[izpx]px" type="button" value="+" 
        title="[TEXT:choose user families]" 

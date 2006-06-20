@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.92 2006/06/16 15:35:40 eric Exp $
+ * $Id: freedom.css,v 1.93 2006/06/20 16:18:44 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -8,7 +8,7 @@
 
 .FREEDOMTextBigTitle{
   font-weight: bold;
-  font-size: 120%;
+  font-size: [SIZE_X-LARGE];
   text-align: center;
   font-variant: small-caps;
 }
@@ -141,15 +141,15 @@ TD.MenuInactive div, TD.MenuActive div, TD.MenuSelected div {
   border-style: hidden;
   border-width: 1;
   border-color: [CORE_FGCOLOR];
-  width:30;
-  height:30;
+  width:[SIZE_IMG-SMALL];
+  height:[SIZE_IMG-SMALL];
 }
 .iconimg20 {
   border-style: hidden;
   border-width: 1;
   border-color: [CORE_FGCOLOR];
-  width:20;
-  height:20;
+  width:[SIZE_IMG-X-SMALL];
+  height:[SIZE_IMG-X-SMALL];
   
 }
 .iconline {
@@ -290,7 +290,7 @@ TABLE.tablehead {
 	left:0;
 }
 .onglet {
-   font-size: 50%;
+   font-size: [SIZE_X-SMALL];
   background-image:url('[IMG:tab.png]');
   color:black;
   cursor: pointer;
@@ -298,7 +298,7 @@ TABLE.tablehead {
 }
 
 .ongleth {
-   font-size: 50%;
+   font-size: [SIZE_X-SMALL];
   background-image:url('[IMG:tabh.png]');
   color:white;
   cursor: pointer;
@@ -306,7 +306,7 @@ TABLE.tablehead {
 }
 
 .onglets {
-   font-size: 50%;
+   font-size: [SIZE_X-SMALL];
   cursor: pointer;
   background-image:url('[IMG:tabh.png]');
   color:black;
@@ -314,14 +314,14 @@ TABLE.tablehead {
 }
 
 .ongletv {
-   font-size: 90%;
+   font-size: [SIZE_SMALL];
   background-image:url('[IMG:tabv.png]');
   color:[CORE_TEXTFGCOLOR];
   cursor: pointer;
   border-style: none;
 }
 .ongletvg {
-  font-size: 90%;
+  font-size: [SIZE_SMALL];
   background-image:url('[IMG:tabvg.png]');
   background-color:[CORE_BGCOLORALTERN];;
   color:[CORE_TEXTFGCOLOR];
@@ -329,7 +329,7 @@ TABLE.tablehead {
   border-style: none;
 }
 .ongletvgie {
-  font-size: 90%;
+  font-size: [SIZE_SMALL];
   background-color:[CORE_BGCOLORALTERN];;
   color:[CORE_TEXTFGCOLOR]; 
 [IF ISIE]
@@ -339,7 +339,7 @@ TABLE.tablehead {
   border-style: none;
 }
 .ongletvs {
-  font-size: 90%;
+  font-size: [SIZE_SMALL];
   cursor: pointer;
   background-color:[CORE_BGCOLORALTERN];;
   background-image:url('[IMG:tabvig.png]');
@@ -348,7 +348,7 @@ TABLE.tablehead {
   border-style: none;
 }
 .ongletvsie {
-  font-size: 90%;
+  font-size: [SIZE_SMALL];
   cursor: pointer;
   background-color:[CORE_BGCOLORALTERN];;
 [IF ISIE]
@@ -370,8 +370,8 @@ IMG.unselect {
   border-style: hidden;
   border-width: 3;
   border-style : none;
-  width:40;
-  height:40;  
+  width:[SIZE_IMG-SMALL];
+  height:[SIZE_IMG-SMALL];  
   cursor: crosshair;
 }
 IMG.unselect:hover {
@@ -440,10 +440,10 @@ TBODY.select TR {
  
 DIV.icon{
   font-weight: normal;
-  font-size: 70%;
+  font-size: [SIZE_X-SMALL];
   text-align: center;
   /*font-variant: small-caps;*/
-  width:70;
+  width:[SIZE_IMG-LARGE];
   height:80;
   float:left;
   border-style:none;
@@ -533,8 +533,9 @@ BUTTON.binline {
   cursor:pointer;
 }
 BUTTON.binline:hover, BUTTON.binline:focus {
-        background-color: [CORE_BGCOLORHIGH]; 
+        background-color: [COLOR_A9]; 
         text-decoration:  underline;
+  border:none;
 }
 
 SPAN.selected {
@@ -543,7 +544,7 @@ SPAN.selected {
   background-image:url('[IMG:buttongreen.png]');
   color:black;
   border-style: none;
-  font-size:80%;
+  font-size:[SIZE_SMALL];
   height:20px;
   padding:1px;
   -moz-border-radius:25px;
@@ -555,12 +556,12 @@ SPAN.unselected {
   border-style: none;
   padding:1px;
   height:20px;
-  font-size:80%;
+  font-size:[SIZE_SMALL];
   -moz-border-radius:25px;
 }
 SPAN.hselected {
   cursor: pointer;
-  font-size:80%;
+  font-size:[SIZE_SMALL];
   background-color:lightblue;
   background-image:url('[IMG:buttonblue.png]');
   color:black;
@@ -571,7 +572,7 @@ SPAN.hselected {
 }
 SPAN.wselected {
   cursor: pointer;
-  font-size:80%;
+  font-size:[SIZE_SMALL];
   background-color:lightblue;
   background-image:url('[IMG:buttonred.png]');
   color:black;
@@ -811,6 +812,10 @@ TABLE.reportVGreen {
      text-decoration: none;
      white-space:nowrap;
       background:transparent;} 
+   TD.fld IMG{
+/*     width:[SIZE_IMG-X-SMALL];*/
+     height:[SIZE_IMG-X-SMALL];
+   }
    A  {text-decoration: none;
        color: [CORE_ACOLOR]}
    DIV.folder  {width:100%;
@@ -828,14 +833,14 @@ TABLE.reportVGreen {
       cursor:pointer;
       color: [CORE_TEXTFGCOLOR];
       text-decoration:none;
-      font-size: 80%;
+      font-size: [SIZE_SMALL];
    }
    .urltextsel {
       cursor:pointer;
       text-decoration:underline overline;
       color: [CORE_TEXTFGCOLOR];
        background-color:[CORE_BGCOLORHIGH];
-       font-size: 80%;
+       font-size: [SIZE_SMALL];
       
    }
 

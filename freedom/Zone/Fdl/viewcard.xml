@@ -26,7 +26,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <tr class="FREEDOMBack1">
   
  <td  colspan="2">
-  <IMG  style="display:[dicon];float:left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="48px" SRC="[iconsrc]">
+  <IMG  style="display:[dicon];float:left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="display:[dicon];float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[classtitle]</I><br>
   <span class="FREEDOMTextBigTitle">[TITLE]</span>
@@ -51,7 +51,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 <tr class="FREEDOMBack1">
   <td   align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="48px" SRC="[ficonsrc]"><br>
+    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="[SIZE_IMG-MEDIUM]" SRC="[ficonsrc]"><br>
      <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a></td>
   <td   class="FREEDOMText">[TEXT:author]</td>
   <td  ><span class="FREEDOMText">[username]</span></td>

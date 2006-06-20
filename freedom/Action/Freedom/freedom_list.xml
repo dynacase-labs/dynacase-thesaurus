@@ -45,7 +45,7 @@ addEvent(window,"load",function al1() {opalterrow('terrible');});
 
 
 
-<img id="micon" width="20" height="20"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
+<img id="micon" width="[SIZE_IMG-X-SMALL]" height="[SIZE_IMG-X-SMALL]"   style="position:absolute;visibility:hidden;z-index:10" border="0" src="FREEDOM/Images/doc.gif">
 
 
 [ZONE FREEDOM:FOLDER_BARMENU?nbdoc=[nbdoc]&dirid=[dirid]]

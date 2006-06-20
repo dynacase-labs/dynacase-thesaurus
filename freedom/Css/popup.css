@@ -36,7 +36,6 @@ a.menuItem, a.menuItem:link, a.menuItem:visited {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 70%;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -51,7 +50,6 @@ a.menuItemCtrl:link, a.menuItemCtrl:visited {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 70%;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -65,7 +63,6 @@ a.separator {
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 70%;
   font-weight: bold;
   text-align: center;
   padding: 0px;
@@ -105,7 +102,6 @@ a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuIte
   cursor: default;
   display: block;
   font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
-  font-size: 70%;
   font-weight: normal;
   font-style: italic;
   padding: 2px 12px 2px 8px;

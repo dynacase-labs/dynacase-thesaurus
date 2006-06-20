@@ -129,7 +129,7 @@ addEvent(window,"load",viewfirst);
 <td >[IF choosecolumn]<img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()">[ENDIF choosecolumn]<input type="checkbox" name="sfullsearch" title="[TEXT:search all containing]"></td>
 [BLOCK COLS]<td nowrap>
 [IF ATTimage][label][ENDIF ATTimage]
-[IF ATTnormal]<input name="rqi_[id]" type="text" style="width:90%;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';this.style.color='[IF filter]red[ENDIF filter]';" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
+[IF ATTnormal]<input name="rqi_[id]" type="text" style="width:90%;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='[COLOR_C7]'" onmouseout="this.style.background='';this.style.color='[IF filter]red[ENDIF filter]';" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
 
 [BLOCK DLines]<tr title="[title]"  class="fabcontact"    
 onmouseover="this.className='fabcontactsel'; [IF viewpref]document.getElementById('p[cid]').style.visibility = 'visible'; [ENDIF viewpref]document.getElementById('e[cid]').style.visibility = [IF canChange]'visible'[ENDIF canChange][IFNOT canChange]'hidden'[ENDIF canChange];" 
