@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.31 2006/05/18 12:52:03 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.32 2006/06/20 12:45:15 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -35,7 +35,7 @@ Packager: Marc Claverie <marc.claverie@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
 Requires: FREEEVENT >= 2.0.0
-Requires: FREEDOM-LIB >= 2.3.0
+Requires: FREEDOM-LIB >= 2.2.3
 
 %description
 The Freedom Workgroup Calendar
