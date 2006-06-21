@@ -3,7 +3,7 @@
  * Color utilities
  *
  * @author Anakeen 2005
- * @version $Id: Lib.Color.php,v 1.3 2006/06/16 15:35:40 eric Exp $
+ * @version $Id: Lib.Color.php,v 1.4 2006/06/21 14:44:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,6 +18,19 @@
 //Hue : 0,0..360,
 //Lum : 0,0..1,0
 //Sat : 0,0..1,0
+
+  /**
+   * return hue, saturation, luminace
+   */
+function srgb2hsl($rgb) {
+   if ($rgb[0]=='#') {
+	   $r=hexdec(substr($rgb,1,2));
+	   $g=hexdec(substr($rgb,3,2));
+	   $b=hexdec(substr($rgb,5,2));
+	   return RGB2HSL ($r, $g, $b);
+   }
+}
+
 
 //Retourne un tableau de 3 valeurs : H,S,L
 function RGB2HSL ($r, $g, $b)
