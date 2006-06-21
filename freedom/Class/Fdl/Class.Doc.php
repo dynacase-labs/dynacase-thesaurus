@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.318 2006/06/15 16:00:36 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.319 2006/06/21 08:41:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4268,6 +4268,7 @@ final public function PostInsert()  {
     $dvi = new DocVaultIndex($this->dbaccess);
     $err = $dvi->DeleteDoc($this->id);
     $fa=$this->GetFileAttributes();
+    $tvid=array();
     foreach ($fa as $aid=>$oattr) {
       if ($oattr->inArray()) {
 	$ta=$this->getTValue($aid);
@@ -4278,13 +4279,15 @@ final public function PostInsert()  {
 	$vid="";
 	if (ereg ("(.*)\|(.*)", $v, $reg)) {
 	  $vid=$reg[2];
+	  $tvid[$vid]=$vid;
+	}
+      }      	
+    }
+    
+    foreach ($tvid as $k=>$vid) {
 	  $dvi->docid = $this->id;
 	  $dvi->vaultid = $vid;
-	  $dvi->Add();
-	}
-      }
-	
-
+	  $dvi->Add();	
     }
   }
 
