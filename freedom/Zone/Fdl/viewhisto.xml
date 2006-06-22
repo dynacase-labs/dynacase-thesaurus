@@ -64,7 +64,7 @@ function senddiff() {
 <tr class="selhead" id="d[id]"
     [IFNOT cversion]name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail][ENDIF cversion] 
     onMousedown="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
-<td width="60px">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
+<td width="100px">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
 <td>[IF VIEWREV][revision][ENDIF VIEWREV]</td>
 <td>[IF STATE]<b>[state]</b>[ENDIF STATE]</td>
      <td title="[TEXT:revised by]"><I style="margin-right:5px;white-space:nowrap;">[owner]</I></td>
