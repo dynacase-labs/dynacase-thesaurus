@@ -3,7 +3,7 @@
  * Get Values in XML form
  *
  * @author Anakeen 2006
- * @version $Id: getdocvalues.php,v 1.1 2006/05/30 16:32:46 eric Exp $
+ * @version $Id: getdocvalues.php,v 1.2 2006/06/22 16:18:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FDC
@@ -17,9 +17,9 @@ include_once("FDL/Class.Doc.php");
 
 
 /**
- * Get a doc from the trash
+ * Get  doc attributes values
  * @param Action &$action current action
- * @global id Http var : document id to restore
+ * @global id Http var : document id to view
  */
 function getdocvalues(&$action) {
   header('Content-type: text/xml; charset=utf-8'); 

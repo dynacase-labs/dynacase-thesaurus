@@ -92,7 +92,7 @@ function insertXMlResponse(xmlres) {
 	  if (elts && (elts.length>0)) {
 	    elt=elts[0].firstChild.nodeValue;
 	    if (o) {
-	      if (c > 0)       o.style.display='';
+	      //	      if (c > 0)       o.style.display='';
 	      o.innerHTML=elt;
 	    }
 	  }

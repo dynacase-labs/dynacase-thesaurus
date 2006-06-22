@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDC.app,v 1.1 2006/05/30 16:32:46 eric Exp $
+// $Id: FDC.app,v 1.2 2006/06/22 16:18:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/fdc/FDC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -47,6 +47,10 @@ $action_desc = array (
 		      array( 
 			    "name"		=>"GETDOCPROPERTIES",
 			    "short_name"	=>N_("get all properties of document")
+			    ),
+		      array( 
+			    "name"		=>"SETPARAMU",
+			    "short_name"	=>N_("set user parameter")
 			    )); 
 		
 ?>
