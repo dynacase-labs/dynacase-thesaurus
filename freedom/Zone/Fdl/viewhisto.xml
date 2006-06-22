@@ -74,7 +74,7 @@ function senddiff() {
 
      [BLOCK [COMMENT]]
 <tr class="dash" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
-       <P style="margin-left:20pt;color:black"> [ccomment]</P>
+       <P style="margin-left:20pt"> [ccomment]</P>
 </td><td><I>[cauthor]</I></td><td>[cdate]</td> </tr>
        [ENDBLOCK [COMMENT]]
 [ENDBLOCK TABLEBODY]
