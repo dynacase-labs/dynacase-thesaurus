@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.84 2006/06/15 15:58:21 eric Exp $
+ * @version $Id: freedom_util.php,v 1.85 2006/06/22 16:18:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -275,12 +275,13 @@ function getv(&$t,$k,$d="") {
     
     $tvalues = explode("£",$t["values"]);
     $tattrids = explode("£",$t["attrids"]);
-      
-    while(list($ka,$va) = each($tattrids)) {      
+    foreach($tattrids as $ka=>$va) {
+      if ($va != "") {
       if (!isset($t[$va])) $t[$va]=$tvalues[$ka];
       if ($va == $k) {
 	if ($tvalues[$ka]!="") return $tvalues[$ka];
 	break;
+      }
       }
     }
   }
