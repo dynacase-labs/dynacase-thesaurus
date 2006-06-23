@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.14 2006/06/16 09:50:13 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.15 2006/06/23 05:42:09 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,6 +29,7 @@ function wgcal_waitrv(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
+  $ocount = GetHttpVars("oc", "N");
   $mode = GetHttpVars("mo", "");
   if ($mode=="L") $action->lay->set("LightMode", true);
   else $action->lay->set("LightMode", false);
@@ -76,23 +77,32 @@ function wgcal_waitrv(&$action) {
     }
   }
 
-  if (!$intoolbar) {
-    $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
-    $action->lay->set("alertwrv", "checked");
-    if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
-  }
+  if ($ocount=="Y") {
 
-  if (count($wrv)>0) {
-    $action->lay->set("RVCOUNT", count($wrv));
-    $action->lay->SetBlockData("WAITRV", $wrv);
-    if (!$intoolbar && $alertfornewevent>0) AddWarningMsg(_("You have waiting events").". (".count($wrv).")"); 
+    $action->lay->set("OnlyCount", true);
+    $action->lay->set("count", count($wrv));
+
   } else {
-    $action->lay->SetBlockData("WAITRV", null);
-    $action->lay->set("RVCOUNT", "0");
+
+    $action->lay->set("OnlyCount", false);
+
+    if (!$intoolbar) {
+      $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
+      $action->lay->set("alertwrv", "checked");
+      if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
+    }
+    
+    if (count($wrv)>0) {
+      $action->lay->set("RVCOUNT", count($wrv));
+      $action->lay->SetBlockData("WAITRV", $wrv);
+      if (!$intoolbar && $alertfornewevent>0 && $mode!="L") AddWarningMsg(_("You have waiting events").". (".count($wrv).")"); 
+    } else {
+      $action->lay->SetBlockData("WAITRV", null);
+      $action->lay->set("RVCOUNT", "0");
+    }
+    
+    setToolsLayout($action, 'waitrv', ($intoolbar?false:true));
   }
-
-  setToolsLayout($action, 'waitrv', ($intoolbar?false:true));
-
   
 }
 

@@ -55,12 +55,11 @@
 [IF lmode]
 [IFNOT Todos]<div>[TEXT: no todo][ENDIF Todos]
 [IF Todos]
+<table cellspacing="0">
 [BLOCK TodoList]
-<table width="100%" cellspacing="0">
 <tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td style="text-align:left; [IF warn]font-weight:bold;[ENDIF warn] font-size:80%; width:70%"" >
-<span style="color:[colorTodo];">&nbsp;&diams;&nbsp;</span>[sTextTodo]</td>
-<td style="text-align:left; font-size:80%; width:30%">&rarr; [dateTodoL]</td>
-</tr></table>[ENDBLOCK TodoList]
+<td style="color:[colorTodo]; [IF warn]font-weight:bold;[ENDIF warn] ">&rarr; [dateTodoL] </td>
+<td>[sTextTodo]</td>
+</tr>[ENDBLOCK TodoList]</table>
 [ENDIF Todos]
 [ENDIF lmode]

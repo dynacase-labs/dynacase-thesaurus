@@ -32,7 +32,7 @@
 [IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
 [IFNOT noresult]
 <table cellspacing="0" width="100%" >[BLOCK btime]
-<tr><td colspan="2" style="font-size:80%; font-weight:bold; border-color:#CFCFCF; border-width:1px; border-style:none none solid none; padding:10px 0px 0px 0px;">[datestr]</td></tr>
+<tr><td colspan="2" style="font-weight:bold; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:10px 0px 0px 0px;">[datestr]</td></tr>
 [BLOCK devents[date]]<tr valign="top">
 <td style="font-size:80%;">&rarr;[hour]</td>
 <td style="font-size:80%;"><div>[Icons]<span style="font-weight:bold;">[title]</span> <span style="font-style:italic;">([owner])</span></div>[IF vNote]<div>[note][ENDIF vNote]</td>
