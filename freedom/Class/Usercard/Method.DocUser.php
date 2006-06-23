@@ -3,7 +3,7 @@
  * Persons & LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocUser.php,v 1.36 2006/01/20 16:23:36 eric Exp $
+ * @version $Id: Method.DocUser.php,v 1.37 2006/06/23 15:30:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -152,33 +152,28 @@ function SetPrivacity() {
   case "P":	
     if ($this->profid == "0") {
       $err=$this->setControl();	
-      $this->profid=$this->id;
-      $err=$this->modify();	
+    } else {      
+      $this->RemoveControl();
+      $err=$this->setControl();	      
     }
     $err=$this->lock();
 
     break;
   case "R":	
     if ($this->profid != "0") {	
-      $err=$this->unsetControl();	
-      $this->profid=0;
-      $err=$this->modify();;
+      $err=$this->unsetControl();
     }
     $this->lock();
     break;
   case "W":	
     if ($this->profid != "0") {	
-      $err=$this->unsetControl();	
-      $this->profid=0;
-      $err=$this->modify();;
+      $err=$this->unsetControl();
     }
     $this->unlock();
     break;
   case "G":	
     if ($this->profid == "0") {
       $err=$this->setControl();	
-      $this->profid=$this->id;
-      $err=$this->modify();	
     } elseif ($this->profid == $this->id) {
       //already profil :reset
       $this->RemoveControl();

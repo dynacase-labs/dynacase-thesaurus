@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.37 2006/06/15 16:01:00 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.38 2006/06/23 15:30:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -108,8 +108,8 @@ Class DocCtrl extends DocLDAP {
       // inhibated all doc references this profil
       $this->exec_query("update doc set profid=-profid where profid=".$this->id." and locked != -1;");
     }
-      $this->profid = "0";      
-      $this->modify();
+    $this->profid = "0";      
+    $err=$this->modify(true,array("profid"));
   }
 
   /**
@@ -146,6 +146,9 @@ Class DocCtrl extends DocLDAP {
     }
     // reactivation of doc with its profil
     $this->exec_query("update doc set profid=-profid where profid=-".$this->id." and locked != -1;");
+    $this->profid=$this->id;
+    $err=$this->modify(true,array("profid"),true);
+    return $err;
   }
 
   /**
