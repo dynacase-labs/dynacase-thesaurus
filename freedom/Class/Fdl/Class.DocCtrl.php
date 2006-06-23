@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.38 2006/06/23 15:30:55 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.39 2006/06/23 15:43:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -263,6 +263,7 @@ Class DocCtrl extends DocLDAP {
    * @param string $aclname name of the acl (edit, view,...)
    * @param bool $deletecontrol set true if want delete a control 
    * @param bool $negativecontrol set true if want add a negative control (explicit no permission)
+   * @return string error message (empty if no errors)
    */
   function ModifyControl($uid,$aclname,$deletecontrol=false,$negativecontrol=false) {
     if (! isset($this->dacls[$aclname])) {
@@ -318,6 +319,7 @@ Class DocCtrl extends DocLDAP {
    * @param int uid user identificator 
    * @param string $aclname name of the acl (edit, view,...)
    * @param bool $negativecontrol set true if want add a negative control (explicit no permission)
+   * @return string error message (empty if no errors)
    */
   function AddControl($uid,$aclname,$negativecontrol=false) {
     return $this->ModifyControl($uid,$aclname,false,$negativecontrol);
@@ -330,6 +332,7 @@ Class DocCtrl extends DocLDAP {
    * @param int uid user identificator 
    * @param string $aclname name of the acl (edit, view,...)
    * @param bool $negativecontrol set true if want suppress a negative control
+   * @return string error message (empty if no errors)
    */
   function DelControl($uid,$aclname,$negativecontrol=false) {
     return $this->ModifyControl($uid,$aclname,true,$negativecontrol);    
