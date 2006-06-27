@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.85 2006/06/22 16:18:35 eric Exp $
+ * @version $Id: freedom_util.php,v 1.86 2006/06/27 15:25:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -235,6 +235,7 @@ function getTDoc($dbaccess, $id,$sqlfilters=array()) {
   global $action;
   global $SQLDELAY,$SQLDEBUG;
 
+  if (! is_numeric($id)) $id=getIdFromName($dbaccess,$id);
   if (!($id > 0)) return false;
   $dbid=getDbid($dbaccess);   
   $table="doc";
