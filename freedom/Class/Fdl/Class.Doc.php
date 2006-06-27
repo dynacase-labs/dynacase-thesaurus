@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.319 2006/06/21 08:41:38 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.320 2006/06/27 15:26:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4248,6 +4248,15 @@ final public function PostInsert()  {
    */
   public static function getUserId() {
     return Doc::userDocId();
+  }
+
+  /**
+   * return system user id
+   * @return int
+   */
+  public static function getWhatUserId() {
+    global $action;    
+    return $action->user->id;
   }
 
 
