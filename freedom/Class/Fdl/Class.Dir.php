@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.49 2006/06/15 15:59:56 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.50 2006/06/27 15:26:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -50,13 +50,14 @@ Class Dir extends PDir
 
       if (! $home) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"DIR")));
 
-      $home ->owner = -$this->userid;
+      $home->owner = -$this->userid;
       include_once("Class.User.php");
       $user = new User("", $this->userid);
-      $home ->title = $user->firstname." ".$user->lastname;
+      $home->title = $user->firstname." ".$user->lastname;
       $home->setTitle($home ->title);
-      $home ->icon = 'fldhome.gif';
-      $home -> Add(); 
+      $home->icon = 'fldhome.gif';
+      $home->name = 'FLDHOME_'+$this->getWhatUserId();
+      $home->Add();
 
       $privlocked = createDoc($this->dbaccess,"SEARCH");
       if (! $privlocked) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"SEARCH")));
@@ -81,6 +82,7 @@ Class Dir extends PDir
       $rq = $query->Query();
       if ($query->nb == 0) {
 	$bas->title=sprintf(_("basket of %s"),$home ->title);
+	$home->name = 'FLDBASKET_'+$this->getWhatUserId();
 	$bas->Add();
 	$home -> AddFile($bas->id); 
 	$basid=$bas->id;
