@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.114 2006/06/15 15:58:21 eric Exp $
+ * @version $Id: import_file.php,v 1.115 2006/06/27 15:25:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -206,7 +206,7 @@ function add_import_file(&$action, $fimport="") {
       $tcr[$nline]["msg"]=sprintf(_("set doctype to '%s'"),$data[1]);
       break;
       // -----------------------------------
-    case "ICON":
+    case "ICON": // for family
       if ($doc->icon == "") {
 	if (! $analyze) $doc->changeIcon($data[1]);
 	
@@ -214,6 +214,14 @@ function add_import_file(&$action, $fimport="") {
       } else {
 	$tcr[$nline]["err"]=sprintf(_("icon already set. No update allowed"));
       }
+      break;
+      // -----------------------------------
+    case "DOCICON":
+      $idoc=new_doc($dbaccess,$data[1]);
+      if (! $analyze) $idoc->changeIcon($data[2]);	
+      if ($idoc->isAlive())   $tcr[$nline]["msg"]=sprintf(_("document %s : set icon to '%s'"),$idoc->title,$data[2]);
+      else $tcr[$nline]["err"]=sprintf(_("no change icon : document %s not found"),$data[1]);
+      
       break;
       // -----------------------------------
     case "DFLDID":
