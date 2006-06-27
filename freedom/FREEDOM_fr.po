@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-15 11:23+0200\n"
-"PO-Revision-Date: 2006-06-15 11:35+0200\n"
+"POT-Creation-Date: 2006-06-26 16:19+0200\n"
+"PO-Revision-Date: 2006-06-26 16:20+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,136 @@ msgstr "la référence logique '%s' est inconnue"
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr "impossible de voir : la référence %s est inconnue"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "View headers"
+msgstr "Voir entête"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Sure delete ?"
+msgstr "Etes vous sur de vouloir supprimer ?"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Sure duplicate ?"
+msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+"la comparaison de 2 documents de famille différente ne peut être effectuée"
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
+msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
 
 #, c-format
 msgid "root for %s"
@@ -230,135 +360,6 @@ msgstr "mise à jour par import"
 #, c-format
 msgid "and add in %s folder "
 msgstr "et ajout dans dossier %s"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr "la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
-
-msgid "View headers"
-msgstr "Voir entête"
-
-msgid "View latest"
-msgstr "révision courante"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "Sure delete ?"
-msgstr "Etes vous sur de vouloir supprimer ?"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Sure duplicate ?"
-msgstr "Etes vous sur de vouloir dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
-
-msgid "cannot compare two document which comes from two different family"
-msgstr ""
-"la comparaison de 2 documents de famille différente ne peut être effectuée"
-
-#, c-format
-msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
-msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -760,6 +761,10 @@ msgstr "suivant"
 
 msgid "prev"
 msgstr "suivant"
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
+msgstr "le document %s n'est pas un dossier et ne supporte pas le suppression en cascade"
 
 msgid "Creation aborded : no family specified"
 msgstr "Création abandonnée : pas de famille spécifiée"
@@ -1666,6 +1671,54 @@ msgstr "Vue principale"
 msgid "no message : post-it creation aborted"
 msgstr "pas de message : création de post-it abandonné"
 
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
 msgid "document creation"
 msgstr "Création du document"
 
@@ -1710,8 +1763,11 @@ msgid "already deleted"
 msgstr "déjà supprimé"
 
 #, c-format
-msgid "delete by %s by action %s on %s from %s"
-msgstr "supprimé par %s avec l'action %s sur %s par %s"
+msgid "delete by action %s from %s"
+msgstr "supprimé avec l'action %s depuis %s"
+
+msgid "revival document"
+msgstr "résurection du document"
 
 #, c-format
 msgid "document %s [%d] is not in the trash"
@@ -1781,61 +1837,6 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
-#, c-format
-msgid "delete by action %s from %s"
-msgstr "supprimé avec l'action %s depuis %s"
-
-msgid "revival document"
-msgstr "résurection du document"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2449,9 +2450,6 @@ msgstr "option: "
 msgid "workflow has been recomposed"
 msgstr "le cycle de vie a été regénéré"
 
-msgid " folder containt"
-msgstr " contenu du dossier"
-
 msgid "Creation"
 msgstr "Création"
 
@@ -2670,6 +2668,9 @@ msgstr "Copier la référence"
 
 msgid "Move reference"
 msgstr "Déplacer la référence"
+
+msgid " folder containt"
+msgstr " contenu du dossier"
 
 msgid "PortFolio search"
 msgstr "Recherche dans la chemise"
@@ -3788,6 +3789,9 @@ msgstr "Membres"
 
 msgid "number of members"
 msgstr "Nombre de membres"
+
+#~ msgid "delete by %s by action %s on %s from %s"
+#~ msgstr "supprimé par %s avec l'action %s sur %s par %s"
 
 #~ msgid "no need to refresh group"
 #~ msgstr "tous les groupes sont actualisés"

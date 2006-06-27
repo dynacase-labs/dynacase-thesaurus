@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-15 11:23+0200\n"
+"POT-Creation-Date: 2006-06-26 16:19+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -25,6 +25,146 @@ msgstr ""
 
 #, c-format
 msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
+msgstr ""
+
+msgid "View headers"
+msgstr ""
+
+msgid "View latest"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Sure delete ?"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Revise"
+msgstr "Created by"
+
+#, fuzzy
+msgid "Change profile"
+msgstr "Category"
+
+msgid "History"
+msgstr ""
+
+#, fuzzy
+msgid "Duplicate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Sure duplicate ?"
+msgstr "Edit"
+
+msgid "goaccess"
+msgstr "Control access"
+
+msgid "Add to basket"
+msgstr ""
+
+msgid "Add postit"
+msgstr ""
+
+msgid "View XML"
+msgstr ""
+
+#, fuzzy
+msgid "Search linked documents"
+msgstr "Delete"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr ""
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr ""
 
 #, fuzzy, c-format
@@ -237,146 +377,6 @@ msgstr "Update LDAP server"
 
 #, c-format
 msgid "and add in %s folder "
-msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
-msgstr ""
-
-msgid "View headers"
-msgstr ""
-
-msgid "View latest"
-msgstr ""
-
-#, fuzzy
-msgid "Edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Delete"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Sure delete ?"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Revise"
-msgstr "Created by"
-
-#, fuzzy
-msgid "Change profile"
-msgstr "Category"
-
-msgid "History"
-msgstr ""
-
-#, fuzzy
-msgid "Duplicate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Sure duplicate ?"
-msgstr "Edit"
-
-msgid "goaccess"
-msgstr "Control access"
-
-msgid "Add to basket"
-msgstr ""
-
-msgid "Add postit"
-msgstr ""
-
-msgid "View XML"
-msgstr ""
-
-#, fuzzy
-msgid "Search linked documents"
-msgstr "Delete"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr ""
-
-msgid "cannot compare two document which comes from two different family"
-msgstr ""
-
-#, c-format
-msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr ""
 
 #, c-format
@@ -784,6 +784,10 @@ msgid "next"
 msgstr "Export this card"
 
 msgid "prev"
+msgstr ""
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
 msgid "Creation aborded : no family specified"
@@ -1781,6 +1785,48 @@ msgid "no message : post-it creation aborted"
 msgstr ""
 
 #, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, fuzzy
 msgid "document creation"
 msgstr "Organisation"
 
@@ -1827,8 +1873,12 @@ msgid "already deleted"
 msgstr "Delete"
 
 #, c-format
-msgid "delete by %s by action %s on %s from %s"
+msgid "delete by action %s from %s"
 msgstr ""
+
+#, fuzzy
+msgid "revival document"
+msgstr "Organisation"
 
 #, c-format
 msgid "document %s [%d] is not in the trash"
@@ -1898,56 +1948,6 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, c-format
-msgid "delete by action %s from %s"
-msgstr ""
-
-#, fuzzy
-msgid "revival document"
-msgstr "Organisation"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2600,10 +2600,6 @@ msgid "workflow has been recomposed"
 msgstr ""
 
 #, fuzzy
-msgid " folder containt"
-msgstr "Edit"
-
-#, fuzzy
 msgid "Creation"
 msgstr "Edit"
 
@@ -2877,6 +2873,10 @@ msgstr "Modify"
 #, fuzzy
 msgid "Move reference"
 msgstr "Delete"
+
+#, fuzzy
+msgid " folder containt"
+msgstr "Edit"
 
 #, fuzzy
 msgid "PortFolio search"
