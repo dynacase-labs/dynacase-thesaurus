@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.9 2005/11/17 14:14:53 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.10 2006/06/27 08:03:49 jerome Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -9,20 +9,26 @@
 
 %define apachedir /etc/httpd
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(uname -o | grep -c PLD)
 
 %if %{cerbere}
 %define destdir /home/httpd/what
 %define httpuser http
 %else
+%if %{pld}
+%define destdir /usr/share/what
+%define httpuser http
+%else
 %define destdir /usr/share/what
 %define httpuser apache
+%endif
 %endif
 
 
 Summary: The Freedom Event Package
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Release: @RELEASE@
 %else
 Release: @RELEASE@fc
