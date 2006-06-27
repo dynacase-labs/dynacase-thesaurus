@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.13 2006/04/27 16:50:32 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.14 2006/06/27 15:50:06 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.13 2006/04/27 16:50:32 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.14 2006/06/27 15:50:06 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -22,22 +22,10 @@ function wgcal_htmlhead(&$action) {
 
   global $_SERVER;
 
-  // Themes ----------------------------------------------------------
-  $themes = array();
-  $themedir = "WGCAL/Themes";
-  $ith=0;
-  $list = GetFilesByExt($themedir, ".thm");
-  $flist = GetFilesByExt($themedir, ".fsz");
-  foreach ($list as $k => $v) {
-    foreach ($flist as $kf => $vf) {
-      $themes[] = array( "theme" => $v, 
-			 "font" =>  $vf,
-			 "title" => "$v ($vf fonts)");
-    }
-  }
-//   $action->lay->setBlockData("OTHEMES", $themes);
-   $action->lay->setBlockData("OTHEMES", null);
-
+  $action->parent->AddCssRef("FDL:popup.css", true);
+//   $action->parent->AddCssRef("WGCAL:wgcal.css", true);
+   $csslay = new Layout("WGCAL/Layout/wgcal.css", $action);
+   $action->parent->AddCssCode($csslay->gen());
 
   $action->parent->AddJsRef("FDL/Layout/common.js");
   $action->parent->AddJsRef("WGCAL/Layout/freedomLog.js");

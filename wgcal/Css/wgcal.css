@@ -1,120 +1,44 @@
 /* This is the default CSS for WGCal application, with theme [THEME] and fonts [FONTSZ] */
-body {
-  padding : 0px;
-  margin : 0px;
-  font-size: [WTH_FONTSIZE_NORMAL]pt; 
-  background: [WTH_BGIMG]; 
-  font-family: [WTH_FONTLIST];
-  color: [WTH_TEXTCOLOR_1];
-}
 
-.slid_noweek {
-  float : left;
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  text-align: center;
-  background: [WTH_COLOR_2]; 
-}
-.slid_week {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  font-weight: normal;
-  text-align: center;
-  float : left;
-  background: [WTH_COLOR_2]; 
-  border-top : 1px solid [WTH_COLOR_2];
-  border-left : 1px solid [WTH_COLOR_2];
-  border-right : 1px solid [WTH_TEXTCOLOR_1];
-  border-bottom : 1px solid [WTH_COLOR_2];
-}
-.slid_curweek {
-  background: white; 
-  font-weight: bold;
-}
-.slid_weekOver {
-  border-top : 1px solid [WTH_ALERT];
-  border-left : 1px solid [WTH_ALERT];
-  border-right : 1px solid [WTH_ALERT];
-  border-bottom : 1px solid [WTH_ALERT];
-  background: [WTH_COLOR_1]; 
-  cursor : pointer;
-}
-.slid_cday {
-  background : [WTH_ALERT]; 
-  height:3px;
-}
-.slid_oddm {
-  background : [WTH_COLOR_3]; 
-  height:3px;
-}
-.slid_evenm {
-  background : [WTH_TEXTCOLOR_1]; 
-  height:3px;
-}
+*, body {  background-image:none; background-color:[COLOR_A9]; color: [COLOR_B0]; padding:0px; margin:0px; font-family:Arial,Helvetica,sans; }
+
+.slid_noweek { float:left; font-size: [SIZE_SMALL]; text-align:center;  background-color:[COLOR_A9]; }
+.slid_week { font-size:[SIZE_SMALL]; text-align: center; float:left; background-color:[COLOR_A9]; 
+             border-top:1px solid [COLOR_A9]; border-left:1px solid [COLOR_A9]; border-right: 1px solid [COLOR_A0]; border-bottom: 1px solid [COLOR_A9]; }
+.slid_curweek { background-color:[COLOR_WHITE]; text-decoration:underline; border: 1px solid [COLOR_WHITE]; }
+.slid_weekOver { border:1px solid [CORE_ERRORCOLOR]; background-color:[COLOR_A8]; cursor:pointer; }
+.slid_cday { background-color: [CORE_ERRORCOLOR]; height:3px; }
+.slid_oddm { background-color: [COLOR_A0]; height:3px; }
+.slid_evenm { background-color: [COLOR_C0];  height:3px; }
 
 .elist {
   margin : 0px;
   padding : 3px;
   text-align:left;
-  font-size: [WTH_FONTSIZE_NORMAL]pt; 
-  font-family: [WTH_FONTLIST];
-  background: [WTH_BGIMG]; 
-  color: [WTH_TEXTCOLOR_1];
+  font-size: [SIZE_MEDIUM]; 
+  font-family:  Arial, Helvetica, sans;;
+  color: [COLOR_A0];
   border-width: 3px;
-  border-color: [WTH_COLOR_2];
+  border-color: [COLOR_A9];
   border-style: outset;
   z-index : 1000;
   position:absolute;
   width : auto;
 }
 
-#fastedit {
-  background: white; 
-  border : 1em solid [WTH_COLOR_2];
-  border : 3px outset [WTH_COLOR_2];
-}
-
-.fasteditcontent {
-  background: [WTH_BGIMG]; 
-  padding   : 1em;
-  border : 3px groove [WTH_COLOR_2];
-}
+#fastedit { border:3px solid [COLOR_A9]; }
+.fasteditcontent { padding: 1em; border:3px groove [COLOR_A9]; }
 
 .onlyprint { display : none }
 
-table {
-  font-size: [WTH_FONTSIZE_NORMAL]pt;
-  font-family: [WTH_FONTLIST];
-  color: [WTH_TEXTCOLOR_1];
-}
+table { font-size: [SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans;  color: [COLOR_A0]; }
 
-IMG { border : 0px; } 
+IMG { background-color:transparent; border : 0px; } 
+INPUT { font-size: [SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans; border : 0px; }
+INPUT.textBorder, TEXTAREA { background-color:[COLOR_A8]; font-size:[SIZE_MEDIUM]; font-family:Arial, Helvetica, sans; border: 1px inset [COLOR_A0]; }
+SELECT { background-color:[COLOR_A8]; font-size:[SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans; border:0px; }
+INPUT.Mandatory { background-color: [COLOR_A8]; font-weight: bold;  border:2px inset [CORE_ERRORCOLOR]; }
 
-INPUT {
-	font-size: [WTH_FONTSIZE_NORMAL]pt;
-	font-family: [WTH_FONTLIST];
-	border : 0px;
-}
-
-INPUT.textBorder, TEXTAREA {
-	background: [WTH_COLOR_1]; 
-	font-size: [WTH_FONTSIZE_NORMAL]pt;
-	font-family: [WTH_FONTLIST];
-	border : 1px inset [WTH_COLOR_3];
-}
-
- 
-SELECT {
-	background: [WTH_COLOR_1]; 
-	font-size: [WTH_FONTSIZE_NORMAL]pt;
-	font-family: [WTH_FONTLIST];
-	border : 0px;
-}
-
-
-INPUT.Mandatory {
-	background: [WTH_COLOR_1]; 
-	font-weight: bold;
-	border : 2px inset [WTH_ALERT];
-}
 TR { }
 TD {	empty-cells: show; }
 
@@ -133,91 +57,64 @@ TD {	empty-cells: show; }
   border : 2px;
 }
 
-.WGCalZoneSelected {
-  -moz-opacity:.99;	
-  cursor : pointer;
-}
-.WGCalZoneDefault {
-  -moz-opacity:.5;	
-  cursor : pointer;
-}
+.WGCalZoneSelected { -moz-opacity:.99;	cursor : pointer; }
+.WGCalZoneDefault { -moz-opacity:.5; cursor : pointer; }
 
 /* Zone d'affichage des infos mois, semaine et jours */
 .wMainMenu {
   cursor:default;
-  background-color : [WTH_COLOR_TOOL];
-  border : 1px outset [WTH_COLOR_1];
-  font-size: [WTH_FONTSIZE_SMALL]pt;
+  background-color : [COLOR_A5];
+  border : 1px outset [COLOR_A8];
+  font-size: [SIZE_SMALL];
 }
 .WGCAL_Period {
-  background-color : [WTH_COLOR_2];
-  border : 1px outset [WTH_COLOR_1];
+  background-color : [COLOR_A9];
+  border : 1px outset [COLOR_A8];
   font-weight: bold;
-  font-size: [WTH_FONTSIZE_NORMAL]pt;
+  font-size: [SIZE_MEDIUM];
 }
 
 /* Periode selectionne : mise en évidence jour / heure */
 
-.WGCAL_PeriodSelected {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  background-color : [WTH_COLOR_3];
-  color : [WTH_TEXTCOLOR_1];
-  border : 1px outset [WTH_COLOR_1];
-  font-weight: bold;
-}
+.WGCAL_PeriodSelected { background-color : [COLOR_A6]; color: [COLOR_A9]; border: 1px outset [COLOR_A9]; font-weight: bold; }
 
 #week {
-  border : 1px     [WTH_COLOR_3] solid;
+  border : 1px     [COLOR_A0] solid;
 }
   
 /* Journée courante */
 .WGCAL_DayLine {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
+  font-size: [SIZE_SMALL];
   cursor:pointer;
-  background-color : [WTH_COLOR_2];
-  border : 1px outset [WTH_COLOR_2];
+  background-color : [COLOR_A9];
+  border : 1px outset [COLOR_A9];
   font-weight: bold;
 }
 
 .WGCAL_DayHours, .WGCAL_DayMin, .WGCAL_DayNoHours {
-  font-size        : [WTH_FONTSIZE_SMALL]pt;
-  background-color : [WTH_COLOR_2];
+  font-size        : [SIZE_SMALL];
+  background-color : [COLOR_A9];
   font-weight      : bold;
   border-width     : 1px 1px 1px 1px;
   border-style     : solid solid solid solid;
-  border-color     : [WTH_COLOR_2] [WTH_COLOR_3] [WTH_COLOR_3] [WTH_COLOR_2];
+  border-color     : [COLOR_A9] [COLOR_A3] [COLOR_A3] [COLOR_A9];
 }
 .WGCAL_DayMin {
   font-weight  : normal;
   font-size    : 80%;
 }
-.WGCAL_DayNoHours {
-  background-color : [WTH_COLOR_1];
-  border-color     : [WTH_COLOR_2] white [WTH_COLOR_2] [WTH_COLOR_2];
-}
-
-
-.WGCAL_DayLineOver {
-  background-color : [WTH_COLOR_1];
-  border : 1px inset [WTH_COLOR_2];
-}
-
+.WGCAL_DayNoHours { background-color:[COLOR_A8]; border-color:[COLOR_A9] [COLOR_WHITE] [COLOR_A9] [COLOR_A9]; }
+.WGCAL_DayLineOver { background-color: [COLOR_A8]; border:1px inset [COLOR_A9]; }
 .WGCAL_Day, .WGCAL_DayCur, .WGCAL_DayWE, .WGCAL_DayMonday {
   background-color : white;
   border-width : 1px 1px 1px 1px;
   border-style : solid inset inset solid;
-  border-color : white [WTH_COLOR_3] [WTH_COLOR_3] white;
+  border-color : white [COLOR_A0] [COLOR_A0] white;
 }
 
-.WGCAL_DayCur {
-        background-color : [WTH_CALTODAY];
-}
-.WGCAL_DayWE {
-        background-color : [WTH_CALWEEKEND];
-}
-.WGCAL_DayMonday {
-        border-left : 1px solid red;
-}
+.WGCAL_DayCur { background-color:[COLOR_A9]; }
+.WGCAL_DayWE { background-color : [COLOR_C9]; }
+.WGCAL_DayMonday { border-left : 1px solid [CORE_ERRORCOLOR]; }
 
 
 
@@ -226,52 +123,44 @@ TD {	empty-cells: show; }
   background-color : white;
   border-width     : 1px 1px 1px 1px;
   border-style     : solid solid solid solid;
-  border-color     : white white [WTH_COLOR_3] white;
+  border-color     : white white [COLOR_A0] white;
   cursor : pointer;
 }
 .todoover {
-  background-color : [WTH_COLOR_1];
+  background-color : [COLOR_A8];
 }
 
 
 .WGCWaitingRv {
-  border : 2px outset [WTH_ALERT];
+  border : 2px outset [COLOR_C0];
 }
 .WGCwrvover {
   cursor:pointer; 
-  border : 1px inset [WTH_ALERT];
+  border : 1px inset [COLOR_C0];
 }
 .WGCwrvdefault {
   cursor:pointer; 
-  border : 1px outset [WTH_COLOR_1];
+  border : 1px outset [COLOR_A8];
 }
 
 .WGCListRess {
-  border : 2px outset [WTH_COLOR_1];
-  background-color : white;
+  border : 2px outset [COLOR_A8];
+  background-color : [COLOR_WHITE];
 }
 
 .WGCRessDefault, .WGCRessOver, .WGCRessSelected {
-  border-color: white [WTH_COLOR_1]  [WTH_COLOR_1] white;
+  border-color: [COLOR_WHITE] [COLOR_A8] [COLOR_A8] [COLOR_WHITE];
   border-style: solid outset outset solid;
-  border-width: 1px  1px 1px 1px;
-  background-color : white;
+  border-width: 1px;
+  background-color: [COLOR_A9];
   cursor:pointer;
 }
-.WGCRessOver {
-  background-color : [WTH_COLOR_3];
-  border : 1px outset [WTH_COLOR_1];
-  cursor:pointer;
-}
-.WGCRessSelected {
-  background-color : [WTH_COLOR_2];
-  border : 1px inset [WTH_COLOR_1];
-  cursor:pointer;
-}
+.WGCRessOver { background-color:[COLOR_A3]; border:1px outset [COLOR_A3]; color:[COLOR_A9]; cursor:pointer; }
+.WGCRessSelected { background-color:[COLOR_A8]; border:1px inset [COLOR_A8]; cursor:pointer; }
 
 .WGCFamSelected {
-  background-color : [WTH_COLOR_2];
-  border : 1px inset [WTH_COLOR_1];
+  background-color : [COLOR_A9];
+  border : 1px inset [COLOR_A8];
   cursor:pointer;
 }
 
@@ -279,30 +168,30 @@ TD {	empty-cells: show; }
 .WEvTitle {
   cursor:pointer;
   border : 1px outset;
-  background-color : [WTH_COLOR_3];
+  background-color : [COLOR_A0];
   color : white;
   font-weight : bold;
 }
 .WEvDays {
   cursor:pointer;
   border : 1px outset;
-  background-color : [WTH_COLOR_2];
+  background-color : [COLOR_A9];
 }
 .WEvDefault {
   cursor:pointer;
   border : 0px;
   background-color : white;
-  color : [WTH_TEXTCOLOR_1];
-  border-bottom-color : [WTH_COLOR_2];
+  color : [COLOR_A0];
+  border-bottom-color : [COLOR_A9];
   border-bottom-width : 1px;
   border-bottom-style : solid;
 }
 .WEvOver {
   border : 0px;
   cursor:crosshair;
-  background-color : [WTH_COLOR_2];
-  color : [WTH_TEXTCOLOR_1];
-  border-bottom-color : [WTH_COLOR_2];
+  background-color : [COLOR_A9];
+  color : [COLOR_A0];
+  border-bottom-color : [COLOR_A9];
   border-bottom-width : 1px;
   border-bottom-style : solid;
 }
@@ -316,44 +205,44 @@ TD {	empty-cells: show; }
  padding: 3px; 
  font-weight: bold; 
  text-align: center; 
- border: 1px outset [WTH_COLOR_3];
- font-size: [WTH_FONTSIZE_SMALL]pt;
+ border: 1px outset [COLOR_A0];
+ font-size: [SIZE_SMALL];
 }
 
 .wToolButton {
-  background-color : [WTH_COLOR_TOOL];
+  background-color : [COLOR_A5];
   font-weight : bold;
-  border : 1px outset [WTH_COLOR_2];
+  border : 1px outset [COLOR_A9];
   cursor:pointer;
   height : 22px;
 }
 .wToolButtonUnselect {
-  background-color : [WTH_COLOR_TOOL];
-  border : 1px outset [WTH_COLOR_2];
+  background-color : [COLOR_A5];
+  border : 1px outset [COLOR_A9];
   cursor:pointer;
   height : 22px;
 }
 .wToolButtonSelect {
-  background-color : [WTH_COLOR_TOOL];
+  background-color : [COLOR_A5];
   font-weight : bold;
-  border : 1px inset [WTH_COLOR_2];
+  border : 1px inset [COLOR_A9];
   cursor:pointer;
   height : 22px;
 }
 .wToolButtonOver {
-  background-color : [WTH_COLOR_3];
-  color : [WTH_COLOR_1];
+  background-color : [COLOR_A0];
+  color : [COLOR_A8];
   font-weight : bold;
-  border : 2px inset [WTH_COLOR_1];
+  border : 2px inset [COLOR_A8];
   cursor:pointer;
   height : 22px;
 }
 .wToolArea {
-  border : 1px inset [WTH_COLOR_1];
+  border : 1px inset [COLOR_A8];
   padding : 2px;
 }
 .wZone {
-  border : 2px solid [WTH_COLOR_3];
+  border : 2px solid [COLOR_A0];
   padding : 2px;
 }
 .wAttList {
@@ -364,41 +253,41 @@ TD {	empty-cells: show; }
 }
 .wMonthTextTitle {
   font-weight : bold;
-  font-size : [WTH_FONTSIZE_BIG]pt;
-  border-top : 1px solid [WTH_COLOR_3];
-  border-bottom : 1px solid [WTH_COLOR_3];
+  font-size : [SIZE_X-LARGE];
+  border-top : 1px solid [COLOR_A0];
+  border-bottom : 1px solid [COLOR_A0];
   width: 100%;
-  background-color : [WTH_TEXTCOLOR_1];
-  color : [WTH_TEXTCOLOR_2];
+  background-color : [COLOR_A0];
+  color : [COLOR_A9];
 }
 .wMonthTextTitlePrevNext {
   font-weight : bold;
-  border-top : 1px solid [WTH_COLOR_3];
-  border-bottom : 1px solid [WTH_COLOR_3];
-  background-color : [WTH_TEXTCOLOR_1];
-  color : [WTH_TEXTCOLOR_2];
+  border-top : 1px solid [COLOR_A0];
+  border-bottom : 1px solid [COLOR_A0];
+  background-color : [COLOR_A0];
+  color : [COLOR_A9];
   cursor:pointer;
 }
 .wMonthTextDayTitle {
   font-weight : bold;
-  border-bottom : 1px solid [WTH_COLOR_3];
-  background-color : [WTH_COLOR_2];
-  color : [WTH_TEXTCOLOR_1];
+  border-bottom : 1px solid [COLOR_A0];
+  background-color : [COLOR_A9];
+  color : [COLOR_A0];
 }
 .wMonthTextTD {
-  border-color : [WTH_TEXTCOLOR_1];
+  border-color : [COLOR_A0];
   border-width : 1px;
   border-style : none solid solid  none;
   width : 14%;
   background-color : white;
-  color : [WTH_COLOR_3];
+  color : [COLOR_A0];
 }
 .wMonthTextTDUnused {
-  border : 1px none [WTH_COLOR_1];
+  border : 1px none [COLOR_A8];
   width : 14%;
 }
 .wTextActive {
-  background-color: [WTH_COLOR_2];
+  background-color: [COLOR_A9];
   cursor:pointer;
   border-style: none none solid none;
   border-width: 1px;
@@ -410,8 +299,8 @@ TD {	empty-cells: show; }
 }
 .wTextEvent {
   cursor:pointer;
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  color : [WTH_TEXTCOLOR_1];
+  font-size: [SIZE_SMALL];
+  color : [COLOR_A0];
 }
 
 .wSmallButton {
@@ -446,12 +335,12 @@ TD {	empty-cells: show; }
   .popup { display:none; }
   
   .wEvResume {
-    font-size: [WTH_FONTSIZE_SMALL]pt;
+    font-size: [SIZE_SMALL];
     display:none;
     overflow:hidden;
     cursor:crosshair; 
     margin:0px; 
-    border : 1px solid [WTH_COLOR_2]; 
+    border : 1px solid [COLOR_A9]; 
     background-color : yellow;
   }
   
@@ -463,7 +352,7 @@ TD {	empty-cells: show; }
 .noprintremove { display : block; }
 
 .wEvResume {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
+  font-size: [SIZE_SMALL];
   display:none;
   overflow:hidden;
   cursor:crosshair; 
@@ -474,13 +363,13 @@ TD {	empty-cells: show; }
 .wgUserDelegate {
 	border : 2px inset;
 	font-weight: bold; 
-	background-color: [WTH_COLOR_2];
+	background-color: [COLOR_A9];
 	padding: 1px; 
 }
 
 /* event Css */
 .wEvBack {
-  background : [WTH_BGIMG]; 
+  background : [CORE_BGIMAGE]; 
   border : 4px solid white; 
   height:auto;
 }
@@ -491,15 +380,15 @@ TD {	empty-cells: show; }
   position: relative;
   display: none; 
   cursor: default;
-  font-size: [WTH_FONTSIZE_SMALL]pt;
+  font-size: [SIZE_SMALL];
   border:1px solid white;
 }
 
 .calendar table {
   border-top: 1px solid #000;
-  border-right: 1px solid [WTH_COLOR_1];
-  border-bottom: 1px solid [WTH_COLOR_1];
-  border-left: 1px solid [WTH_COLOR_1];
+  border-right: 1px solid [COLOR_A8];
+  border-bottom: 1px solid [COLOR_A8];
+  border-left: 1px solid [COLOR_A8];
   background-color : white;
   border:3px  groove white;
 }
@@ -509,7 +398,7 @@ TD {	empty-cells: show; }
 .calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
   text-align: center;
   padding: 1px;
-  border : 1px outset [WTH_COLOR_1];
+  border : 1px outset [COLOR_A8];
 }
 
 .calendar .nav {
@@ -520,8 +409,8 @@ TD {	empty-cells: show; }
   font-weight: bold;
   padding: 1px;
   border: 1px solid #000;
-  color: [WTH_TEXTCOLOR_1];
-  background: [WTH_COLOR_2];
+  color: [COLOR_A0];
+  background-color: [COLOR_A9];
   text-align: center;
 }
 
@@ -535,26 +424,26 @@ TD {	empty-cells: show; }
   border-bottom: 1px solid #000;
   padding: 2px;
   text-align: center;
-  background: [WTH_COLOR_1];
+  background-color: [COLOR_A8];
 }
 
 .calendar thead .weekend { /* How a weekend day name shows in header */
-  background: [WTH_COLOR_1];
+  background-color: [COLOR_A8];
 }
 
 .calendar thead .hilite { /* How do the buttons in header appear when hover */
-  border: 2px inset [WTH_COLOR_1];
+  border: 2px inset [COLOR_A8];
   padding: 0px;
-  background-color: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
 }
 
 .calendar thead .active { /* Active (pressed) buttons in header */
   padding: 2px 0px 0px 2px;
   border-top: 1px solid #000;
-  border-right: 1px solid [WTH_COLOR_3];
-  border-bottom: 1px solid [WTH_COLOR_3];
+  border-right: 1px solid [COLOR_A0];
+  border-bottom: 1px solid [COLOR_A0];
   border-left: 1px solid #000;
-  background-color: [WTH_COLOR_2];
+  background-color: [COLOR_A9];
 }
 
 /* The body part -- contains all the days in month. */
@@ -565,58 +454,58 @@ TD {	empty-cells: show; }
   padding: 2px 4px 2px 2px;
 }
 .calendar tbody .day.othermonth {
-  font-size: [WTH_FONTSIZE_SMALL]pt;
-  color: [WTH_TEXTCOLOR_1];
+  font-size: [SIZE_SMALL];
+  color: [COLOR_A0];
 }
 .calendar tbody .day.othermonth.oweekend {
-  color: [WTH_TEXTCOLOR_2];
+  color: [COLOR_A9];
 }
 
 .calendar table .wn {
   padding: 2px 3px 2px 2px;
   border-right: 1px solid #000;
-  background: [WTH_COLOR_1];
+  background-color: [COLOR_A8];
 }
 
 .calendar tbody .rowhilite td {
-  background: [WTH_COLOR_1];
+  background-color: [COLOR_A8];
 }
 
 .calendar tbody .rowhilite td.wn {
-  background: [WTH_COLOR_1];
+  background-color: [COLOR_A8];
 }
 
-.calendar tbody td.hilite { /* Hove[WTH_ALERT] cells <TD> */
+.calendar tbody td.hilite { /* Hove[COLOR_C0] cells <TD> */
   padding: 1px 3px 1px 1px;
   border: 1px solid;
-  border-color: #fff #000 #000 [WTH_COLOR_3];
+  border-color: #fff #000 #000 [COLOR_A0];
 }
 
 .calendar tbody td.active { /* Active (pressed) cells <TD> */
   padding: 2px 2px 0px 2px;
   border: 1px solid;
   border-color: #000 #fff #fff #000;
-  background-color: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
 }
 
 .calendar tbody td.selected { /* Cell showing selected date */
   padding: 2px 2px 0px 2px;
   border: 1px solid;
   border-color: #000 #fff #fff #000;
-  background-color: [WTH_COLOR_3];
-  color: [WTH_TEXTCOLOR_2];
+  background-color: [COLOR_A0];
+  color: [COLOR_A9];
 }
 
 .calendar tbody td.weekend { /* Cells showing weekend days */
-  color: [WTH_COLOR_3];
-  background-color: [WTH_COLOR_1];
+  color: [COLOR_A0];
+  background-color: [COLOR_A8];
 }
 
 .calendar tbody td.today { /* Cell showing today date */
   font-weight: bold;
-  color: [WTH_TEXTCOLOR_1];
-  background-color: [WTH_COLOR_1];
-  border: 1px outset [WTH_COLOR_2];
+  color: [COLOR_A0];
+  background-color: [COLOR_A8];
+  border: 1px outset [COLOR_A9];
 }
 
 .calendar tbody .disabled { color: #999; }
@@ -636,29 +525,29 @@ TD {	empty-cells: show; }
 
 .calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
   padding: 0px;
-  border-top: 1px solid [WTH_COLOR_2];
-  border-bottom: 2px outset [WTH_COLOR_2];
-  border-left: 2px outset [WTH_COLOR_2];
-  border-right: 2px outset [WTH_COLOR_2];
-  background: [WTH_COLOR_1];
+  border-top: 1px solid [COLOR_A9];
+  border-bottom: 2px outset [COLOR_A9];
+  border-left: 2px outset [COLOR_A9];
+  border-right: 2px outset [COLOR_A9];
+  background-color: [COLOR_A8];
   text-align: center;
   display:none;
 }
 
 .calendar tfoot .hilite { /* Hover style for buttons in footer */
-  border-top: 1px solid [WTH_COLOR_3];
+  border-top: 1px solid [COLOR_A0];
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
-  border-left: 1px solid [WTH_COLOR_3];
+  border-left: 1px solid [COLOR_A0];
   padding: 1px;
-  background: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
 }
 
 .calendar tfoot .active { /* Active (pressed) style for buttons in footer */
   padding: 2px 0px 0px 2px;
   border-top: 1px solid #000;
-  border-right: 1px solid [WTH_COLOR_3];
-  border-bottom: 1px solid [WTH_COLOR_3];
+  border-right: 1px solid [COLOR_A0];
+  border-bottom: 1px solid [COLOR_A0];
   border-left: 1px solid #000;
 }
 
@@ -671,11 +560,11 @@ TD {	empty-cells: show; }
   top: 0px;
   left: 0px;
   cursor: default;
-  background: [WTH_COLOR_2];
-  border-top: 1px solid [WTH_COLOR_3];
+  background-color: [COLOR_A9];
+  border-top: 1px solid [COLOR_A0];
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
-  border-left: 1px solid [WTH_COLOR_3];
+  border-left: 1px solid [COLOR_A0];
   padding: 1px;
 }
 
@@ -690,24 +579,24 @@ TD {	empty-cells: show; }
 }
 
 .calendar .combo .active {
-  background: [WTH_TEXTCOLOR_1];
+  background-color: [COLOR_A0];
   padding: 0px;
   border-top: 1px solid #000;
-  border-right: 1px solid [WTH_COLOR_3];
-  border-bottom: 1px solid [WTH_COLOR_3];
+  border-right: 1px solid [COLOR_A0];
+  border-bottom: 1px solid [COLOR_A0];
   border-left: 1px solid #000;
 }
 
 .calendar .combo .hilite {
-  background: [WTH_COLOR_3];
-  color: [WTH_TEXTCOLOR_1];
+  background-color: [COLOR_A0];
+  color: [COLOR_A0];
 }
 
 .calendar td.time {
   border-top: 1px solid #000;
   padding: 1px 0px;
   text-align: center;
-  background-color: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
 }
 
 .calendar td.time .hour,
@@ -716,7 +605,7 @@ TD {	empty-cells: show; }
   padding: 0px 3px 0px 4px;
   border: 1px solid #889;
   font-weight: bold;
-  background-color: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
 }
 
 .calendar td.time .ampm {
@@ -730,21 +619,21 @@ TD {	empty-cells: show; }
 
 .calendar td.time span.hilite {
   border-color: #000;
-  background-color: [WTH_TEXTCOLOR_1];
-  color: [WTH_COLOR_3];
+  background-color: [COLOR_A0];
+  color: [COLOR_A0];
 }
 
 .calendar td.time span.active {
-  border-color: [WTH_TEXTCOLOR_1];
-  background-color: [WTH_TEXTCOLOR_1];
-  color: [WTH_COLOR_3];
+  border-color: [COLOR_A0];
+  background-color: [COLOR_A0];
+  color: [COLOR_A0];
 }
 
 .MenuSelected {
   padding: 0px 10pt 0px 3px; 
   display:inline; 
   position:relative;
-  border-right : 1px inset [WTH_TEXTCOLOR_1];
+  border-right : 1px inset [COLOR_A0];
   font-weight : bold;
   cursor:pointer;
 }
@@ -752,7 +641,7 @@ TD {	empty-cells: show; }
   padding: 0px 10pt 0px 3px; 
   display:inline; 
   position:relative;
-  border-right : 1px inset [WTH_TEXTCOLOR_1];
+  border-right : 1px inset [COLOR_A0];
   font-weight : bold;
   cursor:pointer;
 }
@@ -761,36 +650,36 @@ TD {	empty-cells: show; }
   display:inline; 
   position:relative;
   font-weight : bold;
-  border-right : 1px inset [WTH_TEXTCOLOR_1];
+  border-right : 1px inset [COLOR_A0];
   cursor:pointer;
 }
 
 .wgcalpopup {
-  background-color: [WTH_COLOR_POPUP];  
-  color: [WTH_TEXTCOLOR_1];
-  border-color: [WTH_COLOR_3];
+  background-color: [COLOR_A2];  
+  color: [COLOR_A0];
+  border-color: [COLOR_A0];
   border-style: outset;
   border-width: 1px; 
   margin: 1px;
   position: absolute;
   visibility: hidden;
   text-decoration: none;
-  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-size: [SIZE_X-SMALL];
   z-index:10;
-  font-family: [WTH_FONTLIST_POPUP];
+  font-family: sans;
 }
 
 .wgcalpopup a.menuItem, 
 .wgcalpopup a:visited.menuItem, 
 .wgcalpopup a.menuItemCtrl, 
 .wgcalpopup a:visited.menuItemCtrl {
-  color: [WTH_TEXTCOLOR_1];
+  color: [COLOR_A0];
   cursor: pointer;
   display: block;
-  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-size: [SIZE_X-SMALL];
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: [WTH_FONTLIST_POPUP];
+  font-family: sans;
   font-weight: normal;
 }
 
@@ -801,40 +690,40 @@ TD {	empty-cells: show; }
 
 .wgcalpopup a.menuItemDisabled, 
 .wgcalpopup a.menuItemCtrlDisabled { 
-  color: [WTH_COLOR_3];
+  color: [COLOR_A0];
   cursor: default;
   display: block;
-  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-size: [SIZE_X-SMALL];
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: [WTH_FONTLIST];
+  font-family:  Arial, Helvetica, sans;;
 }
 .wgcalpopup a.menuItem:hover,
 .wgcalpopup a.menuItemCtrl:hover,
 .wgcalpopup a.menuItemDisabled:hover,
 .wgcalpopup a.menuItemCtrlDisabled:hover {
-  color: [WTH_TEXTCOLOR_2];
-  background-color:[WTH_COLOR_3];
+  color: [COLOR_A6];
+  background-color:[COLOR_A0];
   text-decoration: none;
 }
 
 .wgcalpopup a.separator,
 .wgcalpopup a.separator:hover {
-  border-bottom : 1px dotted [WTH_COLOR_3];
+  border-bottom : 1px dotted [COLOR_A0];
   display: block;
 }
 
 .popup {
-  background-color: [WTH_COLOR_POPUP];  
-  color: [WTH_TEXTCOLOR_1];
-  border-color: [WTH_COLOR_3];
+  background-color: [COLOR_A2];  
+  color: [COLOR_A0];
+  border-color: [COLOR_A0];
   border-style: outset;
   border-width: 0px; 
   padding:1px;
   text-decoration: none;
-  font-size: [WTH_FONTSIZE_POPUP]pt;
-  font-family: [WTH_FONTLIST_POPUP];
+  font-size: [SIZE_X-SMALL];
+  font-family: sans;
   
 }
 
@@ -842,14 +731,14 @@ TD {	empty-cells: show; }
 .popup a:visited.menuItem, 
 .popup a.menuItemCtrl, 
 .popup a:visited.menuItemCtrl {
-  color: [WTH_TEXTCOLOR_1];
+  color: [COLOR_A0];
   cursor: pointer;
-  font-size: [WTH_FONTSIZE_POPUP]pt;
+  font-size: [SIZE_X-SMALL];
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: [WTH_FONTLIST_POPUP];
+  font-family: sans;
   font-weight: normal;
-  border-color: [WTH_COLOR_POPUP];
+  border-color: [COLOR_A2];
   border-width: 1px;
   border-style: outset;
 }
@@ -861,26 +750,26 @@ TD {	empty-cells: show; }
 } 
 .popup a.menuItemDisabled, 
 .popup a.menuItemCtrlDisabled { 
-  color: [WTH_TEXTCOLOR_1];
-  font-size: [WTH_FONTSIZE_POPUP]pt;
+  color: [COLOR_A0];
+  font-size: [SIZE_X-SMALL];
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: [WTH_FONTLIST];
-  border: 1px outset [WTH_COLOR_POPUP];
+  font-family:  Arial, Helvetica, sans;;
+  border: 1px outset [COLOR_A2];
 }
 .popup a.menuItem:hover,
 .popup a.menuItemCtrl:hover,
 .popup a.menuItemDisabled:hover,
 .popup a.menuItemCtrlDisabled:hover {
-  color: [WTH_TEXTCOLOR_1];
+  color: [COLOR_A0];
   background-color: white;
   text-decoration: none;
-  border: 1px inset [WTH_COLOR_POPUP];
+  border: 1px inset [COLOR_A2];
 }
 
 .popup a.separator,
 .popup a.separator:hover {
-  background-color : [WTH_TEXTCOLOR_1] ;
-  border: 1px outset [WTH_TEXTCOLOR_2];
+  background-color : [COLOR_A0] ;
+  border: 1px outset [COLOR_A6];
 }

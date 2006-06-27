@@ -237,11 +237,11 @@ function setToolsLayout(&$action, $tool="", $forced=false) {
     $state[$t[0]] = ($t[1]==0?0:1);
   }
   $s = (isset($state[$tool]) ? $state[$tool] : 1 );
-  $vis = ($s ? "" : "none" );
+  $vis = ($s ? "block" : "none" );
   if ($forced) {
      $action->lay->set( "b".$tool, "wToolButtonUnselect");
      $action->lay->set( "o".$tool, true);
-     $action->lay->set( "v".$tool, "");
+     $action->lay->set( "v".$tool, "block");
   } else {
      $action->lay->set( "b".$tool, ($s==1? "wToolButtonUnselect":"wToolButtonSelect"));
      $action->lay->set( "o".$tool, ($s==1? true : false ));
