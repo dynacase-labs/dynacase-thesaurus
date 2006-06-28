@@ -52,7 +52,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <tr><td width="45%" valign="top">
 
 <table width="100%" cellspacing="0"><tr>
-<td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  height="22px" title="[TEXT:event description]" style="border:0px" ></td>
+<td valign="bottom" align="left"><img src="[IMG:wgcal-small.gif]"  title="[TEXT:event description]" style="height:22px; border:0px" ></td>
 <td valign="bottom" align="right">
 [IF mforuser]<select onchange="document.getElementById('icuser').value = this.options[this.selectedIndex].value; document.getElementById('ownerid').value = this.options[this.selectedIndex].value; document.getElementById('ownertitle').value = this.options[this.selectedIndex].text; alert('[TEXT:you set the event owner to] '+this.options[this.selectedIndex].text); SetGroupsForOwner(this.options[this.selectedIndex].value); SetGroupsList(this.options[this.selectedIndex].value);">[BLOCK foruser]<option value="[forufid]" [foruselected]>[foruname][ENDBLOCK foruser]</select>[ENDIF mforuser]
 [IF mforusermod]<span class="wgUserDelegate">[foruname] ([TEXT:by delegation])</span>[ENDIF mforusermod]</td>
@@ -185,13 +185,13 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <td style="padding-left:1em" valign="top" align="left">
 
 <img id="butevattendees" src="[IMG:wm-caldirectaccess.gif]" class="WGCalZoneSelected"
-    height="22" title="[TEXT:meeting]" style="border:0px" 
+    title="[TEXT:meeting]" style="height:22px; border:0px" 
     onClick="SwitchZone('evattendees'); autoHresize(); autoVresize();" >
 <img id="butevrepeatzone" src="[IMG:wm-repeat.gif]" class="WGCalZoneDefault"
-    height="22"  title="[TEXT:manage repeat]" style="border:0px" 
+    title="[TEXT:manage repeat]" style="height:22px; border:0px" 
     onClick="SwitchZone('evrepeatzone'); autoHresize(); autoVresize();" >
 <img id="butevgroups" src="[IMG:wgcal_choosegroups.gif]" class="WGCalZoneDefault"
-    height="22"  title="[TEXT:manage groups]" style="display:[vis_groups]; border:0px" 
+    title="[TEXT:manage groups]" style="height:22px; display:[vis_groups]; border:0px" 
     onClick="SwitchZone('evgroups'); autoHresize(); autoVresize();" >
 
 
@@ -208,7 +208,9 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 [BLOCK FAMR]
 <img class="[IFNOT fselect]wSmallButtonPulled[ENDIF fselect][IF fselect]wSmallButtonPushed[ENDIF fselect]" style="vertical-align:top; height:16px" src="[ficon]" title="[ftitle]" onclick="if (this.className!='wSmallButtonPulled') { if (removeSFamilie([fid])) this.className='wSmallButtonPulled'; } else { this.className='wSmallButtonPushed'; addSFamilie([fid]); }">[ENDBLOCK FAMR]
-<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">&nbsp;<input id="sMode" type="checkbox" style="position:relative; left:-20px; cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">&nbsp;<img style="vertical-align:top;" id="address" class="wSmallButton" style="cursor:pointer;" height="16" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');" title="[TEXT:ressources advanced search]" src="[IMG:wm-attendees.gif]">
+<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">
+<input id="sMode" type="checkbox" style="vertical-align:top; cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
+&nbsp;<img id="address" class="wSmallButton" style="vertical-align:top; cursor:pointer;" height="16" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');" title="[TEXT:ressources advanced search]" src="[IMG:wm-attendees.gif]">    
 </div><!-- FIN BLOCK DE RECHERCHE -->
 
 <table height="100%"  width="100%">

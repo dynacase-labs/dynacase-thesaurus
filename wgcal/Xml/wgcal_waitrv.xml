@@ -12,13 +12,12 @@
 <td align="right">[IF intoolbar]<input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('_self', '[oact]')" [alertwrv] title="[TEXT:alert for new event ?]">&nbsp;[ENDIF intoolbar]</td>
 </tr>
 </table>
-
-<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px; overflow:auto">[BLOCK WAITRV]
-<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="WGCRessDefault" style="cursor:crosshair" 
-     onmouseover="this.className = 'WGCRessSelected'; " onmouseout="this.className = 'WGCRessDefault'"
+ 
+<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px 2px 0px 10px; overflow:auto">[BLOCK WAITRV]
+<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="wgcalwaitrv" style="cursor:crosshair" 
+     onmouseover="this.className = 'wgcalwaitrvover'; " onmouseout="this.className = 'wgcalwaitrv'"
      onContextMenu="viewmenu(event, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GETMENU&id=[id]&ue=f&ctx=WRV'); return false">
-<div class="WGCFamSelected" style="margin-left:2px; font-weight:bold;">[title]</div>
-<div style="margin-left:1em; padding-left:2px; border-left:1px solid black;">[date], [owner]</div>
+<span class="wgcalwaitrvtitle" >[title]</span> <span class="wgcalwaitrvdesc">[date], [owner]</span>
 </div>[ENDBLOCK WAITRV]</div>
 [ENDIF LightMode]
 [IF LightMode]<div style="">  
