@@ -1,11 +1,17 @@
 /* This is the default CSS for WGCal application, with theme [THEME] and fonts [FONTSZ] */
 
-*, body {  background-image:none; background-color:[COLOR_A9]; color: [COLOR_B0]; padding:0px; margin:0px; font-family:Arial,Helvetica,sans; }
+/*
+*, body, tr { background-image:none; background-color:[COLOR_A9]; color: [COLOR_B0]; padding:0px; margin:0px; }
+*/
+*, body { background-image:none; background-color:[COLOR_WHITE]; color: [COLOR_B0]; padding:0px; margin:0px; }
+
+*, span, div, tr, td { background-color:transparent; }
+td { empty-cells: show; }
 
 .slid_noweek { float:left; font-size: [SIZE_SMALL]; text-align:center;  background-color:[COLOR_A9]; }
 .slid_week { font-size:[SIZE_SMALL]; text-align: center; float:left; background-color:[COLOR_A9]; 
              border-top:1px solid [COLOR_A9]; border-left:1px solid [COLOR_A9]; border-right: 1px solid [COLOR_A0]; border-bottom: 1px solid [COLOR_A9]; }
-.slid_curweek { background-color:[COLOR_WHITE]; text-decoration:underline; border: 1px solid [COLOR_WHITE]; }
+.slid_curweek { background-color:[COLOR_WHITE]; color:[CORE_ERRORCOLOR]; text-decoration:underline; border: 1px solid [COLOR_WHITE]; }
 .slid_weekOver { border:1px solid [CORE_ERRORCOLOR]; background-color:[COLOR_A8]; cursor:pointer; }
 .slid_cday { background-color: [CORE_ERRORCOLOR]; height:3px; }
 .slid_oddm { background-color: [COLOR_A0]; height:3px; }
@@ -16,7 +22,6 @@
   padding : 3px;
   text-align:left;
   font-size: [SIZE_MEDIUM]; 
-  font-family:  Arial, Helvetica, sans;;
   color: [COLOR_A0];
   border-width: 3px;
   border-color: [COLOR_A9];
@@ -31,16 +36,13 @@
 
 .onlyprint { display : none }
 
-table { font-size: [SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans;  color: [COLOR_A0]; }
+table { font-size: [SIZE_MEDIUM]; color: [COLOR_A0]; }
 
 IMG { background-color:transparent; border : 0px; } 
-INPUT { font-size: [SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans; border : 0px; }
-INPUT.textBorder, TEXTAREA { background-color:[COLOR_A8]; font-size:[SIZE_MEDIUM]; font-family:Arial, Helvetica, sans; border: 1px inset [COLOR_A0]; }
-SELECT { background-color:[COLOR_A8]; font-size:[SIZE_MEDIUM]; font-family:  Arial, Helvetica, sans; border:0px; }
-INPUT.Mandatory { background-color: [COLOR_A8]; font-weight: bold;  border:2px inset [CORE_ERRORCOLOR]; }
-
-TR { }
-TD {	empty-cells: show; }
+INPUT { background-color:transparent; -moz-border-radius:0; font-size: [SIZE_MEDIUM]; border : 0px; }
+INPUT.textBorder, TEXTAREA { -moz-border-radius:0; font-size:[SIZE_MEDIUM]; border: 1px inset [COLOR_A0]; }
+SELECT { background-color:[COLOR_A8]; font-size:[SIZE_MEDIUM]; border:0px; }
+INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CORE_ERRORCOLOR]; }
 
 
 .WGCalAction {
@@ -61,12 +63,7 @@ TD {	empty-cells: show; }
 .WGCalZoneDefault { -moz-opacity:.5; cursor : pointer; }
 
 /* Zone d'affichage des infos mois, semaine et jours */
-.wMainMenu {
-  cursor:default;
-  background-color : [COLOR_A5];
-  border : 1px outset [COLOR_A8];
-  font-size: [SIZE_SMALL];
-}
+.wMainMenu { background-color : [COLOR_A7]; border:1px outset [COLOR_A8]; font-size:[SIZE_SMALL]; }
 .WGCAL_Period {
   background-color : [COLOR_A9];
   border : 1px outset [COLOR_A8];
@@ -209,42 +206,13 @@ TD {	empty-cells: show; }
  font-size: [SIZE_SMALL];
 }
 
-.wToolButton {
-  background-color : [COLOR_A5];
-  font-weight : bold;
-  border : 1px outset [COLOR_A9];
-  cursor:pointer;
-  height : 22px;
-}
-.wToolButtonUnselect {
-  background-color : [COLOR_A5];
-  border : 1px outset [COLOR_A9];
-  cursor:pointer;
-  height : 22px;
-}
-.wToolButtonSelect {
-  background-color : [COLOR_A5];
-  font-weight : bold;
-  border : 1px inset [COLOR_A9];
-  cursor:pointer;
-  height : 22px;
-}
-.wToolButtonOver {
-  background-color : [COLOR_A0];
-  color : [COLOR_A8];
-  font-weight : bold;
-  border : 2px inset [COLOR_A8];
-  cursor:pointer;
-  height : 22px;
-}
-.wToolArea {
-  border : 1px inset [COLOR_A8];
-  padding : 2px;
-}
-.wZone {
-  border : 2px solid [COLOR_A0];
-  padding : 2px;
-}
+.wToolButton, .wToolButtonUnselect, .wToolButtonSelect, .wToolButtonOver { background-color:[COLOR_A8]; border:1px outset [COLOR_A8]; cursor:pointer; height:22px; }
+.wToolButtonSelect { background-color:[COLOR_A7]; font-weight:bold; border:1px inset [COLOR_A7]; }
+.wToolButtonOver { background-color:[COLOR_A9] }
+
+.wToolArea { padding : 2px; }
+
+.wZone { border : 2px solid [COLOR_A0]; padding : 2px; }
 .wAttList {
   border-style:solid none solid none ;
   border-width: 1px;
@@ -666,7 +634,6 @@ TD {	empty-cells: show; }
   text-decoration: none;
   font-size: [SIZE_X-SMALL];
   z-index:10;
-  font-family: sans;
 }
 
 .wgcalpopup a.menuItem, 
@@ -679,7 +646,6 @@ TD {	empty-cells: show; }
   font-size: [SIZE_X-SMALL];
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: sans;
   font-weight: normal;
 }
 
@@ -697,7 +663,6 @@ TD {	empty-cells: show; }
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family:  Arial, Helvetica, sans;;
 }
 .wgcalpopup a.menuItem:hover,
 .wgcalpopup a.menuItemCtrl:hover,
@@ -723,8 +688,6 @@ TD {	empty-cells: show; }
   padding:1px;
   text-decoration: none;
   font-size: [SIZE_X-SMALL];
-  font-family: sans;
-  
 }
 
 .popup a.menuItem, 
@@ -736,7 +699,6 @@ TD {	empty-cells: show; }
   font-size: [SIZE_X-SMALL];
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family: sans;
   font-weight: normal;
   border-color: [COLOR_A2];
   border-width: 1px;
@@ -755,7 +717,6 @@ TD {	empty-cells: show; }
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  font-family:  Arial, Helvetica, sans;;
   border: 1px outset [COLOR_A2];
 }
 .popup a.menuItem:hover,

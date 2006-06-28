@@ -9,7 +9,7 @@
 <table id="bwaitrv" class="[bwaitrv]" width="100%" cellspacing="0" cellpadding="0">
 <tr>
 <td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv','[IMG:plus.gif]','[IMG:minus.gif]');"[ENDIF intoolbar] align="left">[IF intoolbar]<img style="vertical-align:middle;" id="owaitrv" src="[IF owaitrv][IMG:minus.gif][ENDIF owaitrv][IFNOT owaitrv][IMG:plus.gif][ENDIF owaitrv]">[ENDIF intoolbar]&nbsp;[TEXT:waiting rv] ([RVCOUNT])</td>
-<td align="right">[IF intoolbar]<input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('_self', '[oact]')" [alertwrv] title="[TEXT:alert for new event ?]">[ENDIF intoolbar]</td>
+<td align="right">[IF intoolbar]<input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('_self', '[oact]')" [alertwrv] title="[TEXT:alert for new event ?]">&nbsp;[ENDIF intoolbar]</td>
 </tr>
 </table>
 

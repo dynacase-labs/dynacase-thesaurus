@@ -53,7 +53,7 @@ function hideShowToolbar(imbut) {
 <table id="bnav" class="[bnav]" width="100%" cellspacing="0" cellpadding="0">
 <tr valign="center">
 <td id="inav" style="text-align:left;" onclick="WGCalChangeVisibility('nav','[IMG:plus.gif]','[IMG:minus.gif]');"><img style="vertical-align:middle;" id="onav" src="[IF onav][IMG:minus.gif][ENDIF onav][IFNOT onav][IMG:plus.gif][ENDIF onav]">&nbsp;[TEXT:date selector]</td>
-<td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]" style="cursor:pointer"></td>
+<td align="right"><input id="chk2cal" type="checkbox" onclick="v=(this.checked?'':'none'); document.getElementById('cal2').style.display=v;" title="[TEXT:display two months]" style="cursor:pointer">&nbsp;</td>
 </tr>
 </table>
 <div align="center" class="wToolArea" width="100%" id="vnav" style="overflow:auto; display:[vnav]">

@@ -5,10 +5,11 @@
 <div  style="z-index:3000" id="[menu]" class="wgcalpopup">
 [MITEM]</div>[ENDBLOCK MENU]
 
-<table id="wgcalmenu" cellspacing="0" class="noprinthide" style="padding:0px; width:100%;position:fixed;z-index:500;">
-<td align="left" class="wMainMenu">
+<table id="wgcalmenu" class="noprinthide" cellspacing="0" style="padding:0px; width:100%;position:fixed;z-index:500; border-style:none none solid none; border-width:1px; border-color:[COLOR_A3]">
+<tr class="wMainMenu"><td style="text-align:left">
+
 <table style="cursor:default; border:0px; width:80%"  id="barmenu" cellspacing="0" cellpadding="0">
-<tr>
+<tr class="wMainMenu">
 <td width="16px"><img style="cursor:pointer" id="opencloseimg" title="[TEXT:click to show/hide toolbar]" onclick="window.parent.wgcal_toolbar.hideShowToolbar(this);" src="[IMG:wm-pperiod.gif]"></td>
 <td>[BLOCK DMENU]
 <div class="MenuInactive" 
@@ -59,20 +60,19 @@ Calendar.setup({
 </td>
 
 
-[IF NavDate]<td align="center" class="wMainMenu" style="width:20px">
+[IF NavDate]<td align="center" style="width:20px">
 <img id="pbnav" name="pbnav"  height="16" style="cursor:pointer" title="[TEXT:goto data]"  onclick="WGCalChangeVisibility('nav');" src="[IMG:wgcal-gotodate.gif]">
 </td>[ENDIF NavDate]
-<td class="wMainMenu" valign="top" align="center" style="width:80px">
-<span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select>
-<input style="vertical-align:top; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></span></td>
+<td style="vertical-align:middle; text-align:center; width:80px">
+<span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select><input style="vertical-align:middle; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></span></td>
 
 
-<td align="center" class="wMainMenu" style="width:60px">
-<img height="12" style="cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="[IMG:oneweek.gif]">
-<img height="12" style="cursor:pointer" title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="[IMG:twoweek.gif]">
-<img height="12" style="cursor:pointer" title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
+<td style="text-align:center; width:60px">
+<img style="height:12; cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="[IMG:oneweek.gif]">
+<img style="height:12; cursor:pointer"  title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="[IMG:twoweek.gif]">
+<img style="height:12; cursor:pointer"  title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
 </td>
-<td align="center" style="width:40px" class="wMainMenu">
+<td style="text-align:center; width:40px" >
 <img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="subwindowm(450, 700, 'iCalendar', '[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&sm=1')" src="[IMG:wm-print.gif]">
 <img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(0, 0, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&RZ=HV');" src="[IMG:wgcal-prefs.gif]" height="12" >
 &nbsp;</td>
