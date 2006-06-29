@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.320 2006/06/27 15:26:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.321 2006/06/29 14:54:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -956,7 +956,8 @@ final public function PostInsert()  {
 	global $_SERVER;
 	$this->AddComment(sprintf(_("delete by action %s from %s"),
 				  $_SERVER["REQUEST_URI"],
-				  $_SERVER["REMOTE_ADDR"]));
+				  $_SERVER["REMOTE_ADDR"]),HISTO_LOG);
+	$this->AddComment(_("document deleted"));
 
 
 	if (!$nopost) $msg=$this->PostDelete();
@@ -4220,13 +4221,13 @@ final public function PostInsert()  {
   }
   /**
    * return the user last name 
+   * @param bool $withfirst if true compose first below last name
    * @return string
    */
-  public static function getUserName() {
+  public static function getUserName($withfirst=false) {
     global $action;
-
-    return $action->user->lastname;
-    return $action->user->lastname." ".$action->user->firstname;
+    if ($withfirst) return $action->user->firstname." ".$action->user->lastname;
+    return $action->user->lastname; 
   }
 
   
