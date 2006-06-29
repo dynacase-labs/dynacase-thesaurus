@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.95 2006/06/22 12:52:35 eric Exp $
+ * $Id: freedom.css,v 1.96 2006/06/29 15:08:13 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -498,13 +498,11 @@ input.state {
   }
   *, A, A:link, A:visited, p {
     color:black;
-    font-family:arial, helvetica;
   }
   .tableborder {
     border:none;
   }
   TD, TH {
-    font-family:arial, helvetica;
   }
   .onlyprint { 
     display:block;
@@ -807,7 +805,6 @@ TABLE.reportVGreen {
 }
 /* - for ftien4 - */
    TD.fld {
-     font-family: [CORE_FONTLIST1];
      font-size: [CORE_FONTBASESIZE];
      text-decoration: none;
      white-space:nowrap;

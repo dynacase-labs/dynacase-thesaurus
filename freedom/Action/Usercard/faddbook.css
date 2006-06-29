@@ -1,6 +1,5 @@
 .fabbody, BODY.freedom {
 margin : 2px;
-font-family: lucida, arial, sans;
 background: [CORE_BGCOLOR]; 
 color: [CORE_TEXTFGCOLOR];
 }
@@ -314,7 +313,6 @@ DIV.tabh SPAN:hover {
 
 
 A:link, A:visited {
-  font-family: [CORE_FONTLIST1];
   text-decoration: none;
 }
 
