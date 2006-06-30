@@ -381,6 +381,7 @@ declare
   theqtype char;
   thechildid int;
   thedirid int;
+  msg text;
 begin
 
 
@@ -396,20 +397,39 @@ if (TG_OP = ''DELETE'') then
   
 end if;
 
-  if (theqtype = ''S'') and (thedirid > 0) and (thechildid > 0) then
+if (theqtype = ''S'') and (thedirid > 0) and (thechildid > 0) then
+  select into sfromid fromid from docfrom where id=thechildid;
+  if (sfromid is null)  then
+	RAISE NOTICE ''document inconnu %'',thechildid;
+  else 
+  if (sfromid > 0)  then
+--msg=''update doc'' || sfromid ||''  set fldrels=getreldocfld(initid) where initid='' || thechildid || '' and locked != -1'';
+-- RAISE NOTICE ''coucou %'',msg;
+  EXECUTE ''update doc'' || sfromid ||''  set fldrels=getreldocfld(initid) where initid='' || thechildid || '' and locked != -1'' ;
+ 
+  end if;
+  end if;
+  end if;
+return NEW;
+end;
+' language 'plpgsql';
+
+
+create or replace function getreldocfld(int) 
+returns int[] as '
+declare 
+  thechildid alias for $1;
+  allfld int[];
+  i int;
+  rc record;
+begin
   i=0;
  FOR rc IN EXECUTE ''select * from fld where childid= '' || thechildid  LOOP 
   BEGIN
      allfld[i]=rc.dirid;
      i=i+1;
-	END;
-  END LOOP;
---  RAISE NOTICE ''Quantity here is %'',allfld;  
-	update doc set fldrels=allfld where initid=thechildid and locked != -1;
-  end if;
- 
-
-
-return NEW;
+  END;
+ END LOOP; 
+return allfld;
 end;
 ' language 'plpgsql';
