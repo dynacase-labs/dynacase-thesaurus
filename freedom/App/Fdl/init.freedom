@@ -290,7 +290,7 @@ TYPE;C;;;;;;;;;;;
 ICON;profil_family.gif;;;;;;;;;;;
 END;1;9;;;;;;;;;;
 // famille fichier;;;id;class;name;;;;;;;
-BEGIN;0;fichier;7;;FILE;;;;;;;
+BEGIN;0;fichiers;7;;FILE;;;;;;;
 METHOD;Method.DocFile.php;;;;;;;;;;;
 TYPE;C;;;;;;;;;;;
 SCHAR;R;;;;;;;;;;;
