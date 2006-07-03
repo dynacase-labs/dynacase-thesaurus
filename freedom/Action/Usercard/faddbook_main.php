@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.21 2006/05/31 09:25:19 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.22 2006/07/03 15:42:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -49,7 +49,7 @@ function faddbook_main(&$action)
   $viewone  = (GetHttpVars("viewone","N")=="Y");
   $createsubfam = (GetHttpVars("createsubfam","Y")=="Y");
   $etarget  = GetHttpVars("etarget");
-  $target  = GetHttpVars("target","finfo");
+  $target  = GetHttpVars("target","bookinfo");
   $dirid  = GetHttpVars("dirid"); // restrict search
   $cols  = GetHttpVars("cols"); // specific cols
   if ($chattr!="" && $chid!="") {

@@ -65,7 +65,7 @@ TABLE.tableborder TBODY TR TD{
 
 
 <div class="do" id="DUsers">
-<iframe id="fiuser" style="border:none" scrolling="needed" width="95%" height="95%" src="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=IUSER&usedefaultview=Y&etarget=finfo&cols=us_login&viewone=Y"></iframe>
+<iframe id="fiuser" style="border:none" scrolling="needed" width="95%" height="95%" src="[CORE_STANDURL]&app=[APPNAME]&action=FADDBOOK_MAIN&dfam=IUSER&usedefaultview=Y&etarget=finfo&cols=us_login&viewone=Y&target=finfo"></iframe>
 </div>
 <div class="do" id="DGroups" style="display:none">
 <button onclick="subwindow(100,100,'finfo','[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid=IGROUP')">[TEXT:Create new group]</button>
