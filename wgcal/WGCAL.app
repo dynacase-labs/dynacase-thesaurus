@@ -108,8 +108,6 @@ $action_desc = array (
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTMONTH", "short_name" =>N_("month text"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_TEXTWEEK", "short_name" =>N_("week text"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_PREFS", "short_name" =>N_("user preferences"), "toc" => "N", "root" =>"N"),
-  array( "acl" => "WGCAL_USER", "name" => "APPPREFS", "short_name" =>N_("user preferences"), "layout" => "wgcal_prefs.xml","script" => "wgcal_prefs.php", "function" => "wgcal_prefs", "toc" => "N", "root" =>"N"),
-
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_OSYNC", "toc" => "N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_APROPOS", "toc" => "N"),
