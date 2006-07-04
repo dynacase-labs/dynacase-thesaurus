@@ -3,7 +3,7 @@
  * Display family attributes
  *
  * @author Anakeen 2000 
- * @version $Id: defattr.php,v 1.25 2005/08/02 16:16:51 eric Exp $
+ * @version $Id: defattr.php,v 1.26 2006/07/04 15:14:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -91,21 +91,43 @@ function defattr(&$action)
     $tattr = $doc->GetFieldAttributes();
    
     $selectframe= array();
-    reset($tattr);
-    while (list($k,$attr)= each ($tattr)) {
+    $selectframe[0]["framevalue"]="-";
+    $selectframe[0]["frameid"]="";
+    $selectframe[0]["selected"]="";
+    $selecttab=$selectframe;
+
+    foreach ($tattr as $k=>$attr) {
       if ($attr->docid > 0) {
 	$selectframe[$k]["framevalue"]=$attr->labelText;
 	$selectframe[$k]["frameid"]=$attr->id;
 	$selectframe[$k]["selected"]="";
+	if ($attr->type=="tab") $selecttab[$k]=$selectframe[$k];
+      }
+    }
+    foreach ($tattr as $k=>$attr) {
+      if ($attr->docid > 0) {
 	$newelem[$k]["attrid"]=$attr->id;
 	$newelem[$k]["attrname"]=$attr->labelText;
 	$newelem[$k]["neweltid"]=$k;
 	$newelem[$k]["visibility"]=$attr->visibility;
 	$newelem[$k]["options"]=$attr->options;
-	$newelem[$k]["typevalue"]="frame";
+	$newelem[$k]["typevalue"]=$attr->type;
 	$newelem[$k]["disabledid"]="disabled";
 	$newelem[$k]["order"]="0";
 	$newelem[$k]["SELECTFRAME"]="SELECTFRAME_$k";
+
+
+	if ($attr->type=="frame") {
+	  foreach($selecttab as $kopt=>$opt)  {
+	    if ($opt["frameid"] == $attr->fieldSet->id){
+	      $selecttab[$kopt]["selected"]="selected"; 
+	    }else{
+	      $selecttab[$kopt]["selected"]=""; 
+	    }		  
+	  }
+	  $action->lay->SetBlockData($newelem[$k]["SELECTFRAME"],
+				     $selecttab);
+	}
 	if ($attr->docid == $docid) {
 	  $newelem[$k]["disabled"]="";
 	} else {
@@ -113,14 +135,14 @@ function defattr(&$action)
 	}
 
 	// unused be necessary for layout
-      $newelem[$k]["link"]="";
-      $newelem[$k]["phpfile"]="";
-      $newelem[$k]["phpfunc"]="";
-      $newelem[$k]["phpconstraint"]="";
-      $newelem[$k]["elink"]="";
-      $newelem[$k]["abscheck"]="";
-      $newelem[$k]["neededcheck"]="";
-      $newelem[$k]["titcheck"]="";
+	$newelem[$k]["link"]="";
+	$newelem[$k]["phpfile"]="";
+	$newelem[$k]["phpfunc"]="";
+	$newelem[$k]["phpconstraint"]="";
+	$newelem[$k]["elink"]="";
+	$newelem[$k]["abscheck"]="";
+	$newelem[$k]["neededcheck"]="";
+	$newelem[$k]["titcheck"]="";
       }	  
       $ka++;
     }
@@ -244,13 +266,13 @@ function defattr(&$action)
 
 
 
-      while(list($kopt,$opt) = each($selectframe))  {
+
+      foreach($selectframe as $kopt=>$opt)  {
 	if ($opt["frameid"] == $attr->fieldSet->id){
 	  $selectframe[$kopt]["selected"]="selected"; 
 	}else{
 	  $selectframe[$kopt]["selected"]=""; 
-	}
-		  
+	}		  
       }
 
       $newelem[$k]["SELECTOPTION"]="SELECTOPTION_$k";
