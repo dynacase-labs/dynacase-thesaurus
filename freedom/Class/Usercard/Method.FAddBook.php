@@ -3,18 +3,18 @@
  * Adsress book methods for persons
  *
  * @author Anakeen 2005
- * @version $Id: Method.FAddBook.php,v 1.13 2005/11/24 13:48:17 eric Exp $
+ * @version $Id: Method.FAddBook.php,v 1.14 2006/07/04 15:14:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
  */
  /**
  */
-public $faddbook_card = "USERCARD:FADDBOOK_CARD:U";
+public $faddbook_card = "USERCARD:VIEWPERSON:T";
 public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:U";
 public $specialmenu=array("menuab");
 
-function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
+function faddbook_resume($target="finfo",$ulink=true,$abstract=false) {
 
   global $action;
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
@@ -63,7 +63,7 @@ function faddbook_resume($target="finfo",$ulink=true,$abstract="Y") {
 }
 
 
-function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
+function faddbook_card($target="finfo",$ulink=true,$abstract=false) {
   // list of attributes displayed directly in layout
   global $action;
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
@@ -111,6 +111,29 @@ function faddbook_card($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->setBlockData("TABS",$ltabs);
 }
 
+function viewperson($target="finfo",$ulink=true,$abstract=false) {
+  setHttpVar("specialmenu","menuab");
+  $this->viewdefaultcard($target,$ulink,$abstract);
+  $socid=$this->getValue("us_idsociety");
+  if ($socid) $soc=new_doc($this->dbaccess,$socid);
+  if ($socid && $soc->isAlive()) {
+    $this->lay->set("socphone",$soc->getValue("si_phone"));
+    $this->lay->set("socfax",$soc->getValue("si_fax"));
+  } else {
+    $this->lay->set("socphone","");
+    $this->lay->set("socfax","");
+  }
+  $secid=$this->getValue("us_idsecr");
+  if ($secid) $sec=new_doc($this->dbaccess,$secid);
+  if ($secid && $sec->isAlive()) {
+    $this->lay->set("secrphone",$sec->getValue("us_pphone"));
+  } else {
+    $this->lay->set("secrphone","");
+
+  }
+
+  
+}
 function menuab(&$ta) {
   global $action;
   foreach ($ta as $k => $v) {

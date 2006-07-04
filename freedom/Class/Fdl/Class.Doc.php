@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.321 2006/06/29 14:54:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.322 2006/07/04 15:14:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3362,14 +3362,12 @@ final public function PostInsert()  {
       // Set the table value elements
       
      	
+	$this->lay->Set("S_".strtoupper($v->id),($value!=""));
 	// don't see  non abstract if not
       if (($v->mvisibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
 	$this->lay->Set("V_".strtoupper($v->id),"");
 	$this->lay->Set("L_".strtoupper($v->id),"");
-	$this->lay->Set("S_".strtoupper($v->id),false);
-      } else {
-	$this->lay->Set("S_".strtoupper($v->id),($value==""?false:true));
-	
+      } else {	
 	$this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
 	$this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       }
@@ -3562,7 +3560,7 @@ final public function PostInsert()  {
 	$tableframe[$v]["value"]=chop(htmlentities($value));
 	$label = $listattr[$i]->labelText;
 	$tableframe[$v]["attrid"]=$listattr[$i]->id;
-	$tableframe[$v]["name"]=chop("[TEXT:".$label."]");
+	$tableframe[$v]["name"]=$label;
 
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";

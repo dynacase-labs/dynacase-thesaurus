@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="shortcut icon" href="FDL/Images/logo16.ico">
+[CSS:REF]
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
 [JS:REF]
 
@@ -45,7 +46,7 @@ function showHideResumeCard(elt) {
 <td width="20px" align="center"><img height="16" style="border:0" src="[icon]"></td>
 <td align="left" onclick="showHideResumeCard([id]);">[title]</td>
 </tr></table></div>
-<div colspan="2" id="res[id]" style="margin:0px 5px 0px 5px; display:none" onclick="subwindow(300, 400, 'detail', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]'); " width="95%">[resume]</div>
+<div colspan="2" id="res[id]" style="margin:0px 5px 0px 5px; display:none" onclick="subwindow(300, 550, 'detail', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]'); " width="95%">[resume]</div>
 [ENDBLOCK Contacts]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>

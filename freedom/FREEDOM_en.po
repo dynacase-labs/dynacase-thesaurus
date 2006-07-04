@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-29 14:43+0200\n"
+"POT-Creation-Date: 2006-07-04 15:23+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -1843,6 +1843,10 @@ msgid "delete by action %s from %s"
 msgstr ""
 
 #, fuzzy
+msgid "document deleted"
+msgstr "Delete"
+
+#, fuzzy
 msgid "revival document"
 msgstr "Organisation"
 
@@ -1919,6 +1923,10 @@ msgstr "Delete"
 msgid "locked document of "
 msgstr "Import"
 
+#, fuzzy
+msgid "My document basket"
+msgstr "Import"
+
 #, c-format
 msgid "basket of %s"
 msgstr ""
@@ -1956,14 +1964,6 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr ""
-
-#, fuzzy
-msgid "My document basket"
-msgstr "Import"
-
-#, fuzzy
-msgid "document deleted"
-msgstr "Delete"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -3521,6 +3521,43 @@ msgstr "Start search"
 msgid "choose user families"
 msgstr "Start search"
 
+msgid "click here to create a new"
+msgstr ""
+
+#, fuzzy
+msgid "view sub families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Choose family to create"
+msgstr "Category"
+
+#, fuzzy
+msgid "lines"
+msgstr "Delete"
+
+msgid "lines per page"
+msgstr ""
+
+#, fuzzy
+msgid "manage columns"
+msgstr "Add new contact card"
+
+msgid "search all containing"
+msgstr ""
+
+#, fuzzy
+msgid "filter on"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edit contact card"
+msgstr "Create"
+
+#, fuzzy
+msgid "add to prefered"
+msgstr "Modify"
+
 #, fuzzy
 msgid "Import vcard"
 msgstr "Import"
@@ -3565,43 +3602,6 @@ msgstr ""
 
 msgid "freedom address book"
 msgstr ""
-
-msgid "click here to create a new"
-msgstr ""
-
-#, fuzzy
-msgid "view sub families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Choose family to create"
-msgstr "Category"
-
-#, fuzzy
-msgid "lines"
-msgstr "Delete"
-
-msgid "lines per page"
-msgstr ""
-
-#, fuzzy
-msgid "manage columns"
-msgstr "Add new contact card"
-
-msgid "search all containing"
-msgstr ""
-
-#, fuzzy
-msgid "filter on"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "edit contact card"
-msgstr "Create"
-
-#, fuzzy
-msgid "add to prefered"
-msgstr "Modify"
 
 #, fuzzy
 msgid "choose colums"
@@ -4172,6 +4172,42 @@ msgstr "Delete"
 msgid "(private)"
 msgstr "Create"
 
+#, fuzzy
+msgid "not defined"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Professional"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Society"
+msgstr "Locality"
+
+#, fuzzy
+msgid "socname"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "Phone"
+msgstr "Phone"
+
+#, fuzzy
+msgid "Fax"
+msgstr "Fax"
+
+#, fuzzy
+msgid "Secretary"
+msgstr "Locality"
+
+#, fuzzy
+msgid "Personnel"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Complete view"
+msgstr "Create"
+
 msgid "double click to edit"
 msgstr ""
 
@@ -4195,10 +4231,6 @@ msgstr ""
 #, fuzzy
 msgid "nomail"
 msgstr "Email"
-
-#, fuzzy
-msgid "Society"
-msgstr "Locality"
 
 #, fuzzy
 msgid "phones"
@@ -4553,9 +4585,6 @@ msgstr ""
 
 #~ msgid "department"
 #~ msgstr "Department"
-
-#~ msgid "fax"
-#~ msgstr "Fax"
 
 #~ msgid "organisation"
 #~ msgstr "Organisation"

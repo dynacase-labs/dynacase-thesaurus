@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-29 14:43+0200\n"
-"PO-Revision-Date: 2006-06-29 14:45+0200\n"
+"POT-Creation-Date: 2006-07-04 15:23+0200\n"
+"PO-Revision-Date: 2006-07-04 15:25+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -1728,6 +1728,9 @@ msgstr "déjà supprimé"
 msgid "delete by action %s from %s"
 msgstr "supprimé avec l'action %s depuis %s"
 
+msgid "document deleted"
+msgstr "document supprimé"
+
 msgid "revival document"
 msgstr "résurection du document"
 
@@ -1803,6 +1806,9 @@ msgstr "document confidentiel"
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
+msgid "My document basket"
+msgstr "Mon porte-document"
+
 #, c-format
 msgid "basket of %s"
 msgstr "porte-documents de %s"
@@ -1847,12 +1853,6 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr "Suppression n°%d du dossier %s"
-
-msgid "My document basket"
-msgstr "Mon porte-document"
-
-msgid "document deleted"
-msgstr "document supprimé"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -3220,6 +3220,36 @@ msgstr "choix des familles administratives"
 msgid "choose user families"
 msgstr "Choix des familles personnelles"
 
+msgid "click here to create a new"
+msgstr "Création...."
+
+msgid "view sub families"
+msgstr "Voir les sous-familles"
+
+msgid "Choose family to create"
+msgstr "Choisissez une famille de document à créer"
+
+msgid "lines"
+msgstr "lignes"
+
+msgid "lines per page"
+msgstr "lignes par pages"
+
+msgid "manage columns"
+msgstr "Gérer les colonnes"
+
+msgid "search all containing"
+msgstr "rechercher tous ceux contenant..."
+
+msgid "filter on"
+msgstr "Filtrer sur"
+
+msgid "edit contact card"
+msgstr "éditer la fiche"
+
+msgid "add to prefered"
+msgstr "ajouter à mes préférés"
+
 msgid "Import vcard"
 msgstr "Importation Vcard"
 
@@ -3261,36 +3291,6 @@ msgstr "Une seule ligne par personne est autorisée"
 
 msgid "freedom address book"
 msgstr "Carnet d'Adresses Freedom"
-
-msgid "click here to create a new"
-msgstr "Création...."
-
-msgid "view sub families"
-msgstr "Voir les sous-familles"
-
-msgid "Choose family to create"
-msgstr "Choisissez une famille de document à créer"
-
-msgid "lines"
-msgstr "lignes"
-
-msgid "lines per page"
-msgstr "lignes par pages"
-
-msgid "manage columns"
-msgstr "Gérer les colonnes"
-
-msgid "search all containing"
-msgstr "rechercher tous ceux contenant..."
-
-msgid "filter on"
-msgstr "Filtrer sur"
-
-msgid "edit contact card"
-msgstr "éditer la fiche"
-
-msgid "add to prefered"
-msgstr "ajouter à mes préférés"
 
 msgid "choose colums"
 msgstr "Choix des colonnes affichées"
@@ -3770,6 +3770,33 @@ msgstr "confidentialité"
 msgid "(private)"
 msgstr "(privé)"
 
+msgid "not defined"
+msgstr "non défini"
+
+msgid "Professional"
+msgstr "Professionnel"
+
+msgid "Society"
+msgstr "Société"
+
+msgid "socname"
+msgstr "Nom"
+
+msgid "Phone"
+msgstr "Téléphone"
+
+msgid "Fax"
+msgstr "Fax"
+
+msgid "Secretary"
+msgstr "Secrétariat"
+
+msgid "Personnel"
+msgstr "Personnel"
+
+msgid "Complete view"
+msgstr "Vue complète"
+
 msgid "double click to edit"
 msgstr "Double clic pour éditer"
 
@@ -3790,9 +3817,6 @@ msgstr "Mot de passe"
 
 msgid "nomail"
 msgstr "pas d'email"
-
-msgid "Society"
-msgstr "Société"
 
 msgid "phones"
 msgstr "Téléphones"
@@ -4602,9 +4626,6 @@ msgstr "Nombre de membres"
 
 #~ msgid "department"
 #~ msgstr "Département"
-
-#~ msgid "fax"
-#~ msgstr "Fax"
 
 #~ msgid "organisation"
 #~ msgstr "Société"

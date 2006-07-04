@@ -49,7 +49,7 @@ function changeContact(evt, cid, attr) {
   return true;
 } 
 function fviewdoc(id) {
-  subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=[fabzone]&id='+id)
+  subwindow(300, 550, '[target]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&zone=[fabzone]&id='+id)
 }
 function feditdoc(id) {
   subwindow(300, 400, '[etarget]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&rzone=[fabzone]&id='+id);

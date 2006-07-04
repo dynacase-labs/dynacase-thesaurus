@@ -2,6 +2,7 @@
 <head>
 <title>[TEXT:Address book searches]</title>
 <link rel="shortcut icon" href="FDL/Images/logo16.ico">
+[CSS:REF]
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS&layout=USERCARD:faddbook.css">
 [JS:REF]
 <script type="text/javascript">
@@ -30,7 +31,7 @@ function sendform(evt) {
 &nbsp;[IF bCount]([Count])[ENDIF bCount]&nbsp;<input size="15" onmouseover="this.style.background='yellow'" onmouseout="this.style.background='';" onclick="if (isfirst) this.value=''" type="text" name="vtext" id="vtext" value="[vtext]"><img height="16" style="position:relative; left:-20px; top:2px;" src="[IMG:faddbook_search.gif]"><input style="border:0px" type="checkbox" name="sallf" title="[TEXT:search in all contact fields]"></div>
 
 [IF Result][BLOCK Contacts]
-<span border="1" onclick="subwindow(300, 400, '[TEXT:view_detail][id]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
+<span border="1" onclick="subwindow(300, 550, '[TEXT:view_detail][id]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
 
 <iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
 </body>
