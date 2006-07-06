@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.322 2006/07/04 15:14:50 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.323 2006/07/06 16:48:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -404,9 +404,12 @@ final public function PostInsert()  {
 	$this->Addcomment(_("document creation"),HISTO_NOTICE,"CREATE");
       }
       $this->Select($this->id);
-      $this->cdate=$this->getTimeDate();
+      // set creation date
+      $this->cdate=$this->getTimeDate(0,true);
       $this->adate=$this->cdate;
-      $this->modify(true,array("cdate","adate"),true); // to force also execute sql trigger
+      $date = gettimeofday();
+      $this->revdate = $date['sec'];
+      $this->modify(true,array("cdate","adate","revdate"),true); // to force also execute sql trigger
       if ($this->doctype != "T") {
 	$this->PostCreated(); 
 	if ($this->dprofid >0) {
@@ -456,9 +459,6 @@ final public function PostInsert()  {
       if ($this->owner == "") $this->owner = $this->userid;
       //      if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
       //      if ($this->state == "") $this->state=$this->firstState;
-      // set creation date
-      $date = gettimeofday();
-      $this->revdate = $date['sec'];
       $this->version=$this->getVersion();
 
       if ($this->wid > 0) {
@@ -4176,16 +4176,19 @@ final public function PostInsert()  {
   /**
    * return the today date and time with european format DD/MM/YYYY HH:MM
    * @param int $hourdelta to have the current date more or less hour  (-1 means one hour before, 1 one hour after)
+   * @param bool $second if true format DD/MM/YYYY HH:MM
    * @return string DD/MM/YYYY HH:MM
    */
- public static  function getTimeDate($hourdelta=0) {
+  public static  function getTimeDate($hourdelta=0,$second=false) {
     $delta = abs(intval($hourdelta));
+    if ($second) $format="d/m/Y H:i:s";
+    else $format="d/m/Y H:i";
     if ($hourdelta > 0) {
-      return date("d/m/Y H:i",strtotime ("+$delta hour"));
+      return date($format,strtotime ("+$delta hour"));
     } else if ($hourdelta < 0) {
-      return date("d/m/Y H:i",strtotime ("-$delta hour"));
+      return date($format,strtotime ("-$delta hour"));
     }
-    return date("d/m/Y H:i");
+    return date($format);
   }
 
   /**

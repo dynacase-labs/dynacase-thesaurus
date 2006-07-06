@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.68 2006/05/30 16:34:17 eric Exp $
+ * @version $Id: viewcard.php,v 1.69 2006/07/06 16:48:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -282,7 +282,7 @@ function viewcard(&$action) {
   $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
 
   // update access date
-  $doc->adate=$doc->getTimeDate();
+  $doc->adate=$doc->getTimeDate(0,true);
   $doc->modify(true,array("adate"),true);
 
 }
