@@ -24,10 +24,8 @@
 
 
 
-<div style="display:none" id="waitmessage">
-  <div style="vertical-align:bottom; padding:1em; border:3px groove white; color:black; background-color:white">
-    <img src="[IMG:fcal-wait.gif]">&nbsp;<span id="wmsgtext"></span>
-  </div>
+<div style="display:none" id="waitmessage"><img src="[IMG:fcal-wait.gif]">
+<!--   <div style="vertical-align:bottom; padding:1em; border:3px groove white; color:black; background-color:white"><img src="[IMG:fcal-wait.gif]">&nbsp;<span id="wmsgtext"></span></div> -->
 </div>
 
 <div style="display:none; padding:2px; background:white" id="fastedit">

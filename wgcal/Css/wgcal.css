@@ -71,7 +71,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 /* Periode selectionne : mise en évidence jour / heure */
 
-.WGCAL_PeriodSelected { background-color : [COLOR_A6]; color: [COLOR_A9]; border: 1px outset [COLOR_A9]; font-weight: bold; }
+.WGCAL_PeriodSelected { font-size: [SIZE_SMALL]; background-color : [COLOR_A6]; color: [COLOR_A9]; border: 1px outset [COLOR_A9]; font-weight: bold; }
 
 #week {
   border : 1px     [COLOR_A0] solid;
@@ -82,7 +82,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   font-size: [SIZE_SMALL];
   cursor:pointer;
   background-color : [COLOR_A9];
-  border : 1px outset [COLOR_A9];
+  border : 1px outset  [COLOR_A9];
   font-weight: bold;
 }
 
@@ -98,15 +98,15 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 .WGCAL_DayLineOver { background-color: [COLOR_A8]; border:1px inset [COLOR_A9]; }
 .WGCAL_Day, .WGCAL_DayCur, .WGCAL_DayWE, .WGCAL_DayMonday, .WGCAL_DayNoHours {
   background-color : white;
-  border-width : 1px 1px 1px 1px;
+  border-width : 1px 1px 1px 8px;
   border-style : solid inset inset solid;
-  border-color : white [COLOR_A0] [COLOR_A0] white;
+  border-color : white [COLOR_A0] [COLOR_A0] [COLOR_A8];
 }
 
 .WGCAL_DayNoHours { background-color:[COLOR_C9]; }
 .WGCAL_DayCur { background-color:[COLOR_A9]; }
 .WGCAL_DayWE { background-color : [COLOR_C9]; }
-.WGCAL_DayMonday { border-left : 1px solid [CORE_ERRORCOLOR]; }
+.WGCAL_DayMonday { border-left : 8px solid [COLOR_C5]; }
 
 
 

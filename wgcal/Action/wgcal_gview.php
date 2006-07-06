@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.30 2006/06/16 10:20:12 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.31 2006/07/06 17:20:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -187,7 +187,8 @@ function wgcal_gview(&$action) {
 	  $td[$cday]["ev"][$j]["Icons"] .= "&nbsp;";
 	}
 	$td[$cday]["ev"][$j]["title"] = $edoc[$ve["id"]]->getTitleInfo();
-	$td[$cday]["ev"][$j]["owner"] = $edoc[$ve["id"]]->getValue("evt_creator");
+	$td[$cday]["ev"][$j]["owner"] = $edoc[$ve["id"]]->getValue("evt_creator"). "  ".$edoc[$ve["id"]]->getValue("evt_idcreator")." ".$action->user->fid;
+	$td[$cday]["ev"][$j]["showOwner"] = ($edoc[$ve["id"]]->getValue("evt_idcreator")==$action->user->fid ? false : true);
 	$td[$cday]["ev"][$j]["edit"] = $edoc[$ve["id"]]->isEditable();
 	$td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
 	$td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);

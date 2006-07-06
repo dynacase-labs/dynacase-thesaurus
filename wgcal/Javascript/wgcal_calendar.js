@@ -296,16 +296,23 @@ function fcalGetEvtCardName(ie) {
   return '__unknown'+ie;
 }
 
+
+function fcalDeleteSingleEvent(ie) {
+  if (!fcalEvents[ie]) return false;
+  var icard = eltId(fcalGetEvtCardName(ie));
+  if (icard && icard.parentNode) icard.parentNode.removeChild(icard);
+  for (var iocc=0; iocc<fcalEvents[ie].occur; iocc++) {
+    var iabs = eltId(fcalGetEvtRName(ie,iocc));
+    if (iabs && iabs.parentNode) iabs.parentNode.removeChild(iabs);
+  }
+  fcalEvents[ie].occur = 0;
+  return true;
+}
+
 function fcalRemoveEvent() {
   var msgd = "";
   for (var iev=fcalEvents.length-1; iev>=0; iev--) {
-    var icard = eltId(fcalGetEvtCardName(iev));
-    if (icard && icard.parentNode) icard.parentNode.removeChild(icard);
-    for (var iocc=fcalEvents[iev].occur; iocc>0; iocc--) {
-      var iabs = eltId(fcalGetEvtRName(iev,iocc));
-      if (iabs && iabs.parentNode) iabs.parentNode.removeChild(iabs);
-    }
-    fcalEvents[iev].occur = 0;
+    fcalDeleteSingleEvent(iev);
   }
   return;
 }
@@ -433,13 +440,11 @@ function WGCalSortByWeight(e1, e2) {
 function WGCalDisplayEvent(cEv, ncol) {
 
   var  root = eltId(Root);
-
+  var clickmargin = 8;
   var bwidth = (isIE?4:8);
   
   foot = 0;
-  head = 0;
-  // cWidth = Wday - (2*head);
-  var cWidth =  parseInt(getObjectWidth(eltId('D'+cEv.curday+'H0'))) - (2*head);
+  var cWidth =  parseInt(getObjectWidth(eltId('D'+cEv.curday+'H0')));
   var xt = getAnchorPosition('D'+cEv.curday+'H0');
   startX = parseInt(xt.x) + 1; 
   startY = parseInt(GetYForTime(cEv.vstart)) + 1;
@@ -463,12 +468,12 @@ function WGCalDisplayEvent(cEv, ncol) {
   eE = eltId(ename);   // Event abstract container
   eE2 = eltId(esname); // Event abstract 
   // Compute width and X coord
-  xw = cWidth * cEv.rwidth;
-  delta = cWidth / ncol;
+  xw = (cWidth-clickmargin) * cEv.rwidth;
+  delta = (cWidth-clickmargin) / ncol;
   with (eE) {
     style.top = startY+"px";
-    style.left = startX + head + ((cEv.col-1) * delta) + "px";
-    style.width = (xw-2>0?xw-2:6)+"px";
+    style.left = startX + clickmargin + ((cEv.col-1) * delta)  + "px";
+    style.width = (xw-4>0?xw-4:6)+"px";
     style.height = (h-2>0?h-2:6)+"px";
     style.position = 'absolute';
     style.display = 'block';
@@ -786,6 +791,7 @@ function fcalInsertTmpEvent(ev, tEv) {
   for (var iie=0; iie<tEv.length; iie++) {
      fcalEvents[fcalEvents.length] = tEv[iie];
   }
+  alert(__dbgDisplayEvents());
   fastEditReset();
   fcalReloadEvents(ev);
 }
@@ -805,7 +811,16 @@ function fcalGetRgFromId(id) {
   return rt;
 }
 
+function __dbgDisplayEvents() {
+  var msg = '';
+  for (var iie=0; iie<fcalEvents.length; iie++) {
+    msg += '['+iie+'] evid:'+fcalEvents[iie].id+' prid'+fcalEvents[iie].idp+' title:'+fcalEvents[iie].title+'\n';
+  }
+  return msg;
+}
+
 function fcalDeleteEvent(event,idp) {
+//   var avant = __dbgDisplayEvents();
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
   var res = fcalSendRequest(url, false, false);
   if (res.status!=200) {
@@ -813,8 +828,11 @@ function fcalDeleteEvent(event,idp) {
   } else {
     if (inCalendar) {
       if (fcalEvents) {
-	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
-	  if (fcalEvents[iie].idp==idp) fcalEvents.splice(iie,1);
+ 	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
+	  if (fcalEvents[iie].idp==idp) {
+	    fcalDeleteSingleEvent(iie);
+	    fcalEvents.splice(iie,1);
+	  }
 	}
 	fcalReloadEvents();
       }
@@ -824,6 +842,8 @@ function fcalDeleteEvent(event,idp) {
       document.location.reload(false);
     }
   }
+//   var apres = __dbgDisplayEvents();
+//   alert('avant \n'+avant+' apres\n'+apres);
   return true; 
 }
 

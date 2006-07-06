@@ -8,6 +8,8 @@ function wgcal_searchical(&$action) {
   $max = 25;
   $sical = GetHttpVars("sical", "");
   
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+
   include_once("FDL/popup_util.php");
   popupInit('mRess',  array('radd', 'rrendezvous', 'rcalendar', 'rprefered'));
   $action->lay->set("max", $max);
