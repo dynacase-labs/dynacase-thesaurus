@@ -1,0 +1,4 @@
+var _fcalTmpEvents = new Array(); 
+[BLOCK Events]_fcalTmpEvents[[rg]] = [jscode];
+[ENDBLOCK Events]
+var fcalStatus = { code : [status], count:[count], text:'[statustext]' };
