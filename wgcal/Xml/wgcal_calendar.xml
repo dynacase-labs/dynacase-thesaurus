@@ -146,7 +146,7 @@ function displayInit() {
   posM.y = getFrameHeight() / 2;
   showWaitServerMessage('Loading interface');
   fcalInitView('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
-  fcalInitEvents();
+  fcalInitEvents('[ress]');
   fcalShowEvents();
   hideWaitServerMessage();
 }

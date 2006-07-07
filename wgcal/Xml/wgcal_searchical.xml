@@ -28,11 +28,11 @@ function SelectRessource(id) {
 <a href="#" id="rprefered" onclick="subwindow(450, 700, 'wgcal_hidden', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_ADDTOPREFCALS&id='+ressId); closeMenu('mRess')">[IF POPUPICONS]<img style="border:0px" src="[IMG:wm-newcontact.gif]" width="15px">&nbsp;[ENDIF POPUPICONS][TEXT:add to prefered]</a>
 </div>
 
-<div style="margin:5px;" onmouseover="if (closeAllMenu) closeAllMenu();" >
-<form name="searchical" id="searchical" target="_self" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHICAL">
-[TEXT:search cal] : <input id="sical" value="[sical]" name="sical" type="text" size="20" class="textBorder">
-<form>
-</div>
+<div style="border:1px solid  [COLOR_A8]; margin:5px;" onmouseover="if (closeAllMenu) closeAllMenu();" >
+
+<form name="searchical" id="searchical" target="_self" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SEARCHICAL" style="display:inline">
+<div>[TEXT:search cal] : <input id="sical" value="[sical]" name="sical" type="text" style="width:50%" class="textBorder">
+</form>
 [IF showrlist]
 <table width="100%" cellspacing="0" cellpadding="0" onmouseover="if (closeAllMenu) closeAllMenu();" >
 <tr><td align="center">([TEXT:limit display to] [max])</td></tr>
@@ -46,5 +46,6 @@ function SelectRessource(id) {
 &nbsp;<img height="15px" align="absbottom" src="[icon]">&nbsp;[title][IF romode]&nbsp;<img height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">[ENDIF romode]<td>
 </tr>[ENDBLOCK rlist]
 </table>[ENDIF showrlist]
+</div>
 [ZONE WGCAL:WGCAL_HTMLFOOT]
 

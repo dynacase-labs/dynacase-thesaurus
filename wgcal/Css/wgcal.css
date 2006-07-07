@@ -200,8 +200,8 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .wToolButton, .wToolButtonUnselect, .wToolButtonSelect, .wToolButtonOver { background-color:[COLOR_A8]; border:1px outset [COLOR_A8]; cursor:pointer; height:22px; }
-.wToolButtonSelect { background-color:[COLOR_A7]; font-weight:bold; border:1px inset [COLOR_A7]; }
-.wToolButtonOver { background-color:[COLOR_A9] }
+.wToolButtonSelect { background-color:[COLOR_A7]; border:1px inset [COLOR_A7]; }
+.wToolButtonOver { background-color:[COLOR_A6] }
 
 .wToolArea { padding : 2px; }
 

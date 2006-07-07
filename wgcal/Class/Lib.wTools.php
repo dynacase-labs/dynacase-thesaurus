@@ -420,7 +420,6 @@ function wGetSinglePEvent($id) {
   $edate = $firstWeekDay + ($vm * SEC_PER_DAY) - 1;
   $d1 = ts2db($firstWeekDay, "Y-m-d 00:00:00");
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
-//   echo "d1=[$d1] d2=[$d2] filter=[evt_idinitiator = $id]<br>";
   $filter[] = "(evt_idinitiator = ".$id.")";
   $ev = wGetEvents($d1, $d2, true, $filter);
   return $ev;
@@ -449,24 +448,18 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
   
   // Init the ressources
   $res = GetHttpVars("ress", "");
-  if ($res!="x") {
-    if ($res!="") {
-      $ress = explode("|", $res);
-      foreach ($ress as $kr => $vr) {
-	if ($vr>0) $tr[$vr] = $vr;
-      }
-    } else {  
-      $ress = wGetRessDisplayed();
-      $tr=array(); 
-      $ire=0;
-      foreach ($ress as $kr=>$vr) {
-	if ($vr->id>0) $tr[$vr->id] = $vr->id;
-      }
+  if ($res!="") {
+    $idres = $res;
+  } else {  
+    $ress = wGetRessDisplayed();
+    $tr=array(); 
+    $ire=0;
+    foreach ($ress as $kr=>$vr) {
+      if ($vr->id>0) $tr[$vr->id] = $vr->id;
     }
     $idres = implode("|", $tr);
-  } else {
-    $idres = "|";
   }
+  $action->log->info("res=[$res], idres=[$idres]");
   setHttpVar("idres", $idres);
 
   $lr = explode("|", $idres);
@@ -475,12 +468,11 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
     if (($lr[0] == $action->user->fid) && $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1) $showrefused = false;
     if (!$showrefused) {
       $filter[] = "(evfc_rejectattid isnull) OR (evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y')";
-//        echo "Filter = ["."(evfc_rejectattid isnull) OR (evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y')"."]<br>" ;
     }
   }
     
   $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
-//   echo $sdebug."<br>";
+//    echo $sdebug."<br>";
 
   $events = array();
   $dre=new_Doc($dbaccess, $qev);

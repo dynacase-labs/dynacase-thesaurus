@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.95 2006/07/06 17:20:30 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.96 2006/07/07 15:31:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -32,9 +32,9 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
 
-  //  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-  $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
-  $action->parent->AddJsCode($jslay->gen());
+  $action->parent->AddJsRef("WGCAL:wgcal_calendar.js", true);
+//   $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
+//   $action->parent->AddJsCode($jslay->gen());
 
   $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -43,7 +43,8 @@ function wgcal_calendar(&$action) {
 
   $ress = GetHttpVars("ress", "");
   setHttpVar("ress", $ress);
-  
+  $action->lay->set("ress", $ress);
+
   // Check for standalone mode 
   $sm = (GetHttpVars("sm", 0) == 0 ? false : true);
   if ($sm) {
@@ -89,7 +90,7 @@ function wgcal_calendar(&$action) {
   $d2 = ts2db($edate, "Y-m-d 23:59:59");
 
 
-  $tout = wGetEvents($d1, $d2, true, $filter, "EVENT_FROM_CAL");
+//   $tout = wGetEvents($d1, $d2, true, $filter, "EVENT_FROM_CAL");
   
   // Display results ------------------------------------------------------------------------------------
   $action->lay->set("sm", $sm);
@@ -254,7 +255,8 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
 
-  $action->lay->SetBlockData("EVENTS", $tout);
+//   $action->lay->SetBlockData("EVENTS", $tout);
+  $action->lay->SetBlockData("EVENTS", null);
 
   setThemeValue();
 

@@ -64,7 +64,7 @@ function  getUserAgenda($fid=-1, $public=true, $namefilter="", $t=true)
   include_once("FDL/Lib.Dir.php");
   global $action;
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $fid = ($fid!=-1 ? $fid : $action->user->fid);  
+  $fid = ($fid!=-1 && $fid!="" ? $fid : $action->user->fid);  
   if ($namefilter != "") $filter[] = "title ~* '".$namefilter."'";
   $filter[] = "(agd_oid = ".$fid." and agd_omain = ".$public.")";
   $public = ($public ? 1 : 0 );

@@ -92,7 +92,7 @@ function hideShowToolbar(imbut) {
 </td>
 </tr>
 </table>
-<iframe id="icalselframe" style="border:2px outset; width:98%; height:200px; position:relative; display:none; visibility:hidden;" src="about:blank">
+<iframe id="icalselframe" style="border:0px; width:100%; height:100px; position:relative; display:none; visibility:hidden;" src="about:blank">
 </iframe>
 
 <div id="vcals"  class="wToolArea" style="overflow:auto;" >

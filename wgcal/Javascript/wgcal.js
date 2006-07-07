@@ -12,27 +12,27 @@ function fcalSetOpacity(o, value) {
 
 function showWaitServerMessage(ev, msg) {
   globalcursor('progress');
-  fcalSetOpacity(document.body, 40);
-  if (document.getElementById('waitmessage')) {
-    var ws = eltId('waitmessage'); 
-    if (msg) eltId('wmsgtext').innerHTML = msg;
-    if (!ev) {
-      var xm = posM.x;
-      var ym = posM.y;
-    } else {
-      var xm = getX(ev);
-      var ym = getY(ev);
-    }
-    computeDivPosition('waitmessage',xm, ym, 10);
-  }
+//   fcalSetOpacity(document.body, 40);
+//   if (document.getElementById('waitmessage')) {
+//     var ws = eltId('waitmessage'); 
+//     if (msg) eltId('wmsgtext').innerHTML = msg;
+//     if (!ev) {
+//       var xm = posM.x;
+//       var ym = posM.y;
+//     } else {
+//       var xm = getX(ev);
+//       var ym = getY(ev);
+//     }
+//     computeDivPosition('waitmessage',xm, ym, 10);
+//   }
 }
 
 function hideWaitServerMessage() {
-  if (document.getElementById('waitmessage')) {
-    var ws = eltId('waitmessage'); 
-    ws.style.display = 'none';
-  }
-  fcalSetOpacity(document.body, 100);
+//   if (document.getElementById('waitmessage')) {
+//     var ws = eltId('waitmessage'); 
+//     ws.style.display = 'none';
+//   }
+//   fcalSetOpacity(document.body, 100);
   unglobalcursor();
 }
 
@@ -349,7 +349,7 @@ function WGCalSaveToolsVisibility() {
 
 
 // --------------------------------------------------------
-function fcalSendRequest(url, sync, post) {
+function fcalSendRequest(url, sync, post, noreturn) {
 
   if (window.XMLHttpRequest) sreq = new XMLHttpRequest();
   else sreq = new ActiveXObject("Microsoft.XMLHTTP");
@@ -357,6 +357,7 @@ function fcalSendRequest(url, sync, post) {
     if (!sync) {
       sreq.open("POST", url, false);
       sreq.send('');
+      if (noreturn) return;
       var result = { request:'', status:0, content:'' };
       result.status = sreq.status;
       result.content = sreq.responseText;
@@ -364,6 +365,7 @@ function fcalSendRequest(url, sync, post) {
     } else {
       sreq.onreadystatechange =  function() {
 	if (sreq.readyState == 4) {
+	  if (noreturn) return;
 	  var result = { request:'', status:0, content:'' };
  	  result.status = sreq.status;
  	  result.content = sreq.responseText;

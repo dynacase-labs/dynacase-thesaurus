@@ -17,6 +17,8 @@ function wgcal_deleteevent(&$action, $optev=-1) {
     return;
   } 
 
+  sendRv($action, $event, 2, $title, _("event deletion information message"));
+
   $err = $event->Delete();
   if ($err!="") {
     $action->lay->set("status", -1);
@@ -30,13 +32,6 @@ function wgcal_deleteevent(&$action, $optev=-1) {
     $action->lay->set("statustext", "Freedom internal error doc->postdelete(): $err");
     return;
   }
-  $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$event->getValue("calev_evtitle");
-  sendRv($action, $event, 2, $title, _("event deletion information message"));
-
-  $action->lay->set("status", 0);
-  $action->lay->set("count", 0);
-  $action->lay->set("statustext", "#".$event->id." deleted");
-  $action->lay->set("showevent", false);  
-  AddWarningMsg(_("rendez-vous deleted"));
+  return;
 }
 ?>

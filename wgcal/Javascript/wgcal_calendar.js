@@ -31,7 +31,6 @@ var  P_DEB = 100;
 var  P_FIN = 1;
 
 
-
 // --------------------------------------------------------
 function GetTimeInfoFromTs(ts) {
   var evd = new Date((ts*1000));
@@ -317,14 +316,38 @@ function fcalRemoveEvent() {
   return;
 }
 
-function fcalInitEvents() {
+function fcalInitEvents(ress) {
   var iev;
   for (iday=0; iday<XDays; iday++) {
     if (Days[iday].view) Days[iday].ev = new Array();
   }
   fcalRemoveEvent();
+  fcalGetAllEvents(ress);
   for (iev=0; iev<fcalEvents.length; iev++) {
     WGCalAddEvent(iev);
+  }
+}
+
+function fcalGetAllEvents(ress) {
+  var xreq = null;
+  if (window.XMLHttpRequest) xreq = new XMLHttpRequest();
+  else xreq = new ActiveXObject("Microsoft.XMLHTTP");
+  if (xreq) {
+    xreq.open("POST", "[CORE_STANDURL]app=WGCAL&action=WGCAL_GETJSEVENT&ress="+ress, false);
+    xreq.send('');
+    if (xreq.status!=200) {
+      alert('[TEXT:agenda, error getting events] (HTTP Code '+xreq.status+')');	   
+    } else {
+      eval(xreq.responseText);
+      if (fcalStatus.status==0) {
+	alert(fcalStatus.statusText);
+	fcalEvents = new Array();
+      } else {
+	fcalEvents = _fcalTmpEvents;
+      }
+    }
+  } else {
+    alert('[TEXT:agenda, error service fcalGetAllEvents] (XMLHttpRequest contruction)');	   
   }
 }
 
@@ -619,7 +642,7 @@ var TempoId = -1;
 
 function fcalReloadEvents(ev) {
    showWaitServerMessage(ev, 'Loading interface');
-   fcalInitEvents();
+   fcalInitEvents('');
    fcalShowEvents();
    hideWaitServerMessage();
 }
@@ -766,18 +789,13 @@ function fastEditSave(ev) {
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
   rq.open("POST", urlsend, false);
   rq.send('');
-  eval(rq.responseText);
   hideWaitServerMessage();
-  if (fcalStatus.code==-1) {
-    alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);
-    return false;
-  }
+  fastEditCancel(true);
   if (inCalendar) {
-    fcalInsertTmpEvent(ev, _fcalTmpEvents);
+    fcalReloadEvents();
   } else {
     document.location.reload(false);
   }
-  flogDisplayMsg('I');
   return;
 } 
 
@@ -820,46 +838,27 @@ function __dbgDisplayEvents() {
 }
 
 function fcalDeleteEvent(event,idp) {
-//   var avant = __dbgDisplayEvents();
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
-  var res = fcalSendRequest(url, false, false);
+  var res = fcalSendRequest(url, false, false, true);
   if (res.status!=200) {
     alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
   } else {
     if (inCalendar) {
-      if (fcalEvents) {
- 	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
-	  if (fcalEvents[iie].idp==idp) {
-	    fcalDeleteSingleEvent(iie);
-	    fcalEvents.splice(iie,1);
-	  }
-	}
-	fcalReloadEvents();
-      }
-      flogDisplayMsg('I');
+      fcalReloadEvents();
     } else {
-      //     document.location.href = document.location.href;
       document.location.reload(false);
     }
   }
-//   var apres = __dbgDisplayEvents();
-//   alert('avant \n'+avant+' apres\n'+apres);
   return true; 
 }
 
 function fcalDeleteEventOcc(event,idp,occ) {
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELOCCUR&id='+idp+'&evocc='+occ;
-  var res = fcalSendRequest(url, false, false);
-  if (res.status!=200) {
-    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
+  var res = fcalSendRequest(url, false, false, true);
+  if (inCalendar) {  
+    fcalReloadEvents();
   } else {
-    if (inCalendar) {  
-      eval(res.content);
-      if (_fcalTmpEvents) fcalInsertTmpEvent(event, _fcalTmpEvents);
-      flogDisplayMsg('I');
-    } else {
-      document.location.reload(false);
-    }
+    document.location.reload(false);
   }
   return true; 
 }
@@ -869,20 +868,12 @@ function fcalSetEventState(event,idp,state,reloadcal) {
   if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
 
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
-  var res = fcalSendRequest(url, false, false);
+  var res = fcalSendRequest(url, false, false, true);
   if (res.status!=200) {
     alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
   } else {
     if (inCalendar) {  
-      eval(res.content);
-      if (_fcalTmpEvents.length>0) fcalInsertTmpEvent(event,_fcalTmpEvents);
-      else {
- 	for (var iie=fcalEvents.length-1; iie>=0; iie--) {
-	  if (fcalEvents[iie].idp==idp) fcalEvents.splice(iie,1);
-	}
-  	fcalReloadEvents();
-      }
-      flogDisplayMsg('I');
+      fcalReloadEvents();
     } else {
       document.location.reload(false);
       if (reloadcal) parent.wgcal_calendar.document.location.reload(false);
@@ -903,6 +894,7 @@ function fastEditOpenFullEdit(ev) {
 
 var EventInEdition;
 function fastEditReset() {
+  eltId('fastedit').style.display = 'none';
   EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
@@ -913,7 +905,6 @@ function fastEditReset() {
   eltId('fe_categories').options[0].selected = true;
   eltId('fe_confidentiality').options[eltId('defvis').value].selected = true;
   fastEditCanSave(false);
-  eltId('fastedit').style.display = 'none';
   eltId('nohour').checked = '';
   eltId('allday').checked = '';
   eltId('s_start').value = 0;
@@ -983,8 +974,9 @@ function fastEditFSave(event, o) {
   return true;
 }
 
-function fastEditCancel() {
-  if (!fastEditChangeAlert()) return;
+function fastEditCancel(nocheck) {
+  if (!nocheck)
+    if (!fastEditChangeAlert()) return;
   fastEditReset();
   return true;
 }

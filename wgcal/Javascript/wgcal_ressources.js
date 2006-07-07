@@ -1,6 +1,7 @@
 function fcalUpdateCalendar(forcereload) {
-  if (forcereload) parent.wgcal_calendar.document.location.reload(true);
-  else parent.wgcal_calendar.document.location.reload(false);
+//   if (forcereload) parent.wgcal_calendar.document.location.reload(true);
+//   else parent.wgcal_calendar.document.location.reload(false);
+  parent.wgcal_calendar.fcalReloadEvents();
 }
 
 function fcalRessourceIsDisplayed(id) {
