@@ -1,6 +1,14 @@
-<select name="period">
+<table>
+<tr><td style="font-weight:normal; text-align:right">Période : </td>
+<td><select name="period">
 <option value="3days">3 jours
 <option value="week">1 semaine
 <option value="2weeks">2 semaines
 <option value="month">mois
-</select>
+</select></td></tr>
+<tr><td style="font-weight:normal;">Afficher les notes : </td>
+<td><select name="sd">
+<option value="Y">Oui
+<option value="N">Non
+</select></td></tr>
+</table>

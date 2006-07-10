@@ -12,8 +12,7 @@ function wgcal_deleteevent(&$action, $optev=-1) {
   $evi = GetHttpVars("id", -1);
   $event = new_Doc($dbaccess, $evi);
   if (!$event->isAffected()) {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", "wgcal_seteventstate: error, can't find event #$evi");
+    $action->log->error("wgcal_deleteevent: error, can't find event #$evi");
     return;
   } 
 
@@ -21,15 +20,13 @@ function wgcal_deleteevent(&$action, $optev=-1) {
 
   $err = $event->Delete();
   if ($err!="") {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", "Freedom internal error doc->delete(): $err");
+    $action->log->error("wgcal_deleteevent: FreedomDoc(#$evi) internal error doc->delete(): $err");
     return;
   }
 
   $err = $event->postDelete();
   if ($err!="") {
-    $action->lay->set("status", -1);
-    $action->lay->set("statustext", "Freedom internal error doc->postdelete(): $err");
+    $action->log->error("wgcal_deleteevent: FreedomDoc(#$evi) internal error doc->postdelete(): $err");
     return;
   }
   return;

@@ -25,7 +25,6 @@
 
 
 <div style="display:none" id="waitmessage"><img src="[IMG:fcal-wait.gif]">
-<!--   <div style="vertical-align:bottom; padding:1em; border:3px groove white; color:black; background-color:white"><img src="[IMG:fcal-wait.gif]">&nbsp;<span id="wmsgtext"></span></div> -->
 </div>
 
 <div style="display:none; padding:2px; background:white" id="fastedit">
@@ -118,15 +117,15 @@
   </div>
 </div>
 
-<div id="conflict" style="display:none; width:35%; padding:2px; background-color:white">
+<div id="conflict" style="overflow:scroll; display:none; height:50%; width:50%; padding:2px; background-color:white" onclick="this.style.display='none'">
 <table style="width:100%" class="wToolButtonUnselect"><tr>
 <td>[TEXT:conflict verfication]</td>
-<td style="vertical-align:bottom;text-align:right"><img height="12px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
+<td style="vertical-align:bottom;text-align:right"><img height="10px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
 </tr></table>
 <div id="conflictcontent" class="fasteditcontent">
 </div>
 <table style="width:100%" class="wToolButtonUnselect"><tr>
-<td style="vertical-align:bottom;text-align:right"><img height="12px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
+<td style="vertical-align:bottom;text-align:right"><img height="10px" title="[TEXT:close popup window]" class="wSmallButton" src="[IMG:wm-cancel.gif]" onclick="document.getElementById('conflict').style.display = 'none';"></td>
 </tr></table>
 </div>
 
@@ -142,6 +141,7 @@ Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], isWE:[
 fcalEvents[[rg]] = [jscode];[ENDBLOCK EVENTS]
 var AltTimerValue = '[ALTTIMER]';
 function displayInit() {
+  globalcursor('progress'); 
   posM.x = getFrameWidth() / 2;
   posM.y = getFrameHeight() / 2;
   showWaitServerMessage('Loading interface');
@@ -149,6 +149,7 @@ function displayInit() {
   fcalInitEvents('[ress]');
   fcalShowEvents();
   hideWaitServerMessage();
+  unglobalcursor();  
 }
 addEvent(window, 'load', displayInit );
 addEvent(window, 'resize', fcalDisplayInitTempo);

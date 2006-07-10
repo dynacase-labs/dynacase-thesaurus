@@ -25,6 +25,6 @@ function wgcal_portal(&$action) {
   $stime = mktime( 0, 0, 0, strftime("%m",time()), strftime("%d",time()), strftime("%Y",time()));
   $etime = $stime + $delta;
 
-  Redirect($action, "WGCAL", "WGCAL_GVIEW&rvfs_ress=".$action->user->fid."&rvfs_ts=".$stime."&rvfs_te=".$etime."&mo=L");
+  Redirect($action, "WGCAL", "WGCAL_GVIEW&rvfs_ress=".$action->user->fid."&rvfs_ts=".$stime."&rvfs_te=".$etime."&mo=L&sd=".GetHttpVars("sd", "Y"));
 }
 ?>

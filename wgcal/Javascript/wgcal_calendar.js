@@ -838,17 +838,15 @@ function __dbgDisplayEvents() {
 }
 
 function fcalDeleteEvent(event,idp) {
+  globalcursor('progress');
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
-  var res = fcalSendRequest(url, false, false, true);
-  if (res.status!=200) {
-    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
+  fcalSendRequest(url, false, false, true);
+  if (inCalendar) {
+    fcalReloadEvents();
   } else {
-    if (inCalendar) {
-      fcalReloadEvents();
-    } else {
-      document.location.reload(false);
-    }
+    document.location.reload(false);
   }
+  unglobalcursor();
   return true; 
 }
 

@@ -653,6 +653,7 @@ function showHideElt(elt) {
 function normalEditCheckConflict(ev, displayZero) {
   ev || (ev = window.event);
   var rll="";
+  globalcursor('progress');
   var evid = document.getElementById('eventid').value;
   var me = document.getElementById('ownerid').value;
   for (att=0; att<attendeesList.length; att++) {
@@ -676,8 +677,8 @@ function normalEditCheckConflict(ev, displayZero) {
   if ((displayZero && nbc==0) || nbc>0) { 
     document.getElementById('conflict').style.display = 'inline';
     document.getElementById('conflict').style.visibility = 'visible';
-    computeDivPosition('conflict', getX(ev), getY(ev), -40);
+    CenterDiv('conflict');
   }
+  unglobalcursor();
   return nbc;
 }
-

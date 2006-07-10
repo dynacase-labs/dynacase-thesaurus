@@ -922,7 +922,7 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp) {
       }  
       $allgroups[$iall]["grange"] = $iall;
       $allgroups[$iall]["gownerid"] = $ko;
-      $allgroups[$iall]["gownerdispl"] = ($ownerid==$ko?"":"none");
+      $allgroups[$iall]["gownerdispl"] = ($ownerid==$ko?"block":"none");
       $allgroups[$iall]["groups"] = $igroups;
       $allgroups[$iall]["jsgroups"] = $gjs;
       $iall++;
@@ -949,8 +949,8 @@ function EventSetVisibility($ownerid, $ownerlist, $vis, $ogrp) {
     $ic++;
   }
   $this->lay->SetBlockData("RVCONFID", $tconf);
-  if ($vis==2) $this->lay->set("vis_groups", "block");
-  else $this->lay->set("vis_groups", "none");
+  if ($vis==2) $this->lay->set("vis_groups", "visible");
+  else $this->lay->set("vis_groups", "hidden");
 
 }
   
@@ -1026,7 +1026,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   
   $this->lay->set("D_RUNTIL_INFI", ($runtil==0?"checked":""));
   $this->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
-  $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"block":"none"));
+  $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"visible":"hidden"));
   
   $this->lay->set("uDate", ucwords(strftime("%a %d %b %Y", $runtildate))); //w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $this->lay->set("umDate", $runtildate*1000);

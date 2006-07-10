@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.31 2006/07/06 17:20:30 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.32 2006/07/10 12:40:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,6 +29,7 @@ function wgcal_gview(&$action) {
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $light = (GetHttpVars("mo", "")=="L"?true:false);
+  $showDesc = (GetHttpVars("sd", "Y")=="Y"?true:false);
   $action->lay->set("lmode", $light);
 
   // Set a filter
@@ -187,15 +188,20 @@ function wgcal_gview(&$action) {
 	  $td[$cday]["ev"][$j]["Icons"] .= "&nbsp;";
 	}
 	$td[$cday]["ev"][$j]["title"] = $edoc[$ve["id"]]->getTitleInfo();
-	$td[$cday]["ev"][$j]["owner"] = $edoc[$ve["id"]]->getValue("evt_creator"). "  ".$edoc[$ve["id"]]->getValue("evt_idcreator")." ".$action->user->fid;
-	$td[$cday]["ev"][$j]["showOwner"] = ($edoc[$ve["id"]]->getValue("evt_idcreator")==$action->user->fid ? false : true);
+	$td[$cday]["ev"][$j]["owner"] = $edoc[$ve["id"]]->getValue("evt_creator");
+ 	$td[$cday]["ev"][$j]["showOwner"] = ($showDesc && $edoc[$ve["id"]]->getValue("evt_idcreator")==$action->user->fid ? false : true);
 	$td[$cday]["ev"][$j]["edit"] = $edoc[$ve["id"]]->isEditable();
+
+	$td[$cday]["ev"][$j]["location"] = $ve["evfc_location"];
+	$td[$cday]["ev"][$j]["vLocation"] = ($ve["evfc_location"]!="" && $showDesc ? true : false );
+	
 	$td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
 	$td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);
 	if ($sphrase!="") {
 	  $td[$cday]["ev"][$j]["note"] = preg_replace('/('.$sphrase.'?)/i', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["note"]);
 	  $td[$cday]["ev"][$j]["title"] = preg_replace('/('.$sphrase.'?)/i', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["title"]);
 	}
+	$td[$cday]["ev"][$j]["sdescr"] = $td[$cday]["ev"][$j]["vNote"] && $showDesc;
       }
     }
     uasort($td, "daySort");

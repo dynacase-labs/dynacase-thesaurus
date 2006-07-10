@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.73 2006/05/18 09:36:50 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.74 2006/07/10 12:40:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -37,7 +37,7 @@ function wgcal_toolbar(&$action) {
 
   $action->lay->set("freedomId",$action->user->fid);
   $rd = new_Doc($dbaccess, $action->user->fid);
-  $action->lay->set("freedomTitle",$rd->getTitle());
+  $action->lay->set("freedomTitle",addslashes($rd->getTitle()));
 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");

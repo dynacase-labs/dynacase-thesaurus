@@ -15,15 +15,14 @@ td { empty-cells: show; }
 .slid_evenm { background-color: [COLOR_C0];  height:3px; }
 
 .elist {
-  background-color: [COLOR_A9];
   margin : 0px;
   padding : 3px;
   text-align:left;
   font-size: [SIZE_MEDIUM]; 
-  color: [COLOR_A0];
-  border-width: 3px;
-  border-color: [COLOR_A9];
-  border-style: outset;
+  border-width: 1px;
+  background-color: [COLOR_WHITE];
+  border-color: [COLOR_A8];
+  border-style: solid;
   z-index : 1000;
   position:absolute;
   width : auto;
@@ -205,11 +204,13 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .wToolArea { padding : 2px; }
 
-.wZone { border-style: solid none solid none; border-color:[COLOR_A5]; border-width:1px; padding : 2px; }
+.wZone { border-style:none; border-color:[COLOR_A5]; border-width:1px; padding : 2px; }
 
 .wAttList {
+  background-color:[COLOR_A9];
   border-style:solid none solid none ;
   border-width: 1px;
+  border-color: [COLOR_A7];
   font-weight : bold;
   padding : 2px;
 }
@@ -248,17 +249,19 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   border : 1px none [COLOR_A8];
   width : 14%;
 }
-.wTextActive {
-  background-color: [COLOR_A9];
-  cursor:pointer;
-  border-style: none none solid none;
-  border-width: 1px;
-}
-.wTextNormal {
-  background-color: transparent;
+
+.wTextNormal, .wTextActive {
   cursor:default;
-  border-style:none none none none;
+  border-width: 1px;
+  border-style: none none solid none;
+  border-color:transparent;
 }
+.wTextActive {
+  cursor:pointer;
+  background-color: [COLOR_A9];
+  border-color: [COLOR_A7];
+}
+
 .wTextEvent {
   cursor:pointer;
   font-size: [SIZE_SMALL];
@@ -311,7 +314,6 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   }
   
 }
-.noprintremove { display : block; }
 
 .wEvResume {
   font-size: [SIZE_SMALL];

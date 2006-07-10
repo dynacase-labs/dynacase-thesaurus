@@ -2,8 +2,10 @@
 var curRessource = -1;
 function pickColor(color) {
   if (curRessource!=-1) {
+    globalcursor('progress'); 
     fcalSetRessourceColor(curRessource, color);
     document.getElementById('cp'+curRessource).style.background = color;
+    unglobalcursor();  
   }
 }
    
@@ -83,12 +85,14 @@ function fcalDrawRessource( rdescr, rid, ricon, rcolor, rstyle, rstate, romode, 
 
 function vuvRessource(rid) {
   var rstyle = '';
+  globalcursor('progress'); 
   fcalShowHideRessource(rid);
   var isDisplayed = fcalRessourceIsDisplayed(rid);
   if (isDisplayed) rstyle = 'WGCRessSelected';
   else rstyle = 'WGCRessDefault';
   document.getElementById(rid).className = rstyle;
   fcalSaveRessources();
+  unglobalcursor();  
   fcalUpdateCalendar();
   return;
 }

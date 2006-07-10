@@ -15,11 +15,6 @@
 <div>[Icons][title] <span style="font-size:80%;">([owner])</span></div>
 [IF vNote]<div>[note][ENDIF vNote]</td>
 </tr>[ENDBLOCK devents[date]]
-
-
-<tr><td colspan="2">[datestr]</</td></tr>
-[BLOCK devents[date]]<tr><td>[hour]</td><td>[Icons][title] <span style="font-size:80%;">([owner])</span></td></tr>[ENDBLOCK devents[date]]
-
 [ENDBLOCK btime]</table>[ENDIF noresult]
 
 <div width="100%" class="WEvDays">[ZONE WGCAL:WGCAL_INFOS]</div>
@@ -31,12 +26,18 @@
 [IF lmode]
 [IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
 [IFNOT noresult]
-<table cellspacing="0" width="100%" >[BLOCK btime]
-<tr><td colspan="2" style="font-weight:bold; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px;">[datestr]</td></tr>
-[BLOCK devents[date]]<tr style="vetical-align:top">
-<td style="">&rarr;[hour]</td>
-<td style=""><div>[Icons]<span style="font-weight:bold;">[title]</span>[IF showOwner] <span style="font-style:italic;">([owner])</span>[ENDIF showOwner]</div>[IF vNote]<div>[note][ENDIF vNote]</td>
-</tr>
+<table  cellspacing="0" >[BLOCK btime]
+<tr style="vertical-align:top">
+<td colspan="3" style="font-size:90%; font-weight:bold; background-color:[COLOR_A9]; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px; nowrap">[datestr]</td></tr>
+[BLOCK devents[date]]
+<tr style="vertical-align:top">
+<td>&rarr;&nbsp;</td>
+<td style="nowrap; font-size:90%">[hour]&nbsp;:</td>
+<td>[Icons]<span style="font-weight:bold;">[title]</span>
+[IF vLocation] <span style="color:#626262; font-size:90%;">[[location]]</span>[ENDIF vLocation]
+[IF showOwner] <span style="color:#626262; font-size:90%; font-style:italic;">([owner])</span>[ENDIF showOwner]
+[IF sdescr]<br><span style="color:#626262; font-size:90%">[note]</span>[ENDIF sdescr]
+</td></tr>
 [ENDBLOCK devents[date]]
 [ENDBLOCK btime]</table>[ENDIF noresult]
 [ENDIF lmode]

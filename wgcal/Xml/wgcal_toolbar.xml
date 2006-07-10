@@ -105,7 +105,7 @@ function hideShowToolbar(imbut) {
 <td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
-    onclick="vuvRessource(this.id);"
+    onclick="vuvRessource(this.id); "
     onContextMenu="viewmenu(event,calRessMenuUrl+this.id); return false">
 &nbsp;<img id="im%RID%" height="15px" align="absbottom" src="%RICON%">&nbsp;%RDESCR%&nbsp;<img id="imro%RID%" height="10px" align="absbottom" title="[TEXT:read only calendar]" src="[IMG:wm-readonly.gif]">
 </td>
