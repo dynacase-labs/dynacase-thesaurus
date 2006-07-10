@@ -755,10 +755,10 @@ function modifyEvent(pid) {
 }
 
 function fastEditSave(ev) {
-  fcalSetOpacity(document.getElementById('fastedit'), 50);
+  globalcursor('progress');
+  eltId('fastedit').style.display = 'none';
   posM.x = getX(ev);
   posM.y = getY(ev);
-  showWaitServerMessage(ev, 'Saving event.');
   var feTitle = eltId('fe_title').value;
   var loc = eltId('fe_location').value;
   var note = eltId('fe_note').value;
@@ -789,7 +789,6 @@ function fastEditSave(ev) {
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
   rq.open("POST", urlsend, false);
   rq.send('');
-  hideWaitServerMessage();
   fastEditCancel(true);
   if (inCalendar) {
     fcalReloadEvents();
@@ -797,6 +796,7 @@ function fastEditSave(ev) {
     document.location.reload(false);
   }
   return;
+  unglobalcursor();
 } 
 
 function fcalInsertTmpEvent(ev, tEv) {
@@ -866,16 +866,12 @@ function fcalSetEventState(event,idp,state,reloadcal) {
   if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
 
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
-  var res = fcalSendRequest(url, false, false, true);
-  if (res.status!=200) {
-    alert('Server error on request ['+url+']\n - Status='+res.status+'\n - Return '+res.content); 
+  fcalSendRequest(url, false, false, true);
+  if (inCalendar) {  
+    fcalReloadEvents();
   } else {
-    if (inCalendar) {  
-      fcalReloadEvents();
-    } else {
-      document.location.reload(false);
-      if (reloadcal) parent.wgcal_calendar.document.location.reload(false);
-    }
+    document.location.reload(false);
+    if (reloadcal) parent.wgcal_calendar.document.location.reload(false);
   }
   return true; 
 }

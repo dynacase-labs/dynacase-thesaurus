@@ -2,7 +2,7 @@
 <script type="text/javascript"> 
 [JS:CODE]
 </script>[BLOCK MENU]
-<div  style="z-index:3000" id="[menu]" class="wgcalpopup">
+<div  style="z-index:3000" id="[menu]" class="popup">
 [MITEM]</div>[ENDBLOCK MENU]
 
 <table id="wgcalmenu" class="noprinthide" cellspacing="0" style="padding:0px; width:100%;position:fixed;z-index:500; border-style:none none solid none; border-width:1px; border-color:[COLOR_A3]">

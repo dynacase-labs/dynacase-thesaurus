@@ -11,7 +11,7 @@
 <tr class="wMonthTextDayTitle">
 <td width="100%"  align="left" colspan="2" >
 <div style="font-size:120%; text-align:left;">[month] ([TEXT:week] [week])</div>
-<div style="text-align:right;">[IFNOT mforuser][owner][ENDIF mforuser]
+<div class="noprintremove" style="text-align:right;">[IFNOT mforuser][owner][ENDIF mforuser]
 [IF mforuser]<select onchange="document.getElementById('ress').value = this.options[this.selectedIndex].value; document.getElementById('showWeek').submit();">[BLOCK foruser]<option value="[fid]" [selected]>[name][ENDBLOCK foruser]</select>
 [ENDIF mforuser]</div></td>
 </tr>

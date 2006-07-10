@@ -344,7 +344,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   position: relative;
   display: none; 
   cursor: default;
-  font-size: [SIZE_X-SMALL];
+  font-size: [SIZE_SMALL];
   border:1px solid white;
 }
 
@@ -360,6 +360,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 /* Header part -- contains navigation buttons and day names. */
 
 .calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
+  font-size: [SIZE_SMALL];
   text-align: center;
   padding: 1px;
   border : 1px outset [COLOR_A8];
@@ -370,6 +371,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .calendar thead .title { /* This holds the current "month, year" */
+  font-size: [SIZE_SMALL];
   font-weight: bold;
   padding: 1px;
   border: 1px solid #000;
@@ -413,6 +415,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 /* The body part -- contains all the days in month. */
 
 .calendar tbody .day { /* Cells <TD> containing month days dates */
+  font-size: [SIZE_SMALL];
   width: 0em;
   text-align: right;
   padding: 2px 4px 2px 2px;
@@ -533,6 +536,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .calendar .combo .label,
 .calendar .combo .label-IEfix {
+  font-size: [SIZE_SMALL];
   text-align: center;
   padding: 1px;
 }
@@ -617,66 +621,10 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   cursor:pointer;
 }
 
-.wgcalpopup {
-  color:#000000;
-  background-color: [COLOR_A7];  
-  border-color: [COLOR_A0];
-  border-style: outset;
-  border-width: 1px; 
-  margin: 1px;
-  position: absolute;
-  visibility: hidden;
-  text-decoration: none;
-  font-size: [SIZE_SMALL];
-  z-index:10;
-}
-
-.wgcalpopup a.menuItem, 
-.wgcalpopup a:visited.menuItem, 
-.wgcalpopup a.menuItemCtrl, 
-.wgcalpopup a:visited.menuItemCtrl {
-  color:#000000;
-  cursor: pointer;
-  display: block;
-  font-size: [SIZE_SMALL];
-  padding: 2px 12px 2px 8px;
-  text-decoration: none;
-  font-weight: normal;
-}
-
-.wgcalpopup a.menuItemInvisible { 
-  display: none;
-  cursor: default;
-}
-
-.wgcalpopup a.menuItemDisabled, 
-.wgcalpopup a.menuItemCtrlDisabled { 
-  color: [COLOR_C0];
-  cursor: default;
-  display: block;
-  font-size: [SIZE_SMALL];
-  font-style: italic;
-  padding: 2px 12px 2px 8px;
-  text-decoration: none;
-}
-.wgcalpopup a.menuItem:hover,
-.wgcalpopup a.menuItemCtrl:hover,
-.wgcalpopup a.menuItemDisabled:hover,
-.wgcalpopup a.menuItemCtrlDisabled:hover {
-  background-color:[COLOR_A9];
-  text-decoration: none;
-}
-
-.wgcalpopup a.separator,
-.wgcalpopup a.separator:hover {
-  border-bottom : 1px dotted [COLOR_A0];
-  display: block;
-}
-
 .popup {
-  background-color: [COLOR_A9];  
-  border-color: [COLOR_A0];
-  border-style: outset;
+  background-color: [COLOR_A5];  
+  border-color: [COLOR_A5];
+  border-style: none none solid solid;
   border-width: 0px; 
   padding:1px;
   text-decoration: none;
@@ -693,9 +641,9 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   padding: 2px 12px 2px 8px;
   text-decoration: none;
   font-weight: normal;
-  border-color: [COLOR_A2];
+  border-color: [COLOR_A9];
   border-width: 1px;
-  border-style: outset;
+  border-style: solid;
 }
 
 .popup img {
@@ -710,20 +658,20 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   font-style: italic;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
-  border: 1px outset [COLOR_A2];
 }
 .popup a.menuItem:hover,
 .popup a.menuItemCtrl:hover,
 .popup a.menuItemDisabled:hover,
 .popup a.menuItemCtrlDisabled:hover {
-  color: [COLOR_A9];
+  color: [COLOR_A9]; 
   background-color: white;
   text-decoration: none;
-  border: 1px inset [COLOR_A0];
+  border: 1px inset [COLOR_A6];
 }
 
 .popup a.separator,
 .popup a.separator:hover {
-  background-color : [COLOR_A0] ;
-  border: 1px outset [COLOR_A6];
+  border-color: [COLOR_A6];
+  border-style: none none solid none;
+  border-width:1px;
 }

@@ -39,52 +39,6 @@ function hideWaitServerMessage() {
 
 var  CGCURSOR='auto'; // current global cursor
 
-function globalcursor(c) {
-  if (c==CGCURSOR) return;
-  if (!document.styleSheets) return;
-  unglobalcursor();
-  document.body.style.cursor=c;
-  if (document.styleSheets[1].addRule) {
-    document.styleSheets[1].addRule("*","cursor:"+c+" ! important",0);
-  } else if (document.styleSheets[1].insertRule) {
-    document.styleSheets[1].insertRule("*{cursor:"+c+" ! important;}", 0);
-  }
-  CGCURSOR=c;
-}
-function unglobalcursor() {
-  if (!document.styleSheets) return;
-  var theRules;
-  var theSheet;
-  var r0;
-  var s='';
-  
-  document.body.style.cursor='auto';
-  
-  theSheet=document.styleSheets[1];
-  if (document.styleSheets[1].cssRules)
-    theRules = document.styleSheets[1].cssRules;
-  else if (document.styleSheets[1].rules)
-    theRules = document.styleSheets[1].rules;
-  else return;
-  
-  r0=theRules[0].selectorText;
-  /* for (var i=0; i<theSheet.rules.length; i++) {
-     s=s+'\n'+theSheet.rules[i].selectorText;
-     s=s+'-'+theSheet.rules[i].style;
-     }*/
-  //  alert(s);
-  
-  if ((r0 == '*')||(r0 == '')) {
-    
-    if (document.styleSheets[1].removeRule) {
-      document.styleSheets[1].removeRule(0);
-    } else if (document.styleSheets[1].deleteRule) {
-      document.styleSheets[1].deleteRule(0);
-    }
-  }
-  CGCURSOR='auto';;
-} 
-
 
 function  fcalGetJSDoc(ev, id) {
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;

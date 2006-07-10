@@ -1,5 +1,5 @@
 <!-- POPUP DIVISION -->
-<div  style="z-index:2000; display:none" id="calpopup" class="wgcalpopup">
+<div  style="z-index:2000; display:none" id="calpopup" class="popup">
 [BLOCK POPUPITEMS]
 <a href="#" id="[item]" onclick="activate(this,'[CORE_STANDURL]&app=[app]&action=[action]&ev='+EvSelected+'[params]','');
 closeMenu('calpopup')">[label]</a>[ENDBLOCK POPUPITEMS]
