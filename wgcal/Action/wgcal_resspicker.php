@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_resspicker.php,v 1.19 2006/05/15 14:35:19 marc Exp $
+ * @version $Id: wgcal_resspicker.php,v 1.20 2006/07/11 09:59:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -49,11 +49,14 @@ function wgcal_resspicker(&$action) {
   $rclass = wGetUsedFamilies();
   $i = 0;
   foreach ($rclass as $k => $v) {
-    $t[$i]["FAMID"] = $v["id"];
-    $t[$i]["FAMICON"] = $v["icon"];
-    $t[$i]["FAMTITLE"] = addslashes(ucwords(strtolower($v["title"])));
-    $t[$i]["FAMSEL"] = "false";
-    $i++;
+    if  ($wre==1 && !$v["inMeeting"]) continue;
+    else {
+      $t[$i]["FAMID"] = $v["id"];
+      $t[$i]["FAMICON"] = $v["icon"];
+      $t[$i]["FAMTITLE"] = addslashes(ucwords(strtolower($v["title"])));
+      $t[$i]["FAMSEL"] = "false";
+      $i++;
+    }
   }
   $action->lay->SetBlockData("FAMRESS", $t);
   $action->lay->SetBlockData("FAMRESSJS", $t);

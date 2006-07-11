@@ -1,10 +1,10 @@
 <html>
 <head>
-  <title>[TEXT:Cars and rooms management]</title>
+  <title>[TEXT:Ressource management :  Cars, Rooms & Others]</title>
 </head>
-<frameset border="3"   name="wgcal_roomscars" id="wgcal_roomscars" frameborder="yes" resize framespacing="0" rows="50%,*">
+<frameset border="3"   name="wgcal_roomscars" id="wgcal_roomscars" frameborder="yes" resize framespacing="0" rows="33%,33%,*">
     <frame id="wgcal_rooms" name="wgcal_rooms" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=ROOMS" scrolling="needed">
-[IF HasF2]
     <frame id="wgcal_cars" name="wgcal_cars" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=VEHICLE" scrolling="needed">
+    <frame id="wgcal_others" name="wgcal_otherss" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_MAIN&dfam=THINGS" scrolling="needed">
   </frameset>
 </html>

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-05 14:59+0200\n"
+"POT-Creation-Date: 2006-07-11 11:26+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -16,9 +16,6 @@ msgstr "Pas d'heure"
 msgid "event deletion information message"
 msgstr "Le rendez-vous suivant a été supprimé."
 
-msgid "rendez-vous deleted"
-msgstr "Rendez-vous supprimé."
-
 msgid "delete repeat occurrence for "
 msgstr "Suppression de l'occurrence du "
 
@@ -27,9 +24,6 @@ msgstr "L'heure du rendez-vous ci-dessous a été modifiée (ou sa répétition)."
 
 msgid "event modification time"
 msgstr "Modification de l'heure / de la répétition"
-
-msgid "rendez-vous occurrence deleted"
-msgstr "Occurrence du rendez-vous supprimée."
 
 msgid "all the day _ short"
 msgstr "La journée"
@@ -66,9 +60,6 @@ msgstr "Les %s premiers..."
 msgid "state set to "
 msgstr "Rendez-vous "
 
-msgid "rendez-vous acceptation status changed"
-msgstr "Status d'acceptation du rendez-vous modifié."
-
 msgid "main calendar"
 msgstr "Calendrier public"
 
@@ -99,9 +90,8 @@ msgstr "référence du rendez-vous non fournie"
 msgid "unknow rv logical reference"
 msgstr "rv référence logique inconnue"
 
-#, fuzzy, c-format
 msgid "rv cannot see unknow reference %s"
-msgstr "Référence de rendez-vous inconnu"
+msgstr "Référence de rendez-vous inconnu : %s"
 
 msgid "document reference no set"
 msgstr "Référence au document non fournie"
@@ -109,7 +99,6 @@ msgstr "Référence au document non fournie"
 msgid "unknow logical reference"
 msgstr "Référence logique inconnue"
 
-#, c-format
 msgid "cannot see unknow reference %s"
 msgstr "Référence %s inconnue"
 
@@ -215,7 +204,6 @@ msgstr "recherche d'évènement"
 msgid "advanced search event"
 msgstr "Recherche de ressources avancée"
 
-#, fuzzy
 msgid "contact search"
 msgstr "Recherche rapide carnet d'adresse"
 
@@ -291,6 +279,9 @@ msgstr "Vue agenda"
 msgid "calendar view"
 msgstr "Vue agenda"
 
+msgid "get event js format"
+msgstr "get event js format"
+
 msgid "dyn calendar view"
 msgstr "Vue agenda"
 
@@ -300,9 +291,8 @@ msgstr "Recherche d'évènement"
 msgid "month text"
 msgstr "Vue mensuelle texte"
 
-#, fuzzy
 msgid "week text"
-msgstr "Une semaine"
+msgstr "semaine textuelle"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
@@ -559,7 +549,7 @@ msgid "m_txt_choosecategories"
 msgstr "Edition des catégories"
 
 msgid "m_txt_roomscars"
-msgstr "Véhicules & Salles"
+msgstr "Véhicules, Salles, ..."
 
 msgid "m_txt_choosegroups"
 msgstr "Choix des groupes"
@@ -810,9 +800,6 @@ msgstr "Ajouter mes contacts préférés"
 msgid "use my prefered ressource"
 msgstr "mes contacts préférés"
 
-msgid "add my prefered ressource"
-msgstr "Ajouter mes contacts préférés"
-
 msgid "add displayed ressources"
 msgstr "Ajouter les ressources affichées"
 
@@ -830,12 +817,6 @@ msgstr "Cochez la case pour convoquer les participants..."
 
 msgid "convocation..."
 msgstr "Convocation"
-
-msgid "I participe to this meeting"
-msgstr "je participe à la réunion"
-
-msgid "I participe..."
-msgstr "Je participe..."
 
 msgid "mail to external contact"
 msgstr "Cochez la case pour expédier un mail aux participants extérieurs"
@@ -923,6 +904,12 @@ msgstr "Note"
 
 msgid "Category"
 msgstr "Catégorie"
+
+msgid "agenda, error getting events"
+msgstr ""
+
+msgid "agenda, error service fcalGetAllEvents"
+msgstr ""
 
 msgid "my todos..."
 msgstr "Mes tâches..."
@@ -1029,8 +1016,8 @@ msgstr "Ressources trouvées"
 msgid "read only calendar"
 msgstr "Agenda en lecture seule"
 
-msgid "Cars and rooms management"
-msgstr "Véhicules et salles"
+msgid "Ressource management :  Cars, Rooms & Others"
+msgstr "Ressources : véhicules, salles & autre"
 
 msgid "phone"
 msgstr "Téléphone"
@@ -1294,15 +1281,6 @@ msgstr "résultat limité à"
 msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
 
-msgid "general options"
-msgstr "Options générales"
-
-msgid "theme caracteristics"
-msgstr "Thème utilisé"
-
-msgid "fonts size"
-msgstr "Taille de la police"
-
 msgid "timeout before displaying popup"
 msgstr "Temporisation avec l'affichage"
 
@@ -1411,6 +1389,9 @@ msgstr "Position des popup fixe"
 msgid "general theme"
 msgstr "Thème"
 
+msgid "fonts size"
+msgstr "Taille de la police"
+
 msgid "start hour used for event setting"
 msgstr "Heure de début utilsée pour la saisie de RV"
 
@@ -1477,6 +1458,33 @@ msgstr "Familles utilisée dans l'agenda"
 
 msgid "use beta fonction"
 msgstr "Utilisation des fonctions en cours de test"
+
+#~ msgid "rendez-vous deleted"
+#~ msgstr "Rendez-vous supprimé."
+
+#~ msgid "rendez-vous occurrence deleted"
+#~ msgstr "Occurrence du rendez-vous supprimée."
+
+#~ msgid "rendez-vous acceptation status changed"
+#~ msgstr "Status d'acceptation du rendez-vous modifié."
+
+#~ msgid "add my prefered ressource"
+#~ msgstr "Ajouter mes contacts préférés"
+
+#~ msgid "I participe to this meeting"
+#~ msgstr "je participe à la réunion"
+
+#~ msgid "I participe..."
+#~ msgstr "Je participe..."
+
+#~ msgid "Cars and rooms management"
+#~ msgstr "Véhicules et salles"
+
+#~ msgid "general options"
+#~ msgstr "Options générales"
+
+#~ msgid "theme caracteristics"
+#~ msgstr "Thème utilisé"
 
 #~ msgid "rendez-vous saved"
 #~ msgstr "Rendez-vous sauvegardé."

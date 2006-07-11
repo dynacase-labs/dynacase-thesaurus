@@ -779,12 +779,14 @@ function RendezVousEdit() {
   $sfamr = $famr = array();
   $rf = wGetUsedFamilies();
   foreach ($rf as $k => $v) {
-    $famr[] = array( "fid" => $v["id"], 
-		     "ftitle" => addslashes(ucwords(strtolower($v["title"]))),
-		     "ficon" => $v["icon"],
-		     "fselect" => $v["isSelected"],
-		     "finter" => $v["isInteractive"]);
-    if ($v["isSelected"]) $sfamr[]["fid"] = $v["id"];
+    if ($v["inMeeting"]) {
+      $famr[] = array( "fid" => $v["id"], 
+		       "ftitle" => addslashes(ucwords(strtolower($v["title"]))),
+		       "ficon" => $v["icon"],
+		       "fselect" => $v["isSelected"],
+		       "finter" => $v["isInteractive"]);
+      if ($v["isSelected"]) $sfamr[]["fid"] = $v["id"];
+    }
   }
   $this->lay->setBlockData("FAMR", $famr);
   $this->lay->setBlockData("sFAMR", $sfamr);

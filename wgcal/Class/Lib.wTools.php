@@ -520,7 +520,8 @@ function wGetUsedFamilies() {
 			  "title" => getV($dt, "title"),
 			  "icon" => $doct->getIcon(getV($dt, "icon")),
 			  "isSelected" => ($suf[1]==1? true : false ),
-			  "isInteractive" => ($suf[2]==1? true : false ) );
+			  "isInteractive" => ($suf[2]==1? true : false ),
+			  "inMeeting" => ($suf[2]>=0? true : false ) );
     }
   }
   return $famused;

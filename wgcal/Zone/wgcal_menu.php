@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.32 2006/05/24 16:04:25 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.33 2006/07/11 09:59:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -220,13 +220,13 @@ function wgcal_menu(&$action) {
 						 "ico" => "wgcal_choosegroups.gif",
 						 "rig" => "WGCAL_HIDDEN"
 						 ),
-					   array( 
-						 "key" => "m_newtheme",
-						 "txt" => _("m_txt_newtheme"), 
-						 "ico" => "wm-newtheme.gif",
-						 "jsc" => "alert('".addslashes(_("not yet implemented"))."')",
-						 "rig" => "WGCAL_HIDDEN" 
-						 )
+// 					   array( 
+// 						 "key" => "m_newtheme",
+// 						 "txt" => _("m_txt_newtheme"), 
+// 						 "ico" => "wm-newtheme.gif",
+// 						 "jsc" => "alert('".addslashes(_("not yet implemented"))."')",
+// 						 "rig" => "WGCAL_HIDDEN" 
+// 						 )
 					   )
 			 )
 		  );

@@ -239,6 +239,18 @@ ATTR;VEHICLE_RESPONSABLEID;VEHICLE_AFFECTATION;Resp Id;N;N;docid;220;H;;;;::getT
 DEFAULT;VEHICLE_RESPONSABLEID;::userDocId();;;;;;;;;;;
 DEFAULT;VEHICLE_RESPONSABLE;::getTitle(VEHICLE_RESPONSABLEID);;;;;;;;;;;
 END;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+;;;;;;;;;;;;;
+// ;fromid;titre;id;class;name;;;;;;;;
+BEGIN;0;Ressources diverses;;;THINGS;;;;;;;;
+TYPE;C;;;;;;;;;;;;
+DFLDID;;;;;;;;;;;;;
+WID;;;;;;;;;;;;;
+ICON;things.gif;;;;;;;;;;;;
+TAG;R;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
+ATTR;THING_TITLE;;Libellé;Y;Y;text;100;W;Y;;;;
+ATTR;THING_DESCR;;Description;;Y;longtext;110;W;;;;;
 // ;fromid;titre;id;class;name;;;;;;;;
 BEGIN;DCALENDAR;Agenda;;;AGENDA;;;;;;;;
 TYPE;C;;;;;;;;;;;;
