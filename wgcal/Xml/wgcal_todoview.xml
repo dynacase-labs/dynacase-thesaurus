@@ -58,8 +58,8 @@
 <table cellspacing="0">
 [BLOCK TodoList]
 <tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td style="font-size:80%;">&rarr; [dateTodoL] </td>
-<td [IF warn]style="border-color:[colorTodo]; border-width:1px; border-style:none none solid none;"[ENDIF warn]>[textTodo]</td>
+<td style="border-width:1px; border-style:none none dotted none; border-color:[colorTodo]; font-size:80%;">&middot;&nbsp;[dateTodoL] </td>
+<td >[textTodo]</td>
 </tr>[ENDBLOCK TodoList]</table>
 [ENDIF Todos]
 [ENDIF lmode]

@@ -577,8 +577,10 @@ function fcalCreateEvent(ie,isclone) {
       });
     }      
     if (fcalEvents[ie].menu && fcalEvents[ie].menu!='') {
-      fcalAddEvent(nev, 'contextmenu', function foo(event) { fcalCancelEvDisplay(event, ie);
+      fcalAddEvent(nev, 'contextmenu', function foo(event) { globalcursor('progress');
+                                                             fcalCancelEvDisplay(event, ie);
                                                              fcalOpenMenuEvent(event, ie, nev);
+                                                             unglobalcursor();
                                                              return false; } );
     }
     if (fcalEvents[ie].edit) {
@@ -880,7 +882,13 @@ function fcalSetEventState(event,idp,state,reloadcal) {
 function fastEditOpenFullEdit(ev) {
   showWaitServerMessage(ev, 'Start full edition mode...');
   if (fastEditChangeAlert()) {
-    subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp);
+    var otime = new Date();
+    var tzd = otime.getTimezoneOffset()*60;
+    var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp;
+    var ts = parseInt(eltId('s_start').value) - tzd;
+    var te = parseInt(eltId('s_end').value) - tzd;
+    if (EventInEdition.idp<=0) url += "&ts="+ts+"&te="+te;
+    subwindow(400, 700, 'EditEvent', url);
     fastEditReset();
   }
   hideWaitServerMessage();
