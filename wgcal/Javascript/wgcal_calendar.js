@@ -607,12 +607,11 @@ function fcalCreateEvent(ie,isclone) {
       if (trgb[i]>15)  trgb[i]=trgb[i].toString(16);
       else trgb[i]='0'+trgb[i].toString(16);
     }
-    style.color = '#'+trgb.join('');
+    style.color = fcalEvents[ie].fgColor; //'#'+trgb.join('');
+//     alert(style.backgroundColor+'  :   '+style.color);
    
-
-//     style.color = fcalEvents[ie].fgColor;
     style.borderWidth = '3px';
-    style.borderStyle = 'solid';
+    style.borderStyle = 'solid'; 
     style.borderColor = fcalEvents[ie].topColor+' '+fcalEvents[ie].rightColor+' '+fcalEvents[ie].bottomColor+' '+fcalEvents[ie].leftColor;    
     style.display = 'block';
     style.position = 'absolute';

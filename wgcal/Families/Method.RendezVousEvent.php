@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.32 2006/05/22 09:47:46 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.33 2006/07/11 16:26:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -65,13 +65,14 @@ function getDisplayAttr() {
     $attrd["bottomColor"] = 
     $attrd["leftColor"] = 
     $attrd["topColor"] = $this->getDisplayColor();
+  $attrd["fgColor"] =  getCompColor($attrd["bgColor"]);
 
   if ($this->isDisplayable()) {
 
     if ($this->getValue( "evfc_iconlist")!='') {
       $icol = explode('|',$this->getValue( "evfc_iconlist"));
       foreach ($icol as $k => $v) if ($v!='') {
-	$ics = fcalGetIcon($v, false);
+	$ics = fcalGetIcon($v, false, $attrd["fgColor"] );
 	$icol[$k] = "'".$ics["src"]."'";
       }
       $attrd["icons"] = implode(',', $icol);

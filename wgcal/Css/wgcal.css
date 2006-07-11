@@ -1,6 +1,6 @@
 /* This is the default CSS for WGCal application, with theme [THEME] and fonts [FONTSZ] */
 
-*, body { background-image:none; background-color:[COLOR_WHITE]; color: #000000; padding:0px; margin:0px; }
+*, body { background-image:none; background-color:[COLOR_WHITE]; color: [COLOR_BLACK]; padding:0px; margin:0px; }
 
 *, span, div, tr, td { background-color:transparent; }
 td { empty-cells: show; }
@@ -349,7 +349,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .calendar table {
-  border-top: 1px solid #000;
+  border-top: 1px solid [COLOR_BLACK];
   border-right: 1px solid [COLOR_A8];
   border-bottom: 1px solid [COLOR_A8];
   border-left: 1px solid [COLOR_A8];
@@ -374,8 +374,8 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   font-size: [SIZE_SMALL];
   font-weight: bold;
   padding: 1px;
-  border: 1px solid #000;
-  color: #000000;
+  border: 1px solid [COLOR_BLACK];
+  color: [COLOR_BLACK];
   background-color: [COLOR_A9];
   text-align: center;
 }
@@ -387,7 +387,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .calendar thead .name { /* Cells <TD> containing the day names */
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid [COLOR_BLACK];
   padding: 2px;
   text-align: center;
   background-color: [COLOR_A9];
@@ -405,10 +405,10 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .calendar thead .active { /* Active (pressed) buttons in header */
   padding: 2px 0px 0px 2px;
-  border-top: 1px solid #000;
+  border-top: 1px solid [COLOR_BLACK];
   border-right: 1px solid [COLOR_A8];
   border-bottom: 1px solid [COLOR_A8];
-  border-left: 1px solid #000;
+  border-left: 1px solid [COLOR_BLACK];
   background-color: [COLOR_A8];
 }
 
@@ -429,7 +429,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .calendar table .wn {
   padding: 2px 3px 2px 2px;
-  border-right: 1px solid #000;
+  border-right: 1px solid [COLOR_BLACK];
   background-color: [COLOR_A8];
 }
 
@@ -444,20 +444,20 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 .calendar tbody td.hilite { /* Hove[COLOR_C0] cells <TD> */
   padding: 1px 3px 1px 1px;
   border: 1px solid;
-  border-color: #fff #000 #000 [COLOR_A0];
+  border-color: [COLOR_WHITE] [COLOR_BLACK] [COLOR_BLACK] [COLOR_A0];
 }
 
 .calendar tbody td.active { /* Active (pressed) cells <TD> */
   padding: 2px 2px 0px 2px;
   border: 1px solid;
-  border-color: #000 #fff #fff #000;
+  border-color: [COLOR_BLACK] [COLOR_WHITE] [COLOR_WHITE] [COLOR_BLACK];
   background-color: [COLOR_A0];
 }
 
 .calendar tbody td.selected { /* Cell showing selected date */
   padding: 2px 2px 0px 2px;
   border: 1px solid;
-  border-color: #000 #fff #fff #000;
+  border-color: [COLOR_BLACK] [COLOR_WHITE] [COLOR_WHITE] [COLOR_BLACK];
   background-color: [COLOR_A0];
   color: [COLOR_A9];
 }
@@ -474,7 +474,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   border: 1px outset [COLOR_A9];
 }
 
-.calendar tbody .disabled { color: #999; }
+.calendar tbody .disabled { color: [COLOR_A4]; }
 
 .calendar tbody .emptycell { /* Empty cells (the best is to hide them) */
   visibility: hidden;
@@ -502,8 +502,8 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .calendar tfoot .hilite { /* Hover style for buttons in footer */
   border-top: 1px solid [COLOR_A0];
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-right: 1px solid [COLOR_BLACK];
+  border-bottom: 1px solid [COLOR_BLACK];
   border-left: 1px solid [COLOR_A0];
   padding: 1px;
   background-color: [COLOR_A0];
@@ -511,10 +511,10 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 
 .calendar tfoot .active { /* Active (pressed) style for buttons in footer */
   padding: 2px 0px 0px 2px;
-  border-top: 1px solid #000;
+  border-top: 1px solid [COLOR_BLACK];
   border-right: 1px solid [COLOR_A0];
   border-bottom: 1px solid [COLOR_A0];
-  border-left: 1px solid #000;
+  border-left: 1px solid [COLOR_BLACK];
 }
 
 /* Combo boxes (menus that display months/years for direct selection) */
@@ -528,8 +528,8 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
   cursor: default;
   background-color: [COLOR_A9];
   border-top: 1px solid [COLOR_A0];
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border-right: 1px solid [COLOR_BLACK];
+  border-bottom: 1px solid [COLOR_BLACK];
   border-left: 1px solid [COLOR_A0];
   padding: 1px;
 }
@@ -548,10 +548,10 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 .calendar .combo .active {
   background-color: [COLOR_A0];
   padding: 0px;
-  border-top: 1px solid #000;
+  border-top: 1px solid [COLOR_BLACK];
   border-right: 1px solid [COLOR_A0];
   border-bottom: 1px solid [COLOR_A0];
-  border-left: 1px solid #000;
+  border-left: 1px solid [COLOR_BLACK];
 }
 
 .calendar .combo .hilite {
@@ -560,7 +560,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .calendar td.time {
-  border-top: 1px solid #000;
+  border-top: 1px solid [COLOR_BLACK];
   padding: 1px 0px;
   text-align: center;
   background-color: [COLOR_A0];
@@ -570,7 +570,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 .calendar td.time .minute,
 .calendar td.time .ampm {
   padding: 0px 3px 0px 4px;
-  border: 1px solid #889;
+  border: 1px solid [COLOR_A6];
   font-weight: bold;
   background-color: [COLOR_A0];
 }
@@ -585,7 +585,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 }
 
 .calendar td.time span.hilite {
-  border-color: #000;
+  border-color: [COLOR_BLACK];
   background-color: [COLOR_A0];
   color: [COLOR_A0];
 }
@@ -635,7 +635,7 @@ INPUT.Mandatory { -moz-border-radius:0; font-weight: bold;  border:2px inset [CO
 .popup a:visited.menuItem, 
 .popup a.menuItemCtrl, 
 .popup a:visited.menuItemCtrl {
-  color: #000000;
+  color: [COLOR_BLACK];
   cursor: pointer;
   font-size: [SIZE_SMALL];
   padding: 2px 12px 2px 8px;

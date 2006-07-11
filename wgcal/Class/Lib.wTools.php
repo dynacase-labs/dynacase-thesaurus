@@ -1,6 +1,7 @@
 <?php
 include_once("Class.Param.php");
 include_once("FDL/freedom_util.php");
+include_once("FDL/Lib.Color.php");
 include_once("FDL/Lib.Dir.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
@@ -577,38 +578,52 @@ function setThemeValue() {
 }
 
 
-function fcalGetIcon($key, $norm=true) {
+function getCompColor($col) {
+  $hsl=srgb2hsl($col);
+  $h = (1.0*$hsl[0]);
+  $s = ((100.0*$hsl[1]) + 50.0 ) % 100.0 ;
+  $l = ((100.0*$hsl[2]) + 50.0 ) % 100.0 ;
+  $fcol = HSL2RGB($h, $s/100, $l/100);
+//   global $action; $action->log->info("couleur $col (".$hsl[0].",".$hsl[1].",".$hsl[2].") transformée ==> $fcol ($h,$s,$l)");
+  return $fcol;
+}
+
+function fcalGetIcon($key, $norm=true, $color="#000000") {
+  
   global $action;
-  $ricons = array( "CONFID" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
-				      "iconmini" => $action->getImageUrl("fcal-small-confidential.gif"),
+  
+  $ricons = array( "CONFID" => array( "iconsrc" => "wm-confidential.gif", 
+				      "iconmini" => "fcal-small-confidential.gif",
 				      "icontitle" => _("icon text confidential event") ),
-		   "VIS_CONFI" => array( "iconsrc" => $action->getImageUrl("wm-confidential.gif"), 
-					 "iconmini" => $action->getImageUrl("fcal-small-confidential.gif"),
-					"icontitle" => _("icon text visibility confidendial") ),
-		   "VIS_PRIV" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
-					"iconmini" => $action->getImageUrl("fcal-small-private.gif"),
+		   "VIS_CONFI" => array( "iconsrc" => "wm-confidential.gif", 
+					 "iconmini" => "fcal-small-confidential.gif",
+					"icontitle" => _("icon text visibility confidendial")),
+		   "VIS_PRIV" => array( "iconsrc" => "wm-private.gif", 
+					"iconmini" => "fcal-small-private.gif",
 					"icontitle" => _("icon text visibility private") ),
-		   "CAL_PRIVATE" => array( "iconsrc" => $action->getImageUrl("wm-private.gif"), 
-					"iconmini" => $action->getImageUrl("fcal-small-privatecalendar.gif"),
+		   "CAL_PRIVATE" => array( "iconsrc" => "wm-private.gif", 
+					"iconmini" => "fcal-small-privatecalendar.gif",
 					"icontitle" => _("icon text visibility private") ),
-		   "VIS_GRP" => array( "iconsrc" => $action->getImageUrl("wm-privgroup.gif"), 
-				      "iconmini" => $action->getImageUrl("fcal-small-visgroup.gif"),
+		   "VIS_GRP" => array( "iconsrc" => "wm-privgroup.gif", 
+				      "iconmini" => "fcal-small-visgroup.gif",
 				       "icontitle" => _("icon text visibility group") ),
-		   "REPEAT" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
-				      "iconmini" => $action->getImageUrl("fcal-small-repeat.gif"),
+		   "REPEAT" => array( "iconsrc" => "wm-icorepeat.gif", 
+				      "iconmini" => "fcal-small-repeat.gif",
 				      "icontitle" => _("icon text repeat event") ),
-		   "REPEATEXCLUDE" => array( "iconsrc" => $action->getImageUrl("wm-icorepeat.gif"), 
-				      "iconmini" => $action->getImageUrl("fcal-small-repeatexclude.gif"),
+		   "REPEATEXCLUDE" => array( "iconsrc" => "wm-icorepeat.gif", 
+				      "iconmini" => "fcal-small-repeatexclude.gif",
 				      "icontitle" => _("icon text repeat event") ),
-		   "ALARM" => array( "iconsrc" => $action->getImageUrl("wm-alarm.gif"), 
-				     "iconmini" => $action->getImageUrl("fcal-small-alarm.gif"),
+		   "ALARM" => array( "iconsrc" => "wm-alarm.gif", 
+				     "iconmini" => "fcal-small-alarm.gif",
 				     "icontitle" => _("icon text alarm") ),
-		   "GROUP" => array( "iconsrc" => $action->getImageUrl("wm-attendees.gif"), 
-				     "iconmini" => $action->getImageUrl("fcal-small-attendees.gif"),
+		   "GROUP" => array( "iconsrc" => "wm-attendees.gif", 
+				     "iconmini" => "fcal-small-attendees.gif",
 				     "icontitle" => _("icon text with attendees") )
 		   ); 
   $ik = ($norm?"iconsrc":"iconmini");
-  return (array("code" => $key, "text" => $ricons[$key]["title"], "src" => $ricons[$key][$ik]));
+  return array( "code" => $key, 
+                "text" => $ricons[$key]["title"], 
+                "src"  => $action->getFilteredImageUrl($ricons[$key][$ik].":0,0,0|$color") );
 }
 
 function fcalLocalFrenchDateToUnixTs($fdate, $utc=false) {
