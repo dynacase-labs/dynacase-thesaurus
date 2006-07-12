@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_docgetvalues.php,v 1.4 2006/04/22 05:14:45 marc Exp $
+ * @version $Id: wgcal_docgetvalues.php,v 1.5 2006/07/12 09:58:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -71,7 +71,7 @@ function wgcal_docgetvalues(&$action) {
 	} else {
 	  $ts = "'".addslashes($doc->getValue($k))."'";
 	}
-	$ob[] = array( "attr" => $k, "value" => $ts);
+	$ob[] = array( "attr" => $k, "value" => str_replace("\n", '<br>', str_replace("\r\n", '<br>',$ts)));
       }
     }
   }

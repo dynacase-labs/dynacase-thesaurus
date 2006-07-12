@@ -1,11 +1,11 @@
-<table cellspacing="0" border="0">
+<table style="border:1px solid [COLOR_A6]; background-color:[COLOR_WHITE]; color:[COLOR_BLACK];" cellspacing="0">
 
 <tr>
   <td style="width:15px; border: 1px outset; background-color:[bgstate]" valign="top" rowspan="4">
   <img src="[iconevent]" style="border:0px; width:14px;">
   [BLOCK icons]<img style="width:14px; cursor:crosshair; border:0px" src="[src]">[ENDBLOCK icons]
   </td>
-  <td valign="top" colspan="2" style="background-color:[bgcolor]; color:[textcolor];font-size:120%; font-weight:bold; border: 1px outset;">[TITLE]</td>
+  <td colspan="2" style="padding:5px 5px 10px 5px; text-align:right; background-color:[COLOR_WHITE]; color:[COLOR_BLACK];font-size:120%; font-weight:bold; border: 1px outset;">[TITLE]</td>
 </tr>
 
 <tr><td style="vertical-align:top; border:0px; padding:3px"> 
@@ -13,8 +13,9 @@
   <tr><td nowrap style="padding-top:3px; overflow:hidden; font-weight:bold">[D_HL] [D_HR]</td></tr>
   <tr><td nowrap style="overflow:hidden; font-weight:bold">[D_LL] [D_LR]</td></tr>
   <tr><td nowrap style="padding-top:3px; display:[repeatdisplay];">[repeatinfos]</td></tr>
-  [IF s_repeatmoreinfos]<tr><td nowrap style="font-size:80%; display:[repeatdisplay];">[repeatmoreinfos]</td></tr>[ENDIF s_repeatmoreinfos]
-  <tr><td nowrap style="font-size:80%; display:[repeatdisplay];">[repeatuntil]</td></tr>
+  [IF s_repeatmoreinfos]
+  <tr><td nowrap style="font-size:80%; ">[repeatmoreinfos]</td></tr>
+  <tr><td nowrap style="font-size:80%; ">[repeatuntil]</td></tr>[ENDIF s_repeatmoreinfos]
   </table>
   </td>
 

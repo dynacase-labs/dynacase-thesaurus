@@ -231,10 +231,10 @@ function SetSelectedItem(from, to) {
      bg = document.getElementById('butevgroups');
      zg = document.getElementById('evgroups');
      if (to.value==2) {
-       bg.style.display = '';
+       bg.style.visibility = 'visible';
        SwitchZone('evgroups'); 
      } else {
-       bg.style.display = 'none';
+       bg.style.visibility = 'hidden';
        SwitchZone('evattendees');
      }
    }
@@ -437,9 +437,9 @@ function ViewElement(eCheck, eDisplay) {
   chk = document.getElementById(eCheck);
   zon = document.getElementById(eDisplay);
   if (chk.checked == true) {
-    zon.style.display = '';
+    zon.style.visibility = 'visible';
   } else {
-    zon.style.display = 'none';
+    zon.style.visibility = 'hidden';
   }
 }
 

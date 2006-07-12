@@ -1006,7 +1006,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
 			$runtildate, $freq, $recxlude = array())
 {
 
-  $this->lay->set("D_RUNTIL", ($runtil==0?"none":""));
+  $this->lay->set("D_RUNTIL", ($rmode>0?"visible":"hidden"));
   $this->lay->set("REPEAT_SELECTED", "");
   
   for ($i=0; $i<=4; $i++) $this->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
