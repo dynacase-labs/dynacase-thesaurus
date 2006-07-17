@@ -17,12 +17,34 @@ var $vcalendarview = "WGCAL:VCALENDAR:U";
 
 var $sifeview = "WGCAL:SIFEVENT:U";
 
+
+function getCurTime() {
+  $t = mktime();
+  $trs = getParam("TIMEREF_SYNC4J", 0);
+  $trf = getParam("TIMEREF_FREEDOM", 0);
+  return array( "sync4j" => $t - ($trf - $trs), "freedom" =>  $t);
+}
+
+function preDelete() {
+  $ctime = $this->getCurTime();
+  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
+  $this->modify(true, array("calev_s4j_mtime"));
+}
+
 function postModify() {
+  $ctime = $this->getCurTime();
+  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
+  $this->modify(true, array("calev_s4j_mtime"));
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
 }
 
 function postCreated() {
+  $ctime = $this->getCurTime();
+  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
+  $this->setValue(array("calev_s4j_ctime"), $ctime["sync4j"]);
+  $this->modify(true, array("calev_s4j_ctime", "calev_s4j_mtime"));
+  
   $err = $this->setSync4jGuid(); 
   if ($err!="") print_r2($err);
 }
