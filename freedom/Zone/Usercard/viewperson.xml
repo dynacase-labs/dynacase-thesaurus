@@ -50,7 +50,7 @@ addEvent(window,'load',viewemptycell);
 </thead>
 <tbody>
 <tr><td align="right" class="tdlabel">[L_US_MAIL] : </td><td align="left" class="tdvalue">[V_US_MAIL]</td>
-    <td align="right" class="tdlabel">[TEXT:socname] : </td><td align="left" class="tdvalue">[V_US_SOCIETY]</td>
+    <td align="right" class="tdlabel">[TEXT:socname] : </td><td  align="left" class="tdvalue"><img align="right"  style="width:80px;height:20px" src="[IMG:none.gif]">[V_US_SOCIETY]</td>
     </tr>
 <tr><td align="right" class="tdlabel">[TEXT:Phone] : </td><td align="left" class="tdvalue">[V_US_PPHONE]</td>
     <td align="right" class="tdlabel">[TEXT:Phone] : </td><td align="left" class="tdvalue">[socphone]</td>
