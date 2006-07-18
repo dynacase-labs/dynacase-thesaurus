@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.17 2006/07/10 15:02:44 marc Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.18 2006/07/18 13:51:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.17 2006/07/10 15:02:44 marc Exp $
+// $Id: wgcal_htmlhead.php,v 1.18 2006/07/18 13:51:52 eric Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -26,9 +26,9 @@ function wgcal_htmlhead(&$action) {
 
   $action->parent->AddCssRef("FDL:popup.css", true);
 
-   $csslay = new Layout("WGCAL/Layout/wgcal.css", $action);
-   $action->parent->AddCssCode($csslay->gen());
-//   $action->parent->AddCssRef("WGCAL:wgcal.css", true);
+  //   $csslay = new Layout("WGCAL/Layout/wgcal.css", $action);
+  // $action->parent->AddCssCode($csslay->gen());
+  $action->parent->AddCssRef("WGCAL:wgcal.css", true);
 
   $action->parent->AddJsRef("FDL/Layout/common.js");
   $action->parent->AddJsRef("WGCAL/Layout/freedomLog.js");
