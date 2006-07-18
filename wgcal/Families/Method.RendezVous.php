@@ -32,19 +32,22 @@ function preDelete() {
 }
 
 function postModify() {
-  $ctime = $this->getCurTime();
-  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
-  $this->modify(true, array("calev_s4j_mtime"));
+  if (!$this->fromS4j) {
+    $ctime = $this->getCurTime();
+    $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
+    $this->modify(true, array("calev_s4j_mtime"));
+  }
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
 }
 
 function postCreated() {
-  $ctime = $this->getCurTime();
-  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
-  $this->setValue(array("calev_s4j_ctime"), $ctime["sync4j"]);
-  $this->modify(true, array("calev_s4j_ctime", "calev_s4j_mtime"));
-  
+  if (!$this->fromS4j) {
+    $ctime = $this->getCurTime();
+    $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
+    $this->setValue(array("calev_s4j_ctime"), $ctime["sync4j"]);
+    $this->modify(true, array("calev_s4j_ctime", "calev_s4j_mtime"));
+  }
   $err = $this->setSync4jGuid(); 
   if ($err!="") print_r2($err);
 }
