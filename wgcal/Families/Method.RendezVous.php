@@ -22,20 +22,21 @@ function getCurTime() {
   $t = mktime();
   $trs = getParam("TIMEREF_SYNC4J", 0);
   $trf = getParam("TIMEREF_FREEDOM", 0);
-  return array( "sync4j" => $t - ($trf - $trs), "freedom" =>  $t);
+  $td = array( "sync4j" => gmdate("d/m/Y H:i:s", $t - ($trf - $trs))." UTC", "freedom" =>  gmdate("d/m/Y H:i:s", $t)." UTC");
+  return $td;
 }
 
 function preDelete() {
   $ctime = $this->getCurTime();
-  $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
-  $this->modify(true, array("calev_s4j_mtime"));
+  $this->setValue("calev_s4j_mtime", $ctime["sync4j"]);
+  $this->modify(true, array("calev_s4j_mtime"), true);
 }
 
 function postModify() {
   if (!$this->fromS4j) {
     $ctime = $this->getCurTime();
-    $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
-    $this->modify(true, array("calev_s4j_mtime"));
+    $this->setValue("calev_s4j_mtime", $ctime["sync4j"]);
+    $this->modify(true, array("calev_s4j_mtime"), true);
   }
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
@@ -44,9 +45,9 @@ function postModify() {
 function postCreated() {
   if (!$this->fromS4j) {
     $ctime = $this->getCurTime();
-    $this->setValue(array("calev_s4j_mtime"), $ctime["sync4j"]);
-    $this->setValue(array("calev_s4j_ctime"), $ctime["sync4j"]);
-    $this->modify(true, array("calev_s4j_ctime", "calev_s4j_mtime"));
+    $this->setValue("calev_s4j_mtime", $ctime["sync4j"]);
+    $this->setValue("calev_s4j_ctime", $ctime["sync4j"]);
+    $this->modify(true, array("calev_s4j_ctime", "calev_s4j_mtime"), true);
   }
   $err = $this->setSync4jGuid(); 
   if ($err!="") print_r2($err);
@@ -1784,7 +1785,7 @@ function setSync4jGuid($force=false) {
 
 function forceSync4jGuid() {
   $this->setSync4jGuid(true);
-  $this->modify(true, array("calev_s4j_guid"));
+  $this->modify(true, array("calev_s4j_guid"), true);
 }
 
 
