@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.323 2006/07/06 16:48:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.324 2006/07/18 06:48:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -71,17 +71,18 @@ Class Doc extends DocCtrl
 			   "classname",
 			   "state",
 			   "wid",
-			   "values",
-			   "attrids",
 			   "postitid",
 			   "cvid",
 			   "name",
 			   "dprofid",
 			   "atags",
 			   "prelid",
-			   "fldrels",
 			   "confidential",
 			   "ldapdn");
+
+  public $sup_fields= array("values",
+			   "attrids",
+			   "fldrels");
 
   /**
    * identificator of the document
@@ -1001,13 +1002,10 @@ final public function PostInsert()  {
    */
   final public function Affect($array,$more=false) { 
     if (is_array($array)) {
-      if ($more)  $this->ResetMoreValues();
-      $this->ofields = $this->fields;
-      $this->fields=array();
+      if ($more)  $this->ResetMoreValues();   
       unset($this->uperm); // force recompute privileges
       foreach($array as $k=>$v) {
 	if (!is_integer($k)) {
-	  if ($k != "uperm") $this->fields[]=$k; // special for uperm : it is a function
 	  $this->$k = $v;
 	}
       }
@@ -1403,8 +1401,7 @@ final public function PostInsert()  {
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       
-      reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+      foreach($this->attributes->attr as $k=>$v) {
 	if ((get_class($v) == "NormalAttribute") && (($v->type == "image") || 
 						     ($v->type == "file"))) $tsa[$v->id]=$v;
       }
@@ -1421,7 +1418,7 @@ final public function PostInsert()  {
       $tsa=array();
       
       reset($this->attributes->attr);
-      while (list($k,$v) = each($this->attributes->attr)) {
+      foreach($this->attributes->attr as $k=>$v) {
 	if (((get_class($v) == "MenuAttribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
 	  
 	
@@ -1439,8 +1436,7 @@ final public function PostInsert()  {
       $tsa=array();
       
       if ($this->usefor != 'D') { // not applicable for default document
-	reset($this->attributes->attr);
-	while (list($k,$v) = each($this->attributes->attr)) {
+	foreach($this->attributes->attr as $k=>$v) {
 	  if ((get_class($v) == "NormalAttribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
 	}
       }
@@ -1464,8 +1460,7 @@ final public function PostInsert()  {
       $tsa=array();
      
       if (isset($this->attributes->attr)) {
-	reset($this->attributes->attr);
-	while (list($k,$v) = each($this->attributes->attr)) {
+	foreach($this->attributes->attr as $k=>$v) {
 	  
 	  if (get_class($v) == "NormalAttribute")  {
 	    if (($v->type != "image") &&($v->type != "file"))  $tsa[$v->id]=$v;
@@ -3397,10 +3392,8 @@ final public function PostInsert()  {
 
   // view doc properties
   final public function viewprop($target="_self",$ulink=true,$abstract=false) {
-    while (list($k,$v) = each($this->fields)) {
-
+    foreach($this->fields as $k=>$v) {
       $this->lay->Set(strtoupper($v),$this->$v);
-
     }  
 
   }

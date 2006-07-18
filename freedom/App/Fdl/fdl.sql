@@ -384,6 +384,7 @@ declare
   msg text;
 begin
 
+
 if (TG_OP = ''INSERT'') or (TG_OP = ''UPDATE'')then
   theqtype=NEW.qtype;
   thedirid=NEW.dirid;
@@ -402,11 +403,8 @@ if (theqtype = ''S'') and (thedirid > 0) and (thechildid > 0) then
 	RAISE NOTICE ''document inconnu %'',thechildid;
   else 
   if (sfromid > 0)  then
-msg=''update doc'' || sfromid ||''  set fldrels=getreldocfld(initid) where initid='' || thechildid || '' and locked != -1'';
-
-allfld=getreldocfld(thechildid);
- RAISE NOTICE ''coucou reldocfld %'',allfld;
- RAISE NOTICE ''coucou %'',msg;
+--msg=''update doc'' || sfromid ||''  set fldrels=getreldocfld(initid) where initid='' || thechildid || '' and locked != -1'';
+-- RAISE NOTICE ''coucou %'',msg;
   EXECUTE ''update doc'' || sfromid ||''  set fldrels=getreldocfld(initid) where initid='' || thechildid || '' and locked != -1'' ;
  
   end if;
