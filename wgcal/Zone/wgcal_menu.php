@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.33 2006/07/11 09:59:02 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.34 2006/07/18 13:41:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -275,5 +275,4 @@ function wgcal_menu(&$action) {
   $action->lay->set("PasIE", ( $action->Read("navigator","")!="EXPLORER" ? true : false )); 
 }
 
-?>      
-	    
+?>
