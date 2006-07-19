@@ -36,14 +36,14 @@ function wgcal_seteventstate(&$action) {
     
     if ($found) {
       $event->disableEditControl();
-      $event->setValue("CALEV_ATTSTATE", $att_state); 
+      $event->setValue("calev_attstate", $att_state); 
       $err = $event->Modify();
       if ($err!="") {
 	$action->lay->set("status", -1);
 	$action->lay->set("statustext", "Freedom internal error doc->modify(): $err");
 	return;
       } else {
-	$err = $event->PostModify();
+	$err = $event->PostModify(false);
 	if ($err!="") {
 	  $action->lay->set("status", -1);
 	  $action->lay->set("statustext", "Freedom internal error doc->PostModify(): $err");

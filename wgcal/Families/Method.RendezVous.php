@@ -32,8 +32,8 @@ function preDelete() {
   $this->modify(true, array("calev_s4j_mtime"), true);
 }
 
-function postModify() {
-  if (!$this->fromS4j) {
+function postModify($settime=true) {
+  if (!$this->fromS4j && $settime) {
     $ctime = $this->getCurTime();
     $this->setValue("calev_s4j_mtime", $ctime["sync4j"]);
     $this->modify(true, array("calev_s4j_mtime"), true);
@@ -1785,7 +1785,6 @@ function setSync4jGuid($force=false) {
 
 function forceSync4jGuid() {
   $this->setSync4jGuid(true);
-  $this->modify(true, array("calev_s4j_guid"), true);
 }
 
 
@@ -2091,7 +2090,25 @@ function rvDiff( $old, $new) {
   return $result;
 }
   
+function computeCMTime() {
+  $ctime = $this->getValue("calev_s4j_ctime");
+  $mtime = $this->getValue("calev_s4j_mtime");
+  $revdate = strftime("%d/%m/%Y %H:%M:%S", $this->revdate);
+  if ($ctime=="" || $mtime=="") {
+    $ctime = $this->cdate;
+    $mtime = $revdate;
+    $this->setValue("calev_s4j_ctime", $ctime);
+    $this->setValue("calev_s4j_mtime", $mtime);
+    echo "           * calev_s4j_ctime=[$ctime] calev_s4j_mtime=[$mtime]";
+  } else {
+    echo "           * dates already set";
+  }
+  echo "\n";
+  return;
+}
+
 function migr_2_1() {
+  $this->computeCMTime();
   $this->forceSync4jGuid();
   $this->setEvent();
 }
