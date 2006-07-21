@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfam.php,v 1.20 2006/04/20 07:01:48 eric Exp $
+ * @version $Id: popupfam.php,v 1.21 2006/07/21 15:34:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,8 +38,6 @@ function popupfam(&$action,&$tsubmenu) {
 
   // -------------------- Menu menu ------------------
   $lmenu = $doc->GetMenuAttributes();
-  if (! $lmenu) return;
-
   $tmenu = array();
   $km=0;
 
@@ -105,6 +103,7 @@ function popupfam(&$action,&$tsubmenu) {
       $tlink[$k]["control"]=$control;
       $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
       $tlink[$k]["visibility"]=MENU_ACTIVE;
+       if ($v->precond != "") $tlink[$k]["visibility"]=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
       
       $tmenu[$km++] = $v->id;
       popupAddItem('popupcard',  $v->id); 

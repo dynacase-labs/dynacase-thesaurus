@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.59 2006/02/14 17:03:41 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.60 2006/07/21 15:30:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -121,7 +121,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 					     "order"=>intval($v->ordered),
 					     "options"=>str_replace("\"","\\\"",$v->options),
 					     "wapplication"=>$v->phpfile,
-					     "waction"=>$v->phpfunc);
+					     "waction"=>$v->phpfunc,
+					     "precond"=>$v->phpconstraint);
 	break;
 	
       default: // normal

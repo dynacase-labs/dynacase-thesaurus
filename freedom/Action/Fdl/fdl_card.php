@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.15 2005/10/07 14:59:57 eric Exp $
+ * @version $Id: fdl_card.php,v 1.16 2006/07/21 15:30:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -73,12 +73,16 @@ function fdl_card(&$action) {
     $listattr = $doc->GetActionAttributes();
     $taction=array();
     foreach ($listattr as $k => $v) {
-      if ($v->mvisibility != "H") {
+      if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
 	if ($v->getOption("submenu")=="") {
-	  $taction[$k]=array("wadesc"=>$v->labelText,
-			     "walabel"=>ucfirst($v->labelText),
-			     "wtarget"=>$v->id,
-			     "wlink"=>$v->getLink($doc->latestId()));
+	  $mvis=MENU_ACTIVE;
+	  if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
+	  if ($mvis == MENU_ACTIVE) {
+	    $taction[$k]=array("wadesc"=>$v->getOption("llabel"),
+			       "walabel"=>ucfirst($v->labelText),
+			       "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
+			       "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
+	  }
 	}
       }
     }

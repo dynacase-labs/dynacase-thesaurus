@@ -10,16 +10,13 @@ Class ADoc[docid] extends [AParent] {
       [AParent]::__construct();
 
      [BLOCK AATTR]
-     $this->attr["[attrid]"]=new ActionAttribute("[attrid]", "[docid]","[label]",[order],"[visibility]","[wapplication]","[waction]","[options]");
-    
+     $this->attr["[attrid]"]=new ActionAttribute("[attrid]", "[docid]","[label]",[order],"[visibility]","[wapplication]","[waction]","[precond]","[options]");    
      [ENDBLOCK AATTR]
      [BLOCK MATTR]
-     $this->attr["[attrid]"]=new MenuAttribute("[attrid]", "[docid]","[label]",[order],"[link]","[visibility]","[precond]","[options]");
-    
+     $this->attr["[attrid]"]=new MenuAttribute("[attrid]", "[docid]","[label]",[order],"[link]","[visibility]","[precond]","[options]");    
      [ENDBLOCK MATTR]
      [BLOCK FATTR]
      $this->attr["[attrid]"]=new FieldSetAttribute("[attrid]", "[docid]","[label]","[visibility]","[usefor]","[type]",$this->attr["[frame]"]);
-
      [ENDBLOCK FATTR]
      [BLOCK NATTR]
      $this->attr["[attrid]"]=new NormalAttribute("[attrid]", "[docid]","[label]","[type]","[format]",[repeat],[order],"[link]",
