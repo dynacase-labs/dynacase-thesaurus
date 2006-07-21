@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.51 2006/06/29 14:54:05 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.52 2006/07/21 07:20:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -93,6 +93,8 @@ Class Dir extends PDir
       global $action;
       $action->parent->param->Set("FREEDOM_IDBASKET",$basid,PARAM_USER.$this->userid,
 				  $action->parent->GetIdFromName("FREEDOM"));
+      $action->parent->session->close();
+
     }
       
     return $home;
