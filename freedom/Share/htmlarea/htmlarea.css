@@ -38,7 +38,7 @@
 
 .htmlarea .toolbar .buttonDisabled img {
   filter: alpha(opacity = 25);
-  -moz-opacity: 25%;
+  -moz-opacity: 0.25;
 }
 
 .htmlarea .toolbar .separator {
@@ -55,4 +55,3 @@
 
 .htmlarea .toolbar select { font: 11px Tahoma,Verdana,sans-serif; }
 
-select, select:hover, select:active { background: FieldFace; color: ButtonText; }
