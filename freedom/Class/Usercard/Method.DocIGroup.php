@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.31 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.32 2006/07/21 07:28:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -164,7 +164,6 @@ function specPostInsert() {
  * @return string error message 
  */
 function postInsertDoc($docid,$multiple) {
-
   $err="";
   if ($multiple == false) {
     $gid = $this->getValue("US_WHATID");
@@ -179,10 +178,8 @@ function postInsertDoc($docid,$multiple) {
 	if ($err=="") {
 	  $du->RefreshDocUser();
 	  $this->RefreshGroup();
-	}
-	
-      }
-      
+	}	
+      }      
     }    
   }
   return $err;
@@ -232,10 +229,8 @@ function postUnlinkDoc($docid) {
 	if ($err=="") {
 	  $du->RefreshDocUser();
 	  $this->RefreshGroup();
-	}
-	
-      }
-      
+	}	
+      }      
   }    
   return $err;
 }
@@ -273,8 +268,9 @@ function insertGroups() {
   return $err;
 }
 /**
- * (re)insert members of the group in folder from USER database
+ * insert members in a group in folder
  * it does not modify anakeen database (use only when anakeen database if updated)
+ * must be use after a group add in anakeen database (use only for optimization in ::setGroups
  * 
  * @param int $docid user doc parameter
  * @return string error message, if no error empty string
@@ -287,8 +283,9 @@ function insertMember($docid) {
   return $err;
 }
 /**
- * suppress members of the group in folder from USER database
+ * suppress members of the group in folder
  * it does not modify anakeen database (use only when anakeen database if updated)
+ * must be use after a group add in anakeen database (use only for optimization in ::setGroups
  * 
  * @param int $docid user doc parameter
  * @return string error message, if no error empty string

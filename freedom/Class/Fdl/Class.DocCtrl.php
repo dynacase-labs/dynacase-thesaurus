@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.39 2006/06/23 15:43:04 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.40 2006/07/21 07:28:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -247,12 +247,8 @@ Class DocCtrl extends DocLDAP {
 	    //print "<BR>$uid : ".$this->id."/".$perm->upacl;
 	    if ($perm -> isAffected()) $err=$perm ->modify();
 	    else $err=$perm->Add();
-
-
 	}
-      }
- 
-      
+      }      
     }
   }
 

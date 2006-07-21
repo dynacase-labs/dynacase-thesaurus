@@ -50,7 +50,7 @@ addEvent(window,'load',viewemptycell);
 </thead>
 <tbody>
 <tr><td align="right" class="tdlabel">[L_US_MAIL] : </td><td align="left" class="tdvalue">[V_US_MAIL]</td>
-    <td align="right" class="tdlabel">[TEXT:socname] : </td><td  align="left" class="tdvalue"><img align="right"  style="width:80px;height:20px" src="[IMG:none.gif]">[V_US_SOCIETY]</td>
+    <td align="right" class="tdlabel">[TEXT:socname] : </td><td  align="left" class="tdvalue"><img align="right"  style="width:80px;height:20px" src="[IMG:none.gif]">[IF S_US_IDSOCIETY]<a href="[CORE_STANDURL]app=FDL&action=FDL_CARD&zone=USERCARD:FADDBOOKSOC_CARD:U&id=[US_IDSOCIETY]">[US_SOCIETY]</a>[ENDIF S_US_IDSOCIETY][IFNOT S_US_IDSOCIETY][V_US_SOCIETY][ENDIF S_US_IDSOCIETY]</td>
     </tr>
 <tr><td align="right" class="tdlabel">[TEXT:Phone] : </td><td align="left" class="tdvalue">[V_US_PPHONE]</td>
     <td align="right" class="tdlabel">[TEXT:Phone] : </td><td align="left" class="tdvalue">[socphone]</td>
