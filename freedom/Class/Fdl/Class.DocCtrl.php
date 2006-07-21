@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.40 2006/07/21 07:28:28 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.41 2006/07/21 15:34:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -532,6 +532,38 @@ public function isValidLink($title, $docid){
     $err= $this->canEdit();
 
     if ($err == "") return MENU_ACTIVE;
+    return MENU_INVISIBLE;
+  }
+
+  /**
+   * return MENU_ACTIVE if user can view or modify access in a profil document
+   * @param string $acl acl name
+   * @return int
+   */
+  public function controlAclAccess($acl) {
+    if ($this->profid != $this->id) return MENU_INVISIBLE;
+    $err= $this->control($acl);
+
+    if ($err == "") return MENU_ACTIVE;
+    return MENU_INVISIBLE;
+  }
+
+  
+  /**
+   * return MENU_ACTIVE if user can view or modify access in a profil document
+   * @param string $acl acl name
+   * @return int
+   */
+  public function profilIsActivate($yes=true) {
+    $err=$this->control('modifyacl');
+    if ($err != "")  return MENU_INVISIBLE;
+    $err=$this->control('edit');
+    if ($err != "")  return MENU_INVISIBLE;
+    
+    $r=($this->profid==$this->id);
+    if ($yes == 'false') $r= !$r;
+
+    if ($r) return MENU_ACTIVE;
     return MENU_INVISIBLE;
   }
 }
