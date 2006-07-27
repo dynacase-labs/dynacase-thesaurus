@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.104 2006/06/16 15:35:40 eric Exp $
+ * @version $Id: editutil.php,v 1.105 2006/07/27 16:13:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -823,6 +823,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
     $topt[$k]["optid"] = "$idx$ki";
     $topt[$k]["fvalue"]=$v;
     $topt[$k]["kvalue"]=$k;
+    $topt[$k]["ki"]=$ki;
     $ki++;
   }
   $lay->setBlockData("OPTIONS",$topt);

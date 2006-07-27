@@ -745,6 +745,23 @@ function changeCheckBoolClasses(th,name) {
 
   }
 }
+
+// change checkbox value for boolean style
+function changeCheckBoxCheck(oboolid,idx,th) {
+  obool=document.getElementById(oboolid);
+  obool.checked=(idx!='0');
+  var i=0;
+  var p=obool.previousSibling;
+  while (p && (i<2)) {
+    if (p.name == th.name) {	
+      if (p.id != th.id) p.checked=false;
+      i++;
+    }
+    p=p.previousSibling;
+  }
+
+}
+
 function addinlist(sel,value) {
 
   if (isNetscape) pos=null;
