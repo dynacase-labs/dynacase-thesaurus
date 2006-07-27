@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.86 2006/06/27 15:25:28 eric Exp $
+ * @version $Id: freedom_util.php,v 1.87 2006/07/27 16:19:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -320,7 +320,7 @@ function controlTdoc($tdoc,$aclname) {
   static $_ODocCtrol=false;
   static $_Ocuid=false; // current user
   
-  if (! $_OAclNames) {
+  if (! $_ODocCtrol) {
     $cd=new DocCtrl();
     $_ODocCtrol=$cd;
     $_Ocuid=$cd->userid;
