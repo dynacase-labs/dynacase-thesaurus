@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.96 2006/06/29 15:08:13 eric Exp $
+ * $Id: freedom.css,v 1.97 2006/07/27 16:20:48 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -805,7 +805,6 @@ TABLE.reportVGreen {
 }
 /* - for ftien4 - */
    TD.fld {
-     font-size: [CORE_FONTBASESIZE];
      text-decoration: none;
      white-space:nowrap;
       background:transparent;} 
