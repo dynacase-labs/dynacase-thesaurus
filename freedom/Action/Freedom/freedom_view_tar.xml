@@ -22,7 +22,6 @@
 }
 .file {
   font-weight: medium;
-  color:black;
   list-style: circle;
 }
    </style>
