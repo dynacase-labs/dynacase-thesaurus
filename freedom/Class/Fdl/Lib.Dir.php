@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.113 2006/06/14 16:25:22 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.114 2006/07/27 16:15:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -247,6 +247,9 @@ function getChildDocError($dbaccess,
     //-------------------------------------------
 
     if (! is_array($dirid))    $fld = new_Doc($dbaccess, $dirid);
+
+    if ($fld->getValue("se_phpfunc") != "") return $terr;
+
     if ((is_array($dirid)) || ( $fld->defDoctype != 'S'))  {
 
 
@@ -321,6 +324,10 @@ function getChildDoc($dbaccess,
     if ($fld->fromid == getFamIdFromName($dbaccess,"FTEXTSEARCH")) 
       return $fld->GetFullTextResultDocs($dbaccess, $dirid, $start, $slice, $sqlfilters, 
 					 $userid, $qtype, $fromid, $distinct, $orderby, $latest);
+
+
+    if ($fld->fromid == getFamIdFromName($dbaccess,"SSEARCH")) 
+      return $fld->getDocList($start, $slice, $qtype,$userid);
     
     if ( $fld->defDoctype != 'S') {
       // try optimize containt of folder
@@ -540,11 +547,12 @@ function sqlval2array($sqlvalue) {
 }
 
 
-
-function getChildDirId($dbaccess, $dirid) {
-  // query to find child directories (no recursive - only in the specified folder)
-        
-
+/**
+ * query to find child directories (no recursive - only in the specified folder)
+ * @param string $dbaccess database specification
+ * @param int  $dirid the id of folder where search subfolders 
+ */
+function getChildDirId($dbaccess, $dirid) {       
   $tableid = array();
   
   $tdir=getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,"TABLE",2);
@@ -746,5 +754,17 @@ function getFamilyCreationIds($dbaccess,$uid,$tfid=array()) {
   }
   return $lid;
 
+}
+/**
+ * get array of document values from array od document id
+ * @param string $dbaccess database specification
+ */
+function getDocsFromIds($dbaccess,$ids,$userid=0) {
+  $tdoc=array();
+  foreach ($ids as $k=>$id) {
+    $tdoc1=getTDoc($dbaccess,$id);
+    if ((($userid==1) || controlTdoc($tdoc1,"view"))&&($tdoc1["doctype"]!='Z'))   $tdoc[$id]=$tdoc1;
+  }
+  return $tdoc;
 }
 ?>
