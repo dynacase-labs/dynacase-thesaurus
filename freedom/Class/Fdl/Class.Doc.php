@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.324 2006/07/18 06:48:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.325 2006/07/27 16:16:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2039,8 +2039,11 @@ final public function PostInsert()  {
    * Add a comment line in history document
    * note : modify is call automatically
    * @param string $comment the comment to add
+   * @param string $level level of comment
+   * @param string $code use when memorize notification
+   * @param string $uid user identificator : by default its the current user
    */
-  final public function AddComment($comment='',$level=HISTO_INFO,$code='') {
+  final public function AddComment($comment='',$level=HISTO_INFO,$code='',$uid='') {
     global $action;
     $h=new DocHisto($this->dbaccess);
 
@@ -2049,8 +2052,14 @@ final public function PostInsert()  {
     if (isUTF8($comment)) $comment=utf8_decode($comment);
     $h->comment=$comment;
     $h->date=date("d-m-Y H:i:s");
-    $h->uname=sprintf("%s %s",$action->user->firstname,$action->user->lastname);
-    $h->uid=$action->user->id;
+    if ($uid > 0) {
+      $u=new User("",$uid);
+      $h->uid=$u->id;
+      $h->uname=sprintf("%s %s",$u->firstname,$u->lastname);      
+    } else {
+      $h->uname=sprintf("%s %s",$action->user->firstname,$action->user->lastname);
+      $h->uid=$action->user->id;
+    }
     $h->level=$level;
     $h->code=$code;
 
@@ -2089,6 +2098,51 @@ final public function PostInsert()  {
       $tmeth=array_unique($tmeth);
       $this->atags =  implode("\n",$tmeth);
     }    
+  } 
+
+  /**
+   * Add a user tag for the document
+   * if it is already set no set twice
+   * @param string $atg the tag to add
+   */
+  final public function addUTag($uid,$tag) { 
+    if ($tag == "") return _("no user tag specified");
+    $this->delUTag($uid,$tag);
+
+    global $action;
+    $h=new DocUTag($this->dbaccess);
+
+    $h->id=$this->id;
+    $h->initid=$this->initid;
+  
+    $h->date=date("d-m-Y H:i:s");
+    if ($uid > 0) {
+      $u=new User("",$uid);
+      $h->uid=$u->id;
+      $h->uname=sprintf("%s %s",$u->firstname,$u->lastname);      
+    } 
+    $h->fromuid=$action->user->id;
+      
+    $h->tag=$tag;
+
+    $err=$h->Add();
+    return $err;
+  } 
+  /**
+   * Remove a user tag for the document
+   * if it is already set no set twice
+   * @param string $atg the tag to add
+   */
+  final public function delUTag($uid,$tag) { 
+    if ($tag == "") return _("no user tag specified");
+    include_once("FDL/Class.DocUTag.php");
+    global $action;
+    $h=new DocUTag($this->dbaccess,array($this->id,$uid,$tag));
+    if ($h->isAffected()) {
+      $err=$h->delete();
+    }
+
+    return $err;
   }
   /**
    * Create a new revision of a document
