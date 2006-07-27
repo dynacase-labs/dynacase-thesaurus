@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.42 2006/02/10 15:32:37 eric Exp $
+ * @version $Id: FDL_external.php,v 1.43 2006/07/27 16:17:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,9 +65,6 @@ function linkenum($famid,$attrid) {
 function lmail( $dbaccess, $name) {     
 
   global $action;
-  //comlist(A,D,PRO_COM):PRO_COM,PRO_IDCOM
-  
-
   
 
   $filter=array();
@@ -78,14 +75,23 @@ function lmail( $dbaccess, $name) {
   $filter[] = "us_mail is not null";
   $famid=getFamIdFromName($dbaccess,"USER");
 
-  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"LIST",$famid);
+  $tinter = getChildDoc($dbaccess, 0,0,100, $filter,$action->user->id,"TABLE",$famid);
   
   $tr = array();
 
   while(list($k,$v) = each($tinter)) {
             
-    $mail = $v->getValue("US_MAIL");
-    $tr[] = array($v->title ,$v->title." <$mail>",$v->id);
+    $mail = getv($v,"us_mail");
+    $usw=getv($v,"us_whatid");
+    $uid="";
+    if ($usw > 0) {
+      $uid=$v["id"];
+      $type="link"; 
+    } else {
+      $type="plain";
+      $uid=" ";
+    }
+    $tr[] = array($v["title"] ,$v["title"]." <$mail>",$uid,$type);
     
   }
   return $tr;  
