@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.116 2006/07/27 12:47:38 eric Exp $
+ * @version $Id: import_file.php,v 1.117 2006/07/27 16:19:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -441,25 +441,33 @@ function add_import_file(&$action, $fimport="") {
 	if ($pdoc->isAlive()) {
 	  $tcr[$nline]["msg"]=sprintf(_("change profil %s"),$data[1]);	  
 	  if ($analyze) continue;
-	  if ($pdoc->profid != $pid) {
-	    $pdoc->setProfil($pid);
-	    $pdoc->SetControl(false);
-	    $pdoc->disableEditControl(); // need because new profil is not enable yet
-	    $tcr[$nline]["err"]= $pdoc-> Modify();  
-	  }
-	  $tacls=array_slice($data, 2); 
-	  foreach ($tacls as $acl) {
+	  $fpid=$data[2];
+	  if (($fpid != "") && (!is_numeric($fpid))) $fpid = getIdFromName($dbaccess,$fpid);
+	  if ($fpid != "") {
+	    // profil related of other profil
+	    $pdoc->setProfil($fpid);
+	    $err=$pdoc->modify(false,array("profid"),true);
+	  } else {
+	    // specific profil
+	    if ($pdoc->profid != $pid) {
+	      $pdoc->setProfil($pid);
+	      $pdoc->SetControl(false);
+	      $pdoc->disableEditControl(); // need because new profil is not enable yet
+	      $tcr[$nline]["err"]= $pdoc-> Modify();  
+	    }
+	    $tacls=array_slice($data, 2); 
+	    foreach ($tacls as $acl) {
 	    
-	    if (ereg("([a-zA-Z_]+)=(.*)",$acl, $reg)) {
-	      $tuid= explode(",",$reg[2]);
-	      $perr="";
-	      foreach ($tuid as $uid) {
-		$perr.=$pdoc->AddControl($uid,$reg[1]);
+	      if (ereg("([a-zA-Z_]+)=(.*)",$acl, $reg)) {
+		$tuid= explode(",",$reg[2]);
+		$perr="";
+		foreach ($tuid as $uid) {
+		  $perr.=$pdoc->AddControl($uid,$reg[1]);
+		}
+		$tcr[$nline]["err"]=$perr;
 	      }
-	      $tcr[$nline]["err"]=$perr;
 	    }
 	  }
-	  
 	  
 	} else {
 	  $tcr[$nline]["err"]=sprintf(_("profil id unkonow %s"),$data[1]);
