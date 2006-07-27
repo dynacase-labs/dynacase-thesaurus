@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.115 2006/06/27 15:25:09 eric Exp $
+ * @version $Id: import_file.php,v 1.116 2006/07/27 12:47:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -648,18 +648,34 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
 	if (isUTF8($dv))    $dv=utf8_decode($dv);
 	if (($attr->type == "file") || ($attr->type == "image")) {
 	  // insert file
-	  $absfile="$ldir/$dv";
 	  $tcr["foldername"]=$ldir;
 	  $tcr["filename"]=$dv;
 
 	  if (! $analyze) {
-	    $err=AddVaultFile($dbaccess,$absfile,$analyze,$vfid);
-	    if ($err != "") { 
-	      $tcr["err"]=$err;
+	    if ($attr->inArray()) {
+	      $tabsfiles=$doc->_val2array($dv);
+	      $tvfids=array();
+	      foreach ($tabsfiles as $fi) {		
+		$absfile="$ldir/$fi";
+		$err=AddVaultFile($dbaccess,$absfile,$analyze,$vfid);
+		if ($err != "") { 
+		  $tcr["err"].="$err: $fi\n";
+		} else {
+		  $tvfids[]=$vfid;
+		}
+	      }
+	      $doc->setValue($attr->id, $tvfids);
+		
 	    } else {
-	      $doc->setValue($attr->id, $vfid);
+	      // one file only
+	      $absfile="$ldir/$dv";
+	      $err=AddVaultFile($dbaccess,$absfile,$analyze,$vfid);
+	      if ($err != "") { 
+		$tcr["err"]=$err;
+	      } else {
+		$doc->setValue($attr->id, $vfid);
+	      }
 	    }
-	
       
 	  }
 	} else {
