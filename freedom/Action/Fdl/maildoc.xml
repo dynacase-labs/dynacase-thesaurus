@@ -4,13 +4,13 @@
   <head>
 
    <title>[TEXT:Properties:] [TITLE]</title>
+<BASE HREF="[CORE_ABSURL]">
 
 
-
-[CSS:REF]
 
 
    <style type="text/css">
+[ZONE CORE:SYSTEMCSS]
 [ZONE CORE:GENCSS]
 [ZONE FDL:GENCSS]
 [CSS:CODE]
