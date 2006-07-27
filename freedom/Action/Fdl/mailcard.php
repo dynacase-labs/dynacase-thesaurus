@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.60 2005/12/07 08:14:44 marc Exp $
+ * @version $Id: mailcard.php,v 1.61 2006/07/27 16:18:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,7 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: mailcard.php,v 1.60 2005/12/07 08:14:44 marc Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/mailcard.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
+
 
 include_once("FDL/Class.Doc.php");
 include_once("Class.MailAccount.php");
@@ -57,18 +36,23 @@ function mailcard(&$action) {
   $mailbcc = "";
   $mailfrom = GetHttpVars("_mail_from");
 
+  $tuid=array(); // list of user id to notify
 
   $mt = GetHttpVars("_mail_to","");
   if ($mt == "") {
     $rtype = GetHttpVars("_mail_copymode", "");
     $raddr = GetHttpVars("_mail_recip", "");
+    $idraddr = GetHttpVars("_mail_recipid", "");
     if (count($raddr)>0) {
       foreach ($raddr as $k => $v) {
         if ($v!="") { 
           switch ($rtype[$k]) {
           case "cc": $mailcc .= ($mailcc==""?"":",").$v; break;
           case "bcc": $mailbcc .= ($mailbcc==""?"":",").$v; break;
-          default : $mailto .= ($mailto==""?"":",").$v; break;
+          default : 
+	    $mailto .= ($mailto==""?"":",").$v; 
+	    if ($idraddr[$k] > 0) $tuid[]=$idraddr[$k];
+	    break;
           }
         }
       }
@@ -85,6 +69,16 @@ function mailcard(&$action) {
     if ($err != "") $action->exitError($err);
     else $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
   }
+  //  print_r2($tuid);
+  foreach ($tuid as $uid) {
+    if ($uid > 0) {
+      $tu=getTDoc($dbaccess,$uid);
+      $wuid=getv($tu,"us_whatid");
+      $err=$doc->addComment(_("document received for"),HISTO_NOTICE,"RCPTDOC",$wuid);
+      $err=$doc->addUTag($wuid,"TOVIEW");
+    }
+  }
+
   redirect($action,GetHttpVars("redirect_app","FDL"),
 	   GetHttpVars("redirect_act","FDL_CARD&latest=Y&refreshfld=Y&id=".$doc->id),
 	   $action->GetParam("CORE_STANDURL"));
@@ -92,6 +86,7 @@ function mailcard(&$action) {
 }
 // -----------------------------------
 function sendmailcard(&$action) {
+
   $err = sendCard($action,
 		  GetHttpVars("id"),
 		  GetHttpVars("_mail_to",''),
@@ -250,7 +245,7 @@ function sendCard(&$action,
 			 "srcfile('\\1')",
 			 $sgen1);
 
-    $pfout = uniqid("/tmp/".$doc->id);
+    $pfout = uniqid("/var/tmp/".$doc->id);
     $fout = fopen($pfout,"w");
    
     fwrite($fout,$sgen1);
@@ -278,7 +273,7 @@ function sendCard(&$action,
 			   "realfile('\\1')",
 			   $sgen);
 
-      $ppdf = uniqid("/tmp/".$doc->id).".pdf.html";
+      $ppdf = uniqid("/var/tmp/".$doc->id).".pdf.html";
       $fout = fopen($ppdf,"w");
       fwrite($fout,$sgen2);
       fclose($fout);
@@ -299,7 +294,7 @@ function sendCard(&$action,
     $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
   } else if ($format == "pdf") {
     $cmd .= " -/ mixed ";
-    $ftxt = "/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($doc->id).".txt");
+    $ftxt = "/var/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($doc->id).".txt");
     $comment = str_replace("'","'\"'\"'",$comment);
     
     system("echo '$comment' > $ftxt");
@@ -342,7 +337,7 @@ function sendCard(&$action,
 		
 		  $cidindex= $vaf;
 		  if (($mixed) && ($afiles[$aid]->type != "image"))  $cidindex.="zou".$vaf;
-		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
+		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"\\n\\tfilename=\"".$info->name."\"' ".
 		    "-i '<".$cidindex.">'  -f '".$info->path."'";
 	  
 		}
@@ -407,7 +402,7 @@ function sendCard(&$action,
 		$fmime = $vf[2];
 		
 		$fgen = $doc->viewDoc($fview, "mail");
-		$fpname = "/tmp/".str_replace(array(" ","/","(",")"), "_", uniqid($doc->id).$fname);
+		$fpname = "/var/tmp/".str_replace(array(" ","/","(",")"), "_", uniqid($doc->id).$fname);
 		if ($fp = fopen($fpname, 'w')) {
 		  fwrite($fp, $fgen);
 		  fclose($fp);
@@ -424,8 +419,8 @@ function sendCard(&$action,
 
   if (ereg("pdf",$format, $reg)) {
     // try PDF 
-    $fps= uniqid("/tmp/".$doc->id)."ps";
-    $fpdf= uniqid("/tmp/".$doc->id)."pdf";
+    $fps= uniqid("/var/tmp/".$doc->id)."ps";
+    $fpdf= uniqid("/var/tmp/".$doc->id)."pdf";
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
 
     system ($cmdpdf, $status);
@@ -464,7 +459,7 @@ function sendCard(&$action,
   
   $tmpfile=array_merge($tmpfile,$tfiles);
   foreach($tmpfile as $k=>$v) {
-    if (file_exists($v) && (substr($v,0,5)=="/tmp/"))
+    if (file_exists($v) && (substr($v,0,5)=="/var/tmp/"))
       unlink($v);    
   }
  
@@ -501,7 +496,7 @@ function copyvault($src) {
   global $_SERVER;
 
   $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/what/".$src;
-  $newfile=uniqid("/tmp/img");
+  $newfile=uniqid("/var/tmp/img");
  
 
   if (!copy($url, $newfile)) {
@@ -539,7 +534,7 @@ function realfile($src) {
     } else {
       if (file_exists($pubdir."/$va")) $f=$pubdir."/$va";
       elseif (file_exists($pubdir."/Images/$va")) $f=$pubdir."/Images/$va";
-      elseif ((substr($va,0,8)=='/tmp/img') && file_exists($va)) $f=$va;
+      elseif ((substr($va,0,8)=='/var/tmp/img') && file_exists($va)) $f=$va;
 
     }
   }
