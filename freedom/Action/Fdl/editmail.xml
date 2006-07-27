@@ -69,12 +69,10 @@ addEvent(window,"load",focusFirst);
 <table cellspacing="0" width="100%">
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">
-  <td colspan="2" >
- <input type="submit" value="[TEXT:send mail]" onclick="if (!canmodify()) return false;enableall();"> 
 
-  </td>
-  <td align="right" >
- <input type="button" value="[TEXT:cancel]" onclick="history.back()"> 
+  <td colspan="3" align="right" >
+ <input type="submit" value="[TEXT:Send mail]" onclick="if (!canmodify()) return false;enableall();">
+ <input type="button" value="[TEXT:Cancel]" onclick="history.back()"> 
   </td>
   
 </tr>
@@ -82,8 +80,9 @@ addEvent(window,"load",focusFirst);
 </form>
 <!--  FOOT HTML -->
 
-
+[IF VIEWDOC]
 <iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
+[ENDIF VIEWDOC]
 
 
 </body>

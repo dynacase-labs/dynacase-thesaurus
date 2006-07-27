@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.16 2006/02/07 14:51:55 eric Exp $
+ * @version $Id: editmail.php,v 1.17 2006/07/27 16:20:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,11 +16,21 @@ include_once("FDL/Class.Doc.php");
 
 // -----------------------------------
 // -----------------------------------
+/**
+ * Edition to send mail
+ * @param Action &$action current action
+ * @global mid Http var : document id to send
+ * @global mzone Http var : view zone to use to send mail
+ * @global ulink Http var : with hyperlink (to use in internal) [Y|N]
+ * @global dochead Http var : with header (icon/title) or not [Y|N]
+ * @global viewdoc Http var : with preview of sended mail [Y|N]
+ */
 function editmail(&$action) {
   $docid = GetHttpVars("mid"); 
   $zone = GetHttpVars("mzone"); 
   $ulink = GetHttpVars("ulink"); 
-  $dochead = GetHttpVars("dochead","Y"); 
+  $dochead = GetHttpVars("dochead"); 
+  $viewdoc = (GetHttpVars("viewdoc","Y")=="Y"); 
 
   $from = GetHttpVars("_mail_from","");
   $to = GetHttpVars("mail_to");
@@ -54,12 +64,15 @@ function editmail(&$action) {
   $err=$doc->control('send');
   if ($err != "") $action->exitError($err);
 
+  if ($zone=="") $zone=$doc->defaultmview;
+
   $action->lay->Set("from",$from);
   $action->lay->Set("mid",$docid);
   $action->lay->Set("ulink",$ulink);
   $action->lay->Set("mzone",$zone);
   $action->lay->Set("dochead",$dochead);
   $action->lay->Set("title",$doc->title);
+  $action->lay->set("VIEWDOC",$viewdoc);
   
 }
 ?>
