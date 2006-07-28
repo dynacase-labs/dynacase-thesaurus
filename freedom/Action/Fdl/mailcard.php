@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.61 2006/07/27 16:18:30 eric Exp $
+ * @version $Id: mailcard.php,v 1.62 2006/07/28 15:20:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,6 +36,12 @@ function mailcard(&$action) {
   $mailbcc = "";
   $mailfrom = GetHttpVars("_mail_from");
 
+  foreach (array("plain","link") as $format) {
+    $tmailto[$format]=array();
+    $tmailcc[$format]=array();
+    $tmailbcc[$format]=array();
+  }
+
   $tuid=array(); // list of user id to notify
 
   $mt = GetHttpVars("_mail_to","");
@@ -43,14 +49,16 @@ function mailcard(&$action) {
     $rtype = GetHttpVars("_mail_copymode", "");
     $raddr = GetHttpVars("_mail_recip", "");
     $idraddr = GetHttpVars("_mail_recipid", "");
+    $tformat = GetHttpVars("_mail_sendformat", "");
     if (count($raddr)>0) {
       foreach ($raddr as $k => $v) {
         if ($v!="") { 
+	  if ($tformat[$k]=="") $tformat[$k]="plain";
           switch ($rtype[$k]) {
-          case "cc": $mailcc .= ($mailcc==""?"":",").$v; break;
-          case "bcc": $mailbcc .= ($mailbcc==""?"":",").$v; break;
+          case "cc": $tmailcc[$tformat[$k]][$v]=$v; break;
+          case "bcc": $tmailbcc[$tformat[$k]][$v]=$v; break;
           default : 
-	    $mailto .= ($mailto==""?"":",").$v; 
+	    $tmailto[$tformat[$k]][$v]=$v;
 	    if ($idraddr[$k] > 0) $tuid[]=$idraddr[$k];
 	    break;
           }
@@ -58,12 +66,21 @@ function mailcard(&$action) {
       }
     }
   }
-  setHttpVar("_mail_to", $mailto);
-  setHttpVar("_mail_cc", $mailcc);
-  setHttpVar("_mail_bcc", $mailbcc);
-  setHttpVar("_mail_from", $mailfrom);
 
-  $err=sendmailcard($action);  
+  foreach (array("plain","link") as $format) {
+    
+    $mailto=implode(",",$tmailto[$format]);
+    $mailcc=implode(",",$tmailcc[$format]);
+    $mailbcc=implode(",",$tmailbcc[$format]);
+
+
+    setHttpVar("_mail_to", $mailto);
+    setHttpVar("_mail_cc", $mailcc);
+    setHttpVar("_mail_bcc", $mailbcc);
+    setHttpVar("_mail_from", $mailfrom);
+    if ($format=="link") setHttpVar("_mail_format", "htmlnotif");
+    $err=sendmailcard($action);  
+  }
 
   if ($cr == "Y") {
     if ($err != "") $action->exitError($err);
@@ -140,7 +157,7 @@ function sendCard(&$action,
 
   // -----------------------------------
   $viewonly=  (GetHttpVars("viewonly","N")=="Y");
-  if ((!$viewonly) &&($to == "")&&($bcc=="")) return _("mail dest is empty");
+  if ((!$viewonly) &&($to == "")&&($cc=="")&&($bcc=="")) return _("mail dest is empty");
 
   // -----------------------------------
   global $ifiles;
@@ -195,6 +212,7 @@ function sendCard(&$action,
     $bcc .="\\nReturn-Path:$from";
   }
   $layout="maildoc.xml"; // the default
+  if ($format=="htmlnotif") $layout="mailnotification.xml";
  
   if ($zonebodycard == "") $zonebodycard=$doc->defaultmview;
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
@@ -225,6 +243,7 @@ function sendCard(&$action,
       $docmail = new Layout(getLayoutFile("FDL",$layout),$action);
 
       $docmail->Set("TITLE", $doc->title);
+      $docmail->Set("ID", $doc->id);
       $docmail->Set("zone", $zonebodycard);
       if ($comment != "") {
 	$docmail->setBlockData("COMMENT", array(array("boo")));
@@ -437,9 +456,11 @@ function sendCard(&$action,
 
   $err="";
   if ($status == 0)  {
-    $doc->addcomment(sprintf(_("sended to %s"), $to));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $to)); 
-    $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $to));   
+    if ($cc != "") $lsend=sprintf("%s and %s",$to,$cc);
+    else $lsend=$to;
+    $doc->addcomment(sprintf(_("sended to %s"), $lsend));
+    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend)); 
+    $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend));   
   } else {
     $action->log->warning($cmd);
     $err=sprintf(_("%s cannot be sent"),$doc->title);
