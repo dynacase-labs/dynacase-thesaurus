@@ -152,7 +152,10 @@ text-transform : lowercase;
 .fabresumesoc:first-letter {
 text-transform:capitalize;
 }[ENDIF ISIE]
-  
+
+DIV.fabresume  TBODY TR TD, DIV.fabresume  TBODY TR {  
+  background-color:transparent;
+}
 /* Carte */
 
 DIV.fabcard {
