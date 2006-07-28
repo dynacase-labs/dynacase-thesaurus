@@ -1,0 +1,49 @@
+[ZONE FDL:HTMLHEAD]
+
+
+<!-- Title Table -->
+<form  id="fedit"  
+       class="fborder" 
+       name="modifydoc" 
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=FDL&action=AFFECT&target=mail&props=N&id=[mid]" >
+
+<input type="hidden" name="zone" value="[mzone]">
+<input type="hidden" name="dochead" value="[dochead]">
+<input type="hidden" name="ulink" value="[ulink]">
+
+<table class="tableborder"  cellspacing="0" width="100%">
+
+<tr class="FREEDOMBack1">
+ <td  colspan="3">
+   <span class="FREEDOMTextBigTitle">[TEXT:mail edition]-[title]</span>
+  </td> 
+</tr>
+
+<tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
+</table>
+   
+[ZONE FDL:EDITCARD?classid=15&mail_from=[from]]
+
+
+<table cellspacing="0" width="100%">
+<tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
+<tr class="FREEDOMBack1">
+
+  <td colspan="3" align="right" >
+ <input type="submit" value="[TEXT:Send mail]" onclick="if (!canmodify()) return false;enableall();">
+ <input type="button" value="[TEXT:Cancel]" onclick="history.back()"> 
+  </td>
+  
+</tr>
+</table>
+</form>
+<!--  FOOT HTML -->
+
+[IF VIEWDOC]
+<iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
+[ENDIF VIEWDOC]
+
+
+</body>
+</html>
