@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.62 2006/07/28 15:20:12 eric Exp $
+ * @version $Id: mailcard.php,v 1.63 2006/08/01 15:32:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,7 +91,7 @@ function mailcard(&$action) {
     if ($uid > 0) {
       $tu=getTDoc($dbaccess,$uid);
       $wuid=getv($tu,"us_whatid");
-      $err=$doc->addComment(_("document received for"),HISTO_NOTICE,"RCPTDOC",$wuid);
+      //      $err=$doc->addComment(_("document received for"),HISTO_NOTICE,"RCPTDOC",$wuid);
       $err=$doc->addUTag($wuid,"TOVIEW");
     }
   }
