@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.52 2006/07/21 07:20:18 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.53 2006/08/01 15:25:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -56,7 +56,7 @@ Class Dir extends PDir
       $home->title = $user->firstname." ".$user->lastname;
       $home->setTitle($home ->title);
       $home->icon = 'fldhome.gif';
-      $home->name = 'FLDHOME_'+$this->getWhatUserId();
+      $home->name = 'FLDHOME_'.$this->getWhatUserId();
       $home->Add();
 
       $privlocked = createDoc($this->dbaccess,"SEARCH");
