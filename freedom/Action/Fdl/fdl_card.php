@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.16 2006/07/21 15:30:30 eric Exp $
+ * @version $Id: fdl_card.php,v 1.17 2006/08/01 15:32:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,18 +70,20 @@ function fdl_card(&$action) {
     $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
   } else {
     $action->lay->set("nocss",($zo=="U"));
-    $listattr = $doc->GetActionAttributes();
     $taction=array();
-    foreach ($listattr as $k => $v) {
-      if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
-	if ($v->getOption("submenu")=="") {
-	  $mvis=MENU_ACTIVE;
-	  if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
-	  if ($mvis == MENU_ACTIVE) {
-	    $taction[$k]=array("wadesc"=>$v->getOption("llabel"),
-			       "walabel"=>ucfirst($v->labelText),
-			       "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
-			       "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
+    if ($doc->doctype!='C') {
+      $listattr = $doc->GetActionAttributes();
+      foreach ($listattr as $k => $v) {
+	if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
+	  if ($v->getOption("submenu")=="") {
+	    $mvis=MENU_ACTIVE;
+	    if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
+	    if ($mvis == MENU_ACTIVE) {
+	      $taction[$k]=array("wadesc"=>$v->getOption("llabel"),
+				 "walabel"=>ucfirst($v->labelText),
+				 "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
+				 "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
+	    }
 	  }
 	}
       }
