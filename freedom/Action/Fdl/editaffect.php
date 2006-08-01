@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: editaffect.php,v 1.1 2006/07/28 15:21:00 eric Exp $
+ * @version $Id: editaffect.php,v 1.2 2006/08/01 15:20:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,6 +13,7 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/editutil.php");
 
 // -----------------------------------
 // -----------------------------------
@@ -24,13 +25,16 @@ include_once("FDL/Class.Doc.php");
  */
 function editaffect(&$action) {
   $docid = GetHttpVars("id"); 
-  $viewdoc = (GetHttpVars("viewdoc","Y")=="Y"); 
+  $viewdoc = (GetHttpVars("viewdoc","N")=="Y"); 
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
-
+  $doc=new_doc($dbaccess,$docid);
+  editmode($action);
 
   $action->lay->Set("id",$docid);
   $action->lay->Set("title",$doc->title);
   $action->lay->set("VIEWDOC",$viewdoc);
+  $action->lay->set("affecttitle",sprintf(_("Affectation for %s"),$doc->title));
   
 }
 ?>

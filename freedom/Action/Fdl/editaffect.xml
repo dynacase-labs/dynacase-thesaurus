@@ -4,40 +4,25 @@
 <!-- Title Table -->
 <form  id="fedit"  
        class="fborder" 
-       name="modifydoc" 
+       name="affect" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FDL&action=AFFECT&target=mail&props=N&id=[mid]" >
+       action="[CORE_STANDURL]&app=FDL&action=AFFECT" >
 
-<input type="hidden" name="zone" value="[mzone]">
-<input type="hidden" name="dochead" value="[dochead]">
-<input type="hidden" name="ulink" value="[ulink]">
+<H2>[affecttitle]</h2>
+<input type="hidden" name="id" value="[id]">
+[TEXT:User to affect]&nbsp:&nbsp[ZONE FDL:INPUTATTRIBUTE?type=doclink&id=affectuser&label=[TEXT:User to affect]&famid=IUSER&esize=30]<br>
 
-<table class="tableborder"  cellspacing="0" width="100%">
-
-<tr class="FREEDOMBack1">
- <td  colspan="3">
-   <span class="FREEDOMTextBigTitle">[TEXT:mail edition]-[title]</span>
-  </td> 
-</tr>
-
-<tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
-</table>
-   
-[ZONE FDL:EDITCARD?classid=15&mail_from=[from]]
+[TEXT:Action to do] :<br>
+[ZONE FDL:INPUTATTRIBUTE?type=longtext&id=actioncomment&label=[TEXT:Action to do]]
 
 
-<table cellspacing="0" width="100%">
-<tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
-<tr class="FREEDOMBack1">
-
-  <td colspan="3" align="right" >
- <input type="submit" value="[TEXT:Send mail]" onclick="if (!canmodify()) return false;enableall();">
- <input type="button" value="[TEXT:Cancel]" onclick="history.back()"> 
-  </td>
-  
-</tr>
-</table>
+<div style="width:100%;text-align:right">
+<input type="submit" onclick="setTimeout('self.close()',2000)">
+<input type="reset" value="[TEXT:Cancel]" onclick="self.close()"></div>
 </form>
+<script>
+document.affect.target=window.opener.name;
+</script>
 <!--  FOOT HTML -->
 
 [IF VIEWDOC]

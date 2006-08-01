@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.34 2006/05/11 07:15:14 eric Exp $
+// $Id: FDL.app,v 1.35 2006/08/01 15:23:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -259,6 +259,21 @@ $action_desc = array (
   array( 
    "name"		=>"MODATTRIBUTE",
    "short_name"		=>N_("modify attribute inline"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"EDITAFFECT",
+   "short_name"		=>N_("edition to affect user"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"AFFECT",
+   "short_name"		=>N_("affect user to a document"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"DESAFFECT",
+   "short_name"		=>N_("unaffect user to a document"),
    "acl"		=>"NORMAL"
   ) 
                       );	
