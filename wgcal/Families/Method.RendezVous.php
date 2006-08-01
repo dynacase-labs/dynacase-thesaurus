@@ -648,28 +648,34 @@ function RendezVousEdit() {
   $this->lay->set("checkConflict", $action->getParam("WGCAL_U_CHECKCONFLICT", 1));
 
   $nh = GetHttpVars("nh", 0);
-  $times = GetHttpVars("ts", strftime("%s", time()));
-  $timee = GetHttpVars("te", $times+3600);
+
+//   $times = GetHttpVars("ts", strftime("%s", time()));
+//   $timee = GetHttpVars("te", $times+3600);
+  $times =  strftime("%s", time());
+  $timee =  $times+3600;
+
   $withress = GetHttpVars("wress", "");
 
   if ($this->isAffected()) 
     {
 
-//        setHttpVar("HUL", "return 'Je ferme ?'"); //cancelEvent()");
       setHttpVar("HBUL", "if (!DocumentSaved) return closeMsg;");
 
       $eventid = $this->id;
       $ownerid = $this->getValue("CALEV_OWNERID", "");
       $ownertitle = $this->getValue("CALEV_OWNER", "");
       $creatorid = $this->getValue("CALEV_CREATORID", $ownerid);
-      $evtitle  = $this->getValue("CALEV_EVTITLE", "");
-      $evnote   = $this->getValue("CALEV_EVNOTE", "");
-      $evstart  = w_dbdate2ts($this->getValue("CALEV_START", ""));
-      $evend    = w_dbdate2ts($this->getValue("CALEV_END", ""));
+      $evtitle  = GetHttpVars("ti", $this->getValue("CALEV_EVTITLE", ""));
+      $evnote   = GetHttpVars("no", $this->getValue("CALEV_EVNOTE", ""));
+      $evlocation = GetHttpVars("lo", $this->getValue("calev_location"));
+//       $evstart  = $times;
+//       $evend    = $timee;
+      $evstart  = GetHttpVars("ts", w_dbdate2ts($this->getValue("CALEV_START", "")));
+      $evend    = GetHttpVars("te", w_dbdate2ts($this->getValue("CALEV_END", "")));
       $evtype   = $this->getValue("CALEV_TIMETYPE", "");
       $evfreq   = $this->getValue("CALEV_FREQUENCY", 1);
       $evcal    = $this->getValue("CALEV_EVCALENDARID", -1);
-      $evvis    = $this->getValue("CALEV_VISIBILITY", 0);
+      $evvis    = GetHttpVars("co", $this->getValue("CALEV_VISIBILITY", 0));
       $ogrp = $this->getValue("CALEV_CONFGROUPS");
       $evrepeat = $this->getValue("CALEV_REPEATMODE", 0);
       $evrweekd = $this->getValue("CALEV_REPEATWEEKDAY", pow(2, gmdate("w",$evstart)-1));
@@ -682,7 +688,7 @@ function RendezVousEdit() {
       $attendeesWid = $this->getTValue("CALEV_ATTWID", array());
       $attendeesState = $this->getTValue("CALEV_ATTSTATE", array());
       $attendeesGroup = $this->getTValue("CALEV_ATTGROUP", array());
-      $evcategory = $this->getValue("CALEV_CATEGORY");
+      $evcategory = GetHttpVars("ca", $this->getValue("CALEV_CATEGORY"));
       $evstatus = EVST_READ;
       $mailadd = "";
       $withme = false;
@@ -699,16 +705,20 @@ function RendezVousEdit() {
     } 
   else 
     {
+
       $eventid = -1;
       $mailadd = "";
-      $evtitle  = "";
-      $evnote   = "";
-      $evstart  = $times;
-      $evend    = $timee;
+      $evtitle  = GetHttpVars("ti","");
+      $evnote   = GetHttpVars("no","");
+      $evstart  = GetHttpVars("ts", $times);
+      $evend    = GetHttpVars("te", $times);
+//       $evstart  = $times;
+//       $evend    = $timee;
       $evtype   = $nh;
       $evfreq   = 1;
+      $evlocation = GetHttpVars("lo", "");
       $evcal    = -1;
-      $evvis    = $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0);
+      $evvis    = GetHttpVars("co", $this->getWgcalUParam("WGCAL_U_RVDEFCONF",0));
       $ogrp    = "-";
       $evrepeat = 0;
       $evrweekd = pow(2, gmdate("w",$evstart)-1);
@@ -717,7 +727,7 @@ function RendezVousEdit() {
       $evruntild = $timee + (7*24*3600);
       $evrexcld  = array();
       $evstatus = EVST_ACCEPT;
-      $evcategory = 0;
+      $evcategory = GetHttpVars("ca", "");
       $withme = true;
       $attendees = array( );
       $attendeesState = array( );
@@ -817,7 +827,7 @@ function RendezVousEdit() {
   $this->lay->setBlockData("FAMR", $famr);
   $this->lay->setBlockData("sFAMR", $sfamr);
 
-  $this->lay->set("rvlocation", $this->getValue("calev_location"));
+  $this->lay->set("rvlocation", $evlocation);
 
   $this->EventSetDate($evstart, $evend, $evtype);
   $this->EventSetVisibility($ownerid, $ownerlist, $evvis, $ogrp);

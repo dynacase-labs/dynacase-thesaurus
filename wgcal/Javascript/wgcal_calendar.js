@@ -755,11 +755,9 @@ function modifyEvent(pid) {
   alert('pid='+pid);
 }
 
-function fastEditSave(ev) {
-  globalcursor('progress');
-  eltId('fastedit').style.display = 'none';
-  posM.x = getX(ev);
-  posM.y = getY(ev);
+
+function fastEditSetUrlParam(settz) {
+
   var feTitle = eltId('fe_title').value;
   var loc = eltId('fe_location').value;
   var note = eltId('fe_note').value;
@@ -770,20 +768,41 @@ function fastEditSave(ev) {
   var conf = 0;
   for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
   
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
-  urlsend += "&id="+EventInEdition.idp;
-  urlsend += "&oi="+EventInEdition.idowner;
-  urlsend += "&ti="+feTitle;
+  var  urlparam = "";
+  urlparam += "&id="+EventInEdition.idp;
+  urlparam += "&oi="+EventInEdition.idowner;
+  urlparam += "&ti="+feTitle;
   var hmode = 0;
   if (eltId('nohour') && eltId('nohour').checked) hmode = 1;
   if (eltId('allday') && eltId('allday').checked) hmode = 2;
-  urlsend += "&nh="+hmode;
-  urlsend += "&ts="+eltId('s_start').value;
-  urlsend += "&te="+eltId('s_end').value;
-  urlsend += "&ca="+cat;
-  urlsend += "&co="+conf;
-  urlsend += "&lo="+loc;
-  urlsend += "&no="+note;
+  urlparam += "&nh="+hmode;
+  var tzd = 0;
+  if (settz) {
+    var otime = new Date();
+    tzd = otime.getTimezoneOffset()*60;
+  }
+  var ts = parseInt(eltId('s_start').value) - tzd;
+  var te = parseInt(eltId('s_end').value) - tzd;
+  urlparam += "&ts="+ ts;
+  urlparam += "&te="+ te;
+  urlparam += "&ca="+cat;
+  urlparam += "&co="+conf;
+  urlparam += "&lo="+loc;
+  urlparam += "&no="+note;
+
+  return urlparam;
+
+}
+
+
+function fastEditSave(ev) {
+  globalcursor('progress');
+  eltId('fastedit').style.display = 'none';
+  posM.x = getX(ev);
+  posM.y = getY(ev);
+
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
+  urlsend += fastEditSetUrlParam(false);
   
   var rq;
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
@@ -879,18 +898,26 @@ function fcalSetEventState(event,idp,state,reloadcal) {
 
 
 function fastEditOpenFullEdit(ev) {
+
   showWaitServerMessage(ev, 'Start full edition mode...');
-  if (fastEditChangeAlert()) {
-    var otime = new Date();
-    var tzd = otime.getTimezoneOffset()*60;
-    var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp;
-    var ts = parseInt(eltId('s_start').value) - tzd;
-    var te = parseInt(eltId('s_end').value) - tzd;
-    if (EventInEdition.idp<=0) url += "&ts="+ts+"&te="+te;
-    subwindow(400, 700, 'EditEvent', url);
-    fastEditReset();
-  }
+  var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT';
+  url += fastEditSetUrlParam(true);
+  subwindow(400, 700, 'EditEvent', url);
+  fastEditReset();
   hideWaitServerMessage();
+
+//   showWaitServerMessage(ev, 'Start full edition mode...');
+//   var otime = new Date();
+//   var tzd = otime.getTimezoneOffset()*60;
+//   var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp;
+//   var ts = parseInt(eltId('s_start').value) - tzd;
+//   var te = parseInt(eltId('s_end').value) - tzd;
+//   url += "&ts="+ts+"&te="+te;
+//   if (fastEditChangeAlert()) {
+//     subwindow(400, 700, 'EditEvent', url);
+//     fastEditReset();
+//   }
+//   hideWaitServerMessage();
 }
 
 var EventInEdition;
