@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.325 2006/07/27 16:16:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.326 2006/08/01 15:29:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2103,9 +2103,10 @@ final public function PostInsert()  {
   /**
    * Add a user tag for the document
    * if it is already set no set twice
-   * @param string $atg the tag to add
+   * @param int the system user identificator
+   * @param string $tag the tag to add
    */
-  final public function addUTag($uid,$tag) { 
+  final public function addUTag($uid,$tag,$comment="") { 
     if ($tag == "") return _("no user tag specified");
     $this->delUTag($uid,$tag);
 
@@ -2124,23 +2125,52 @@ final public function PostInsert()  {
     $h->fromuid=$action->user->id;
       
     $h->tag=$tag;
+    $h->comment=$comment;
 
     $err=$h->Add();
     return $err;
   } 
+
+  /**
+   * Test if cuurent user has the u tag specified
+   * 
+   * @param string $tag the tag to verify
+   */
+  final public function hasUTag($tag) {
+    include_once("FDL/Class.DocUTag.php");
+    $utag=new DocUTag($this->dbaccess,array($this->initid,$this->userid,$tag));
+    return $utag->isAffected();
+  }
   /**
    * Remove a user tag for the document
    * if it is already set no set twice
+   * @param int $uid the system user identificator
    * @param string $atg the tag to add
    */
   final public function delUTag($uid,$tag) { 
     if ($tag == "") return _("no user tag specified");
     include_once("FDL/Class.DocUTag.php");
     global $action;
-    $h=new DocUTag($this->dbaccess,array($this->id,$uid,$tag));
+    $h=new DocUTag($this->dbaccess,array($this->initid,$uid,$tag));
     if ($h->isAffected()) {
       $err=$h->delete();
     }
+
+    return $err;
+  }
+  /**
+   * Remove all user tag for the document
+   * 
+   * @param int $uid the system user identificator
+   * @param string $atg the tag to add
+   */
+  final public function delUTags($tag) { 
+    if ($tag == "") return _("no user tag specified");
+    include_once("FDL/Class.DocUTag.php");
+    $q=new QueryDb($this->dbaccess,"docUTag");
+    $q->Query(0,0,"TABLE",
+	      "delete from docutag where initid=".$this->initid);
+    
 
     return $err;
   }
