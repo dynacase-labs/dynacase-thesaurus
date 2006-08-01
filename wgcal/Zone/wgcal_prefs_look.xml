@@ -1,29 +1,49 @@
 <h4>[TEXT: interface look]</h4>
 
 
+<script>
+var colpick = new ColorPicker();
+colpick.writeDiv();
+function settcolor(dyn) {
+  var cc = document.getElementById('tcolchooser');
+  if (dyn) {
+    cc.style.visibility = 'hidden';
+    changeUPref('[uid]', 'WGCAL_U_EVENTTEXTCOLOR', '', '', '');
+  } else {
+     cc.style.visibility = 'visible';
+  }
+}
+
+function pickColor(color) {
+  document.getElementById('tcolchooser').style.background = color;
+  changeUPref('[uid]', 'WGCAL_U_EVENTTEXTCOLOR', color, '', '');
+}
+</script>
+
+
 <table width="100%" cellspacing="0" style="margin:0px;">
 
+<tr class="wTextActive"><td colspan="2">[TEXT:calendar view]</td></tr>
+
+<tr style="vertical-align:top">
+<td style="vertical-align:top" align="right">[TEXT:text color for event] : </td>
+<td>
+&nbsp;<input type="radio" onclick="settcolor(true)" name="evtextcolor" [IFNOT CSELECTED]checked[ENDIF CSELECTED]/> [TEXT:dynamic]<br>
+&nbsp;<input type="radio" onclick="settcolor(false)" name="evtextcolor" [IF CSELECTED]checked[ENDIF CSELECTED]/> couleur : <span id="tcolchooser" onclick="colpick.show('tcolchooser')"  style="cursor:pointer;vertical-align:top; font-size:6pt; visibility:[IF CSELECTED]visible[ENDIF CSELECTED][IFNOT CSELECTED]hidden[ENDIF CSELECTED]; border:2px outset; background-color:[textcolor];" title="[TEXT:text color for event]">&nbsp;???&nbsp;</td>
+
+<tr><td align="right">[TEXT:timeout before displaying popup] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_ALTTIMER', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK ALTTIMER]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ALTTIMER]</select></td>
+<tr><td align="right">[TEXT:day start hour] : </td><td><select style="cursor:pointer" id="altposition" onchange="changeUPref('[uid]', 'WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select></td></tr>
+<tr><td align="right">[TEXT:day end hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td></tr>
 
 
-<tr class="wTextActive"><td colspan="3">[TEXT:calendar view]</td></tr>
+<tr><td align="right">[TEXT:hours division size] : </td><td><select style="cursor:pointer" id="hdiv" onchange="changeUPref('[uid]', 'WGCAL_U_HLINEHOURS', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');">[BLOCK HDIVSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HDIVSZ]</select></td></tr>
 
-<tr><td width="10%"></td><td align="right">[TEXT:timeout before displaying popup] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_ALTTIMER', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK ALTTIMER]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ALTTIMER]</select></td>
-<tr><td width="10%"></td><td align="right">[TEXT:day start hour] : </td><td><select style="cursor:pointer" id="altposition" onchange="changeUPref('[uid]', 'WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select></td></tr>
-<tr><td width="10%"></td><td align="right">[TEXT:day end hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td></tr>
+<tr class="wTextActive"><td colspan="2">[TEXT:meetings edition]</td></tr>
 
 
-<tr><td width="10%"></td><td align="right">[TEXT:hours division size] : </td><td><select style="cursor:pointer" id="hdiv" onchange="changeUPref('[uid]', 'WGCAL_U_HLINEHOURS', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');">[BLOCK HDIVSZ]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HDIVSZ]</select></td></tr>
+<tr><td align="right">[TEXT:meeting default duration] : </td><td><select style="cursor:pointer" onchange="changeUPref('[uid]', 'WGCAL_U_RVDEFDUR', this.options[this.selectedIndex].value, '', '')">[BLOCK RVDEFDUR]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK RVDEFDUR]</select></td></tr>
 
-<tr class="wTextActive"><td colspan="3">[TEXT:meetings edition]</td></tr>
-
-<!--
-<tr><td width="10%"></td><td align="right">[TEXT:meeting hours interval], [TEXT:start hour] : </td><td><select style="cursor:pointer" onchange="changeUPref('[uid]', 'WGCAL_U_HSUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HSUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HSUSED]</select></td></tr>
-<tr><td width="10%"></td><td align="right">[TEXT:end hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_HEUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK HEUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK HEUSED]</select></td></tr>
--->
-
-<tr><td width="10%"></td><td align="right">[TEXT:meeting default duration] : </td><td><select style="cursor:pointer" onchange="changeUPref('[uid]', 'WGCAL_U_RVDEFDUR', this.options[this.selectedIndex].value, '', '')">[BLOCK RVDEFDUR]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK RVDEFDUR]</select></td></tr>
-
-<tr><td width="10%"></td><td align="right">[TEXT:meeting minute increase] : </td><td><select style="cursor:pointer" onchange="changeUPref('[uid]', 'WGCAL_U_MINCUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK MINCUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK MINCUSED]</select></td></tr>
+<tr><td align="right">[TEXT:meeting minute increase] : </td><td><select style="cursor:pointer" onchange="changeUPref('[uid]', 'WGCAL_U_MINCUSED', this.options[this.selectedIndex].value, '', '')">[BLOCK MINCUSED]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK MINCUSED]</select></td></tr>
 
 
 </table>

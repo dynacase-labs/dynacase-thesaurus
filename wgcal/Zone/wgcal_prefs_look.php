@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.20 2006/04/19 15:30:03 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.21 2006/08/01 10:45:26 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -31,48 +31,9 @@ function wgcal_prefs_look(&$action) {
   }
   $action->lay->SetBlockData("HDIVSZ", $opt);
 
-  // Themes ----------------------------------------------------------
-  $themes = array();
-  $themedir = "WGCAL/Themes";
-  $ith=0;
-  $list = GetFilesByExt($themedir, ".thm"); 
-  foreach ($list as $k => $v) {
-    include_once($themedir."/".$v.".thm");
-    $themes[$ith]["name"] = $v;
-    $themes[$ith++]["descr"] = $theme->Descr;
-  }
-  if (count($themes)<1) $themes[0] = array("name" => "default", "descr" => _("the default theme"));
-
-
-  $opt = array(); $i = 0;
-  foreach ($themes as $k => $v) {
-    $opt[$i]["optvalue"] = $v["name"];
-    $opt[$i]["optdescr"] = $v["descr"];
-    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_THEME") ? "selected" : "");
-    $i++;
-  }
-  $action->lay->SetBlockData("THEME", $opt);
- 
-  // Font sizing ----------------------------------------------------------
-  $fontsz = array();
-  $fontszdir = "WGCAL/Themes";
-  $ith=0;
-  $list = GetFilesByExt($themedir, ".fsz");
-  foreach ($list as $k => $v) {
-    include_once($fontszdir."/".$v.".fsz");
-    $fontsz[$ith]["name"] = $v;
-    $fontsz[$ith++]["descr"] = _($v);
-  }
-  if (count($fontsz)<1) $fontsz[0] = array("name" => "normal", "descr" => "normal size");
-
-  $opt = array(); $i = 0;
-  foreach ($fontsz as $k => $v) {
-    $opt[$i]["optvalue"] = $v["name"];
-    $opt[$i]["optdescr"] = $v["descr"];
-    $opt[$i]["optselect"] = ($v["name"]==$action->GetParam("WGCAL_U_FONTSZ") ? "selected" : "");
-    $i++;
-  }
-  $action->lay->SetBlockData("FONTSZ", $opt);
+  $evcol = getParam("WGCAL_U_EVENTTEXTCOLOR", "");
+  $action->lay->set("textcolor", ($evcol==""?"#000000":$evcol));
+  $action->lay->set("CSELECTED", ($evcol!=""?true:false));
 
   $popuppos = array( "Float" => _("floating, follows the pointer"),
 		     "LeftTop" => _("on the left top"), 

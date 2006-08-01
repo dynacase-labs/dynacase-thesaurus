@@ -579,13 +579,18 @@ function setThemeValue() {
 
 
 function getCompColor($col) {
-  $hsl=srgb2hsl($col);
-  $h = (1.0*$hsl[0]);
-  $s = ((100.0*$hsl[1]) + 50.0 ) % 100.0 ;
-  $l = ((100.0*$hsl[2]) + 50.0 ) % 100.0 ;
-  $fcol = HSL2RGB($h, $s/100, $l/100);
-//   global $action; $action->log->info("couleur $col (".$hsl[0].",".$hsl[1].",".$hsl[2].") transformée ==> $fcol ($h,$s,$l)");
-  return $fcol;
+  $rcol = getParam("WGCAL_U_EVENTTEXTCOLOR");
+  if ($rcol=="") {
+    $hsl=srgb2hsl($col);
+    $h = (1.0*$hsl[0]);
+    $s = ((100.0*$hsl[1]) + 50.0 ) % 100.0 ;
+    $l = ((100.0*$hsl[2]) + 50.0 ) % 100.0 ;
+    $fcol = HSL2RGB($h, $s/100, $l/100);
+    //   global $action; $action->log->info("couleur $col (".$hsl[0].",".$hsl[1].",".$hsl[2].") transformée ==> $fcol ($h,$s,$l)");
+    return $fcol;
+  } else {
+    return getParam("WGCAL_U_EVENTTEXTCOLOR");
+  }
 }
 
 function fcalGetIcon($key, $norm=true, $color="#000000") {
