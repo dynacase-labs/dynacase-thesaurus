@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-04 15:23+0200\n"
+"POT-Creation-Date: 2006-08-01 12:36+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -25,6 +25,56 @@ msgstr ""
 
 #, c-format
 msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+#, c-format
+msgid "the document %s has been sended"
+msgstr ""
+
+#, fuzzy
+msgid "document received for"
+msgstr "Delete"
+
+msgid "email sended"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr ""
+
+msgid "mail dest is empty"
+msgstr ""
+
+#, c-format
+msgid "PDF conversion failed for %s"
+msgstr ""
+
+#, c-format
+msgid "sended to %s"
+msgstr ""
+
+#, c-format
+msgid "sending %s to %s"
+msgstr ""
+
+#, c-format
+msgid "%s cannot be sent"
 msgstr ""
 
 #, fuzzy, c-format
@@ -46,21 +96,9 @@ msgstr ""
 msgid "click to change option"
 msgstr "Start search"
 
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
+#, fuzzy
+msgid "no label"
+msgstr "Email"
 
 msgid "no file referenced"
 msgstr ""
@@ -166,6 +204,38 @@ msgstr ""
 #, c-format
 msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr ""
+
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr ""
+
+#, fuzzy
+msgid "Affectation aborded"
+msgstr "Edit"
+
+#, c-format
+msgid "document %s has been affected to %s"
+msgstr ""
+
+#, c-format
+msgid "Affected to %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "affectation for %s document"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "Affectation for %s"
+msgstr "Edit"
 
 #, fuzzy, c-format
 msgid "root for %s"
@@ -406,36 +476,6 @@ msgid "action"
 msgstr "Edit"
 
 #, c-format
-msgid "the document %s has been sended"
-msgstr ""
-
-msgid "email sended"
-msgstr ""
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr ""
-
-msgid "mail dest is empty"
-msgstr ""
-
-#, c-format
-msgid "PDF conversion failed for %s"
-msgstr ""
-
-#, c-format
-msgid "sended to %s"
-msgstr ""
-
-#, c-format
-msgid "sending %s to %s"
-msgstr ""
-
-#, c-format
-msgid "%s cannot be sent"
-msgstr ""
-
-#, c-format
 msgid "modoption: document [%d] is not alive"
 msgstr ""
 
@@ -459,6 +499,21 @@ msgstr ""
 
 #, c-format
 msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+#, c-format
+msgid "document #%s not found. Unaffectation aborded"
+msgstr ""
+
+#, fuzzy
+msgid "Unaffectation aborded"
+msgstr "Edit"
+
+#, c-format
+msgid "document %s has been unaffected"
+msgstr ""
+
+msgid "Unaffected"
 msgstr ""
 
 #, c-format
@@ -1072,6 +1127,18 @@ msgstr "Update Title Cards"
 #, fuzzy
 msgid "modify attribute inline"
 msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edition to affect user"
+msgstr "Create"
+
+#, fuzzy
+msgid "affect user to a document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "unaffect user to a document"
+msgstr "Delete"
 
 #, fuzzy
 msgid "freedom database"
@@ -1878,6 +1945,9 @@ msgid ""
 "automatically"
 msgstr ""
 
+msgid "no user tag specified"
+msgstr ""
+
 msgid "document already revised"
 msgstr ""
 
@@ -2313,6 +2383,10 @@ msgid "Action"
 msgstr "Edit"
 
 #, c-format
+msgid "php file %s needed for request not found"
+msgstr ""
+
+#, c-format
 msgid "group #%d does not exist"
 msgstr ""
 
@@ -2375,28 +2449,6 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
-#, c-format
-msgid "period from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr ""
-
-msgid "this kind of document cannot be duplicate"
-msgstr ""
-
-#, fuzzy
-msgid "duplication of"
-msgstr "Edit"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr ""
-
-msgid "To"
-msgstr ""
-
 #, fuzzy
 msgid "error in filename"
 msgstr "Firstname"
@@ -2428,6 +2480,38 @@ msgstr ""
 #, fuzzy, c-format
 msgid "create new %s"
 msgstr "Edit"
+
+msgid "cannot see unknow folder"
+msgstr ""
+
+msgid "read-only"
+msgstr ""
+
+#, c-format
+msgid "period from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr ""
+
+msgid "this kind of document cannot be duplicate"
+msgstr ""
+
+#, fuzzy
+msgid "duplication of"
+msgstr "Edit"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "choose inputs for %s"
+msgstr "Modify"
 
 msgid ""
 "Some constraint attribute are not respected.\n"
@@ -2503,12 +2587,6 @@ msgstr "Start search"
 msgid "current (<i>%s</i>)"
 msgstr ""
 
-msgid "cannot see unknow folder"
-msgstr ""
-
-msgid "read-only"
-msgstr ""
-
 #, fuzzy
 msgid "current"
 msgstr "Modify"
@@ -2528,6 +2606,14 @@ msgstr "Create"
 #, fuzzy
 msgid "mail edition"
 msgstr "Edit"
+
+#, fuzzy
+msgid "Send mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "Cancel"
+msgstr "Create"
 
 #, fuzzy
 msgid "Send the email and change document state to"
@@ -2567,10 +2653,6 @@ msgstr "Edit"
 msgid "override constraints"
 msgstr "Edit"
 
-#, fuzzy
-msgid "Cancel"
-msgstr "Create"
-
 msgid "Attribute not found"
 msgstr ""
 
@@ -2605,6 +2687,13 @@ msgstr "Update Title Cards"
 msgid "view hidden attributes"
 msgstr "Title"
 
+msgid "User to affect"
+msgstr ""
+
+#, fuzzy
+msgid "Action to do"
+msgstr "Edit"
+
 msgid "Properties:"
 msgstr ""
 
@@ -2614,6 +2703,10 @@ msgstr "Edit"
 
 msgid "workflow has been recomposed"
 msgstr ""
+
+#, fuzzy
+msgid "Click to access to the document"
+msgstr "Category"
 
 #, fuzzy
 msgid "Creation"
@@ -3521,43 +3614,6 @@ msgstr "Start search"
 msgid "choose user families"
 msgstr "Start search"
 
-msgid "click here to create a new"
-msgstr ""
-
-#, fuzzy
-msgid "view sub families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Choose family to create"
-msgstr "Category"
-
-#, fuzzy
-msgid "lines"
-msgstr "Delete"
-
-msgid "lines per page"
-msgstr ""
-
-#, fuzzy
-msgid "manage columns"
-msgstr "Add new contact card"
-
-msgid "search all containing"
-msgstr ""
-
-#, fuzzy
-msgid "filter on"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "edit contact card"
-msgstr "Create"
-
-#, fuzzy
-msgid "add to prefered"
-msgstr "Modify"
-
 #, fuzzy
 msgid "Import vcard"
 msgstr "Import"
@@ -3602,6 +3658,43 @@ msgstr ""
 
 msgid "freedom address book"
 msgstr ""
+
+msgid "click here to create a new"
+msgstr ""
+
+#, fuzzy
+msgid "view sub families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Choose family to create"
+msgstr "Category"
+
+#, fuzzy
+msgid "lines"
+msgstr "Delete"
+
+msgid "lines per page"
+msgstr ""
+
+#, fuzzy
+msgid "manage columns"
+msgstr "Add new contact card"
+
+msgid "search all containing"
+msgstr ""
+
+#, fuzzy
+msgid "filter on"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edit contact card"
+msgstr "Create"
+
+#, fuzzy
+msgid "add to prefered"
+msgstr "Modify"
 
 #, fuzzy
 msgid "choose colums"
@@ -3690,6 +3783,39 @@ msgstr "Category"
 #, fuzzy
 msgid "VCARD Import Result"
 msgstr "Import"
+
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "NOT Clear"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
+msgstr ""
 
 #, fuzzy
 msgid "fromdate"
@@ -3993,39 +4119,6 @@ msgid "it is the first"
 msgstr ""
 
 msgid "PubliPreview"
-msgstr ""
-
-msgid "enumerate input not found"
-msgstr ""
-
-#, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
-
-msgid "NOT Clear"
-msgstr ""
-
-#, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
-
-#, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
 msgstr ""
 
 #, fuzzy
