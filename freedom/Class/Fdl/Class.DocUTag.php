@@ -3,7 +3,7 @@
  * History log for document
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocUTag.php,v 1.1 2006/07/27 16:16:07 eric Exp $
+ * @version $Id: Class.DocUTag.php,v 1.2 2006/08/01 15:25:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -57,7 +57,7 @@ Class DocUtag extends DbObj {
   public $fromuid;
 
 
-  public $id_fields = array ("id","uid","tag");
+  public $id_fields = array ("initid","uid","tag");
 
   public $dbtable = "docutag";
 
