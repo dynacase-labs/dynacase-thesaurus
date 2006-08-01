@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.105 2006/07/27 16:13:08 eric Exp $
+ * @version $Id: editutil.php,v 1.106 2006/08/01 15:31:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,8 +21,16 @@ include_once("FDL/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
 
-// -----------------------------------
-function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
+/**
+ * Compose html code to insert input
+ * @param Doc &$doc document to edit
+ * @param DocAttribute &$attr attribute to edit
+ * @param string $value value of the attribute
+ * @param string $index in case of array : row of the array
+ * @param string $jsevent add an javascript callback on input (like onblur or onmouseover)
+ * @param string $notd not add cells in html input generated (by default inputs are in arrays)
+ */
+function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false) {
   global $action;
 
   $docid=intval($doc->id);
@@ -56,7 +64,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
     $input="<input  type=\"hidden\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
     $input .= " id=\"".$attridk."\" "; 		      
     $input .= " > "; 	      
-    $input .= "</td><td>"; 
+    if (!$notd) $input .= "</td><td>"; 
     return $input;
   }
 
@@ -409,7 +417,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	$phpfunc=$oattr->phpfunc;
 	// capture title
-	$ititle=_("choose inputs");
+	$ititle=sprintf(_("choose inputs for %s"),utf8_decode($oattr->labelText));
 	if ($oattr->getOption("ititle") != "") $ititle=str_replace("\"","'",$oattr->getOption("ititle"));
 	
 	
@@ -419,15 +427,19 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	    $ititle=addslashes($reg[1]);
 	  }
 	}
-	$input.="</td><td width=\"100px\">";
+	if (!$notd) $input.="</td><td width=\"100px\">";
 	if (ereg("list",$attrtype, $reg)) $ctype="multiple";
 	else $ctype="single";
 
 	if ($alone) $ctype.="-alone";
+	if ($docid==0) {
+	  // case of specific interface
+	  $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.utf8_decode($oattr->labelText);
+	} else $iopt="";
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendEnumChoice(event,".$docid.
-	  ",this,'$attridk','$ctype')\">";
+	  ",this,'$attridk','$ctype','$iopt')\">";
 
 	// clear button
 	
@@ -452,7 +464,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"clearInputs(['$attrid'],'$index')\">";
-	$input.="</td><td>";
+	if (!$notd) $input.="</td><td>";
       }else if ($oattr->type == "color") {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
@@ -462,9 +474,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"clearTime('$attridk')\">";   
-	$input.="</td><td>";   
+	if (!$notd) $input.="</td><td>";   
       } else {
-	$input.="</td><td>";   
+	if (!$notd) $input.="</td><td>";   
       }
 		
       if ($oattr->elink != "") {
@@ -542,7 +554,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="") {
 	}
       }
     } else {
-      $input.="</td><td>";
+      if (!$notd) $input.="</td><td>";
     }
   }
 
