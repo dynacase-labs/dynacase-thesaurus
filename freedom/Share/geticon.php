@@ -3,7 +3,7 @@
  * Retrieve icon file
  *
  * @author Anakeen 2002
- * @version $Id: geticon.php,v 1.5 2004/10/29 09:39:44 eric Exp $
+ * @version $Id: geticon.php,v 1.6 2006/08/01 15:31:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,7 +18,7 @@ include_once("FDL/exportfile.php");
 
 
 $vaultid = GetHttpVars("vaultid",0);
-$$mimetype = GetHttpVars("$$mimetype","image");
+$mimetype = GetHttpVars("mimetype","image");
 
 $wdbaccess = getDbAccess();
 $dbaccess = getParam("FREEDOM_DB");
