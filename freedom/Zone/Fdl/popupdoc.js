@@ -130,8 +130,8 @@ function sendMenuUrl(th, url, wname,bar,w,h) {
       setTimeout('viewwait()',1000);      
       window.location.href=url;
     } else {
-      if (bar) subwindowm(w,h,wname,url);
-      else subwindow(w,h,wname,url);
+      if (bar) subwindowm(h,w,wname,url);
+      else subwindow(h,w,wname,url);
     }
    
   }
