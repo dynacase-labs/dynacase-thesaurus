@@ -136,7 +136,7 @@ ATTR;MAIL_DEST;MAIL_FR;Destinataires;N;Y;array;30;;;;;;;;
 ATTR;MAIL_COPYMODE;MAIL_DEST;;N;Y;enum;40;;;;;to|À,cc|Cc,bcc|Bcc;;;system=yes
 ATTR;MAIL_RECIPID;MAIL_DEST;id destinataire;N;N;docid;50;H;;;;;;;
 ATTR;MAIL_RECIP;MAIL_DEST;destinataire;N;Y;text;60;W;;;fdl.php;lmail(D,MAIL_RECIP):MAIL_RECIP,MAIL_RECIPID,MAIL_SENDFORMAT;;;
-ATTR;MAIL_SENDFORMAT;MAIL_DEST;Format;N;Y;enum;70;W;;;;[bool]plain|plein,link|lien;;;system=yes
+ATTR;MAIL_SENDFORMAT;MAIL_DEST;Notif.;N;Y;enum;70;W;;;;[bool]plain|document complet,link|notification avec lien vers le document;;;system=yes
 ATTR;MAIL_SUBJECT;MAIL_FR;sujet;N;Y;text;80;W;;;;;;;
 ATTR;MAIL_FR_CM;;Commentaire;N;Y;frame;90;F;;;;;;;
 ATTR;MAIL_CM;MAIL_FR_CM;Commentaire;N;Y;longtext;100;W;;;;;;;
