@@ -78,7 +78,7 @@ function getRowNumber(el) {
 }
 
 var enuminprogress=false;
-function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
+function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm,options) {
 
 
   var inp  = choiceButton.previousSibling;
@@ -116,11 +116,11 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm) {
 
   
 
-  f =document.modifydoc;
+  f =inp.form;
   // modify to initial action
   oldact = f.action;
   oldtar = f.target;
-  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&index='+index+'&domindex='+domindex;
+  f.action = '[CORE_STANDURL]&app=FDL&action=ENUM_CHOICE&docid='+docid+'&attrid='+attrid+'&sorm='+sorm+'&index='+index+'&domindex='+domindex+options;
 
   
 
@@ -486,7 +486,7 @@ function clearInputs(tinput, idx,attrid) {
 	err = err + "\n" + iinput;
       }
     } else {
-      alert('[TEXT:Attribute not found]'+' : '+iinput);
+      if (! document.getElementById(iinput+'0'))   alert('[TEXT:Attribute not found]'+' : '+iinput);
     }
   }
   disableReadAttribute();

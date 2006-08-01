@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.40 2005/12/05 14:41:32 eric Exp $
+ * @version $Id: enum_choice.php,v 1.41 2006/08/01 15:22:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,10 +31,38 @@ function enum_choice(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc= new_Doc($dbaccess,$docid);
-  $oattr= $doc->GetAttribute($attrid);
-  if (! $oattr) 
-    $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
 
+  if ($docid==0) {
+    // specific interface  
+    $value="";
+    $label=GetHttpVars("label",_("no label"));
+    $index="";
+    $jsevent="";
+    $format="";
+    $repeat=false;
+    $order=0;
+    $link="";
+    $visibility="W";
+    $needed="N";
+    $isInTitle=false;
+    $isInAbstract=false;
+    $phpfile=GetHttpVars("phpfile");
+    $phpfunc=GetHttpVars("phpfunc");
+    $fieldSet=$doc->attr["FIELD_HIDDENS"];
+    $elink="";
+    $phpconstraint="";
+    $usefor="";
+    $eformat="";
+    $options="";
+    $oattr=new NormalAttribute($attrid,$doc->id,$label,"text",$format,$repeat, $order, $link,
+			       $visibility, $needed,$isInTitle,$isInAbstract,
+			       $fieldSet,$phpfile,$phpfunc,$elink,
+			       $phpconstraint,$usefor,$eformat,$options);
+  } else {
+    $oattr= $doc->GetAttribute($attrid);
+    if (! $oattr) 
+      $action->exitError(sprintf(_("unknown attribute %s"), $attrid));
+  }
   $notalone="true";
 
   if (ereg("([a-z]*)-alone",$sorm,$reg)) {
