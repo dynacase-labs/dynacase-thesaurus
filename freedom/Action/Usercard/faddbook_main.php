@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.22 2006/07/03 15:42:23 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.23 2006/08/01 15:23:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -47,7 +47,7 @@ function faddbook_main(&$action)
   $chval  = GetHttpVars("chgValue", "");
   $usedefaultview  = (GetHttpVars("usedefaultview","N")=="Y");
   $viewone  = (GetHttpVars("viewone","N")=="Y");
-  $createsubfam = (GetHttpVars("createsubfam","Y")=="Y");
+  $createsubfam = (GetHttpVars("createsubfam","N")=="Y");
   $etarget  = GetHttpVars("etarget");
   $target  = GetHttpVars("target","bookinfo");
   $dirid  = GetHttpVars("dirid"); // restrict search
@@ -74,11 +74,14 @@ function faddbook_main(&$action)
   $action->lay->set("target", $target);
   $action->lay->set("dirid", $dirid);
   $action->lay->set("etarget", $etarget);
+  $action->lay->set("createsubfam", GetHttpVars("createsubfam"));
   $action->lay->set("usedefaultview", GetHttpVars("usedefaultview"));
   $action->lay->set("viewone", GetHttpVars("viewone"));
   $action->lay->set("cols", GetHttpVars("cols"));
+  $action->lay->set("", GetHttpVars("cols"));
 
   $sfullsearch = (GetHttpVars("sfullsearch", "") == "on" ? true : false);
+  $action->lay->set("fullsearch", $sfullsearch);
 
   $sfam = GetHttpVars("dfam", $action->getParam("USERCARD_FIRSTFAM"));
   $action->lay->set("dfam", $sfam);
@@ -132,6 +135,7 @@ function faddbook_main(&$action)
     $action->lay->set("viewsubfam",false);    
   }
 
+  $action->lay->set("cancreate",count($child)>0);
   $orderby = "title";
 
   $cols = 0;

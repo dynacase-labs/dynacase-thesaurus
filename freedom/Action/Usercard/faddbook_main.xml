@@ -104,6 +104,7 @@ addEvent(window,"load",viewfirst);
 <input type="hidden" name="viewone" value="[viewone]">
 <input type="hidden" name="usedefaultview" value="[usedefaultview]">
 <input type="hidden" name="cols" value="[cols]">
+<input type="hidden" name="createsubfam" value="[createsubfam]">
 <input type="hidden" name="defaulteditfamid" value="[famid]">
 <table class="fabtable" width="100%" align="center" cellspacing="0">
 <tr class="fabzone">
@@ -115,7 +116,7 @@ addEvent(window,"load",viewfirst);
 <img title="Initialiser la recherche..." style="cursor:pointer; border:0" src="[IMG:faddbook_initsearch.gif]" onclick="getElementById('suserv').submit();">
 <img title="Page suivante" style="visibility:[IF NextPage]visible[ENDIF NextPage][IFNOT NextPage]hidden[ENDIF NextPage]; cursor:pointer; border:0" src="[IMG:faddbook_nextpage.gif]" onclick="getElementById('sp').value='[pnext]'; getElementById('suser').submit();">[dirtitle]
 </td>
-<td><span id="famedit"><a title="[TEXT:click here to create a new]" onclick="subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid='+document.suser.defaulteditfamid.value);"><img  width="16px" src="[IMG:add22.gif]" border="0"><span id="famedittitle" style="font-weight:bold; border:1px outset; cursor:pointer"  onmouseover="this.className='fabcontactsel'" onmouseout="this.className=''"   >[famsearch]</span></a>&nbsp;[IF viewsubfam]<a><img  title="[TEXT:view sub families]" width="16px" onclick="document.getElementById('famedit').style.display='none';document.getElementById('icreatefam').style.display=''" src="[IMG:down22.gif]" border="0"></a></span><select id="icreatefam" style="display:none" name="editfamid" onchange="createuserfam(this);" title="[TEXT:Choose family to create]">[BLOCK NEW]<option value="[id]" >[title]</option>[ENDBLOCK NEW]</select>[ENDIF viewsubfam]</td>
+<td>[IF cancreate]<span id="famedit"><a title="[TEXT:click here to create a new]" onclick="subwindow(300, 400, '[target]', '[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&classid='+document.suser.defaulteditfamid.value);"><img  width="16px" src="[IMG:add22.gif]" border="0"><span id="famedittitle" style="font-weight:bold; border:1px outset; cursor:pointer"  onmouseover="this.className='fabcontactsel'" onmouseout="this.className=''"   >[famsearch]</span></a>&nbsp;[IF viewsubfam]<a><img  title="[TEXT:view sub families]" width="16px" onclick="document.getElementById('famedit').style.display='none';document.getElementById('icreatefam').style.display=''" src="[IMG:down22.gif]" border="0"></a></span><select id="icreatefam" style="display:none" name="editfamid" onchange="createuserfam(this);" title="[TEXT:Choose family to create]">[BLOCK NEW]<option value="[id]" >[title]</option>[ENDBLOCK NEW]</select>[ENDIF viewsubfam][ENDIF cancreate]</td>
 <td   class="fabzone">[TEXT:lines] : <select title="[TEXT:lines per page]" name="linepp" onchange="getElementById('pvalue').value=this.options[this.selectedIndex].value; getElementById('setline').submit();">[BLOCK BLine]<option value="[count]" [init]>[count][ENDBLOCK BLine]</select></td>
 <td align="right">[ZONE [APPNAME]:FADDBOOK_MENU?dfamid=[dfam]]</td>
 </tr>
@@ -126,7 +127,7 @@ addEvent(window,"load",viewfirst);
 
 <tr class="fabheadlist">
 
-<td >[IF choosecolumn]<img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()">[ENDIF choosecolumn]<input type="checkbox" name="sfullsearch" title="[TEXT:search all containing]"></td>
+<td >[IF choosecolumn]<img title="[TEXT:manage columns]" style="cursor:pointer; border:0" src="[IMG:faddbook_cols.gif]" height="16px" onclick="manageCols()">[ENDIF choosecolumn]<input [IF fullsearch]checked [ENDIF fullsearch]type="checkbox" name="sfullsearch" title="[TEXT:search all containing]"></td>
 [BLOCK COLS]<td nowrap>
 [IF ATTimage][label][ENDIF ATTimage]
 [IF ATTnormal]<input name="rqi_[id]" type="text" style="width:90%;[IF filter]color:red;[ENDIF filter]" value="[label]" title="[TEXT:filter on] [label]..." onmouseover="this.style.background='[COLOR_C7]'" onmouseout="this.style.background='';this.style.color='[IF filter]red[ENDIF filter]';" onclick="this.value=''" onkeypress="return sendform(event);"><img style="border:0; position:relative; left:-20px; top:2px" src="[IMG:faddbook_search.gif]">[ENDIF ATTnormal]</td>[ENDBLOCK COLS]</tr>
