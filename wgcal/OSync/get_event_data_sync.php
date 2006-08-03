@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.9 2006/08/03 09:17:17 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.10 2006/08/03 09:31:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -63,11 +63,12 @@ if ($SyncDebug) print "<pre>";
 if ($SyncDebug) print "</pre>";
 
 $irv = 0;
+$doc = new_Doc($db);
 foreach ($trv as $krv => $vrv) {
   if ($SyncDebug) print '<pre class="out">';
   WSyncSend($SyncDebug, "RV[".$irv++."] id", $vrv["id"]);
   WSyncSend($SyncDebug, "Owner is connected", ($vrv["calev_ownerid"]==$user?"0":"1"));
-  WSyncSend($SyncDebug, "User login", $action->parent->user->login);
+  WSyncSend($SyncDebug, "Owner ", $doc->getTitle($vrv["calev_ownerid"]));
   WSyncSend($SyncDebug, "Title", "<I>\n".utf8_encode($vrv["calev_evtitle"])."\n</I>");
 //   WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"], ($vrv["calev_timetype"]==1?false:true)));
   WSyncSend($SyncDebug, "Start", WSyncDbDate2Outlook($vrv["calev_start"]));
