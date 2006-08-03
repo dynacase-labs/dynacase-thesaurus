@@ -1,6 +1,7 @@
-<table width="100%" margin="3" cellpadding="2px" cellspacing="0" border="0">
-<tr class="wMonthTextTitle"><td>[title]</td><td align="right">[owner]</td></tr>
+<div class="wMonthTextTitle">[title], [owner]</div>
+<table margin="3" cellpadding="2px" cellspacing="5" border="0">
 [BLOCK HISTO]
-<tr><td colspan="2">[line]</td></tr>
+<tr><td>[date]</td><td>[uname]</td><td>[comment]</td></tr>
 [ENDBLOCK HISTO]
-<tr class="wMonthTextTitle"><td colspan="2"></td></tr></table>
+</table>
+<div class="wMonthTextTitle">[title], [owner]</div>
