@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: set_recpattern_sync.php,v 1.5 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: set_recpattern_sync.php,v 1.6 2006/08/03 09:17:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -43,11 +43,11 @@ switch($type) {
  
 $event->setValue("calev_repeatmode", $rtype);
 if ($rtype == 2) {
-  $tda = array();
+  $daymask = 0;
   for ($id=0; $id<7; $id++) {
-    if (substr($days,$id,1)=="y") $tda[] = ($id==0?6:$id-1);
+    if (substr($days,$id,1)=="y") $daymask = $daymask | pow(2, ($id==0?6:$id-1));
   }
-  $event->setValue("calev_repeatweekday", $tda);
+  $event->setValue("calev_repeatweekday", $daymask);
 }
 if ($rtype == 3) $event->setValue("calev_repeatmonth", $month);
 

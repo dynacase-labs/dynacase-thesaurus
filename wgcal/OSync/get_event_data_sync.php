@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005
- * @version $Id: get_event_data_sync.php,v 1.8 2005/06/28 17:33:29 marc Exp $
+ * @version $Id: get_event_data_sync.php,v 1.9 2006/08/03 09:17:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -103,11 +103,9 @@ foreach ($trv as $krv => $vrv) {
     $dayls = array( "n", "n", "n", "n", "n", "n", "n");
     switch ($vrv["calev_repeatmode"]) {
     case 2: // Weekly  
-      WSyncSend($SyncDebug, "Repeat period", "weekly");  
-      $days = Doc::_val2array($vrv["calev_repeatweekday"]);
-      $daysl = "";
-      foreach ($days as $kd => $vd) {
-	$dayls[($vd==6?0:$vd+1)] = "y";
+      WSyncSend($SyncDebug, "Repeat period", "weekly");
+      for ($i=0; $i<6; $i++) {
+        if (($vrv["calev_repeatweekday"] & pow(2,$i)) ==  pow(2,$i)) $dayls[($i==6?0:$i+1)] = "y";
       }
       break;
     case 3: // Monthly

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.9 2005/09/20 17:14:49 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.10 2006/08/03 09:17:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -21,6 +21,8 @@ function WSyncAuthent() {
   global $_GET;
   global $CORE_LOGLEVEL;
   $CoreNull = "";
+
+  $CORE_LOGLEVEL = "IEFW";
   
 
   if (isset($_COOKIE['session'])) $sess_num= $_COOKIE['session'];
@@ -40,10 +42,10 @@ function WSyncAuthent() {
   }
   $action = new Action();
   $action->Set("",$app);
-  //if (!$action->HasPermission("WGCAL_OSYNC")) {
-    //echo "<pre>User doesn't have required privilege</pre>";
-    //exit;
-  //}
+
+  $action->log = new Log("", "OSync");
+  $action->info("User ".$_SERVER['PHP_AUTH_USER']." authenticated");
+
   return $action;
 }
    
