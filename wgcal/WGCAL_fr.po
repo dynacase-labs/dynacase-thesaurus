@@ -1249,7 +1249,7 @@ msgid " interface look"
 msgstr "Aspect et comportement de l'interface"
 
 msgid "text color for event"
-msgstr "Couleur du texte des résumé des rendez-vous"
+msgstr "Couleur du texte des résumés des rendez-vous"
 
 msgid "dynamic"
 msgstr "dynamique"

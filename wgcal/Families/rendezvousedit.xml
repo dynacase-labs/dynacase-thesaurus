@@ -291,7 +291,7 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
     <span onclick="clickB('rmonth1',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1',true)"  type="radio" id="rmonth1" name="rmonth" value="1"  [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     </div>
 
-<div id="d_until" style="padding-top:1em; display:[D_RUNTIL]">
+<div id="d_until" style="padding-top:1em; visibility:[D_RUNTIL]">
 
   <div>[TEXT:repeat until] : </div>
 
