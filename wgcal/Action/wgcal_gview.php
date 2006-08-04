@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.32 2006/07/10 12:40:55 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.33 2006/08/04 15:23:12 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -143,7 +143,7 @@ function wgcal_gview(&$action) {
 	  $td[$cday]["cnt"]++;
 	} else {
 	  $td[$cday] = array( "date" => $cday, 
-			      "datestr" => strftime("%d %B %Y",$dsl+($iday*3600*24)),
+			      "datestr" => strftime("%A %d %B %Y",$dsl+($iday*3600*24)),
 			      "ev" => array(),
 			      "cnt" => 0,
 			      "Light" => $light);

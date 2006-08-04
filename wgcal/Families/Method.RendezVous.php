@@ -858,6 +858,7 @@ function EventSetCategory($evcategory) {
 function EventSetDate($dstart, $dend, $type) 
 {
   global $action;
+  $this->lay->set("evtimemode", $type);
   $this->lay->set("NOHOURINIT", ($type==1?"checked":""));
   $this->lay->set("NOHOURDISP", ($type==2?"hidden":"visible"));
   $this->lay->set("ALLDAYINIT", ($type==2?"checked":""));
@@ -1045,6 +1046,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   $this->lay->set("D_RUNTIL", ($rmode>0?"visible":"hidden"));
   $this->lay->set("REPEAT_SELECTED", "");
   
+  $this->lay->set("evrepeattype", $rmode);
   for ($i=0; $i<=4; $i++) $this->lay->set("REPEATTYPE_".$i, ($rmode==$i?"checked":""));
 
   $tday = array( _("monday"), _("tuesday"),_("wenesday"),_("thursday"),_("friday"),_("saturday"), _("sunday"));
@@ -1064,7 +1066,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   
   $this->lay->set("D_RUNTIL_INFI", ($runtil==0?"checked":""));
   $this->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
-  $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($runtil==1?"visible":"hidden"));
+  $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($rmode>0 && $runtil==1?"visible":"hidden"));
   
   $this->lay->set("uDate", ucwords(strftime("%a %d %b %Y", $runtildate))); //w_strftime($runtildate, WD_FMT_DAYLTEXT));
   $this->lay->set("umDate", $runtildate*1000);

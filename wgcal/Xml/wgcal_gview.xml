@@ -26,13 +26,13 @@
 [IF lmode]
 [IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
 [IFNOT noresult]
-<table  cellspacing="0" >[BLOCK btime]
+<table  width="100%" cellspacing="0" >[BLOCK btime]
 <tr style="vertical-align:top">
-<td colspan="3" style="font-size:90%; font-weight:bold; color:[COLOR_A0]; background-color:[COLOR_A9]; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px;" nowrap>[datestr]</td></tr>
+<td colspan="3" style="font-size:90%; font-weight:bold; color:[COLOR_A0]; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px;" nowrap>[datestr]</td></tr>
 [BLOCK devents[date]]
 <tr style="vertical-align:top">
-<td style="color:[COLOR_A1]; font-size:80%" nowrap>&middot;&nbsp;[hour]&nbsp;:</td>
-<td>[Icons]<span style="font-weight:bold; color:[COLOR_BLACK]">[title]</span>
+<td style="color:[COLOR_A1]; font-size:90%; text-align:right" nowrap>&middot;&nbsp;[hour]&nbsp;:</td>
+<td>[Icons]<span style="color:[COLOR_BLACK]">[title]</span>
 [IF vLocation] <span style="color:[COLOR_A1]; font-size:90%;">[[location]]</span>[ENDIF vLocation]
 [IF showOwner] <span style="color:[COLOR_A1]; font-size:90%; font-style:italic;">([owner])</span>[ENDIF showOwner]
 [IF sdescr]<br><span style="color:[COLOR_A1]; font-size:90%">[note]</span>[ENDIF sdescr]

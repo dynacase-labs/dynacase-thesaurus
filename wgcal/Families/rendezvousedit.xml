@@ -24,6 +24,8 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <input type="hidden" id="creatorid" name="creatorid" value="[creatorid]">
 <input type="hidden" id="ownertitle" name="ownertitle" value="[ownertitle]">
 <input type="hidden" id="evstatus" name="evstatus" value="[evstatus]">
+<input type="hidden" id="evtimemode" name="evtimemode" value="[evtimemode]">
+
 <input type="hidden" id="evmailext" name="evmailext" value="[evmailext]">
 <input type="hidden" id="evconvocation" name="evconvocation" value="[evconvocation]">
 <input type="hidden" id="evwithme" name="evwithme" value="[evwithme]">
@@ -283,12 +285,12 @@ SelectedRess[[idress]] = new Array( [ressid], '[resstitle]', '[ressico]', '[ress
    
 
 <div id="d_rweekday" style="padding-top:1em; display:[RWEEKDISPLAY]">[TEXT:day repetition] : 
-[BLOCK D_RWEEKDISPLAY]<div style="padding-left:3em"><span onclick="clickB('rweekday[dayn]'); return checkrdays([dayn]);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rweekday[dayn]'); checkrdays([dayn]);" type="checkbox" id="rweekday[dayn]" name="evrweekday[]" value="[dayn]" [rdstate] >[tDay]</span></div>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
+[BLOCK D_RWEEKDISPLAY]<div style="padding-left:3em"><span onclick="clickB('rweekday[dayn]'); return checkrdays([dayn]);" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rweekday[dayn]'); checkrdays([dayn]);" type="checkbox" id="rweekday[dayn]" name="evrweekday[[dayn]]" value="[rdstate]" [rdstate] >[tDay]</span></div>[IF weekend]<br>[ENDIF weekend][ENDBLOCK D_RWEEKDISPLAY]
 </div>
 
   <div id="d_rmonth" style="padding-top:1em; display:[D_RMONTH]">
-   [TEXT:month/year repetition] : <span onclick="clickB('rmonth0',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0',true)"  type="radio" id="rmonth0" name="rmonth" value="0"  [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
-    <span onclick="clickB('rmonth1',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1',true)"  type="radio" id="rmonth1" name="rmonth" value="1"  [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
+   [TEXT:month/year repetition] : <span onclick="clickB('rmonth0',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth0',true)"  type="radio" id="rmonth0" name="rmonth[1]" value="0"  [D_RMONTH_DATE_CHECKED]>[TEXT:per date]</span>
+    <span onclick="clickB('rmonth1',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'"><input onclick="clickB('rmonth1',true)"  type="radio" id="rmonth1" name="rmonth[1]" value="1"  [D_RMONTH_DAY_CHECKED]>[TEXT:per day]</span>
     </div>
 
 <div id="d_until" style="padding-top:1em; visibility:[D_RUNTIL]">

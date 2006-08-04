@@ -5,6 +5,15 @@ include_once("FDL/Class.Doc.php");
 include_once("FDL/mailcard.php");
 include_once("WGCAL/Lib.WGCal.php");
 
+
+
+function myGetHttpVars($var, $def) {
+  global $action;
+  $val = GetHttpVars($var, $def);
+  $action->log->info("GetHttpVars($var) = $val");
+  return $val;
+}
+
 function wgcal_storeevent(&$action) {
 
   global $_SERVER;
@@ -21,7 +30,7 @@ function wgcal_storeevent(&$action) {
   $oldrv= false;
   $err = "";
   $newevent = false;
-  $id  = GetHttpVars("eventid", -1);
+  $id  = myGetHttpVars("eventid", -1);
   if ($id==-1 || $id=="") {
     $event = createDoc($dbaccess, "CALEVENT");
     $err = $event->Add();
@@ -32,15 +41,15 @@ function wgcal_storeevent(&$action) {
     $oldrv = $event->getValues();
   }
   
-  $owner = GetHttpVars("ownerid", -1);
+  $owner = myGetHttpVars("ownerid", -1);
   $down = getTDoc($dbaccess, $owner);
   $ownerwid = $down["us_whatid"];
-  $ownertitle = GetHttpVars("ownertitle", "");
+  $ownertitle = myGetHttpVars("ownertitle", "");
 
   $event->setValue("CALEV_OWNERID", $owner);
   $event->setValue("CALEV_OWNER", $ownertitle);
 
-  $creatorid = GetHttpVars("creatorid", -1); 
+  $creatorid = myGetHttpVars("creatorid", -1); 
   if ($owner==$creatorid) {
     $creatorid = $owner;
     $creatorwid = $ownerwid;
@@ -53,23 +62,23 @@ function wgcal_storeevent(&$action) {
   $event->setValue("calev_creatorid", $creatorid);
   $event->setValue("calev_creator", $creatortitle);
 
-  $evstatus = GetHttpVars("evstatus", EVST_NEW);
+  $evstatus = myGetHttpVars("evstatus", EVST_NEW);
 
-  $event->setValue("CALEV_EVTITLE", GetHttpVars("rvtitle"));
-  $event->setValue("CALEV_EVNOTE", GetHttpVars("rvnote", ""));
-  $event->setValue("CALEV_CATEGORY", GetHttpVars("evcategory", 0));
+  $event->setValue("CALEV_EVTITLE", myGetHttpVars("rvtitle", _("no title")));
+  $event->setValue("CALEV_EVNOTE", myGetHttpVars("rvnote", ""));
+  $event->setValue("CALEV_CATEGORY", myGetHttpVars("evcategory", 0));
   
-  $ds = (GetHttpVars("TsStart", 0)/1000);
-  $de = (GetHttpVars("TsEnd", 0)/1000);
+  $ds = (myGetHttpVars("TsStart", 0)/1000);
+  $de = (myGetHttpVars("TsEnd", 0)/1000);
   $start = date("d/m/Y H:i:00",$ds);
   $end = date("d/m/Y H:i:00",$de);
   $htype = 0;
-  if (GetHttpVars("nohour", "") == "on") {
+  if (myGetHttpVars("evtimemode", 0) == 1) {
     $htype = 1;
     $start =date("d/m/Y 00:00:00",$ds);
     $end = date("d/m/Y 00:00:00",$ds);
   }
-  if (GetHttpVars("allday", "") == "on") {
+  if (myGetHttpVars("evtimemode", 0) == 2) {
     $htype = 2;
     $start =date("d/m/Y 00:00:00",$ds);
     $end = date("d/m/Y 23:59:59",$ds); 
@@ -84,11 +93,11 @@ function wgcal_storeevent(&$action) {
   $event->setValue("CALEV_START", $start);
   $event->setValue("CALEV_END", $end);
   
-  $event->setValue("CALEV_FREQUENCY", GetHttpVars("rfrequency",1));
+  $event->setValue("CALEV_FREQUENCY", myGetHttpVars("rfrequency",1));
   
-  $event->setValue("calev_location", GetHttpVars("rvlocation",""));
+  $event->setValue("calev_location", myGetHttpVars("rvlocation",""));
 
-  $calid = GetHttpVars("evcalendar", -1);
+  $calid = myGetHttpVars("evcalendar", -1);
   $caltitle = _("main calendar");
   if (!$newevent) $oldcal = $event->getValue("CALEV_EVCALENDARID");
   else $oldcal = -1;
@@ -99,34 +108,41 @@ function wgcal_storeevent(&$action) {
   }
   $event->setValue("CALEV_EVCALENDAR", $caltitle);
 
-  $conf = GetHttpVars("evconfidentiality", 0);
+  $conf = myGetHttpVars("evconfidentiality", 0);
   $event->setValue("CALEV_VISIBILITY", $conf);
   $event->confidential = ($conf>0 ? "1" : "0");
 
-  $confg = GetHttpVars("evconfgroups", 0);
+  $confg = myGetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);
   
-  $event->setValue("calev_evalarm", GetHttpVars("evalarmst",0));
-  $event->setValue("calev_evalarmday", GetHttpVars("evalarmd",0));
-  $event->setValue("calev_evalarmhour", GetHttpVars("evalarmh",1));
-  $event->setValue("calev_evalarmmin", GetHttpVars("evalarmm",0));
+  $event->setValue("calev_evalarm", myGetHttpVars("evalarmst",0));
+  $event->setValue("calev_evalarmday", myGetHttpVars("evalarmd",0));
+  $event->setValue("calev_evalarmhour", myGetHttpVars("evalarmh",1));
+  $event->setValue("calev_evalarmmin", myGetHttpVars("evalarmm",0));
   
   // repeat 
-  $rmode = GetHttpVars("repeattype", 0);
+  $rmode = myGetHttpVars("evrepeattype", 0);
   $event->setValue("CALEV_REPEATMODE", $rmode);
 
-  $rweekday = GetHttpVars("evrweekday", 0);
+  $rweekday = myGetHttpVars("evrweekday", array());
+  print_r2($rweekday);
   $daymask = 0;
+  $ss = "pas 2";
   if ($rmode==2) {
-    foreach ($rweekday as $k => $v) $daymask = $daymask | pow(2,$v);
+   $ss = " ( ";
+   foreach ($rweekday as $k => $v) {
+      $ss .= " [$v] ";
+     $daymask = $daymask | pow(2,$v);
+    }
+   $ss .= " ) ";
   }
   $event->setValue("CALEV_REPEATWEEKDAY", $daymask);
 
-  $event->setValue("CALEV_REPEATMONTH", GetHttpVars("rmonth", 0));
-  $event->setValue("CALEV_REPEATUNTIL", GetHttpVars("runtil", 0));
-  $date = GetHttpVars("evruntildate");
+  $event->setValue("CALEV_REPEATMONTH", myGetHttpVars("rmonth", 0));
+  $event->setValue("CALEV_REPEATUNTIL", myGetHttpVars("runtil", 0));
+  $date = myGetHttpVars("evruntildate", 0);
   if ($date>0) $sdate = $event->setValue("CALEV_REPEATUNTILDATE", date("d/m/Y 23:59:00",$date));
-  $excl = GetHttpVars("excludedate", "");
+  $excl = myGetHttpVars("excludedate", "");
   $event->deleteValue("CALEV_EXCLUDEDATE");
   if ($excl != "") {
     $excludedate = explode("|",$excl);
@@ -139,10 +155,10 @@ function wgcal_storeevent(&$action) {
   // Attendees
   // --------------------------------------------------------------------------------------------------
   $oconvoc = $event->getValue("calev_convocation");
-  $convoc = GetHttpVars("evconvocation",0); 
+  $convoc = myGetHttpVars("evconvocation",0); 
   $event->setValue("calev_convocation", $convoc);
 
-  $event->setValue("calev_attextmail", GetHttpVars("evmailext",0));
+  $event->setValue("calev_attextmail", myGetHttpVars("evmailext",0));
 
   $udbaccess = $action->GetParam("COREUSER_DB");
   $ugrp = new User($udbaccess);
@@ -162,7 +178,7 @@ function wgcal_storeevent(&$action) {
   $attcnt = 0;
   $nattl = array(); $iatt = 0;
   // first, find all groups and expand it
-  $attl = GetHttpVars("attendees", "");
+  $attl = myGetHttpVars("attendees", "");
   if ($attl!="") {
     $attendees = explode("|", $attl);
     foreach ($attendees as $ka => $va) {
@@ -254,7 +270,7 @@ function wgcal_storeevent(&$action) {
 
   $event->postChangeProcess($oldrv);
 
-  redirect($action, "WGCAL", "WGCAL_CALENDAR");
+//   redirect($action, "WGCAL", "WGCAL_CALENDAR");
 }
 
 

@@ -172,7 +172,10 @@ function ChangeAllDay() {
   var hend2 = document.getElementById('end_hour2');
   var hend3 = document.getElementById('end_hour3');
 
-  if (allday.checked) {
+   var fevtimemode = document.getElementById('evtimemode');
+
+ if (allday.checked) {
+    fevtimemode.value = 2;
     nohour.checked = false;
     tnohour.style.visibility = 'hidden';
     hend1.style.visibility = 'hidden';
@@ -180,10 +183,11 @@ function ChangeAllDay() {
     hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
-    tnohour.style.visibility = 'visible';
-    hend1.style.visibility = 'visible';
-    hend2.style.visibility = 'visible';
-    hend3.style.visibility = 'visible';
+   fevtimemode.value = 0;
+   tnohour.style.visibility = 'visible';
+   hend1.style.visibility = 'visible';
+   hend2.style.visibility = 'visible';
+   hend3.style.visibility = 'visible';
     hstart.style.visibility = 'visible';
   }
   return;
@@ -200,7 +204,10 @@ function ChangeNoHour() {
   var hend2 = document.getElementById('end_hour2');
   var hend3 = document.getElementById('end_hour3');
 
+  var fevtimemode = document.getElementById('evtimemode');
+
   if (nohour.checked) {
+    fevtimemode.value = 1;
     allday.checked = false;
     tallday.style.visibility = 'hidden';
     hend1.style.visibility = 'hidden';
@@ -208,6 +215,7 @@ function ChangeNoHour() {
     hend3.style.visibility = 'hidden';
     hstart.style.visibility = 'hidden';
   } else {
+    fevtimemode.value = 0;
     tallday.style.visibility = 'visible';
     hend1.style.visibility = 'visible';
     hend2.style.visibility = 'visible';
@@ -391,8 +399,38 @@ function saveEvent(event, checkconflict) {
 		   +'        [Annuler] pour le modifier')) return false;
     }
   }
-	
-  if (EventSelectAll(fs)) fs.submit();
+	 
+  EventSelectAll(fs);
+
+  var param = '';
+  var tparam = '';
+  for (var iff=0; iff<fs.elements.length; iff++) {
+    param += '&'+fs.elements[iff].name+'='+fs.elements[iff].value;
+    tparam += fs.elements[iff].name+'='+fs.elements[iff].value+'\n';
+  }
+
+  // Save event
+  globalcursor('progress');
+  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_STOREEVENT";
+  //  urlsend += param;
+  alert(tparam);
+  var rq;
+  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
+  else rq = new ActiveXObject("Microsoft.XMLHTTP");
+  rq.open("POST", urlsend, false);
+  rq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  rq.send(param);
+  alert(rq.responseText);
+
+  var e;
+  try {
+    top.opener.fcalReloadEvents();
+  } catch(e) {
+    top.window.fcalReloadEvents();
+  };
+  unglobalcursor();
+   
+//   fs.submit();
   DocumentSaved = true;
   window.close();
   return false;
@@ -434,8 +472,8 @@ function delExclDate() {
 
 
 function ViewElement(eCheck, eDisplay) {
-  chk = document.getElementById(eCheck);
-  zon = document.getElementById(eDisplay);
+  var chk = document.getElementById(eCheck);
+  var zon = document.getElementById(eDisplay);
   if (chk.checked == true) {
     zon.style.visibility = 'visible';
   } else {
@@ -463,6 +501,7 @@ function everyInfo() {
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
   if (checkone==3 || checkone==4) document.getElementById('d_rmonth').style.display = '';
 
+  document.getElementById('evrepeattype').value = checkone;
 }
 
 
