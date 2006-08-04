@@ -41,7 +41,7 @@ var  CGCURSOR='auto'; // current global cursor
 
 
 function  fcalGetJSDoc(ev, id) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
+  var urlsend = UrlRoot+"app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
   
   showWaitServerMessage(ev,'Loading event');
   var res;
@@ -139,7 +139,7 @@ function getY(e) {
 
 function setDaysViewed(ndays) {
   usetparam(-1, "WGCAL_U_VIEW", "week", '', '');
-  usetparam(-1, "WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');
+  usetparam(-1, "WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', UrlRoot+'app=WGCAL&action=WGCAL_CALENDAR');
 }
 function setTextView(sh) {
   usetparam(-1, "WGCAL_U_VIEW", "text", '', '');
@@ -149,7 +149,7 @@ function setTextView(sh) {
     p = "WGCAL_U_CALCURDATE";
     v = sh;
   }
-  usetparam(-1, p, v, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_TEXTMONTH');
+  usetparam(-1, p, v, 'wgcal_calendar', UrlRoot+'app=WGCAL&action=WGCAL_TEXTMONTH');
 }
 
 
@@ -230,7 +230,7 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
 }
  
 function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+escape(pvalue);
+  var urlsend = UrlRoot+"app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+escape(pvalue);
  fcalSendRequest(urlsend, false, false);
 
 }
@@ -258,6 +258,7 @@ function usetparam(uid, name, value, updatetarget, updateaction)
     updatetarget = 'wgcal_hidden';
     updateaction = 'WGCAL_HIDDEN';
   }
+  alert ('target='+updatetarget+' action = '+updateaction);
   taction.value = updateaction;
   fset.target = updatetarget;
 

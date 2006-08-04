@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.WGCal.php,v 1.63 2006/06/05 13:00:21 marc Exp $
+ * @version $Id: Lib.WGCal.php,v 1.64 2006/08/04 11:42:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -161,11 +161,6 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
  $fid = $event->getValue("CALEV_OWNERID");
  $uid = new_Doc($action->GetParam("FREEDOM_DB"), $fid);
 
- if ($uid->getValue("us_mail")=="")  { 
-   AddWarningMsg(_("you don't have an email addres, mails are not sended"));
-   return;
- }
-
  $from = addslashes($uid->getValue("TITLE"))." <".$uid->getValue("us_mail").">";
  if ($action->GetParam("WGCAL_U_RVMAILCC",0)==1) $bcc = $from;
 
@@ -195,19 +190,23 @@ function sendRv(&$action, &$event, $sendto=0, $title, $reason="", $sendvcs=false
 		
  
  if ($to!="") {
-    sendCard($action, 
-	     $event->id, 
-	     $to, 
-	     $cc,
-	     $title,
-	     "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
-	     true, 
-	     "", 
-	     $from, 
-	     $bcc, 
-	     "html", 
-	     false,
-	     $afiles );
+   if ($uid->getValue("us_mail")=="")  { 
+     AddWarningMsg(_("you don't have an email addres, mails are not sended"));
+     return;
+   }
+   sendCard($action, 
+	    $event->id, 
+	    $to, 
+	    $cc,
+	    $title,
+	    "WGCAL:MAILRV?ev=$event->id:S&msg=$reason",
+	    true, 
+	    "", 
+	    $from, 
+	    $bcc, 
+	    "html", 
+	    false,
+	    $afiles );
 //      AddWarningMsg("Mail: event(".$event->getValue("calev_evtitle").") From=[$from] To=[$to] Cc=[$cc] Bcc=[$bcc] Msg=[$reason]");
   }
 }
