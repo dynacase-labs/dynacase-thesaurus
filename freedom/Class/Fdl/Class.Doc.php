@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.326 2006/08/01 15:29:59 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.327 2006/08/04 10:29:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -268,7 +268,7 @@ Class Doc extends DocCtrl
   public $eviews=array("FDL:EDITBODYCARD");
 
 
-
+  public $sqlindex=array();
   public $id_fields = array ("id");
 
   public $dbtable = "doc";
@@ -2980,9 +2980,9 @@ final public function PostInsert()  {
     return ((DbObj::isAffected()) && ($this->doctype != 'Z'));
   }
 
-  // --------------------------------------------------------------------
-  // use triggers to update docvalue table
-  // --------------------------------------------------------------------
+  /**
+   * use triggers to update docvalue table
+   */
   final public function SqlTrigger($drop=false) {
 
     if (get_class($this) == "DocFam") {
@@ -3016,6 +3016,17 @@ final public function PostInsert()  {
     return $sql;
   }
 
+  /**
+   * add special SQL indexes
+   */
+  final public function GetSqlIndex() {
+    $t="";
+    $id=$this->fromid;
+    foreach ($this->sqlindex as $k=>$v) {
+      $t.=sprintf("CREATE unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
+    }
+    return $t;
+  }
   /*
    * transform hidden to writted attribut for default document
    */

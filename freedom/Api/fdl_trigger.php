@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_trigger.php,v 1.6 2003/11/17 11:21:25 eric Exp $
+ * @version $Id: fdl_trigger.php,v 1.7 2006/08/04 10:29:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -63,6 +63,7 @@ if ($docid!=-1) {
 	  print $doc->sqltcreate."\n";
 	}
       }
+      print $doc->getSqlIndex();
     
     
     }	 
