@@ -1,4 +1,33 @@
 
+function faxSendForm(e) {
+  var param = '';
+//   var tparam = '';
+  var add = false;
+  for (var ie=0; ie<e.elements.length; ie++) {
+    add=false;
+    if (e.elements[ie].name!='') {
+      if (e.elements[ie].nodeName=='INPUT' && (e.elements[ie].type=='checkbox' || e.elements[ie].type=='radio')) {
+	add = e.elements[ie].checked;
+      } else {
+	add = true;
+      }
+      if (add) {
+	param += (param!=''?'&':'') + e.elements[ie].name+'='+escape(e.elements[ie].value);
+//  	tparam += e.elements[ie].name+'='+escape(e.elements[ie].value)+'\n';
+     }
+    }
+  }
+  var rq;
+  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
+  else rq = new ActiveXObject("Microsoft.XMLHTTP");
+  rq.open("POST", e.action, false);
+  rq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  rq.send(param);
+//   alert('param=['+tparam+']\nrep=[\n'+rq.responseText+'\n]');
+}
+
+
+
 function eltId(eltid) {
   if (document.getElementById(eltid)) return document.getElementById(eltid);
   return false;
@@ -258,7 +287,7 @@ function usetparam(uid, name, value, updatetarget, updateaction)
     updatetarget = 'wgcal_hidden';
     updateaction = 'WGCAL_HIDDEN';
   }
-  alert ('target='+updatetarget+' action = '+updateaction);
+//   alert ('target='+updatetarget+' action = '+updateaction);
   taction.value = updateaction;
   fset.target = updatetarget;
 

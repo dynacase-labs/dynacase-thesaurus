@@ -771,7 +771,7 @@ function fastEditSetUrlParam(settz) {
   var  urlparam = "";
   urlparam += "&id="+EventInEdition.idp;
   urlparam += "&oi="+EventInEdition.idowner;
-  urlparam += "&ti="+feTitle;
+  urlparam += "&ti="+escape(feTitle);
   var hmode = 0;
   if (eltId('nohour') && eltId('nohour').checked) hmode = 1;
   if (eltId('allday') && eltId('allday').checked) hmode = 2;
@@ -787,8 +787,8 @@ function fastEditSetUrlParam(settz) {
   urlparam += "&te="+ te;
   urlparam += "&ca="+cat;
   urlparam += "&co="+conf;
-  urlparam += "&lo="+loc;
-  urlparam += "&no="+note;
+  urlparam += "&lo="+escape(loc);
+  urlparam += "&no="+escape(note);
 
   return urlparam;
 

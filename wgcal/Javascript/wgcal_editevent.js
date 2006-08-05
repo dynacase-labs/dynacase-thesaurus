@@ -402,25 +402,7 @@ function saveEvent(event, checkconflict) {
 	 
   EventSelectAll(fs);
 
-  var param = '';
-  var tparam = '';
-  for (var iff=0; iff<fs.elements.length; iff++) {
-    param += '&'+fs.elements[iff].name+'='+fs.elements[iff].value;
-    tparam += fs.elements[iff].name+'='+fs.elements[iff].value+'\n';
-  }
-
-  // Save event
-  globalcursor('progress');
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_STOREEVENT";
-  //  urlsend += param;
-  alert(tparam);
-  var rq;
-  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
-  else rq = new ActiveXObject("Microsoft.XMLHTTP");
-  rq.open("POST", urlsend, false);
-  rq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  rq.send(param);
-  alert(rq.responseText);
+  faxSendForm(fs);
 
   var e;
   try {
@@ -501,7 +483,6 @@ function everyInfo() {
   if (checkone==2) document.getElementById('d_rweekday').style.display = '';
   if (checkone==3 || checkone==4) document.getElementById('d_rmonth').style.display = '';
 
-  document.getElementById('evrepeattype').value = checkone;
 }
 
 
