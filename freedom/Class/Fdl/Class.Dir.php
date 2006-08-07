@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.53 2006/08/01 15:25:29 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.54 2006/08/07 10:23:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -439,7 +439,13 @@ Class Dir extends PDir
     if ($err != "") return $err;
     $qf->Delete();
 
-  
+    
+    if ($doc->prelid == $this->initid) {
+      $doc->prelid="";
+      $doc->modify(true,array("prelid"),true);
+    }
+
+
     AddLogMsg(sprintf(_("Delete %d in %s folder"), $docid, $this->title));
 
     // use post virtual method
