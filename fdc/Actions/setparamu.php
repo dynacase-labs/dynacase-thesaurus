@@ -3,7 +3,7 @@
  * Get Values in XML form
  *
  * @author Anakeen 2006
- * @version $Id: setparamu.php,v 1.2 2006/06/23 09:41:32 eric Exp $
+ * @version $Id: setparamu.php,v 1.3 2006/08/07 15:54:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FDC
@@ -29,6 +29,7 @@ function setparamu(&$action) {
   $mb=microtime();
   $appname = GetHttpVars("appname");
   $parname = GetHttpVars("parname");
+
   $parval = GetHttpVars("parval");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -42,7 +43,6 @@ function setparamu(&$action) {
   $pdef->AddQuery("isuser='Y'");
   $pdef->AddQuery("appid=$appid");
   $list=$pdef->Query(0,2);
-
 if ($pdef->nb==0) {
   $err=sprintf(_("Attribute %s not found\n"),$parname);
 } elseif ($pdef->nb > 1) {
@@ -50,7 +50,7 @@ if ($pdef->nb==0) {
 } else {
 
   $param = new QueryDb("","Param");
-  $pdef->AddQuery("name='".pg_escape_string($parname)."'");
+  $param->AddQuery("name='".pg_escape_string($parname)."'");
   $param->AddQuery("type='".PARAM_USER.$action->user->id."'");
   $param->AddQuery("appid=$appid");
   $list=$param->Query(0,1);
