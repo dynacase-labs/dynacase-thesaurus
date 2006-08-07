@@ -3,7 +3,7 @@
  * Get event producter popup menu
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getmenu.php,v 1.3 2006/04/28 14:42:52 marc Exp $
+ * @version $Id: wgcal_getmenu.php,v 1.4 2006/08/07 16:24:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,7 @@ function wgcal_getmenu(&$action) {
   $docid = GetHttpVars("id");
   $ctx   = GetHttpVars("ctx", "CAL");
   $ue   = (GetHttpVars("ue", "t")!="f"?true:false);
-  $occ   = date("d/m/Y", GetHttpVars("occ"));
+  $occ   = date("d/m/Y", GetHttpVars("occ", 0));
 
   if ($docid=="")  return _("rv document reference no set");
   if (! is_numeric($docid)) $docid=getIdFromName($dbaccess,$docid);

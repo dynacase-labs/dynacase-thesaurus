@@ -1,7 +1,8 @@
-[IF OnlyCount]var result='[count]';[ENDIF OnlyCount]
+[IF OnlyCount]var result='[count]';[ENDIF OnlyCount][IF LightMode]<?xml version="1.0" encoding="UTF-8"?><freedomsvc uptime="[uptime]" title="[TEXT:waiting rv] : [RVCOUNT]"><![CDATA[
+[BLOCK WAITRV]<div>&diams; [date], <span style="font-weight:bold">[title]</span> <span style="font-size:80%; font-style:italic">([owner])</span></div> 
+[ENDBLOCK WAITRV]
+]]></freedomsvc>[ENDIF LightMode]
 [IFNOT OnlyCount]
-
-
 [IFNOT LightMode]
 [JS:REF]
 <script type="text/javascript"> 
@@ -12,7 +13,6 @@
 <td align="right">[IF intoolbar]<input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('_self', '[oact]')" [alertwrv] title="[TEXT:alert for new event ?]">&nbsp;[ENDIF intoolbar]</td>
 </tr>
 </table>
- 
 <div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px 2px 0px 10px; overflow:auto">[BLOCK WAITRV]
 <div id="evt[id]" title="[TEXT:click-right button to open menu]" class="wgcalwaitrv" style="cursor:crosshair" 
      onmouseover="this.className = 'wgcalwaitrvover'; " onmouseout="this.className = 'wgcalwaitrv'"
@@ -20,9 +20,4 @@
 <span class="wgcalwaitrvtitle" >[title]</span> <span class="wgcalwaitrvdesc">[date], [owner]</span>
 </div>[ENDBLOCK WAITRV]</div>
 [ENDIF LightMode]
-[IF LightMode]<div style="">  
-<div style="font-style:italic">[RVCOUNT] [TEXT:waiting rv]</div>
-[BLOCK WAITRV]<div>&diams; [date], <span style="font-weight:bold">[title]</span> <span style="font-size:80%; font-style:italic">([owner])</span></div> 
-[ENDBLOCK WAITRV]
-</div>[ENDIF LightMode]
 [ENDIF OnlyCount]

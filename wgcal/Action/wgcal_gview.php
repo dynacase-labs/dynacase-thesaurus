@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.34 2006/08/07 09:09:47 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.35 2006/08/07 16:24:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,6 +30,12 @@ function wgcal_gview(&$action) {
 
   $light = (GetHttpVars("mo", "")=="L"?true:false);
   $showDesc = (GetHttpVars("sd", "Y")=="Y"?true:false);
+  if ($light) {
+    // Send XML datas
+    header('Content-type: text/xml; charset=utf-8');
+    $action->lay->setEncoding("utf-8");    
+    $action->lay->set("uptime", strftime("%A %d %B %Y, %H:%M", time()));
+  }
   $action->lay->set("lmode", $light);
 
   // Set a filter
@@ -143,7 +149,7 @@ function wgcal_gview(&$action) {
 	  $td[$cday]["cnt"]++;
 	} else {
 	  $td[$cday] = array( "date" => $cday, 
-			      "datestr" => strftime("%A %d %B %Y",$dsl+($iday*3600*24)),
+			      "datestr" => (strftime("%A %d %B %Y",$dsl+($iday*3600*24))),
 			      "ev" => array(),
 			      "cnt" => 0,
 			      "Light" => $light);
@@ -193,7 +199,7 @@ function wgcal_gview(&$action) {
 	$td[$cday]["ev"][$j]["edit"] = $edoc[$ve["id"]]->isEditable();
 
 	$td[$cday]["ev"][$j]["location"] = $ve["evfc_location"];
-	$td[$cday]["ev"][$j]["vLocation"] = ($ve["evfc_location"]!="" && $showDesc ? true : false );
+	$td[$cday]["ev"][$j]["vLocation"] = ($ve["evfc_location"]!="" ? true : false );
 	
 	$td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
 	$td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);

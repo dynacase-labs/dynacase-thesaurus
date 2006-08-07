@@ -1,3 +1,22 @@
+[IF lmode]<?xml version="1.0" encoding="UTF-8"?>
+<freedomsvc uptime="[uptime]" title="Mon agenda"><![CDATA[
+[IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
+[IFNOT noresult]
+<table  width="100%" cellspacing="0" >[BLOCK btime]
+<tr style="vertical-align:top">
+<td colspan="3" style="font-size:90%; font-weight:bold; color:[COLOR_A0]; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px;" nowrap>[datestr]</td></tr>
+[BLOCK devents[date]]
+<tr style="vertical-align:top">
+<td style="color:[COLOR_A1]; font-size:90%; text-align:right" nowrap>&middot;&nbsp;[hour]&nbsp;:</td>
+<td>[Icons]<span style="color:[COLOR_BLACK]">[title]</span>
+[IF vLocation] <span style="color:[COLOR_A1]; font-size:90%;">[[location]]</span>[ENDIF vLocation]
+[IF showOwner] <span style="color:[COLOR_A1]; font-size:90%; font-style:italic;">([owner])</span>[ENDIF showOwner]
+[IF sdescr]<br><span style="color:[COLOR_A1]; font-size:90%">[note]</span>[ENDIF sdescr]
+</td></tr>
+[ENDBLOCK devents[date]]
+[ENDBLOCK btime]</table>[ENDIF noresult]
+]]></freedomsvc>[ENDIF lmode]
+
 [IFNOT lmode]
 
 [IF standalone][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF standalone]
@@ -21,24 +40,6 @@
 <span id="eventCount" style="display:none">[eventCount]</span>
 [IF standalone][ZONE WGCAL:WGCAL_HTMLFOOT][ENDIF standalone]
 
-[ENDIF lmode]
-
-[IF lmode]
-[IF noresult]<div>[TEXT:no event]</div>[ENDIF noresult]
-[IFNOT noresult]
-<table  width="100%" cellspacing="0" >[BLOCK btime]
-<tr style="vertical-align:top">
-<td colspan="3" style="font-size:90%; font-weight:bold; color:[COLOR_A0]; border-color:[COLOR_A7]; border-width:1px; border-style:none none solid none; padding:5px 0px 0px 0px;" nowrap>[datestr]</td></tr>
-[BLOCK devents[date]]
-<tr style="vertical-align:top">
-<td style="color:[COLOR_A1]; font-size:90%; text-align:right" nowrap>&middot;&nbsp;[hour]&nbsp;:</td>
-<td>[Icons]<span style="color:[COLOR_BLACK]">[title]</span>
-[IF vLocation] <span style="color:[COLOR_A1]; font-size:90%;">[[location]]</span>[ENDIF vLocation]
-[IF showOwner] <span style="color:[COLOR_A1]; font-size:90%; font-style:italic;">([owner])</span>[ENDIF showOwner]
-[IF sdescr]<br><span style="color:[COLOR_A1]; font-size:90%">[note]</span>[ENDIF sdescr]
-</td></tr>
-[ENDBLOCK devents[date]]
-[ENDBLOCK btime]</table>[ENDIF noresult]
 [ENDIF lmode]
 
 

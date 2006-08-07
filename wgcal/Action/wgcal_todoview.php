@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.6 2006/07/10 12:40:55 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.7 2006/08/07 16:24:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -35,6 +35,8 @@ function wgcal_todoview(&$action) {
 
   $action->lay->set("lmode", false);
   if (GetHttpVars("mo", "")=="L") {
+    header('Content-type: text/xml; charset=utf-8');
+    $action->lay->setEncoding("utf-8");
     $action->lay->set("lmode", true);
     $todoviewday= 0;
     $orderby = "asc";
@@ -85,6 +87,7 @@ function wgcal_todoview(&$action) {
   $action->lay->setBlockData("TodoList", $td);
   $action->lay->set("todocount", count($todos));
   $action->lay->set("Todos", count($todos)>0);
+  $action->lay->set("uptime", strftime("%H:%M %d/%m/%Y", time()));
 
 }
 

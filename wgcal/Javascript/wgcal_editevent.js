@@ -412,7 +412,6 @@ function saveEvent(event, checkconflict) {
   };
   unglobalcursor();
    
-//   fs.submit();
   DocumentSaved = true;
   window.close();
   return false;

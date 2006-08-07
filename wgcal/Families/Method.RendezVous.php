@@ -1060,7 +1060,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   $this->lay->SetBlockData("D_RWEEKDISPLAY", $td);
   $this->lay->set("RWEEKDISPLAY", ($rmode==2?"block":"none"));
 
-  $this->lay->set("D_RMONTH", ($rmode==3 || $rmode==4?"":"none"));
+  $this->lay->set("D_RMONTH", ($rmode==3 || $rmode==4?"block":"none"));
   $this->lay->set("D_RMONTH_DATE_CHECKED", ($rmonthdate==0?"checked":""));
   $this->lay->set("D_RMONTH_DAY_CHECKED", ($rmonthdate==1?"checked":""));
   

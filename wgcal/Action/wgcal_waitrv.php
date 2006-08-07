@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.15 2006/06/23 05:42:09 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.16 2006/08/07 16:24:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -31,8 +31,12 @@ function wgcal_waitrv(&$action) {
 
   $ocount = GetHttpVars("oc", "N");
   $mode = GetHttpVars("mo", "");
-  if ($mode=="L") $action->lay->set("LightMode", true);
-  else $action->lay->set("LightMode", false);
+  if ($mode=="L") {
+    $action->lay->set("LightMode", true);
+    $action->lay->set("uptime", strftime("%H:%M %d/%m/%Y", time()));
+    header('Content-type: text/xml; charset=utf-8');
+    $action->lay->setEncoding("utf-8");
+  }  else $action->lay->set("LightMode", false);
 
   $oapp = GetHttpVars("oapp", "WGCAL");
   $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
