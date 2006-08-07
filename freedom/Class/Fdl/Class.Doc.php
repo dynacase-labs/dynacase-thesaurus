@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.327 2006/08/04 10:29:15 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.328 2006/08/07 09:14:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3017,13 +3017,14 @@ final public function PostInsert()  {
   }
 
   /**
-   * add special SQL indexes
+   * add specials SQL indexes
    */
   final public function GetSqlIndex() {
     $t="";
     $id=$this->fromid;
     foreach ($this->sqlindex as $k=>$v) {
-      $t.=sprintf("CREATE unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
+      if ($v["unique"])  $t.=sprintf("CREATE unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
+      else $t.=sprintf("CREATE INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
     }
     return $t;
   }

@@ -3,7 +3,7 @@
  * Generate Php Document Classes
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_adoc.php,v 1.17 2006/02/21 08:43:16 eric Exp $
+ * @version $Id: fdl_adoc.php,v 1.18 2006/08/07 09:14:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,6 +75,7 @@ if ($query->nb > 0)	{
       $wdoc= createDoc($dbaccess,$v["id"]);
       $wdoc->CreateProfileAttribute();// add special attribute for workflow
       activateTrigger($dbaccess, $v["id"]);
+      setSqlIndex($dbaccess, $v["id"]);
     }    
   }
 
@@ -94,6 +95,7 @@ if ($query->nb > 0)	{
     $msg=PgUpdateFamilly($dbaccess, $v["id"]);
     print $msg;    
     activateTrigger($dbaccess, $v["id"]);    
+    setSqlIndex($dbaccess, $v["id"]);
   }
 
 // recursive sort by fromid

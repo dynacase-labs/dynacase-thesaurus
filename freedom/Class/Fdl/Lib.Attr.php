@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.60 2006/07/21 15:30:30 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.61 2006/08/07 09:14:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -423,13 +423,18 @@ function activateTrigger($dbaccess, $docid) {
       if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);
     }
 }
+function setSqlIndex($dbaccess, $docid) {
+  $cdoc = createDoc($dbaccess, $docid);
+  $indexes=$cdoc->GetSqlIndex();
+  if ($indexes)  $msg=$cdoc->exec_query($indexes);  
+}
 
 
 // refresh PHP Class & Postgres Table Definition
 function refreshPhpPgDoc($dbaccess, $docid) {
   
   $query = new QueryDb($dbaccess,"DocFam");
-  $query ->AddQuery("doctype='C'");  
+  $query->AddQuery("doctype='C'");  
   $query->AddQuery("id=$docid");
   $table1 = $query->Query(0,0,"TABLE");
 
@@ -447,7 +452,7 @@ function refreshPhpPgDoc($dbaccess, $docid) {
     // -----------------------------
     // activate trigger by trigger
     activateTrigger($dbaccess, $docid);
-
+    setSqlIndex($dbaccess, $docid);
   }
   
 }
