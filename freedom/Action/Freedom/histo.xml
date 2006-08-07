@@ -21,7 +21,6 @@ TD.tlist {
    border-width : 1px;
    border-style : dashed solid none none;
    border-color : [CORE_BGCOLORHIGH];
-  font-family: [CORE_FONTLIST1];
   font-size: 100%;
 }
 
@@ -29,7 +28,6 @@ TD.select {
    border-width : 1px;
    border-style : dashed solid none none;
    border-color : [CORE_BGCOLORHIGH];
-  font-family: [CORE_FONTLIST1];
   font-size: 100%;
 }
 

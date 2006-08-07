@@ -1,5 +1,4 @@
 <select [disabled] id="schoose[id]" [oc]
-        style="align:center" 
 	onchange="if (this.options[this.selectedIndex].value > -1) completechoice(this.options[this.selectedIndex].value,tattrid[id],tattrv[id],window);" > 
 <option value="-1"  disabled style="display:none"></option> 
                     [BLOCK SELECTENUM]
