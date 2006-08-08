@@ -98,11 +98,12 @@ function computeDivPosition(o, xm, ym, delta, yratio) {
   if (!yratio) yratio=1.0;
 
   eid.style.position = 'absolute';
-  eid.style.left = '20px';
-  eid.style.top = '20px';
-  eid.style.visibility = 'hidden';
-  eid.style.display = 'block';
-
+  if (eid.style.visibility=='hidden') {
+   eid.style.left = '0px';
+   eid.style.top = '0px';
+  }
+  if (eid.style.display!='block') eid.style.display = 'block';
+  
   var ww = getFrameWidth();
   var wh = getFrameHeight();
   var h  = getObjectHeight(eid);
@@ -117,17 +118,23 @@ function computeDivPosition(o, xm, ym, delta, yratio) {
   var h2 = wh - ym;
   
   var xp = yp = 0;
-   if (w < (w2+delta)) xp =  xm + delta;
-  else if (w < (w1+delta)) xp = xm - delta - w;
-  else xp = delta;
+
+
+  if (w + (xm+delta)<ww) xp = xm+delta;
+  else xp = -1;
+
+//    if (w < (w2+delta)) xp =  xm + delta;
+//   else if (w < (w1+delta)) xp = xm - delta - w;
+//   else xp = delta;
 
   if (h < (h2+delta)) yp = ym + delta;
   else if (h < (h1+delta)) yp = ym - delta - h;
   else yp = delta;
 
-  eid.style.left = parseInt(xp)+'px';
+  if (xp!=-1) eid.style.left = parseInt(xp)+'px';
   eid.style.top = parseInt(yp)+'px';
-  eid.style.visibility = 'visible';
+  
+  if (eid.style.visibility=='hidden') eid.style.visibility = 'visible';
 
   return;
 }
