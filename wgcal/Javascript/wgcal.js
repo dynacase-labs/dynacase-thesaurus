@@ -1,3 +1,22 @@
+var debug = true;
+function tdebug(tt) {
+  if (!debug) return;
+
+  if (!document.getElementById('debug')) {
+    var deb = document.createElement('div');
+    deb.setAttribute('id', 'debug');
+    deb.style.position = 'absolute';
+    deb.style.display = 'block';
+    deb.style.backgroundColor = 'red';
+    document.getElementById('root').appendChild(deb);
+  }  else {
+    var deb = document.getElementById('debug');
+  }
+  deb.style.left = '40px';
+  deb.style.top = '40px';
+  deb.innerHTML = tt;
+}
+
 
 function faxSendForm(e) {
   var param = '';
@@ -95,46 +114,34 @@ function computeDivPosition(o, xm, ym, delta, yratio) {
   }
   var eid = eltId(o);
 
-  if (!yratio) yratio=1.0;
+  var fw = frameWidth;
+  var fh = frameHeight;
+ 
+  var ow = parseInt(xm) + parseInt(delta);
+  var oh = parseInt(ym) + parseInt(delta);
 
-  eid.style.position = 'absolute';
-  if (eid.style.visibility=='hidden') {
-   eid.style.left = '0px';
-   eid.style.top = '0px';
+  var wlimit = false;
+ 
+  if (ow+evWidth+30<fw) eid.style.left = ow+'px';
+  else {
+    ow = parseInt(fw) - (parseInt(evWidth) + 30);
+    eid.style.left = ow+'px';
+    wlimit = true;
   }
-  if (eid.style.display!='block') eid.style.display = 'block';
   
-  var ww = getFrameWidth();
-  var wh = getFrameHeight();
-  var h  = getObjectHeight(eid);
-  var w  = getObjectWidth(eid);
-  if (w>parseInt(ww*yratio)) {
-    w = parseInt(ww*yratio);
-    eid.style.width = w;
+  if (oh+evHeight+30<fh) eid.style.top  = oh+'px';
+  else {
+    if (!wlimit) {
+      oh = parseInt(fh) - (parseInt(evHeight) + 30);
+    } else {
+      oh = oh - (parseInt(evHeight) + 30);
+    }
+    eid.style.top = oh+'px';
   }
-  var w1 = xm;
-  var w2 = ww - xm;
-  var h1 = ym;
-  var h2 = wh - ym;
+ 
   
-  var xp = yp = 0;
+//   tdebug('Frame[w:'+fw+':h:'+fh+'] Card:[w:'+evWidth+':h:'+evHeight+'] X:'+eid.style.left+' Y:'+eid.style.top);
 
-
-  if (w + (xm+delta)<ww) xp = xm+delta;
-  else xp = -1;
-
-//    if (w < (w2+delta)) xp =  xm + delta;
-//   else if (w < (w1+delta)) xp = xm - delta - w;
-//   else xp = delta;
-
-  if (h < (h2+delta)) yp = ym + delta;
-  else if (h < (h1+delta)) yp = ym - delta - h;
-  else yp = delta;
-
-  if (xp!=-1) eid.style.left = parseInt(xp)+'px';
-  eid.style.top = parseInt(yp)+'px';
-  
-  if (eid.style.visibility=='hidden') eid.style.visibility = 'visible';
 
   return;
 }

@@ -699,9 +699,8 @@ function normalEditCheckConflict(ev, displayZero) {
   document.getElementById('conflictcontent').innerHTML = rq.responseText;
   var nbc = parseInt(eltId('eventCount').innerHTML);
   if ((displayZero && nbc==0) || nbc>0) { 
-    document.getElementById('conflict').style.display = 'inline';
-    document.getElementById('conflict').style.visibility = 'visible';
     CenterDiv('conflict');
+    document.getElementById('conflict').style.visibility = 'visible';
   }
   unglobalcursor();
   return nbc;
