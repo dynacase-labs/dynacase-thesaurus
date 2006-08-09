@@ -769,6 +769,10 @@ function fcalInitCardPosition(evid) {
   eid.style.left = '0px';
   eid.style.top = '0px';
   evWidth = parseInt(getObjectWidth(eid));
+  if (evWidth>(frameWidth*0.7)) {
+    eid.style.width = frameWidth*0.7;
+    evWidth = parseInt(getObjectWidth(eid));
+  }
   evHeight = parseInt(getObjectHeight(eid));
 }
 
