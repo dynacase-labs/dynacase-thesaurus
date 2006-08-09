@@ -961,7 +961,6 @@ function fastEditOpenFullEdit(ev) {
 
 var EventInEdition;
 function fastEditReset() {
-  eltId('fastedit').style.display = 'none';
   EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
@@ -976,8 +975,10 @@ function fastEditReset() {
   eltId('allday').checked = '';
   eltId('s_start').value = 0;
   eltId('s_end').value = 0;
-  fcalSetOpacity(document.getElementById(Root), 100);
   datehourChanged = false;
+   eltId('fastedit').style.display = 'none';
+   eltId('fastedit').style.visibility = 'hidden';
+  fcalSetOpacity(document.getElementById(Root), 100);
 }
   
 
@@ -1130,7 +1131,7 @@ function fastEditInit(ev, init) {
 		     EventInEdition.start, 
 		     EventInEdition.end);
   
-  eltId('fastedit').style.backgroundColor = EventInEdition.rcolor;
+  fedit.style.backgroundColor = EventInEdition.rcolor;
   eltId('agendaowner').innerHTML = EventInEdition.titleowner;
   
   eltId('fe_title').value = EventInEdition.title;
@@ -1147,10 +1148,28 @@ function fastEditInit(ev, init) {
     if (scat.options[i].value == EventInEdition.confidentiality) scat.options[i].selected = true;
   }
 
-  posM.x = getX(ev);
-  posM.y = getY(ev);
-  computeDivPosition('fastedit', posM.x, posM.y, 0);
-  eltId('fe_title').style.visibility = 'visible';
+  fedit.style.left = 0;
+  fedit.style.top = 0;
+  fedit.style.display = 'inline';
+  var px = getX(ev);
+  var py = getY(ev);
+
+  var few = getObjectWidth(fedit);
+  var feh = getObjectHeight(fedit);
+
+  if (px+few+30<frameWidth) fedit.style.left = px+'px';
+  else {
+    px = parseInt(frameWidth) - (parseInt(few) + 30);
+    fedit.style.left = px+'px';
+  }
+  if (py+feh+30<frameHeight) fedit.style.top = py+'px';
+  else {
+    py = parseInt(frameHeight) - (parseInt(feh) + 30);
+    fedit.style.top = py+'px';
+  }
+  
+  fedit.style.visibility = 'visible';
+  fedit.style.display = 'inline';
   eltId('fe_title').focus();
   fastEditCanSave((eltId('fe_title').value!=''?true:false));
 }
@@ -1190,7 +1209,6 @@ function fcalCancelEvent(e) {
 
 
 // time and date
-
 
 function fcalComputeDateFromStart() {
 
