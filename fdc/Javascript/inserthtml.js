@@ -4,10 +4,11 @@ var INSERTINPROGRESS=false;
 
 var THEINSERTCIBLE=false; // object where insert HTML code
 var SYNCHRO=false; // send synchro mode
+var _SYNCHRO=0; // work variable to memorise previous synchro mode
 
 // send generic request
 function requestUrlSend(cible,url) {
-  //   if (INSERTINPROGRESS) alert('request aborted');
+     if (INSERTINPROGRESS) alert('request aborted:\n'+url);
   if (INSERTINPROGRESS) return false; // one request only
 
   // branch for native XMLHttpRequest object
@@ -38,15 +39,15 @@ function requestUrlSend(cible,url) {
 	  if (REQINSERTHTML.responseXML) insertXMlResponse(REQINSERTHTML.responseXML)
 	  else {
 	    alert('no xml\n'+REQINSERTHTML.responseText);
-	    return;
+	    return false;
 	  } 
 	}
       } else {
 	INSERTINPROGRESS=true;	
 	clipboardWait(cible);
-	return true;
       }
     }
+  return true;
 }
 
 function XmlInsertHtml() {
@@ -118,4 +119,21 @@ function insertXMlResponse(xmlres) {
 
 function clipboardWait(o) {
   if (o) o.innerHTML='<table style="width:100%;height:100%"><tr><td align="center"><img style="width:48px"  src="Images/b_wait.gif"></tr></td></table>';
+}
+/**
+ * set SYNCHRO to true
+ */
+function enableSynchro() {
+  _SYNCHRO++;
+  SYNCHRO=true;
+}
+/**
+ * set SYNCHRO to previous value (false generally)
+ */
+function disableSynchro() {
+  _SYNCHRO--;
+  if (_SYNCHRO <= 0) {
+    SYNCHRO=false;
+    _SYNCHRO=0;
+  }
 }
