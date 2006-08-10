@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.71 2006/08/10 08:46:07 eric Exp $
+ * @version $Id: viewcard.php,v 1.72 2006/08/10 15:08:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -160,19 +160,20 @@ function viewcard(&$action) {
 
   $action->lay->Set("revision", $doc->revision);
   
-
+  $action->lay->Set("lockedid",0);
   $action->lay->Set("comment", $doc->comment);
 
   if ($doc->confidential >0) $action->lay->Set("locked", _("confidential"));
   else if ($doc->control("edit") != "") $action->lay->Set("locked", _("read only"));
   else if ($doc->locked == 0) {
-      $action->lay->Set("locked", _("nobody"));
+    $action->lay->Set("locked", _("nobody"));
   } else {
     if ($doc->locked == -1) {
       $action->lay->Set("locked", _("fixed"));
     } else {
       $user = new User("", abs($doc->locked));
       $action->lay->Set("locked", $user->firstname." ".$user->lastname);
+      $action->lay->Set("lockedid", $user->fid);
     }
   }
   $action->lay->Set("dhelp", "none");
@@ -196,16 +197,16 @@ function viewcard(&$action) {
   if ($doc->fromid > 0)    $action->lay->Set("cid", $doc->fromid);
   else   $action->lay->Set("cid", $doc->id);
   
+  $action->lay->Set("viewstate", "none");
+  $action->lay->Set("state", "");
 
-  if ($doc->wid > 0) { // see only if it is a transitionnal doc
-    if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($doc->state));
-    else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($doc->state)));
+  $state=$doc->getState();
+  if ($state) { // see only if it is a transitionnal doc
+    if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($state));
+    else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($state)));
     $action->lay->Set("viewstate", "inherit");
-    $action->lay->Set("wid", $doc->wid);
-  } else {
-    $action->lay->Set("viewstate", "none");
-    $action->lay->Set("state", "");
-  }
+    $action->lay->Set("wid", ($doc->wid>0)?$doc->wid:$doc->state);
+  } 
   $action->lay->Set("version", $doc->version);
 
   $action->lay->Set("TITLE", $doc->title);
@@ -229,8 +230,7 @@ function viewcard(&$action) {
   $action->lay->Set("amail",(($doc->usefor != "P")&&
 			     ($doc->control('send')==""))?"inline":"none");
 
-  $owner = new User("", abs($doc->owner));
-  $action->lay->Set("username", $owner->firstname." ".$owner->lastname);
+  
 
   // update access date
   $doc->adate=$doc->getTimeDate(0,true);

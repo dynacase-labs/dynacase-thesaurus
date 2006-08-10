@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.17 2006/06/08 16:05:12 eric Exp $
+ * @version $Id: viewhisto.php,v 1.18 2006/08/10 15:08:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,8 @@ function viewhisto(&$action)
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["revision"]= $rdoc->revision;
     $trdoc[$k]["version"]= $rdoc->version;
-    $trdoc[$k]["state"]= ($rdoc->state=="")?"":(($rdoc->locked==-1)?_($rdoc->state):_("current"));
+    $state=$rdoc->getState();
+    $trdoc[$k]["state"]= ($state=="")?"":(($rdoc->locked==-1)?_($state):_("current"));
     if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
       $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);

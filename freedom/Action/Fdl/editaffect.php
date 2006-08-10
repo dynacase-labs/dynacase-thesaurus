@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: editaffect.php,v 1.2 2006/08/01 15:20:46 eric Exp $
+ * @version $Id: editaffect.php,v 1.3 2006/08/10 15:10:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,6 +13,7 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/editutil.php");
 
 // -----------------------------------
@@ -35,6 +36,25 @@ function editaffect(&$action) {
   $action->lay->Set("title",$doc->title);
   $action->lay->set("VIEWDOC",$viewdoc);
   $action->lay->set("affecttitle",sprintf(_("Affectation for %s"),$doc->title));
+  
+  // search free states
+  $sqlfilters=array();
+  $tfree = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE","FREESTATE");
+  $tstate=array();
+  if ($doc->wid == 0) {
+    foreach ($tfree as $k=>$v) {
+      $tstate[]=array("fstate"=>$v["initid"],
+		      "lstate"=>$v["title"],
+		      "dstate"=>nl2br(getv($v,"frst_desc")));
+    }
+  }
+  $action->lay->set("viewstate",($doc->wid == 0));
+  $state=$doc->getState();
+  if ($state)   $action->lay->set("textstate",sprintf(_("From %s state to"),$state));
+  else $action->lay->set("textstate",_("New state"));
+    
+  $action->lay->setBlockData("freestate",$tstate);
+
   
 }
 ?>

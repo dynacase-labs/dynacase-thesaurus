@@ -1,30 +1,74 @@
 [ZONE FDL:HTMLHEAD]
 
-
-<!-- Title Table -->
+<script>
+function viewstatedescription(o) {
+  var os=o.options[o.selectedIndex];
+  var sd=document.getElementById('sdescription');
+  if (os && sd) {
+    var d=os.getAttribute('desc');
+    sd.innerHTML=d;
+  }
+  var sc=document.getElementById('statecomment');
+  if (os.value==-1) {
+    sc.style.visibility='hidden';
+    document.getElementById('labelstate').style.visibility='hidden';
+  } else {
+    sc.style.visibility='visible';
+    sc.focus();
+    document.getElementById('labelstate').style.visibility='visible';
+  }
+}
+addEvent(window,'load',function z() {viewstatedescription(document.getElementById('selectstate'));});
+</script>
+<style>
+th {
+  background-color:[COLOR_A7];
+}
+td {
+  vertical-align:top;
+}
+</style>
 <form  id="fedit"  
        class="fborder" 
        name="affect" 
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FDL&action=AFFECT" >
+<table>
 
-<H2>[affecttitle]</h2>
-<input type="hidden" name="id" value="[id]">
-[TEXT:User to affect]&nbsp:&nbsp[ZONE FDL:INPUTATTRIBUTE?type=doclink&id=affectuser&label=[TEXT:User to affect]&famid=IUSER&esize=30]<br>
+<tr><th style="vertical-align:top;width:50%">[affecttitle]</th>
+    [IF viewstate]<th style="vertical-align:top;width:50%">[TEXT:Change state]</th>[ENDIF viewstate]</tr>
 
+<tr><td>
+    <input type="hidden" name="id" value="[id]">
+[TEXT:User to affect]&nbsp:&nbsp[ZONE FDL:INPUTATTRIBUTE?type=doclink&id=affectuser&label=[TEXT:User to affect]&famid=IUSER&esize=30]</td>
+[IF viewstate]
+     <td>
+     [textstate]
+	<select id="selectstate" name="newstate" onchange="viewstatedescription(this)">
+	<option selected value="-1" desc="[TEXT:the state will be unchanged]">[TEXT:unchanged state]</option>
+	<option value="0" desc="[TEXT:the state will be removed]">[TEXT:no state]</option>
+	[BLOCK freestate]
+	<option  value="[fstate]" desc="[dstate]">[lstate]</option>
+	[ENDBLOCK freestate]
+	</select> <i><span id="sdescription">-</span></i>
+	</td>
+[ENDIF viewstate]</tr>
+<tr><td>
 [TEXT:Action to do] :<br>
 [ZONE FDL:INPUTATTRIBUTE?type=longtext&id=actioncomment&label=[TEXT:Action to do]]
+</td>[IF viewstate]<td>
 
+<span id="labelstate">[TEXT:Reason for change state]</span><br>
+[ZONE FDL:INPUTATTRIBUTE?type=longtext&id=statecomment&label=[TEXT:Reason for change state]]</td>[ENDIF viewstate]
+</tr>
 
-<div style="width:100%;text-align:right">
-<input type="submit" onclick="setTimeout('self.close()',2000)">
-<input type="reset" value="[TEXT:Cancel]" onclick="self.close()"></div>
+<tr><td [IF viewstate]colspan="2"[ENDIF viewstate] align="right"><input type="submit" value="[TEXT:Apply]" onclick="setTimeout('self.close()',2000)">
+<input type="reset" value="[TEXT:Cancel]" onclick="self.close()"></td></tr>
+</table>
+
 </form>
-<script>
-document.affect.target=window.opener.name;
-</script>
 <!--  FOOT HTML -->
-
+<script>document.affect.target=window.opener.name;</script>
 [IF VIEWDOC]
 <iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
 [ENDIF VIEWDOC]

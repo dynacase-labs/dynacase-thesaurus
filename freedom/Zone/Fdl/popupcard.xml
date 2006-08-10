@@ -38,7 +38,7 @@
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','');closeMenu('popupcard')" >[TEXT:Revise]</a>
 
 <a href="#" id="allocate" 
-    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=EDITAFFECT&id=[id]','affect',false,300,200);closeMenu('popupcard')" >[TEXT:Allocate]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=EDITAFFECT&id=[id]','affect',false,500,200);closeMenu('popupcard')" >[TEXT:Allocate]</a>
 
 <a href="#" id="editprof"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]','');closeMenu('popupcard')" >[TEXT:Change profile]</a>

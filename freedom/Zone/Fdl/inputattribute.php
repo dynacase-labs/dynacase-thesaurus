@@ -3,7 +3,7 @@
  * Compose html code to insert input
  *
  * @author Anakeen 2006
- * @version $Id: inputattribute.php,v 1.1 2006/08/01 15:22:30 eric Exp $
+ * @version $Id: inputattribute.php,v 1.2 2006/08/10 15:08:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,7 +91,7 @@ function inputattribute(&$action) {
 			       $phpconstraint,$usefor,$eformat,$options);
 
     $doc->attr[$oattr1->id]=$oattr1;
-    $htmlinput=getHtmlInput($doc, $oattr1, $value, $index, $jsevent);
+    $htmlinput=getHtmlInput($doc, $oattr1, $value, $index, $jsevent,true);
     $doc->attr[$oattr->id]=$oattr;
   } else {
 
