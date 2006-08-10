@@ -11,6 +11,7 @@ END;0;-1;;;;;;;;;;
 BEGIN;1;dossier;2;Dir;DIR;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 ICON;dossier.gif;;;;;;;;;;;;;;
+USEFOR;D;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;BA_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;;
 ATTR;GUI_COLOR;FR_BASIC;couleur intercalaire;N;N;color;30;O;;;;;;;
@@ -53,7 +54,7 @@ END;1;-1;;;;;;;;;;;
 BEGIN;DIR;porte-documents;26;;BASKET;;;;;;;;
 TYPE;C;;;;;;;;;;;;
 ICON;basket.gif;;;;;;;;;;;;
-;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
 ATTR;FLD_COPYBASKET;FLD_FR_PROF;insérer le porte-document;N;N;menu;20;H;;;;;
 ATTR;FLD_CLEAR;;vider;N;N;menu;20;M;;[basket]%S%app=FREEDOM&action=FREEDOM_CLEARFLD&id=%I%;;;
@@ -81,6 +82,7 @@ BEGIN;1;masque de saisie;21;;MASK;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
 CPROFID;504;;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;;;
 ICON;masque.gif;;;;;;;;;;;;;;
 METHOD;Method.Mask.php;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;;;
@@ -100,7 +102,7 @@ BEGIN;1;contrôle de vues;28;CVDoc;CVDOC;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 ICON;cview.gif;;;;;;;;;;;;;;
 PROFID;510;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;CV_DESC;FR_BASIC;description;N;Y;longtext;20;W;;;;;;;
 ATTR;CV_FAMID;FR_BASIC;family id;N;N;docid;30;H;;;;::getTitle(CV_FAMID):CV_FAM;;;
@@ -124,10 +126,23 @@ ATTR;DPDOC_FAMID;DPDOC_FR_DYN;family id;N;N;docid;210;H;;;;::getTitle(DPDOC_FAMI
 ATTR;DPDOC_FAM;DPDOC_FR_DYN;famille;N;N;text;220;W;;%S%app=FDL&action=FDL_CARD&id=%DPDOC_FAMID%;fdl.php;lfamilies(D,DPDOC_FAM):DPDOC_FAMID,DPDOC_FAM;;;
 DEFAULT;CV_DISPLAYED;1;;;;;;;;;;;;;
 END;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;
+// famille états libre;;;id;class;name;;;;;;;;;;
+BEGIN;0;état libre;39;;FREESTATE;;;;;;;;;;
+TYPE;C;;;;;;;;;;;;;;
+ICON;state.png;;;;;;;;;;;;;;
+PROFID;510;;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;;;
+//;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
+ATTR;FRST_FR_IDENT;;Identification;;;frame;;;;;;;;;
+ATTR;FRST_NAME;FRST_FR_IDENT;nom;Y;N;text;10;W;;;;;;;
+ATTR;FRST_DESC;FRST_FR_IDENT;description;N;Y;longtext;20;W;;;;;;;
+END;;;;;;;;;;;;;;;
 // famille dossier;inherit;;id;class;name;;;;;;;;;;
 BEGIN;0;mail;15;;MAIL;;;;;;;;;;
 TYPE;C;;;;;;;;;;;;;;
 METHOD;Method.Mail.php;;;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;;;
 ICON;dmail.gif;;;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink;constraint;option
 ATTR;MAIL_FR;;Adresses;N;Y;frame;10;F;;;;;;;
@@ -380,6 +395,7 @@ END;0;;;;;;;;;;;;;;
 BEGIN;0;post it;27;;POSTIT;;;;;;;;
 TYPE;C;;;;;;;;;;;;
 METHOD;Method.PostIt.php;;;;;;;;;;;;
+USEFOR;S;;;;;;;;;;;;
 SCHAR;S;;;;;;;;;;;;
 ICON;postit.gif;;;;;;;;;;;;
 //;idattr;idframe;label;T;A;type;ord;vis;need;link;phpfile;phpfunc;elink
