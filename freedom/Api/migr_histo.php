@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: migr_histo.php,v 1.1 2006/06/08 16:06:52 eric Exp $
+ * @version $Id: migr_histo.php,v 1.2 2006/08/10 08:45:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,7 +57,7 @@ $dbaccess=GetParam("FREEDOM_DB");
 $filter[]="comment is not null";
 
 
-$ldoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"ITEM",0,false,"",false);
+$ldoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"ITEM",0,false,"",false,"also");
 
 $reste=countDocs($ldoc);
 
