@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.328 2006/08/07 09:14:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.329 2006/08/10 08:43:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -60,6 +60,7 @@ Class Doc extends DocCtrl
 			   "initid","fromid",
 			   "doctype",
 			   "locked",
+			   "allocated",
 			   "icon",
 			   "lmodify",
 			   "profid",
@@ -255,7 +256,13 @@ Class Doc extends DocCtrl
    * 
    * @public text
    */
-  public $ldapdn;
+  public $ldapdn; 
+  /**
+   * Allocate user id
+   * 
+   * @public int
+   */
+  public $allocated;
 
   /**
    * identification of special views
@@ -293,6 +300,7 @@ create table doc ( id int not null,
                    fromid int,
                    doctype char DEFAULT 'F',
                    locked int DEFAULT 0,
+                   allocated int DEFAULT 0,
                    icon varchar(256),
                    lmodify char DEFAULT 'N',
                    profid int DEFAULT 0,
@@ -2359,7 +2367,42 @@ final public function PostInsert()  {
     
     return "";
   }
+ /** 
+   * allocate document
+   * 
+   * affect a document to a user
+   * @param int $userid the system identificator of the user to affect
+   * 
+   * @return string error message, if no error empty string, if message
+   */
+  final public function allocate($userid,$comment="") {
 
+    $err="";
+    $err=$this->canEdit();
+    if ($err != "") $err=_("Affectation aborded")."\n".$err;
+    if ($err == "") {
+      $u=new User("",$userid);
+      if ($u->isAffected()) {
+
+	if ($err != "") $err=_("Affectation aborded")."\n".$err;
+	if ($err == "") {
+	  $this->delUTags("AFFECTED");
+	  $this->addComment(sprintf(_("Affected to %s %s"),$u->firstname,$u->lastname));
+	  $this->addRevision(sprintf(_("Affected for %s"),$comment));
+	  $this->addUTag($userid,"AFFECTED",$comment);	  
+	  $err=$this->lock(false,$userid);
+	}
+      } else {
+	$err=_("Affectation aborded : user not know");
+      }
+    }
+    if ($err=="") {
+      $this->allocated=$userid;
+      $this->modify(true,array("allocated"),true);      
+    }
+
+    return $err;
+  }
   /**
    * return icon url
    * if no icon found return doc.gif
@@ -3368,6 +3411,63 @@ final public function PostInsert()  {
     $this->lay->set("iconsrc",$this->getIcon());
     if ($this->state != "") $this->lay->set("state",_($this->state));
     else $this->lay->set("state","");
+  }  
+  /**
+   * write layout for thumb view
+   */
+  function viewproperties($target="finfo",$ulink=true,$abstract=true) {
+
+    $this->viewprop($target,$ulink,$abstract);
+    $this->lay->set("iconsrc",$this->getIcon());
+    $fdoc=$this->getFamDoc();
+    $this->lay->Set("ficonsrc", $fdoc->getIcon());
+    if ($this->state != "") $this->lay->set("state",_($this->state));
+    else $this->lay->set("state",_("no state"));
+    $this->lay->set("hasrevision",($this->revision > 0));
+    $this->lay->Set("moddate", strftime ("%d/%m/%Y %H:%M:%S",$this->revdate));
+    $this->lay->set("moddatelabel",_("last modification date"));
+    if ($this->locked == -1) {
+      if ($this->doctype=='Z') $this->lay->set("moddatelabel",_("suppression date"));
+      else $this->lay->set("moddatelabel",_("revision date"));
+    }
+    if (GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
+      setlocale (LC_TIME, "fr_FR");
+      $this->lay->Set("revdate", strftime ("%a %d %b %Y %H:%M",$this->revdate));
+    } else {
+      $this->lay->Set("revdate", strftime ("%x %T",$this->revdate));
+    }
+    $this->lay->Set("version", $this->version);
+    
+    $this->lay->Set("profid", abs($this->profid));
+    if ((abs($this->profid) > 0) && ($this->profid != $this->id)) {
+      $pdoc = new_Doc($this->dbaccess, abs($this->profid));
+      $this->lay->Set("profile", $pdoc->title);
+    } else {
+      if ($this->profid == 0)
+	$this->lay->Set("profile", _("no access control"));
+      else {
+	if ($this->dprofid==0) $this->lay->Set("profile", _("specific control"));
+	else {
+	
+	  $this->lay->Set("profile", _("dynamic control"));
+	  $this->lay->Set("profid", abs($this->dprofid));
+	}
+      }
+    }
+    if ($this->cvid == 0) {
+      $this->lay->Set("cview", _("no view control"));
+    } else {  
+      $cvdoc= new_Doc($dbaccess, $this->cvid);
+      $this->lay->Set("cview", $cvdoc->title);
+    }
+    if ($this->allocated == 0) {
+      $this->lay->Set("allocate", _("no allocate"));      
+    } else {
+      $user = new User("", ($this->allocated));
+      $this->lay->Set("allocate", $user->firstname." ".$user->lastname);
+    }
+  
+    
   }
   /**
    * write layout for abstract view
@@ -3489,9 +3589,8 @@ final public function PostInsert()  {
   // view doc properties
   final public function viewprop($target="_self",$ulink=true,$abstract=false) {
     foreach($this->fields as $k=>$v) {
-      $this->lay->Set(strtoupper($v),$this->$v);
+      $this->lay->Set(strtoupper($v),($this->$v===null)?false:$this->$v);
     }  
-
   }
 
   /**
@@ -4192,6 +4291,7 @@ final public function PostInsert()  {
     global $action;
     if ($this->confidential >0) return  $action->getImageUrl("confidential.gif");
     else if ($this->locked == -1) return  $action->getImageUrl("revised.gif");
+    else if ($this->allocated == $this->userid) return $action->getImageUrl("clef3.gif");
     else if ((abs($this->locked) == $this->userid)) return $action->getImageUrl("clef1.gif");
     else if ($this->locked != 0) return $action->getImageUrl("clef2.gif");
     else if ($this->control("edit") != "") return $action->getImageUrl("nowrite.gif");

@@ -6,74 +6,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-01 12:36+0200\n"
-"PO-Revision-Date: 2006-08-01 12:39+0200\n"
+"POT-Creation-Date: 2006-08-10 08:54+0200\n"
+"PO-Revision-Date: 2006-08-10 08:58+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "no document reference"
-msgstr "pas de référence au document"
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr "document n°%s inconnu. Affectation abandonnée"
 
 #, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
+msgid "user #%s not found. Affectation aborded"
+msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
+
+msgid "Affectation aborded"
+msgstr "Affectation annulée"
+
+#, c-format
+msgid "document %s has been affected to %s"
+msgstr "Le document %s a été affecté à %s"
+
+#, c-format
+msgid "Affected to %s"
+msgstr "Affectation à %s"
+
+#, c-format
+msgid "affectation for %s document"
+msgstr "affectation pour le document %s"
 
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-#, c-format
-msgid "the document %s has been sended"
-msgstr "Le document %s a été envoyé"
-
-msgid "document received for"
-msgstr "document reçu par"
-
-msgid "email sended"
-msgstr "email envoyé"
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr "le document %s n'est pas relié à un workflow"
-
-msgid "mail dest is empty"
-msgstr "le destinataire du email est vide"
-
-#, c-format
-msgid "PDF conversion failed for %s"
-msgstr "conversion PDF a échoué pour %s"
-
-#, c-format
-msgid "sended to %s"
-msgstr "envoi à %s"
-
-#, c-format
-msgid "sending %s to %s"
-msgstr "envoi de %s à %s"
-
-#, c-format
-msgid "%s cannot be sent"
-msgstr "%s n'a pas pu être envoyé"
 
 #, c-format
 msgid "unknown attribute %s for document %s"
@@ -97,6 +67,23 @@ msgstr "Cliquez pour changer les options"
 msgid "no label"
 msgstr "pas de désignation"
 
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
 msgid "no file referenced"
 msgstr "pas de fichier référencé"
 
@@ -110,6 +97,13 @@ msgstr "la fichier doit être controllé : permission de lire refusé"
 #, c-format
 msgid "file for %s not found."
 msgstr "fichier pour %s non trouvé"
+
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
 
 #, c-format
 msgid "the method %s does not exist for this document"
@@ -192,30 +186,11 @@ msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
 
 #, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr "document n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
-
-msgid "Affectation aborded"
-msgstr "Affectation annulée"
-
-#, c-format
-msgid "document %s has been affected to %s"
+msgid "document %s has been allocate to %s"
 msgstr "Le document %s a été affecté à %s"
 
 #, c-format
-msgid "Affected to %s"
-msgstr "Affectation à %s"
-
-#, c-format
-msgid "affectation for %s document"
+msgid "allocation for %s document"
 msgstr "affectation pour le document %s"
 
 #, c-format
@@ -452,6 +427,36 @@ msgstr "pas ajouté"
 
 msgid "action"
 msgstr "action"
+
+#, c-format
+msgid "the document %s has been sended"
+msgstr "Le document %s a été envoyé"
+
+msgid "email sended"
+msgstr "email envoyé"
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr "le document %s n'est pas relié à un workflow"
+
+msgid "mail dest is empty"
+msgstr "le destinataire du email est vide"
+
+#, c-format
+msgid "PDF conversion failed for %s"
+msgstr "conversion PDF a échoué pour %s"
+
+#, c-format
+msgid "sended to %s"
+msgstr "envoi à %s"
+
+#, c-format
+msgid "sending %s to %s"
+msgstr "envoi de %s à %s"
+
+#, c-format
+msgid "%s cannot be sent"
+msgstr "%s n'a pas pu être envoyé"
 
 #, c-format
 msgid "modoption: document [%d] is not alive"
@@ -1792,7 +1797,7 @@ msgid "document deleted"
 msgstr "document supprimé"
 
 msgid "revival document"
-msgstr "résurection du document"
+msgstr "restauration du document"
 
 #, c-format
 msgid "document %s [%d] is not in the trash"
@@ -1916,6 +1921,44 @@ msgstr ""
 #, c-format
 msgid "Delete %d in %s folder"
 msgstr "Suppression n°%d du dossier %s"
+
+#, c-format
+msgid "Affected to %s %s"
+msgstr "Affectation à %s %s"
+
+#, c-format
+msgid "Affected for %s"
+msgstr "Affectation pour %s"
+
+msgid "Affectation aborded : user not know"
+msgstr "Affectation annulée : utilisateur inconnu"
+
+msgid "no state"
+msgstr "pas d'état"
+
+msgid "last modification date"
+msgstr "date de dernière modification"
+
+msgid "suppression date"
+msgstr "date de suppression"
+
+msgid "revision date"
+msgstr "date de révision"
+
+msgid "no access control"
+msgstr "pas de contrôle d'accès"
+
+msgid "specific control"
+msgstr "Contrôle dédié"
+
+msgid "dynamic control"
+msgstr "contrôle dynamique"
+
+msgid "no view control"
+msgstr "pas de contrôle de vues"
+
+msgid "no allocate"
+msgstr "pas d'affectation"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2312,41 +2355,27 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
-msgid "error in filename"
-msgstr "erreur dans le nom de fichier"
+msgid "Security"
+msgstr "Sécurité"
 
-msgid "no image"
-msgstr "pas d'image"
-
-#, c-format
-msgid "set for %s, unset for %s"
-msgstr "cocher pour %s, décocher pour %s"
-
-msgid "color picker"
-msgstr "choix de couleur"
-
-msgid "choose inputs"
-msgstr "choisir une valeur"
-
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
-
-msgid "add inputs"
-msgstr "ajouter entrée"
-
-#, c-format
-msgid "elinkEncode::attribute not found %s"
-msgstr "elinkEncode :  attribut non trouvé %s"
-
-#, c-format
-msgid "create new %s"
-msgstr "créé par %s"
+msgid "others..."
+msgstr "autres..."
 
 msgid "cannot see unknow folder"
 msgstr "dossier inconnu, ne peut être consulté"
 
 msgid "read-only"
 msgstr "lecture seule"
+
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
+
+#, c-format
+msgid "current (<i>%s</i>)"
+msgstr "courant (<i>%s</i>)"
 
 #, c-format
 msgid "period from %s to %s"
@@ -2369,9 +2398,36 @@ msgstr "la duplication est nommée : %s"
 msgid "To"
 msgstr "Vers"
 
+msgid "error in filename"
+msgstr "erreur dans le nom de fichier"
+
+msgid "no image"
+msgstr "pas d'image"
+
+#, c-format
+msgid "set for %s, unset for %s"
+msgstr "cocher pour %s, décocher pour %s"
+
+msgid "color picker"
+msgstr "choix de couleur"
+
 #, c-format
 msgid "choose inputs for %s"
 msgstr "choisir une valeur pour %s"
+
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
+
+msgid "add inputs"
+msgstr "ajouter entrée"
+
+#, c-format
+msgid "elinkEncode::attribute not found %s"
+msgstr "elinkEncode :  attribut non trouvé %s"
+
+#, c-format
+msgid "create new %s"
+msgstr "créé par %s"
 
 msgid ""
 "Some constraint attribute are not respected.\n"
@@ -2423,34 +2479,6 @@ msgstr "Le fichier '%s' n'a pu être transmis."
 msgid "Possible file upload attack: filename '%s'."
 msgstr "Possibilité d'atttaque 'upload' : fichier %s"
 
-msgid "Security"
-msgstr "Sécurité"
-
-msgid "others..."
-msgstr "autres..."
-
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
-
-msgid "no access control"
-msgstr "pas de contrôle d'accès"
-
-msgid "specific control"
-msgstr "Contrôle dédié"
-
-msgid "dynamic control"
-msgstr "contrôle dynamique"
-
-msgid "no view control"
-msgstr "pas de contrôle de vues"
-
-#, c-format
-msgid "current (<i>%s</i>)"
-msgstr "courant (<i>%s</i>)"
-
 msgid "current"
 msgstr "courant"
 
@@ -2468,12 +2496,6 @@ msgstr "date de création"
 msgid "mail edition"
 msgstr "édition de mail"
 
-msgid "Send mail"
-msgstr "Envoyer le mail"
-
-msgid "Cancel"
-msgstr "Annuler"
-
 msgid "Send the email and change document state to"
 msgstr "Envoi du email et changement d'état vers"
 
@@ -2487,6 +2509,12 @@ msgid "confirm manually send"
 msgstr "Envoi manuel"
 
 msgid "cancel"
+msgstr "Annuler"
+
+msgid "Send mail"
+msgstr "Envoyer le mail"
+
+msgid "Cancel"
 msgstr "Annuler"
 
 msgid "edition: "
@@ -3447,35 +3475,83 @@ msgstr "Catégorie"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
+msgid "View all properties"
+msgstr "Voir toutes les propriétés"
 
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
+msgid "Special view"
+msgstr "Vues spéciales"
 
-msgid "NOT Clear"
-msgstr "Non effacé"
+msgid "Special edit"
+msgstr "Éditions spéciales"
 
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
+msgid "Confirm"
+msgstr "Confirmez"
 
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
+msgid "Edit attributes"
+msgstr "Éditer les attributs"
 
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
+msgid "Set default values"
+msgstr "Valeurs par défaut"
 
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
+msgid "Parameters values"
+msgstr "Valeurs des paramètres"
 
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
+msgid "Rename"
+msgstr "Renommer"
 
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
 
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
+msgid "Change default folder"
+msgstr "Changer dossier par défaut"
+
+msgid "Change current folder"
+msgstr "Changer dossier courant"
+
+msgid "Choose workflow"
+msgstr "Choisir un cycle"
+
+msgid "delconfirm"
+msgstr "Voulez-vous supprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "envoyer"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
+
+msgid "print"
+msgstr "imprimer"
+
+msgid "family manual"
+msgstr "Manuel de description de famille"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "View historique"
+msgstr "Voir l'historique"
+
+msgid "author"
+msgstr "auteur"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -3595,86 +3671,8 @@ msgstr "Novembre"
 msgid "December"
 msgstr "Décembre"
 
-msgid "View all properties"
-msgstr "Voir toutes les propriétés"
-
-msgid "Special view"
-msgstr "Vues spéciales"
-
-msgid "Special edit"
-msgstr "Éditions spéciales"
-
-msgid "Confirm"
-msgstr "Confirmez"
-
-msgid "Edit attributes"
-msgstr "Éditer les attributs"
-
-msgid "Set default values"
-msgstr "Valeurs par défaut"
-
-msgid "Parameters values"
-msgstr "Valeurs des paramètres"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
-
-msgid "Change default folder"
-msgstr "Changer dossier par défaut"
-
-msgid "Change current folder"
-msgstr "Changer dossier courant"
-
-msgid "Choose workflow"
-msgstr "Choisir un cycle"
-
-msgid "delconfirm"
-msgstr "Voulez-vous supprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "envoyer"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
-
-msgid "print"
-msgstr "imprimer"
-
-msgid "family manual"
-msgstr "Manuel de description de famille"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "View historique"
-msgstr "Voir l'historique"
-
-msgid "author"
-msgstr "auteur"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "revision date"
-msgstr "date de révision"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
+msgid "Allocate"
+msgstr "Affecter"
 
 msgid "mini view"
 msgstr "mini vue"
@@ -3732,6 +3730,48 @@ msgstr "premier"
 
 msgid "PubliPreview"
 msgstr "prévisualisation"
+
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
+
+msgid "View family"
+msgstr "Voir la famille"
+
+msgid "allocated to"
+msgstr "Affecté à"
+
+msgid "creation date"
+msgstr "date de création"
+
+msgid "access date"
+msgstr "date de dernière consultation"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -3913,6 +3953,12 @@ msgstr "Membres"
 msgid "number of members"
 msgstr "Nombre de membres"
 
+#~ msgid "document received for"
+#~ msgstr "document reçu par"
+
+#~ msgid "choose inputs"
+#~ msgstr "choisir une valeur"
+
 #~ msgid "delete by %s by action %s on %s from %s"
 #~ msgstr "supprimé par %s avec l'action %s sur %s par %s"
 
@@ -4092,9 +4138,6 @@ msgstr "Nombre de membres"
 #~ msgid "full text search"
 #~ msgstr "recherche plein texte"
 
-#~ msgid "modification date"
-#~ msgstr "date de modification"
-
 #~ msgid "comment"
 #~ msgstr " commentaire"
 
@@ -4259,9 +4302,6 @@ msgstr "Nombre de membres"
 
 #~ msgid "Bilan"
 #~ msgstr "Bilan"
-
-#~ msgid "All catg"
-#~ msgstr "Toutes catg."
 
 #~ msgid "client bilan"
 #~ msgstr "bilan client"
@@ -4530,9 +4570,6 @@ msgstr "Nombre de membres"
 
 #~ msgid "new folder"
 #~ msgstr "Dossier"
-
-#~ msgid "new family"
-#~ msgstr "Famille"
 
 #~ msgid "society familly id"
 #~ msgstr "id famille société"
