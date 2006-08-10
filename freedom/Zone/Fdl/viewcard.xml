@@ -26,8 +26,8 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <tr class="FREEDOMBack1">
   
  <td  colspan="2">
-  <IMG  style="display:[dicon];float:left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
-  <IMG  style="display:[dicon];float:left" border="0" title="[locked]" SRC="[emblem]">
+  <IMG  style="float:left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
+  <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[classtitle]</I><br>
   <span class="FREEDOMTextBigTitle">[TITLE]</span>
  </td>
@@ -42,56 +42,12 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 
       <img class="click" align="absmiddle"  onclick="self.print()"  alt="[TEXT:print]" title="[TEXT:print]"  border="0" src="[IMG:print.gif]">
       <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">
-         <br><span style="display:[dicon]"><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b title="[TEXT:View historique]">[state]</b></A></span>
+         <br><span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b title="[TEXT:View historique]">[state]</b></A></span>
 [ENDBLOCK ACTIONS]
   </td>
 </tr>
 
-[BLOCK PROP]
-<tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
-<tr class="FREEDOMBack1">
-  <td   align="center" rowspan="[nprop]">
-    <a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cid]"><IMG   border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" width="[SIZE_IMG-MEDIUM]" SRC="[ficonsrc]"><br>
-     <span class="FREEDOMText" style="font-size:50%">[classtitle]</span></a></td>
-  <td   class="FREEDOMText">[TEXT:author]</td>
-  <td  ><span class="FREEDOMText">[username]</span></td>
-  </td>
-</tr>
-<tr class="FREEDOMBack1" >  
-  <td    class="FREEDOMText"><span style="display:[viewstate]" >[TEXT:state]</span></td>
-  <td   ><span style="display:[viewstate]" class="FREEDOMText"><A href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[wid]">[state]</a></span></td>
-  </td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT:locked by]</td>
-  <td  ><span class="FREEDOMText">[locked]</span></td>
-</tr>
-[ENDBLOCK PROP]
-[BLOCK LOCK]
-<tr class="FREEDOMBack1">
-  <td class="FREEDOMText">[TEXT:revision]</td>
-  <td  ><span class="FREEDOMText">[revision] <i><b>[version]</b></i></span></td>
-</tr>
-[ENDBLOCK LOCK]
-[BLOCK ALLPROP]
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT:revision date]</td>
-  <td  ><span class="FREEDOMText">[revdate]</span></td>
-</tr>
 
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT: profile access]</td>
-  <td  ><span style="display:[displaylprof]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[profid]">[profile]</a></span><span style="display:[displayprof]" class="FREEDOMText">[profile]</span></td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT:control view]</td>
-  <td  ><span style="display:[displaylcv]" class="FREEDOMText"><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cvid]">[cview]</a></span><span style="display:[displaycv]" class="FREEDOMText">[cview]</span></td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td   class="FREEDOMText">[TEXT:reference]</td>
-  <td  ><span title="[TEXT:initial reference]" class="FREEDOMText"><b>[reference]</b></span>[IF hasrevision]<span title="[TEXT:reference for this revision]"> ([id])</span>[ENDIF hasrevision]</td>
-</tr>
-[ENDBLOCK ALLPROP]
 </thead>
 
 </table>

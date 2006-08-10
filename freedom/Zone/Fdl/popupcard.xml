@@ -5,7 +5,7 @@
 
 
 <a href="#" id="headers" 
-    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=Y&id=[id]','');closeMenu('popupcard');">[TEXT:View headers]</a>
+    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=IMPCARD&zone=FDL:VIEWPROPERTIES:T&id=[id]','props');closeMenu('popupcard');">[TEXT:Properties]</a>
 
 
 
@@ -36,6 +36,9 @@
 
 <a href="#" id="revise" 
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=REVCOMMENT&id=[id]','');closeMenu('popupcard')" >[TEXT:Revise]</a>
+
+<a href="#" id="allocate" 
+    onclick="activate(this,'[CORE_STANDURL]&app=FDL&action=EDITAFFECT&id=[id]','affect',false,300,200);closeMenu('popupcard')" >[TEXT:Allocate]</a>
 
 <a href="#" id="editprof"
     onclick="activate(this,'[CORE_STANDURL]&app=FREEDOM&action=EDITPROF&id=[id]','');closeMenu('popupcard')" >[TEXT:Change profile]</a>

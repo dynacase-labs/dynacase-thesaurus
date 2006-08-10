@@ -3,7 +3,7 @@
  * Generate contextual popup menu for doucments
  *
  * @author Anakeen 2000 
- * @version $Id: popupcard.php,v 1.60 2006/05/30 16:34:02 eric Exp $
+ * @version $Id: popupcard.php,v 1.61 2006/08/10 08:46:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,6 +46,7 @@ function popupcard(&$action) {
 				'lockdoc',
 				'unlockdoc',
 				'revise',
+				'allocate',
 				'duplicate',
 				'histo',
 				'editprof',
@@ -102,8 +103,11 @@ function popupcard(&$action) {
     else popupInactive('popupcard',$kdiv,'unlockdoc');
   } else popupInvisible('popupcard',$kdiv,'unlockdoc'); 
 
-  if (! $doc->isRevisable()) popupInvisible('popupcard',$kdiv,'revise');
-  else if ((($doc->lmodify == 'Y')||($doc->revision==0)) && 
+  popupCtrlActive('popupcard',$kdiv,'allocate'); 
+  if (! $doc->isRevisable()) {
+    popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'allocate');
+  }  else if ((($doc->lmodify == 'Y')||($doc->revision==0)) && 
 	   ($cud||$clf)) popupCtrlActive('popupcard',$kdiv,'revise'); 
   else popupCtrlInactive('popupcard',$kdiv,'revise');
 
@@ -166,6 +170,7 @@ function popupcard(&$action) {
     popupInvisible('popupcard',$kdiv,'param'); 
     popupInvisible('popupcard',$kdiv,'editprof');
     popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'allocate');
     popupInvisible('popupcard',$kdiv,'lockdoc');
     popupInvisible('popupcard',$kdiv,'chicon');
     popupInvisible('popupcard',$kdiv,'editwdoc');
@@ -232,6 +237,7 @@ function popupcard(&$action) {
     // actions not available
     popupInvisible('popupcard',$kdiv,'editstate');
     popupInvisible('popupcard',$kdiv,'revise');
+    popupInvisible('popupcard',$kdiv,'allocate');
     popupInvisible('popupcard',$kdiv,'editprof');
     popupInvisible('popupcard',$kdiv,'access');
     popupInvisible('popupcard',$kdiv,'tobasket');

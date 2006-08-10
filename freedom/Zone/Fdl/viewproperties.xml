@@ -1,0 +1,26 @@
+
+<table style="width:100%"><tr><td  title="[TEXT:View family]" style="width:100px;text-align:center">
+[IF FROMID]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[FROMID]">[ENDIF FROMID]<img  style="border:none;width:40px" src="[ficonsrc]"><br>[classtitle][IF FROMID]</a>[ENDIF FROMID]</td><td><h1>[TITLE]</h1></td></tr></table>
+<hr>
+<center>
+<table>
+
+<tr><td class="FREEDOMLabel">[TEXT:reference]&nbsp;:&nbsp;</td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[ID]"><span title="[TEXT:initial reference]" class="FREEDOMText"><b>[reference]</b></span>[IF hasrevision]<span title="[TEXT:reference for this revision]"> ([id])</span>[ENDIF hasrevision]</a></td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:state]&nbsp;:&nbsp;</td>      <td>[IF WID]<A href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[WID]">[ENDIF WID][state][IF WID]</a>[ENDIF WID]</td></tr>
+
+<tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:author]&nbsp;:&nbsp;</td>     <td>[username]</td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:allocated to]&nbsp;:&nbsp;</td>  <td><span class="FREEDOMText">[allocate]</span></td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:locked by]&nbsp;:&nbsp;</td>  <td>[locked]</td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:revision]&nbsp;:&nbsp;</td>   <td>[REVISION] <i><b>[version]</b></i></td></tr>
+
+<tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:creation date]&nbsp;:&nbsp;</td><td>[CDATE]</td></tr>
+<tr><td class="FREEDOMLabel">[moddatelabel]&nbsp;:&nbsp;</td><td title="[revdate]">[moddate]</td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:access date]&nbsp;:&nbsp;</td><td>[ADATE]</td></tr>
+
+<tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
+<tr><td class="FREEDOMLabel">[TEXT: profile access]&nbsp;:&nbsp;</td><td>[IF profid]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[profid]">[ENDIF profid][profile][IF profid]</a>[ENDIF profid]</td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:control view]&nbsp;:&nbsp;</td>   <td>[IF CVID]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cvid]">[ENDIF CVID][cview][IF CVID]</a>[ENDIF CVID]</td></tr>
+
+</table></center>

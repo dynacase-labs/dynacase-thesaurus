@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.70 2006/07/27 16:14:07 eric Exp $
+ * @version $Id: viewcard.php,v 1.71 2006/08/10 08:46:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,7 +128,7 @@ function viewcard(&$action) {
   if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
   else $action->lay->set("mzone", $zonebodycard);
   // with doc head ?
-  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:[T|U]", $zonebodycard, $reg))||$props;
+  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:[T|U]", $zonebodycard, $reg));
   else $dochead = (GetHttpVars("dochead",'Y') == "Y");
 
   
@@ -143,7 +143,6 @@ function viewcard(&$action) {
   $action->lay->set("LGTEXTERROR", strlen($err));
   $action->lay->set("TEXTERROR", nl2br($err));
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard,$target,$ulink,$abstract));
-  $action->lay->set("hasrevision",($doc->revision > 0));
   
  
 
@@ -161,12 +160,6 @@ function viewcard(&$action) {
 
   $action->lay->Set("revision", $doc->revision);
   
-  if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
-    setlocale (LC_TIME, "fr_FR");
-    $action->lay->Set("revdate", strftime ("%a %d %b %Y %H:%M",$doc->revdate));
-  } else {
-    $action->lay->Set("revdate", strftime ("%x %T",$doc->revdate));
-  }
 
   $action->lay->Set("comment", $doc->comment);
 
@@ -186,7 +179,6 @@ function viewcard(&$action) {
   if ($doc->fromid > 0) {
     $cdoc = $doc->getFamDoc();
     $action->lay->Set("classtitle", $cdoc->title);
-    $action->lay->Set("ficonsrc", $cdoc->getIcon());
     if (getFamilyHelpFile($action,$doc->fromid) ) {
       
       $action->lay->Set("dhelp", "");
@@ -195,40 +187,9 @@ function viewcard(&$action) {
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
-  $action->lay->Set("profid", abs($doc->profid));
-  if ((abs($doc->profid) > 0) && ($doc->profid != $doc->id)) {
-    $pdoc = new_Doc($dbaccess, abs($doc->profid));
-    $action->lay->Set("profile", $pdoc->title);
-    $action->lay->Set("displaylprof", "inherit");
-    $action->lay->Set("displayprof", "none");
-  } else {
-    $action->lay->Set("displaylprof", "none");
-    $action->lay->Set("displayprof", "inherit");
-    if ($doc->profid == 0)
-      $action->lay->Set("profile", _("no access control"));
-    else {
-      if ($doc->dprofid==0) $action->lay->Set("profile", _("specific control"));
-      else {
-	
-	$action->lay->Set("displaylprof", "inherit");
-	$action->lay->Set("displayprof", "none");
-	$action->lay->Set("profile", _("dynamic control"));
-	$action->lay->Set("profid", abs($doc->dprofid));
-      }
-    }
-  }
   $action->lay->Set("postitid", $doc->postitid);
   
-  if ($doc->cvid == 0) {
-    $action->lay->Set("cview", _("no view control"));
-    $action->lay->Set("displaylcv", "none");
-    $action->lay->Set("displaycv", "");
-  } else {    
-    $action->lay->Set("cview", $cvdoc->title);
-    $action->lay->Set("cvid", $cvdoc->id);
-    $action->lay->Set("displaylcv", "");
-    $action->lay->Set("displaycv", "none");
-  }
+  
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
   else $action->lay->Set("iconsrc", $doc->geticon());
 
@@ -250,25 +211,15 @@ function viewcard(&$action) {
   $action->lay->Set("TITLE", $doc->title);
   $action->lay->Set("id", $docid);
 
-  if ($props) {
-    $action->lay->SetBlockData("PROP",array(array("boo"=>1)));
-  }
-  $action->lay->Set("dicon",$props?"none":"inline");
+  
+
   if ($abstract){
     // only 3 properties for abstract mode
     $listattr = $doc->GetAbstractAttributes();
-    $nprop=5;
   } else {
-    $listattr = $doc->GetNormalAttributes();
-    if ($props) $action->lay->SetBlockData("ALLPROP",array(array("boo"=>1)));
-    $nprop=8;
-    
+    $listattr = $doc->GetNormalAttributes();    
   }
-  // see locker for lockable document
-  if ($doc->isRevisable())  {
-    if ($props) $action->lay->SetBlockData("LOCK",array(array("boo"=>1)));  
-  } else  $nprop-=1; // not revision 
-  $action->lay->Set("nprop",$nprop);  
+ 
 
     
   // see or don't see head
