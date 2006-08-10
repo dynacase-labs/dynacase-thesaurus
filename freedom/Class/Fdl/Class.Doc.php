@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.329 2006/08/10 08:43:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.330 2006/08/10 15:09:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2196,6 +2196,7 @@ final public function PostInsert()  {
     $fdoc = $this->getFamDoc();
    
     if ($fdoc->schar == "S") return sprintf(_("the document of %s family cannot be revised"),$fdoc->title);
+    $locked=$this->locked;
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
@@ -2215,7 +2216,7 @@ final public function PostInsert()  {
     // duplicate values
     $olddocid = $this->id;
     $this->id="";
-    $this->locked = "0"; // the file is unlocked
+    $this->locked = $locked; // report the lock
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
     $this->postitid=$postitid;
@@ -2229,7 +2230,47 @@ final public function PostInsert()  {
     return $err;
     
   }
+  /**
+   * Set a free state to the document
+   * for the document without workflow
+   * a new revision is created
+   * @param string $newstateid the document id of the state (FREESTATE family)
+   * @param string $comment the comment of the state change
+   * @param bool $revision if false no revision are made
+   * @return string error text (empty if no error)
+   */
+  final public function changeFreeState($newstateid,$comment='',$revision=true) {
+    if ($this->wid > 0) return sprintf(_("cannot set free state in workflow controlled document %s"),$this->title);
+    $state=new_doc($this->dbaccess,$newstateid);
+    if (! $state->isAlive()) return sprintf(_("invalid freestate document %s"),$newstateid);
+    if ($state->fromid != 39) return sprintf(_("not a freestate document %s"),$state->title);
 
+    $this->state=$state->id;
+    $err=$this->modify(false,array("state")); 
+    if ($err == "") { 
+      $comment=sprintf(_("change state to %s : %s"),$state->title,$comment);
+      if ($revision) $err=$this->addRevision($comment);
+      else $err=$this->addComment($comment);
+    }
+    return $err;
+  } 
+
+  /**
+   * return the state of a document
+   * if document has workflow it is the key
+   * if document state is a free state it is the name of the state
+   * 
+   * @return string the state - empty if no state
+   */
+  final public function getState() {
+    if ($this->wid > 0) return $this->state;
+    if (is_numeric($this->state) && ($this->state>0) ) {
+      $state=$this->getTitle($this->state);
+      return $state;
+    }
+
+    return $this->state;
+  }
   /**
    * return the copy of the document
    * the copy is created to the database
@@ -2372,10 +2413,11 @@ final public function PostInsert()  {
    * 
    * affect a document to a user
    * @param int $userid the system identificator of the user to affect
+   * @param bool $revision if false no revision are made
    * 
    * @return string error message, if no error empty string, if message
    */
-  final public function allocate($userid,$comment="") {
+  final public function allocate($userid,$comment="",$revision) {
 
     $err="";
     $err=$this->canEdit();
@@ -2388,7 +2430,8 @@ final public function PostInsert()  {
 	if ($err == "") {
 	  $this->delUTags("AFFECTED");
 	  $this->addComment(sprintf(_("Affected to %s %s"),$u->firstname,$u->lastname));
-	  $this->addRevision(sprintf(_("Affected for %s"),$comment));
+	  if ($revision) $this->addRevision(sprintf(_("Affected for %s"),$comment));
+	  else $this->addComment(sprintf(_("Affected for %s"),$comment));
 	  $this->addUTag($userid,"AFFECTED",$comment);	  
 	  $err=$this->lock(false,$userid);
 	}
@@ -3421,8 +3464,22 @@ final public function PostInsert()  {
     $this->lay->set("iconsrc",$this->getIcon());
     $fdoc=$this->getFamDoc();
     $this->lay->Set("ficonsrc", $fdoc->getIcon());
-    if ($this->state != "") $this->lay->set("state",_($this->state));
-    else $this->lay->set("state",_("no state"));
+    $owner = new User("", abs($this->owner));
+    $this->lay->Set("username", $owner->firstname." ".$owner->lastname);
+    $this->lay->Set("userid", $owner->fid);
+    $user = new User("", abs($this->locked));
+    // $this->lay->Set("locked", $user->firstname." ".$user->lastname);
+    $this->lay->Set("lockedid", $user->fid);
+    $state=$this->getState();
+    if ($state != "") {
+      if (($this->locked == -1)||($this->lmodify != 'Y'))  $this->lay->Set("state", _($state));
+      else $this->lay->Set("state", sprintf(_("current (<i>%s</i>)"),_($state)));
+    } else $this->lay->set("state",_("no state"));
+    if (is_numeric($this->state) && ($this->state>0) && (! $this->wid)) {
+      $this->lay->set("freestate",$this->state);
+    }
+    else $this->lay->set("freestate",false);
+
     $this->lay->set("hasrevision",($this->revision > 0));
     $this->lay->Set("moddate", strftime ("%d/%m/%Y %H:%M:%S",$this->revdate));
     $this->lay->set("moddatelabel",_("last modification date"));
@@ -3462,9 +3519,11 @@ final public function PostInsert()  {
     }
     if ($this->allocated == 0) {
       $this->lay->Set("allocate", _("no allocate"));      
+      $this->lay->Set("allocateid", false);
     } else {
       $user = new User("", ($this->allocated));
       $this->lay->Set("allocate", $user->firstname." ".$user->lastname);
+      $this->lay->Set("allocateid", $user->fid);
     }
   
     
