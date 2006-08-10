@@ -6,40 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-10 08:54+0200\n"
-"PO-Revision-Date: 2006-08-10 08:58+0200\n"
+"POT-Creation-Date: 2006-08-10 17:40+0200\n"
+"PO-Revision-Date: 2006-08-10 17:43+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr "document n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
-
-msgid "Affectation aborded"
-msgstr "Affectation annulée"
-
-#, c-format
-msgid "document %s has been affected to %s"
-msgstr "Le document %s a été affecté à %s"
-
-#, c-format
-msgid "Affected to %s"
-msgstr "Affectation à %s"
-
-#, c-format
-msgid "affectation for %s document"
-msgstr "affectation pour le document %s"
 
 #, c-format
 msgid "cannot see unknow reference %s"
@@ -186,6 +159,18 @@ msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
 
 #, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr "document n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
+
+#, c-format
 msgid "document %s has been allocate to %s"
 msgstr "Le document %s a été affecté à %s"
 
@@ -196,6 +181,13 @@ msgstr "affectation pour le document %s"
 #, c-format
 msgid "Affectation for %s"
 msgstr "Affectation pour %s"
+
+#, c-format
+msgid "From %s state to"
+msgstr "Depuis l'état %s vers"
+
+msgid "New state"
+msgstr "Nouvel état"
 
 #, c-format
 msgid "root for %s"
@@ -1746,6 +1738,57 @@ msgstr "Vue principale"
 msgid "no message : post-it creation aborted"
 msgstr "pas de message : création de post-it abandonné"
 
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "My document basket"
+msgstr "Mon porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
 msgid "document creation"
 msgstr "Création du document"
 
@@ -1840,8 +1883,38 @@ msgid "the document of %s family cannot be revised"
 msgstr "lee documents de la famille %s ne peuvent être révisés"
 
 #, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr "l'affectation d'un état libre est impossible dans un document controlé par un cycle de vie : %s"
+
+#, c-format
+msgid "invalid freestate document %s"
+msgstr "état libre %s invalide"
+
+#, c-format
+msgid "not a freestate document %s"
+msgstr "ce document n'est pas un état libre : %s"
+
+#, c-format
+msgid "change state to %s : %s"
+msgstr "changement d'état vers %s : %s"
+
+#, c-format
 msgid "copy from document #%d -%s-"
 msgstr "copie à partir du document n°%d -%s-"
+
+msgid "Affectation aborded"
+msgstr "Affectation annulée"
+
+#, c-format
+msgid "Affected to %s %s"
+msgstr "Affectation à %s %s"
+
+#, c-format
+msgid "Affected for %s"
+msgstr "Affectation pour %s"
+
+msgid "Affectation aborded : user not know"
+msgstr "Affectation annulée : utilisateur inconnu"
 
 #, c-format
 msgid "unknown document id %s"
@@ -1865,73 +1938,8 @@ msgid "error in pzone format %s"
 msgstr "erreur dans la format pzone %s"
 
 #, c-format
-msgid "new %s"
-msgstr "nouvelle %s"
-
-msgid "confidential document"
-msgstr "document confidentiel"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "My document basket"
-msgstr "Mon porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
-#, c-format
-msgid "Affected to %s %s"
-msgstr "Affectation à %s %s"
-
-#, c-format
-msgid "Affected for %s"
-msgstr "Affectation pour %s"
-
-msgid "Affectation aborded : user not know"
-msgstr "Affectation annulée : utilisateur inconnu"
+msgid "current (<i>%s</i>)"
+msgstr "courant (<i>%s</i>)"
 
 msgid "no state"
 msgstr "pas d'état"
@@ -1959,6 +1967,13 @@ msgstr "pas de contrôle de vues"
 
 msgid "no allocate"
 msgstr "pas d'affectation"
+
+#, c-format
+msgid "new %s"
+msgstr "nouvelle %s"
+
+msgid "confidential document"
+msgstr "document confidentiel"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2355,27 +2370,11 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
-msgid "Security"
-msgstr "Sécurité"
-
-msgid "others..."
-msgstr "autres..."
-
 msgid "cannot see unknow folder"
 msgstr "dossier inconnu, ne peut être consulté"
 
 msgid "read-only"
 msgstr "lecture seule"
-
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
-
-#, c-format
-msgid "current (<i>%s</i>)"
-msgstr "courant (<i>%s</i>)"
 
 #, c-format
 msgid "period from %s to %s"
@@ -2479,6 +2478,18 @@ msgstr "Le fichier '%s' n'a pu être transmis."
 msgid "Possible file upload attack: filename '%s'."
 msgstr "Possibilité d'atttaque 'upload' : fichier %s"
 
+msgid "Security"
+msgstr "Sécurité"
+
+msgid "others..."
+msgstr "autres..."
+
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
+
 msgid "current"
 msgstr "courant"
 
@@ -2562,8 +2573,23 @@ msgstr "Voir les attributs cachés"
 msgid "User to affect"
 msgstr "Utilisateur à affecter"
 
+msgid "the state will be unchanged"
+msgstr "L'état restera inchangé"
+
+msgid "unchanged state"
+msgstr "Pas de changement d'état"
+
+msgid "the state will be removed"
+msgstr "L'état va être supprimé"
+
 msgid "Action to do"
 msgstr "Action à faire"
+
+msgid "Reason for change state"
+msgstr "Raison du changement d'état"
+
+msgid "Apply"
+msgstr "Appliquer"
 
 msgid "Properties:"
 msgstr "Propriétés:"
@@ -2591,6 +2617,9 @@ msgstr "Outils"
 
 msgid "Document"
 msgstr "Document"
+
+msgid "System document"
+msgstr "Documents système"
 
 msgid "Folder"
 msgstr "Dossier"
@@ -3475,84 +3504,6 @@ msgstr "Catégorie"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
-msgid "View all properties"
-msgstr "Voir toutes les propriétés"
-
-msgid "Special view"
-msgstr "Vues spéciales"
-
-msgid "Special edit"
-msgstr "Éditions spéciales"
-
-msgid "Confirm"
-msgstr "Confirmez"
-
-msgid "Edit attributes"
-msgstr "Éditer les attributs"
-
-msgid "Set default values"
-msgstr "Valeurs par défaut"
-
-msgid "Parameters values"
-msgstr "Valeurs des paramètres"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
-
-msgid "Change default folder"
-msgstr "Changer dossier par défaut"
-
-msgid "Change current folder"
-msgstr "Changer dossier courant"
-
-msgid "Choose workflow"
-msgstr "Choisir un cycle"
-
-msgid "delconfirm"
-msgstr "Voulez-vous supprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "envoyer"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
-
-msgid "print"
-msgstr "imprimer"
-
-msgid "family manual"
-msgstr "Manuel de description de famille"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "View historique"
-msgstr "Voir l'historique"
-
-msgid "author"
-msgstr "auteur"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
 msgid "fromdate"
 msgstr "date de début"
 
@@ -3671,8 +3622,68 @@ msgstr "Novembre"
 msgid "December"
 msgstr "Décembre"
 
+msgid "View all properties"
+msgstr "Voir toutes les propriétés"
+
+msgid "Special view"
+msgstr "Vues spéciales"
+
+msgid "Special edit"
+msgstr "Éditions spéciales"
+
 msgid "Allocate"
 msgstr "Affecter"
+
+msgid "Confirm"
+msgstr "Confirmez"
+
+msgid "Edit attributes"
+msgstr "Éditer les attributs"
+
+msgid "Set default values"
+msgstr "Valeurs par défaut"
+
+msgid "Parameters values"
+msgstr "Valeurs des paramètres"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
+
+msgid "Change default folder"
+msgstr "Changer dossier par défaut"
+
+msgid "Change current folder"
+msgstr "Changer dossier courant"
+
+msgid "Choose workflow"
+msgstr "Choisir un cycle"
+
+msgid "delconfirm"
+msgstr "Voulez-vous supprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "envoyer"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
+
+msgid "print"
+msgstr "imprimer"
+
+msgid "family manual"
+msgstr "Manuel de description de famille"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "View historique"
+msgstr "Voir l'historique"
 
 msgid "mini view"
 msgstr "mini vue"
@@ -3697,6 +3708,9 @@ msgstr "version"
 
 msgid "rev"
 msgstr "rev"
+
+msgid "author"
+msgstr "auteur"
 
 msgid "date"
 msgstr "date"
@@ -3764,14 +3778,29 @@ msgstr "Sauvegarde rapide impossible"
 msgid "View family"
 msgstr "Voir la famille"
 
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
 msgid "allocated to"
 msgstr "Affecté à"
+
+msgid "locked by"
+msgstr "verrouillé par"
 
 msgid "creation date"
 msgstr "date de création"
 
 msgid "access date"
 msgstr "date de dernière consultation"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -3952,6 +3981,15 @@ msgstr "Membres"
 
 msgid "number of members"
 msgstr "Nombre de membres"
+
+#~ msgid "document %s has been affected to %s"
+#~ msgstr "Le document %s a été affecté à %s"
+
+#~ msgid "Affected to %s"
+#~ msgstr "Affectation à %s"
+
+#~ msgid "affectation for %s document"
+#~ msgstr "affectation pour le document %s"
 
 #~ msgid "document received for"
 #~ msgstr "document reçu par"
