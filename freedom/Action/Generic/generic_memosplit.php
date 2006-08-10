@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_memosplit.php,v 1.3 2005/03/25 17:09:41 eric Exp $
+ * @version $Id: generic_memosplit.php,v 1.4 2006/08/10 08:45:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,7 @@ function generic_memo(&$action,$attrid,$value) {
     $pmode=implode(",",$tmode);
     
     $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
+    $action->parent->session->close();
    
 }
 
