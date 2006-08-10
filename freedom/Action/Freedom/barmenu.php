@@ -3,7 +3,7 @@
  * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.16 2005/09/09 16:22:49 eric Exp $
+ * @version $Id: barmenu.php,v 1.17 2006/08/10 15:09:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -26,7 +26,7 @@ include_once("FDL/popup_util.php");
 function barmenu(&$action) {
   // -----------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  popupInit("newmenu",    array('newdoc','newfld','newprof','newfam','newwf','newact'));
+  popupInit("newmenu",    array('newdoc','newsystem','newfld','newprof','newfam','newwf','newact'));
   popupInit("searchmenu", array( 'speedsearch','newsearch','newdsearch','newsearchfulltext'));
  
   popupInit("helpmenu", array('help','import','importtar','planexec'));
@@ -61,6 +61,7 @@ function barmenu(&$action) {
   popupActive("newmenu",1,'newfld'); 
   popupActive("newmenu",1,'newact'); 
   popupActive("newmenu",1,'newprof');
+  popupInvisible("newmenu",1,'newsystem');
   if ($action->HasPermission("FREEDOM_ADMIN")) {
     popupActive("helpmenu",1,'planexec');
   } 
@@ -68,6 +69,7 @@ function barmenu(&$action) {
     popupActive("helpmenu",1,'import'); 
     popupActive("helpmenu",1,'importtar'); 
     popupActive("newmenu",1,'newact'); 
+    popupActive("newmenu",1,'newsystem');
     popupActive("newmenu",1,'newfam');
     popupActive("newmenu",1,'newwf'); 
   } else {
