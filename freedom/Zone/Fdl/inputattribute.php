@@ -3,7 +3,7 @@
  * Compose html code to insert input
  *
  * @author Anakeen 2006
- * @version $Id: inputattribute.php,v 1.2 2006/08/10 15:08:44 eric Exp $
+ * @version $Id: inputattribute.php,v 1.3 2006/08/11 15:50:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,6 +60,7 @@ function inputattribute(&$action) {
     $usefor="";
     $eformat="";
     $options="";
+    if (isUTF8($label)) $label=uf8_decode($label);
 
     $oattr1=new NormalAttribute("id_$attrid",$doc->id,"id $label","docid",$format,$repeat, $order, $link,
 				$visibility, $needed,$isInTitle,$isInAbstract,
@@ -83,7 +84,7 @@ function inputattribute(&$action) {
     $phpconstraint="";
     $usefor="";
     $eformat="";
-    $options="elabel=".utf8_decode($label);
+    $options="elabel=".($label);
     if ($esize) $options.="|esize=$esize";
     $oattr=new NormalAttribute($attrid,$doc->id,$label,"text",$format,$repeat, $order, $link,
 			       $visibility, $needed,$isInTitle,$isInAbstract,
@@ -113,7 +114,7 @@ function inputattribute(&$action) {
   $usefor="";
   $eformat="";
 
-  $options="elabel=".utf8_decode($label);
+  $options="elabel=".($label);
   if ($esize) $options.="|esize=$esize";
   $oattr=new NormalAttribute($attrid,$doc->id,$label,$type,$format,$repeat, $order, $link,
 			     $visibility, $needed,$isInTitle,$isInAbstract,

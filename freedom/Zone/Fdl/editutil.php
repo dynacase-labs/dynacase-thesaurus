@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.106 2006/08/01 15:31:32 eric Exp $
+ * @version $Id: editutil.php,v 1.107 2006/08/11 15:50:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -417,7 +417,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	$phpfunc=$oattr->phpfunc;
 	// capture title
-	$ititle=sprintf(_("choose inputs for %s"),utf8_decode($oattr->labelText));
+	if (isUTF8($oattr->labelText)) $oattr->labelText=utf8_decode($oattr->labelText);
+	$ititle=sprintf(_("choose inputs for %s"),($oattr->labelText));
 	if ($oattr->getOption("ititle") != "") $ititle=str_replace("\"","'",$oattr->getOption("ititle"));
 	
 	
@@ -434,7 +435,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	if ($alone) $ctype.="-alone";
 	if ($docid==0) {
 	  // case of specific interface
-	  $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.utf8_decode($oattr->labelText);
+	  $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.($oattr->labelText);
 	} else $iopt="";
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
