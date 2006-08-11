@@ -3,7 +3,7 @@
  * Functions to allocate document to an user
  *
  * @author Anakeen 2000 
- * @version $Id: affect.php,v 1.4 2006/08/10 15:10:10 eric Exp $
+ * @version $Id: affect.php,v 1.5 2006/08/11 15:48:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,17 +34,21 @@ function affect(&$action) {
 
   $doc=new_doc($dbaccess,$docid);
   if (! $doc->isAlive()) $action->exitError(sprintf(_("document #%s not found. Affectation aborded"),$docid));
- 
-  $docu=new_doc($dbaccess,$uid);
-  if (! $docu->isAlive()) $action->addWarningMsg(sprintf(_("user #%s not found. Affectation aborded"),$uid));
+  $wuid=0;
+  if ($uid) {
+    $docu=new_doc($dbaccess,$uid);
+    if (! $docu->isAlive()) $action->addWarningMsg(sprintf(_("user #%s not found. Affectation aborded"),$uid));
   
-  $wuid=$docu->getValue("us_whatid");
-  if (! ($wuid>0)) $action->addWarningMsg(sprintf(_("user #%s has not a real account. Affectation aborded"),$uid));
-
+    $wuid=$docu->getValue("us_whatid");
+    if (! ($wuid>0)) $action->addWarningMsg(sprintf(_("user #%s has not a real account. Affectation aborded"),$uid));
+  }
   if ($newstate >= 0) {
     $err=$doc->changeFreeState($newstate,$commentstate);
     if ($err != "") $action->addWarningMsg($err);    
-    else $revstate=false; // no need to revision one more
+    else {
+      $revstate=false; // no need to revision one more 
+      $action->addWarningMsg(sprintf(_("document %s has the new state %s"),$doc->title,$doc->getState()));
+    }
   }
   if ($wuid>0) {
     $err=$doc->allocate($wuid,$commentaction,$revstate);

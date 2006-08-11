@@ -50,7 +50,7 @@ td {
 	[BLOCK freestate]
 	<option  value="[fstate]" desc="[dstate]">[lstate]</option>
 	[ENDBLOCK freestate]
-	</select> <i><span id="sdescription">-</span></i>
+	</select> <br><i><span id="sdescription">-</span></i>
 	</td>
 [ENDIF viewstate]</tr>
 <tr><td>

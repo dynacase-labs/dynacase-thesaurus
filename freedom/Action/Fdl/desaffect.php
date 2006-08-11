@@ -3,7 +3,7 @@
  * Functions to un-affect document to an user
  *
  * @author Anakeen 2000 
- * @version $Id: desaffect.php,v 1.1 2006/08/01 15:20:46 eric Exp $
+ * @version $Id: desaffect.php,v 1.2 2006/08/11 15:48:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,17 +31,13 @@ function desaffect(&$action) {
   if (! $doc->isAlive()) $action->exitError(sprintf(_("document #%s not found. Unaffectation aborded"),$docid));
 
 
-  $err=$doc->canEdit();
-  if ($err != "") $action->exitError(_("Unaffectation aborded")."\n".$err);
+  $err=$doc->unallocate();
+  if ($err != "") $action->exitError($err);
   
-  $err=$doc->unlock();
-  if ($err != "") $action->exitError(_("Unaffectation aborded")."\n".$err);
   if ($err == "") {
     $action->AddActionDone("UNLOCKFILE",$doc->id);
-    $doc->delUTags("AFFECTED");
 
     $action->addWarningMsg(sprintf(_("document %s has been unaffected"),$doc->title,$docu->title));
-    $doc->addComment(sprintf(_("Unaffected"),$docu->title));
 
   }
 
