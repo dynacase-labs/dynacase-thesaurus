@@ -17,8 +17,8 @@ var Wday  = 0;
 var Wevt = 0;
 var Wshift = 0;
 
-var frameWidth;
-var frameHeight;
+var frameWidth = 0;
+var frameHeight = 0;
 
 // Coordinate of the top-left corner for calendar display
 var Xs = 0;
@@ -656,10 +656,8 @@ var Tempo = 200;
 var TempoId = -1;
 
 function fcalReloadEvents(ev) {
-   showWaitServerMessage(ev, 'Loading interface');
-   fcalInitEvents('');
-   fcalShowEvents();
-   hideWaitServerMessage();
+  fcalInitEvents('');
+  fcalShowEvents();
 }
 
 function fcalStartEvDisplay(ev, occ, ie) {
@@ -718,7 +716,6 @@ function addCalEvContent(ev, ie) {
       eid.innerHTML = rq.responseText;
       eid.style.visibility=='hidden';
       if (evDisplayed!=ie) return;
-      hideWaitServerMessage();
       fcalInitCardPosition(ie);
       fcalSetEvCardPosition(ie,10);
    }
@@ -735,7 +732,6 @@ function initCalEvent(ie) {
     return;
   }
 
-  showWaitServerMessage(false, 'Loading event');
   var ref = eltId(Root);
   var nev = document.createElement('div');
   with (nev) {
@@ -789,13 +785,7 @@ function hideCalEvent(ie) {
   if (eltId(fcalGetEvtCardName(ie))) {
     evLoaded[ie] = false;
     eltId(fcalGetEvtCardName(ie)).style.display = 'none';
-    hideWaitServerMessage();
   }
-}
-
-
-function modifyEvent(pid) {
-  alert('pid='+pid);
 }
 
 
@@ -854,6 +844,7 @@ function fastEditSave(ev) {
   rq.send('');
   fastEditCancel(true);
   if (inCalendar) {
+    msgUser('[TEXT:Event saved]');
     fcalReloadEvents();
   } else {
     document.location.reload(false);
@@ -905,6 +896,7 @@ function fcalDeleteEvent(event,idp) {
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELETEEVENT&id='+idp;
   fcalSendRequest(url, false, false, true);
   if (inCalendar) {
+    msgUser('[TEXT:Event deleted]');
     fcalReloadEvents();
   } else {
     document.location.reload(false);
@@ -917,6 +909,7 @@ function fcalDeleteEventOcc(event,idp,occ) {
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_DELOCCUR&id='+idp+'&evocc='+occ;
   var res = fcalSendRequest(url, false, false, true);
   if (inCalendar) {  
+    msgUser('[TEXT:Event occurrence deleted]');
     fcalReloadEvents();
   } else {
     document.location.reload(false);
@@ -931,6 +924,7 @@ function fcalSetEventState(event,idp,state,reloadcal) {
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
   fcalSendRequest(url, false, false, true);
   if (inCalendar) {  
+    msgUser('[TEXT:Event state changed]');
     fcalReloadEvents();
   } else {
     document.location.reload(false);
@@ -942,25 +936,12 @@ function fcalSetEventState(event,idp,state,reloadcal) {
 
 function fastEditOpenFullEdit(ev) {
 
-  showWaitServerMessage(ev, 'Start full edition mode...');
+  msgUser('[TEXT:Start full edition mode...]');
   var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT';
   url += fastEditSetUrlParam(true);
   subwindow(400, 700, 'EditEvent', url);
   fastEditReset();
-  hideWaitServerMessage();
 
-//   showWaitServerMessage(ev, 'Start full edition mode...');
-//   var otime = new Date();
-//   var tzd = otime.getTimezoneOffset()*60;
-//   var url = UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+EventInEdition.idp;
-//   var ts = parseInt(eltId('s_start').value) - tzd;
-//   var te = parseInt(eltId('s_end').value) - tzd;
-//   url += "&ts="+ts+"&te="+te;
-//   if (fastEditChangeAlert()) {
-//     subwindow(400, 700, 'EditEvent', url);
-//     fastEditReset();
-//   }
-//   hideWaitServerMessage();
 }
 
 var EventInEdition;
@@ -1056,7 +1037,7 @@ function fastEditCancel(nocheck) {
 
     
 function fastEditCheckConflict(ev) {
-  showWaitServerMessage(ev, 'Checking for conflict');
+  msgUser('[TEXT:Checking for conflict]');
   ev || (ev = window.event);
   var ress="";
   if (EventInEdition.eventjs) {
@@ -1080,7 +1061,6 @@ function fastEditCheckConflict(ev) {
   } else {
     alert('Oooops>'+res.content);
   }
-  hideWaitServerMessage();
   CenterDiv('conflict');
   document.getElementById('conflict').style.visibility = 'visible';
   return;
@@ -1091,9 +1071,8 @@ function fcalFastEditEvent(ev, ie) {
   var evt = (evt) ? evt : ((ev) ? ev : null );
   var idp = fcalEvents[ie].idp;
   if (evt.ctrlKey) {
-    showWaitServerMessage(ev, 'Start full edition mode...');
+    msgUser('[TEXT:Start full edition mode...]');
     subwindow(400, 700, 'EditEvent', UrlRoot+'&app=GENERIC&action=GENERIC_EDIT&classid=CALEVENT&id='+idp);
-    hideWaitServerMessage();
   } else {
     var ii = 0;
     var dv = fcalGetJSDoc(ev,idp) ;

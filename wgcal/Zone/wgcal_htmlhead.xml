@@ -19,10 +19,13 @@
 var UrlRoot = '[CORE_STANDURL]';
 var inCalendar = false;
 
+function showSrvMsg() {
+  flogDisplayMsg('I');
+}
+
 flogSetZonePos(20,50,40000);
 flogSetZoneParam(true, 5000);
 flogSetZoneStyle('#FF6600', '#000000', 2, 'groove');
-flogDisplayMsg('I');
 
 [IF resize]window.resizeTo([winW],[winH]);[ENDIF resize]
 
@@ -30,6 +33,7 @@ flogDisplayMsg('I');
 
 [IF Hresize]addEvent(window,"load",autoHresize);[ENDIF Hresize]
 [IF Vresize]addEvent(window,"load",autoVresize);[ENDIF Vresize]
+addEvent(window,"load",showSrvMsg);
 
 </script>
 </head>

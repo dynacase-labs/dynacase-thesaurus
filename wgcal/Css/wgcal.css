@@ -14,6 +14,11 @@ td { empty-cells: show; }
 .slid_oddm { background-color: [COLOR_C6]; height:3px; }
 .slid_evenm { background-color: [COLOR_C0];  height:3px; }
 
+#userMessage { 
+  background-color : [COLOR_A0];
+  color : [COLOR_A9];
+  padding : 3px 6px 3px 6px;
+}
 .elist {
   margin : 0px;
   padding : 3px;

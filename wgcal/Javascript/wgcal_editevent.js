@@ -3,6 +3,9 @@
  **
  **
 */
+function sendMsgUser(msg) {
+  if (top.opener.msgUser) top.opener.msgUser(msg);
+}
 
 function ChangeAlarm() {
   chk = document.getElementById('AlarmCheck');
@@ -385,6 +388,7 @@ function saveEvent(event, checkconflict) {
   var ti = document.getElementById('rvtitle');
   var refi = document.getElementById('editevent');
 
+
   if (event && ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
@@ -401,6 +405,8 @@ function saveEvent(event, checkconflict) {
   }
 	 
   EventSelectAll(fs);
+
+  sendMsgUser('[TEXT:saving event]');
 
   faxSendForm(fs);
 
@@ -439,6 +445,7 @@ function deleteEvent(text) {
   if (!ok) return;
   var fs = document.getElementById('deleteevent');
   fs.submit();
+  sendMsgUser('[TEXT:Event deleted]');
   window.close();
 }
 
@@ -677,6 +684,7 @@ function showHideElt(elt) {
 function normalEditCheckConflict(ev, displayZero) {
   ev || (ev = window.event);
   var rll="";
+  sendMsgUser('[TEXT:Checking for conflict]');
   globalcursor('progress');
   var evid = document.getElementById('eventid').value;
   var me = document.getElementById('ownerid').value;

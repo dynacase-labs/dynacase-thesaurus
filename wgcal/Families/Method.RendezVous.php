@@ -641,9 +641,9 @@ function RendezVousEdit() {
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
 
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_editevent.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_searchcontacts.js");
+  $action->parent->AddJsRef("WGCAL:wgcal.js", true);
+  $action->parent->AddJsRef("WGCAL:wgcal_editevent.js", true);
+  $action->parent->AddJsRef("WGCAL:wgcal_searchcontacts.js", true);
   
   $this->lay->set("checkConflict", $action->getParam("WGCAL_U_CHECKCONFLICT", 1));
 

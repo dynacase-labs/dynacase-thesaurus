@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-07 06:39+0200\n"
+"POT-Creation-Date: 2006-08-11 05:06+0200\n"
 "PO-Revision-Date: 2005-06-03 16:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -49,11 +49,11 @@ msgstr "Supprimer la catégorie"
 msgid "click here to change category color"
 msgstr "cliquer pour modifier la couleur de la catégorie"
 
-msgid "wcal search result for"
-msgstr "Résultat de la recherche pour "
-
 msgid "no event"
 msgstr "Pas d'évènement."
+
+msgid "wcal search result for"
+msgstr "Résultat de la recherche pour "
 
 msgid "click here to refresh toolbar"
 msgstr "cliquer pour raffraichir la barre d'outil"
@@ -138,6 +138,9 @@ msgstr "Vérification des éventuels conflits"
 
 msgid "close popup window"
 msgstr "Fermer la fenêtre"
+
+msgid "loading events"
+msgstr "Chargement des rendez-vous"
 
 msgid "change user preferences for"
 msgstr "Modifier les préférences utilisateur pour "
@@ -262,17 +265,17 @@ msgstr "Téléphone mobile"
 msgid "mail"
 msgstr "Adresse mail"
 
-msgid "my todo"
-msgstr "Mes tâches"
-
-msgid " no todo"
-msgstr "Pas de tâches"
-
 msgid "todo warning"
 msgstr "Attention date butée"
 
 msgid "todo alert"
 msgstr "La date butée est dépassée"
+
+msgid "my todo"
+msgstr "Mes tâches"
+
+msgid " no todo"
+msgstr "Pas de tâches"
 
 msgid "todo done"
 msgstr "Tâche terminée"
@@ -493,9 +496,6 @@ msgstr "Durée par défaut des rendez-vous"
 msgid "meeting minute increase"
 msgstr "Tranches de minutes selectionnables"
 
-msgid "produced by Freedom"
-msgstr "Produit par Freedom"
-
 msgid "click to show/hide toolbar"
 msgstr "cliquer pour masquer/afficher la barre d'outil"
 
@@ -571,6 +571,24 @@ msgstr ""
 
 msgid "agenda, error service fcalGetAllEvents"
 msgstr ""
+
+msgid "Event saved"
+msgstr "Rendez-vous sauvegardé"
+
+msgid "Event deleted"
+msgstr "Rendez-vous supprimé"
+
+msgid "Event occurrence deleted"
+msgstr "Occurrence du rendez-vous supprimée"
+
+msgid "Event state changed"
+msgstr "Etat rendez-vous modifié"
+
+msgid "Start full edition mode..."
+msgstr "Bascule en édition complète"
+
+msgid "Checking for conflict"
+msgstr "Vérification des conflits"
 
 msgid " cancel modifications"
 msgstr "En continuant, les éventuelles modifications seront perdues."
@@ -1456,6 +1474,9 @@ msgstr "Créé à partir d'Outlook oid="
 msgid "outlook modification"
 msgstr "Modification depuis Outlook"
 
+#~ msgid "produced by Freedom"
+#~ msgstr "Produit par Freedom"
+
 #~ msgid "black"
 #~ msgstr "noire"
 
@@ -1479,9 +1500,6 @@ msgstr "Modification depuis Outlook"
 
 #~ msgid "rendez-vous deleted"
 #~ msgstr "Rendez-vous supprimé."
-
-#~ msgid "rendez-vous occurrence deleted"
-#~ msgstr "Occurrence du rendez-vous supprimée."
 
 #~ msgid "rendez-vous acceptation status changed"
 #~ msgstr "Status d'acceptation du rendez-vous modifié."
@@ -1533,9 +1551,6 @@ msgstr "Modification depuis Outlook"
 
 #~ msgid "ignore conflict"
 #~ msgstr "Ignorer les conflits"
-
-#~ msgid "modify event"
-#~ msgstr "Modifier le rendez-vous"
 
 #~ msgid "menubar"
 #~ msgstr "Barre de menu"
@@ -1717,9 +1732,6 @@ msgstr "Modification depuis Outlook"
 
 #~ msgid "mail management"
 #~ msgstr "Gestion des mail"
-
-#~ msgid "event state "
-#~ msgstr "Etat du rendez-vous"
 
 #~ msgid "use ressource for event creation"
 #~ msgstr "Utiliser les ressources pour les rendez-vous"

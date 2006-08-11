@@ -58,44 +58,16 @@ function fcalSetOpacity(o, value) {
 }
 
 
-function showWaitServerMessage(ev, msg) {
-  globalcursor('progress');
-//   fcalSetOpacity(document.body, 40);
-//   if (document.getElementById('waitmessage')) {
-//     var ws = eltId('waitmessage'); 
-//     if (msg) eltId('wmsgtext').innerHTML = msg;
-//     if (!ev) {
-//       var xm = posM.x;
-//       var ym = posM.y;
-//     } else {
-//       var xm = getX(ev);
-//       var ym = getY(ev);
-//     }
-//     computeDivPosition('waitmessage',xm, ym, 10);
-//   }
-}
-
-function hideWaitServerMessage() {
-//   if (document.getElementById('waitmessage')) {
-//     var ws = eltId('waitmessage'); 
-//     ws.style.display = 'none';
-//   }
-//   fcalSetOpacity(document.body, 100);
-  unglobalcursor();
-}
-
-
 var  CGCURSOR='auto'; // current global cursor
 
 
 function  fcalGetJSDoc(ev, id) {
   var urlsend = UrlRoot+"app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
   
-  showWaitServerMessage(ev,'Loading event');
+  msgUser('[TEXT:Loading event]');
   var res;
   res = fcalSendRequest(urlsend, false, false);
   if (res.status!=200) return false;
-  hideWaitServerMessage();
   eval(res.content);
   if (fcalStatus.code==-1) {
     alert('Server error ['+fcalStatus.code+'] : '+fcalStatus.text);

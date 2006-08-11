@@ -8,7 +8,6 @@ var flogBorderStyle = '2px groove'; // border CSS syntax
  var flogZoneX = 0;
  var flogZoneY = 0;
  var flogZoneZ = 40000;
-function displayWarningMsg(p) { __flogDisplayMsg(p, 'W'); }
   
 function flogSetZonePos(x,y,z) {
   flogZoneX = parseInt(x);
@@ -49,24 +48,24 @@ function flogSendRequest(url) {
 
 function flogGetMsg(mtype) {
   flogMType = mtype;
-  var url = UrlRoot+"&app=WGCAL&action=FGETMSG&mtype="+mtype;
+  var url = UrlRoot+"&app=WGCAL&action=FGETMSG&rm=Y&mtype="+mtype;
   var res = flogSendRequest(url);
   return res;
-}
-
-function flogClearMsg(mtype) {
-  var url = UrlRoot+"&app=WGCAL&action=FCLEARMSG&mtype="+mtype;
-  var res = flogSendRequest(url);
-  return;
 }
 
 function flogDisplayMsg(mtype) {
 
   if (!mtype) mtype='I';
-  var res = flogGetMsg(mtype) 
-  if (res=='') return;
-  __flogDisplayMsg(res, mtype);
-
+  var res = flogGetMsg(mtype); 
+  //   if (res=='') return;
+  if (res=='') res = 'pas de message';
+  if (window.msgUser) {
+    msgUser(res);
+  } else if (top.opener.msgUser) { 
+    top.opener.msgUser(res);
+  } else {
+    __flogDisplayMsg(res, mtype);
+  }
 }
 
 function __flogDisplayMsg(msg, mtype) {
@@ -127,7 +126,6 @@ function flogCloseMsgZoneTimeOut() {
 }
 
 function flogCloseMsgZone() {
-  flogClearMsg(flogMType);
   if (document.getElementById('__flogZone')) {
     var mz = document.getElementById('__flogZone');
     mz.style.visibility = 'hidden';
