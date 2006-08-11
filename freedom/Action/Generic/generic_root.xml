@@ -11,8 +11,8 @@
 <frameset name="fgtop" id="fgtop" frameborder="1" framespacing="3" border="3" cols="[cols]" rows="[rows]">
 
 
-  <frame name="flist" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&viewfld=no&refresh=no" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
-  <frame name="finfo" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="flist" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_TAB&tab=0&viewfld=no&refresh=no&famid=[famid]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="finfo" src="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LOGO&famid=[famid]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
   </frameset>
 
 </frameset>

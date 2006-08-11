@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.23 2005/12/02 17:29:40 eric Exp $
+ * @version $Id: generic_util.php,v 1.24 2006/08/11 15:51:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.23 2005/12/02 17:29:40 eric Exp $
+// $Id: generic_util.php,v 1.24 2006/08/11 15:51:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,7 +59,7 @@ function getDefFld(&$action) {
   if ($fdoc->dfldid > 0) return $fdoc->dfldid;
   
 
-  return 10;
+  return 0;
 }
 // return attribute sort default
 function getDefUSort(&$action) {
