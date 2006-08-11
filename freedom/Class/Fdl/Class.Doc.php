@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.331 2006/08/11 15:49:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.332 2006/08/11 16:06:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2478,7 +2478,7 @@ final public function PostInsert()  {
 	if ($err == "") {
 	  $this->delUTags("AFFECTED");
 	  if ($revision) $this->addRevision(sprintf(_("Unallocated of %s %s : %s"),$u->firstname,$u->lastname,$comment));
-	  else $this->addComment(sprintf(_("Unllocated of %s %s: %s"),$u->firstname,$u->lastname,$comment));
+	  else $this->addComment(sprintf(_("Unallocated of %s %s: %s"),$u->firstname,$u->lastname,$comment));
 	}
       } else {
 	$err=_("user not know");
