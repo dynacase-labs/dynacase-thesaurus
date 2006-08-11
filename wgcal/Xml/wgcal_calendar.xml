@@ -1,48 +1,4 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
-
-<script>
-
-var msgUserTempo = -1;
-function msgUser(tt) {
-
-  if (!document.getElementById('userMessage')) {
-    var deb = document.createElement('div');
-    deb.setAttribute('id', 'userMessage');
-    deb.style.position = 'absolute';
-    deb.style.display = 'block';
-    deb.style.textAlign = 'right';
-    deb.style.zIndex = 10000;
-    deb.style.visibility = 'hidden';
-    fcalAddEvent(deb, 'click', cancelMsgUser);
-    document.getElementById('root').appendChild(deb);
-  }  else {
-    var deb = document.getElementById('userMessage');
-  }
-  deb.style.top = deb.style.left ='0';
-  if (msgUserTempo!=-1) {
-    clearTimeout(msgUserTempo);
-    deb.innerHTML = tt+'<br>' + deb.innerHTML;
-  } else {
-    deb.innerHTML = tt;
-  }    
-
-  var w = parseInt(getObjectWidth(deb));
-  if (w >  (0.50*frameWidth)) w = 0.50 * frameWidth;
-  deb.style.left = (frameWidth - (w+25)) + 'px';
-  deb.style.top = '20px';
-  deb.style.visibility = 'visible';
-
-  msgUserTempo = self.setTimeout("cancelMsgUser()", 10000);
-
-}
-
-function cancelMsgUser() {
-  document.getElementById('userMessage').style.visibility = 'hidden';
-  msgUserTempo = -1;
-}
-
-
-</script>
 [IFNOT standAlone][ZONE WGCAL:WGCAL_MENU][ENDIF standAlone]
 [IF standAlone]<div id="agtitle" style="text-align:center;" class="WGCAL_Period">Agenda : [agendatitle]</div>[ENDIF standAlone]
 <div style="width:100%" id="headscreen" onmouseover="closeAllMenu()">[ZONE WGCAL:WGCAL_SLIDER]</div>
@@ -153,7 +109,7 @@ function cancelMsgUser() {
     <tr>
       <td colspan="2" style="margin-top:1em; border-bottom:2px ridge white; font-style:italic;"><span id="agendaowner"></span> <select id="fe_confidentiality" onchange="fastEditChange(this);" >[BLOCK confid]<option value="[value]" [selected]>[descr][ENDBLOCK confid]</select><input type="hidden" value="[defvis]" id="defvis"></td>
     </tr>
-    <tr>
+    <tr id="feditbuttons">
      <td align="left"><img height="12px" src="[IMG:wm-evedit.gif]" title="[TEXT:click to open full edition mode]" onclick="fastEditOpenFullEdit();" class="wSmallButton"></td> 
      <td align="right"><img height="12px" src="[IMG:fcal-checkconflict.gif]" id="btnCConf" style="visibility:hidden" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="fastEditCheckConflict(event);">&nbsp;<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="visibility:hidden" title="[TEXT:save]" class="wSmallButton" onclick="fastEditSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="fastEditCancel();"></td>
     </tr>
@@ -195,7 +151,6 @@ function displayInit() {
   fcalInitEvents('[ress]');
   fcalShowEvents();
   unglobalcursor();  
-  flogDisplayMsg();
 }
 addEvent(window, 'load', displayInit );
 addEvent(window, 'resize', fcalDisplayInitTempo);

@@ -18,6 +18,8 @@ td { empty-cells: show; }
   background-color : [COLOR_A0];
   color : [COLOR_A9];
   padding : 3px 6px 3px 6px;
+  cursor:pointer;
+  border:3px ridge;
 }
 .elist {
   margin : 0px;

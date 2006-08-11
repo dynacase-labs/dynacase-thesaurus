@@ -53,12 +53,10 @@ function eltId(eltid) {
 }
 
 function fcalSetOpacity(o, value) {
-// 	o.style.opacity = value/100;
-// 	o.style.filter = 'alpha(opacity=' + value + ')';
+  o.style.setProperty('opacity',value/100, '');
+  o.style.setProperty('filter','alpha(opacity=' + value + ')', '');
+  //o.style.filter = 'alpha(opacity=' + value + ')';
 }
-
-
-var  CGCURSOR='auto'; // current global cursor
 
 
 function  fcalGetJSDoc(ev, id) {

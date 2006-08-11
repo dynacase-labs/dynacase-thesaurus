@@ -58,7 +58,7 @@ function flogDisplayMsg(mtype) {
   if (!mtype) mtype='I';
   var res = flogGetMsg(mtype); 
   //   if (res=='') return;
-  if (res=='') res = 'pas de message';
+  if (res=='') res = 'pas de message système';
   if (window.msgUser) {
     msgUser(res);
   } else if (top.opener.msgUser) { 

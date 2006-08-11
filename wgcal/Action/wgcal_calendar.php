@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.96 2006/07/07 15:31:11 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.97 2006/08/11 11:35:55 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,8 +30,8 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("WHAT/Layout/AnchorPosition.js");
   $action->parent->AddJsRef("WHAT/Layout/geometry.js");
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
 
+  $action->parent->AddJsRef("WGCAL:wgcal.js", true);
   $action->parent->AddJsRef("WGCAL:wgcal_calendar.js", true);
 //   $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
 //   $action->parent->AddJsCode($jslay->gen());

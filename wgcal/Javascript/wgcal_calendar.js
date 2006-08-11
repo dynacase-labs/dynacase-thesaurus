@@ -578,13 +578,11 @@ function fcalCreateEvent(ie,isclone) {
       fcalAddEvent(nev, 'mouseover',  function foo(event) { 
 	                                       event || (event = window.event);
 	                                       var srcel = (event.target) ? event.target : event.srcElement;
-                                               fcalSetOpacity(srcel, 100);
                                                return;
       });
       fcalAddEvent(nev, 'mouseout',  function foo(event) { 
 	                                       event || (event = window.event);
 	                                       var srcel = (event.target) ? event.target : event.srcElement;
-					       fcalSetOpacity(srcel, 60);
                                                return;
       });
     }      
@@ -677,7 +675,6 @@ function fcalResetTempo(ev) {
   if (TempoId>-1) clearTimeout(TempoId);
   TempoId = -1;
   evDisplayed = -1;
-  fcalSetOpacity(srcel, 100); 
   return;
 }
 
@@ -689,7 +686,6 @@ function fcalCancelEvDisplay(ev, ie) {
   posM.x = 0;
   posM.y = 0;
   evDisplayed = evWidth = evHeight = -1;
-  fcalSetOpacity(srcel, 60); 
 }
 
 
@@ -828,11 +824,20 @@ function fastEditSetUrlParam(settz) {
 }
 
 
-function fastEditSave(ev) {
+function saveIHMLook() {
+  msgUser('[TEXT:Event saving]');
+  fcalSetOpacity(eltId('fastedit'), 60); 
   globalcursor('progress');
-  eltId('fastedit').style.display = 'none';
+  return;
+}
+
+function fastEditSave(ev) {
+
   posM.x = getX(ev);
   posM.y = getY(ev);
+
+
+  saveIHMLook();
 
   var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
   urlsend += fastEditSetUrlParam(false);
@@ -849,8 +854,8 @@ function fastEditSave(ev) {
   } else {
     document.location.reload(false);
   }
-  return;
   unglobalcursor();
+  return;
 } 
 
 function fcalInsertTmpEvent(ev, tEv) {
@@ -961,9 +966,9 @@ function fastEditReset() {
   eltId('s_start').value = 0;
   eltId('s_end').value = 0;
   datehourChanged = false;
-   eltId('fastedit').style.display = 'none';
-   eltId('fastedit').style.visibility = 'hidden';
-  fcalSetOpacity(document.getElementById(Root), 100);
+  eltId('fastedit').style.display = 'none';
+  eltId('fastedit').style.visibility = 'hidden';
+  fcalSetOpacity(eltId('fastedit'), 100);
 }
   
 
@@ -1100,7 +1105,6 @@ function fcalFastEditEvent(ev, ie) {
 function fastEditInit(ev, init) {
   if (!init && !fastEditChangeAlert()) return;
   
-  fcalSetOpacity(document.getElementById(Root), 50);
   var fedit = eltId('fastedit');
 
 
@@ -1349,4 +1353,46 @@ function displayWeekEnd(show) {
     if (Days.isWE) Days.view = st;
   }
   displayInit();
+}
+
+
+
+var msgUserTempo = -1;
+function msgUser(tt) {
+
+  var res = flogGetMsg('I'); 	
+//  if (res=='') res = 'Pas de message système';
+  if (res!='') tt = tt + '<br>'+res;
+  
+
+  if (!document.getElementById('userMessage')) {
+    var deb = document.createElement('div');
+    deb.setAttribute('id', 'userMessage');
+    deb.style.position = 'absolute';
+    deb.style.display = 'block';
+    deb.style.textAlign = 'right';
+    deb.style.zIndex = 10000;
+    deb.style.visibility = 'hidden';
+    fcalAddEvent(deb, 'click', cancelMsgUser);
+    document.getElementById('root').appendChild(deb);
+  }  else {
+    var deb = document.getElementById('userMessage');
+  }
+  deb.style.top = deb.style.left ='0';
+  if (msgUserTempo!=-1) clearTimeout(msgUserTempo);
+  deb.innerHTML = tt;
+
+  var w = parseInt(getObjectWidth(deb));
+  if (w >  (0.50*frameWidth)) w = 0.50 * frameWidth;
+  deb.style.left = (frameWidth - (w+25)) + 'px';
+  deb.style.top = '20px';
+  deb.style.visibility = 'visible';
+
+  msgUserTempo = self.setTimeout("cancelMsgUser()", 10000);
+
+}
+
+function cancelMsgUser() {
+  document.getElementById('userMessage').style.visibility = 'hidden';
+  msgUserTempo = -1;
 }

@@ -7,7 +7,7 @@ function fgetmsg(&$action) {
   $d = "";
   if (is_array($wm) && count($wm)>0) {
     foreach ($wm as $k => $v) {
-      $d .= "<div>".htmlentities($v)."</div>";
+      $d .= ($d!=''?'<br>':'').htmlentities($v);
     }
   }
   if ($remove=="Y") $action->parent->ClearWarningMsg();
