@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.42 2006/08/04 10:29:48 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.43 2006/08/11 15:50:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -106,7 +106,7 @@ Class DocCtrl extends DocLDAP {
   function UnsetControl() {
     if ($this->id == $this->profid) {
       // inhibated all doc references this profil
-      $this->exec_query("update doc set profid=-profid where profid=".$this->id." and locked != -1;");
+      if ($this->doctype == 'P') $this->exec_query("update doc set profid=-profid where profid=".$this->id." and locked != -1;");
     }
     $this->profid = "0";      
     $err=$this->modify(true,array("profid"));
@@ -364,6 +364,23 @@ Class DocCtrl extends DocLDAP {
     }
    
     return $this->ControlUp($this->uperm,$aclname);
+  }
+
+  /**
+   * use to know if current user has access privilege
+   *
+   * @param int $docid profil identificator
+   * @param int $uid user identificator
+   * @param string $aclname name of the acl (edit, view,...)
+   * @return string if empty access granted else error message
+   */
+  function ControlUserId ($docid,$uid,$aclname) {          
+    $perm = new DocPerm($this->dbaccess, array($docid,$uid));
+
+    if ($perm->IsAffected()) $uperm = $perm->uperm;
+    else $uperm = $perm->getUperm($docid,$uid);
+                   
+    return $this->ControlUp($uperm,$aclname);
   }
 
 
