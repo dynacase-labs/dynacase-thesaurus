@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.330 2006/08/10 15:09:44 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.331 2006/08/11 15:49:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2427,6 +2427,9 @@ final public function PostInsert()  {
       if ($u->isAffected()) {
 
 	if ($err != "") $err=_("Affectation aborded")."\n".$err;
+	$err=$this->ControlUser($u->id,"edit");
+	if ($err != "") $err=sprintf(_("Affectation aborded\n%s for user %s %s"),$err,$u->firstname,$u->lastname);
+
 	if ($err == "") {
 	  $this->delUTags("AFFECTED");
 	  $this->addComment(sprintf(_("Affected to %s %s"),$u->firstname,$u->lastname));
@@ -2444,6 +2447,49 @@ final public function PostInsert()  {
       $this->modify(true,array("allocated"),true);      
     }
 
+    return $err;
+  } 
+
+  /** 
+   * unallocate document
+   * 
+   * unaffect a document to a user
+   * only the allocated user can unallocate and also users which has unlock acl
+   * @param bool $revision if false no revision are made
+   * 
+   * @return string error message, if no error empty string, if message
+   */
+  final public function unallocate($comment="",$revision) {
+
+    $err="";
+    $err=$this->canEdit();
+
+    
+    if ($err == "") {
+      if ($this->userid != $this->allocated) $err=$this->control("unlock");
+    }
+
+    if ($err == "") {
+      $u=new User("",$this->allocated);
+      if ($u->isAffected()) {
+	
+	$err=$this->unlock();
+
+	if ($err == "") {
+	  $this->delUTags("AFFECTED");
+	  if ($revision) $this->addRevision(sprintf(_("Unallocated of %s %s : %s"),$u->firstname,$u->lastname,$comment));
+	  else $this->addComment(sprintf(_("Unllocated of %s %s: %s"),$u->firstname,$u->lastname,$comment));
+	}
+      } else {
+	$err=_("user not know");
+      }
+    }
+    if ($err=="") {
+      $this->allocated=0;
+      $this->modify(true,array("allocated"),true);      
+    }
+
+    if ($err != "") $err=_("Unallocate aborded")."\n".$err;
     return $err;
   }
   /**
@@ -3041,7 +3087,7 @@ final public function PostInsert()  {
   
 
   /**
-   * Control Access privilege for document
+   * Control Access privilege for document for current user
    *
    * @param string $aclname identificator of the privilege to test
    * @return string empty means access granted else it is an error message (access unavailable)
@@ -3056,6 +3102,23 @@ final public function PostInsert()  {
     }
     return "";
     return sprintf(_("cannot control : object not initialized : %s"),$aclname);
+  } 
+
+  /**
+   * Control Access privilege for document for other user
+   *
+   * @param int $uid user identificator
+   * @param string $aclname identificator of the privilege to test
+   * @return string empty means access granted else it is an error message (access unavailable)
+   */
+  public function ControlUser($uid,$aclname) {
+    // -------------------------------------------------------------------- 
+    if ($this->IsAffected() ) {	      
+      if (($this->profid <= 0) || ($uid == 1 )) return ""; // no profil or admin
+      if (! $uid) return _("control :: user identificator is null");
+      return $this->controlUserId($this->profid,$uid,$aclname);
+    }
+    return "";
   }
   
   /**
@@ -3452,7 +3515,8 @@ final public function PostInsert()  {
     $this->viewabstractcard($target,$ulink,$abstract);
     $this->viewprop($target,$ulink,$abstract);
     $this->lay->set("iconsrc",$this->getIcon());
-    if ($this->state != "") $this->lay->set("state",_($this->state));
+    $state=$this->getState();
+    if ($state != "") $this->lay->set("state",_($state));
     else $this->lay->set("state","");
   }  
   /**
