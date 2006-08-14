@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.41 2006/08/01 15:22:30 eric Exp $
+ * @version $Id: enum_choice.php,v 1.42 2006/08/14 11:51:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -134,12 +134,12 @@ function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
       $h=GetHttpVars(strtolower($n));
       if ($h) return $h;
       if (!$oa) return($n);
-      if ($oa->repeat) $r= $doc->getTValue($n);
+      if (($oa->repeat)|| $oa->inArray()) $r= $doc->getTValue($n);
       else $r=$doc->getValue($n);
       if ($r==="") return false;
       return $r;
     }
-    
+      
 }
 function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,$index="") { 
   global $action;
@@ -200,13 +200,13 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
 	      unset($ta["-1"]); // suppress hidden row because not set yet
 	      $arg[$k]=$ta;
 	    } else $arg[$k]= trim($ta);
-
 	    $arg[$k]= $ta;
 	  }
 	} else {
 	  $ta= getFuncVar($v,$v,$whttpvars,$doc,$a); 
 	  if ($ta === false) return false;
-	  $arg[$k]= trim($ta);
+	  if (is_array($ta))$arg[$k]= $ta;
+	  else $arg[$k]= trim($ta);
 	}
       }
       if ($a && ($a->usefor=="Q")) {
