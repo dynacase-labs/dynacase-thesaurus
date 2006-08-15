@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.117 2006/07/27 16:19:10 eric Exp $
+ * @version $Id: import_file.php,v 1.118 2006/08/15 13:56:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,9 +20,8 @@ include_once("FDL/Class.QueryDir.php");
 include_once("FDL/Lib.Attr.php");
 include_once("FDL/Class.DocAttrLDAP.php");
 
-function add_import_file(&$action, $fimport="") {
+function add_import_file(&$action, $fimport) {
   // -----------------------------------
-  global $_FILES;
   $gerr=""; // general errors 
   if (intval(ini_get("max_execution_time")) < 300) ini_set("max_execution_time", 300);
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
@@ -31,14 +30,13 @@ function add_import_file(&$action, $fimport="") {
 
   $nbdoc=0; // number of imported document
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
-  if (isset($_FILES["file"]))    
-    {
-      $fdoc = fopen($_FILES["file"]['tmp_name'],"r");
-    } else {
-      if ($fimport != "")      $fdoc = fopen($fimport,"r");
-      else $fdoc = fopen(GetHttpVars("file"),"r");
-    }
+  $cvsfile="";
+  if (seemsODS($fimport)) {
+    $cvsfile=ods2csv($fimport);
+    $fdoc = fopen($cvsfile,"r");
+  } else {
+    $fdoc = fopen($fimport,"r");
+  }
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
   while (!feof($fdoc)) { 
@@ -76,7 +74,7 @@ function add_import_file(&$action, $fimport="") {
 	
 	if (! $analyze) {
 	  $doc  =new DocFam($dbaccess);
-	  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+
 	  if (isset($data[3]) && ($data[3] > 0)) $doc->id= $data[3]; // static id
 	  if (is_numeric($data[1]))   $doc->fromid = $data[1];
 	  else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
@@ -565,8 +563,8 @@ function add_import_file(&$action, $fimport="") {
       
   fclose ($fdoc);
 
-
-
+  if ($csvfile) unlink($csvfile); // temporary csvfile
+  
     
   return $tcr;
 }
@@ -953,6 +951,27 @@ function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
   }
   return false;
 }
+function seemsODS($filename) {
+  if (preg_match('/\.ods$/',$filename)) return true;
+  $sys = trim(`file -bi "$filename"`);
+  if ($sys=="application/x-zip") return true;
+  return false;
+}
 
-
+/**
+ * convert ods file in csv file
+ * the csv file must be delete by caller after using it
+ * @return strint the path to the csv file
+ */
+function ods2csv($odsfile) {
+    $csvfile = uniqid("/var/tmp/csv")."csv";
+    $wsh =  getWshCmd();
+    $cmd=sprintf("%s --api=ods2csv --odsfile=%s --csvfile=%s >/dev/null",
+		 getWshCmd(),
+		 $odsfile,
+		 $csvfile );
+    $err=system($cmd,$out);
+    if ($err===false) return false;
+    return $csvfile;
+}
 ?>

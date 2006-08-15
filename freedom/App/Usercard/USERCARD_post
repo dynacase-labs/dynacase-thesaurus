@@ -11,10 +11,10 @@ fi
 #------------------------------
 if [ "$1" = "I" ] ; then
   $wpub/FDL/FDL_post U
-  $wpub/wsh.php  --app=USERCARD --action=USERCARD_INIT 
-  $wpub/wsh.php   --app=USERCARD --action=USERCARD_INIT 
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/usercard.ods
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/usercard.ods
 #  su - postgres -c "psql $dbfree anakeen -f $wpub/USERCARD/init.sql"
-  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/userinit.csv
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/userinit.ods
   $wpub/wsh.php   --api=freedom_clean
   $wpub/wsh.php   --api=usercard_iuser
   $wpub/wsh.php   --api=freedom_clean
@@ -25,9 +25,9 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
-  $wpub/wsh.php --app=USERCARD --action=USERCARD_INIT 
-  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/userinit.csv
-  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/personnldap.csv
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/usercard.ods
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/userinit.ods
+  $wpub/wsh.php --api=freedom_import --file=$wpub/USERCARD/personnldap.ods
 #  $wpub/wsh.php --api=usercard_iuser
 
 fi

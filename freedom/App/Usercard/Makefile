@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.7 2006/01/24 15:25:39 eric Exp $
+# $Id: Makefile,v 1.8 2006/08/15 13:56:11 eric Exp $
 # ============================================
 
 # get the new appname (basename in uppercase)
@@ -12,10 +12,12 @@ export appname
 include $(utildir)/PubRule
 
 
-DISTFILES += Makefile  $(appname).app $(appname)_init.php.in init.freedom init.sql userinit.csv personnldap.csv slapd_anakeen.conf
+DISTFILES += Makefile  $(appname).app $(appname)_init.php.in usercard.ods init.sql userinit.ods personnldap.ods slapd_anakeen.conf
 
 
-$(pubdir)/$(appname)/init.freedom : init.freedom 
+$(pubdir)/$(appname)/usercard.ods : usercard.ods 
+	cp $< $@
+$(pubdir)/$(appname)/%.ods : %.ods
 	cp $< $@
 $(pubdir)/$(appname)/%.csv : %.csv
 	cp $< $@
@@ -32,4 +34,4 @@ $(pubdir)/EXTERNALS :
 $(pubdir)/EXTERNALS/usercard.php: $(pubdir)/EXTERNALS
 	cp $(appname)_external.php $(pubdir)/EXTERNALS/usercard.php
 
-publish: $(pubdir)/$(appname)/init.freedom $(pubdir)/EXTERNALS/usercard.php $(pubdir)/$(appname)/userinit.csv $(pubdir)/$(appname)/personnldap.csv $(rootprefix)/etc/openldap/slapd_anakeen.conf
+publish: $(pubdir)/$(appname)/usercard.ods $(pubdir)/EXTERNALS/usercard.php $(pubdir)/$(appname)/userinit.ods $(pubdir)/$(appname)/personnldap.ods $(rootprefix)/etc/openldap/slapd_anakeen.conf

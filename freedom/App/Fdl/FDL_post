@@ -55,8 +55,9 @@ if [ "$1" = "U" ] ; then
   #copy postgres group table
   $wpub/wsh.php --api=freedom_groups
 
-  $wpub/wsh.php --app=FDL --action=FREEDOM_INIT  
-  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/freeaction.csv
+
+  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/fdl.ods
+  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/freeaction.ods
 
   su - postgres -c "psql $dbfree -f $wpub/WHAT/getprivilege.sql"
   su - postgres -c "psql $dbfree -f $wpub/FDL/fdl.sql"

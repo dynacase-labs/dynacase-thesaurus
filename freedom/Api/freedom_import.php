@@ -3,7 +3,7 @@
  * importation of documents
  *
  * @author Anakeen 2002
- * @version $Id: freedom_import.php,v 1.6 2005/07/19 09:48:06 eric Exp $
+ * @version $Id: freedom_import.php,v 1.7 2006/08/15 13:56:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WSH
@@ -30,8 +30,11 @@ if (GetHttpVars("htmlmode") == "Y") {
   $appl=new Application();
   $appl->Set("FDL",	     $core);
   $action->Set("",$appl);
-  add_import_file($action, 
-    		    GetHttpVars("file"));
+
+  $filename=GetHttpVars("file");
+ 
+  add_import_file($action, $filename );
+    
   
 }
 
