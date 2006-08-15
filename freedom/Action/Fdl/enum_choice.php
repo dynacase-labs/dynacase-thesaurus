@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.43 2006/08/15 15:02:25 eric Exp $
+ * @version $Id: enum_choice.php,v 1.44 2006/08/15 15:37:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -87,7 +87,10 @@ function enum_choice(&$action) {
 
   $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 
-  if (! is_array($res)) $action->exitError($res);
+  if (! is_array($res)) {
+    if ($res=="") $res=sprintf(_("error in calling function %s"),$oattr->phpfunc);
+    $action->exitError($res);
+  }
   if (count($res) == 0) $action->exitError(sprintf(_("no match for %s"),$oattr->labelText));
   
 
