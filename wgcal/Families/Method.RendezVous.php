@@ -171,7 +171,7 @@ function vcalendar() {
   $this->lay->set("s_hour", $this->_WsetHour($this->getValue("calev_start")));
   $this->lay->set("e_date", $this->_WsetDate($this->getValue("calev_end")));
   $this->lay->set("e_hour", $this->_WsetHour($this->getValue("calev_end")));
-  $this->lay->set("uid", $this->_WsetUid());
+  $this->lay->set("uid", $this->getValue("calev_s4j_guid"));
   $this->lay->set("c_date", $this->_WsetDate(w_datets2db($this->revdate)));
   $this->lay->set("c_hoursec", $this->_WsetHour(w_datets2db($this->revdate), true));
   $note = $this->getValue("calev_evnote");
@@ -189,7 +189,9 @@ function vcalendar() {
 
 function _WsetDateTime($d="") {
   $r = "";
-  $r = $this->_WsetDate($d)."T".$this->_WsetHour($d)."00Z";
+  $ts = mktime (substr($d,11,2), substr($d,14,2), 0, substr($d,0,2), substr($d,3,2), substr($d,6,4), 1);
+  $r = gmstrftime("%Y%d%mT%H%M%S00Z",  $ts);
+  //$r = $this->_WsetDate($d)."T".$this->_WsetHour($d)."00Z";
   return $r;
 }
 
@@ -203,10 +205,7 @@ function _WsetHour($d="", $long=false) {
   if ($d!="") $r = substr($d,11,2).substr($d,14,2).($long?substr($d,17,2):"");
   return $r;
 }
-function _WsetUid() {
-  return "FREEDOM:WGCAL-".time()."-".$this->id."-".$this->_WsetDate($this->getValue("calev_start")).$this->_WsetHour($this->getValue("calev_start"), true).$this->_WsetDate($this->getValue("calev_end")).$this->_WsetHour($this->getValue("calev_end"));
-}
-  
+    
 /*
  *
  */
@@ -1621,18 +1620,25 @@ function sifevent() {
   $this->lay->set("v_Body", utf8_encode($this->getValue("calev_evnote")));
   $this->lay->set("s_Body", true);
 
-
-  $this->lay->set("v_Start", $this->_WsetDateTime($this->getValue("calev_start")));
-  $this->lay->set("s_Start", true);
-
-  $this->lay->set("v_End", $this->_WsetDateTime($this->getValue("calev_end")));
-  $this->lay->set("s_End", true);
-
-  $allday = 0;
-  $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
   if ($this->getValue("calev_timetype")==1 || $this->getValue("calev_timetype")==2) {
-    $dur = 1440;
+
     $allday = 1;
+    $dur = 1440;
+    $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
+    $this->lay->set("v_Start", $this->_WsetDate($this->getValue("calev_start"))."T000000Z");
+    $this->lay->set("v_End", $this->_WsetDate($this->getValue("calev_end"))."T235900Z");
+    $this->lay->set("s_Start", true);
+    $this->lay->set("s_End", true);
+
+  } else {
+
+    $allday = 0;
+    $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
+    $this->lay->set("v_Start", $this->_WsetDateTime($this->getValue("calev_start")));
+    $this->lay->set("v_End", $this->_WsetDateTime($this->getValue("calev_end")));
+    $this->lay->set("s_Start", true);
+    $this->lay->set("s_End", true);
+
   }
   $this->lay->set("v_Duration", $dur);
   $this->lay->set("s_Duration", true);
@@ -1648,13 +1654,18 @@ function sifevent() {
     $this->lay->set("s_Categories", true);
   }
 
+  if ($this->getValue("calev_location")!="") {
+    $this->lay->set("v_Location", utf8_encode($this->getValue("calev_location")));
+    $this->lay->set("s_Location", true);
+  }
+
+
   // Sensitivity
   $sen = 0;
   switch ($this->getValue("calev_visibility")) {
-  case 1 : // Private --> olConfidential
-    $sen = 3;
-    break;
-  case 2 : // My groups --> Private
+  case 1 : //  olConfidential
+  case 2 : 
+  case 3 : 
     $sen = 2;
     break;
   }
