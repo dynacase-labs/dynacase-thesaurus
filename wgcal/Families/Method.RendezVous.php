@@ -1693,10 +1693,8 @@ function sifevent() {
  
 
   // Recurring
-  $this->lay->set("v_Instance", 1);
-  $this->lay->set("s_Instance", true);
-  $this->lay->set("v_Interval", 1);
-  $this->lay->set("s_Interval", true);
+  $this->lay->set("s_Instance", false);
+  $this->lay->set("s_Interval", false);
   $isRecurring = 0;
   $rmode = $this->getValue("calev_repeatmode");
   if ($rmode>0 && $rmode<5) {
