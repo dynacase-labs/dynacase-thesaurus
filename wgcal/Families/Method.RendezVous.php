@@ -22,7 +22,7 @@ function getCurTime() {
   $t = mktime();
   $trs = getParam("TIMEREF_SYNC4J", 0);
   $trf = getParam("TIMEREF_FREEDOM", 0);
-  $td = array( "sync4j" => gmdate("d/m/Y H:i:s", $t - ($trf - $trs))." UTC", "freedom" =>  gmdate("d/m/Y H:i:s", $t)." UTC");
+  $td = array( "sync4j" => gmdate("d/m/Y H:i:s", $t - ($trf - $trs)), "freedom" =>  gmdate("d/m/Y H:i:s", $t));
   return $td;
 }
 
