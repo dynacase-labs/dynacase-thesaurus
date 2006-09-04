@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.332 2006/08/11 16:06:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.333 2006/09/04 15:38:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -598,7 +598,6 @@ final public function PostInsert()  {
     if (($this->doctype == 'F') && ($this->usefor != 'P')) {
       $fdoc = $this->getFamDoc();
       if ($fdoc->schar != "S") return true;
-
     }
     return false;
   }
@@ -2183,13 +2182,25 @@ final public function PostInsert()  {
     return $err;
   }
   /**
+   * Refresh all user tag for the document in case of revision
+   * 
+   */
+  final public function refreshUTags() { 
+    include_once("FDL/Class.DocUTag.php");
+    $q=new QueryDb($this->dbaccess,"docUTag");
+    $q->Query(0,0,"TABLE",
+	      sprintf("update docutag set id=%d where initid=%d",$this->id,$this->initid));
+
+    return $err;
+  }
+  /**
    * Create a new revision of a document
    * the current document is revised (became a fixed document)
    * a new revision is created
    * @param string $comment the comment of the revision
    * @return string error text (empty if no error)
    */
-  final public function AddRevision($comment='') {
+  final public function addRevision($comment='') {
 
     if ($this->locked == -1) return _("document already revised");
 
@@ -2197,17 +2208,18 @@ final public function PostInsert()  {
    
     if ($fdoc->schar == "S") return sprintf(_("the document of %s family cannot be revised"),$fdoc->title);
     $locked=$this->locked;
+    $allocated=$this->allocated;
+    $postitid = $this->postitid; // transfert post-it to latest revision
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
+    $this->allocated = 0; // cannot allocated fixed document
     $this->owner = $this->userid; // rev user 
-    $postitid = $this->postitid; // transfert post-it to latest revision
     $this->postitid=0;
     $date = gettimeofday();
     $this->revdate = $date['sec']; // change rev date
     if ($comment != '') $this->Addcomment($comment,HISTO_MESSAGE,"REVISION");
-
-
+    
     $err=$this->modify();
     if ($err != "") return $err;
 
@@ -2217,6 +2229,7 @@ final public function PostInsert()  {
     $olddocid = $this->id;
     $this->id="";
     $this->locked = $locked; // report the lock
+    $this->allocated = $allocated; // report the allocate
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
     $this->postitid=$postitid;
@@ -2227,6 +2240,7 @@ final public function PostInsert()  {
 
     $err=$this->modify(); // need to applicate SQL triggers
        
+    if ($allocated > 0)	 $this->refreshUTags();
     return $err;
     
   }
@@ -2241,6 +2255,8 @@ final public function PostInsert()  {
    */
   final public function changeFreeState($newstateid,$comment='',$revision=true) {
     if ($this->wid > 0) return sprintf(_("cannot set free state in workflow controlled document %s"),$this->title);
+    if ($this->wid == -1) return sprintf(_("cannot set free state for document %s: workflow not allowed"),$this->title);
+    if (! $this->isRevisable()) return sprintf(_("cannot set free state for document %s: document cannot be revised"),$this->title);
     $state=new_doc($this->dbaccess,$newstateid);
     if (! $state->isAlive()) return sprintf(_("invalid freestate document %s"),$newstateid);
     if ($state->fromid != 39) return sprintf(_("not a freestate document %s"),$state->title);
@@ -2388,7 +2404,7 @@ final public function PostInsert()  {
    * @see Doc::CanUnLockFile()
    * @see Doc::lock()
    */
-  final public function unlock($auto=false) {
+  final public function unLock($auto=false) {
     
 
     $err=$this->CanUnLockFile();
@@ -2431,10 +2447,13 @@ final public function PostInsert()  {
 	if ($err != "") $err=sprintf(_("Affectation aborded\n%s for user %s %s"),$err,$u->firstname,$u->lastname);
 
 	if ($err == "") {
-	  $this->delUTags("AFFECTED");
 	  $this->addComment(sprintf(_("Affected to %s %s"),$u->firstname,$u->lastname));
-	  if ($revision) $this->addRevision(sprintf(_("Affected for %s"),$comment));
-	  else $this->addComment(sprintf(_("Affected for %s"),$comment));
+	  if ($revision) {
+	    $this->addRevision(sprintf(_("Affected for %s"),$comment));
+	  } else {
+	    $this->addComment(sprintf(_("Affected for %s"),$comment));
+	  }
+	  $this->delUTags("AFFECTED");
 	  $this->addUTag($userid,"AFFECTED",$comment);	  
 	  $err=$this->lock(false,$userid);
 	}
