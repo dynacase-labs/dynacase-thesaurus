@@ -189,9 +189,14 @@ function vcalendar() {
 
 function _WsetDateTime($d="") {
   $r = "";
-  $ts = mktime (substr($d,11,2), substr($d,14,2), 0, substr($d,0,2), substr($d,3,2), substr($d,6,4), 1);
-  $r = gmstrftime("%Y%d%mT%H%M%S00Z",  $ts);
-  //$r = $this->_WsetDate($d)."T".$this->_WsetHour($d)."00Z";
+  $tz = substr($d,20,3);
+  $ts = mktime (substr($d,11,2), substr($d,14,2), substr($d,17,2), substr($d,3,2), substr($d,0,2), substr($d,6,4), 0);
+  switch($tz) {
+    case "CES" : $ts -= 3600; break;
+    //case "CET" : $ts -= 3600; break;
+  }
+  $r = gmstrftime("%Y%m%dT%H%M%S00Z",  $ts);
+  syslog(LOG_ERR, "d=$d tz=$tz ts=$ts r=$r");
   return $r;
 }
 
@@ -1624,10 +1629,14 @@ function sifevent() {
 
     $allday = 1;
     $dur = 1440;
-    $dur = (dbdate2ts($this->getValue("calev_end")) - dbdate2ts($this->getValue("calev_start"))) / 60;
-    $this->lay->set("v_Start", $this->_WsetDate($this->getValue("calev_start"))."T000000Z");
-    $this->lay->set("v_End", $this->_WsetDate($this->getValue("calev_end"))."T235900Z");
-    $this->lay->set("s_Start", true);
+
+    $d = $this->getValue("calev_start");
+    $this->lay->set("v_Start", substr($d,6,4)."-".substr($d,3,2)."-".substr($d,0,2));
+
+    $d = $this->getValue("calev_end");
+    $this->lay->set("v_End", substr($d,6,4)."-".substr($d,3,2)."-".substr($d,0,2));
+
+   $this->lay->set("s_Start", true);
     $this->lay->set("s_End", true);
 
   } else {
@@ -1787,10 +1796,10 @@ function sifevent() {
     else $this->lay->set("v_NoEndDate", 1);
     $this->lay->set("s_NoEndDate", true);
     
-    $this->lay->set("v_PatternStartDate", $this->_WsetDate($this->getValue("calev_start")));
+    $this->lay->set("v_PatternStartDate", $this->_WsetDateTime($this->getValue("calev_start")));
     $this->lay->set("s_PatternStartDate", true);
     if ($this->getValue("calev_repeatuntil")!=0) {
-      $this->lay->set("v_PatternEndDate", $this->_WsetDate($this->getValue("calev_repeatuntildate")));
+      $this->lay->set("v_PatternEndDate", $this->_WsetDateTime($this->getValue("calev_repeatuntildate")));
       $this->lay->set("s_PatternEndDate", true);
     }
   }
