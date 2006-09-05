@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.97 2006/07/27 16:20:48 eric Exp $
+ * $Id: freedom.css,v 1.98 2006/09/05 13:31:00 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -521,9 +521,14 @@ DIV.button {
 }
 
 DIV.button:hover {
-	border:outset [CORE_BGCOLORALTERN] 2pt;
+	border:outset [CORE_BGCOLORALTERN] 2px;
 }
-
+DIV#tooltip {
+   border:outset [COLOR_A9] 1px;
+   background-color: [COLOR_B7]; 
+   position:absolute;
+   visibility:hidden;
+}
 BUTTON.binline {
   border:none;
   background:none;
