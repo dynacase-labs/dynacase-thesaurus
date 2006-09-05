@@ -3,7 +3,7 @@
  * Convert OpenDocument Spreadsheet to csv (semicolon)
  *
  * @author Anakeen 2000 
- * @version $Id: ods2csv.php,v 1.1 2006/08/15 13:56:10 eric Exp $
+ * @version $Id: ods2csv.php,v 1.2 2006/09/05 13:30:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,18 +21,25 @@ function startElement($parser, $name, $attrs) {
   global $rows,$nrow,$inrow,$ncol,$colrepeat;
   if ($name ==  "TABLE:TABLE-ROW") {
     $inrow=true;
+    if (isset($rows[$nrow])) {
+      // fill empty cells
+      $idx=0;
+      foreach ($rows[$nrow] as $k=>$v) {
+	if (! isset($rows[$nrow][$idx])) $rows[$nrow][$idx]='';
+	$idx++;
+      }
+      ksort($rows[$nrow],SORT_NUMERIC);
+    }
     $nrow++;
     $ncol=0;
     $rows[$nrow]=array_fill(0,16,"");
   }
   
   if ($name ==  "TABLE:TABLE-CELL") {
-
     if ($attrs["TABLE:NUMBER-COLUMNS-REPEATED"]) {
       $colrepeat=intval($attrs["TABLE:NUMBER-COLUMNS-REPEATED"]);      
      }
   }
-
 }
 
 function endElement($parser, $name) {
