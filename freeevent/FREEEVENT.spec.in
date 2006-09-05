@@ -1,38 +1,37 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.11 2006/08/04 10:25:11 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.12 2006/09/05 16:24:58 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
-
-%define apachedir /etc/httpd
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
-%define pld		%(uname -o | grep -c PLD)
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
+
 
 %if %{cerbere}
 %define destdir /home/httpd/what
 %define httpuser http
-%else
+%define releasepostfix %(echo)
+%endif
 %if %{pld}
 %define destdir /usr/share/what
 %define httpuser http
-%else
+%define releasepostfix cb
+%endif
+%if %{redhat}
 %define destdir /usr/share/what
 %define httpuser apache
-%endif
+%define releasepostfix fc5
 %endif
 
 
 Summary: The Freedom Event Package
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere} || %{pld}
-Release: @RELEASE@
-%else
-Release: @RELEASE@fc
-%endif
+Release: @RELEASE@%{releasepostfix}
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz

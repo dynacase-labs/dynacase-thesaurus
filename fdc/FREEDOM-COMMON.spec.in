@@ -1,29 +1,37 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-COMMON.spec.in,v 1.1 2006/05/30 16:32:46 eric Exp $
+#  $Id: FREEDOM-COMMON.spec.in,v 1.2 2006/09/05 16:25:07 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
 
 %if %{cerbere}
 %define destdir /home/httpd/what
 %define httpuser http
-%define ldapuser slapd
-%else
+%define releasepostfix %(echo)
+%endif
+%if %{pld}
+%define destdir /usr/share/what
+%define httpuser http
+%define releasepostfix cb
+%endif
+%if %{redhat}
 %define destdir /usr/share/what
 %define httpuser apache
-%define ldapuser ldap
+%define releasepostfix fc5
 %endif
 
 %define dirname FDC
 Summary: Common function for Freedom
 Name: @PACKAGE@
 Version: @VERSION@
-Release: @RELEASE@
+Release: @RELEASE@%{releasepostfix}
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz

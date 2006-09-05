@@ -1,33 +1,40 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.98 2006/08/02 07:49:43 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.99 2006/09/05 16:22:41 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
 
 %if %{cerbere}
 %define destdir /home/httpd/what
 %define httpuser http
 %define ldapuser slapd
-%else
+%define releasepostfix %(echo)
+%endif
+%if %{pld}
+%define destdir /usr/share/what
+%define httpuser http
+%define ldapuser slapd
+%define releasepostfix cb
+%endif
+%if %{redhat}
 %define destdir /usr/share/what
 %define httpuser apache
 %define ldapuser ldap
+%define releasepostfix fc5
 %endif
 
 Summary: The Freedom Management Module
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere}
-Release: @RELEASE@
-%else
-Release: @RELEASE@fc
-%endif
 License: GPL
+Release: @RELEASE@%{releasepostfix}
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
 # post-2.2.0 fix (can go away with next release):
@@ -47,7 +54,7 @@ Summary: libraries of FREEDOM module
 Group: Applications/Web
 Requires: php >= 5.0
 Requires: php-gd
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Requires: php-calendar
 %else
 Requires: metamail >= 2.7
@@ -55,7 +62,7 @@ Requires: metamail >= 2.7
 Requires: postgresql >= 8.0
 Requires: html2ps
 Requires: ghostscript
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Requires: ghostscript-fonts-std
 %else
 Requires: ghostscript-fonts
@@ -71,8 +78,9 @@ PreReq: vixie-cron
 PreReq: WHAT >= 2.3.2
 Prereq: VAULT >= 2.0.3
 Prereq: gettext
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Prereq: php-cgi 
+Prereq: gettext-devel
 %else
 Prereq: php
 %endif
@@ -86,7 +94,7 @@ The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 Summary: user card management
 Group: Applications/Web
 Requires: php-ldap
-%if %{cerbere}
+%if %{cerbere} || %{pld}
 Requires: openldap-servers
 Requires: openldap-backend-bdb
 %else

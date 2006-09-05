@@ -1,36 +1,35 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: VAULT.spec.in,v 1.12 2006/05/10 14:00:30 jerome Exp $
+#  $Id: VAULT.spec.in,v 1.13 2006/09/05 16:27:30 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
-%define pld		%(uname -o | grep -c PLD)
-
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
 %if %{cerbere}
 %define destdir /home/httpd/what
 %define httpuser http
-%else
+%define releasepostfix %(echo)
+%endif
 %if %{pld}
 %define destdir /usr/share/what
 %define httpuser http
-%else
+%define releasepostfix cb
+%endif
+%if %{redhat}
 %define destdir /usr/share/what
 %define httpuser apache
-%endif
+%define releasepostfix fc5
 %endif
 
 Summary: The What Vault Management
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere} || %{pld}
-Release: @RELEASE@
-%else
-Release: @RELEASE@fc
-%endif
+Release: @RELEASE@%{releasepostfix}
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
