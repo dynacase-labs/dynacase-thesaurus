@@ -53,9 +53,8 @@ function eltId(eltid) {
 }
 
 function fcalSetOpacity(o, value) {
-  o.style.setProperty('opacity',value/100, '');
-  o.style.setProperty('filter','alpha(opacity=' + value + ')', '');
-  //o.style.filter = 'alpha(opacity=' + value + ')';
+  if (isIE) o.style.filter = 'alpha(opacity=' + value + ')';
+  else o.style.opacity = value/100;
 }
 
 
