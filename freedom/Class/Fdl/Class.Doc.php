@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.333 2006/09/04 15:38:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.334 2006/09/05 13:31:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -500,6 +500,7 @@ final public function PostInsert()  {
 	$date = gettimeofday();
 	$this->revdate = $date['sec'];
 	$this->version=$this->getVersion();
+	$this->lmodify='Y';
 	//	$this->postModify(); // in modcard function
       }
       
