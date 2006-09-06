@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.13 2005/12/07 17:51:49 marc Exp $
+# $Id: Makefile.in,v 1.14 2006/09/06 13:13:20 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -29,17 +29,12 @@ DISTFILES += $(SUBDIR) \
 $(pubdir)/$(appname)/73_mod_wgcalosync.conf : 73_mod_wgcalosync.conf
 	cp $< $@
 
-$(pubdir)/EXTERNALS :
-	mkdir -p $@
 
-$(pubdir)/EXTERNALS/WGCAL_external.php: $(pubdir)/EXTERNALS 
-	cp Families/$(appname)_external.php $(pubdir)/EXTERNALS/WGCAL_external.php
 
 $(pubdir)/$(appname)/wgcal.csv : Families/wgcal.csv 
 	cp Families/wgcal.csv $(pubdir)/$(appname)
 
 publish: $(pubdir)/$(appname)/wgcal.csv \
-	$(pubdir)/EXTERNALS/WGCAL_external.php \
 	$(pubdir)/$(appname)/73_mod_wgcalosync.conf 
 
 clean:
