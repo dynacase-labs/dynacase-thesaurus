@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * function use for specialised searches
+ *
+ * @author Anakeen 2006
+ * @version $Id: fdlsearches.php,v 1.2 2006/09/06 07:01:44 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
 function mytagdoc($start,$slice,$tag,$userid=0) {
   include_once("FDL/Class.DocUTag.php");
   include_once("FDL/Lib.Dir.php");
