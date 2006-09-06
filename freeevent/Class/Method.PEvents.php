@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.16 2005/11/21 18:07:05 marc Exp $
+ * @version $Id: Method.PEvents.php,v 1.17 2006/09/06 16:15:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -74,17 +74,8 @@ var $eventFamily="EVENT";
  * @return string error text (empty if no error)
  */
 function pEventDefault() {
-  $evt=createDoc($this->dbaccess,$this->eventFamily,false);
-  if ($evt) {
-    include_once("FDL/Lib.Dir.php");
-    $filter[]="evt_idinitiator=".$this->initid;
-    $filter[]="evt_transft='pEventDefault'";
-    // search if already created
-    $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
-    if (count($tevt) > 0) {
-      $evt=new_Doc($this->dbaccess,$tevt[0]["id"]);
-    }    
-  }
+
+  $evt=$this->getDefaultEvent();
   //  if (($this->control("edit")=="")||(isset($this->withoutControl))) { // can modify only if can modify productor
   $evt->disableEditControl();
   if ($evt->isAlive()) {
@@ -209,6 +200,27 @@ function getEventRessources() {
   return $tr;
 }
 
+/**
+ * get the default event
+ * @return Doc::Event the event object
+ */
+function getDefaultEvent() {
+  static $__evtid=0;
 
-
+  if ($__evtid == 0) {
+    include_once("FDL/Lib.Dir.php");
+    $filter[]="evt_idinitiator=".$this->initid;
+    $filter[]="evt_transft='pEventDefault'";
+    // search if already created
+    $tevt = getChildDoc($this->dbaccess, 0 ,0,1, $filter,1, "TABLE",$this->eventFamily);
+    if (count($tevt) > 0) $__evtid=$tevt[0]["id"];      
+  }  
+  
+  if ($__evtid == 0) {
+    $evt=createDoc($this->dbaccess,$this->eventFamily,false);
+  } else {
+    $evt=new_Doc($this->dbaccess,$__evtid);
+  }
+  return $evt;
+}
 ?>
