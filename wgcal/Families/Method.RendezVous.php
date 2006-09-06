@@ -1572,6 +1572,11 @@ function setAccessibility() {
       $sdeb .= "\n";
     }
   }
+
+  // reload profil for event because it can be not set the first time
+  $evt=$this->getDefaultEvent();
+  $evt->setProfil($this->id);
+  $evt->modify(true,array("profid"),true);
 //     AddWarningMsg(  $sdeb );
 }
 
