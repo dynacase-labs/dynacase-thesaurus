@@ -196,7 +196,7 @@ function _WsetDateTime($d="") {
     //case "CET" : $ts -= 3600; break;
   }
   $r = gmstrftime("%Y%m%dT%H%M%S00Z",  $ts);
-  syslog(LOG_ERR, "d=$d tz=$tz ts=$ts r=$r");
+  //syslog(LOG_ERR, "d=$d tz=$tz ts=$ts r=$r");
   return $r;
 }
 
@@ -2049,7 +2049,11 @@ function postChangeProcess($old=false) {
     }
   }
 
-  if ($comment!="") $this->AddComment($comment);
+  if ($comment!="") {
+    if ($this->fromS4j) $comment .= "[sync4j] ";
+    $this->AddComment($comment);
+  }
+
   if ($mail_who!=-1) {
     $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$this->getValue("calev_evtitle");
     sendRv($action, $this, $mail_who, $title, $mail_msg, true);
