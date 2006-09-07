@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.88 2006/08/07 15:41:43 marc Exp $
+ * @version $Id: freedom_util.php,v 1.89 2006/09/07 09:08:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -499,7 +499,7 @@ function getLatestTDoc($dbaccess, $initid,$sqlfilters=array()) {
   if (count($sqlfilters)>0)    $sqlcond = "and (".implode(") and (", $sqlfilters).")";
 
   $userid=$action->user->id;
-  $result = pg_exec($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and locked != -1 $sqlcond;");
+  $result = pg_exec($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and doctype != 'T' and locked != -1 $sqlcond;");
   if (pg_numrows ($result) > 0) {
     $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
 
