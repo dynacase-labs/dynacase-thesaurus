@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.12 2006/08/07 10:12:03 eric Exp $
+ * @version $Id: popupdoc.php,v 1.13 2006/09/08 16:28:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,10 +27,11 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
   // define accessibility
 
   $action->lay->Set("SEP",false);
-
+  $noctrlkey=($action->getParam("FDL_CTRLKEY","yes")=="no");
 
   $useicon=false;
   $rlink=array();
+  $rlinkbottom=array();
   foreach ($tlink as $k=>$v) {
     if ($v["visibility"]!=POPUP_INVISIBLE)   {
       if ((!isset($v["icon"])) || ($v["icon"]=="")) {
@@ -39,7 +40,7 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
 	$useicon=true;
       }
       $v["issubmenu"]=false;
-      $v["descr"]=utf8_encode($v["descr"]);
+      $v["descr"]=ucfirst(utf8_encode($v["descr"]));
       $v["tconfirm"]=str_replace("\n","\\n",utf8_encode($v["tconfirm"]));
       if (! isset($v["visibility"])) $v["visibility"]="";
       if (! isset($v["confirm"])) $v["confirm"]="";
@@ -50,10 +51,17 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
       if (! isset($v["separator"])) $v["separator"]=false;
       if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $v["idlink"]=$k;
       if ((!isset($v["target"])) || ($v["target"]=="")) $v["target"]=$k;
-      if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $v["mwidth"]=$action->getParam("FDL_VD2SIZE",300);
-      if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $v["mheight"]=$action->getParam("FDL_HD2SIZE",400);
+      if ((!isset($v["mwidth"])) || ($v["mwidth"]=="")) $v["mwidth"]=$action->getParam("FDL_HD2SIZE",300);
+      if ((!isset($v["mheight"])) || ($v["mheight"]=="")) $v["mheight"]=$action->getParam("FDL_VD2SIZE",400);
       if ((isset($v["url"])) && ($v["url"]!="")) $v["URL"]=true;
       else 	$v["URL"]=false;
+      
+      if ($noctrlkey) {
+	if ($v["visibility"]==POPUP_CTRLACTIVE) {
+	  $v["submenu"]=N_("menuctrlkey");
+	  $v["visibility"]=POPUP_ACTIVE;
+	}
+      }
       
       if ((isset($v["jsfunction"])) && ($v["jsfunction"]!="")) $v["JSFT"]=true;
       else $v["JSFT"]=false;
@@ -63,7 +71,18 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
 	$v["smid"]=$smid;
 	if (! isset($tsubmenu[$smid])) {
 	  $tsubmenu[$smid]=array("idlink"=>$smid,
-				 "descr"=>utf8_encode($v["submenu"]));
+				 "descr"=>ucfirst(utf8_encode(_($v["submenu"]))),
+				 "visibility"=>false,
+				 "confirm"=>false,
+				 "jsfunction"=>false,
+				 "barmenu"=>false,
+				 "url"=>false,
+				 "target"=>false,
+				 "mwidth"=>false,
+				 "mheight"=>false,
+				 "smid"=>false,
+				 "tconfirm"=>false,
+				 "issubmenu"=>false);
 	}
 
 	if (! isset($tsubmenu[$smid]["displayed"])) {
@@ -72,13 +91,23 @@ function popupdoc(&$action,$tlink,$tsubmenu) {
 	  $tsubmenu[$smid]["URL"]=false;
 	  $tsubmenu[$smid]["JSFT"]=false;
 	  $tsubmenu[$smid]["separator"]=false;
-	  $rlink[]=$tsubmenu[$smid];
+	  if ($noctrlkey && ($v["submenu"]=="menuctrlkey")) {
+	    $rlinkbottom[]=$tsubmenu[$smid];
+	  } else {
+	    $rlink[]=$tsubmenu[$smid];
+	  }
+
 	}
       }
+  
       $rlink[]=$v;
     }
   }
 
+  if ($noctrlkey) {
+    // ctrlkey submenu at bottom
+    $rlink=array_merge($rlink,$rlinkbottom);
+  }
 
   $action->lay->Set("ICONS",$useicon);
   $action->lay->SetBlockData("ADDLINK",$rlink);

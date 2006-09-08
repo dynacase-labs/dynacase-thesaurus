@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.17 2006/08/01 15:32:39 eric Exp $
+ * @version $Id: fdl_card.php,v 1.18 2006/09/08 16:28:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,16 +48,19 @@ function fdl_card(&$action) {
 
   if (($latest == "Y") && ($doc->locked == -1)) {
     // get latest revision
-    SetHttpVar("id",$doc->latestId());
+    $docid=$doc->latestId();
+    SetHttpVar("id",$docid);
   } 
   if (($latest == "L") && ($doc->lmodify != 'L')) {
     // get latest fixed revision
-    SetHttpVar("id",$doc->latestId(true));
+    $docid=$doc->latestId(true);
+    SetHttpVar("id",$docid);
   }
   if (($latest == "P") && ($doc->revision > 0)) {
     // get previous fixed revision
     $pdoc = getRevTDoc($dbaccess, $doc->initid,$doc->revision-1);
-    SetHttpVar("id",$pdoc["id"]);
+    $docid=$pdoc["id"];
+    SetHttpVar("id",$docid);
   }
 
 

@@ -20,6 +20,6 @@
 
 <tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
 <tr><td class="FREEDOMLabel">[TEXT: profile access]&nbsp;:&nbsp;</td><td>[IF profid]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[profid]">[ENDIF profid][profile][IF profid]</a>[ENDIF profid]</td></tr>
-<tr><td class="FREEDOMLabel">[TEXT:control view]&nbsp;:&nbsp;</td>   <td>[IF CVID]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cvid]">[ENDIF CVID][cview][IF CVID]</a>[ENDIF CVID]</td></tr>
+<tr><td class="FREEDOMLabel">[TEXT:control view]&nbsp;:&nbsp;</td>   <td>[IF CVID]<a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[CVID]">[ENDIF CVID][cview][IF CVID]</a>[ENDIF CVID]</td></tr>
 
 </table></center>

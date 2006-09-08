@@ -6,13 +6,114 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-11 17:53+0200\n"
-"PO-Revision-Date: 2006-08-11 17:58+0200\n"
+"POT-Creation-Date: 2006-09-08 18:07+0200\n"
+"PO-Revision-Date: 2006-09-08 18:09+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "View headers"
+msgstr "Voir entête"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Sure delete ?"
+msgstr "Etes vous sur de vouloir supprimer ?"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Sure duplicate ?"
+msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
+
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
+
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr "document n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
+
+#, c-format
+msgid "document %s has the new state %s"
+msgstr "Le document %s a le nouvel état %s"
+
+#, c-format
+msgid "document %s has been allocate to %s"
+msgstr "Le document %s a été affecté à %s"
+
+#, c-format
+msgid "allocation for %s document"
+msgstr "affectation pour le document %s"
+
+#, c-format
+msgid "document #%s not found. Unaffectation aborded"
+msgstr "document n°%s inconnu. Suppression de l'affectation abandonnée"
+
+#, c-format
+msgid "document %s has been unaffected"
+msgstr "L'affectation du document %s a été enlevée."
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -23,8 +124,15 @@ msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
 
 #, c-format
-msgid "cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
+msgid "Affectation for %s"
+msgstr "Affectation pour %s"
+
+#, c-format
+msgid "From %s state to"
+msgstr "Depuis l'état %s vers"
+
+msgid "New state"
+msgstr "Nouvel état"
 
 #, c-format
 msgid "unknown attribute %s for document %s"
@@ -42,6 +150,10 @@ msgstr "pas de désignation"
 #, c-format
 msgid "unknown attribute %s"
 msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
 
 #, c-format
 msgid "no match for %s"
@@ -69,13 +181,6 @@ msgstr "la fichier doit être controllé : permission de lire refusé"
 #, c-format
 msgid "file for %s not found."
 msgstr "fichier pour %s non trouvé"
-
-msgid "no document reference"
-msgstr "pas de référence au document"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
 
 #, c-format
 msgid "the method %s does not exist for this document"
@@ -106,10 +211,6 @@ msgstr "recherche"
 
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
-msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
 
 #, c-format
 msgid "create %s family"
@@ -369,63 +470,17 @@ msgstr "modoption: document [%d] n'est pas en vie"
 msgid "geometry saved : %s"
 msgstr "disposition sauvée : %s"
 
-msgid "View headers"
-msgstr "Voir entête"
+msgid "Properties"
+msgstr "Propriétés"
 
-msgid "View latest"
-msgstr "révision courante"
+msgid "security"
+msgstr "sécurité"
 
-msgid "Edit"
-msgstr "Éditer"
+msgid "specialedit"
+msgstr "Éditions spéciales"
 
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "Sure delete ?"
-msgstr "Etes vous sur de vouloir supprimer ?"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Sure duplicate ?"
-msgstr "Etes vous sur de vouloir dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
+msgid "specialview"
+msgstr "Vues spéciales"
 
 #, c-format
 msgid "%s has been unlocked"
@@ -446,55 +501,16 @@ msgid "workflow_init :: workflow id %s not found"
 msgstr "workflow_init :: cycle id %s pas trouvé"
 
 #, c-format
-msgid "document #%s not found. Unaffectation aborded"
-msgstr "document n°%s inconnu. Suppression de l'affectation abandonnée"
-
-#, c-format
-msgid "document %s has been unaffected"
-msgstr "L'affectation du document %s a été enlevée."
-
-#, c-format
-msgid "Affectation for %s"
-msgstr "Affectation pour %s"
-
-#, c-format
-msgid "From %s state to"
-msgstr "Depuis l'état %s vers"
-
-msgid "New state"
-msgstr "Nouvel état"
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr "document n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
-
-#, c-format
-msgid "document %s has the new state %s"
-msgstr "Le document %s a le nouvel état %s"
-
-#, c-format
-msgid "document %s has been allocate to %s"
-msgstr "Le document %s a été affecté à %s"
-
-#, c-format
-msgid "allocation for %s document"
-msgstr "affectation pour le document %s"
-
-#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
 msgstr ""
 "Exécution du lot abandonnée\n"
 "Document [%s] non trouvé"
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
 
 msgid "no file specified : update aborted"
 msgstr "pas de fichier fournit, attaque possible : mise à jour abandonnée"
@@ -953,6 +969,14 @@ msgstr "en cours...\n"
 
 msgid "done\n"
 msgstr "effectué\n"
+
+#, c-format
+msgid "csv file <%s> wroted"
+msgstr "fichier csv <%s> écrit"
+
+#, c-format
+msgid "cannot write  %s"
+msgstr "écriture impossible : %s"
 
 msgid "Freedoms lib"
 msgstr "bibliothèque freedom"
@@ -1733,6 +1757,57 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "My document basket"
+msgstr "Mon porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
 msgid "document creation"
 msgstr "Création du document"
 
@@ -1833,6 +1908,18 @@ msgstr ""
 "un cycle de vie : %s"
 
 #, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le document %s : cycle de "
+"vie non autorisé"
+
+#, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le  document %s : non "
+"révisable"
+
+#, c-format
 msgid "invalid freestate document %s"
 msgstr "état libre %s invalide"
 
@@ -1875,8 +1962,8 @@ msgid "Unallocated of %s %s : %s"
 msgstr "Suppression de l'affectation de %s %s : %s"
 
 #, c-format
-msgid "Unllocated of %s %s: %s"
-msgstr "Suppression de l'allocation de %s %s ! %s"
+msgid "Unallocated of %s %s: %s"
+msgstr "Suppression de l'affectation de %s %s : %s"
 
 msgid "user not know"
 msgstr "utilisateur inconnu"
@@ -1945,67 +2032,6 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
-
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "My document basket"
-msgstr "Mon porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
-#, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Suppression de l'affectation de %s %s : %s"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2238,6 +2264,12 @@ msgstr "vers privé"
 msgid "Twprocess_public"
 msgstr "vers public"
 
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
 #, c-format
 msgid "%s attribute"
 msgstr "attribut %s"
@@ -2399,6 +2431,12 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
+msgid "Security"
+msgstr "Sécurité"
+
+msgid "others..."
+msgstr "autres..."
+
 #, c-format
 msgid "period from %s to %s"
 msgstr "période du %s au %s"
@@ -2501,11 +2539,11 @@ msgstr "Le fichier '%s' n'a pu être transmis."
 msgid "Possible file upload attack: filename '%s'."
 msgstr "Possibilité d'atttaque 'upload' : fichier %s"
 
-msgid "Security"
-msgstr "Sécurité"
+msgid "menuctrlkey"
+msgstr "Autre..."
 
-msgid "others..."
-msgstr "autres..."
+msgid "submenu"
+msgstr "sous-menu"
 
 msgid "This document has been deleted"
 msgstr "Ce document a été supprimé"
@@ -2563,6 +2601,27 @@ msgstr "attributs"
 msgid "view hidden attributes"
 msgstr "Voir les attributs cachés"
 
+msgid "User to affect"
+msgstr "Utilisateur à affecter"
+
+msgid "the state will be unchanged"
+msgstr "L'état restera inchangé"
+
+msgid "unchanged state"
+msgstr "Pas de changement d'état"
+
+msgid "the state will be removed"
+msgstr "L'état va être supprimé"
+
+msgid "Action to do"
+msgstr "Action à faire"
+
+msgid "Reason for change state"
+msgstr "Raison du changement d'état"
+
+msgid "Apply"
+msgstr "Appliquer"
+
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -2596,6 +2655,9 @@ msgstr "Fermer"
 msgid "Properties:"
 msgstr "Propriétés:"
 
+msgid "Click to access to the document"
+msgstr "Cliquer pour accéder au document"
+
 msgid "option: "
 msgstr "option: "
 
@@ -2607,30 +2669,6 @@ msgstr "suggestions"
 
 msgid "workflow has been recomposed"
 msgstr "le cycle de vie a été regénéré"
-
-msgid "Click to access to the document"
-msgstr "Cliquer pour accéder au document"
-
-msgid "User to affect"
-msgstr "Utilisateur à affecter"
-
-msgid "the state will be unchanged"
-msgstr "L'état restera inchangé"
-
-msgid "unchanged state"
-msgstr "Pas de changement d'état"
-
-msgid "the state will be removed"
-msgstr "L'état va être supprimé"
-
-msgid "Action to do"
-msgstr "Action à faire"
-
-msgid "Reason for change state"
-msgstr "Raison du changement d'état"
-
-msgid "Apply"
-msgstr "Appliquer"
 
 msgid "Creation"
 msgstr "Création"
@@ -2844,9 +2882,6 @@ msgstr "cycle de vie"
 
 msgid "no workflow"
 msgstr "pas de cycle de vie"
-
-msgid "Properties"
-msgstr "Propriétés"
 
 msgid "Export"
 msgstr "Exporter"
@@ -3533,6 +3568,36 @@ msgstr "fichier VCS"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
+msgid "View family"
+msgstr "Voir la famille"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
+msgid "author"
+msgstr "auteur"
+
+msgid "allocated to"
+msgstr "Affecté à"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid "creation date"
+msgstr "date de création"
+
+msgid "access date"
+msgstr "date de dernière consultation"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
+
 msgid "fromdate"
 msgstr "date de début"
 
@@ -3786,9 +3851,6 @@ msgstr "version"
 msgid "rev"
 msgstr "rev"
 
-msgid "author"
-msgstr "auteur"
-
 msgid "date"
 msgstr "date"
 
@@ -3803,33 +3865,6 @@ msgstr "Ouvrir dans une nouvelle fenêtre"
 
 msgid "Empty Post-It"
 msgstr "Post-It vide"
-
-msgid "View family"
-msgstr "Voir la famille"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
-msgid "allocated to"
-msgstr "Affecté à"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "creation date"
-msgstr "date de création"
-
-msgid "access date"
-msgstr "date de dernière consultation"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -4010,6 +4045,9 @@ msgstr "Personnel"
 
 msgid "Complete view"
 msgstr "Vue complète"
+
+#~ msgid "Unllocated of %s %s: %s"
+#~ msgstr "Suppression de l'allocation de %s %s ! %s"
 
 #~ msgid "Unaffected"
 #~ msgstr "Suppression de l'affectation"

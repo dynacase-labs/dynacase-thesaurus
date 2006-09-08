@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.4 2006/06/09 15:06:33 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.5 2006/09/08 16:28:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,8 +34,8 @@ function popupdocdetail(&$action) {
 
   $surl=$action->getParam("CORE_STANDURL");
 
-  $tlink=array("headers"=>array("descr"=>_("View headers"),
-				"url"=>"$surl&app=FDL&action=FDL_CARD&props=Y&id=$docid",
+  $tlink=array("headers"=>array("descr"=>_("Properties"),
+				"url"=>"$surl&app=FDL&action=IMPCARD&zone=FDL:VIEWPROPERTIES:T&id=$docid",
 				"confirm"=>"false",
 				"control"=>"false",
 				"tconfirm"=>"",
@@ -48,7 +48,7 @@ function popupdocdetail(&$action) {
 			       "confirm"=>"false",
 			       "control"=>"false",
 			       "tconfirm"=>"",
-			       "target"=>"latest",
+			       "target"=>"_self",
 			       "visibility"=>POPUP_INVISIBLE,
 			       "submenu"=>"",
 			       "barmenu"=>"false"),
@@ -57,10 +57,13 @@ function popupdocdetail(&$action) {
 				 "confirm"=>"false",
 				 "control"=>"false",
 				 "tconfirm"=>"",
-				 "target"=>"",
+				 "target"=>"_self",
 				 "visibility"=>POPUP_ACTIVE,
 				 "submenu"=>"",
-				 "barmenu"=>"false"),
+				 "barmenu"=>"false"));
+
+  addCvPopup($tlink,$doc);
+  $tlink=array_merge($tlink,  array(
 	       "delete"=>array( "descr"=>_("Delete"),
 				 "url"=>"$surl&app=GENERIC&action=GENERIC_DEL&id=$docid",
 				 "confirm"=>"true",
@@ -75,7 +78,7 @@ function popupdocdetail(&$action) {
 				   "confirm"=>"false",
 				   "control"=>"false",
 				   "tconfirm"=>"",
-				   "target"=>"",
+				   "target"=>"_self",
 				   "visibility"=>POPUP_INVISIBLE,
 				   "submenu"=>"",
 				   "barmenu"=>"false"),
@@ -84,16 +87,16 @@ function popupdocdetail(&$action) {
 				 "confirm"=>"false",
 				 "control"=>"false",
 				 "tconfirm"=>"",
-				 "target"=>"",
+				 "target"=>"_self",
 				 "visibility"=>POPUP_ACTIVE,
-				 "submenu"=>"security",
+				 "submenu"=>N_("security"), 
 				 "barmenu"=>"false"),
 	       "unlockdoc"=>array( "descr"=>_("Unlock"),
 				   "url"=>"$surl&app=FDL&action=UNLOCKFILE&id=$docid",
 				   "confirm"=>"false",
 				   "control"=>"false",
 				   "tconfirm"=>"",
-				   "target"=>"",
+				   "target"=>"_self",
 				   "visibility"=>POPUP_ACTIVE,
 				   "submenu"=>"security",
 				   "barmenu"=>"false"),
@@ -129,7 +132,7 @@ function popupdocdetail(&$action) {
 				   "confirm"=>"true",
 				   "control"=>"false",
 				   "tconfirm"=>_("Sure duplicate ?"),
-				   "target"=>"",
+				   "target"=>"_self",
 				   "visibility"=>POPUP_CTRLACTIVE,
 				   "submenu"=>"",
 				   "barmenu"=>"false"),
@@ -139,8 +142,11 @@ function popupdocdetail(&$action) {
 				"control"=>"false",
 				"tconfirm"=>"",
 				"target"=>"",
+				"mwidth"=>800,
+				"mheight"=>300,
 				"visibility"=>POPUP_ACTIVE,
-				"submenu"=>"security"),
+				"submenu"=>"security",
+				"barmenu"=>"false"),
 	       "tobasket"=>array( "descr"=>_("Add to basket"),
 				  "url"=>"$surl&app=FREEDOM&action=ADDDIRFILE&docid=$docid&dirid=".$action->getParam("FREEDOM_IDBASKET"),
 				  "confirm"=>"false",
@@ -151,7 +157,7 @@ function popupdocdetail(&$action) {
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
 	       "addpostit"=>array( "descr"=>_("Add postit"),
-				   "url"=>"$surl&app=FDL&action=&id=$docid",
+				   "jsfunction"=>"postit('$surl&app=GENERIC&action=GENERIC_EDIT&classid=27&pit_title=&pit_idadoc=$docid',50,50,300,200)",
 				   "confirm"=>"false",
 				   "control"=>"false",
 				   "tconfirm"=>"",
@@ -176,13 +182,82 @@ function popupdocdetail(&$action) {
 				   "target"=>"",
 				   "visibility"=>POPUP_CTRLACTIVE,
 				   "submenu"=>"",
-				   "barmenu"=>"false"));
+				   "barmenu"=>"false")));
 
   changeMenuVisibility($action,$tlink,$doc);
+  
+
+
   addFamilyPopup($tlink,$doc);
 
          
   popupdoc($action,$tlink,$tsubmenu);
+}
+/**
+ * Add control view menu
+ */
+function addCvPopup(&$tlink,&$doc) {
+ 
+  if ($doc->cvid > 0 )  {
+
+    $surl=getParam("CORE_STANDURL");
+    $cud = ($doc->CanEdit() == "");
+    $docid=$doc->id;
+    $cvdoc = new_Doc($doc->dbaccess, $doc->cvid);
+    $cvdoc->set($doc);
+    $ti = $cvdoc->getTValue("CV_IDVIEW");
+    $tl = $cvdoc->getTValue("CV_LVIEW");
+    $tz = $cvdoc->getTValue("CV_ZVIEW");
+    $tk = $cvdoc->getTValue("CV_KVIEW");
+    $tm = $cvdoc->getTValue("CV_MSKID");
+    $td = $cvdoc->getTValue("CV_DISPLAYED");
+
+
+    $tv=array(); // consult array views
+    $te=array(); // edit array views
+
+    if (count($tk) > 0)  {
+      foreach ($tk as $k=>$v) {
+	if ($td[$k] != "no") {
+	  if ($tz[$k] != "") {	  
+	    if ($ti[$k]=="") $cvk="CV$k";
+	    else $cvk=$ti[$k];
+	    if ($v == "VEDIT") {
+	      if ($cud) {	    
+		if ($cvdoc->control($cvk) == "") {
+		  $tv[$cvk] = array("typeview"=>N_("specialedit"),
+				    "idview"   => $cvk,
+				    "zoneview" => $tz[$k],
+				    "txtview"  => $tl[$k]);
+		}
+	      }
+	    } else {      
+	      if ($cvdoc->control($cvk) == "") {
+		$tv[$cvk] = array("typeview"=>N_("specialview"),
+				  "idview"   => $cvk,
+				  "zoneview" => $tz[$k],
+				  "txtview"  => $tl[$k]);
+	      }
+	    }
+	  }
+	}
+      }
+    } 
+
+    foreach ($tv as $v) {
+      $tlink[$v["idview"]]=array( "descr"=>$v["txtview"],
+				  "url"=>($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&vid=".$v["idview"]."&id=$docid",
+				 "confirm"=>"false",
+				 "control"=>"false",
+				 "tconfirm"=>"",
+				 "target"=>"_self",
+				 "visibility"=>POPUP_ACTIVE,
+				 "submenu"=>$v["typeview"],
+				 "barmenu"=>"false");
+    }
+
+  
+  }
 }
 function addFamilyPopup(&$tlink,&$doc) {
   $lmenu = $doc->GetMenuAttributes();

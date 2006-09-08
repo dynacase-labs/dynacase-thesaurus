@@ -29,8 +29,7 @@
  </head>
 
 <body class="freedom" 
-      onload="autoHresize();"
-      onClick="closeMenu('popupcard');" >
+      onload="autoHresize();" >
 
 
 <form id="fviewidoc"
@@ -42,14 +41,12 @@
 <input type="hidden" name="famid">
 </form>
 
-
-
-[ZONE FDL:POPUPCARD]
+[ZONE FDL:POPUPDOCMENU?id=[id]]
 
 <div width="100%" class="tablesimple" id="terrible"
      style="cursor:crosshair;"
-     onContextMenu="openMenu(event,'popupcard',1);return false" 
-     onMouseDown="if (shiftKeyPushed(event)) openMenu(event,'popupcard',1)"      >
+     onContextMenu="viewdocmenu(event,'[id]');return false" 
+     onMouseDown="if (shiftPushed(event)) viewdocmenu(event,'[id]')"      >
 
 [ZONE FDL:VIEWCARD]
 <div class="noprint" align="right">

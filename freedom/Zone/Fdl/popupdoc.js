@@ -6,6 +6,7 @@ var MENUREQ=null;
 var MENUOUT=true;
 var MENUOUTTIMER=false;
 var XMENU,YMENU;
+var OPENSUBMENU=false;
 var DIVPOPUPMENU=document.createElement("div");
 
 addEvent(window,"load",function adddivpop() {document.body.appendChild(DIVPOPUPMENU)});
@@ -21,6 +22,7 @@ function reqViewMenu() {
       // ...processing statements go here...
       //  alert(MENUREQ.responseText);
       if (MENUREQ.responseXML) {
+	unglobalcursor();
 	var elts = MENUREQ.responseXML.getElementsByTagName("status");
 
 	if (elts.length == 1) {
@@ -78,6 +80,7 @@ function menuSend(event,menuurl,cible) {
 	MENUREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 	MENUCIBLE=cible;
 
+  globalcursor('wait');
 
 	MENUREQ.send('');
 	
@@ -161,6 +164,7 @@ function openDocMenu(event, menuid) {
 
 
   //  closeSubMenu(menuid);
+  OPENSUBMENU=false;
   activeMenuDocItem(event,menuid);
 
   el = document.getElementById(menuid);
@@ -214,8 +218,13 @@ function openSubDocMenu(event, th, menuid) {
   var x1,x2,w1,w2,dw;
   var x=xy.x;
   var y=xy.y;
+  
+  if (OPENSUBMENU) {
+    OPENSUBMENU.style.display='none';
+  }
 
   el=document.getElementById(menuid);
+  OPENSUBMENU=el;
   // close sub menu before
   // closeSubMenu(th.parentNode.id);
   

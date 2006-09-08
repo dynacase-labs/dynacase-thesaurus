@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-11 17:53+0200\n"
+"POT-Creation-Date: 2006-09-08 18:07+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -15,6 +15,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
 
+msgid "View headers"
+msgstr ""
+
+msgid "View latest"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Sure delete ?"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Revise"
+msgstr "Created by"
+
+#, fuzzy
+msgid "Change profile"
+msgstr "Category"
+
+msgid "History"
+msgstr ""
+
+#, fuzzy
+msgid "Duplicate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Sure duplicate ?"
+msgstr "Edit"
+
+msgid "goaccess"
+msgstr "Control access"
+
+msgid "Add to basket"
+msgstr ""
+
+msgid "Add postit"
+msgstr ""
+
+msgid "View XML"
+msgstr ""
+
+#, fuzzy
+msgid "Search linked documents"
+msgstr "Delete"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr ""
+
+#, fuzzy
+msgid "no document reference"
+msgstr "Delete"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr ""
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "document %s has the new state %s"
+msgstr ""
+
+#, c-format
+msgid "document %s has been allocate to %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "allocation for %s document"
+msgstr "Delete"
+
+#, c-format
+msgid "document #%s not found. Unaffectation aborded"
+msgstr ""
+
+#, c-format
+msgid "document %s has been unaffected"
+msgstr ""
+
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
 
@@ -22,9 +135,17 @@ msgstr ""
 msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "Affectation for %s"
+msgstr "Edit"
+
 #, c-format
-msgid "cannot see unknow reference %s"
+msgid "From %s state to"
 msgstr ""
+
+#, fuzzy
+msgid "New state"
+msgstr "Identity"
 
 #, fuzzy, c-format
 msgid "unknown attribute %s for document %s"
@@ -43,6 +164,10 @@ msgstr "Email"
 
 #, c-format
 msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -69,14 +194,6 @@ msgstr ""
 
 #, c-format
 msgid "file for %s not found."
-msgstr ""
-
-#, fuzzy
-msgid "no document reference"
-msgstr "Delete"
-
-#, c-format
-msgid "unknow logical reference '%s'"
 msgstr ""
 
 #, c-format
@@ -111,10 +228,6 @@ msgid "search"
 msgstr "Start search"
 
 msgid "no import file specified"
-msgstr ""
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 #, fuzzy, c-format
@@ -378,73 +491,18 @@ msgstr ""
 msgid "geometry saved : %s"
 msgstr ""
 
-msgid "View headers"
-msgstr ""
-
-msgid "View latest"
+msgid "Properties"
 msgstr ""
 
 #, fuzzy
-msgid "Edit"
-msgstr "Edit"
+msgid "security"
+msgstr "Locality"
 
 #, fuzzy
-msgid "Delete"
+msgid "specialedit"
 msgstr "Delete"
 
-#, fuzzy
-msgid "Sure delete ?"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Revise"
-msgstr "Created by"
-
-#, fuzzy
-msgid "Change profile"
-msgstr "Category"
-
-msgid "History"
-msgstr ""
-
-#, fuzzy
-msgid "Duplicate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Sure duplicate ?"
-msgstr "Edit"
-
-msgid "goaccess"
-msgstr "Control access"
-
-msgid "Add to basket"
-msgstr ""
-
-msgid "Add postit"
-msgstr ""
-
-msgid "View XML"
-msgstr ""
-
-#, fuzzy
-msgid "Search linked documents"
-msgstr "Delete"
-
-#, c-format
-msgid "Sure %s ?"
+msgid "specialview"
 msgstr ""
 
 #, c-format
@@ -466,53 +524,13 @@ msgid "workflow_init :: workflow id %s not found"
 msgstr ""
 
 #, c-format
-msgid "document #%s not found. Unaffectation aborded"
-msgstr ""
-
-#, c-format
-msgid "document %s has been unaffected"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Affectation for %s"
-msgstr "Edit"
-
-#, c-format
-msgid "From %s state to"
-msgstr ""
-
-#, fuzzy
-msgid "New state"
-msgstr "Identity"
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "document %s has the new state %s"
-msgstr ""
-
-#, c-format
-msgid "document %s has been allocate to %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "allocation for %s document"
-msgstr "Delete"
-
-#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
+msgstr ""
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 msgid "no file specified : update aborted"
@@ -978,6 +996,14 @@ msgid "processing...\n"
 msgstr ""
 
 msgid "done\n"
+msgstr ""
+
+#, c-format
+msgid "csv file <%s> wroted"
+msgstr ""
+
+#, c-format
+msgid "cannot write  %s"
 msgstr ""
 
 msgid "Freedoms lib"
@@ -1850,6 +1876,52 @@ msgid "main view columns"
 msgstr "Start search"
 
 #, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "My document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, fuzzy
 msgid "document creation"
 msgstr "Organisation"
 
@@ -1950,6 +2022,14 @@ msgid "cannot set free state in workflow controlled document %s"
 msgstr ""
 
 #, fuzzy, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr "Category"
+
+#, fuzzy, c-format
 msgid "invalid freestate document %s"
 msgstr "Delete"
 
@@ -1992,7 +2072,7 @@ msgid "Unallocated of %s %s : %s"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "Unllocated of %s %s: %s"
+msgid "Unallocated of %s %s: %s"
 msgstr "Category"
 
 msgid "user not know"
@@ -2072,62 +2152,6 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
-
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "My document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Category"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2370,6 +2394,12 @@ msgstr ""
 msgid "Twprocess_public"
 msgstr ""
 
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "%s attribute"
 msgstr "Update Title Cards"
@@ -2540,6 +2570,12 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
+msgid "Security"
+msgstr ""
+
+msgid "others..."
+msgstr ""
+
 #, c-format
 msgid "period from %s to %s"
 msgstr ""
@@ -2638,10 +2674,10 @@ msgstr ""
 msgid "Possible file upload attack: filename '%s'."
 msgstr ""
 
-msgid "Security"
+msgid "menuctrlkey"
 msgstr ""
 
-msgid "others..."
+msgid "submenu"
 msgstr ""
 
 msgid "This document has been deleted"
@@ -2712,6 +2748,31 @@ msgstr "Update Title Cards"
 msgid "view hidden attributes"
 msgstr "Title"
 
+msgid "User to affect"
+msgstr ""
+
+msgid "the state will be unchanged"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged state"
+msgstr "Category"
+
+msgid "the state will be removed"
+msgstr ""
+
+#, fuzzy
+msgid "Action to do"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Reason for change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Print this page"
+
 #, fuzzy
 msgid "Cancel"
 msgstr "Create"
@@ -2754,6 +2815,10 @@ msgid "Properties:"
 msgstr ""
 
 #, fuzzy
+msgid "Click to access to the document"
+msgstr "Category"
+
+#, fuzzy
 msgid "option: "
 msgstr "Edit"
 
@@ -2766,35 +2831,6 @@ msgstr ""
 
 msgid "workflow has been recomposed"
 msgstr ""
-
-#, fuzzy
-msgid "Click to access to the document"
-msgstr "Category"
-
-msgid "User to affect"
-msgstr ""
-
-msgid "the state will be unchanged"
-msgstr ""
-
-#, fuzzy
-msgid "unchanged state"
-msgstr "Category"
-
-msgid "the state will be removed"
-msgstr ""
-
-#, fuzzy
-msgid "Action to do"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Reason for change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Print this page"
 
 #, fuzzy
 msgid "Creation"
@@ -3063,9 +3099,6 @@ msgstr "Delete"
 #, fuzzy
 msgid "no workflow"
 msgstr "Delete"
-
-msgid "Properties"
-msgstr ""
 
 #, fuzzy
 msgid "Export"
@@ -3877,6 +3910,44 @@ msgid "VCARD Import Result"
 msgstr "Import"
 
 #, fuzzy
+msgid "View family"
+msgstr "Start search"
+
+#, fuzzy
+msgid "initial reference"
+msgstr "Delete"
+
+#, fuzzy
+msgid "reference for this revision"
+msgstr "Organisation"
+
+msgid "author"
+msgstr ""
+
+msgid "allocated to"
+msgstr ""
+
+#, fuzzy
+msgid "locked by"
+msgstr "Create"
+
+#, fuzzy
+msgid "creation date"
+msgstr "Create"
+
+#, fuzzy
+msgid "access date"
+msgstr "Delete"
+
+#, fuzzy
+msgid " profile access"
+msgstr "Control access"
+
+#, fuzzy
+msgid "control view"
+msgstr "Category"
+
+#, fuzzy
 msgid "fromdate"
 msgstr "Edit"
 
@@ -4172,9 +4243,6 @@ msgstr "Organisation"
 msgid "rev"
 msgstr "Create"
 
-msgid "author"
-msgstr ""
-
 #, fuzzy
 msgid "date"
 msgstr "Edit"
@@ -4192,41 +4260,6 @@ msgstr ""
 
 msgid "Empty Post-It"
 msgstr ""
-
-#, fuzzy
-msgid "View family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "initial reference"
-msgstr "Delete"
-
-#, fuzzy
-msgid "reference for this revision"
-msgstr "Organisation"
-
-msgid "allocated to"
-msgstr ""
-
-#, fuzzy
-msgid "locked by"
-msgstr "Create"
-
-#, fuzzy
-msgid "creation date"
-msgstr "Create"
-
-#, fuzzy
-msgid "access date"
-msgstr "Delete"
-
-#, fuzzy
-msgid " profile access"
-msgstr "Control access"
-
-#, fuzzy
-msgid "control view"
-msgstr "Category"
 
 #, fuzzy
 msgid "Conditions"
@@ -4446,6 +4479,10 @@ msgstr "Organisation"
 #, fuzzy
 msgid "Complete view"
 msgstr "Create"
+
+#, fuzzy
+#~ msgid "Unllocated of %s %s: %s"
+#~ msgstr "Category"
 
 #, fuzzy
 #~ msgid "affectation for %s document"
