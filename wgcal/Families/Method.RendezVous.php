@@ -196,7 +196,6 @@ function _WsetDateTime($d="") {
     //case "CET" : $ts -= 3600; break;
   }
   $r = gmstrftime("%Y%m%dT%H%M%S00Z",  $ts);
-  //syslog(LOG_ERR, "d=$d tz=$tz ts=$ts r=$r");
   return $r;
 }
 
@@ -1624,10 +1623,12 @@ function sifevent() {
     $this->lay->set("s_$v", false);
   }
 
-  $this->lay->set("v_Subject", utf8_encode($this->getValue("calev_evtitle")));
+  //$this->lay->set("v_Subject", utf8_encode($this->getValue("calev_evtitle")));
+  $this->lay->set("v_Subject", $this->getValue("calev_evtitle"));
   $this->lay->set("s_Subject", true);
 
-  $this->lay->set("v_Body", utf8_encode($this->getValue("calev_evnote")));
+  //$this->lay->set("v_Body", utf8_encode($this->getValue("calev_evnote")));
+  $this->lay->set("v_Body", $this->getValue("calev_evnote"));
   $this->lay->set("s_Body", true);
 
   if ($this->getValue("calev_timetype")==1 || $this->getValue("calev_timetype")==2) {
@@ -1664,12 +1665,14 @@ function sifevent() {
 
   if ($this->getValue("calev_category")>0) {
     $catg = wGetCategories();
-    $this->lay->set("v_Categories", utf8_encode($catg[$this->getValue("calev_category")]["label"]));
+    //$this->lay->set("v_Categories", utf8_encode($catg[$this->getValue("calev_category")]["label"]));
+    $this->lay->set("v_Categories", $catg[$this->getValue("calev_category")]["label"]);
     $this->lay->set("s_Categories", true);
   }
 
   if ($this->getValue("calev_location")!="") {
-    $this->lay->set("v_Location", utf8_encode($this->getValue("calev_location")));
+    //$this->lay->set("v_Location", utf8_encode($this->getValue("calev_location")));
+    $this->lay->set("v_Location", $this->getValue("calev_location"));
     $this->lay->set("s_Location", true);
   }
 
@@ -2049,11 +2052,7 @@ function postChangeProcess($old=false) {
     }
   }
 
-  if ($comment!="") {
-    if ($this->fromS4j) $comment .= "[sync4j] ";
-    $this->AddComment($comment);
-  }
-
+  if ($comment!="") $this->AddComment($comment);
   if ($mail_who!=-1) {
     $title = $action->getParam("WGCAL_G_MARKFORMAIL", "[RDV]")." ".$this->getValue("calev_evtitle");
     sendRv($action, $this, $mail_who, $title, $mail_msg, true);

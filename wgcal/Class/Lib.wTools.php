@@ -463,18 +463,6 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
   $action->log->info("res=[$res], idres=[$idres]");
   setHttpVar("idres", $idres);
 
-  $lr = explode("|", $idres);
-  if (count($lr)==1 ) {
-    $showrefused = true;
-    if (($lr[0] == $action->user->fid) && $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1) $showrefused = false;
-    if (!$showrefused) {
-      $filter[] = "(evfc_rejectattid isnull) OR (evfc_rejectattid !~ '\\\y(".$action->user->fid.")\\\y')";
-    }
-  }
-    
-  $sdebug = "Query = [$qev]\n\t- Producters = [$idfamref]\n\t- Ressources = [$idres]\n\t- Dates = [".$d1.",".$d2."]\n";
-//    echo $sdebug."<br>";
-
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
   $dre->setValue("se_famid", getIdFromName($dbaccess, $famid));
@@ -490,15 +478,26 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
 		     "leftColor" => "lightblue",
 		     );
   $rg = 0;
+  $showrefused = ( $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1 ? false : true);
+  $nevents = array();
   foreach ($events as $k=>$v) {
-    $ev = getDocObject($dbaccess, $v); 
-    $events[$k]["rg"] = $rg;
-    $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
-    $events[$k]["dattr"] = (method_exists($ev, "getDisplayAttr") ? $ev->getDisplayAttr() : $defaults );
-    $rg++;
+    $evdisplay = true;
+    $ev = getDocObject($dbaccess, $v);
+    if (!$showrefused) {
+      $rl = $ev->getTValue("evfc_rejectattid");
+      foreach ($rl as $kr => $vr) {
+        if ($vr!="" && $vr==$action->user->fid) $evdisplay = false;
+      }
+    }
+   if ($evdisplay) {
+     $events[$k]["rg"] = $rg;
+     $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
+     $events[$k]["dattr"] = (method_exists($ev, "getDisplayAttr") ? $ev->getDisplayAttr() : $defaults );
+     $rg++;
+     $newevents[] = $events[$k];
+   }
   }
-//   echo "Event count = ".count($events)."<br>";
-  return $events;
+  return $newevents;
 }
 
 function wGetUsedFamilies() {
