@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.13 2006/09/08 16:28:17 eric Exp $
+ * @version $Id: popupdoc.php,v 1.14 2006/09/11 14:45:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,7 +14,7 @@
 
 include_once("FDL/Class.Doc.php");
 // -----------------------------------
-function popupdoc(&$action,$tlink,$tsubmenu) {
+function popupdoc(&$action,$tlink,$tsubmenu=array()) {
   // -----------------------------------
   // ------------------------------
   header('Content-type: text/xml; charset=utf-8'); 

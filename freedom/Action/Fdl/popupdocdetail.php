@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.5 2006/09/08 16:28:17 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.6 2006/09/11 14:45:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,12 +13,16 @@
 
 
 include_once("FDL/popupdoc.php");
-// -----------------------------------
 function popupdocdetail(&$action) {
-  // -----------------------------------
-  // define accessibility
   $docid = GetHttpVars("id");
-  $abstract = (GetHttpVars("abstract",'N') == "Y");
+  $popup=getpopupdocdetail($action,$docid);
+
+  
+  popupdoc($action,$popup);
+  
+}
+function getpopupdocdetail(&$action,$docid) {
+  // define accessibility
   $zone = GetHttpVars("zone"); // special zone
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -190,8 +194,8 @@ function popupdocdetail(&$action) {
 
   addFamilyPopup($tlink,$doc);
 
+  return $tlink;
          
-  popupdoc($action,$tlink,$tsubmenu);
 }
 /**
  * Add control view menu
