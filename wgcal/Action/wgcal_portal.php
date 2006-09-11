@@ -11,7 +11,8 @@ function wgcal_portal(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  $lmode = (GetHttpVars("mo", "")=="L" ? true : false );
+
+  $lmode = GetHttpVars("mo", "L");
   $period = GetHttpVars("period", "");
   if ($period=="") $period = $action->GetParam("WGCAL_U_PORTALPERIOD", "week");
   
@@ -25,6 +26,6 @@ function wgcal_portal(&$action) {
   $stime = mktime( 0, 0, 0, strftime("%m",time()), strftime("%d",time()), strftime("%Y",time()));
   $etime = $stime + $delta;
 
-  Redirect($action, "WGCAL", "WGCAL_GVIEW&rvfs_ress=".$action->user->fid."&rvfs_ts=".$stime."&rvfs_te=".$etime."&mo=L&sd=".GetHttpVars("sd", "Y"));
+  Redirect($action, "WGCAL", "WGCAL_GVIEW&rvfs_ress=".$action->user->fid."&rvfs_ts=".$stime."&rvfs_te=".$etime."&mo=$lmode&sd=".GetHttpVars("sd", "Y"));
 }
 ?>
