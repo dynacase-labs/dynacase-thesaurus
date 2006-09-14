@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.99 2006/09/05 16:22:41 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.100 2006/09/14 15:29:44 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -50,7 +50,7 @@ The FREEDOM (Free Document Object Model) module is use to manage document in int
 
 
 %package LIB
-Summary: libraries of FREEDOM module
+Summary: The FREEDOM libraries functions
 Group: Applications/Web
 Requires: php >= 5.0
 Requires: php-gd
@@ -91,7 +91,7 @@ Conflicts: AFFMON < 0.2.5
 The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 
 %package USERCARD
-Summary: user card management
+Summary: The FREEDOM users management
 Group: Applications/Web
 Requires: php-ldap
 %if %{cerbere} || %{pld}
@@ -105,7 +105,7 @@ PreReq: @PACKAGE@-LIB = %{version}
 PreReq: @PACKAGE@ = %{version}
 
 %description USERCARD
-The user card module allow to view & edit user card and to insert them in a LDAP server
+The FREEDOM user card module allow to view & edit user card and to insert them in a LDAP server
 
 
 

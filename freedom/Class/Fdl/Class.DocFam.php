@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.27 2006/07/18 10:33:37 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.28 2006/09/14 15:29:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -33,6 +33,7 @@ create unique index idx_idfam on docfam(id);";
   var $defaultview= "FDL:VIEWFAMCARD";
 
   var $attr;
+  public $specialmenu="FDL:POPUPFAMDETAIL";
 
   function __construct($dbaccess='', $id='',$res='',$dbid=0) {
 

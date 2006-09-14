@@ -21,8 +21,8 @@ function reqViewMenu() {
     if (MENUREQ.status == 200) {
       // ...processing statements go here...
       //  alert(MENUREQ.responseText);
+      unglobalcursor();
       if (MENUREQ.responseXML) {
-	unglobalcursor();
 	var elts = MENUREQ.responseXML.getElementsByTagName("status");
 
 	if (elts.length == 1) {
@@ -49,11 +49,13 @@ function reqViewMenu() {
 	  }
 	  
 	} else {
-	  alert('no status\n'+MENUREQ.responseText);
+	viewTextError();
+	//alert('no status\n'+MENUREQ.responseText);
 	  return;
 	}
       } else {
-	alert('no xml\n'+MENUREQ.responseText);
+	viewTextError();
+	//	alert('no xml\n'+MENUREQ.responseText);
 	return;
       } 	  
     } else {
@@ -63,7 +65,16 @@ function reqViewMenu() {
     }
   } 
 }
+function viewTextError() {
+  MENUCIBLE.innerHTML=MENUREQ.responseText;
+  MENUCIBLE.style.position='absolute';
 
+  MENUCIBLE.style.left = XMENU;
+  MENUCIBLE.style.top  = YMENU;
+  MENUCIBLE.style.width='100px';
+  MENUCIBLE.style.display='';
+  setTimeout("MENUCIBLE.style.display='none'",2000);  
+}
 function menuSend(event,menuurl,cible) {
   if (INPROGRESSMENU) return false; // one request only
     // branch for native XMLHttpRequest object
