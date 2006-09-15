@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.52 2006/07/21 15:42:11 eric Exp $
+ * @version $Id: generic_edit.php,v 1.53 2006/09/15 15:45:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,6 +46,7 @@ function generic_edit(&$action) {
   $mskid = GetHttpVars("mskid"); // special mask
 
   $action->lay->Set("vid", $vid);
+  $action->lay->Set("ezone", $zonebodycard); // use for return in case of constraint
   $action->lay->Set("rzone", $rzone);
   $action->lay->Set("rtarget", $rtarget);
   $action->lay->Set("SELFTARGET",($rtarget=="_self"));

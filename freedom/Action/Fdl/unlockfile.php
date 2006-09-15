@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: unlockfile.php,v 1.7 2006/04/28 14:33:39 eric Exp $
+ * @version $Id: unlockfile.php,v 1.8 2006/09/15 15:45:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.7 2006/04/28 14:33:39 eric Exp $
+// $Id: unlockfile.php,v 1.8 2006/09/15 15:45:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,6 +41,7 @@ function unlockfile(&$action)
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
+  $rzone = GetHttpVars("rzone"); // special zone when finish edition
   $auto = (GetHttpVars("auto","N")=="Y"); // just auto unlock
   $autoclose = (GetHttpVars("autoclose","N")=="Y"); // close window after
 
@@ -59,7 +60,7 @@ function unlockfile(&$action)
   
   $action->AddActionDone("UNLOCKFILE",$doc->id);
     
-  if (! $autoclose)  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  if (! $autoclose)  redirect($action,"FDL","FDL_CARD&zone=$rzone&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
   
 }
 
