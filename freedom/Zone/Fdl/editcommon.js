@@ -113,8 +113,7 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm,options) {
     attrid=inp.name.substr(1,inp.name.length-1);;
   }
 
-
-  
+  if (! options) options='';
 
   f =inp.form;
   // modify to initial action
