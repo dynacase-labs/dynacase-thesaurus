@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.37 2006/03/20 19:29:18 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.38 2006/09/15 15:47:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -320,6 +320,14 @@ function fusers_iuser($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->set("CanEdit",($this->control("edit")==""));
 }
 
+
+/**
+ * interface to only modify name and password
+ */
+function editchangepassword() {
+  $this->viewprop();
+  $this->editattr(false);
+}
 function fusers_eiuser() {
   global $action;
   $this->editattr();
