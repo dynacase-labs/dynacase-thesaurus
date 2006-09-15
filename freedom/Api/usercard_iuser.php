@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.14 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.15 2006/09/15 07:00:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,6 +35,7 @@ if ($dbaccess == "") {
 
 $whatid = GetHttpVars("whatid",""); // document
 $fbar = GetHttpVars("bar"); // for progress bar
+$onlygroup = (GetHttpVars("onlygroup")!=""); // for progress bar
 
   
 $query = new QueryDb("","User");
@@ -45,6 +46,7 @@ if ($whatid>0) {
   $query->order_by="isgroup,id";
 }
 
+if ($onlygroup) $query->AddQuery("isgroup='Y'");
       
     
 $table1 = $query->Query(0,0,"TABLE");

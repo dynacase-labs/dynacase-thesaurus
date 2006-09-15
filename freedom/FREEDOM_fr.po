@@ -6,208 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-08 18:07+0200\n"
-"PO-Revision-Date: 2006-09-08 18:09+0200\n"
+"POT-Creation-Date: 2006-09-14 17:39+0200\n"
+"PO-Revision-Date: 2006-09-14 17:40+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "View headers"
-msgstr "Voir entête"
-
-msgid "View latest"
-msgstr "révision courante"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-msgid "Sure delete ?"
-msgstr "Etes vous sur de vouloir supprimer ?"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Sure duplicate ?"
-msgstr "Etes vous sur de vouloir dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
-
-msgid "no document reference"
-msgstr "pas de référence au document"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr "document n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
-
-#, c-format
-msgid "document %s has the new state %s"
-msgstr "Le document %s a le nouvel état %s"
-
-#, c-format
-msgid "document %s has been allocate to %s"
-msgstr "Le document %s a été affecté à %s"
-
-#, c-format
-msgid "allocation for %s document"
-msgstr "affectation pour le document %s"
-
-#, c-format
-msgid "document #%s not found. Unaffectation aborded"
-msgstr "document n°%s inconnu. Suppression de l'affectation abandonnée"
-
-#, c-format
-msgid "document %s has been unaffected"
-msgstr "L'affectation du document %s a été enlevée."
-
-msgid "cannot compare two document which comes from two different family"
-msgstr ""
-"la comparaison de 2 documents de famille différente ne peut être effectuée"
-
-#, c-format
-msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
-msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
-
-#, c-format
-msgid "Affectation for %s"
-msgstr "Affectation pour %s"
-
-#, c-format
-msgid "From %s state to"
-msgstr "Depuis l'état %s vers"
-
-msgid "New state"
-msgstr "Nouvel état"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
 
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
@@ -407,6 +212,211 @@ msgid "and add in %s folder "
 msgstr "et ajout dans dossier %s"
 
 #, c-format
+msgid "cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "Properties"
+msgstr "Propriétés"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Sure delete ?"
+msgstr "Etes vous sur de vouloir supprimer ?"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "security"
+msgstr "sécurité"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Sure duplicate ?"
+msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+msgid "specialedit"
+msgstr "Éditions spéciales"
+
+msgid "specialview"
+msgstr "Vues spéciales"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+"la comparaison de 2 documents de famille différente ne peut être effectuée"
+
+#, c-format
+msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
+msgstr "Comparaison entre<br>%s (rév %d)<br>et<br>%s (rév %d)"
+
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr "document n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr "utilisateur n°%s inconnu. Affectation abandonnée"
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr "utilisateur n°%s n'a pas de compte réel. Affectation abandonnée"
+
+#, c-format
+msgid "document %s has the new state %s"
+msgstr "Le document %s a le nouvel état %s"
+
+#, c-format
+msgid "document %s has been allocate to %s"
+msgstr "Le document %s a été affecté à %s"
+
+#, c-format
+msgid "allocation for %s document"
+msgstr "affectation pour le document %s"
+
+#, c-format
+msgid "Affectation for %s"
+msgstr "Affectation pour %s"
+
+#, c-format
+msgid "From %s state to"
+msgstr "Depuis l'état %s vers"
+
+msgid "New state"
+msgstr "Nouvel état"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
+
+#, c-format
 msgid "you cannot create this kind [%s] of document"
 msgstr "vous n'avez pas la permission de créer ce type [%s] de document"
 
@@ -454,33 +464,12 @@ msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
 
 #, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-#, c-format
 msgid "modoption: document [%d] is not alive"
 msgstr "modoption: document [%d] n'est pas en vie"
 
 #, c-format
 msgid "geometry saved : %s"
 msgstr "disposition sauvée : %s"
-
-msgid "Properties"
-msgstr "Propriétés"
-
-msgid "security"
-msgstr "sécurité"
-
-msgid "specialedit"
-msgstr "Éditions spéciales"
-
-msgid "specialview"
-msgstr "Vues spéciales"
 
 #, c-format
 msgid "%s has been unlocked"
@@ -499,6 +488,60 @@ msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 #, c-format
 msgid "workflow_init :: workflow id %s not found"
 msgstr "workflow_init :: cycle id %s pas trouvé"
+
+#, c-format
+msgid "Create %s"
+msgstr "Créer %s"
+
+msgid "Change icon"
+msgstr "Changer d'icone"
+
+msgid "Edit attributes"
+msgstr "Éditer les attributs"
+
+msgid "Edit enum attributes"
+msgstr "Éditer les énumérés"
+
+msgid "Set default values"
+msgstr "Valeurs par défaut"
+
+msgid "Parameters values"
+msgstr "Valeurs des paramètres"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
+
+msgid "Change default folder"
+msgstr "Changer dossier par défaut"
+
+msgid "Change current folder"
+msgstr "Changer dossier courant"
+
+msgid "Choose workflow"
+msgstr "Choisir un cycle"
+
+#, c-format
+msgid "document #%s not found. Unaffectation aborded"
+msgstr "document n°%s inconnu. Suppression de l'affectation abandonnée"
+
+#, c-format
+msgid "document %s has been unaffected"
+msgstr "L'affectation du document %s a été enlevée."
+
+#, c-format
+msgid "proceed background import of %d documents"
+msgstr "Effectuer l'import en tache de fond de %d documents"
+
+#, c-format
+msgid "The document <%s> is not a folder"
+msgstr "Le document <%s> n'est pas un dossier"
+
+#, c-format
+msgid "Use your home folder instead <%s>"
+msgstr "Utilisation du dossier personnel <%s> à la place"
 
 #, c-format
 msgid ""
@@ -521,15 +564,6 @@ msgstr "fichier inattendu, attaque possible : mise à jour abandonnée"
 #, c-format
 msgid "new title for %s"
 msgstr "nouveau titre pour %s"
-
-msgid "creation of document family"
-msgstr "Création de famille de documents"
-
-msgid "untitle family"
-msgstr "famille sans titre"
-
-msgid "new familly document"
-msgstr "nouvelle famille de document"
 
 msgid "new document family"
 msgstr "nelle famille de document"
@@ -606,18 +640,6 @@ msgid "folder %s as been added in your bookmark"
 msgstr "Le dossier %s a été ajouté dans vos signets"
 
 #, c-format
-msgid "proceed background import of %d documents"
-msgstr "Effectuer l'import en tache de fond de %d documents"
-
-#, c-format
-msgid "The document <%s> is not a folder"
-msgstr "Le document <%s> n'est pas un dossier"
-
-#, c-format
-msgid "Use your home folder instead <%s>"
-msgstr "Utilisation du dossier personnel <%s> à la place"
-
-#, c-format
 msgid "result of import  %s"
 msgstr "Résultat de l'import %s"
 
@@ -633,10 +655,6 @@ msgstr ""
 #, c-format
 msgid "update of %s catalogue has failed,"
 msgstr "La mise à jour du catalogue %s a échoué."
-
-#, c-format
-msgid "no action found for %s document"
-msgstr "pas d'actions trouvée pour le document %s"
 
 #, c-format
 msgid "default values for %s"
@@ -732,6 +750,10 @@ msgstr "%s a été modifié"
 msgid "%s has been created"
 msgstr "%s a été créé"
 
+#, c-format
+msgid "no action found for %s document"
+msgstr "pas d'actions trouvée pour le document %s"
+
 msgid "related search aborted : no parameter found"
 msgstr "recherche relative abondonnée ; pas de paramètres"
 
@@ -750,6 +772,9 @@ msgstr ""
 #, c-format
 msgid "cannot extract archive file %s"
 msgstr "L'archive %s n'a pas pue être extraite"
+
+msgid "new familly document"
+msgstr "nouvelle famille de document"
 
 msgid "the document is not referenced: cannot apply defaut folder"
 msgstr ""
@@ -819,12 +844,24 @@ msgstr "figé"
 msgid "changed"
 msgstr "modifié"
 
+msgid "creation of document family"
+msgstr "Création de famille de documents"
+
+msgid "untitle family"
+msgstr "famille sans titre"
+
 #, c-format
 msgid "<b>%d group(s) to refresh</b>"
 msgstr "<b>%d groupe(s) à actualiser"
 
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
+
+msgid "next"
+msgstr "suivant"
+
+msgid "prev"
+msgstr "suivant"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -879,12 +916,6 @@ msgstr "Ajout dans dossier %s"
 msgid "related search of %s"
 msgstr "recherche relative de %s"
 
-msgid "next"
-msgstr "suivant"
-
-msgid "prev"
-msgstr "suivant"
-
 #, c-format
 msgid "Modification for attribute %s for family %s"
 msgstr "Modification de l'attribut %s de la famille %s"
@@ -922,13 +953,6 @@ msgstr "la famille (%d) n'est pas référencée"
 msgid "no vcard file specified"
 msgstr "pas de fichier vcard spécifié"
 
-msgid "freedom cron try execute"
-msgstr "Cron Freedom essai d'execution"
-
-#, c-format
-msgid "execution by %s done %s"
-msgstr "execution faite par %s a donné %s"
-
 #, c-format
 msgid "%s updated\n"
 msgstr "%s mis à jour\n"
@@ -953,12 +977,27 @@ msgstr "%s intranet personne a été créé\n"
 msgid "%s iuser aborded\n"
 msgstr "%s utilisateur abandonné\n"
 
+msgid "freedom cron try execute"
+msgstr "Cron Freedom essai d'execution"
+
+#, c-format
+msgid "execution by %s done %s"
+msgstr "execution faite par %s a donné %s"
+
 #, c-format
 msgid "delete %s on server %s...\n"
 msgstr "suppression de %s sur le serveur %s...\n"
 
 msgid "LDAP cleaned"
 msgstr "LDAP vidé"
+
+#, c-format
+msgid "csv file <%s> wroted"
+msgstr "fichier csv <%s> écrit"
+
+#, c-format
+msgid "cannot write  %s"
+msgstr "écriture impossible : %s"
 
 #, c-format
 msgid "%d group(s) to update\n"
@@ -969,14 +1008,6 @@ msgstr "en cours...\n"
 
 msgid "done\n"
 msgstr "effectué\n"
-
-#, c-format
-msgid "csv file <%s> wroted"
-msgstr "fichier csv <%s> écrit"
-
-#, c-format
-msgid "cannot write  %s"
-msgstr "écriture impossible : %s"
 
 msgid "Freedoms lib"
 msgstr "bibliothèque freedom"
@@ -1757,6 +1788,9 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+msgid "no message : post-it creation aborted"
+msgstr "pas de message : création de post-it abandonné"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2154,22 +2188,6 @@ msgstr "cliquer sur le bouton [...] pour lié le document correctement"
 msgid "the document title is empty"
 msgstr "le titre du document est vide"
 
-#, c-format
-msgid ""
-"errldapadd:%s\n"
-"%s\n"
-"%d\n"
-msgstr ""
-"La fiche n'a pue être modifiée dans le serveur LDAP : %s\n"
-"%s\n"
-"%d\n"
-
-msgid "errldapconnect"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
-msgid "errldaporginit"
-msgstr "Le server LDAP n'a pas pu être contacté"
-
 msgid "not perm for admin"
 msgstr "pas de permission pour admin"
 
@@ -2285,8 +2303,21 @@ msgstr "Processus %s [%d] exécuté"
 msgid "Error : Process %s [%d]: status %d"
 msgstr "Erreur : Processus %s [%d]: status %d"
 
-msgid "no message : post-it creation aborted"
-msgstr "pas de message : création de post-it abandonné"
+#, c-format
+msgid ""
+"errldapadd:%s\n"
+"%s\n"
+"%d\n"
+msgstr ""
+"La fiche n'a pue être modifiée dans le serveur LDAP : %s\n"
+"%s\n"
+"%d\n"
+
+msgid "errldapconnect"
+msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "errldaporginit"
+msgstr "Le server LDAP n'a pas pu être contacté"
 
 msgid "include"
 msgstr "contient"
@@ -2431,11 +2462,11 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
-msgid "Security"
-msgstr "Sécurité"
+msgid "cannot see unknow folder"
+msgstr "dossier inconnu, ne peut être consulté"
 
-msgid "others..."
-msgstr "autres..."
+msgid "read-only"
+msgstr "lecture seule"
 
 #, c-format
 msgid "period from %s to %s"
@@ -2539,11 +2570,11 @@ msgstr "Le fichier '%s' n'a pu être transmis."
 msgid "Possible file upload attack: filename '%s'."
 msgstr "Possibilité d'atttaque 'upload' : fichier %s"
 
-msgid "menuctrlkey"
-msgstr "Autre..."
+msgid "Security"
+msgstr "Sécurité"
 
-msgid "submenu"
-msgstr "sous-menu"
+msgid "others..."
+msgstr "autres..."
 
 msgid "This document has been deleted"
 msgstr "Ce document a été supprimé"
@@ -2551,14 +2582,14 @@ msgstr "Ce document a été supprimé"
 msgid "nobody"
 msgstr "personne"
 
-msgid "cannot see unknow folder"
-msgstr "dossier inconnu, ne peut être consulté"
-
-msgid "read-only"
-msgstr "lecture seule"
-
 msgid "current"
 msgstr "courant"
+
+msgid "menuctrlkey"
+msgstr "Autre..."
+
+msgid "submenu"
+msgstr "sous-menu"
 
 #, c-format
 msgid "%d documents"
@@ -2588,6 +2619,42 @@ msgstr "Envoi manuel"
 
 msgid "cancel"
 msgstr "Annuler"
+
+msgid "Send mail"
+msgstr "Envoyer le mail"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "edition: "
+msgstr "éditer"
+
+msgid "Ok"
+msgstr "Ok"
+
+msgid "view constraints"
+msgstr "voir les contraintes"
+
+msgid "Constraints"
+msgstr "Contraintes"
+
+msgid "override constraints"
+msgstr "outrepasser les contraintes"
+
+msgid "Attribute not found"
+msgstr "Attribut non trouvé"
+
+msgid " choose value"
+msgstr " choisir une valeur"
+
+msgid "Close"
+msgstr "Fermer"
+
+msgid "Constraint test"
+msgstr "test des contraintes"
+
+msgid "suggestions"
+msgstr "suggestions"
 
 msgid "document differences"
 msgstr "différences de documents"
@@ -2622,53 +2689,17 @@ msgstr "Raison du changement d'état"
 msgid "Apply"
 msgstr "Appliquer"
 
-msgid "Cancel"
-msgstr "Annuler"
-
-msgid "Send mail"
-msgstr "Envoyer le mail"
-
-msgid "edition: "
-msgstr "éditer"
-
-msgid "Ok"
-msgstr "Ok"
-
-msgid "view constraints"
-msgstr "voir les contraintes"
-
-msgid "Constraints"
-msgstr "Contraintes"
-
-msgid "override constraints"
-msgstr "outrepasser les contraintes"
-
-msgid "Attribute not found"
-msgstr "Attribut non trouvé"
-
-msgid " choose value"
-msgstr " choisir une valeur"
-
-msgid "Close"
-msgstr "Fermer"
-
 msgid "Properties:"
 msgstr "Propriétés:"
-
-msgid "Click to access to the document"
-msgstr "Cliquer pour accéder au document"
 
 msgid "option: "
 msgstr "option: "
 
-msgid "Constraint test"
-msgstr "test des contraintes"
-
-msgid "suggestions"
-msgstr "suggestions"
-
 msgid "workflow has been recomposed"
 msgstr "le cycle de vie a été regénéré"
+
+msgid "Click to access to the document"
+msgstr "Cliquer pour accéder au document"
 
 msgid "Creation"
 msgstr "Création"
@@ -2736,23 +2767,14 @@ msgstr "Importation Archive"
 msgid "exec plan"
 msgstr "Planification des processus"
 
-msgid "Family Creation"
-msgstr "Création de famille"
+msgid "Attributes definition"
+msgstr "définition des attributs"
 
 msgid "inherit from"
 msgstr "hérite de"
 
 msgid "no document family"
 msgstr "Aucune famille de document"
-
-msgid "family title"
-msgstr "Titre de la famille"
-
-msgid "Create new family"
-msgstr "Créer une nouvelle famille"
-
-msgid "Attributes definition"
-msgstr "définition des attributs"
 
 msgid "ID"
 msgstr "ID"
@@ -2979,12 +3001,6 @@ msgstr "Copier la référence au dossier dans le lot"
 msgid "A_Link"
 msgstr "Lier"
 
-msgid "Batch Action Choose"
-msgstr "Choix des actions pour un traitement"
-
-msgid "Create a new  process document"
-msgstr "Créer un nouveau document processus"
-
 msgid "Changes will be loosed if you continue"
 msgstr "Les modifications seront perdues si vous continuez"
 
@@ -3172,6 +3188,21 @@ msgstr "toutes les familles"
 msgid "restrict to preferred families"
 msgstr "restriction aux familles préférées"
 
+msgid "Family Creation"
+msgstr "Création de famille"
+
+msgid "family title"
+msgstr "Titre de la famille"
+
+msgid "Create new family"
+msgstr "Créer une nouvelle famille"
+
+msgid "Batch Action Choose"
+msgstr "Choix des actions pour un traitement"
+
+msgid "Create a new  process document"
+msgstr "Créer un nouveau document processus"
+
 msgid "Refresh users characteristics from system"
 msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
 
@@ -3197,6 +3228,9 @@ msgstr ""
 
 msgid "Refresh groups"
 msgstr "Actualiser les groupes"
+
+msgid "Generic Management"
+msgstr "Gestion générique"
 
 msgid "users list"
 msgstr "liste des utilisateurs"
@@ -3248,8 +3282,11 @@ msgstr "Ajouter uo modifier des valeurs de catégorie"
 msgid "Modify"
 msgstr "Modifier"
 
-msgid "Generic Management"
-msgstr "Gestion générique"
+msgid "enum attribute list"
+msgstr "liste des attributs énumérés"
+
+msgid "toedit"
+msgstr "éditer"
 
 msgid "Sort"
 msgstr "Tri"
@@ -3280,9 +3317,6 @@ msgstr "mémo recherche"
 
 msgid "Edit attribute kinds"
 msgstr "Éditer les catégories"
-
-msgid "enum attribute list"
-msgstr "liste des attributs énumérés"
 
 msgid "level"
 msgstr "niveau"
@@ -3406,9 +3440,6 @@ msgstr "Nouvelle catégorie"
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
 
-msgid "toedit"
-msgstr "éditer"
-
 msgid "set as first family view"
 msgstr "enregistrer la famille comme la première à voir"
 
@@ -3424,26 +3455,65 @@ msgstr "choix des familles administratives"
 msgid "choose user families"
 msgstr "Choix des familles personnelles"
 
-msgid "contact"
-msgstr "Contact..."
+msgid "click to reload favorites"
+msgstr "Cliquer ici pour raffraichir mes favoris"
 
-msgid "society"
-msgstr "société"
+msgid "my favorites"
+msgstr "Mes préférés..."
 
-msgid "other"
-msgstr "Autres..."
+msgid "delete all favorites"
+msgstr "Suppression des préférés (tous)"
 
-msgid "address"
-msgstr "Adresse..."
+msgid "confirm delete all favorite"
+msgstr "Vider la liste des préférés ?"
 
-msgid "other infos"
-msgstr "Autres informations..."
+msgid "quick search"
+msgstr "recherche rapide"
 
-msgid "web"
-msgstr "Web"
+msgid "confirm delete"
+msgstr "retirer des préférés ?"
 
-msgid "categorie"
-msgstr "Catégorie"
+msgid "delete from prefered"
+msgstr "supprimer des contacts préférés"
+
+msgid "Import vcard"
+msgstr "Importation Vcard"
+
+msgid "Import from"
+msgstr "Importation à partir de"
+
+msgid "VCARD"
+msgstr "VCARD"
+
+msgid "category"
+msgstr "catégorie"
+
+msgid "visibility"
+msgstr "visibilité"
+
+msgid "private card"
+msgstr "carte privée"
+
+msgid "public card - read access"
+msgstr "carte publique - accès lecture"
+
+msgid "public card - write access"
+msgstr "carte publique - accès écriture"
+
+msgid "Add new card (duplicate title)"
+msgstr "Ajout nouvelle carte (titre dupliqué)"
+
+msgid "Replace address book card if has permission else duplicate"
+msgstr "Remplace la carte si permission accordée sinon duplication"
+
+msgid "Keep address book card"
+msgstr "Garde la carte originale"
+
+msgid "Vcard example"
+msgstr "Exemple de Vcard"
+
+msgid "Only one line by personn is authorized"
+msgstr "Une seule ligne par personne est autorisée"
 
 msgid "freedom address book"
 msgstr "Carnet d'Adresses Freedom"
@@ -3490,27 +3560,6 @@ msgstr "sauver les modifications"
 msgid "reset to default"
 msgstr "configuration par défaut"
 
-msgid "click to reload favorites"
-msgstr "Cliquer ici pour raffraichir mes favoris"
-
-msgid "my favorites"
-msgstr "Mes préférés..."
-
-msgid "delete all favorites"
-msgstr "Suppression des préférés (tous)"
-
-msgid "confirm delete all favorite"
-msgstr "Vider la liste des préférés ?"
-
-msgid "quick search"
-msgstr "recherche rapide"
-
-msgid "confirm delete"
-msgstr "retirer des préférés ?"
-
-msgid "delete from prefered"
-msgstr "supprimer des contacts préférés"
-
 msgid "Address book searches"
 msgstr "Adress book : recherche rapide"
 
@@ -3520,83 +3569,35 @@ msgstr "recherche dans tout les champs"
 msgid "view_detail"
 msgstr "détails"
 
+msgid "contact"
+msgstr "Contact..."
+
+msgid "address"
+msgstr "Adresse..."
+
+msgid "other"
+msgstr "Autres..."
+
 msgid "other sites"
 msgstr "Autres sites..."
-
-msgid "Import vcard"
-msgstr "Importation Vcard"
-
-msgid "Import from"
-msgstr "Importation à partir de"
-
-msgid "VCARD"
-msgstr "VCARD"
-
-msgid "category"
-msgstr "catégorie"
-
-msgid "visibility"
-msgstr "visibilité"
-
-msgid "private card"
-msgstr "carte privée"
-
-msgid "public card - read access"
-msgstr "carte publique - accès lecture"
-
-msgid "public card - write access"
-msgstr "carte publique - accès écriture"
-
-msgid "Add new card (duplicate title)"
-msgstr "Ajout nouvelle carte (titre dupliqué)"
-
-msgid "Replace address book card if has permission else duplicate"
-msgstr "Remplace la carte si permission accordée sinon duplication"
-
-msgid "Keep address book card"
-msgstr "Garde la carte originale"
-
-msgid "Vcard example"
-msgstr "Exemple de Vcard"
-
-msgid "Only one line by personn is authorized"
-msgstr "Une seule ligne par personne est autorisée"
 
 msgid "vcs file"
 msgstr "fichier VCS"
 
+msgid "society"
+msgstr "société"
+
+msgid "other infos"
+msgstr "Autres informations..."
+
+msgid "web"
+msgstr "Web"
+
+msgid "categorie"
+msgstr "Catégorie"
+
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
-
-msgid "View family"
-msgstr "Voir la famille"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
-msgid "author"
-msgstr "auteur"
-
-msgid "allocated to"
-msgstr "Affecté à"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "creation date"
-msgstr "date de création"
-
-msgid "access date"
-msgstr "date de dernière consultation"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -3621,36 +3622,6 @@ msgstr "déselectionner"
 
 msgid "duplicate"
 msgstr "Dupliquer"
-
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
-
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
-
-msgid "NOT Clear"
-msgstr "Non effacé"
-
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
-
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
-
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
-
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
-
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
-
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
-
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
 
 msgid "manual date"
 msgstr "Date manuelle"
@@ -3688,24 +3659,6 @@ msgstr "Document confidentiel"
 
 msgid "Restricted Access"
 msgstr "Accès restreint"
-
-msgid "Status for sending mail"
-msgstr "Compte-rendu du publipostage"
-
-msgid "username"
-msgstr "Nom"
-
-msgid "mailstatus"
-msgstr "Status"
-
-msgid "it is the last"
-msgstr "dernier"
-
-msgid "it is the first"
-msgstr "premier"
-
-msgid "PubliPreview"
-msgstr "prévisualisation"
 
 msgid "Monday"
 msgstr "Lundi"
@@ -3779,30 +3732,6 @@ msgstr "Affecter"
 msgid "Confirm"
 msgstr "Confirmez"
 
-msgid "Edit attributes"
-msgstr "Éditer les attributs"
-
-msgid "Set default values"
-msgstr "Valeurs par défaut"
-
-msgid "Parameters values"
-msgstr "Valeurs des paramètres"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
-
-msgid "Change default folder"
-msgstr "Changer dossier par défaut"
-
-msgid "Change current folder"
-msgstr "Changer dossier courant"
-
-msgid "Choose workflow"
-msgstr "Choisir un cycle"
-
 msgid "delconfirm"
 msgstr "Voulez-vous supprimer"
 
@@ -3851,6 +3780,9 @@ msgstr "version"
 msgid "rev"
 msgstr "rev"
 
+msgid "author"
+msgstr "auteur"
+
 msgid "date"
 msgstr "date"
 
@@ -3865,6 +3797,81 @@ msgstr "Ouvrir dans une nouvelle fenêtre"
 
 msgid "Empty Post-It"
 msgstr "Post-It vide"
+
+msgid "Status for sending mail"
+msgstr "Compte-rendu du publipostage"
+
+msgid "username"
+msgstr "Nom"
+
+msgid "mailstatus"
+msgstr "Status"
+
+msgid "it is the last"
+msgstr "dernier"
+
+msgid "it is the first"
+msgstr "premier"
+
+msgid "PubliPreview"
+msgstr "prévisualisation"
+
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
+
+msgid "View family"
+msgstr "Voir la famille"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
+msgid "allocated to"
+msgstr "Affecté à"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid "creation date"
+msgstr "date de création"
+
+msgid "access date"
+msgstr "date de dernière consultation"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -3962,47 +3969,14 @@ msgstr "Détails"
 msgid "Parameters"
 msgstr "Paramètres"
 
-msgid "System"
-msgstr "Système"
-
-msgid "Group"
-msgstr "Groupe"
-
-msgid "Others"
-msgstr "Autres"
-
-msgid "Coordonates"
-msgstr "Coordonnées"
-
-msgid "Password"
-msgstr "Mot de passe"
-
-msgid "Person"
-msgstr "Personne"
-
-msgid "Society"
-msgstr "Société"
-
-msgid "double click to edit"
-msgstr "Double clic pour éditer"
-
-msgid "Members"
-msgstr "Membres"
-
-msgid "number of members"
-msgstr "Nombre de membres"
-
-msgid "nomail"
-msgstr "pas d'email"
-
-msgid "phones"
-msgstr "Téléphones"
-
 msgid "Change category"
 msgstr "Changer de catégorie"
 
 msgid "View properties"
 msgstr "Voir les propriétés"
+
+msgid "View headers"
+msgstr "Voir entête"
 
 msgid "Select group appartenance"
 msgstr "Selectionner les groupes d'appartenance"
@@ -4028,6 +4002,9 @@ msgstr "non défini"
 msgid "Professional"
 msgstr "Professionnel"
 
+msgid "Society"
+msgstr "Société"
+
 msgid "socname"
 msgstr "Nom"
 
@@ -4045,6 +4022,39 @@ msgstr "Personnel"
 
 msgid "Complete view"
 msgstr "Vue complète"
+
+msgid "double click to edit"
+msgstr "Double clic pour éditer"
+
+msgid "System"
+msgstr "Système"
+
+msgid "Group"
+msgstr "Groupe"
+
+msgid "Coordonates"
+msgstr "Coordonnées"
+
+msgid "Others"
+msgstr "Autres"
+
+msgid "Password"
+msgstr "Mot de passe"
+
+msgid "nomail"
+msgstr "pas d'email"
+
+msgid "phones"
+msgstr "Téléphones"
+
+msgid "Person"
+msgstr "Personne"
+
+msgid "Members"
+msgstr "Membres"
+
+msgid "number of members"
+msgstr "Nombre de membres"
 
 #~ msgid "Unllocated of %s %s: %s"
 #~ msgstr "Suppression de l'allocation de %s %s ! %s"
