@@ -22,6 +22,7 @@ function reqViewMenu() {
       // ...processing statements go here...
       //  alert(MENUREQ.responseText);
       unglobalcursor();
+
       if (MENUREQ.responseXML) {
 	var elts = MENUREQ.responseXML.getElementsByTagName("status");
 
@@ -91,7 +92,8 @@ function menuSend(event,menuurl,cible) {
 	MENUREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
 	MENUCIBLE=cible;
 
-  globalcursor('wait');
+	globalcursor('wait');
+
 
 	MENUREQ.send('');
 	
@@ -141,7 +143,8 @@ function sendMenuUrl(th, url, wname,bar,w,h) {
 //     else urlref= url+'&http_referer='+escape(window.location.href);
 
     if ((wname == "")||(wname == "_self")) {
-      setTimeout('viewwait()',1000);      
+      //      setTimeout('viewwait()',1000);    
+	globalcursor('wait');  
       window.location.href=url;
     } else {
       if (bar) subwindowm(h,w,wname,url);
