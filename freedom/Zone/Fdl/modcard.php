@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.84 2006/06/08 16:06:11 eric Exp $
+ * @version $Id: modcard.php,v 1.85 2006/09/15 15:45:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -113,6 +113,7 @@ function modcard(&$action, &$ndocid) {
     }
     $action->Set("GENERIC_EDIT",
 		 $appl);
+    setHttpVar("zone",getHttpVars("ezone"));
     setHttpVar("viewconstraint","Y");
     $action->addWarningMsg(_("Some constraint attribute are not respected.\nYou must correct these values before save document."));
     echo ( $action->execute());
