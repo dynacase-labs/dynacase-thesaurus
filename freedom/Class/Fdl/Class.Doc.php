@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.334 2006/09/05 13:31:39 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.335 2006/09/15 15:47:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3947,15 +3947,15 @@ final public function PostInsert()  {
   
   }
 
-  // -----------------------------------
-  final public function editattr() {
-    // -----------------------------------
-  
-
+  /**
+   * create input fields for attribute document
+   * @param bool $withtd set to false if don't wan't <TD> tag in the middle
+   */
+  final public function editattr($withtd=true) {
+ 
     include_once("FDL/editutil.php");
     $listattr = $this->GetNormalAttributes();
-    
-    
+        
 
     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
 
@@ -3968,7 +3968,7 @@ final public function PostInsert()  {
       $this->lay->Set("V_".strtoupper($v->id),
 		      getHtmlInput($this,
 				   $v, 
-				   $value));
+				   $value,"",(!$withtd)));
       if ($v->needed == "Y") $this->lay->Set("L_".strtoupper($v->id),"<B>".$v->labelText."</B>");
       else $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       $this->lay->Set("W_".strtoupper($v->id),($v->mvisibility!="H"));
