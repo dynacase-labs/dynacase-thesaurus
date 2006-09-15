@@ -41,7 +41,7 @@ addEvent(window,'load',viewemptycell);
 </script>
 
 
-[ZONE FDL:POPUPCARD]
+
 <div class="wpmain">
 <div class="wptitle"><img align="right;" style="position:absolute;right:2px;float:right;border:ridge [COLOR_A5] 2px" src="[IF S_US_PHOTO][V_US_PHOTO][ENDIF S_US_PHOTO][IFNOT S_US_PHOTO][IMG:faddbook_nophoto.gif][ENDIF S_US_PHOTO]" width="80px">[V_US_CIVILITY] [V_US_FNAME] [V_US_LNAME]</div>
 <table class="wptable" width="100%">
