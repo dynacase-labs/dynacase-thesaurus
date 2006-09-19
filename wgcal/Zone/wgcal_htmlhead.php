@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_htmlhead.php,v 1.18 2006/07/18 13:51:52 eric Exp $
+ * @version $Id: wgcal_htmlhead.php,v 1.19 2006/09/19 07:49:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WHAT
  * @subpackage CORE
@@ -11,7 +11,7 @@
  /**
  */
 
-// $Id: wgcal_htmlhead.php,v 1.18 2006/07/18 13:51:52 eric Exp $
+// $Id: wgcal_htmlhead.php,v 1.19 2006/09/19 07:49:33 marc Exp $
 
 
 include_once('Class.QueryDb.php');
@@ -25,9 +25,6 @@ function wgcal_htmlhead(&$action) {
   $debug = false;
 
   $action->parent->AddCssRef("FDL:popup.css", true);
-
-  //   $csslay = new Layout("WGCAL/Layout/wgcal.css", $action);
-  // $action->parent->AddCssCode($csslay->gen());
   $action->parent->AddCssRef("WGCAL:wgcal.css", true);
 
   $action->parent->AddJsRef("FDL/Layout/common.js");
@@ -38,11 +35,6 @@ function wgcal_htmlhead(&$action) {
   if ($refresh>0) {
     $action->lay->set("refresh", true);
     $action->lay->set("refresh_time", $refresh);
-    $url = ($_SERVER["SERVER_PORT"] == 443 ? "https" : "http") ."://"
-      .    $_SERVER["SERVER_NAME"]
-      .    ":".$_SERVER["SERVER_PORT"]
-      .    $_SERVER["REQUEST_URI"];
-    $action->lay->set("refresh_url", $url);
   } else {
     $action->lay->set("refresh", false);
   }

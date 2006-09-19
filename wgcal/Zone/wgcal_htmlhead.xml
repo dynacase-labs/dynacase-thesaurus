@@ -3,7 +3,7 @@
 <title>[TEXT:freedom groupware calendar][IF bstitle]::[ENDIF bstitle][SubTitle]</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">  
-[IF refresh]<meta http-equiv="refresh" content="[refresh_time];[refresh_url]" target="_self">[ENDIF refresh]
+[IF refresh]<meta http-equiv="refresh" content="[refresh_time]" target="_self">[ENDIF refresh]
 
 <link rel="icon" HREF="WGCAL/Images/wgcal.ico" >
 <link rel="SHORTCUT" HREF="WGCAL/Images/wgcal.ico" >

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.15 2006/04/19 15:30:03 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.16 2006/09/19 07:49:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -35,8 +35,7 @@ function wgcal_prefs_others(&$action) {
 					  "wgcal_toolbar", 
 					  "WGCAL_TOOLBAR", 
 					  array( "0"  => _("never"),
-						 "60"   => _("1 minute"),
-						 "180"   => _("3 minutes"),
+						 "300"   => _("5 minutes"),
 						 "600"   => _("10 minutes"),
 						 "1200"   => _("20 minutes"))
 					  )		       
