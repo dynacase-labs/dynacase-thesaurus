@@ -60,8 +60,6 @@ function fcalSetOpacity(o, value) {
 
 function  fcalGetJSDoc(ev, id) {
   var urlsend = UrlRoot+"app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
-  
-  msgUser('[TEXT:Loading event]');
   var res;
   res = fcalSendRequest(urlsend, false, false);
   if (res.status!=200) return false;
