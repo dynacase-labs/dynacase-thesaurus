@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.7 2006/08/07 16:24:46 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.8 2006/09/19 15:17:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -25,7 +25,7 @@ function wgcal_todoview(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_todo.js");
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
-  $todoshort = 25;
+  $todoshort = 100;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $todoviewday = $action->getParam("WGCAL_U_TODODAYS", -1);
@@ -64,7 +64,7 @@ function wgcal_todoview(&$action) {
     $td[$itd]["sTextTodo"] = (strlen($v["todo_title"])>$todoshort ? substr($v["todo_title"],0,$todoshort)."..." : $v["todo_title"]);
     $td[$itd]["jsTextTodo"] = addslashes($td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
-    $td[$itd]["dateTodo"] = strftime("%d/%m", w_dbdate2ts($v["todo_date"]));
+    $td[$itd]["dateTodo"] = strftime("%d %b", w_dbdate2ts($v["todo_date"]));
     $td[$itd]["dateTodoL"] = strftime("%d %B %Y", w_dbdate2ts($v["todo_date"]));
 
     $cdate = w_dbdate2ts($v["todo_date"]);

@@ -19,10 +19,10 @@ function todoEdit(event, id) {
     eltId('todoTitle').value = todoInEdition.title;
     var sd = new String(todoInEdition.date);
     var ttime = new Date( sd.substr(6,4),
-			  parseInt(sd.substr(3,2))-1,
-			  sd.substr(0,2),
-			  12, 0, 0, 0);
-    eltId('todoStart').value = ttime.getTime();
+                          parseInt(sd.substr(3,2),10)-1,
+                          sd.substr(0,2),
+                          12, 0, 0, 0);
+    eltId('todoStart').value = ttime.getTime() / 1000;
     eltId('todoTextDate').innerHTML = ttime.print('%a %d %b %Y');;
     eltId('todoNote').value = todoInEdition.note;
     eltId('btnSave').style.visibility = 'visible';   
@@ -33,7 +33,7 @@ function todoEdit(event, id) {
 			 (ctime.getDate()+7), 12, 0, 0, 0);
     
     eltId('todoTitle').value = '';
-    eltId('todoStart').value = ttime.getTime();
+    eltId('todoStart').value = ttime.getTime() / 1000;
     eltId('todoTextDate').innerHTML = ttime.print('%a %d %b %Y');;
     eltId('todoNote').value = '';
     eltId('btnSave').style.visibility = 'hidden';
