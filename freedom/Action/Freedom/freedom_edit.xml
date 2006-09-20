@@ -80,6 +80,7 @@ function refreshfld(dirid) {
 <INPUT TYPE="hidden" name="id" value="[id]"></input>
 <INPUT TYPE="hidden" name="dirid" value="[dirid]"></input>
 <INPUT TYPE="hidden" name="onlysubfam" value="[onlysubfam]"></input>
+<INPUT TYPE="hidden" name="alsosubfam" value="[alsosubfam]"></input>
    
 <table class="tableborder"  cellspacing="0" width="100%">
 <thead>
@@ -88,7 +89,7 @@ function refreshfld(dirid) {
    <span class="FREEDOMTextBigTitle">[TITLE]</span>
   </td> 
    <td  class="FREEDOMText" align="right">[TEXT:inherit from]
-   <select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value+'&onlysubfam=[onlysubfam]'">  
+   <select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value+'&onlysubfam=[onlysubfam]&alsosubfam=[alsosubfam]'">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]

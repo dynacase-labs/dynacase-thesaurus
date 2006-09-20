@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.33 2005/09/15 07:56:24 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.34 2006/09/20 10:27:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -26,6 +26,7 @@ include_once("VAULT/Class.VaultFile.php");
  * @global dirid Http var : folder identificator to add when create
  * @global usefor Http var : set to  "D" for edit default values
  * @global onlysubfam Http var : to show in family list only sub family of classid
+ * @global alsosubfam Http var : N default (Y|N) in case of only sub fam view also the mother family
  */
 function freedom_edit(&$action) {
   // -----------------------------------
@@ -36,6 +37,7 @@ function freedom_edit(&$action) {
   $dirid = GetHttpVars("dirid",0); // directory to place doc if new doc
   $usefor = GetHttpVars("usefor"); // default values for a document
   $onlysubfam = GetHttpVars("onlysubfam"); // restricy to sub fam of
+  $alsosub = (GetHttpVars("alsosubfam","N")=="Y"); 
 
 
   // Set the globals elements
@@ -73,7 +75,14 @@ function freedom_edit(&$action) {
 	
 	if (! is_numeric($onlysubfam))  $onlysubfam = getFamIdFromName($dbaccess,$onlysubfam);
 	$cdoc = new_Doc($dbaccess,$onlysubfam);
-	$tclassdoc = $cdoc->GetChildFam();
+	$tsub=$cdoc->GetChildFam($cdoc->id,true);
+	if ($alsosub) {
+	  $tclassdoc[$classid] = array("id"=>$cdoc->id ,
+				       "title"=>$cdoc->title);
+	  $tclassdoc = array_merge($tclassdoc,$tsub);
+	} else {
+	  $tclassdoc=$tsub;
+	}
 	$first = current($tclassdoc);
 	if ($classid=="") $classid = $first["id"];
 	setHttpVar("classid",$classid); // propagate to subzones
@@ -182,6 +191,7 @@ function freedom_edit(&$action) {
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
   $action->lay->Set("onlysubfam", $onlysubfam);
+  $action->lay->Set("alsosubfam", GetHttpVars("alsosubfam"));
   if ($docid > 0) $action->lay->Set("doctype", $doc->doctype);
 
 
