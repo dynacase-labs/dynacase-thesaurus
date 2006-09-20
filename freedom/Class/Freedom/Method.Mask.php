@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.15 2006/03/09 09:41:28 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.16 2006/09/20 09:29:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.15 2006/03/09 09:41:28 eric Exp $
+// $Id: Method.Mask.php,v 1.16 2006/09/20 09:29:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -62,6 +62,31 @@ function getLabelNeed() {
 		"N" => _("N"));
 }
 
+/**
+ * suppress unmodified attributes visibilities
+ * to simplify the mask structure 
+ */
+function postModify() {
+  $tneed = $this->getTValue("MSK_NEEDEEDS");
+  $tattrid = $this->getTValue("MSK_ATTRIDS");
+  $tvis = $this->getTValue("MSK_VISIBILITIES");
+
+  $tvisibilities=array();
+  foreach ($tattrid as $k=>$v) {
+    if (($tneed[$k]=='-') && ($tvis[$k]=='-')) {
+      unset($tneed[$k]);
+      unset($tvis[$k]);
+      unset($tattrid[$k]);
+    }
+  }
+
+  
+  $this->setValue("MSK_NEEDEEDS",$tneed);
+  $this->setValue("MSK_ATTRIDS",$tattrid);
+  $this->setValue("MSK_VISIBILITIES",$tvis);
+  $err=$this->modify();
+  return $err;
+}
 
 function getVisibilities() {
   $tvisid = $this->getTValue("MSK_VISIBILITIES");
