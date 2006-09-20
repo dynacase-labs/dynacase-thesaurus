@@ -1,10 +1,10 @@
 [IF lmode]<?xml version="1.0" encoding="UTF-8"?><freedomsvc uptime="[uptime]" title="Mes taches ([todocount])"><![CDATA[
 [IF Todos]
-<table cellspacing="0">
+<table cellspacing="1">
 [BLOCK TodoList]
-<tr title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td style="border-width:1px; border-style:none none dotted none; border-color:[colorTodo]; font-size:80%;">&middot;&nbsp;[dateTodoL] </td>
-<td >[textTodo]</td>
+<tr style="vertical-align:top;" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
+<td nowrap style="background-color:[colorTodo]; font-size:80%;">[dateTodoL]</td>
+<td style="border-width:1px; border-style:none none solid none; border-color:[colorTodo]">[textTodo]</td>
 </tr>[ENDBLOCK TodoList]</table>
 [ENDIF Todos]
 ]]></freedomsvc>[ENDIF lmode]

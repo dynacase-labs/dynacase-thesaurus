@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.8 2006/09/19 15:17:02 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.9 2006/09/20 10:33:05 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -65,7 +65,7 @@ function wgcal_todoview(&$action) {
     $td[$itd]["jsTextTodo"] = addslashes($td[$itd]["sTextTodo"]);
     $td[$itd]["lTextTodo"] = "[".w_strftime(w_dbdate2ts($v["todo_date"]),WD_FMT_DAYFTEXT)."] ".$v["todo_title"];
     $td[$itd]["dateTodo"] = strftime("%d %b", w_dbdate2ts($v["todo_date"]));
-    $td[$itd]["dateTodoL"] = strftime("%d %B %Y", w_dbdate2ts($v["todo_date"]));
+    $td[$itd]["dateTodoL"] = strftime("%d %b %Y", w_dbdate2ts($v["todo_date"]));
 
     $cdate = w_dbdate2ts($v["todo_date"]);
     $td[$itd]["warning"] = false;
@@ -73,7 +73,7 @@ function wgcal_todoview(&$action) {
     
     $td[$itd]["warn"] = true;
     if ($cdate<$today) {
-      $td[$itd]["alert"] = true;
+      $td[$itd]["alert"] = true; 
       $td[$itd]["colorTodo"] = "red";
     } else if ($cdate<($today+($todowarn*24*3600))) {
       $td[$itd]["warning"] = true;
