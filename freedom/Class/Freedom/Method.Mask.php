@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.16 2006/09/20 09:29:47 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.17 2006/09/20 15:40:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.16 2006/09/20 09:29:47 eric Exp $
+// $Id: Method.Mask.php,v 1.17 2006/09/20 15:40:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -168,11 +168,11 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     $tmask[$k]["attrname"]=$attr->labelText;
     $tmask[$k]["visibility"]=$labelvis[$attr->visibility];
     $tmask[$k]["wneed"]=($attr->needed)?"bold":"normal";
-    $tmask[$k]["bgcolor"]="";
+    $tmask[$k]["bgcolor"]=getParam("COLOR_A9");
     $tmask[$k]["vislabel"] = " ";
     if (isset($tvisibilities[$attr->id])) {
       $tmask[$k]["vislabel"] = $labelvis[$tvisibilities[$attr->id]];
-      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) $tmask[$k]["bgcolor"]=getParam("CORE_BGCOLORALTERN");
+      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) $tmask[$k]["bgcolor"]=getParam("COLOR_B5");
     } else $tmask[$k]["vislabel"] = $labelvis["-"];
 
     

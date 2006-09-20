@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.18 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewframe.php,v 1.19 2006/09/20 15:40:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.18 2005/06/28 08:37:46 eric Exp $
+// $Id: viewframe.php,v 1.19 2006/09/20 15:40:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -106,7 +106,7 @@ function viewframe(&$action) {
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
 	      $tval[$k]["wvalue"]=($v->type=="array")?"1%":"30%";  // width
-	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"";  // display alabel ?
+	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"inherit";  // display alabel ?
 	     
 	      $tval[$k]["alabel"]=  $v->labelText;;
 	      $tval[$k]["avalue"]=  $htmlvalue;

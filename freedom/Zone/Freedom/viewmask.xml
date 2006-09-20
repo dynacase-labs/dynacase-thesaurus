@@ -8,7 +8,7 @@
   <td  colspan="2" >
  <fieldset style="cursor:crosshair;"><legend>Masques</legend>
 <table width="100%" >
-<tr class="FREEDOMBack1" style="background-color:[bgcolor]">  
+<tr class="FREEDOMBack1" >  
   <th>[TEXT:fieldset]</th>     
    <th>[TEXT:attrname]</th>  
    <th>[TEXT:new visibility]</th>
