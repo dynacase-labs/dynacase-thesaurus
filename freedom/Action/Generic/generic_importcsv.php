@@ -3,7 +3,7 @@
  * Import CSV
  *
  * @author Anakeen 2004
- * @version $Id: generic_importcsv.php,v 1.17 2006/03/09 08:06:12 eric Exp $
+ * @version $Id: generic_importcsv.php,v 1.18 2006/09/29 08:28:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,7 +66,16 @@ function generic_importcsv(&$action) {
       $vcardfile = GetHttpVars("file"); 
     }
 
-  $fdoc = fopen($vcardfile,"r");
+
+
+  if (seemsODS($vcardfile)) {
+    $cvsfile=ods2csv($vcardfile);
+    $fdoc = fopen($cvsfile,"r");
+  } else {
+    $fdoc = fopen($vcardfile,"r");
+  }
+
+
   if (! $fdoc) $action->exitError(_("no csv import file specified"));
   $dir = new_Doc($dbaccess, getDefFld($action));
 
