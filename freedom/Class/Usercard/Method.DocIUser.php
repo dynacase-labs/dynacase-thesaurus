@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.38 2006/09/15 15:47:30 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.39 2006/09/29 15:09:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -310,7 +310,7 @@ function fusers_iuser($target="finfo",$ulink=true,$abstract="Y") {
   $this->lay->setBlockData("OTHERS",$to);
   $this->lay->set("HasOTHERS",(count($to)>0));
   $this->lay->set("HasDOMAIN",($this->getValue("US_IDDOMAIN")>9));
-  $this->lay->set("HasDPassword",($this->getValue("US_DAYDELAY")!=""));
+  $this->lay->set("HasDPassword",(intval($this->getValue("US_DAYDELAY"))!=0));
   $ltabs=array();
   foreach ($tabs as $k=>$v) {
     $ltabs[$k]=array("tabtitle"=>$k,

@@ -34,13 +34,15 @@ addEvent(window,"load",viewFirstTab);
 [IF HasOTHERS]<span [IF CanEdit]title="[TEXT:double click to edit]" ondblclick="editTab('tabother')"[ENDIF CanEdit] onclick="showDiv(this,'dothers')">[TEXT:Others]</span>[ENDIF HasOTHERS]</div>
 <div class="tab" ></div>
 <div class="do" id="dsystem" >
-<span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_LOGIN]</span>, <span class="fablabel">[L_US_WHATID]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_WHATID]</span>, <span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span><span class="fabvalue">[V_US_STATUS]</span>
+<table>
+<tr><td><span class="fablabel">[L_US_LOGIN]&nbsp;:&nbsp;</span></td><td><span class="fabvalue">[V_US_LOGIN]</span></td></tr>
+<tr><td><span class="fablabel">[L_US_WHATID]&nbsp;:&nbsp;</span></td><td><span class="fabvalue">[V_US_WHATID]</span></td></tr>
+<tr><td><span class="fablabel">[L_US_STATUS]&nbsp;:&nbsp;</span></td><td><span class="fabvalue">[V_US_STATUS]</span></td></tr>
+</table>
 [IF HasDPassword]
 <fieldset style="width:220px"><legend>[TEXT:Password]</legend>
-<span class="fablabel">[L_US_EXPIRESD]</span>  <span class="fabvalue">[V_US_EXPIRESD] [V_US_EXPIREST]</span>
+<span class="fablabel">[L_US_EXPIRESD]</span>  <span class="fabvalue">[V_US_EXPIRESD] [V_US_EXPIREST]</span><br/>
 <span class="fablabel">[L_US_DAYDELAY]</span> <span class="fabvalue">[V_US_DAYDELAY]</span>
-
-
 </fieldset>
 [ENDIF HasDPassword]<br/>
 [IF HasDOMAIN]<span class="fablabel">[L_US_DOMAIN]</span>&nbsp;:&nbsp;<span class="fabvalue">[V_US_DOMAIN]</span>[ENDIF HasDOMAIN]
