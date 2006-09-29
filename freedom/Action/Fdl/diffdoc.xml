@@ -4,8 +4,7 @@ TR.eq {
   display:none;
 }
 TR.ne  {
-  background-color:[CORE_FGCOLOR];
-  color:[CORE_TEXTBGCOLOR];
+  background-color:[COLOR_B8];
 }
 TR.hi {
   display:none;
