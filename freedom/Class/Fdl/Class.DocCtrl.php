@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.43 2006/08/11 15:50:03 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.44 2006/09/29 15:08:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -169,8 +169,12 @@ Class DocCtrl extends DocLDAP {
 	$this->dprofid = $profid;
 	$this->computeDProfil($this->dprofid,$fromdocidvalues);
 	unset($this->uperm); // force recompute privileges
+      } else {  
+	$this->dprofid = 0;
       }
       if ($pdoc->profid == 0) $this->profid = -$profid; // inhibition
+    } elseif (($profid>0) && ($profid == $this->id)) {      
+	$this->dprofid = 0;
     }
   }
 
