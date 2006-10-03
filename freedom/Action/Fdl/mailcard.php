@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.63 2006/08/01 15:32:25 eric Exp $
+ * @version $Id: mailcard.php,v 1.64 2006/10/03 08:30:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -52,6 +52,7 @@ function mailcard(&$action) {
     $tformat = GetHttpVars("_mail_sendformat", "");
     if (count($raddr)>0) {
       foreach ($raddr as $k => $v) {
+	$v=trim($v);
         if ($v!="") { 
 	  if ($tformat[$k]=="") $tformat[$k]="plain";
           switch ($rtype[$k]) {
@@ -67,24 +68,29 @@ function mailcard(&$action) {
     }
   }
 
+  $sendedmail=false;
   foreach (array("plain","link") as $format) {
     
     $mailto=implode(",",$tmailto[$format]);
     $mailcc=implode(",",$tmailcc[$format]);
     $mailbcc=implode(",",$tmailbcc[$format]);
 
-
+    // correct trim --->
     setHttpVar("_mail_to", $mailto);
     setHttpVar("_mail_cc", $mailcc);
     setHttpVar("_mail_bcc", $mailbcc);
     setHttpVar("_mail_from", $mailfrom);
-    if ($format=="link") setHttpVar("_mail_format", "htmlnotif");
-    $err=sendmailcard($action);  
+    if ($format=="link") setHttpVar("_mail_format", "htmlnotif");     
+    if (($mailto!="") || ($mailcc!="") || ($mailbcc!=""))  {
+      $err=sendmailcard($action);  
+      $sendedmail=true;
+    }
   }
 
   if ($cr == "Y") {
     if ($err != "") $action->exitError($err);
-    else $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
+    elseif ($sendedmail) $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
+    else $action->addWarningMsg(sprintf(_("the document %s has not been sended : no recipient"),$doc->title));
   }
   //  print_r2($tuid);
   foreach ($tuid as $uid) {
@@ -181,8 +187,9 @@ function sendCard(&$action,
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
 
-  $ftitle = str_replace(array(" ","/"), "_",$doc->title);
+  $ftitle = str_replace(array(" ","/",")","("), "_",$doc->title);
   $ftitle = str_replace("'", "",$ftitle);
+  $ftitle = str_replace("\"", "",$ftitle);
   $ftitle = str_replace("&", "",$ftitle);
 
   $to=   str_replace("\"","'",$to);
@@ -212,7 +219,10 @@ function sendCard(&$action,
     $bcc .="\\nReturn-Path:$from";
   }
   $layout="maildoc.xml"; // the default
-  if ($format=="htmlnotif") $layout="mailnotification.xml";
+  if ($format=="htmlnotif") {
+    $layout="mailnotification.xml";
+    $zonebodycard="FDL:MAILNOTIFICATION";
+  }
  
   if ($zonebodycard == "") $zonebodycard=$doc->defaultmview;
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;

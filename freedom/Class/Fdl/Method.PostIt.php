@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.7 2005/08/09 08:58:22 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.8 2006/10/03 08:30:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,7 +34,7 @@ function viewpostit($target="_self",$ulink=true,$abstract=false) {
   else  $fontsize=80;
   $tlaycomment=array();
   while (list($k,$v) = each($tcomment)) {
-    $tlaycomment[]=array("comments"=>$v,
+    $tlaycomment[]=array("comments"=>$this->getHtmlValue($this->getAttribute('PIT_COM'),$v,'_blank'),
 			 "user"=>$tuser[$k],
 			 "date"=>$tdate[$k],
 			 "color"=>$tcolor[$k]);

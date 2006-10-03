@@ -68,10 +68,10 @@ function viewCard(w) {
 
 <tr class="FREEDOMBack2"><td  colspan="3" height="1px"></td></tr>
 </thead>
-   
+</table>
 [ZONE FDL:EDITCARD?classid=15]
 
-
+<table>
 <tfoot>
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">

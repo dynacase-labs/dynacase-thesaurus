@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.72 2006/08/10 15:08:44 eric Exp $
+ * @version $Id: viewcard.php,v 1.73 2006/10/03 08:30:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -123,7 +123,6 @@ function viewcard(&$action) {
       $zonebodycard ="FDL:VIEWBODYCARD";
     }
   
-  if ($doc->usefor=="D") $zonebodycard="FDL:VIEWBODYCARD"; // always default view for default document
 
   if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
   else $action->lay->set("mzone", $zonebodycard);

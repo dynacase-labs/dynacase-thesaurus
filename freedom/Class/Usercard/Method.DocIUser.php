@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.39 2006/09/29 15:09:29 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.40 2006/10/03 08:30:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -267,6 +267,22 @@ function ConstraintExpires($expiresd,$expirest,$daydelay) {
 	       "sug"=>$sug);
 }
 
+function editlikeperson($target="finfo",$ulink=true,$abstract="Y") {
+  global $action;
+  
+  $this->lay = new Layout(getLayoutFile("FDL","editbodycard.xml"), $action);
+  $this->attributes->attr['us_fr_intranet']->visibility='R';
+  $this->ApplyMask();
+  if ($this->getValue("us_iddomain") == 0) {
+    $this->attributes->attr['us_extmail']->mvisibility='W';
+    $this->attributes->attr['us_extmail']->fieldSet= $this->attributes->attr['us_fr_coord'];
+    $this->attributes->attr['us_extmail']->ordered=$this->attributes->attr['us_pphone']->ordered - 1;
+    uasort($this->attributes->attr,"tordered"); 
+  }
+    
+  $this->editbodycard($target,$ulink,$abstract);
+  
+}
 
 function fusers_iuser($target="finfo",$ulink=true,$abstract="Y") {
   global $action;

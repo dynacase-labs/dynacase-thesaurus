@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.335 2006/09/15 15:47:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.336 2006/10/03 08:30:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1443,11 +1443,11 @@ final public function PostInsert()  {
       if (!$this->_maskApplied) $this->ApplyMask();   
       $tsa=array();
       
-      if ($this->usefor != 'D') { // not applicable for default document
-	foreach($this->attributes->attr as $k=>$v) {
-	  if ((get_class($v) == "NormalAttribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;      
-	}
+
+      foreach($this->attributes->attr as $k=>$v) {
+	  if ((get_class($v) == "NormalAttribute") && ($v->needed) && ($v->usefor!='Q')) $tsa[$v->id]=$v;
       }
+      
       return $tsa;
     }
 
@@ -1537,7 +1537,6 @@ final public function PostInsert()  {
   final public function RefreshTitle() {
 
     if ($this->doctype == 'C') return; // no refresh for family  document
-    if ($this->usefor == 'D') return; // no refresh for default document
 
     $ltitle = $this->GetTitleAttributes();
 
@@ -1744,9 +1743,9 @@ final public function PostInsert()  {
 	  $tvalues[]=$value;
 	}
     
-	if ($this->usefor != 'D') { // not for default values
-	  while (list($kvalue, $avalue) = each($tvalues)) {
-	    if ($avalue != "") {
+
+	while (list($kvalue, $avalue) = each($tvalues)) {
+	  if ($avalue != "") {
 	    if ($oattr) {
 	      switch($oattr->type) {
 	      case 'docid':
@@ -1789,9 +1788,9 @@ final public function PostInsert()  {
 		break;
 	      }
 	    }
-	    }
 	  }
 	}
+	
 	//   print $oattr->id."-".$oattr->type;print_r2($tvalues);
 	$this->_oldvalue[$attrid]=$this->$attrid;
 	$this->$attrid=implode("\n",$tvalues); 
@@ -1937,9 +1936,8 @@ final public function PostInsert()  {
 
   final public function GetValueMethod($value, $attrid='') {
     
-    if ($this->usefor != 'D') {
-      $value=$this->ApplyMethod($value,$value);
-    }
+    $value=$this->ApplyMethod($value,$value);
+    
     return $value;
   } 
 
@@ -2616,7 +2614,6 @@ final public function PostInsert()  {
     
     if ($this->locked == -1) return; // no refresh revised document
     if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document
-    if ($this->usefor == 'D') return; // no refresh for default document
    
 
     $err=$this->SpecRefresh();
@@ -2754,7 +2751,7 @@ final public function PostInsert()  {
       } else {
 	$u=getParam("CORE_STANDURL");
 	$ul="$u&app=FDL&action=FDL_CARD&latest=Y&id=$id";
-	$a="<a oncontextmenu=\"popdoc(event,'$ul');return false;\" href=\"$ul\">$title</a>";
+	$a="<a oncontextmenu=\"popdoc(event,'$ul');return false;\" target=\"$target\" href=\"$ul\">$title</a>";
       }
       
     }
@@ -3197,19 +3194,7 @@ final public function PostInsert()  {
     }
     return $t;
   }
-  /*
-   * transform hidden to writted attribut for default document
-   */
-  final public function SetDefaultAttributes() {
-    if ($this->usefor == "D") {
-      $listattr = $this->GetAttributes();
-      while (list($i,$attr) = each($listattr)) {
-	if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
-	  $this->attributes->attr[$i]->mvisibility="W";
-	}
-      }
-    }
-  }
+  
 
   /** 
    * return the character in third part of zone
@@ -3304,7 +3289,7 @@ final public function PostInsert()  {
       $action->exitError(sprintf(_("error in pzone format %s"),$layout));
      
     
-    $this->SetDefaultAttributes();
+    
     if (!$changelayout) {
       $play=$this->lay;
     }
@@ -3779,9 +3764,7 @@ final public function PostInsert()  {
       // when modification 
 
       if (! $this->isAlive()) $action->ExitError(_("document not referenced"));
-	
-	
-      $this->SetDefaultAttributes();
+	       
       $this->lay->Set("TITLE", $this->title);
 	
     }
