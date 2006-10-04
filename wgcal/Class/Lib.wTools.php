@@ -479,7 +479,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
 		     );
   $rg = 0;
   $showrefused = ( $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1 ? false : true);
-  $nevents = array();
+  $newevents = array();
   foreach ($events as $k=>$v) {
     $evdisplay = true;
     $ev = getDocObject($dbaccess, $v);

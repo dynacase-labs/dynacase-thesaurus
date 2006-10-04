@@ -133,6 +133,7 @@
      var isIE = [IFNOT ISIE]false[ENDIF ISIE][IF ISIE]true[ENDIF ISIE];
      inCalendar = true;
 
+var DynView = true;
 var CurrentTime = -1;
 var Days = new Array();
 [BLOCK DAYS]

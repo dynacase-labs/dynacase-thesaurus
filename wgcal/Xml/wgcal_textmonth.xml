@@ -20,6 +20,7 @@
 <div style="width:100%">[ZONE WGCAL:WGCAL_PRINTINFOS]</div>
 
 <script> 
+var DynView = false;
 var AltTimerValue = 200;
 [BLOCK CARDS]fcalEvents[[rg]] = [jscode];
 [ENDBLOCK CARDS]

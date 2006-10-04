@@ -661,7 +661,7 @@ function RendezVousEdit() {
 
   if ($this->isAffected()) 
     {
-
+      setHttpVar("HUL", "if (! document.isCancelled) autoUnlock('".$this->id."');closechoose();");
       setHttpVar("HBUL", "if (!DocumentSaved) return closeMsg;");
 
       $eventid = $this->id;
@@ -2031,7 +2031,7 @@ function postChangeProcess($old=false) {
   if ($newevent) {
     $mail_msg = _("event creation information message");
     $mail_who = 2;
-    $comment = _("event creation");
+    //$comment = _("event creation");
   } else {
     if ($change["hours"]) {
       $mail_msg = _("event time modification message");

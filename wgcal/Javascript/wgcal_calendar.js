@@ -654,8 +654,12 @@ var Tempo = 200;
 var TempoId = -1;
 
 function fcalReloadEvents(ev) {
-  fcalInitEvents('');
-  fcalShowEvents();
+  if (DynView) {
+    fcalInitEvents('');
+    fcalShowEvents();
+  } else {
+    document.location.reload(false);
+  }
 }
 
 function fcalStartEvDisplay(ev, occ, ie) {
@@ -1320,8 +1324,9 @@ function fcalNohour(s) {
 
 function fcalInitTimeO(second) {
   var otime = new Date();
-  var tzd = otime.getTimezoneOffset()*60*1000;
-  otime.setTime( (second + otime.getTimezoneOffset()*60) * 1000);
+  otime.setTime( (second*1000) );
+  var tzd = otime.getTimezoneOffset() * 60 ;
+  otime.setTime( (second + tzd) * 1000);
   return otime;
 }
 

@@ -32,6 +32,6 @@ flogSetZoneStyle('#FF6600', '#000000', 2, 'groove');
 
 </script>
 </head>
-<body onbeforeunload="[onbeforeunload]" onUnLoad="[onUnLoad]">
+<body onbeforeunload="[onbeforeunload]" onunload="[onUnLoad]">
 <form style="display:none" id="usetparam" target="wgcal_hidden" name="usetparam" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_USETPARAM"><input id="uid" name="uid" type="hidden" value="-1"><input id="pname" name="pname" type="hidden" value=""><input id="pvalue" name="pvalue" type="hidden" value=""><input id="taction" name="taction" type="hidden" value=""></form>
 <!-- END HEAD HTML -->
