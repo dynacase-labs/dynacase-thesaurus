@@ -506,12 +506,43 @@ function unselectInput(id) {
   sel.options[sel.options.length-1].selected=true;
 }
 function autoUnlock(docid) {
-  if (parseInt(docid) > 0) {
-    if (! document.isSubmitted) {
-      var fhidden = window.open('','fhsave','resizable=yes,height=10,width=10');
-      fhidden.document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&autoclose=Y&id='+docid;
-    }
+  var r;
+  var corestandurl=window.location.pathname+'?sole=Y';
+  // branch for native XMLHttpRequest object
+  if (window.XMLHttpRequest) {
+    r = new XMLHttpRequest(); 
+  } else if (window.ActiveXObject) {
+    // branch for IE/Windows ActiveX version     
+    r = new ActiveXObject("Microsoft.XMLHTTP");
   }
+  if (r) {     
+    r.open("GET", corestandurl+'&app=FDL&action=UNLOCKFILE&auto=Y&autoclose=Y&id='+docid,false);
+    //      req.setRequestHeader("Content-length", "1");     
+    r.send('');
+    if(r.status == 200) { 
+      if (r.responseXML) {
+	var xmlres=r.responseXML;
+	var elts = xmlres.getElementsByTagName("status");
+	if (elts.length == 1) {
+	  var elt=elts[0];
+	  var code=elt.getAttribute("code");
+	  var delay=elt.getAttribute("delay");
+	  var w=elt.getAttribute("warning");
+	  
+	  if (w != '') alert(w);
+	  if (code != 'OK') {
+	    alert('code not OK\n'+req.responseText);
+	    return false;
+	  }	
+	  return true;
+	}
+      }
+      else {
+	alert('no xml\n'+r.responseText);
+      } 
+    }    
+  }  	
+  return false;  
 }
 
 function pleaseSave(event) {

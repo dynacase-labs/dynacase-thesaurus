@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.36 2006/09/14 15:29:44 eric Exp $
+// $Id: FDL.app,v 1.37 2006/10/04 09:25:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -213,7 +213,7 @@ $action_desc = array (
    "name"		=>"UNLOCKFILE",
    "short_name"		=>N_("unlock file to discard edit"),
    "acl"		=>"EDIT",
-   "layout"		=>"close.xml"
+   "layout"		=>"unlockfile.xml"
   ) ,
 
   array( 

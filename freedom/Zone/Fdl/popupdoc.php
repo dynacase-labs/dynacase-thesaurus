@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.14 2006/09/11 14:45:07 eric Exp $
+ * @version $Id: popupdoc.php,v 1.15 2006/10/04 09:25:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,7 +47,8 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
 
       if (! isset($v["jsfunction"])) $v["jsfunction"]="";
       if (! isset($v["barmenu"])) $v["barmenu"]="";
-      if (! isset($v["url"])) $v["url"]="";
+      if (! isset($v["url"])) $v["url"]="";        
+      else $v["url"]=utf8_encode($v["url"]);
       if (! isset($v["separator"])) $v["separator"]=false;
       if ((!isset($v["idlink"])) || ($v["idlink"]=="")) $v["idlink"]=$k;
       if ((!isset($v["target"])) || ($v["target"]=="")) $v["target"]=$k;

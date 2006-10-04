@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: unlockfile.php,v 1.8 2006/09/15 15:45:17 eric Exp $
+ * @version $Id: unlockfile.php,v 1.9 2006/10/04 09:25:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.8 2006/09/15 15:45:17 eric Exp $
+// $Id: unlockfile.php,v 1.9 2006/10/04 09:25:50 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -60,7 +60,11 @@ function unlockfile(&$action)
   
   $action->AddActionDone("UNLOCKFILE",$doc->id);
     
-  if (! $autoclose)  redirect($action,"FDL","FDL_CARD&zone=$rzone&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  if ($autoclose) {    
+    header('Content-type: text/xml; charset=utf-8');
+  } else {
+    redirect($action,"FDL","FDL_CARD&zone=$rzone&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  }
   
 }
 
