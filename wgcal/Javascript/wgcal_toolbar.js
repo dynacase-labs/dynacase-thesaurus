@@ -3,6 +3,7 @@ var curRessource = -1;
 function pickColor(color) {
   if (curRessource!=-1) {
     globalcursor('progress'); 
+    if (curRessource==calCurrentEdit.id) calCurrentEdit.color = color;
     fcalSetRessourceColor(curRessource, color);
     document.getElementById('cp'+curRessource).style.background = color;
     unglobalcursor();  

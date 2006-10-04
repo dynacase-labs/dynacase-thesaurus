@@ -661,7 +661,7 @@ function RendezVousEdit() {
 
   if ($this->isAffected()) 
     {
-      setHttpVar("HUL", "if (! document.isCancelled) autoUnlock('".$this->id."');closechoose();");
+      setHttpVar("HUL", "autoUnlock('".$this->id."');");
       setHttpVar("HBUL", "if (!DocumentSaved) return closeMsg;");
 
       $eventid = $this->id;

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.97 2006/08/11 11:35:55 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.98 2006/10/04 13:13:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -95,7 +95,7 @@ function wgcal_calendar(&$action) {
   // Display results ------------------------------------------------------------------------------------
   $action->lay->set("sm", $sm);
   $action->lay->set("vm", $vm);
-  $action->lay->set("ts", $ts);
+  $action->lay->set("ts", ($sm==1?$stdate:0));
   $action->lay->set("ress", $ress);
 
   // Init slidder

@@ -83,9 +83,19 @@ function SetCurrentEvent(id, cd) {
 }
   
 
+function winToolbar() {
+  if (parent.wgcal_toolbar) return parent.wgcal_toolbar;
+  if (window.opener.parent.wgcal_toolbar)  return window.opener.parent.wgcal_toolbar;
+  alert('winToolbar(): Fatal error. wgcal_toolbar not found');
+  return null;
+}
+
 
 // --------------------------------------------------------
 function ClickCalendarCell(event, nh,times,timee) {
+  var rcol = '';
+  var wt = winToolbar();
+  rcol = wt.calCurrentEdit.color;
   var evt = (evt) ? evt : ((event) ? event : null );
   closeMenu('calpopup');
   if (!evt.ctrlKey) {
@@ -94,7 +104,7 @@ function ClickCalendarCell(event, nh,times,timee) {
 		      title:'', hmode:nh, start:times, end:timee, 
 		      category:0, note:'', location:'', 
 		      confidentiality:eltId('defvis').value, 
-		      rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null };
+		      rcolor:rcol, eventjs:null };
    fastEditInit(event, true);
   }
   if (evt.ctrlKey) {
@@ -340,7 +350,7 @@ function fcalGetAllEvents(ress) {
   if (window.XMLHttpRequest) xreq = new XMLHttpRequest();
   else xreq = new ActiveXObject("Microsoft.XMLHTTP");
   if (xreq) {
-    xreq.open("POST", "[CORE_STANDURL]app=WGCAL&action=WGCAL_GETJSEVENT&ress="+ress, false);
+    xreq.open("POST", "[CORE_STANDURL]app=WGCAL&action=WGCAL_GETJSEVENT&ts="+CurrentTime+"&ress="+ress, false);
     xreq.send('');
     if (xreq.status!=200) {
       alert('[TEXT:agenda, error getting events] (HTTP Code '+xreq.status+')');	   
@@ -928,7 +938,10 @@ function fcalDeleteEventOcc(event,idp,occ) {
 
 function fcalSetEventState(event,idp,state,reloadcal) {
   var owner = 0;
-  if (inCalendar) owner = parent.wgcal_toolbar.calCurrentEdit.id;
+  if (inCalendar) { 
+    var wt = winToolbar();
+    owner = wt.calCurrentEdit.id;
+  }
 
   var url = UrlRoot+'&app=WGCAL&action=WGCAL_SETEVENTSTATE&id='+idp+'&ow='+owner+'&st='+state;
   fcalSendRequest(url, false, false, true);
@@ -955,10 +968,11 @@ function fastEditOpenFullEdit(ev) {
 
 var EventInEdition;
 function fastEditReset() {
+  var wt = winToolbar();
   EventInEdition = { rg:-1, id:0, idp:0, idowner:-1, titleowner:'',
 			      title:'', hmode:0, start:0, end:0, 
 			      category:0, note:'', location:'', 
-			      confidentiality:eltId('defvis').value, rcolor:parent.wgcal_toolbar.calCurrentEdit.color, eventjs:null};
+			      confidentiality:eltId('defvis').value, rcolor:wt.calCurrentEdit.color, eventjs:null};
   eltId('fe_title').value ='';
   eltId('fe_location').value ='';
   eltId('fe_note').value = '';
@@ -1054,7 +1068,8 @@ function fastEditCheckConflict(ev) {
       ress += (ress==''?'':'|')+EventInEdition.eventjs.calev_attid[io];
     }
   } else {
-    ress = parent.wgcal_toolbar.calCurrentEdit.id;
+    var wt = winToolbar();
+    ress = wt.calCurrentEdit.id;
   }
   
   var ts = parseInt(eltId('s_start').value) + 60;
@@ -1089,8 +1104,9 @@ function fcalFastEditEvent(ev, ie) {
 
     // compute owner color
     var rcol = '';
-    for (var ir=0; ir<parent.wgcal_toolbar.calRessources.length && rcol=='' ; ir++) {
-      if (parent.wgcal_toolbar.calRessources[ir].id==dv.calev_ownerid) rcol = parent.wgcal_toolbar.calRessources[ir].color;
+    var wt = winToolbar();
+    for (var ir=0; ir<wt.calRessources.length && rcol=='' ; ir++) {
+      if (wt.calRessources[ir].id==dv.calev_ownerid) rcol = wt.calRessources[ir].color;
     }
     rcol = (rcol==''?'white':rcol);
        
@@ -1113,9 +1129,10 @@ function fastEditInit(ev, init) {
 
 
   if (EventInEdition.idowner==-1) {
-    EventInEdition.idowner = parent.wgcal_toolbar.calCurrentEdit.id;
-    EventInEdition.titleowner = parent.wgcal_toolbar.calCurrentEdit.title;
-    EventInEdition.rcolor = parent.wgcal_toolbar.calCurrentEdit.color;
+    var wt = winToolbar();
+    EventInEdition.idowner = wt.calCurrentEdit.id;
+    EventInEdition.titleowner = wt.calCurrentEdit.title;
+    EventInEdition.rcolor = wt.calCurrentEdit.color;
   }    
   
   fcalInitDatesTimes(EventInEdition.hmode, 

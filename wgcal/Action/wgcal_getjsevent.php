@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_getjsevent.php,v 1.1 2006/07/07 15:32:10 marc Exp $
+ * @version $Id: wgcal_getjsevent.php,v 1.2 2006/10/04 13:13:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -23,8 +23,11 @@ function wgcal_getjsevent(&$action) {
 
   // Search event
 
+  $ts = GetHttpVars("ts", 0);
+  if ($ts<=0) $startDdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
+  else $startDdate = $ts;
+
   $showWeekEnd = ($action->GetParam("WGCAL_U_VIEWWEEKEND", "yes")=="yes" ? true : false);
-  $startDdate = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
   $firstWeekDay = w_GetFirstDayOfWeek($startDdate);
   $edate = $firstWeekDay + ($dayperweek * SEC_PER_DAY) - 1;

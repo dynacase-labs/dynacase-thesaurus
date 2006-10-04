@@ -134,7 +134,7 @@
      inCalendar = true;
 
 var DynView = true;
-var CurrentTime = -1;
+var CurrentTime = [ts];
 var Days = new Array();
 [BLOCK DAYS]
 Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], isWE:[iswe], cpos:0, ev:[] };[ENDBLOCK DAYS]
