@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.118 2006/08/15 13:56:10 eric Exp $
+ * @version $Id: import_file.php,v 1.119 2006/10/05 09:02:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -955,6 +955,7 @@ function seemsODS($filename) {
   if (preg_match('/\.ods$/',$filename)) return true;
   $sys = trim(`file -bi "$filename"`);
   if ($sys=="application/x-zip") return true;
+  if ($sys=="application/vnd.oasis.opendocument.spreadsheet") return true;
   return false;
 }
 
