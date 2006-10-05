@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.40 2006/10/03 08:30:06 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.41 2006/10/05 09:03:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -240,6 +240,16 @@ function PostDelete() {
                                                                                     
                                                                                       
 
+/**
+ * Do not call ::setGroup if its import 
+ * called only in initialisation
+ */
+function preImport() {
+  if ($this->id > 0) {
+    global $_POST;
+    $_POST["gidnew"]="N";
+  }
+}
                                                                                       
 function ConstraintPassword($pwd1,$pwd2,$login) {
   $sug=array();
