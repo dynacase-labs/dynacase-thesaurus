@@ -60,6 +60,12 @@ function viewfirst() {
       }
     }
   }
+
+  var fo=document.modpref;
+  if (window.opener) {
+    fo.target=window.opener.name;
+  }
+
 }
 function clearfirst() {
   document.getElementById('preffirstfam').value=''; 

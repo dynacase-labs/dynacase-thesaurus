@@ -1,21 +1,125 @@
+
 <html>
-<head>
+  <head>
 
-<title>FREEDOM - [Title]</title>
+   <title>FREEDOM - [APP_TITLE]</title>
+<link rel="icon" href="FDL/Images/logo16.ico">
 <link rel="shortcut icon" href="FDL/Images/logo16.ico">
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
+<LINK REL="stylesheet" type="text/css" HREF="[CORE_SSTANDURL]app=FDL&action=FDL_CSS" >
 
-</head>
+[CSS:REF]
+[JS:REF]
 
-<frameset frameborder="1" framespacing="3" border="3" cols="[wcols]px,*" >
+
+   <style type="text/css">
+[CSS:CODE]
+.ifonefam {
+  width:100%;
+  height:100%;
+  border:none;
+}
+   </style>
+
+   <script language="javascript">
+function imgborder() {
+  for (var i=0; i< document.images.length; i++) {
+    document.images[i].style.borderStyle='inset';
+  }
+}
+var selimg=null;
+function openiframe(event,th,docid) {
+  var wfgtop;
+  if (selimg != null) {
+    selimg.className='iconone';
+    selimg.style.width=[izpx];
+    selimg.style.borderLeftStyle='solid';
+    selimg.style.borderLeftColor='[COLOR_C5]';
+    selimg.style.borderLeftWidth='2px';
+  }
+  if (th) { th.className='icononesel';
+    selimg=th;
+    selimg.style.width=[izpx]-4;
+  }
+
+  var idf='if_'+docid;
+  var nf;
+  var lif=document.getElementsByTagName('iframe');
+  for (var i=0;i<lif.length;i++) {
+    lif[i].style.display='none';
+  }
+  nf=document.getElementById(idf);
+  if (nf) {
+    nf.style.display='';
+  } else {
+    var tdi=document.getElementById('tdiframe');
+     nf=document.createElement('iframe');
+     nf.id=idf;
+     nf.className='ifonefam';
+     nf.src='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_GENROOT&famid='+docid;
+     tdi.appendChild(nf); 
+  }
 
 
-  <frame name="famlist" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LIST" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+}
+function openfirst(docid) {
+  var i=document.getElementById('imgu'+docid);
+
+  if (!i) i=document.getElementById('imgm'+docid);
+  if (i) {
+    i.onclick.apply(i,[]);
+  } else {
+    openiframe(null,null,docid)
+  }
+}
 [IF OPENFAM]
-<frame name="faminfo" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_TOGEN&famid=[openfam]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+addEvent(window,'load',function zou() {openfirst('[openfam]');})
 [ENDIF OPENFAM]
-[IFNOT OPENFAM] 
-  <frame name="faminfo" src="[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_LOGO" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
-[ENDIF OPENFAM]
+   </script>
 
-</frameset>
+ </head>
+
+<body >
+
+<table style="width:100%;height:100%"><tr><td style="width:[wcols]px" valign="top">
+[BLOCK SELECTMASTER]
+<img style="width:[izpx]"
+     src="[iconsrc]"  
+     onclick="openiframe(event,this,'[idcdoc]');"
+     onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
+     onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
+     class="iconone"
+     id="imgm[idcdoc]"
+     alt="[ftitle]"
+     title="[ftitle]">
+[ENDBLOCK SELECTMASTER]
+
+[BLOCK CHOOSEMASTERFAMILIES]
+<BR style="clear:both">
+<input style="float:left;width:[izpx]px"  type="button" value="+" 
+       title="[TEXT:master choose families]" 
+       onclick="subwindow(250,350,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITMASTERPREF')">
+[ENDBLOCK CHOOSEMASTERFAMILIES]
+[BLOCK SEPARATOR]
+<HR style="float:left;clear:both" width="100%">
+[ENDBLOCK SEPARATOR]
+[BLOCK SELECTUSER]
+<img style="width:[izpx]"
+     src="[iconsrc]"  
+     id="imgu[idcdoc]"
+     onclick="openiframe(event,this,'[idcdoc]');"
+     onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
+     onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
+     class="iconone"
+     alt="[ftitle]"
+     title="[ftitle]">
+[ENDBLOCK SELECTUSER]
+<BR style="clear:both">
+[BLOCK CHOOSEUSERFAMILIES]
+<input style="float:left;width:[izpx]px" type="button" value="+" 
+       title="[TEXT:choose user families]" 
+       onclick="subwindow(250,350,'onepref','[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_EDITPREF')">
+[ENDBLOCK CHOOSEUSERFAMILIES]
+</td><td id="tdiframe"></td></tr></table>
+</body>
 </html>

@@ -3,7 +3,7 @@
  * validate user or master choosen families
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_modpref.php,v 1.7 2005/10/31 13:07:14 eric Exp $
+ * @version $Id: onefam_modpref.php,v 1.8 2006/10/05 09:22:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ function onefam_modpref(&$action,$idsattr="ONEFAM_IDS")
     $action->parent->param->Set("ONEFAM_FAMOPEN",$openfam,PARAM_APP,$action->parent->id);
   }
       
-  redirect($action,GetHttpVars("app"),"ONEFAM_LIST");
+  redirect($action,GetHttpVars("app"),"ONEFAM_ROOT");
   
 }
 function onefam_modmasterpref(&$action) {
