@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.336 2006/10/03 08:30:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.337 2006/10/06 15:29:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -79,11 +79,11 @@ Class Doc extends DocCtrl
 			   "atags",
 			   "prelid",
 			   "confidential",
-			   "ldapdn");
+			   "ldapdn",
+			   "fldrels");
 
   public $sup_fields= array("values",
-			   "attrids",
-			   "fldrels");
+			   "attrids");
 
   /**
    * identificator of the document
@@ -1300,6 +1300,9 @@ final public function PostInsert()  {
       }
       return $tsa;      
     }
+
+
+
   /**
    * return action attributes  
    * 
@@ -1416,6 +1419,25 @@ final public function PostInsert()  {
       return $tsa;      
     }
 
+
+  /**
+   * return files properties of file attributes
+   * 
+   * @return array 
+   */
+  final public function GetFilesProperties() {      
+    $dvi = new DocVaultIndex($this->dbaccess);
+    $tvid=$dvi->getVaultIds($this->id);
+    $tinfo=array();
+    $vf = newFreeVaultFile($this->dbaccess);
+    foreach ($tvid as $vid) {
+      $err=$vf->Retrieve($vid, $info);
+      if ($err=="") $tinfo[]=get_object_vars($info);
+    }
+
+    return $tinfo;
+  }
+  
   /** return all the attributes object for popup menu
    * the attribute can be defined in fathers
    * @return array DocAttribute
@@ -2239,6 +2261,7 @@ final public function PostInsert()  {
 
     $err=$this->modify(); // need to applicate SQL triggers
        
+    $this->UpdateVaultIndex();
     if ($allocated > 0)	 $this->refreshUTags();
     return $err;
     
