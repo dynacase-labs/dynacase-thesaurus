@@ -4,7 +4,7 @@
  * for files attached to a Freedom document
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocVaultIndex.php,v 1.5 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.DocVaultIndex.php,v 1.6 2006/10/06 15:29:54 eric Exp $
  * @license http://license.i-cesam.com/license.php
  * @package FREEDOM
  */
@@ -32,13 +32,34 @@ create table docvaultindex ( docid  int not null,
                    ); 
 create unique index idx_docvaultindex on docvaultindex (docid, vaultid);";
 
-  // --------------------------------------------------------------------
-  function GetDocId($vid) {
+  /**
+   * return doc id from a vault file 
+   * @param id $vid vault id
+   */
+  function getDocId($vid) {
     $t = array();
     $query = new QueryDb($this->dbaccess, "DocVaultIndex");
     $query->basic_elem->sup_where=array ("vaultid = $vid");
     $t = $query->Query();
     return $t;
+  } 
+  /**
+   * return vault ids for a document
+   * @param id $docid document id
+   * @return array
+   */
+  function getVaultIds($docid) {
+    $t = array();
+    $query = new QueryDb($this->dbaccess, "DocVaultIndex");
+    $query->AddQuery("docid = $docid");
+    $t = $query->Query(0,0,"TABLE");
+    $tvid=array();
+    if (is_array($t)) {
+      foreach ($t as $tv) {
+	$tvid[]=$tv["vaultid"];
+      }
+    }
+    return $tvid;
   }
 
   function DeleteDoc($docid) {
