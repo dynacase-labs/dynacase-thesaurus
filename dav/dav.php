@@ -1,6 +1,6 @@
 <?php
 ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear");
-include_once("HTTP/WebDAV/Server/Freedomsystem.php");
+include_once("DAV/Class.Dav.php");
 
 $s=new HTTP_WebDAV_Server_Filesystem();
 
