@@ -145,11 +145,8 @@
 
         function readfolder($fspath,$onlyfld=false) {
             include_once("FDL/Lib.Dir.php");
-            global $action;
 
             $files=array();
-            $action->user=new stdClass();
-            $action->user->id=1;
             $fldid=$this->path2id($fspath);
            
             $fld=new_doc($this->dbaccess,$fldid);
@@ -257,10 +254,11 @@
 	    foreach ($afiles as $afile) {
 	      $info = array();   
 	      $info["props"][] = $this->mkprop("resourcetype", "");
-	      if ((!$firstlevel ) || ($afile["name"] == $bpath)) {
-		$info["props"][] = $this->mkprop("displayname", "/".utf8_encode($afile["name"]));
-		if ($firstlevel) $info["path"]  = $dpath.utf8_encode($afile["name"]);
-		else $info["path"]  = $path.utf8_encode($afile["name"]);
+	      $aname=utf8_encode($afile["name"]);
+	      if ((!$firstlevel ) || ($aname == $bpath)) {
+		$info["props"][] = $this->mkprop("displayname", "/".$aname);
+		if ($firstlevel) $info["path"]  = $dpath.$aname;
+		else $info["path"]  = $path.$aname;
 		$filename=$afile["path"];
 		$info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
 		$info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
@@ -516,55 +514,62 @@
         function PUT(&$options)  {
 	  error_log("========>PUT :".$options["path"]);
 	  include_once("FDL/Class.Doc.php");
-	  $fspath = false;
+
+	  $bpath=basename($options["path"]);
 	  $fldid=$this->path2id($options["path"]);
 
-	  $doc=new_doc($this->dbaccess,$fldid);
-	  $afiles=$doc->GetFilesProperties();  
-	  $bpath=basename($options["path"]);
-	  error_log("PUT SEARCH #FILES:".count($afiles));
-	  foreach ($afiles as $afile) {
-	    $path=utf8_encode($afile["name"]);
-	    error_log("PUT SEARCH:".$bpath.'->'.$path);
-	    if ($path == $bpath) {
-	      error_log("PUT FOUND:".$path.'-'.$afile["path"]);
-	      $fspath=$afile["path"];
-		
-	    }
-	  }
+	  if ($fldid) {
+	    $stat ="204 No Content";
+	    $options["new"] = false;
+	    $doc=new_doc($this->dbaccess,$fldid);
+	    $afiles=$doc->GetFileAttributes();  
+	    error_log("PUT SEARCH #FILES:".count($afiles));
+	    foreach ($afiles as $afile) {
+	      $fname=utf8_encode($doc->vault_filename($afile->id));
 
-	  $options["new"] = ! file_exists($fspath);
-	    
-	  if ($options["new"]) {
-	    $dir=dirname($options["path"]);
-	    error_log("PUT NEW FILE IN:".$dir);
-	    $ndoc=createDoc($this->dbaccess,"FILE");
-	    if ($ndoc) {
-	      $fa=$ndoc->GetFirstFileAttributes();
-	      $ndoc->SetTextValueInFile($fa->id, "--" ,basename($options["path"]));
-	      $err=$ndoc->Add();
-	      error_log("PUT NEW FILE:".$ndoc->id);
-	      if ($err=="") {
-		$afiles=$ndoc->GetFilesProperties();  
-		$bpath=basename($options["path"]);
-		error_log("PUT SEARCH2 #FILES:".count($afiles));
-		foreach ($afiles as $afile) {
-		  $path=utf8_encode($afile["name"]);
-		  error_log("PUT SEARCH2:".$bpath.'->'.$path);
-		  if ($path == $bpath) {
-		    error_log("PUT FOUND2:".$path.'-'.$afile["path"]);
-		    $fspath=$afile["path"];
-		  }		
-		}
+	      error_log("PUT SEARCH:".$bpath);
+	      if ($fname == $bpath) {
+		error_log("PUT FOUND:".$path.'-'.$fname);
+	      
+		$bpath=utf8_decode($bpath);
+		$doc->saveFile($afile->id,$options["stream"],$bpath);
+		$err=$doc->postModify();
+		$err=$doc->Modify();
+
+		break;
 	      }
 	    }
+	  } else {
+	    $options["new"] = true;
+	    $stat = "201 Created";
+	    if ($options["new"]) {
+	      $dir=dirname($options["path"]);
+	      error_log("PUT NEW FILE IN:".$dir);
+	      $ndoc=createDoc($this->dbaccess,"SIMPLEFILE");
+	      if ($ndoc) {
+		$fa=$ndoc->GetFirstFileAttributes();
+		$bpath=utf8_decode($bpath);
+		$ndoc->saveFile($fa->id, $options["stream"] ,$bpath);
+		//		$ndoc->setTitle($bpath);
+		$err=$ndoc->Add();
+		$err=$ndoc->postModify();
+		$err=$ndoc->Modify();
+		error_log("PUT NEW FILE:".$fa->id."-".$ndoc->id);
+		if ($err=="") {
+		  $fldid=$this->path2id($dir);
+		  $fld=new_doc($this->dbaccess,$fldid);
+		  $err=$fld->addFile($ndoc->initid);
+		  error_log("PUT ADD IN FOLDER:".$err.$fld->id."UID:".($fld->userid));
+		  $this->readfolder($dir);
+		}
+	      }
 
+	    }
 	  }
-	    
 
-	  $fp = fopen($fspath, "w");
 
-	  return $fp;
+
+	  return $stat;
         }
 
 

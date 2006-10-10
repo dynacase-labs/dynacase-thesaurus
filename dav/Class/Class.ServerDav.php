@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.1 2006/10/06 15:30:12 eric Exp $
+// $Id: Class.ServerDav.php,v 1.2 2006/10/10 15:20:07 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -658,6 +658,7 @@ class HTTP_WebDAV_Server
         
                         print "  <D:href>".$this->_urlencode($path)."</D:href>\n";
 
+						//error_log("HREF:".$this->_urlencode($path));
             // report all found properties and their values (if any)
             if (isset($file["props"]) && is_array($file["props"])) {
                 print "   <D:propstat>\n";
@@ -1302,6 +1303,7 @@ class HTTP_WebDAV_Server
 
             // refresh lock
             $options["update"] = substr($_SERVER['HTTP_IF'], 2, -2);
+			$options["locktoken"] = $options["update"];
             $stat = $this->LOCK($options);
         } else { 
             // extract lock request information from request XML payload

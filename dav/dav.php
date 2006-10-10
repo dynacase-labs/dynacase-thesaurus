@@ -1,10 +1,13 @@
 <?php
 ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear");
+$d1=microtime();
 include_once("DAV/Class.Dav.php");
 
+define("UPDTCOLOR",'[1;32;40m');
+define("STOPCOLOR",'[0m');
 $s=new HTTP_WebDAV_Server_Filesystem();
 
-//error_log("dav: method=(".$_SERVER['REQUEST_METHOD'].")");
+error_log("====== ".$_SERVER['REQUEST_METHOD']." ========");
 //error_log("dav:   filename=(".$_GET['filename'].")");
 
 //error_log("dav:   path_info=(".$_SERVER["PATH_INFO"].")");
@@ -15,7 +18,29 @@ $_SERVER['PATH_INFO'] = "/".$_GET['filename'];
 #$_SERVER['REQUEST_URI'] = "/".$_GET['filename'];
 #error_log("dav:     `-> request_uri=(".$_SERVER['REQUEST_URI'].")");
 
-$s->ServeRequest("/var/www/html/");
+global $action;
+whatInit();
 
+$d2=microtime();
+
+$dt=microtime_diff($d1,$d2);
+$s->ServeRequest("/var/www/html/");
+$d2=microtime();
+$d=microtime_diff($d1,$d2);
+error_log("================ $d $dt========================");
+function whatInit() {
+  global $action;
+include_once('Class.User.php');
+ include_once('Class.Session.php');
+
+    $CoreNull="";
+    $core = new Application();
+    $core->Set("CORE",$CoreNull);
+    $core->session=new Session();
+    $action=new Action();
+    $action->Set("",$core);
+    $action->user=new User(); //create user as admin
+    $action->user->setLoginName("admin");
+}
 
 ?>
