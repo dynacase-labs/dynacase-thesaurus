@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.337 2006/10/06 15:29:11 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.338 2006/10/10 15:21:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -424,6 +424,7 @@ final public function PostInsert()  {
 	if ($this->dprofid >0) {
 	  $this->setProfil($this->dprofid);// recompute profil if needed
 	}
+	$this->UpdateVaultIndex();
       }
     }  
 
@@ -1867,6 +1868,77 @@ final public function PostInsert()  {
       }
       if ($nc>0) unlink($filename);	     
     } 	
+    return $err;
+  } 
+
+  /**
+   * save stream file in an file attribute
+   *
+   * replace a new file in Vault to replace old file
+   * @param string $idAttr identificator of file attribute 
+   * @param stream $stream file resource from fopen
+   * @return string error message, if no error empty string
+   */
+  final public function saveFile($attrid, $stream,$ftitle="") {   
+    if (is_resource($stream) && get_resource_type($stream) == "stream") {
+
+
+    $a=$this->getAttribute($attrid);     
+    if ($a->type == "file") {
+      $err="file conversion";
+      $vf = newFreeVaultFile($this->dbaccess);
+      $fvalue=$this->getValue($attrid);
+      $basename="";
+      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+	$vaultid= $reg[2];
+	$mimetype=$reg[1];
+	
+	$err=$vf->Retrieve($vaultid, $info);
+
+	if ($err == "") {
+	  $basename=$info->name;
+	}
+      }
+      if ($ftitle) {
+	$path_parts = pathinfo($ftitle);
+	$ext=$path_parts['extension'];
+      } else {
+	$ext="nop";
+      }
+      $filename=uniqid("/tmp/_fdl").".$ext";
+      $tmpstream=fopen($filename,"w");
+      while (!feof($stream)) {
+	if (false === fwrite($tmpstream, fread($stream, 4096))) {
+	  $err = "403 Forbidden"; 
+	  break;
+	}
+      }
+      fclose($tmpstream);
+      if ($basename) {
+	$err=$vf->Save($filename, false , $vaultid);
+      } else {
+	$err=$vf->Store($filename, false , $vaultid);
+	error_log("FDL STORE :".$filename."-".$vaultid);
+	
+      }
+      if ($ftitle != "") {
+	  $vf->Rename($ftitle);
+      } else {
+	if ($basename!="") { // keep same file name
+	  $vf->Rename($basename);
+	}
+      }
+      if ($err == "") {
+	$mime=trim(`file -ib $filename`);
+	$value="$mime|$vaultid";
+	$err=$this->setValue($attrid,$value);
+	error_log("FDL STORE :".$attrid."-".$value);
+	//$err="file conversion $mime|$vid";
+      }
+      unlink($tmpstream);
+      $this->AddComment(sprintf(_("modify file %s"),$ftitle));
+    } 	
+    }
     return $err;
   }
 
