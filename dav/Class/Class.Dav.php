@@ -114,7 +114,7 @@
             // get absolute fs path to requested resource
             $fspath =  $options["path"];
             
-            error_log ( "PROPFIND :".$options["path"] );
+            error_log ( "===========>PROPFIND :".$options["path"] );
 
            
             // prepare property array
@@ -153,8 +153,9 @@
             $fldid=$this->path2id($fspath);
            
             $fld=new_doc($this->dbaccess,$fldid);
-	    error_log("READFOLDER FIRST:".dirname($fspath).$fld->title);
-            $files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)));
+	    error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
+            //$files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)),true);
+            $files=$this->docpropinfo($fld,$this->_slashify(($fspath)),true);
 
             if (! $onlyfld) {
 	      /*
@@ -166,9 +167,10 @@
 		$files=array_merge($files,$this->docpropinfo($doc,$fspath));
                 }*/
 	      $tdoc=getFldDoc($this->dbaccess, $fld->initid,array(),-1);
+	      error_log("READFOLDER examine :".count($tdoc));
 	      foreach ($tdoc as $k=>$v) {
 		$doc=getDocObject($this->dbaccess,$v);
-		$files=array_merge($files,$this->docpropinfo($doc,$fspath));
+		$files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
 		
 		
 	      }
@@ -180,13 +182,13 @@
 
 
         function path2id($fspath) {
-	  error_log("FSPATH :".$fspath);
+	  //error_log("FSPATH :".$fspath);
 	  if ($fspath=='/')     return $this->racine;
 
 	  $fspath=$this->_unslashify($fspath);
 
-	  $query = "SELECT  value FROM properties WHERE path = '$fspath'";	    
-	  error_log("PATH2ID:".$query);
+	  $query = "SELECT  value FROM properties WHERE name='fid' and path = '".mysql_escape_string($fspath)."'";
+	  //error_log("PATH2ID:".$query);
        
 	  $res = mysql_query($query);
 	  while ($row = mysql_fetch_assoc($res)) {
@@ -197,7 +199,7 @@
 	  return $fid;
         } 
 
-        function docpropinfo(&$doc,$path) 
+        function docpropinfo(&$doc,$path,$firstlevel) 
         {
 	  // map URI path to filesystem path
 	  $fspath = $this->base . $path;
@@ -223,10 +225,12 @@
 	    $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
 	    $info["props"][] = $this->mkprop("displayname", "/".utf8_encode($doc->title));
 	    $path=$this->_slashify($path);
-	    $info["path"]  = $path.utf8_encode($doc->title);
+	    if ($firstlevel) $info["path"]  = $path;
+	    else $info["path"]  = $path.utf8_encode($doc->title);
+	    //$info["path"]  = $path;
 	    $info["props"][] = $this->mkprop("creationdate",   $doc->revdate );
 	    $info["props"][] = $this->mkprop("getlastmodified", $doc->revdate);
-	      error_log("FOLDER:".$doc->title);
+	    error_log("FOLDER:".$path.":".$doc->title);
             // get additional properties from database
             $query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
             $res = mysql_query($query);
@@ -235,89 +239,54 @@
             }
             mysql_free_result($res);
 	    $tinfo[]=$info;
-	      $query = "REPLACE INTO properties SET path = '$info[path]', name = 'fid', ns= '$prop[ns]', value = '".$doc->initid."'";
-	      mysql_query($query);
+	    $query = "REPLACE INTO properties SET path = '".mysql_escape_string($info["path"])."', name = 'fid', ns= '$prop[ns]', value = '".$doc->initid."'";
+	    mysql_query($query);	    
 	  } else {
 	    // simple document : search attached files     
   
 	    // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
 	    $afiles=$doc->GetFilesProperties();
-	    foreach ($afiles as $afile) {	
+	    error_log("READFILES examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
+	    $bpath=basename($path);
+	    $dpath=$this->_slashify(dirname($path));
+	    
+	    error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
+	    
+
+	    $path=$this->_slashify($path);
+	    foreach ($afiles as $afile) {
 	      $info = array();   
 	      $info["props"][] = $this->mkprop("resourcetype", "");
-	      error_log("FILE:".$afile["name"]."-".$afile["size"]);
-	      $info["props"][] = $this->mkprop("displayname", "/".utf8_encode($afile["name"]));
-	      $info["path"]  = "/".utf8_encode($afile["name"]);
-	      $filename=$afile["path"];
-	      $info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
-	      $info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
-	      $info["props"][] = $this->mkprop("getcontenttype", trim(`file -ib $filename`));  
-	      $info["props"][] = $this->mkprop("getcontentlength",intval($afile["size"] ));
-	      // get additional properties from database
-	      $query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
-	      $res = mysql_query($query);
-	      while ($row = mysql_fetch_assoc($res)) {
-                $info["props"][] = $this->mkprop($row["ns"], $row["name"], $row["value"]);
+	      if ((!$firstlevel ) || ($afile["name"] == $bpath)) {
+		$info["props"][] = $this->mkprop("displayname", "/".utf8_encode($afile["name"]));
+		if ($firstlevel) $info["path"]  = $dpath.utf8_encode($afile["name"]);
+		else $info["path"]  = $path.utf8_encode($afile["name"]);
+		$filename=$afile["path"];
+		$info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
+		$info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
+		$info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($filename));
+		$info["props"][] = $this->mkprop("getcontentlength",intval($afile["size"] ));
+		// get additional properties from database
+		$query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
+		$res = mysql_query($query);
+		while ($row = mysql_fetch_assoc($res)) {
+		  $info["props"][] = $this->mkprop($row["ns"], $row["name"], $row["value"]);
+		}
+		mysql_free_result($res);
+		$tinfo[]=$info;
+		$query = "REPLACE INTO properties SET path = '".mysql_escape_string($info["path"])."', name = 'fid', ns= '$prop[ns]', value = '".$doc->id."'";
+	       
+		mysql_query($query);
+		error_log("FILE:".$afile["name"]."-".$afile["size"]."-".$path);
 	      }
-	      mysql_free_result($res);
-	      $tinfo[]=$info;
-	      $query = "REPLACE INTO properties SET path = '$info[path]', name = 'fid', ns= '$prop[ns]', value = '".$doc->initid."'";
-	      mysql_query($query);
+	      //error_log("PROP:".$query);
 	    }
 	  }
 
 	  return $tinfo;
         }
-        /**
-         * Get properties for a single file/resource
-         *
-         * @param  string  resource path
-         * @return array   resource properties
-         */
-        function fileinfo($path) 
-        {
-            // map URI path to filesystem path
-            $fspath = $this->base . $path;
-
-            // create result array
-            $info = array();
-            // TODO remove slash append code when base clase is able to do it itself
-            $info["path"]  = is_dir($fspath) ? $this->_slashify($path) : $path; 
-            $info["props"] = array();
-            
-            // no special beautified displayname here ...
-            $info["props"][] = $this->mkprop("displayname", strtoupper($path));
-            
-            // creation and modification time
-            $info["props"][] = $this->mkprop("creationdate",    filectime($fspath));
-            $info["props"][] = $this->mkprop("getlastmodified", filemtime($fspath));
-
-            // type and size (caller already made sure that path exists)
-            if (is_dir($fspath)) {
-                // directory (WebDAV collection)
-                $info["props"][] = $this->mkprop("resourcetype", "collection");
-                $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
-            } else {
-                // plain file (WebDAV resource)
-                $info["props"][] = $this->mkprop("resourcetype", "");
-                if (is_readable($fspath)) {
-                    $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
-                } else {
-                    $info["props"][] = $this->mkprop("getcontenttype", "application/x-non-readable");
-                }               
-                $info["props"][] = $this->mkprop("getcontentlength", filesize($fspath));
-            }
-
-            // get additional properties from database
-            $query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
-            $res = mysql_query($query);
-            while ($row = mysql_fetch_assoc($res)) {
-                $info["props"][] = $this->mkprop($row["ns"], $row["name"], $row["value"]);
-            }
-            mysql_free_result($res);
-
-            return $info;
-        }
+      
+        
 
         /**
          * detect if a given program is found in the search PATH
@@ -371,6 +340,7 @@
          */
         function _mimetype($fspath) 
         {
+	  return trim(`file -ib $fspath`);
             if (@is_dir($fspath)) {
                 // directories are easy
                 return "httpd/unix-directory"; 
@@ -439,9 +409,25 @@
          */
         function GET(&$options) 
         {
+	    error_log("========>GET :".$options["path"]);
+            include_once("FDL/Class.Doc.php");
             // get absolute fs path to requested resource
             $fspath = $this->base . $options["path"];
 
+            $fldid=$this->path2id($options["path"]);
+            $doc=new_doc($this->dbaccess,$fldid);
+	    $afiles=$doc->GetFilesProperties();  
+	    $bpath=basename($options["path"]);
+	    error_log("GET SEARCH #FILES:".count($afiles));
+	    foreach ($afiles as $afile) {
+	      $path=utf8_encode($afile["name"]);
+		error_log("GET SEARCH:".$bpath.'->'.$path);
+	      if ($path == $bpath) {
+		error_log("GET FOUND:".$path.'-'.$afile["path"]);
+		$fspath=$afile["path"];
+		
+	      }
+	    }
             // sanity check
             if (!file_exists($fspath)) return false;
             
@@ -527,19 +513,58 @@
          * @param  array  parameter passing array
          * @return bool   true on success
          */
-        function PUT(&$options) 
-        {
-            $fspath = $this->base . $options["path"];
+        function PUT(&$options)  {
+	  error_log("========>PUT :".$options["path"]);
+	  include_once("FDL/Class.Doc.php");
+	  $fspath = false;
+	  $fldid=$this->path2id($options["path"]);
 
-            if (!@is_dir(dirname($fspath))) {
-                return "409 Conflict";
-            }
+	  $doc=new_doc($this->dbaccess,$fldid);
+	  $afiles=$doc->GetFilesProperties();  
+	  $bpath=basename($options["path"]);
+	  error_log("PUT SEARCH #FILES:".count($afiles));
+	  foreach ($afiles as $afile) {
+	    $path=utf8_encode($afile["name"]);
+	    error_log("PUT SEARCH:".$bpath.'->'.$path);
+	    if ($path == $bpath) {
+	      error_log("PUT FOUND:".$path.'-'.$afile["path"]);
+	      $fspath=$afile["path"];
+		
+	    }
+	  }
 
-            $options["new"] = ! file_exists($fspath);
+	  $options["new"] = ! file_exists($fspath);
+	    
+	  if ($options["new"]) {
+	    $dir=dirname($options["path"]);
+	    error_log("PUT NEW FILE IN:".$dir);
+	    $ndoc=createDoc($this->dbaccess,"FILE");
+	    if ($ndoc) {
+	      $fa=$ndoc->GetFirstFileAttributes();
+	      $ndoc->SetTextValueInFile($fa->id, "--" ,basename($options["path"]));
+	      $err=$ndoc->Add();
+	      error_log("PUT NEW FILE:".$ndoc->id);
+	      if ($err=="") {
+		$afiles=$ndoc->GetFilesProperties();  
+		$bpath=basename($options["path"]);
+		error_log("PUT SEARCH2 #FILES:".count($afiles));
+		foreach ($afiles as $afile) {
+		  $path=utf8_encode($afile["name"]);
+		  error_log("PUT SEARCH2:".$bpath.'->'.$path);
+		  if ($path == $bpath) {
+		    error_log("PUT FOUND2:".$path.'-'.$afile["path"]);
+		    $fspath=$afile["path"];
+		  }		
+		}
+	      }
+	    }
 
-            $fp = fopen($fspath, "w");
+	  }
+	    
 
-            return $fp;
+	  $fp = fopen($fspath, "w");
+
+	  return $fp;
         }
 
 
@@ -552,6 +577,7 @@
         function MKCOL($options) 
         {           
             $path = $this->base .$options["path"];
+            error_log ( "===========>MKCOL :".$options["path"] );
             $parent = dirname($path);
             $name = basename($path);
 
@@ -588,6 +614,7 @@
          */
         function DELETE($options) 
         {
+            error_log ( "===========>DELETE :".$options["path"] );
             $path = $this->base . "/" .$options["path"];
 
             if (!file_exists($path)) {
@@ -616,6 +643,7 @@
          */
         function MOVE($options) 
         {
+            error_log ( "===========>MOVE :".$options["path"] );
             return $this->COPY($options, true);
         }
 
@@ -627,6 +655,7 @@
          */
         function COPY($options, $del=false) 
         {
+            error_log ( "===========>COPY :".$options["path"] );
             // TODO Property updates still broken (Litmus should detect this?)
 
             if (!empty($_SERVER["CONTENT_LENGTH"])) { // no body parsing yet
@@ -744,6 +773,7 @@
         function PROPPATCH(&$options) 
         {
             global $prefs, $tab;
+            error_log ( "===========>PROPPATCH :".$options["path"] );
 
             $msg = "";
             
@@ -778,8 +808,9 @@
          */
         function LOCK(&$options) 
         {
+            error_log ( "===========>LOCK :".$options["path"] );
             if (isset($options["update"])) { // Lock Update
-                $query = "UPDATE locks SET expires = ".(time()+300);
+                $query = "UPDATE locks SET expires = ".(time()+300). "and token='".$options["update"]."'";
                 mysql_query($query);
                 
                 if (mysql_affected_rows()) {
@@ -812,6 +843,7 @@
          */
         function UNLOCK(&$options) 
         {
+            error_log ( "===========>UNLOCK :".$options["path"] );
             $query = "DELETE FROM locks
                       WHERE path = '$options[path]'
                         AND token = '$options[token]'";
