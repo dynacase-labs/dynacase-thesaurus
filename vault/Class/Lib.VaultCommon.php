@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.VaultCommon.php,v 1.5 2005/09/27 16:46:24 eric Exp $
+// $Id: Lib.VaultCommon.php,v 1.6 2006/10/13 13:44:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Lib.VaultCommon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -32,7 +32,7 @@ function fileextension($filename, $ext="nop") {
 
 // ---------------------------------------------------------
 function vaultfilename($fspath, $name, $id) {
-  return $fspath."/".$id.".".fileextension($name);
+  return str_replace('//','/',$fspath."/".$id.".".fileextension($name));
 }  
 
 

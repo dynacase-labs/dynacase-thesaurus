@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.11 2006/03/30 12:38:03 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.12 2006/10/13 13:44:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -152,43 +152,41 @@ function seems_utf8($Str) {
   }
 
   // --------------------------------------------------------------------
-  function Save($infile, $public_access, $idf, $pathname) {
+  function Save($infile, $public_access, $idf) {
   // -------------------------------------------------------------------- 
 
 
-    $vf = new VaultFile($dbaccess, "FREEDOM");
-    if ($vf -> Show ($idf, $info) == "") 
+    $vf = new VaultFile($this->dbaccess, "FREEDOM");
+    if ($vf->Show($idf, $info) == "") 
     {  
-     $path = $info->path;
+      $path = str_replace("//","/",$info->path);
     }
     
+    $size=$this->size;
     $this->size = filesize($infile);
+    $newsize=$this->size - $size;
+    
 
    // Verifier s'il y a assez de places ???
    
    $this->public_access = $public_access;
    $this->name = basename($infile);
 
-   $path = str_replace("//","/",$pathname);
     
    $fd = fopen($path, "w+");
 
 //    if (!unlink($path))
 //	return("NOT UNLINK $path\n"); 
  
+    $msg = $this->modify();
+    if ($msg != '') return($msg);
 
-  if (!copy($infile, $path)) {
-    return("La copie du fichier $infile dans $path n'a pas r&eacute;ussi...\n");
-  }
-
-    if (!chmod($pathname, $this->vault->f_mode)) {
-      $this->vault->logger->warning("Can't change mode for $pathname");
-    }
-    if (!chown($pathname, $this->vault->u_owner) || !chgrp($pathname, $this->vault->g_owner)) {
-      $this->vault->logger->warning("Can't change owner for $pathname");
+    if (!copy($infile, $path)) {
+      return("La copie du fichier $infile dans $path n'a pas r&eacute;ussi...\n");
     }
 
-    $this->fs->AddEntry(size);
+
+    //$this->fs->AddEntry($newsize);
     $this->vault->logger->debug("File $infile saved in $pathname");
     return "";
   }

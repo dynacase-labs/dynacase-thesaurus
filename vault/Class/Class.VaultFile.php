@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.10 2006/05/19 10:13:17 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.11 2006/10/13 13:44:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -119,7 +119,7 @@ Class VaultFile {
   }
 
   // ---------------------------------------------------------
-  function Save($infile, $public_access, $id, $pathname) {
+  function Save($infile, $public_access, $id) {
   // ---------------------------------------------------------
 
     if ($this->chrono) $this->logger->start("Save");
@@ -129,7 +129,8 @@ Class VaultFile {
 	$public_access  = FALSE;
 	$this->logger->warning("Access mode forced to RESTRICTED for ".$infile."].");
      }
-    $msg = $this->storage->Save($infile, $public_access, $id, $pathname);
+
+    $msg = $this->storage->Save($infile, $public_access, $id);
     $this->logger->error($msg);
     
     if ($this->chrono) $this->logger->end("Save");
