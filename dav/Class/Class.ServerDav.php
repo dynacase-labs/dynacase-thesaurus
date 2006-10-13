@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.2 2006/10/10 15:20:07 eric Exp $
+// $Id: Class.ServerDav.php,v 1.3 2006/10/13 14:58:40 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -1423,10 +1423,18 @@ class HTTP_WebDAV_Server
 
         $http_header_host = preg_replace("/:80$/", "", $_SERVER["HTTP_HOST"]);
 
-        if ($http_host == $http_header_host &&
-            !strncmp($_SERVER["SCRIPT_NAME"], $path,
-                     strlen($_SERVER["SCRIPT_NAME"]))) {
-            $options["dest"] = substr($path, strlen($_SERVER["SCRIPT_NAME"]));
+		$basepath=dirname($_SERVER["PHP_SELF"]);
+        if ($http_host == $http_header_host 
+			/*	!strncmp($_SERVER["SCRIPT_NAME"], $path,
+			 strlen($_SERVER["SCRIPT_NAME"]))*/
+			) {
+			//			$options["dest"] = substr($path, strlen($_SERVER["SCRIPT_NAME"]));
+			if (strlen($basepath) >1) {
+				$path=substr($path, strlen($basepath));
+			}
+			$options["dest"] = $path;
+			error_log("DEST BASE :$basepath -- $path" );
+			
             if (!$this->_check_lock_status($options["dest"])) {
                 $this->http_status("423 Locked");
                 return;

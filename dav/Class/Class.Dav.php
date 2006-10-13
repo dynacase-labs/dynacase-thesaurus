@@ -163,7 +163,11 @@
 		error_log("READFOLDER examine :".$doc->title);
 		$files=array_merge($files,$this->docpropinfo($doc,$fspath));
                 }*/
-	      $tdoc=getFldDoc($this->dbaccess, $fld->initid,array(),-1);
+	      if ($fld->doctype=='D') {
+		$tdoc=getFldDoc($this->dbaccess, $fld->initid,array(),200,false);
+	      } else {
+		$tdoc = getChildDoc($this->dbaccess, $fld->initid,0,200, array(),$action->user->id,"TABLE");
+	      }
 	      error_log("READFOLDER examine :".count($tdoc));
 	      foreach ($tdoc as $k=>$v) {
 		$doc=getDocObject($this->dbaccess,$v);
@@ -236,8 +240,9 @@
             }
             mysql_free_result($res);
 	    $tinfo[]=$info;
-	    $query = "REPLACE INTO properties SET path = '".mysql_escape_string($info["path"])."', name = 'fid', ns= '$prop[ns]', value = '".$doc->initid."'";
-	    mysql_query($query);	    
+	    $query = "REPLACE INTO properties SET path = '".mysql_escape_string($this->_unslashify($info["path"]))."', name = 'fid', ns= '$prop[ns]', value = '".$doc->initid."'";
+	    mysql_query($query);
+	    
 	  } else {
 	    // simple document : search attached files     
   
@@ -272,7 +277,7 @@
 		}
 		mysql_free_result($res);
 		$tinfo[]=$info;
-		$query = "REPLACE INTO properties SET path = '".mysql_escape_string($info["path"])."', name = 'fid', ns= '$prop[ns]', value = '".$doc->id."'";
+		$query = "REPLACE INTO properties SET path = '".mysql_escape_string($this->_unslashify($info["path"]))."', name = 'fid', ns= '$prop[ns]', value = '".$doc->id."'";
 	       
 		mysql_query($query);
 		error_log("FILE:".$afile["name"]."-".$afile["size"]."-".$path);
@@ -581,30 +586,45 @@
          */
         function MKCOL($options) 
         {           
-            $path = $this->base .$options["path"];
-            error_log ( "===========>MKCOL :".$options["path"] );
-            $parent = dirname($path);
-            $name = basename($path);
 
+            error_log ( "===========>MKCOL :".$options["path"] );
+	    include_once("FDL/Class.Doc.php");
+
+            if (!empty($_SERVER["CONTENT_LENGTH"])) { // no body parsing yet
+                return "415 Unsupported media type";
+            }
+	    $path=$this->_unslashify($options["path"] );
+	    $fldid=$this->path2id(dirname($options["path"]));
+	    if ($fldid) {
+	      $fld=new_doc($this->dbaccess,$fldid);
+	      $nfld=createDoc($this->dbaccess,"SIMPLEFOLDER");
+	      $nreptitle=utf8_decode(basename($path));
+	      $nfld->setTitle($nreptitle);
+	      $err=$nfld->Add();
+	      if ($err=="") {
+		$err=$fld->AddFile($nfld->initid);
+		error_log ( "NEW FLD:".$nfld->initid);
+		$this->docpropinfo($nfld,$path,true);
+	      }
+	    }
+
+	    /*
             if (!file_exists($parent)) {
                 return "409 Conflict";
             }
 
             if (!is_dir($parent)) {
-                return "403 Forbidden";
+                        $name = basename($path);    return "403 Forbidden";
             }
 
             if ( file_exists($parent."/".$name) ) {
                 return "405 Method not allowed";
             }
-
-            if (!empty($_SERVER["CONTENT_LENGTH"])) { // no body parsing yet
-                return "415 Unsupported media type";
-            }
+	    */
             
-            $stat = mkdir ($parent."/".$name,0777);
-            if (!$stat) {
-                return "403 Forbidden";                 
+
+            if ($err!="") {
+                return "403 Forbidden : $err";                 
             }
 
             return ("201 Created");
@@ -617,24 +637,31 @@
          * @param  array  general parameter passing array
          * @return bool   true on success
          */
-        function DELETE($options) 
-        {
+        function DELETE($options)   {
             error_log ( "===========>DELETE :".$options["path"] );
-            $path = $this->base . "/" .$options["path"];
 
-            if (!file_exists($path)) {
+	    include_once("FDL/Class.Doc.php");
+            $fldid=$this->path2id($options["path"]);
+            $doc=new_doc($this->dbaccess,$fldid);
+
+            if (! $doc->isAlive()) {
                 return "404 Not found";
             }
-
-            if (is_dir($path)) {
+	    if ($doc->doctype=='D') {
+                return "501 Not Implemented";
                 $query = "DELETE FROM properties WHERE path LIKE '".$this->_slashify($options["path"])."%'";
                 mysql_query($query);
                 System::rm("-rf $path");
-            } else {
-                unlink ($path);
-            }
-            $query = "DELETE FROM properties WHERE path = '$options[path]'";
-            mysql_query($query);
+	      
+	    } else {
+
+	      $err=$doc->delete();
+	      if ($err!="") {
+                return "403 Forbidden";    		
+	      }
+	      $query = "DELETE FROM properties WHERE path = '$options[path]'";
+	      mysql_query($query);
+	    }
 
             return "204 No Content";
         }
@@ -646,10 +673,144 @@
          * @param  array  general parameter passing array
          * @return bool   true on success
          */
-        function MOVE($options) 
-        {
-            error_log ( "===========>MOVE :".$options["path"] );
-            return $this->COPY($options, true);
+        function MOVE($options)   {
+	  error_log ( "===========>MOVE :".$options["path"]."->".$options["dest"] );
+	  // no copying to different WebDAV Servers yet
+	  if (isset($options["dest_url"])) {
+	    return "502 bad gateway";
+	  }
+	    
+	  include_once("FDL/Class.Doc.php");
+	  $psource=$this->_unslashify($options["path"]);
+	  $pdirsource=$this->_unslashify(dirname($options["path"]));
+	  $bsource=basename($psource);
+	    
+	  $srcid=$this->path2id($psource);
+	  $src=new_doc($this->dbaccess,$srcid);
+	  error_log ("SRC : $psource ".$srcid );
+
+	  $pdest=$this->_unslashify($options["dest"]);
+	  $bdest=basename($pdest);
+	  $destid=$this->path2id($pdest);
+
+
+	  $pdirdest=$this->_unslashify(dirname($options["dest"]));
+	  $dirdestid=$this->path2id($pdirdest);
+	  $ppdest=new_doc($this->dbaccess,$dirdestid);
+
+
+	  if ($destid) {
+	    $dest=new_doc($this->dbaccess,$destid);
+	    if ($dest->doctype=='D') {	      
+	      error_log ("MOVE TO FOLDER : $destid:".$dest->title);
+
+	    } else {
+		
+	      error_log ("DELETE FILE : $destid:".$dest->title);
+	      // delete file
+	      $err=$dest->delete();
+	      if ($err=="") {
+		// move
+		$err=$ppdest->addFile($srcid);
+		if ($err=="") {
+		  // delete ref from source		    
+		  $psrcid=$this->path2id($pdirsource);
+		  $psrc=new_doc($this->dbaccess,$psrcid);
+		  if ($psrc->isAlive()) {
+		    $err=$psrc->delFile($srcid);
+		    if ($err=="") {			
+		      $query = "DELETE FROM properties WHERE path = '$psource'";
+		    }
+		  }
+		}
+	      }
+
+	      error_log ("MOVE TO PARENT FOLDER : $dirdestid:".$err);	
+	      if ($bdest != $bsource) {
+		error_log (" RENAMETO2  : $bdest");
+		$src->setTitle(utf8_decode($bdest));
+		$err=$src->modify();
+		$this->docpropinfo($src,$pdest,true);
+		if ($err=="") {
+
+		  $query = "DELETE FROM properties WHERE path = '$psource'";
+		  error_log($query);
+		  mysql_query($query);
+
+		}
+		error_log (" RENAMETO  : $bdest : $err");
+		
+	      }
+	    }
+	  } else {
+	    if ($pdirsource != $pdirdest) {
+	      // move
+	      $err=$ppdest->addFile($srcid);
+	      if ($err=="") {
+		$this->docpropinfo($src,$pdest,true);
+		// delete ref from source		    
+		$psrcid=$this->path2id($pdirsource);
+		$psrc=new_doc($this->dbaccess,$psrcid);
+		if ($psrc->isAlive()) {
+		  $err=$psrc->delFile($srcid);
+		  if ($err=="") {
+		    $query = "DELETE FROM properties WHERE path = '$psource'";
+		    mysql_query($query);
+		  }
+		}
+	      }		
+	      error_log ("MOVE TO PARENT2 FOLDER : $dirdestid:".$err);
+	    }
+	    if ($err=="") {
+	      if ($bdest != $bsource) {
+		if ($src->doctype=='D') {
+		  $src->setTitle(utf8_decode($bdest)); 
+		    
+		} else {
+
+		  $afiles=$src->GetFilesProperties();  
+		  
+		  foreach ($afiles as $afile) {
+		    $path=utf8_encode($afile["name"]);
+		    error_log("RENAME SEARCH:".$bsource.'->'.$path);
+		    if ($path == $bsource) {
+		      error_log("RENAME FOUND:".$path.'-'.$afile["path"]);
+		      $fspath=$afile["path"];
+		      error_log(print_r($afile,true));
+		
+		      $vf = newFreeVaultFile($this->dbaccess);
+		      $vf->Rename($afile["vid"],utf8_decode($bdest));
+		    }
+		  }
+
+		}
+		$err=$src->modify();
+		$this->docpropinfo($src,$pdest,true);
+		if ($err=="") {
+
+		  $query = "DELETE FROM properties WHERE path = '$psource'";
+		  error_log($query);
+		  mysql_query($query);
+
+		}
+		error_log (" RENAMETO2  : $bdest : $err");
+	      }
+	    }
+	  }
+	  if  ($src->doctype=='D') {
+	    $query = "UPDATE properties 
+                        SET path = REPLACE(path, '".$psource."', '".$pdest."') 
+                        WHERE path LIKE '".$psource."%'";
+	    mysql_query($query);
+	    error_log($query);
+	  }
+
+
+	  if ($err=="") return "201 Created";
+	    
+	  error_log("DAV MOVE:$err");
+	  return "403 Forbidden";  
+	    
         }
 
         /**
