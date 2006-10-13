@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.338 2006/10/10 15:21:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.339 2006/10/13 14:58:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1433,7 +1433,9 @@ final public function PostInsert()  {
     $vf = newFreeVaultFile($this->dbaccess);
     foreach ($tvid as $vid) {
       $err=$vf->Retrieve($vid, $info);
-      if ($err=="") $tinfo[]=get_object_vars($info);
+      $t=get_object_vars($info);
+      $t["vid"]=$vid;
+      if ($err=="") $tinfo[]=$t;
     }
 
     return $tinfo;
@@ -1854,10 +1856,10 @@ final public function PostInsert()  {
       $nc=file_put_contents($filename,$value);
       $err=$vf->Store($filename, false , $vid);
       if ($ftitle != "") {
-	  $vf->Rename($ftitle);
+	$vf->Rename($vid,$ftitle);
       } else {
 	if ($basename!="") { // keep same file name
-	  $vf->Rename($basename);
+	  $vf->Rename($vid,$basename);
 	}
       }
       if ($err == "") {
@@ -1922,10 +1924,10 @@ final public function PostInsert()  {
 	
       }
       if ($ftitle != "") {
-	  $vf->Rename($ftitle);
+	$vf->Rename($vaultid,$ftitle);
       } else {
 	if ($basename!="") { // keep same file name
-	  $vf->Rename($basename);
+	  $vf->Rename($vaultid,$basename);
 	}
       }
       if ($err == "") {

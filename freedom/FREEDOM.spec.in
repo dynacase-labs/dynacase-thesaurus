@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.101 2006/10/10 15:21:01 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.102 2006/10/13 14:58:15 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -76,7 +76,7 @@ Requires: unzip
 Requires: bzip2
 PreReq: vixie-cron
 PreReq: WHAT >= 2.5.0
-Prereq: VAULT >= 2.0.3
+Prereq: VAULT >= 2.0.4
 Prereq: gettext
 %if %{cerbere} || %{pld}
 Prereq: php-cgi 
