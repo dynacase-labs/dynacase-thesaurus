@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.115 2006/10/06 15:29:29 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.116 2006/10/13 14:57:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -405,8 +405,9 @@ function getChildDoc($dbaccess,
 /** 
  * optimization for getChildDoc
  * @param int $limit if -1 no limit
+ * @param bool $reallylimit if false don't return false if limit is reached
  */
-function getFldDoc($dbaccess,$dirid,$sqlfilters=array(),$limit=100) {
+function getFldDoc($dbaccess,$dirid,$sqlfilters=array(),$limit=100,$reallylimit=true) {
  
   if (is_array($dirid)) {
     $sqlfld=GetSqlCond($dirid,"dirid",true);
@@ -423,7 +424,7 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array(),$limit=100) {
   if ($limit > 0) {
     $tfld=$q->Query(0,$limit+1,"TABLE");
     // use always this mode because is more quickly
-    if ($q->nb > $limit) return false;
+    if (($reallylimit) && ($q->nb > $limit)) return false;
   } else {
     $tfld=$q->Query(0,$limit+1,"TABLE");    
   }
