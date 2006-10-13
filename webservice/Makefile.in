@@ -1,10 +1,11 @@
 # ============================================
-# $Id: Makefile.in,v 1.2 2006/02/02 09:38:12 eric Exp $
+# $Id: Makefile.in,v 1.3 2006/10/13 14:49:09 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
-utildir=@PUBRULE@
-appname = @PACKAGE@
+utildir = @PUBRULE@
+# appname = @PACKAGE@
+appname = 
 pubdir = @prefix@
 srcdir = @srcdir@
 
@@ -15,7 +16,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR= Class
+SUBDIR= Class Wsdl Action
 
 include $(utildir)/PubRule
 
@@ -23,8 +24,11 @@ DISTFILES += $(SUBDIR) \
             RELEASE VERSION  	    
 
 
-$(pubdir)/$(appname)/apache_ws.conf: apache_ws.conf
-	cp $< $(pubdir)/$(appname)
+$(pubdir):
+	mkdir -p $(pubdir)
+
+$(pubdir)/apache_ws.conf: apache_ws.conf $(pubdir)
+	cp $< $(pubdir)
 
 
-publish: $(pubdir)/$(appname)/apache_ws.conf
+publish: $(pubdir)/apache_ws.conf

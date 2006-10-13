@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+
+<definitions name="FreedomWS"
+             targetNamespace="urn:FreedomWS"
+             xmlns:tns="urn:FreedomWS"
+             xmlns:typens="urn:FreedomWS"
+             xmlns:xsd="http://www.w3.org/1999/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+  <!-- type defs -->
+  <types>
+    <xsd:schema targetNamespace="urn:FreedomWS" xmlns:xsd="http://www.w3.org/1999/XMLSchema">
+
+      <xsd:complexType name="docAttr">
+        <xsd:all>
+            <xsd:element name="key" type="xsd:string"/>
+            <xsd:element name="value" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+
+      <xsd:complexType name="docContent">
+        <xsd:all>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="attr" type="typens:docAttr"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="prop" type="typens:docAttr"/>
+        </xsd:all>
+      </xsd:complexType>
+
+      <xsd:complexType name="docList">
+        <xsd:all>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" name="doc" type="typens:docContent"/>
+        </xsd:all>
+      </xsd:complexType>
+
+      <xsd:complexType name="docHisto">
+        <xsd:all>
+          <xsd:element name="releaseid" type="xsd:string"/>
+          <xsd:element name="date" type="xsd:string"/>
+          <xsd:element name="who" type="xsd:string"/>
+          <xsd:element name="code" type="xsd:string"/>
+          <xsd:element name="level" type="xsd:string"/>
+          <xsd:element name="comment" type="xsd:string"/>
+        </xsd:all>
+      </xsd:complexType>
+
+
+    </xsd:schema>
+  </types>
+
+  <!-- message declns -->
+
+  <message name="docReadQ">
+    <part name="docid" type="xsd:string"/>
+    <part name="docrev" type="xsd:string"/>
+  </message>
+  <message name="docReadA">
+    <part name="doc" type="typens:docContent"/>
+  </message>
+
+  <message name="docCreateQ">
+    <part name="famid" type="xsd:string"/>
+    <part name="attr" type="xsd:docContent"/>
+  </message>
+  <message name="docCreateA">
+    <part name="docid" type="typens:string"/>
+  </message>
+
+  <message name="docModifyQ">
+    <part name="docid" type="xsd:string"/>
+    <part name="attr" type="xsd:docContent"/>
+  </message>
+  <message name="docModifyA">
+    <part name="status" type="typens:string"/>
+  </message>
+
+  <message name="docDeleteQ">
+    <part name="docid" type="xsd:string"/>
+  </message>
+  <message name="docDeleteA">
+    <part name="status" type="typens:string"/>
+  </message>
+
+  <message name="docQueryQ">
+    <part name="start" type="xsd:integer"/>
+    <part name="slice" type="xsd:integer"/>
+    <part name="famid" type="xsd:string"/>
+    <part name="allrev" type="xsd:boolean"/>
+    <part name="trash" type="xsd:boolean"/>
+    <part name="orderby" type="xsd:string"/>
+  </message>
+  <message name="docQueryA">
+    <part name="docs" type="typens:docList"/>
+  </message>
+
+  <message name="docGetHistoryQ">
+    <part name="docid" type="xsd:string"/>
+  </message>
+  <message name="docGetHistoryQ">
+    <part name="histo" type="typens:docHisto"/>
+  </message>
+
+  <!-- port type declns -->
+  <portType name="Freedom">
+
+    <operation name="docRead">
+      <input message="tns:docReadQ"/>
+      <output message="tns:docReadA"/>
+    </operation>
+
+    <operation name="docCreate">
+      <input message="tns:docCreateQ"/>
+      <output message="tns:docCreateA"/>
+    </operation>
+
+    <operation name="docModify">
+      <input message="tns:docModifyQ"/>
+      <output message="tns:docModifyA"/>
+    </operation>
+
+    <operation name="docDelete">
+      <input message="tns:docDeleteQ"/>
+      <output message="tns:docDeleteA"/>
+    </operation>
+
+    <operation name="docQuery">
+      <input message="tns:docQueryQ"/>
+      <output message="tns:docQueryA"/>
+    </operation>
+
+    <operation name="docGetHistory">
+      <input message="tns:docGetHistoryQ"/>
+      <output message="tns:docGetHistoryA"/>
+    </operation>
+
+
+  </portType>
+
+  <!-- binding declns -->
+  <binding name="FreedomWSBinding" type="tns:Freedom">
+    <soap:binding style="rpc"
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="docRead">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+
+    <operation name="docQuery">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+
+    <operation name="docGetHistory">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </input>
+      <output>
+        <soap:body use="encoded"
+                   namespace="urn:FreedomWS"
+                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+      </output>
+    </operation>
+
+  </binding>
+
+  <!-- service decln -->
+  <service name="Freedom Web Services">
+    <port name="Freedom" binding="tns:FreedomWSBinding">
+      <soap:address location="http://obeone.tlse.i-cesam.com/freedom/webs.php"/>
+    </port>
+  </service>
+
+</definitions>
