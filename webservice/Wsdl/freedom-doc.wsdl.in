@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<!-- API Version : 0.0.2-0 -->
+<!-- API Version : @VERSION@-@RELEASE@ -->
 
 <definitions name="FreedomWS"
              targetNamespace="urn:FreedomWS"

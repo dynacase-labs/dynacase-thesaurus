@@ -1,0 +1,5 @@
+<?php
+  // $Id: Lib.FreedomWSVersion.php.in,v 1.1 2006/10/16 10:14:47 marc Exp $
+$version = "@VERSION@";
+$release = "@RELEASE@";
+?>

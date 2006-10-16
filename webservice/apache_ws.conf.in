@@ -1,6 +1,6 @@
-Alias /freedomWS @prefix@
+Alias /freedomWS @installdir@
 
-<Directory "@prefix@">
+<Directory "@installdir@">
    
     php_value include_path ".:@prefix@:@prefix@/../what:@prefix@/../what/WHAT:/usr/share/nusoap:/usr/share/pear"
     php_value session.use_cookies 1

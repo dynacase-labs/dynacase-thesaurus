@@ -8,13 +8,12 @@ toolhead();
 
 $c = toolinitsoap();
 
-$param = array('docid' => 1323);
-$r = $c->call('docGetHistory', $param);
+$param = array();
+$r = $c->call('docAPIVersion', $param);
 
 toolresult($c, $r);
 
 exit;
-
 
 
 ?>
