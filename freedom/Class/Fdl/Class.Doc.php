@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.339 2006/10/13 14:58:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.340 2006/10/16 15:20:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3325,6 +3325,22 @@ final public function PostInsert()  {
     }
   }
 
+   /**
+   * set all attribute in W visibility 
+   * 
+   * 
+   */
+  function SetWriteVisibility() {
+    // transform hidden to writted attribut for default document
+   
+    $listattr = $this->GetAttributes();
+    while (list($i,$attr) = each($listattr)) {
+	if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
+	  $this->attributes->attr[$i]->mvisibility="W";
+	}
+    }
+    
+  }
 
   /**
    * Return the main path relation
