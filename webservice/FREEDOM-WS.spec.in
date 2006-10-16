@@ -1,31 +1,48 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-WS.spec.in,v 1.3 2006/10/13 14:49:09 marc Exp $
+#  $Id: FREEDOM-WS.spec.in,v 1.4 2006/10/16 15:35:23 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld             %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat          %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
+
 %if %{cerbere}
+%define destdir /home/httpd/
 %define httpuser http
 %define apacheconfdir /etc/httpd/httpd.conf
-%else
-%define apacheconfdir /etc/httpd/conf.d
-%define httpuser apache
+%define releasepostfix %(echo)
+%define nusoapdir /usr/share/nusoap
+%define whatdir /home/httpd/what
 %endif
 
-%define destdir @prefix@/freedomWS
+%if %{pld}
+%define destdir /usr/share/
+%define httpuser http
+%define apacheconfdir /etc/webapps/freedomWS
+%define releasepostfix cb
+%define whatdir /usr/share/what
+%define nusoapdir /usr/share/php/nusoap
+%endif
+
+%if %{redhat}
+%define destdir /usr/share/
+%define apacheconfdir /etc/webapps/freedomWS
+%define httpuser apache
+%define releasepostfix fc
+%define whatdir /usr/share/what
+%define nusoapdir /usr/share/nusoap
+%endif
+
 
 Summary: Freedom Web Services
 Name: @PACKAGE@
 Version: @VERSION@
-%if %{cerbere}
-Release: @RELEASE@
-%else
-Release: @RELEASE@fc
-%endif
+Release: @RELEASE@%{releasepostfix}
 License: GPL
 Group: Applications/Web
 Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -57,22 +74,36 @@ autoconf
 ./configure --with-pubrule=`pwd` \
 	    --with-httpuser=%{httpuser} \
 	    --with-apacheconfdir=%{apacheconfdir} \
+	    --with-whatdir=%{whatdir} \
+	    --with-nusoapdir=%{nusoapdir} \
 	    --prefix=%{destdir}
 make  pubdir=$RPM_BUILD_ROOT%{destdir} 
 install -d $RPM_BUILD_ROOT%{apacheconfdir}
 install -d $RPM_BUILD_ROOT/%{destdir}
-install $RPM_BUILD_ROOT/%{destdir}/apache_ws.conf $RPM_BUILD_ROOT/%{apacheconfdir}/71_mod_what_ws.conf
+install $RPM_BUILD_ROOT/%{destdir}/freedomWS/apache_ws.conf $RPM_BUILD_ROOT/%{apacheconfdir}/httpd.conf
 
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-
+if [ -x /usr/sbin/webapp ]; then 
+  /usr/sbin/webapp register httpd freedomWS
+fi
+if [ -f /var/lock/subsys/httpd ]; then 
+  /etc/rc.d/init.d/httpd restart 1>&2
+fi
 
 
 %preun
+
 %postun
+if [ -x /usr/sbin/webapp ]; then
+  /usr/sbin/webapp unregister httpd freedomWS
+fi
+if [ -f /var/lock/subsys/httpd ]; then
+  /etc/rc.d/init.d/httpd restart 1>&2
+fi
 
 
 
@@ -80,7 +111,7 @@ install $RPM_BUILD_ROOT/%{destdir}/apache_ws.conf $RPM_BUILD_ROOT/%{apacheconfdi
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}
 %{destdir}/*
-%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /%{apacheconfdir}/*_mod_*.conf
+%attr(640,root,root) %config(noreplace) %verify(not size mtime md5) /%{apacheconfdir}/*.conf
 
 
 

@@ -1,0 +1,8 @@
+<?php
+
+$version = "@VERSION@";
+$release = "@RELEASE@";
+
+$nusoap = "@nusoapdir@";
+
+?>

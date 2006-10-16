@@ -2,7 +2,7 @@ Alias /freedomWS @installdir@
 
 <Directory "@installdir@">
    
-    php_value include_path ".:@prefix@:@prefix@/../what:@prefix@/../what/WHAT:/usr/share/nusoap:/usr/share/pear"
+    php_value include_path ".:@prefix@:@whatdir@:@whatdir@/WHAT:@nusoapdir@:/usr/share/pear"
     php_value session.use_cookies 1
     php_value session.name "session"
     php_value session.use_trans_sid 0
@@ -15,9 +15,15 @@ Alias /freedomWS @installdir@
     <FilesMatch "\.php$">
       AuthType Basic
       AuthName 'FREEDOM Connection'
-      AuthPAM_Enabled  on
-      AuthPAM_FallThrough off
-      AuthPAM_Service httpd
+
+      # Uncomment to old distribution
+      # AuthPAM_Enabled  on
+      # AuthPAM_FallThrough off
+      # AuthPAM_Service httpd
+
+      AuthBasicProvider pam
+      AuthnPAMService httpd
+
       Require valid-user
     </FilesMatch>
  

@@ -1,10 +1,9 @@
 # ============================================
-# $Id: Makefile.in,v 1.4 2006/10/16 10:14:47 marc Exp $
+# $Id: Makefile.in,v 1.5 2006/10/16 15:35:23 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
 utildir = @PUBRULE@
-# appname = @PACKAGE@
 appname = freedomWS
 pubdir = @prefix@
 srcdir = @srcdir@
@@ -23,6 +22,8 @@ include $(utildir)/PubRule
 DISTFILES += $(SUBDIR) \
             RELEASE VERSION  	    
 
+$(pubdir)/$(appname):
+	mkdir -p $(pubdir)/$(appname)
 
 $(pubdir)/$(appname)/apache_ws.conf: apache_ws.conf $(pubdir)/$(appname)
 	cp $< $(pubdir)/$(appname)

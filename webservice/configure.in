@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.4 2006/10/16 10:14:47 marc Exp $)
+AC_REVISION($Id: configure.in,v 1.5 2006/10/16 15:35:23 marc Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -63,4 +63,14 @@ APACHECONFDIR=/etc/httpd/httpd.conf
 AC_ARG_WITH(apacheconfdir,
 [  --with-apacheconfdir=apache config dir (default /etc/httpd/httpd.conf)], APACHECONFDIR=$withval)
 
-AC_OUTPUT(Makefile FREEDOM-WS.spec apache_ws.conf Wsdl/freedom-doc.wsdl Class/Lib.FreedomWSVersion.php)
+AC_SUBST(whatdir)
+whatdir=/usr/share/what
+AC_ARG_WITH(whatdir,
+[  --with-whatdir=Freedom install dir (default /usr/share/what)], whatdir=$withval)
+
+AC_SUBST(nusoapdir)
+nusoapdir=/usr/share/nusoap
+AC_ARG_WITH(nusoapdir,
+[  --with-nusoapdir=nusoap install dir (default /usr/share/nusoap)], nusoapdir=$withval)
+
+AC_OUTPUT(Makefile FREEDOM-WS.spec apache_ws.conf Wsdl/freedom-doc.wsdl Class/Lib.Install.php)

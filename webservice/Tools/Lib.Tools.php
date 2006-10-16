@@ -1,4 +1,5 @@
 <?php
+require_once("nusoap.php");
 
 function toolhead() {
   echo "<style>";

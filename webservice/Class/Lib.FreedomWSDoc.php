@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.2 2006/10/16 10:14:47 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.3 2006/10/16 15:35:23 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -153,7 +153,7 @@ function  docGetWorkflow($docid="") {
  * --------------------------------------------------------------------------------------------
  */
 function docAPIVersion() {
-  @include_once("Lib.FreedomWSVersion.php");
+  @include_once("Lib.Install.php");
   return $version."-".$release;
 }
 
