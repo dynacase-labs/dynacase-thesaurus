@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.3 2006/10/13 14:58:40 eric Exp $
+// $Id: Class.ServerDav.php,v 1.4 2006/10/17 13:26:32 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -1416,7 +1416,10 @@ class HTTP_WebDAV_Server
         }
 
         extract(parse_url($_SERVER["HTTP_DESTINATION"]));
+
+		$path=str_replace("%25","%",$path);
         $path = urldecode($path);
+
         $http_host = $host;
         if (isset($port) && $port != 80)
             $http_host.= ":$port";

@@ -659,7 +659,7 @@
 	      if ($err!="") {
                 return "403 Forbidden";    		
 	      }
-	      $query = "DELETE FROM properties WHERE path = '$options[path]'";
+	      $query = "DELETE FROM properties WHERE fid=".$doc->initid;
 	      mysql_query($query);
 	    }
 
@@ -703,6 +703,7 @@
 	    $dest=new_doc($this->dbaccess,$destid);
 	    if ($dest->doctype=='D') {	      
 	      error_log ("MOVE TO FOLDER : $destid:".$dest->title);
+	      return "502 bad gateway";
 
 	    } else {
 		
@@ -710,6 +711,9 @@
 	      // delete file
 	      $err=$dest->delete();
 	      if ($err=="") {
+		  $query = "DELETE FROM properties WHERE fid=".$dest->initid;
+		  error_log($query);
+		  mysql_query($query);
 		// move
 		$err=$ppdest->addFile($srcid);
 		if ($err=="") {
@@ -718,14 +722,19 @@
 		  $psrc=new_doc($this->dbaccess,$psrcid);
 		  if ($psrc->isAlive()) {
 		    $err=$psrc->delFile($srcid);
-		    if ($err=="") {			
+		    if ($err=="") {	
+		      
+		      $src->addComment(sprintf(_("Move file from %s to %s"),
+					       utf8_decode($psrc->title),
+					       utf8_decode($ppdest->title)));
 		      $query = "DELETE FROM properties WHERE path = '$psource'";
 		    }
 		  }
 		}
 	      }
 
-	      error_log ("MOVE TO PARENT FOLDER : $dirdestid:".$err);	
+	      
+	       
 	      if ($bdest != $bsource) {
 		error_log (" RENAMETO2  : $bdest");
 		$src->setTitle(utf8_decode($bdest));
@@ -741,6 +750,7 @@
 		error_log (" RENAMETO  : $bdest : $err");
 		
 	      }
+	      
 	    }
 	  } else {
 	    if ($pdirsource != $pdirdest) {
@@ -754,6 +764,9 @@
 		if ($psrc->isAlive()) {
 		  $err=$psrc->delFile($srcid);
 		  if ($err=="") {
+		    $src->addComment(sprintf(_("Move file from %s to %s"),
+					     utf8_decode($psrc->title),
+					     utf8_decode($ppdest->title)));
 		    $query = "DELETE FROM properties WHERE path = '$psource'";
 		    mysql_query($query);
 		  }
@@ -768,8 +781,7 @@
 		    
 		} else {
 
-		  $afiles=$src->GetFilesProperties();  
-		  
+		  $afiles=$src->GetFilesProperties();  		  
 		  foreach ($afiles as $afile) {
 		    $path=utf8_encode($afile["name"]);
 		    error_log("RENAME SEARCH:".$bsource.'->'.$path);
@@ -780,6 +792,9 @@
 		
 		      $vf = newFreeVaultFile($this->dbaccess);
 		      $vf->Rename($afile["vid"],utf8_decode($bdest));
+		      $src->addComment(sprintf(_("Rename file as %s"),utf8_decode($bdest)));
+		      $src->postModify();
+		      $err=$src->modify();
 		    }
 		  }
 
@@ -819,116 +834,110 @@
          * @param  array  general parameter passing array
          * @return bool   true on success
          */
-        function COPY($options, $del=false) 
-        {
-            error_log ( "===========>COPY :".$options["path"] );
-            // TODO Property updates still broken (Litmus should detect this?)
+        function COPY($options) {
+	  error_log ( "===========>COPY :".$options["path"]."->".$options["dest"] );
+	  // no copying to different WebDAV Servers yet
+	  if (isset($options["dest_url"])) {
+	    return "502 bad gateway";
+	  }
+	    
+	  include_once("FDL/Class.Doc.php");
+	  $psource=$this->_unslashify($options["path"]);
+	  $pdirsource=$this->_unslashify(dirname($options["path"]));
+	  $bsource=basename($psource);
+	    
+	  $srcid=$this->path2id($psource);
+	  $src=new_doc($this->dbaccess,$srcid);
+	  error_log ("SRC : $psource ".$srcid );
 
-            if (!empty($_SERVER["CONTENT_LENGTH"])) { // no body parsing yet
-                return "415 Unsupported media type";
-            }
+	  $pdest=$this->_unslashify($options["dest"]);
+	  $bdest=basename($pdest);
+	  $destid=$this->path2id($pdest);
 
-            // no copying to different WebDAV Servers yet
-            if (isset($options["dest_url"])) {
-                return "502 bad gateway";
-            }
 
-            $source = $this->base .$options["path"];
-            if (!file_exists($source)) return "404 Not found";
+	  $pdirdest=$this->_unslashify(dirname($options["dest"]));
+	  $dirdestid=$this->path2id($pdirdest);
+	  $ppdest=new_doc($this->dbaccess,$dirdestid);
 
-            $dest = $this->base . $options["dest"];
 
-            $new = !file_exists($dest);
-            $existing_col = false;
+		
+	  if ($destid) {
+	    $dest=new_doc($this->dbaccess,$destid);
+	    if ($dest->doctype=='D') {	      
+	      error_log ("COPY FILE TO REPLACE FOLDER NOT POSSIBLE NORMALLY: $destid:".$dest->title);
+	      return "502 bad gateway";
 
-            if (!$new) {
-                if ($del && is_dir($dest)) {
-                    if (!$options["overwrite"]) {
-                        return "412 precondition failed";
-                    }
-                    $dest .= basename($source);
-                    if (file_exists($dest)) {
-                        $options["dest"] .= basename($source);
-                    } else {
-                        $new = true;
-                        $existing_col = true;
-                    }
-                }
-            }
+	    } else {
+	      error_log ("DELETE FILE : $destid:".$dest->title);
+	      // delete file
+	      $err=$dest->delete();
 
-            if (!$new) {
-                if ($options["overwrite"]) {
-                    $stat = $this->DELETE(array("path" => $options["dest"]));
-                    if (($stat{0} != "2") && (substr($stat, 0, 3) != "404")) {
-                        return $stat; 
-                    }
-                } else {                
-                    return "412 precondition failed";
-                }
-            }
+	   
 
-            if (is_dir($source) && ($options["depth"] != "infinity")) {
-                // RFC 2518 Section 9.2, last paragraph
-                return "400 Bad request";
-            }
+	      if ($err=="") {
+		
+		$query = "DELETE FROM properties WHERE fid=".$dest->initid;
+		error_log($query);
+		mysql_query($query);
+	      }
+	    }
+	  }
+	  if ($err=="") {
+	    // copy
+	    if ($src->doctype=="D") {
+	      // copy of directory 
+	      return "501 not implemented";
+	    } else {
+	   
+	    $copy=$src->copy();
 
-            if ($del) {
-                if (!rename($source, $dest)) {
-                    return "500 Internal server error";
-                }
-                $destpath = $this->_unslashify($options["dest"]);
-                if (is_dir($source)) {
-                    $query = "UPDATE properties 
-                                 SET path = REPLACE(path, '".$options["path"]."', '".$destpath."') 
-                               WHERE path LIKE '".$this->_slashify($options["path"])."%'";
-                    mysql_query($query);
-                }
+	    
+	    error_log("COPY :".$copy->id);
+	    $afiles=$copy->GetFilesProperties();  
+	    error_log("# FILE :".count($afiles));
+	    $ff=$copy->GetFirstFileAttributes();
+	    
+	    $f=$copy->getValue($ff->id);
+	    error_log("RENAME SEARCH:".$f);
+	    if (ereg ("(.*)\|(.*)", $f, $reg)) {
+	      $vf = newFreeVaultFile($this->dbaccess);
+	      $vid=$reg[2];
+	      
+	      $vf->Rename($vid,utf8_decode($bdest));
+	      $copy->addComment(sprintf(_("Rename file as %s"),utf8_decode($bdest)));
+	      $copy->postModify();
+	      $err=$copy->modify();
+	    }
+	    
+		  
+	    
 
-                $query = "UPDATE properties 
-                             SET path = '".$destpath."'
-                           WHERE path = '".$options["path"]."'";
-                mysql_query($query);
-            } else {
-                if (is_dir($source)) {
-                    $files = System::find($source);
-                    $files = array_reverse($files);
-                } else {
-                    $files = array($source);
-                }
+	    $err=$ppdest->addFile($copy->id);
+	    if ($err=="") {
+	      $this->docpropinfo($copy,$pdest,true);
+	    }
+	      
 
-                if (!is_array($files) || empty($files)) {
-                    return "500 Internal server error";
-                }
-                    
-                
-                foreach ($files as $file) {
-                    if (is_dir($file)) {
-                      $file = $this->_slashify($file);
-                    }
+	    error_log ("MOVE TO PARENT FOLDER : $dirdestid:".$err);	
+	    if ($bdest != $bsource) {
+	      $copy->setTitle(utf8_decode($bdest));
+	      $err=$copy->modify();
+	      $this->docpropinfo($copy,$pdest,true);
+		
+	      error_log (" RENAMETO  : $bdest : $err");
+		
+	    }
+	  }
+	  } 
 
-                    $destfile = str_replace($source, $dest, $file);
-                    
-                    if (is_dir($file)) {
-                        if (!is_dir($destfile)) {
-                            // TODO "mkdir -p" here? (only natively supported by PHP 5) 
-                            if (!mkdir($destfile)) {
-                                return "409 Conflict";
-                            }
-                        } else {
-                          error_log("existing dir '$destfile'");
-                        }
-                    } else {
-                        if (!copy($file, $destfile)) {
-                            return "409 Conflict";
-                        }
-                    }
-                }
 
-                $query = "INSERT INTO properties SELECT ... FROM properties WHERE path = '".$options['path']."'";
-            }
-
-            return ($new && !$existing_col) ? "201 Created" : "204 No Content";         
+	  if ($err=="") return "201 Created";
+	    
+	  error_log("DAV MOVE:$err");
+	  return "403 Forbidden";  
+	    
         }
+        
 
         /**
          * PROPPATCH method handler
