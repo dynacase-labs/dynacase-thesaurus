@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.4 2006/10/17 17:19:21 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.5 2006/10/18 10:15:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -91,12 +91,12 @@ function docQuery($query=array(), $start=0, $slice=0, $famid="", $state="", $all
  * @param string $docid
  * @return docHisto 
  */
-function  docGetHistory($docid="") {
+function  docGetHistory($docid="", $allrev=false) {
   global $dbaccess;
 
   $rel = array("release" => array());
   $doc = new_Doc($dbaccess, $docid);
-  if (isset($doc) && $doc->isAlive())  $td = $doc->getHisto();
+  if (isset($doc) && $doc->isAlive())  $td = $doc->getHisto($allrev);
   foreach ($td as $k => $v) $rel["release"][] = array( "releaseid" => $v['id'],
 						       "date" => $v['date'],
 						       "who" => $v['uname'],
