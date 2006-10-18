@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.5 2006/10/18 10:15:49 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.6 2006/10/18 12:10:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -63,6 +63,7 @@ function  docRead($docid="", $docrev="") {
  * @return docList
  */
 function docQuery($query=array(), $start=0, $slice=0, $famid="", $state="", $allrev=false, $trash=false, $orderby="title" ) {
+fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
   global $dbaccess;
  
   $docs = array();
@@ -83,6 +84,7 @@ function docQuery($query=array(), $start=0, $slice=0, $famid="", $state="", $all
 			$famid, $allrev, $orderby, true, $trash);
    if (count($tdocs)<2) $docs["doc"][] = array(); 
    foreach ($tdocs as $k => $v) $docs["doc"][] = _docObject2docContent($v);
+fwsLog("  docQuery E ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
    return  $docs;
 }
 
@@ -96,15 +98,37 @@ function  docGetHistory($docid="", $allrev=false) {
 
   $rel = array("release" => array());
   $doc = new_Doc($dbaccess, $docid);
-  if (isset($doc) && $doc->isAlive())  $td = $doc->getHisto($allrev);
-  foreach ($td as $k => $v) $rel["release"][] = array( "releaseid" => $v['id'],
-						       "date" => $v['date'],
-						       "who" => $v['uname'],
-						       "level" => $v['level'],
-						       "code" => $v['code'],
-						       "comment" => $v['comment']
-						       );
-   return $rel;
+
+
+  $ldoc = $doc->GetRevisions("TABLE");
+
+  $trdoc= array();
+  foreach($ldoc as $k=>$zdoc) {
+    $rdoc=getDocObject($dbaccess,$zdoc);
+    $owner = new User("", $rdoc->owner);
+    $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
+    $trdoc[$k]["version"]= $rdoc->version;
+    $state=$rdoc->getState();
+    $trdoc[$k]["state"]= ($state=="")?"":(($rdoc->locked==-1)?_($state):_("current"));
+    setlocale (LC_TIME, "fr_FR");
+    $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
+    $trdoc[$k]["vername"]= $tversion[$rdoc->version];
+
+    $tc=$rdoc->getHisto();
+    $tlc = array();
+    $kc=0; // index comment
+    foreach ($tc as $vc) {
+      $stime=$vc["date"];
+      $tlc[]=array("cdate"=>$stime,
+                   "cauthor"=>$vc["uname"],
+                   "ccomment"=>htmlentities($vc["comment"]));
+    }
+    $trdoc[$k]["comment"]=$tlc;
+    $trdoc[$k]["id"]= $rdoc->id;
+    $trdoc[$k]["divid"]= $k;
+  }
+//print_r2($trdoc);
+   return array("release" => $trdoc);
 }
 
 /**
