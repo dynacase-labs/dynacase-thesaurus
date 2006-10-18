@@ -133,7 +133,6 @@
 
   <message name="docGetHistoryQ">
     <part name="docid" type="xsd:string"/>
-    <part name="allrev" type="xsd:boolean"/>
   </message>
   <message name="docGetHistoryA">
     <part name="histo" type="typens:docHisto"/>

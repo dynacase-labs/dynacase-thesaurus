@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.6 2006/10/18 12:10:40 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.7 2006/10/18 12:11:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -93,7 +93,7 @@ fwsLog("  docQuery E ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
  * @param string $docid
  * @return docHisto 
  */
-function  docGetHistory($docid="", $allrev=false) {
+function  docGetHistory($docid="") {
   global $dbaccess;
 
   $rel = array("release" => array());
