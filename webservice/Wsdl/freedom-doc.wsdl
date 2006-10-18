@@ -55,6 +55,8 @@
 
       <xsd:complexType name="docHisto">
         <xsd:all>
+          <xsd:element name="docid" type="xsd:string"/>
+          <xsd:element name="title" type="xsd:string"/>
           <xsd:element maxOccurs="unbounded" minOccurs="1" name="release" type="typens:docRelease"/>
         </xsd:all>
       </xsd:complexType>
