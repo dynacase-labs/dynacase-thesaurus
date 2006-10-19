@@ -12,8 +12,8 @@ Class FdlServices {
 
   private function  _initFreedom($login,&$a) {
     
-    include_once('../WHAT/Class.User.php');
-    include_once('../WHAT/Class.Session.php');
+    include_once('WHAT/Class.User.php');
+    include_once('WHAT/Class.Session.php');
 
     $CoreNull="";
     $core = new Application();

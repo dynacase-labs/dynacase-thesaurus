@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.5 2006/10/16 15:35:23 marc Exp $
+# $Id: Makefile.in,v 1.6 2006/10/19 09:11:39 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -15,7 +15,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR= Class Wsdl Action Tools
+SUBDIR= Class Wsdl Action Tools Xml
 
 include $(utildir)/PubRule
 

@@ -14,49 +14,19 @@
   <types>
     <xsd:schema targetNamespace="urn:FreedomWS" xmlns:xsd="http://www.w3.org/1999/XMLSchema">
 
-      <xsd:complexType name="docAttr">
-        <xsd:all>
-            <xsd:element name="key" type="xsd:string"/>
-            <xsd:element name="value" type="xsd:string"/>
-        </xsd:all>
-      </xsd:complexType>
-
-      <xsd:complexType name="docContent">
-        <xsd:all>
-          <xsd:element maxOccurs="unbounded" minOccurs="0" name="attr" type="typens:docAttr"/>
-          <xsd:element maxOccurs="unbounded" minOccurs="0" name="prop" type="typens:docAttr"/>
-        </xsd:all>
-      </xsd:complexType>
-
-      <xsd:complexType name="docList">
-        <xsd:all>
-          <xsd:element maxOccurs="unbounded" minOccurs="0" name="doc" type="typens:docContent"/>
-        </xsd:all>
-      </xsd:complexType>
-
-       <xsd:complexType name="docRComment">
-        <xsd:all>
-          <xsd:element name="cdate" type="xsd:string"/>
-          <xsd:element name="cauthor" type="xsd:string"/>
-          <xsd:element name="ccomment" type="xsd:string"/>
-        </xsd:all>
-       </xsd:complexType>
-
       <xsd:complexType name="docRelease">
         <xsd:all>
-          <xsd:element name="owner" type="xsd:string"/>
-          <xsd:element name="version" type="xsd:string"/>
-          <xsd:element name="state" type="xsd:string"/>
-          <xsd:element name="date" type="xsd:string"/>
-          <xsd:element name="vername" type="xsd:string"/>
-          <xsd:element maxOccurs="unbounded" minOccurs="0" name="comment" type="typens:docRComment"/>
+          <xsd:element name="releaseid" type="xsd:string"/>
+          <xsd:element name="date"      type="xsd:string"/>
+          <xsd:element name="who"       type="xsd:string"/>
+          <xsd:element name="code"      type="xsd:string"/>
+          <xsd:element name="level"     type="xsd:string"/>
+          <xsd:element name="comment"   type="xsd:string"/>
         </xsd:all>
       </xsd:complexType>
 
       <xsd:complexType name="docHisto">
         <xsd:all>
-          <xsd:element name="docid" type="xsd:string"/>
-          <xsd:element name="title" type="xsd:string"/>
           <xsd:element maxOccurs="unbounded" minOccurs="1" name="release" type="typens:docRelease"/>
         </xsd:all>
       </xsd:complexType>
@@ -93,20 +63,19 @@
     <part name="docrev" type="xsd:string"/>
   </message>
   <message name="docReadA">
-    <part name="doc" type="typens:docContent"/>
+    <part name="doclist" type="xsd:string"/>
   </message>
 
   <message name="docCreateQ">
     <part name="famid" type="xsd:string"/>
-    <part name="attr" type="xsd:docContent"/>
+    <part name="doclist" type="xsd:string"/>
   </message>
   <message name="docCreateA">
     <part name="docid" type="typens:string"/>
   </message>
 
   <message name="docModifyQ">
-    <part name="docid" type="xsd:string"/>
-    <part name="attr" type="xsd:docContent"/>
+    <part name="doclist" type="xsd:string"/>
   </message>
   <message name="docModifyA">
     <part name="status" type="typens:string"/>
@@ -130,7 +99,7 @@
     <part name="orderby" type="xsd:string"/>
   </message>
   <message name="docQueryA">
-    <part name="docs" type="typens:docList"/>
+    <part name="doclist" type="xsd:string"/>
   </message>
 
   <message name="docGetHistoryQ">

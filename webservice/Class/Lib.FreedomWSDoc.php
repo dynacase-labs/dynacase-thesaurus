@@ -3,13 +3,14 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.8 2006/10/18 18:07:15 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.9 2006/10/19 09:11:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
 /**
  */
 include_once('WHAT/Class.User.php');
+include_once('WHAT/Class.Session.php');
 include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.Doc.php");
 
@@ -42,11 +43,11 @@ function  docRead($docid="", $docrev="") {
       $ndoc = &$doc;
     }
     if ($ndoc!==false) {
-      $tdo = getTDoc($dbaccess, $ndoc->id);
-      $docc = _docObject2docContent($tdo);
+      $tdo[] = getTDoc($dbaccess, $ndoc->id);
+      $doclist = _xmlDoclist($tdo);
     }
   }
-  return $docc;
+  return $doclist;
 }
 
 
@@ -68,24 +69,27 @@ fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
  
   $docs = array();
 
-   $uid = _getUserFid();
+  $uid = _getUserFid();
 
-   $filter = array();
-   if (count($query) > 0) {
-     $sl = "";
-     foreach ($query as $kq => $vq) {
-       $sl .= ($sl==""?"":" AND ") . "(".$vq.")";
-     }
-     $filter[] = $sl;
-   }
-   if ($state!="") $filter[] = "state = '".$state."'";
-   $tdocs = getChildDoc($dbaccess, 0, $start, ($slice==0?"ALL":$slice),  
-			$filter, $uid, "TABLE", 
-			$famid, $allrev, $orderby, true, $trash);
-   if (count($tdocs)<2) $docs["doc"][] = array(); 
-   foreach ($tdocs as $k => $v) $docs["doc"][] = _docObject2docContent($v);
-fwsLog("  docQuery E ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
-   return  $docs;
+  $filter = array();
+  if (count($query) > 0) {
+    $sl = "";
+    foreach ($query as $kq => $vq) {
+      $sl .= ($sl==""?"":" AND ") . "(".$vq.")";
+    }
+    $filter[] = $sl;
+  }
+  if ($state!="") $filter[] = "state = '".$state."'";
+  $tdocs = getChildDoc($dbaccess, 0, $start, ($slice==0?"ALL":$slice),  
+		       $filter, $uid, "TABLE", 
+		       $famid, $allrev, $orderby, true, $trash);
+  $doclist = _xmlDoclist($tdocs);
+  return $doclist;
+
+//    if (count($tdocs)<2) $docs["doc"][] = array(); 
+//    foreach ($tdocs as $k => $v) $docs["doc"][] = _docObject2docContent($v);
+// fwsLog("  docQuery E ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
+//    return  $docs;
 }
 
 /**
@@ -172,6 +176,30 @@ function  docGetWorkflow($docid="") {
  * Private function
  * --------------------------------------------------------------------------------------------
  */
+
+function _xmlDoclist($tdocs) {
+  global $dbaccess;
+  global $action;
+  $xml = new Layout("Layout/doclist.xml");
+
+  foreach ($tdocs as $k=>$v) {
+    $tattr = array();
+    foreach ($v as $ka => $va) {
+      $tattr[] = array("attname" => $ka, "attvalue"=>$va);
+    }
+    $xml->setBlockData("attr".$v["id"], $tattr);
+  }
+  $xml->setBlockData("docs", $tdocs);
+  $xml_string = $xml->gen();
+//   echo "<pre>xmlstring=[".$xml_string."]</pre>";
+  return $xml_string;
+}
+
+  
+  
+  
+
+
 function docAPIVersion() {
   @include_once("Lib.Install.php");
   return $version."-".$release;
@@ -180,6 +208,13 @@ function docAPIVersion() {
 function _getUserFid() {
   global $_SERVER;
   global $action;
+
+  $CoreNull="";
+  $core = new Application();
+  $core->Set("CORE",$CoreNull);
+  $core->session=new Session();
+  $action = new Action();
+  $action->Set("",$core);
   $action->user = new User(); //create user as admin  
   $action->user->setLoginName($_SERVER["PHP_AUTH_USER"]);
   return $action->user->id;
