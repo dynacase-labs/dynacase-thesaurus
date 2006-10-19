@@ -114,7 +114,7 @@
             // get absolute fs path to requested resource
             $fspath =  $options["path"];
             
-            error_log ( "===========>PROPFIND :".$options["path"] );
+            error_log ( "===========>PROPFIND :".$options["path"].":depth:".$options["depth"] );
 
            
             // prepare property array
@@ -144,25 +144,29 @@
         
 
         function readfolder($fspath,$onlyfld=false) {
-            include_once("FDL/Lib.Dir.php");
+	  include_once("FDL/Lib.Dir.php");
 
-            $files=array();
-            $fldid=$this->path2id($fspath);
+	  $files=array();
+	  $fldid=$this->path2id($fspath,$vid);
            
+	  if ($vid) {
+	    $files=$this->vidpropinfo($fspath,$fldid,(!$onlyfld));
+	  } else {
+
             $fld=new_doc($this->dbaccess,$fldid);
 	    error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
             //$files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)),true);
             $files=$this->docpropinfo($fld,$this->_slashify(($fspath)),true);
-
+	    
             if (! $onlyfld) {
 	      /*
-	      		$ldoc = getChildDoc($this->dbaccess, $fld->initid,0,"ALL", array(),$action->user->id,"ITEM");
-		error_log("READFOLDER:".countDocs($ldoc));
-		while ($doc=getNextDoc($this->dbaccess,$ldoc)) {
-		  //		  $files[]=$this->docpropinfo($doc);
-		error_log("READFOLDER examine :".$doc->title);
-		$files=array_merge($files,$this->docpropinfo($doc,$fspath));
-                }*/
+	       $ldoc = getChildDoc($this->dbaccess, $fld->initid,0,"ALL", array(),$action->user->id,"ITEM");
+	       error_log("READFOLDER:".countDocs($ldoc));
+	       while ($doc=getNextDoc($this->dbaccess,$ldoc)) {
+	       //		  $files[]=$this->docpropinfo($doc);
+	       error_log("READFOLDER examine :".$doc->title);
+	       $files=array_merge($files,$this->docpropinfo($doc,$fspath));
+	       }*/
 	      if ($fld->doctype=='D') {
 		$tdoc=getFldDoc($this->dbaccess, $fld->initid,array(),200,false);
 	      } else {
@@ -172,21 +176,29 @@
 	      foreach ($tdoc as $k=>$v) {
 		$doc=getDocObject($this->dbaccess,$v);
 		$files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
-		
-		
 	      }
-
-	      
-            }
-            return $files;
+	    } 
+	  }
+	  return $files;
         }
 
 
-        function path2id($fspath) {
+        function path2id($fspath,&$vid=null) {
 	  //error_log("FSPATH :".$fspath);
 	  if ($fspath=='/')     return $this->racine;
 
 	  $fspath=$this->_unslashify($fspath);
+
+	  if (ereg("/vid-(.*)-(.*)",$fspath,$reg)) {
+	    $fid=$reg[1];
+	    $vid=$reg[2];
+	    //	    $dvi=new DocVaultIndex($this->dbaccess);
+	    //$fid=$dvi->getDocId($vid);
+	    
+
+	    error_log("FSPATH3 :.$fspath vid:[$vid]");
+            
+	  } else {
 
 	  $query = "SELECT  value FROM properties WHERE name='fid' and path = '".mysql_escape_string($fspath)."'";
 	  //error_log("PATH2ID:".$query);
@@ -196,12 +208,12 @@
 	    $fid= $row["value"];
 	  }
 	  mysql_free_result($res);
-	  error_log("FSPATH2 :".$fspath. "=>".$fid);
+	  }
+	  error_log("FSPATH :".$fspath. "=>".$fid);
 	  return $fid;
         } 
 
-        function docpropinfo(&$doc,$path,$firstlevel) 
-        {
+        function docpropinfo(&$doc,$path,$firstlevel)  {
 	  // map URI path to filesystem path
 	  $fspath = $this->base . $path;
 
@@ -289,8 +301,83 @@
 	  return $tinfo;
         }
       
-        
+        /**
+	 * virtual path
+	 */
+	function vidpropinfo($path,$docid,$withfile=false) {
+	  // map URI path to filesystem path
 
+	  // create result array
+	  $tinfo = array();
+	  $info = array();
+	  // TODO remove slash append code when base clase is able to do it itself
+	  //$info["path"]  = is_dir($fspath) ? $this->_slashify($path) : $path; 
+            
+	  // no special beautified displayname here ...
+            
+	  $onlyfile=false;
+	  if (ereg("/vid-(.*)/(.*)",$path,$reg)) {	    
+	    error_log("VIDPROP REG :".$reg[2]);
+	    $onlyfile=$reg[2];
+	  }
+	  // creation and modification time
+
+	  // directory (WebDAV collection)	
+	  if (! $onlyfile) {
+	  $info = array();   
+	  $info["props"] = array();
+	  $info["props"][] = $this->mkprop("resourcetype", "collection");
+	  $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
+	  $info["props"][] = $this->mkprop("displayname", utf8_encode($path));
+	  $path=$this->_slashify($path);
+	  if ($firstlevel) $info["path"]  = $path;
+	  else $info["path"]  = $path;
+	  //$info["path"]  = $path;
+	  $info["props"][] = $this->mkprop("creationdate",   time() );
+	  $info["props"][] = $this->mkprop("getlastmodified", time());
+	  error_log("VIRTUAL FOLDER:".$path.":");
+	  }
+	  $tinfo[]=$info;
+	  if ($withfile || $onlyfile) {
+	    // simple document : search attached files     
+	    $doc=new_doc($this->dbaccess,$docid);
+	    // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
+	    $afiles=$doc->GetFilesProperties();
+	    error_log("VIDPROP examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
+	    $bpath=basename($path);
+	    $dpath=$this->_slashify(dirname($path));
+	    
+	    error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
+	    
+
+	    $path=$this->_slashify($path);
+	    foreach ($afiles as $afile) {
+	      $aname=utf8_encode($afile["name"]);
+	      
+	      error_log("SEARCH FILE:[$aname] [$onlyfile]");
+	      if ((!$onlyfile ) || ($aname == $onlyfile)) {
+		$info = array();   
+		error_log("FOUND FILE:".$aname);
+	      $info["props"][] = $this->mkprop("resourcetype", "");
+	     
+	      $info["props"][] = $this->mkprop("displayname", "/".$aname);
+	      if ($firstlevel) $info["path"]  = $dpath.$aname;
+	      else $info["path"]  = $path.$aname;
+	      $filename=$afile["path"];
+	      $info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
+	      $info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
+	      $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($filename));
+	      $info["props"][] = $this->mkprop("getcontentlength",intval($afile["size"] ));
+	
+	      $tinfo[]=$info;
+	      }
+	      
+	      //error_log("PROP:".$query);
+	    }
+	  }
+
+	  return $tinfo;
+        }
         /**
          * detect if a given program is found in the search PATH
          *
@@ -417,18 +504,18 @@
             // get absolute fs path to requested resource
             $fspath = $this->base . $options["path"];
 
-            $fldid=$this->path2id($options["path"]);
+            $fldid=$this->path2id($options["path"],$vid);
             $doc=new_doc($this->dbaccess,$fldid);
 	    $afiles=$doc->GetFilesProperties();  
 	    $bpath=basename($options["path"]);
 	    error_log("GET SEARCH #FILES:".count($afiles));
 	    foreach ($afiles as $afile) {
 	      $path=utf8_encode($afile["name"]);
-		error_log("GET SEARCH:".$bpath.'->'.$path);
-	      if ($path == $bpath) {
+	      error_log("GET SEARCH:".$bpath.'->'.$path);
+	      if (($vid==$afile["vid"]) || ($path == $bpath)) {
 		error_log("GET FOUND:".$path.'-'.$afile["path"]);
 		$fspath=$afile["path"];
-		
+		break;
 	      }
 	    }
             // sanity check
@@ -521,7 +608,7 @@
 	  include_once("FDL/Class.Doc.php");
 
 	  $bpath=basename($options["path"]);
-	  $fldid=$this->path2id($options["path"]);
+	  $fldid=$this->path2id($options["path"],$vid);
 
 	  if ($fldid) {
 	    $stat ="204 No Content";
