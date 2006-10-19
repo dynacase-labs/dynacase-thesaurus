@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.10 2006/10/19 14:38:03 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.11 2006/10/19 16:20:11 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -128,7 +128,7 @@ function  docGetHistory($docid="") {
     $trdoc[$k]["divid"]= $k;
   }
 //print_r2($trdoc);
-  return array("docid" => $rdoc->id, "title" => $rdoc->getValue("in_title"), "release" => $trdoc);
+  return array("id" => $rdoc->initid, "title" => $rdoc->getValue("in_title"), "release" => $trdoc);
 }
 
 /**
