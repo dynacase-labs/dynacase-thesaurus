@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.9 2006/10/19 09:11:39 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.10 2006/10/19 14:38:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -47,7 +47,7 @@ function  docRead($docid="", $docrev="") {
       $doclist = _xmlDoclist($tdo);
     }
   }
-  return $doclist;
+  return base64_encode($doclist);
 }
 
 
@@ -84,12 +84,8 @@ fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
 		       $filter, $uid, "TABLE", 
 		       $famid, $allrev, $orderby, true, $trash);
   $doclist = _xmlDoclist($tdocs);
-  return $doclist;
 
-//    if (count($tdocs)<2) $docs["doc"][] = array(); 
-//    foreach ($tdocs as $k => $v) $docs["doc"][] = _docObject2docContent($v);
-// fwsLog("  docQuery E ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
-//    return  $docs;
+  return base64_encode($doclist);
 }
 
 /**
@@ -182,16 +178,17 @@ function _xmlDoclist($tdocs) {
   global $action;
   $xml = new Layout("Layout/doclist.xml");
 
+  $excluded = array ("values","attrids" );
+
   foreach ($tdocs as $k=>$v) {
     $tattr = array();
     foreach ($v as $ka => $va) {
-      $tattr[] = array("attname" => $ka, "attvalue"=>$va);
+    if (! in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "attvalue"=>$va);
     }
     $xml->setBlockData("attr".$v["id"], $tattr);
   }
   $xml->setBlockData("docs", $tdocs);
   $xml_string = $xml->gen();
-//   echo "<pre>xmlstring=[".$xml_string."]</pre>";
   return $xml_string;
 }
 
@@ -225,4 +222,6 @@ function _docObject2docContent($ndoc) {
   foreach ($ndoc as $k => $v)     $rattr[] = array( "key" => $k, "value" => $v );
   return array( "prop" => $propr, "attr" => $rattr) ;
 }
+
+
 ?>
