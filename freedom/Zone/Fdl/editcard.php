@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.59 2006/10/16 15:20:47 eric Exp $
+ * @version $Id: editcard.php,v 1.60 2006/10/20 11:44:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.59 2006/10/16 15:20:47 eric Exp $
+// $Id: editcard.php,v 1.60 2006/10/20 11:44:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -149,10 +149,10 @@ function editcard(&$action) {
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefor", $usefor);
   if ($usefor == "D") $doc->SetWriteVisibility();
+  else  setNeededAttributes($action,$doc);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   // compute modify condition js
-  setNeededAttributes($action,$doc);
 
 }
 
