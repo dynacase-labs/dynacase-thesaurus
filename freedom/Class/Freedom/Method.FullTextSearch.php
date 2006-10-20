@@ -3,7 +3,7 @@
  * Attribute Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Method.FullTextSearch.php,v 1.9 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.FullTextSearch.php,v 1.10 2006/10/20 06:55:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -112,7 +112,7 @@ function GetFullTextResultDocs ($dbaccess,
         $debugs = "[$k] Filename = [".$vr["file"]."] VaultId = [".$vid."] DocId = [ ";
 	$rating = $vr["rating"];
 	$filename = $vr["file"];
-        $r = $dvi->GetDocId($vid);
+        $r = $dvi->GetDocIds($vid);
         if (is_array($r) && count($r)>0) {
 	  while (list($k, $v) = each($r)) {
 	    $ndoc = new_Doc($dbaccess, $v->docid);
