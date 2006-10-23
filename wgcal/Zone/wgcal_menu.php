@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.34 2006/07/18 13:41:06 eric Exp $
+ * @version $Id: wgcal_menu.php,v 1.35 2006/10/23 16:17:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -218,7 +218,7 @@ function wgcal_menu(&$action) {
 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_CHOOSEGROUPS",
 						 "tgt" => "wgcal_choosegroups", 
 						 "ico" => "wgcal_choosegroups.gif",
-						 "rig" => "WGCAL_HIDDEN"
+						 "rig" => "WGCAL_ADMIN"
 						 ),
 // 					   array( 
 // 						 "key" => "m_newtheme",
