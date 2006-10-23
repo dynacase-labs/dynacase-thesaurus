@@ -3,8 +3,8 @@
 <table cellspacing="1">
 [BLOCK TodoList]
 <tr style="vertical-align:top;" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
-<td nowrap style="background-color:[colorTodo]; font-size:80%;">[dateTodoL]</td>
-<td style="border-width:1px; border-style:none none solid none; border-color:[colorTodo]">[textTodo]</td>
+<td nowrap style="font-size:80%;"><img class="small_button" id="wdparamimg" src="[IMGF:wmbullet.gif:0,0,0|[rcolor]]" title="[TEXT:wd show/hide service list]"> [dateTodoL]</td>
+<td style="border-width:0px; border-style:none">[textTodo]</td>
 </tr>[ENDBLOCK TodoList]</table>
 [ENDIF Todos]
 ]]></freedomsvc>[ENDIF lmode]

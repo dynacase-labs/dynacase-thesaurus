@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.9 2006/09/20 10:33:05 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.10 2006/10/23 16:19:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -75,12 +75,15 @@ function wgcal_todoview(&$action) {
     if ($cdate<$today) {
       $td[$itd]["alert"] = true; 
       $td[$itd]["colorTodo"] = "red";
+      $td[$itd]["rcolor"] = "#FF0000";
     } else if ($cdate<($today+($todowarn*24*3600))) {
       $td[$itd]["warning"] = true;
       $td[$itd]["colorTodo"] = "orange";
+      $td[$itd]["rcolor"] = "#ffd16e";
     } else {
       $td[$itd]["colorTodo"] = "#00ff00";
       $td[$itd]["warn"] = false;
+      $td[$itd]["rcolor"] = "#cdf3c2";
     }
     $itd++;
   }
