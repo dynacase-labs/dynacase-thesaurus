@@ -72,7 +72,8 @@ Calendar.setup({
 <img style="height:12; cursor:pointer"  title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="[IMG:twoweek.gif]">
 <img style="height:12; cursor:pointer"  title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
 </td>
-<td style="text-align:center; width:40px" >
+<td style="text-align:center; width:60px" >
+<img height="12" title="[TEXT:rss syndication]"  style="cursor:pointer" onclick="subwindowm(450, 700, 'Rss', '[CORE_STANDURL]app=WGCAL&action=WGCAL_RSS')" src="[IMG:rss.png]">
 <img height="12" title="[TEXT:print view]"  style="cursor:pointer" onclick="subwindowm(450, 700, 'iCalendar', '[CORE_STANDURL]app=WGCAL&action=WGCAL_CALENDAR&sm=1')" src="[IMG:wm-print.gif]">
 <img id="menu_prefs" title="[TEXT:change preferences]" style="cursor:pointer" onclick="subwindow(0, 0, 'EditPreferences', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_PREFS&RZ=HV');" src="[IMG:wgcal-prefs.gif]" height="12" >
 &nbsp;</td>

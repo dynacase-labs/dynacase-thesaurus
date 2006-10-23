@@ -40,6 +40,7 @@ $action_desc = array (
 
   array( "acl" => "WGCAL_USER", "name" => "RENDEZVOUS_READ", "short_name" =>N_("Rendez-vous default view"), "toc" => "N", "root" =>"N"),
 
+  array( "acl" => "WGCAL_USER", "name" => "WGCAL_RSS", "short_name" =>N_("rss agenda"), "toc" => "N", "root" =>"N"),
 
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_PORTAL", "short_name" =>N_("portal view"), "toc" => "N", "root" =>"N"),
   array( "acl" => "WGCAL_USER", "name" => "WGCAL_EPORTAL", "short_name" =>N_("portal parameter edition"), "toc" => "N", "root" =>"N"),

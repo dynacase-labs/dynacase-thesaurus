@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0"><channel>
+<title>[TEXT:Freedom agenda RSS] [username]</title>
+<link>[link]</link>
+<description>[TEXT:freedom groupware calendar] [username], [dates]</description>
+<language>fr</language>
+<pubDate>[pDate]</pubDate>
+<lastBuildDate>[pDate]</lastBuildDate>
+<ttl>60</ttl>
+<copyright>GPL V2 License - anakeen / marc.claverie@anakeen.com </copyright>
+<generator>Freedom Calendar</generator>
+<image>
+  <title>[TEXT:Freedom agenda RSS] [username]</title>
+  <link>[link]</link>
+  <url>[image]</url>
+</image>
+
+[BLOCK ITEMS]
+<item>
+  <title>[title]</title>
+  <author>[owner]</author>
+  <pubDate>[pdate]</pubDate>
+  <link>[link]</link>
+  <guid>[guid]</guid>
+  <description>
+[IF hnote]    &lt;li&gt; [TEXT:note] : [note] &lt;/li&gt;[ENDIF hnote]
+[IF hcat]    &lt;li&gt; [TEXT:Category] : [category] &lt;/li&gt;[ENDIF hcat]
+[IF hloc]    &lt;li&gt; [TEXT:location_1stUpcase] : [location] &lt;/li&gt;[ENDIF hloc]
+[IF hatt]    &lt;li&gt; [TEXT:attendees] : [attendees] &lt;/li&gt;[ENDIF hatt]
+  </description>
+</item>[ENDBLOCK ITEMS]
+
+</channel></rss>
