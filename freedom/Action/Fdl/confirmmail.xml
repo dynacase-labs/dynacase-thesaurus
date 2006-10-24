@@ -85,7 +85,7 @@ function viewCard(w) {
  <input type="button" title="[TEXT:Change the document state to] [tstate]" 
         value="[TEXT:confirm manually send]" onclick="sendState(self);"> </td>
   <td align="right" >
- <input type="button" value="[TEXT:cancel]" onclick="location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[mid]'"> 
+ <input type="button" value="[TEXT:cancel]" onclick="location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&refreshfld=Y&latest=Y&id=[mid]'"> 
   </td>
   
 </tr>
