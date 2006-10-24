@@ -59,8 +59,17 @@ function openiframe(event,th,docid) {
      nf.src='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_GENROOT&famid='+docid;
      tdi.appendChild(nf); 
   }
+}
+function reloadiframe(event,th,docid) {
+  var idf='if_'+docid;
+  var nf;
 
-
+  nf=document.getElementById(idf);
+  if (nf) {
+    nf.style.display='';
+    nf.src='[CORE_STANDURL]&app=[APPNAME]&action=ONEFAM_GENROOT&famid='+docid;
+  } 
+  
 }
 function openfirst(docid) {
   var i=document.getElementById('imgu'+docid);
@@ -86,6 +95,7 @@ addEvent(window,'load',function zou() {openfirst('[openfam]');})
 <img style="width:[izpx]"
      src="[iconsrc]"  
      onclick="openiframe(event,this,'[idcdoc]');"
+     ondblclick="reloadiframe(event,this,'[idcdoc]');"
      onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
      onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
      class="iconone"
