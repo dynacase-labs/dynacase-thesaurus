@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.116 2006/10/13 14:57:39 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.117 2006/10/24 12:20:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -258,7 +258,11 @@ function getChildDocError($dbaccess,
       // search familly
       //-------------------------------------------
       $docsearch = new QueryDb($dbaccess,"QueryDir");
-      $docsearch ->AddQuery("dirid=$dirid");
+      $err=$docsearch ->AddQuery("dirid=$dirid");
+      if ($err!="") {
+	global $action;
+	$action->AddWarningMsg($err);
+      }
       $docsearch ->AddQuery("qtype != 'S'");
       $ldocsearch = $docsearch ->Query(0,0,"TABLE");
       
