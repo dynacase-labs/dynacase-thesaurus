@@ -14,6 +14,19 @@
   <types>
     <xsd:schema targetNamespace="urn:FreedomWS" xmlns:xsd="http://www.w3.org/1999/XMLSchema">
 
+      <xsd:complexType name="actionParam">
+       <xsd:all>
+         <xsd:element name="pname" type="xsd:string"/>
+         <xsd:element name="pvalue" type="xsd:string"/>
+       </xsd:all>
+      </xsd:complexType>
+
+      <xsd:complexType name="paramList">
+       <xsd:all>
+         <xsd:element maxOccurs="unbounded" minOccurs="0" name="params" type="typens:actionParam"/>
+       </xsd:all>
+      </xsd:complexType>
+	
       <xsd:complexType name="docRComment">
        <xsd:all>
          <xsd:element name="cdate" type="xsd:string"/>
@@ -67,6 +80,18 @@
   </types>
 
   <!-- message declns -->
+
+  <message name="actionQ">
+    <part name="app" type="xsd:string"/>
+    <part name="action" type="xsd:string"/>
+    <part name="params" type="xsd:paramList"/>
+  </message>
+  <message name="actionA">
+    <part name="status" type="xsd:integer"/>
+    <part name="statusmsg" type="xsd:string"/>
+    <part name="mime" type="xsd:string"/>
+    <part name="content" type="xsd:string"/>
+</message>
 
   <message name="docReadQ">
     <part name="docid" type="xsd:string"/>
@@ -134,7 +159,12 @@
   <!-- port type declns -->
   <portType name="Freedom">
 
-    <operation name="docRead">
+     <operation name="runAction">
+      <input message="tns:actionQ"/>
+      <output message="tns:actionA"/>
+    </operation>
+
+   <operation name="docRead">
       <input message="tns:docReadQ"/>
       <output message="tns:docReadA"/>
     </operation>
@@ -180,6 +210,12 @@
   <binding name="FreedomWSBinding" type="tns:Freedom">
 
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <operation name="runAction">
+      <soap:operation soapAction=""/>
+      <input><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
 
     <operation name="docRead">
       <soap:operation soapAction=""/>
