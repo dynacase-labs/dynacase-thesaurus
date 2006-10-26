@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.340 2006/10/16 15:20:47 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.341 2006/10/26 16:21:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -787,7 +787,7 @@ final public function PostInsert()  {
    */
   final public function isLocked($my=false) {
     if ($my) {      
-      if (($this->user->id == 1) || ($this->locked == $this->userid)) return false;
+      if (($this->user->id == 1) || (abs($this->locked) == $this->userid)) return false;
     }
     return (($this->locked > 0) || ($this->locked < -1));
   }
@@ -1907,7 +1907,7 @@ final public function PostInsert()  {
       } else {
 	$ext="nop";
       }
-      $filename=uniqid("/tmp/_fdl").".$ext";
+      $filename=uniqid("/var/tmp/_fdl").".$ext";
       $tmpstream=fopen($filename,"w");
       while (!feof($stream)) {
 	if (false === fwrite($tmpstream, fread($stream, 4096))) {
@@ -1937,7 +1937,7 @@ final public function PostInsert()  {
 	error_log("FDL STORE :".$attrid."-".$value);
 	//$err="file conversion $mime|$vid";
       }
-      unlink($tmpstream);
+      unlink($filename);
       $this->AddComment(sprintf(_("modify file %s"),$ftitle));
     } 	
     }
