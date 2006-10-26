@@ -24,10 +24,13 @@ whatInit();
 $d2=microtime();
 
 $dt=microtime_diff($d1,$d2);
+$s->http_auth_realm = "DAV Connection";
 $s->ServeRequest("/var/www/html/");
 $d2=microtime();
 $d=microtime_diff($d1,$d2);
-error_log("================ $d $dt========================");
+
+error_log("================ $d $dt=====".$_SERVER['PHP_AUTH_USER']."===================");
+
 function whatInit() {
   global $action;
 include_once('Class.User.php');
@@ -40,7 +43,8 @@ include_once('Class.User.php');
     $action=new Action();
     $action->Set("",$core);
     $action->user=new User(); //create user as admin
-    $action->user->setLoginName("admin");
+    $action->user->setLoginName($_SERVER['PHP_AUTH_USER']);
+    //$action->user->setLoginName("eric.brison");
 }
 
 ?>

@@ -138,6 +138,7 @@
                 $files["files"]=$freefiles;
             }
 
+	    if (count($files["files"])==0) return false;
             // ok, all done
             return true;
         } 
@@ -154,7 +155,8 @@
 	  } else {
 
             $fld=new_doc($this->dbaccess,$fldid);
-	    error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
+	    if ($fld->isAlive()) {
+	      //error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
             //$files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)),true);
             $files=$this->docpropinfo($fld,$this->_slashify(($fspath)),true);
 	    
@@ -172,12 +174,13 @@
 	      } else {
 		$tdoc = getChildDoc($this->dbaccess, $fld->initid,0,200, array(),$action->user->id,"TABLE");
 	      }
-	      error_log("READFOLDER examine :".count($tdoc));
+	      // error_log("READFOLDER examine :".count($tdoc));
 	      foreach ($tdoc as $k=>$v) {
 		$doc=getDocObject($this->dbaccess,$v);
 		$files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
 	      }
 	    } 
+	  }
 	  }
 	  return $files;
         }
@@ -209,7 +212,7 @@
 	  }
 	  mysql_free_result($res);
 	  }
-	  error_log("FSPATH :".$fspath. "=>".$fid);
+	  //error_log("FSPATH :".$fspath. "=>".$fid);
 	  return $fid;
         } 
 
@@ -243,7 +246,7 @@
 	    //$info["path"]  = $path;
 	    $info["props"][] = $this->mkprop("creationdate",   $doc->revdate );
 	    $info["props"][] = $this->mkprop("getlastmodified", $doc->revdate);
-	    error_log("FOLDER:".$path.":".$doc->title);
+	    //error_log("FOLDER:".$path.":".$doc->title);
             // get additional properties from database
             $query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
             $res = mysql_query($query);
@@ -260,11 +263,11 @@
   
 	    // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
 	    $afiles=$doc->GetFilesProperties();
-	    error_log("READFILES examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
+	    //error_log("READFILES examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
 	    $bpath=basename($path);
 	    $dpath=$this->_slashify(dirname($path));
 	    
-	    error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
+	    //error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
 	    
 
 	    $path=$this->_slashify($path);
@@ -273,27 +276,35 @@
 	      $info["props"][] = $this->mkprop("resourcetype", "");
 	      $aname=utf8_encode($afile["name"]);
 	      if ((!$firstlevel ) || ($aname == $bpath)) {
-		$info["props"][] = $this->mkprop("displayname", "/".$aname);
 		if ($firstlevel) $info["path"]  = $dpath.$aname;
 		else $info["path"]  = $path.$aname;
 		$filename=$afile["path"];
-		$info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
-		$info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
-		$info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($filename));
-		$info["props"][] = $this->mkprop("getcontentlength",intval($afile["size"] ));
-		// get additional properties from database
-		$query = "SELECT ns, name, value FROM properties WHERE path = '$path'";
-		$res = mysql_query($query);
-		while ($row = mysql_fetch_assoc($res)) {
-		  $info["props"][] = $this->mkprop($row["ns"], $row["name"], $row["value"]);
-		}
-		mysql_free_result($res);
-		$tinfo[]=$info;
-		$query = "REPLACE INTO properties SET path = '".mysql_escape_string($this->_unslashify($info["path"]))."', name = 'fid', ns= '$prop[ns]', value = '".$doc->id."'";
+		
+		if (file_exists($filename)) {
+		 
+		  $info["props"][] = $this->mkprop("displayname", "/".$aname);
+		  $info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
+		  $info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
+		  $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($filename));
+		  $info["props"][] = $this->mkprop("getcontentlength",intval($afile["size"] ));
+		  // get additional properties from database
+		  $query = "SELECT ns, name, value FROM properties WHERE path = '".mysql_escape_string($this->_unslashify($info["path"]))."'";
+		  $res = mysql_query($query);
+		  while ($row = mysql_fetch_assoc($res)) {
+		    $info["props"][] = $this->mkprop($row["ns"], $row["name"], $row["value"]);
+		  }
+		  mysql_free_result($res);
+		  //		error_log("PROP:".print_r($info,true));
+		  //error_log("PROP:".$query);
+		  $tinfo[]=$info;
+		  $query = "REPLACE INTO properties SET path = '".mysql_escape_string($this->_unslashify($info["path"]))."', name = 'fid', ns= '$prop[ns]', value = '".$doc->id."'";
 	       
-		mysql_query($query);
-		error_log("FILE:".$afile["name"]."-".$afile["size"]."-".$path);
-	      }
+		  mysql_query($query);
+		  //error_log("FILE:".$afile["name"]."-".$afile["size"]."-".$path);
+		} else {
+		  error_log("FILE ERROR:".$doc->title."-".$doc->id."-".$filename);
+		}
+	      } 
 	      //error_log("PROP:".$query);
 	    }
 	  }
@@ -317,7 +328,7 @@
             
 	  $onlyfile=false;
 	  if (ereg("/vid-(.*)/(.*)",$path,$reg)) {	    
-	    error_log("VIDPROP REG :".$reg[2]);
+	    //error_log("VIDPROP REG :".$reg[2]);
 	    $onlyfile=$reg[2];
 	  }
 	  // creation and modification time
@@ -335,7 +346,7 @@
 	  //$info["path"]  = $path;
 	  $info["props"][] = $this->mkprop("creationdate",   time() );
 	  $info["props"][] = $this->mkprop("getlastmodified", time());
-	  error_log("VIRTUAL FOLDER:".$path.":");
+	  //error_log("VIRTUAL FOLDER:".$path.":");
 	  }
 	  $tinfo[]=$info;
 	  if ($withfile || $onlyfile) {
@@ -343,21 +354,21 @@
 	    $doc=new_doc($this->dbaccess,$docid);
 	    // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
 	    $afiles=$doc->GetFilesProperties();
-	    error_log("VIDPROP examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
+	    //error_log("VIDPROP examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
 	    $bpath=basename($path);
 	    $dpath=$this->_slashify(dirname($path));
 	    
-	    error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
+	    //error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
 	    
 
 	    $path=$this->_slashify($path);
 	    foreach ($afiles as $afile) {
 	      $aname=utf8_encode($afile["name"]);
 	      
-	      error_log("SEARCH FILE:[$aname] [$onlyfile]");
+	      //error_log("SEARCH FILE:[$aname] [$onlyfile]");
 	      if ((!$onlyfile ) || ($aname == $onlyfile)) {
 		$info = array();   
-		error_log("FOUND FILE:".$aname);
+		//error_log("FOUND FILE:".$aname);
 	      $info["props"][] = $this->mkprop("resourcetype", "");
 	     
 	      $info["props"][] = $this->mkprop("displayname", "/".$aname);
@@ -508,10 +519,10 @@
             $doc=new_doc($this->dbaccess,$fldid);
 	    $afiles=$doc->GetFilesProperties();  
 	    $bpath=basename($options["path"]);
-	    error_log("GET SEARCH #FILES:".count($afiles));
+	    //error_log("GET SEARCH #FILES:".count($afiles));
 	    foreach ($afiles as $afile) {
 	      $path=utf8_encode($afile["name"]);
-	      error_log("GET SEARCH:".$bpath.'->'.$path);
+	      //error_log("GET SEARCH:".$bpath.'->'.$path);
 	      if (($vid==$afile["vid"]) || ($path == $bpath)) {
 		error_log("GET FOUND:".$path.'-'.$afile["path"]);
 		$fspath=$afile["path"];
@@ -615,11 +626,11 @@
 	    $options["new"] = false;
 	    $doc=new_doc($this->dbaccess,$fldid);
 	    $afiles=$doc->GetFileAttributes();  
-	    error_log("PUT SEARCH #FILES:".count($afiles));
+	    //error_log("PUT SEARCH #FILES:".count($afiles));
 	    foreach ($afiles as $afile) {
 	      $fname=utf8_encode($doc->vault_filename($afile->id));
 
-	      error_log("PUT SEARCH:".$bpath);
+	      //error_log("PUT SEARCH:".$bpath);
 	      if ($fname == $bpath) {
 		error_log("PUT FOUND:".$path.'-'.$fname);
 	      
@@ -636,7 +647,7 @@
 	    $stat = "201 Created";
 	    if ($options["new"]) {
 	      $dir=dirname($options["path"]);
-	      error_log("PUT NEW FILE IN:".$dir);
+	      //error_log("PUT NEW FILE IN:".$dir);
 	      $ndoc=createDoc($this->dbaccess,"SIMPLEFILE");
 	      if ($ndoc) {
 		$fa=$ndoc->GetFirstFileAttributes();
@@ -741,12 +752,19 @@
                 System::rm("-rf $path");
 	      
 	    } else {
-
+	      if ($doc->isLocked()) {
+		$err=$doc->unlock();
+	      }
+	      
+	      if ($err!="") {
+                return "403 Forbidden:$err";    		
+	      }
 	      $err=$doc->delete();
 	      if ($err!="") {
-                return "403 Forbidden";    		
+                return "403 Forbidden:$err";    		
 	      }
-	      $query = "DELETE FROM properties WHERE fid=".$doc->initid;
+	      $query = "DELETE FROM properties WHERE name='fid' and value=".$doc->initid;
+	      error_log ( $query );
 	      mysql_query($query);
 	    }
 
@@ -774,7 +792,7 @@
 	    
 	  $srcid=$this->path2id($psource);
 	  $src=new_doc($this->dbaccess,$srcid);
-	  error_log ("SRC : $psource ".$srcid );
+	  //error_log ("SRC : $psource ".$srcid );
 
 	  $pdest=$this->_unslashify($options["dest"]);
 	  $bdest=basename($pdest);
@@ -789,7 +807,7 @@
 	  if ($destid) {
 	    $dest=new_doc($this->dbaccess,$destid);
 	    if ($dest->doctype=='D') {	      
-	      error_log ("MOVE TO FOLDER : $destid:".$dest->title);
+	      //error_log ("MOVE TO FOLDER : $destid:".$dest->title);
 	      return "502 bad gateway";
 
 	    } else {
@@ -798,7 +816,7 @@
 	      // delete file
 	      $err=$dest->delete();
 	      if ($err=="") {
-		  $query = "DELETE FROM properties WHERE fid=".$dest->initid;
+		  $query = "DELETE FROM properties WHERE name='fid' and value=".$dest->initid;
 		  error_log($query);
 		  mysql_query($query);
 		// move
@@ -963,7 +981,7 @@
 
 	      if ($err=="") {
 		
-		$query = "DELETE FROM properties WHERE fid=".$dest->initid;
+		$query = "DELETE FROM properties WHERE name='fid' and value=".$dest->initid;
 		error_log($query);
 		mysql_query($query);
 	      }
@@ -1068,33 +1086,45 @@
          * @param  array  general parameter passing array
          * @return bool   true on success
          */
-        function LOCK(&$options) 
-        {
-            error_log ( "===========>LOCK :".$options["path"] );
-            if (isset($options["update"])) { // Lock Update
-                $query = "UPDATE locks SET expires = ".(time()+300). "and token='".$options["update"]."'";
-                mysql_query($query);
+        function LOCK(&$options)   {
+	  error_log ( "===========>LOCK :".$options["path"] );
+	  include_once("FDL/Class.Doc.php");
+	  if (isset($options["update"])) { // Lock Update
+	    $query = "UPDATE locks SET expires = ".(time()+300). "and token='".$options["update"]."'";
+	    mysql_query($query);
                 
-                if (mysql_affected_rows()) {
-                    $options["timeout"] = 300; // 5min hardcoded
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+	    if (mysql_affected_rows()) {
+	      $options["timeout"] = 300; // 5min hardcoded
+	      return true;
+	    } else {
+	      return false;
+	    }
+	  }
             
-            $options["timeout"] = time()+300; // 5min. hardcoded
+	  $fldid=$this->path2id($options["path"],$vid);
+	  $doc=new_doc($this->dbaccess,$fldid);
+	  if ($doc->isAffected()) {
+	    error_log("LOCK ".$doc->title);
 
-            $query = "INSERT INTO locks
+	    $err=$doc->lock(true);
+	    if ($err=="") {
+	      $options["timeout"] = time()+300; // 5min. hardcoded
+
+	      $query = "INSERT INTO locks
                         SET token   = '$options[locktoken]'
                           , path    = '$options[path]'
                           , owner   = '$options[owner]'
                           , expires = '$options[timeout]'
-                          , exclusivelock  = " .($options['scope'] === "exclusive" ? "1" : "0")
-                ;
-            mysql_query($query);
-
-            return mysql_affected_rows() ? "200 OK" : "409 Conflict";
+                          , exclusivelock  = " .($options['scope'] === "exclusive" ? "1" : "0");
+	      mysql_query($query);
+	      if (mysql_affected_rows()) {
+		return "200 OK";
+	      } 
+	    } else {
+	      error_log("Cannot lock ".$doc->title.":$err");
+	    }
+	  }
+	  return "409 Conflict";
         }
 
         /**
@@ -1103,15 +1133,26 @@
          * @param  array  general parameter passing array
          * @return bool   true on success
          */
-        function UNLOCK(&$options) 
-        {
-            error_log ( "===========>UNLOCK :".$options["path"] );
-            $query = "DELETE FROM locks
+        function UNLOCK(&$options) {
+	  
+	  
+	  error_log ( "===========>UNLOCK :".$options["path"] );
+	  include_once("FDL/Class.Doc.php");
+	  $fldid=$this->path2id($options["path"],$vid);
+	  $doc=new_doc($this->dbaccess,$fldid);
+	    
+	  if ($doc->isAffected()) {
+	    $err=$doc->unlock(true);
+	    if ($err=="") {
+	      $query = "DELETE FROM locks
                       WHERE path = '$options[path]'
                         AND token = '$options[token]'";
-            mysql_query($query);
-
-            return mysql_affected_rows() ? "204 No Content" : "409 Conflict";
+	      mysql_query($query);
+	      if (mysql_affected_rows()) return "204 No Content";
+	    }
+	  }
+	  error_log("Cannot unlock ".$doc->title.":$err");
+	  return  "409 Conflict";
         }
 
         /**

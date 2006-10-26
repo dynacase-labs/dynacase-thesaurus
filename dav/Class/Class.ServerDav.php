@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.4 2006/10/17 13:26:32 eric Exp $
+// $Id: Class.ServerDav.php,v 1.5 2006/10/26 16:22:25 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -66,7 +66,7 @@ class HTTP_WebDAV_Server
      *
      * @var string 
      */
-    var $http_auth_realm = "PHP WebDAV";
+    var $http_auth_realm = "DAV Connection";
 
     /**
      * String to be used in "X-Dav-Powered-By" header
