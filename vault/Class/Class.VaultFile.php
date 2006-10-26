@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.12 2006/10/13 14:58:29 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.13 2006/10/26 16:34:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -151,9 +151,24 @@ Class VaultFile {
 	$this->logger->warning("Access mode forced to RESTRICTED for ".$infile."].");
      }
     if ($newname != "") {
+      $oldname=$this->storage->name;
       $msg = $this->storage->Show($id_file, $infos);
       $this->storage->name=$newname;
       $msg = $this->storage->Modify();
+      if ($msg =="") {
+	$pio=pathinfo($oldname);
+	$pin=pathinfo($newname);
+	$epio=$pio['extension'];
+	$epin=$pin['extension'];
+	if ($epio != $epin) {
+	  // need rename physically file
+	  $path=pathinfo($infos->path);
+	  if (ereg("(.*)/([0-9]+)\.[^\.]*",$infos->path,$reg)) {
+	    $newpath=$reg[1]."/".$reg[2].".".$epin;
+	    rename($infos->path,$newpath);
+	  }
+	}
+      }
       $this->logger->error($msg);
     }
     
