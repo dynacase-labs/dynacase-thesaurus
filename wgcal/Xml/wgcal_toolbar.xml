@@ -1,4 +1,4 @@
-[ZONE WGCAL:WGCAL_HTMLHEAD?refresh=[refresh]]
+[ZONE WGCAL:WGCAL_HTMLHEAD]
 
 <!-- Globals variables -->
 <script type="text/javascript">
