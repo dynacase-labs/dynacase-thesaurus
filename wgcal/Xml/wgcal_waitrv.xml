@@ -2,5 +2,5 @@
 [BLOCK WAITRV]<div>&diams; [date], <span style="font-weight:bold">[title]</span> <span style="font-size:80%; font-style:italic">([owner])</span></div> 
 [ENDBLOCK WAITRV]
 ]]></freedomsvc>[ENDIF LightMode][ENDIF OnlyCount][IF OnlyCount]var result='[count]';[ENDIF OnlyCount][IFNOT OnlyCount][IFNOT LightMode]var waitrv = new Array();[BLOCK WAITRV]
-waitrv[[rvc]] = { id:[id], title:'[title]', owner:'[owner]', date:'[date]' };
+waitrv[[rvc]] = { id:[id], title:'[jstitle]', owner:'[owner]', date:'[date]' };
 [ENDBLOCK WAITRV][ENDIF LightMode][ENDIF OnlyCount]

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.17 2006/10/27 05:13:38 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.18 2006/10/27 15:14:48 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -77,6 +77,7 @@ function wgcal_waitrv(&$action) {
 			   "id" => $v["id"],
 			   "date" =>  $date,
  			   "title" => $v["calev_evtitle"],
+ 			   "jstitle" => addslashes($v["calev_evtitle"]),
 			   "owner" => ucwords(strtolower($v["calev_owner"])) );
       $irv++;
     }
