@@ -31,7 +31,10 @@ function pickColor(color) {
 &nbsp;<input type="radio" onclick="settcolor(true)" name="evtextcolor" [IFNOT CSELECTED]checked[ENDIF CSELECTED]/> [TEXT:dynamic]<br>
 &nbsp;<input type="radio" onclick="settcolor(false)" name="evtextcolor" [IF CSELECTED]checked[ENDIF CSELECTED]/> couleur : <span id="tcolchooser" onclick="colpick.show('tcolchooser')"  style="cursor:pointer;vertical-align:top; font-size:6pt; visibility:[IF CSELECTED]visible[ENDIF CSELECTED][IFNOT CSELECTED]hidden[ENDIF CSELECTED]; border:2px outset; background-color:[textcolor];" title="[TEXT:text color for event]">&nbsp;???&nbsp;</td>
 
-<tr><td align="right">[TEXT:timeout before displaying popup] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_ALTTIMER', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK ALTTIMER]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ALTTIMER]</select></td>
+<tr><td align="right">[TEXT:toolbar refresh time] : </td>
+<td><select style="cursor:pointer" id="refresh" onchange="changeUPref('[uid]', 'WGCAL_U_RELOADTOOLBAR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR');">[BLOCK refresh]<option value="[val]" [sel]>[text][ENDBLOCK refresh]</select> </td></tr>
+
+<tr><td align="right">[TEXT:timeout before displaying popup] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_ALTTIMER', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK ALTTIMER]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK ALTTIMER]</select></td></tr>
 <tr><td align="right">[TEXT:day start hour] : </td><td><select style="cursor:pointer" id="altposition" onchange="changeUPref('[uid]', 'WGCAL_U_STARTHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK SH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK SH]</select></td></tr>
 <tr><td align="right">[TEXT:day end hour] : </td><td><select style="cursor:pointer" id="alttimeout" onchange="changeUPref('[uid]', 'WGCAL_U_STOPHOUR', this.options[this.selectedIndex].value, 'wgcal_calendar', 'WGCAL_CALENDAR')">[BLOCK EH]<option value="[optvalue]" [optselect]>[optdescr][ENDBLOCK EH]</select></td></tr>
 

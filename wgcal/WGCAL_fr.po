@@ -857,7 +857,7 @@ msgid "display contacts"
 msgstr "Afficher les contacts"
 
 msgid "toolbar refresh time"
-msgstr "Intervallle de rafraichissement de la barre d'outil"
+msgstr "Intervalle de rafraichissement de l'agenda"
 
 msgid "toolbar size"
 msgstr "Largeur de la barre d'outils"

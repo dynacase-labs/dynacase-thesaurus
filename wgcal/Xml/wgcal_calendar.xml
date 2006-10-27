@@ -133,6 +133,9 @@
      var isIE = [IFNOT ISIE]false[ENDIF ISIE][IF ISIE]true[ENDIF ISIE];
      inCalendar = true;
 
+var CalRefreshInterval = [refreshi];
+var CalRefreshTimeout = 0;
+
 var DynView = true;
 var CurrentTime = [ts];
 var Days = new Array();
@@ -151,7 +154,8 @@ function displayInit() {
   fcalInitView('[IDSTART]', '[IDSTOP]', [DAYCOUNT], [HCOUNT], [HSTART], [HDIV], [YDURATION]);
   fcalInitEvents('[ress]');
   fcalShowEvents();
-  unglobalcursor();  
+  unglobalcursor();
+  CalRefreshTimeout = setTimeout("calRefresh()", (CalRefreshInterval*1000));
 }
 addEvent(window, 'load', displayInit );
 addEvent(window, 'resize', fcalDisplayInitTempo);

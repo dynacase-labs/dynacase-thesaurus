@@ -1418,3 +1418,17 @@ function cancelMsgUser() {
   document.getElementById('userMessage').style.visibility = 'hidden';
   msgUserTempo = -1;
 }
+
+
+
+
+function calRefresh() {
+  if (CalRefreshInterval>0) {
+    if (CalRefreshTimeout>0) {
+      clearTimeout(CalRefreshTimeout);
+      CalRefreshTimeout = 0;
+    }
+    fcalReloadEvents();
+    CalRefreshTimeout = setTimeout("calRefresh()", (CalRefreshInterval*1000));
+  }    
+}

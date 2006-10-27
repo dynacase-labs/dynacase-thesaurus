@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.21 2006/08/01 10:45:26 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.22 2006/10/27 15:12:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -48,6 +48,21 @@ function wgcal_prefs_look(&$action) {
     $i++;
   }
   $action->lay->SetBlockData("ALTPOS", $opt);
+
+
+  $rinit = getParam("WGCAL_U_RELOADTOOLBAR", 3600);
+  $refresh = array( 
+		   array( "val" => "0",  "sel" => "", "text" => _("never")),
+		   array( "val" => "900" ,  "sel" => "", "text" => _("1/4 heure")),
+		   array( "val" => "1800",  "sel" => "", "text" => _("1/2 heure")),
+		   array( "val" => "2700",  "sel" => "", "text" => _("3/4 heure")),
+		   array( "val" => "3600",  "sel" => "", "text" => _("1 heure"))
+		   );
+  foreach ($refresh as $k => $v) {
+    $refresh[$k]["sel"] = ($rinit==$v["val"] ? "selected" : "");
+  }			  
+  $action->lay->SetBlockData("refresh", $refresh);
+ 
 
   $popuptimer = array( "200" => _("200 milli second"),
 		       "500" => _("1/2 second"), 

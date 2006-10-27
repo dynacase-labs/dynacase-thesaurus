@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.16 2006/09/19 07:49:33 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.17 2006/10/27 15:12:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -30,17 +30,6 @@ function wgcal_prefs_others(&$action) {
 	  "search" => array(_("display search"), "WGCAL_U_TBSEARCH", "wgcal_toolbar", "WGCAL_TOOLBAR")
 	  );
   
-  $toolbaropt = array( "refresh" => array(_("toolbar refresh time"), 
-					  "WGCAL_U_RELOADTOOLBAR", 
-					  "wgcal_toolbar", 
-					  "WGCAL_TOOLBAR", 
-					  array( "0"  => _("never"),
-						 "300"   => _("5 minutes"),
-						 "600"   => _("10 minutes"),
-						 "1200"   => _("20 minutes"))
-					  )		       
-		       );
-
   $portal =     array(
 		      "look" => array(_("portal look"), 
 				      "WGCAL_U_PORTALSTYLE", 
@@ -93,28 +82,6 @@ function wgcal_prefs_others(&$action) {
     $io++;
   }
   $action->lay->SetBlockData("TOOLBARTOOLS", $tb);
-
-  $toptchk = array(); 
-  $io = 0;
-  foreach ($toolbaropt as $ko => $vo) {
-    $cVal = $action->GetParam($vo[1]);
-    $toptchk[$io]["iSel"] = $ko;
-    $toptchk[$io]["iText"] = $vo[0];
-    $toptchk[$io]["iVar"] = $vo[1];
-    $toptchk[$io]["iVal"] = $cVal;
-    $toptchk[$io]["iFrame"] = $vo[2];
-    $toptchk[$io]["iAction"] = $vo[3];
-    $toptchk[$io]["uid"] = $uid;
-    $opt = array();
-    foreach ($vo[4] as $k => $v) {
-      $opt[] = array( "iOptText" => $v,
-		      "iOptVal" => $k,
-		      "iOptSel" => ($cVal==$k ? "selected" : ""));
-    }
-    $action->lay->SetBlockData("OPT".$ko, $opt);
-    $io++;
-  }
-  $action->lay->SetBlockData("TOOLBAR2", $toptchk);
 
 
   // Portal

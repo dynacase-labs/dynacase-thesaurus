@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.98 2006/10/04 13:13:43 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.99 2006/10/27 15:12:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -254,6 +254,9 @@ function wgcal_calendar(&$action) {
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));
   $action->lay->set("WGCAL_U_HCOLW", $action->GetParam("WGCAL_U_HCOLW", 20));
+
+
+  $action->lay->set("refreshi", getParam("WGCAL_U_RELOADTOOLBAR", 3600));
 
 //   $action->lay->SetBlockData("EVENTS", $tout);
   $action->lay->SetBlockData("EVENTS", null);
