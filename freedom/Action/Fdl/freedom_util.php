@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.89 2006/09/07 09:08:30 eric Exp $
+ * @version $Id: freedom_util.php,v 1.90 2006/10/27 15:24:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,11 +69,12 @@ function GetSqlCond($Table, $column, $integer=false)
  * return document object in type concordance
  * @param string $dbaccess database specification
  * @param int $id identificator of the object
+ * @param bool $latest if true set to latest revision of doc
  * @global array optimize for speed 
  * 
  * @return Doc object
  */
-function new_Doc($dbaccess, $id='') {
+function new_Doc($dbaccess, $id='',$latest=false) {
 
   global $gdocs;// optimize for speed
 
@@ -123,6 +124,12 @@ function new_Doc($dbaccess, $id='') {
   if ($classname != "") {
     include_once("FDL$gen/Class.$classname.php");
     $doc=new $classname($dbaccess, $id);
+    if ($latest && $doc->locked == -1) {
+      $tl=getLatestTDoc($dbaccess,$doc->initid);
+      $doc->Affect($tl);
+      $id=$doc->id;
+    }
+
     if (($id > 0) && ($doc->doctype!='W') && (count($gdocs) < MAXGDOCS))    $gdocs[$id]=&$doc;
 
     return ($doc);
