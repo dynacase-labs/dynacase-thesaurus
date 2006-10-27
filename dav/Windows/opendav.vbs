@@ -35,5 +35,5 @@ else
  ' next
  ' Cmd = join(Tab,"\")
 end if
-MsgBox("["&Cmd&"]")
+'MsgBox("["&Cmd&"]")
 oShell.Run Cmd

@@ -5,7 +5,7 @@ include_once("DAV/Class.Dav.php");
 
 define("UPDTCOLOR",'[1;32;40m');
 define("STOPCOLOR",'[0m');
-$s=new HTTP_WebDAV_Server_Filesystem();
+$s=new HTTP_WebDAV_Server_Freedom();
 
 error_log("====== ".$_SERVER['REQUEST_METHOD']." ========");
 //error_log("dav:   filename=(".$_GET['filename'].")");
@@ -24,7 +24,7 @@ whatInit();
 $d2=microtime();
 
 $dt=microtime_diff($d1,$d2);
-$s->http_auth_realm = "DAV Connection";
+$s->http_auth_realm = "FREEDOM Connection";
 $s->ServeRequest("/var/www/html/");
 $d2=microtime();
 $d=microtime_diff($d1,$d2);

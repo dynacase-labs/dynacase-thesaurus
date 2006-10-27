@@ -8,7 +8,7 @@
      *
      * @access public
      */
-    class HTTP_WebDAV_Server_Filesystem extends HTTP_WebDAV_Server 
+    class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server 
     {
         /**
          * Root directory for WebDAV access
@@ -624,7 +624,8 @@
 	  if ($fldid) {
 	    $stat ="204 No Content";
 	    $options["new"] = false;
-	    $doc=new_doc($this->dbaccess,$fldid);
+	    $doc=new_doc($this->dbaccess,$fldid,true);
+	    
 	    $afiles=$doc->GetFileAttributes();  
 	    //error_log("PUT SEARCH #FILES:".count($afiles));
 	    foreach ($afiles as $afile) {
