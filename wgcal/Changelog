@@ -1,3 +1,8 @@
+2.2.1
+ - Ajout RSS 'Mes rendez-vous'
+ - integration Syn4j Funambol V3
+ - rechargement auto des rendez en attente (Ajax)
+
 2.1.1-2
  - couleur du texte dynamique / choisie
  - passage mini-edition --> edition normale en conservant les saisies
