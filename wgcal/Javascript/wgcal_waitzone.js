@@ -40,13 +40,15 @@ function composeWaitRvArea(rvl) {
 
   var wdiv;
   for (var i=0; i<waitrv.length; i++) {
+    var id = waitrv[i].id;
 
     wdiv = document.createElement('div');
     wdiv.setAttribute('id', 'evt'+waitrv[i].id );
     wdiv.className = 'wgcalwaitrv';
     wdiv.innerHTML = ' &bull; <span class="wgcalwaitrvtitle" >'+waitrv[i].title+'</span> <span class="wgcalwaitrvdesc">'+waitrv[i].date+', '+waitrv[i].owner+'</span>';
-    fcalAddEvent(wdiv, 'contextmenu', function foo(event) { 
-		   viewmenu(event, UrlRoot+'&app=WGCAL&action=WGCAL_GETMENU&id='+waitrv[i].id); 
+    fcalAddEvent(wdiv, 'click', 
+		 function foo(event) { 
+		   viewmenu(event, UrlRoot+'&app=WGCAL&action=WGCAL_GETMENU&ctx=WRV&ue=f&id='+id); 
 		   return false; } );
     rvlist.appendChild(wdiv);
   }
