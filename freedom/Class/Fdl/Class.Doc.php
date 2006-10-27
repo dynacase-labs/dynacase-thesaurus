@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.341 2006/10/26 16:21:57 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.342 2006/10/27 15:24:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1916,8 +1916,20 @@ final public function PostInsert()  {
 	}
       }
       fclose($tmpstream);
-      if ($basename) {
+      // verify if need to create new file in case of revision
+      $newfile=($basename=="");
+
+      if ($this->revision > 0) {
+	$trev=$this->GetRevisions("TABLE",2);
+	$revdoc=$trev[1];
+	$prevfile=getv($revdoc,strtolower($attrid));
+	if ($prevfile == $fvalue) $newfile=true;
+	error_log("FDL STORE PREV : $prevfile - ".$revdoc["id"]);
+      }
+
+      if (! $newfile) {
 	$err=$vf->Save($filename, false , $vaultid);
+	error_log("FDL SAVE :".$filename."-".$vaultid);
       } else {
 	$err=$vf->Store($filename, false , $vaultid);
 	error_log("FDL STORE :".$filename."-".$vaultid);
@@ -1934,7 +1946,7 @@ final public function PostInsert()  {
 	$mime=trim(`file -ib $filename`);
 	$value="$mime|$vaultid";
 	$err=$this->setValue($attrid,$value);
-	error_log("FDL STORE :".$attrid."-".$value);
+
 	//$err="file conversion $mime|$vid";
       }
       unlink($filename);
