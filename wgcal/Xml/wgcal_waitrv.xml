@@ -1,22 +1,6 @@
 [IFNOT OnlyCount][IF LightMode]<?xml version="1.0" encoding="UTF-8"?><freedomsvc uptime="[uptime]" title="[TEXT:waiting rv] : [RVCOUNT]"><![CDATA[
 [BLOCK WAITRV]<div>&diams; [date], <span style="font-weight:bold">[title]</span> <span style="font-size:80%; font-style:italic">([owner])</span></div> 
 [ENDBLOCK WAITRV]
-]]></freedomsvc>[ENDIF LightMode][ENDIF OnlyCount][IF OnlyCount]var result='[count]';[ENDIF OnlyCount][IFNOT OnlyCount]
-[IFNOT LightMode]
-[JS:REF]
-<script type="text/javascript"> 
-[JS:CODE]</script>
-<table id="bwaitrv" class="[bwaitrv]" width="100%" cellspacing="0" cellpadding="0">
-<tr>
-<td [IF intoolbar]onclick="WGCalChangeVisibility('waitrv','[IMG:plus.gif]','[IMG:minus.gif]');"[ENDIF intoolbar] align="left">[IF intoolbar]<img style="vertical-align:middle;" id="owaitrv" src="[IF owaitrv][IMG:minus.gif][ENDIF owaitrv][IFNOT owaitrv][IMG:plus.gif][ENDIF owaitrv]">[ENDIF intoolbar]&nbsp;[TEXT:waiting rv] ([RVCOUNT])</td>
-<td align="right">[IF intoolbar]<input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert('_self', '[oact]')" [alertwrv] title="[TEXT:alert for new event ?]">&nbsp;[ENDIF intoolbar]</td>
-</tr>
-</table>
-<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px 2px 0px 10px; overflow:auto">[BLOCK WAITRV]
-<div id="evt[id]" title="[TEXT:click-right button to open menu]" class="wgcalwaitrv" style="cursor:crosshair" 
-     onmouseover="this.className = 'wgcalwaitrvover'; " onmouseout="this.className = 'wgcalwaitrv'"
-     onContextMenu="viewmenu(event, '[CORE_STANDURL]&app=WGCAL&action=WGCAL_GETMENU&id=[id]&ue=f&ctx=WRV'); return false">
-<span class="wgcalwaitrvtitle" >[title]</span> <span class="wgcalwaitrvdesc">[date], [owner]</span>
-</div>[ENDBLOCK WAITRV]</div>
-[ENDIF LightMode]
-[ENDIF OnlyCount]
+]]></freedomsvc>[ENDIF LightMode][ENDIF OnlyCount][IF OnlyCount]var result='[count]';[ENDIF OnlyCount][IFNOT OnlyCount][IFNOT LightMode]var waitrv = new Array();[BLOCK WAITRV]
+waitrv[[rvc]] = { id:[id], title:'[title]', owner:'[owner]', date:'[date]' };
+[ENDBLOCK WAITRV][ENDIF LightMode][ENDIF OnlyCount]

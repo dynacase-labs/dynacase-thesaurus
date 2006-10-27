@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.16 2006/08/07 16:24:46 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.17 2006/10/27 05:13:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -73,7 +73,8 @@ function wgcal_waitrv(&$action) {
       case 2: $date .= " "._("all the day"); break;
       default: $date .= " ".substr($v["calev_start"],11,5);
       }
-      $wrv[$irv] = array ( "id" => $v["id"],
+      $wrv[$irv] = array ( "rvc" => $irv,
+			   "id" => $v["id"],
 			   "date" =>  $date,
  			   "title" => $v["calev_evtitle"],
 			   "owner" => ucwords(strtolower($v["calev_owner"])) );
@@ -99,7 +100,6 @@ function wgcal_waitrv(&$action) {
     if (count($wrv)>0) {
       $action->lay->set("RVCOUNT", count($wrv));
       $action->lay->SetBlockData("WAITRV", $wrv);
-      if (!$intoolbar && $alertfornewevent>0 && $mode!="L") AddWarningMsg(_("You have waiting events").". (".count($wrv).")"); 
     } else {
       $action->lay->SetBlockData("WAITRV", null);
       $action->lay->set("RVCOUNT", "0");

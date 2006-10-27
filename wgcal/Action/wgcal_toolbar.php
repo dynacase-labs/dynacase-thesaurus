@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.74 2006/07/10 12:40:55 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.75 2006/10/27 05:13:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -50,6 +50,7 @@ function wgcal_toolbar(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_ressources.js");
+  $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
@@ -86,6 +87,11 @@ function wgcal_toolbar(&$action) {
   _todo();
 
   $action->lay->set("ReloadAgenda", (GetHttpVars("rag", "0")==1 ? true : false ));
+
+
+  $action->lay->set("RVCOUNT", "-");
+  $ane = $action->GetParam("WGCAL_U_WRVALERT", 1);
+  $action->lay->set("alertwrv", ($ane==1?"checked":"") );
 }
 
 function _todo() {

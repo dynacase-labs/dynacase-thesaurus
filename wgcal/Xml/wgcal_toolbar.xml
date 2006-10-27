@@ -36,12 +36,18 @@ function hideShowToolbar(imbut) {
 <div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
 <table width="100%" cellspacing="0"><tr>
 <td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
-<td align="center"><div><span style="font-weight:bold">[owner]</span><span style="font-size:80%"> [today]</span></div>
+<td align="center"><div><span style="font-weight:bold">[owner]</span>&nbsp;<span id="todaydate" style="font-size:80%">--</span></div>
 [IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]</td></tr></table>
 </div>
 
 <!-- Rendez-vous en attente -->
-[ZONE WGCAL:WGCAL_WAITRV?tb=Y&oact=WGCAL_TOOLBAR]
+<table id="bwaitrv" onclick="getWaitingRv()" class="wToolButtonUnSelect" width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td align="left"><img style="vertical-align:middle;" id="owaitrv" src="[IMG:minus.gif]">&nbsp;[TEXT:waiting rv] (<span id="rvcount">[RVCOUNT]</span>)</td>
+<td align="right"><input style="cursor:pointer" type="checkbox" id="alertwrv" name="alertwrv" onchange="setwrvalert()" [alertwrv] title="[TEXT:alert for new event ?]">&nbsp;</td>
+</tr>
+</table>
+<div id='vwaitrv' class="wToolArea" style="border:0px; margin:0px; padding:0px 2px 0px 10px; overflow:auto"></div>
 
 <!-- search zone -->
 [IF SHOWSEARCH] [ZONE WGCAL:SEARCH] [ENDIF SHOWSEARCH]
@@ -133,6 +139,9 @@ var MyFreedomId = [MyFreedomId];
 [IF ReloadAgenda]fcalUpdateCalendar();[ENDIF ReloadAgenda]
 
 colpick.writeDiv();
+
+// Init waiting event zone
+getWaitingRv();
 
 </script>
 
