@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.17 2006/09/06 16:15:09 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.18 2006/10/30 13:17:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -201,11 +201,23 @@ function getEventRessources() {
 }
 
 /**
+ * reinit static variable
+ */
+function complete() {
+  $this->getDefaultEvent(true); // reset
+}
+
+/**
  * get the default event
  * @return Doc::Event the event object
  */
-function getDefaultEvent() {
+function getDefaultEvent($reset=false) {
   static $__evtid=0;
+
+  if ($reset) {
+    $__evtid=0;
+    return true;
+  }
 
   if ($__evtid == 0) {
     include_once("FDL/Lib.Dir.php");

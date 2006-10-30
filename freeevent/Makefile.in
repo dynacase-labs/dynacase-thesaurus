@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2004/11/22 17:10:46 eric Exp $
+# $Id: Makefile.in,v 1.2 2006/10/30 13:17:35 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -21,7 +21,7 @@ include $(utildir)/PubRule
 
 DISTFILES += $(SUBDIR) \
             RELEASE VERSION \
-	freeevent.csv	    
+	freeevent.ods	    
 
 $(pubdir)/API:
 	mkdir -p $@
@@ -33,7 +33,7 @@ $(pubdir)/EXTERNALS :
 $(pubdir)/EXTERNALS/event.php: $(pubdir)/EXTERNALS 
 	cp $(appname)_external.php $(pubdir)/EXTERNALS/event.php
 
-$(pubdir)/$(appname)/freeevent.csv : freeevent.csv 
-	cp freeevent.csv $(pubdir)/$(appname)
+$(pubdir)/$(appname)/freeevent.ods : freeevent.ods 
+	cp freeevent.ods $(pubdir)/$(appname)
 
-publish: $(pubdir)/$(appname)/freeevent.csv $(pubdir)/EXTERNALS/event.php
+publish: $(pubdir)/$(appname)/freeevent.ods $(pubdir)/EXTERNALS/event.php
