@@ -5,7 +5,7 @@ var cclass = 'WGCRessDefault';
 var STimeOut = 400;
 var SResultPosLeftShift = 20;
 var SResultPosTopShift = 40;
-var SearchMinLength = 2;
+var SearchMinLength = 3;
 var rq = false;
 
 function insertContact(domid, isInter, id, title, iconsrc) {
@@ -62,11 +62,11 @@ function searchSFamilie(evt, bUrl, force) {
 
   if (sFam.length==0) return true;
   var stext = document.getElementById('sFamText');
-  if (stext.value.length<SearchMinLength) return true;
+//   if (stext.value.length<SearchMinLength) return true;
 
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
-  result.style.display = 'none';
+  result.style.visibility = 'hidden';
   
   if (force) {
     var fvl = document.getElementById('fgetiuser');
@@ -87,7 +87,8 @@ function searchSFamilie(evt, bUrl, force) {
   if (cc==13) {
     runSearchSFamilie(bUrl, sfFams, sfText, sfMode);
   } else {
-    sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", STimeOut);
+     runSearchSFamilie(bUrl, sfFams, sfText, sfMode);
+//    sfTimer = setTimeout("runSearchSFamilie('"+bUrl+"','"+sfFams+"','"+sfText+"','"+sfMode+"')", STimeOut);
   }
 
   return true;
@@ -98,7 +99,7 @@ function runSearchSFamilie(burl, f, t, m) {
   var url = burl + "app=WGCAL&action=WGCAL_SEARCHCONTACTS&sfam="+f+"&stext="+t+"&cmode=W&smode="+m+"&cfunc="+cHandler+'&iclass='+cclass;
   var result = document.getElementById('sfamres');
   result.innerHTML = '';
-  result.style.display = 'none';
+  result.style.visibility = 'hidden';
   
   if (!rq) {
     try {
@@ -119,26 +120,26 @@ function runSearchSFamilie(burl, f, t, m) {
   rq.onreadystatechange =  function() {
     if (rq.readyState == 4) {
       result.innerHTML = '';
-      result.style.display = 'none';
+      result.style.visibility = 'hidden';
       if (rq.responseText && rq.status==200) {
 	if (rq.responseText.length>1) {
 	  result.innerHTML = rq.responseText;
 	  if (document.getElementById('rcount')) {
-	    result.style.display = '';
-	    result.style.left = parseInt(po.x + pwi); //(po.x + SResultPosLeftShift); 
-	    result.style.top = parseInt(po.y); //(po.y + SResultPosTopShift); 
+  	    result.style.left = parseInt(po.x) + 'px';
+	    result.style.visibility = 'visible';
 	  } else {
-// 	    alert(rq.responseText);
 	    eval(rq.responseText);
 	  }
 	} else {
-	  result.style.display = 'none';
+	  result.style.visibility = 'hidden';
 	}
       }
+      unglobalcursor();
     }
   }
 
   rq.open("GET", url, true);
+  globalcursor('progress');
   rq.send('');
  
   return true;

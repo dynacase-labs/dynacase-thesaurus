@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_searchcontacts.php,v 1.9 2006/02/27 17:55:06 marc Exp $
+ * @version $Id: wgcal_searchcontacts.php,v 1.10 2006/10/30 17:11:21 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -18,7 +18,7 @@ include_once("WGCAL/Lib.Agenda.php");
 function wgcal_searchContacts(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $minLength = 3;
+  $minLength = 1;
   $resultCountMax = 10;
   $iuserfam = getFamIdFromName($dbaccess, "IUSER");
   
@@ -78,7 +78,7 @@ function wgcal_searchContacts(&$action) {
 			"id" => $v["id"],
 			"fid" => ($inter?"true":"false"),
 			"icon" => Doc::GetIcon($v["icon"]),
-			"title" => ucwords(strtolower(addslashes(str_replace(" ", "&nbsp;", $v["title"])))),
+			"title" => ucwords(strtolower((str_replace(" ", "&nbsp;", $v["title"])))),
 			"jstitle" => ucwords(strtolower(addslashes($v["title"]))),
 			);
       }

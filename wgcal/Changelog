@@ -2,6 +2,7 @@
  - Ajout RSS 'Mes rendez-vous'
  - integration Syn4j Funambol V3
  - rechargement auto des rendez en attente (Ajax)
+ - reprise de la recherche de ressource (grosse edition)
 
 2.1.1-2
  - couleur du texte dynamique / choisie

@@ -201,10 +201,12 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 
 <!-- BLOCK DE RECHERCHE -->
 <div style="margin:5px; vertical-align:top;">
-<div id="sfamres" class="elist" onmouseout="" style="display:none"></div>
+
 <div><script type="text/javascript">[BLOCK sFAMR]addSFamilie([fid]); [ENDBLOCK sFAMR]</script>
 [BLOCK FAMR]<img class="[IFNOT fselect]wSmallButtonPulled[ENDIF fselect][IF fselect]wSmallButtonPushed[ENDIF fselect]" style="vertical-align:top; height:16px" src="[ficon]" title="[ftitle]" onclick="if (this.className!='wSmallButtonPulled') { if (removeSFamilie([fid])) this.className='wSmallButtonPulled'; } else { this.className='wSmallButtonPushed'; addSFamilie([fid]); }">[ENDBLOCK FAMR]
-<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);"><img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">
+<input style="vertical-align:top;" class="textBorder" name="sFamText" id="sFamText" type="text" value="" title="[TEXT:enter search string here]" onmouseover="this.style.background='yellow'" onmouseout="this.style.background=''" onkeyup="return searchSFamilie(event, '[CORE_BASEURL]', false);">
+<div id="sfamres" class="elist" onmouseout="" style="position:absolute; visibility:hidden;"></div>
+<img style="cursor:pointer; border:0; position:relative; left:-20px; top:2px" onclick="searchSFamilie(event, '[CORE_BASEURL]', true)" src="[IMG:faddbook_search.gif]">
 <input id="sMode" type="checkbox" style="vertical-align:top; cursor:pointer;" title="[TEXT:check for search contact containing (by default containing)]">
 &nbsp;<img id="address" class="wSmallButton" style="vertical-align:top; cursor:pointer;" height="16" onclick="subwindow(300, 400, 'CalPicker', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_RESSPICKER_MAIN&wre=1');" title="[TEXT:ressources advanced search]" src="[IMG:wm-attendees.gif]">    
 </div></div>
