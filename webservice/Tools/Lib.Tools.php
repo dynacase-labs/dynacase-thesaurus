@@ -1,7 +1,14 @@
 <?php
 require_once("nusoap.php");
 
-function toolhead() {
+$verbose = true;
+
+function toolhead($verb=true) {
+  global $verbose;
+  if (!$verb) {
+    $verbose = false;
+    return;
+  } 
   echo "<style>";
   echo "div { border:1px solid black; background-color:#EFEFEF; }";
   echo "pre { padding:1em;border:1px solid black; background-color:#deffcc; }";
@@ -22,7 +29,7 @@ function toolinitsoap($wsdl = "http://obeone.tlse.i-cesam.com/freedomWS/", $user
     echo '<h4>Constructor error</h4><pre>' . $err . '</pre>';
     exit;
   }
-  echo "<h4>Client initialized ($wsdl, $user, $pass) </h4><pre>";
+  if ($verbose) echo "<h4>Client initialized ($wsdl, $user, $pass) </h4><pre>";
 
   return $c;
 
@@ -44,17 +51,22 @@ function toolresult($c, $r) {
       echo '<h4>Client reponse</h4><pre id="rep">' . $c->response . '</pre>';
     } else {
       // Display the result
-      echo '<h4>Result</h4><pre id="rep">';
+      echo '<fieldset id="rep"><legend>Result</legend>';
       print_r($r);
+      echo '</fieldset>';
+
+      echo '<fieldset id="rep"><legend onclick="document.getElementById(\'clientt\').style.display=\'block\'">Infos</legend>';
+      echo '<pre style="display:none" id="clientt">';
+      print_r($c->response);
       echo '</pre>';
-      echo '<h4 onclick="document.getElementById(\'clientt\').style.display=\'block\'">Client response info</h4>'; 
-      echo '<pre style="display:none" id="clientt">' . $c->response . '</pre>';
+      echo '</fieldset>';
     }
   }
-  echo '<h4 onclick="document.getElementById(\'debugt\').style.display=\'block\'">Debug info</h4>'; 
+  echo '<fieldset id="rep"><legend onclick="document.getElementById(\'debugt\').style.display=\'block\'">Debug</legend>';
   echo '<pre style="display:none" id="debugt">';
   print_r($c->getDebug());
-  echo "</pre>";
+  echo '</pre>';
+  echo '</fieldset>';
 }
 
 ?>

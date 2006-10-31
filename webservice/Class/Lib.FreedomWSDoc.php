@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.12 2006/10/25 16:15:25 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.13 2006/10/31 17:46:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -22,99 +22,49 @@ function runAction($appli, $act, $params) {
 
  $result = array( "status"    => -1,
 		   "statusmsg" => "Unknown error",
-		   "type"      => "text/plain",
+		   "mime"      => "text/plain",
 		   "content"   => base64_encode("$app | $action | ..... ") );
 
+  include_once('Lib.Http.php');
   include_once('Class.User.php');
   include_once('Class.Session.php');
-  
+
+  global $action;
+//   echo "Appli=$appli action=$act Param="; print_r2($params);
+
   $indexphp=basename($_SERVER["SCRIPT_NAME"]);
   $log=new Log("",$indexphp);
   $CoreNull = "";
   global $CORE_LOGLEVEL;
-
-  $application="CORE";
-  $action="";
-  $sole="";
-  $session=new Session();
-  if (!  $session->Set($sess_num))  {
-    print "<B>:~((</B>";
-    exit;
-  };
+  
+  $session = new Session();
   $core = new Application();
   $core->Set("CORE",$CoreNull,$session);
-  $CORE_LOGLEVEL=$core->GetParam("CORE_LOGLEVEL", "IWEF");
-  ini_set("memory_limit",$core->GetParam("MEMORY_LIMIT","32")."M");
+  $core->user = new User();
+  $core->user->setLoginName($_SERVER["PHP_AUTH_USER"]);
 
-  if (ereg("(.*)/$indexphp", $_SERVER['SCRIPT_NAME'], $reg)) {
-    if ($_SERVER['HTTPS'] != 'on')   $puburl = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$reg[1];
-    else $puburl = "https://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$reg[1];
-  } else {
-    print "<B>:~(</B>";
-    exit;
-  }
-  $core->SetVolatileParam("CORE_PUBURL", "."); // relative links
-  $core->SetVolatileParam("CORE_ABSURL", $puburl."/"); // absolute links
-  $core->SetVolatileParam("CORE_JSURL", "WHAT/Layout");
-  $core->SetVolatileParam("CORE_ROOTURL", "$indexphp?sole=R&");
-  $core->SetVolatileParam("CORE_BASEURL", "$indexphp?sole=A&");
-  $core->SetVolatileParam("CORE_SBASEURL","$indexphp?sole=A&session={$session->id}&");
-  $core->SetVolatileParam("CORE_STANDURL","$indexphp?sole=Y&");
-  $core->SetVolatileParam("CORE_SSTANDURL","$indexphp?sole=Y&session={$session->id}&");
-
-  $appl = new Application();
-  $appl->Set($appli, $core);
+  $app = new Application();
+  $app->Set($appli, $core);
   $action = new Action();
-  $action->Set($act,$appl,$session);
-  $action->user->setLoginName($_SERVER["PHP_AUTH_USER"]);
-  
-  $nav=$_SERVER['HTTP_USER_AGENT'];
-  $pos=strpos($nav,"MSIE");
-  if ($action->Read("navigator","") == "") {
-    if ( $pos>0) {
-      $action->Register("navigator","EXPLORER");
-      $core->SetVolatileParam("ISIE", true);
-      if (ereg("MSIE ([0-9.]+).*",$nav,$reg)) {
-	$action->Register("navversion",$reg[1]);      
-      }
-    } else {
-      $action->Register("navigator","NETSCAPE");
-    if (ereg("([a-zA-Z]+)/([0-9.]+).*",$nav,$reg)) {
-      $action->Register("navversion",$reg[2]);      
-    }
-    }
-}
-  $core->SetVolatileParam("ISIE",($action->read("navigator")=="EXPLORER"));
-  // init for gettext
-  setlocale(LC_MESSAGES,$action->Getparam("CORE_LANG"));  
- setlocale(LC_MONETARY, $action->Getparam("CORE_LANG"));
- setlocale(LC_TIME, $action->Getparam("CORE_LANG"));
- //print $action->Getparam("CORE_LANG");
- putenv ("LANG=".$action->Getparam("CORE_LANG")); // needed for old Linux kernel < 2.4
- bindtextdomain ("what", "$pubdir/locale");
- bind_textdomain_codeset("what", 'ISO-8859-15');
- textdomain ("what");
- 
- foreach ($params as $k => $v ) {
-   SetHttpVar($v["pname"], $v["pvalue"]);
- }
- 
- $body = ($action->execute ());
-//   $head = new Layout($action->GetLayoutFile("htmltablehead.xml"),$action);
-//   // copy JS ref & code from action to header
-//   $head->jsref = $action->parent->GetJsRef();
-//   $head->jscode = $action->parent->GetJsCode();
-//   $head->set("TITLE", _($action->parent->short_name));	    
-//   echo($head->gen());
-//   // write HTML body
-//   echo ($body);
-//   // write HTML footer
-//   $foot = new Layout($action->GetLayoutFile("htmltablefoot.xml"),$action);
-//   echo($foot->gen());
+  $action->Set($act, $app);
+
+  foreach ($params as $k => $v) {
+    SetHttpVar($v["pname"], $v["pvalue"]);
+  }
 
 
+//    echo "<pre>avant</pre>";
+  $body = $action->execute();
+//    echo "<pre>apres</pre>";
+//    echo "<pre>"; print_r2(htmlentities($body)) ; echo "</pre>";
+  $result = array( "status"    => 1,
+		   "statusmsg" => "It's OK",
+		   "mime"      => "text/plain",
+		   "content"   => base64_encode($body));
   return $result;
+
 }
+
 
 /**
  * Read doc content : properties and attributes
@@ -282,7 +232,7 @@ function _xmlDoclist($tdocs) {
   foreach ($tdocs as $k=>$v) {
     $tattr = array();
     foreach ($v as $ka => $va) {
-    if (! in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "attvalue"=>$va);
+      if (!in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "empty" => ($va!="" ? false : true), "attvalue"=>$va);
     }
     $xml->setBlockData("attr".$v["id"], $tattr);
   }
