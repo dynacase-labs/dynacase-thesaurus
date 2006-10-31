@@ -1,0 +1,93 @@
+#! /bin/rpm
+#
+#  File: 
+#  $Id: DAV.spec.in,v 1.1 2006/10/31 16:36:51 eric Exp $
+#
+#  This is the SPEC file for the What Users Module
+#  Anakeen What Application
+#
+
+%define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
+
+%if %{cerbere}
+%define destdir /home/httpd/what
+%define httpuser http
+%define releasepostfix %(echo)
+%endif
+%if %{pld}
+%define destdir /usr/share/what
+%define httpuser http
+%define releasepostfix cb
+%endif
+%if %{redhat}
+%define destdir /usr/share/what
+%define httpuser apache
+%define releasepostfix fc5
+%endif
+
+Summary: The Work Space to exchange files
+Name: @PACKAGE@
+Version: @VERSION@
+Release: @RELEASE@%{releasepostfix}
+License: GPL
+Group: Applications/Web
+Source: ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
+# post-2.2.0 fix (can go away with next release):
+Vendor: Anakeen           
+URL: http://www.anakeen.com/
+Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+BuildArchitectures: noarch
+BuildRoot: /tmp/anakeen-root
+Requires: FREEDOM-LIB >= 2.5.3
+Prereq: WHAT 
+Prereq: php-cgi 
+Prereq: gettext
+
+
+%description
+The WorkSpace is use to exchange file document between members of groups
+
+
+
+
+%prep
+%setup -q -n %{name}-%{version}
+
+%build
+
+%install
+autoconf
+./configure --with-pubrule=`pwd`
+make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+
+%clean
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
+
+%post
+cd %{destdir}/FDL 
+ln -sf ../@PACKAGE@/Method*php .
+%{destdir}/wstop
+
+
+
+
+%preun
+%postun
+%{destdir}/wstop
+
+
+
+%files
+%defattr(-,%{httpuser},%{httpuser})
+%dir %{destdir}/%{name}
+%{destdir}/%{name}/*
+#%{destdir}/locale/*
+
+
+
+%changelog
+* Tue Oct 30 2000 Yannick Le Briquer <yannick.lebriquer@anakeen.com>
+- Build first RPM
+

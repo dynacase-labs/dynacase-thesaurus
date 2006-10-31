@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.5 2006/10/26 16:22:25 eric Exp $
+// $Id: Class.ServerDav.php,v 1.6 2006/10/31 16:36:51 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -656,7 +656,7 @@ class HTTP_WebDAV_Server
              by checking the resource attribute */
             $href = $this->_mergePathes($_SERVER['SCRIPT_NAME'], $path);
         
-                        print "  <D:href>".$this->_urlencode($path)."</D:href>\n";
+			print "  <D:href>".$this->_urlencode($href)."</D:href>\n";
 
 						//error_log("HREF:".$this->_urlencode($path));
             // report all found properties and their values (if any)

@@ -3,8 +3,6 @@ ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear"
 $d1=microtime();
 include_once("DAV/Class.Dav.php");
 
-define("UPDTCOLOR",'[1;32;40m');
-define("STOPCOLOR",'[0m');
 $s=new HTTP_WebDAV_Server_Freedom();
 
 error_log("====== ".$_SERVER['REQUEST_METHOD']." ========");
@@ -12,6 +10,7 @@ error_log("====== ".$_SERVER['REQUEST_METHOD']." ========");
 
 //error_log("dav:   path_info=(".$_SERVER["PATH_INFO"].")");
 $_SERVER['PATH_INFO'] = "/".$_GET['filename'];
+$_SERVER['SCRIPT_NAME'] = "";
 //error_log("dav:     `-> path_info=(".$_SERVER["PATH_INFO"].")");
 
 #error_log("dav:   request_uri=(".$_SERVER['REQUEST_URI'].")");
@@ -19,7 +18,29 @@ $_SERVER['PATH_INFO'] = "/".$_GET['filename'];
 #error_log("dav:     `-> request_uri=(".$_SERVER['REQUEST_URI'].")");
 
 global $action;
-whatInit();
+
+
+if ($_SERVER['PHP_AUTH_USER']=="") {
+  $path=$_SERVER['PATH_INFO'];
+    if (ereg("/vid-([0-9]+)-([0-9]+)-([^/]+)",$path,$reg)) {
+      $docid=$reg[1];
+      $vid=$reg[2];
+      $sid=$reg[3];
+      error_log("dav: -> $docid  $vid $sid");
+      $login=$s->getLogin($docid,$vid,$sid);
+      error_log("dav LOGIN: -> $login");
+      
+
+    }
+ } else {
+  $login=$_SERVER['PHP_AUTH_USER'];
+ }
+if (! $login) {	
+  //	header('HTTP/1.0 401 Unauthorized');
+	header('HTTP/1.0 403 Forbidden');
+	exit;
+ }
+whatInit($login);
 
 $d2=microtime();
 
@@ -29,9 +50,9 @@ $s->ServeRequest("/var/www/html/");
 $d2=microtime();
 $d=microtime_diff($d1,$d2);
 
-error_log("================ $d $dt=====".$_SERVER['PHP_AUTH_USER']."===================");
+error_log("================ $d $dt=====".$login."===================");
 
-function whatInit() {
+function whatInit($login) {
   global $action;
 include_once('Class.User.php');
  include_once('Class.Session.php');
@@ -43,7 +64,7 @@ include_once('Class.User.php');
     $action=new Action();
     $action->Set("",$core);
     $action->user=new User(); //create user as admin
-    $action->user->setLoginName($_SERVER['PHP_AUTH_USER']);
+    $action->user->setLoginName($login);
     //$action->user->setLoginName("eric.brison");
 }
 
