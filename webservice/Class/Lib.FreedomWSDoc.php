@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.14 2006/11/02 09:55:43 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.15 2006/11/02 15:02:42 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -47,6 +47,17 @@ function runAction($appli, $act, $params) {
   $app->Set($appli, $core);
   $action = new Action();
   $action->Set($act, $app);
+
+  // init for gettext
+include_once("WHAT/Lib.Prefix.php");
+//echo "pubdir=".$pubdir." DEFAULT_PUBDIR=".DEFAULT_PUBDIR."<br>";;
+  setlocale(LC_MESSAGES,$action->Getparam("CORE_LANG"));  
+  setlocale(LC_MONETARY, $action->Getparam("CORE_LANG"));
+  setlocale(LC_TIME, $action->Getparam("CORE_LANG"));
+  putenv ("LANG=".$action->Getparam("CORE_LANG")); // needed for old Linux kernel < 2.4
+  bindtextdomain ("what", DEFAULT_PUBDIR."/locale");
+  bind_textdomain_codeset("what", 'ISO-8859-15');
+  textdomain ("what");
 
   foreach ($params as $k => $v) {
     SetHttpVar($v["pname"], $v["pvalue"]);
