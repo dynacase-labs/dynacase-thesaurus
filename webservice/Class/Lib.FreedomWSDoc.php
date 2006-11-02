@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.13 2006/10/31 17:46:47 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.14 2006/11/02 09:55:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -30,7 +30,7 @@ function runAction($appli, $act, $params) {
   include_once('Class.Session.php');
 
   global $action;
-//   echo "Appli=$appli action=$act Param="; print_r2($params);
+  //echo "Appli=$appli action=$act Param="; print_r2($params);
 
   $indexphp=basename($_SERVER["SCRIPT_NAME"]);
   $log=new Log("",$indexphp);
@@ -52,15 +52,24 @@ function runAction($appli, $act, $params) {
     SetHttpVar($v["pname"], $v["pvalue"]);
   }
 
+    //print_r2($action);
+  $err = $action->canExecute($act);
+  if ($err=="") {
 
-//    echo "<pre>avant</pre>";
-  $body = $action->execute();
-//    echo "<pre>apres</pre>";
-//    echo "<pre>"; print_r2(htmlentities($body)) ; echo "</pre>";
-  $result = array( "status"    => 1,
+    //echo "<pre>avant</pre>";
+    $body = $action->execute();
+    //echo "<pre>apres</pre>";
+    //echo "<pre>"; print_r2(htmlentities($body)) ; echo "</pre>";
+    $result = array( "status"    => 1,
 		   "statusmsg" => "It's OK",
 		   "mime"      => "text/plain",
 		   "content"   => base64_encode($body));
+  } else {
+     $result = array( "status"    => 0,
+                 "statusmsg" => "User ".$action->user->login." can't execute action $act (application ".$action->parent->name.") [$err]",
+                   "mime"      => "text/plain",
+                   "content"   => base64_encode(""));
+  }
   return $result;
 
 }
@@ -232,7 +241,7 @@ function _xmlDoclist($tdocs) {
   foreach ($tdocs as $k=>$v) {
     $tattr = array();
     foreach ($v as $ka => $va) {
-      if (!in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "empty" => ($va!="" ? false : true), "attvalue"=>$va);
+          if (! in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "empty" => ($va!="" ? false : true), "attvalue"=>$va);
     }
     $xml->setBlockData("attr".$v["id"], $tattr);
   }
