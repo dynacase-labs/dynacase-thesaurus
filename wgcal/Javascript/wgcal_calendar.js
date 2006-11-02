@@ -524,11 +524,12 @@ function WGCalDisplayEvent(cEv, ncol) {
     style.top = style.left = 0;
     style.position = 'relative';
     style.display = 'block';
-    style.width = parseInt(getObjectWidth(eE))-bwidth;
-    style.height = parseInt(getObjectHeight(eE))-bwidth;
+    var tt = parseInt(getObjectWidth(eE))-bwidth;
+    style.width = (tt<1) ? 2 : tt;
+    tt = parseInt(getObjectHeight(eE))-bwidth;
+    style.height = tt<1) ? 2 : tt;
     style.margin = '0px';
   }
-  
   return;
 }
 
