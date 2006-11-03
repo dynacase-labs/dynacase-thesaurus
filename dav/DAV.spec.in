@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: DAV.spec.in,v 1.1 2006/10/31 16:36:51 eric Exp $
+#  $Id: DAV.spec.in,v 1.2 2006/11/03 16:24:01 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -40,7 +40,7 @@ URL: http://www.anakeen.com/
 Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
-Requires: FREEDOM-LIB >= 2.5.3
+Requires: FREEDOM-LIB >= 2.5.0
 Prereq: WHAT 
 Prereq: php-cgi 
 Prereq: gettext
