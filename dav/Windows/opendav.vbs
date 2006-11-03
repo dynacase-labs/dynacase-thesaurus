@@ -21,8 +21,10 @@ Thepath=Mid(Wscript.Arguments(1),i+1)
 
 if (OpenAs) then
   'Cmd = "rundll32.exe c:\WINDOWS\system32\shell32.dll,OpenAs_RunDLL " & Wscript.Arguments(1)
+  Thepath = replace(Thepath,"/","\") 
+  'Cmd = "rundll32.exe c:\WINDOWS\system32\shell32.dll,OpenAs_RunDLL http:" & Thepath
+Cmd = "rundll32.exe c:\WINDOWS\system32\shell32.dll,OpenAs_RunDLL " & Thepath
 
-  Cmd = "rundll32.exe c:\WINDOWS\system32\shell32.dll,OpenAs_RunDLL http:" & Thepath
 else
   Cmd = """" & replace(Thepath,"/","\") & """"
   Tab=split(Thepath,"/")
