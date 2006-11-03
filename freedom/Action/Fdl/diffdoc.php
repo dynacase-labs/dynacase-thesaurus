@@ -3,7 +3,7 @@
  * Difference between 2 documents
  *
  * @author Anakeen 2006
- * @version $Id: diffdoc.php,v 1.3 2006/02/14 16:59:44 eric Exp $
+ * @version $Id: diffdoc.php,v 1.4 2006/11/03 15:57:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,7 +95,7 @@ function diffdoc(&$action) {
   $action->lay->set("version2",$d2->version);
   $action->lay->set("revision2",$d2->revision);
 
-  $action->lay->set("title",sprintf(_("comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"),
+  $action->lay->set("title",sprintf(_("comparison between<br>%s (rev %d) and %s (rev %d)"),
 				    $d1->title,$d1->revision,
 				    $d2->title,$d2->revision));
 				    
