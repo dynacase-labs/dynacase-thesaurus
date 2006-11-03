@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: DAV_init.php.in,v 1.1 2006/10/31 16:36:51 eric Exp $
+// $Id: DAV_init.php.in,v 1.2 2006/11/03 15:15:18 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/dav/DAV_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -27,10 +27,12 @@ global $app_const;
 $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@-@RELEASE@",
-  "WS_AUTODOWNLOAD"    =>array("val"=>"no",
-		       "descr"=>N_("do not see confirmation before download for edition"),
-		       "user"=>"Y",
-		       "kind"=>"enum(yes|no)"),
+  "FREEDAV_SERVEUR"    =>array("val"=>"",
+			       "descr"=>N_("address of the webdav serveur for freedav"),
+			       "global"=>"Y"),
+  "WEBDAV_SERVEUR"    =>array("val"=>"",
+			       "descr"=>N_("address of the webdav serveur for authenticate server"),
+			       "global"=>"Y"),
 );
 
 ?>

@@ -2,10 +2,11 @@
 ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear");
 $d1=microtime();
 include_once("DAV/Class.Dav.php");
+include_once("Lib.Common.php");
 
 $s=new HTTP_WebDAV_Server_Freedom();
 
-error_log("====== ".$_SERVER['REQUEST_METHOD']." ========");
+//error_log("======[ ".$_SERVER['REQUEST_METHOD']." ]========");
 //error_log("dav:   filename=(".$_GET['filename'].")");
 
 //error_log("dav:   path_info=(".$_SERVER["PATH_INFO"].")");
@@ -19,6 +20,7 @@ $_SERVER['SCRIPT_NAME'] = "";
 
 global $action;
 
+error_log("======[ ".$_SERVER['REQUEST_METHOD']." ]=[ ".$_SERVER['PATH_INFO']." ]=======");
 
 if ($_SERVER['PHP_AUTH_USER']=="") {
   $path=$_SERVER['PATH_INFO'];
@@ -36,17 +38,23 @@ if ($_SERVER['PHP_AUTH_USER']=="") {
   $login=$_SERVER['PHP_AUTH_USER'];
  }
 if (! $login) {	
+  if (((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="OPTIONS")) ||
+      ((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="PROPFIND"))) {
+    // keep without authenticate
+  } else {
   //	header('HTTP/1.0 401 Unauthorized');
-	header('HTTP/1.0 403 Forbidden');
-	exit;
+  	header('HTTP/1.0 403 Forbidden');
+  	exit;
+  }
+ } else {
+  whatInit($login);
  }
-whatInit($login);
 
 $d2=microtime();
 
 $dt=microtime_diff($d1,$d2);
 $s->http_auth_realm = "FREEDOM Connection";
-$s->ServeRequest("/var/www/html/");
+$s->ServeRequest();
 $d2=microtime();
 $d=microtime_diff($d1,$d2);
 

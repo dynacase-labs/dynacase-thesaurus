@@ -66,7 +66,7 @@
    * @access public
    * @param  string  
    */
-  function ServeRequest($base = false) 
+  function ServeRequest() 
   {
     // special treatment for litmus compliance test
     // reply on its identifier header
@@ -77,13 +77,7 @@
 	header("X-Litmus-reply: ".$value);
       }
     }
-
-    // set root directory, defaults to webserver document root if not set
-    if ($base) { 
-      $this->base = realpath($base); // TODO throw if not a directory
-    } else if (!$this->base) {
-      $this->base = $_SERVER['DOCUMENT_ROOT'];
-    }
+    $this->base = "";
                 
    
     // TODO throw on connection problems
@@ -155,6 +149,15 @@
     $files=array();
     $fldid=$this->path2id($fspath,$vid);
            
+    if ($fspath=="/freedav") {
+      $info = array();   
+      $info["props"] = array();
+      $info["props"][] = $this->mkprop("resourcetype", "collection");
+      $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
+      $info["props"][] = $this->mkprop("displayname", $fspath);
+      $info["path"]  = $fspath;
+      $files[]=$info;
+    } else {
     if ($vid) {
       $files=$this->vidpropinfo($fspath,$fldid,(!$onlyfld));
     } else {
@@ -185,6 +188,7 @@
 	    $files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
 	  }
 	} 
+      }
       }
     }
     return $files;
@@ -244,7 +248,7 @@
       $info["props"] = array();
       $info["props"][] = $this->mkprop("resourcetype", "collection");
       $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
-      $info["props"][] = $this->mkprop("displayname", "/".utf8_encode($doc->title));
+      $info["props"][] = $this->mkprop("displayname", utf8_encode($doc->title));
       $path=$this->_slashify($path);
       if ($firstlevel) $info["path"]  = $path;
       else $info["path"]  = $path.utf8_encode($doc->title);
@@ -287,7 +291,7 @@
 		
 	  if (file_exists($filename)) {
 		 
-	    $info["props"][] = $this->mkprop("displayname", "/".$aname);
+	    $info["props"][] = $this->mkprop("displayname", $aname);
 	    $info["props"][] = $this->mkprop("creationdate",   filectime($filename)) ;
 	    $info["props"][] = $this->mkprop("getlastmodified", filemtime($filename));
 	    $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($filename));
@@ -345,7 +349,7 @@
       $info["props"][] = $this->mkprop("resourcetype", "collection");
       $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
       $info["props"][] = $this->mkprop("displayname", utf8_encode($path));
-      $info["props"][] = $this->mkprop("urn:schemas-microsoft-com:", "Win32FileAttributes", "00000001");
+      //      $info["props"][] = $this->mkprop("urn:schemas-microsoft-com:", "Win32FileAttributes", "00000001");
       $path=$this->_slashify($path);
       if ($firstlevel) $info["path"]  = $path;
       else $info["path"]  = $path;
@@ -377,7 +381,7 @@
 	  //error_log("FOUND FILE:".$aname);
 	  $info["props"][] = $this->mkprop("resourcetype", "");
 	     
-	  $info["props"][] = $this->mkprop("displayname", "/".$aname);
+	  $info["props"][] = $this->mkprop("displayname", $aname);
 	  if ($firstlevel) $info["path"]  = $dpath.$aname;
 	  else $info["path"]  = $path.$aname;
 	  $filename=$afile["path"];
@@ -388,7 +392,7 @@
 	  $err=$doc->canEdit();
 	  if ($err!="") {
 	    // add read only attributes for windows
-	     $info["props"][] = $this->mkprop("urn:schemas-microsoft-com:", "Win32FileAttributes", "00000001");
+	    $info["props"][] = $this->mkprop("urn:schemas-microsoft-com:", "Win32FileAttributes", "00000001");
 	  }
 	  $tinfo[]=$info;
 	}
@@ -629,7 +633,6 @@
 
     $bpath=basename($options["path"]);
     $fldid=$this->path2id($options["path"],$vid);
-
     if ($fldid) {
       $stat ="204 No Content";
       $options["new"] = false;
@@ -653,37 +656,39 @@
 	    break;
 	  }
 	}
-      } else {
-	$stat =false;
-      }
+      } 
     } else {
       $options["new"] = true;
       $stat = "201 Created";
-      if ($options["new"]) {
+      if ($options["new"]) {	    
 	$dir=dirname($options["path"]);
-	//error_log("PUT NEW FILE IN:".$dir);
-	$ndoc=createDoc($this->dbaccess,"SIMPLEFILE");
-	if ($ndoc) {
-	  $fa=$ndoc->GetFirstFileAttributes();
-	  $bpath=utf8_decode($bpath);
-	  $ndoc->saveFile($fa->id, $options["stream"] ,$bpath);
-	  //		$ndoc->setTitle($bpath);
-	  $err=$ndoc->Add();
-	  $err=$ndoc->postModify();
-	  $err=$ndoc->Modify();
-	  error_log("PUT NEW FILE:".$fa->id."-".$ndoc->id);
-	  if ($err=="") {
-	    $fldid=$this->path2id($dir);
-	    $fld=new_doc($this->dbaccess,$fldid);
-	    $err=$fld->addFile($ndoc->initid);
-	    error_log("PUT ADD IN FOLDER:".$err.$fld->id."UID:".($fld->userid));
-	    $this->readfolder($dir);
+	$fldid=$this->path2id($dir);
+	$fld=new_doc($this->dbaccess,$fldid);
+	$err=$fld->canModify();
+	if ($err=="") {
+	  //error_log("PUT NEW FILE IN:".$dir);
+	  $ndoc=createDoc($this->dbaccess,"SIMPLEFILE");
+	  if ($ndoc) {
+	    $fa=$ndoc->GetFirstFileAttributes();
+	    $bpath=utf8_decode($bpath);
+	    $ndoc->saveFile($fa->id, $options["stream"] ,$bpath);
+	    //		$ndoc->setTitle($bpath);
+	    $err=$ndoc->Add();
+	    $err=$ndoc->postModify();
+	    $err=$ndoc->Modify();
+	    error_log("PUT NEW FILE:".$fa->id."-".$ndoc->id);
+	    if ($err=="") {
+	      $err=$fld->addFile($ndoc->initid);
+	      error_log("PUT ADD IN FOLDER:".$err.$fld->id."UID:".($fld->userid));
+	      $this->readfolder($dir);
+	    }
 	  }
 	}
       }
     }
 
 
+    if ($err!="") $stat=false;
 
     return $stat;
   }
@@ -759,10 +764,16 @@
       return "404 Not found";
     }
     if ($doc->doctype=='D') {
-      return "501 Not Implemented";
-      $query = "DELETE FROM properties WHERE path LIKE '".$this->_slashify($options["path"])."%'";
-      mysql_query($query);
-      System::rm("-rf $path");
+      // just rm the folder : is normally empty
+      $err=$doc->delete();
+      if ($err!="") {
+	return "403 Forbidden:$err";    		
+      }
+      if ($err=="") {
+	$query = "DELETE FROM properties WHERE path LIKE '".$this->_slashify($options["path"])."%'";     
+	mysql_query($query);
+      }
+
 	      
     } else {
       if ($doc->isLocked()) {
@@ -806,141 +817,143 @@
     $srcid=$this->path2id($psource);
     $src=new_doc($this->dbaccess,$srcid);
     //error_log ("SRC : $psource ".$srcid );
-
-    $pdest=$this->_unslashify($options["dest"]);
-    $bdest=basename($pdest);
-    $destid=$this->path2id($pdest);
-
-
-    $pdirdest=$this->_unslashify(dirname($options["dest"]));
-    $dirdestid=$this->path2id($pdirdest);
-    $ppdest=new_doc($this->dbaccess,$dirdestid);
+    $err=$src->canEdit();
+    if ($err=="") {
+    
+      $pdest=$this->_unslashify($options["dest"]);
+      $bdest=basename($pdest);
+      $destid=$this->path2id($pdest);
 
 
-    if ($destid) {
-      $dest=new_doc($this->dbaccess,$destid);
-      if ($dest->doctype=='D') {	      
-	//error_log ("MOVE TO FOLDER : $destid:".$dest->title);
-	return "502 bad gateway";
+      $pdirdest=$this->_unslashify(dirname($options["dest"]));
+      $dirdestid=$this->path2id($pdirdest);
+      $ppdest=new_doc($this->dbaccess,$dirdestid);
 
-      } else {
+
+      if ($destid) {
+	$dest=new_doc($this->dbaccess,$destid);
+	if ($dest->doctype=='D') {	      
+	  //error_log ("MOVE TO FOLDER : $destid:".$dest->title);
+	  return "502 bad gateway";
+
+	} else {
 		
-	error_log ("DELETE FILE : $destid:".$dest->title);
-	// delete file
-	$err=$dest->delete();
-	if ($err=="") {
-	  $query = "DELETE FROM properties WHERE name='fid' and value=".$dest->initid;
-	  error_log($query);
-	  mysql_query($query);
+	  error_log ("DELETE FILE : $destid:".$dest->title);
+	  // delete file
+	  $err=$dest->delete();
+	  if ($err=="") {
+	    $query = "DELETE FROM properties WHERE name='fid' and value=".$dest->initid;
+	    error_log($query);
+	    mysql_query($query);
+	    // move
+	    $err=$ppdest->addFile($srcid);
+	    if ($err=="") {
+	      // delete ref from source		    
+	      $psrcid=$this->path2id($pdirsource);
+	      $psrc=new_doc($this->dbaccess,$psrcid);
+	      if ($psrc->isAlive()) {
+		$err=$psrc->delFile($srcid);
+		if ($err=="") {	
+		      
+		  $src->addComment(sprintf(_("Move file from %s to %s"),
+					   utf8_decode($psrc->title),
+					   utf8_decode($ppdest->title)));
+		  $query = "DELETE FROM properties WHERE path = '$psource'";
+		}
+	      }
+	    }
+	  }
+
+	      
+	       
+	  if ($bdest != $bsource) {
+	    error_log (" RENAMETO2  : $bdest");
+	    $src->setTitle(utf8_decode($bdest));
+	    $err=$src->modify();
+	    $this->docpropinfo($src,$pdest,true);
+	    if ($err=="") {
+
+	      $query = "DELETE FROM properties WHERE path = '$psource'";
+	      error_log($query);
+	      mysql_query($query);
+
+	    }
+	    error_log (" RENAMETO  : $bdest : $err");
+		
+	  }
+	      
+	}
+      } else {
+	if ($pdirsource != $pdirdest) {
 	  // move
 	  $err=$ppdest->addFile($srcid);
 	  if ($err=="") {
+	    $this->docpropinfo($src,$pdest,true);
 	    // delete ref from source		    
 	    $psrcid=$this->path2id($pdirsource);
 	    $psrc=new_doc($this->dbaccess,$psrcid);
 	    if ($psrc->isAlive()) {
 	      $err=$psrc->delFile($srcid);
-	      if ($err=="") {	
-		      
+	      if ($err=="") {
 		$src->addComment(sprintf(_("Move file from %s to %s"),
 					 utf8_decode($psrc->title),
 					 utf8_decode($ppdest->title)));
 		$query = "DELETE FROM properties WHERE path = '$psource'";
+		mysql_query($query);
 	      }
 	    }
-	  }
+	  }		
+	  error_log ("MOVE TO PARENT2 FOLDER : $dirdestid:".$err);
 	}
-
-	      
-	       
-	if ($bdest != $bsource) {
-	  error_log (" RENAMETO2  : $bdest");
-	  $src->setTitle(utf8_decode($bdest));
-	  $err=$src->modify();
-	  $this->docpropinfo($src,$pdest,true);
-	  if ($err=="") {
-
-	    $query = "DELETE FROM properties WHERE path = '$psource'";
-	    error_log($query);
-	    mysql_query($query);
-
-	  }
-	  error_log (" RENAMETO  : $bdest : $err");
-		
-	}
-	      
-      }
-    } else {
-      if ($pdirsource != $pdirdest) {
-	// move
-	$err=$ppdest->addFile($srcid);
 	if ($err=="") {
-	  $this->docpropinfo($src,$pdest,true);
-	  // delete ref from source		    
-	  $psrcid=$this->path2id($pdirsource);
-	  $psrc=new_doc($this->dbaccess,$psrcid);
-	  if ($psrc->isAlive()) {
-	    $err=$psrc->delFile($srcid);
-	    if ($err=="") {
-	      $src->addComment(sprintf(_("Move file from %s to %s"),
-				       utf8_decode($psrc->title),
-				       utf8_decode($ppdest->title)));
-	      $query = "DELETE FROM properties WHERE path = '$psource'";
-	      mysql_query($query);
-	    }
-	  }
-	}		
-	error_log ("MOVE TO PARENT2 FOLDER : $dirdestid:".$err);
-      }
-      if ($err=="") {
-	if ($bdest != $bsource) {
-	  if ($src->doctype=='D') {
-	    $src->setTitle(utf8_decode($bdest)); 
+	  if ($bdest != $bsource) {
+	    if ($src->doctype=='D') {
+	      $src->setTitle(utf8_decode($bdest)); 
 		    
-	  } else {
+	    } else {
 
-	    $afiles=$src->GetFilesProperties();  		  
-	    foreach ($afiles as $afile) {
-	      $path=utf8_encode($afile["name"]);
-	      error_log("RENAME SEARCH:".$bsource.'->'.$path);
-	      if ($path == $bsource) {
-		error_log("RENAME FOUND:".$path.'-'.$afile["path"]);
-		$fspath=$afile["path"];
-		error_log(print_r($afile,true));
+	      $afiles=$src->GetFilesProperties();  		  
+	      foreach ($afiles as $afile) {
+		$path=utf8_encode($afile["name"]);
+		error_log("RENAME SEARCH:".$bsource.'->'.$path);
+		if ($path == $bsource) {
+		  error_log("RENAME FOUND:".$path.'-'.$afile["path"]);
+		  $fspath=$afile["path"];
+		  error_log(print_r($afile,true));
 		
-		$vf = newFreeVaultFile($this->dbaccess);
-		$vf->Rename($afile["vid"],utf8_decode($bdest));
-		$src->addComment(sprintf(_("Rename file as %s"),utf8_decode($bdest)));
-		$src->postModify();
-		$err=$src->modify();
+		  $vf = newFreeVaultFile($this->dbaccess);
+		  $vf->Rename($afile["vid"],utf8_decode($bdest));
+		  $src->addComment(sprintf(_("Rename file as %s"),utf8_decode($bdest)));
+		  $src->postModify();
+		  $err=$src->modify();
+		}
 	      }
+
 	    }
+	    $err=$src->modify();
+	    $this->docpropinfo($src,$pdest,true);
+	    if ($err=="") {
 
+	      $query = "DELETE FROM properties WHERE path = '$psource'";
+	      error_log($query);
+	      mysql_query($query);
+
+	    }
+	    error_log (" RENAMETO2  : $bdest : $err");
 	  }
-	  $err=$src->modify();
-	  $this->docpropinfo($src,$pdest,true);
-	  if ($err=="") {
-
-	    $query = "DELETE FROM properties WHERE path = '$psource'";
-	    error_log($query);
-	    mysql_query($query);
-
-	  }
-	  error_log (" RENAMETO2  : $bdest : $err");
 	}
       }
-    }
-    if  ($src->doctype=='D') {
-      $query = "UPDATE properties 
+      if  ($src->doctype=='D') {
+	$query = "UPDATE properties 
                         SET path = REPLACE(path, '".$psource."', '".$pdest."') 
                         WHERE path LIKE '".$psource."%'";
-      mysql_query($query);
-      error_log($query);
-    }
+	mysql_query($query);
+	error_log($query);
+      }
 
 
-    if ($err=="") return "201 Created";
-	    
+      if ($err=="") return "201 Created";
+    }	    
     error_log("DAV MOVE:$err");
     return "403 Forbidden";  
 	    
@@ -1136,6 +1149,8 @@
       } else {
 	error_log("Cannot lock ".$doc->title.":$err");
       }
+    } else {
+      return true;
     }
     return "409 Conflict";
   }
@@ -1163,6 +1178,8 @@
 	mysql_query($query);
 	if (mysql_affected_rows()) return "204 No Content";
       }
+    } else {      
+      return "204 No Content";
     }
     error_log("Cannot unlock ".$doc->title.":$err");
     return  "409 Conflict";
@@ -1250,7 +1267,7 @@
                           , expires   = '$expire'";
     mysql_query($query);
 
-    error_log("addsession $query");
+    //error_log("addsession $query");
     if (mysql_affected_rows()) {
       return true;
     } 
@@ -1271,7 +1288,7 @@
                          vid = $vid and
                          fid = $docid";
 
-    error_log("getLogin $query");
+    //error_log("getLogin $query");
     $res = mysql_query($query);
     $row = mysql_fetch_assoc($res);
     $owner= $row["owner"];
@@ -1298,7 +1315,7 @@
                          vid = $vid and
                          fid = $docid";
 
-    error_log("getSession $query");
+    //error_log("getSession $query");
     $res = mysql_query($query);
     $row = mysql_fetch_assoc($res);
     $sid= $row["session"];
