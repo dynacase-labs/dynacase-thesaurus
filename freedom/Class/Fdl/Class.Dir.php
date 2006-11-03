@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.54 2006/08/07 10:23:07 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.55 2006/11/03 15:58:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -161,6 +161,21 @@ Class Dir extends PDir
    */
   function postUnlinkDoc($docid,$multiple=false) { }
 
+  
+
+  /**
+   * Test if current user can add or delete document in this folder
+   *
+   * @return string error message, if no error empty string
+   */
+  function canModify() {
+     if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
+    
+    // need this privilege
+    $err = $this->Control("modify");
+    return $err;
+  }
+
   /**
    * add a document reference in this folder
    *
@@ -172,10 +187,7 @@ Class Dir extends PDir
    * @return string error message, if no error empty string
    */
   function AddFile($docid, $mode="latest",$noprepost=false) {     
-    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
-    
-    // need this privilege
-    $err = $this->Control("modify");
+    $err=$this->canModify();
     if ($err!= "") return $err;
 
     // use pre virtual method
@@ -267,9 +279,7 @@ Class Dir extends PDir
    */
   function InsertMDoc($tdocs, $mode="latest",$noprepost=false) {
     
-    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
-    // need this privilege
-    $err = $this->Control("modify");
+    $err=$this->canModify();
     if ($err!= "") return $err;
     $tAddeddocids=array();
 
@@ -338,9 +348,7 @@ Class Dir extends PDir
    */
   function QuickInsertMSDocId($tdocids) {
     
-    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
-    // need this privilege
-    $err = $this->Control("modify");
+    $err=$this->canModify();
     if ($err!= "") return $err;
     $qf = new QueryDir($this->dbaccess);
     $qf->qtype='S'; // single user query
@@ -411,11 +419,8 @@ Class Dir extends PDir
    * @param bool $noprepost if true then the virtuals methods {@link preUnlinkDoc()} and {@link postUnlinkDoc()} are not called
    * @return string error message, if no error empty string
    */
-  function DelFile($docid,$noprepost=false ) {      
-    if ($this->isLocked(true)) return sprintf(_("folder is locked. Cannot containt modification"));
-
-    // need this privilege
-    $err = $this->Control("modify");
+  function DelFile($docid,$noprepost=false ) {         
+    $err=$this->canModify();
     if ($err!= "") return $err;
 
     // use pre virtual method
