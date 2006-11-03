@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.13 2006/10/26 16:34:28 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.14 2006/11/03 15:17:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -159,7 +159,9 @@ Class VaultFile {
 	$pio=pathinfo($oldname);
 	$pin=pathinfo($newname);
 	$epio=$pio['extension'];
+	if ($epio=="") $epio="nop";
 	$epin=$pin['extension'];
+	if ($epin=="") $epin="nop";
 	if ($epio != $epin) {
 	  // need rename physically file
 	  $path=pathinfo($infos->path);
