@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.342 2006/10/27 15:24:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.343 2006/11/03 15:58:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -79,11 +79,11 @@ Class Doc extends DocCtrl
 			   "atags",
 			   "prelid",
 			   "confidential",
-			   "ldapdn",
-			   "fldrels");
+			   "ldapdn");
 
   public $sup_fields= array("values",
-			   "attrids");
+			   "attrids",
+			    "fldrels"); // not be in fields else trigger error
 
   /**
    * identificator of the document
@@ -1904,9 +1904,9 @@ final public function PostInsert()  {
       if ($ftitle) {
 	$path_parts = pathinfo($ftitle);
 	$ext=$path_parts['extension'];
-      } else {
-	$ext="nop";
-      }
+      } 
+      if ($ext=="") $ext="nop";
+      
       $filename=uniqid("/var/tmp/_fdl").".$ext";
       $tmpstream=fopen($filename,"w");
       while (!feof($stream)) {
