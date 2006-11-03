@@ -46,11 +46,11 @@ function composeWaitRvArea(rvl) {
     wdiv.setAttribute('id', 'evt'+waitrv[i].id );
     wdiv.className = 'wgcalwaitrv';
     wdiv.innerHTML = ' &bull; <span class="wgcalwaitrvtitle" >'+waitrv[i].title+'</span> <span class="wgcalwaitrvdesc">'+waitrv[i].date+', '+waitrv[i].owner+'</span>';
+    rvlist.appendChild(wdiv);
     fcalAddEvent(wdiv, 'click', 
 		 function foo(event) { 
 		   viewmenu(event, UrlRoot+'&app=WGCAL&action=WGCAL_GETMENU&ctx=WRV&ue=f&id='+id); 
 		   return false; } );
-    rvlist.appendChild(wdiv);
   }
   
   var dat = new Date();

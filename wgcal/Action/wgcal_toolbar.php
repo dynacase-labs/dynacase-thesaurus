@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.77 2006/10/27 06:47:52 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.78 2006/11/03 16:09:58 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -17,6 +17,14 @@ include_once("WGCAL/Lib.WGCal.php");
 include_once("EXTERNALS/WGCAL_external.php");
 include_once('WGCAL/Lib.wTools.php');
 include_once('WGCAL/Lib.Agenda.php');
+
+function setJs($jfile) {
+  global $action;
+//   $jslay = new Layout($jfile, $action);
+//   $action->parent->AddJsCode($jslay->gen());
+   $action->parent->AddJsRef($jfile);
+}
+
 
 function wgcal_toolbar(&$action) {
 
@@ -38,23 +46,22 @@ function wgcal_toolbar(&$action) {
   $rd = new_Doc($dbaccess, $action->user->fid);
   $action->lay->set("freedomTitle",addslashes($rd->getTitle()));
 
-
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
-  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  setJs($action->GetParam("CORE_JSURL")."/subwindow.js");
+  setJs($action->GetParam("CORE_JSURL")."/geometry.js");
+  setJs($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  setJs($action->GetParam("CORE_JSURL")."/PopupWindow.js");
+  setJs($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_toolbar.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_ressources.js");
-  $action->parent->AddJsRef("WGCAL/Layout/wgcal_waitzone.js");
-  $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
-  $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
-  $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
+  setJs("WGCAL/Layout/wgcal.js");
+  setJs("WGCAL/Layout/wgcal_calendar.js");
+  setJs("WGCAL/Layout/wgcal_toolbar.js");
+  setJs("WGCAL/Layout/wgcal_ressources.js");
+  setJs("WGCAL/Layout/wgcal_waitzone.js");
+  setJs("jscalendar/Layout/calendar.js");
+  setJs("jscalendar/Layout/calendar-fr.js");
+  setJs("jscalendar/Layout/calendar-setup.js");
 
-  $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
+  setJs("FDL/Layout/popupdoc.js");  
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
   $action->lay->set("MyFreedomId", $action->user->fid);

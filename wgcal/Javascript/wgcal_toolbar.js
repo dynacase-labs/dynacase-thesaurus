@@ -18,6 +18,19 @@ function killwins() {
   if (picker != null) picker.close();
 }
 
+function setCurrentAgenda(rid) {
+  var rdesc = document.getElementById('rdesc'+rid).innerHTML;
+  calCurrentEdit = { id:rid,   
+                     title:rdesc,      
+                     color:document.getElementById('cp'+rid).style.backgroundColor };  
+  fcalChangeUPref(-1, 'WGCAL_U_DCALEDIT', rid);   
+  if (document.getElementById(rid).className!='WGCRessSelected') {       
+     var cdis=confirm('Voulez-vous afficher cet agenda ?'); 
+     if (cdis) { 
+       vuvRessource(rid);     
+     } 
+  }
+}
 
 
 function fcalToolbarSetEvState(event,idp,state) {

@@ -106,8 +106,11 @@ function hideShowToolbar(imbut) {
 <thead></thead>
 <tbody id="tabress">
 <tr style="display:none; border:0px;" id="trsample">
-<td style="width:10px; border:0px"><input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="calCurrentEdit = { id:%RID%, title:'%RDESCR%', color:document.getElementById('cp%RID%').style.backgroundColor }; fcalChangeUPref(-1, 'WGCAL_U_DCALEDIT', %RID%); if (document.getElementById('%RID%').className!='WGCRessSelected') { var cdis=confirm('Voulez-vous afficher cet agenda ?'); if (cdis) { vuvRessource(%RID%); } }"></td>
-<td onclick="curRessource=%RID%; colpick.show('cp%RID%'); return false;" width="6px" id="cp%RID%" name="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
+<td style="width:10px; border:0px">
+<span style="display:none" id="rdesc%RID%">%RDESCR%</span>
+<input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="setCurrentAgenda('%RID%');" />
+</td>
+<td onclick="curRessource='%RID%'; colpick.show('cp%RID%'); return false;" width="6px" id="cp%RID%" name="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
 <td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"

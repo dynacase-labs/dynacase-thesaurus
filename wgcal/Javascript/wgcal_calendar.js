@@ -527,7 +527,7 @@ function WGCalDisplayEvent(cEv, ncol) {
     var tt = parseInt(getObjectWidth(eE))-bwidth;
     style.width = (tt<1) ? 2 : tt;
     tt = parseInt(getObjectHeight(eE))-bwidth;
-    style.height = tt<1) ? 2 : tt;
+    style.height = (tt<1) ? 2 : tt;
     style.margin = '0px';
   }
   return;
