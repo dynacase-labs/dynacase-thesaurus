@@ -8,7 +8,7 @@ var _SYNCHRO=0; // work variable to memorise previous synchro mode
 
 // send generic request
 function requestUrlSend(cible,url) {
-     if (INSERTINPROGRESS) alert('request aborted:\n'+url);
+  //     if (INSERTINPROGRESS) alert('request aborted:\n'+url);
   if (INSERTINPROGRESS) return false; // one request only
 
   // branch for native XMLHttpRequest object
