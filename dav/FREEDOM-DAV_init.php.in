@@ -1,7 +1,7 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: DAV_init.php.in,v 1.2 2006/11/03 15:15:18 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/dav/DAV_init.php.in,v $
+// $Id: FREEDOM-DAV_init.php.in,v 1.1 2006/11/06 09:16:17 eric Exp $
+// $Source: /home/cvsroot/anakeen/freedom/dav/Attic/FREEDOM-DAV_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
 // O*O  Anakeen development team

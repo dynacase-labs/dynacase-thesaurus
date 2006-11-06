@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.1 2006/10/31 16:36:51 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.2 2006/11/06 09:16:17 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -18,7 +18,7 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=DAV
+PACKAGE=FREEDOM-DAV
 
 ac_default_prefix=/home/httpd/what
 
@@ -53,4 +53,4 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile:Makefile.in DAV_init.php:DAV_init.php.in DAV.spec:DAV.spec.in)
+AC_OUTPUT(Makefile:Makefile.in FREEDOM-DAV_init.php:FREEDOM-DAV_init.php.in FREEDOM-DAV.spec:FREEDOM-DAV.spec.in)
