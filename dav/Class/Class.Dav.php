@@ -565,6 +565,9 @@
     // no need to check result here, it is handled by the base class
     $options['stream'] = fopen($fspath, "r");
             
+    header("Cache-control: no-cache"); 
+    header("Pragma: no-cache"); // HTTP 1.0
+    error_log("GET NO CACHE :".$options["path"]);
     return true;
   }
 
