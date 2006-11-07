@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.343 2006/11/03 15:58:12 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.344 2006/11/07 14:51:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1869,6 +1869,35 @@ final public function PostInsert()  {
 	//$err="file conversion $mime|$vid";
       }
       if ($nc>0) unlink($filename);	     
+    } 	
+    return $err;
+  } 
+   /**
+   * get text value from $attrid file attribute
+   *
+   * get content of a file (must be an ascii file)
+   * @param string $idAttr identificator of file attribute 
+   * @param string &$text the content of the file
+   * @return string error message, if no error empty string
+   */
+  final public function getTextValueFromFile($attrid, &$text) {   
+    $a=$this->getAttribute($attrid);     
+    if ($a->type == "file") {
+      $vf = newFreeVaultFile($this->dbaccess);
+      $fvalue=$this->getValue($attrid);
+      $basename="";
+      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+	$vaultid= $reg[2];
+	$mimetype=$reg[1];
+	
+	$err=$vf->Retrieve($vaultid, $info);
+
+	if ($err == "") {
+	  $basename=$info->name;
+	}
+      }
+      $filename=$info->path;
+      $text=file_get_contents($filename);  
     } 	
     return $err;
   } 
