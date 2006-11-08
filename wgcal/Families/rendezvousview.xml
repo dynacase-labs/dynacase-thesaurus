@@ -38,7 +38,7 @@
 </tr>
 
 [IF displaynote]<tr><td colspan="2" style="vertical-align:top; padding:5px"><span style="font-weight:bold">[TEXT:note] : </span>
-<div style="width:auto; max-height:10em; overflow:auto; border-color:[COLOR_A4]; border-width:1px;  border-style:solid none solid none; padding:5px; margin:5px;">[NOTE]</div></td></tr>[ENDIF displaynote]
+<div style="width:auto; border-color:[COLOR_A4]; border-width:1px;  border-style:solid none solid none; padding:5px; margin:5px;">[NOTE]</div></td></tr>[ENDIF displaynote]
 
 <tr><td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]<span style="font-size:80%; font-style:italic">[IF v_location]<div>[TEXT:location_1stUpcase] : [rvlocation]</div>[ENDIF v_location][IF ShowCalendar][TEXT:in calendar] : [incalendar] - [ENDIF ShowCalendar][IF hasCat][TEXT:Category] : [category][ENDIF hasCat]
 <div>[TextVisibility][IF ShowGroups] : [groups][ENDIF ShowGroups]</div>
