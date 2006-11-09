@@ -3,7 +3,7 @@
  * Display two frames
  *
  * @author Anakeen 2003
- * @version $Id: generic_root.php,v 1.5 2006/10/05 09:22:38 eric Exp $
+ * @version $Id: generic_root.php,v 1.6 2006/11/09 10:52:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -17,6 +17,7 @@ function generic_root(&$action) {
   $famid=GetHttpVars("famid"); // family restriction 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if ($famid && (! is_numeric($famid))) $famid=getFamIdFromName($dbaccess,$famid);
+  if ($famid != "") $action->register("DEFAULT_FAMILY",$famid); // for old compatibility
 
   $action->lay->set("famid",$famid);
   $smode = getSplitMode($action);
