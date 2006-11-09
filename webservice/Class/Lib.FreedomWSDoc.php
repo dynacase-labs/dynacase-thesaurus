@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.15 2006/11/02 15:02:42 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.16 2006/11/09 17:39:14 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -109,7 +109,7 @@ function  docRead($docid="", $docrev="") {
 	}
       }
     } else {
-      $ndoc = &$doc;
+      $ndoc = new_Doc($dbaccess, $doc->latestId());
     }
     if ($ndoc!==false) {
       $tdo[] = getTDoc($dbaccess, $ndoc->id);
