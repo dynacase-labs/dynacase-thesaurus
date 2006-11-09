@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.98 2006/09/05 13:31:00 eric Exp $
+ * $Id: freedom.css,v 1.99 2006/11/09 10:53:16 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -41,7 +41,6 @@ TD.FREEDOMText, .FREEDOMText {
   color: [CORE_TEXTFGCOLOR];
 }
 TD.FREEDOMLabel, .FREEDOMLabel {
-  color: [CORE_TEXTFGCOLOR];
   text-align:right;
 }
 TR.FREEDOMOpt TD.FREEDOMLabel {
