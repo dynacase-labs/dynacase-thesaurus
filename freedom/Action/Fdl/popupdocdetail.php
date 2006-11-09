@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.7 2006/10/04 09:25:50 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.8 2006/11/09 10:52:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -92,7 +92,7 @@ function getpopupdocdetail(&$action,$docid) {
 				 "control"=>"false",
 				 "tconfirm"=>"",
 				 "target"=>"_self",
-				 "visibility"=>POPUP_ACTIVE,
+				 "visibility"=>POPUP_CTRLACTIVE,
 				 "submenu"=>N_("security"), 
 				 "barmenu"=>"false"),
 	       "unlockdoc"=>array( "descr"=>_("Unlock"),
@@ -101,7 +101,7 @@ function getpopupdocdetail(&$action,$docid) {
 				   "control"=>"false",
 				   "tconfirm"=>"",
 				   "target"=>"_self",
-				   "visibility"=>POPUP_ACTIVE,
+				   "visibility"=>POPUP_CTRLACTIVE,
 				   "submenu"=>"security",
 				   "barmenu"=>"false"),
 	       "revise"=>array( "descr"=>_("Revise"),
@@ -344,7 +344,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
   if ($doc->locked == $doc->userid) $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
   else if (($doc->locked != $doc->userid) && 
-	   $clf) $tlink["lockdoc"]["visibility"]=POPUP_CTRLACTIVE;
+	   $clf) $tlink["lockdoc"]["visibility"]=$tlink["lockdoc"]["visibility"];
   else $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
 
   if ($doc->isLocked()) {
@@ -409,9 +409,6 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   if (($doc->wid > 0)|| ($doc->revision > 0))  $tlink["histo"]["visibility"]=POPUP_ACTIVE;
 
   
-
-
-
   // if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
 
   if ($headers)  $tlink["headers"]["visibility"]=POPUP_INVISIBLE;
