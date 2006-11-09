@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.344 2006/11/07 14:51:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.345 2006/11/09 10:53:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -966,7 +966,7 @@ final public function PostInsert()  {
 	global $_SERVER;
 	$this->AddComment(sprintf(_("delete by action %s from %s"),
 				  $_SERVER["REQUEST_URI"],
-				  $_SERVER["REMOTE_ADDR"]),HISTO_LOG);
+				  $_SERVER["REMOTE_ADDR"]),HISTO_NOTICE);
 	$this->AddComment(_("document deleted"));
 
 
