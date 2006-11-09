@@ -27,6 +27,11 @@ function imgborder() {
     document.images[i].style.borderStyle='inset';
   }
 }
+
+function ctrlPushed(event) {  
+  if (!event) event=window.event;
+  return event.ctrlKey;
+}
 var selimg=null;
 function openiframe(event,th,docid) {
   var wfgtop;
@@ -94,8 +99,7 @@ addEvent(window,'load',function zou() {openfirst('[openfam]');})
 [BLOCK SELECTMASTER]
 <img style="width:[izpx]"
      src="[iconsrc]"  
-     onclick="openiframe(event,this,'[idcdoc]');"
-     ondblclick="reloadiframe(event,this,'[idcdoc]');"
+     onclick="if (ctrlPushed(event)) reloadiframe(event,this,'[idcdoc]'); else openiframe(event,this,'[idcdoc]');"
      onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
      onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
      class="iconone"
@@ -117,7 +121,7 @@ addEvent(window,'load',function zou() {openfirst('[openfam]');})
 <img style="width:[izpx]"
      src="[iconsrc]"  
      id="imgu[idcdoc]"
-     onclick="openiframe(event,this,'[idcdoc]');"
+     onclick="if (ctrlPushed(event)) reloadiframe(event,this,'[idcdoc]'); else openiframe(event,this,'[idcdoc]');"
      onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
      onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
      class="iconone"
