@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.72 2005/11/03 08:17:29 eric Exp $
+ * @version $Id: viewfolder.php,v 1.73 2006/11/09 16:25:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -197,6 +197,8 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       $tdoc[$k]["emblemt"] ="";
       $tdoc[$k]["emblemw"] ="0";
       $tdoc[$k]["canedit"] =1;
+      $tdoc[$k]["postitid"] = ($doc->postitid>0)?$doc->postitid:false;
+
 	
       
       if ($doc->confidential > 0) {
