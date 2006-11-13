@@ -1111,11 +1111,13 @@ function fcalFastEditEvent(ev, ie) {
     }
     rcol = (rcol==''?'white':rcol);
        
+    var note = String(dv.calev_evnote);
+    var mnote = note.replace(/<br>/g, "\n");
     EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, 
 		       idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 		       title:dv.calev_evtitle, hmode:dv.calev_timetype, 
 		       occstart:fcalEvents[ie].start, occend:fcalEvents[ie].end, start:dv.tsstart, end:dv.tsend, 
-		       category:dv.calev_category, note:dv.calev_evnote, location:dv.calev_location, 
+		       category:dv.calev_category, note:mnote, location:dv.calev_location, 
 		       confidentiality:dv.calev_visibility, rcolor:rcol, 
 		       eventjs:dv };
     return fastEditInit(ev, true);

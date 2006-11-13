@@ -1816,8 +1816,10 @@ function sifevent() {
 }
 
 function setSync4jGuid($force=false) {
+  global $_SERVER;
   if ($force || (!$force && $this->getValue("calev_s4j_guid")=="")) { 
-     $this->setValue("calev_s4j_guid", "FREEDOM-EVENT-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
+    $server = md5($_SERVER["HTTP_HOST"]);
+    $this->setValue("calev_s4j_guid", "FEV-$server-".str_pad($this->id, 20, "0", STR_PAD_LEFT));
   }
 }    
 

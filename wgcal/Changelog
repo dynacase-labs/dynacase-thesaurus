@@ -1,10 +1,13 @@
 2.2.1
  - Ajout RSS 'Mes rendez-vous'
  - integration Syn4j Funambol V3
+ - Ajout md5 nom du serveur dans le GID de l'event
  - rechargement auto des rendez en attente (Ajax)
  - reprise de la recherche de ressource (grosse edition)
  - correction bug sélection délégation sous IE (substitution RDESCR)
- - correction bug divers sous IE
+ - correction bug divers sous IE (width = 0)
+ - corretion bug retour chariot / br dans notes
+ - correction gestion des affichages : couleurs, qd refus pas refus ;....
 
 2.1.1-2
  - couleur du texte dynamique / choisie

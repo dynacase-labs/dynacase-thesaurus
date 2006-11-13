@@ -372,7 +372,7 @@ function  wgcalGetRColor($r=-1) {
   return $rcolor[$r];
 }
 
-function wgcalGetRessourcesMatrix($ev) {
+ function wgcalGetRessourcesMatrix($ev)  {
   global $action;
 
   static $ressd = array();
@@ -453,15 +453,14 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
     $idres = $res;
   } else {  
     $ress = wGetRessDisplayed();
-    $tr=array(); 
-    $ire=0;
-    foreach ($ress as $kr=>$vr) {
-      if ($vr->id>0) $tr[$vr->id] = $vr->id;
-    }
-    $idres = implode("|", $tr);
+    foreach ($ress as $k => $v) $tt[]=$v->id;
+    $idres = implode("|", $tt);
   }
   $action->log->info("res=[$res], idres=[$idres]");
   setHttpVar("idres", $idres);
+
+  $tr = explode("|", $idres);
+  foreach ($tr as $k=>$v)   $tress[$v] = $v;
 
   $events = array();
   $dre=new_Doc($dbaccess, $qev);
@@ -479,23 +478,36 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
 		     );
   $rg = 0;
   $showrefused = ( $action->getParam("WGCAL_U_DISPLAYREFUSED")!=1 ? false : true);
+  $myid = $action->user->fid;
+
   $newevents = array();
   foreach ($events as $k=>$v) {
+
     $evdisplay = true;
+
     $ev = getDocObject($dbaccess, $v);
-    if (!$showrefused) {
-      $rl = $ev->getTValue("evfc_rejectattid");
-      foreach ($rl as $kr => $vr) {
-        if ($vr!="" && $vr==$action->user->fid) $evdisplay = false;
+    $tm = $ev->getRMatrix();
+    
+    $disp = -1;
+    if ($tress[$myid] && $tm[$myid] && $tm[$myid]["displayed"]) {
+     if ( ($showrefused && $tm[$myid]["refused"]) || !$tm[$myid]["refused"]) $disp=1;
+    }
+    if ($disp!=1) {
+      foreach ($tress as $kr => $vr) {
+ 	if ($vr!=$myid && isset($tm[$vr]) && $tm[$vr]["displayed"] && !$tm[$vr]["refused"]) $disp=1;
       }
     }
-   if ($evdisplay) {
-     $events[$k]["rg"] = $rg;
-     $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
-     $events[$k]["dattr"] = (method_exists($ev, "getDisplayAttr") ? $ev->getDisplayAttr() : $defaults );
-     $rg++;
-     $newevents[] = $events[$k];
-   }
+    
+    $evdisplay = ($disp==1 ? true : false );
+  
+
+    if ($evdisplay) {
+      $events[$k]["rg"] = $rg;
+      $events[$k]["jscode"] = $ev->viewdoc($ev->viewCalJsCode);
+      $events[$k]["dattr"] = (method_exists($ev, "getDisplayAttr") ? $ev->getDisplayAttr() : $defaults );
+      $rg++;
+      $newevents[] = $events[$k];
+    }
   }
   return $newevents;
 }

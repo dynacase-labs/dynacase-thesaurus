@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.33 2006/07/11 16:26:10 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.34 2006/11/13 14:14:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -170,33 +170,31 @@ function getRMatrix() {
   global $action;
   static $ressd = false;
 
-//   if ($ressd===false) {
-
-    $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
-    $attids = $this->getTValue("evfc_listattid");
-    $attsta = $this->getTValue("evfc_listattst");
-    $attref = $this->getTValue("evfc_rejectattid");
-
-    $ressd=array();
-
-    foreach ($attids as $k => $v) {
-      if (! isset($ressd[$v]) ) {
-	$ressd[$v]["state"] = $attsta[$k];
-	$ressd[$v]["displayed"] = false;
-	$ressd[$v]["color"] = "white";
-      }
+  $cals = explode("|", $action->GetParam("WGCAL_U_RESSDISPLAYED", $action->user->id));
+  $attids = $this->getTValue("evfc_listattid");
+  $attsta = $this->getTValue("evfc_listattst");
+  $attref = $this->getTValue("evfc_rejectattid");
+  
+  $ressd=array();
+  
+  $tcal = array();
+  foreach ($cals as $k => $v) {
+    $tc = explode("%", $v);
+    if ($tc[0] != "") {
+      $tcal[$tc[0]]["disp"] = $tc[1];
+      $tcal[$tc[0]]["col"] = $tc[2];
     }
-    while (list($k,$v) = each($cals)) {
-      if ($v!="") {
-	$tc = explode("%", $v);
-	if ($tc[0] != "" && isset($ressd[$tc[0]])) {
-	  $ressd[$tc[0]]["displayed"] = ($tc[1] == 1 ? true : false );
-	  $ressd[$tc[0]]["color"] = $tc[2];
-	}
-      }
+  }
+  
+  foreach ($attids as $k => $v) {
+    if (! isset($ressd[$v]) ) {
+      $ressd[$v]["state"] = $attsta[$k];
+      $r = false;
+      $ressd[$v]["refused"] = in_array($v, $attref);
+      $ressd[$v]["displayed"] = (isset($tcal[$v]) && $tcal[$v]["disp"] ? true : false);
+      $ressd[$v]["color"] = (isset($tcal[$v]) ? $tcal[$v]["col"] : "white");
     }
-//     print_r2($ressd,false);
-//   }
+  }
   return $ressd;
 }
   
@@ -209,30 +207,33 @@ function getDisplayColor() {
   $myid = $action->user->fid;
   static $rcolor = false;
 
-//   if ($rcolor===false) {
-  
   $color = "";
   $ressd = $this->getRMatrix();
   
   $showrefused = $action->getParam("WGCAL_U_DISPLAYREFUSED", 0);
   $ownerid = $this->getValue("evt_idcreator");
+
+  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"]) {
+    if ( ($ressd[$myid]["refused"] && $showrefused==1) || (!$ressd[$myid]["refused"]) ) {
+      $color = $ressd[$myid]["color"];
+    }
+  }
   
-  if (isset($ressd[$myid]) && $ressd[$myid]["displayed"] && (($ressd[$myid]["state"]!=3 && $showrefused==0) || $showrefused==1)) {
-    $color = $ressd[$myid]["color"];
-  } else {
-    if ($myid!=$ownerid && (isset($ressd[$ownerid]) && $ressd[$ownerid]["state"]!=3 && $ressd[$ownerid]["displayed"])) {
+  if ($color=="") {
+    if ((isset($ressd[$ownerid]) && (!$ressd[$ownerid]["refused"]) && $ressd[$ownerid]["displayed"])) {
       $color = $ressd[$ownerid]["color"];
-    } else {
-      foreach ($ressd as $kr => $vr) {
-	if ($vr["displayed"]) {
-	  $color = $vr["color"];
-	  break;
-	}
+    }
+  }
+
+  if ($color=="") {
+    foreach ($ressd as $kr => $vr) {
+      if ($kr!=$ownerid && $kr!=$myid && $vr["displayed"] && !$vr["refused"] ) {
+	$color = $vr["color"];
+	break;
       }
     }
   }
-  $rcolor = ($color!=""?$color:"#d2f5f7");
-  //   }
+  $rcolor = ($color!=""?$color:"red");
   return $rcolor;
 }
   
