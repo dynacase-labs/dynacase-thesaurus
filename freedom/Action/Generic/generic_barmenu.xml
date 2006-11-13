@@ -52,7 +52,7 @@ testSplit();
 <thead>
 <tr>
 <td  class="MenuInactive"  
-     style="padding: 0px 0pt 0px 10px;display:[dcreate]" 
+     style="padding: 0px 0pt 0px 10px;[IFNOT cancreate]display:none[ENDIF cancreate]" 
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">

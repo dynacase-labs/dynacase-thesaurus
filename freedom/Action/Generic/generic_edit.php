@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.53 2006/09/15 15:45:17 eric Exp $
+ * @version $Id: generic_edit.php,v 1.54 2006/11/13 16:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -189,7 +189,7 @@ function generic_edit(&$action) {
   if ($action->Read("navigator","")=="NETSCAPE") {
     if (ereg("rv:([0-9.]+).*",$_SERVER['HTTP_USER_AGENT'],$reg)) {
       if (floatval($reg[1] >= 1.6)) {
-	$action->lay->set("ddivfoot","");
+	$action->lay->set("ddivfoot","inherit");
 	$action->lay->set("tablefoot","tablefoot");
 	$action->lay->set("tablehead","tablehead");	
       }

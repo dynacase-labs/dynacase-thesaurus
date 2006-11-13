@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.41 2006/08/11 15:51:06 eric Exp $
+ * @version $Id: barmenu.php,v 1.42 2006/11/13 16:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,6 +66,7 @@ function barmenu(&$action) {
   $action->lay->SetBlockData("NEWFAM", $tchild);
 
   $action->lay->Set("dcreate", (count($tchild)>0)?"":"none");
+  $action->lay->Set("cancreate", (count($tchild)>0));
 
   $action->lay->Set("ftitle", $fdoc->title);
 
