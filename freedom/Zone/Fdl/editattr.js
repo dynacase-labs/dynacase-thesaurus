@@ -64,7 +64,6 @@ function reqNotifyEditAttr(xmlres) {
 	o.style.left = 0;
 	o.style.top  = 0;
 	o.innerHTML=elt;
-	
 	var oi=o.getElementsByTagName('textarea');
 	var di=o.getElementsByTagName('div');
 	if (oi.length > 0) {
@@ -80,6 +79,10 @@ function reqNotifyEditAttr(xmlres) {
 	  }
 
 	  
+	}
+	if (oi1) {
+	  oi1.style.fontSize=getCssStyle(ATTRREADCIBLE,'fontSize');
+	  oi1.style.fontFamily=getCssStyle(ATTRREADCIBLE,'fontFamily');
 	}
 	if (di.length > 0) {
 	  var di1=di[0];
@@ -186,7 +189,9 @@ function attributeSend(event,menuurl,cible,newval) {
     }    
 }
 
-function editattr(event,docid,attrid,cible) {
+
+// modjsft : default is modattr : the js function to call on save button
+function editattr(event,docid,attrid,cible,modjsft) {
 
   var w,h;
   if (cible) {
@@ -216,7 +221,7 @@ function editattr(event,docid,attrid,cible) {
     DIVATTR.style.width=w;
   }
   CINPUTDOCID=docid;
-  var menuurl=corestandurl+'&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid;
+  var menuurl=corestandurl+'&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid+'&modjsft='+modjsft;
   attributeSend(event,menuurl,DIVATTR);
 }
 function modattr(event,docid,attrid,newval) {

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editattribute.php,v 1.3 2006/06/08 16:04:24 eric Exp $
+ * @version $Id: editattribute.php,v 1.4 2006/11/13 16:06:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,6 +22,7 @@ include_once("FDL/Class.Doc.php");
 function editattribute(&$action) {
   $docid = GetHttpVars("docid");
   $attrid = GetHttpVars("attrid");
+  $modjsft = GetHttpVars("modjsft","modattr");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
@@ -31,6 +32,8 @@ function editattribute(&$action) {
 
   $action->lay->set("CODE","OK");
   $action->lay->set("warning","");
+  if ($modjsft=="undefined") $modjsft="modattr";
+  $action->lay->set("modjsft",$modjsft);
  
 
   
@@ -55,7 +58,6 @@ function editattribute(&$action) {
       }
     }
     $action->lay->set("thetext",utf8_encode($doc->getValue($attrid)));
-
   }
 
   if ($err != "")   $action->lay->set("CODE","KO");
