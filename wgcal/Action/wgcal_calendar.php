@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.99 2006/10/27 15:12:32 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.100 2006/11/13 19:25:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,8 +20,6 @@ include_once('WHAT/Lib.Common.php');
 
 function wgcal_calendar(&$action) {
 
-  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH");
-
   $action->parent->AddJsRef("jscalendar/Layout/calendar.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
   $action->parent->AddJsRef("jscalendar/Layout/calendar-setup.js");
@@ -33,6 +31,7 @@ function wgcal_calendar(&$action) {
 
   $action->parent->AddJsRef("WGCAL:wgcal.js", true);
   $action->parent->AddJsRef("WGCAL:wgcal_calendar.js", true);
+  $action->parent->AddJsRef("WGCAL:wgcal_ressources.js", true);
 //   $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
 //   $action->parent->AddJsCode($jslay->gen());
 
@@ -66,11 +65,9 @@ function wgcal_calendar(&$action) {
     $action->lay->set("agendatitle", $atitle); 
   }
     
-  //   // Init start time, view mode (month, week, ...)
-  $vm = GetHttpVars("vm", "");
-  if ($vm=="" || !is_numeric($vm)) $vm = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
-  $dayperweek = $vm;
-  if ($dayperweek==-1) redirect($action,"WGCAL","WGCAL_TEXTMONTH&sm=".($sm?"1":"0"));
+  $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+  $dm = $action->GetParam("WGCAL_U_VIEW", "W");
+  if ($dm=="M") redirect($action,"WGCAL","WGCAL_TEXTMONTH&sm=".($sm?"1":"0"));
   
   popupGen(0);
 
@@ -94,7 +91,6 @@ function wgcal_calendar(&$action) {
   
   // Display results ------------------------------------------------------------------------------------
   $action->lay->set("sm", $sm);
-  $action->lay->set("vm", $vm);
   $action->lay->set("ts", ($sm==1?$stdate:0));
   $action->lay->set("ress", $ress);
 

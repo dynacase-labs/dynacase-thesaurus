@@ -64,13 +64,13 @@ Calendar.setup({
 <img id="pbnav" name="pbnav"  height="16" style="cursor:pointer" title="[TEXT:goto data]"  onclick="WGCalChangeVisibility('nav');" src="[IMG:wgcal-gotodate.gif]">
 </td>[ENDIF NavDate]
 <td style="vertical-align:middle; text-align:center; width:80px">
-<span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="mytoto('WGCAL_U_HOURDIV', [value], 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR')">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select><input style="vertical-align:middle; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="s=(this.checked?'yes':'no'); mytoto('WGCAL_U_VIEWWEEKEND', s, 'wgcal_calendar', '[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR');"></input></span></td>
+<span style="vertical-align:middle; border:0px; font-size:8pt;"><select id="iChangeHDiv" onchange="setHourDivision([value])">[BLOCK CHHDIV]<option value="[value]" [selected]>[descr][ENDBLOCK CHHDIV]</select><input style="vertical-align:middle; cursor:pointer"  id="wesh" type="checkbox" title="[TEXT:view/hide week-end]" [wedisplayed] onclick="showHideWeekEnd(this.checked)"></input></span></td>
 
 
 <td style="text-align:center; width:60px">
 <img style="height:12; cursor:pointer" title="[TEXT:week view]"  onclick="setDaysViewed(7);" src="[IMG:oneweek.gif]">
 <img style="height:12; cursor:pointer"  title="[TEXT:two week view]"  onclick="setDaysViewed(14);" src="[IMG:twoweek.gif]">
-<img style="height:12; cursor:pointer"  title="[TEXT:month text view]" onclick="setDaysViewed(-1);" src="[IMG:wm-viewtext.gif]">
+<img style="height:12; cursor:pointer"  title="[TEXT:month text view]" onclick="setTextView(0);" src="[IMG:wm-viewtext.gif]">
 </td>
 <td style="text-align:center; width:60px" >
 <img height="12" title="[TEXT:rss syndication]"  style="cursor:pointer" onclick="subwindowm(450, 700, 'Rss', '[CORE_STANDURL]app=WGCAL&action=WGCAL_RSS')" src="[IMG:rss.png]">

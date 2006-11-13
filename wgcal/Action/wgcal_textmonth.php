@@ -54,6 +54,9 @@ function wgcal_textmonth(&$action)
   }
  
 
+  $dayperweek = $action->GetParam("WGCAL_U_DAYSVIEWED", 7);
+  $dm = $action->GetParam("WGCAL_U_VIEW", "W");
+  if ($dm=="W") redirect($action,"WGCAL","WGCAL_CALENDAR&sm=".($sm?"1":"0"));
 
   $ctime = $action->GetParam("WGCAL_U_CALCURDATE", time());
   $firstMonthDay  = WGCalGetFirstDayOfMonth($ctime);

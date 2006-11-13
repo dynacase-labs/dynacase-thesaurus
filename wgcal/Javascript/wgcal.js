@@ -146,20 +146,36 @@ function getY(e) {
   return posy;
 }
 
+function setHourDivision(val) {
+  fcalChangeUPref(-1, 'WGCAL_U_HOURDIV', val, '', '');
+//   document.location.reload(false);
+  document.location.href = document.location.href;
+}
+
+function showHideWeekEnd(show) {
+  fcalChangeUPref(-1, 'WGCAL_U_VIEWWEEKEND', (show?'yes':'no'), '', '');
+//   document.location.reload(false);
+  document.location.href = document.location.href;
+}
 
 function setDaysViewed(ndays) {
-  usetparam(-1, "WGCAL_U_VIEW", "week", '', '');
-  usetparam(-1, "WGCAL_U_DAYSVIEWED", ndays, 'wgcal_calendar', UrlRoot+'app=WGCAL&action=WGCAL_CALENDAR');
+  fcalChangeUPref(-1, "WGCAL_U_VIEW", "W", '', '');
+  fcalChangeUPref(-1, "WGCAL_U_DAYSVIEWED", ndays, '', '');
+//   document.location.reload(false);
+  document.location.href = document.location.href;
 }
+
 function setTextView(sh) {
-  usetparam(-1, "WGCAL_U_VIEW", "text", '', '');
-  p = '';
-  v = '';
-  if (sh>0) {
-    p = "WGCAL_U_CALCURDATE";
-    v = sh;
-  }
-  usetparam(-1, p, v, 'wgcal_calendar', UrlRoot+'app=WGCAL&action=WGCAL_TEXTMONTH');
+  fcalChangeUPref(-1, "WGCAL_U_VIEW", "M", '', '');
+   if (sh>0) {
+     var p = '';
+     var v = '';
+     p = "WGCAL_U_CALCURDATE";
+     v = sh;
+     fcalChangeUPref(-1, p, v, '', '');
+   }
+//   document.location.reload(false);
+  document.location.href = document.location.href;
 }
 
 
@@ -241,7 +257,7 @@ function WGCalImgAltern(ev, eltId, img1, img2) {
  
 function fcalChangeUPref(uid, pname, pvalue, paction, jspost) {
   var urlsend = UrlRoot+"app=WGCAL&action=WGCAL_USETPARAM&uid="+uid+"&pname="+pname+"&pvalue="+escape(pvalue);
- fcalSendRequest(urlsend, false, false);
+  fcalSendRequest(urlsend, false, false);
 
 }
 
@@ -255,14 +271,13 @@ function mytoto(name, value, target, taction)
 }
 
 // --------------------------------------------------------
-function usetparam(uid, name, value, updatetarget, updateaction) 
+function usetparam(uid, pname, value, updatetarget, updateaction) 
 {
-  alert(' uid=['+uid+'] name=['+name+'] value=['+value+'] updatetarget=['+updatetarget+'] updateaction=['+updateaction+'] ');
-  fset = document.getElementById('usetparam');
-  taction = document.getElementById('taction');
-  if (name!='') {
+  var fset = document.getElementById('usetparam');
+  var taction = document.getElementById('taction');
+  if (pname!='') {
     document.getElementById('uid').value = uid;
-    document.getElementById('pname').value = name;
+    document.getElementById('pname').value = pname;
     document.getElementById('pvalue').value = value;
 
     if (updatetarget=='') {
@@ -270,9 +285,8 @@ function usetparam(uid, name, value, updatetarget, updateaction)
       updateaction = 'WGCAL_HIDDEN';
     }
 
-//   alert ('target='+updatetarget+' action = '+updateaction);
-
     taction.value = updateaction;
+  alert(' uid=['+uid+'] name=['+pname+'] value=['+value+'] updatetarget=['+updatetarget+'] updateaction=['+updateaction+'] ');
     fset.target = updatetarget;
     
     fset.submit();
