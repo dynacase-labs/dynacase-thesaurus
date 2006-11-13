@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_gview.php,v 1.35 2006/08/07 16:24:46 marc Exp $
+ * @version $Id: wgcal_gview.php,v 1.36 2006/11/13 14:48:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -201,7 +201,7 @@ function wgcal_gview(&$action) {
 	$td[$cday]["ev"][$j]["location"] = $ve["evfc_location"];
 	$td[$cday]["ev"][$j]["vLocation"] = ($ve["evfc_location"]!="" ? true : false );
 	
-	$td[$cday]["ev"][$j]["note"] = $ve["evt_desc"];
+	$td[$cday]["ev"][$j]["note"] = nl2br($ve["evt_desc"]);
 	$td[$cday]["ev"][$j]["vNote"] = ($ve["evt_desc"]==""?false:true);
 	if ($sphrase!="") {
 	  $td[$cday]["ev"][$j]["note"] = preg_replace('/('.$sphrase.'?)/i', '<span style="background:yellow">\1</span>', $td[$cday]["ev"][$j]["note"]);

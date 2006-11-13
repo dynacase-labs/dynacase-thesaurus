@@ -257,22 +257,26 @@ function mytoto(name, value, target, taction)
 // --------------------------------------------------------
 function usetparam(uid, name, value, updatetarget, updateaction) 
 {
+  alert(' uid=['+uid+'] name=['+name+'] value=['+value+'] updatetarget=['+updatetarget+'] updateaction=['+updateaction+'] ');
   fset = document.getElementById('usetparam');
   taction = document.getElementById('taction');
   if (name!='') {
     document.getElementById('uid').value = uid;
     document.getElementById('pname').value = name;
     document.getElementById('pvalue').value = value;
-  }
-  if (updatetarget=='') {
-    updatetarget = 'wgcal_hidden';
-    updateaction = 'WGCAL_HIDDEN';
-  }
-//   alert ('target='+updatetarget+' action = '+updateaction);
-  taction.value = updateaction;
-  fset.target = updatetarget;
 
-  fset.submit();
+    if (updatetarget=='') {
+      updatetarget = 'wgcal_hidden';
+      updateaction = 'WGCAL_HIDDEN';
+    }
+
+//   alert ('target='+updatetarget+' action = '+updateaction);
+
+    taction.value = updateaction;
+    fset.target = updatetarget;
+    
+    fset.submit();
+  }
 }
 
 
