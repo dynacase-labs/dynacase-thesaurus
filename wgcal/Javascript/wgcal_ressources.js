@@ -1,8 +1,11 @@
 function fcalUpdateCalendar(forcereload) {
   globalcursor('progress'); 
-  //   if (forcereload) parent.wgcal_calendar.document.location.reload(true);
-  //   else parent.wgcal_calendar.document.location.reload(false);
-  parent.wgcal_calendar.fcalReloadEvents();
+  var e;
+  try {
+    window.parent.wgcal_calendar.fcalReloadEvents();
+  } catch(e) {
+    alert('a marche pas... '+window.parent.id+' error='+e);
+  };
   unglobalcursor();  
 }
 

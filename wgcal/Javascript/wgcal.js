@@ -286,7 +286,7 @@ function usetparam(uid, pname, value, updatetarget, updateaction)
     }
 
     taction.value = updateaction;
-  alert(' uid=['+uid+'] name=['+pname+'] value=['+value+'] updatetarget=['+updatetarget+'] updateaction=['+updateaction+'] ');
+//   alert(' uid=['+uid+'] name=['+pname+'] value=['+value+'] updatetarget=['+updatetarget+'] updateaction=['+updateaction+'] ');
     fset.target = updatetarget;
     
     fset.submit();

@@ -8,6 +8,7 @@
  - correction bug divers sous IE (width = 0)
  - corretion bug retour chariot / br dans notes
  - correction gestion des affichages : couleurs, qd refus pas refus ;....
+ - bug IE : ouverture fenetre lors du passage sur 2 semaines / mois
 
 2.1.1-2
  - couleur du texte dynamique / choisie

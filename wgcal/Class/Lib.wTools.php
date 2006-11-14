@@ -448,15 +448,17 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
   setHttpVar("idfamref", $idfamref);
   
   // Init the ressources
+  $dforce = false;
   $res = GetHttpVars("ress", "");
   if ($res!="") {
     $idres = $res;
+    $dforce = true;
   } else {  
     $ress = wGetRessDisplayed();
     foreach ($ress as $k => $v) $tt[]=$v->id;
     $idres = implode("|", $tt);
   }
-  $action->log->info("res=[$res], idres=[$idres]");
+//   $action->log->error("res=[$res], idres=[$idres]");
   setHttpVar("idres", $idres);
 
   $tr = explode("|", $idres);
@@ -489,12 +491,12 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
     $tm = $ev->getRMatrix();
     
     $disp = -1;
-    if ($tress[$myid] && $tm[$myid] && $tm[$myid]["displayed"]) {
+    if ($tress[$myid] && $tm[$myid] && ($tm[$myid]["displayed"]||$dforce)) {
      if ( ($showrefused && $tm[$myid]["refused"]) || !$tm[$myid]["refused"]) $disp=1;
     }
     if ($disp!=1) {
       foreach ($tress as $kr => $vr) {
- 	if ($vr!=$myid && isset($tm[$vr]) && $tm[$vr]["displayed"] && !$tm[$vr]["refused"]) $disp=1;
+ 	if ($vr!=$myid && isset($tm[$vr]) && ($tm[$vr]["displayed"]||$dforce) && !$tm[$vr]["refused"]) $disp=1;
       }
     }
     

@@ -664,7 +664,7 @@ var posM = { x:0, y:0 };
 var Tempo = 200;
 var TempoId = -1;
 
-function fcalReloadEvents(ev) {
+function fcalReloadEvents() {
   if (DynView) {
     fcalInitEvents('');
     fcalShowEvents();
@@ -885,7 +885,7 @@ function fcalInsertTmpEvent(ev, tEv) {
   }
   alert(__dbgDisplayEvents());
   fastEditReset();
-  fcalReloadEvents(ev);
+  fcalReloadEvents();
 }
 
 function fcalGetRgFromIdP(idp) {
@@ -1413,7 +1413,7 @@ function msgUser(tt) {
   deb.style.top = '20px';
   deb.style.visibility = 'visible';
 
-  msgUserTempo = self.setTimeout("cancelMsgUser()", 10000);
+  msgUserTempo = self.setTimeout("cancelMsgUser()", 3000);
 
 }
 

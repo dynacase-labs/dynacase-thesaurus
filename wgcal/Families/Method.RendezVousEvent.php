@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.34 2006/11/13 14:14:28 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.35 2006/11/14 10:46:49 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -233,7 +233,7 @@ function getDisplayColor() {
       }
     }
   }
-  $rcolor = ($color!=""?$color:"red");
+  $rcolor = ($color!=""?$color:$ressd[$ownerid]["color"]) ; //$color:"#A3A3A3");
   return $rcolor;
 }
   

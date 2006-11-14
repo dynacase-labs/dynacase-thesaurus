@@ -13,6 +13,6 @@ resize cols="[toolbarwidth]pt,*">
 
   <frameset name="wgcal_frmain" id="wgcal_frmain" frameborder="no" framespacing="0" border="0" rows="*,0pt">
     <frame id="wgcal_calendar"  name="wgcal_calendar" src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_CALENDAR" scrolling="none">
-    <frame id="wgcal_calendar" name="wgcal_hidden"   src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" style="border-style:none" scrolling="no">
+    <frame id="wgcal_hidden" name="wgcal_hidden"   src="[CORE_STANDURL]&app=WGCAL&action=WGCAL_HIDDEN" style="border-style:none" scrolling="no">
   </frameset>
 </html>
