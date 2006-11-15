@@ -1,0 +1,10 @@
+#!/bin/sh
+# ---------------------------------------------------------
+# $Id: wgcal_cronalert.cron,v 1.1 2006/11/15 18:08:32 marc Exp $
+#
+# Distribued under GPL 2 licence terms
+# ---------------------------------------------------------
+SHELL=/bin/bash
+MAILTO=root
+# every 5 minutes
+*/5 * * * *  root  . /etc/freedom.conf; $wpub/WGCAL/wgcal_cronalert.sh  > /dev/null 2>&1
