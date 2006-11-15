@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.38 2006/10/04 13:13:43 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.39 2006/11/15 18:07:38 marc Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -28,6 +28,7 @@
 %define httpuser apache
 %define releasepostfix fc5
 %endif
+%define crondir /etc/cron.d
 
 Summary: The Freedom Workgroup Calendar
 Name: @PACKAGE@
@@ -67,7 +68,7 @@ autoconf
 	     --with-httpuser=%{httpuser} \
 	     --with-apacheconfdir=%{apacheconfdir} \
 	     --prefix=%{destdir}
-make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+make  rootdir=$RPM_BUILD_ROOT pubdir=$RPM_BUILD_ROOT%{destdir} 
 install -d $RPM_BUILD_ROOT/%{apacheconfdir}
 install  $RPM_BUILD_ROOT/%{destdir}/%{name}/73_mod_wgcalosync.conf $RPM_BUILD_ROOT/%{apacheconfdir}/73_mod_wgcalosync.conf
 install -d $RPM_BUILD_ROOT/%{destdir}/FDL
@@ -106,6 +107,7 @@ ln -s ../@PACKAGE@/wgcal_alert.php .
 %{destdir}/API/*
 %{destdir}/FDL/*
 %{destdir}/EXTERNALS/*
+%attr(755,root,root) %{crondir}/*
 
 %files SYNC
 %defattr(-,%{httpuser},%{httpuser})

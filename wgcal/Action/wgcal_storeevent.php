@@ -106,10 +106,7 @@ function wgcal_storeevent(&$action) {
   $confg = GetHttpVars("evconfgroups", 0);
   $event->setValue("CALEV_CONFGROUPS", $confg);
   
-  $event->setValue("calev_evalarm", GetHttpVars("evalarmst",0));
-  $event->setValue("calev_evalarmday", GetHttpVars("evalarmd",0));
-  $event->setValue("calev_evalarmhour", GetHttpVars("evalarmh",1));
-  $event->setValue("calev_evalarmmin", GetHttpVars("evalarmm",0));
+  $event->setValue("calev_evalarm", GetHttpVars("evalarm",0));
   
   // repeat 
   $rmode = GetHttpVars("repeattype", 0);

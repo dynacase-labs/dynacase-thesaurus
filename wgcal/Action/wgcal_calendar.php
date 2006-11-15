@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.101 2006/11/14 10:46:49 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.102 2006/11/15 18:07:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,6 +15,7 @@
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.wTools.php");
+include_once("WGCAL/WGCAL_external.php");
 include_once('FDL/popup_util.php');
 include_once('WHAT/Lib.Common.php');
 
@@ -285,6 +286,14 @@ function wgcal_calendar(&$action) {
   $action->lay->SetBlockData("confid", $tconf);
   $action->lay->set("defvis", $defvis);
 
+  // Alarm
+  $listal = CalListAlarmInterval();
+  $tv = array();
+  foreach ($listal as $k => $v) {
+    $tv[] = array( "value" => $k, "descr" => $v, "selected" => ($k==0? "selected" : ""));
+  }
+  $action->lay->SetBlockData("ALRMPERIOD", $tv);
+  
 
   // minutes
   $incm = $action->getParam("WGCAL_U_MINCUSED",15);

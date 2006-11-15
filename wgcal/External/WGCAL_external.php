@@ -112,4 +112,19 @@ function  WGCalUParam($pname, $def="", $uid=-1) {
   return ($r=="" ? $def : $r);
 }
 
+function CalListAlarmInterval() {
+  return array(
+	       "0" => _("No alarm"),
+	       "5" => _("Five minutes"),
+	       "15" => _("Quarter of hour"),
+	       "30" => _("Half of hour"),
+	       "60" => _("One hour"),
+	       "120" => _("Two hours"),
+	       "720" => _("Half day"),
+	       "1440" => _("One day"),
+	       "2880" => _("Two days"),
+	       );
+}
+
+
 ?>

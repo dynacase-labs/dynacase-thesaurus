@@ -35,10 +35,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <input type="hidden" id="evcategory" name="evcategory" value="[evcategory]">
 <input type="hidden" id="attendees" name="attendees" value="">
 <input type="hidden" id="excludedate" name="excludedate" value="">
-<input type="hidden" id="evalarmst" name="evalarmst" value="[evalarmst]">
-<input type="hidden" id="evalarmd" name="evalarmd" value="[evalarmd]">
-<input type="hidden" id="evalarmh" name="evalarmh" value="[evalarmh]">
-<input type="hidden" id="evalarmm" name="evalarmm" value="[evalarmm]">
+<input type="hidden" id="evalarm" name="evalarm" value="[evalarm]">
 
 
 
@@ -146,23 +143,11 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 </td>
 </tr>
 
-<!-- <tr>
-<td align="right">[TEXT:in calendar]&nbsp;:&nbsp;</td>
-<td colspan="2" ><select id="rvcalendar" name="rvcalendar" onchange="SetSelectedItem('rvcalendar', 'evcalendar');">[BLOCK CALS]<option value="[value]" [selected]>[descr][ENDBLOCK CALS]</select>
+<tr>
+<td  align="right">[TEXT:alert mail]&nbsp;:&nbsp;</td>
+<td colspan="2"><select id="alarm" onchange="SetSelectedItem('alarm', 'evalarm')">[BLOCK ALRMPERIOD]<option value="[value]" [selected]>[descr][ENDBLOCK ALRMPERIOD]</select> [TEXT:before]
 </td>
-</tr> -->
-
-<!-- <tr>
-<td align="right"><span onclick="ChangeAlarm()" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'">[TEXT:alarm]&nbsp;<input id="AlarmCheck" name="AlarmCheck" type="checkbox" style="cursor:pointer" onClick="ChangeAlarm()" [ALARMCHK] [ALARMRO]></span>&nbsp;&nbsp;</td>
-<td colspan="2" >
-<span id="AlarmVis" style="visibility:[ALRMVIS]">
-<select id="alarmday" name="alarmdayhour" onchange="changeAlarmT()">[BLOCK ALARM_DA]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_DA]</select>d
-<select id="alarmhour" name="alarmhour" onchange="changeAlarmT()">[BLOCK ALARM_HR]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_HR]</select>h&nbsp;
-<select id="alarmmin" name="alarmmin"  onchange="changeAlarmT()">[BLOCK ALARM_MIN]<option value="[ALRMPERIOD_V]" [ALRMPERIOD_S]>[ALRMPERIOD_V][ENDBLOCK ALARM_MIN]</select>mn&nbsp;
-[TEXT:before]
-</span>
-</td>
-</tr> -->
+</tr>
 
 </table>
 
@@ -172,7 +157,7 @@ onclick="clickB('nohour'); ChangeNoHour(false,0);">
 <tr>
 <td align="left">
 [IF sendMail]<img src="[IMG:wm-mail.gif]" height="15" title="[TEXT:mail to contacts]" class="wSmallButton" onclick="subwindow(400,600,'fmailev','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[EVENTID]');">[ENDIF sendMail]
-<!-- [IFNOT newEvent]<img src="[IMG:wm-delete.gif]" height="15" title="[TEXT:delete]" class="wSmallButton" onclick="deleteEvent('[TEXT: delete this event]');">[ENDIF newEvent] -->&nbsp;
+&nbsp;
 </td>
 <td align="right">
 <img src="[IMG:fcal-checkconflict.gif]" id="btnCConf" height="15" title="[TEXT:check for conflicts]" class="wSmallButton" onclick="normalEditCheckConflict(event, true);">

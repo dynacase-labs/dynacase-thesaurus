@@ -41,6 +41,7 @@
 <div style="width:auto; border-color:[COLOR_A4]; border-width:1px;  border-style:solid none solid none; padding:5px; margin:5px;">[NOTE]</div></td></tr>[ENDIF displaynote]
 
 <tr><td nowrap colspan="2" style="padding:3px; vertical-align:top">[IFNOT Confidential]<span style="font-size:80%; font-style:italic">[IF v_location]<div>[TEXT:location_1stUpcase] : [rvlocation]</div>[ENDIF v_location][IF ShowCalendar][TEXT:in calendar] : [incalendar] - [ENDIF ShowCalendar][IF hasCat][TEXT:Category] : [category][ENDIF hasCat]
+[IF hasAlarm][TEXT:alert mail] [alarmtext] [TEXT:before][ENDIF hasAlarm]
 <div>[TextVisibility][IF ShowGroups] : [groups][ENDIF ShowGroups]</div>
 <div>[owner][IF ShowDate] - [modifdate][ENDIF ShowDate]</div></span>[ENDIF Confidential]</td>
 </tr>

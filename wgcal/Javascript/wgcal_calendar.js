@@ -102,7 +102,7 @@ function ClickCalendarCell(event, nh,times,timee) {
    if (!fastEditChangeAlert()) return;
    EventInEdition = { id:0, idp:0, idowner:-1, titleowner:'',
 		      title:'', hmode:nh, start:times, end:timee, 
-		      category:0, note:'', location:'', 
+		      alarm:0, category:0, note:'', location:'', 
 		      confidentiality:eltId('defvis').value, 
 		      rcolor:rcol, eventjs:null };
    fastEditInit(event, true);
@@ -808,10 +808,16 @@ function fastEditSetUrlParam(settz) {
   var scat = eltId('fe_categories');
   var cat = 0;
   for (var i=0; i<scat.options.length; i++) { if (scat.options[i].selected) cat = scat.options[i].value; }
+
   var sconf = eltId('fe_confidentiality');
   var conf = 0;
   for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
+
+  var salarm = eltId('fe_alarm');
+  var alarm = 0;
+  for (var i=0; i<salarm.options.length; i++) { if (salarm.options[i].selected) alarm = salarm.options[i].value; }
   
+ 
   var  urlparam = "";
   urlparam += "&id="+EventInEdition.idp;
   urlparam += "&oi="+EventInEdition.idowner;
@@ -831,6 +837,7 @@ function fastEditSetUrlParam(settz) {
   urlparam += "&te="+ te;
   urlparam += "&ca="+cat;
   urlparam += "&co="+conf;
+  urlparam += "&alrm="+alarm;
   urlparam += "&lo="+escape(loc);
   urlparam += "&no="+escape(note);
 
@@ -1116,6 +1123,7 @@ function fcalFastEditEvent(ev, ie) {
     EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, 
 		       idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 		       title:dv.calev_evtitle, hmode:dv.calev_timetype, 
+		       alarm:dv.calev_evalarm, 
 		       occstart:fcalEvents[ie].start, occend:fcalEvents[ie].end, start:dv.tsstart, end:dv.tsend, 
 		       category:dv.calev_category, note:mnote, location:dv.calev_location, 
 		       confidentiality:dv.calev_visibility, rcolor:rcol, 
@@ -1152,6 +1160,11 @@ function fastEditInit(ev, init) {
   var scat = eltId('fe_categories');
   for (var i=0; i<scat.options.length; i++) {
     if (scat.options[i].value == EventInEdition.category) scat.options[i].selected = true;
+  }
+
+  var scat = eltId('fe_alarm');
+  for (var i=0; i<scat.options.length; i++) {
+    if (scat.options[i].value == EventInEdition.alarm) scat.options[i].selected = true;
   }
 
   var scat = eltId('fe_confidentiality');

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: Method.RendezVousEvent.php,v 1.35 2006/11/14 10:46:49 marc Exp $
+ * @version $Id: Method.RendezVousEvent.php,v 1.36 2006/11/15 18:07:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -36,6 +36,7 @@ function viewCalJsCode() {
 	  ?  $this->getValue("evt_enddate") : $this->getValue("evfc_realenddate"));
   $this->lay->set("lend", $end);
   $this->lay->set("end", fcalLocalFrenchDateToUnixTs($end, true));
+  $this->lay->set("alarm", $this->getValue("evfc_alarm"));
   $dattr = $defaults;
   if (method_exists($this, "getMenuLoadUrl")) $this->lay->set("menuurl", $this->getMenuLoadUrl());
   else  $this->lay->set("menuurl", "");

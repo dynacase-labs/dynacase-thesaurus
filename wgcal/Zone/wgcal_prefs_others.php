@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_others.php,v 1.17 2006/10/27 15:12:32 marc Exp $
+ * @version $Id: wgcal_prefs_others.php,v 1.18 2006/11/15 18:07:38 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -53,6 +53,7 @@ function wgcal_prefs_others(&$action) {
 		  );
 
   $uid = GetHttpVars("uid", $action->user->id);
+  $action->lay->set("uid", $uid);
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $toptchk = array(); 
@@ -122,6 +123,13 @@ function wgcal_prefs_others(&$action) {
   }
   $action->lay->SetBlockData("OSYNC", $toptchk);
 
+
+  $rst = $action->GetParam("WGCAL_U_REMINDMODE", 0);
+  $reminder = array( array( "iOptVal" => 0, "iOptSel" => ($rst==0?"selected":""), "iOptText" => _("all, my events and for meetings")),
+		     array( "iOptVal" => 1, "iOptSel" => ($rst==1?"selected":""), "iOptText" => _("my events only")),
+		     array( "iOptVal" => 2, "iOptSel" => ($rst==2?"selected":""), "iOptText" => _("none of event and meetings")),
+		     );
+  $action->lay->SetBlockData("reminder", $reminder);
 
   return;
 }

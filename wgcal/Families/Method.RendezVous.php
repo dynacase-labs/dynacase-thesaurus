@@ -83,18 +83,8 @@ function  setEventSpec(&$e) {
   $e->setValue("evfc_repeatuntil", $this->getValue("calev_repeatuntil"));
   $e->setValue("evfc_repeatuntildate", $this->getValue("calev_repeatuntildate"));
 
-  if ($this->getValue("calev_evalarm", 0)==1) {
-    $htime = w_dbdate2ts($this->getValue("calev_start"));
-    $hd = ($this->getValue("calev_evalarmday", 0) * 3600 * 24)
-      + ($this->getValue("calev_evalarmhour", 0) * 3600)
-      + ($this->getValue("calev_evalarmmin", 0) * 60);
-    $e->setValue("evfc_alarmtime", w_datets2db($htime - $hd));
-  }
-  $e->setValue("evfc_alarm", $this->getValue("calev_evalarm", 0));
-  $e->setValue("evfc_alarmd", $this->getValue("calev_evalarmday", 0));
-  $e->setValue("evfc_alarmh", $this->getValue("calev_evalarmhour", 0));
-  $e->setValue("evfc_alarmm", $this->getValue("calev_evalarmmin", 0));
-    
+  $e->setValue("evfc_alarm", $this->getValue("calev_evalarm"));
+ 
   $tv = $this->getTValue("calev_excludedate");
   $e->deleteValue("evfc_excludedate");
   if (count($tv)>0) {
@@ -451,6 +441,15 @@ function RendezVousView() {
   } else {
     $this->lay->set("displaynote", false);
   }    
+
+  // Alarm 
+  $alrm = $this->getValue("calev_evalarm");
+  $alrmt = CalListAlarmInterval();
+  $this->lay->set("hasAlarm", ($alrm>0?true:false));
+  $this->lay->set("alarmtext", $alrmt[$alrm]);
+  
+  
+    
 }
 
 /*
@@ -472,7 +471,8 @@ function setIcons() {
       else $icons[] = fcalGetIcon("REPEATEXCLUDE");
     }
     if ((count($this->getTValue("CALEV_ATTID"))>1))  $icons[] = fcalGetIcon("GROUP");
-    if ($this->getValue("CALEV_EVALARM") == 1 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
+    $alrm = $this->getValue("CALEV_EVALARM");
+    if (is_numeric($alrm) && $alrm>0 && ($this->getValue("CALEV_OWNERID") == $action->user->fid)) $icons[] = fcalGetIcon("ALARM");
   } else {
     $icons[] = fcalGetIcon("CAL_PRIVATE");
   }
@@ -1015,31 +1015,16 @@ function EventSetCalendar($cal) {
   
 function EventSetAlarm() {
 
-  $alarm_set = $this->getValue("calev_evalarm", 0);
-  $this->lay->set("evalarmst", $alarm_set);
-  $alarm_d   = $this->getValue("calev_evalarmday", 0);
-  $this->lay->set("evalarmd",$alarm_d);
-  $alarm_h   = $this->getValue("calev_evalarmhour", 1);
-  $this->lay->set("evalarmh",$alarm_h);
-  $alarm_m   = $this->getValue("calev_evalarmmin", 0);
-  $this->lay->set("evalarmm",$alarm_m);
+  $alarm = $this->getValue("calev_evalarm");
+  $alarm = (is_numeric($alarm)?$alarm:0);
+  $listal = CalListAlarmInterval();
+  $tv = array();
+  foreach ($listal as $k => $v) {
+    $tv[] = array( "value" => $k, "descr" => $v, "selected" => ($alarm==$k ? "selected" : ""));
+  }
+  $this->lay->SetBlockData("ALRMPERIOD", $tv);
+  $this->lay->set("evalarm", $alarm);
 
-  $this->lay->set("ALARMCHK", ($alarm_set==1?"checked":""));
-  $this->lay->set("ALRMVIS", ($alarm_set==1?"visible":"hidden"));
-
-  for ($d=0; $d<5; $d++) 
-    $da[] = array("ALRMPERIOD_V"=>$d,"ALRMPERIOD_S"=>($alarm_d==$d ? "selected" : ""));
-  $this->lay->SetBlockData("ALARM_DA", $da);
-
-
-  for ($hour=0; $hour<24; $hour++) 
-    $h[] = array( "ALRMPERIOD_V"=>$hour, "ALRMPERIOD_S"=>($alarm_h==$hour?"selected":""));
-  $this->lay->SetBlockData("ALARM_HR", $h);
-
-  $inc = 15;
-  for ($min=0; $min<60; $min+=$inc) 
-    $m[] = array( "ALRMPERIOD_V" => $min, "ALRMPERIOD_S" => ($alarm_m==$m ? "selected" : "" ));
-  $this->lay->SetBlockData("ALARM_MIN", $m);
 }
 
 function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
@@ -1826,8 +1811,6 @@ function setSync4jGuid($force=false) {
 function forceSync4jGuid() {
   $this->setSync4jGuid(true);
 }
-
-
 
 function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
   include_once('WGCAL/Lib.wTools.php');

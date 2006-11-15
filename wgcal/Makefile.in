@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.14 2006/09/06 13:13:20 eric Exp $
+# $Id: Makefile.in,v 1.15 2006/11/15 18:07:38 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -7,6 +7,7 @@ utildir = @PUBRULE@
 appname = @PACKAGE@
 pubdir  = @prefix@
 srcdir  = @srcdir@
+rootdir  = @rootdir@
 
 
 export pubdir utildir appname
@@ -23,19 +24,31 @@ include $(utildir)/PubRule
 DISTFILES += $(SUBDIR) \
 	$(PACKAGE).app \
         RELEASE VERSION \
-	Families/wgcal.csv \
+	Families/wgcal.ods \
+	Api/wgcal_cronalert.cron \
+	Api/wgcal_cronalert.sh \
 	73_mod_wgcalosync.conf
 
 $(pubdir)/$(appname)/73_mod_wgcalosync.conf : 73_mod_wgcalosync.conf
 	cp $< $@
 
+$(rootdir)/etc/cron.d:
+	mkdir -p $@
 
+$(rootdir)/etc/cron.d/wgcal_cronalert.cron: Api/wgcal_cronalert.cron $(rootdir)/etc/cron.d
+	cp Api/wgcal_cronalert.cron $@
 
-$(pubdir)/$(appname)/wgcal.csv : Families/wgcal.csv 
-	cp Families/wgcal.csv $(pubdir)/$(appname)
+$(pubdir)/$(appname)/wgcal_cronalert.sh :  Api/wgcal_cronalert.sh
+	cp Api/wgcal_cronalert.sh $(pubdir)/$(appname)
+	chmod 755 $(pubdir)/$(appname)/wgcal_cronalert.sh
 
-publish: $(pubdir)/$(appname)/wgcal.csv \
-	$(pubdir)/$(appname)/73_mod_wgcalosync.conf 
+$(pubdir)/$(appname)/wgcal.ods : Families/wgcal.ods 
+	cp Families/wgcal.ods $(pubdir)/$(appname)
+
+publish: $(pubdir)/$(appname)/wgcal.ods \
+	$(pubdir)/$(appname)/73_mod_wgcalosync.conf \
+	$(pubdir)/$(appname)/wgcal_cronalert.sh \
+	$(rootdir)/etc/cron.d/wgcal_cronalert.cron
 
 clean:
 	rm -f config.log config.status configure WGCAL-*.tar.gz WGCAL_init.php WGCAL.spec 

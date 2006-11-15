@@ -20,6 +20,7 @@ function wgcal_saveevent(&$action) {
   $no    = GetHttpVars("no", "");                    // Note
   $cat   = GetHttpVars("ca", "0");                   // Categorie
   $conf  = GetHttpVars("co", "0");                   // Categorie
+  $alarm = GetHttpVars("alrm", 0);                   // Categorie
 
   $action->lay->set("showevent", false);
 
@@ -54,6 +55,7 @@ function wgcal_saveevent(&$action) {
   $event->setValue("calev_evtitle", $title);
   $event->setValue("calev_evnote", $no);
   $event->setValue("calev_category", $cat);
+  $event->setValue("calev_evalarm", $alarm);
   $event->setValue("calev_location", $lo);
 
   if ($nh==1) {
@@ -95,10 +97,6 @@ function wgcal_saveevent(&$action) {
   }
 
   if ($new) {
-    $event->setValue("calev_evalarm", 0);
-    $event->setValue("calev_evalarmday", 0);
-    $event->setValue("calev_evalarmhour", 0);
-    $event->setValue("calev_evalarmmin", 0);
     $event->setValue("calev_repeatmode", 0);
     $event->setValue("calev_convocation", 0);
     $event->setValue("calev_attid", array($oid));

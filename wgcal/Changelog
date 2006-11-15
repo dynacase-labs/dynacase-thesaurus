@@ -1,4 +1,8 @@
-2.2.1
+2.3.0
+ - migration Gnumeric -> ooffice pour les spec des familles
+ - alerte par mail
+
+2.2.2 / 2.2.1
  - Ajout RSS 'Mes rendez-vous'
  - integration Syn4j Funambol V3
  - Ajout md5 nom du serveur dans le GID de l'event
