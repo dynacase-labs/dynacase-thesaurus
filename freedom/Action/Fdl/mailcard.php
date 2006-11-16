@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.64 2006/10/03 08:30:06 eric Exp $
+ * @version $Id: mailcard.php,v 1.65 2006/11/16 16:43:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -313,10 +313,13 @@ function sendCard(&$action,
   // contruct metasend command
   if ($subject == "") $subject = $ftitle;
   $subject = str_replace("\"","'",$subject);
-  
 
-  $cmd = "metasend  -b -S 4000000 -c \"$cc\" -F \"$from\" -t \"$to$bcc\" -s \"$subject\"  ";
+  list($login,$domain)=explode('@',$from); // add for qmail anti-virus
+  $qmailopt=sprintf("QMAILUSER=\"%s\" QMAILHOST=\"%s\"",$login,$domain);
 
+  $maxsplit=$action->getParam("FDL_SPLITSIZE",4000000);
+  $cmd = "$qmailopt metasend  -b -S $maxsplit -c \"$cc\" -F \"$from\" -t \"$to$bcc\" -s \"$subject\"  ";
+ 
 
   if (ereg("html",$format, $reg)) {
     $cmd .= " -/ related ";

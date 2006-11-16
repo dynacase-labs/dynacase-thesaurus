@@ -3,7 +3,7 @@
  * Import directory with document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import_dir.php,v 1.3 2004/08/12 06:59:30 eric Exp $
+ * @version $Id: freedom_import_dir.php,v 1.4 2006/11/16 16:42:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -47,7 +47,9 @@ function freedom_import_dir(&$action) {
   
   $bcc .="\\nReturn-Path:$from";
   $cmd[] = "export LANG=C";
-  $cmd[] = "metasend  -b -S 4000000  -F \"freedom\" -t \"$to$bcc\" -s \"$subject\"  -m \"text/html\" -e \"quoted-printable\" -f  $rfile";
+  
+  $maxsplit=$action->getParam("FDL_SPLITSIZE",4000000);
+  $cmd[] = "metasend  -b -S $maxsplit  -F \"freedom\" -t \"$to$bcc\" -s \"$subject\"  -m \"text/html\" -e \"quoted-printable\" -f  $rfile";
   // $cmd[]="/bin/rm -f $file.?";
 
   $scmd="(";
