@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.61 2006/08/07 09:14:19 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.62 2006/11/16 16:42:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -149,7 +149,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $repeat="true";
 	  
 	} else {
-	  $repeat="false";
+	  if ($tnormal[strtolower($v->frameid)]["type"]=="array") $repeat="true";
+	  else $repeat="false";
 	}
 	// create code for calculated attributes
 	if (substr($v->phpfunc,0,2)=="::") {

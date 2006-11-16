@@ -71,7 +71,7 @@ end;
     if (isset($this->attributes->fields))  $this->fields += $this->attributes->fields;
     [pinit]::__construct($dbaccess, intval($id), $res, $dbid);
 
-    uasort($this->attributes->attr,"tordered"); 
+//    uasort($this->attributes->attr,"tordered"); 
        
    }
 

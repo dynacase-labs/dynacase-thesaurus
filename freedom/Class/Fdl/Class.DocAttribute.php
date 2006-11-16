@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.33 2006/07/21 15:30:30 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.34 2006/11/16 16:42:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -91,7 +91,7 @@ Class NormalAttribute extends BasicAttribute {
     $this->elink=$elink;
     $this->phpconstraint=$phpconstraint;
     $this->usefor=$usefor;
-    $this->repeat=$repeat || $this->inArray();
+    $this->repeat=$repeat;
     $this->options=$options;
 
 

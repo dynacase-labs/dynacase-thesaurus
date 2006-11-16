@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.345 2006/11/09 10:53:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.346 2006/11/16 16:42:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1271,6 +1271,7 @@ final public function PostInsert()  {
 	}
       }
     }
+    uasort($this->attributes->attr,"tordered"); 
   }
 
   /**
@@ -2297,6 +2298,8 @@ final public function PostInsert()  {
     $h=new DocUTag($this->dbaccess,array($this->initid,$uid,$tag));
     if ($h->isAffected()) {
       $err=$h->delete();
+    } else {
+      return false;
     }
 
     return $err;
@@ -2615,7 +2618,7 @@ final public function PostInsert()  {
    * 
    * @return string error message, if no error empty string, if message
    */
-  final public function unallocate($comment="",$revision) {
+  final public function unallocate($comment="",$revision=true) {
 
     $err="";
     $err=$this->canEdit();

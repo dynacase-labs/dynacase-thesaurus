@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: migr_2.3.1.php,v 1.3 2006/11/16 16:45:12 eric Exp $
+ * @version $Id: migr_2.5.1.php,v 1.1 2006/11/16 16:45:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 

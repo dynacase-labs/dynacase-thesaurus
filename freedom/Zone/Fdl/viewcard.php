@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.73 2006/10/03 08:30:06 eric Exp $
+ * @version $Id: viewcard.php,v 1.74 2006/11/16 16:42:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -234,8 +234,9 @@ function viewcard(&$action) {
   // update access date
   $doc->adate=$doc->getTimeDate(0,true);
   $doc->modify(true,array("adate"),true);
-  $err=$doc->delUTag($action->user->id,"TOVIEW");
-  $err=$doc->addUTag($action->user->id,"VIEWED");
+  if ($doc->delUTag($action->user->id,"TOVIEW")=="") {
+    $err=$doc->addUTag($action->user->id,"VIEWED");
+  }
 
 }
 

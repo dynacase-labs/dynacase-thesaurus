@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.91 2006/11/13 16:06:49 eric Exp $
+ * @version $Id: freedom_util.php,v 1.92 2006/11/16 16:44:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -301,11 +301,10 @@ function getv(&$t,$k,$d="") {
  * @param BasicAttribute $a
  * @param BasicAttribute $b
  */
-function tordered($a, $b) {
-  
+function tordered($a, $b) {  
   if (isset($a->ordered) && isset($b->ordered)) {
-	if (intval($a->ordered) == intval($b->ordered)) return 0;
-	if (intval($a->ordered) > intval($b->ordered)) return 1;
+	if ($a->ordered == $b->ordered) return 0;
+	if ($a->ordered > $b->ordered) return 1;
 	return -1;
   }
   if (isset($a->ordered) ) return 1;
@@ -507,7 +506,7 @@ function getLatestTDoc($dbaccess, $initid,$sqlfilters=array()) {
 
   $userid=$action->user->id;
   if ($userid) {
-    $result = pg_exec($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and doctype != 'T' and locked != -1 $sqlcond;");
+    $result = pg_query($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and doctype != 'T' and locked != -1 $sqlcond;");
     if (pg_numrows ($result) > 0) {
       $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
       
@@ -537,7 +536,7 @@ function getRevTDoc($dbaccess, $initid,$rev) {
 
 
   $userid=$action->user->id;
-  $result = pg_exec($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and revision=$rev;");
+  $result = pg_query($dbid,"select *,getuperm($userid,profid) as uperm  from only $table where initid=$initid and revision=$rev;");
   if (pg_numrows ($result) > 0) {
     $arr = pg_fetch_array ($result, 0, PGSQL_ASSOC);
 
