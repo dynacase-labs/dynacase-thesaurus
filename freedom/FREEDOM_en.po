@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-14 17:39+0200\n"
+"POT-Creation-Date: 2006-11-16 16:36+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,6 +14,267 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
+
+#, c-format
+msgid "the document %s has been sended"
+msgstr ""
+
+#, c-format
+msgid "the document %s has not been sended : no recipient"
+msgstr ""
+
+msgid "email sended"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr ""
+
+msgid "mail dest is empty"
+msgstr ""
+
+#, c-format
+msgid "PDF conversion failed for %s"
+msgstr ""
+
+#, c-format
+msgid "sended to %s"
+msgstr ""
+
+#, c-format
+msgid "sending %s to %s"
+msgstr ""
+
+#, c-format
+msgid "%s cannot be sent"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "root for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
+msgstr "Start search"
+
+msgid "Properties"
+msgstr ""
+
+msgid "View latest"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Sure delete ?"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Create"
+
+#, fuzzy
+msgid "security"
+msgstr "Locality"
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Revise"
+msgstr "Created by"
+
+#, fuzzy
+msgid "Change profile"
+msgstr "Category"
+
+msgid "History"
+msgstr ""
+
+#, fuzzy
+msgid "Duplicate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Sure duplicate ?"
+msgstr "Edit"
+
+msgid "goaccess"
+msgstr "Control access"
+
+msgid "Add to basket"
+msgstr ""
+
+msgid "Add postit"
+msgstr ""
+
+msgid "View XML"
+msgstr ""
+
+#, fuzzy
+msgid "Search linked documents"
+msgstr "Delete"
+
+#, fuzzy
+msgid "specialedit"
+msgstr "Delete"
+
+msgid "specialview"
+msgstr ""
+
+#, c-format
+msgid "Sure %s ?"
+msgstr ""
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, fuzzy
+msgid "no document reference"
+msgstr "Delete"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
+msgstr ""
+
+#, fuzzy
+msgid "Change icon"
+msgstr "Start search"
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+
+#, c-format
+msgid "comparison between<br>%s (rev %d) and %s (rev %d)"
+msgstr ""
+
+#, c-format
+msgid "document #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s not found. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "user #%s has not a real account. Affectation aborded"
+msgstr ""
+
+#, c-format
+msgid "document %s has the new state %s"
+msgstr ""
+
+#, c-format
+msgid "document %s has been allocate to %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "allocation for %s document"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "Affectation for %s"
+msgstr "Edit"
+
+#, c-format
+msgid "From %s state to"
+msgstr ""
+
+#, fuzzy
+msgid "New state"
+msgstr "Identity"
 
 msgid "no import file specified"
 msgstr ""
@@ -216,229 +477,6 @@ msgid "and add in %s folder "
 msgstr ""
 
 #, c-format
-msgid "cannot see unknow reference %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, fuzzy
-msgid "no document reference"
-msgstr "Delete"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
-msgstr ""
-
-msgid "Properties"
-msgstr ""
-
-msgid "View latest"
-msgstr ""
-
-#, fuzzy
-msgid "Edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Delete"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Sure delete ?"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Create"
-
-#, fuzzy
-msgid "security"
-msgstr "Locality"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Revise"
-msgstr "Created by"
-
-#, fuzzy
-msgid "Change profile"
-msgstr "Category"
-
-msgid "History"
-msgstr ""
-
-#, fuzzy
-msgid "Duplicate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Sure duplicate ?"
-msgstr "Edit"
-
-msgid "goaccess"
-msgstr "Control access"
-
-msgid "Add to basket"
-msgstr ""
-
-msgid "Add postit"
-msgstr ""
-
-msgid "View XML"
-msgstr ""
-
-#, fuzzy
-msgid "Search linked documents"
-msgstr "Delete"
-
-#, fuzzy
-msgid "specialedit"
-msgstr "Delete"
-
-msgid "specialview"
-msgstr ""
-
-#, c-format
-msgid "Sure %s ?"
-msgstr ""
-
-msgid "cannot compare two document which comes from two different family"
-msgstr ""
-
-#, c-format
-msgid "comparison between<br>%s (rev %d)<br>and<br>%s (rev %d)"
-msgstr ""
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "document %s has the new state %s"
-msgstr ""
-
-#, c-format
-msgid "document %s has been allocate to %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "allocation for %s document"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "Affectation for %s"
-msgstr "Edit"
-
-#, c-format
-msgid "From %s state to"
-msgstr ""
-
-#, fuzzy
-msgid "New state"
-msgstr "Identity"
-
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
-
-#, c-format
 msgid "you cannot create this kind [%s] of document"
 msgstr ""
 
@@ -455,36 +493,6 @@ msgstr ""
 #, fuzzy
 msgid "action"
 msgstr "Edit"
-
-#, c-format
-msgid "the document %s has been sended"
-msgstr ""
-
-msgid "email sended"
-msgstr ""
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr ""
-
-msgid "mail dest is empty"
-msgstr ""
-
-#, c-format
-msgid "PDF conversion failed for %s"
-msgstr ""
-
-#, c-format
-msgid "sended to %s"
-msgstr ""
-
-#, c-format
-msgid "sending %s to %s"
-msgstr ""
-
-#, c-format
-msgid "%s cannot be sent"
-msgstr ""
 
 #, c-format
 msgid "modoption: document [%d] is not alive"
@@ -515,10 +523,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Create %s"
 msgstr "Create"
-
-#, fuzzy
-msgid "Change icon"
-msgstr "Start search"
 
 #, fuzzy
 msgid "Edit attributes"
@@ -563,6 +567,12 @@ msgstr ""
 msgid "document %s has been unaffected"
 msgstr ""
 
+msgid "no file specified : update aborted"
+msgstr ""
+
+msgid "file not expected : possible attack : update aborted"
+msgstr ""
+
 #, c-format
 msgid "proceed background import of %d documents"
 msgstr ""
@@ -576,6 +586,24 @@ msgid "Use your home folder instead <%s>"
 msgstr ""
 
 #, c-format
+msgid "result of import  %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Import %s is in progress. When update will be finished an email to &lt;%"
+"s&gt; will be sended with result rapport"
+msgstr ""
+
+#, c-format
+msgid "update of %s catalogue has failed,"
+msgstr ""
+
+#, c-format
+msgid "result of archive import  %s"
+msgstr ""
+
+#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
@@ -585,10 +613,7 @@ msgstr ""
 msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
-msgid "no file specified : update aborted"
-msgstr ""
-
-msgid "file not expected : possible attack : update aborted"
+msgid "no file specified : change icon aborted"
 msgstr ""
 
 #, c-format
@@ -676,20 +701,6 @@ msgstr ""
 msgid "folder %s as been added in your bookmark"
 msgstr ""
 
-#, c-format
-msgid "result of import  %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"Import %s is in progress. When update will be finished an email to &lt;%"
-"s&gt; will be sended with result rapport"
-msgstr ""
-
-#, c-format
-msgid "update of %s catalogue has failed,"
-msgstr ""
-
 #, fuzzy, c-format
 msgid "default values for %s"
 msgstr "Delete"
@@ -753,10 +764,6 @@ msgstr "Edit"
 msgid ""
 "Not all users can be vieved.\n"
 "limit %d has been reached"
-msgstr ""
-
-#, c-format
-msgid "result of archive import  %s"
 msgstr ""
 
 #, c-format
@@ -893,17 +900,6 @@ msgstr ""
 msgid "No need to refresh group"
 msgstr "Delete"
 
-#, fuzzy
-msgid "next"
-msgstr "Export this card"
-
-msgid "prev"
-msgstr ""
-
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-
 msgid "Creation aborded : no family specified"
 msgstr ""
 
@@ -924,6 +920,17 @@ msgid "new card"
 msgstr "Category"
 
 msgid "parameters values"
+msgstr ""
+
+#, fuzzy
+msgid "next"
+msgstr "Export this card"
+
+msgid "prev"
+msgstr ""
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
 #, c-format
@@ -990,6 +997,13 @@ msgstr ""
 msgid "no vcard file specified"
 msgstr ""
 
+msgid "freedom cron try execute"
+msgstr ""
+
+#, c-format
+msgid "execution by %s done %s"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "%s updated\n"
 msgstr "Update LDAP server"
@@ -1012,13 +1026,6 @@ msgstr ""
 
 #, c-format
 msgid "%s iuser aborded\n"
-msgstr ""
-
-msgid "freedom cron try execute"
-msgstr ""
-
-#, c-format
-msgid "execution by %s done %s"
 msgstr ""
 
 #, c-format
@@ -1200,6 +1207,10 @@ msgid "unaffect user to a document"
 msgstr "Delete"
 
 #, fuzzy
+msgid "change icon of document"
+msgstr "Category"
+
+#, fuzzy
 msgid "freedom database"
 msgstr "Edit"
 
@@ -1209,6 +1220,9 @@ msgstr ""
 #, fuzzy
 msgid "send mail copy"
 msgstr "Email"
+
+msgid "metasend max for split mail"
+msgstr ""
 
 msgid "horizontal size for secondary windows"
 msgstr ""
@@ -1269,27 +1283,6 @@ msgstr "Identity"
 #, fuzzy
 msgid "short_name"
 msgstr "Delete"
-
-#, fuzzy
-msgid "root folder id"
-msgstr "Modify"
-
-msgid "enabled/disabled full text search"
-msgstr ""
-
-msgid "id of the basket folder"
-msgstr ""
-
-msgid "directory to upload archive"
-msgstr ""
-
-#, fuzzy
-msgid "mode to navigate in folders"
-msgstr "Modify"
-
-#, fuzzy
-msgid "bookmark folders"
-msgstr "Modify"
 
 #, fuzzy
 msgid "Documents management"
@@ -1583,6 +1576,27 @@ msgstr ""
 
 msgid "navigate between relations next"
 msgstr ""
+
+#, fuzzy
+msgid "root folder id"
+msgstr "Modify"
+
+msgid "enabled/disabled full text search"
+msgstr ""
+
+msgid "id of the basket folder"
+msgstr ""
+
+msgid "directory to upload archive"
+msgstr ""
+
+#, fuzzy
+msgid "mode to navigate in folders"
+msgstr "Modify"
+
+#, fuzzy
+msgid "bookmark folders"
+msgstr "Modify"
 
 msgid "Users"
 msgstr ""
@@ -1915,55 +1929,6 @@ msgstr "Start search"
 msgid "main view columns"
 msgstr "Start search"
 
-msgid "no message : post-it creation aborted"
-msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "My document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
 #, fuzzy
 msgid "document creation"
 msgstr "Organisation"
@@ -2049,6 +2014,10 @@ msgid ""
 "the date '%s' for %s attribute is not correct. It has been corrected "
 "automatically"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "modify file %s"
+msgstr "Modify"
 
 msgid "no user tag specified"
 msgstr ""
@@ -2198,6 +2167,52 @@ msgstr "Delete"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "My document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
 msgstr ""
 
 #, fuzzy
@@ -2443,6 +2458,9 @@ msgstr ""
 msgid "Error : Process %s [%d]: status %d"
 msgstr ""
 
+msgid "no message : post-it creation aborted"
+msgstr ""
+
 #, fuzzy, c-format
 msgid ""
 "errldapadd:%s\n"
@@ -2569,11 +2587,25 @@ msgstr ""
 msgid "Group %s not exist"
 msgstr ""
 
-msgid "user is desactivated"
+msgid "the login must not be empty"
+msgstr ""
+
+msgid "the login syntax is like : john.doe"
+msgstr ""
+
+msgid "login yet use"
+msgstr ""
+
+msgid ""
+"what id already set in freedom\n"
+"This kind of document can not be duplicated"
 msgstr ""
 
 #, c-format
 msgid "user #%d does not exist"
+msgstr ""
+
+msgid "user is desactivated"
 msgstr ""
 
 msgid "user has not identificator"
@@ -2592,29 +2624,16 @@ msgstr ""
 msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 
-msgid "the login must not be empty"
-msgstr ""
-
-msgid "the login syntax is like : john.doe"
-msgstr ""
-
-msgid "login yet use"
-msgstr ""
-
-msgid ""
-"what id already set in freedom\n"
-"This kind of document can not be duplicated"
-msgstr ""
-
 #, fuzzy
 msgid "direct"
 msgstr "Edit"
 
-msgid "cannot see unknow folder"
+msgid "This document has been deleted"
 msgstr ""
 
-msgid "read-only"
-msgstr ""
+#, fuzzy
+msgid "nobody"
+msgstr "No embed file"
 
 #, c-format
 msgid "period from %s to %s"
@@ -2720,12 +2739,11 @@ msgstr ""
 msgid "others..."
 msgstr ""
 
-msgid "This document has been deleted"
+msgid "cannot see unknow folder"
 msgstr ""
 
-#, fuzzy
-msgid "nobody"
-msgstr "No embed file"
+msgid "read-only"
+msgstr ""
 
 #, fuzzy
 msgid "current"
@@ -2869,8 +2887,23 @@ msgid "workflow has been recomposed"
 msgstr ""
 
 #, fuzzy
+msgid "Choose in icon list"
+msgstr "Title"
+
+msgid "Or upload a new icon"
+msgstr ""
+
+#, fuzzy
 msgid "Click to access to the document"
 msgstr "Category"
+
+#, fuzzy
+msgid " change icon"
+msgstr "Start search"
+
+#, fuzzy
+msgid " lauch importation"
+msgstr "Import"
 
 #, fuzzy
 msgid "Creation"
@@ -3429,14 +3462,6 @@ msgid "delete link"
 msgstr "Delete"
 
 #, fuzzy
-msgid " change icon"
-msgstr "Start search"
-
-#, fuzzy
-msgid " lauch importation"
-msgstr "Import"
-
-#, fuzzy
 msgid " change title"
 msgstr "Start search"
 
@@ -3584,10 +3609,6 @@ msgstr "Modify"
 #, fuzzy
 msgid "enum attribute list"
 msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "toedit"
-msgstr "Edit"
 
 #, fuzzy
 msgid "Sort"
@@ -3760,6 +3781,18 @@ msgid "add new category"
 msgstr "Category"
 
 #, fuzzy
+msgid "toedit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "master choose families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "choose user families"
+msgstr "Start search"
+
+#, fuzzy
 msgid "set as first family view"
 msgstr "Organisation"
 
@@ -3769,14 +3802,6 @@ msgstr "Category"
 
 #, fuzzy
 msgid "No family first"
-msgstr "Start search"
-
-#, fuzzy
-msgid "master choose families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "choose user families"
 msgstr "Start search"
 
 msgid "click to reload favorites"
@@ -4453,6 +4478,9 @@ msgstr "Organisation"
 msgid "Complete view"
 msgstr "Create"
 
+msgid "Password"
+msgstr ""
+
 msgid "double click to edit"
 msgstr ""
 
@@ -4469,9 +4497,6 @@ msgstr ""
 #, fuzzy
 msgid "Others"
 msgstr "Delete"
-
-msgid "Password"
-msgstr ""
 
 #, fuzzy
 msgid "nomail"
