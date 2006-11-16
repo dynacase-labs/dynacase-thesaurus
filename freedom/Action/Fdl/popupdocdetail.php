@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.8 2006/11/09 10:52:13 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.9 2006/11/16 16:50:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -157,6 +157,15 @@ function getpopupdocdetail(&$action,$docid) {
 				  "control"=>"false",
 				  "tconfirm"=>"",
 				  "target"=>"",
+				  "visibility"=>POPUP_CTRLACTIVE,
+				  "submenu"=>"",
+				  "barmenu"=>"false"),
+	       "chgicon"=>array( "descr"=>_("Change icon"),
+				  "url"=>"$surl&app=FDL&action=EDITICON&id=$docid",
+				  "confirm"=>"false",
+				  "control"=>"false",
+				  "tconfirm"=>"",
+				  "target"=>"_self",
 				  "visibility"=>POPUP_CTRLACTIVE,
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
@@ -409,7 +418,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   if (($doc->wid > 0)|| ($doc->revision > 0))  $tlink["histo"]["visibility"]=POPUP_ACTIVE;
 
   
-  // if ($doc->doctype == "S") popupInvisible('popupcard',$kdiv,'editdoc'); 
+  if ($doc->doctype == "F") $tlink["chgicon"]["visibility"]=POPUP_INVISIBLE;
 
   if ($headers)  $tlink["headers"]["visibility"]=POPUP_INVISIBLE;
   else $tlink["headers"]["visibility"]=POPUP_CTRLACTIVE;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.41 2006/03/31 12:29:30 eric Exp $
+// $Id: FREEDOM.app,v 1.42 2006/11/16 16:50:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -333,7 +333,7 @@ array(
   array( 
    "name"		=>"CHANGEICON",
    "short_name"		=>N_("change icon document"),
-   "acl"		=>"FREEDOM_MASTER"
+   "acl"		=>"FREEDOM"
   ) ,
   array( 
    "name"		=>"CHANGETITLE",
