@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.37 2006/10/04 09:25:50 eric Exp $
+// $Id: FDL.app,v 1.38 2006/11/16 16:45:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -63,6 +63,11 @@ $action_desc = array (
   array( 
    "name"		=>"ENUM_CHOICE",
    "short_name"		=>N_("to choose value from set"),
+   "acl"		=>"NORMAL",
+  ) ,
+  array( 
+   "name"		=>"EDITICON",
+   "short_name"		=>N_("change icon of document"),
    "acl"		=>"NORMAL",
   ) ,
   array(

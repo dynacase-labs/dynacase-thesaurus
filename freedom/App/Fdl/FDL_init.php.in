@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.19 2005/06/16 12:12:39 eric Exp $
+// $Id: FDL_init.php.in,v 1.20 2006/11/16 16:45:03 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,6 +39,10 @@ $app_const= array(
 		       "user"=>"Y",
 		       "global"=>"Y",
 		       "kind"=>"enum(yes|no)"),
+  "FDL_SPLITSIZE"    =>array("val"=>"6000000",
+			     "descr"=>N_("metasend max for split mail"),
+			     "global"=>"Y",
+			     "kind"=>"enum(yes|no)"),
   "FDL_HD2SIZE"    =>array("val"=>"600",
 		       "descr"=>N_("horizontal size for secondary windows"),
 		       "user"=>"Y",
