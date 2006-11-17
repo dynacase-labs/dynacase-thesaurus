@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.346 2006/11/16 16:42:37 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.347 2006/11/17 14:55:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2276,7 +2276,7 @@ final public function PostInsert()  {
   } 
 
   /**
-   * Test if cuurent user has the u tag specified
+   * Test if current user has the u tag specified
    * 
    * @param string $tag the tag to verify
    */
@@ -2285,6 +2285,20 @@ final public function PostInsert()  {
     $utag=new DocUTag($this->dbaccess,array($this->initid,$this->userid,$tag));
     return $utag->isAffected();
   }
+
+  /**
+   * Get current user tag specified
+   * 
+   * @param string $tag the tag to verify
+   */
+  final public function getUTag($tag) {
+    include_once("FDL/Class.DocUTag.php");
+    $utag=new DocUTag($this->dbaccess,array($this->initid,$this->userid,$tag));
+    if ($utag->isAffected()) return $utag;
+    return false;
+  }
+  
+
   /**
    * Remove a user tag for the document
    * if it is already set no set twice
