@@ -2,12 +2,8 @@
 include_once('FDL/Lib.Dir.php');
 
 function xmlentities($string) {
-   return str_replace ( array ( '&', '"', "'", '<', '>', ',' ),
-                        array ( '&amp;' , '&quot;', '&apos;' , '&lt;' , '&gt;', '&apos;' ),
-                        $string );
-   return $string;
+  return preg_replace(array('/&/', '/"/', "/'/", '/</', '/>/'), array('&amp;' , '&quot;', '&apos;' , '&lt;' , '&gt;', '&apos;' ), $string);
 }
-
 
 function array2attrval($a, $fmt) {
   if ($fmt!="A") return $a;
