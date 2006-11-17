@@ -46,6 +46,7 @@ Class Doc[docid] extends [DocParent] {
      "alter TABLE doc[docid] ADD primary key (id);",
      "create index doc_initid[docid] on doc[docid](initid)",
      "create index doc_fldrels[docid] on doc[docid](fldrels)",
+     "create index doc_profid[docid] on doc[docid](profid)",
      "select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];");
    public $sqltcreate =
      "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS trigger AS '
