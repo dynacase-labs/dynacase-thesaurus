@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_rss.php,v 1.1 2006/10/23 16:20:58 marc Exp $
+ * @version $Id: wgcal_rss.php,v 1.2 2006/11/17 17:06:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -147,12 +147,6 @@ function tabevSort($a, $b) {
 
 function setText($t) {
   return utf8_encode(xmlentities($t));
-}
-function xmlentities($string) {
-   return str_replace ( array ( '&', '"', "'", '<', '>', ',' ), 
-			array ( '&amp;' , '&quot;', '&apos;' , '&lt;' , '&gt;', '&apos;' ), 
-			$string );
-   return $string;
 }
 
 ?>

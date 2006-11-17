@@ -1608,12 +1608,10 @@ function sifevent() {
     $this->lay->set("s_$v", false);
   }
 
-  //$this->lay->set("v_Subject", utf8_encode($this->getValue("calev_evtitle")));
-  $this->lay->set("v_Subject", $this->getValue("calev_evtitle"));
+  $this->lay->set("v_Subject", sif_encode($this->getValue("calev_evtitle")));
   $this->lay->set("s_Subject", true);
 
-  //$this->lay->set("v_Body", utf8_encode($this->getValue("calev_evnote")));
-  $this->lay->set("v_Body", $this->getValue("calev_evnote"));
+  $this->lay->set("v_Body", sif_encode($this->getValue("calev_evnote")));
   $this->lay->set("s_Body", true);
 
   if ($this->getValue("calev_timetype")==1 || $this->getValue("calev_timetype")==2) {
@@ -1650,14 +1648,12 @@ function sifevent() {
 
   if ($this->getValue("calev_category")>0) {
     $catg = wGetCategories();
-    //$this->lay->set("v_Categories", utf8_encode($catg[$this->getValue("calev_category")]["label"]));
-    $this->lay->set("v_Categories", $catg[$this->getValue("calev_category")]["label"]);
+    $this->lay->set("v_Categories", sif_encode($catg[$this->getValue("calev_category")]["label"]));
     $this->lay->set("s_Categories", true);
   }
 
   if ($this->getValue("calev_location")!="") {
-    //$this->lay->set("v_Location", utf8_encode($this->getValue("calev_location")));
-    $this->lay->set("v_Location", $this->getValue("calev_location"));
+    $this->lay->set("v_Location", sif_encode($this->getValue("calev_location")));
     $this->lay->set("s_Location", true);
   }
 
@@ -1799,6 +1795,11 @@ function sifevent() {
   $this->lay->set("v_IsRecurring", $isRecurring);
   $this->lay->set("s_IsRecurring", true);
 }
+
+function sif_encode($str) {
+  return utf8_encode(xmlentities($str));
+}
+
 
 function setSync4jGuid($force=false) {
   global $_SERVER;
