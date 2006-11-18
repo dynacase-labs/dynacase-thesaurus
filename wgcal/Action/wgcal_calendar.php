@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.102 2006/11/15 18:07:38 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.103 2006/11/18 12:03:23 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -15,7 +15,7 @@
 include_once("FDL/Class.Doc.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("WGCAL/Lib.wTools.php");
-include_once("WGCAL/WGCAL_external.php");
+include_once("EXTERNALS/WGCAL_external.php");
 include_once('FDL/popup_util.php');
 include_once('WHAT/Lib.Common.php');
 
