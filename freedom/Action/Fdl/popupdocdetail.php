@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.9 2006/11/16 16:50:31 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.10 2006/11/20 17:01:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -166,7 +166,7 @@ function getpopupdocdetail(&$action,$docid) {
 				  "control"=>"false",
 				  "tconfirm"=>"",
 				  "target"=>"_self",
-				  "visibility"=>POPUP_CTRLACTIVE,
+				  "visibility"=>POPUP_INVISIBLE,
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
 	       "addpostit"=>array( "descr"=>_("Add postit"),
@@ -387,7 +387,8 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
 
   if (($clf)||($cud)) {
-    $tlink["editdoc"]["visibility"]=POPUP_ACTIVE;    
+    $tlink["editdoc"]["visibility"]=POPUP_ACTIVE; 
+    $tlink["chgicon"]["visibility"]=POPUP_CTRLACTIVE;   
   }  else {
     $tlink["editprof"]["visibility"]=POPUP_CTRLINACTIVE;
     $tlink["editdoc"]["visibility"]=POPUP_INACTIVE;      

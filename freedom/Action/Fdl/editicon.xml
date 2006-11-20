@@ -21,6 +21,10 @@ img.chicon:hover {
 img.chiconsel {
   background-color:[COLOR_B4];
 }
+img.chiconsel,img.chicon {
+  width:[SIZE_IMG-MEDIUM];
+  height:[SIZE_IMG-MEDIUM];
+}
    </style>
 
 [JS:REF]
