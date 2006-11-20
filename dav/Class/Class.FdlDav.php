@@ -22,7 +22,7 @@
   var $dbaccess="user=anakeen dbname=freedom";
   var $racine=9;
   /** 
-   * MySQL Host where property and locking information is stored
+   * PgSQL Host where property and locking information is stored
    *
    * @access private
    * @var    string
@@ -30,7 +30,7 @@
   var $db_host = "localhost";
 
   /**
-   * MySQL database for property/locking information storage
+   * PgSQL database for property/locking information storage
    *
    * @access private
    * @var    string
@@ -38,7 +38,7 @@
   var $db_name = "webdav";
 
   /**
-   * MySQL user for property/locking db access
+   * PgSQL user for property/locking db access
    *
    * @access private
    * @var    string
@@ -46,7 +46,7 @@
   var $db_user = "anakeen";
 
   /**
-   * MySQL password for property/locking db access
+   * PgSQL password for property/locking db access
    *
    * @access private
    * @var    string

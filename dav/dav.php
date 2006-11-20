@@ -1,7 +1,7 @@
 <?php
 ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear");
 $d1=microtime();
-include_once("DAV/Class.Dav.php");
+include_once("DAV/Class.FdlDav.php");
 include_once("Lib.Common.php");
 
 $s=new HTTP_WebDAV_Server_Freedom();
