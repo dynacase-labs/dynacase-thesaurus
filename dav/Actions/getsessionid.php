@@ -3,7 +3,7 @@
  * Get DAV session
  *
  * @author Anakeen 2006
- * @version $Id: getsessionid.php,v 1.1 2006/10/31 16:36:51 eric Exp $
+ * @version $Id: getsessionid.php,v 1.2 2006/11/20 17:43:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage DAV
@@ -14,7 +14,7 @@
 
 
 include_once("FDL/Class.Doc.php");
-include_once("DAV/Class.Dav.php");
+include_once("DAV/Class.FdlDav.php");
 
 
 /**
