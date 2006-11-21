@@ -1,22 +1,13 @@
 <?php
-ini_set("include_path", ".:/usr/share/what:/usr/share/what/WHAT:/usr/share/pear");
 $d1=microtime();
 include_once("DAV/Class.FdlDav.php");
 include_once("Lib.Common.php");
 
-$s=new HTTP_WebDAV_Server_Freedom();
 
-//error_log("======[ ".$_SERVER['REQUEST_METHOD']." ]========");
-//error_log("dav:   filename=(".$_GET['filename'].")");
 
 //error_log("dav:   path_info=(".$_SERVER["PATH_INFO"].")");
 $_SERVER['PATH_INFO'] = "/".$_GET['filename'];
 $_SERVER['SCRIPT_NAME'] = "";
-//error_log("dav:     `-> path_info=(".$_SERVER["PATH_INFO"].")");
-
-#error_log("dav:   request_uri=(".$_SERVER['REQUEST_URI'].")");
-#$_SERVER['REQUEST_URI'] = "/".$_GET['filename'];
-#error_log("dav:     `-> request_uri=(".$_SERVER['REQUEST_URI'].")");
 
 global $action;
 
@@ -28,9 +19,9 @@ if ($_SERVER['PHP_AUTH_USER']=="") {
       $docid=$reg[1];
       $vid=$reg[2];
       $sid=$reg[3];
-      error_log("dav: -> $docid  $vid $sid");
+      //error_log("dav: -> $docid  $vid $sid");
       $login=$s->getLogin($docid,$vid,$sid);
-      error_log("dav LOGIN: -> $login");
+      //error_log("dav LOGIN: -> $login");
       
 
     }
@@ -41,6 +32,7 @@ if (! $login) {
   if (((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="OPTIONS")) ||
       ((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="PROPFIND"))) {
     // keep without authenticate
+    whatInit();
   } else {
   //	header('HTTP/1.0 401 Unauthorized');
   	header('HTTP/1.0 403 Forbidden');
@@ -53,16 +45,19 @@ if (! $login) {
 $d2=microtime();
 
 $dt=microtime_diff($d1,$d2);
+
+$s=new HTTP_WebDAV_Server_Freedom($action->getParam("WEBDAV_DB"));
 $s->http_auth_realm = "FREEDOM Connection";
+$s->db_freedom=$action->getParam("FREEDOM_DB");
 $s->ServeRequest();
 $d2=microtime();
 $d=microtime_diff($d1,$d2);
 
 error_log("================ $d $dt=====".$login."===================");
 
-function whatInit($login) {
+function whatInit($login="") {
   global $action;
-include_once('Class.User.php');
+  include_once('Class.User.php');
  include_once('Class.Session.php');
 
     $CoreNull="";
@@ -71,9 +66,10 @@ include_once('Class.User.php');
     $core->session=new Session();
     $action=new Action();
     $action->Set("",$core);
-    $action->user=new User(); //create user as admin
-    $action->user->setLoginName($login);
-    //$action->user->setLoginName("eric.brison");
+    if ($login!="") {
+      $action->user=new User(); //create user 
+      $action->user->setLoginName($login);
+    }
 }
 
 ?>

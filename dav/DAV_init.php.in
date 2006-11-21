@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: DAV_init.php.in,v 1.4 2006/11/07 14:54:36 eric Exp $
+// $Id: DAV_init.php.in,v 1.5 2006/11/21 17:09:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/dav/DAV_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,10 +28,13 @@ $app_const= array(
   "INIT" => "yes",
   "VERSION" => "@VERSION@-@RELEASE@",
   "FREEDAV_SERVEUR"    =>array("val"=>"",
-			       "descr"=>N_("address of the webdav serveur for freedav"),
+			       "descr"=>N_("address of the webdav server for freedav"),
 			       "global"=>"Y"),
   "WEBDAV_SERVEUR"    =>array("val"=>"",
-			       "descr"=>N_("address of the webdav serveur for authenticate server"),
+			       "descr"=>N_("address of the webdav server for authenticate server"),
+			       "global"=>"Y"),
+  "WEBDAV_DB"    =>array("val"=>"dbname=webdav user=anakeen",
+			       "descr"=>N_("database access for webdav"),
 			       "global"=>"Y"),
 );
 

@@ -1,15 +1,14 @@
 <?php
 
-    require_once "HTTP/WebDAV/Server.php";
-    require_once "System.php";
+require_once "HTTP/WebDAV/Server.php";
+require_once "System.php";
     
-    /**
-     * Filesystem access using WebDAV
-     *
-     * @access public
-     */
-    class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server 
-{
+/**
+ * Filesystem access using WebDAV
+ *
+ * @access public
+ */
+class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
   /**
    * Root directory for WebDAV access
    *
@@ -19,15 +18,17 @@
    * @var    string
    */
   var $base = "";
-  var $dbaccess="user=anakeen dbname=freedom";
-  var $racine=9;
-  /** 
-   * PgSQL Host where property and locking information is stored
+  
+  public $db_freedom="user=anakeen dbname=freedom"; 
+  /**
+   * Root directory id for WebDAV access
    *
-   * @access private
-   * @var    string
+   * Defaut root is 9 (freedom root folder)
+   *
+   * @var    int
    */
-  var $db_host = "localhost";
+  public $racine=9;
+
 
   /**
    * PgSQL database for property/locking information storage
@@ -35,36 +36,17 @@
    * @access private
    * @var    string
    */
-  var $db_name = "webdav";
+  public $db_webdav = "dbname=webdav user=anakeen";
 
-  /**
-   * PgSQL user for property/locking db access
-   *
-   * @access private
-   * @var    string
-   */
-  var $db_user = "anakeen";
-
-  /**
-   * PgSQL password for property/locking db access
-   *
-   * @access private
-   * @var    string
-   */
-  var $db_passwd = "anakeen";
-  var $db_port = "5432";
-  var $db_res; // db ressource
+ 
+  private $db_res; // db ressource
 
 
-  function __construct() {
-     // establish connection to property/locking db
-    
-    $this->db_res=pg_connect(sprintf("host=%s port=%s dbname=%s user=%s password=%s",
-		       $this->db_host,
-		       $this->db_port,
-		       $this->db_name,
-		       $this->db_user, 
-		       $this->db_passwd)) or die("connection error");
+  function __construct($dbaccess="") {
+    // establish connection to property/locking db
+    if ($dbaccess!="") $this->db_webdav=$dbaccess;
+
+    $this->db_res=pg_connect($this->db_webdav) or die("connection error");
 
     
   }
@@ -167,37 +149,37 @@
       $info["path"]  = $fspath;
       $files[]=$info;
     } else {
-    if ($vid) {
-      $files=$this->vidpropinfo($fspath,$fldid,(!$onlyfld));
-    } else {
+      if ($vid) {
+	$files=$this->vidpropinfo($fspath,$fldid,(!$onlyfld));
+      } else {
 
-      $fld=new_doc($this->dbaccess,$fldid);
-      if ($fld->isAlive()) {
-	//error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
-	//$files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)),true);
-	$files=$this->docpropinfo($fld,$this->_slashify(($fspath)),true);
+	$fld=new_doc($this->db_freedom,$fldid);
+	if ($fld->isAlive()) {
+	  //error_log("READFOLDER FIRST:".dirname($fspath)."/".$fld->title."ONLY:".intval($onlyfld));
+	  //$files=$this->docpropinfo($fld,$this->_slashify(dirname($fspath)),true);
+	  $files=$this->docpropinfo($fld,$this->_slashify(($fspath)),true);
 	    
-	if (! $onlyfld) {
-	  /*
-	   $ldoc = getChildDoc($this->dbaccess, $fld->initid,0,"ALL", array(),$action->user->id,"ITEM");
-	   error_log("READFOLDER:".countDocs($ldoc));
-	   while ($doc=getNextDoc($this->dbaccess,$ldoc)) {
-	   //		  $files[]=$this->docpropinfo($doc);
-	   error_log("READFOLDER examine :".$doc->title);
-	   $files=array_merge($files,$this->docpropinfo($doc,$fspath));
-	   }*/
-	  if ($fld->doctype=='D') {
-	    $tdoc=getFldDoc($this->dbaccess, $fld->initid,array(),200,false);
-	  } else {
-	    $tdoc = getChildDoc($this->dbaccess, $fld->initid,0,200, array(),$action->user->id,"TABLE");
-	  }
-	  // error_log("READFOLDER examine :".count($tdoc));
-	  foreach ($tdoc as $k=>$v) {
-	    $doc=getDocObject($this->dbaccess,$v);
-	    $files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
-	  }
-	} 
-      }
+	  if (! $onlyfld) {
+	    /*
+	     $ldoc = getChildDoc($this->db_freedom, $fld->initid,0,"ALL", array(),$action->user->id,"ITEM");
+	     error_log("READFOLDER:".countDocs($ldoc));
+	     while ($doc=getNextDoc($this->db_freedom,$ldoc)) {
+	     //		  $files[]=$this->docpropinfo($doc);
+	     error_log("READFOLDER examine :".$doc->title);
+	     $files=array_merge($files,$this->docpropinfo($doc,$fspath));
+	     }*/
+	    if ($fld->doctype=='D') {
+	      $tdoc=getFldDoc($this->db_freedom, $fld->initid,array(),200,false);
+	    } else {
+	      $tdoc = getChildDoc($this->db_freedom, $fld->initid,0,200, array(),$action->user->id,"TABLE");
+	    }
+	    // error_log("READFOLDER examine :".count($tdoc));
+	    foreach ($tdoc as $k=>$v) {
+	      $doc=getDocObject($this->db_freedom,$v);
+	      $files=array_merge($files,$this->docpropinfo($doc,$fspath,false));
+	    }
+	  } 
+	}
       }
     }
     return $files;
@@ -213,7 +195,7 @@
     if (ereg("/vid-([0-9]+)-([0-9]+)",$fspath,$reg)) {
       $fid=$reg[1];
       $vid=$reg[2];
-      //	    $dvi=new DocVaultIndex($this->dbaccess);
+      //	    $dvi=new DocVaultIndex($this->db_freedom);
       //$fid=$dvi->getDocId($vid);
 	    
 
@@ -377,7 +359,7 @@
     $tinfo[]=$info;
     if ($withfile || $onlyfile) {
       // simple document : search attached files     
-      $doc=new_doc($this->dbaccess,$docid);
+      $doc=new_doc($this->db_freedom,$docid);
       // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
       $afiles=$doc->GetFilesProperties();
       //error_log("VIDPROP examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
@@ -545,7 +527,7 @@
     $fspath = $this->base . $options["path"];
 
     $fldid=$this->path2id($options["path"],$vid);
-    $doc=new_doc($this->dbaccess,$fldid);
+    $doc=new_doc($this->db_freedom,$fldid);
     $afiles=$doc->GetFilesProperties();  
     $bpath=basename($options["path"]);
 	   
@@ -655,7 +637,7 @@
     if ($fldid) {
       $stat ="204 No Content";
       $options["new"] = false;
-      $doc=new_doc($this->dbaccess,$fldid,true);
+      $doc=new_doc($this->db_freedom,$fldid,true);
       $err=$doc->canEdit();
       if ($err == "") {
 	$afiles=$doc->GetFileAttributes();  
@@ -682,11 +664,11 @@
       if ($options["new"]) {	    
 	$dir=dirname($options["path"]);
 	$fldid=$this->path2id($dir);
-	$fld=new_doc($this->dbaccess,$fldid);
+	$fld=new_doc($this->db_freedom,$fldid);
 	$err=$fld->canModify();
 	if ($err=="") {
 	  //error_log("PUT NEW FILE IN:".$dir);
-	  $ndoc=createDoc($this->dbaccess,"SIMPLEFILE");
+	  $ndoc=createDoc($this->db_freedom,"SIMPLEFILE");
 	  if ($ndoc) {
 	    $fa=$ndoc->GetFirstFileAttributes();
 	    $bpath=utf8_decode($bpath);
@@ -731,8 +713,8 @@
     $path=$this->_unslashify($options["path"] );
     $fldid=$this->path2id(dirname($options["path"]));
     if ($fldid) {
-      $fld=new_doc($this->dbaccess,$fldid);
-      $nfld=createDoc($this->dbaccess,"SIMPLEFOLDER");
+      $fld=new_doc($this->db_freedom,$fldid);
+      $nfld=createDoc($this->db_freedom,"SIMPLEFOLDER");
       $nreptitle=utf8_decode(basename($path));
       $nfld->setTitle($nreptitle);
       $err=$nfld->Add();
@@ -777,7 +759,7 @@
 
     include_once("FDL/Class.Doc.php");
     $fldid=$this->path2id($options["path"]);
-    $doc=new_doc($this->dbaccess,$fldid);
+    $doc=new_doc($this->db_freedom,$fldid);
 
     if (! $doc->isAlive()) {
       return "404 Not found";
@@ -834,7 +816,7 @@
     $bsource=basename($psource);
 	    
     $srcid=$this->path2id($psource);
-    $src=new_doc($this->dbaccess,$srcid);
+    $src=new_doc($this->db_freedom,$srcid);
     //error_log ("SRC : $psource ".$srcid );
     $err=$src->canEdit();
     if ($err=="") {
@@ -846,11 +828,11 @@
 
       $pdirdest=$this->_unslashify(dirname($options["dest"]));
       $dirdestid=$this->path2id($pdirdest);
-      $ppdest=new_doc($this->dbaccess,$dirdestid);
+      $ppdest=new_doc($this->db_freedom,$dirdestid);
 
 
       if ($destid) {
-	$dest=new_doc($this->dbaccess,$destid);
+	$dest=new_doc($this->db_freedom,$destid);
 	if ($dest->doctype=='D') {	      
 	  //error_log ("MOVE TO FOLDER : $destid:".$dest->title);
 	  return "502 bad gateway";
@@ -869,7 +851,7 @@
 	    if ($err=="") {
 	      // delete ref from source		    
 	      $psrcid=$this->path2id($pdirsource);
-	      $psrc=new_doc($this->dbaccess,$psrcid);
+	      $psrc=new_doc($this->db_freedom,$psrcid);
 	      if ($psrc->isAlive()) {
 		$err=$psrc->delFile($srcid);
 		if ($err=="") {	
@@ -910,7 +892,7 @@
 	    $this->docpropinfo($src,$pdest,true);
 	    // delete ref from source		    
 	    $psrcid=$this->path2id($pdirsource);
-	    $psrc=new_doc($this->dbaccess,$psrcid);
+	    $psrc=new_doc($this->db_freedom,$psrcid);
 	    if ($psrc->isAlive()) {
 	      $err=$psrc->delFile($srcid);
 	      if ($err=="") {
@@ -940,7 +922,7 @@
 		  $fspath=$afile["path"];
 		  error_log(print_r($afile,true));
 		
-		  $vf = newFreeVaultFile($this->dbaccess);
+		  $vf = newFreeVaultFile($this->db_freedom);
 		  $vf->Rename($afile["vid"],utf8_decode($bdest));
 		  $src->addComment(sprintf(_("Rename file as %s"),utf8_decode($bdest)));
 		  $src->postModify();
@@ -997,7 +979,7 @@
     $bsource=basename($psource);
 	    
     $srcid=$this->path2id($psource);
-    $src=new_doc($this->dbaccess,$srcid);
+    $src=new_doc($this->db_freedom,$srcid);
     error_log ("SRC : $psource ".$srcid );
 
     $pdest=$this->_unslashify($options["dest"]);
@@ -1007,12 +989,12 @@
 
     $pdirdest=$this->_unslashify(dirname($options["dest"]));
     $dirdestid=$this->path2id($pdirdest);
-    $ppdest=new_doc($this->dbaccess,$dirdestid);
+    $ppdest=new_doc($this->db_freedom,$dirdestid);
 
 
 		
     if ($destid) {
-      $dest=new_doc($this->dbaccess,$destid);
+      $dest=new_doc($this->db_freedom,$destid);
       if ($dest->doctype=='D') {	      
 	error_log ("COPY FILE TO REPLACE FOLDER NOT POSSIBLE NORMALLY: $destid:".$dest->title);
 	return "502 bad gateway";
@@ -1050,7 +1032,7 @@
 	$f=$copy->getValue($ff->id);
 	error_log("RENAME SEARCH:".$f);
 	if (ereg ("(.*)\|(.*)", $f, $reg)) {
-	  $vf = newFreeVaultFile($this->dbaccess);
+	  $vf = newFreeVaultFile($this->db_freedom);
 	  $vid=$reg[2];
 	      
 	  $vf->Rename($vid,utf8_decode($bdest));
@@ -1152,7 +1134,7 @@
     }
             
     $fldid=$this->path2id($options["path"],$vid);
-    $doc=new_doc($this->dbaccess,$fldid);
+    $doc=new_doc($this->db_freedom,$fldid);
     if ($doc->isAffected()) {
       error_log("LOCK ".$doc->title);
 
@@ -1192,7 +1174,7 @@
     error_log ( "===========>UNLOCK :".$options["path"] );
     include_once("FDL/Class.Doc.php");
     $fldid=$this->path2id($options["path"],$vid);
-    $doc=new_doc($this->dbaccess,$fldid);
+    $doc=new_doc($this->db_freedom,$fldid);
 	    
     if ($doc->isAffected()) {
       $err=$doc->unlock(true);
@@ -1244,7 +1226,7 @@
       
       include_once("FDL/Class.Doc.php");
       $fldid=$this->path2id($options["path"],$vid);
-      $doc=new_doc($this->dbaccess,$fldid);
+      $doc=new_doc($this->db_freedom,$fldid);
 	    
       if ($doc->isAffected()) {
 	if ($doc->isLocked(true)) {
@@ -1254,7 +1236,7 @@
 			   "owner"   => $doc->locked,
 			   "token"   => 'opaquelocktoken:'.md5($doc->id),
 			   "expires" => time()+3600
-			 );
+			   );
 	  error_log("FREEDOM LOCK ".$doc->title);
 	}
       }

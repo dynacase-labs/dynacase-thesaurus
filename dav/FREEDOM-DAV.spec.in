@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-DAV.spec.in,v 1.3 2006/11/20 16:37:04 eric Exp $
+#  $Id: FREEDOM-DAV.spec.in,v 1.4 2006/11/21 17:09:05 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -65,13 +65,14 @@ The WorkSpace is use to exchange file document between members of groups
 autoconf
 ./configure --with-pubrule=`pwd`
 make  pubdir=$RPM_BUILD_ROOT%{destdir} 
+install -d $RPM_BUILD_ROOT/%{destdir}/dav
+cd $RPM_BUILD_ROOT/%{destdir}/dav
+ln -s ../%{dirname}/dav.php  zou679__e.php
 
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
 %post
-cd %{destdir}/FDL 
-ln -sf ../@PACKAGE@/Method*php .
 %{destdir}/wstop
 
 
@@ -87,7 +88,8 @@ ln -sf ../@PACKAGE@/Method*php .
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/%{dirname}
 %{destdir}/%{dirname}/*
-#%{destdir}/locale/*
+%{destdir}/dav/*
+%{destdir}/locale/*
 
 
 

@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: DAV\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-21 16:44+0100\n"
+"PO-Revision-Date: 2006-11-21 16:46+0100\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: French <distrib@anakeen.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "Move file from %s to %s"
+msgstr "Déplacer le fichier depuis %s vers %s"
+
+#, c-format
+msgid "Rename file as %s"
+msgstr "Renommer le fichier en %s"
+
+msgid "Dav"
+msgstr "Dav"
+
+msgid "WebDav FREEDOM system file"
+msgstr "Système de fichiers WebDAV FREEDOM"
+
+msgid "Access for exchange documents"
+msgstr "Accès aux échanges de documents"
+
+msgid "create a new session id"
+msgstr "créer un nouvel id de session"
+
+msgid "address of the webdav serveur for freedav"
+msgstr "adresse du serveur webdav pour freedav"
+
+msgid "address of the webdav serveur for authenticate server"
+msgstr "adresse du serveur webdav pour le serveur authentifié"
+
+msgid "database access for webdav"
+msgstr "coordonnées d'accès à la base de données webdav"

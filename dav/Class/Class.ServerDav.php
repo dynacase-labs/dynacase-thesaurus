@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@bitflux.ch>                       |
 // +----------------------------------------------------------------------+
 //
-// $Id: Class.ServerDav.php,v 1.6 2006/10/31 16:36:51 eric Exp $
+// $Id: Class.ServerDav.php,v 1.7 2006/11/21 17:09:05 eric Exp $
 //
 require_once "HTTP/WebDAV/Tools/_parse_propfind.php";
 require_once "HTTP/WebDAV/Tools/_parse_proppatch.php";
@@ -640,8 +640,8 @@ class HTTP_WebDAV_Server
         header('Content-Type: text/xml; charset="utf-8"');
         
         // ... and payload
-        print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-        print "<D:multistatus xmlns:D=\"DAV:\">\n";
+        echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+        echo "<D:multistatus xmlns:D=\"DAV:\">\n";
             
         foreach($files["files"] as $file) {
             // ignore empty or incomplete entries
@@ -649,20 +649,20 @@ class HTTP_WebDAV_Server
             $path = $file['path'];                  
             if(!is_string($path) || $path==="") continue;
 
-            print " <D:response $ns_defs>\n";
+            echo " <D:response $ns_defs>\n";
         
             /* TODO right now the user implementation has to make sure
              collections end in a slash, this should be done in here
              by checking the resource attribute */
             $href = $this->_mergePathes($_SERVER['SCRIPT_NAME'], $path);
         
-			print "  <D:href>".$this->_urlencode($href)."</D:href>\n";
+			echo "  <D:href>".$this->_urlencode($href)."</D:href>\n";
 
 						//error_log("HREF:".$this->_urlencode($path));
             // report all found properties and their values (if any)
             if (isset($file["props"]) && is_array($file["props"])) {
-                print "   <D:propstat>\n";
-                print "    <D:prop>\n";
+                echo "   <D:propstat>\n";
+                echo "    <D:prop>\n";
 
                 foreach($file["props"] as $key => $prop) {
                     
@@ -672,38 +672,38 @@ class HTTP_WebDAV_Server
                     if (!isset($prop["val"]) || $prop["val"] === "" || $prop["val"] === false) {
                         // empty properties (cannot use empty() for check as "0" is a legal value here)
                         if($prop["ns"]=="DAV:") {
-                            print "     <D:$prop[name]/>\n";
+                            echo "     <D:$prop[name]/>\n";
                         } else if(!empty($prop["ns"])) {
-                            print "     <".$ns_hash[$prop["ns"]].":$prop[name]/>\n";
+                            echo "     <".$ns_hash[$prop["ns"]].":$prop[name]/>\n";
                         } else {
-                            print "     <$prop[name] xmlns=\"\"/>";
+                            echo "     <$prop[name] xmlns=\"\"/>";
                         }
                     } else if ($prop["ns"] == "DAV:") {
                         // some WebDAV properties need special treatment
                         switch ($prop["name"]) {
                         case "creationdate":
-                            print "     <D:creationdate ns0:dt=\"dateTime.tz\">"
+                            echo "     <D:creationdate ns0:dt=\"dateTime.tz\">"
                                 . gmdate("Y-m-d\\TH:i:s\\Z",$prop['val'])
                                 . "</D:creationdate>\n";
                             break;
                         case "getlastmodified":
-                            print "     <D:getlastmodified ns0:dt=\"dateTime.rfc1123\">"
+                            echo "     <D:getlastmodified ns0:dt=\"dateTime.rfc1123\">"
                                 . gmdate("D, d M Y H:i:s ", $prop['val'])
                                 . "GMT</D:getlastmodified>\n";
                             break;
                         case "resourcetype":
-                            print "     <D:resourcetype><D:$prop[val]/></D:resourcetype>\n";
+                            echo "     <D:resourcetype><D:$prop[val]/></D:resourcetype>\n";
                             break;
                         case "supportedlock":
-                            print "     <D:supportedlock>$prop[val]</D:supportedlock>\n";
+                            echo "     <D:supportedlock>$prop[val]</D:supportedlock>\n";
                             break;
                         case "lockdiscovery":  
-                            print "     <D:lockdiscovery>\n";
-                            print $prop["val"];
-                            print "     </D:lockdiscovery>\n";
+                            echo "     <D:lockdiscovery>\n";
+                            echo $prop["val"];
+                            echo "     </D:lockdiscovery>\n";
                             break;
                         default:                                    
-                            print "     <D:$prop[name]>"
+                            echo "     <D:$prop[name]>"
                                 . $this->_prop_encode(htmlspecialchars($prop['val']))
                                 .     "</D:$prop[name]>\n";                               
                             break;
@@ -711,46 +711,46 @@ class HTTP_WebDAV_Server
                     } else {
                         // properties from namespaces != "DAV:" or without any namespace 
                         if ($prop["ns"]) {
-                            print "     <" . $ns_hash[$prop["ns"]] . ":$prop[name]>"
+                            echo "     <" . $ns_hash[$prop["ns"]] . ":$prop[name]>"
                                 . $this->_prop_encode(htmlspecialchars($prop['val']))
                                 . "</" . $ns_hash[$prop["ns"]] . ":$prop[name]>\n";
                         } else {
-                            print "     <$prop[name] xmlns=\"\">"
+                            echo "     <$prop[name] xmlns=\"\">"
                                 . $this->_prop_encode(htmlspecialchars($prop['val']))
                                 . "</$prop[name]>\n";
                         }                               
                     }
                 }
 
-                print "   </D:prop>\n";
-                print "   <D:status>HTTP/1.1 200 OK</D:status>\n";
-                print "  </D:propstat>\n";
+                echo "   </D:prop>\n";
+                echo "   <D:status>HTTP/1.1 200 OK</D:status>\n";
+                echo "  </D:propstat>\n";
             }
        
             // now report all properties requested but not found
             if (isset($file["noprops"])) {
-                print "   <D:propstat>\n";
-                print "    <D:prop>\n";
+                echo "   <D:propstat>\n";
+                echo "    <D:prop>\n";
 
                 foreach($file["noprops"] as $key => $prop) {
                     if ($prop["ns"] == "DAV:") {
-                        print "     <D:$prop[name]/>\n";
+                        echo "     <D:$prop[name]/>\n";
                     } else if ($prop["ns"] == "") {
-                        print "     <$prop[name] xmlns=\"\"/>\n";
+                        echo "     <$prop[name] xmlns=\"\"/>\n";
                     } else {
-                        print "     <" . $ns_hash[$prop["ns"]] . ":$prop[name]/>\n";
+                        echo "     <" . $ns_hash[$prop["ns"]] . ":$prop[name]/>\n";
                     }
                 }
 
-                print "   </D:prop>\n";
-                print "   <D:status>HTTP/1.1 404 Not Found</D:status>\n";
-                print "  </D:propstat>\n";
+                echo "   </D:prop>\n";
+                echo "   <D:status>HTTP/1.1 404 Not Found</D:status>\n";
+                echo "  </D:propstat>\n";
             }
             
-            print " </D:response>\n";
+            echo " </D:response>\n";
         }
         
-        print "</D:multistatus>\n";
+        echo "</D:multistatus>\n";
     }
 
     
@@ -784,27 +784,27 @@ class HTTP_WebDAV_Server
             $this->http_status("207 Multi-Status");
             header('Content-Type: text/xml; charset="utf-8"');
             
-            print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+            echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 
-            print "<D:multistatus xmlns:D=\"DAV:\">\n";
-            print " <D:response>\n";
-            print "  <D:href>".$this->_urlencode($this->_mergePathes($_SERVER["SCRIPT_NAME"], $this->path))."</D:href>\n";
+            echo "<D:multistatus xmlns:D=\"DAV:\">\n";
+            echo " <D:response>\n";
+            echo "  <D:href>".$this->_urlencode($this->_mergePathes($_SERVER["SCRIPT_NAME"], $this->path))."</D:href>\n";
 
             foreach($options["props"] as $prop) {
-                print "   <D:propstat>\n";
-                print "    <D:prop><$prop[name] xmlns=\"$prop[ns]\"/></D:prop>\n";
-                print "    <D:status>HTTP/1.1 $prop[status]</D:status>\n";
-                print "   </D:propstat>\n";
+                echo "   <D:propstat>\n";
+                echo "    <D:prop><$prop[name] xmlns=\"$prop[ns]\"/></D:prop>\n";
+                echo "    <D:status>HTTP/1.1 $prop[status]</D:status>\n";
+                echo "   </D:propstat>\n";
             }
 
             if ($responsedescr) {
-                print "  <D:responsedescription>".
+                echo "  <D:responsedescription>".
                     $this->_prop_encode(htmlspecialchars($responsedescr)).
                     "</D:responsedescription>\n";
             }
 
-            print " </D:response>\n";
-            print "</D:multistatus>\n";
+            echo " </D:response>\n";
+            echo "</D:multistatus>\n";
         } else {
             $this->http_status("423 Locked");
         }
@@ -887,7 +887,7 @@ class HTTP_WebDAV_Server
                                     while ($size && !feof($options['stream'])) {
                                         $buffer = fread($options['stream'], 4096);
                                         $size -= strlen($buffer);
-                                        print $buffer;
+                                        echo $buffer;
                                     }
                                 } else {
                                     $this->http_status("206 partial");
@@ -923,7 +923,7 @@ class HTTP_WebDAV_Server
                                 while ($size && !feof($options['stream'])) {
                                     $buffer = fread($options['stream'], 4096);
                                     $size -= strlen($buffer);
-                                    print $buffer;
+                                    echo $buffer;
                                 }
                             }
                             $this->_multipart_byterange_header(); // end multipart
@@ -941,7 +941,7 @@ class HTTP_WebDAV_Server
                         // reply to partial request
                     } else {
                         header("Content-length: ".strlen($options['data']));
-                        print $options['data'];
+                        echo $options['data'];
                     }
                 }
             } 
@@ -1014,14 +1014,14 @@ class HTTP_WebDAV_Server
                 // final 
 
                 // generate closing multipart sequence
-                print "\n--{$this->multipart_separator}--";
+                echo "\n--{$this->multipart_separator}--";
             }
         } else {
             // generate separator and header for next part
-            print "\n--{$this->multipart_separator}\n";
-            print "Content-type: $mimetype\n";
-            print "Content-range: $from-$to/". ($total === false ? "*" : $total);
-            print "\n\n";
+            echo "\n--{$this->multipart_separator}\n";
+            echo "Content-type: $mimetype\n";
+            echo "Content-range: $from-$to/". ($total === false ? "*" : $total);
+            echo "\n\n";
         }
     }
 
@@ -1086,7 +1086,7 @@ class HTTP_WebDAV_Server
                 // for now we do not support any sort of multipart requests
                 if (!strncmp($_SERVER["CONTENT_TYPE"], "multipart/", 10)) {
                     $this->http_status("501 not implemented");
-                    print "The service does not support mulipart PUT requests";
+                    echo "The service does not support mulipart PUT requests";
                     return;
                 }
                 $options["content_type"] = $_SERVER["CONTENT_TYPE"];
@@ -1106,7 +1106,7 @@ class HTTP_WebDAV_Server
                 case 'HTTP_CONTENT_ENCODING': // RFC 2616 14.11
                     // TODO support this if ext/zlib filters are available
                     $this->http_status("501 not implemented"); 
-                    print "The service does not support '$val' content encoding";
+                    echo "The service does not support '$val' content encoding";
                     return;
 
                 case 'HTTP_CONTENT_LANGUAGE': // RFC 2616 14.12
@@ -1127,7 +1127,7 @@ class HTTP_WebDAV_Server
                     // TODO we have to ensure that implementations support this or send 501 instead
                     if (!preg_match('@bytes\s+(\d+)-(\d+)/((\d+)|\*)@', $value, $matches)) {
                         $this->http_status("400 bad request"); 
-                        print "The service does only support single byte ranges";
+                        echo "The service does only support single byte ranges";
                         return;
                     }
                     
@@ -1145,13 +1145,13 @@ class HTTP_WebDAV_Server
                 case 'HTTP_CONTENT_MD5':      // RFC 2616 14.15
                     // TODO: maybe we can just pretend here?
                     $this->http_status("501 not implemented"); 
-                    print "The service does not support content MD5 checksum verification"; 
+                    echo "The service does not support content MD5 checksum verification"; 
                     return;
 
                 default: 
                     // any other unknown Content-* headers
                     $this->http_status("501 not implemented"); 
-                    print "The service does not support '$key'"; 
+                    echo "The service does not support '$key'"; 
                     return;
                 }
             }
@@ -1351,19 +1351,19 @@ class HTTP_WebDAV_Server
             
             header('Content-Type: text/xml; charset="utf-8"');
             header("Lock-Token: <$options[locktoken]>");
-            print "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-            print "<D:prop xmlns:D=\"DAV:\">\n";
-            print " <D:lockdiscovery>\n";
-            print "  <D:activelock>\n";
-            print "   <D:lockscope><D:$options[scope]/></D:lockscope>\n";
-            print "   <D:locktype><D:$options[type]/></D:locktype>\n";
-            print "   <D:depth>$options[depth]</D:depth>\n";
-            print "   <D:owner>$options[owner]</D:owner>\n";
-            print "   <D:timeout>$timeout</D:timeout>\n";
-            print "   <D:locktoken><D:href>$options[locktoken]</D:href></D:locktoken>\n";
-            print "  </D:activelock>\n";
-            print " </D:lockdiscovery>\n";
-            print "</D:prop>\n\n";
+            echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+            echo "<D:prop xmlns:D=\"DAV:\">\n";
+            echo " <D:lockdiscovery>\n";
+            echo "  <D:activelock>\n";
+            echo "   <D:lockscope><D:$options[scope]/></D:lockscope>\n";
+            echo "   <D:locktype><D:$options[type]/></D:locktype>\n";
+            echo "   <D:depth>$options[depth]</D:depth>\n";
+            echo "   <D:owner>$options[owner]</D:owner>\n";
+            echo "   <D:timeout>$timeout</D:timeout>\n";
+            echo "   <D:locktoken><D:href>$options[locktoken]</D:href></D:locktoken>\n";
+            echo "  </D:activelock>\n";
+            echo " </D:lockdiscovery>\n";
+            echo "</D:prop>\n\n";
         }
     }
     
