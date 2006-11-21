@@ -1,27 +1,14 @@
-<html>
-  <head>
-   <title>FREEDOM - [APP_TITLE]</title>
-<link rel="shortcut icon" href="FDL/Images/logo16.ico">
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
-<LINK REL="stylesheet" type="text/css" HREF="[CORE_SSTANDURL]app=FDL&action=FDL_CSS" >
-
-[CSS:REF]
-[JS:REF]
-
-   <style type="text/css">
-[CSS:CODE]
-   </style>
-
- </head>
+[ZONE FDL:HTMLHEAD]
 
 
-<body onLoad="setTimeout('CenterDiv(\'logo2\');CenterDiv(\'logo\')',1)" onResize="CenterDiv('logo2');CenterDiv('logo')">
 
-<div id="logo" style="display:none;position:absolute;top:0px;left:0px;z-index:4">
-      <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
-</div>
-<div id="logo2" style="display:none;position:absolute;top:0px;left:0px;[IF ISIE]filter:alpha(opacity=50);[ENDIF ISIE][IFNOT ISIE]-moz-opacity:.5;[ENDIF ISIE]z-index:2">
-      <img  src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">
-</div>
+<table style="width:100%;height:100%"><tr><td style="text-align:center">
+
+      <img style="[IF ISIE]filter:alpha(opacity=50);[ENDIF ISIE][IFNOT ISIE]-moz-opacity:.5;[ENDIF ISIE]"
+       src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">	
+      <img style="position:relative;right: 100px; bottom: 150px;" src="[appicon]" title="[apptitle]" alt="[apptitle]">
+</td></tr></table>
+
+
 </body>
 </html>

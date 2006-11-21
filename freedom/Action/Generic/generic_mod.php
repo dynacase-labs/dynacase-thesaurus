@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.28 2006/05/24 14:19:45 eric Exp $
+ * @version $Id: generic_mod.php,v 1.29 2006/11/21 15:50:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,6 +66,15 @@ function generic_mod(&$action) {
       }     
     } 
   }
+  
+  
+  if ($ndocid==0) {
+    redirect($action,GetHttpVars("redirect_app","GENERIC"),
+	     GetHttpVars("redirect_act","GENERIC_LOGO"),
+	     $action->GetParam("CORE_STANDURL"));
+  }
+
+
   if ($noredirect) {
     $action->lay->set("id",$ndocid);
     return;

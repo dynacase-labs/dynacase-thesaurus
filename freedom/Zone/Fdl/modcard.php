@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.85 2006/09/15 15:45:40 eric Exp $
+ * @version $Id: modcard.php,v 1.86 2006/11/21 15:51:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,7 +26,6 @@ include_once("VAULT/Class.VaultFile.php");
 function modcard(&$action, &$ndocid) {
   // modify a card values from editcard
   // -----------------------------------
-
   // Get all the params      
   $docid=GetHttpVars("id",0); 
   $dirid=GetHttpVars("dirid",10);
@@ -39,6 +38,9 @@ function modcard(&$action, &$ndocid) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $ndocid=$docid;
+
+  global $_POST;
+  if (count($_POST)==0) return sprintf(_("Document cannot be created.\nThe upload size limit is %s bytes."), ini_get('post_max_size'));
 
   if (($usefor=="D")||($usefor=="Q")) {
     //  set values to family document
@@ -263,8 +265,6 @@ function insert_file($dbaccess,$docid, $attrid)
   
 
   $postfiles = $_FILES["_".$attrid];
-
-
   $toldfile=array();
 
   if (is_array($postfiles['tmp_name'])) {// array of file
