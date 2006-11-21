@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.117 2006/10/24 12:20:45 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.118 2006/11/21 15:51:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,6 +75,7 @@ function getSqlSearchDoc($dbaccess,
 			 $latest=true,
 			 $trash="") {// only latest document
   $table="doc";$only="";
+  if ($trash=="only") $distinct=true;
   if ($fromid == -1) $table="docfam";
   elseif ($fromid < 0) {$only="only" ;$fromid=-$fromid;}
   elseif ($fromid != 0) $table="doc$fromid";
@@ -93,13 +94,13 @@ function getSqlSearchDoc($dbaccess,
   if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
 
 
-
   if ($dirid == 0) {
     //-------------------------------------------
     // search in all Db
     //-------------------------------------------
-    if ($trash=="only") $sqlfilters[-3] = "doctype = 'Z'";
-    elseif ($trash=="also") ;
+    if ($trash=="only") {
+      $sqlfilters[-3] = "doctype = 'Z'";    
+    } elseif ($trash=="also") ;
     else $sqlfilters[-3] = "doctype != 'Z'";
       
     if (($latest) && (($trash=="no")||(!$trash))) $sqlfilters[-1] = "locked != -1";
@@ -339,6 +340,12 @@ function getChildDoc($dbaccess,
       if (is_array($td)) return $td;
     } 
   }
+  if ($trash=="only") $distinct=true;
+ 
+
+  //   xdebug_var_dump(xdebug_get_function_stack());
+ 
+
   $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest,$trash);
 
   $tretdocs=array();
@@ -351,7 +358,7 @@ function getChildDoc($dbaccess,
 	  $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
 	}
 
-
+	if ((!$distinct) && strstr($qsql,"distinct")) $distinct=true;
 	if ($start == "") $start="0";
 	if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
 	else  {
@@ -374,12 +381,9 @@ function getChildDoc($dbaccess,
 	    }
 	  }
 	}
-
    
-	$query = new QueryDb($dbaccess,"Doc$fromid");
-  
+	$query = new QueryDb($dbaccess,"Doc$fromid");  
 	$mb=microtime();
-
 	$tableq=$query->Query(0,0,$qtype,$qsql);
  
  
@@ -388,7 +392,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	    } else $tretdocs=array_merge($tretdocs,$tableq);
 	  }
-	//          print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+	//  print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
       } else {
 	// error in query          
