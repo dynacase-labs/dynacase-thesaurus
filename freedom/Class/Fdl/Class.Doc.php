@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.347 2006/11/17 14:55:15 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.348 2006/11/21 15:50:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -998,6 +998,16 @@ final public function PostInsert()  {
 	$this->locked=0;
 	$this->modify(true,array("doctype","locked"),true);
 	$this->AddComment(_("revival document"));
+	
+	$rev=$this->GetRevisions();
+
+	foreach($rev as $k=>$v) {
+	  if ($v->doctype=='Z') {
+	    $v->doctype=$v->defDoctype;
+	    $v->modify(false,array("doctype"),false);
+	  }
+	}
+
       } else return sprintf(_("document %s [%d] is not in the trash"),$doc->title,$doc->id);
     } else return _("Only owner of document can restore it");
   }
