@@ -3,7 +3,7 @@
  * Suppress a link to a folder
  *
  * @author Anakeen 2000 
- * @version $Id: generic_del.php,v 1.12 2006/10/24 12:20:00 eric Exp $
+ * @version $Id: generic_del.php,v 1.13 2006/11/21 15:52:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,7 +55,7 @@ function generic_del(&$action) {
      
      $action->AddActionDone("DELFILE",$doc->prelid);
      $action->AddActionDone("TRASHFILE",$doc->prelid);
-     redirect($action,"FDL","FDL_CARD&refreshfld=Y&id=$docid");
+     redirect($action,"FDL","FDL_CARD&sole=Y&refreshfld=Y&id=$docid");
       
   }
 
