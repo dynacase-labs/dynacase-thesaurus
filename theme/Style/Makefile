@@ -1,12 +1,13 @@
 # ============================================
-# $Id: Makefile,v 1.1 2006/11/08 17:47:44 eric Exp $
+# $Id: Makefile,v 1.2 2006/11/21 18:01:05 eric Exp $
 # ============================================
 
 
 export targetdir
 export utildir
 
-SUBDIR= $(wildcard [^Makefile]*)
+#SUBDIR= $(wildcard [^C^V^S]*)
+SUBDIR= `find .  -mindepth 1 -maxdepth 1 -type d -not -name CVS  -printf "%f "` # ?
 
 include $(utildir)/PubRule
 
