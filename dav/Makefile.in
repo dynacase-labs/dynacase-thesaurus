@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.4 2006/11/22 10:33:59 eric Exp $
+# $Id: Makefile.in,v 1.5 2006/11/22 16:13:28 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -15,14 +15,15 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR=  Class Actions Javascript Images Tools
+SUBDIR=  Class Actions Javascript Images Tools Windows
 
 include $(utildir)/PubRule
 
 DISTFILES += $(SUBDIR) DAV_conf.apache.in \
             RELEASE VERSION   
 
-$(pubdir)/$(appname)/DAV_conf.apache: DAV_conf.apache
+
+$(pubdir)/$(appname)/DAV_conf.apache: DAV_conf.apache $(pubdir)/$(appname)
 	cp $< $@
 
-publish:$(pubdir)/$(appname)/DAV_conf.apache
+publish: $(pubdir)/$(appname)/DAV_conf.apache
