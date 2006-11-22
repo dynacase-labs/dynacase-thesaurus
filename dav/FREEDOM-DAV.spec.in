@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-DAV.spec.in,v 1.4 2006/11/21 17:09:05 eric Exp $
+#  $Id: FREEDOM-DAV.spec.in,v 1.5 2006/11/22 10:33:59 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -15,16 +15,19 @@
 %define destdir /home/httpd/what
 %define httpuser http
 %define releasepostfix %(echo)
+%define apacheconfdir /etc/httpd/httpd.conf
 %endif
 %if %{pld}
 %define destdir /usr/share/what
 %define httpuser http
 %define releasepostfix cb
+%define apacheconfdir /etc/webapps/what
 %endif
 %if %{redhat}
 %define destdir /usr/share/what
 %define httpuser apache
 %define releasepostfix fc5
+%define apacheconfdir /etc/httpd/conf.d
 %endif
 %define dirname DAV
 
@@ -44,6 +47,7 @@ BuildRoot: /tmp/anakeen-root
 Requires: FREEDOM-LIB >= 2.5.0
 %if %{pld}
 Requires: php-ctype
+#Requires: php-pear-HTTP_WebDAV_Server
 %endif
 Prereq: WHAT 
 Prereq: php-cgi 
@@ -51,7 +55,7 @@ Prereq: gettext
 
 
 %description
-The WorkSpace is use to exchange file document between members of groups
+The FREEDOM DAV module install a WebDAV server which can browse files of FREEDOM. 
 
 
 
@@ -68,7 +72,16 @@ make  pubdir=$RPM_BUILD_ROOT%{destdir}
 install -d $RPM_BUILD_ROOT/%{destdir}/dav
 cd $RPM_BUILD_ROOT/%{destdir}/dav
 ln -s ../%{dirname}/dav.php  zou679__e.php
-
+install -d $RPM_BUILD_ROOT%{apacheconfdir}
+%if %{cerbere}
+install $RPM_BUILD_ROOT/%{destdir}/%{dirname}/DAV_conf.apache $RPM_BUILD_ROOT/%{apacheconfdir}/72_mod_dav.conf.template
+%else
+  %if %{pld} 
+    install $RPM_BUILD_ROOT/%{destdir}/%{dirname}/DAV_conf.apache $RPM_BUILD_ROOT/%{apacheconfdir}/72_mod_dav.conf.template
+  %else
+    install $RPM_BUILD_ROOT/%{destdir}/%{dirname}/DAV_conf.apache $RPM_BUILD_ROOT/%{apacheconfdir}/72_mod_dav.conf.template
+  %endif
+%endif
 %clean
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 
@@ -90,7 +103,7 @@ ln -s ../%{dirname}/dav.php  zou679__e.php
 %{destdir}/%{dirname}/*
 %{destdir}/dav/*
 %{destdir}/locale/*
-
+%{apacheconfdir}/72_mod_dav.conf.template
 
 
 %changelog

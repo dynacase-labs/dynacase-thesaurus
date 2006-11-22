@@ -1,4 +1,14 @@
 <?php
+/**
+ * FREEDOM File system
+ *
+ * @author Anakeen 2006
+ * @version $Id: Class.FdlDav.php,v 1.4 2006/11/22 10:33:59 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM-DAV
+ */
+/**
+ */
 
 require_once "HTTP/WebDAV/Server.php";
 require_once "System.php";
@@ -48,7 +58,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
 
     $this->db_res=pg_connect($this->db_webdav) or die("connection error");
 
-    
+    parent::__construct();
   }
 
   /**
