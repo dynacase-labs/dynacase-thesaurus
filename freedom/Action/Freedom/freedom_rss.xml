@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="[rsscss]" type="text/css"?>
+<rss version="2.0">
+<channel>
+
+  <title>Freedom-RSS : [foldername]</title>
+  <link>[server]</link>
+  <description>[foldername] ([TEXT: folder containt] )</description>
+  <copyright>Copyright 2006 Anakeen</copyright>
+  <language>fr-fr</language>
+  <pubDate>[datepub]</pubDate>
+  <ttl>60</ttl>
+
+[BLOCK TABLEBODY]<item>
+<title>[title]</title>
+<link>[server][baseurl]app=FDL&amp;action=FDL_CARD&amp;props=N&amp;abstract=N&amp;id=[id]</link>
+<description>&lt;table cellspacing="0" width="100%" &gt;
+&lt;td class="tlist" width="30" &gt;&lt;img class="iconimg20" id="i[divid]" align="absmiddle"  src="[iconsrc]" /&gt;&lt;/td&gt;
+&lt;td class="tlist" &gt;[title] &lt;i&gt;[state]&lt;/i&gt;&lt;/td&gt;
+&lt;td class="tlist" width="40"&gt;&lt;I style="font-size:80%"&gt;[revdate]&lt;/I&gt;&lt;/td&gt;
+&lt;td class="tlist" width="20"&gt;[locked]&lt;/td&gt;
+&lt;td class="tlist" width="20"&gt;&lt;span style="font-size:80%"&gt;[revision] &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;</description>
+<pubDate>[revdate]</pubDate>
+<guid>[id]</guid>
+</item>[ENDBLOCK TABLEBODY]
+</channel>
+</rss>

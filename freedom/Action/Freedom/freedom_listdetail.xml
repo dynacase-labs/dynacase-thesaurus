@@ -4,10 +4,11 @@
 <html>
   <head>
 
-   <title>[TEXT: folder containt]</title>
+   <title>[foldername] [TEXT: folder containt]</title>
 <link rel="shortcut icon" href="FDL/Images/logo16.ico" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SBASEURL]app=CORE&action=CORE_CSS" >
 <LINK REL="stylesheet" type="text/css" HREF="[CORE_SSTANDURL]app=FDL&action=FDL_CSS" >
+<link rel="alternate" type="application/rss+xml" title="[foldername] : [TEXT: folder containt]" href="[CORE_STANDURL]&app=FREEDOM&action=FREEDOM_VIEW&dirid=[dirid]&view=rss" />
 
 [CSS:REF]
 

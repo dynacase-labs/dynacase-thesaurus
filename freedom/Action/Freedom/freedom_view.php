@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_view.php,v 1.11 2005/08/18 09:16:09 eric Exp $
+ * @version $Id: freedom_view.php,v 1.12 2006/11/22 11:13:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -41,6 +41,14 @@ function freedom_view(&$action) {
     $action->layout = $action->GetLayoutFile("freedom_column.xml");
     $action->lay = new Layout($action->layout,$action);
   viewfolder($action, false,true,true);
+  break;
+  case "rss":
+    $action->layout = $action->GetLayoutFile("freedom_rss.xml");
+    $action->lay = new Layout($action->layout,$action);
+    setHttpVar("xml", 1);
+    header('Content-type: text/xml; charset=utf-8');
+    $action->lay->setEncoding("utf-8");
+    viewfolder($action, false, false);
   break;
   default:
     $action->layout = $action->GetLayoutFile("freedom_list.xml");
