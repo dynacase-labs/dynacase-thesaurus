@@ -2,6 +2,7 @@
 <head>
   <title>[TEXT:freedom groupware calendar]</title>
   <link rel="alternate" type="application/rss+xml" title="[TEXT:Mon agenda]" href="[CORE_STANDURL]&app=WGCAL&action=WGCAL_RSS" />
+  <link rel="alternate" type="application/rss+xml" title="[TEXT:event proposal]" href="[CORE_STANDURL]&app=WGCAL&action=WGCAL_WAITRV&mo=RSS" />
 </head>
 <frameset name="wgcal" id="wgcal" frameborder="yes" framespacing="2" border="2"
 resize cols="[toolbarwidth]pt,*">

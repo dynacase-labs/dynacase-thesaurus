@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.18 2006/10/27 15:14:48 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.19 2006/11/23 12:31:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,14 +29,32 @@ function wgcal_waitrv(&$action) {
   $action->parent->AddJsRef("WGCAL/Layout/wgcal_calendar.js");
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
-  $ocount = GetHttpVars("oc", "N");
+  $server = getParam("CORE_ABSURL");
+  $base  = getParam("CORE_BASEURL");
+
+  $ocount = GetHttpVars("oc", "Y");
   $mode = GetHttpVars("mo", "");
+  $action->lay->set("OnlyCount", ($ocount=="Y" && $mode==""?true:false));
+  $action->lay->set("LightMode", false);
+  $action->lay->set("RSS", false);
   if ($mode=="L") {
+
     $action->lay->set("LightMode", true);
     $action->lay->set("uptime", strftime("%H:%M %d/%m/%Y", time()));
     header('Content-type: text/xml; charset=utf-8');
     $action->lay->setEncoding("utf-8");
-  }  else $action->lay->set("LightMode", false);
+
+  } else if ($mode=="RSS") {
+
+    $action->lay->set("RSS", true);
+    header('Content-type: text/xml; charset=utf-8');
+    $action->lay->setEncoding("utf-8");
+    $cssf = getparam("CORE_STANDURL")."&app=CORE&action=CORE_CSS&session=".$action->session->id."&layout=FDL:RSS.CSS";
+    $action->lay->set("username", $action->user->firstname." ". $action->user->lastname);    
+    $action->lay->set("pDate", date("r", time()));
+    $action->lay->set("link", setText(($base."app=WGCAL&action=WGCAL_MAIN")));
+
+  } 
 
   $oapp = GetHttpVars("oapp", "WGCAL");
   $oact = GetHttpVars("oact", "WGCAL_CALENDAR");
@@ -59,7 +77,6 @@ function wgcal_waitrv(&$action) {
   $irv = 0;
   foreach ($rdoc as $k => $v)  {
     $doc = getDocObject($action->GetParam("FREEDOM_DB"), $v);
-//      echo "[".$doc->getTitle()."] mode=".$doc->getValue("calev_repeatmode")." rend=".$doc->getValue("calev_repeatuntildate")." end=".$doc->getValue("calev_end")."<br>";
     $attid = $doc->getTValue("calev_attid");
     $attst = $doc->getTValue("calev_attstate");
     $state = -1;
@@ -78,37 +95,36 @@ function wgcal_waitrv(&$action) {
 			   "date" =>  $date,
  			   "title" => $v["calev_evtitle"],
  			   "jstitle" => addslashes($v["calev_evtitle"]),
-			   "owner" => ucwords(strtolower($v["calev_owner"])) );
+			   "owner" => ucwords(strtolower($v["calev_owner"])),
+			   "link" => setText($server.$base."app=FDL&action=IMPCARD&id=".$doc->id),
+			   );
       $irv++;
     }
   }
 
-  if ($ocount=="Y") {
 
-    $action->lay->set("OnlyCount", true);
-    $action->lay->set("count", count($wrv));
 
-  } else {
-
-    $action->lay->set("OnlyCount", false);
-
-    if (!$intoolbar) {
-      $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
-      $action->lay->set("alertwrv", "checked");
-      if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
-    }
-    
-    if (count($wrv)>0) {
-      $action->lay->set("RVCOUNT", count($wrv));
-      $action->lay->SetBlockData("WAITRV", $wrv);
-    } else {
-      $action->lay->SetBlockData("WAITRV", null);
-      $action->lay->set("RVCOUNT", "0");
-    }
-    
-    setToolsLayout($action, 'waitrv', ($intoolbar?false:true));
+  if (!$intoolbar) {
+    $alertfornewevent = $action->GetParam("WGCAL_U_WRVALERT", 1);
+    $action->lay->set("alertwrv", "checked");
+    if ($alertfornewevent == 0) $action->lay->set("alertwrv", "");
   }
   
+  if (count($wrv)>0) {
+    $action->lay->set("RVCOUNT", count($wrv));
+    $action->lay->SetBlockData("WAITRV", $wrv);
+  } else {
+    $action->lay->SetBlockData("WAITRV", null);
+    $action->lay->set("RVCOUNT", "0");
+  }
+  
+  setToolsLayout($action, 'waitrv', ($intoolbar?false:true));
+  
+  
+}
+
+function setText($t) {
+  return utf8_encode(xmlentities($t));
 }
 
 ?>

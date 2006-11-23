@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_rss.php,v 1.2 2006/11/17 17:06:18 marc Exp $
+ * @version $Id: wgcal_rss.php,v 1.3 2006/11/23 12:31:00 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -29,8 +29,10 @@ function wgcal_rss(&$action) {
   $base  = getParam("CORE_BASEURL");
   $server = getParam("CORE_ABSURL"); 
 
+  $day = GetHttpVars("day", 15);
+
   $start = time();
-  $end = $start+(3600*24*365);
+  $end = $start+(3600*24*$day);
   $dd[0] = strftime("%Y-%m-%d 00:00:00", $start);
   $dd[1] = strftime("%Y-%m-%d 23:59:59", $end);
 
@@ -104,7 +106,12 @@ function wgcal_rss(&$action) {
 	$latt = $edoc[$ve["id"]]->getTValue("evfc_listattid");
 	if (count($latt) > 1) {
 	  $meeting = true;
-	  foreach ($latt as $k => $v)   $mlist .= ($mlist==""?"":", ").$v;
+	  foreach ($latt as $k => $v)   {
+	    if ($v!=$action->user->fid) {
+	      $uu = getTDoc($dbaccess, $v);
+	      $mlist .= ($mlist==""?"":", ").$uu["title"];
+	    }
+	  }
 	}
 
 	$td[] = array( 
