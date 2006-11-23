@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.10 2006/08/03 09:17:17 marc Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.11 2006/11/23 16:00:23 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -85,7 +85,7 @@ function WSyncDbDate2Outlook($date, $withtime=true) {
 }
 
 function WSyncTs2Outlook($date) {
-  return strftime("%d/%m/%Y %H:%M:%S", $date);
+  return strftime("%d/%m/%Y %H:%M:%S", (intval)$date);
 }
 
 function WSyncMSdate2Timestamp($date,$time, $tz=false) {
