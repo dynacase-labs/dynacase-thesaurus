@@ -49,6 +49,7 @@ $dt=microtime_diff($d1,$d2);
 $s=new HTTP_WebDAV_Server_Freedom($action->getParam("WEBDAV_DB"));
 $s->http_auth_realm = "FREEDOM Connection";
 $s->db_freedom=$action->getParam("FREEDOM_DB");
+$s->racine=$action->getParam("WEBDAV_ROOTID",9);
 $s->ServeRequest();
 $d2=microtime();
 $d=microtime_diff($d1,$d2);

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: DAV_init.php.in,v 1.5 2006/11/21 17:09:05 eric Exp $
+// $Id: DAV_init.php.in,v 1.6 2006/11/23 09:36:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/dav/DAV_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -36,6 +36,9 @@ $app_const= array(
   "WEBDAV_DB"    =>array("val"=>"dbname=webdav user=anakeen",
 			       "descr"=>N_("database access for webdav"),
 			       "global"=>"Y"),
+  "WEBDAV_ROOTID"    =>array("val"=>"9",
+			     "descr"=>N_("folder identificator for root"),
+			     "global"=>"Y")
 );
 
 ?>

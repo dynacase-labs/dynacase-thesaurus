@@ -3,14 +3,14 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.4 2006/11/22 10:33:59 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.5 2006/11/23 09:36:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
 /**
  */
 
-require_once "HTTP/WebDAV/Server.php";
+require_once "DAV/Class.DavServer.php";
 require_once "System.php";
     
 /**
