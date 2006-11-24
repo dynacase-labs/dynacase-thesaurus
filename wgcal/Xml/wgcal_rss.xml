@@ -23,10 +23,12 @@
   <link>[link]</link>
   <guid>[guid]</guid>
   <description>
-[IF hnote]    &lt;li&gt; [TEXT:note] : [note] &lt;/li&gt;[ENDIF hnote]
-[IF hcat]    &lt;li&gt; [TEXT:Category] : [category] &lt;/li&gt;[ENDIF hcat]
-[IF hloc]    &lt;li&gt; [TEXT:location_1stUpcase] : [location] &lt;/li&gt;[ENDIF hloc]
-[IF hatt]    &lt;li&gt; [TEXT:attendees] : [attendees] &lt;/li&gt;[ENDIF hatt]
+&lt;div style="border-left:1px solid [COLOR_A8]; border-bottom:1px solid [COLOR_A8]; padding-left:15px"&gt;
+[IF hnote]&lt;div&gt;&amp;bull; [TEXT:note] : [note] &lt;/div&gt;[ENDIF hnote]
+[IF hcat]&lt;div&gt;&amp;bull; [TEXT:Category] : [category] &lt;/div&gt;[ENDIF hcat]
+[IF hloc]&lt;div&gt;&amp;bull; [TEXT:location_1stUpcase] : [location] &lt;/div&gt;[ENDIF hloc]
+[IF hatt]&lt;div&gt;&amp;bull; [TEXT:attendees] : [attendees] &lt;/div&gt;[ENDIF hatt]
+&lt;/div&gt;
   </description>
 </item>[ENDBLOCK ITEMS]
 

@@ -23,7 +23,7 @@
   <link>[link]</link>
   <guid>[id]</guid>
   <description>
-&lt;div&gt; -> [date], &lt;span style="font-weight:bold"&gt;[title]&lt;/span&gt; &lt;span style="font-size:80%; font-style:italic"&gt;([owner])&lt;/span&gt;&lt;/div&gt;
+&lt;div style="pafdding-left:10px;"&gt;&amp;rarr; [date], &lt;span style="font-weight:bold"&gt;[title]&lt;/span&gt; &lt;span style="font-size:80%; font-style:italic"&gt;([owner])&lt;/span&gt;&lt;/div&gt;
 </description>
 </item>[ENDBLOCK WAITRV]
 
