@@ -1291,7 +1291,7 @@
                          vid = $vid and
                          fid = $docid";
 
-    //error_log("getLogin $query");
+    error_log("getLogin $query");
     $res = mysql_query($query);
     $row = mysql_fetch_assoc($res);
     $owner= $row["owner"];
@@ -1318,7 +1318,7 @@
                          vid = $vid and
                          fid = $docid";
 
-    //error_log("getSession $query");
+    error_log("getSession $query");
     $res = mysql_query($query);
     $row = mysql_fetch_assoc($res);
     $sid= $row["session"];
