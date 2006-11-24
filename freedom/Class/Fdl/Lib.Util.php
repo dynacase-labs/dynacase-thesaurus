@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.14 2006/03/03 16:13:45 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.15 2006/11/24 16:32:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -273,5 +273,28 @@ function addJsSlashes($s) {
   return str_replace(array("'","\""),array("\\'","&#34;"),$s);
 }
 
-
+/**
+ * Remove Character Accents
+ * Replaces accented characters in a string with their unaccented versions, for instance, converts "ÉéÜüÄäÖ" into "EeUuAaO". The function will handle any accented character for which there exists an HTML entity in PHP's translation table (i.e. pretty much any and all characters). Credits go to jennings at trad dot uji dot es for the original version of this incredibly useful little function. I used this function to good effect in OpenSEF.
+ */
+function unaccent($text) {
+  static $search, $replace;
+  if (!$search) {
+    $search = $replace = array();
+    // Get the HTML entities table into an array
+    $trans = get_html_translation_table(HTML_ENTITIES);
+    // Go through the entity mappings one-by-one
+    foreach ($trans as $literal => $entity) {
+      // Make sure we don't process any other characters
+      // such as fractions, quotes etc:
+      if (ord($literal) >= 192) {
+        // Get the accented form of the letter
+        $search[] = $literal;
+        // Get e.g. 'E' from the string '&Eacute'
+        $replace[] = $entity[1];
+      }
+    }
+  }
+  return str_replace($search, $replace, $text);
+}
 ?>
