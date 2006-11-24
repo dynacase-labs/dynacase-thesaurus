@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.42 2006/11/16 16:50:48 eric Exp $
+// $Id: FREEDOM.app,v 1.43 2006/11/24 16:58:49 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -201,6 +201,11 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_LISTDETAIL",
    "short_name"		=>N_("Freedoms detail list"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FREEDOM_RSS",
+   "short_name"		=>N_("Freedoms RSS syndication"),
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 

@@ -3,26 +3,41 @@
 <rss version="2.0">
 <channel>
 
-  <title>Freedom-RSS : [foldername]</title>
-  <link>[server]</link>
-  <description>[foldername] ([TEXT: folder containt] )</description>
-  <copyright>Copyright 2006 Anakeen</copyright>
-  <language>fr-fr</language>
+  <title>[rssname]</title>
+  <link>[rsslink]</link>
+  <description>[rssname] ([TEXT: folder containt]) -Freedom RSS-</description>
+  <copyright>[copy]</copyright>
+  <language>[lang]</language>
   <pubDate>[datepub]</pubDate>
-  <ttl>60</ttl>
+  <lastBuildDate>[lastbuild]</lastBuildDate>
+  <category>[category]</category>
+  <generator>[generator]</generator>
+  <ttl>[ttl]</ttl>
+  <image>
+    <url>[server]/Images/freedom-rss.gif</url>
+    <title>[rssname] (Freedom RSS)</title>
+    <link>[rsslink]</link>
+  </image>
 
-[BLOCK TABLEBODY]<item>
-<title>[title]</title>
-<link>[server][baseurl]app=FDL&amp;action=FDL_CARD&amp;props=N&amp;abstract=N&amp;id=[id]</link>
-<description>&lt;table cellspacing="0" width="100%" &gt;
-&lt;td class="tlist" width="30" &gt;&lt;img class="iconimg20" id="i[divid]" align="absmiddle"  src="[iconsrc]" /&gt;&lt;/td&gt;
-&lt;td class="tlist" &gt;[title] &lt;i&gt;[state]&lt;/i&gt;&lt;/td&gt;
-&lt;td class="tlist" width="40"&gt;&lt;I style="font-size:80%"&gt;[revdate]&lt;/I&gt;&lt;/td&gt;
-&lt;td class="tlist" width="20"&gt;[locked]&lt;/td&gt;
-&lt;td class="tlist" width="20"&gt;&lt;span style="font-size:80%"&gt;[revision] &lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;</description>
-<pubDate>[revdate]</pubDate>
-<guid>[id]</guid>
-</item>[ENDBLOCK TABLEBODY]
+
+[BLOCK Items]<item>
+  <title>[title]</title>
+  <link>[link]</link>
+  <description>
+[IF report]
+&lt;table&gt;[BLOCK lines[id]]&lt;tr&gt;
+&lt;td style="align:right"&gt;&amp;rarr;&lt;/td&gt;
+&lt;td style="align:right"&gt;[attr]&lt;/td&gt;
+&lt;td&gt; : &lt;/td&gt;
+&lt;td&gt;[val]&lt;/td&gt;
+&lt;/tr&gt;[ENDBLOCK lines[id]]&lt;/table&gt;[ENDIF report][IFNOT report][IF html]&lt;div style="border:1px solid [COLOR_C7]; padding:0px 5px 5px 5px" &gt;[ENDIF html][descr][IF html]&lt;/div[ENDIF html][ENDIF report]
+  </description>
+  <pubDate>[revdate]</pubDate>
+  <guid>[id]</guid>
+  <category>[category]</category>
+  <author>[author]</author>
+  <source url="[rsslink]">[rssname]</source>
+</item>[ENDBLOCK Items]
+
 </channel>
 </rss>
