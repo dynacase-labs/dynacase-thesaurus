@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.43 2006/11/24 16:58:49 marc Exp $
+// $Id: FREEDOM.app,v 1.44 2006/11/27 11:43:04 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -466,6 +466,11 @@ array(
    "name"		=>"OPENFOLIO",
    "short_name"		=>N_("open portfolio"),
    "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"SETSYSRSS",
+   "short_name"		=>N_("set RSS usable"),
+   "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 
    "name"		=>"FOLIOTAB",
