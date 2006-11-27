@@ -14,7 +14,7 @@
   <generator>[generator]</generator>
   <ttl>[ttl]</ttl>
   <image>
-    <url>[server]/Images/freedom-rss.gif</url>
+    <url>[server][IMG:freedom-rss.png]</url>
     <title>[rssname] (Freedom RSS)</title>
     <link>[rsslink]</link>
   </image>
