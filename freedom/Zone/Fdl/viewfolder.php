@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.75 2006/11/27 09:53:41 marc Exp $
+ * @version $Id: viewfolder.php,v 1.76 2006/11/27 16:39:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,6 +54,10 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   $dirid=$dir->id;  // use initial id for directories
   $distinct=false;
+
+
+  $action->lay->set("RSS", ($dir->getValue("gui_isrss")=="yes"?true:false));
+  $action->lay->set("foldername", $dir->getTitle());
 
   // control open
   if ($dir->defDoctype=='S') {    

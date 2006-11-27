@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.18 2006/09/08 16:28:17 eric Exp $
+ * @version $Id: fdl_card.php,v 1.19 2006/11/27 16:39:52 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -64,6 +64,7 @@ function fdl_card(&$action) {
   }
 
 
+  $action->lay->set("RSS", ($doc->getValue("gui_isrss")=="yes"?true:false));
   $action->lay->Set("TITLE",$doc->title);
   $action->lay->Set("id",$docid);
 
