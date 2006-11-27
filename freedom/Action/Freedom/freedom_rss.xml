@@ -4,7 +4,7 @@
 <channel>
 
   <title>[rssname]</title>
-  <link>[rsslink]</link>
+  <link>[server][rsslink]</link>
   <description>[rssname] ([TEXT: folder containt]) -Freedom RSS-</description>
   <copyright>[copy]</copyright>
   <language>[lang]</language>

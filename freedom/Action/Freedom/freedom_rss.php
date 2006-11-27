@@ -3,7 +3,7 @@
  * RSS syndication on a folder (search, folders, report....)
  *
  * @author Anakeen 2003
- * @version $Id: freedom_rss.php,v 1.1 2006/11/24 16:58:49 marc Exp $
+ * @version $Id: freedom_rss.php,v 1.2 2006/11/27 09:55:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,17 +21,19 @@ function freedom_rss(&$action) {
   $action->lay->set("html", $dhtml);
   $lim = GetHttpVars("lim", 100);
 
-   header('Content-type: text/xml; charset=utf-8');
-   $action->lay->setEncoding("utf-8");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+  header('Content-type: text/xml; charset=utf-8');
+  $action->lay->setEncoding("utf-8");
   
   $baseurl=__xmlentities($action->GetParam("CORE_BASEURL"));
   $action->lay->set("baseurl", $baseurl);
+
   $standurl=__xmlentities($action->GetParam("CORE_STANDURL"));
   $action->lay->set("standurl", $standurl);
-  $action->lay->set("server", getparam("CORE_ABSURL")); 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->lay->set("server", getparam("CORE_ABSURL")); 
+
   $cssf = getparam("CORE_STANDURL")."&app=CORE&action=CORE_CSS&session=".$action->session->id."&layout=FDL:RSS.CSS";
   $action->lay->set("rsscss", $cssf); 
 
