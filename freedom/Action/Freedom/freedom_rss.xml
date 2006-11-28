@@ -25,7 +25,11 @@
   <link>[link]</link>
   <description>
 [IF report]
-&lt;table&gt;[BLOCK lines[id]]&lt;tr&gt;
+&lt;table style="width:100%"&gt;
+&lt;tr&gt;
+&lt;td style="font-weight:bold;border-bottom:1px solid [COLOR_A1]" colspan="4"&gt;[title]&lt;/td&gt;
+&lt;/tr&gt;
+[BLOCK lines[id]]&lt;tr&gt;
 &lt;td style="align:right"&gt;&amp;rarr;&lt;/td&gt;
 &lt;td style="align:right"&gt;[attr]&lt;/td&gt;
 &lt;td&gt; : &lt;/td&gt;
