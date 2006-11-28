@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.348 2006/11/21 15:50:44 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.349 2006/11/28 18:24:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4771,7 +4771,6 @@ final public function PostInsert()  {
 
 
   final public function UpdateVaultIndex() {
-
     $dvi = new DocVaultIndex($this->dbaccess);
     $err = $dvi->DeleteDoc($this->id);
     $fa=$this->GetFileAttributes();

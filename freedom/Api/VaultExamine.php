@@ -3,20 +3,15 @@
  * Examine vault files
  *
  * @author Anakeen 2004
- * @version $Id: VaultExamine.php.in,v 1.1 2005/09/13 12:53:57 yannick Exp $
+ * @version $Id: VaultExamine.php,v 1.4 2006/11/28 18:24:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
  */
-ini_set("include_path", ".:@prefix@:@prefix@/WHAT:/usr/share/pear");
 ini_set("max_execution_time", "36000");
 
-include_once('Class.Action.php');
-include_once('Class.Application.php');
-include_once('Class.Session.php');
-include_once('Class.Log.php');
 
 include_once('FDL/Class.Doc.php');
 include_once('FDL/Class.DocVaultIndex.php');
