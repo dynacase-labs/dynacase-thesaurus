@@ -1,0 +1,60 @@
+[ZONE CORE:HTMLHEAD]
+
+<script>
+function viewornot(id) {
+  var o=document.getElementById(id);
+  if (o) {
+    if (o.style.display=='none') o.style.display='';
+    else o.style.display='none';
+  }
+}</script>
+
+
+<button onclick="viewornot('genefs')">[TEXT:New Vault FS]</button><div style="display:none" id="genefs"> : directory : <input type=text size=30 name="directory">size : <input type=text size=3 name="size"><select name="unitsize"><option title="[TEXT:thousands bytes]" value="Kb">[TEXT:Kb]</option><option title="[TEXT:million bytes]" selected value="Mb">[TEXT:Mb]</option><option  value="Gb" title="[TEXT:thousands of Megabytes]">[TEXT:Gb]</option><option title="[TEXT:million of Megabytes]" value="Tb">[TEXT:Tb]</option></select><button>[TEXT:Generate FS]</button></div>
+<hr>
+[BLOCK FS]
+<h4>[TEXT:Directory] : [path]</h4>
+<table style="display:none" class="tableborder" width="100%">
+<thead>
+<tr><td style="text-align:center" colspan="4">[TEXT:Total] : <b>[total]</b>, [count] </td></tr>
+</thead>
+<tbody>
+<tr><td style="background-color:#f7ca73;width:[pcoccuped]">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</td>
+    <td style="background-color:#f7da73;width:[pctrash]">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</td>
+    <td style="background-color:#f7ea73;width:[pcorphean]">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean]</td>
+    <td style="background-color:#73f7b4;width:[pcfree]">[TEXT:Free] :  <b>[free]</b> - [pcfree]</td></tr>
+</tbody>
+<tfoot><tr><td style="text-align:right" colspan="4">
+   <input type="button" value="[TEXT:Increase vault size]"> 
+   <input type="button" value="[TEXT:Clear orphan]"> 
+</td></tr></tfoot>
+</table>
+
+
+<table class="tableborder" cellspacing=0 width="100%">
+<tbody>
+<tr><td style="background-color:#f7ca73;width:[pcrealused]"><span style="position:absolute;margin-top:-7px;padding:0px">[TEXT:Used] : <b>[realused]</b> - [pcrealused]</span></td>
+    <td style="background-color:#73f7b4;width:[pcfree]">&nbsp;</td></tr>
+</tbody>
+</table>
+<table class="tableborder" width="100%">
+<thead>
+<tr style="background-color:[COLOR_A8];"><td title="[TEXT:View used detail]" ><a onclick="viewornot('body[fsid]').style.display=''">[TEXT:Detail]</a></td><td  style="text-align:center;" colspan="3">[TEXT:Total] : <b>[total]</b>, [count] </td></tr>
+</thead>
+</table>
+<table class="tableborder" width="100%">
+<tbody id='body[fsid]' style="display:none">
+    <tr><td><div style="background-color:#f7ca73;width:[pcrealused]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Real Used] : <b>[realused]</b> - [pcrealused]</span></div></td></tr>
+    <tr><td><div style="background-color:#f7ba73;width:[pcminoccuped]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</span></div></td></tr>
+    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;background-color:#f7da73;width:[pctrash]">&nbsp;<span style="position:absolute;left:[pcoccuped]%;">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</span></div></td></tr>
+    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="position:absolute;right:[pcoccupedandpctrash]];[IF ISIE]width:200px[ENDIF ISIE]">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>
+    <tr><td align="right"><div style="background-color:#73f7b4;width:[pcminfree]">&nbsp;<span style="position:absolute;right:30px;">[TEXT:Free] :  <b>[free]</b> - [pcfree]</span></div></td></tr>
+</tbody>
+<tfoot><tr><td style="text-align:right" >
+   <input type="button" value="[TEXT:Increase vault size]"> 
+   <input type="button" value="[TEXT:Clear orphan]"> 
+</td></tr></tfoot>
+</table>
+<hr>
+[ENDBLOCK FS]
+[ZONE CORE:HTMLFOOT]
