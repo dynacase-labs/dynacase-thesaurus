@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.7 2005/11/10 16:01:39 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.8 2006/11/30 17:39:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -53,10 +53,43 @@ Class VaultDiskDir extends DbObj {
     parent::__construct($this->vault->dbaccess, $id_dir);
   }
 
+  /**
+   * return name of next directory
+   * 1/1 => 1/2
+   * 1/10 => 2/1
+   * 1/2  = 1/3
+   */
+  function nextdir($d,$max=10) {
+    $td=explode('/',$d);
+    $dend=intval(end($td));
+  
+    $lastkey = end(array_keys($td));
+    if ($dend < $max) {
+      $td[$lastkey]++;
+    } else {
+      $good=false;;
+      $key=$lastkey;
+      while (($key>=0) && (!$good)) {
+	$prev=intval(prev($td));
+	$td[$key]=1;
+	$key--;
+	if ($prev) {
+	  if ($prev < $max) {
+	    $td[$key]++;	  
+	    $good=true;
+	  } 
+	}
+      }
+      if (!$good) $td=array_fill(0,count($td)+1,1);
+    }
+    return implode('/',$td);
+  }
+
   // --------------------------------------------------------------------
-  function SetFreeDir($id_fs) {
+  function SetFreeDir($fs) {
   // --------------------------------------------------------------------
     $query = new QueryDb($this->vault, $this->dbtable);
+    $id_fs=$fs["id_fs"];
     $query->basic_elem->sup_where=array("id_fs=".$id_fs, 
 					"free_entries>0");
     $t = $query->Query(0,0,"TABLE");
@@ -66,8 +99,25 @@ Class VaultDiskDir extends DbObj {
       $this->free_entries--;
       $this->Modify();
     } else {
-      $this->vault->logger->error("Vault dirs full");
-      return(_("no empty vault dir found"));
+      $t=$query->Query(0,0,"TABLE","SELECT * from vaultdiskdirstorage order by id_dir desc limit 1");
+      $lpath=$t[0]["l_path"];
+      $npath=$this->nextdir($lpath);
+      $rpath=$fs["r_path"];
+      
+      $this->id_dir = "";
+      $this->id_fs = $id_fs;
+      $this->l_path = $npath;
+      $this->free_entries = VAULT_MAXENTRIESBYDIR;
+      $this->free_entries--;
+      $err=$this->Add();
+      if ($err == "") {
+	mkdir($rpath."/".$npath, $this->vault->d_mode);
+	chown($rpath."/".$npath, $this->vault->u_owner);
+	chgrp($rpath."/".$npath, $this->vault->g_owner);
+      } else {	
+	$this->vault->logger->error("Vault dirs full");
+	return(_("no empty vault dir found").$err);
+      }      
     }
     return "";
   }

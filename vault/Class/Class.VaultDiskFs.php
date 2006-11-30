@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.9 2005/11/10 16:01:39 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.10 2006/11/30 17:39:01 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -64,9 +64,9 @@ Class VaultDiskFs extends DbObj {
     $this->vault = $vault;
     parent::__construct($this->vault->dbaccess, $id_fs);
     $this->arch = $arch;
-    $this->InitArch();
+    //    $this->InitArch();
   }
-
+ 
   // --------------------------------------------------------------------
   function CreateDir($fs, $dir, $level) {
   // --------------------------------------------------------------------
@@ -93,7 +93,6 @@ Class VaultDiskFs extends DbObj {
 
   // --------------------------------------------------------------------
   function InitArch() {
-  // --------------------------------------------------------------------
     if (!is_array($this->arch)) return;
     while (list($k, $v) = each($this->arch)) {
       $level = 1;
@@ -140,14 +139,14 @@ Class VaultDiskFs extends DbObj {
     $f_path = "";
     $query = new QueryDb($this->vault, $this->dbtable);
     $query->basic_elem->sup_where=array("free_size>".$f_size);
-    $t = $query->Query(0,0,"TABLE");
+    $t = $query->Query(0,1,"TABLE");
   
     if ($query->nb > 0) {
       $ifs = 0;
       $dirfound = FALSE;
       while(!$dirfound && ($ifs < $query->nb)) {
 	$sd = new VaultDiskDir($this->vault, $this->specific);
-	$msg = $sd->SetFreeDir($t[$ifs]["id_fs"]);
+	$msg = $sd->SetFreeDir($t[$ifs]);
 	if ($msg == '') $dirfound = TRUE;
 	else $ifs++;
       }
@@ -188,7 +187,7 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
   function AddEntry($fs) {
   // --------------------------------------------------------------------
-    $this->free_size = $this->max_size - $fs;
+    $this->free_size = $this->free_size - $fs;
     $this->Modify();
   }
  
@@ -197,7 +196,7 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     DbObj::Select($id_fs);
     if ($this->IsAffected()) {
-      $this->free_size = $this->max_size + $fs;
+      $this->free_size = $this->free_size + $fs;
       $this->Modify();
       $sd = new VaultDiskDir($this->vault, $this->specific, $id_dir);
       if ($sd->IsAffected()) {

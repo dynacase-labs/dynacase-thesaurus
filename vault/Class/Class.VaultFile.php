@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.14 2006/11/03 15:17:11 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.15 2006/11/30 17:39:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -13,14 +13,12 @@
 include_once("VAULT/Class.VaultDiskStorage.php");
 include_once("VAULT/Class.VaultCache.php");
 include_once("Class.Log.php");
-
+define("VAULT_MAXENTRIESBYDIR",1000);
 Class VaultFile {
 
   function __construct($access, $vaultname="Sample", $idf=-1) {
 
-    if (!include("VAULT/".$vaultname.".vault")) {
-      return;
-    }
+    
     if (!isset($chrono)) $this->chrono = FALSE;
     else $this->chrono = $chrono;
     $this->idf      = $idf;
@@ -28,11 +26,12 @@ Class VaultFile {
     $this->logger = new Log("", "vault", $this->name);
     if ($this->chrono)  $this->logger->warning("Running with chrono !!!!");
     $this->dbaccess = $access;
-    $this->u_owner  = $u_owner;
-    $this->g_owner  = $g_owner;
-    $this->f_mode   = $f_mode;
-    $this->d_mode   = $d_mode;
-    $this->type     = $vault_type;
+
+    $this->u_owner  = HTTP_USER;
+    $this->g_owner  = HTTP_USER;
+    $this->f_mode   = 0600;
+    $this->d_mode   = 0700;
+    $this->type     = "fs";
     $this->use_cache = TRUE;
     switch ($this->type) {
     case "fs" :

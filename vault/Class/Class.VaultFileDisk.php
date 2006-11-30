@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.12 2006/10/13 13:44:37 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.13 2006/11/30 17:39:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -186,7 +186,7 @@ function seems_utf8($Str) {
     }
 
 
-    //$this->fs->AddEntry($newsize);
+    $this->fs->AddEntry($newsize - $size);
     $this->vault->logger->debug("File $infile saved in $pathname");
     return "";
   }
