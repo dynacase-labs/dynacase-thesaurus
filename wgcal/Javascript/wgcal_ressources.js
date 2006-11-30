@@ -4,7 +4,7 @@ function fcalUpdateCalendar(forcereload) {
   try {
     window.parent.wgcal_calendar.fcalReloadEvents();
   } catch(e) {
-    alert('a marche pas... '+window.parent.id+' error='+e);
+//    alert('a marche pas... '+window.parent.id+' error='+e);
   };
   unglobalcursor();  
 }
