@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT.app,v 1.3 2005/11/15 13:05:41 eric Exp $
+// $Id: VAULT.app,v 1.4 2006/11/30 17:40:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -22,6 +22,9 @@
 // 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 // ---------------------------------------------------------------
 // $Log: VAULT.app,v $
+// Revision 1.4  2006/11/30 17:40:09  eric
+// new initialisation
+//
 // Revision 1.3  2005/11/15 13:05:41  eric
 // application order
 //
@@ -38,7 +41,7 @@ $app_desc = array (
 "description"	=>N_("Vault Management"),//long description
 "access_free"	=>"N",			//Access free ? (Y,N)
 "icon"		=>"vault.gif",	//Icon
-"displayable"	=>"N",			//Should be displayed on an app list (Y,N)
+"displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
 "iorder"        =>140
 );
@@ -55,6 +58,17 @@ $app_acl = array (
 );
 
 $action_desc = array (
+  array( 
+   "name"		=>"VAULT_VIEW",
+   "short_name"		=>N_("analyze vaults occupation"),
+   "acl"		=>"VAULT_MASTER",
+   "root"		=>"Y"
+  ),
+  array( 
+   "name"		=>"VAULT_CREATEFS",
+   "short_name"		=>N_("create new vault"),
+   "acl"		=>"VAULT_MASTER"
+  )
                       );
    
 ?>
