@@ -9,8 +9,11 @@ function viewornot(id) {
   }
 }</script>
 
-
-<button onclick="viewornot('genefs')">[TEXT:New Vault FS]</button><div style="display:none" id="genefs"> : directory : <input type=text size=30 name="directory">size : <input type=text size=3 name="size"><select name="unitsize"><option title="[TEXT:thousands bytes]" value="Kb">[TEXT:Kb]</option><option title="[TEXT:million bytes]" selected value="Mb">[TEXT:Mb]</option><option  value="Gb" title="[TEXT:thousands of Megabytes]">[TEXT:Gb]</option><option title="[TEXT:million of Megabytes]" value="Tb">[TEXT:Tb]</option></select><button>[TEXT:Generate FS]</button></div>
+<button onclick="viewornot('genefs');return false">[TEXT:New Vault FS]</button>
+<form  name="fcreatefs"style="display:inline"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=VAULT&action=VAULT_CREATEFS"><div style="display:none" id="genefs"> : directory : <input type=text size=30 name="directory">size : <input type=text size=3 name="size"><select name="unitsize"><option title="[TEXT:thousands bytes]" value="Kb">[TEXT:Kb]</option><option title="[TEXT:million bytes]" selected value="Mb">[TEXT:Mb]</option><option  value="Gb" title="[TEXT:thousands of Megabytes]">[TEXT:Gb]</option><option title="[TEXT:million of Megabytes]" value="Tb">[TEXT:Tb]</option></select><button>[TEXT:Generate FS]</button></div>
+</form>
 <hr>
 [BLOCK FS]
 <h4>[TEXT:Directory] : [path]</h4>
@@ -47,7 +50,7 @@ function viewornot(id) {
     <tr><td><div style="background-color:#f7ca73;width:[pcrealused]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Real Used] : <b>[realused]</b> - [pcrealused]</span></div></td></tr>
     <tr><td><div style="background-color:#f7ba73;width:[pcminoccuped]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</span></div></td></tr>
     <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;background-color:#f7da73;width:[pctrash]">&nbsp;<span style="position:absolute;left:[pcoccuped]%;">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</span></div></td></tr>
-    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="position:absolute;right:[pcoccupedandpctrash]];[IF ISIE]width:200px[ENDIF ISIE]">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>
+    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="white-space:nowrap;position:absolute;right:[pcoccupedandpctrash]];[IF ISIE]width:200px[ENDIF ISIE]">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>
     <tr><td align="right"><div style="background-color:#73f7b4;width:[pcminfree]">&nbsp;<span style="position:absolute;right:30px;">[TEXT:Free] :  <b>[free]</b> - [pcfree]</span></div></td></tr>
 </tbody>
 <tfoot><tr><td style="text-align:right" >
