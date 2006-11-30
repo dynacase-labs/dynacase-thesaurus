@@ -24,7 +24,6 @@ function SetEventState(cevent, state) {
 // ------------------------------------------------------------
 
 var rvWto = -1;
-
 function composeWaitRvArea(rvl) {
 
   if (!(rvl.status && rvl.status==200)) return;
@@ -38,21 +37,16 @@ function composeWaitRvArea(rvl) {
   var iis = rvlist.childNodes.length - 1;
   for (var ii=iis; ii>=0; ii--) rvlist.removeChild(rvlist.childNodes[ii]);
 
-  var wdiv;
   for (var i=0; i<waitrv.length; i++) {
-    var id = waitrv[i].id;
-
-    wdiv = document.createElement('div');
-    wdiv.setAttribute('id', 'evt'+waitrv[i].id );
+    var wdiv = document.createElement('div');
+    wdiv.setAttribute('id', 'evt'+waitrv[i].id ); 
     wdiv.className = 'wgcalwaitrv';
     wdiv.innerHTML = ' &bull; <span class="wgcalwaitrvtitle" >'+waitrv[i].title+'</span> <span class="wgcalwaitrvdesc">'+waitrv[i].date+', '+waitrv[i].owner+'</span>';
     rvlist.appendChild(wdiv);
-    fcalAddEvent(wdiv, 'click', 
-		 function foo(event) { 
-		   viewmenu(event, UrlRoot+'&app=WGCAL&action=WGCAL_GETMENU&ctx=WRV&ue=f&id='+id); 
-		   return false; } );
+    var imV = waitrv[i].id;
+    addCxMenu(imV);
   }
-  
+
   var dat = new Date();
   var day = dat.getDate();
   var month = dat.getMonth()+1;
@@ -70,6 +64,16 @@ function composeWaitRvArea(rvl) {
   rvWto = setTimeout("getWaitingRv()", (5*60*1000));
 }
  
+function addCxMenu(ix) {
+  var evMenuUrl = UrlRoot+'&app=WGCAL&action=WGCAL_GETMENU&ctx=WRV&ue=f&id=';
+  var toto=document.getElementById('evt'+ix ); 
+  addEvent( toto, 'contextmenu', function (event) {
+	      viewmenu(event, evMenuUrl+ix); 
+	      stopPropagation(event); } 
+	    );
+}
+
+
 function pad(s,l,p) {
   var str = String(s);
   if (str.length<l) str = pad(p+s, l, p);
