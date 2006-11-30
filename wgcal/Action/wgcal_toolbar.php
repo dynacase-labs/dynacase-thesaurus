@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_toolbar.php,v 1.79 2006/11/13 19:25:57 marc Exp $
+ * @version $Id: wgcal_toolbar.php,v 1.80 2006/11/30 11:34:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -20,9 +20,9 @@ include_once('WGCAL/Lib.Agenda.php');
 
 function setJs($jfile) {
   global $action;
-   $jslay = new Layout($jfile, $action);
-   $action->parent->AddJsCode($jslay->gen());
-//    $action->parent->AddJsRef($jfile);
+//    $jslay = new Layout($jfile, $action);
+//    $action->parent->AddJsCode($jslay->gen());
+    $action->parent->AddJsRef($jfile);
 }
 
 

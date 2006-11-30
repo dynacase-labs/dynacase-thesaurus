@@ -2,6 +2,7 @@
  - migration Gnumeric -> ooffice pour les spec des familles
  - alerte par mail
  - vue SIF (pour SyncML) : encodage utf8 en sortie
+ - correction bugs...
 
 2.2.2 / 2.2.1
  - Ajout RSS 'Mes rendez-vous'
