@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ "$dbpsql" == "" ]; then
+  . /etc/freedom.conf
+   wchoose -b
+fi
+
+
+$wpub/wsh.php  --api=import_style --name=DEFAULT
+$wpub/wsh.php  --api=import_style --name=ORIGINAL
+
+for i in $( ls $wpub/STYLE); do
+
+	if [ -f $wpub/STYLE/$i/$i.sty ]; then
+  	     $wpub/wsh.php  --api=import_style --name=$i
+	fi
+done
+$wpub/wstart

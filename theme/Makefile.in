@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.1 2006/11/08 17:47:44 eric Exp $
+# $Id: Makefile.in,v 1.2 2006/12/04 16:06:09 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -16,10 +16,15 @@ GZIP_ENV = --best
 export targetdir PACKAGE
 
 SUBDIR= Style
+TOP_MODULES =  wtheme
 
 include $(utildir)/PubRule
 
-DISTFILES += $(SUBDIR) \
+DISTFILES += $(SUBDIR) wtheme \
             RELEASE VERSION 
 
+$(pubdir):
+	mkdir -p $(pubdir)
+$(pubdir)/wtheme: wtheme $(pubdir)
+	cp $< $@
 
