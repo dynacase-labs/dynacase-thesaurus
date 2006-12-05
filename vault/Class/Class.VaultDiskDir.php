@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.8 2006/11/30 17:39:01 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.9 2006/12/05 18:33:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -26,6 +26,8 @@
 // ---------------------------------------------------------------
 include_once("Class.QueryDb.php");
 
+define("VAULT_MAXENTRIESBYDIR",1000);
+define("VAULT_MAXDIRBYDIR",100);
 Class VaultDiskDir extends DbObj {
 
   public $fields = array ( "id_dir", "id_fs", "free_entries", "l_path" );
@@ -59,7 +61,7 @@ Class VaultDiskDir extends DbObj {
    * 1/10 => 2/1
    * 1/2  = 1/3
    */
-  function nextdir($d,$max=10) {
+  function nextdir($d,$max=VAULT_MAXDIRBYDIR) {
     $td=explode('/',$d);
     $dend=intval(end($td));
   
@@ -99,7 +101,7 @@ Class VaultDiskDir extends DbObj {
       $this->free_entries--;
       $this->Modify();
     } else {
-      $t=$query->Query(0,0,"TABLE","SELECT * from vaultdiskdirstorage order by id_dir desc limit 1");
+      $t=$query->Query(0,0,"TABLE","SELECT * from vaultdiskdirstorage where id_fs=".intval($id_fs)." order by id_dir desc limit 1");
       $lpath=$t[0]["l_path"];
       $npath=$this->nextdir($lpath);
       $rpath=$fs["r_path"];

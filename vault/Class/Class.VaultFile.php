@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.15 2006/11/30 17:39:01 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.16 2006/12/05 18:33:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -13,7 +13,6 @@
 include_once("VAULT/Class.VaultDiskStorage.php");
 include_once("VAULT/Class.VaultCache.php");
 include_once("Class.Log.php");
-define("VAULT_MAXENTRIESBYDIR",1000);
 Class VaultFile {
 
   function __construct($access, $vaultname="Sample", $idf=-1) {

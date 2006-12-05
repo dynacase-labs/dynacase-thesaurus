@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.13 2006/11/30 17:39:01 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.14 2006/12/05 18:33:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -156,7 +156,7 @@ function seems_utf8($Str) {
   // -------------------------------------------------------------------- 
 
 
-    $vf = new VaultFile($this->dbaccess, "FREEDOM");
+    $vf = new VaultFile($this->dbaccess);
     if ($vf->Show($idf, $info) == "") 
     {  
       $path = str_replace("//","/",$info->path);
@@ -184,8 +184,7 @@ function seems_utf8($Str) {
     if (!copy($infile, $path)) {
       return("La copie du fichier $infile dans $path n'a pas r&eacute;ussi...\n");
     }
-
-
+    $this->fs->select($this->id_fs);
     $this->fs->AddEntry($newsize - $size);
     $this->vault->logger->debug("File $infile saved in $pathname");
     return "";

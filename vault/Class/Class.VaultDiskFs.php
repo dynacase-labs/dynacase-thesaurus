@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.10 2006/11/30 17:39:01 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.11 2006/12/05 18:33:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -108,9 +108,20 @@ Class VaultDiskFs extends DbObj {
 	$this->max_entries_by_dir = $v["max_entries_by_dir"];
 	$this->r_path = $v["r_path"];
 	$this->Add();
-	$this->CreateDir($v, "", $level);
+	//	$this->CreateDir($v, "", $level);
       }
     }
+  }
+
+  function createArch($maxsize,$path) {
+    $this->max_size         = $maxsize;
+    $this->free_size        = $maxsize;
+    $this->subdir_cnt_bydir = VAULT_MAXDIRBYDIR;
+    $this->subdir_deep      = 1;
+    $this->max_entries_by_dir = VAULT_MAXENTRIESBYDIR;
+    $this->r_path = $path;
+    $err=$this->Add();    
+    return $err;
   }
 
   // --------------------------------------------------------------------
@@ -152,6 +163,7 @@ Class VaultDiskFs extends DbObj {
       }
       if ($dirfound) {
 	$this->Select($t[0]["id_fs"]);
+	error_log("SetFreeFs:".$t[0]["id_fs"]);
 	$id_fs = $this->id_fs;
 	$id_dir = $sd->id_dir;
 	$f_path = $this->r_path."/".$sd->l_path;
@@ -188,7 +200,8 @@ Class VaultDiskFs extends DbObj {
   function AddEntry($fs) {
   // --------------------------------------------------------------------
     $this->free_size = $this->free_size - $fs;
-    $this->Modify();
+    $err=$this->Modify();
+    error_log("AddEntry $fs [$err]");
   }
  
   // --------------------------------------------------------------------
