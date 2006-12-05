@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_rss.php,v 1.3 2006/11/23 12:31:00 marc Exp $
+ * @version $Id: wgcal_rss.php,v 1.4 2006/12/05 04:41:18 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -121,8 +121,8 @@ function wgcal_rss(&$action) {
 // 		      "title" => setText("[".$cday."] ".$hours." :: ".$edoc[$ve["id"]]->getTitleInfo()),
  		      "title" => setText("".$cday." ".$hours." | ".$edoc[$ve["id"]]->getTitleInfo()),
 		      "owner" => setText($ve["evt_creator"]),
-		      "pdate"  => date("r", FrenchDateToUnixTs($ve["cdate"])),
-		      "description" => setText($ve["evt_desc"]." ".$ve["evfc_location"]),
+		      "pdate"  => date("r", $ve["revdate"]),
+		      "description" => setText($ve["evt_desc"]." ".$ve["evfc_location"]), 
 		      "link" => setText($server.$base."app=FDL&action=IMPCARD&id=".$ve["evt_idinitiator"]),
 		      "base"  => setText(urlencode($base)),
 		      "guid"  => setText($server.$base."app=FDL&action=IMPCARD&id=".$ve["evt_idinitiator"]),
