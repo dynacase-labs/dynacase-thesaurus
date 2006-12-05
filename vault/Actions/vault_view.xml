@@ -34,19 +34,20 @@ function viewornot(id) {
 </table>
 
 
-<table class="tableborder" cellspacing=0 width="100%">
+<table class="tableborder" cellspacing=0 width="100%" style="display:none">
 <tbody>
 <tr><td style="background-color:#f7ca73;width:[pcrealused]"><span style="position:absolute;margin-top:-7px;padding:0px">[TEXT:Used] : <b>[realused]</b> - [pcrealused]</span></td>
     <td style="background-color:#73f7b4;width:[pcfree]">&nbsp;</td></tr>
 </tbody>
 </table>
-<table class="tableborder" width="100%">
+<table class="tableborder" width="100%" style="display:none">
 <thead>
 <tr style="background-color:[COLOR_A8];"><td title="[TEXT:View used detail]" ><a onclick="viewornot('body[fsid]').style.display=''">[TEXT:Detail]</a></td><td  style="text-align:center;" colspan="3">[TEXT:Total] : <b>[total]</b>, [count] </td></tr>
 </thead>
 </table>
-<table class="tableborder" width="100%">
-<tbody id='body[fsid]' style="display:none">
+
+<table class="tableborder" width="100%" style="display:none">
+<tbody id='body[fsid]' >
     <tr><td><div style="background-color:#f7ca73;width:[pcrealused]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Real Used] : <b>[realused]</b> - [pcrealused]</span></div></td></tr>
     <tr><td><div style="background-color:#f7ba73;width:[pcminoccuped]">&nbsp;<span style="position:absolute;left:10px;">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</span></div></td></tr>
     <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;background-color:#f7da73;width:[pctrash]">&nbsp;<span style="position:absolute;left:[pcoccuped]%;">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</span></div></td></tr>
@@ -57,6 +58,24 @@ function viewornot(id) {
    <input type="button" value="[TEXT:Increase vault size]"> 
    <input type="button" value="[TEXT:Clear orphan]"> 
 </td></tr></tfoot>
+</table>
+
+
+<table class="tableborder" width="100%">
+<thead>
+<tr style="background-color:[COLOR_A8];"><td><b>[pcrealused]</b></td><td  style="text-align:center;" colspan="3">[TEXT:Total] : <b>[total]</b>, [count] </td></tr>
+</thead>
+</table>
+<table class="tableborder" width="100%">
+<tbody  >
+    <tr><td style="vertical-align:top" rowspan="5"><table cellspacing="0" style="width:100px;height:100px"><tr><td style="vertical-align:top;width:[pcrealused];background-color:red;"><img style="opacity:0.5;position:absolute;width:100px" src=[IMG:harddrive100.png]></td><td style="background-color:green;width:[pcfree]"></td></tr></table></td>
+        <td style="width:100%"><div style="background-color:#f7ca73;width:[pcrealused]">&nbsp;<span style="position:absolute;left:138px;">[TEXT:Real Used] : <b>[realused]</b> - [pcrealused]</span></div></td></tr>
+    <tr><td><div style="background-color:#f7ba73;width:[pcminoccuped]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</span></div></td></tr>
+    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;background-color:#f7da73;width:[pctrash]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</span></div></td></tr>
+    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>
+    <tr><td align="right"><div style="background-color:#73f7b4;width:[pcminfree]">&nbsp;<span style="position:absolute;right:30px;">[TEXT:Free] :  <b>[free]</b> - [pcfree]</span></div></td></tr>
+</tbody>
+
 </table>
 <hr>
 [ENDBLOCK FS]

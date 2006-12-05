@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.1 2006/11/28 18:28:16 eric Exp $
+ * @version $Id: vault_view.php,v 1.2 2006/12/05 18:34:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -43,6 +43,7 @@ function vault_view(&$action) {
 
 
 
+    $sqlfs="id_fs=".intval($fs["id_fs"])." and ";
     
     $q=new QueryDb($dbaccess,"VaultDiskStorage");
     $q->dbaccess=$dbaccess;
@@ -52,8 +53,9 @@ function vault_view(&$action) {
     $q=new QueryDb($dbaccess,"VaultDiskFsStorage");
     $q->dbaccess=$dbaccess;
     $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
-    $no=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where id_file not in (select vaultid from docvaultindex)"); //Orphean
-    $nt=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z'))"); //trash files
+    
+    $no=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file not in (select vaultid from docvaultindex)"); //Orphean
+    $nt=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z'))"); //trash files
     
     $free=intval($fs["free_size"]);
     $max=intval($fs["max_size"]);

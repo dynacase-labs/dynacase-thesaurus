@@ -3,7 +3,7 @@
  * Create new Vault FS
  *
  * @author Anakeen 2006
- * @version $Id: vault_createfs.php,v 1.1 2006/11/30 17:39:22 eric Exp $
+ * @version $Id: vault_createfs.php,v 1.2 2006/12/05 18:34:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -65,10 +65,19 @@ function vault_createfs(&$action) {
 			       "subdir_deep" => $p-1,
 			       "max_entries_by_dir" =>$max_entries_by_dir ,
 			       "r_path" => $dirname));
-  //$vf->storage->initArch();
-  
+  //  print_r2($vf);
+  $q=new QueryDb($dbaccess,"VaultDiskFsStorage"); 
+  $q->dbaccess=$dbaccess;
+  $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
+  $q->AddQuery("r_path='".pg_escape_string(trim($dirname))."'");
+  $l=$q->Query(0,0,"TABLE");
+  print_r2($l);
+  if ($q->nb==0) {
+    $vf->storage->fs->createArch($size_in_bytes,$dirname);
+    print "<br>create $dirname";
+  }
 
-  print_r2($vf->arch);
+  //  print_r2($vf->arch);
     print "found $dirname";
     print_r2(stat($dirname));
     print_r2(scandir($dirname));
