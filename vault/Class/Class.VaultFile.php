@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.16 2006/12/05 18:33:47 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.17 2006/12/06 11:12:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -13,6 +13,9 @@
 include_once("VAULT/Class.VaultDiskStorage.php");
 include_once("VAULT/Class.VaultCache.php");
 include_once("Class.Log.php");
+define("VAULT_FMODE",0600);
+define("VAULT_DMODE",0700);
+
 Class VaultFile {
 
   function __construct($access, $vaultname="Sample", $idf=-1) {
@@ -36,7 +39,7 @@ Class VaultFile {
     case "fs" :
       $this->use_cache = FALSE;
       $this->logger->debug("Set Storage Type to FS");
-      $this->storage = new VaultDiskStorage($this, $fs);
+      $this->storage = new VaultDiskStorage($access, $fs);
       break;
     default:
       // Not implemented yet
@@ -44,7 +47,7 @@ Class VaultFile {
     if ($this->use_cache) {
       // Please, test before use....
       $this->logger->debug("Instanciate Cache...");
-      $this->cache = new VaultCache($this, $cache_def);
+      $this->cache = new VaultCache($access, $cache_def);
     }
   }
  
@@ -89,6 +92,7 @@ Class VaultFile {
       }
     } else {
       $msg = $this->storage->Show($id_file, $infos);
+ 
       if ($msg!='') $this->logger->error($msg);
       if ($this->chrono) $this->logger->end("Retrieve");
       return($msg);

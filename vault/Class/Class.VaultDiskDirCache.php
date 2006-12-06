@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDirCache.php,v 1.4 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultDiskDirCache.php,v 1.5 2006/12/06 11:12:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDirCache.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,8 +29,8 @@ include_once("VAULT/Class.VaultDiskDir.php");
 
 Class VaultDiskDirCache extends VaultDiskDir {
 
-  function __construct($vault, $def='', $id_dir='') {
-    parent::__construct($vault, "cache", $id_dir);
+  function __construct($dbaccess, $id_dir='') {
+    parent::__construct($dbaccess, $id_dir,"cache", );
   }
 
 }

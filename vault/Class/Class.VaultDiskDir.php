@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskDir.php,v 1.9 2006/12/05 18:33:47 eric Exp $
+// $Id: Class.VaultDiskDir.php,v 1.10 2006/12/06 11:12:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskDir.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -45,14 +45,14 @@ Class VaultDiskDir extends DbObj {
            create sequence seq_id_vaultdiskdir%s start 10";
 
   // --------------------------------------------------------------------
-  function __construct($vault, $def='', $id_dir='') {
+  function __construct($dbaccess,  $id_dir='',$def='') {
   // --------------------------------------------------------------------
     $this->specific = $def;
     $this->dbtable = sprintf($this->dbtable_tmpl, $this->specific);
     $this->sqlcreate = sprintf($this->sqlcreate_tmpl, $this->specific, $this->specific);
     $this->seq = sprintf($this->seq_tmpl, $this->specific);
-    $this->vault = $vault;
-    parent::__construct($this->vault->dbaccess, $id_dir);
+
+    parent::__construct($dbaccess, $id_dir);
   }
 
   /**
@@ -90,7 +90,7 @@ Class VaultDiskDir extends DbObj {
   // --------------------------------------------------------------------
   function SetFreeDir($fs) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $id_fs=$fs["id_fs"];
     $query->basic_elem->sup_where=array("id_fs=".$id_fs, 
 					"free_entries>0");
@@ -113,11 +113,11 @@ Class VaultDiskDir extends DbObj {
       $this->free_entries--;
       $err=$this->Add();
       if ($err == "") {
-	mkdir($rpath."/".$npath, $this->vault->d_mode);
-	chown($rpath."/".$npath, $this->vault->u_owner);
-	chgrp($rpath."/".$npath, $this->vault->g_owner);
+	mkdir($rpath."/".$npath, VAULT_DMODE);
+	chown($rpath."/".$npath, HTTP_USER);
+	chgrp($rpath."/".$npath, HTTP_USER);
       } else {	
-	$this->vault->logger->error("Vault dirs full");
+	error_log("Vault dirs full");
 	return(_("no empty vault dir found").$err);
       }      
     }
@@ -137,7 +137,7 @@ Class VaultDiskDir extends DbObj {
   // --------------------------------------------------------------------
   function Exists($path, $id_fs) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $query->basic_elem->sup_where=array("l_path='".$path."'", "id_fs=".$id_fs);
     $t = $query->Query(0,0,"TABLE");
     return ($query->nb > 0);
@@ -154,7 +154,7 @@ Class VaultDiskDir extends DbObj {
   function FreeEntries($id_fs) {
   // --------------------------------------------------------------------
     $free_entries = 0;
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $query->basic_elem->sup_where=array("free_entries>0", "id_fs=".$id_fs);
     $t = $query->Query(0,0,"TABLE");
     while ($query->nb>0 && (list($k,$v) = each($t))) $free_entries += $v["free_entries"];

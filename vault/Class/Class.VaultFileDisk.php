@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.14 2006/12/05 18:33:47 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.15 2006/12/06 11:12:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -18,18 +18,18 @@ include_once("VAULT/Lib.VaultCommon.php");
 Class VaultFileDisk extends DbObj {
 
   // --------------------------------------------------------------------
-  function __construct($vault, $arch='', $idf='') {
+  function __construct($dbaccess,  $idf='') {
     // --------------------------------------------------------------------     
-    $this->vault = $vault;
-    $this->arch = $arch;
+   
     $this->id_fs = '';
     $this->id_dir = '';
-    DbObj::__construct($vault->dbaccess, $idf);
+    DbObj::__construct($dbaccess, $idf);
     if ($this->storage == 1) {
-      $this->fs = new VaultDiskFsStorage($this->vault, $this->arch, $this->id_fs);
+      $this->fs = new VaultDiskFsStorage($dbaccess, $this->id_fs);
     } else {
-      $this->fs = new VaultDiskFsCache($this->vault, $this->arch, $this->id_fs);
+      $this->fs = new VaultDiskFsCache($dbaccess, $this->id_fs);
     }
+    $this->logger = new Log("", "vault", $this->name);
   }
 
   // --------------------------------------------------------------------
@@ -44,7 +44,7 @@ Class VaultFileDisk extends DbObj {
   // --------------------------------------------------------------------
   function fStat(&$fc, &$fv) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $t = $query->Query(0,0,"TABLE");
     $fc = $query->nb;
     while ($fc>0 && (list($k,$v) = each($t))) $fv += $v["size"];
@@ -55,7 +55,7 @@ Class VaultFileDisk extends DbObj {
   // --------------------------------------------------------------------
   function ListFiles(&$list) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $list = $query->Query(0,0,"TABLE");
     $fc = $query->nb;
     return $fc;
@@ -92,7 +92,7 @@ function seems_utf8($Str) {
     $this->size = filesize($infile);
     $msg = $this->fs->SetFreeFs($this->size, $id_fs, $id_dir, $f_path);
     if ($msg != '') {
-      $this->vault->logger->error("Can't find free entry in vault. [reason $msg]");
+      $this->logger->error("Can't find free entry in vault. [reason $msg]");
       return($msg);
     }
     $this->id_fs = $id_fs;
@@ -110,14 +110,14 @@ function seems_utf8($Str) {
       // Free entry
       return(_("Failed to copy $infile to $f"));
     }
-    if (!chmod($f, $this->vault->f_mode)) {
-      $this->vault->logger->warning("Can't change mode for $f");
+    if (!chmod($f, VAULT_FMODE)) {
+      $this->logger->warning("Can't change mode for $f");
     }
-    if (!chown($f, $this->vault->u_owner) || !chgrp($f, $this->vault->g_owner)) {
-      $this->vault->logger->warning("Can't change owner for $f");
+    if (!chown($f, HTTP_USER) || !chgrp($f, HTTP_USER)) {
+      $this->logger->warning("Can't change owner for $f");
     }
     $this->fs->AddEntry($this->size);
-    $this->vault->logger->debug("File $infile stored in $f");
+    $this->logger->debug("File $infile stored in $f");
     return "";
   }
 
@@ -186,7 +186,7 @@ function seems_utf8($Str) {
     }
     $this->fs->select($this->id_fs);
     $this->fs->AddEntry($newsize - $size);
-    $this->vault->logger->debug("File $infile saved in $pathname");
+    $this->logger->debug("File $infile saved in $pathname");
     return "";
   }
 

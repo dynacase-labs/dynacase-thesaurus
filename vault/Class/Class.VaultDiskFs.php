@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.11 2006/12/05 18:33:47 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.12 2006/12/06 11:12:13 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -56,62 +56,18 @@ Class VaultDiskFs extends DbObj {
            create sequence seq_id_vaultdiskfs%s start 10;";
 
   // --------------------------------------------------------------------
-  function __construct($vault, $arch='', $id_fs='') {
+  function __construct($dbaccess, $id_fs='') {
   // --------------------------------------------------------------------
     $this->dbtable = sprintf($this->dbtable_tmpl, $this->specific);
     $this->sqlcreate = sprintf($this->sqlcreate_tmpl, $this->specific, $this->specific);
     $this->seq = sprintf($this->seq_tmpl, $this->specific);
-    $this->vault = $vault;
-    parent::__construct($this->vault->dbaccess, $id_fs);
-    $this->arch = $arch;
-    //    $this->InitArch();
+    parent::__construct($dbaccess, $id_fs);
+
   }
  
-  // --------------------------------------------------------------------
-  function CreateDir($fs, $dir, $level) {
-  // --------------------------------------------------------------------
-    if ($level <= $fs["subdir_deep"]) {
-      $level++;
-      for ($id=1; $id<=$fs["subdir_cnt_bydir"]; $id++) {
-	$sdir = $dir.$id."/";
-	$this->vault->logger->info("Creating subdir [".$sdir."]");
-	mkdir($this->r_path."/".$sdir, $this->vault->d_mode);
-	chown($this->r_path."/".$sdir, $this->vault->u_owner);
-	chgrp($this->r_path."/".$sdir, $this->vault->g_owner);
-	$sd = new VaultDiskDir($this->vault, $this->specific);
-	$sd->id_fs = $this->id_fs;
-	$sd->l_path = $sdir;
-	$sd->fs = $this;
-	$sd->free_entries = $fs["max_entries_by_dir"];
-	$sd->Add();
-	$this->CreateDir($fs, $sdir, $level);
-      }
-      $level++;
-   }
-  }
 
 
-  // --------------------------------------------------------------------
-  function InitArch() {
-    if (!is_array($this->arch)) return;
-    while (list($k, $v) = each($this->arch)) {
-      $level = 1;
-      if (!file_exists($v["r_path"])) {
-	$this->vault->logger->info("Creating File System [".$v["r_path"]."]");
-	mkdir($v["r_path"], $this->vault->d_mode);
-	chown($v["r_path"], $this->vault->u_owner);
-	chgrp($v["r_path"], $this->vault->g_owner);
-	$this->max_size         = $v["max_size"];
-	$this->free_size        = $v["max_size"];
-	$this->subdir_cnt_bydir = $v["subdir_cnt_bydir"];
-	$this->subdir_deep      = $v["subdir_deep"];
-	$this->max_entries_by_dir = $v["max_entries_by_dir"];
-	$this->r_path = $v["r_path"];
-	$this->Add();
-	//	$this->CreateDir($v, "", $level);
-      }
-    }
-  }
+
 
   function createArch($maxsize,$path) {
     $this->max_size         = $maxsize;
@@ -137,7 +93,7 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
   function Exists($path) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $query->basic_elem->sup_where=array("r_path='".$path."'");
     $t = $query->Query(0,0,"TABLE");
     return ($query->nb > 0);
@@ -148,7 +104,7 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     $id_fs = $id_dir = -1;
     $f_path = "";
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $query->basic_elem->sup_where=array("free_size>".$f_size);
     $t = $query->Query(0,1,"TABLE");
   
@@ -156,7 +112,7 @@ Class VaultDiskFs extends DbObj {
       $ifs = 0;
       $dirfound = FALSE;
       while(!$dirfound && ($ifs < $query->nb)) {
-	$sd = new VaultDiskDir($this->vault, $this->specific);
+	$sd = new VaultDiskDir($this->dbaccess,'', $this->specific);
 	$msg = $sd->SetFreeDir($t[$ifs]);
 	if ($msg == '') $dirfound = TRUE;
 	else $ifs++;
@@ -180,11 +136,11 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
   function Show($id_fs, $id_dir, &$f_path) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $query->basic_elem->sup_where=array("id_fs=".$id_fs);
     $t = $query->Query(0,0,"TABLE");
     if ($query->nb > 0) {
-      $sd = new VaultDiskDir($this->vault, $this->specific, $id_dir);
+      $sd = new VaultDiskDir($this->dbaccess,  $id_dir,$this->specific);
       if ($sd->IsAffected()) {
 	$f_path = $t[0]["r_path"]."/".$sd->l_path;
       } else {
@@ -211,7 +167,7 @@ Class VaultDiskFs extends DbObj {
     if ($this->IsAffected()) {
       $this->free_size = $this->free_size + $fs;
       $this->Modify();
-      $sd = new VaultDiskDir($this->vault, $this->specific, $id_dir);
+      $sd = new VaultDiskDir($this->dbaccess,  $id_dir,$this->specific);
       if ($sd->IsAffected()) {
 	$sd->DelEntry();
       } else {
@@ -226,13 +182,13 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
   function Stats(&$s) {
   // --------------------------------------------------------------------
-    $query = new QueryDb($this->vault, $this->dbtable);
+    $query = new QueryDb($this->dbaccess, $this->dbtable);
     $t = $query->Query(0,0,"TABLE");
     while ($query->nb>0 && (list($k,$v) = each($t))) {
       $s["fs$k"]["root_dir"] = $v["r_path"];
       $s["fs$k"]["allowed_size"] = $v["max_size"];
       $s["fs$k"]["free_size"] = $v["free_size"];
-      $sd = new VaultDiskDir($this->vault, $this->specific);
+      $sd = new VaultDiskDir($this->dbacces, '',$this->specific);
       $s["fs$k"]["free_entries"] =  $sd->FreeEntries($v["id_fs"]);
       unset($sd);
     }
