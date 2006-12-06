@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.349 2006/11/28 18:24:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.350 2006/12/06 08:34:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -420,7 +420,8 @@ final public function PostInsert()  {
       $this->revdate = $date['sec'];
       $this->modify(true,array("cdate","adate","revdate"),true); // to force also execute sql trigger
       if ($this->doctype != "T") {
-	$this->PostCreated(); 
+	$err=$this->PostCreated(); 
+	if ($err!="") AddWarningMsg($err);
 	if ($this->dprofid >0) {
 	  $this->setProfil($this->dprofid);// recompute profil if needed
 	}
@@ -1972,8 +1973,7 @@ final public function PostInsert()  {
 	error_log("FDL SAVE :".$filename."-".$vaultid);
       } else {
 	$err=$vf->Store($filename, false , $vaultid);
-	error_log("FDL STORE :".$filename."-".$vaultid);
-	
+	error_log("FDL STORE [$err]:".$filename."-".$vaultid);	
       }
       if ($ftitle != "") {
 	$vf->Rename($vaultid,$ftitle);
@@ -2199,6 +2199,8 @@ final public function PostInsert()  {
    */
   final public function AddComment($comment='',$level=HISTO_INFO,$code='',$uid='') {
     global $action;
+    if ($this->id=="") return;
+
     $h=new DocHisto($this->dbaccess);
 
     $h->id=$this->id;
