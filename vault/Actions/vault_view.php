@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.2 2006/12/05 18:34:02 eric Exp $
+ * @version $Id: vault_view.php,v 1.3 2006/12/06 12:39:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -29,8 +29,6 @@ function vault_view(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $q=new QueryDb($dbaccess,"VaultDiskFsStorage");
-  $q->dbaccess=$dbaccess;
-  $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
 
 
   // SELECT count(id_file), sum(size) from vaultdiskstorage where id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z')); // trash files
@@ -46,19 +44,16 @@ function vault_view(&$action) {
     $sqlfs="id_fs=".intval($fs["id_fs"])." and ";
     
     $q=new QueryDb($dbaccess,"VaultDiskStorage");
-    $q->dbaccess=$dbaccess;
-    $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
+
     $nf=$q->Query(0,0,"TABLE","select count(id_file),sum(size) from vaultdiskstorage where id_fs='".$fs["id_fs"]."'");
     $used_size=$nf[0]["sum"];
     $q=new QueryDb($dbaccess,"VaultDiskFsStorage");
-    $q->dbaccess=$dbaccess;
-    $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
     
     $no=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file not in (select vaultid from docvaultindex)"); //Orphean
     $nt=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z'))"); //trash files
     
-    $free=intval($fs["free_size"]);
-    $max=intval($fs["max_size"]);
+    $free=doubleval($fs["free_size"]);
+    $max=doubleval($fs["max_size"]);
     $free=$max-$used_size;
     $pci_used=(($max-$free)/$max*100);    
     $pcused=humanreadpc($pci_used);
@@ -102,7 +97,9 @@ function vault_view(&$action) {
 function humanreadsize($bytes) {
   if ($bytes < 1024) return sprintf(_("%d bytes"),$bytes);
   if ($bytes < 1048576) return sprintf(_("%d Kb"),$bytes/1024);
-  return sprintf(_("%d Mb"),$bytes/1048576);  
+  if ($bytes < 1048576*1024) return sprintf(_("%d Mb"),$bytes/1048576);
+  if ($bytes < 1048576*1048576) return sprintf(_("%d Gb"),$bytes/1048576/1024);
+  return sprintf(_("%d Tb"),$bytes/1048576/1048576);  
 }
 function humanreadpc($pc) {
   if ($pc < 1) return sprintf("%.02f%%",$pc);  

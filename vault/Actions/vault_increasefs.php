@@ -3,7 +3,7 @@
  * Increase size of vault file system
  *
  * @author Anakeen 2006
- * @version $Id: vault_increasefs.php,v 1.1 2006/12/06 12:26:12 eric Exp $
+ * @version $Id: vault_increasefs.php,v 1.2 2006/12/06 12:39:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -44,10 +44,11 @@ function vault_increasefs(&$action) {
       $action->AddWarningMsg(sprintf(_("the new size must be upper than %s"),humanreadsize($fs->max_size-$fs->free_size)));
     } else {
       $diff=$size_in_bytes - $fs->max_size; 
-      $action->AddWarningMsg(sprintf(_("adding %s"),humanreadsize($diff)));
       $fs->max_size=$size_in_bytes;
       $fs->free_size+=$diff;
       $err=$fs->modify();
+      if ($err=="")      $action->AddWarningMsg(sprintf(_("adding %s"),humanreadsize($diff)));
+      else $action->AddWarningMsg(sprintf(_("Cannot adding : [%s]"),$err));
     }
 
   }
@@ -59,7 +60,8 @@ function vault_increasefs(&$action) {
 function humanreadsize($bytes) {
   if (abs($bytes) < 1024) return sprintf(_("%d bytes"),$bytes);
   if (abs($bytes) < 1048576) return sprintf(_("%d Kb"),$bytes/1024);
-  return sprintf(_("%d Mb"),$bytes/1048576);  
+  if (abs($bytes) < 1048576*1024) return sprintf(_("%d Mb"),$bytes/1048576);
+  return sprintf(_("%d Gb"),$bytes/1048576/1024);  
 }
 
 ?>
