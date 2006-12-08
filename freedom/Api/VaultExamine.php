@@ -3,7 +3,7 @@
  * Examine vault files
  *
  * @author Anakeen 2004
- * @version $Id: VaultExamine.php,v 1.4 2006/11/28 18:24:59 eric Exp $
+ * @version $Id: VaultExamine.php,v 1.5 2006/12/08 17:51:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -123,7 +123,7 @@ function view($dbaccess, $vaultname, $filter=array()) {
     $file = "";
     $access = false;
     $docs = array();
-    $docids = $dvi->GetDocId($vid);
+    $docids = $dvi->GetDocIds($vid);
     if (is_array($docids) && count($docids)>0) {
   	foreach ($docids as $kk => $vv ) if ($vv->docid!=-1) $docs[] = $vv->docid;
     } else {
