@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.16 2006/01/26 10:50:29 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.17 2006/12/08 17:52:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,11 +21,12 @@ include_once("FDL/Class.Doc.php");
 $famId = GetHttpVars("famid",""); // familly filter
 $docid = GetHttpVars("docid",""); // doc filter
 $method = GetHttpVars("method"); // method to use
+$allrev = (GetHttpVars("revision","N")=="Y"); // method to use
 $arg = GetHttpVars("arg"); // arg for method
 
 
 if  ($famId == "") {
-  print "arg class needed :usage  --famid=<familly id> [--docid=<doc id>] [--method=<method name>]";
+  print "arg class needed :usage  --famid=<familly id> [--docid=<doc id>] [--method=<method name>] [--revision=[N|Y]]";
   return;
 }
 
@@ -47,10 +48,11 @@ if ($famId > 0) {
   $GEN=getGen($dbaccess);
   include_once "FDL$GEN/Class.Doc$famId.php";
 }
+if ($famId === "0") $famId="";
 	
   
 $query = new QueryDb($dbaccess,"Doc$famId");
-$query->AddQuery("locked != -1");
+if (! $allrev) $query->AddQuery("locked != -1");
 $query->AddQuery("doctype != 'T'");
 if ($docid > 0) $query->AddQuery("id = $docid");
 
