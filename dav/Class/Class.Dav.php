@@ -149,7 +149,7 @@
     $files=array();
     $fldid=$this->path2id($fspath,$vid);
            
-    if ($fspath=="/freedav") {
+    if (strtolower($fspath)=="/freedav") {
       $info = array();   
       $info["props"] = array();
       $info["props"][] = $this->mkprop("resourcetype", "collection");

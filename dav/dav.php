@@ -30,8 +30,8 @@ if ($_SERVER['PHP_AUTH_USER']=="") {
   $login=$_SERVER['PHP_AUTH_USER'];
  }
 if (! $login) {	
-  if (((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="OPTIONS")) ||
-      ((($path == "/")||($path == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="PROPFIND"))) {
+  if (((($path == "/")||(strtolower($path) == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="OPTIONS")) ||
+      ((($path == "/")||(strtolower($path) == "/freedav")) && ($_SERVER['REQUEST_METHOD']=="PROPFIND"))) {
     // keep without authenticate
   } else {
   //	header('HTTP/1.0 401 Unauthorized');

@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.6 2006/11/24 09:40:05 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.7 2006/12/08 17:52:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -150,7 +150,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     $files=array();
     $fldid=$this->path2id($fspath,$vid);
            
-    if ($fspath=="/freedav") {
+    if (strtolower($fspath)=="/freedav") {
       $info = array();   
       $info["props"] = array();
       $info["props"][] = $this->mkprop("resourcetype", "collection");
