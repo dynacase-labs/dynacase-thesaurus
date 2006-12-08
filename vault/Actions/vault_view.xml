@@ -75,7 +75,7 @@ function unview(id) {
 <table class="tableborder" width="100%">
 <thead>
 <tr><td style="text-align:left;;background-color:[COLOR_A9];" colspan="2"><input style="float:right" type="button" onclick="unview('tmove[fsid]');view('tincrease[fsid]');return false" value="[TEXT:Increase vault size]"> 
-   <input  style="float:right" type="button" value="[TEXT:Clear orphan]"> 
+   [IF orphan]<input  style="float:right" type="button" onclick="document.location.href='[CORE_STANDURL]&app=VAULT&action=VAULT_CLEAN&idfs=[fsid]&clean=orphan'" value="[TEXT:Clear orphan]"> [ENDIF orphan]
    <input  style="float:right" type="button" value="[TEXT:Clear Trash]"> 
    <input  style="float:right" type="button" onclick="unview('tincrease[fsid]');view('tmove[fsid]');return false" value="[TEXT:Move directory]"><h4 >[TEXT:Directory] : [path]</h4></td></tr>
 <tr id="tincrease[fsid]" style="display:none;background-color:[COLOR_A8];"><td colspan="2" style="text-align:center">
@@ -102,7 +102,7 @@ function unview(id) {
         <td style="width:100%"><div style="background-color:#f7ca73;width:[pcrealused]">&nbsp;<span style="position:absolute;left:138px;">[TEXT:Real Used] : <b>[realused]</b> - [pcrealused]</span></div></td></tr>
     <tr><td><div style="background-color:#f7ba73;width:[pcminoccuped]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Used] : <b>[used]</b> - [pcoccuped]</span></div></td></tr>
     <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;background-color:#f7da73;width:[pctrash]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Trash] : <b>[trash_size]</b> - [pctrash]</span></div></td></tr>
-    <tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>
+    [IF orphan]<tr><td><div style="float:left;width:[pcminoccuped]">&nbsp;</div><div style="float:left;width:[pcmintrash]">&nbsp;</div><div style="float:left;background-color:#f7ea73;width:[pcminorphean]">&nbsp;<span style="position:absolute;left:150px;">[TEXT:Orphean] : <b>[orphean_size]</b> - [pcorphean] </span></div></td></tr>[ENDIF orphan]
     <tr><td align="right"><div style="background-color:#73f7b4;width:[pcminfree]">&nbsp;<span style="position:absolute;right:30px;">[TEXT:Free] :  <b>[free]</b> - [pcfree]</span></div></td></tr>
 </tbody>
 

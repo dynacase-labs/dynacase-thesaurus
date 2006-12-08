@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.3 2006/12/06 12:39:15 eric Exp $
+ * @version $Id: vault_view.php,v 1.4 2006/12/08 17:53:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -49,7 +49,7 @@ function vault_view(&$action) {
     $used_size=$nf[0]["sum"];
     $q=new QueryDb($dbaccess,"VaultDiskFsStorage");
     
-    $no=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file not in (select vaultid from docvaultindex)"); //Orphean
+    $no=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file not in (select vaultid from docvaultindex where docid>0)"); //Orphean
     $nt=$q->Query(0,0,"TABLE","SELECT count(id_file), sum(size) from vaultdiskstorage where $sqlfs id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z'))"); //trash files
     
     $free=doubleval($fs["free_size"]);
@@ -75,6 +75,7 @@ function vault_view(&$action) {
 		   "path"=>$fs["r_path"]);
 
     $tfs[$k]["count"]=sprintf(_("%d stored files"),$nf[0]["count"]);
+    $tfs[$k]["orphan"]=($no[0]["count"]>0);
     $tfs[$k]["orphean_count"]=$no[0]["count"];
     $tfs[$k]["orphean_size"]=humanreadsize($no[0]["sum"]);
     $pci_orphean=(($no[0]["sum"]/$max)*100);

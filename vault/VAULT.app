@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT.app,v 1.5 2006/12/06 12:39:15 eric Exp $
+// $Id: VAULT.app,v 1.6 2006/12/08 17:53:48 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,6 +41,11 @@ $action_desc = array (
   array( 
    "name"		=>"VAULT_CREATEFS",
    "short_name"		=>N_("create new vault"),
+   "acl"		=>"VAULT_MASTER"
+  ),
+  array( 
+   "name"		=>"VAULT_CLEAN",
+   "short_name"		=>N_("delete orphan"),
    "acl"		=>"VAULT_MASTER"
   ),
   array( 
