@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.12 2006/12/06 11:12:13 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.13 2006/12/14 17:15:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -70,13 +70,17 @@ Class VaultDiskFs extends DbObj {
 
 
   function createArch($maxsize,$path) {
-    $this->max_size         = $maxsize;
-    $this->free_size        = $maxsize;
-    $this->subdir_cnt_bydir = VAULT_MAXDIRBYDIR;
-    $this->subdir_deep      = 1;
-    $this->max_entries_by_dir = VAULT_MAXENTRIESBYDIR;
-    $this->r_path = $path;
-    $err=$this->Add();    
+    if (!is_dir($path)) $err=sprintf(_("%s directory not found"),$path);
+    elseif (!is_writable($path)) $err=sprintf(_("%s directory not writable"),$path);
+    if ($err=="") {
+      $this->max_size         = $maxsize;
+      $this->free_size        = $maxsize;
+      $this->subdir_cnt_bydir = VAULT_MAXDIRBYDIR;
+      $this->subdir_deep      = 1;
+      $this->max_entries_by_dir = VAULT_MAXENTRIESBYDIR;
+      $this->r_path = $path;
+      $err=$this->Add();    
+    }
     return $err;
   }
 
