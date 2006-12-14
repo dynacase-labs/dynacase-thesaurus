@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT.app,v 1.6 2006/12/08 17:53:48 eric Exp $
+// $Id: VAULT.app,v 1.7 2006/12/14 17:14:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,11 @@ $action_desc = array (
    "name"		=>"VAULT_INCREASEFS",
    "short_name"		=>N_("increase size vault"),
    "acl"		=>"VAULT_MASTER"
+  ),
+  array( 
+   "name"		=>"VAULT_DISKIMAGE",
+   "short_name"		=>N_("view image for free size"),
+   "acl"		=>"VAULT_USER"
   ),
   array( 
    "name"		=>"VAULT_MOVEFS",

@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.4 2006/12/08 17:53:48 eric Exp $
+ * @version $Id: vault_view.php,v 1.5 2006/12/14 17:14:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -34,7 +34,7 @@ function vault_view(&$action) {
   // SELECT count(id_file), sum(size) from vaultdiskstorage where id_file in (select vaultid from docvaultindex where docid in (select id from doc where doctype='Z')); // trash files
 
   // SELECT count(id_file), sum(size) from vaultdiskstorage where id_file not in (select vaultid from docvaultindex); //Orphean
-
+  $q->order_by="id_fs";
   $l=$q->Query(0,0,"TABLE");
 
   foreach ($l as $k=>$fs) {
@@ -64,7 +64,7 @@ function vault_view(&$action) {
     $pceffused=sprintf("%d%%",$pci_effused);
     $pci_free=(100-$pci_used);
     $pcfree=humanreadpc($pci_free);
-    $tfs[$k]=array("pcoccuped"=>$pceffused,
+    $tfs[$k]=array("pcoccuped"=>humanreadsize($pci_effused),
 		   "pcfree"=>$pcfree,
 		   "fsid"=>$fs["id_fs"],
 		   "free"=>humanreadsize($free),
