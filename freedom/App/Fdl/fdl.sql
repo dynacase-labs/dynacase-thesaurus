@@ -414,6 +414,34 @@ return NEW;
 end;
 ' language 'plpgsql';
 
+create or replace function vaultreindex(int, text) 
+returns bool as '
+declare 
+  a_docid alias for $1;
+  sfile alias for $2;
+  rvalue bool;
+  wt text;
+  wti int;
+  i int;	
+begin
+  i:=2;
+  LOOP
+    -- some computations
+    wt:=split_part(sfile,''|'',i);
+    IF wt = '''' THEN
+        EXIT;  -- exit loop
+    END IF;
+    wt:=split_part(wt,''\n'',1);
+    wti=wt::int;
+    --RAISE NOTICE ''wt %'',wt;
+    insert into docvaultindex(docid,vaultid) values (a_docid,wti);
+
+    i:=i+1;
+  END LOOP;
+    
+  return rvalue;
+end;
+' language 'plpgsql';
 
 create or replace function getreldocfld(int) 
 returns int[] as '
