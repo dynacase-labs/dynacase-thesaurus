@@ -1412,6 +1412,7 @@ function quicksave() {
 
 function submittextarea() {
   // for htmlarea
+  return;
   for (var i=0;i< editors.length; i++) {
     editors[i]._formSubmit();
   }

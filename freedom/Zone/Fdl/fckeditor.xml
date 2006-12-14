@@ -1,0 +1,44 @@
+<script type="text/javascript">
+
+function trackKeysQuickSave(event) {
+  var intKeyCode,ctrlKey;
+
+  if (!event) event=window.event;
+ 
+  intKeyCode = event.which;
+  if (!intKeyCode) intKeyCode= event.keyCode;
+  //alert(intKeyCode);
+  ctrlKey = event.ctrlKey;
+  if (((intKeyCode == 115)||(intKeyCode == 83)) && ( ctrlKey)) {
+    // Ctrl-S
+    if (quicksave) quicksave();
+    else if (window.parent.quicksave) window.parent.quicksave();
+    
+    //  window.parent.quicksave();  
+    if (stopPropagation) stopPropagation(event);
+    else if (window.parent.stopPropagation) window.parent.stopPropagation(event);    
+  }
+}
+
+var oFCKeditor[aid] = new FCKeditor( '_[aid]' ) ;
+
+oFCKeditor[aid].BasePath = 'fckeditor/';
+oFCKeditor[aid].Config['FullPage'] = false ;
+oFCKeditor[aid].Config['SkinPath'] =  'skins/silver/';
+//oFCKeditor[aid].Config['FontNames'] =  'serif;sans-serif;cursive;fantasy;monospace' ;
+oFCKeditor[aid].ToolbarSet = 'Simple';
+oFCKeditor[aid].Config["CustomConfigurationsPath"] = "../../FDL/Layout/fdl_fckeditor.js"  ;
+oFCKeditor[aid].Height='100%';
+oFCKeditor[aid].Value='[Value]';
+
+oFCKeditor[aid].Create();
+
+function trackQS() {
+  var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
+
+  if (oEditor.EditorDocument) addEvent(oEditor.EditorDocument,"keydown",trackKeysQuickSave);
+  else window.setTimeout( trackQS, 1000 ) ;
+}
+
+addEvent(window,"load",trackQS);
+</script>

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.107 2006/08/11 15:50:10 eric Exp $
+ * @version $Id: editutil.php,v 1.108 2006/12/14 16:52:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -122,23 +122,29 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	$vf = newFreeVaultFile($dbaccess);
 	if ($vf -> Show ($reg[2], $info) == "") {
 	  $vid=$reg[2];
-	  $DAV=false;
+	  $DAV=getParam("FREEDAV_SERVEUR",false);
+	 
 	  if ($DAV) {
+	    global $action;
+	    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/DAV/Layout/getsessionid.js");
+
+	    /*
 	    if (ereg("Linux",$_SERVER["HTTP_USER_AGENT"],$regi)) {
 	      $fname = "<A target=\"$attrid\" href=\"".
 		"vnd.sun.star.webdav://".$_SERVER["HTTP_HOST"].
 		"/davfreedom/doc".$doc->id."/".$info->name."\">";
 	    } else {
-	    $davurl="http://".$_SERVER["HTTP_HOST"].
+	      $davurl="http://".$_SERVER["HTTP_HOST"].
 		"/davfreedom/doc".$doc->id."/";
 	      $fname .= '<A style="behavior: url(#default#AnchorClick)" '."target=\"F$attrid\" href=\"".$davurl.$info->name."\" folder=\"".$davurl."\">";
 	      $fname .= "wfolder";
 	      $fname .= "</A> ";
-	      
-
-	     
-	      $fname .= "<A target=\"$attrid\" href=\"".$davurl.$info->name."\">";
+	      	     
+	      $fname .= "<A target=\"$attrid\" href=\"".$davurl.$info->name."\">";	      
 	    }
+	  */
+	    $oc="onclick=\"var sid=getsessionid('".$docid."','$vid');this.href='asdav://$DAV/freedav/vid-'+sid+'/$info->name'\"";
+	     $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc>";
 	  } else {
 	  $fname = "<A target=\"$attrid\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
@@ -181,6 +187,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       break;
       //----------------------------------------
     case "htmltext": 
+      /*
       $expid="exp".$attrid;
       $input="<textarea $oc  style=\"width:100%\" rows=\"20\"   name=\"".
 	$attrin."\" ";
@@ -189,10 +196,18 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $input .= " >".
 	htmlentities(stripslashes($value)).
 	"</textarea>";
-
+      */
 
       //      $input .= "<input type=\"button\" onclick=\"var editor$attridk = new HTMLArea('$attridk');editor$attridk.generate();\" value=\"Y\"></input>";
-      $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
+      // $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
+
+      $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
+      $lay->set("Value",str_replace(array("\n","\r","'"),array(" "," ","\\'"), $value));
+      $lay->set("aid",$attridk);
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
+
     
       break;
       //----------------------------------------
@@ -937,9 +952,11 @@ function getLayIdoc(&$doc, &$oattr,$attridk,$attrin,$value,$zone="") {
  */
 function editmode(&$action) {
   
-  $action->parent->AddJsRef("htmlarea/htmlarea.js");
+  /*$action->parent->AddJsRef("htmlarea/htmlarea.js");
   $action->parent->AddJsRef("htmlarea/htmlarea-lang-en.js");
-  $action->parent->AddJsRef("htmlarea/dialog.js");
+  $action->parent->AddJsRef("htmlarea/dialog.js");*/
+  
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/fckeditor/fckeditor.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");

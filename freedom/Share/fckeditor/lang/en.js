@@ -1,0 +1,3 @@
+
+
+FCKLang['DlgQuickSaveTitle']		= 'Quick save' ;

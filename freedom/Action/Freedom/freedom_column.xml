@@ -18,8 +18,6 @@
 
 
 TH {
-  font-family: [CORE_FONTLIST1];
-  font-size: [CORE_FONTBASESIZE];
   font-weight: normal;  
   font-style: italic;
   text-align:left;
