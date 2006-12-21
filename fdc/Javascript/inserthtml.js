@@ -118,7 +118,7 @@ function insertXMlResponse(xmlres) {
 }
 
 function clipboardWait(o) {
-  if (o) o.innerHTML='<table style="width:100%;height:100%"><tr><td align="center"><img style="width:48px"  src="Images/b_wait.gif"></tr></td></table>';
+  if (o) o.innerHTML='<table style="width:100%;height:100%"><tr><td align="center"><img style="width:30px"  src="Images/loading.gif"></tr></td></table>';
 }
 /**
  * set SYNCHRO to true
