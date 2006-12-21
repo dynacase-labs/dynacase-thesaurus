@@ -185,7 +185,7 @@ function _WsetDateTime($d="") {
     case "CES" : $ts -= 3600; break;
     //case "CET" : $ts -= 3600; break;
   }
-  $r = gmstrftime("%Y%m%dT%H%M%S00Z",  $ts);
+  $r = gmstrftime("%Y%m%dT%H%M%SZ",  $ts);
   return $r;
 }
 
