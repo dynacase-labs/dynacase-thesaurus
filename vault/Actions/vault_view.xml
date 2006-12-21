@@ -22,26 +22,18 @@ function unview(id) {
 <button onclick="viewornot('genefs');return false">[TEXT:New Vault FS]</button>
 <form  name="fcreatefs"style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
-      action="[CORE_STANDURL]&app=VAULT&action=VAULT_CREATEFS"><div style="display:none" id="genefs"> : directory : <input type=text size=30 name="directory">size : <input type=text size=3 name="size"><select name="unitsize"><option title="[TEXT:thousands bytes]" value="Kb">[TEXT:Kb]</option><option title="[TEXT:million bytes]" selected value="Mb">[TEXT:Mb]</option><option  value="Gb" title="[TEXT:thousands of Megabytes]">[TEXT:Gb]</option><option title="[TEXT:million of Megabytes]" value="Tb">[TEXT:Tb]</option></select><button>[TEXT:Generate FS]</button></div>
+      action="[CORE_STANDURL]&app=VAULT&action=VAULT_CREATEFS"><div style="display:none" id="genefs"> [TEXT:Directory] : <input type=text size=30 name="directory"> [TEXT:Size] : <input type=text size=3 name="size"><select name="unitsize"><option title="[TEXT:thousands bytes]" value="Kb">[TEXT:Kb]</option><option title="[TEXT:million bytes]" selected value="Mb">[TEXT:Mb]</option><option  value="Gb" title="[TEXT:thousands of Megabytes]">[TEXT:Gb]</option><option title="[TEXT:million of Megabytes]" value="Tb">[TEXT:Tb]</option></select><button>[TEXT:Generate new vault]</button></div>
 </form>
 <hr>
 [BLOCK FS]
-<h4 style="width:100%;display:none">[TEXT:Directory] : [path]<input style="float:right" type="button" value="[TEXT:Increase vault size]"> 
-   <input  style="float:right" type="button" value="[TEXT:Clear orphan]"> 
-   <input  style="float:right" type="button" value="[TEXT:Clear Trash]"> 
-   <input  style="float:right" type="button" value="[TEXT:Move directory]"></h4>
-
-
-
-
-
-
-<table class="tableborder" width="800px"  onmouseover="view('inputs[fsid]')" onmouseout="unview('inputs[fsid]')">
+<table class="tableborder" width="700px"  onmouseover="view('inputs[fsid]')" onmouseout="unview('inputs[fsid]')">
 <thead>
-<tr><td style="text-align:left;;background-color:[COLOR_A9];" colspan="2"><span id="inputs[fsid]" style="visibility:hidden"><input style="float:right" type="button" onclick="unview('tmove[fsid]');view('tincrease[fsid]');return false" value="[TEXT:Increase vault size]"> 
-   [IF orphan]<input  style="float:right" type="button" onclick="document.location.href='[CORE_STANDURL]&app=VAULT&action=VAULT_CLEAN&idfs=[fsid]&clean=orphan'" value="[TEXT:Clear orphan]"> [ENDIF orphan]
-   <input  style="float:right" type="button" value="[TEXT:Clear Trash]"> 
-   <input  style="float:right" type="button" onclick="unview('tincrease[fsid]');view('tmove[fsid]');return false" value="[TEXT:Move directory]"></span><h4 >[TEXT:Directory] : [path]</h4></td></tr>
+<tr><td style="text-align:left;;background-color:[COLOR_A9];" colspan="2"><b>[TEXT:Directory] : [path]</b><br>
+       <span id="inputs[fsid]" style="visibility:hidden">
+         <input  type="button" onclick="unview('tmove[fsid]');view('tincrease[fsid]');return false" value="[TEXT:Increase vault size]"> 
+	 [IF orphan]<input   type="button" onclick="document.location.href='[CORE_STANDURL]&app=VAULT&action=VAULT_CLEAN&idfs=[fsid]&clean=orphan'" value="[TEXT:Clear orphan]"> [ENDIF orphan]	 
+	 <input type="button" onclick="unview('tincrease[fsid]');view('tmove[fsid]');return false" value="[TEXT:Move directory]"></span>
+      </td></tr>
 <tr id="tincrease[fsid]" style="display:none;background-color:[COLOR_A8];"><td colspan="2" style="text-align:center">
    <form  name="increase[fsid]" style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
@@ -57,7 +49,7 @@ function unview(id) {
         <input type="submit" value="[TEXT:Move FS]">
    </form>
 </td></tr>
-<tr style="background-color:[COLOR_A8];height:2px"><td colspan="2">&nbsp;</td></tr>
+<tr style="background-color:[COLOR_A8];height:2px"><td colspan="2"></td></tr>
 </thead>
 <tbody  >
     <tr>
@@ -72,7 +64,7 @@ function unview(id) {
 </tr>
 </tbody>
 </table>
+<br>
 
-<hr>
 [ENDBLOCK FS]
 [ZONE CORE:HTMLFOOT]

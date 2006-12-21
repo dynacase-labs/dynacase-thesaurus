@@ -3,7 +3,7 @@
  * Create new Vault FS
  *
  * @author Anakeen 2006
- * @version $Id: vault_createfs.php,v 1.2 2006/12/05 18:34:02 eric Exp $
+ * @version $Id: vault_createfs.php,v 1.3 2006/12/21 18:01:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -40,50 +40,35 @@ function vault_createfs(&$action) {
 
 
 
-  if (!is_dir($dirname)) $action->exitError(sprintf(_("%s directory not found"),$dirname));
-  if (!is_writable($dirname)) $action->exitError(sprintf(_("%s directory not writable"),$dirname));
-  $telts=scandir($dirname);
-  if (count($telts)>2) $action->exitError(sprintf(_("%s directory not empty"),$dirname));
+  if (!is_dir($dirname)) $err=sprintf(_("%s directory not found"),$dirname);
+  if ($err=="") {
+    if (!is_writable($dirname)) $err=sprintf(_("%s directory not writable"),$dirname);
+    if ($err=="") {
+      $telts=scandir($dirname);
+      if (count($telts)>2) $err=sprintf(_("%s directory not empty"),$dirname);
 
-  $nfiles=$size_in_bytes/1024;
-  $max_entries_by_dir=1500;
-  $ndir=intval($nfiles/$max_entries_by_dir);
-  $subdir_cnt_bydir=100;
-  $subdir_deep=round(log($ndir)/log($subdir_cnt_bydir)+1);
-  print "ndir: $ndir<bR>";
-  $p=1;$nr=0;
-  while ($nr<$ndir) {
-    $nr+=pow($subdir_cnt_bydir,$p);    
-    print "$p)nr: $nr<bR>";
-    $p++;
+      if ($err=="") {
+	
+	$vf=new VaultFile($dbaccess);
+	
+	//  print_r2($vf);
+	$q=new QueryDb($dbaccess,"VaultDiskFsStorage"); 
+	$q->AddQuery("r_path='".pg_escape_string(trim($dirname))."'");
+	$l=$q->Query(0,0,"TABLE");
+
+	if ($q->nb==0) {
+	  $vf->storage->fs->createArch($size_in_bytes,$dirname);
+	  $action->AddWarningMsg(sprintf(_("create vault %s"), $dirname));
+	}else {
+	  $err= sprintf(_("vault already created %s: aborted\n"),$dirname);    
+	}
+      }
+    }
   }
-
-  print "nr: $nr<bR>";
-  $vf=new VaultFile($dbaccess);
-  $vf->arch=array("NEW"=>array("max_size" => $size_in_bytes,
-			       "subdir_cnt_bydir" => $subdir_cnt_bydir,
-			       "subdir_deep" => $p-1,
-			       "max_entries_by_dir" =>$max_entries_by_dir ,
-			       "r_path" => $dirname));
-  //  print_r2($vf);
-  $q=new QueryDb($dbaccess,"VaultDiskFsStorage"); 
-  $q->dbaccess=$dbaccess;
-  $q->basic_elem->dbaccess=$dbaccess; // correct for special constructor
-  $q->AddQuery("r_path='".pg_escape_string(trim($dirname))."'");
-  $l=$q->Query(0,0,"TABLE");
-  print_r2($l);
-  if ($q->nb==0) {
-    $vf->storage->fs->createArch($size_in_bytes,$dirname);
-    print "<br>create $dirname";
-  }
-
-  //  print_r2($vf->arch);
-    print "found $dirname";
-    print_r2(stat($dirname));
-    print_r2(scandir($dirname));
-    print_r2(is_writable($dirname));
   
-
+  if ($err!="") $action->AddWarningMsg($err);
+  redirect($action,"VAULT","VAULT_VIEW",$action->GetParam("CORE_STANDURL"));
+  
 }
 
 
