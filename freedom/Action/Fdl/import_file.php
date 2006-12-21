@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.119 2006/10/05 09:02:53 eric Exp $
+ * @version $Id: import_file.php,v 1.120 2006/12/21 17:50:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -388,7 +388,7 @@ function add_import_file(&$action, $fimport) {
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
       }
      
-      $oattr->type = $data[6];
+      $oattr->type = trim(strtolower($data[6]));
 
       $oattr->ordered = $data[7];
       $oattr->visibility = $data[8];
