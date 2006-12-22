@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.6 2006/06/15 15:58:49 eric Exp $
+ * @version $Id: modattribute.php,v 1.7 2006/12/22 14:39:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,7 +36,6 @@ function modattribute(&$action) {
   $action->lay->set("CODE","OK");
   $action->lay->set("warning","");
  
-
   
   $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
@@ -62,6 +61,7 @@ function modattribute(&$action) {
 	$vis=$a->mvisibility;
 	if (strstr("WO", $vis) === false)  $err=sprintf(_("visibility %s does not allow modify attribute %s for document %s"),$vis,$a->labelText,$doc->title);
 	if ($err == "") {    
+	  $value=utf8_decode($value);
 	  if ($a->type == "file") {
 	    $err=$doc->SetTextValueInFile($attrid,$value);
 	     
@@ -83,7 +83,7 @@ function modattribute(&$action) {
   } else {
     if ($attrid) $action->lay->set("thetext",$doc->getHtmlAttrValue($attrid)); 
   }
-  $action->lay->set("warning",utf8_encode($err));
+  if ($err!="") $action->lay->set("warning",utf8_encode($err));
   $action->lay->set("count",1);
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
 

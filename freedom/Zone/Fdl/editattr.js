@@ -163,15 +163,21 @@ function attributeSend(event,menuurl,cible,newval) {
       // branch for IE/Windows ActiveX version
       ATTRREQ = new ActiveXObject("Microsoft.XMLHTTP");
     }
+    var BOUNDARY='--------Eric TYYOUPLABOOM7893';
     if (ATTRREQ) {
       //ATTRREQ.onreadystatechange = reqEditAttr ;
 
         ATTRREQ.open("POST", menuurl,false); 
-	ATTRREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
+	//ATTRREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  
+	ATTRREQ.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
 	ATTRCIBLE=cible;
-
-	if (newval) ATTRREQ.send('value='+escape(newval));
-	else ATTRREQ.send('');
+	if (newval) { 
+	  var bs = new String("\r\n--" + BOUNDARY + "\r\n");
+	  bs += "Content-Disposition: form-data; name=\"value\"\r\n\r\n";
+	  bs += newval;
+	  bs += "\r\n";
+	  ATTRREQ.send(bs);
+	} else ATTRREQ.send('');
 	
 	
 	INPROGRESSATTR=false;
