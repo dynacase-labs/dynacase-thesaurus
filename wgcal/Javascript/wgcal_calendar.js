@@ -360,7 +360,12 @@ function fcalGetAllEvents(ress) {
 	alert(fcalStatus.statusText);
 	fcalEvents = new Array();
       } else {
+        var e;
+        try {
 	fcalEvents = _fcalTmpEvents;
+        } catch(e) {
+          alert(e);
+        }
       }
     }
   } else {
