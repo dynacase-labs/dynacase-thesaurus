@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-06 12:39+0100\n"
+"POT-Creation-Date: 2006-12-22 09:16+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -19,6 +19,14 @@ msgid "no empty vault dir found"
 msgstr ""
 
 msgid "Directory already exists"
+msgstr ""
+
+#, c-format
+msgid "%s directory not found"
+msgstr ""
+
+#, c-format
+msgid "%s directory not writable"
 msgstr ""
 
 msgid "File System already exists"
@@ -60,18 +68,16 @@ msgstr ""
 msgid "create new vault"
 msgstr ""
 
+msgid "delete orphan"
+msgstr ""
+
 msgid "increase size vault"
 msgstr ""
 
+msgid "view image for free size"
+msgstr ""
+
 msgid "move root directory vault"
-msgstr ""
-
-#, c-format
-msgid "%s directory not found"
-msgstr ""
-
-#, c-format
-msgid "%s directory not writable"
 msgstr ""
 
 #, c-format
@@ -80,6 +86,14 @@ msgstr ""
 
 #, c-format
 msgid "%s directory not empty"
+msgstr ""
+
+#, c-format
+msgid "create vault %s"
+msgstr ""
+
+#, c-format
+msgid "vault already created %s: aborted\n"
 msgstr ""
 
 #, c-format
@@ -118,7 +132,21 @@ msgstr ""
 msgid "Cannot adding : [%s]"
 msgstr ""
 
+#, c-format
+msgid "Orphan Cleaned in %s directory"
+msgstr ""
+
+#, c-format
+msgid "Error : Cleaning %s  status %d"
+msgstr ""
+
 msgid "New Vault FS"
+msgstr ""
+
+msgid "Directory"
+msgstr ""
+
+msgid "Size"
 msgstr ""
 
 msgid "thousands bytes"
@@ -145,10 +173,7 @@ msgstr ""
 msgid "Tb"
 msgstr ""
 
-msgid "Generate FS"
-msgstr ""
-
-msgid "Directory"
+msgid "Generate new vault"
 msgstr ""
 
 msgid "Increase vault size"
@@ -157,10 +182,19 @@ msgstr ""
 msgid "Clear orphan"
 msgstr ""
 
-msgid "Clear Trash"
+msgid "Move directory"
 msgstr ""
 
-msgid "Move directory"
+msgid "New size"
+msgstr ""
+
+msgid "Increase FS"
+msgstr ""
+
+msgid "New directory"
+msgstr ""
+
+msgid "Move FS"
 msgstr ""
 
 msgid "Total"
@@ -178,23 +212,5 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-msgid "View used detail"
-msgstr ""
-
-msgid "Detail"
-msgstr ""
-
-msgid "Real Used"
-msgstr ""
-
-msgid "New size"
-msgstr ""
-
-msgid "Increase FS"
-msgstr ""
-
-msgid "New directory"
-msgstr ""
-
-msgid "Move FS"
+msgid "Capacity"
 msgstr ""

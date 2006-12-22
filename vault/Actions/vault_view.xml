@@ -53,7 +53,7 @@ function unview(id) {
 </thead>
 <tbody  >
     <tr>
-        <td style="width:50%"><b style="font-size:200%;margin-right:40px">[pcrealused]</b> [TEXT:Total] : <b>[total]</b>, [count]
+        <td style="width:50%"><b style="font-size:200%;margin-right:40px">[pcrealused]</b> [TEXT:Capacity] : <b>[total]</b>, [count]
 	<table align="center"><tr><td><li style="list-style-type:square;color:#900000"><span style="color:[CORE_TEXTFGCOLOR]">[TEXT:Used] :</span></li></td><td><b>[used]</b> - [pcoccuped]</td></tr>
 	       <tr><td><li style="list-style-type:square;color:#b54f12"><span style="color:[CORE_TEXTFGCOLOR]">[TEXT:Trash] :</span></td><td><b>[trash_size]</b> - [pctrash]</td></tr>
 	       [IF orphan]<tr><td><li style="list-style-type:square;color:#b59412"><span style="color:[CORE_TEXTFGCOLOR]">[TEXT:Orphean] :</span></td><td><b>[orphean_size]</b> - [pcorphean]</span></td></tr>[ENDIF orphan]
