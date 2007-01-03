@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-23 12:25+0100\n"
+"POT-Creation-Date: 2007-01-03 18:10+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -204,6 +204,15 @@ msgstr "semaine textuelle"
 
 msgid "user preferences"
 msgstr "Préférence de l'utilisateur"
+
+msgid "import/export"
+msgstr "import/export"
+
+msgid "export agenda"
+msgstr "Exportation d'agenda"
+
+msgid "import agenda"
+msgstr "Importation d'agenda"
 
 #, fuzzy
 msgid "alert"
@@ -927,6 +936,23 @@ msgstr "Cliquer pour ajouter/supprimer le groupe"
 msgid "close"
 msgstr "Fermer"
 
+msgid "wgcal:export"
+msgstr "Exportation d'agenda"
+
+msgid "wgcal:export start at date"
+msgstr "Date de début"
+
+msgid "click here to set the todo limit date"
+msgstr "Cliquer pour choisir la date butée de la tâche"
+
+msgid "wgcal:comment export"
+msgstr ""
+"L'importation depuis une date reculée ou d'un agenda comportant beaucoup de "
+"rendez-vous peut nécessiter une longue durée de traitement."
+
+msgid "wgcal:import"
+msgstr "Importation d'agenda"
+
 msgid "Freedom agenda RSS"
 msgstr ""
 
@@ -1062,9 +1088,6 @@ msgstr "Donner un titre à la tâche"
 
 msgid "todo date limit"
 msgstr "Date butée"
-
-msgid "click here to set the todo limit date"
-msgstr "Cliquer pour choisir la date butée de la tâche"
 
 msgid "todo note"
 msgstr "Note"
@@ -1430,6 +1453,9 @@ msgstr "Imprimer"
 
 msgid "m_txt_tools_preferences"
 msgstr "Préférences"
+
+msgid "m_txt_tools_importexport"
+msgstr "Import/Export de mon agenda"
 
 msgid "m_txt_confsynch"
 msgstr "Configuration de la synchro Outlook"

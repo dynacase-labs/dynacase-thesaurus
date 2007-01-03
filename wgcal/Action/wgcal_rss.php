@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_rss.php,v 1.4 2006/12/05 04:41:18 marc Exp $
+ * @version $Id: wgcal_rss.php,v 1.5 2007/01/03 18:18:02 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -57,7 +57,7 @@ function wgcal_rss(&$action) {
       if ($edoc[$ve["id"]]->myState==3) continue;
 
 
-      if (!isset($rdoc[$ve["evt_idinitiator"]])) $edoc[$ve["evt_idinitiator"]] = new_Doc($dbaccess, $ve["evt_idinitiator"]);
+      if (!isset($edoc[$ve["evt_idinitiator"]])) $edoc[$ve["evt_idinitiator"]] = new_Doc($dbaccess, $ve["evt_idinitiator"]);
 
       $end = ($ve["evfc_realenddate"] == "" ? $ve["evt_enddate"] : $ve["evfc_realenddate"]);
       $dstart = substr($ve["evt_begdate"], 0, 2);

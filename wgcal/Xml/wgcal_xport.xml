@@ -1,0 +1,34 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
+<div id="xport_zone">
+
+<div>
+<div id="xport_title">[TEXT:wgcal:export]</div>
+<div>
+<form id="export" name="export" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_EXPORT">
+ [TEXT:wgcal:export start at date] : <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="exportDate" style="cursor:pointer;" title="[TEXT:click here to set the todo limit date]"<img src="WGCAL/Images/wm-refreshcal.gif" height="15">&nbsp;<span id="exportTextDate">[exportDate]</span></span>
+<input type="hidden" value="[exportTsDate]" id="exportStart" name="exportStart">
+<script>  
+  var exportdate = { 
+    firstDay:1, 
+    showsTime: false,
+    inputField:'exportStart', 
+    displayArea: 'exportTextDate',        
+    daFormat:'%a %d %b %Y',
+    ifFormat:'%s', 
+    button:'exportDate'
+  };
+  Calendar.setup( exportdate );
+</script>
+<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave"  title="[TEXT:wgcal:export]" class="wSmallButton" onclick="document.getElementById('export').submit();">
+</form>
+</div>
+<div id="xport_comment">[TEXT:wgcal:comment export]</div>
+</div>
+
+<div>
+<div id="xport_title">[TEXT:wgcal:import]</div>
+<div></div>
+</div>
+
+</div>
+[ZONE WGCAL:WGCAL_HTMLFOOT]

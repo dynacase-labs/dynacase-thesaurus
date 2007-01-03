@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-23 12:25+0100\n"
+"POT-Creation-Date: 2007-01-03 18:10+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -203,6 +203,15 @@ msgid "week text"
 msgstr ""
 
 msgid "user preferences"
+msgstr ""
+
+msgid "import/export"
+msgstr ""
+
+msgid "export agenda"
+msgstr ""
+
+msgid "import agenda"
 msgstr ""
 
 msgid "alert"
@@ -920,6 +929,21 @@ msgstr ""
 msgid "close"
 msgstr ""
 
+msgid "wgcal:export"
+msgstr ""
+
+msgid "wgcal:export start at date"
+msgstr ""
+
+msgid "click here to set the todo limit date"
+msgstr ""
+
+msgid "wgcal:comment export"
+msgstr ""
+
+msgid "wgcal:import"
+msgstr ""
+
 msgid "Freedom agenda RSS"
 msgstr ""
 
@@ -1053,9 +1077,6 @@ msgid "enter todo title"
 msgstr ""
 
 msgid "todo date limit"
-msgstr ""
-
-msgid "click here to set the todo limit date"
 msgstr ""
 
 msgid "todo note"
@@ -1417,6 +1438,9 @@ msgid "m_txt_print"
 msgstr ""
 
 msgid "m_txt_tools_preferences"
+msgstr ""
+
+msgid "m_txt_tools_importexport"
 msgstr ""
 
 msgid "m_txt_confsynch"

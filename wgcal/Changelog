@@ -1,5 +1,6 @@
 2.3.1
  - RSS, set items pubDate to freedom revdate 
+ - Add user export/import menu and export function
 
 2.3.0
  - migration Gnumeric -> ooffice pour les spec des familles
