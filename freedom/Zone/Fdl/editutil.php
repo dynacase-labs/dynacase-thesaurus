@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.108 2006/12/14 16:52:21 eric Exp $
+ * @version $Id: editutil.php,v 1.109 2007/01/03 19:36:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -962,6 +962,7 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/PopupWindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/ColorPicker2.js");
+  if ($action->Read("navigator")=="EXPLORER") $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/iehover.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
   //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
   //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/datepicker.js");
