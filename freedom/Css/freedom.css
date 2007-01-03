@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.99 2006/11/09 10:53:16 eric Exp $
+ * $Id: freedom.css,v 1.100 2007/01/03 19:36:21 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -90,7 +90,7 @@ LEGEND {
 [IFNOT ISIE]
 FIELDSET {
    background-color: [CORE_BGCELLCOLOR];
-   -moz-border-radius: 6;
+   -moz-border-radius: 6px;
 }[ENDIF ISIE]
 TABLE.barmenu {
 /*	background-color: [CORE_BGCOLORALTERN];*/
@@ -138,14 +138,14 @@ TD.MenuInactive div, TD.MenuActive div, TD.MenuSelected div {
 
 .iconimg {
   border-style: hidden;
-  border-width: 1;
+  border-width: 1px;
   border-color: [CORE_FGCOLOR];
   width:[SIZE_IMG-SMALL];
   height:[SIZE_IMG-SMALL];
 }
 .iconimg20 {
   border-style: hidden;
-  border-width: 1;
+  border-width: 1px;
   border-color: [CORE_FGCOLOR];
   width:[SIZE_IMG-X-SMALL];
   height:[SIZE_IMG-X-SMALL];
@@ -367,7 +367,7 @@ LI.translucide {
 
 IMG.unselect {
   border-style: hidden;
-  border-width: 3;
+  border-width: 3px;
   border-style : none;
   width:[SIZE_IMG-SMALL];
   height:[SIZE_IMG-SMALL];  
@@ -386,8 +386,8 @@ IMG.select {
   border-style: hidden;
   border-width: 1px;
   border-color: [CORE_FGCOLOR];
-  width:40;
-  height:40;  
+  width:40px;
+  height:40px;  
   background-color:[CORE_BGCOLORALTERN];
   border-style : solid;
   cursor: crosshair;
@@ -443,7 +443,7 @@ DIV.icon{
   text-align: center;
   /*font-variant: small-caps;*/
   width:[SIZE_IMG-LARGE];
-  height:80;
+  height:80px;
   float:left;
   border-style:none;
   border-color:[CORE_FGCOLOR];
@@ -533,6 +533,7 @@ BUTTON.binline {
   background:none;
   color:[CORE_ACOLOR];
   cursor:pointer;
+  font-size:[SIZE_SMALL];
 }
 BUTTON.binline:hover, BUTTON.binline:focus {
         background-color: [COLOR_A9]; 
@@ -593,7 +594,7 @@ SPAN.checked, TR.checked {
 }
 
 DIV.tabh SPAN  {
-  -moz-border-radius: 8 8 0 0;	
+  -moz-border-radius: 8px 8px 0px 0px;	
   border-width : 1px;
   border-style :outset;
   border-color : [CORE_BGCOLORALTERN];
@@ -863,7 +864,7 @@ DIV.tabsh SPAN  {
   border-style :outset;
   border-color : [CORE_BGCOLORALTERN];
 [IFNOT ISIE]  background-image:url('[IMG:tabvig.png]');
-  -moz-border-radius: 8 8 0 0;	 [ENDIF ISIE]
+  -moz-border-radius: 8px 8px 0px 0px;	 [ENDIF ISIE]
 [IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
   background-color : [CORE_BGCOLORALTERN];
   padding:2px;

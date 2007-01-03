@@ -223,8 +223,8 @@ function editattr(event,docid,attrid,cible,modjsft) {
     DIVATTR.innerHTML='progress...';
     ATTRREADCIBLE.style.display='none';
     DIVATTR.style.display='';
-    DIVATTR.style.height=h;
-    DIVATTR.style.width=w;
+    DIVATTR.style.height=h+'px';
+    DIVATTR.style.width=w+'px';
   }
   CINPUTDOCID=docid;
   var menuurl=corestandurl+'&app=FDL&action=EDITATTRIBUTE&docid='+docid+'&attrid='+attrid+'&modjsft='+modjsft;
