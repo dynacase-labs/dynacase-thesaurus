@@ -92,7 +92,7 @@ addEvent(window,"load",viewfirst);
    
          [BLOCK SELECTPREF] 
 <div id="d[cid]"  style="float:left;overflow:hidden;width:150px">
-<img src="[iconsrc]" width="20"><input type="checkbox" [selected] name="idsfam[]"  value="[cid]"><span onmouseover="hiselect(this)" onmouseout="loselect(this)" onclick="fselect(this)">[ctitle]</span></div>
+<img needresize="1" src="[iconsrc]" width="20"><input type="checkbox" [selected] name="idsfam[]"  value="[cid]"><span onmouseover="hiselect(this)" onmouseout="loselect(this)" onclick="fselect(this)">[ctitle]</span></div>
          [ENDBLOCK SELECTPREF]
 <input type="hidden" value="[openfirst]" id="preffirstfam" name="preffirstfam">
 <br>

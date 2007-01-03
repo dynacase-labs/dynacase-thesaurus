@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_root.php,v 1.7 2006/10/05 09:22:38 eric Exp $
+ * @version $Id: onefam_root.php,v 1.8 2007/01/03 19:38:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,6 +39,7 @@ function onefam_root(&$action) {
   
  
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
  
   
 

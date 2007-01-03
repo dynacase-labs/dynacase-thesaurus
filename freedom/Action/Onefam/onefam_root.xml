@@ -98,7 +98,7 @@ addEvent(window,'load',function zou() {openfirst('[openfam]');})
 <table style="width:100%;height:100%"><tr><td style="width:[wcols]px" valign="top">
 [BLOCK SELECTMASTER]
 <img style="width:[izpx]"
-     src="[iconsrc]"  
+     src="[iconsrc]"  needresize="1"
      onclick="if (ctrlPushed(event)) reloadiframe(event,this,'[idcdoc]'); else openiframe(event,this,'[idcdoc]');"
      onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"
      onmouseout="if (this.className != 'icononesel') {this.className='iconone';this.style.width=[izpx]}"
@@ -119,7 +119,7 @@ addEvent(window,'load',function zou() {openfirst('[openfam]');})
 [ENDBLOCK SEPARATOR]
 [BLOCK SELECTUSER]
 <img style="width:[izpx]"
-     src="[iconsrc]"  
+     src="[iconsrc]"  needresize="1"
      id="imgu[idcdoc]"
      onclick="if (ctrlPushed(event)) reloadiframe(event,this,'[idcdoc]'); else openiframe(event,this,'[idcdoc]');"
      onmouseover="if (this.className != 'icononesel') {this.className='icononehi';this.style.width=[izpx]-4;}"

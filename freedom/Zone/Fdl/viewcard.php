@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.74 2006/11/16 16:42:47 eric Exp $
+ * @version $Id: viewcard.php,v 1.75 2007/01/03 19:39:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,6 +50,7 @@ function viewcard(&$action) {
   // Set the globals elements
 
  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/WHAT/Layout/AnchorPosition.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
  // $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/idoc.js");
  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
  //pour les idocs

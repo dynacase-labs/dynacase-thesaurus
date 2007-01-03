@@ -3,7 +3,7 @@
  * Edit preferences for onefam list
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_editpref.php,v 1.9 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: onefam_editpref.php,v 1.10 2007/01/03 19:38:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,6 +22,7 @@ function onefam_editpref(&$action,$idsattr="ONEFAM_IDS",$modaction="ONEFAM_MODPR
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
 
 

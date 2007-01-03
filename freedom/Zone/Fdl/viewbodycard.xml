@@ -12,7 +12,7 @@
 [BLOCK [TABLEVALUE]]
 
 <tr  class="[classback]">
-  <td valign="top"  class="FREEDOMlabel"  width="[wvalue]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
+  <td valign="top"  class="FREEDOMLabel"  width="[wvalue]"><span style="display:[ndisplay]">[name]&nbsp;:&nbsp;</span></td>
   <td valign="top" class="FREEDOMText" >[value]</td>
 </tr>
 

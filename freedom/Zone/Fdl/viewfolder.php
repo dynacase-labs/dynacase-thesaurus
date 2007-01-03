@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.76 2006/11/27 16:39:52 marc Exp $
+ * @version $Id: viewfolder.php,v 1.77 2007/01/03 19:39:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -70,6 +70,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $action->lay->Set("dirid",$dirid);
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
 
 

@@ -3,7 +3,7 @@
  * list available families
  *
  * @author Anakeen 2003
- * @version $Id: onefam_list.php,v 1.12 2006/06/20 16:18:44 eric Exp $
+ * @version $Id: onefam_list.php,v 1.13 2007/01/03 19:38:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ include_once("FDL/Lib.Dir.php");
 function onefam_list(&$action) {
  
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
  
   
 
