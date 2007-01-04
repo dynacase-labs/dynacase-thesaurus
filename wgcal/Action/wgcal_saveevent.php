@@ -119,7 +119,7 @@ function wgcal_saveevent(&$action) {
     return;
   } 
 
-  $event->setAccessibility();
+//   $event->setAccessibility();
   $event->unlock(true);
 
   $event->postChangeProcess($oldrv);

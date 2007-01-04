@@ -1,10 +1,14 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
 <div id="xport_zone">
 
-<div>
 <div id="xport_title">[TEXT:wgcal:export]</div>
-<div>
 <form id="export" name="export" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_EXPORT">
+[IF admin]
+<select name="all">
+<option value="0">Mon agenda
+<option value="1">Tous
+</select><br>
+[ENDIF admin]&nbsp;&nbsp;&nbsp;
  [TEXT:wgcal:export start at date] : <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="exportDate" style="cursor:pointer;" title="[TEXT:click here to set the todo limit date]"<img src="WGCAL/Images/wm-refreshcal.gif" height="15">&nbsp;<span id="exportTextDate">[exportDate]</span></span>
 <input type="hidden" value="[exportTsDate]" id="exportStart" name="exportStart">
 <script>  
@@ -19,16 +23,18 @@
   };
   Calendar.setup( exportdate );
 </script>
-<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave"  title="[TEXT:wgcal:export]" class="wSmallButton" onclick="document.getElementById('export').submit();">
+<input type="submit" style="margin-left:20px; " class="wSmallButton" value="[TEXT:wgcal:export]">
 </form>
-</div>
 <div id="xport_comment">[TEXT:wgcal:comment export]</div>
 </div>
 
-<div>
+<div id="xport_zone">
 <div id="xport_title">[TEXT:wgcal:import]</div>
-<div></div>
+<form id="import" name="import" method="POST" enctype="multipart/form-data" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_IMPORT">
+[TEXT:wgcal:import agenda file] :  <input type="file" name="file" onchange="document.getElementById('btnImport').style.visibility='hidden'; if (this.value!='') document.getElementById('btnImport').style.visibility='visible'" onblur="document.getElementById('btnImport').style.visibility='hidden'; if (this.value!='') document.getElementById('btnImport').style.visibility='visible';"  > 
+<input type="hidden" name="policy" value="update">
+<input style="margin-left:20px; vertical-align:middle; visibility:hidden;" type="submit" class="wSmallButton" id="btnImport"   value="[TEXT:wgcal:import]">
+</form>
 </div>
 
-</div>
 [ZONE WGCAL:WGCAL_HTMLFOOT]

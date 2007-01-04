@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-03 18:10+0100\n"
+"POT-Creation-Date: 2007-01-04 14:39+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -944,6 +944,9 @@ msgstr ""
 msgid "wgcal:import"
 msgstr ""
 
+msgid "wgcal:import agenda file"
+msgstr ""
+
 msgid "Freedom agenda RSS"
 msgstr ""
 
@@ -1113,6 +1116,12 @@ msgid "loading events"
 msgstr ""
 
 msgid "change user preferences for"
+msgstr ""
+
+msgid "wgcal:import result"
+msgstr ""
+
+msgid "wgcal:no rv imported"
 msgstr ""
 
 msgid "found ressources"

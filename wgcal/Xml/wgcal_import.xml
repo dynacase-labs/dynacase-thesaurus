@@ -1,0 +1,11 @@
+[ZONE WGCAL:WGCAL_HTMLHEAD?RZ=HV]
+<div id="xport_zone">
+<div id="xport_title">[TEXT:wgcal:import result]</div>
+[IF res]
+<table cellspacing="0" width="100%">[BLOCK rv]
+<tr><td>[num]</td><td>[title]</td><td>[status]</td></tr>
+[IF err]<tr><td></td><td colspan="2">[errmsg]</td></tr>[ENDIF err]
+[ENDBLOCK rv]</table>
+[ENDIF res]
+[IFNOT res][TEXT:wgcal:no rv imported][ENDIF res]
+</div>

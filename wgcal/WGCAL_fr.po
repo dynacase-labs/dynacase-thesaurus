@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-03 18:10+0100\n"
+"POT-Creation-Date: 2007-01-04 14:39+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -953,13 +953,15 @@ msgstr ""
 msgid "wgcal:import"
 msgstr "Importation d'agenda"
 
+msgid "wgcal:import agenda file"
+msgstr "Fichier contentant un export d'agenda"
+
 msgid "Freedom agenda RSS"
 msgstr ""
 
 msgid "freedom groupware calendar"
 msgstr "Agenda de groupe Freedom"
 
-#, fuzzy
 msgid "Mon agenda"
 msgstr "Mon agenda"
 
@@ -1124,6 +1126,12 @@ msgstr "Chargement des rendez-vous"
 
 msgid "change user preferences for"
 msgstr "Modifier les préférences utilisateur pour "
+
+msgid "wgcal:import result"
+msgstr "Résultat de l'importation d'agenda"
+
+msgid "wgcal:no rv imported"
+msgstr "Aucun rendez-vous importé"
 
 msgid "found ressources"
 msgstr "Ressources trouvées"
@@ -1562,6 +1570,15 @@ msgstr "Non"
 msgid "yes"
 msgstr "Oui"
 
+#~ msgid "wgcal:policy if same rv"
+#~ msgstr "si même rendez-vous"
+
+#~ msgid "wgcal:update rv"
+#~ msgstr "mise à jour"
+
+#~ msgid "wgcal:add new event"
+#~ msgstr "ajout"
+
 #~ msgid " delete this event"
 #~ msgstr "Supprimer le rendez-vous"
 
@@ -1857,9 +1874,6 @@ msgstr "Oui"
 #, fuzzy
 #~ msgid "ev head color"
 #~ msgstr "Modifier la couleur de mes évènements"
-
-#~ msgid "add new event"
-#~ msgstr "Ajout d'un nouveau rendez-vous"
 
 #~ msgid "one week view"
 #~ msgstr "Une semaine"

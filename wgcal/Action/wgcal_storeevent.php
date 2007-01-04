@@ -232,7 +232,7 @@ function wgcal_storeevent(&$action) {
   
   if (!$newevent && $oconvoc==1 && $convoc==0)  $event->ResetAttendeesStatus();
     
-  $event->setAccessibility();
+//   $event->setAccessibility();
 
 
   // Gestion du calendrier d'appartenance

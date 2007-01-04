@@ -40,6 +40,7 @@ function postModify($settime=true) {
   }
   $err = $this->setEvent(); 
   if ($err!="") print_r2($err);
+  $this->setAccessibility();
 }
 
 function postCreated() {
