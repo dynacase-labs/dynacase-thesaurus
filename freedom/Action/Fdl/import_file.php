@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.120 2006/12/21 17:50:49 eric Exp $
+ * @version $Id: import_file.php,v 1.121 2007/01/04 14:29:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -623,6 +623,11 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
     $tcr["action"]="added";    
   } else {
+    if ($doc->doctype=='Z') {
+      if (! $analyze ) $doc->revive();
+      $tcr["msg"].=_("restore document")."\n";   
+    }
+
     if ($doc->locked == -1) {
        $doc = new_Doc($doc->dbaccess,$doc->latestId());
     }
