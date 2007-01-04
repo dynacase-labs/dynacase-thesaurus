@@ -63,7 +63,7 @@ addEvent(window,"load",function al1() {opalterrow('terrible');});
      onmouseover="oselect([id])"  onmouseout="ounselect()"
      title="[highlight]">
 <td class="tlist" width="30" >
-<IMG class="iconimg20" id="i[divid]" 
+<IMG class="iconimg20" id="i[divid]" needresize="1"
      align="absmiddle"  src="[iconsrc]">
 </td>
 <td class="tlist" >[title] <i>[state]</i></td>
