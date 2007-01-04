@@ -1,7 +1,7 @@
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 <table align="center">
 <tr>
-<td><img onclick="document.getElementById('thanks').style.display=''" src="WGCAL/Images/wgcal.gif"></td>
+<td><img onclick="document.getElementById('thanks').style.display=''" src="WGCAL/Images/wgcal.png"></td>
 <td style="border: 1px inset; padding: 20px; font-size:120%">L'Agenda de groupe Freedom<br>
 The Freedom Groupware Calendar</td>
 </tr>

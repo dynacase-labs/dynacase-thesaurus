@@ -462,6 +462,7 @@ function wGetEvents($d1, $d2, $explode=true, $filter=array(), $famid="EVENT_FROM
    }
   } else {  
     $ress = wGetRessDisplayed();
+    $tt = array();
     foreach ($ress as $k => $v) $tt[]=$v->id;
     $idres = implode("|", $tt);
   }
