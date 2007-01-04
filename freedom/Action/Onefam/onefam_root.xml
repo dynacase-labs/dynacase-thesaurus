@@ -30,6 +30,7 @@ function imgborder() {
 
 function ctrlPushed(event) {  
   if (!event) event=window.event;
+  if (!event) return false;
   return event.ctrlKey;
 }
 var selimg=null;
