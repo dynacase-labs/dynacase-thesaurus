@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.7 2006/12/08 17:52:40 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.8 2007/01/05 11:19:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -249,10 +249,10 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       $info["props"] = array();
       $info["props"][] = $this->mkprop("resourcetype", "collection");
       $info["props"][] = $this->mkprop("getcontenttype", "httpd/unix-directory");             
-      $info["props"][] = $this->mkprop("displayname", utf8_encode($doc->title));
+      $info["props"][] = $this->mkprop("displayname", utf8_encode(strtr($doc->title,"/","-")));
       $path=$this->_slashify($path);
       if ($firstlevel) $info["path"]  = $path;
-      else $info["path"]  = $path.utf8_encode($doc->title);
+      else $info["path"]  = $path.utf8_encode(strtr($doc->title,"/","-"));
       //$info["path"]  = $path;
       $info["props"][] = $this->mkprop("creationdate",   $doc->revdate );
       $info["props"][] = $this->mkprop("getlastmodified", $doc->revdate);

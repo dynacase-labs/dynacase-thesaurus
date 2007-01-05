@@ -44,14 +44,14 @@ if (! $login) {
 
 $d2=microtime();
 
-$dt=microtime_diff($d1,$d2);
+$dt=sprintf("%.02f",microtime_diff($d1,$d2));
 
 $s->http_auth_realm = "FREEDOM Connection";
 $s->db_freedom=$action->getParam("FREEDOM_DB");
 $s->racine=$action->getParam("WEBDAV_ROOTID",9);
 $s->ServeRequest();
 $d2=microtime();
-$d=microtime_diff($d1,$d2);
+$d=sprintf("%.02f",microtime_diff($d1,$d2));
 
 error_log("================ $d $dt=====".$login."===================");
 
