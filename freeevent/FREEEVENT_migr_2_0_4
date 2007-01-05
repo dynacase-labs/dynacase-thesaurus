@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$dbpsql" == "" ]; then
+    #load environement variable for freedom
+  . /etc/freedom.conf
+   wchoose -b
+fi
+echo "delete from doc34 where doctype='Z';" | psql $dbfree

@@ -3,7 +3,7 @@
  * Produce events methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.PEvents.php,v 1.18 2006/10/30 13:17:35 eric Exp $
+ * @version $Id: Method.PEvents.php,v 1.19 2007/01/05 10:42:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -138,7 +138,7 @@ function dEventDefault() {
     }    
   }
   if ($evt->isAlive()) {
-    $err=$evt->delete(false,false,true);
+    $err=$evt->delete(true,false,true);
   }
   return $err;
 }
