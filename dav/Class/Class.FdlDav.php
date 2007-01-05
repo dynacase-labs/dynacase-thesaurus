@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.8 2007/01/05 11:19:59 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.9 2007/01/05 12:09:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -289,7 +289,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       foreach ($afiles as $afile) {
 	$info = array();   
 	$info["props"][] = $this->mkprop("resourcetype", "");
-	$aname=utf8_encode($afile["name"]);
+	$aname=utf8_encode(strtr($afile["name"],"/","-"));
 	if ((!$firstlevel ) || ($aname == $bpath)) {
 	  if ($firstlevel) $info["path"]  = $dpath.$aname;
 	  else $info["path"]  = $path.$aname;
