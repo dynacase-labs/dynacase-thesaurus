@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.40 2007/01/04 15:56:40 marc Exp $
+#  $Id: WGCAL.spec.in,v 1.41 2007/01/05 10:51:09 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -42,7 +42,7 @@ URL: http://www.anakeen.com/
 Packager: Marc Claverie <marc.claverie@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: /tmp/anakeen-root
-Requires: FREEEVENT >= 2.0.2
+Requires: FREEEVENT >= 2.0.4
 Requires: FREEDOM-LIB >= 2.5.1
 
 %description
