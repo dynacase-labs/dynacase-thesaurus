@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.36 2007/01/03 18:18:02 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.37 2007/01/08 10:18:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -152,7 +152,7 @@ function wgcal_menu(&$action) {
 						 "txt" => _("m_txt_tools_importexport"), 
 						 "act" => "[CORE_STANDURL]&app=WGCAL&action=WGCAL_XPORT",
 						 "tgt" => "wgcal_importexport", 
-						 "ico" => "wgcal-importexport.gif",
+						 "ico" => "wgcal-importexport.png",
 						 "rig" => "WGCAL_USER"
 						 ),
 					  array( "key" => "separator", "rig" => "WGCAL_OSYNC" ),
