@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<doclist>[BLOCK docs]
+<doc id="[id]" initid="[initid]" revision="[revision]" rdate="[revdate]" adate="[adate]" cdate="[cdate]" locked="[locked]">[BLOCK attr[id]]
+<attr key="[attname]"[IF empty]/[ENDIF empty]>[IFNOT empty]<![CDATA[[attvalue]]]></attr>[ENDIF empty][ENDBLOCK attr[id]]
+</doc>[ENDBLOCK docs]
+</doclist>
