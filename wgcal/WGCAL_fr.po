@@ -1463,7 +1463,7 @@ msgid "m_txt_tools_preferences"
 msgstr "Préférences"
 
 msgid "m_txt_tools_importexport"
-msgstr "Sauvergarde / Restauration"
+msgstr "Sauvegarde / Restauration"
 
 msgid "m_txt_confsynch"
 msgstr "Configuration de la synchro Outlook"
