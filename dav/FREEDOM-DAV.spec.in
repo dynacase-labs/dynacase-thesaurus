@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-DAV.spec.in,v 1.8 2007/01/05 11:19:59 eric Exp $
+#  $Id: FREEDOM-DAV.spec.in,v 1.9 2007/01/09 09:52:41 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -10,6 +10,15 @@
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
 %define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
+%{?ncerbere:%define cerbere 1}
+%{?ncerbere:%define redhat 0}
+%{?ncerbere:%define pld 0}
+%{?nredhat:%define cerbere 0}
+%{?nredhat:%define redhat 1}
+%{?nredhat:%define pld 0}
+%{?npld:%define cerbere 0}
+%{?npld:%define redhat 0}
+%{?npld:%define pld 1}
 
 %if %{cerbere}
 %define destdir /home/httpd/what
@@ -30,6 +39,10 @@
 %define apacheconfdir /etc/httpd/conf.d
 %endif
 %define dirname DAV
+
+%{?ndestdir:%define destdir %{ndestdir}}
+%{?nhttpuser:%define httpuser %{nhttpuser}}
+%{?rpost:%define releasepostfix %{rpost}}
 
 Summary: The Work Space to exchange files
 Name: @PACKAGE@
