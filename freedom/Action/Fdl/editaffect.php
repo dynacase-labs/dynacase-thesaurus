@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: editaffect.php,v 1.3 2006/08/10 15:10:10 eric Exp $
+ * @version $Id: editaffect.php,v 1.4 2007/01/11 10:16:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,7 +38,7 @@ function editaffect(&$action) {
   $action->lay->set("affecttitle",sprintf(_("Affectation for %s"),$doc->title));
   
   // search free states
-  $sqlfilters=array();
+  $sqlfilters=array("(frst_famid=".$doc->fromid.") or (frst_famid is null) or (frst_famid='')");
   $tfree = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE","FREESTATE");
   $tstate=array();
   if ($doc->wid == 0) {

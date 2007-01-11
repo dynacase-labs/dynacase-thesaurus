@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.100 2007/01/03 19:36:21 eric Exp $
+ * $Id: freedom.css,v 1.101 2007/01/11 10:16:13 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -171,7 +171,7 @@ IMG.icononesel {
   border-style: outset;
   border-width: 2px;
   border-color: [CORE_FGCOLOR];
-  background-color:[CORE_BGCOLORALTERN];
+  background-color:[COLOR_B7];
   float:left;
   cursor:pointer;
 }
@@ -216,7 +216,7 @@ TR.unselecth, DIV.unselecth {
 }
 
 DIV.select {
-  background-color:[CORE_BGCOLORALTERN];
+  background-color:[COLOR_B7];
   color:[CORE_TEXTFGCOLOR];
   border-style : outset;
   border-width : 1px;
@@ -388,7 +388,7 @@ IMG.select {
   border-color: [CORE_FGCOLOR];
   width:40px;
   height:40px;  
-  background-color:[CORE_BGCOLORALTERN];
+  background-color:[COLOR_B7];
   border-style : solid;
   cursor: crosshair;
   -moz-border-radius:25px;
@@ -428,12 +428,12 @@ TR.selecta TD{
 } 
 
 TR.select {
-  background:[CORE_BGCOLORALTERN]!important;
+  background:[COLOR_B7]!important;
   border-style : solid;
   cursor: crosshair;
 } 
 TBODY.select TR {
-  background:[CORE_BGCOLORALTERN]!important;;  
+  background:[COLOR_B7]!important;;  
   cursor: crosshair;
 } 
  
@@ -882,4 +882,9 @@ DIV.tabsh SPAN.tabsel  {
    float:right;
    max-width:150px;
   background: [CORE_BGCOLOR];
+}
+.statetext {
+  border-style:none none solid solid;
+  border-width:0px 0px 1px 10px;
+  -moz-border-radius:0px 0px 0px 10px;
 }
