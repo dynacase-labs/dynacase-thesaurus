@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.350 2006/12/06 08:34:00 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.351 2007/01/11 10:14:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2454,6 +2454,25 @@ final public function PostInsert()  {
     return $this->state;
   }
   /**
+   * return the color associated for the state of a document
+   * if document has workflow : not implemeted yet
+   * if document state is a free state the color
+   * 
+   * @return string the color of the state - empty if no state
+   */
+  final public function getStateColor($def="") {
+    if ($this->wid > 0) {      
+	$wdoc = new_Doc($this->dbaccess,$this->wid);
+	return $wdoc->getColor($this->state,$def);
+    } else {
+      if (is_numeric($this->state) && ($this->state>0) ) {
+	$state=$this->getDocValue($this->state,"frst_color",$def);
+	return $state;
+      }
+    }
+    return $this->state;
+  }
+  /**
    * return the copy of the document
    * the copy is created to the database
    * the profil of the copy is the default profil according to his family
@@ -4693,12 +4712,13 @@ final public function PostInsert()  {
    * return value of an attribute for the document referenced
    * @param int document identificator
    * @param string attribute identificator
+   * @param string def default return value
    */
-  final public function getDocValue($docid, $attrid) {
+  final public function getDocValue($docid, $attrid,$def="") {
     if (intval($docid) > 0) {
       $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
-	return $doc->getRValue($attrid);
+	return $doc->getRValue($attrid,$def);
       }
     }
     return "";
