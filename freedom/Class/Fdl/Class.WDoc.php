@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.51 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.52 2007/01/11 10:14:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -191,6 +191,23 @@ Class WDoc extends Doc {
       if ($oattr->isAffected()) $oattr->Modify();
       else $oattr->Add();
 
+      // --------------------------
+      // state color
+      $aid=strtolower($this->attrPrefix."_COLOR".strtoupper($state));
+      $oattr = new DocAttr($this->dbaccess, array($cid,$aid));
+      $oattr->docid=$cid;
+      $oattr->visibility="W";
+      $oattr->type="color";
+      $oattr->link="";
+      $oattr->phpfile="";
+      $oattr->id=$aid;
+      $oattr->frameid=$aidframe;
+      $oattr->ordered=$ordered++;
+      $oattr->phpfunc="";
+      $oattr->labeltext=sprintf(_("%s color"),_($state));
+      if ($oattr->isAffected()) $oattr->Modify();
+      else $oattr->Add();
+
     }
     refreshPhpPgDoc($this->dbaccess, $cid);
    
@@ -337,6 +354,15 @@ Class WDoc extends Doc {
       
     }
     return $this->states;
+  }
+  /**
+   * get associated color of a state
+   * @param string $state the state
+   * @return string the color (#RGB)
+   */
+    function getColor($state,$def="") {
+    $acolor=$this->attrPrefix."_COLOR".strtoupper($state);
+    return $this->getValue($acolor,$def);
   }
   
 
