@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.77 2007/01/03 19:39:13 eric Exp $
+ * @version $Id: viewfolder.php,v 1.78 2007/01/11 10:15:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -278,8 +278,15 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       $kdiv++;
       if ($doc->isRevisable()) $tdoc[$k]["revision"]= $doc->revision;
       else $tdoc[$k]["revision"]="";
-      if ($doc->wid > 0) $tdoc[$k]["state"]= $action->Text($doc->state);
-      else $tdoc[$k]["state"]="";
+      if ($doc->state) {
+	$tdoc[$k]["state"]= $doc->getState();//$action->Text($doc->state);
+	$tdoc[$k]["statecolor"]=$doc->getStateColor("transparent");
+	
+      }
+      else {
+	$tdoc[$k]["state"]="";
+	$tdoc[$k]["statecolor"]="transparent";
+      }
       
 	
 	      

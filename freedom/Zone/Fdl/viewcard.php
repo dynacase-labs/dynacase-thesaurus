@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.75 2007/01/03 19:39:13 eric Exp $
+ * @version $Id: viewcard.php,v 1.76 2007/01/11 10:15:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -201,6 +201,7 @@ function viewcard(&$action) {
   $action->lay->Set("state", "");
 
   $state=$doc->getState();
+  $action->lay->Set("statecolor",$doc->getStateColor("transparent"));
   if ($state) { // see only if it is a transitionnal doc
     if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($state));
     else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($state)));

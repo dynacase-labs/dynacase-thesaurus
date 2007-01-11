@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.16 2005/06/29 15:00:57 eric Exp $
+ * @version $Id: editstate.php,v 1.17 2007/01/11 10:15:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,6 +95,8 @@ function editstate(&$action) {
 	$tstate[$k]["statename"] = _($v);
 	$tstate[$k]["tostatename"] =ucfirst( _("To".$v));
 	$tstate[$k]["transid"] = $tk;
+	$color=$wdoc->getColor($v);;
+	$tstate[$k]["color"] = ($color)?$color:'';
 	if (is_array($tr["ask"]))  $tjsaskes[] = "['".implode("','",$tr["ask"])."']";
 	else $tjsaskes[] = "[]";
 	if (is_array($tr["ask"])) $taskes= array_merge($taskes,$tr["ask"]);

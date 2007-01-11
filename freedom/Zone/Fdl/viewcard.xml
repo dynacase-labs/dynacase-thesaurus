@@ -42,7 +42,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 
       <img class="click" align="absmiddle"  onclick="self.print()"  alt="[TEXT:print]" title="[TEXT:print]"  border="0" src="[IMG:print.gif]">
       <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">
-         <br><span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b title="[TEXT:View historique]">[state]</b></A></span>
+         <br><span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b class="statetext" style="border-color:[statecolor]" title="[TEXT:View historique]">[state]</b></A></span>
 [ENDBLOCK ACTIONS]
   </td>
 </tr>

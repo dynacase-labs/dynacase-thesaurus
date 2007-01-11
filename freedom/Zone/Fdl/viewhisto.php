@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.19 2006/11/17 14:55:05 eric Exp $
+ * @version $Id: viewhisto.php,v 1.20 2007/01/11 10:15:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,7 +49,10 @@ function viewhisto(&$action)
     $trdoc[$k]["revision"]= $rdoc->revision;
     $trdoc[$k]["version"]= $rdoc->version;
     $state=$rdoc->getState();
+    $color=$rdoc->getStateColor();
     $trdoc[$k]["state"]= ($state=="")?"":(($rdoc->locked==-1)?_($state):sprintf(_("Current (%s)"),_($state)));
+
+    $trdoc[$k]["color"]= ($color=="")?"inherit":$color;
     if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
       $trdoc[$k]["date"]= strftime ("%a %d %b %Y %H:%M",$rdoc->revdate);
