@@ -27,31 +27,31 @@ function placeEvt(idx,line,subline,x,w,offset,doff) {
 
   var ores= document.getElementById('res'+idx);
   if (oimg) {
-    oimg.style.left=rw+bx+(x-mstart)*dw/mdelta;
+    oimg.style.left=(rw+bx+(x-mstart)*dw/mdelta)+'px';
     h=eh+by+(subline*dih);
     if (h>maxh) maxh=h;
-    if (doff==0) oimg.style.top=h;
-    else oimg.style.top=h+(dh*zoomy/(doff+1))*offset;
+    if (doff==0) oimg.style.top=h+'px';
+    else oimg.style.top=(h+(dh*zoomy/(doff+1))*offset)+'px';
     //oimg.width=(w)*dw/(mend-mstart);
     //oimg.height=dih;
-    if (w < 0)  oimg.style.width=100; 
-    else  oimg.style.width=(w)*dw/mdelta;
-    oimg.style.height=dh*zoomy/(doff+1);
+    if (w < 0)  oimg.style.width='100px'; 
+    else  oimg.style.width=((w)*dw/mdelta)+'px';
+    oimg.style.height=(dh*zoomy/(doff+1))+'px';
     oimg.style.display='';
     
-    ores.style.top=h;
-    ores.style.left=bx;
-    ores.style.width=rw;
-    ores.style.height=(dh*zoomy);
+    ores.style.top=h+'px';
+    ores.style.left=bx+'px';
+    ores.style.width=rw+'px';
+    ores.style.height=(dh*zoomy)+'px';
     ores.style.display='';
 
     onxgrid=oxgrid.cloneNode(true);
     
-    onxgrid.style.top=h-mdh/2;   
-    onxgrid.style.left=bx;
+    onxgrid.style.top=(h-mdh/2)+'px';   
+    onxgrid.style.left=bx+'px';
     onxgrid.id='gridx'+idx;
-    onxgrid.style.width=maxw*zoomx+rw;
-    onxgrid.style.height=1;
+    onxgrid.style.width=(maxw*zoomx+rw)+'px';
+    onxgrid.style.height='1px';
     onxgrid.style.display='';
     ocdday.appendChild(onxgrid);
   }
@@ -82,15 +82,15 @@ function placeEvents() {
   }
   dmilli=document.getElementById('bgmilli');
   if (dmilli) {
-    dmilli.style.height=(maxh)-xyby.y+(dh*zoomy);
-    dmilli.style.width=parseInt(maxw*zoomx)+rw;
+    dmilli.style.height=((maxh)-xyby.y+(dh*zoomy))+'px';
+    dmilli.style.width=(parseInt(maxw*zoomx)+rw)+'px';
   }
   placeDays();
 
   bi=document.getElementById('binter');
   if (bi) {
-    bi.style.top=by-80;
-    bi.style.left=bx;
+    bi.style.top=(by-80)+'px';
+    bi.style.left=bx+'px';
     bi.style.zIndex=100;
     if (isFixed) bi.style.position='fixed';
     bi.style.display='';
@@ -130,10 +130,10 @@ function placeDays() {
 	nWeek=jdToWeekNumber(mstart+i-7);
 	onweek.innerHTML=nWeek;
 	onweek.title=jd_to_cal(mstart+i);
-	onweek.style.width=parseInt(rw+bx+(dx*zoomx))-pXWeek;
-	onweek.style.height=20;
-	onweek.style.top=by-40;
-	onweek.style.left=pXWeek;
+	onweek.style.width=(parseInt(rw+bx+(dx*zoomx))-pXWeek)+'px';
+	onweek.style.height='20px';
+	onweek.style.top=(by-40)+'px';
+	onweek.style.left=pXWeek+'px';
 	if (isFixed) onweek.style.position='fixed';
 	if ((nWeek % 2) == 0) onweek.className='weekOdd';
 	else onweek.className='weekEven';
@@ -147,13 +147,13 @@ function placeDays() {
 	
 	  onygrid=oygrid.cloneNode(true);
     
-	  onygrid.style.top=parseInt(onweek.style.top)+20;
+	  onygrid.style.top=(parseInt(onweek.style.top)+20)+'px';
 	  onygrid.style.left=onweek.style.left;
 	  onygrid.id='gridy'+ndiv;
-	  onygrid.style.width=1;
+	  onygrid.style.width='1px';
 	  h=maxh-xyby.y+(dh*zoomy)-60;	
 	  if (h< 0) h=10;
-	  onygrid.style.height=h;
+	  onygrid.style.height=h+'px';
 
 	  onygrid.style.display='';
 	  ocdday.appendChild(onygrid);
@@ -172,10 +172,10 @@ function placeDays() {
 	onmonth.id='DIV'+(ndiv++);
 
 	onmonth.innerHTML=month[(nMonth+10)%12];
-	onmonth.style.width=parseInt(rw+bx+(dx*zoomx))-pXMonth;
-	onmonth.style.height=20;
-	onmonth.style.top=by-60;
-	onmonth.style.left=pXMonth;
+	onmonth.style.width=(parseInt(rw+bx+(dx*zoomx))-pXMonth)+'px';
+	onmonth.style.height='20px';
+	onmonth.style.top=(by-60)+'px';
+	onmonth.style.left=pXMonth+'px';
 	if (isFixed) onmonth.style.position='fixed';
 	if ((nMonth % 2) == 1) onmonth.className='monthOdd';
 	else onmonth.className='monthEven';
@@ -187,13 +187,13 @@ function placeDays() {
 	
 	  onygrid=oygrid.cloneNode(true);
     
-	  onygrid.style.top=parseInt(onmonth.style.top)+20;
+	  onygrid.style.top=(parseInt(onmonth.style.top)+20)+'px';
 	  onygrid.style.left=onmonth.style.left;
 	  onygrid.id='gridy'+ndiv;
-	  onygrid.style.width=1;
+	  onygrid.style.width='1px';
 	  h=maxh-xyby.y+(dh*zoomy)-40;
 	  if (h < 0) h=10;
-	  onygrid.style.height=h;
+	  onygrid.style.height=h+'px';
 	  onygrid.style.display='';
 	  ocdday.appendChild(onygrid);
 	}
@@ -205,10 +205,10 @@ function placeDays() {
 	onyear.id='DIV'+(ndiv++);
 
 	onyear.innerHTML=jd_to_cal(mstart+i-1,'Y');
-	onyear.style.width=parseInt(rw+bx+(dx*zoomx))-pXYear;
-	onyear.style.height=20;
-	onyear.style.top=by-80;
-	onyear.style.left=pXYear; 
+	onyear.style.width=(parseInt(rw+bx+(dx*zoomx))-pXYear)+'px';
+	onyear.style.height=20+'px';
+	onyear.style.top=(by-80)+'px';
+	onyear.style.left=pXYear+'px'; 
 	onyear.className='year';
 	if (isFixed) onyear.style.position='fixed';
 	ocdday.appendChild(onyear);	
@@ -223,13 +223,13 @@ function placeDays() {
       onday.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
       if ((dw*zoomx)>80) onday.innerHTML=weekDay(mstart+i)+' '+jd_to_cal(mstart+i,'d');
       else onday.innerHTML=jd_to_cal(mstart+i,'d');
-      onday.style.top=by-20;
+      onday.style.top=(by-20)+'px';
       
-      onday.style.width=parseInt(dw*zoomx);
+      onday.style.width=(parseInt(dw*zoomx))+'px';
       if (isFixed) onday.style.position='fixed';
       //      onday.style.height=(maxh)-xyby.y+(dh*zoomy)-60;
-      onday.style.height=20;
-      onday.style.left=parseInt(rw+bx+(dx*zoomx));
+      onday.style.height=20+'px';
+      onday.style.left=(parseInt(rw+bx+(dx*zoomx)))+'px';
       if ((i % 2) == 0) onday.className='dayOdd';
       else onday.className='dayEven';
       ocdday.appendChild(onday);
@@ -239,13 +239,13 @@ function placeDays() {
 	
 	onygrid=oygrid.cloneNode(true);
     
-	onygrid.style.top=parseInt(onday.style.top)+20;
+	onygrid.style.top=(parseInt(onday.style.top)+20)+'px';
 	onygrid.style.left=onday.style.left;
 	onygrid.id='gridy'+ndiv;
-	onygrid.style.width=1;
+	onygrid.style.width=1+'px';
 	h=maxh-xyby.y+(dh*zoomy)-80;
 	if (h<0) h=10;
-	onygrid.style.height=h;
+	onygrid.style.height=h+'px';
 	onygrid.style.display='';
 	ocdday.appendChild(onygrid);
       }
@@ -255,12 +255,12 @@ function placeDays() {
 	onhour.id='DIV'+(ndiv++);
 	onhour.title=weekDay(mstart+i)+jd_to_cal(mstart+i);
 	
-	onhour.style.top=by;
+	onhour.style.top=by+'px';
 	
-	onhour.style.width=parseInt(dw*zoomx);
+	onhour.style.width=parseInt(dw*zoomx)+'px';
 	if (isFixed) onhour.style.position='fixed';
-	onhour.style.height=20
-	  onhour.style.left=parseInt(rw+bx+(dx*zoomx));
+	onhour.style.height=20+'px';
+	  onhour.style.left=parseInt(rw+bx+(dx*zoomx))+'px';
 	if ((i % 2) == 0) onhour.className='dayOdd';
 	else onhour.className='dayEven';
 	ocdday.appendChild(onhour);
@@ -275,10 +275,10 @@ function placeDays() {
     onweek.id='DIV'+(ndiv++);
 
     onweek.innerHTML=jdToWeekNumber(mstart+pDJWeek);
-    onweek.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXWeek;
-    onweek.style.height=20;
-    onweek.style.top=by-40;
-    onweek.style.left=pXWeek;
+    onweek.style.width=(parseInt(rw+bx+((dw+dx)*zoomx))-pXWeek)+'px';
+    onweek.style.height=20+'px';
+    onweek.style.top=(by-40)+'px';
+    onweek.style.left=pXWeek+'px';
     if (isFixed) onweek.style.position='fixed';
     if ((nWeek % 2) == 0) onweek.className='weekOdd';
     else onweek.className='weekEven';
@@ -287,14 +287,14 @@ function placeDays() {
 	
       onygrid=oygrid.cloneNode(true);
     
-      onygrid.style.top=parseInt(onweek.style.top)+20;
+      onygrid.style.top=(parseInt(onweek.style.top)+20)+'px';
       onygrid.style.left=onweek.style.left;
       onygrid.id='gridy'+ndiv;
-      onygrid.style.width=1;
+      onygrid.style.width=1+'px';
       h=maxh-xyby.y+(dh*zoomy)-60;
       if (h<0) h=10;
-      onygrid.style.height=h
-	onygrid.style.display='';
+      onygrid.style.height=h+'px';
+      onygrid.style.display='';
       ocdday.appendChild(onygrid);
     }	
   }
@@ -307,10 +307,10 @@ function placeDays() {
     onmonth.id='DIV'+(ndiv++);
 	
     onmonth.innerHTML=month[(nMonth+11)%12];
-    onmonth.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXMonth;
-    onmonth.style.height=20;
-    onmonth.style.top=by-60;
-    onmonth.style.left=pXMonth;
+    onmonth.style.width=(parseInt(rw+bx+((dw+dx)*zoomx))-pXMonth)+'px';
+    onmonth.style.height=20+'px';
+    onmonth.style.top=(by-60)+'px';
+    onmonth.style.left=pXMonth+'px';
     if (isFixed) onmonth.style.position='fixed';
     if ((nMonth % 2) == 0) onmonth.className='monthOdd';
     else onmonth.className='monthEven';
@@ -320,13 +320,13 @@ function placeDays() {
 	
       onygrid=oygrid.cloneNode(true);
     
-      onygrid.style.top=parseInt(onmonth.style.top)+20;
+      onygrid.style.top=(parseInt(onmonth.style.top)+20)+'px';
       onygrid.style.left=onmonth.style.left;
       onygrid.id='gridy'+ndiv;
-      onygrid.style.width=1;
+      onygrid.style.width=1+'px';
       h=maxh-xyby.y+(dh*zoomy)-40;
       if (h<0) h=10;
-      onygrid.style.height=h;
+      onygrid.style.height=h+'px';
       onygrid.style.display='';
       ocdday.appendChild(onygrid);
     }
@@ -339,10 +339,10 @@ function placeDays() {
 
   if (isFixed) onyear.style.position='fixed';
   onyear.innerHTML=jd_to_cal(mstart+i-0.3,'Y');
-  onyear.style.width=parseInt(rw+bx+((dw+dx)*zoomx))-pXYear;
-  onyear.style.height=20;
-  onyear.style.top=by-80;
-  onyear.style.left=pXYear; 
+  onyear.style.width=(parseInt(rw+bx+((dw+dx)*zoomx))-pXYear)+'px';
+  onyear.style.height=20+'px';
+  onyear.style.top=(by-80)+'px';
+  onyear.style.left=pXYear+'px'; 
   onyear.className='year';
   ocdday.appendChild(onyear);	
   pXYear=parseInt(rw+bx+(dx*zoomx));
@@ -354,30 +354,30 @@ function placeDays() {
   //display nav buttons
   dx=rw+bx-80-1; 
   ob=document.getElementById('byear');
-  ob.style.width=80;
-  ob.style.top=by-80+1;
-  ob.style.left=dx;
+  ob.style.width=80+'px';
+  ob.style.top=by-(80+1)+'px';
+  ob.style.left=dx+'px';
   ob.style.display='';
 
   if (onmonth) {
     ob=document.getElementById('bmonth');
-    ob.style.width=80;
-    ob.style.top=by-60+1;
-    ob.style.left=dx;  
+    ob.style.width=80+'px';
+    ob.style.top=(by-60+1)+'px';
+    ob.style.left=dx+'px';  
     ob.style.display='';  
   }
   if (onweek) {
     ob=document.getElementById('bweek');
-    ob.style.width=80;
-    ob.style.top=by-40+1;
-    ob.style.left=dx;  
+    ob.style.width=80+'px';
+    ob.style.top=(by-40+1)+'px';
+    ob.style.left=dx+'px';  
     ob.style.display='';  
   }
   if (onday) {
     ob=document.getElementById('bday');
-    ob.style.width=80;
-    ob.style.top=by-20+1;
-    ob.style.left=dx;   
+    ob.style.width=80+'px';
+    ob.style.top=(by-20+1)+'px';
+    ob.style.left=dx+'px';   
     ob.style.display=''; 
   }
 }
@@ -433,8 +433,8 @@ function viewdesc(event,idx) {
   var dd=document.getElementById('desc');
   if (dd) {
     if (dd.style.display=='none') {
-      dd.style.top=0;
-      dd.style.left=400;
+      dd.style.top='0px';
+      dd.style.left='400px';
       dd.style.width='auto';
       dd.style.display='';
       GetXY(event);
@@ -456,8 +456,8 @@ function viewdesc(event,idx) {
 	hw=getFrameHeight();
 	if ((cy+h+20)>hw) Ypos=Ypos-h-20;
       }
-      dd.style.top=Ypos+10;
-      dd.style.left=Xpos+10;
+      dd.style.top=(Ypos+10)+'px';
+      dd.style.left=(Xpos+10)+'px';
       if (getObjectWidth(dd) < 20) dd.style.width='200px'; // bug in mozilla when vscroll bar
     }
   }  
