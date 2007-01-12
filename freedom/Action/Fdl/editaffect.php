@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: editaffect.php,v 1.4 2007/01/11 10:16:35 eric Exp $
+ * @version $Id: editaffect.php,v 1.5 2007/01/12 07:31:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,14 +45,20 @@ function editaffect(&$action) {
     foreach ($tfree as $k=>$v) {
       $tstate[]=array("fstate"=>$v["initid"],
 		      "lstate"=>$v["title"],
+		      "color"=>getv($v,"frst_color"),
 		      "dstate"=>nl2br(getv($v,"frst_desc")));
     }
   }
   $action->lay->set("viewstate",($doc->wid == 0));
   $state=$doc->getState();
-  if ($state)   $action->lay->set("textstate",sprintf(_("From %s state to"),$state));
-  else $action->lay->set("textstate",_("New state"));
-    
+  if ($state) {
+    $action->lay->set("textstate",sprintf(_("From %s state to"),$state));
+    $action->lay->set("colorstate",$doc->getStateColor("inherits"));
+  } else {
+    $action->lay->set("textstate",_("New state"));
+    $action->lay->set("colorstate","inherits");
+  }
+
   $action->lay->setBlockData("freestate",$tstate);
 
   

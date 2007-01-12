@@ -4,6 +4,8 @@
 function viewstatedescription(o) {
   var os=o.options[o.selectedIndex];
   var sd=document.getElementById('sdescription');
+
+  o.style.backgroundColor=os.style.backgroundColor;
   if (os && sd) {
     var d=os.getAttribute('desc');
     sd.innerHTML=d;
@@ -43,12 +45,12 @@ td {
 [TEXT:User to affect]&nbsp:&nbsp[ZONE FDL:INPUTATTRIBUTE?type=doclink&id=affectuser&label=[TEXT:User to affect]&famid=IUSER&esize=30]</td>
 [IF viewstate]
      <td>
-     [textstate]
+     <span class="statetext" style="border-color:[colorstate]">[textstate]</span>
 	<select id="selectstate" name="newstate" onchange="viewstatedescription(this)">
 	<option selected value="-1" desc="[TEXT:the state will be unchanged]">[TEXT:unchanged state]</option>
 	<option value="0" desc="[TEXT:the state will be removed]">[TEXT:no state]</option>
 	[BLOCK freestate]
-	<option  value="[fstate]" desc="[dstate]">[lstate]</option>
+	<option  value="[fstate]" desc="[dstate]" style="background-color:[color]">[lstate]</option>
 	[ENDBLOCK freestate]
 	</select> <br><i><span id="sdescription">-</span></i>
 	</td>
