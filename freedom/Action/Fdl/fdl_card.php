@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.19 2006/11/27 16:39:52 marc Exp $
+ * @version $Id: fdl_card.php,v 1.20 2007/01/12 17:30:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -79,7 +79,7 @@ function fdl_card(&$action) {
       $listattr = $doc->GetActionAttributes();
       foreach ($listattr as $k => $v) {
 	if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
-	  if ($v->getOption("submenu")=="") {
+	  if ($v->getOption("onlymenu")!="yes") {
 	    $mvis=MENU_ACTIVE;
 	    if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
 	    if ($mvis == MENU_ACTIVE) {
