@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.351 2007/01/11 10:14:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.352 2007/01/12 07:31:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2470,7 +2470,7 @@ final public function PostInsert()  {
 	return $state;
       }
     }
-    return $this->state;
+    return $def;
   }
   /**
    * return the copy of the document
