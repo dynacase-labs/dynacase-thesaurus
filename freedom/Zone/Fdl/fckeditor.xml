@@ -18,6 +18,8 @@ function trackKeysQuickSave(event) {
     //  window.parent.quicksave();  
     if (stopPropagation) stopPropagation(event);
     else if (window.parent.stopPropagation) window.parent.stopPropagation(event);    
+  } else {
+    document.isChanged=true;
   }
 }
 
