@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.353 2007/01/12 10:58:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.354 2007/01/12 11:46:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3207,6 +3207,10 @@ final public function PostInsert()  {
 	  $lay->set("id",$this->id);
 	  $htmlval =$lay->gen(); 
 	
+	  break;
+	  
+	case color:  	  
+	  $htmlval=sprintf("<span style=\"background-color:%s\">%s</span>",$avalue,$avalue);	
 	  break;
 
 	default : 
