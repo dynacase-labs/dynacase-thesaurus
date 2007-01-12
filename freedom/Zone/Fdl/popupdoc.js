@@ -43,8 +43,8 @@ function reqViewMenu() {
 	  // alert(elt);
 	  if (o) {
 	    if (c > 0)       o.style.display='';
-	    o.style.left = 0;
-	    o.style.top  = 0;
+	    o.style.left = '0px';
+	    o.style.top  = '0px';
 	    o.innerHTML=elt;
 	    openDocMenu(false,'popupdoc');
 	  }
@@ -70,8 +70,8 @@ function viewTextError() {
   MENUCIBLE.innerHTML=MENUREQ.responseText;
   MENUCIBLE.style.position='absolute';
 
-  MENUCIBLE.style.left = XMENU;
-  MENUCIBLE.style.top  = YMENU;
+  MENUCIBLE.style.left = XMENU+'px';
+  MENUCIBLE.style.top  = YMENU+'px';
   MENUCIBLE.style.width='100px';
   MENUCIBLE.style.display='';
   setTimeout("MENUCIBLE.style.display='none'",2000);  
@@ -101,8 +101,8 @@ function menuSend(event,menuurl,cible) {
 	INPROGRESSMENU=true;
 	document.body.style.cursor='progress';	
 	GetXY(event);
-	cible.style.left = Xpos;
-	cible.style.top  = Ypos;
+	cible.style.left = Xpos+'px';
+	cible.style.top  = Ypos+'px';
 	cible.style.width  = '30px';
 	//	clipboardWait(cible);
 	return true;
