@@ -210,8 +210,9 @@ function canmodify() {
     var v;
     for (var i=0; i< attrNid.length; i++) {
       e=document.getElementById(attrNid[i]);
+      if (!e) e=document.getElementById('_'+attrNid[i]);
 	if (e) {
-	  v=getIValue(document.getElementById(attrNid[i]));
+	  v=getIValue(e);
 	  if (v === false) {
 	    ta = document.getElementsByName('_'+attrNid[i]+'[]');
 	    if (ta.length == 0)	err += ' - '+attrNtitle[i]+'\n';
