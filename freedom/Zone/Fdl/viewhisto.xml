@@ -43,17 +43,28 @@ function senddiff() {
 }
 </script>
 
+<style>
+body {
+  margin:0px;
+  padding:0px;
+}
+TD.author {
+  width:100px;white-space:nowrap;
+}
+TD.date {
+  width:80px;white-space:nowrap;
+}
+</style>
 
 
 
-
-<table class="tablesimple" cellspacing="0"  width="100%" >
+<table class="tablesimple" cellspacing="0" cellpadding="0"  width="100%" >
 <thead>
 <tr><td class="CORETblHeadBold" align="center" colspan="6">[title]</td><tr>
 <tr><td width="40px" class="CORETblHeadBold">[TEXT:version]</td>
-    <td width="20px" class="CORETblHeadBold">[IF VIEWREV][TEXT:rev][ENDIF VIEWREV]</td>
+    <td width="20x" class="CORETblHeadBold">[IF VIEWREV][TEXT:rev][ENDIF VIEWREV]</td>
     <td class="CORETblHeadBold">[IF STATE][TEXT:state][ENDIF STATE]</td>
-    <td class="CORETblHeadBold">[TEXT:author]</td>
+    <td class="CORETblHeadBold" style="text-align:left;">[TEXT:author]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[TEXT:date]</td>
     <td class="CORETblHeadBold" style="text-align:left;">[IF viewdiff][TEXT:diff][ENDIF viewdiff]</td>
 </tr>
@@ -61,20 +72,20 @@ function senddiff() {
 <tbody>
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<tr class="selhead" id="d[id]"
+<tr class="selhead" id="d[id]" 
     [IFNOT cversion]name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail][ENDIF cversion] 
     onMousedown="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
-<td width="100px">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
+<td width="100px" style="border-left:10px;border-style: none none none solid;border-color:[color];overflow:hidden">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
 <td>[IF VIEWREV][revision][ENDIF VIEWREV]</td>
 <td>[IF STATE]<b>[state]</b>[ENDIF STATE]</td>
-     <td title="[TEXT:revised by]"><I style="margin-right:5px;white-space:nowrap;">[owner]</I></td>
-     <td style="white-space:nowrap;">[date]</td>
+     <td class="author" title="[TEXT:revised by]"><I style="margin-right:5px;white-space:nowrap;">[owner]</I></td>
+     <td class="date">[date]</td>
      <td>[IF viewdiff]<input type="checkbox" onclick="senddiff()" onmousedown="stopPropagation(event);return false" name="diff" value="[id]">[ENDIF viewdiff]</td>
 </tr>
 
      [BLOCK [COMMENT]]
 <tr class="dash" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
-       <P style="border-left:20px;border-style: none none none solid;border-color:[color]"> [ccomment]</P>
+       <P style="border-left:10px;border-style: none none none solid;border-color:[color]"> [ccomment]</P>
 </td><td><I>[cauthor]</I></td><td>[cdate]</td> </tr>
        [ENDBLOCK [COMMENT]]
 [ENDBLOCK TABLEBODY]
