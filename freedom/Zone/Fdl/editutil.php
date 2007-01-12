@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.109 2007/01/03 19:36:59 eric Exp $
+ * @version $Id: editutil.php,v 1.110 2007/01/12 10:58:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -127,24 +127,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  if ($DAV) {
 	    global $action;
 	    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/DAV/Layout/getsessionid.js");
-
-	    /*
-	    if (ereg("Linux",$_SERVER["HTTP_USER_AGENT"],$regi)) {
-	      $fname = "<A target=\"$attrid\" href=\"".
-		"vnd.sun.star.webdav://".$_SERVER["HTTP_HOST"].
-		"/davfreedom/doc".$doc->id."/".$info->name."\">";
-	    } else {
-	      $davurl="http://".$_SERVER["HTTP_HOST"].
-		"/davfreedom/doc".$doc->id."/";
-	      $fname .= '<A style="behavior: url(#default#AnchorClick)" '."target=\"F$attrid\" href=\"".$davurl.$info->name."\" folder=\"".$davurl."\">";
-	      $fname .= "wfolder";
-	      $fname .= "</A> ";
-	      	     
-	      $fname .= "<A target=\"$attrid\" href=\"".$davurl.$info->name."\">";	      
-	    }
-	  */
+	    
 	    $oc="onclick=\"var sid=getsessionid('".$docid."','$vid');this.href='asdav://$DAV/freedav/vid-'+sid+'/$info->name'\"";
-	     $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc>";
+	    $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc>";
 	  } else {
 	  $fname = "<A target=\"$attrid\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
@@ -203,6 +188,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 
       $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
       $lay->set("Value",str_replace(array("\n","\r","'"),array(" "," ","\\'"), $value));
+      $lay->set("label",ucFirst($oattr->labelText));
+      $lay->set("need",$oattr->needed);
       $lay->set("aid",$attridk);
       if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
       else $lay->set("disabled","");
@@ -427,7 +414,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 		      
     }
   
-  if ($oattr->type != "array") {
+  if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
     if  ($visibility != "S") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	$phpfunc=$oattr->phpfunc;

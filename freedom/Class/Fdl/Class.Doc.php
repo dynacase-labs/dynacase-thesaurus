@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.352 2007/01/12 07:31:17 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.353 2007/01/12 10:58:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -965,8 +965,8 @@ final public function PostInsert()  {
 
 	global $action;
 	global $_SERVER;
-	$this->AddComment(sprintf(_("delete by action %s from %s"),
-				  $_SERVER["REQUEST_URI"],
+	$this->AddComment(sprintf(_("delete by action %s/%s from %s"),
+				  $action->parent->name,$action->name,
 				  $_SERVER["REMOTE_ADDR"]),HISTO_NOTICE);
 	$this->AddComment(_("document deleted"));
 
@@ -2463,7 +2463,7 @@ final public function PostInsert()  {
   final public function getStateColor($def="") {
     if ($this->wid > 0) {      
 	$wdoc = new_Doc($this->dbaccess,$this->wid);
-	return $wdoc->getColor($this->state,$def);
+	if ($wdoc->isAffected()) return $wdoc->getColor($this->state,$def);
     } else {
       if (is_numeric($this->state) && ($this->state>0) ) {
 	$state=$this->getDocValue($this->state,"frst_color",$def);
@@ -4091,7 +4091,7 @@ final public function PostInsert()  {
 	$tableframe[$v]["NORMALROW"]="NORMALROW$i";		
 	$tableframe[$v]["ARRAYROW"]="ARRAYROW$i";
 
-	if ($listattr[$i]->type=="array") $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
+	if (($listattr[$i]->type=="array")||($listattr[$i]->type=="htmltext")) $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
 	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou"=>"zou")));
 	$v++;
 		

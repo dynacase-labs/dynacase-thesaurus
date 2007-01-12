@@ -1,3 +1,4 @@
+<span class="[IF needed]FREEDOMLabelNeeded[ENDIF needed][IFNOT needed]FREEDOMLabel[ENDIF needed]">[label] :</span>
 <script type="text/javascript">
 
 function trackKeysQuickSave(event) {
