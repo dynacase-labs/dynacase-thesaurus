@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.38 2006/11/16 16:45:03 eric Exp $
+// $Id: FDL.app,v 1.39 2007/01/12 17:37:09 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -284,6 +284,11 @@ $action_desc = array (
   array( 
    "name"		=>"DESAFFECT",
    "short_name"		=>N_("unaffect user to a document"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"VIEW_WORKFLOW_GRAPH",
+   "short_name"		=>N_("view graph of workflow"),
    "acl"		=>"NORMAL"
   ) 
                       );	
