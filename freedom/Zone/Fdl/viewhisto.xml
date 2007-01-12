@@ -61,7 +61,7 @@ function senddiff() {
 <tbody>
 <!-- TABLEBODY -->
 [BLOCK TABLEBODY]
-<tr class="selhead" id="d[id]" style="background-color:[color]"
+<tr class="selhead" id="d[id]"
     [IFNOT cversion]name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail][ENDIF cversion] 
     onMousedown="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[target]','[CORE_STANDURL]&app=[VIEWAPP]&action=[VIEWACT]&id=[id]')" >
 <td width="100px">[IF cversion][IF nodetail]<img src="[IMG:plus.gif]" onmousedown="displaytr(event,this,'[vername]');return false">[ENDIF nodetail]<b>[version]</b>[ENDIF cversion]&nbsp;</td>
@@ -74,7 +74,7 @@ function senddiff() {
 
      [BLOCK [COMMENT]]
 <tr class="dash" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
-       <P style="margin-left:20pt"> [ccomment]</P>
+       <P style="border-left:20px;border-style: none none none solid;border-color:[color]"> [ccomment]</P>
 </td><td><I>[cauthor]</I></td><td>[cdate]</td> </tr>
        [ENDBLOCK [COMMENT]]
 [ENDBLOCK TABLEBODY]
