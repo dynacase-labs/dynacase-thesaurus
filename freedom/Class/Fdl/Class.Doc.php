@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.355 2007/01/15 11:06:50 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.356 2007/01/15 11:38:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -921,7 +921,12 @@ final public function PostInsert()  {
    * @return string error message, if no error empty string
    */
   final public function ReallyDelete($nopost) {
-    return DbObj::delete($nopost);
+    $err= DbObj::delete($nopost);
+    if ($err=="") {      
+      $dvi = new DocVaultIndex($this->dbaccess);
+      $err = $dvi->DeleteDoc($this->id);
+    }
+    return $err;
   }
 
   /** 
