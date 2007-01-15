@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.1 2007/01/12 17:37:09 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.2 2007/01/15 11:39:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,7 +36,7 @@ $rankdir="LR";
 $size="8,8";
 if ($label) {
   $rankdir="TB";
-  $size="";  
+  $size="11.6,8.2";  
  }
 
 foreach ($doc->cycle as $k=>$v) {
@@ -47,23 +47,38 @@ foreach ($doc->cycle as $k=>$v) {
   if ($label) { 
     $m1=$doc->transitions[$v["t"]]["m1"];
     $m2=$doc->transitions[$v["t"]]["m2"];
+
+    $e1=_($v["e1"]);
+    $e2=_($v["e2"]);
     if ($m1) {
-      if ($tmain) $tmain.=",";
-      $tmain.="taillabel=$m1";
+      //      if ($tmain) $tmain.=",";
+      //      $tmain.="taillabel=$m1";
+
+      $line[]='"'.str_replace(" ","\\n",$m1.$k).'" [ label="'.$m1.'.",shape=diamond,color="'."yellow".'", fontsize=8, ];';
+
+      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize=8];',
+		    str_replace(" ","\\n",$e1),
+		    str_replace(" ","\\n",$m1.$k));
+      $e1=$m1.$k;
+      
     }
     if ($m2) {
-      if ($tmain) $tmain.=",";
-      $tmain.="headlabel=$m2";
+      $line[]='"'.str_replace(" ","\\n",$m2.$k).'" [ label="'.$m2.'",shape=box,color="'."orange".'", fontsize=8, ];';
+      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize=8];',
+		    str_replace(" ","\\n",$e1),
+		    str_replace(" ","\\n",$m2.$k));
+      $e1=$m2.$k;
+      
     }
-  $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize=8, label="%s" %s];',
-		   str_replace(" ","\\n",_($v["e1"])),
-		   str_replace(" ","\\n",_($v["e2"])),
-		  _($v["t"]),$tmain);
+    $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize=8, label="%s" %s];',
+		    str_replace(" ","\\n",$e1),
+		    str_replace(" ","\\n",$e2),
+		    _($v["t"]),$tmain);
   } else {
    
     $line[]=sprintf('"%s" -> "%s" [color=darkblue %s];',
-		  str_replace(" ","\\n",(_($v["e1"]))),
-		  str_replace(" ","\\n",(_($v["e2"]))),$tmain);
+		    str_replace(" ","\\n",(_($v["e1"]))),
+		    str_replace(" ","\\n",(_($v["e2"]))),$tmain);
   }
   //  $line[]='"'.utf8_encode(_($v["e1"])).'" -> "'.utf8_encode(_($v["e2"])).' [label="'..'";';
 }
