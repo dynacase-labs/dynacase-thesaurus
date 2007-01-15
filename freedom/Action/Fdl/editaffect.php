@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: editaffect.php,v 1.5 2007/01/12 07:31:37 eric Exp $
+ * @version $Id: editaffect.php,v 1.6 2007/01/15 14:39:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,10 +53,10 @@ function editaffect(&$action) {
   $state=$doc->getState();
   if ($state) {
     $action->lay->set("textstate",sprintf(_("From %s state to"),$state));
-    $action->lay->set("colorstate",$doc->getStateColor("inherits"));
+    $action->lay->set("colorstate",$doc->getStateColor("transparent"));
   } else {
     $action->lay->set("textstate",_("New state"));
-    $action->lay->set("colorstate","inherits");
+    $action->lay->set("colorstate","transparent");
   }
 
   $action->lay->setBlockData("freestate",$tstate);
