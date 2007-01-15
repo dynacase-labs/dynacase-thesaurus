@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.356 2007/01/15 11:38:14 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.357 2007/01/15 14:40:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2498,6 +2498,7 @@ final public function PostInsert()  {
     $copy->initid = "";
     $copy->revision = "0";
     $copy->locked = "0";
+    $copy->allocated = "0";
     $copy->state = "";
     $copy->comment = "";
 
