@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.354 2007/01/12 11:46:42 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.355 2007/01/15 11:06:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4188,14 +4188,23 @@ final public function PostInsert()  {
       $this->lay->set("IDFAM_$k", $v);
     }
   }
-  final public function vault_filename($attrid) {
+  /**
+   * get vault file name or server path of filename
+   * @param string $idAttr identificator of file attribute 
+   * @param bool false return original file name (basename) , true the real path
+   * @return string the file name of the attribute
+   */
+  final public function vault_filename($attrid,$path=false) {
 
     $fileid= $this->getValue($attrid);
     $fname="";
     if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
       // reg[1] is mime type
       $vf = newFreeVaultFile($this->dbaccess);
-      if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;
+      if ($vf -> Show ($reg[2], $info) == "") {
+	if ($path) $fname = $info->path;
+	else $fname = $info->name;
+      }
     
     } 
 
