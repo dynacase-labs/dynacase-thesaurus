@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.13 2006/12/14 17:15:33 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.14 2007/01/16 10:04:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -123,7 +123,6 @@ Class VaultDiskFs extends DbObj {
       }
       if ($dirfound) {
 	$this->Select($t[0]["id_fs"]);
-	error_log("SetFreeFs:".$t[0]["id_fs"]);
 	$id_fs = $this->id_fs;
 	$id_dir = $sd->id_dir;
 	$f_path = $this->r_path."/".$sd->l_path;
@@ -161,7 +160,6 @@ Class VaultDiskFs extends DbObj {
   // --------------------------------------------------------------------
     $this->free_size = $this->free_size - $fs;
     $err=$this->Modify();
-    error_log("AddEntry $fs [$err]");
   }
  
   // --------------------------------------------------------------------
