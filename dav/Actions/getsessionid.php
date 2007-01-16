@@ -3,7 +3,7 @@
  * Get DAV session
  *
  * @author Anakeen 2006
- * @version $Id: getsessionid.php,v 1.2 2006/11/20 17:43:54 eric Exp $
+ * @version $Id: getsessionid.php,v 1.3 2007/01/16 09:44:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage DAV
@@ -28,7 +28,6 @@ function getsessionid(&$action) {
   $mb=microtime();
   $vid = GetHttpVars("vid");
   $docid = GetHttpVars("docid");
-  error_log("docid=$docid");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
