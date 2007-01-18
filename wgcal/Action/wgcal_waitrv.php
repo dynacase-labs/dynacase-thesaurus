@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_waitrv.php,v 1.19 2006/11/23 12:31:00 marc Exp $
+ * @version $Id: wgcal_waitrv.php,v 1.20 2007/01/18 16:30:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -81,7 +81,8 @@ function wgcal_waitrv(&$action) {
     $attst = $doc->getTValue("calev_attstate");
     $state = -1;
     foreach ($attid as $ka => $va) {
-      if ($va==$action->user->fid && ($attst[$ka]==EVST_NEW||$attst[$ka]==EVST_READ||$attst[$ka]==EVST_TBC)) $state = $attst[$ka]; 
+      $st = intval($attst[$ka]);
+      if ($va==$action->user->fid && ($st==EVST_NEW||$st==EVST_READ||$st==EVST_TBC)) $evstate = $st;
     }
     if ($state!=-1) {
       $date = substr($v["calev_start"],0,11);

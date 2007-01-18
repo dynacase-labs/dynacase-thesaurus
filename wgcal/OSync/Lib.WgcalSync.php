@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2005 
- * @version $Id: Lib.WgcalSync.php,v 1.12 2007/01/09 11:50:11 eric Exp $
+ * @version $Id: Lib.WgcalSync.php,v 1.13 2007/01/18 16:30:57 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WGCAL
  * @subpackage SYNC
@@ -164,6 +164,7 @@ function WSyncInitEvent(&$dbdata,
   $event->setValue("CALEV_ATTID", array($action->parent->user->fid));
   $event->setValue("CALEV_ATTTITLE", array($u->getTitle()));
   $event->setValue("CALEV_ATTGROUP", array(-1));
+  $event->setValue("CALEV_ATTSTATE", array(2));
   $event->setValue("CALEV_EVTITLE", utf8_decode($title));
   $event->setValue("CALEV_EVNOTE", utf8_decode($descr));
   $event->setValue("CALEV_VISIBILITY", ($access=="P"?0:1));
