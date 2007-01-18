@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: view_workflow_graph.php,v 1.1 2007/01/12 17:37:09 eric Exp $
+ * @version $Id: view_workflow_graph.php,v 1.2 2007/01/18 17:12:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,8 +33,8 @@ function view_workflow_graph(&$action) {
   if ($action->Read("navigator","")=="EXPLORER") $filetype="png";
 
   $cmd.="--api=wdoc_graphviz --type=$type --docid=".$doc->id;
-  $svgfile="/img-cache/w".$doc->id.".$filetype";
-  $dest=DEFAULT_PUBDIR.$svgfile;
+  $svgfile="img-cache/w$type".$doc->id.".$filetype";
+  $dest=DEFAULT_PUBDIR."/$svgfile";
   $cmd .= "| dot -T$filetype> $dest";
 
   system($cmd);
