@@ -10,8 +10,7 @@ Alias /whatsync @prefix@/osync
     ErrorDocument 401 /what/expire/tryexpire.html
     AuthType Basic
     AuthName 'FREEDOM Connection'
-    AuthPAM_Enabled  on
-    AuthPAM_FallThrough off
-    AuthPAM_Service httpd
+    AuthBasicProvider pam
+    AuthnPAMService httpdwa
     Require valid-user
 </Directory>
