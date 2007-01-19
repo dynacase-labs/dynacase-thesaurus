@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.66 2007/01/18 17:12:10 eric Exp $
+ * @version $Id: mailcard.php,v 1.67 2007/01/19 16:27:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,9 +14,8 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/sendmail.php");
 include_once("Class.MailAccount.php");
-include('Mail/mime.php');
-include('Net/SMTP.php');
 
 
 // -----------------------------------
@@ -203,7 +202,7 @@ function sendCard(&$action,
   $pubdir = $action->getParam("CORE_PUBDIR");
   $szone=false;
 
-  $themail = new My_Mail_mime();
+  $themail = new Fdl_Mail_mime();
   
   if ($sendercopy && $action->getParam("FDL_BCC") == "yes") {    
     $umail=getMailAddr($action->user->id);
@@ -214,6 +213,7 @@ function sendCard(&$action,
   }
   if ($from == "") {
     $from=getMailAddr($action->user->id);
+    if ($from == "")  $from = getParam('SMTP_FROM');
     if ($from == "")  $from = $action->user->login.'@'.$_SERVER["HTTP_HOST"];    
   }
 
@@ -310,30 +310,14 @@ function sendCard(&$action,
 
 
   // ---------------------------
-  // contruct metasend command
+  // contruct mail_mime object
   if ($subject == "") $subject = $ftitle;
   $subject = str_replace("\"","'",$subject);
 
-  list($login,$domain)=explode('@',$from); // add for qmail anti-virus
-  $qmailopt=sprintf("QMAILUSER=\"%s\" QMAILHOST=\"%s\"",$login,$domain);
-
-  $maxsplit=$action->getParam("FDL_SPLITSIZE",4000000);
-  $cmd = "$qmailopt metasend  -b -S $maxsplit -c \"$cc\" -F \"$from\" -t \"$to$bcc\" -s \"$subject\"  ";
- 
-
   if (ereg("html",$format, $reg)) {
-    $cmd .= " -/ related ";
-    $cmd .= " -m 'text/html' -e 'quoted-printable' -i mailcard -f '$pfout' ";
-    //$themail->addAttachment($pfout,'text/html',$doc->title,true,'quoted-printable');
     $themail->setHTMLBody($pfout,true);
-  } else if ($format == "pdf") {
-    $cmd .= " -/ mixed ";
-    $ftxt = "/var/tmp/".str_replace(array(" ","/","(",")"), "_",uniqid($doc->id).".txt");
-    $comment = str_replace("'","'\"'\"'",$comment);
-    
-    system("echo '$comment' > $ftxt");
-    $cmd .= " -m 'text/plain' -e 'quoted-printable' -i comment -f '$ftxt' ";
-    $themail->setTxtBody($ftxt,true);
+  } else if ($format == "pdf") {   
+    $themail->setTxtBody($comment,false);
   }
 
 
@@ -362,19 +346,14 @@ function sendCard(&$action,
 	  if ($afiles[$aid]->repeat) $va=$doc->getTValue($aid,"",$index);
 	  else $va=$doc->getValue($aid);
 
-
 	  if ($va != "") {
-
 	      list($mime,$vid)=explode("|",$va);
-	      //      ereg ("(.*)\|(.*)", $va, list($mime,$vid)$reg);
 
 	      if ($vid != "") {
 		if ($vf->Retrieve ($vid, $info) == "") {  
 		
 		  $cidindex= $vaf;
 		  if (($mixed) && ($afiles[$aid]->type != "image"))  $cidindex=$info->name;
-		  $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"\\n\\tfilename=\"".$info->name."\"' ".
-		    "-i '<".$cidindex.">'  -f '".$info->path."'";
 		  $themail->addAttachment($info->path,$mime,$info->name,true,'base64',$cidindex);
 	  
 		}
@@ -395,17 +374,14 @@ function sendCard(&$action,
 
 	  if ($vid != "") {
 	    if ($vf -> Retrieve ($vid, $info) == "") {  
-	      $cmd .= " -n -e 'base64' -m '$mime;\\n\\tname=\"".$info->name."\"' ".
-		 "-i '<icon>'  -f '".$info->path."'";
 	      $themail->addAttachment($info->path,$mime,$info->name,true,'base64','icon');
 	      
 	    }
 	  } else {
 	    $icon=$doc->getIcon();
-	    if (file_exists($pubdir."/$icon"))
-	      $cmd .= " -n -e 'base64' -m 'image/".fileextension($icon)."' ".
-		"-i '<icon>'  -f '".$pubdir."/$icon"."'";
-	    $themail->addAttachment($pubdir."/$icon","image/".fileextension($icon),"icon",true,'base64','icon');
+	    if (file_exists($pubdir."/$icon")) {
+	      $themail->addAttachment($pubdir."/$icon","image/".fileextension($icon),"icon",true,'base64','icon');
+	    }
 	  }
 	}
       }
@@ -419,8 +395,6 @@ function sendCard(&$action,
     foreach($ifiles as $v) {
 
       if (file_exists($pubdir."/$v")) {
-	$cmd .= " -n -e 'base64' -m 'image/".fileextension($v)."' ".
-	  "-i '<".$v.">'  -f '".$pubdir."/$v"."'";
 	$themail->addAttachment($pubdir."/$v","image/".fileextension($v),$v,true,'base64',$v);
       }
     }
@@ -428,8 +402,6 @@ function sendCard(&$action,
 
     foreach($tfiles as $k=>$v) {
       if (file_exists($v)) {
-	$cmd .= " -n -e 'base64' -m '".trim(`file -ib "$v"`)."' ".
-	  "-i '<".$k.">'  -f '".$v."'";
 	$themail->addAttachment($v,trim(`file -ib "$v"`),"$k",true,'base64',$k);
       }
       
@@ -454,8 +426,6 @@ function sendCard(&$action,
 		}
 		$fpst = stat($fpname);
 		if (is_array($fpst) && $fpst["size"]>0) {
-		  $cmd .= " -n -e 'base64' -m '".$fmime.";\\n\\tname=\"".$fname."\"' ".
-		    "-i '<".$fname.">'  -f '".$fpname."'";
 		  $themail->addAttachment($fpname,$fmime,$fname,true,'base64',$fname);
 		}
 	      }
@@ -470,21 +440,16 @@ function sendCard(&$action,
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
 
     system ($cmdpdf, $status);
-    if ($status == 0)  {
-      $cmd .= " -n -e 'base64' -m 'application/pdf;\\n\\tname=\"".$ftitle.".pdf\"' ".
-	 "-i '<pdf>'  -f '$fpdf'";
+    if ($status == 0)  {     
       $themail->addAttachment($fpdf,'application/pdf',$doc->title.".pdf");
       
     } else {
       $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
     }
   }  
-  $cmd = "export LANG=C;".$cmd;
-  //  system ($cmd, $status);
 
 
-  $err=mysendmail($to,$from,$cc,$bcc,$subject,$themail);
-  //  mail($to, $subject, $message, $headers);
+  $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'related');
   
 
 
@@ -604,138 +569,5 @@ function realfile($src) {
 }
 
 
-class My_Mail_mime extends Mail_mime {
-  // USE TO ADD CID in attachment
-  /**
-     * Adds a file to the list of attachments.
-     *
-     * @param  string  $file       The file name of the file to attach
-     *                             OR the file data itself
-     * @param  string  $c_type     The content type
-     * @param  string  $name       The filename of the attachment
-     *                             Only use if $file is the file data
-     * @param  bool    $isFilename Whether $file is a filename or not
-     *                             Defaults to true
-     * @return mixed true on success or PEAR_Error object
-     * @access public
-     */
-    function addAttachment($file, $c_type = 'application/octet-stream',
-                           $name = '', $isfilename = true,
-                           $encoding = 'base64',$cid='')
-    {
-        $filedata = ($isfilename === true) ? $this->_file2str($file)
-                                           : $file;
-        if ($isfilename === true) {
-            // Force the name the user supplied, otherwise use $file
-            $filename = (!empty($name)) ? $name : basename($file);
-        } else {
-            $filename = $name;
-        }
-        if (empty($filename)) {
-            return PEAR::raiseError(
-              'The supplied filename for the attachment can\'t be empty'
-            );
-        }
-        if (PEAR::isError($filedata)) {
-            return $filedata;
-        }
 
-        $this->_parts[] = array(
-                                'body'     => $filedata,
-                                'name'     => $filename,
-                                'c_type'   => $c_type,
-                                'encoding' => $encoding,
-                                'cid' => $cid
-                               );
-        return true;
-    }
-  
-   /**
-     * Adds an attachment subpart to a mimePart object
-     * and returns it during the build process.
-     *
-     * @param  object  The mimePart to add the image to
-     * @param  array   The attachment information
-     * @return object  The image mimePart object
-     * @access private
-     */
-    function &_addAttachmentPart(&$obj, $value)
-    {
-        $params['content_type'] = $value['c_type'];
-        $params['encoding']     = $value['encoding'];
-        $params['disposition']  = 'attachment';
-        $params['dfilename']    = $value['name'];
-        $params['cid']          = $value['cid'];
-        $obj->addSubpart($value['body'], $params);
-    }
-}
-
-
-/**
- * Send mail via smtp server
- * @param string $to mail addresses (, separate)
- * @param string $cc mail addresses (, separate)
- * @param string $bcc mail addresses (, separate)
- * @param string $from mail address
- * @param string $subject mail subject
- * @param Mail_mime &$mimemail mail mime object 
- * @return string error message : if no error: empty if no error
- */
-function mysendmail($to,$from,$cc,$bcc,$subject,&$mimemail) {
- 
-  
-  $rcpt = array($to,$cc,$bcc);
-
-  
-  $mimemail->setFrom($from);
-  $mimemail->addCc($cc);
-  $xh['To']=$to;
-  /* Create a new Net_SMTP object. */
-  if (! ($smtp = new Net_SMTP($host))) {
-    die("Unable to instantiate Net_SMTP object\n");
-  }
-  $smtp->setDebug(false);
-  /* Connect to the SMTP server. */
-  if (PEAR::isError($e = $smtp->connect())) {
-    return ($e->getMessage() );
-  }
-
-  /* Send the 'MAIL FROM:' SMTP command. */
-  if (PEAR::isError($smtp->mailFrom($from))) {
-    return ("Unable to set sender to <$from>");
-  }
-  
-  /* Address the message to each of the recipients. */
-  foreach ($rcpt as $v) {
-    if ($v) {
-      if (PEAR::isError($res = $smtp->rcptTo($v))) {
-	return ("Unable to add recipient <$v>: " . $res->getMessage() );
-      }
-    }
-   }
-  setlocale(LC_TIME, 'C');
-
-  $body=$mimemail->get();
-  $xh['Date']=strftime("%a, %d %b %Y %H:%M:%S %z",time());
-  //  $xh['Content-type']= "multipart/related";
-  $xh['Subject']=$subject;
-  $data="";
-  $h=$mimemail->headers($xh);
-  $h['Content-Type']=str_replace("mixed","related",$h['Content-Type']);
-
-  foreach ($h as $k=>$v) {
-    $data.="$k: $v\r\n";
-  }
-  
-  $data.="\r\n".$body;
-
-  
-  /* Set the body of the message. */
-  if (PEAR::isError($smtp->data($data))) {
-    return ("Unable to send data");
-  }
-
-  /* Disconnect from the SMTP server. */
-  $smtp->disconnect();
-}
 ?>
