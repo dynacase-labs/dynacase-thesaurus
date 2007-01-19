@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_bgimport.php,v 1.9 2006/11/16 16:42:05 eric Exp $
+ * @version $Id: freedom_bgimport.php,v 1.10 2007/01/19 16:23:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_bgimport.php,v 1.9 2006/11/16 16:42:05 eric Exp $
+// $Id: freedom_bgimport.php,v 1.10 2007/01/19 16:23:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_bgimport.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -38,6 +38,7 @@
 
 
 include_once("FDL/Class.Dir.php");
+include_once("FDL/sendmail.php");
 
 
 // -----------------------------------
@@ -66,24 +67,16 @@ function freedom_bgimport(&$action) {
     } 
 
   $wsh =  getWshCmd(true);
+  $destfile=dirname($file)."/__".$filename;
+  $cmd[] = "cp $file $destfile";
 
-  $cmd[] = "cp $file $file.1";
+  
+
+  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --double=$double --policy=$policy --to=$to --file=$destfile";
+  $cmd[]="/bin/rm $destfile ";
 
   
 
-  $cmd[] = "$wsh --userid={$action->user->id} --api=freedom_import --htmlmode=Y --dirid=$dirid --double=$double --policy=$policy --file=$file.1 >$file.2 ";
-
-  
-  $subject=sprintf(_("result of import  %s"), $filename);
-  $from=getMailAddr($action->user->id);
-  if ($from == "")  $from = $action->user->login;
-  $bcc ="";
-  
-  $bcc .="\\nReturn-Path:$from";
-  $cmd[] = "export LANG=C";
-  
-  $maxsplit=$action->getParam("FDL_SPLITSIZE",4000000);
-  $cmd[] = "metasend  -b -S  $maxsplit -F 'freedom' -t '$to$bcc' -s \"$subject\"  -m 'text/html' -e 'quoted-printable' -f  $file.2";
   // $cmd[]="/bin/rm -f $file.?";
 
   $scmd="(";

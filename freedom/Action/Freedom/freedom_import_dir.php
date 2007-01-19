@@ -3,7 +3,7 @@
  * Import directory with document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import_dir.php,v 1.4 2006/11/16 16:42:05 eric Exp $
+ * @version $Id: freedom_import_dir.php,v 1.5 2007/01/19 16:23:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -35,29 +35,12 @@ function freedom_import_dir(&$action) {
       $args .= " --$k=\"$v\"";
   }
  
-  $rfile=uniqid("/tmp/bgtar");
 
-  $cmd[] = "$wsh --userid={$action->user->id} --app=FREEDOM --action=FREEDOM_ANA_TAR --htmlmode=Y $args >$rfile ";
-
-  
   $subject=sprintf(_("result of archive import  %s"), $filename);
-  $from=getMailAddr($action->user->id);
-  if ($from == "")  $from = $action->user->login;
-  $bcc ="";
-  
-  $bcc .="\\nReturn-Path:$from";
-  $cmd[] = "export LANG=C";
-  
-  $maxsplit=$action->getParam("FDL_SPLITSIZE",4000000);
-  $cmd[] = "metasend  -b -S $maxsplit  -F \"freedom\" -t \"$to$bcc\" -s \"$subject\"  -m \"text/html\" -e \"quoted-printable\" -f  $rfile";
-  // $cmd[]="/bin/rm -f $file.?";
 
-  $scmd="(";
-  $scmd.=implode(";",$cmd);
+  $cmd[] = "$wsh --userid={$action->user->id} --app=FREEDOM --action=FREEDOM_ANA_TAR --htmlmode=Y $args | ( $wsh --userid={$action->user->id} --api=fdl_sendmail --subject=\"$subject\" --htmlmode=Y --file=stdin --to=\"$to\" )";
+
   
-  //  $scmd .= ")";
-  
-  $scmd .= ") 2>&1 > /dev/null &";
 
 
   bgexec($cmd, $result, $err);  
