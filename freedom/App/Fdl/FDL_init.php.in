@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.20 2006/11/16 16:45:03 eric Exp $
+// $Id: FDL_init.php.in,v 1.21 2007/01/19 16:25:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -39,10 +39,7 @@ $app_const= array(
 		       "user"=>"Y",
 		       "global"=>"Y",
 		       "kind"=>"enum(yes|no)"),
-  "FDL_SPLITSIZE"    =>array("val"=>"6000000",
-			     "descr"=>N_("metasend max for split mail"),
-			     "global"=>"Y",
-			     "kind"=>"enum(yes|no)"),
+  
   "FDL_HD2SIZE"    =>array("val"=>"600",
 		       "descr"=>N_("horizontal size for secondary windows"),
 		       "user"=>"Y",
@@ -88,7 +85,28 @@ $app_const= array(
 			"global"=>"Y",
 			"user"=>"Y",
 			"kind"=>"static",
-			"descr"=>N_("geometry of mini view"))
+			"descr"=>N_("geometry of mini view")),
+  "SMTP_HOST"   =>array("val"=>"localhost",
+			"global"=>"Y",
+			"user"=>"N",
+			"descr"=>N_("SMTP host")),  
+  "SMTP_PORT"   =>array("val"=>"25",
+			"global"=>"Y",
+			"user"=>"N",
+			"descr"=>N_("SMTP port")),
+  "SMTP_LOGIN"   =>array("val"=>"",
+			"global"=>"Y",
+			"user"=>"N",
+			 "descr"=>N_("SMTP login")),
+  "SMTP_PASSWORD"   =>array("val"=>"",
+			"global"=>"Y",
+			"user"=>"N",
+			    "descr"=>N_("SMTP password")),
+
+  "SMTP_FROM"   =>array("val"=>"",
+			"global"=>"Y",
+			"user"=>"N",
+			"descr"=>N_("SMTP default from if not"))
 );
 
 
