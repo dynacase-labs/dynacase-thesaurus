@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.5 2006/12/14 17:14:59 eric Exp $
+ * @version $Id: vault_view.php,v 1.6 2007/01/22 15:31:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -64,7 +64,7 @@ function vault_view(&$action) {
     $pceffused=sprintf("%d%%",$pci_effused);
     $pci_free=(100-$pci_used);
     $pcfree=humanreadpc($pci_free);
-    $tfs[$k]=array("pcoccuped"=>humanreadsize($pci_effused),
+    $tfs[$k]=array("pcoccuped"=>humanreadpc($pci_effused),
 		   "pcfree"=>$pcfree,
 		   "fsid"=>$fs["id_fs"],
 		   "free"=>humanreadsize($free),
@@ -97,8 +97,11 @@ function vault_view(&$action) {
 
 function humanreadsize($bytes) {
   if ($bytes < 1024) return sprintf(_("%d bytes"),$bytes);
+  if ($bytes < 10240) return sprintf(_("%.02f Kb"),$bytes/1024);
   if ($bytes < 1048576) return sprintf(_("%d Kb"),$bytes/1024);
+  if ($bytes < 10485760) return sprintf(_("%.02f Mb"),$bytes/1048576);
   if ($bytes < 1048576*1024) return sprintf(_("%d Mb"),$bytes/1048576);
+  if ($bytes < 1048576*10240) return sprintf(_("%.02f Gb"),$bytes/1048576/1024);
   if ($bytes < 1048576*1048576) return sprintf(_("%d Gb"),$bytes/1048576/1024);
   return sprintf(_("%d Tb"),$bytes/1048576/1048576);  
 }
