@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.357 2007/01/15 14:40:33 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.358 2007/01/26 16:17:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3507,7 +3507,7 @@ final public function PostInsert()  {
     }
     $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
     
-
+    $this->lay->set("_readonly",($this->Control('edit')!=""));
     $method = strtolower($reg[2]);
 
    
