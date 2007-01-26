@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.6 2006/05/11 07:14:43 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.7 2007/01/26 16:16:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -58,6 +58,12 @@ Class DocLDAP extends DbObj {
 
     return false;
   }
+  
+  /**
+   * Indicate if ::refreshLdapCard must be activate or not
+   * use for families which doesn't want to be inserted in LDAP 
+   */
+  function UseLdap() { return true; }
 
   /**
    * initialialize LDAP coordonates
@@ -106,6 +112,7 @@ Class DocLDAP extends DbObj {
    * update or delete LDAP card
    */
   function RefreshLdapCard() {
+    if (! $this->UseLdap()) return false;
     $this->SetLdapParam();
     if (! $this->useldap) return false;
 
@@ -122,6 +129,7 @@ Class DocLDAP extends DbObj {
    * delete LDAP cards of document
    */
   function DeleteLdapCard()    {
+    if (! $this->UseLdap()) return false;
     if (! $this->useldap) return;
      
     if (($this->serveur != "") && ($this->id > 0)) {
@@ -264,6 +272,7 @@ Class DocLDAP extends DbObj {
    * modify in LDAP database information
    */
   function ModifyLdapCard( $tinfoldap) {
+    if (! $this->UseLdap()) return false;
     if (! $this->useldap) return;
     $retour = "";
     if ($this->serveur != "")   {
