@@ -52,6 +52,9 @@ function sendmail($to,$from,$cc,$bcc,$subject,&$mimemail,$multipart=null) {
   /* Address the message to each of the recipients. */
   foreach ($rcpt as $v) {
     if ($v) {
+      if (ereg("<([^>]*)>",$v,$reg)) {
+	$v=$reg[1];
+      }
       if (PEAR::isError($res = $smtp->rcptTo($v))) {
 	return ("Unable to add recipient <$v>: " . $res->getMessage() );
       }
