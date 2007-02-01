@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.55 2006/11/03 15:58:30 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.56 2007/02/01 16:56:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -190,21 +190,10 @@ Class Dir extends PDir
     $err=$this->canModify();
     if ($err!= "") return $err;
 
-    // use pre virtual method
-    if (!$noprepost) $err=$this->preInsertDoc($docid);
-    if ($err!= "") return $err;    
-
-    // verify if doc family is autorized
     $doc= new_Doc($this->dbaccess, $docid);
-    
-
-    if (! $this->isAuthorized($doc->fromid)) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
-
     $qf = new QueryDir($this->dbaccess);
-
     switch ($mode) {
     case "static":
-
       $qf->qtype='F'; // fixed document
       $qf->childid=$docid; // initial doc
       break;
@@ -212,58 +201,68 @@ Class Dir extends PDir
     default:
       if (! $doc->isAffected()) return sprintf(_("Cannot add in %s folder, doc id (%d) unknown"), $this->title, $docid);
       $qf->qtype='S'; // single user query
-      $qf->childid=$doc->initid; // initial doc
-    
+      $qf->childid=$doc->initid; // initial doc    
       break;
     }  
-
-
     $qf->dirid=$this->initid; // the reference folder is the initial id
     $qf->query="";
-    $err = $qf->Add();
-    if ($err == "") {
-      AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
+    if (! $qf->Exists()) {
 
-      // add default folder privilege to the doc
-      if ($doc->profid == 0) { // only if no privilege yet
+      // use pre virtual method
+      if (!$noprepost) $err=$this->preInsertDoc($docid);
+      if ($err!= "") return $err;    
+
+      // verify if doc family is autorized   
+      if (! $this->isAuthorized($doc->fromid)) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
+
+    
+
+
+      $err = $qf->Add();
+      if ($err == "") {
+	AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
+
+	// add default folder privilege to the doc
+	if ($doc->profid == 0) { // only if no privilege yet
 	
-	switch ($doc->defProfFamId) {
-	case FAM_ACCESSDOC:
-	  $profid=$this->getValue("FLD_PDOCID",0);
-	  if ($profid > 0) {
-	    $doc->setProfil($profid);
-	    $doc->modify();
-	  }
-	  break;
-	case FAM_ACCESSDIR:
-	  $profid=$this->getValue("FLD_PDIRID",0);
-	  if ($profid > 0) {
-	    $doc->setProfil($profid);
-	    // copy default privilege if not set
-	    if ($doc->getValue("FLD_PDIRID") == "") {
-	      $doc->setValue("FLD_PDIRID", $this->getValue("FLD_PDIRID"));
-	      $doc->setValue("FLD_PDIR", $this->getValue("FLD_PDIR"));
+	  switch ($doc->defProfFamId) {
+	  case FAM_ACCESSDOC:
+	    $profid=$this->getValue("FLD_PDOCID",0);
+	    if ($profid > 0) {
+	      $doc->setProfil($profid);
+	      $doc->modify();
 	    }
-	    if ($doc->getValue("FLD_PDOCID") == "") {
-	      $doc->setValue("FLD_PDOCID", $this->getValue("FLD_PDOCID"));
-	      $doc->setValue("FLD_PDOC", $this->getValue("FLD_PDOC"));
+	    break;
+	  case FAM_ACCESSDIR:
+	    $profid=$this->getValue("FLD_PDIRID",0);
+	    if ($profid > 0) {
+	      $doc->setProfil($profid);
+	      // copy default privilege if not set
+	      if ($doc->getValue("FLD_PDIRID") == "") {
+		$doc->setValue("FLD_PDIRID", $this->getValue("FLD_PDIRID"));
+		$doc->setValue("FLD_PDIR", $this->getValue("FLD_PDIR"));
+	      }
+	      if ($doc->getValue("FLD_PDOCID") == "") {
+		$doc->setValue("FLD_PDOCID", $this->getValue("FLD_PDOCID"));
+		$doc->setValue("FLD_PDOC", $this->getValue("FLD_PDOC"));
+	      }
+	      $doc->modify();
 	    }
-	    $doc->modify();
-	  }
-	  break;
+	    break;
 
+	  }
 	}
       }
-    }
-    if ($doc->prelid == "") {
-      $doc->prelid=$this->initid;
-      $doc->modify(true,array("prelid"),true);
-    }
+      if ($doc->prelid == "") {
+	$doc->prelid=$this->initid;
+	$doc->modify(true,array("prelid"),true);
+      }
 
-    if ($err == "") {
-      //      $this->updateFldRelations();
-      // use post virtual method
-      if (!$noprepost) $err=$this->postInsertDoc($docid,false);
+      if ($err == "") {
+	//      $this->updateFldRelations();
+	// use post virtual method
+	if (!$noprepost) $err=$this->postInsertDoc($docid,false);
+      }
     }
     return $err;
   }
