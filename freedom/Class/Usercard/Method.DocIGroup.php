@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.32 2006/07/21 07:28:28 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.33 2007/02/01 16:57:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -175,6 +175,7 @@ function postInsertDoc($docid,$multiple) {
 	$g->iduser=$uid;
 	$g->idgroup=$gid;
 	$err=$g->Add();
+	if ($err=="OK") $err="";
 	if ($err=="") {
 	  $du->RefreshDocUser();
 	  $this->RefreshGroup();
