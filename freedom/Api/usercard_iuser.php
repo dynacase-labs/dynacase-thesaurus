@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.15 2006/09/15 07:00:52 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.16 2007/02/01 16:55:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,30 +67,40 @@ if ($query->nb > 0)	{
     // first in IUSER
     unset($tdoc);
 
-    if ($v["isgroup"] == "Y") {
-      $filter = array("us_whatid = ".$v["id"]);
-      $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
-			  getFamIdFromName($dbaccess,"IGROUP"));
-    } else {
-      $filter = array("us_whatid = ".$v["id"]);
-      $tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"LIST",
-			  getFamIdFromName($dbaccess,"IUSER"));
-    }
+    $fid=$v["fid"];
+    if ($fid > 0) $udoc=new_doc($dbaccess,$fid);
+    $foundoc=$udoc->isAlive();
     
-
-    if (count($tdoc) > 0) {
+    
+    if (!$foundoc) {
+      // search same doc with us_what id
+      if ($v["isgroup"] == "Y") {
+	$filter = array("us_whatid = ".$v["id"]);
+	$tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"TABLE","IGROUP");
+      } else {
+	$filter = array("us_whatid = ".$v["id"]);
+	$tdoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,1,"TABLE","IUSER");
+      }
+    
+      if (count($tdoc) > 0) {
+	$fid=$tdoc["id"];
+	$udoc=new_doc($dbaccess,$fid);
+	$foundoc=$udoc->isAlive();
+      }
+    }
+    if ($foundoc) {
       
-      if (method_exists($tdoc[0],"RefreshGroup")) $tdoc[0]->RefreshGroup();
-      else if (method_exists($tdoc[0],"RefreshDocUser")) $tdoc[0]->RefreshDocUser();
+      if (method_exists($udoc,"RefreshGroup")) $udoc->RefreshGroup();
+      else if (method_exists($udoc,"RefreshDocUser")) $udoc->RefreshDocUser();
       //if (method_exists($tdoc[0],"SetGroupMail")) $tdoc[0]->SetGroupMail();
       //$tdoc[0]->refresh();
       //$tdoc[0]->postModify();
-      $err=$tdoc[0]->modify();
+      $err=$udoc->modify();
       
       if ($err != "") print "$err\n";
       else {
-	print "$reste)";printf( _("%s updated\n"),$tdoc[0]->title);
-	$fid=$tdoc[0]->id;
+	print "$reste)";printf( _("%s updated\n"),$udoc->title);
+	$fid=$udoc->id;
       }
 
       
@@ -119,8 +129,6 @@ if ($query->nb > 0)	{
 	    print "$reste)";printf( _("%s updated\n"),$title);
 	    unset($udoc);
 	  }
-
-
 	}
 	
       } else {
