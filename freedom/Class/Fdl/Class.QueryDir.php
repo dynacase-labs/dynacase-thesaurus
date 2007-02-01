@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.21 2006/04/14 15:06:51 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.22 2007/02/01 16:56:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -51,9 +51,7 @@ CREATE TRIGGER tflddocrel after insert or update or delete on fld FOR EACH ROW e
   var $relatedCacheClass= array("doc"); // class must ne cleaned also in case of modify
 
   // --------------------------------------------------------------------
-  function PreInsert()
-    // --------------------------------------------------------------------
-    {
+  function PreInsert()   {
       // test if not already exist 
       if ($this->qtype != "M") {
 // 	$query = new QueryDb($this->dbaccess,"QueryDir");
@@ -70,7 +68,18 @@ CREATE TRIGGER tflddocrel after insert or update or delete on fld FOR EACH ROW e
 // 	$this->id = $arr[0];
 	  
 //       }
+    } 
+  function Exists()   {
+    // test if  already exist 
+    if ($this->qtype != "M") {
+      $err = $this->exec_query(sprintf("select * from fld where dirid=%s and childid=%s",
+				       $this->dirid,$this->childid));
+      if ($this->numrows() > 0) {
+	return true; // just to say it is not a real error
+      }
+      return false;
     }
+  }
  
 }
 ?>
