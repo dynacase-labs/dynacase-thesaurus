@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.16 2006/11/09 17:39:14 marc Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.17 2007/02/08 08:22:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -15,7 +15,6 @@ include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.Doc.php");
 
 
-$dbaccess = "user=anakeen dbname=freedom";
 
 
 function runAction($appli, $act, $params) {
@@ -93,26 +92,25 @@ include_once("WHAT/Lib.Prefix.php");
  * @return docContent $doc
  */
 function  docRead($docid="", $docrev="") {
-  global $dbaccess;
-  global $action;
 
+  $freedomdb=_initFreedom();
   $uid = _getUserFid();
 
-  $doc = new_Doc($dbaccess, $docid);
+  $doc = new_Doc($freedomdb, $docid);
   if (isset($doc) && $doc->isAlive()) {
     if ($docrev!="") {
       $ldoc = $doc->GetRevisions("TABLE");
       foreach($ldoc as $k => $cdoc) {
 	if ($docrev==$cdoc["revision"]) {
-	  $ndoc = getDocObject($dbaccess, $cdoc);
+	  $ndoc = getDocObject($freedomdb, $cdoc);
 	  continue;
 	}
       }
     } else {
-      $ndoc = new_Doc($dbaccess, $doc->latestId());
+      $ndoc = new_Doc($freedomdb, $doc->latestId());
     }
     if ($ndoc!==false) {
-      $tdo[] = getTDoc($dbaccess, $ndoc->id);
+      $tdo[] = getTDoc($freedomdb, $ndoc->id);
       $doclist = _xmlDoclist($tdo);
     }
   }
@@ -133,8 +131,8 @@ function  docRead($docid="", $docrev="") {
  * @return docList
  */
 function docQuery($query=array(), $start=0, $slice=0, $famid="", $state="", $allrev=false, $trash=false, $orderby="title" ) {
-fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
-  global $dbaccess;
+  fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
+  $freedomdb=_initFreedom();
  
   $docs = array();
 
@@ -149,7 +147,7 @@ fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
     $filter[] = $sl;
   }
   if ($state!="") $filter[] = "state = '".$state."'";
-  $tdocs = getChildDoc($dbaccess, 0, $start, ($slice==0?"ALL":$slice),  
+  $tdocs = getChildDoc($freedomdb, 0, $start, ($slice==0?"ALL":$slice),  
 		       $filter, $uid, "TABLE", 
 		       $famid, $allrev, $orderby, true, $trash);
   $doclist = _xmlDoclist($tdocs);
@@ -163,17 +161,16 @@ fwsLog("  docQuery D ".strftime("%X %x", time()), "I", __FILE__,__LINE__);
  * @return docHisto 
  */
 function  docGetHistory($docid="") {
-  global $dbaccess;
-
+  $freedomdb=_initFreedom();
   $rel = array("release" => array());
-  $doc = new_Doc($dbaccess, $docid);
+  $doc = new_Doc($freedomdb, $docid);
 
 
   $ldoc = $doc->GetRevisions("TABLE");
 
   $trdoc= array();
   foreach($ldoc as $k=>$zdoc) {
-    $rdoc=getDocObject($dbaccess,$zdoc);
+    $rdoc=getDocObject($freedomdb,$zdoc);
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
     $trdoc[$k]["version"]= $rdoc->version;
@@ -206,13 +203,13 @@ function  docGetHistory($docid="") {
  * @return docWorkflow 
  */
 function  docGetWorkflow($docid="") {
-  global $dbaccess;
+  $freedomdb=_initFreedom();
 
   $workflow = array();
-  $doc = new_Doc($dbaccess, $docid);
+  $doc = new_Doc($freedomdb, $docid);
   if (isset($doc) && $doc->isAlive()) $wkf = $doc->wid;
   if ($wkf!="" && is_numeric($wkf)) {
-    $wdoc = new_Doc($dbaccess, $wkf);
+    $wdoc = new_Doc($freedomdb, $wkf);
     if (isset($wdoc) && $wdoc->isAlive()) {
       $twst = $wdoc->getStates();
       $wst = array();
@@ -243,8 +240,6 @@ function  docGetWorkflow($docid="") {
  */
 
 function _xmlDoclist($tdocs) {
-  global $dbaccess;
-  global $action;
   $xml = new Layout("Layout/doclist.xml");
 
   $excluded = array ("values","attrids" );
@@ -271,20 +266,7 @@ function docAPIVersion() {
   return $version."-".$release;
 }
 
-function _getUserFid() {
-  global $_SERVER;
-  global $action;
 
-  $CoreNull="";
-  $core = new Application();
-  $core->Set("CORE",$CoreNull);
-  $core->session=new Session();
-  $action = new Action();
-  $action->Set("",$core);
-  $action->user = new User(); //create user as admin  
-  $action->user->setLoginName($_SERVER["PHP_AUTH_USER"]);
-  return $action->user->id;
-}
 
 
 function _docObject2docContent($ndoc) {
