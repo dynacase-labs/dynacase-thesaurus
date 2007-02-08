@@ -1,7 +1,8 @@
 <?php
 require_once('nusoap.php');
-require_once('Lib.FreedomWSDoc.php');
 require_once('Lib.FreedomWSUtils.php');
+require_once('Lib.FreedomWSDoc.php');
+require_once('Lib.FreedomWSUser.php');
 
 ini_set("display_errors", "0");
  

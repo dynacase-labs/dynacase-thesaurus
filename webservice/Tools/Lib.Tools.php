@@ -16,8 +16,14 @@ function toolhead($verb=true) {
   echo "}";
   echo "</style>";
 }
-
-function toolinitsoap($wsdl = "http://obeone.tlse.i-cesam.com/freedomWS/", $user = "marc", $pass = "anakeen") {
+ /**
+   * change password for a user
+   * @param string $wsdl addresse of SOAP server example : http://localhost/freedomWS
+   * @param string $user login of user which can access to soap Server
+   * @param string $pass clear password of user 
+   * @return string error message if one else empty string if OK
+   */
+function toolinitsoap($wsdl , $user , $pass ) {
   if ($user=="" || $pass=="") {
     echo "<h4>No authentication !</h4>";
     exit;

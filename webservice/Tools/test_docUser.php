@@ -7,8 +7,8 @@ toolhead();
 $c = toolinitsoap("http://localhost/freedomWS","admin","anakeen");
 
 // $param = array('docid' => 1323, 'docrev' => '1');
-$param = array('docid' => 9, 'docrev' => '');
-$r = $c->call('docRead', $param);
+$param = array('login' => 'eric');
+$r = $c->call('getAvailableApplication', $param);
 
 if ($r) {
   print ($c->response);
@@ -16,6 +16,8 @@ if ($r) {
   print "<hr><pre>";
   print str_replace("<","&lt;",base64_decode($r));
   print "</pre>";
+ } else {
+toolresult($c, $r);
  }
 //toolresult($c, $r);
 
