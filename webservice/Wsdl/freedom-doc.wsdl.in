@@ -152,6 +152,20 @@
     <part name="histo" type="typens:docWorkflow"/>
   </message>
 
+  <message name="getAvailableApplicationQ">
+    <part name="login" type="xsd:string"/>
+  </message>
+  <message name="getAvailableApplicationA">
+    <part name="actions" type="xsd:anyType"/>
+  </message>
+  <message name="changePasswordQ">
+    <part name="login" type="xsd:string"/>
+    <part name="password" type="xsd:string"/>
+  </message>
+  <message name="changePasswordA">
+    <part name="error" type="xsd:string"/>
+  </message>
+
   <message name="APIVersion">
     <part name="version" type="xsd:string"/>
   </message>
@@ -199,6 +213,18 @@
       <output message="tns:docGetWorkflowA"/>
     </operation>
 
+
+    <operation name="getAvailableApplication">
+      <input message="tns:getAvailableApplicationQ"/>
+      <output message="tns:getAvailableApplicationA"/>
+    </operation>
+
+    <operation name="changePassword">
+      <input message="tns:changePasswordQ"/>
+      <output message="tns:changePasswordA"/>
+    </operation>
+
+    
     <operation name="docAPIVersion">
       <output message="tns:APIVersion"/>
     </operation>
@@ -247,12 +273,24 @@
       <output><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
     </operation>
 
+    <operation name="getAvailableApplication">
+      <soap:operation soapAction=""/>
+      <input><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+
+    <operation name="changePassword">
+      <soap:operation soapAction=""/>
+      <input><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+      <output><soap:body use="encoded" namespace="urn:FreedomWS" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+    </operation>
+
   </binding>
 
   <!-- service decln -->
   <service name="Freedom Web Services">
     <port name="Freedom" binding="tns:FreedomWSBinding">
-      <soap:address location="http://obeone.tlse.i-cesam.com/freedom/webs.php"/>
+      <soap:address location="http://localhost/freedom/webs.php"/>
     </port>
   </service>
 
