@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: BRUSHED.css,v 1.2 2006/11/21 18:01:05 eric Exp $
+ * $Id: BRUSHED.css,v 1.3 2007/02/08 08:48:48 eric Exp $
  * ---------------------------------------------------------------------------
  
  * ---------------------------------------------------------------------------
@@ -7,10 +7,22 @@
 
 
 
-body, .core {
+body, .core  {
   background-color: transparent!important;
   background-image: [CORE_BGIMAGE]!important;
   color: [CORE_TEXTFGCOLOR];
+}
+
+html, div.tablesimple, table.tablesimple, div.normal, div.tablesimple table.noprint {
+  background-image: [CORE_BGIMAGE];
+}
+div.mainview {
+  background-image: none;
+  background-color: [COLOR_WHITE];
+}
+tr.FREEDOMBack1 {
+  background-color: transparent;  
+  background-image: none;
 }
 TABLE.headbarmenu TD {  
   background-color: transparent!important;
@@ -18,4 +30,13 @@ TABLE.headbarmenu TD {
 }
 TABLE.headbarmenu TR.headcell, TABLE.wdservices TR {
   background-color: transparent;
+}
+
+TR {
+  background-color: transparent;  
+  background-image: none;
+}
+
+DIV {
+  -moz-border-radius:7px;
 }
