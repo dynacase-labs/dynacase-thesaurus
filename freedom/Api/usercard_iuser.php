@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.16 2007/02/01 16:55:42 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.17 2007/02/09 15:20:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,10 +66,12 @@ if ($query->nb > 0)	{
     $mail = getMailAddr($v["id"]);
     // first in IUSER
     unset($tdoc);
-
+    $foundoc=false;
     $fid=$v["fid"];
-    if ($fid > 0) $udoc=new_doc($dbaccess,$fid);
-    $foundoc=$udoc->isAlive();
+    if ($fid > 0){ 
+      $udoc=new_doc($dbaccess,$fid);
+      $foundoc=$udoc->isAlive();
+    } 
     
     
     if (!$foundoc) {
@@ -96,7 +98,6 @@ if ($query->nb > 0)	{
       //$tdoc[0]->refresh();
       //$tdoc[0]->postModify();
       $err=$udoc->modify();
-      
       if ($err != "") print "$err\n";
       else {
 	print "$reste)";printf( _("%s updated\n"),$udoc->title);
@@ -150,7 +151,9 @@ if ($query->nb > 0)	{
 	    $iuser->RefreshDocUser();
 	    $iuser->modify();
 	    print "$reste)";printf( _("%s iuser created\n"),$title);
-	  } else print "$reste)$err";printf( _("%s iuser aborded\n"),$title);
+	  } else {
+	    print "$reste)$err";printf( _("%s iuser aborded\n"),$title);
+	  }
 	}
 	$fid=$iuser->id;
 	unset($iuser);
