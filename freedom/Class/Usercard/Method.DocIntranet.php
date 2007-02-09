@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.16 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.17 2007/02/09 16:30:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -26,7 +26,7 @@ function ConstraintLogin($login,$iddomain) {
     $err= _("the login must not be empty");
   } else if ($login == "-") {
   } else {
-    if (!ereg("^[a-z][-_a-z0-9\.]*[a-z0-9]+$", $login)) {
+    if (!eregi("^[a-z0-9][-_a-z0-9\.]*[a-z0-9]+$", $login)) {
       $err= _("the login syntax is like : john.doe");
     }  
     $q=new QueryDb("","User");
