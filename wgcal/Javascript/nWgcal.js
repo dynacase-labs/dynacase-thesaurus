@@ -65,7 +65,8 @@ function fcalGetCalEvent(pid) {
       }
     }
   }
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_VIEWEVENT&id="+pid;
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_VIEWEVENT&id="+pid;
   rq.open("GET", urlsend, true);
   rq.send(null);
 }
@@ -169,7 +170,8 @@ function fastEditSave(ev) {
   var conf = 0;
   for (var i=0; i<sconf.options.length; i++) { if (sconf.options[i].selected) conf = sconf.options[i].value; }
   
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_SAVEEVENT";
   urlsend += "&id="+document.EventInEdition.idp;
   urlsend += "&oi="+document.EventInEdition.idowner;
   urlsend += "&ti="+feTitle;
@@ -279,7 +281,8 @@ function fastEditCancel() {
 
 
 function  fcalGetJSDoc(id) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_DOCGETVALUES&id="+id;
   var rq;
   showWaitServerMessage('Loading event');
   try {
@@ -380,7 +383,8 @@ function fastEditInit(ev, init) {
 
 
 function fcalOpenMenuEvent(event, id, idp) {
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GETMENU&id="+idp;
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_GETMENU&id="+idp;
   var rq;
   showWaitServerMessage('Loading menu');
   try {

@@ -67,7 +67,8 @@ function todoSave(event) {
   var tStop = eltId('todoStart').value;
   var tNote = eltId('todoNote').value;
 
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_TODOSTORE";
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_TODOSTORE";
   urlsend += "&id="+todoInEdition.id;
   urlsend += "&title="+escape(tTitle);
   urlsend += "&end="+escape(tStop);

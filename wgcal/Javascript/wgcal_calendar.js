@@ -717,7 +717,7 @@ function fcalGetCalEvent(ev, ie) {
   else alert('pas de XMLHttpRequest');
   if (rq) {
     rq.onreadystatechange = function foo() { addCalEvContent(ev, ie) };
-    var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
+    var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
     rq.open("GET", urlsend, true);
     rq.send('');
   }
@@ -866,7 +866,7 @@ function fastEditSave(ev) {
 
   saveIHMLook();
 
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_SAVEEVENT";
+  var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVEEVENT";
   urlsend += fastEditSetUrlParam(false);
   
   var rq;
@@ -1087,7 +1087,7 @@ function fastEditCheckConflict(ev) {
   
   var ts = parseInt(eltId('s_start').value) + 60;
   var te = parseInt(eltId('s_end').value) - 60;
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
+  var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
   var rq;
   posM.x = getX(ev);
   posM.y = getY(ev);

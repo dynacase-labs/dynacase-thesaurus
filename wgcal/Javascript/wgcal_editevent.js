@@ -696,9 +696,10 @@ function normalEditCheckConflict(ev, displayZero) {
   if (rll!='') rll += '|';
   rll += me;
   
+  var corestandurl=window.location.pathname+'?sole=Y';
   var ts = parseInt(document.getElementById('DayTsStart').value) + 60;
   var te = parseInt(document.getElementById('DayTsEnd').value) - 60;
-  var urlsend = "index.php?sole=Y&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+evid+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+rll;
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+evid+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+rll;
   var rq;
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
   else rq = new ActiveXObject("Microsoft.XMLHTTP");
