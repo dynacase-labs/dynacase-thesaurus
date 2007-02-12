@@ -3,7 +3,7 @@
  * Generate Layout to edit frame (fieldset)
  *
  * @author Anakeen 2000 
- * @version $Id: editframe.php,v 1.23 2005/07/19 09:48:06 eric Exp $
+ * @version $Id: editframe.php,v 1.24 2007/02/12 14:38:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -99,7 +99,7 @@ function editframe(&$action) {
   }
   $action->lay->setBlockData("FVALUES",$tval);
   $action->lay->setBlockData("FHIDDENS",$thval);
-  if (count($tval) > 0) {
+  if ((count($tval)+count($thval)) > 0) {
     
     $action->lay->setBlockData("FRAME",array(array("bou")));
 
