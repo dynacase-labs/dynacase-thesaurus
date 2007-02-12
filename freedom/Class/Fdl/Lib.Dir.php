@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.118 2006/11/21 15:51:34 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.119 2007/02/12 16:42:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,13 +128,19 @@ function getSqlSearchDoc($dbaccess,
       elseif ($latest) $sqlfilters[-1] = "locked != -1";
       ksort($sqlfilters);
       if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
-      /*
+      
       if (is_array($dirid)) {
 	$sqlfld=GetSqlCond($dirid,"dirid",true);
+	$qsql= "select $selectfields ".
+	  "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+	  "where  $sqlcond ";
       } else {
-	$sqlfld = "fld.dirid=$dirid and qtype='S'";
+
+	$qsql= "select $selectfields ".
+	  "from $table where $dirid = any(fldrels) and  ".
+	  "  $sqlcond ";
       }
-      */
+      
 
 
      //            $qsql= "select $selectfields ".
@@ -165,9 +171,7 @@ function getSqlSearchDoc($dbaccess,
    	"from $table where $lfldid and  ".
    	"  $sqlcond ";
       */
-      $qsql= "select $selectfields ".
-   	"from $table where $dirid = any(fldrels) and  ".
-   	"  $sqlcond ";
+
 //       $qsql= "select $selectfields ".
 //    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
 //    	"where  $sqlcond ";
@@ -392,7 +396,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	    } else $tretdocs=array_merge($tretdocs,$tableq);
 	  }
-	//  print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+	// print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
       } else {
 	// error in query          
