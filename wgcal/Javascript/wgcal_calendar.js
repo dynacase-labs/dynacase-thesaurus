@@ -350,7 +350,8 @@ function fcalGetAllEvents(ress) {
   if (window.XMLHttpRequest) xreq = new XMLHttpRequest();
   else xreq = new ActiveXObject("Microsoft.XMLHTTP");
   if (xreq) {
-    xreq.open("POST", "[CORE_STANDURL]app=WGCAL&action=WGCAL_GETJSEVENT&ts="+CurrentTime+"&ress="+ress, false);
+    var corestandurl=window.location.pathname+'?sole=Y';
+    xreq.open("POST", corestandurl+"&app=WGCAL&action=WGCAL_GETJSEVENT&ts="+CurrentTime+"&ress="+ress, false);
     xreq.send('');
     if (xreq.status!=200) {
       alert('[TEXT:agenda, error getting events] (HTTP Code '+xreq.status+')');	   
@@ -717,7 +718,8 @@ function fcalGetCalEvent(ev, ie) {
   else alert('pas de XMLHttpRequest');
   if (rq) {
     rq.onreadystatechange = function foo() { addCalEvContent(ev, ie) };
-    var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
+    var corestandurl=window.location.pathname+'?sole=Y';
+    var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
     rq.open("GET", urlsend, true);
     rq.send('');
   }
@@ -866,7 +868,8 @@ function fastEditSave(ev) {
 
   saveIHMLook();
 
-  var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_SAVEEVENT";
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_SAVEEVENT";
   urlsend += fastEditSetUrlParam(false);
   
   var rq;
@@ -1087,7 +1090,8 @@ function fastEditCheckConflict(ev) {
   
   var ts = parseInt(eltId('s_start').value) + 60;
   var te = parseInt(eltId('s_end').value) - 60;
-  var urlsend = "[CORE_STANDURL]&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
   var rq;
   posM.x = getX(ev);
   posM.y = getY(ev);
