@@ -61,7 +61,7 @@ function SendSearchId(e,id) {
 <a  id="newfld" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=2&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Folder]</a>
 <a  id="newact" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=36&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:BatchProcess]</a>
 <a  id="newprof" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=3&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Profile]</a>
-<a  id="newfam" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=CREATEFAM&classid=1&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Family]</a>
+<a  id="newfam" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=CREATEFAM&classid=0&id=0&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Family]</a>
 <a  id="newwf" href="#" onClick="parent.fdoc.location.href='[CORE_STANDURL]app=[APPNAME]&action=FREEDOM_EDIT&classid=20&id=&dirid='+parent.ffolder.dirid;closeAllMenu();">[TEXT:Workflow]</a>
 </div>
 
