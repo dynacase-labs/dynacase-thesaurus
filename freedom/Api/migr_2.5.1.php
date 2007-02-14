@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: migr_2.5.1.php,v 1.1 2006/11/16 16:45:12 eric Exp $
+ * @version $Id: migr_2.5.1.php,v 1.2 2007/02/14 16:13:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,7 +25,7 @@ function addFamIndexes($dbaccess) {
   $lfam=$query->Query(0,0,"TABLE");
   foreach ($lfam as $k=>$v) {
     print sprintf("create index doc_initid%d on doc%d(initid);\n",$v["id"],$v["id"]);
-    print sprintf("create index doc_fldrels%d on doc%d(fldrels);\n",$v["id"],$v["id"]);
+#    print sprintf("create index doc_fldrels%d on doc%d(fldrels);\n",$v["id"],$v["id"]);
   }
  
       
