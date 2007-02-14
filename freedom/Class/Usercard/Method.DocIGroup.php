@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.33 2007/02/01 16:57:44 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.34 2007/02/14 16:33:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -84,12 +84,12 @@ function getLDAPMember() {
 function RefreshGroup() {
   //  $err=_GROUP::RefreshGroup(); 
   $err.=$this->RefreshDocUser();
-   $err.=$this->refreshMembers();
-   $err.=$this->insertGroups();
-   $err.=$this->SetGroupMail(($this->GetValue("US_IDDOMAIN")>1));
-   $err.=$this->Modify();
-   //  AddWarningMsg(sprintf("RefreshGroup %d %s",$this->id, $this->title));
-   if ($err == "") {
+  $err.=$this->refreshMembers();
+  $err.=$this->insertGroups();
+  $err.=$this->SetGroupMail(($this->GetValue("US_IDDOMAIN")>1));
+  $err.=$this->Modify();
+  //  AddWarningMsg(sprintf("RefreshGroup %d %s",$this->id, $this->title));
+  if ($err == "") {
      $this->setValue("grp_isrefreshed","1");
      $this->modify(true,array("grp_isrefreshed"),true);
    }
@@ -249,7 +249,6 @@ function PostDelete() {
 function insertGroups() { 
   $user=$this->getWUser();
   $err="";
-
     
   // get members 
   $tu  = $user->GetUsersGroupList($user->id);
@@ -389,80 +388,25 @@ function refreshMembers() {
   }
 }
 
-function ComputeGroup() {
-  $err="";
-  $this->AddParamRefresh("US_WHATID",
-			 "GRP_NAME,GRP_MAIL,US_LOGIN,GRP_USER,GRP_GROUP,GRP_IDUSER,GRP_IDGROUP");
-
-  
-  $iduser = $this->getValue("US_WHATID");
-  if ($iduser > 0) {
-    $user = $this->getWUser();
-    if (! $user) {
-      return sprintf(_("Group %s not exist"),$iduser);
-    }
-   
-
-    // get members 
-    $tu  = $user->GetUsersGroupList($user->id);
-    $tuid=array();
-    $tulogin=array();
-    $tgid=array();
-    $tglogin=array();
-    if (is_array($tu)) {
-      while (list($k,$v) = each($tu)) {
-	$udoc = getDocFromUserId($this->dbaccess,$k);
-	if ($udoc) {
-	  if ($v["isgroup"]=="Y") {
-	    $tgid[]=$udoc->id;
-	    $tglogin[]=$udoc->title;
-	  } else {
-	    $tuid[]=$udoc->id;
-	    $tulogin[]=$udoc->title;
-	  }
-	}
-      }
-    }
-
-    if (count($tulogin)==0) {
-      $this->SetValue("GRP_USER", " ");
-      $this->SetValue("GRP_IDUSER"," ");
-    } else {
-      $this->SetValue("GRP_USER", implode("\n",$tulogin));
-      $this->SetValue("GRP_IDUSER", implode("\n",$tuid));
-    }
-    if (count($tglogin)==0) {
-      $this->SetValue("GRP_GROUP", " ");
-      $this->SetValue("GRP_IDGROUP", " ");
-    } else {
-      $this->SetValue("GRP_GROUP", implode("\n",$tglogin));
-      $this->SetValue("GRP_IDGROUP", implode("\n",$tgid));
-    }
-    // get parent members group
-//     $tu  = $user->GetGroupsId();
-//     $tgid=array();
-//     $tglogin=array();
-//     if (is_array($tu)) {
-//       while (list($k,$v) = each($tu)) {
-// 	$udoc = getDocFromUserId($this->dbaccess,$v);
-// 	if ($udoc) {	 
-// 	  $tgid[]=$udoc->id;
-// 	  $tglogin[]=$udoc->title;	  
-// 	}
-//       }
-//       $this->SetValue("GRP_PGROUP", implode("\n",$tglogin));
-//       $this->SetValue("GRP_IDPGROUP", implode("\n",$tgid));
-//     }
-  
-  } 
-
-  return $err;
-  
-}
 
 function fusers_igroup($target="finfo",$ulink=true,$abstract="Y") {
   global $action;
+
+  $user=$this->getTvalue("grp_ruser");
+  $toomany=(count($user) > 100) ;
+
+  if ($toomany) {
+  $oa=$this->getAttribute("grp_users");
+  $oa->mvisibility='H';
+  $oa=$this->getAttribute("grp_rusers");
+  $oa->mvisibility='H';
+  $oa=$this->getAttribute("grp_user");
+  $oa->mvisibility='H';
+  $oa=$this->getAttribute("grp_ruser");
+  $oa->mvisibility='H';
+  }
   //setHttpVar("specialmenu","menuab");
+
   $this->viewdefaultcard($target,$ulink,$abstract);
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/USERCARD/Layout/faddbook.js");
@@ -501,6 +445,7 @@ function fusers_igroup($target="finfo",$ulink=true,$abstract="Y") {
   }
   $this->lay->setBlockData("OTHERS",$to);
   $this->lay->set("HasOTHERS",(count($to)>0));
+  $this->lay->set("Toomany",$toomany);
   $ltabs=array();
   foreach ($tabs as $k=>$v) {
     $ltabs[$k]=array("tabtitle"=>$k,

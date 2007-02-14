@@ -51,14 +51,18 @@ addEvent(window,"load",viewFirstTab);</script>
 </div>
 
 <div class="do"id="dmembers" style="display:none">
+[IFNOT Toomany]
 <div style="width:300px">
 <table><tr><td valign="top"><span class="fabvalue">[V_GRP_USERS]</span></td>
 <td valign="top"><span class="fabvalue">[V_GRP_RUSERS]</span></td></tr></table>
 </div>
+[ENDIF Toomany][IF Toomany]
+<div style="width:300px"><P>[TEXT:Too many members to display there here. Use Open context menu to display them.]</P></div>
+[ENDIF Toomany]
 </div>
 
-<div class="do"id="dcoord" style="display:none">
-<span class="fablabel">[L_GRP_MAIL]&nbsp;:&nbsp;</span><span class="fabvalue">[V_GRP_MAIL]</span>
+<div class="do" id="dcoord" style="display:none">
+<span class="fablabel">[L_GRP_MAIL] &nbsp;:&nbsp;</span><span class="fabvalue">[V_GRP_MAIL]</span>
 </div>
 
 
