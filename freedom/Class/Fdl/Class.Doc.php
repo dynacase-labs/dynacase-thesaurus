@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.358 2007/01/26 16:17:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.359 2007/02/14 15:51:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1190,7 +1190,7 @@ final public function PostInsert()  {
    * @param string $idAttr attribute identificator
    * @return DocAttribute
    */
-  final public function GetAttribute($idAttr)   {      
+  final public function &GetAttribute($idAttr)   {      
       if (!$this->_maskApplied) $this->ApplyMask();
       $idAttr = strtolower($idAttr);
       if (isset($this->attributes->attr[$idAttr])) return $this->attributes->attr[$idAttr];
@@ -3874,19 +3874,10 @@ final public function PostInsert()  {
 
   // -----------------------------------
   final public function viewattr($target="_self",$ulink=true,$abstract=false) {
-
- 
-
-  
     $listattr = $this->GetNormalAttributes();
     
-    
-
     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
-
     foreach($listattr as $k=>$v) {
-
-
       $value = chop($this->GetValue($v->id));
 
       //------------------------------
@@ -3901,26 +3892,14 @@ final public function PostInsert()  {
       } else {	
 	$this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
 	$this->lay->Set("L_".strtoupper($v->id),$v->labelText);
-      }
-  
-      
-
-
+      }       
     }
-
-  
   
     $listattr = $this->GetFieldAttributes();
     
-    
-
     // each value can be instanced with L_<ATTRID> for label text and V_<ATTRID> for value
-
     foreach($listattr as $k=>$v) {
-       
-      $this->lay->Set("L_".strtoupper($v->id),$v->labelText);
-      
-  
+      $this->lay->Set("L_".strtoupper($v->id),$v->labelText);      
     }
 
   }
