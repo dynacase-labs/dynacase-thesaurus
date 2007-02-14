@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.41 2006/10/05 09:03:24 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.42 2007/02/14 16:35:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -131,8 +131,6 @@ function RefreshDocUser() {
       }
       $err=$this->modify();
 
-      $errldap=$this->RefreshLdapCard();
-      if ($errldap!="") AddWarningMsg($errldap);
 
     } else     {
       $err= sprintf(_("user %d does not exist"),$wid);
@@ -148,9 +146,7 @@ function RefreshDocUser() {
 /**
  * Modify IUSER via Freedom    
  */
-function PostModify() {
-                
-                                                                    
+function PostModify() {                                                                                    
   $uid=$this->GetValue("US_WHATID");
   $lname=$this->GetValue("US_LNAME");
   $fname=$this->GetValue("US_FNAME");
@@ -198,9 +194,9 @@ function PostModify() {
 			  $login,$status,$pwd1,$pwd2,
 			  $iddomain,$extmail);  
     if ($err=="") { 
-      if ($user)  $err=$this->setGroups();
+      if ($user)  $err=$this->setGroups(); // set groups (add and suppress) may be long
       if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
-	if (($pwd != $user->password) && (strlen($pwd>12))) {
+	if (($pwd != $user->password) && (strlen($pwd)>12)) {
 	  $user->password=$pwd;
 	  $err=$user->modify();
 	}
@@ -209,9 +205,11 @@ function PostModify() {
  
     if ($err=="") {
       $this->setValue("US_WHATID",$user->id);
-      $this->RefreshDocUser();
+      $err=$this->RefreshDocUser();// refresh from core database 
       $this->modify(true,array("us_whatid"));
       //      $this->refreshParentGroup();
+      $errldap=$this->RefreshLdapCard();
+      if ($errldap!="") AddWarningMsg($errldap);
     } 
 
   } else { 
