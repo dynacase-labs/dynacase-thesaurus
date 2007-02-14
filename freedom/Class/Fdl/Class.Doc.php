@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.359 2007/02/14 15:51:13 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.360 2007/02/14 16:04:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -82,8 +82,7 @@ Class Doc extends DocCtrl
 			   "ldapdn");
 
   public $sup_fields= array("values",
-			   "attrids",
-			    "fldrels"); // not be in fields else trigger error
+			   "attrids"); // not be in fields else trigger error
 
   /**
    * identificator of the document
@@ -231,12 +230,7 @@ Class Doc extends DocCtrl
    * @public int
    */
   public $prelid=0;
-  /**
-   * folder relation ids
-   * 
-   * @public array of int
-   */
-  public $fldrels;
+ 
   /**
    * applications tag 
    * use by specifics applications to search documents by these tags
@@ -320,7 +314,6 @@ create table doc ( id int not null,
                    name text,
                    dprofid int DEFAULT 0,
                    prelid int DEFAULT 0,
-                   fldrels int[],
                    atags text,
                    confidential int DEFAULT 0,
                    ldapdn text

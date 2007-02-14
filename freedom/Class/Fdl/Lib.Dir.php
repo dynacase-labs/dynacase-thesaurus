@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.119 2007/02/12 16:42:35 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.120 2007/02/14 16:04:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -135,53 +135,12 @@ function getSqlSearchDoc($dbaccess,
 	  "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
 	  "where  $sqlcond ";
       } else {
-
+	$sqlfld="dirid=$dirid";
 	$qsql= "select $selectfields ".
-	  "from $table where $dirid = any(fldrels) and  ".
-	  "  $sqlcond ";
-      }
-      
-
-
-     //            $qsql= "select $selectfields ".
-//           	"from  $table  ".
-//           	"where initid in (select childid from fld where $sqlfld) and   $sqlcond ";
-
-//                 $qsql= "select $selectfields ".
-//           	"from  fld,$table  ".
-//           	"where initid = childid and ($sqlfld) and   $sqlcond ";
-
-      //       $qsql= "select $selectfields ".
-      // 	"from (select childid from fld where $sqlfld) as fld2 left outer join $table on (initid=childid)  ".
-      // 	"where  $sqlcond ";
-
-      //  if ($table != "doc") {
-      /*
-      $qfld = new QueryDb($dbaccess,"QueryDir");  
-      $qfld->AddQuery("qtype='S'");
-      $qfld->AddQuery("fld.dirid=$dirid");
-      $lq=$qfld->Query(0,0,"TABLE");
-      $qids=array();
-      foreach ($lq as $v) {
-	$qids[]=$v["childid"];
-      }
-      $lfldid=GetSqlCond($qids,"initid",true);
-      
-      $qsql= "select $selectfields ".
-   	"from $table where $lfldid and  ".
-   	"  $sqlcond ";
-      */
-
-//       $qsql= "select $selectfields ".
-//    	"from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
-//    	"where  $sqlcond ";
-
-      //     } else {
-      //          $qsql= "select * ".
-      //    	"from sfolder   ".
-      //    	"where  dirid=$dirid and $sqlcond ";
-      //       }
-
+	  "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+	  "where  $sqlcond ";
+	//$qsql= "select $selectfields "."from $table where $dirid = any(fldrels) and  "."  $sqlcond ";
+      }      
     } else {
       //-------------------------------------------
       // search familly
