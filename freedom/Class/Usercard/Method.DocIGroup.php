@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.34 2007/02/14 16:33:49 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.35 2007/02/16 07:36:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -130,8 +130,8 @@ function PostModify() {
     $this->modify(true,array("us_whatid"));
     
     // get members 
-    $this->RefreshGroup();
-    $this->refreshParentGroup();
+    //$this->RefreshGroup(); // in postinsert
+    //    $this->refreshParentGroup();
     $err=$this->RefreshLdapCard();  
 
     // add in default folder root groups : usefull for import
@@ -466,7 +466,11 @@ function fusers_eigroup() {
 
   
   // list of attributes displayed directly in layout
-  $ta=array("us_login","us_whatid","grp_mail","us_iddomain","us_domain","grp_name","grp_role","grp_type");
+  $ta=array("us_login","us_whatid","grp_mail","us_iddomain","us_domain","grp_name","grp_role","grp_type","grp_hasmail");
+
+  $q=new QueryDb("","Domain");
+  $q->AddQuery("iddomain>9");
+  $this->lay->set("hasdomain",($q->count()>0));
 
   $this->lay->set("firsttab",$firsttab);
   $la=$this->getNormalAttributes();

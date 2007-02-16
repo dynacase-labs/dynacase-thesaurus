@@ -3,7 +3,7 @@
  * Specials methods for GROUP family
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocGroup.php,v 1.14 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: Method.DocGroup.php,v 1.15 2007/02/16 07:36:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -91,6 +91,8 @@ function SetGroupMail($nomail=false) {
   $gmail=" ";
   $tmail=array();
 
+
+  if (!$nomail) $nomail=($this->getValue("grp_hasmail")=="no");
   //------------------------------------------------------
   // first compute mail from users members
   $tiduser = $this->getTValue("GRP_IDUSER");
