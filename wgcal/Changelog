@@ -1,3 +1,8 @@
+2.3.2
+ - Fixe : week view incorrect event end time
+ - Add an application parameter for Agenda link access label
+ - Fixe : month access URL
+
 2.3.1
  - RSS, set items pubDate to freedom revdate 
  - Add user export/import agenda menu
