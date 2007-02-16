@@ -12,6 +12,6 @@
 <div style="margin:5px; width:auto;height:auto;">
 [EvPCard]
 </div></a>
-<hr>Depuis l'Intranet Césam, il accessible via <a target="_blank" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">l'agenda de groupe Freedom</a>.
+<hr><a target="_blank" title="[WGCAL_G_ACCESSDESCRIPTION]" href="[CORE_ABSURL][CORE_STANDURL]app=WGCAL">[WGCAL_G_ACCESSDESCRIPTION]</a>
 </body>
 </html>

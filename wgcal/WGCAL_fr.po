@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-04 14:39+0100\n"
+"POT-Creation-Date: 2007-02-16 15:00+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -368,9 +368,11 @@ msgstr "Normale"
 msgid "current user (delegate) for edition"
 msgstr ""
 
-#, fuzzy
+msgid "agenda access link"
+msgstr "Libellé du lien d'accès à l'agenda"
+
 msgid "mail command"
-msgstr "Calendrier public"
+msgstr "Commande mail"
 
 msgid "mails send"
 msgstr "Envoi des mails"
@@ -588,6 +590,10 @@ msgstr "Rendez-vous "
 
 msgid "event deletion information message"
 msgstr "Le rendez-vous suivant a été supprimé."
+
+#, fuzzy
+msgid "action"
+msgstr "Lieu"
 
 msgid "delete repeat occurrence for "
 msgstr "Suppression de l'occurrence du "
@@ -1722,9 +1728,6 @@ msgstr "Oui"
 
 #~ msgid "show rv categories"
 #~ msgstr "Utiliser les catégories de RV"
-
-#~ msgid "location"
-#~ msgstr "Lieu"
 
 #, fuzzy
 #~ msgid "text location"

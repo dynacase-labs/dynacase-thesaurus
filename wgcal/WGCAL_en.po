@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-04 14:39+0100\n"
+"POT-Creation-Date: 2007-02-16 15:00+0100\n"
 "PO-Revision-Date: 2006-11-15 17:42+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -367,6 +367,9 @@ msgstr ""
 msgid "current user (delegate) for edition"
 msgstr ""
 
+msgid "agenda access link"
+msgstr ""
+
 msgid "mail command"
 msgstr ""
 
@@ -581,6 +584,9 @@ msgid "state set to "
 msgstr ""
 
 msgid "event deletion information message"
+msgstr ""
+
+msgid "action"
 msgstr ""
 
 msgid "delete repeat occurrence for "
