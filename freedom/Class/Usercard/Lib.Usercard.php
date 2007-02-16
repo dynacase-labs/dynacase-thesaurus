@@ -3,7 +3,7 @@
  * Function utilities to manipulate users
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Usercard.php,v 1.4 2006/04/06 16:48:02 eric Exp $
+ * @version $Id: Lib.Usercard.php,v 1.5 2007/02/16 07:35:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -72,13 +72,13 @@ function refresgOneGroup($gid,$refresh) {
     $doc = new_Doc($dbaccess,$g->fid);
     if ($doc->isAlive()) {
       if ($_SERVER['HTTP_HOST'] == "") print sprintf("\trefreshing %s\n",$doc->title);
+      wbartext(sprintf(_("refreshing %s"),$doc->title));
       if ($refresh) $doc->refreshMembers();
       $doc->SetGroupMail(($doc->GetValue("US_IDDOMAIN")>1));
       $doc->modify();
       $doc->specPostInsert();
       $doc->setValue("grp_isrefreshed","1");
-      $doc->modify(true,array("grp_isrefreshed"),true);
-      
+      $doc->modify(true,array("grp_isrefreshed"),true);      
     }
   }
 }
