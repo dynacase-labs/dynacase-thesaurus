@@ -97,7 +97,7 @@ function wgcal_textweek(&$action) {
       $indexday = strftime("%u", mktime(12,0,0,substr(getV($v, "evt_enddate"), 3,2), $iday, substr(getV($v, "evt_enddate"), 6,4)));
       
       $lstart = substr(getV($v, "evt_begdate"),11,5);
-      $lend = substr($end,11,5);
+      $lend = substr(getV($v, "evt_enddate"),11,5);
       $end = (getV($v,"evfc_realenddate") == "" ? getV($v,"evt_enddate") : getV($v,"evfc_realenddate"));
       if ($lstart==$lend && $lend=="00:00") {
 	$hours = "("._("no hour").")";
