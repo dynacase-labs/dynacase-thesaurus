@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_menu.php,v 1.37 2007/01/08 10:18:03 marc Exp $
+ * @version $Id: wgcal_menu.php,v 1.38 2007/02/16 10:51:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -92,7 +92,7 @@ function wgcal_menu(&$action) {
 					   array( 
 						 "key" => "m_view_monthtext", 
 						 "txt" => _("m_txt_view_monthtext"), 
-						 "jsc" => "setDaysViewed(-1);",
+						 "jsc" => "setTextView(0);",
 						 "ico" => "wm-viewtext.gif",
 						 "rig" => "WGCAL_USER"
 						 ),
