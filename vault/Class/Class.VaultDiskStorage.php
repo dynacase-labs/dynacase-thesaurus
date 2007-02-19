@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskStorage.php,v 1.3 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultDiskStorage.php,v 1.4 2007/02/19 16:25:40 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskStorage.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -34,18 +34,42 @@ Class VaultDiskStorage extends VaultFileDisk {
 			"id_dir", 
 			"public_access",
 			"size",
-			"name" );
+			"name",
+			
+			"mime_t",         // file mime type text
+			"mime_s",         // file mime type system
+
+			"cdate",        // creation date
+			"mdate",        // modification date
+			"adate",        // access date
+
+			"teng_state",     // Transformation Engine state
+			"teng_lname",     // Transformation Engine logical name (VIEW, THUMBNAIL, ....)
+			"teng_idfs",      // Transformation Engine source file id
+			
+			);
   var $id_fields = array ("id_file");
   var $dbtable = "vaultdiskstorage";
   var $seq = "seq_id_vaultdiskstorage";
-  var $sqlcreate = "
-           create table vaultdiskstorage  ( id_file    int not null,
-                                     primary key (id_file),
-                                     id_fs int,
-                                     id_dir int,
+  var $sqlcreate = "create table vaultdiskstorage  ( 
+                                     id_file       int not null, primary key (id_file),
+                                     id_fs         int,
+                                     id_dir        int,
                                      public_access bool,
                                      size int,
-                                     name varchar(2048)
+                                     name varchar(2048),
+
+                                     mime_t           text DEFAULT '',
+                                     mime_s           text DEFAULT '',
+
+                                     cdate            timestamp DEFAULT null,
+                                     mdate            timestamp DEFAULT null,
+                                     adate            timestamp DEFAULT null,
+ 
+                                     teng_state       int DEFAULT 0,
+                                     teng_lname       text DEFAULT '',
+                                     teng_idfs        int DEFAULT -1
+
                                );
            create sequence seq_id_vaultdiskstorage start 10;";
   

@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.17 2006/12/06 11:12:13 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.18 2007/02/19 16:25:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -100,7 +100,7 @@ Class VaultFile {
   }
 
   // ---------------------------------------------------------
-  function Store($infile, $public_access, &$id) {
+  function Store($infile, $public_access, &$id, $fsname="") {
   // ---------------------------------------------------------
 
     if ($this->chrono) $this->logger->start("Store");

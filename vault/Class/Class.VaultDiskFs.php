@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultDiskFs.php,v 1.14 2007/01/16 10:04:53 eric Exp $
+// $Id: Class.VaultDiskFs.php,v 1.15 2007/02/19 16:25:40 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Class.VaultDiskFs.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -33,6 +33,7 @@ include_once("VAULT/Class.VaultDiskDir.php");
 Class VaultDiskFs extends DbObj {
 
   var $fields = array ( "id_fs", 
+			"fsname",
 			"max_size",
 			"free_size",
 			"subdir_cnt_bydir",
@@ -45,6 +46,7 @@ Class VaultDiskFs extends DbObj {
   var $seq_tmpl="seq_id_vaultdiskfs%s";
   var $sqlcreate_tmpl = "
            create table vaultdiskfs%s  ( id_fs     int not null,
+                                 fsname text,
                                  primary key (id_fs),
                                  max_size   int8,
                                  free_size   int8,
@@ -69,10 +71,11 @@ Class VaultDiskFs extends DbObj {
 
 
 
-  function createArch($maxsize,$path) {
+  function createArch($maxsize,$path, $fsname) {
     if (!is_dir($path)) $err=sprintf(_("%s directory not found"),$path);
     elseif (!is_writable($path)) $err=sprintf(_("%s directory not writable"),$path);
     if ($err=="") {
+      $this->fsname         = $fsname;
       $this->max_size         = $maxsize;
       $this->free_size        = $maxsize;
       $this->subdir_cnt_bydir = VAULT_MAXDIRBYDIR;
@@ -104,12 +107,16 @@ Class VaultDiskFs extends DbObj {
   }
 
   // --------------------------------------------------------------------
-  function SetFreeFs($f_size, &$id_fs, &$id_dir, &$f_path) {
+  function SetFreeFs($f_size, &$id_fs, &$id_dir, &$f_path, $fsname) {
   // --------------------------------------------------------------------
     $id_fs = $id_dir = -1;
     $f_path = "";
     $query = new QueryDb($this->dbaccess, $this->dbtable);
-    $query->basic_elem->sup_where=array("free_size>".$f_size);
+    $qs = array();
+    $qs[0] = "free_size>".$f_size;
+    if ($fsname!="") $qs[1] = "fsname='".$fsname."'";
+    else $qs[1] = "(fsname='FREEDOM' OR fsname is null)";
+    $query->basic_elem->sup_where = $qs;
     $t = $query->Query(0,1,"TABLE");
   
     if ($query->nb > 0) {

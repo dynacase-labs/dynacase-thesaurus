@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.15 2006/12/06 11:12:13 eric Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.16 2007/02/19 16:25:40 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -86,11 +86,12 @@ function seems_utf8($Str) {
 }
 
   // --------------------------------------------------------------------
-  function Store($infile, $public_access, &$idf) {
+ function Store($infile, $public_access, &$idf, $fsname="") {
   // -------------------------------------------------------------------- 
+   include_once ("WHAT/Lib.FileMime.php");
 
     $this->size = filesize($infile);
-    $msg = $this->fs->SetFreeFs($this->size, $id_fs, $id_dir, $f_path);
+    $msg = $this->fs->SetFreeFs($this->size, $id_fs, $id_dir, $f_path, $fsname, $te_state=0, $te_lname='', $te_ifs=-1);
     if ($msg != '') {
       $this->logger->error("Can't find free entry in vault. [reason $msg]");
       return($msg);
@@ -101,10 +102,19 @@ function seems_utf8($Str) {
     $this->name = basename($infile);
     if ($this->seems_utf8( $this->name)) $this->name=utf8_decode($this->name);
 
+    $this->mime_t = getTextMimeFile($infile);
+    $this->mime_s = getSysMimeFile($infile, $this->name);
+    $this->cdate = $this->mdate = $this->adate = date("c", time());
+    
+    $this->teng_state = $te_state;
+    $this->teng_lname = $te_lname;
+    $this->teng_idfs  = $te_ifs;
+
     $msg = $this->Add();
     if ($msg != '') return($msg);
     
     $idf = $this->id_file;
+
     $f = vaultfilename($f_path, $infile, $this->id_file);
     if (! @copy($infile, $f)) {
       // Free entry
@@ -122,16 +132,35 @@ function seems_utf8($Str) {
   }
 
   // --------------------------------------------------------------------     
-  function Show($id_file, &$f_infos) { 
-  // --------------------------------------------------------------------     
-    $this->id_file = -1;
-    $msg = DbObj::Select($id_file);
-    if ($this->id_file!=-1) {
+ function Show($id_file, &$f_infos, $teng_lname="", &$teng_state=0) { 
+   // --------------------------------------------------------------------     
+   $this->id_file = -1;
+   
+   if ($teng_lname!="") {
+     $query = new QueryDb($this->dbaccess, $this->dbtable);
+     $query->basic_elem->sup_where = array( "teng_idfs=".$id_file, 
+					    "teng_lname='".$teng_lname."'", 
+					    "teng_status=2" );
+     $t = $query->Query(0,0,"TABLE");
+     if ($query->nb > 0) {
+       $msg = DbObj::Select($t[0]["id_file"]);
+     }
+   }
+   
+   if ($this->id_file==-1) {
+     $msg = DbObj::Select($id_file);
+   }
+
+   if ($this->id_file!=-1) {
       $this->fs->Show($this->id_fs, $this->id_dir, $f_path);
       $f_infos->name = $this->name;
       $f_infos->size = $this->size;
       $f_infos->public_access = $this->public_access;
       $f_infos->path = vaultfilename($f_path, $this->name, $id_file);
+
+      $this->adate = date("c", time());
+      $this->modify(true, array("adate"),true);
+     
       return '';
     } else {
       return(_("file does not exist in vault"));
@@ -177,7 +206,9 @@ function seems_utf8($Str) {
 
 //    if (!unlink($path))
 //	return("NOT UNLINK $path\n"); 
- 
+
+    $this->mdate = date("c", time());
+
     $msg = $this->modify();
     if ($msg != '') return($msg);
 
@@ -187,9 +218,18 @@ function seems_utf8($Str) {
     $this->fs->select($this->id_fs);
     $this->fs->AddEntry($newsize - $size);
     $this->logger->debug("File $infile saved in $pathname");
+
+    $this->resetTEFiles();
+
     return "";
   }
 
+  function  resetTEFiles() {
+    // reset all files product by transform engine
+    $up = "update ".$this->dbtable." set teng_state=0 where teng_idfs=".$this->id_file.";";
+    $this->exec_query($up);
+  }
+ 
 
 } // End Class.VaultFileDisk.php 
 
