@@ -752,12 +752,12 @@ function initCalEvent(ie) {
 
   var ref = eltId(Root);
   var nev = document.createElement('div');
-  with (nev) {
-    id = fcalGetEvtCardName(ie);
-    name = fcalGetEvtCardName(ie);
-    style.visibility = 'hidden';
-    innerHTML = '';
-  }
+  
+  nev.id= fcalGetEvtCardName(ie);
+  nev.name = fcalGetEvtCardName(ie);
+  nev.style.visibility = 'hidden';
+  nev.innerHTML = '';
+   
   ref.appendChild(nev);
   fcalGetCalEvent(false, ie);
   return;  
