@@ -3,7 +3,7 @@
 <span width="70%" style="font-size:80%; text-align:right">[daylabel]</span>
 </div>
 
-[BLOCK HLine]<div style="overflow:hidden; cursor:crosshair" oncontextmenu="fcalCancelEvDisplay(event, [rg]); fcalOpenMenuEvent(event, [rg], this)" onmouseover="fcalStartEvDisplay(event, [rg]);" onmouseout="fcalCancelEvDisplay(event, [rg]);" >
+[BLOCK HLine]<div style="overflow:hidden; cursor:crosshair" oncontextmenu="fcalCancelEvDisplay(event, [rg]); fcalOpenMenuEvent(event, [rg], this);return false" onclick="subwindow(100, 250, '[evt_idinitiator]', '[CORE_STANDURL]&app=FDL&action=IMPCARD&id=[evt_idinitiator]')"  >
 <div class="WEvDefault" style="border-right: 5px solid [ownercolor]; font-weight:bolder; font-size:80%;">[hours]&nbsp;[icolist][IF showOwner]&nbsp;<span style="font-weight:normal;font-style:italic;">([owner])</span>[ENDIF showOwner]</div>
 <div style="padding-left:5px; padding-bottom:5px">
 <div style="color:black">[evt_title]</div>
