@@ -79,7 +79,7 @@ addEvent(window,"load",viewfirst);
 
  </head>
 
-<body onload="autoHresize()">
+<body onload="autoVresize()">
 
                          
 <!-- Title Table -->

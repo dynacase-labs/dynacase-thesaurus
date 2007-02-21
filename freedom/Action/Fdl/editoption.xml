@@ -33,7 +33,7 @@
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize()"
+      onLoad="editOnLoad();autoVresize()"
       onsubmit="selectall()"
       onUnLoad="closechoose();pleaseSave(event);">
 

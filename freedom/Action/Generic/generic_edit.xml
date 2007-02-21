@@ -23,7 +23,7 @@
   <!--
     [JS:CODE]
 addEvent(window,"load",editOnLoad);
-addEvent(window,"load",autoHresize);
+addEvent(window,"load",autoVresize);
 addEvent(window,"load",focusFirst);
 [IF VALTERN]addEvent(window,"load",function al1() {alterfieldset('terrible','[CORE_BGCOLORALTERN]','[CORE_TEXTFGCOLOR]');});[ENDIF VALTERN]
   //-->

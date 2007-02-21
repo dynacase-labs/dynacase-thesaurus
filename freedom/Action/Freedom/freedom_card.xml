@@ -27,7 +27,7 @@
  </head>
 
 <body class="freedom" 
-      onload="autoHresize()";
+      onload="autoVresize()";
       onClick="closeMenu('popupcard');" >
 
 

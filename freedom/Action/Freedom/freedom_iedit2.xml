@@ -39,7 +39,7 @@ window.setInterval('autoclose()',2000);
  </head>
 
 <body class="freedom" 
-      onLoad="editOnLoad();autoHresize();" 
+      onLoad="editOnLoad();autoVresize();" 
       onbeforeunload="if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled))return '[STITLE]:[TEXT:Changes will be loosed if you continue]'";
       onUnLoad="closechoose();"
       onResize="resizeInputFields()">

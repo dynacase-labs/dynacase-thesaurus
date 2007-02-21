@@ -35,7 +35,7 @@ window.setInterval('autoclose()',2000);
  </head>
 
 <body class="freedom" 
-      onload="autoHresize();"
+      onload="autoVresize();"
       >
 
 <!--pour visualisation-->
