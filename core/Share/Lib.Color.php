@@ -3,7 +3,7 @@
  * Color utilities
  *
  * @author Anakeen 2005
- * @version $Id: Lib.Color.php,v 1.4 2006/06/21 14:44:35 eric Exp $
+ * @version $Id: Lib.Color.php,v 1.1 2007/02/21 11:04:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 

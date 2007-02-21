@@ -3,7 +3,7 @@
  * Dynamic calendar methods
  *
  * @author Anakeen 2005
- * @version $Id: Method.DCalendar.php,v 1.36 2005/11/23 19:19:11 marc Exp $
+ * @version $Id: Method.DCalendar.php,v 1.37 2007/02/21 11:11:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -69,7 +69,7 @@ function editcalendar($target="_self",$ulink=true,$abstract=false) {
  */
 function planner($target="finfo",$ulink=true,$abstract="Y") {
   include_once("FREEEVENT/Lib.DCalendar.php");
-  include_once("FDL/Lib.Color.php");
+  include_once("WHAT/Lib.Color.php");
   global $action;
 
   if ($this->needParameters()) {

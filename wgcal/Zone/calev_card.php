@@ -3,14 +3,14 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: calev_card.php,v 1.36 2006/02/17 14:22:12 marc Exp $
+ * @version $Id: calev_card.php,v 1.37 2007/02/21 11:12:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
  */
  /**
  */
-include_once("FDL/Lib.Color.php");
+include_once("WHAT/Lib.Color.php");
 include_once("WGCAL/Lib.WGCal.php");
 include_once("EXTERNALS/WGCAL_external.php");
 

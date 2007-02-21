@@ -1,7 +1,7 @@
 <?php
 include_once("Class.Param.php");
 include_once("FDL/freedom_util.php");
-include_once("FDL/Lib.Color.php");
+include_once("WHAT/Lib.Color.php");
 include_once("FDL/Lib.Dir.php");
 include_once("EXTERNALS/WGCAL_external.php");
 
