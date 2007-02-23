@@ -270,7 +270,6 @@ function WGCalAddEvent(nev)
 	  vstart += 0;
 	}
 	
-	
 	// Heure de fin supérieure à la fin de la journée....
 	if (tend>=Days[id].vend) {
 	  vend = Days[id].vend;
@@ -495,6 +494,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   startX = parseInt(xt.x) + 1; 
   startY = parseInt(GetYForTime(cEv.vstart)) + 1;
   endY = GetYForTime(cEv.vend);
+  if ((endY < startY) && (cEv.vstart < cEv.vend) ) endY = GetYForTime(3600*24-1); // if end date if day after
 
   h = endY - startY;
   var eE;
