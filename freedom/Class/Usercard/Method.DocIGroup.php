@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.35 2007/02/16 07:36:28 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.36 2007/02/26 13:18:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -127,12 +127,13 @@ function PostModify() {
   if ($err=="") {
     if ($user)  $err=$this->setGroups();
     $this->setValue("US_WHATID",$user->id);
-    $this->modify(true,array("us_whatid"));
+    $this->modify(false,array("us_whatid"),true);
     
     // get members 
     //$this->RefreshGroup(); // in postinsert
     //    $this->refreshParentGroup();
-    $err=$this->RefreshLdapCard();  
+    $wrg=$this->RefreshLdapCard();  
+    if ($wrg) AddWarningMsg($wrg);
 
     // add in default folder root groups : usefull for import
     $tgid=$this->getTValue("GRP_IDPGROUP");
