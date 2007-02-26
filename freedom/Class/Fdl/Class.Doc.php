@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.360 2007/02/14 16:04:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.361 2007/02/26 14:55:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -520,6 +520,7 @@ final public function PostInsert()  {
    * Set relation doc id use on docrel table
    */
   function updateRelations() {
+    return; // for the moment
     include_once("FDL/Class.DocRel.php");
     $nattr = $this->GetNormalAttributes();
     $or=new DocRel($this->dbaccess);
