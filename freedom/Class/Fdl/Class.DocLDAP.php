@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocLDAP.php,v 1.7 2007/01/26 16:16:39 eric Exp $
+ * @version $Id: Class.DocLDAP.php,v 1.8 2007/02/26 13:00:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -154,8 +154,11 @@ Class DocLDAP extends DbObj {
    * get DN of document
    */
   function getLDAPDN($rdn,$path="") {
-    if ($path=="") $dn = "$rdn=".$this->infoldap[$this->cindex][$rdn].",".$this->racine;
-    else  $dn = "$rdn=".$this->infoldap[$this->cindex][$rdn].",$path,".$this->racine;
+    if (!$rdn) return false;
+    $vdn=$this->infoldap[$this->cindex][$rdn];
+    if (!$vdn) return false;
+    if ($path=="") $dn = "$rdn=".$vdn.",".$this->racine;
+    else  $dn = "$rdn=".$vdn.",$path,".$this->racine;
     return $dn;
   }
 
@@ -246,7 +249,6 @@ Class DocLDAP extends DbObj {
       }
     }
   
-  
     return $this->infoldap;
   } 
 
@@ -295,7 +297,7 @@ Class DocLDAP extends DbObj {
 	      unset($infoldap["dn"]);
 	      if (! is_array($tdn)) $tdn=array($tdn);
 	      foreach ($tdn as $dn) {
-
+		if (!$dn) continue;
 		$sr = @ldap_read($ds, $dn, "objectClass=*");
 	   
 		if ( $sr )	   {
