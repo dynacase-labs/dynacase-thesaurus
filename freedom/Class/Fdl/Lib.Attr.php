@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.62 2006/11/16 16:42:37 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.63 2007/02/27 10:05:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -76,8 +76,11 @@ function AttrToPhp($dbaccess, $tdoc) {
     $attrids=array();
     $tcattr=array();
     while(list($k,$v) = each($table1))   {
+      if ($v->id[0]==':') $v=completeAttribute($dbaccess,$v);
+      
       if ($v->visibility == "F") $v->type="frame"; // old notation compliant
-      if ($v->visibility == "M") $v->type="menu"; // old notation compliant
+      if ($v->visibility == "M") $v->type="menu"; // old notation compliant      
+
       $v->phpfunc=str_replace("\"","\\\"",$v->phpfunc);
       switch ($v->type) {
       case "menu": // menu
@@ -326,6 +329,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $qattr->AddQuery("type != 'frame'");
     $qattr->AddQuery("type != 'tab'");
     $qattr->AddQuery("type != 'action'");
+    $qattr->AddQuery("id !~ '^:'");
     //$qattr->AddQuery("type != 'array'");
     $qattr->AddQuery("visibility != 'M'");
     $qattr->AddQuery("visibility != 'F'");
@@ -454,7 +458,35 @@ function refreshPhpPgDoc($dbaccess, $docid) {
     // activate trigger by trigger
     activateTrigger($dbaccess, $docid);
     setSqlIndex($dbaccess, $docid);
-  }
+  }  
+}
   
+
+/**
+ * complete attribute properties from  parent attribute 
+ */
+function completeAttribute($dbaccess,$ta) {
+  $ta->id=substr($ta->id,1);
+  $fromid= getFamFromId($dbaccess,$ta->docid);
+  $tfromid[]=$fromid;
+  while ($fromid= getFamFromId($dbaccess,$fromid)) {
+    $tfromid[]=$fromid;
+  }
+  $query = new QueryDb($dbaccess,"DocAttr");
+  $query->AddQuery(GetSqlCond($tfromid,'docid'));
+  $query->AddQuery("id='".pg_escape_string($ta->id)."'");
+  $query->order_by="docid";
+  $tas = $query->Query(0,0,"TABLE");
+
+  $tw=$ta;
+
+  foreach ($tas as $ta1) {
+    foreach ($ta1 as $k=>$v) {
+      if ($v && (!$ta->$k)) $tw->$k=$v;
+    }
+  }
+
+  return $tw;
+
 }
 ?>

@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.121 2007/01/04 14:29:38 eric Exp $
+ * @version $Id: import_file.php,v 1.122 2007/02/27 10:08:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -366,10 +366,13 @@ function add_import_file(&$action, $fimport) {
       break;
       // -----------------------------------
     case "ATTR":
+    case "MODATTR":
     case "PARAM":
     case "OPTION":
       if     ($num < 13) $tcr[$nline]["err"]= "Error in line $nline: $num cols < 14";
 
+      $modattr=($data[0]=="MODATTR");
+      if ($data[0]=="MODATTR") $data[1]=':'.$data[1]; // to mark the modified attribute
       $tcr[$nline]["msg"].=sprintf(_("update %s attribute"),$data[1]);
       if ($analyze) continue;
       $oattr=new DocAttr($dbaccess, array($doc->id,strtolower($data[1])));
@@ -379,6 +382,7 @@ function add_import_file(&$action, $fimport) {
       
       $oattr->docid = $doc->id;
       $oattr->id = trim(strtolower($data[1]));
+      
       $oattr->frameid = trim(strtolower($data[2]));
       $oattr->labeltext=$data[3];
 
@@ -386,6 +390,7 @@ function add_import_file(&$action, $fimport) {
       if (! $oattr->isAffected()) { 
 	// don't change config by admin
 	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
+	if ($modattr) $oattr->abstract =$data[5];
       }
      
       $oattr->type = trim(strtolower($data[6]));
@@ -393,6 +398,10 @@ function add_import_file(&$action, $fimport) {
       $oattr->ordered = $data[7];
       $oattr->visibility = $data[8];
       $oattr->needed =  ($data[9]=="Y")?"Y":"N";
+      if ($modattr) {
+	$oattr->title = $data[4];
+	$oattr->needed =  $data[9];
+      }
       $oattr->link = $data[10];
       $oattr->phpfile = $data[11];
       if (isset($data[13])) $oattr->elink = $data[13];
