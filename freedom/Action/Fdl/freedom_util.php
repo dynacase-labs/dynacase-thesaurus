@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.93 2007/01/12 07:30:13 eric Exp $
+ * @version $Id: freedom_util.php,v 1.94 2007/02/27 10:08:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -210,11 +210,11 @@ function createTmpDoc($dbaccess,$fromid) {
 }
 
 /**
- * return document table value
+ * return from id for document (not for family (use @see getFamFromId() instead)
  * @param string $dbaccess database specification
  * @param int $id identificator of the object
  * 
- * @return array false if error occured
+ * @return int false if error occured (return -1 if family document )
  */
 function getFromId($dbaccess, $id) {
 
@@ -226,8 +226,30 @@ function getFromId($dbaccess, $id) {
 
   if (pg_numrows ($result) > 0) {
     $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
-
     $fromid= $arr["fromid"];
+  }
+  
+  return $fromid;    
+} 
+
+/**
+ * return from id for family document
+ * @param string $dbaccess database specification
+ * @param int $id identificator of the object
+ * 
+ * @return int false if error occured
+ */
+function getFamFromId($dbaccess, $id) {
+
+  if (!($id > 0)) return false;
+  if (! is_numeric($id)) return false;
+  $dbid=getDbid($dbaccess);   
+  $fromid=false;
+  $result = pg_query($dbid,"select  fromid from docfam where id=$id;");
+
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
+    $fromid= intval($arr["fromid"]);
   }
   
   return $fromid;    
