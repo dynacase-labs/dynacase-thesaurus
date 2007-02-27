@@ -1,7 +1,7 @@
 <fieldset ><legend>[caption]</legend>
 <table width="100%" class="tarray">
    <thead><tr >
-    [BLOCK TATTR]<th>[alabel]</th> [ENDBLOCK TATTR]
+    [BLOCK TATTR]<th width="[cwidth]">[alabel]</th> [ENDBLOCK TATTR]
    </tr></thead>
  <tbody  >
   

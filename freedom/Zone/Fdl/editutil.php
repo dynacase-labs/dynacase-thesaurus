@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.110 2007/01/12 10:58:20 eric Exp $
+ * @version $Id: editutil.php,v 1.111 2007/02/27 10:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -686,7 +686,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	}
 	$visible = ($v->mvisibility!="H");
 	$talabel[] = array("alabel"=>(!$visible)?"":$v->labelText,
-			   "ahw"=>(!$visible)?"0px":"auto",
+			   "ahw"=>(!$visible)?"0px":$v->getOption("cwidth","auto"),
 			   "ahvis"=>(!$visible)?"hidden":"visible");
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
 			   "ihw"=>(!$visible)?"0px":"auto",

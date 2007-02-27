@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.34 2006/11/16 16:42:37 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.35 2007/02/27 10:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -28,7 +28,7 @@ Class BasicAttribute {
   /**
    * return value of option $x
    */
-  function getOption($x) {
+  function getOption($x,$def="") {
     if (!isset($this->_topt)) {
       $topt=explode("|",$this->options);
       $this->_topt=array();
@@ -37,8 +37,8 @@ Class BasicAttribute {
 	$this->_topt[$vn]=$vv;
       }
     }
-    
-    return $this->_topt[$x];
+    $v=$this->_topt[$x];
+    return ($v?$v:$def);
   
   }
 
