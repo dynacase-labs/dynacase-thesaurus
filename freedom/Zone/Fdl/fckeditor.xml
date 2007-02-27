@@ -31,7 +31,7 @@ oFCKeditor[aid].Config['SkinPath'] =  'skins/silver/';
 //oFCKeditor[aid].Config['FontNames'] =  'serif;sans-serif;cursive;fantasy;monospace' ;
 oFCKeditor[aid].ToolbarSet = 'Simple';
 oFCKeditor[aid].Config["CustomConfigurationsPath"] = "../../FDL/Layout/fdl_fckeditor.js"  ;
-oFCKeditor[aid].Height='100%';
+oFCKeditor[aid].Height='[height]';
 oFCKeditor[aid].Value='[Value]';
 
 oFCKeditor[aid].Create();
