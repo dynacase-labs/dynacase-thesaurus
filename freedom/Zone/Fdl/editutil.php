@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.112 2007/02/27 15:03:07 eric Exp $
+ * @version $Id: editutil.php,v 1.113 2007/02/28 16:43:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -496,38 +496,38 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 
 	  $target= $attrid;
 	  /* --- for idoc ---
-	if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-	// special case wit javascript inputs
+	   if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
+	   // special case wit javascript inputs
 
-	  $oattr->elink=$reg[2];
-	  $tabFunction=explode(":",$reg[1]);
+	   $oattr->elink=$reg[2];
+	   $tabFunction=explode(":",$reg[1]);
 
-	  if ( $tabFunction[0]!=""){
-	    $target = $tabFunction[0];
-	  }
-	  else{
-	    $target=$attrid;
-	  }
-	  $function=false;
-	  $i=1;
-	  while ( $tabFunction[$i]!=""){
-	    $function=true;
-	    ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
-	    //print_r($arg);
-	    $args[$i]=addslashes($arg[2]);
-	    $tabFunction[$i]=$arg[1];
-	    $string_function.="doing($tabFunction[$i],'$args[$i]');";
-	    $i++;
-	  }
-	}
+	   if ( $tabFunction[0]!=""){
+	   $target = $tabFunction[0];
+	   }
+	   else{
+	   $target=$attrid;
+	   }
+	   $function=false;
+	   $i=1;
+	   while ( $tabFunction[$i]!=""){
+	   $function=true;
+	   ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
+	   //print_r($arg);
+	   $args[$i]=addslashes($arg[2]);
+	   $tabFunction[$i]=$arg[1];
+	   $string_function.="doing($tabFunction[$i],'$args[$i]');";
+	   $i++;
+	   }
+	   }
       
     
 
 
-	else {
-	  $target= $attrid;
-	}
-	--- end for idoc */
+	   else {
+	   $target= $attrid;
+	   }
+	   --- end for idoc */
 
 	  $jsfunc="subwindowm(300,500,'$target','$url');";
 	}
@@ -542,25 +542,27 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	}
 	else{
 	  $input.="\">";
-	}
-
-
-      }
-      if (GetHttpVars("viewconstraint")=="Y") { // set in modcard
-	if ($oattr->phpconstraint != "") {
-	  $res=$doc->verifyConstraint($oattr->id,$index);
-	  if (($res["err"]=="") && (count($res["sug"])==0)) $color='mediumaquamarine';
-	  if (($res["err"]=="") && (count($res["sug"])>0)) $color='orange';
-	  if (($res["err"]!="")) $color='tomato';
-
-	  $input.="<input style=\"background-color:$color;\"type=\"button\" id=\"co_$attridk\" value=\"C\"".
-	    " onclick=\"vconstraint(this,".$doc->fromid.",'$attrid');\">";
-	}
+	}      
       }
     } else {
       if (!$notd) $input.="</td><td>";
     }
-  }
+
+    if (GetHttpVars("viewconstraint")=="Y") { // set in modcard
+      if ($oattr->phpconstraint != "") {
+	$res=$doc->verifyConstraint($oattr->id,$index);
+	if (($res["err"]=="") && (count($res["sug"])==0)) $color='mediumaquamarine';
+	if (($res["err"]=="") && (count($res["sug"])>0)) $color='orange';
+	if (($res["err"]!="")) $color='tomato';
+
+	$input.="<input style=\"background-color:$color;\"type=\"button\" id=\"co_$attridk\" value=\"C\"".
+	  " onclick=\"vconstraint(this,".$doc->fromid.",'$attrid');\">";
+      }
+    }
+  } 
+
+    
+
 
   return $input;
   
