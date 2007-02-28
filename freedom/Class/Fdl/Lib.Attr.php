@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.63 2007/02/27 10:05:17 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.64 2007/02/28 16:45:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -483,6 +483,7 @@ function completeAttribute($dbaccess,$ta) {
   foreach ($tas as $ta1) {
     foreach ($ta1 as $k=>$v) {
       if ($v && (!$ta->$k)) $tw->$k=$v;
+      if ($ta->$k == "-") $tw->$k=""; // suppress value
     }
   }
 
