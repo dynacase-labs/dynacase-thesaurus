@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.362 2007/02/27 10:07:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.363 2007/02/28 16:44:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2142,8 +2142,13 @@ final public function PostInsert()  {
      
   }
 
+
+  /**
+   * verify if constraint ore OK
+   * @return string error message (empty means no error)
+   */
   final public function verifyAllConstraints() {
-    
+    $err="";
     $listattr = $this->GetNormalAttributes();
     foreach ($listattr as $k => $v) {
       if ($v->phpconstraint != "") {
@@ -2151,16 +2156,18 @@ final public function PostInsert()  {
 	  $tv = $this->getTValue($v->id);
 	  for ($i=0;$i<count($tv);$i++) {
 	    $res= $this->verifyConstraint($v->id,$i);
-	    if ($res["err"]!="") return false;
+	    if ($res["err"]!="") return sprintf(_("constraint return [%s] for %s attribute"),
+						$res["err"],$v->labelText);
 	  }
 	} else {
 	  $res= $this->verifyConstraint($v->id);
 	  //	  print print_r2($res);
-	  if ($res["err"]!="") return false;
+	  if ($res["err"]!="") return sprintf(_("constraint return [%s] for %s attribute"),
+						$res["err"],$v->labelText);
 	}
       }
     }
-    return true;
+    return $err;
   }
   /** return the first attribute of type 'file'
    * @return Attribute 
