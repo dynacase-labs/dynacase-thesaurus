@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.17 2007/02/09 16:30:29 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.18 2007/03/02 10:53:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -160,32 +160,34 @@ function setGroups() {
       foreach ($gadd as $gid) {	
 	$g->iduser=$user->id;
 	$g->idgroup=$gid;
-	$aerr.=$g->Add(true);
+	//	$aerr.=$g->Add(true);
 	if ($aerr=="") {
 	  // insert in folder group
 	  $gdoc=$this->getDocUser($gid);
-	  $gdoc->insertMember($this->id);
+	  //  $gdoc->insertMember($this->id);
+	  $gdoc->addFile($this->id);
 	  $tgid[$gid]=$gid;
 	}
 	$err.=$aerr;
       }
       foreach ($gdel as $gid) {	
 	$g->iduser=$gid;
-	$aerr.=$g->SuppressUser($user->id,true);
+	//$aerr.=$g->SuppressUser($user->id,true);
 	
-	if ($aerr=="") {
+	
 	  // delete in folder group
 	  $gdoc=$this->getDocUser($gid);
 	  if (! method_exists($gdoc,"deleteMember")) AddWarningMsg("no group $gid/".$gdoc->id);
 	  else {
-	    $gdoc->deleteMember($this->id);
+	    // $gdoc->deleteMember($this->id);
+	    $gdoc->delFile($this->id);
 	    $tgid[$gid]=$gid;
 	  }
 	  
-	}
+	
 
       }
-      $g->PostInsert();
+      // $g->FreedomCopyGroup();
 
 
       //if ($user->isgroup=='Y')  $tgid[$user->id]=$user->id;

@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.36 2007/02/26 13:18:49 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.37 2007/03/02 10:53:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -167,6 +167,7 @@ function specPostInsert() {
 function postInsertDoc($docid,$multiple) {
   $err="";
   if ($multiple == false) {
+
     $gid = $this->getValue("US_WHATID");
     if ($gid > 0) {
       $du = new_Doc($this->dbaccess,$docid);
@@ -178,7 +179,7 @@ function postInsertDoc($docid,$multiple) {
 	$err=$g->Add();
 	if ($err=="OK") $err="";
 	if ($err=="") {
-	  $du->RefreshDocUser();
+	  $du->RefreshDocUser(); // to refresh group of user attributes
 	  $this->RefreshGroup();
 	}	
       }      
@@ -204,11 +205,11 @@ function postMInsertDoc($tdocid) {
       if ($uid > 0) {
 	$g->iduser=$uid;
 	$g->idgroup=$gid;
-	$err=$g->Add(true);
+	$err=$g->Add();
 	if ($err=="") $du->RefreshDocUser();
       }	      
     }     
-    $g->PostInsert();
+
     $this->RefreshGroup();
   }
   return $err;
