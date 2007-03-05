@@ -26,13 +26,17 @@
  </head>
 
 
-<body onLoad="setTimeout('CenterDiv(\'logo2\');CenterDiv(\'logo\')',1)" onResize="CenterDiv('logo2');CenterDiv('logo')">
+<body>
 
-<div id="logo" style="display:none;position:absolute;top:0px;left:0px;z-index:4">
-      <img src="[appicon]" title="[apptitle]" alt="[apptitle]">
-</div>
-<div id="logo2" style="display:none;position:absolute;top:0px;left:0px;[IF ISIE]filter:alpha(opacity=50);[ENDIF ISIE][IFNOT ISIE]-moz-opacity:.5;[ENDIF ISIE]z-index:2">
-      <img  src="[IMG:logofreedom.gif]" title="[apptitle]" alt="[apptitle]">
-</div>
+
+<table style="width:100%;height:100%;"><tr><td style="text-align:center;vertical-align:middle">
+
+<img 
+       src="[IMG:logofreedom.png]" title="[apptitle]" alt="[apptitle]" >
+
+       <span style="padding:5px;position:absolute;margin-left:-170px;margin-top:30px">
+    <img  src="[appicon]" title="[apptitle]" alt="[apptitle]" needresize="1"></span>
+</td></tr></table>
+
 </body>
 </html>
