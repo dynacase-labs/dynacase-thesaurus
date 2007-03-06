@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.18 2007/03/02 10:53:53 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.19 2007/03/06 18:55:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -19,8 +19,6 @@
  */
 function ConstraintLogin($login,$iddomain) {
   $sug=array("-");
-  $id=$this->GetValue("US_WHATID");
-  $user=new User("",$id);
                                          
   if ($login == "") {
     $err= _("the login must not be empty");
@@ -29,14 +27,31 @@ function ConstraintLogin($login,$iddomain) {
     if (!eregi("^[a-z0-9][-_a-z0-9\.]*[a-z0-9]+$", $login)) {
       $err= _("the login syntax is like : john.doe");
     }  
-    $q=new QueryDb("","User");
-    $q->AddQuery("login='$login'");
-    $q->AddQuery("id != $id");
-    $q->AddQuery("iddomain=$iddomain");
-    $q->Query(0,0,"TABLE");
-    if ($q->nb > 0) $err= _("login yet use");
-    if ($err=="") $sug=array();
+    if ($err=="") {
+      return $this->ExistsLogin($login,$iddomain);
+    }
   }
+  return array("err"=>$err,"sug"=>$sug);
+}
+/**
+ * verify if the login not already exist
+ * @param string $login login to test
+ * @return array 2 items $err & $sug for view result of the constraint
+ */
+function ExistsLogin($login,$iddomain=0) {
+  $sug=array();
+  $err="";
+  $id=$this->GetValue("US_WHATID");
+  $user=new User("",$id);
+  $q=new QueryDb("","User");
+  $q->AddQuery("login='".strtolower(pg_escape_string($login))."'");
+  if ($id) $q->AddQuery("id != $id");
+  $iddomain=intval($iddomain);
+  $q->AddQuery("iddomain=$iddomain");
+  $q->Query(0,0,"TABLE");
+  $err=$q->basic_elem->msg_err;
+  if (($err=="") && ($q->nb > 0)) $err= _("login yet use");
+ 
   return array("err"=>$err,"sug"=>$sug);
 }
 
