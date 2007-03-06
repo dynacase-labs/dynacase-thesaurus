@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.23 2006/08/01 15:23:11 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.24 2007/03/06 18:54:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -212,7 +212,7 @@ function faddbook_main(&$action)
     $dline[$il]["icop"] = Doc::GetIcon($v["icon"]);
     $il++;
   }
-  $pzone = ((!$usedefaultview)&& isset($ddoc->faddbook_card))?$ddoc->faddbook_card:$ddoc->defaultview;
+  $pzone = ((!$usedefaultview)&& isset($ddoc->faddbook_card))?$ddoc->faddbook_card:"";
   $action->lay->set("fabzone", $pzone);
 
   $action->lay->setBlockData("DLines", $dline);
