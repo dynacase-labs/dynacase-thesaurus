@@ -20,13 +20,13 @@ text-align:left;
   border-width: 1px;
 }
 FIELDSET {
-  -moz-border-radius: 8;
+  -moz-border-radius: 8px;
 }
 LEGEND {
   font-size : [SIZE_SMALL]; 
   font-weight : bold;
   background-color: [CORE_BGCOLORALTERN];
-  -moz-border-radius: 8;
+  -moz-border-radius: 8px
 }
 IMG.zoom {
 	position:absolute;
@@ -126,7 +126,7 @@ DIV.fabcontactsel {
 
 DIV.fabresume {
 cursor:pointer;
--moz-border-radius: 8;
+-moz-border-radius: 8px;
 margin:0pt;
 padding:3pt;
 border-width : 2px;
