@@ -4,7 +4,7 @@
  * for files attached to a Freedom document
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocVaultIndex.php,v 1.7 2006/10/20 06:55:29 eric Exp $
+ * @version $Id: Class.DocVaultIndex.php,v 1.8 2007/03/07 18:42:24 eric Exp $
  * @license http://license.i-cesam.com/license.php
  * @package FREEDOM
  */
@@ -65,6 +65,7 @@ create unique index idx_docvaultindex on docvaultindex (docid, vaultid);";
    */
   function getVaultIds($docid) {
     $t = array();
+    if (!$docid) return array();
     $query = new QueryDb($this->dbaccess, "DocVaultIndex");
     $query->AddQuery("docid = $docid");
     $t = $query->Query(0,0,"TABLE");
