@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-19 17:28+0100\n"
-"PO-Revision-Date: 2007-01-19 17:29+0100\n"
+"POT-Creation-Date: 2007-03-07 11:24+0100\n"
+"PO-Revision-Date: 2007-03-07 11:27+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -539,6 +539,9 @@ msgstr "Changer dossier courant"
 msgid "Choose workflow"
 msgstr "Choisir un cycle"
 
+msgid "new familly document"
+msgstr "nouvelle famille de document"
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -566,9 +569,6 @@ msgstr "Création de famille de documents"
 
 msgid "untitle family"
 msgstr "famille sans titre"
-
-msgid "new familly document"
-msgstr "nouvelle famille de document"
 
 msgid "new document family"
 msgstr "nelle famille de document"
@@ -1017,38 +1017,6 @@ msgstr "en cours...\n"
 
 msgid "done\n"
 msgstr "effectué\n"
-
-#, c-format
-msgid "create directory %s\n"
-msgstr "créer le dossier %s\n"
-
-#, c-format
-msgid "cannot change owner of %s: aborted\n"
-msgstr "ne peut changer le propriétaire de %s: abandon\n"
-
-#, c-format
-msgid ""
-"cannot create directory %s\n"
-"Parent directory must be create before"
-msgstr ""
-"ne peut créer le répertoire %s\n"
-"Le répertoire père doit être créé au préalable"
-
-#, c-format
-msgid "cannot create %s: %s\n"
-msgstr "ne peut créer %s : %s\n"
-
-#, c-format
-msgid "vault %s created.\n"
-msgstr "coffre %s créé.\n"
-
-#, c-format
-msgid "vault already created %s: aborted\n"
-msgstr "coffre déjà crée %s: abandon\n"
-
-#, c-format
-msgid "ERROR %s\n"
-msgstr "ERREUR %s\n"
 
 #, c-format
 msgid "csv file <%s> wroted"
@@ -1874,57 +1842,6 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "My document basket"
-msgstr "Mon porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
 msgid "document creation"
 msgstr "Création du document"
 
@@ -2153,6 +2070,61 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
+
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "My document basket"
+msgstr "Mon porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr "la contrainte retourne [%s] pour l'attribut %s"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2493,6 +2465,10 @@ msgid "php file %s needed for request not found"
 msgstr "le fichier PHP %s nécessaire à la requête n'a pas pu être trouvé"
 
 #, c-format
+msgid "refreshing %s"
+msgstr "actualisation %s"
+
+#, c-format
 msgid "group #%d does not exist"
 msgstr "le groupe n°%d n'existe pas"
 
@@ -2509,10 +2485,6 @@ msgstr "groupe %s"
 #, c-format
 msgid "group %d does not exist"
 msgstr "le groupe n°%d n'existe pas"
-
-#, c-format
-msgid "Group %s not exist"
-msgstr "le groupe n°%s n'existe pas"
 
 msgid "user is desactivated"
 msgstr "l'utilisateur est désactivé"
@@ -2707,6 +2679,10 @@ msgstr "%d document"
 
 msgid "createdate"
 msgstr "date de création"
+
+#, c-format
+msgid "Group %s not exist"
+msgstr "le groupe n°%s n'existe pas"
 
 msgid "mail edition"
 msgstr "édition de mail"
@@ -3315,32 +3291,6 @@ msgstr "toutes les familles"
 msgid "restrict to preferred families"
 msgstr "restriction aux familles préférées"
 
-msgid "Refresh users characteristics from system"
-msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
-
-msgid "Refresh users may take long time. Sure ?"
-msgstr ""
-"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
-
-msgid "Refresh users"
-msgstr "Actualiser les utilisateurs"
-
-msgid "Refresh LDAP"
-msgstr "Actualiser LDAP"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
-
-msgid "Refresh Groups members and mail"
-msgstr "Raffraichissement des membres et du mail"
-
-msgid "Refersh groups may take long time. Sure ?"
-msgstr ""
-"Rafraichir les groupes peut prendre beaucoup de temps.  Êtes vous sûr ?"
-
-msgid "Refresh groups"
-msgstr "Actualiser les groupes"
-
 msgid "users list"
 msgstr "liste des utilisateurs"
 
@@ -3356,9 +3306,21 @@ msgstr "Créer un nouveau groupe"
 msgid "view detail"
 msgstr "voir détails"
 
+msgid "Refresh users characteristics from system"
+msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
+
 msgid "Refersh users may take long time. Sure ?"
 msgstr ""
 "Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh users"
+msgstr "Actualiser les utilisateurs"
+
+msgid "Refresh LDAP"
+msgstr "Actualiser LDAP"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
 
 msgid "Refresh Group members and mail"
 msgstr "Actualiser les membres du groupe ainsi que son email"
@@ -3390,6 +3352,20 @@ msgstr "Ajouter uo modifier des valeurs de catégorie"
 
 msgid "Modify"
 msgstr "Modifier"
+
+msgid "Refresh users may take long time. Sure ?"
+msgstr ""
+"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh Groups members and mail"
+msgstr "Raffraichissement des membres et du mail"
+
+msgid "Refersh groups may take long time. Sure ?"
+msgstr ""
+"Rafraichir les groupes peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh groups"
+msgstr "Actualiser les groupes"
 
 msgid "Generic Management"
 msgstr "Gestion générique"
@@ -4063,6 +4039,9 @@ msgstr "Créer un traitement"
 msgid "Export Folder"
 msgstr "Exportation du dossier"
 
+msgid "Export Folder and profil"
+msgstr "Exportation du dossier et des profils"
+
 msgid "Clear Folder"
 msgstr "Vider le dossier"
 
@@ -4110,6 +4089,11 @@ msgstr "Membres"
 
 msgid "number of members"
 msgstr "Nombre de membres"
+
+msgid ""
+"Too many members to display there here. Use Open context menu to display "
+"them."
+msgstr "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser le menu \"Ouvrir\" à partir du menu contextuel."
 
 msgid "nomail"
 msgstr "pas d'email"
@@ -4167,6 +4151,31 @@ msgstr "Personnel"
 
 msgid "Complete view"
 msgstr "Vue complète"
+
+#~ msgid "create directory %s\n"
+#~ msgstr "créer le dossier %s\n"
+
+#~ msgid "cannot change owner of %s: aborted\n"
+#~ msgstr "ne peut changer le propriétaire de %s: abandon\n"
+
+#~ msgid ""
+#~ "cannot create directory %s\n"
+#~ "Parent directory must be create before"
+#~ msgstr ""
+#~ "ne peut créer le répertoire %s\n"
+#~ "Le répertoire père doit être créé au préalable"
+
+#~ msgid "cannot create %s: %s\n"
+#~ msgstr "ne peut créer %s : %s\n"
+
+#~ msgid "vault %s created.\n"
+#~ msgstr "coffre %s créé.\n"
+
+#~ msgid "vault already created %s: aborted\n"
+#~ msgstr "coffre déjà crée %s: abandon\n"
+
+#~ msgid "ERROR %s\n"
+#~ msgstr "ERREUR %s\n"
 
 #~ msgid "metasend max for split mail"
 #~ msgstr "metasend max pour le découpage de mail"

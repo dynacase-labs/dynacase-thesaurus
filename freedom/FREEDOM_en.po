@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-19 17:28+0100\n"
+"POT-Creation-Date: 2007-03-07 11:24+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -571,6 +571,9 @@ msgstr "Delete"
 msgid "Choose workflow"
 msgstr "Delete"
 
+msgid "new familly document"
+msgstr ""
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -598,9 +601,6 @@ msgstr "Start search"
 #, fuzzy
 msgid "untitle family"
 msgstr "Delete"
-
-msgid "new familly document"
-msgstr ""
 
 msgid "new document family"
 msgstr ""
@@ -1053,36 +1053,6 @@ msgid "processing...\n"
 msgstr ""
 
 msgid "done\n"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "create directory %s\n"
-msgstr "Edit"
-
-#, c-format
-msgid "cannot change owner of %s: aborted\n"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot create directory %s\n"
-"Parent directory must be create before"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot create %s: %s\n"
-msgstr "Category"
-
-#, c-format
-msgid "vault %s created.\n"
-msgstr ""
-
-#, c-format
-msgid "vault already created %s: aborted\n"
-msgstr ""
-
-#, c-format
-msgid "ERROR %s\n"
 msgstr ""
 
 #, c-format
@@ -2003,52 +1973,6 @@ msgid "main view columns"
 msgstr "Start search"
 
 #, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "My document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy
 msgid "document creation"
 msgstr "Organisation"
 
@@ -2283,6 +2207,56 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "My document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr ""
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -2642,6 +2616,10 @@ msgstr "Edit"
 msgid "php file %s needed for request not found"
 msgstr ""
 
+#, fuzzy, c-format
+msgid "refreshing %s"
+msgstr "Delete"
+
 #, c-format
 msgid "group #%d does not exist"
 msgstr ""
@@ -2658,10 +2636,6 @@ msgstr ""
 
 #, c-format
 msgid "group %d does not exist"
-msgstr ""
-
-#, c-format
-msgid "Group %s not exist"
 msgstr ""
 
 msgid "user is desactivated"
@@ -2852,6 +2826,10 @@ msgstr "Import"
 #, fuzzy
 msgid "createdate"
 msgstr "Create"
+
+#, c-format
+msgid "Group %s not exist"
+msgstr ""
 
 #, fuzzy
 msgid "mail edition"
@@ -3604,33 +3582,6 @@ msgstr "Start search"
 msgid "restrict to preferred families"
 msgstr "Modify"
 
-msgid "Refresh users characteristics from system"
-msgstr ""
-
-msgid "Refresh users may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh users"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh LDAP"
-msgstr "Delete"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr ""
-
-msgid "Refresh Groups members and mail"
-msgstr ""
-
-msgid "Refersh groups may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh groups"
-msgstr "Delete"
-
 msgid "users list"
 msgstr ""
 
@@ -3649,7 +3600,21 @@ msgstr "Create"
 msgid "view detail"
 msgstr "Start search"
 
+msgid "Refresh users characteristics from system"
+msgstr ""
+
 msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh users"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh LDAP"
+msgstr "Delete"
+
+msgid "Refresh LDAP may take long time. Sure ?"
 msgstr ""
 
 msgid "Refresh Group members and mail"
@@ -3688,6 +3653,19 @@ msgstr ""
 #, fuzzy
 msgid "Modify"
 msgstr "Modify"
+
+msgid "Refresh users may take long time. Sure ?"
+msgstr ""
+
+msgid "Refresh Groups members and mail"
+msgstr ""
+
+msgid "Refersh groups may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh groups"
+msgstr "Delete"
 
 msgid "Generic Management"
 msgstr ""
@@ -4476,6 +4454,10 @@ msgid "Export Folder"
 msgstr "Delete"
 
 #, fuzzy
+msgid "Export Folder and profil"
+msgstr "Delete"
+
+#, fuzzy
 msgid "Clear Folder"
 msgstr "Delete"
 
@@ -4531,6 +4513,11 @@ msgid "Members"
 msgstr "No embed file"
 
 msgid "number of members"
+msgstr ""
+
+msgid ""
+"Too many members to display there here. Use Open context menu to display "
+"them."
 msgstr ""
 
 #, fuzzy
@@ -4602,6 +4589,14 @@ msgstr "Organisation"
 #, fuzzy
 msgid "Complete view"
 msgstr "Create"
+
+#, fuzzy
+#~ msgid "create directory %s\n"
+#~ msgstr "Edit"
+
+#, fuzzy
+#~ msgid "cannot create %s: %s\n"
+#~ msgstr "Category"
 
 #, fuzzy
 #~ msgid "view historic"
