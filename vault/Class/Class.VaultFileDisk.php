@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFileDisk.php,v 1.16 2007/02/19 16:25:40 marc Exp $
+ * @version $Id: Class.VaultFileDisk.php,v 1.17 2007/03/07 18:43:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -99,7 +99,7 @@ function seems_utf8($Str) {
     $this->id_fs = $id_fs;
     $this->id_dir = $id_dir;
     $this->public_access = $public_access;
-    $this->name = basename($infile);
+    $this->name = my_basename($infile);
     if ($this->seems_utf8( $this->name)) $this->name=utf8_decode($this->name);
 
     $this->mime_t = getTextMimeFile($infile);
@@ -199,7 +199,7 @@ function seems_utf8($Str) {
    // Verifier s'il y a assez de places ???
    
    $this->public_access = $public_access;
-   $this->name = basename($infile);
+   $this->name = my_basename($infile);
 
     
    $fd = fopen($path, "w+");

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Class.VaultCache.php,v 1.3 2005/09/27 16:46:24 eric Exp $
+// $Id: Class.VaultCache.php,v 1.4 2007/03/07 18:43:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Attic/Class.VaultCache.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ Class VaultCache extends VaultFileDisk {
     $this->id_fs = $this->fs->id_fs;
     $this->id_dir = $this->dir->id_dir;
     $this->public_access = $public_access;
-    $this->name = basename($infile);
+    $this->name = my_basename($infile);
     $this->id_file = $idf;
     $this->Add();
     $f = $fs->r_path."/".$dir->l_path."/".$this->id_file;

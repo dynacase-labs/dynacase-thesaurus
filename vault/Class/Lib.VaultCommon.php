@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: Lib.VaultCommon.php,v 1.6 2006/10/13 13:44:37 eric Exp $
+// $Id: Lib.VaultCommon.php,v 1.7 2007/03/07 18:43:26 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/Class/Lib.VaultCommon.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -35,5 +35,10 @@ function vaultfilename($fspath, $name, $id) {
   return str_replace('//','/',$fspath."/".$id.".".fileextension($name));
 }  
 
+function my_basename($p) {
+    //return basename($p);
+    $r=strrpos($p,"/");
+    return ($r!==false)?substr($p,$r+1):$p;
+  }
 
 ?>
