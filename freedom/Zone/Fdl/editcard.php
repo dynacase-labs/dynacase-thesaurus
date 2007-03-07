@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.60 2006/10/20 11:44:46 eric Exp $
+ * @version $Id: editcard.php,v 1.61 2007/03/07 14:54:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.60 2006/10/20 11:44:46 eric Exp $
+// $Id: editcard.php,v 1.61 2007/03/07 14:54:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -143,7 +143,11 @@ function editcard(&$action) {
     
   }
   
-  if ($zonebodycard == "") $zonebodycard=$doc->defaultedit;
+
+  if ($zonebodycard == "") {
+    if ((! $docid) && $doc->defaultcreate!="") $zonebodycard = $doc->defaultcreate;
+    else $zonebodycard = $doc->defaultedit;
+  }
 
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);

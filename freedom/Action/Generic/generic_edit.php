@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.55 2006/11/16 16:45:29 eric Exp $
+ * @version $Id: generic_edit.php,v 1.56 2007/03/07 14:54:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -140,7 +140,10 @@ function generic_edit(&$action) {
     if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
   }
 
-  if ($zonebodycard == "") $zonebodycard = $doc->defaultedit;
+  if ($zonebodycard == "") {
+    if ((! $docid) && $doc->defaultcreate!="") $zonebodycard = $doc->defaultcreate;
+    else $zonebodycard = $doc->defaultedit;
+  }
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S|U|V]", $zonebodycard, $reg)));
   $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:[S|U]", $zonebodycard, $reg)));
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
