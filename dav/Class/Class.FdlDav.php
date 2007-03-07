@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.10 2007/03/07 18:44:35 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.11 2007/03/07 18:46:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -545,8 +545,6 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     if (!seems_utf8($bpath)) $bpath=utf8_encode($bpath);
 
     $bpath=$this->mybasename($bpath); // basename
-
-    error_log ("GET PPPATH $bpath");
     foreach ($afiles as $afile) {
       $path=utf8_encode($afile["name"]);
       //error_log("GET SEARCH:".$bpath.'->'.$path);
