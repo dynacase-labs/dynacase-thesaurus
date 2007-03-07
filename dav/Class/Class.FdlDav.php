@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.9 2007/01/05 12:09:10 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.10 2007/03/07 18:44:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -29,6 +29,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
    */
   var $base = "";
   
+
   public $db_freedom="user=anakeen dbname=freedom"; 
   /**
    * Root directory id for WebDAV access
@@ -212,7 +213,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       error_log("FSPATH3 :.$fspath vid:[$vid]");
             
     } else {
-
+      if (!seems_utf8($fspath)) $fspath=utf8_encode($fspath);
       $query = "SELECT  value FROM properties WHERE name='fid' and path = '".pg_escape_string($fspath)."'";
       //error_log("PATH2ID:".$query);
        
@@ -279,7 +280,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
       $afiles=$doc->GetFilesProperties();
       //error_log("READFILES examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
-      $bpath=basename($path);
+      $bpath=$this->mybasename($path);
       $dpath=$this->_slashify(dirname($path));
 	    
       //error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
@@ -373,7 +374,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       // $info["props"][] = $this->mkprop("getcontenttype", $this->_mimetype($fspath));
       $afiles=$doc->GetFilesProperties();
       //error_log("VIDPROP examine :".count($afiles).'-'.$doc->title.'-'.$doc->id);
-      $bpath=basename($path);
+      $bpath=$this->mybasename($path);
       $dpath=$this->_slashify(dirname($path));
 	    
       //error_log("FILEDEBUG:".$path."-".$bpath."-".$path);
@@ -505,7 +506,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
       //       anyway (overriding it with information taken from
       //       the registry)
       // TODO: have a seperate PEAR class for mimetype detection?
-      switch (strtolower(strrchr(basename($fspath), "."))) {
+      switch (strtolower(strrchr($this->mybasename($fspath), "."))) {
       case ".html":
 	$mime_type = "text/html";
 	break;
@@ -538,9 +539,14 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
 
     $fldid=$this->path2id($options["path"],$vid);
     $doc=new_doc($this->db_freedom,$fldid);
-    $afiles=$doc->GetFilesProperties();  
-    $bpath=basename($options["path"]);
-	   
+    $afiles=$doc->GetFilesProperties();
+
+    $bpath=$options["path"];
+    if (!seems_utf8($bpath)) $bpath=utf8_encode($bpath);
+
+    $bpath=$this->mybasename($bpath); // basename
+
+    error_log ("GET PPPATH $bpath");
     foreach ($afiles as $afile) {
       $path=utf8_encode($afile["name"]);
       //error_log("GET SEARCH:".$bpath.'->'.$path);
@@ -642,7 +648,8 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     error_log("========>PUT :".$options["path"]);
     include_once("FDL/Class.Doc.php");
 
-    $bpath=basename($options["path"]);
+    $bpath=$this->mybasename($options["path"]);
+    if (!seems_utf8($bpath)) $bpath=utf8_encode($bpath);
     $fldid=$this->path2id($options["path"],$vid);
     if ($fldid) {
       $stat ="204 No Content";
@@ -725,7 +732,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     if ($fldid) {
       $fld=new_doc($this->db_freedom,$fldid);
       $nfld=createDoc($this->db_freedom,"SIMPLEFOLDER");
-      $nreptitle=utf8_decode(basename($path));
+      $nreptitle=utf8_decode($this->mybasename($path));
       $nfld->setTitle($nreptitle);
       $err=$nfld->Add();
       if ($err=="") {
@@ -741,7 +748,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
      }
 
      if (!is_dir($parent)) {
-     $name = basename($path);    return "403 Forbidden";
+     $name = $this->mybasename($path);    return "403 Forbidden";
      }
 
      if ( file_exists($parent."/".$name) ) {
@@ -823,7 +830,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     include_once("FDL/Class.Doc.php");
     $psource=$this->_unslashify($options["path"]);
     $pdirsource=$this->_unslashify(dirname($options["path"]));
-    $bsource=basename($psource);
+    $bsource=$this->mybasename($psource);
 	    
     $srcid=$this->path2id($psource);
     $src=new_doc($this->db_freedom,$srcid);
@@ -832,7 +839,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     if ($err=="") {
     
       $pdest=$this->_unslashify($options["dest"]);
-      $bdest=basename($pdest);
+      $bdest=$this->mybasename($pdest);
       $destid=$this->path2id($pdest);
 
 
@@ -986,14 +993,14 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     include_once("FDL/Class.Doc.php");
     $psource=$this->_unslashify($options["path"]);
     $pdirsource=$this->_unslashify(dirname($options["path"]));
-    $bsource=basename($psource);
+    $bsource=$this->mybasename($psource);
 	    
     $srcid=$this->path2id($psource);
     $src=new_doc($this->db_freedom,$srcid);
     error_log ("SRC : $psource ".$srcid );
 
     $pdest=$this->_unslashify($options["dest"]);
-    $bdest=basename($pdest);
+    $bdest=$this->mybasename($pdest);
     $destid=$this->path2id($pdest);
 
 
@@ -1097,7 +1104,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     $path = $options["path"];
             
     $dir = dirname($path)."/";
-    $base = basename($path);
+    $base = $this->mybasename($path);
             
     foreach($options["props"] as $key => $prop) {
       if ($prop["ns"] == "DAV:") {
@@ -1211,11 +1218,12 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
   function checkLock($path) 
   {
     $result = false;
-            
+    if (!seems_utf8($path)) $path=utf8_encode($path);
     $query = "SELECT owner, token, expires, exclusivelock
                   FROM locks
                  WHERE path = '$path'
                ";
+    
     $res = pg_query($this->db_res,$query);
 
     if ($res) {
@@ -1338,7 +1346,11 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     return $sid;
     
   }
-
+  function mybasename($p) {
+    //return basename($p);
+    $r=strrpos($p,"/");
+    return ($r!==false)?substr($p,$r+1):$p;
+  }
 
 }
 

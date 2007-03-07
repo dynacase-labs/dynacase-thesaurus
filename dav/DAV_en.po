@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: DAV\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-21 16:44+0100\n"
+"POT-Creation-Date: 2007-03-07 16:36+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,14 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
-
-#, c-format
-msgid "Move file from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "Rename file as %s"
-msgstr ""
 
 msgid "Dav"
 msgstr ""
@@ -35,11 +27,22 @@ msgstr ""
 msgid "create a new session id"
 msgstr ""
 
-msgid "address of the webdav serveur for freedav"
+#, c-format
+msgid "Move file from %s to %s"
 msgstr ""
 
-msgid "address of the webdav serveur for authenticate server"
+#, c-format
+msgid "Rename file as %s"
+msgstr ""
+
+msgid "address of the webdav server for freedav"
+msgstr ""
+
+msgid "address of the webdav server for authenticate server"
 msgstr ""
 
 msgid "database access for webdav"
+msgstr ""
+
+msgid "folder identificator for root"
 msgstr ""
