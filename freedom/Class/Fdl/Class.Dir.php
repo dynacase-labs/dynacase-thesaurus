@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.56 2007/02/01 16:56:33 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.57 2007/03/08 16:54:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -81,7 +81,7 @@ Class Dir extends PDir
       $query->AddQuery("owner = ". $this->userid);
       $rq = $query->Query();
       if ($query->nb == 0) {
-	$bas->setvalue("ba_title",_("My document basket"));
+	$bas->setvalue("ba_title",_("Document basket"));
 	$bas->setvalue("ba_desc",sprintf(_("basket of %s"),$home ->title));
 	$home->name = 'FLDBASKET_'+$this->getWhatUserId();
 	$bas->Add();
