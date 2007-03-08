@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.11 2007/03/07 18:46:13 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.12 2007/03/08 09:10:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -593,43 +593,20 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
    * @return void    function has to handle HTTP response itself
    */
   function GetDir($fspath, &$options) 
-  {
-    $path = $this->_slashify($options["path"]);
-    if ($path != $options["path"]) {
-      header("Location: ".$this->base_uri.$path);
-      exit;
-    }
-
-    // fixed width directory column format
-    $format = "%15s  %-19s  %-s\n";
-
-    $handle = @opendir($fspath);
-    if (!$handle) {
-      return false;
-    }
+  {   
 
     echo "<html><head><title>Index of ".htmlspecialchars($options['path'])."</title></head>\n";
             
     echo "<h1>Index of ".htmlspecialchars($options['path'])."</h1>\n";
             
-    echo "<pre>";
-    printf($format, "Size", "Last modified", "Filename");
+    echo "<pre>WebDAV Server: HTML view is not implemented yet";
+    
     echo "<hr>";
 
-    while ($filename = readdir($handle)) {
-      if ($filename != "." && $filename != "..") {
-	$fullpath = $fspath."/".$filename;
-	$name = htmlspecialchars($filename);
-	printf($format, 
-	       number_format(filesize($fullpath)),
-	       strftime("%Y-%m-%d %H:%M:%S", filemtime($fullpath)), 
-	       "<a href='$name'>$name</a>");
-      }
-    }
+    
 
     echo "</pre>";
 
-    closedir($handle);
 
     echo "</html>\n";
 
