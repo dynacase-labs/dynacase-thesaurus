@@ -2,7 +2,7 @@
 
 <script type="text/javascript">
 
-var cp = new ColorPicker('window');
+var cp = new ColorPicker();
 var ecol = '';
 function pickColor(color) {
   document.getElementById(ecol).style.backgroundColor = color;
