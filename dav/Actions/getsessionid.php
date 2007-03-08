@@ -3,7 +3,7 @@
  * Get DAV session
  *
  * @author Anakeen 2006
- * @version $Id: getsessionid.php,v 1.3 2007/01/16 09:44:50 eric Exp $
+ * @version $Id: getsessionid.php,v 1.4 2007/03/08 16:35:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage DAV
@@ -33,7 +33,7 @@ function getsessionid(&$action) {
 
   $action->lay->set("warning","");
 
-  $s=new HTTP_WebDAV_Server_Freedom();
+  $s=new HTTP_WebDAV_Server_Freedom($action->getParam("WEBDAV_DB"));
   
   
   if ($err) $action->lay->set("warning",utf8_encode($err));
