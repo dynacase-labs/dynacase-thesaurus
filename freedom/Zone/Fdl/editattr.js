@@ -265,8 +265,8 @@ function textautovsize(event,o) {
   var hs=o.scrollHeight;
 
   if (hs > hb) {
-    o.style.height=hs;
-    o.parentNode.style.height=hs;
+    o.parentNode.style.height=hs+'px';
+    o.style.height=hs+'px';
   }
   
 }
