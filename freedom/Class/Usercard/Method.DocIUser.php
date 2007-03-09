@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.42 2007/02/14 16:35:13 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.43 2007/03/09 15:40:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -194,7 +194,11 @@ function PostModify() {
 			  $login,$status,$pwd1,$pwd2,
 			  $iddomain,$extmail);  
     if ($err=="") { 
-      if ($user)  $err=$this->setGroups(); // set groups (add and suppress) may be long
+      if ($user)  {
+	$this->setValue("US_WHATID",$user->id);
+	$this->modify(false,array("us_whatid"));
+	$err=$this->setGroups(); // set groups (add and suppress) may be long
+      }
       if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
 	if (($pwd != $user->password) && (strlen($pwd)>12)) {
 	  $user->password=$pwd;
@@ -204,9 +208,8 @@ function PostModify() {
     }
  
     if ($err=="") {
-      $this->setValue("US_WHATID",$user->id);
       $err=$this->RefreshDocUser();// refresh from core database 
-      $this->modify(true,array("us_whatid"));
+      
       //      $this->refreshParentGroup();
       $errldap=$this->RefreshLdapCard();
       if ($errldap!="") AddWarningMsg($errldap);
