@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.113 2007/02/28 16:43:49 eric Exp $
+ * @version $Id: editutil.php,v 1.114 2007/03/12 17:36:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -191,6 +191,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $lay->set("label",ucFirst($oattr->labelText));
       $lay->set("need",$oattr->needed);
       $lay->set("height",$oattr->getOption("editheight","100%"));
+      $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
       $lay->set("aid",$attridk);
       if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
       else $lay->set("disabled","");
