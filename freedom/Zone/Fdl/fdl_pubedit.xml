@@ -1,11 +1,8 @@
 <script>
-HTMLArea.Config.prototype.ConfigIuser = function () {
-	this.iuserattribute = {
-		"[famattr]":           ''
-		[BLOCK ATTR],"[alabel]":'[aid]'
-		[ENDBLOCK ATTR]
-	};
-}
+
+
+   var FCK_DocAttr= '[BLOCK ATTR][aid]|[alabel];[ENDBLOCK ATTR]';
+
 </script>
 <table class="tableborder"  cellspacing="0" width="100%">
 <tbody>
