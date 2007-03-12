@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewacl.php,v 1.4 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewacl.php,v 1.5 2007/03/12 17:38:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewacl.php,v 1.4 2005/06/28 08:37:46 eric Exp $
+// $Id: viewacl.php,v 1.5 2007/03/12 17:38:41 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewacl.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -48,7 +48,11 @@ function viewacl(&$action) {
   $action->lay->Set("docid",$docid);
   $action->lay->Set("userid",$userid);
 
-  $action->parent->AddJsRef("FDL/Layout/viewacl.js");
+
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/viewacl.js");
+
+
+
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
