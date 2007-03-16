@@ -16,13 +16,13 @@
   <image>
     <url>[server][IMG:freedom-rss.png]</url>
     <title>[rssname] (Freedom RSS)</title>
-    <link>[rsslink]</link>
+    <link>[server][rsslink]</link>
   </image>
 
 
 [BLOCK Items]<item>
   <title>[title]</title>
-  <link>[link]</link>
+  <link>[server][link]</link>
   <description>
 [IF report]
 &lt;table style="width:100%"&gt;
@@ -37,7 +37,7 @@
   <guid>[id]</guid>
   <category>[category]</category>
   <author>[author]</author>
-  <source url="[rsslink]">[rssname]</source>
+  <source url="[server][rsslink]">[rssname]</source>
 </item>[ENDBLOCK Items]
 
 </channel>
