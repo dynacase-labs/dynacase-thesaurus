@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.364 2007/03/16 11:21:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.365 2007/03/16 17:54:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1497,17 +1497,21 @@ final public function PostInsert()  {
   }
 
 
-  // like normal attribut without files
-  final public function GetExportAttributes()
+ 
+  /**
+   * return list of attribut which can be exported
+   * @param bool $withfile true if export also file attribute
+   * @return array DocAttribute
+   */
+  final public function GetExportAttributes($withfile=false)
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
      
       if (isset($this->attributes->attr)) {
-	foreach($this->attributes->attr as $k=>$v) {
-	  
+	foreach($this->attributes->attr as $k=>$v) {	  
 	  if (get_class($v) == "NormalAttribute")  {
-	    if (($v->type != "image") &&($v->type != "file"))  $tsa[$v->id]=$v;
+	    if ($withfile || (($v->type != "image") &&($v->type != "file")))  $tsa[$v->id]=$v;
 	  }
 	}
       }
@@ -4196,10 +4200,38 @@ final public function PostInsert()  {
     } 
 
     return $fname;
+  }  
+  /**
+   * get vault file name or server path of filename
+   * @param string $idAttr identificator of file attribute 
+   * @param bool false return original file name (basename) , true the real path
+   * @return array of properties :
+   *         [name] => search.svg
+   *         [size] => 166137
+   *         [public_access] => 
+   *         [path] => /var/freedom/fs/1/6132.svg
+   */
+  final public function vault_properties($attr) {
+    if ($attr->inArray()) $fileids= $this->getTValue($attr->id);
+    else $fileids[]= $this->getValue($attr->id);
+   
+    $tinfo=array();
+    foreach ($fileids as $k=>$fileid) {
+      if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
+	// reg[1] is mime type
+	$vf = newFreeVaultFile($this->dbaccess);
+	if ($vf->Show ($reg[2], $info) == "") {	
+	  $tinfo[$k]= get_object_vars($info);
+	  $tinfo[$k]["vid"]=$reg[2];
+	}
+      }
+    } 
+
+    return $tinfo;
   }
 
  // =====================================================================================
-  // ================= methods use for XML ======================
+  // ================= Methods use for XML ======================
   final public function toxml($withdtd=false,$id_doc="")  {
 
     global $action;
