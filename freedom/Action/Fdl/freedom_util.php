@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.94 2007/02/27 10:08:23 eric Exp $
+ * @version $Id: freedom_util.php,v 1.95 2007/03/16 11:21:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -150,9 +150,10 @@ function new_Doc($dbaccess, $id='',$latest=false) {
  * @param string $dbaccess database specification
  * @param string $fromid identificator of the family document (the number or internal name)
  * @param bool $control if false don't control the user hability to create this kind of document
+ * @param bool $defaultvalues  if false not affect default values
  * @return Doc may be return false if no hability to create the document
  */
-function createDoc($dbaccess,$fromid,$control=true) {
+function createDoc($dbaccess,$fromid,$control=true,$defaultvalues=true) {
 
   if (! is_numeric($fromid)) $fromid=getFamIdFromName($dbaccess,$fromid);
   if ($fromid > 0) {
@@ -182,8 +183,7 @@ function createDoc($dbaccess,$fromid,$control=true) {
     $doc->usefor = $cdoc->usefor; // inherit from its familly
     $doc->wid=$cdoc->wid;
     $doc->atags=$cdoc->atags;
-    
-    $doc->setDefaultValues($cdoc->getDefValues());
+    if ($defaultvalues)    $doc->setDefaultValues($cdoc->getDefValues());
     $doc->ApplyMask();
     return ($doc);
     
