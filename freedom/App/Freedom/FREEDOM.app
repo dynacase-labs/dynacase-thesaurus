@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.44 2006/11/27 11:43:04 marc Exp $
+// $Id: FREEDOM.app,v 1.45 2007/03/16 17:53:37 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -105,6 +105,11 @@ $action_desc = array (
   array( 
    "name"		=>"FREEDOM_EDITIMPORTTAR",
    "short_name"		=>N_("query tar document import"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
+  array( 
+   "name"		=>"EDITEXPORT",
+   "short_name"		=>N_("interface to export documents"),
    "acl"		=>"FREEDOM_MASTER"
   ) ,
   array( 

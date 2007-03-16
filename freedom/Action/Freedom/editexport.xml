@@ -1,0 +1,18 @@
+[ZONE FDL:HTMLHEAD]
+<H1>[TEXT:Export Documents]</H1>
+
+<form 
+      name="dexport"style="display:inline"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id=[dirid]"
+       >
+<input name="wprof" value="N">
+<input name="wfile" value="N">
+<input name="wident" value="Y"><br>
+[TEXT:With profile] : <input type="checkbox"  onmousedown="dexport.wprof.value=(this.checked)?'N':'Y'"><br>
+[TEXT:With files] : <input type="checkbox"  onmousedown="dexport.wfile.value=(this.checked)?'N':'Y'"><br>
+[TEXT:With identificator] : <input type="checkbox" checked onmousedown="dexport.wident.value=(this.checked)?'N':'Y'"><br>
+<input type="submit">
+</form>
+
+[ZONE FDL:HTMLFOOT]
