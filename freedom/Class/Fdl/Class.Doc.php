@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.363 2007/02/28 16:44:30 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.364 2007/03/16 11:21:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3409,20 +3409,20 @@ final public function PostInsert()  {
    * the format of the string which define default values is like
    * [US_ROLE|director][US_SOCIETY|alwaysNet]...
    * @param string $defval the default values
+   * @param bool  $method set to false if don't want interpreted values
    * @access private
    */
-  final public function setDefaultValues($tdefval) {
+  final public function setDefaultValues($tdefval,$method=true) {
     if (is_array($tdefval)) {
-
-      foreach ($tdefval as $aid=>$dval) {
-
-// 	$aid=substr($v, 0, strpos($v,'|'));
-// 	$dval=substr(strstr($v,'|'),1);
-
-
-	$this->setValue($aid, $this->GetValueMethod($dval));
-
-      }              
+      if ($method) {
+	foreach ($tdefval as $aid=>$dval) {
+	  $this->setValue($aid, $this->GetValueMethod($dval));
+	}             
+      } else {
+	foreach ($tdefval as $aid=>$dval) {
+	  $this->setValue($aid, $dval);
+	}             
+      }
     }
   }
 

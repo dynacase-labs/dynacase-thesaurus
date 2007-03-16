@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.61 2007/03/07 14:54:56 eric Exp $
+ * @version $Id: editcard.php,v 1.62 2007/03/16 11:21:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.61 2007/03/07 14:54:56 eric Exp $
+// $Id: editcard.php,v 1.62 2007/03/16 11:21:34 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -61,7 +61,33 @@ function editcard(&$action) {
     
   if ($docid == 0) { // new document
     if ($classid > 0) {
-      $doc= createDoc($dbaccess,$classid);
+      $doc= createDoc($dbaccess,$classid,true,($usefor!="D"));
+    }
+  } else { // modify document
+    
+    $doc= new_Doc($dbaccess,$docid);
+    $docid=$doc->id;
+    if ($doc->isConfidential()) {      
+      redirect($action,"FDL",
+	       "FDL_CONFIDENTIAL&&id=".$doc->id);
+    }
+  }
+  
+  $usefor = GetHttpVars("usefor"); // default values for a document
+  $vid = GetHttpVars("vid"); // special controlled view
+  $mskid = GetHttpVars("mskid"); // special mask
+
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  editmode($action);
+  if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
+  
+
+  if (($usefor=="D") && ($zonebodycard == "")) $zonebodycard="FDL:EDITBODYCARD";// always default view for default document
+ 
+    
+  if ($docid == 0) { // new document
+    if ($classid > 0) {
+      $doc= createDoc($dbaccess,$classid,true,($usefor!="D"));
     }
   } else { // modify document
     
@@ -82,11 +108,11 @@ function editcard(&$action) {
     switch ($usefor) {
     case "D":
       $doc->usefor='D';
-      $doc->setDefaultValues($fdoc->getDefValues()); 
+      $doc->setDefaultValues($fdoc->getDefValues(),false); 
       break;
     case "Q":
       $doc->usefor='Q';
-      $doc->setDefaultValues($fdoc->getParams()); 
+      $doc->setDefaultValues($fdoc->getParams(),false); 
       break;
     }
   
@@ -152,6 +178,7 @@ function editcard(&$action) {
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefor", $usefor);
+
   if ($usefor == "D") $doc->SetWriteVisibility();
   else  setNeededAttributes($action,$doc);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
