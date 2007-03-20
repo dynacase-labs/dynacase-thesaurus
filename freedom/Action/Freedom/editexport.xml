@@ -1,5 +1,5 @@
 [ZONE FDL:HTMLHEAD]
-<H1>[TEXT:Export Documents]</H1>
+<H2>[TEXT:Export Documents from] [title]</H2>
 
 <form 
       name="dexport"style="display:inline"

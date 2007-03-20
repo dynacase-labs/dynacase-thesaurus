@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.22 2007/03/16 17:53:37 eric Exp $
+ * @version $Id: exportfld.php,v 1.23 2007/03/20 09:44:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,18 +25,23 @@ function exportfld(&$action, $aflid="0", $famid="")
   $fldid = GetHttpVars("id",$aflid);
   $wprof = (GetHttpVars("wprof","N")=="Y"); // with profil
   $wfile = (GetHttpVars("wfile","N")=="Y"); // with files
+  $wident = (GetHttpVars("wident","Y")=="Y"); // with numeric identificator
   $fld = new_Doc($dbaccess, $fldid);
   if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
   usort($tdoc,"orderbyfromid");
+  $efldid='-';
+  if ($fld->doctype=='D') {
+    if ($fld->name) $efldid=$fld->name;
+    elseif ($wident) $efldid=$fld->initid;
+  }
 
-  $efldid=($fld->doctype=='D')?$fld->initid:"-";
 
   if ($wfile) {
-    $foutdir=uniqid("/var/tmp/exportfld")."/";
+    $foutdir=uniqid("/var/tmp/exportfld");
     if (! mkdir($foutdir)) exit();
     
-    $foutname = $foutdir."fdl.csv";
+    $foutname = $foutdir."/fdl.csv";
   } else {
     $foutname = uniqid("/var/tmp/exportfld").".csv";
   }
@@ -83,7 +88,7 @@ function exportfld(&$action, $aflid="0", $famid="")
       }
       reset($lattr);
       if ($doc->name != "") $name=$doc->name;
-      else $name=$doc->id;
+      else if ($wident) $name=$doc->id;
       fputs($fout,"DOC;".$fromname.";".$name.";".$efldid.";");
       // write values
       foreach ($lattr as $ka=>$attr) {
@@ -161,13 +166,20 @@ function exportfld(&$action, $aflid="0", $famid="")
   $fname=str_replace(array(" ","'"),array("_",""),$fld->title);
   if ($wfile) {
     foreach ($ef as $dest=>$source) {
-      if (!copy($source,$foutdir.$dest )) $err.=sprintf(_("cannot copy %s"),$dest);
+      //      $dest=utf8_encode($dest);
+      if (!copy($source,$foutdir.'/'.$dest )) $err.=sprintf(_("cannot copy %s"),$dest);
       
     }
     if ($err) $action->addWarningMsg($err);
-    system("cd $foutdir && zip fdl * > /dev/null",$ret);
-    $foutname=$foutdir."fdl.zip";
-    Http_DownloadFile($foutname, "$fname.zip", "application/x-zip",false,false);
+    system("cd $foutdir && zip  fdl * > /dev/null",$ret);
+    if (is_file("$foutdir/fdl.zip")) {
+      $foutname=$foutdir."/fdl.zip";
+      Http_DownloadFile($foutname, "$fname.zip", "application/x-zip",false,false);
+      //if (deleteContentDirectory($foutdir)) rmdir($foutdir);
+
+    } else {
+      $action->exitError(_("Zip Archive cannot be created"));
+    }
     
 
   } else {
@@ -185,5 +197,30 @@ function orderbyfromid($a, $b) {
   return -1;
 }
 
+/**
+ * Removes content of the directory (not sub directory)
+ *
+ * @param string the directory name to remove
+ * @return boolean True/False whether the directory was deleted.
+ */
+function deleteContentDirectory($dirname) {
+  if (!is_dir($dirname))
+    return false;
+  $dcur=realpath($dirname);
+  $darr = array();
+  $darr[] = $dcur;
+  if ($d=opendir($dcur)) {
+    while ($f=readdir($d)) {
+      if ($f=='.' || $f=='..')  continue;
+      $f=$dcur.'/'.$f;
+      if (is_file($f)) {
+	unlink($f);$darr[]=$f;
+      }
+    }
+    closedir($d);
+  }
+   
 
+  return true;;
+}
 ?>
