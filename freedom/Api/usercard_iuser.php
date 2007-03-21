@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: usercard_iuser.php,v 1.17 2007/02/09 15:20:35 eric Exp $
+ * @version $Id: usercard_iuser.php,v 1.18 2007/03/21 15:32:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -147,9 +147,9 @@ if ($query->nb > 0)	{
 	  $iuser->setValue("US_WHATID",$v["id"]);
 	  $err=$iuser->Add();
 	  if ($err == "") {
-	    $iuser->refresh();
-	    $iuser->RefreshDocUser();
-	    $iuser->modify();
+	    //$iuser->refresh();
+	    //$iuser->RefreshDocUser();
+	    //$iuser->modify();
 	    print "$reste)";printf( _("%s iuser created\n"),$title);
 	  } else {
 	    print "$reste)$err";printf( _("%s iuser aborded\n"),$title);
