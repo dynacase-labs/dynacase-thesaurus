@@ -1,18 +1,32 @@
 [ZONE FDL:HTMLHEAD]
-<H2>[TEXT:Export Documents from] [title]</H2>
+<H2>[TEXT:Export Documents from] </H2>
+<h3>[title]</h3>
 
 <form 
       name="dexport"style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
       action="[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id=[dirid]"
        >
-<input name="wprof" value="N">
-<input name="wfile" value="N">
-<input name="wident" value="Y"><br>
-[TEXT:With profile] : <input type="checkbox"  onmousedown="dexport.wprof.value=(this.checked)?'N':'Y'"><br>
-[TEXT:With files] : <input type="checkbox"  onmousedown="dexport.wfile.value=(this.checked)?'N':'Y'"><br>
-[TEXT:With identificator] : <input type="checkbox" checked onmousedown="dexport.wident.value=(this.checked)?'N':'Y'"><br>
-<input type="submit">
+
+[TEXT:Encoding]:<select name="code">
+  <option value="utf8">UTF-8</option>
+  <option value="iso8859-15">Latin 1</option>
+</select><br>
+[TEXT:Profile]<select name="wprof">
+  <option value="N">[TEXT:Without profil]</option>
+  <option value="Y">[TEXT:With profil]</option>
+</select><br>
+[TEXT:Files]<select name="wfile">
+  <option value="N">[TEXT:Without files]</option>
+  <option value="Y">[TEXT:With files]</option>
+</select><br>
+[TEXT:Identificators]<select name="wident">
+  <option value="N">[TEXT:Without identificators]</option>
+  <option value="Y">[TEXT:With identificators]</option>
+</select>
+
+
+<input type="submit" value="[TEXT:Export]">
 </form>
 
 [ZONE FDL:HTMLFOOT]

@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.23 2007/03/20 09:44:40 eric Exp $
+ * @version $Id: exportfld.php,v 1.24 2007/03/21 15:33:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,6 +26,7 @@ function exportfld(&$action, $aflid="0", $famid="")
   $wprof = (GetHttpVars("wprof","N")=="Y"); // with profil
   $wfile = (GetHttpVars("wfile","N")=="Y"); // with files
   $wident = (GetHttpVars("wident","Y")=="Y"); // with numeric identificator
+  $wutf8 = (GetHttpVars("code","utf8")=="utf8"); // with numeric identificator
   $fld = new_Doc($dbaccess, $fldid);
   if ($famid=="") $famid=GetHttpVars("famid");
   $tdoc = getChildDoc($dbaccess, $fldid,"0","ALL",array(),$action->user->id,"TABLE",$famid);
@@ -46,7 +47,9 @@ function exportfld(&$action, $aflid="0", $famid="")
     $foutname = uniqid("/var/tmp/exportfld").".csv";
   }
   $fout = fopen($foutname,"w");
-
+  // set encoding
+  if (!$wutf8) fputs_utf8($fout,"",true);
+ 
   while (list($k,$doc)= each ($tdoc)) {        
     $docids[]=$doc->id;
   }
@@ -74,22 +77,22 @@ function exportfld(&$action, $aflid="0", $famid="")
 	if ($adoc->name != "") $fromname=$adoc->name;
 	else $fromname=$adoc->id;;
 	$lattr=$adoc->GetExportAttributes($wfile);
-	fputs($fout,"//FAM;".$adoc->title."(".$fromname.");<specid>;<fldid>;");
+	fputs_utf8($fout,"//FAM;".$adoc->title."(".$fromname.");<specid>;<fldid>;");
 	foreach($lattr as $ka=>$attr) {
-	  fputs($fout,str_replace(";"," - ",$attr->labelText).";");
+	  fputs_utf8($fout,str_replace(";"," - ",$attr->labelText).";");
 	}
-	fputs($fout,"\n");
-	fputs($fout,"ORDER;".$fromname.";;;");
+	fputs_utf8($fout,"\n");
+	fputs_utf8($fout,"ORDER;".$fromname.";;;");
 	foreach($lattr as $ka=>$attr) {
-	  fputs($fout,$attr->id.";");
+	  fputs_utf8($fout,$attr->id.";");
 	}
-	fputs($fout,"\n");
+	fputs_utf8($fout,"\n");
 	$prevfromid = $doc->fromid;
       }
       reset($lattr);
       if ($doc->name != "") $name=$doc->name;
       else if ($wident) $name=$doc->id;
-      fputs($fout,"DOC;".$fromname.";".$name.";".$efldid.";");
+      fputs_utf8($fout,"DOC;".$fromname.";".$name.";".$efldid.";");
       // write values
       foreach ($lattr as $ka=>$attr) {
       
@@ -112,12 +115,12 @@ function exportfld(&$action, $aflid="0", $famid="")
 	$value = preg_replace("/\&#([0-9]+);/es", "chr('\\1')", $value);
 
 	}
-	fputs($fout,str_replace(array("\n",";","\r"),
+	fputs_utf8($fout,str_replace(array("\n",";","\r"),
 				array("\\n"," - ",""),
 				$value) .";");
      
       }
-      fputs($fout,"\n");
+      fputs_utf8($fout,"\n");
 
       if ($wprof && ($doc->profid == $doc->id)) {
 	// import its profile
@@ -152,17 +155,16 @@ function exportfld(&$action, $aflid="0", $famid="")
 	  }
 	}
 	if (count($tpu) > 0) {
-	  fputs($fout,"PROFIL;".$name.";;");
+	  fputs_utf8($fout,"PROFIL;".$name.";;");
 	  foreach ($tpu as $ku=>$uid) {
-	    fputs($fout,";".$tpa[$ku]."=".$uid);
+	    fputs_utf8($fout,";".$tpa[$ku]."=".$uid);
 	  }
-	  fputs($fout,"\n");
+	  fputs_utf8($fout,"\n");
 	}
       }
     }
   }
   fclose($fout);
-
   $fname=str_replace(array(" ","'"),array("_",""),$fld->title);
   if ($wfile) {
     foreach ($ef as $dest=>$source) {
@@ -188,7 +190,18 @@ function exportfld(&$action, $aflid="0", $famid="")
   }
   exit;
 }
+function fputs_utf8($r,$s,$iso=false) { 
+  static $utf8=true;
 
+  if ($iso===true) $utf8=false;
+  
+  if ($s) {
+    if ($utf8)  fputs($r,utf8_encode($s));
+    else fputs($r,$s);
+    
+  }
+  
+}
 function orderbyfromid($a, $b) {
   
     if ($a["fromid"] == $b["fromid"]) return 0;
