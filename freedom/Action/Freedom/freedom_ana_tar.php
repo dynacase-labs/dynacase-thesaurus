@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.7 2007/03/16 17:54:30 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.8 2007/03/22 16:43:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -148,6 +148,7 @@ function analyze_tar(&$action,$selfile) {
   $action->lay->Set("dirid", $dirid);
   $action->lay->SetBlockCorresp("ADDEDDOC","filename");
   $action->lay->SetBlockCorresp("ADDEDDOC","err");
+  $action->lay->SetBlockCorresp("ADDEDDOC","anaclass");
   $action->lay->SetBlockData("ADDEDDOC",$tr);
   $action->lay->Set("selfile",stripslashes($selfile));
   $action->lay->Set("oselected",$onlycsv?"checked":"");

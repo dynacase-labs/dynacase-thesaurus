@@ -186,7 +186,7 @@ function viewhome(event) {
 
 <a href="#" id="vprop"
     onClick="activate(this,'[CORE_STANDURL]&app=FDL&action=FDL_CARD&latest=Y&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Properties] </a>
-<a id="export" href="#" onclick="this.href='[CORE_STANDURL]&app=FDL&action=EXPORTFLD&id='+dirid">[TEXT:Export] </a>
+<a id="export" href="#" onclick="activate(this,'[CORE_STANDURL]app=FREEDOM&action=EDITEXPORT&id='+dirid,'fdoc');closeMenu('popfld');return false">[TEXT:Export]...</a>
 <a href="#" id="mkdir"     
     onClick="activate(this,'[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=&classid=2&dirid='+dirid,'fdoc');closeMenu('popfld');return false">
 [TEXT:Create subfolder]</a>
