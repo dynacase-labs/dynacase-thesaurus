@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.24 2007/03/21 15:33:16 eric Exp $
+ * @version $Id: exportfld.php,v 1.25 2007/03/22 16:33:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,6 +14,7 @@
 
 
 include_once("FDL/Lib.Dir.php");
+include_once("FDL/Lib.Util.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
@@ -102,9 +103,12 @@ function exportfld(&$action, $aflid="0", $famid="")
 	  $tfiles=$doc->vault_properties($attr);
 	  $tf=array();
 	  foreach ($tfiles as $f) {
-	    $fname=$f["vid"].'-'.$f["name"];
+	    $ldir=$doc->id.'-'.strtr(unaccent($doc->title)," ","_")."_D";
+	    $fname=$ldir.'/'.unaccent($f["name"]);
 	    $tf[]=$fname;
-	    $ef[$fname]=$f["path"];
+	    $ef[$fname]=array("path"=>$f["path"],
+			      "ldir"=>$ldir,
+			      "fname"=>unaccent($f["name"]));
 	  }
 	  $value=implode("\n",$tf);
 	} else {
@@ -167,13 +171,17 @@ function exportfld(&$action, $aflid="0", $famid="")
   fclose($fout);
   $fname=str_replace(array(" ","'"),array("_",""),$fld->title);
   if ($wfile) {
-    foreach ($ef as $dest=>$source) {
+    foreach ($ef as $info) {
+      $source=$info["path"];
+      $ddir=$foutdir.'/'.$info["ldir"];
+      if (! is_dir($ddir)) mkdir($ddir);
+      $dest=$ddir.'/'.$info["fname"];
       //      $dest=utf8_encode($dest);
-      if (!copy($source,$foutdir.'/'.$dest )) $err.=sprintf(_("cannot copy %s"),$dest);
+      if (!copy($source,$dest )) $err.=sprintf(_("cannot copy %s"),$dest);
       
     }
     if ($err) $action->addWarningMsg($err);
-    system("cd $foutdir && zip  fdl * > /dev/null",$ret);
+    system("cd $foutdir && zip -r fdl * > /dev/null",$ret);
     if (is_file("$foutdir/fdl.zip")) {
       $foutname=$foutdir."/fdl.zip";
       Http_DownloadFile($foutname, "$fname.zip", "application/x-zip",false,false);

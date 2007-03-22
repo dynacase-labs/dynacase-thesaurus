@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.15 2006/11/24 16:32:18 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.16 2007/03/22 16:33:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -277,7 +277,7 @@ function addJsSlashes($s) {
  * Remove Character Accents
  * Replaces accented characters in a string with their unaccented versions, for instance, converts "ÉéÜüÄäÖ" into "EeUuAaO". The function will handle any accented character for which there exists an HTML entity in PHP's translation table (i.e. pretty much any and all characters). Credits go to jennings at trad dot uji dot es for the original version of this incredibly useful little function. I used this function to good effect in OpenSEF.
  */
-function unaccent($text) {
+function unaccent_($text) {
   static $search, $replace;
   if (!$search) {
     $search = $replace = array();
@@ -297,4 +297,22 @@ function unaccent($text) {
   }
   return str_replace($search, $replace, $text);
 }
+function unaccent($string) {
+   $string = strtr($string,
+       "\xA1\xAA\xBA\xBF\xC0\xC1\xC2\xC3\xC5\xC7
+       \xC8\xC9\xCA\xCB\xCC\xCD\xCE\xCF\xD0\xD1
+       \xD2\xD3\xD4\xD5\xD8\xD9\xDA\xDB\xDD\xE0
+       \xE1\xE2\xE3\xE5\xE7\xE8\xE9\xEA\xEB\xEC
+       \xED\xEE\xEF\xF0\xF1\xF2\xF3\xF4\xF5\xF8
+       \xF9\xFA\xFB\xFD\xFF",
+       "!ao?AAAAAC
+       EEEEIIIIDN
+       OOOOOUUUYa
+       aaaaceeeei
+       iiidnooooo
+       uuuyy"); 
+   $string = strtr($string, array("\xC4"=>"Ae", "\xC6"=>"AE", "\xD6"=>"Oe", "\xDC"=>"Ue", "\xDE"=>"TH", "\xDF"=>"ss", "\xE4"=>"ae", "\xE6"=>"ae", "\xF6"=>"oe", "\xFC"=>"ue", "\xFE"=>"th"));
+   return($string);
+}
+
 ?>
