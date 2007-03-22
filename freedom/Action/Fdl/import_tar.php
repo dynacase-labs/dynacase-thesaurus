@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.6 2006/06/14 16:24:31 eric Exp $
+ * @version $Id: import_tar.php,v 1.7 2007/03/22 16:44:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -146,16 +146,18 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
 
 	  if (isUTF8($file))    $file=utf8_decode($file);
 	  if (isUTF8($ldir))    $ldir=utf8_decode($ldir);
-	  $tr[$index]=array("err"=>($newdir)?"":sprintf(_("you cannot create this kind [%s] of folder"),$dfldid),
-			    "folderid"=>0,
-			    "foldername"=>$ldir,
-			    "filename"=>$file,
-			    "title"=>"",
-			    "id"=>0,
-			    "anaclass"=>"fldclass",
-			    "familyid"=>$newdir->fromid,
-			    "familyname"=>"",
-			    "action"=>_("to be add"));
+
+	  if ((!$onlycsv) || (! preg_match("/^[0-9]+-.*_D$/i", $file))) {
+	    $tr[$index]=array("err"=>($newdir)?"":sprintf(_("you cannot create this kind [%s] of folder"),$dfldid),
+			      "folderid"=>0,
+			      "foldername"=>$ldir,
+			      "filename"=>$file,
+			      "title"=>"",
+			      "id"=>0,
+			      "anaclass"=>"fldclass",
+			      "familyid"=>$newdir->fromid,
+			      "familyname"=>"",
+			      "action"=>_("to be add"));
 	  if (! $analyze) {
 	    $newdir->Init();
 	    $newdir->setTitle($file);
@@ -168,6 +170,7 @@ function import_directory(&$action, $ldir,$dirid=0,$famid=7,$dfldid=2,
 		$dir->AddFile($newdir->id);	 
 	      }
 	    }
+	  }
 	  }
 	  $itr=import_directory($action, $absfile,$newdir->id,$famid,$dfldid,$onlycsv,$analyze);
 	  $tr=array_merge($tr,$itr);
