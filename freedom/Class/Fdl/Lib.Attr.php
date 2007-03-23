@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.64 2007/02/28 16:45:16 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.65 2007/03/23 13:35:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -303,7 +303,7 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $cdoc->exec_query($cdoc->sqltcreate,1);
     // step by step
     $cdoc->Create();
-
+    setSqlIndex($dbaccess, $docid);
   } else {      
     $row = $doc->fetch_array(0,PGSQL_ASSOC);
     $relid= $row["oid"]; // pg id of the table
@@ -457,7 +457,7 @@ function refreshPhpPgDoc($dbaccess, $docid) {
     // -----------------------------
     // activate trigger by trigger
     activateTrigger($dbaccess, $docid);
-    setSqlIndex($dbaccess, $docid);
+    
   }  
 }
   
