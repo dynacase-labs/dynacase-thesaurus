@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.57 2007/03/08 16:54:43 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.58 2007/03/25 15:26:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -613,7 +613,7 @@ Class Dir extends PDir
    * delete all document which primary relation is the folder (recurively)
    * different of {@see Clear()}
    * all document are put in the trash (zombie mode)
-   * @return int -1 if it is not a static folder
+   * @return array of possible errors. Empty array means no errors
    */
   public function deleteItems() {
     $filter[]="prelid=".$this->initid;
@@ -633,6 +633,46 @@ Class Dir extends PDir
     return $terr;        
   }
 
+  /**
+   * copy (clone) all documents which primary relation is the folder (recurively)
+   * the others documents are just linked
+   * all document are put in $indirid folder id 
+   * @param int $indirid the folder where put the copies
+   * @return array of possible errors. Empty array means no errors
+   */
+  public function copyItems($indirid) {
+    $filter=array();
+    $lpdoc= $this->getContent(false,$filter,"","ITEM");
+
+    $terr=array();
+    $fld=new_doc($this->dbaccess,$indirid);
+    if ($fld->doctype=='D') {
+      $err=$fld->control("modify");
+      if ($err=="") {
+	while ($doc=getNextDoc($this->dbaccess,$lpdoc)) {
+	  if ($doc->prelid == $this->initid) {
+	    // copy
+	    $copy=$doc->copy();
+	    if (is_object($copy)) {
+	      $fld->addFile($copy->initid);
+	    
+
+	      if ($doc->doctype=='D') {
+		$terr=array_merge($terr,$doc->copyItems($copy->id));
+		
+	      }
+	    }
+	  } else {
+	    // link
+	    $fld->addFile($doc->initid);
+	  }
+	  
+	  
+	}
+      }
+    }
+    return $terr;        
+  }
 
   /**
    * delete the folder and its containt
