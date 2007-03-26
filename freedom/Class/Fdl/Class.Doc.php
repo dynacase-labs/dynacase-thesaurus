@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.365 2007/03/16 17:54:17 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.366 2007/03/26 08:56:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2506,6 +2506,7 @@ final public function PostInsert()  {
     $copy->allocated = "0";
     $copy->state = "";
     $copy->comment = "";
+    $copy->icon = $this->icon;;
 
     if ($temporary) $copy->doctype = "T";
     $cdoc= $this->getFamDoc();
