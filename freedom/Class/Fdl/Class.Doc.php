@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.366 2007/03/26 08:56:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.367 2007/03/26 14:06:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1142,9 +1142,12 @@ final public function PostInsert()  {
     $query = new QueryDb($this->dbaccess, strtolower(get_class($this)));
     $query->AddQuery("initid = ".$this->initid);
     if ($fixed) $query->AddQuery("lmodify = 'L'");
-    else  $query->AddQuery("locked != -1");
+    elseif ($this->doctype!='Z') $query->AddQuery("locked != -1");
+    else {
+      $query->order_by="id desc";
+    }
       
-    $rev= $query->Query(0,0,"TABLE");
+    $rev= $query->Query(0,1,"TABLE");
 
     return $rev[0]["id"];
   }
