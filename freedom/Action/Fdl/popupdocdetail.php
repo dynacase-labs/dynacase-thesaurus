@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.11 2007/01/03 19:38:42 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.12 2007/03/26 14:06:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,6 +15,7 @@
 include_once("FDL/popupdoc.php");
 function popupdocdetail(&$action) {
   $docid = GetHttpVars("id");
+  if ($docid == "") $action->exitError(_("No identificator"));
   $popup=getpopupdocdetail($action,$docid);
 
   
@@ -29,7 +30,6 @@ function getpopupdocdetail(&$action,$docid) {
   $doc = new_Doc($dbaccess, $docid);
 
   //  if ($doc->doctype=="C") return; // not for familly
-
 
 
   $tsubmenu=array();
@@ -76,9 +76,17 @@ function getpopupdocdetail(&$action,$docid) {
 				 "target"=>"_self",
 				 "visibility"=>POPUP_INACTIVE,
 				 "submenu"=>"",
+				 "barmenu"=>"false"), 
+	       "restore"=>array( "descr"=>_("restore"),
+				 "url"=>"$surl&app=WORKSPACE&action=WS_RESTOREDOC&id=$docid&reload=Y",
+				 "tconfirm"=>"",
+				 "confirm"=>"false",
+				 "target"=>"_self",
+				 "visibility"=>POPUP_INVISIBLE,
+				 "submenu"=>"",
 				 "barmenu"=>"false"),
 	       "editstate"=>array( "descr"=>_("Change state"),
-				   "url"=>"$surl&app=FREEDOM&action=FREEDOM_EDITSTATE&id=&id=$docid",
+				   "url"=>"$surl&app=FREEDOM&action=FREEDOM_EDITSTATE&id=$docid",
 				   "confirm"=>"false",
 				   "control"=>"false",
 				   "tconfirm"=>"",
@@ -396,6 +404,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
   if ($doc->locked == -1) { // fixed document
     if ($doc->doctype != 'Z') $tlink["latest"]["visibility"]=POPUP_ACTIVE; 
+    else $tlink["restore"]["visibility"]=POPUP_ACTIVE; 
     $tlink["editdoc"]["visibility"]=POPUP_INVISIBLE;
     $tlink["delete"]["visibility"]=POPUP_INVISIBLE;
     $tlink["editprof"]["visibility"]=POPUP_INVISIBLE;
