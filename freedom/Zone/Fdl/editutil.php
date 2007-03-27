@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.115 2007/03/14 17:16:44 eric Exp $
+ * @version $Id: editutil.php,v 1.116 2007/03/27 08:37:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -406,8 +406,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  if ($esize > 0) $eopt="size=$esize";
 	  $elabel=$oattr->getOption("elabel");
 	  if ($elabel != "") $eopt.=" title=\"$elabel\"";
+	  $ecolor=$oattr->getOption("color");
+	  $estyle=""; // css style
+	  if ($ecolor != "") $estyle="color:$ecolor;";
+	  $ealign=$oattr->getOption("align");
+	  if ($ealign != "") $estyle.="text-align:$ealign";
+	  if ($estyle) $estyle="style=\"$estyle\"";
 
-	  $input="<input $oc $eopt type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
+	  $input="<input $oc $eopt $estyle type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
 	  $input .= " id=\"".$attridk."\" "; 
 	  if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
 	  $input .= " > "; 
@@ -695,6 +701,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 			   "ahvis"=>(!$visible)?"hidden":"visible");
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
 			   "ihw"=>(!$visible)?"0px":"auto",
+			   "bgcolor"=>$v->getOption("bgcolor","inherits"),
 			   "ihvis"=>(!$visible)?"hidden":"visible");
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
@@ -760,6 +767,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	  
 	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
 			   "ehvis"=>(!$visible)?"hidden":"visible",
+			   "bgcolor"=>$va->getOption("bgcolor","inherits"),
 			   "vhw"=>(!$visible)?"0pt":$talabel[$ika]["ahw"]);
 	  $ika++;
 	}

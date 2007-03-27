@@ -335,8 +335,10 @@ function alterrow(tid,co,cot,by) {
     if (by) by2=2*by;
     
     for (var i=0;i<ttr.length;i++) {
-      if (!by) ttr[i].style.backgroundColor=c[(i%2)];
-      else ttr[i].style.backgroundColor=c[parseInt((i % by2)/by)];
+      if (! ttr[i].style.backgroundColor) {
+	if (!by) ttr[i].style.backgroundColor=c[(i%2)];
+	else ttr[i].style.backgroundColor=c[parseInt((i % by2)/by)];
+      }
     }
   }
 }
@@ -383,13 +385,17 @@ function alterfieldset(tid,co,cot,by) {
     if (by) by2=2*by;
     for (var i=0;i<ttr.length;i++) {
       if (ttr[i].className=='mfield') {
-	if (!by) ttr[i].style.backgroundColor=c[(ci%2)];
-	else ttr[i].style.backgroundColor=c[parseInt((ci % by2)/by)];
+	if (!ttr[i].style.backgroundColor) {
+	  if (!by) ttr[i].style.backgroundColor=c[(ci%2)];
+	  else ttr[i].style.backgroundColor=c[parseInt((ci % by2)/by)];
+	}
 	tds=ttr[i].getElementsByTagName('td');
 	//      alert(tds.lenght);
 	for (var j=0;j<tds.length;j++) {
-	  if (!by) tds[j].style.backgroundColor=c[(ci%2)];
-	  else tds[j].style.backgroundColor=c[parseInt((ci % by2)/by)]; 
+	  if (!tds[j].style.backgroundColor) {
+	    if (!by) tds[j].style.backgroundColor=c[(ci%2)];
+	    else tds[j].style.backgroundColor=c[parseInt((ci % by2)/by)]; 
+	  }
 	}
 	ci++;
       }
