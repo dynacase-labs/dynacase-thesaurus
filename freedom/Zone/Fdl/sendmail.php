@@ -1,4 +1,15 @@
 <?php
+/**
+ * Send document mail with SMTP protocol
+ *
+ * @author Anakeen 2007
+ * @version $Id: sendmail.php,v 1.3 2007/03/27 15:13:08 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage
+ */
+/**
+ */
 include('Mail/mime.php');
 include('Net/SMTP.php');
 /**
