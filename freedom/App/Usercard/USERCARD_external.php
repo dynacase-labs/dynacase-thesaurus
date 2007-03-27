@@ -3,7 +3,7 @@
  * Functions used for edition help of USER, GROUP & SOCIETY Family
  *
  * @author Anakeen 2003
- * @version $Id: USERCARD_external.php,v 1.18 2005/07/08 15:29:02 eric Exp $
+ * @version $Id: USERCARD_external.php,v 1.19 2007/03/27 14:09:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -189,6 +189,7 @@ function members($dbaccess, $groupid, $name="") {
 
   $doc  = new_Doc($dbaccess, $groupid);
 
+  $tr=array();
   if ($doc->isAlive()) {
     $tmembers= $doc->getTvalue("GRP_RUSER");
     $tmembersid= $doc->getTvalue("GRP_IDRUSER");
@@ -244,4 +245,23 @@ function getdomainigroup()
   }                                                
   return $tab;
 }
+
+//return my groups
+function mygroups($name="") {   
+  $dbaccess=GetParam("FREEDOM_DB");
+  $docuid=doc::getUserId();
+  $tr=array();
+  $doc=new_Doc($dbaccess,$docuid);
+  $grid=$doc->getTValue("us_idgroup");
+  $grname=$doc->getTValue("us_group");
+
+
+  foreach ($grid as $k=>$v) {
+      if (($name == "") || (eregi($name,$grname[$k])))
+	$tr[] = array($grname[$k] ,
+		      $v,$grname[$k]);    
+    }  
+  return $tr; 
+}
+
 ?>
