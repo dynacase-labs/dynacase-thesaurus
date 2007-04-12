@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.21 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_list.php,v 1.22 2007/04/12 12:01:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,14 +38,19 @@ function generic_list(&$action) {
   $column=generic_viewmode($action,$famid); // choose the good view mode
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  if ($dirid) {
+    $dir = new_Doc($dbaccess,$dirid);
+    $action->lay->Set("pds",$dir->urlWhatEncodeSpec(""));
+    $action->lay->Set("fldtitle",$dir->getTitle());
+  } else {    
+    $action->lay->Set("fldtitle",_("precise search"));
+    $action->lay->Set("pds","");
+  }
 
-  $dir = new_Doc($dbaccess,$dirid);
-  $action->lay->Set("fldtitle",$dir->getTitle());
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
   $action->lay->Set("famid",$famid);
-  $action->lay->Set("pds",$dir->urlWhatEncodeSpec(""));
 
   $slice = $action->GetParam("CARD_SLICE_LIST",5);
   //  $action->lay->Set("next",$start+$slice);
@@ -63,16 +68,19 @@ function generic_list(&$action) {
       if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSqlSort($action) );
     }
   }
-  if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
-    // can see next
-    $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"),16)); 
+
+  if ($dirid) {
+    if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
+      // can see next
+      $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"),16)); 
+    }
   }
   if ($startpage > 0) {
     // can see prev
     $action->lay->Set("previcon",$action->GetIcon("prev.png",N_("prev"),16)); 
   }
   
-  if ($wonglet) {
+  if ($dirid && $wonglet) {
     // hightlight the selected part (ABC, DEF, ...)
     $onglet=array(array("onglabel"=> "A B C",
 			"ongdir" => "1"),
