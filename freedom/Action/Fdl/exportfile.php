@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.14 2006/05/18 07:34:15 eric Exp $
+ * @version $Id: exportfile.php,v 1.15 2007/04/12 12:00:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,7 +27,9 @@ function exportfile(&$action)
   $attrid = GetHttpVars("attrid",0);
   $vaultid = GetHttpVars("vaultid",0);
   $index = GetHttpVars("index");
-  $imgheight = GetHttpVars("height");
+  //  $imgheight = GetHttpVars("height");
+  $imgwidth = GetHttpVars("width");
+  $inline = (GetHttpVars("inline")=="yes");
 
   $isControled=false;
 
@@ -54,7 +56,7 @@ function exportfile(&$action)
     $mimetype = "";
   }
 
-  DownloadVault($action, $vaultid, $isControled, $mimetype,$imgheight);
+  DownloadVault($action, $vaultid, $isControled, $mimetype,$imgwidth,$inline);
 
     
   exit;
@@ -99,7 +101,7 @@ function exportfirstfile(&$action)
 
 
   // --------------------------------------------------------------------
-function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$height="",$inline=false,$cache=true) {
+function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$width="",$inline=false,$cache=true) {
   // --------------------------------------------------------------------
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $vf = newFreeVaultFile($dbaccess);
@@ -110,7 +112,7 @@ function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$height=""
     {
       //Header("Location: $url");
       if ($isControled || ( $info->public_access)) {
-	if (($mimetype != "image/jpeg") || ($height == 0)) {
+	if (($mimetype != "image/jpeg") || ($width == 0)) {
 	  Http_DownloadFile($info->path, $info->name, $mimetype,$inline,$cache);
 	} else {
 	  $filename=$info->path; 
@@ -124,8 +126,8 @@ function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$height=""
 	  $mb=microtime();
 	  // Calcul des nouvelles dimensions
 	  list($owidth, $oheight) = getimagesize($filename);
-	  $newwidth = $owidth * ($height/$oheight);
-	  $newheight = $height;
+	  $newwidth = $width;
+	  $newheight = $oheight * ($width/$owidth);
 
 	  // chargement
 	  $thumb = imagecreatetruecolor($newwidth, $newheight);
