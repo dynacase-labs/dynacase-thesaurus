@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.37 2007/03/02 10:53:53 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.38 2007/04/12 07:06:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -125,9 +125,9 @@ function PostModify() {
 			 $login,
 			 $iddomain);   
   if ($err=="") {
-    if ($user)  $err=$this->setGroups();
     $this->setValue("US_WHATID",$user->id);
-    $this->modify(false,array("us_whatid"),true);
+    $this->modify(false,array("us_whatid"));
+    if ($user)  $err=$this->setGroups();
     
     // get members 
     //$this->RefreshGroup(); // in postinsert
@@ -167,7 +167,6 @@ function specPostInsert() {
 function postInsertDoc($docid,$multiple) {
   $err="";
   if ($multiple == false) {
-
     $gid = $this->getValue("US_WHATID");
     if ($gid > 0) {
       $du = new_Doc($this->dbaccess,$docid);
