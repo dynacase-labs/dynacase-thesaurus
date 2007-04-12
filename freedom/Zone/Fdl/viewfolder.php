@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.79 2007/01/31 14:04:03 eric Exp $
+ * @version $Id: viewfolder.php,v 1.80 2007/04/12 12:02:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -160,6 +160,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       }
 
      
+      if (! $doc) continue;
       $doc->Affect($zdoc,(($column==1)||($with_abstract )));
       
       if ($doc->isConfidential()) continue;
