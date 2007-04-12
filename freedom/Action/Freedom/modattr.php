@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.26 2006/12/21 17:51:53 eric Exp $
+ * @version $Id: modattr.php,v 1.27 2007/04/12 13:07:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -108,7 +108,7 @@ function modattr(&$action) {
 	    $oattr->title=isset($titles[$k])?$titles[$k]:"N";
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
 	    $oattr->needed=isset($needed[$k])?$needed[$k]:"N";
-	    $oattr->type=strtolower(stripslashes($types[$k]));
+	    $oattr->type=stripslashes($types[$k]);
 	    $oattr->id=strtolower($attrids[$k]);
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";
