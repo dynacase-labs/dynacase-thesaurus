@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.370 2007/04/12 11:59:39 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.371 2007/04/12 12:36:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3671,7 +3671,7 @@ final public function PostInsert()  {
 	  case "image": 		  
 	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
 	    $tableimage[$nbimg]["itarget"]=($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
-	    $width=$attr->getOption("width","80px");
+	    $width=$attr->getOption("iwidth","80px");
 	    $tableimage[$nbimg]["imgwidth"]=$width;
 	    if (strstr($htmlvalue,'index.php'))   $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&width=".intval($width);
 	    else $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue;
