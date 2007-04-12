@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.369 2007/04/12 08:49:57 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.370 2007/04/12 11:59:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3671,7 +3671,9 @@ final public function PostInsert()  {
 	  case "image": 		  
 	    $tableimage[$nbimg]["imgsrc"]=$htmlvalue;
 	    $tableimage[$nbimg]["itarget"]=($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
-	    if (strstr($htmlvalue,'index.php'))   $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&height=80";
+	    $width=$attr->getOption("width","80px");
+	    $tableimage[$nbimg]["imgwidth"]=$width;
+	    if (strstr($htmlvalue,'index.php'))   $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue."&width=".intval($width);
 	    else $tableimage[$nbimg]["imgthumbsrc"]=$htmlvalue;
 	    break;
 	  default : 
@@ -3691,8 +3693,16 @@ final public function PostInsert()  {
 	if ($attr->type != "image") {	
 	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
 	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
-	  if (( $attr->type != "array")&&( $attr->type != "htmltext"))  $tableframe[$v]["ndisplay"]="inherit";
+	  if ($attr->type != "array")  $tableframe[$v]["ndisplay"]="inherit";
 	  else $tableframe[$v]["ndisplay"]="none";
+	  if ( ($attr->type == "htmltext") && (count($tableframe)==1)) {
+	    $keys=array_keys($listattr);
+	    
+	    $na=$listattr[$keys[$iattr]]; // next attribute
+	    if ($na->fieldSet->id != $attr->fieldSet->id)   $tableframe[$v]["ndisplay"]="none";
+	  }
+	  
+
 	  $tableframe[$v]["classback"]=($attr->usefor=="O")?"FREEDOMOpt":"FREEDOMBack1";
 	  $v++;
 	} else	{
