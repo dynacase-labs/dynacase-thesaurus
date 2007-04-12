@@ -263,7 +263,7 @@ function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,
       content.style.borderColor=bordercolor;
       content.style.borderWidth="2px";
       if(isExt){
-	content.innerHTML='<iframe name="'+cid+'_ifrm" id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
+	content.innerHTML='<iframe style="border:none;padding:0px" name="'+cid+'_ifrm" id="'+cid+'_ifrm" src="'+text+'" width="100%" height="100%"></iframe>';
 	content.style.overflow="hidden";
       }else{
 	if(ie5)content.style.scrollbarBaseColor=scrollcolor;

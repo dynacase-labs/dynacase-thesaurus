@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.368 2007/03/27 15:13:08 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.369 2007/04/12 08:49:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -624,7 +624,7 @@ final public function PostInsert()  {
     if ($this->fromid  == $fromid) return false; // no convert if not needed
     $cdoc = createDoc($this->dbaccess, $fromid);
     if (! $cdoc) return false;
-
+    if ($cdoc->fromid == 0) return false;
     $f1doc=$this->getFamDoc();
     $f1from=$f1doc->title."[".$f1doc->id."]";
     $f2doc=$cdoc->getFamDoc();
