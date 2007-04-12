@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.22 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_tab.php,v 1.23 2007/04/12 13:09:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,10 +34,12 @@ function generic_tab(&$action) {
   $keyword=GetHttpVars("keyword"); // keyword to search
   $dirid=GetHttpVars("catg",0); // folder where search
   $tab=GetHttpVars("tab", 1); // tab index
+  
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   $famid = getDefFam($action);
+  $emptyfld=false;
   if ($famid == "0") $action->exitError(_("cookies seem to be blocked"));
 
   $fdoc = new DocFam($dbaccess,$famid);
@@ -109,7 +111,7 @@ function generic_tab(&$action) {
   
 
     setHttpVar("tab", $tab);
-    setHttpVar("dirid",$sdoc->id );
+    if (! $emptyfld) setHttpVar("dirid",$sdoc->id );
     setHttpVar("catg",$dirid );
 
   }
