@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.12 2007/03/26 14:06:53 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.13 2007/04/12 08:50:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -183,7 +183,7 @@ function getpopupdocdetail(&$action,$docid) {
 				   "control"=>"false",
 				   "tconfirm"=>"",
 				   "target"=>"",
-				   "visibility"=>POPUP_CTRLACTIVE,
+				   "visibility"=>POPUP_ACTIVE,
 				   "submenu"=>"",
 				   "barmenu"=>"false"),
 	       "toxml"=>array( "descr"=>_("View XML"),
@@ -435,7 +435,8 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
 
   if ($doc->postitid > 0) $tlink["addpostit"]["visibility"]=POPUP_INVISIBLE;
-  else $tlink["addpostit"]["visibility"]=POPUP_CTRLACTIVE;
+  else if ($doc->fromid==27) $tlink["addpostit"]["visibility"]=POPUP_CTRLACTIVE; // for post it family
+  else $tlink["addpostit"]["visibility"]=POPUP_ACTIVE;
 
   if (! $action->parent->Haspermission("FREEDOM","FREEDOM")) {
 
