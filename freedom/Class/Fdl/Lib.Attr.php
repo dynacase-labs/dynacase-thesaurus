@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.65 2007/03/23 13:35:21 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.66 2007/04/12 12:28:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -137,7 +137,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $funcformat="";
 	}
     
-	if (ereg("([a-z]+)\(\"(.*)\"\)",$v->type, $reg)) {
+	if (eregi("([a-z]+)\(\"(.*)\"\)",$v->type, $reg)) {
 	  $atype=$reg[1];
 	  $aformat=$reg[2];
 	  if ($atype=="idoc") {
@@ -147,14 +147,14 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $atype=$v->type;
 	  $aformat="";
 	}
-	if (ereg("([a-z]+)list",$atype, $reg)) {
+	if (eregi("([a-z]+)list",$atype, $reg)) {
 	  $atype=$reg[1];
-	  $repeat="true";
-	  
+	  $repeat="true";	  
 	} else {
 	  if ($tnormal[strtolower($v->frameid)]["type"]=="array") $repeat="true";
 	  else $repeat="false";
 	}
+	$atype=strtolower(trim($atype));
 	// create code for calculated attributes
 	if (substr($v->phpfunc,0,2)=="::") {
 	  if (ereg("::([^\(]+)\(([^\)]*)\)[:]{0,1}(.*)",$v->phpfunc, $reg)) {
@@ -175,7 +175,6 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  }
 	}
 	
-
 
 	// complete attributes characteristics
 	$v->id=chop(strtolower($v->id));

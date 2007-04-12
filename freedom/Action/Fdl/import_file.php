@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.122 2007/02/27 10:08:34 eric Exp $
+ * @version $Id: import_file.php,v 1.123 2007/04/12 12:28:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -393,7 +393,7 @@ function add_import_file(&$action, $fimport) {
 	if ($modattr) $oattr->abstract =$data[5];
       }
      
-      $oattr->type = trim(strtolower($data[6]));
+      $oattr->type = trim($data[6]));
 
       $oattr->ordered = $data[7];
       $oattr->visibility = $data[8];
