@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-22 14:11+0100\n"
-"PO-Revision-Date: 2007-03-22 14:14+0100\n"
+"PO-Revision-Date: 2007-04-12 14:22+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgid "cannot copy %s"
 msgstr "écriture impossible : %s"
 
 msgid "Zip Archive cannot be created"
-msgstr "L'archive Zip %s n'a pas pue être créée"
+msgstr "L'archive Zip n'a pas pu être créée"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
