@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.42 2006/11/13 16:07:18 eric Exp $
+ * @version $Id: barmenu.php,v 1.43 2007/04/12 07:06:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -187,7 +187,8 @@ function barmenu(&$action) {
   // compute categories and searches
 
   $stree=array();
-  if ($homefld->id > 0)   $stree=getChildCatg( $homefld->id, 1,false,1);
+  //  if ($homefld->id > 0)   $stree=getChildCatg( $homefld->id, 1,false,1);
+  if ($homefld->id > 0)   $stree=getChildDoc($dbaccess,$homefld->id,"0","ALL",array(),$action->user->id,"TABLE",5);
   reset($stree);
 
 
