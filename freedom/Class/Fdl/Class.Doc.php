@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.371 2007/04/12 12:36:58 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.372 2007/04/13 15:37:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2436,16 +2436,27 @@ final public function PostInsert()  {
     if ($this->wid > 0) return sprintf(_("cannot set free state in workflow controlled document %s"),$this->title);
     if ($this->wid == -1) return sprintf(_("cannot set free state for document %s: workflow not allowed"),$this->title);
     if (! $this->isRevisable()) return sprintf(_("cannot set free state for document %s: document cannot be revised"),$this->title);
-    $state=new_doc($this->dbaccess,$newstateid);
-    if (! $state->isAlive()) return sprintf(_("invalid freestate document %s"),$newstateid);
-    if ($state->fromid != 39) return sprintf(_("not a freestate document %s"),$state->title);
+    if ($newstateid==0) {
+      $this->state="";
+      $err=$this->modify(false,array("state")); 
+      if ($err == "") { 
+	$comment=sprintf(_("remove state : %s"),$comment);
+	if ($revision) $err=$this->addRevision($comment);
+	else $err=$this->addComment($comment);
+      }
+    } else {
 
-    $this->state=$state->id;
-    $err=$this->modify(false,array("state")); 
-    if ($err == "") { 
-      $comment=sprintf(_("change state to %s : %s"),$state->title,$comment);
-      if ($revision) $err=$this->addRevision($comment);
-      else $err=$this->addComment($comment);
+      $state=new_doc($this->dbaccess,$newstateid);
+      if (! $state->isAlive()) return sprintf(_("invalid freestate document %s"),$newstateid);
+      if ($state->fromid != 39) return sprintf(_("not a freestate document %s"),$state->title);
+
+      $this->state=$state->id;
+      $err=$this->modify(false,array("state")); 
+      if ($err == "") { 
+	$comment=sprintf(_("change state to %s : %s"),$state->title,$comment);
+	if ($revision) $err=$this->addRevision($comment);
+	else $err=$this->addComment($comment);
+      }
     }
     return $err;
   } 
