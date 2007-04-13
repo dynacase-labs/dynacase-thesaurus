@@ -35,12 +35,8 @@ function requestUrlSend(cible,url) {
       if (SYNCHRO) {
 	INSERTINPROGRESS=false;
 	unglobalcursor();
-	if (REQINSERTHTML.status == 200) {	   
-	  if (REQINSERTHTML.responseXML) insertXMlResponse(REQINSERTHTML.responseXML)
-	  else {
-	    alert('no xml\n'+REQINSERTHTML.responseText);
-	    return false;
-	  } 
+	if (REQINSERTHTML.status == 200) {
+	  insertXMlResponse(REQINSERTHTML.responseXML);	  
 	}
       } else {
 	INSERTINPROGRESS=true;	
@@ -59,12 +55,7 @@ function XmlInsertHtml() {
     //dump('readyState\n');
     if (REQINSERTHTML.status == 200) {
       // ...processing statements go here...
-      //  alert(REQINSERTHTML.responseText);
-      if (REQINSERTHTML.responseXML) insertXMlResponse(REQINSERTHTML.responseXML)
-      else {
-	alert('no xml\n'+REQINSERTHTML.responseText);
-	return;
-      } 	  
+      insertXMlResponse(REQINSERTHTML.responseXML);
     } else {
       alert("There was a problem retrieving the XML data:\n" +
 	    REQINSERTHTML.statusText+' code :'+REQINSERTHTML.status);
@@ -74,49 +65,73 @@ function XmlInsertHtml() {
 }
 
 function insertXMlResponse(xmlres) {  
-    var o=THEINSERTCIBLE;
-    if (xmlres) {
-      var elts = xmlres.getElementsByTagName("status");
-      if (elts.length == 1) {
-	  var elt=elts[0];
-	  var code=elt.getAttribute("code");
-	  var delay=elt.getAttribute("delay");
-	  var c=elt.getAttribute("count");
-	  var w=elt.getAttribute("warning");
+  var o=THEINSERTCIBLE;
+  if (xmlres) {            
+    var elts = xmlres.getElementsByTagName("status");
+    if (elts.length == 1) {
+      var elt=elts[0];
+      var code=elt.getAttribute("code");
+      var delay=elt.getAttribute("delay");
+      var c=elt.getAttribute("count");
+      var w=elt.getAttribute("warning");
 
-	  if (w != '') alert(w);
-	  if (code != 'OK') {
-	    alert('code not OK\n'+REQINSERTHTML.responseText);
-	    return;
-	  }
-	  elts = xmlres.getElementsByTagName("branch");
-	  if (elts && (elts.length>0)) {
-	    elt=elts[0].firstChild.nodeValue;
-	    if (o) {
-	      //	      if (c > 0)       o.style.display='';
-	      o.innerHTML=elt;
-	    }
-	  }
-	  var actions=xmlres.getElementsByTagName("action");
-	  if (actions.length >0) {
-	    var actname=new Array();
-	    var actdocid=new Array();
-	    for (var i=0;i<actions.length;i++) {
-	      actname[i]=actions[i].getAttribute("name");
-	      actdocid[i]=actions[i].getAttribute("docid");
-	    }
-	    if (sendActionNotification) sendActionNotification(actname,actdocid);
-	  }
-
-	  if (! isNetscape) correctPNG();
-
-	} else {
-	  alert('no status for insertXMlResponse\n'+elts.length+'\n'+REQINSERTHTML.responseText);
-	  return;
+      if (w != '') alert(w);
+      if (code != 'OK') {
+	alert('code not OK\n'+REQINSERTHTML.responseText);
+	return;
+      }
+      elts = xmlres.getElementsByTagName("branch");
+      if (elts && (elts.length>0)) {
+	elt=elts[0].firstChild.nodeValue;
+	if (o) {
+	  //	      if (c > 0)       o.style.display='';
+	  o.innerHTML=elt;
 	}
       }
+      var actions=xmlres.getElementsByTagName("action");
+      if (actions.length >0) {
+	var actname=new Array();
+	var actdocid=new Array();
+	for (var i=0;i<actions.length;i++) {
+	  actname[i]=actions[i].getAttribute("name");
+	  actdocid[i]=actions[i].getAttribute("docid");
+	}
+	if (sendActionNotification) sendActionNotification(actname,actdocid);
+      }
+
+      if (! isNetscape) correctPNG();
+
+    } else {
+      if (REQINSERTHTML.responseText!='') insertHTMLResponse(REQINSERTHTML.responseText); 	 
+      else  alert('no status for insertXMlResponse\n'+elts.length+'\n'+REQINSERTHTML.responseText);
+    }
+  } else {
+    if (REQINSERTHTML.responseText!='') insertHTMLResponse(REQINSERTHTML.responseText); 	 
+    else  alert('no status for insertXMlResponse\n'+elts.length+'\n'+REQINSERTHTML.responseText);
+  }
 }
 
+function insertHTMLResponse(htmlres) {  
+  var o=THEINSERTCIBLE;
+  if (htmlres) {      
+    if (o) {	      
+      o.innerHTML=htmlres;
+      var s=o.getElementsByTagName('script');
+      var h=document.getElementsByTagName('head');
+      var thehead=h[0];
+      // alert(h.length);
+      for (var i=0;i<s.length;i++) {
+	//	document.write('<script>'+s[i].innerHTML+'</script>');
+	//	eval('document.activestate=function(event) { return true;}');
+	eval(s[i].innerHTML);
+      //	alert(s[i].innerHTML);
+      //	alert(document.head);
+      //	thehead.appendChild(s[i]);
+	//	alert(s[i].firstChild.nodeValue);
+      }
+    }
+  }	
+}
 function clipboardWait(o) {
   if (o) o.innerHTML='<table style="width:100%;height:100%"><tr><td align="center"><img style="width:30px"  src="Images/loading.gif"></tr></td></table>';
 }
