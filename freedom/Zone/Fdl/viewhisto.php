@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.21 2007/01/12 10:15:01 eric Exp $
+ * @version $Id: viewhisto.php,v 1.22 2007/04/13 15:38:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,8 +35,7 @@ function viewhisto(&$action)
   $action->lay->Set("VIEWAPP",$viewapp);
   $action->lay->Set("VIEWACT",$viewact);
   $action->lay->Set("VIEWREV",$viewrev);
-  $action->lay->Set("STATE",($doc->state != ""));
-
+  $hastate=false;
   $ldoc = $doc->GetRevisions("TABLE");
 
   $trdoc= array();
@@ -51,7 +50,7 @@ function viewhisto(&$action)
     $state=$rdoc->getState();
     $color=$rdoc->getStateColor();
     $trdoc[$k]["state"]= ($state=="")?"":(($rdoc->locked==-1)?_($state):sprintf(_("Current (%s)"),_($state)));
-
+    $hastate=$hastate | ($state!="");
     $trdoc[$k]["color"]= ($color=="")?"transparent":$color;
     if ($action->GetParam("CORE_LANG") == "fr_FR") { // date format depend of locale
       setlocale (LC_TIME, "fr_FR");
@@ -95,6 +94,7 @@ function viewhisto(&$action)
     
   }
   // not display detail display 
+  $action->lay->Set("STATE",$hastate);
   $action->lay->Set("viewdiff",(count($ldoc)>1));
   $action->lay->Set("nodetail",($iversion>1));
   $action->lay->SetBlockData("TABLEBODY",$trdoc);
