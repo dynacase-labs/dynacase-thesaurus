@@ -3,7 +3,7 @@
  * Freedom document manipulation Soap library
  *
  * @author Anakeen 2006
- * @version $Id: Lib.FreedomWSDoc.php,v 1.17 2007/02/08 08:22:45 eric Exp $
+ * @version $Id: Lib.FreedomWSDoc.php,v 1.18 2007/04/17 13:08:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-WEBSERVICES
  */
@@ -247,7 +247,7 @@ function _xmlDoclist($tdocs) {
   foreach ($tdocs as $k=>$v) {
     $tattr = array();
     foreach ($v as $ka => $va) {
-          if (! in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "empty" => ($va!="" ? false : true), "attvalue"=>$va);
+          if (! in_array($ka,$excluded)) $tattr[] = array("attname" => $ka, "empty" => ($va!="" ? false : true), "attvalue"=>htmlentities($va));
     }
     $xml->setBlockData("attr".$v["id"], $tattr);
   }
