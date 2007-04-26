@@ -3,7 +3,7 @@
  * Search document
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.25 2005/08/18 09:20:35 eric Exp $
+ * @version $Id: search.php,v 1.26 2007/04/26 12:23:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -71,15 +71,17 @@ function search(&$action) {
   $ndoc->setValue("se_key",$keyword);
   $ndoc->setValue("se_latest","yes");
   $ndoc->setValue("se_famid",GetHttpVars("famid"));
-  $err = $ndoc-> Add();
+  $err = $ndoc->Add();
  
   if ($err != "")  $action->ExitError($err);
+  $ndoc->SpecRefresh();
+
 
   SetHttpVar("id", $ndoc->id);
   $err = modcard($action, $ndocid); // ndocid change if new doc
     
-  
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&view=$view&target=$target&viewone=$viewone&dirid=".$ndoc->id,
+  $orderby=urlencode($ndoc->getValue("se_orderby"));
+  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&view=$view&target=$target&viewone=$viewone&dirid=".$ndoc->id."&sqlorder=$orderby",
 	   $action->GetParam("CORE_STANDURL"));
   
   

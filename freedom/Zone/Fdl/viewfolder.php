@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.80 2007/04/12 12:02:45 eric Exp $
+ * @version $Id: viewfolder.php,v 1.81 2007/04/26 12:23:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,7 +34,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   $refresh=GetHttpVars("refresh","no"); // force folder refresh
   $startpage=GetHttpVars("page","0"); // page number
   $target=GetHttpVars("target","fdoc"); // target for hyperlinks
-  $sqlorder=GetHttpVars("sqlorder","title"); // order sort attribute
+  $sqlorder=GetHttpVars("sqlorder"); // order sort attribute
   $viewone=(GetHttpVars("viewone","N")=="Y"); // direct view if only one
   if ($slice=="-") $slice=$action->GetParam("FDL_FOLDERMAXITEM",1000);
 
@@ -62,6 +62,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   // control open
   if ($dir->defDoctype=='S') {    
     $aclctrl="execute";
+    if ($sqlorder=="") $sqlorder=$dir->getValue("se_orderby");
   } else $aclctrl="open";
   if (($err=$dir->Control($aclctrl)) != "") $action->exitError($err);
 

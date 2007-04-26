@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.120 2007/02/14 16:04:34 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.121 2007/04/26 12:23:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,6 +56,25 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
       
 }
 
+function isSimpleFilter($sqlfilters) {
+  if (! is_array($sqlfilters)) return true;
+  static $props=false;
+
+  if (! $props) {
+    $d=new Doc();
+    $props=$d->fields;
+  }
+  
+  foreach ($sqlfilters as $k=>$v) {
+    $tok = strtok($v," !=~");
+    if ($tok == "fulltext") return true;
+    if (($tok !== false) && (!in_array($tok,$props))) return false;
+  }
+  return true;
+    
+
+}
+
 /**
  * compose qury to serach document
  *
@@ -66,19 +85,37 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
  * @param bool $distinct
  * @param bool $latest set false if search in all revised doc
  * @param string $trash (no|only|also) search in trash or not
+ * @param bool $simplesearch set false if search is about specific attributes
 */
 function getSqlSearchDoc($dbaccess, 
 			 $dirid, 
 			 $fromid, 
 			 $sqlfilters=array(),
 			 $distinct=false,// if want distinct without locked
-			 $latest=true,
-			 $trash="") {// only latest document
+			 $latest=true,// only latest document
+			 $trash="",
+			 $simplesearch=false) {
+  
+
   $table="doc";$only="";
   if ($trash=="only") $distinct=true;
   if ($fromid == -1) $table="docfam";
+  elseif ($simplesearch) $table="docread";
   elseif ($fromid < 0) {$only="only" ;$fromid=-$fromid;}
-  elseif ($fromid != 0) $table="doc$fromid";
+  else {
+    if ($fromid != 0) {
+      if (isSimpleFilter($sqlfilters)) {
+	$table="docread";
+	$sqlfilters[-4] = "fromid=$fromid";
+      } else {
+	$table="doc$fromid";
+      }
+    } elseif ($fromid == 0) {
+      if (isSimpleFilter($sqlfilters)) 	$table="docread";
+    }
+  }
+
+  
 
   if ($distinct) {
     $selectfields =  "distinct on (initid) $table.*";
@@ -277,7 +314,7 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true,$trash="") {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="",$latest=true,$trash="") {
   
   global $action;
 
@@ -325,7 +362,7 @@ function getChildDoc($dbaccess,
 	if ($start == "") $start="0";
 	if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
 	else  {
-	  if ($fromid == "") $orderby="title";
+	  if (($fromid == "") && $orderby=="") $orderby="title";
 	  elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
 	  if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
 	  else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
@@ -355,7 +392,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	    } else $tretdocs=array_merge($tretdocs,$tableq);
 	  }
-	// print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+	 print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
 
       } else {
 	// error in query          

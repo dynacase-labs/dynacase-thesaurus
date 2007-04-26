@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.24 2006/08/11 15:51:06 eric Exp $
+ * @version $Id: generic_util.php,v 1.25 2007/04/26 12:23:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.24 2006/08/11 15:51:06 eric Exp $
+// $Id: generic_util.php,v 1.25 2007/04/26 12:23:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,6 +41,7 @@ function getDefFam(&$action) {
   
   // special for onefam application
   $famid=GetHttpVars("famid");
+  if (! is_numeric($famid)) $famid=getIdFromName( $action->GetParam("FREEDOM_DB"),$famid);
   if ($famid != "") return $famid;
 
   $famid = $action->GetParam("DEFAULT_FAMILY", 1); 
@@ -62,7 +63,7 @@ function getDefFld(&$action) {
   return 0;
 }
 // return attribute sort default
-function getDefUSort(&$action) {
+function getDefUSort(&$action,$def="title") {
   $famid=getDefFam($action);
   $pu = $action->GetParam("GENERIC_USORT");
   if ($pu) {
@@ -73,7 +74,7 @@ function getDefUSort(&$action) {
       if ($afamid == $famid) return $aorder;
     }
   }
-  return "title";
+  return $def;
 }
 
 
@@ -123,19 +124,7 @@ function getSplitMode(&$action,$famid="") {
   return "V";
 }
 
-function getDefUSqlSort(&$action) {
-  $famid=getDefFam($action);
-  $pu = $action->GetParam("GENERIC_USORT");
-  if ($pu) {
-    $tu = explode("|",$pu);
-    
-    while (list($k,$v) = each($tu)) {
-      list($afamid,$aorder,$sqlorder) = explode(":",$v);
-      if ($afamid == $famid) return $sqlorder;
-    }
-  }
-  return "title";
-}
+
 // -----------------------------------
 function getChildCatg($docid, $level,$notfldsearch=false,$maxlevel=2) {
   // -----------------------------------
