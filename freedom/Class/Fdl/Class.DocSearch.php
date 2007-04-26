@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.37 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.38 2007/04/26 10:05:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -100,7 +100,10 @@ Class DocSearch extends PDocSearch {
   }
 
 
-  function getSqlGeneralFilters($keyword,$latest,$sensitive) {
+  /**
+   * @param bool $full set to true if wan't use full text indexing
+   */
+  function getSqlGeneralFilters($keyword,$latest,$sensitive,$full=false) {
     $filters=array();
 
     if ($latest == "fixed") {
@@ -109,6 +112,19 @@ Class DocSearch extends PDocSearch {
     } else if ($latest == "allfixed") {
       $filters[] = "locked = -1";
     } 
+   
+    if ($full) {
+      $tkey=explode(" ",$keyword);
+      $outkey=array();
+      foreach ($tkey as $k=>$v) {
+	if (trim($v))	$outkey[$k]=trim($v);
+      }
+      if (count($outkey) > 0) {
+	$keys=pg_escape_string(implode("&",$tkey));
+	$filters[] = "fulltext @@ to_tsquery('fr','$keys') ";
+	$this->setValue("se_orderby","rank(fulltext,to_tsquery('fr','$keys')) desc");
+      }
+    } else {
     $op= ($sensitive)?'~':'~*';
     //    $filters[] = "usefor != 'D'";
     $keyword= pg_escape_string($keyword);
@@ -144,7 +160,7 @@ Class DocSearch extends PDocSearch {
 	}
       }
     }
-
+    }
 
    
     return $filters;
@@ -158,10 +174,13 @@ Class DocSearch extends PDocSearch {
        
     } else $cdirid=0;
 
-    
-    $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive);
+    $full=true;
+    $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive,$full);
+    if ($full) {
+      if ($famid > 0)  $filters[]="fromid=".intval($famid); // here function to retrieve descendants
+    }
 
-    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"));
+    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"),true);
     return $query;
   }
 
