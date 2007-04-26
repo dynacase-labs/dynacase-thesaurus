@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.372 2007/04/13 15:37:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.373 2007/04/26 10:04:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -269,7 +269,12 @@ Class Doc extends DocCtrl
   public $eviews=array("FDL:EDITBODYCARD");
 
 
-  public $sqlindex=array();
+  public static $sqlindex=array("doc_initid"=>array("unique"=>false,
+					     "on"=>"initid"),
+				"doc_title"=>array("unique"=>false,
+						   "on"=>"title"),
+				"doc_profid"=>array("unique"=>false,
+						    "on"=>"profid"));
   public $id_fields = array ("id");
 
   public $dbtable = "doc";
@@ -3398,6 +3403,7 @@ final public function PostInsert()  {
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
     $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
     $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
+    $sql .="create trigger zread{$cid} AFTER INSERT OR UPDATE OR DELETE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE setread();";
     
     return $sql;
   }
@@ -3408,7 +3414,9 @@ final public function PostInsert()  {
   final public function GetSqlIndex() {
     $t="";
     $id=$this->fromid;
-    foreach ($this->sqlindex as $k=>$v) {
+    if ($this->sqlindex)  $sqlindex=array_merge($this->sqlindex,Doc::$sqlindex);
+    else $sqlindex=Doc::$sqlindex;
+    foreach ($sqlindex as $k=>$v) {
       if ($v["unique"])  $t.=sprintf("CREATE unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
       else $t.=sprintf("CREATE INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
     }
