@@ -1,0 +1,16 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:Freedom Search]]
+<div style="text-align:center;vertical-align:middle">
+<img    src="[IMG:logofreedom2.png]"><br><br>
+<form  id="fedit"  
+       class="fborder" style="display:inline"
+       name="searchdoc"       
+       target="_self"
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH" >
+[CORE_CLIENT]<br>
+<input name="keyword" type="text" size="30" value=""><br/>
+<input type="submit" value="[TEXT:ToSearch]"></div>
+</form>
+
+
+[ZONE FDL:HTMLFOOT]

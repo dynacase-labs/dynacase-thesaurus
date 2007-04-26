@@ -1,0 +1,38 @@
+[ZONE FDL:HTMLHEAD?title=[searchtitle]]
+<style>
+SELECT.little { font-size:90%; }
+
+</style>
+
+<form  id="fedit"  
+       class="fborder" style="display:inline"
+       name="searchdoc"       
+       target="_self"
+       method="POST" ENCTYPE="multipart/form-data" 
+       action="[CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH" >
+<input type="hidden" name="start" value="0">
+
+<table cellspacing="0" cellpadding="0" width="100%"><tr><td>
+
+<img align="middle" needresize="1" height="60px" style="padding-left:30px" src="[IMG:logofreedom.png]"> 
+</td><td><input name="keyword" type="text" size="30" value="[key]"><input type="submit" value="[TEXT:ToSearch]"><br><span style="padding-right:30px;">&nbsp;</span>
+<select  class="little"   name="famid" >  
+           <option VALUE="0" >[TEXT:any familly]</option> 
+         [BLOCK SELECTCLASS]
+           <option [famselect] VALUE="[idcdoc]" >[classname]</option>   
+         [ENDBLOCK SELECTCLASS]
+    </select> </td>
+<td align="left"><a href="javascript:void(0)">[TEXT:Advanced searches]</a>
+</td>
+</tr></table>
+<table cellspacing="0" cellpadding="0" width="100%"><tr><td style="text-align:left;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[CORE_CLIENT]</td><td style="text-align:right;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[resulttext]</td></tr></table>
+[BLOCK DOCS]
+<div ><img align="left" needresize="1" src="[iconsrc]" width="48px"> <a target="T[id]" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]">[title]</a> <i>[mdate]</i><br >[htext]</div><br style="clear:both">
+[ENDBLOCK DOCS]
+<div style="text-align:center;border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">
+[IF notfirst]
+ <a href="javascript:void(0)" onclick="document.searchdoc.start.value=[pstart];document.searchdoc.submit()">  <img style="border:none" align="absbottom"  src="[IMG:freeleft.png]"> [TEXT:Previous]</a>[ENDIF notfirst] 
+[BLOCK PAGES]<a href="javascript:void(0)" onclick="document.searchdoc.start.value=[xstart];document.searchdoc.submit()">[xpage] </a>[ENDBLOCK PAGES] <b>[cpage]</b>
+ <a href="javascript:void(0)" onclick="document.searchdoc.start.value=[nstart];document.searchdoc.submit()"> [IF notthenend][TEXT:Next] <img style="border:none" align="absbottom"  src="[IMG:freeright.png]"></a>[ENDIF notthenend]</div>
+</form>
+[ZONE FDL:HTMLFOOT]
