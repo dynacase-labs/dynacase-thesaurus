@@ -23,7 +23,14 @@ if [ "$1" = "I" ] ; then
     exit 1
   fi
    
+  if [ -f /usr/share/pgsql/contrib/tsearch2.sql ]; then
+    psql $dbfree -f /usr/share/pgsql/contrib/tsearch2.sql
+  fi
+  if [ -f /usr/share/postgresql/contrib/tsearch2.sql ]; then
+    psql $dbfree -f /usr/share/postgresql/contrib/tsearch2.sql
+  fi
   
+  psql $dbfree -f $wpub/FDL/tsearch2_fr.sql
   echo "ALTER DATABASE $dbfreename set DateStyle = sql,european;" | psql  --username=postgres $dbpsql
   psql $dbfree -f $wpub/WHAT/getprivilege.sql
   psql $dbfree -f $wpub/FDL/fdl.sql
@@ -36,12 +43,6 @@ if [ "$1" = "I" ] ; then
   #copy postgres group table
   $wpub/wsh.php --api=freedom_groups
 
-  if [ -f /usr/share/pgsql/contrib/tsearch2.sql ]; then
-    psql $dbfree -f /usr/share/pgsql/contrib/tsearch2.sql
-  fi
-  if [ -f /usr/share/postgresql/contrib/tsearch2.sql ]; then
-    psql $dbfree -f /usr/share/postgresql/contrib/tsearch2.sql
-  fi
 
   DBFREENAME=`echo $dbfreename | tr '[a-z]' '[A-Z]'`
   if [ ! -f $wpub/VAULT/$DBFREENAME.vault ]; then

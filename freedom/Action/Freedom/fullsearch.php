@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.2 2007/04/27 06:53:19 eric Exp $
+ * @version $Id: fullsearch.php,v 1.3 2007/04/27 16:40:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -51,17 +51,21 @@ function fullsearch(&$action) {
     $pspell_link = pspell_new("fr","","","iso8859-1",PSPELL_FAST);
     $tkeys=explode(" ",$keyword);
     foreach ($tkeys as $k=>$key) {
-      if (!pspell_check($pspell_link, $key)) {
-	$suggestions = pspell_suggest($pspell_link, $key);
-	$sug=$suggestions[0];
-	//foreach ($suggestions as $k=>$suggestion) {  echo "$k : $suggestion\n";  }
-	if ($sug) $tkeys[$k]="$key|$sug";
-      }    
+      $key=trim($key);
+      if ($key) { 
+	$tsearchkeys[$k]=$key;
+	if (!pspell_check($pspell_link, $key)) {
+	  $suggestions = pspell_suggest($pspell_link, $key);
+	  $sug=$suggestions[0];
+	  //foreach ($suggestions as $k=>$suggestion) {  echo "$k : $suggestion\n";  }
+	  if ($sug && (!strstr($sug,' '))) $tsearchkeys[$k]="$key|$sug";
+	}    
+      }
     }
   }
 
 
-  $keys='('.implode(")&(",$tkeys).')';
+  $keys='('.implode(")&(",$tsearchkeys).')';
   
   $slice=10;
 
@@ -75,7 +79,7 @@ function fullsearch(&$action) {
   else $famtitle="";
   $dbid=getDbid($dbaccess);
   foreach ($tdocs as $k=>$tdoc) {
-    $tdocs[$k]["htext"]=nl2br(wordwrap(highlight_text($dbid,$tdoc["values"],$keys),80));
+    $tdocs[$k]["htext"]=nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80)));
     $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
     $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
   }
@@ -108,7 +112,7 @@ function fullsearch(&$action) {
   $action->lay->set("nstart",$start+$slice);
   $action->lay->set("pstart",$start-$slice);
   $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
-  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),$start+1,$start+$slice,$keyword,$famtitle));
+  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),$start+1,$start+count($tdocs),$keyword,$famtitle));
   $action->lay->set("key",$keyword);
   $action->lay->setBlockData("DOCS",$tdocs);
 }
@@ -129,5 +133,8 @@ function highlight_text($dbid,&$s,$k) {
   }
   return $headline;   
 }
-
+function nobr($text)
+{
+  return  strtr(preg_replace('/<br\\s*?\/??>/i', '', $text),"\n\t£","  -");
+}
 ?>

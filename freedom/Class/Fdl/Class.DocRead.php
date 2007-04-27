@@ -3,7 +3,7 @@
  * History log for document
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRead.php,v 1.2 2007/04/27 06:52:29 eric Exp $
+ * @version $Id: Class.DocRead.php,v 1.3 2007/04/27 16:40:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -63,6 +63,7 @@ create table docread ( id int not null,
                    fulltext tsvector
                    );
 create index fromid_docread on docread(fromid);
+create index initid_docread on docread(initid);
 create index title_docread on docread(title);
 create index docty_docread on docread(doctype);
 create index full_docread on docread using gist(fulltext);";

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.373 2007/04/26 10:04:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.374 2007/04/27 16:40:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -82,7 +82,8 @@ Class Doc extends DocCtrl
 			   "ldapdn");
 
   public $sup_fields= array("values",
-			   "attrids"); // not be in fields else trigger error
+			    "attrids",
+			    "fulltext"); // not be in fields else trigger error
 
   /**
    * identificator of the document
@@ -273,6 +274,9 @@ Class Doc extends DocCtrl
 					     "on"=>"initid"),
 				"doc_title"=>array("unique"=>false,
 						   "on"=>"title"),
+				"doc_full"=>array("unique"=>false,
+						  "using"=>"gist",
+						  "on"=>"fulltext"),
 				"doc_profid"=>array("unique"=>false,
 						    "on"=>"profid"));
   public $id_fields = array ("id");
@@ -314,6 +318,7 @@ create table doc ( id int not null,
                    wid int DEFAULT 0,  
                    values text,  
                    attrids text,  
+                   fulltext tsvector,  
                    postitid int,
                    cvid int,
                    name text,
@@ -3402,6 +3407,7 @@ final public function PostInsert()  {
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
     $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
+    $sql .="create trigger VFULL{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fulltext();";
     $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
     $sql .="create trigger zread{$cid} AFTER INSERT OR UPDATE OR DELETE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE setread();";
     
@@ -3417,8 +3423,14 @@ final public function PostInsert()  {
     if ($this->sqlindex)  $sqlindex=array_merge($this->sqlindex,Doc::$sqlindex);
     else $sqlindex=Doc::$sqlindex;
     foreach ($sqlindex as $k=>$v) {
-      if ($v["unique"])  $t.=sprintf("CREATE unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
-      else $t.=sprintf("CREATE INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
+      
+      if ($v["unique"])  $unique="unique";
+      else $unique="";
+      if ($v["using"]!= "") {
+	$t.=sprintf("CREATE $unique INDEX %s$id on  doc$id using %s(%s);\n",$k,$v["using"],$v["on"]);
+      } else {
+	$t.=sprintf("CREATE $unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
+      }
     }
     return $t;
   }

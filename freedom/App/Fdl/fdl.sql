@@ -178,6 +178,8 @@ declare
    lname text;
    cfromid int;
 begin
+
+
 NEW.values:='''';
 NEW.attrids:='''';
 
@@ -221,6 +223,20 @@ end;
 ' language 'plpgsql';
 
 
+create or replace function fulltext() 
+returns trigger as '
+declare 
+begin
+  begin
+   NEW.fulltext := setweight(to_tsvector(''fr'',NEW.title), ''A'')|| to_tsvector(''fr'',replace(NEW.values,''£'','' ''));
+	
+     EXCEPTION
+	 WHEN OTHERS THEN
+	    RAISE NOTICE ''Error %'',NEW.id;
+   end;
+return NEW;
+END;
+' language 'plpgsql';
 
 create or replace function fixeddoc() 
 returns trigger as '
@@ -269,22 +285,22 @@ declare
    cfromid int;
 begin
 
+if (TG_OP = ''DELETE'') then  
+   delete from docread where id=OLD.id;   
+end if;
+
 if (TG_OP = ''UPDATE'') OR (TG_OP = ''INSERT'') then
      select into lid id from docread where id= NEW.id;
      if (lid = NEW.id) then 
-	update docread set id=NEW.id,owner=NEW.owner,title=NEW.title,revision=NEW.revision,initid=NEW.initid,fromid=NEW.fromid,doctype=NEW.doctype,locked=NEW.locked,allocated=NEW.allocated,icon=NEW.icon,lmodify=NEW.lmodify,profid=NEW.profid,usefor=NEW.usefor,revdate=NEW.revdate,version=NEW.version,cdate=NEW.cdate,adate=NEW.adate,comment=NEW.comment,classname=NEW.classname,state=NEW.state,wid=NEW.wid,attrids=NEW.attrids,postitid=NEW.postitid,cvid=NEW.cvid,name=NEW.name,dprofid=NEW.dprofid,prelid=NEW.prelid,atags=NEW.atags,confidential=NEW.confidential,ldapdn=NEW.ldapdn,values=replace(NEW.values,''£'','' '') where id=NEW.id;
+	update docread set id=NEW.id,owner=NEW.owner,title=NEW.title,revision=NEW.revision,initid=NEW.initid,fromid=NEW.fromid,doctype=NEW.doctype,locked=NEW.locked,allocated=NEW.allocated,icon=NEW.icon,lmodify=NEW.lmodify,profid=NEW.profid,usefor=NEW.usefor,revdate=NEW.revdate,version=NEW.version,cdate=NEW.cdate,adate=NEW.adate,comment=NEW.comment,classname=NEW.classname,state=NEW.state,wid=NEW.wid,attrids=NEW.attrids,postitid=NEW.postitid,cvid=NEW.cvid,name=NEW.name,dprofid=NEW.dprofid,prelid=NEW.prelid,atags=NEW.atags,confidential=NEW.confidential,ldapdn=NEW.ldapdn,values=NEW.values,fulltext=NEW.fulltext where id=NEW.id;
      else 
-	insert into docread(id,owner,title,revision,initid,fromid,doctype,locked,allocated,icon,lmodify,profid,usefor,revdate,version,cdate,adate,comment,classname,state,wid,attrids,postitid,cvid,name,dprofid,prelid,atags,confidential,ldapdn,values) values (NEW.id,NEW.owner,NEW.title,NEW.revision,NEW.initid,NEW.fromid,NEW.doctype,NEW.locked,NEW.allocated,NEW.icon,NEW.lmodify,NEW.profid,NEW.usefor,NEW.revdate,NEW.version,NEW.cdate,NEW.adate,NEW.comment,NEW.classname,NEW.state,NEW.wid,NEW.attrids,NEW.postitid,NEW.cvid,NEW.name,NEW.dprofid,NEW.prelid,NEW.atags,NEW.confidential,NEW.ldapdn,replace(NEW.values,''£'','' ''));
+	insert into docread(id,owner,title,revision,initid,fromid,doctype,locked,allocated,icon,lmodify,profid,usefor,revdate,version,cdate,adate,comment,classname,state,wid,attrids,postitid,cvid,name,dprofid,prelid,atags,confidential,ldapdn,values,fulltext) values (NEW.id,NEW.owner,NEW.title,NEW.revision,NEW.initid,NEW.fromid,NEW.doctype,NEW.locked,NEW.allocated,NEW.icon,NEW.lmodify,NEW.profid,NEW.usefor,NEW.revdate,NEW.version,NEW.cdate,NEW.adate,NEW.comment,NEW.classname,NEW.state,NEW.wid,NEW.attrids,NEW.postitid,NEW.cvid,NEW.name,NEW.dprofid,NEW.prelid,NEW.atags,NEW.confidential,NEW.ldapdn,NEW.values,NEW.fulltext);
      end if;
  
 --RAISE NOTICE ''coucou %'',replace(NEW.values,''£'','' '');
 end if;
-if (TG_OP = ''DELETE'') then  
-   delete from docread where id=OLD.id;
-else
-   update docread set fulltext=setweight(to_tsvector(''fr'',title), ''A'')|| to_tsvector(''fr'',values) where id=NEW.id;
-end if;
 
+	
 return NEW;
 end;
 ' language 'plpgsql';

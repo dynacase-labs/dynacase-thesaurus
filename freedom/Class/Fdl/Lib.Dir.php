@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.122 2007/04/27 06:52:19 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.123 2007/04/27 16:40:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -63,11 +63,12 @@ function isSimpleFilter($sqlfilters) {
   if (! $props) {
     $d=new Doc();
     $props=$d->fields;
+    $props=array_merge($props,$d->sup_fields);
   }
   
   foreach ($sqlfilters as $k=>$v) {
     $tok = strtok($v," !=~");
-    if ($tok == "fulltext") return true;
+    //if ($tok == "fulltext") return true;
     if (($tok !== false) && (!in_array($tok,$props))) return false;
   }
   return true;
@@ -101,10 +102,12 @@ function getSqlSearchDoc($dbaccess,
   if ($trash=="only") $distinct=true;
   if ($fromid == -1) $table="docfam";
   elseif ($simplesearch) $table="docread";
-  elseif ($fromid < 0) {$only="only" ;$fromid=-$fromid;}
-  else {
+  elseif ($fromid < 0) {
+    $only="only" ;$fromid=-$fromid;
+    $table="doc$fromid";
+  } else {
     if ($fromid != 0) {
-      if (isSimpleFilter($sqlfilters)) {
+      if (false && isSimpleFilter($sqlfilters)) {
 	$table="docread";
 	$sqlfilters[-4] = "fromid=$fromid";
       } else {
@@ -173,9 +176,17 @@ function getSqlSearchDoc($dbaccess,
 	  "where  $sqlcond ";
       } else {
 	$sqlfld="dirid=$dirid";
+	if ($table=="docread") {
+	$qsql= "select $selectfields ".
+	  "from $table where initid in (select childid from fld where $sqlfld)  ".
+	  "and  $sqlcond ";
+	  
+	} else {
 	$qsql= "select $selectfields ".
 	  "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
 	  "where  $sqlcond ";
+	}
+
 	//$qsql= "select $selectfields "."from $table where $dirid = any(fldrels) and  "."  $sqlcond ";
       }      
     } else {
@@ -401,7 +412,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	    } else $tretdocs=array_merge($tretdocs,$tableq);
 	  }
-	 print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B>".microtime_diff(microtime(),$mb)."</B></div>";
+	print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
 
       } else {
 	// error in query          

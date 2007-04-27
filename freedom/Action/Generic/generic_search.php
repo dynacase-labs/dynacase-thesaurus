@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.29 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: generic_search.php,v 1.30 2007/04/27 16:40:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,15 +72,18 @@ function generic_search(&$action) {
 
 
   $full=true;
+  $only=true;
+
+  
   $sqlfilter=$sdoc->getSqlGeneralFilters($keyword,"yes",false,$full);
   if ($full) {
-    if ($famid > 0) $sqlfilter[]="fromid=".intval($famid); // here function to retrieve descendants
+    //if ($famid > 0) $sqlfilter[]="fromid=".intval($famid); // here function to retrieve descendants
   }
-  
+
   $query=getSqlSearchDoc($dbaccess, 
 			 $sdirid,  
-			 $famid, 
-			 $sqlfilter,false,true,"",true);
+			 ($only)?-($famid):$famid, 
+			 $sqlfilter,false,true,"",false);
 
   $sdoc-> AddQuery($query);
 
@@ -91,7 +94,7 @@ function generic_search(&$action) {
 
 function setUkey(&$action, $key) {
   
-  $famid=getDefFam(&$action);
+  $famid=getDefFam($action);
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
 
