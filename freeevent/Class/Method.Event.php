@@ -3,7 +3,7 @@
  * Event Class
  *
  * @author Anakeen 2005
- * @version $Id: Method.Event.php,v 1.16 2006/08/04 10:25:11 eric Exp $
+ * @version $Id: Method.Event.php,v 1.17 2007/04/27 11:41:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEEVENT
  */
@@ -19,8 +19,8 @@ var $calPopupMenu = array();
 
 var $XmlResume =  "FREEEVENT:XMLRESUME";
 var $XmlHtmlContent =  "FREEEVENT:XMLHTMLCONTENT";
-var $sqlindex=array("evtini"=>array("unique"=>true,
-				     "on"=>"evt_idinitiator,evt_transft"));
+public static $sqlindex=array("evtini"=>array("unique"=>true,
+					      "on"=>"evt_idinitiator,evt_transft"));
 /**
  * return all atomic event found in period between $d1 and $d2 for this event
  * by default it is itself.
