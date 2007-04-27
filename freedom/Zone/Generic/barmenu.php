@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.43 2007/04/12 07:06:51 eric Exp $
+ * @version $Id: barmenu.php,v 1.44 2007/04/27 06:51:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -233,7 +233,10 @@ function barmenu(&$action) {
   // sort menu
 
   
-  $tsort = array("title"=>array("said"=>"title",
+  $tsort = array(
+		 "-"=>array("said"=>"",
+			    "satitle"=>_("no sort")),
+		 "title"=>array("said"=>"title",
 				"satitle"=>_("doctitle")),
 		 "initid"=>array("said"=>"initid",
 				 "satitle"=>_("createdate")),
@@ -258,7 +261,7 @@ function barmenu(&$action) {
 
   $action->lay->set("ukey",getDefUKey($action));
   // select the current sort
-  $csort=getDefUSort($action);
+  $csort=getDefUSort($action,"--");
   if ($csort[0]=='-') {
     $csort=substr($csort,1);
     $cselect = "&uarr;";
