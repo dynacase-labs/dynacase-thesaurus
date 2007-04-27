@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.1 2007/04/26 10:06:47 eric Exp $
+ * @version $Id: fullsearch.php,v 1.2 2007/04/27 06:53:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -75,7 +75,7 @@ function fullsearch(&$action) {
   else $famtitle="";
   $dbid=getDbid($dbaccess);
   foreach ($tdocs as $k=>$tdoc) {
-    $tdocs[$k]["htext"]=highlight_text($dbid,$tdoc["values"],$keys);
+    $tdocs[$k]["htext"]=nl2br(wordwrap(highlight_text($dbid,$tdoc["values"],$keys),80));
     $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
     $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
   }
