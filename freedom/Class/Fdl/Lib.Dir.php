@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.121 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.122 2007/04/27 06:52:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -121,7 +121,7 @@ function getSqlSearchDoc($dbaccess,
     $selectfields =  "distinct on (initid) $table.*";
   } else {
     $selectfields =  "$table.*"; 
-    $sqlfilters[-2] = "doctype != 'T'";
+    if (!$fromid) $sqlfilters[-2] = "doctype != 'T'";
     ksort($sqlfilters);
 
   }
@@ -138,7 +138,7 @@ function getSqlSearchDoc($dbaccess,
     if ($trash=="only") {
       $sqlfilters[-3] = "doctype = 'Z'";    
     } elseif ($trash=="also") ;
-    else $sqlfilters[-3] = "doctype != 'Z'";
+    else if (!$fromid) $sqlfilters[-3] = "doctype != 'Z'";
       
     if (($latest) && (($trash=="no")||(!$trash))) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
@@ -203,13 +203,19 @@ function getSqlSearchDoc($dbaccess,
 	  foreach ($tsqlM as $sqlM) {
 	    if ($sqlM != false) {
 	      if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-		if (($trash != "also")&&($trash != "only")) $sqlfilters[-3] = "doctype != 'Z'";	   
+		if (($trash != "also")&&($trash != "only")) if (!$fromid) $sqlfilters[-3] = "doctype != 'Z'";	   
 		ksort($sqlfilters);
+		foreach ($sqlfilters as $kf=>$sf) { // suppress doubles
+		  if (strstr ($sqlM , $sf )) {		   
+		    unset($sqlfilters[$kf]);
+		  }
+		}
 		if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
+		else $sqlcond="";
 	      }
 	      if ($fromid > 0) $sqlM=str_replace("from doc ","from $only $table ",$sqlM);
-	    
-	      $qsql[]= $sqlM ." and " . $sqlcond;
+	      if ($sqlcond)     $qsql[]= $sqlM ." and " . $sqlcond;
+	      else $qsql[]= $sqlM;
 	    }
 	  }
 	  break;
@@ -365,7 +371,10 @@ function getChildDoc($dbaccess,
 	  if (($fromid == "") && $orderby=="") $orderby="title";
 	  elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
 	  if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
-	  else $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+	  else {
+	    if ($orderby[0]=='-') $orderby=substr($orderby,1)." desc";
+	    $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+	  }
 	}
    
 
