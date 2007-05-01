@@ -1,0 +1,28 @@
+
+INSERT INTO pg_ts_cfg (ts_name, prs_name, locale) VALUES ('fr', 'default', 'fr_FR');
+
+INSERT INTO pg_ts_dict (dict_name, dict_init, dict_initoption, dict_lexize, dict_comment) VALUES ('fr_ispell', 'spell_init(internal)', 'DictFile="@prefix@/locale/fr/tsearch2/french.dict", AffFile="@prefix@/locale/fr/tsearch2/french.aff", StopFile="@prefix@/locale/fr/tsearch2/french.stop"', 'spell_lexize(internal,internal,integer)', 'ISpell french');
+
+
+--
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'lword', '{fr_ispell,en_stem,simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'nlword', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'word', '{fr_ispell,simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'email', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'url', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'host', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'sfloat', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'version', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'part_hword', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'nlpart_hword', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'lpart_hword', '{fr_ispell}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'hword', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'lhword', '{fr_ispell}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'nlhword', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'uri', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'file', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'float', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'int', '{simple}');
+INSERT INTO pg_ts_cfgmap (ts_name, tok_alias, dict_name) VALUES ('fr', 'uint', '{simple}');
+
+
