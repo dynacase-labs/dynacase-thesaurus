@@ -289,7 +289,7 @@ if (TG_OP = ''DELETE'') then
    delete from docread where id=OLD.id;   
 end if;
 
-if (TG_OP = ''UPDATE'') OR (TG_OP = ''INSERT'') then
+if ((TG_OP = ''UPDATE'') OR (TG_OP = ''INSERT'')) and NEW.doctype != ''T'' then
      select into lid id from docread where id= NEW.id;
      if (lid = NEW.id) then 
 	update docread set id=NEW.id,owner=NEW.owner,title=NEW.title,revision=NEW.revision,initid=NEW.initid,fromid=NEW.fromid,doctype=NEW.doctype,locked=NEW.locked,allocated=NEW.allocated,icon=NEW.icon,lmodify=NEW.lmodify,profid=NEW.profid,usefor=NEW.usefor,revdate=NEW.revdate,version=NEW.version,cdate=NEW.cdate,adate=NEW.adate,comment=NEW.comment,classname=NEW.classname,state=NEW.state,wid=NEW.wid,attrids=NEW.attrids,postitid=NEW.postitid,cvid=NEW.cvid,name=NEW.name,dprofid=NEW.dprofid,prelid=NEW.prelid,atags=NEW.atags,confidential=NEW.confidential,ldapdn=NEW.ldapdn,values=NEW.values,fulltext=NEW.fulltext where id=NEW.id;
