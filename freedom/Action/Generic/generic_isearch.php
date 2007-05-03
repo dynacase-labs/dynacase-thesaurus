@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_isearch.php,v 1.9 2005/07/21 15:53:12 eric Exp $
+ * @version $Id: generic_isearch.php,v 1.10 2007/05/03 16:38:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_isearch.php,v 1.9 2005/07/21 15:53:12 eric Exp $
+// $Id: generic_isearch.php,v 1.10 2007/05/03 16:38:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_isearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -63,11 +63,11 @@ function generic_isearch(&$action) {
 
   $doc = new_Doc($dbaccess, $docid);
   $tdoc = $doc->getRevisions("TABLE");
-  $tfil=array();
+  $tid=array();
   while (list($k,$v) = each($tdoc)) {
-    $tfil[]="values ~ '[£|\n]".$v["id"]."[£|\n]'";
+    $tid[]=$v["id"];
   }
-  
+  $full="fulltext @@ to_tsquery('simple','".implode("|",$tid)."')";
 
   $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
@@ -79,7 +79,7 @@ function generic_isearch(&$action) {
   $sqlfilter[]= "locked != -1";
   //  $sqlfilter[]= "doctype ='F'";
   //  $sqlfilter[]= "usefor != 'D'";
-  $sqlfilter[]= "(".implode(") OR (",$tfil).")";
+  $sqlfilter[]= $full;
 
   $query=getSqlSearchDoc($dbaccess, 
 			 0,  
