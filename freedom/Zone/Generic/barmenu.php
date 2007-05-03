@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.45 2007/05/03 06:46:47 eric Exp $
+ * @version $Id: barmenu.php,v 1.46 2007/05/03 16:37:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -180,54 +180,11 @@ function barmenu(&$action) {
   }
 
 
-  $homefld = new_Doc( $dbaccess, getDefFld($action));
 
-
-
-  // compute categories and searches
-
-  $stree=array();
-  //  if ($homefld->id > 0)   $stree=getChildCatg( $homefld->id, 1,false,1);
-  if ($homefld->id > 0)   $stree=getChildDoc($dbaccess,$homefld->id,"0","ALL",array(),$action->user->id,"TABLE",5);
-  reset($stree);
-
-
-  
-  $lidsearch = array("catg0");
-
-  $streeSearch = array();
-  while (list($k,$v) = each($stree)) {
-    if (($v["doctype"] == "S" )&&($v["fromid"] != $fdoc->id) ) {
-      $lidsearch[$v["id"]] = "search".$v["id"];
-      $streeSearch[] = $v;
-    } 
-  }
-  $filter[]="owner=".$action->user->id;
-  $filter[]="se_famid='$famid'";
-  $filter[]="usefor!='G'";
-  $filter[]="se_memo='yes'";
-  $action->lay->set("MSEARCH",false);
-  $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
-  foreach ($stree as $k=>$v) {
-    if (!isset($lidsearch[$v["id"]]))     $lidsearch[] = "search".$v["id"];
-    else unset($stree[$k]);
-  }
-  if (count($stree) > 0) $action->lay->set("MSEARCH",true);
-  $lidsearch[]="text";
-
-  popupInit("searchmenu",$lidsearch);
-  reset ($lidsearch);
-  while (list($k,$v) = each($lidsearch)) {
-    popupActive("searchmenu",1,$v);
-  }
-  
-  $action->lay->SetBlockData("SEARCH",$streeSearch);
   $action->lay->Set("topid",getDefFld($action));
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("catg",$catg);
 
-
-  $action->lay->SetBlockData("SEARCH2",$stree);
   
   //----------------------------
   // sort menu

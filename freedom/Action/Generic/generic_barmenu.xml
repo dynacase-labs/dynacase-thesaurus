@@ -58,12 +58,7 @@ testSplit();
      onMouseOut="DeactiveMenu(this)">
 <span>[TEXT:Creation]</span>
 </td>
-<td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('keyword').focus();document.getElementById('keyword').select()" 
-     onMouseOver="ActiveMenu(this)"
-     onMouseOut="DeactiveMenu(this)">
-[TEXT:Search]
-</td>
+
 
 
 [BLOCK KIND]
@@ -106,34 +101,7 @@ testSplit();
 </div>
 <!-- ------------------ end POPUP DIVISION ------------------ -->
 
-<script language="JavaScript1.2">
-function SendSearch(e) {
 
-     var keyCode;
-
-     if (window.event) keyCode=window.event.keyCode;
-     else keyCode = e.which;
-
-     if (keyCode==13) {
-        document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid][pds]&catg=[catg]&keyword='+document.getElementById('keyword').value;
-     }
-}
-
-</script>   
-<!-- ------------ MENU SEARCH  --------------------- -->
-<div  id="searchmenu" class="popup" style="position:[positionstyle];" >
-<a id="text"></a>
-  <input   onMouseUp="return true" onKeyPress="SendSearch(event)" type="text"  value="[ukey]" id="keyword">
-<a  id="catg0" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[topid]&tab=0';closeAllMenu()">[TEXT:All document]</a>[BLOCK SEARCH]
-<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
-[ENDBLOCK SEARCH]
-[IF MSEARCH]
-<a class="separator"></a>[ENDIF MSEARCH]
-[BLOCK SEARCH2]
-<a  id="search[id]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&famid=[famid]&catg=[id]&tab=0';closeAllMenu()" ><span style="margin:0px 0px 0px 0px">[title]</span></a>
-[ENDBLOCK SEARCH2]
-
-</div>
 
 
 <!-- ------------ MENU KIND  --------------------- -->
@@ -166,5 +134,5 @@ function SendSearch(e) {
 [BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
 [ENDBLOCK FAMMENU]
 </div>
-
+<iframe name="fhidden" style="display:none"></iframe>
 

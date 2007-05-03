@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.24 2007/04/27 06:52:50 eric Exp $
+ * @version $Id: generic_list.php,v 1.25 2007/05/03 16:37:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,10 +19,7 @@ include_once("GENERIC/generic_util.php");
 
 
 
-// -----------------------------------
-// -----------------------------------
 function generic_list(&$action) {
-// -----------------------------------
   // Set the globals elements
   // Get all the params      
   $dirid=GetHttpVars("dirid"); // directory to see
@@ -31,7 +28,6 @@ function generic_list(&$action) {
   $tab=GetHttpVars("tab","0"); // tab to see 1 for ABC, 2 for DEF, ...
   $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
-
   setHttpVar("target","finfo" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
@@ -51,7 +47,7 @@ function generic_list(&$action) {
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
   $action->lay->Set("famid",$famid);
-
+  $action->lay->set("tkey",getDefUKey($action));
   $slice = $action->GetParam("CARD_SLICE_LIST",5);
   //  $action->lay->Set("next",$start+$slice);
   //$action->lay->Set("prev",$start-$slice);
@@ -69,7 +65,7 @@ function generic_list(&$action) {
       if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSort($action,"") );
     }
   }
-
+  getFamilySearches($action,$dbaccess,$famid);
   if ($dirid) {
     if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
       // can see next
@@ -163,4 +159,49 @@ function generic_viewmode(&$action,$famid) {
   }
   return $column;
 }
+
+function getFamilySearches($action,$dbaccess,$famid) {
+
+  // search searches in primary folder
+  $fdoc = new_Doc($dbaccess,$famid);
+  $dirid=GetHttpVars("dirid"); // search
+  $catgid=GetHttpVars("catg", $dirid); // primary directory
+ 
+  if ($fdoc->dfldid > 0) {
+    $homefld = new_Doc( $dbaccess, $fdoc->dfldid);
+    $stree=array();
+    if ($homefld->id > 0)   $stree=getChildDoc($dbaccess,$homefld->id,"0","ALL",array(),$action->user->id,"TABLE",5);  
+
+    $streeSearch = array();
+    foreach($stree as $k=>$v) {
+      if (($v["doctype"] == "S" )&&($v["fromid"] != $fdoc->id) ) {
+	$streeSearch[$v["id"]] = $v;
+	$streeSearch[$v["id"]]["selected"]=($v["id"]==$catgid)?"selected":"";
+      } 
+    }
+  }
+
+  $action->lay->set("ONESEARCH",(count($streeSearch)>0));
+  
+  $action->lay->SetBlockData("SYSSEARCH",$streeSearch);
+  // search user searches for family
+  $filter[]="owner=".$action->user->id;
+  $filter[]="se_famid='$famid'";
+  $filter[]="usefor!='G'";
+  $filter[]="se_memo='yes'";
+  $action->lay->set("MSEARCH",false);
+  $stree=getChildDoc($dbaccess,"0","0","10",$filter,$action->user->id,"TABLE",5);
+  $streeSearch = array();
+  foreach ($stree as $k=>$v) {
+    if (!isset($streeSearch[$v["id"]]))    $streeSearch [$v["id"]] = $v;
+    $streeSearch[$v["id"]]["selected"]=($v["id"]==$catgid)?"selected":"";
+  }
+  $action->lay->set("MSEARCH",(count($stree) > 0));
+  $action->lay->SetBlockData("USERSEARCH",$streeSearch);
+  if (count($streeSearch)>0) $action->lay->set("ONESEARCH",true);
+  
+
+  
+}
+
 ?>

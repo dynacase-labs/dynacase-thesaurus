@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.30 2007/04/27 16:40:34 eric Exp $
+ * @version $Id: generic_search.php,v 1.31 2007/05/03 16:37:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,10 +34,11 @@ function generic_search(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if ($keyword) $action->parent->param->Set("GENE_LATESTTXTSEARCH",
+  $action->parent->param->Set("GENE_LATESTTXTSEARCH",
 					    setUkey($action,$keyword),PARAM_USER.$action->user->id,
 					    $action->parent->id);
 
+  if ($keyword) {
   if ($keyword[0]!=">") {
     $dirid=$catgid; 
     $doc = new_Doc($dbaccess, $dirid);
@@ -53,9 +54,10 @@ function generic_search(&$action) {
   $sdoc = createDoc($dbaccess,5,false); //new DocSearch($dbaccess);
   $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
   $sdoc->title = sprintf(_("search %s"),$keyword);
-  if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
-  else $sdoc->title = sprintf(_("search contains %s in %s"),$keyword,$doc->getTitle() );
-
+  if ($catgid > 0) {
+    if ($doc->id == getDefFld($action)) $sdoc->title = sprintf(_("search  contains %s in all state"),$keyword );
+    else $sdoc->title = sprintf(_("search contains %s in %s"),$keyword,$doc->getTitle() );
+  }
   $sdoc->Add();
   
   $searchquery="";
@@ -88,6 +90,10 @@ function generic_search(&$action) {
   $sdoc-> AddQuery($query);
 
   redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
+  } else {
+    redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&famid=$famid&dirid=".$catgid."&catg=$catgid");
+    
+  }
   
   
 }

@@ -54,6 +54,31 @@ function vedit(e,id) {
   }
 }
 var catgid=[catg];
+function KeySendSimpleSearch(e) {
+     var keyCode;
+
+     if (window.event) keyCode=window.event.keyCode;
+     else keyCode = e.which;
+
+     if (keyCode==13) {
+       SendSimpleSearch(e)
+     }
+}
+function SendSimpleSearch(event) {    
+       var did=document.getElementById('csid');
+       var fldid=0;
+       var key=document.getElementById('searchkey').value;
+       if (did) fldid=did.options[did.selectedIndex].value;
+       if ((fldid>0) && (!key)) document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]';
+       else if (key)  document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key;
+       else document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]';
+     
+}
+function focusInput(event) {
+  var i=document.getElementById('searchkey');
+  if (i) i.focus();
+}
+addEvent(window,"load",focusInput);
 -->
 </script>   
  </head>
@@ -62,9 +87,18 @@ var catgid=[catg];
 
 
 [ZONE [APPNAME]:GENERIC_BARMENU?catg=[catg]]
-<br>
+<br><br>
 <div onmouseup="closeAllMenu();">
 
+<input   onMouseUp="return true" onKeyPress="KeySendSimpleSearch(event)" type="text"  value="[tkey]" id="searchkey">
+[IF ONESEARCH]
+<select id="csid" onchange="focusInput(event)" >
+   <option value="0">-</option>
+[BLOCK SYSSEARCH]<option [selected] value="[id]">[title]</option>[ENDBLOCK SYSSEARCH][IF MSEARCH]<option style="border-top:solid 1px [COLOR_BLACK];height:2px;font-size:1px" disabled value=""></option>[ENDIF MSEARCH]
+[BLOCK USERSEARCH]<option [selected] value="[id]">[title]</option>[ENDBLOCK USERSEARCH]
+</select>
+[ENDIF ONESEARCH]
+<input title="[TEXT:Send search]" onclick="SendSimpleSearch(event)" type="submit" value="[TEXT:Go]">
 
 
 <table class="transparent" cellspacing="0" width="100%"><tr >
