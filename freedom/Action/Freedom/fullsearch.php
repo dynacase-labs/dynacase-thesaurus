@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.3 2007/04/27 16:40:22 eric Exp $
+ * @version $Id: fullsearch.php,v 1.4 2007/05/03 06:45:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -112,7 +112,7 @@ function fullsearch(&$action) {
   $action->lay->set("nstart",$start+$slice);
   $action->lay->set("pstart",$start-$slice);
   $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
-  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),$start+1,$start+count($tdocs),$keyword,$famtitle));
+  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),(count($tdocs)+$start==1)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
   $action->lay->set("key",$keyword);
   $action->lay->setBlockData("DOCS",$tdocs);
 }
