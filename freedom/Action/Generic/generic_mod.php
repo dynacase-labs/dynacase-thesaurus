@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.29 2006/11/21 15:50:11 eric Exp $
+ * @version $Id: generic_mod.php,v 1.30 2007/05/03 07:39:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,7 +55,7 @@ function generic_mod(&$action) {
       if ($dirid > 0) {
 	$fld = new_Doc($dbaccess, $dirid);
 	if (method_exists($fld,"AddFile")) {
-	  $err=$fld->AddFile($doc->id);
+	  // $err=$fld->AddFile($doc->id); // we not insert in defaut folder
 	  if ($err != "") {
 	    $action->AddLogMsg($err);
 	  } else {
