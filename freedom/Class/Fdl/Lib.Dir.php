@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.123 2007/04/27 16:40:34 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.124 2007/05/03 06:46:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -407,11 +407,11 @@ function getChildDoc($dbaccess,
 	$tableq=$query->Query(0,0,$qtype,$qsql);
  
  
-	if ($query->nb > 0)
-	  { if ($qtype=="ITEM") {
+	if ($query->nb > 0) { 
+	  if ($qtype=="ITEM") {
 	      $tretdocs[]=$tableq;
-	    } else $tretdocs=array_merge($tretdocs,$tableq);
-	  }
+	  } else $tretdocs=array_merge($tretdocs,$tableq);
+	}
 	print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
 
       } else {
