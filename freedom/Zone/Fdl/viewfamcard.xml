@@ -23,9 +23,9 @@
 <tr class="FREEDOMBack1" style="display:[cvdisplay]">
    <td width="50%" class="FREEDOMlabel">[TEXT:created control view] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[ccvid]">[cvtitle]</A></td></tr>
 <tr class="FREEDOMBack1" style="display:[cflddisplay]">
-   <td  width="50%" class="FREEDOMlabel">[TEXT:current folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cfldid]">[cfldtitle]</A></td></tr>
+   <td  width="50%" class="FREEDOMlabel">[TEXT:first folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cfldid]">[cfldtitle]</A></td></tr>
 <tr class="FREEDOMBack1" style="display:[dflddisplay]">
-   <td  width="50%" class="FREEDOMlabel" >[TEXT:default folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[dfldid]">[dfldtitle]</A></td></tr>
+   <td  width="50%" class="FREEDOMlabel" >[TEXT:root folder] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[dfldid]">[dfldtitle]</A></td></tr>
 <tr class="FREEDOMBack1" style="display:[wdisplay]">
    <td  width="50%" class="FREEDOMlabel" >[TEXT:workflow] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[wid]">[wtitle]</A></td></tr>
 

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.1 2006/09/14 15:29:44 eric Exp $
+ * @version $Id: popupfamdetail.php,v 1.2 2007/05/03 07:37:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -125,7 +125,7 @@ function popupfamdetail(&$action) {
 				  "visibility"=>POPUP_ACTIVE,
 				  "submenu"=>"security",
 				  "barmenu"=>"false"),
-	       "editdfld"=>array( "descr"=>_("Change default folder"),
+	       "editdfld"=>array( "descr"=>_("Change root folder"),
 				  "url"=>"$surl&app=FREEDOM&action=EDITDFLD&id=$docid",
 				  "confirm"=>"false",
 				  "control"=>"false",
@@ -134,7 +134,7 @@ function popupfamdetail(&$action) {
 				  "visibility"=>POPUP_ACTIVE,
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
-	       "editcfld"=>array( "descr"=>_("Change current folder"),
+	       "editcfld"=>array( "descr"=>_("Change first folder"),
 				  "url"=>"$surl&app=FREEDOM&action=EDITDFLD&current=Y&id=$docid",
 				  "confirm"=>"false",
 				  "control"=>"false",

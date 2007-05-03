@@ -48,7 +48,7 @@
  <td >
    <span class="FREEDOMTextTitle">[doctitle]</span>
   </td> 
-  <td  align="right"><span class="FREEDOMText">[TEXT:default folder]</span>
+  <td  align="right"><span class="FREEDOMText">[TEXT:Folder]</span>
    <select name="dfldid" >   
            <option VALUE="0">[TEXT:no folder]</option>      
          [BLOCK SELECTFLD]
@@ -59,12 +59,13 @@
    </td>
 </tr>
 <tr class="FREEDOMBack1">
-  <td  class = "tdstyle">
+  
+  <td  colspan="2" align="right" class = "tdstyle">
+ [IF ROOTFOLDER]<input type="submit" [autodisabled] onclick="document.getElementById('autofolder').value='Y'" 
+        value="[TEXT:Create New]"> &nbsp;&nbsp;&nbsp;[ENDIF ROOTFOLDER]
  <input type="submit" value="[TEXT:Validate]"> 
-  </td>
-  <td  class = "tdstyle">
- <input type="submit" [autodisabled] onclick="document.getElementById('autofolder').value='Y'" 
-        value="[TEXT:Create New]"> 
+ <input type="reset" value="[TEXT:Cancel]" onclick="document.location.href='[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[docid]'"> 
+  
   </td>
 </tr>
 </table>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: editdfld.php,v 1.6 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: editdfld.php,v 1.7 2007/05/03 07:37:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: editdfld.php,v 1.6 2005/06/28 08:37:46 eric Exp $
+// $Id: editdfld.php,v 1.7 2007/05/03 07:37:10 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/editdfld.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,13 +41,13 @@ include_once("FDL/Lib.Dir.php");
 function editdfld(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
-  $current = (GetHttpVars("current","N")=="Y");
+  $firstfld = (GetHttpVars("current","N")=="Y");
   
 
 
   $action->lay->Set("docid",$docid);
 
-  $action->lay->Set("TITLE",_("change default folder"));
+  $action->lay->Set("TITLE",_("change root folder"));
  
 
 
@@ -55,16 +55,16 @@ function editdfld(&$action) {
 
   $action->lay->Set("doctitle",$doc->title);
   $sqlfilters=array();
-  if ($current) {
+  if ($firstfld) {
     $fldid=$doc->cfldid;
-    $action->lay->Set("TITLE",_("change current folder"));
+    $action->lay->Set("TITLE",_("change first folder"));
     $action->lay->Set("current","Y");
 
     $tclassdoc = getChildDoc($dbaccess,$doc->dfldid,"0","ALL",$sqlfilters, $action->user->id, "TABLE",5);
     $tclassdoc = array_merge($tclassdoc,getChildDoc($dbaccess,$doc->dfldid,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2));
   } else {
     $fldid=$doc->dfldid;
-    $action->lay->Set("TITLE",_("change default folder"));
+    $action->lay->Set("TITLE",_("change root folder"));
     $action->lay->Set("current","N");
     $sqlfilters[]="doctype='D'";
     $tclassdoc = getChildDoc($dbaccess,0,"0","ALL",$sqlfilters, $action->user->id, "TABLE",2);
@@ -83,7 +83,8 @@ function editdfld(&$action) {
   }
 
 
-  $action->lay->Set("autodisabled",$current||($fldid>0)?"disabled":"");
+  $action->lay->Set("autodisabled",$firstfld||($fldid>0)?"disabled":"");
+  $action->lay->Set("ROOTFOLDER",(!$firstfld));
   
   $action->lay->SetBlockData("SELECTFLD", $selectclass);
 	  
