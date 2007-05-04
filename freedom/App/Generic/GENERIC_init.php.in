@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.8 2005/05/19 13:31:52 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.9 2007/05/04 10:19:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -52,6 +52,11 @@ array("INIT" => "yes",
 			       "user"=>"Y"),
       "GENE_SPLITMODE" => array("val"=>"",
 				"descr"=>N_("split view mode by family"),
+				"global"=>"Y",
+				"kind"=>"static",
+				"user"=>"Y"),
+      "GENE_TABLETTER" => array("val"=>"",
+				"descr"=>N_("view tab letter by family"),
 				"global"=>"Y",
 				"kind"=>"static",
 				"user"=>"Y"),

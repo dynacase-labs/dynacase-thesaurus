@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.46 2007/05/03 16:37:37 eric Exp $
+ * @version $Id: barmenu.php,v 1.47 2007/05/04 10:19:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -115,7 +115,7 @@ function barmenu(&$action) {
 
   popupInit("newmenu",  $tnewmenu   );
 
-  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview','kindedit'));
+  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview','kindedit','prefs'));
 
   $lmenu = $fdoc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {    
@@ -165,8 +165,9 @@ function barmenu(&$action) {
   popupActive("helpmenu",1,'isplit'); 
   popupActive("helpmenu",1,'cview'); 
   popupActive("helpmenu",1,'aview'); 
+  popupActive("helpmenu",1,'prefs'); 
 
-  popupActive("helpmenu",1,'help');
+  popupInactive("helpmenu",1,'help');// for the moment need to rewrite documentation
 
   
   popupInvisible("helpmenu",1,'folders');

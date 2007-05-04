@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.25 2007/05/03 16:37:37 eric Exp $
+ * @version $Id: generic_list.php,v 1.26 2007/05/04 10:19:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,12 +26,18 @@ function generic_list(&$action) {
   $catgid=GetHttpVars("catg", $dirid); // category
   $startpage=GetHttpVars("page","0"); // page to see
   $tab=GetHttpVars("tab","0"); // tab to see 1 for ABC, 2 for DEF, ...
-  $wonglet=GetHttpVars("onglet","Y")=="Y"; // if you want onglet
+  $onglet=GetHttpVars("onglet"); // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
   setHttpVar("target","finfo" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
   $column=generic_viewmode($action,$famid); // choose the good view mode
+
+  if ($onglet) {
+    $wonglet=($onglet!='Y');
+  } else {
+    $wonglet=(getTabLetter($action,$famid)=='Y');
+  }
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if ($dirid) {

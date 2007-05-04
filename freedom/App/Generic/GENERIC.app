@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.18 2006/02/03 17:03:41 eric Exp $
+// $Id: GENERIC.app,v 1.19 2007/05/04 10:19:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -84,6 +84,16 @@ $action_desc = array (
    "name"		=>"GENERIC_ADDCATG",
    "short_name"		=>N_("add category"),
    "acl"		=>"GENERIC"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_PREFS",
+   "short_name"		=>N_("edit family preference"),
+   "acl"		=>"GENERIC_READ"
+  ) ,
+  array( 
+   "name"		=>"GENERIC_MODPREFS",
+   "short_name"		=>N_("modify family preference"),
+   "acl"		=>"GENERIC_READ"
   ) ,
   array( 
    "name"		=>"GENERIC_MODKIND",

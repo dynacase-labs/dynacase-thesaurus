@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.25 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: generic_util.php,v 1.26 2007/05/04 10:19:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.25 2007/04/26 12:23:44 eric Exp $
+// $Id: generic_util.php,v 1.26 2007/05/04 10:19:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -100,6 +100,65 @@ function getDefUKey(&$action) {
 */
 function getDefU(&$action,$key) {
   $famid=getDefFam($action);
+  return getFamilyParameter($action,$key,$famid);
+}
+
+/**
+ * return attribute split mode 
+ * @return string [V|H] vertical or horizontal split according to family
+ */
+function getSplitMode(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  return getFamilyParameter($action,$famid,"GENE_SPLITMODE","V");
+}
+
+/**
+ * return attribute view mode 
+ * @return string [abstract|column]  according to family
+ */
+function getViewMode(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  return getFamilyParameter($action,$famid,"GENE_VIEWMODE","abstract");
+}
+/**
+ * return attribute view tab letters
+ * @return string [Y|N] Yes/No  according to family
+ */
+function getTabLetter(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  return getFamilyParameter($action,$famid,"GENE_TABLETTER","Y");
+}
+
+/**
+ * set attribute split mode
+ * @param string $split [V|H]
+ */
+function setSplitMode(&$action,$famid,$split) {
+  return setFamilyParameter($action,$famid,'GENE_SPLITMODE',$split);
+}
+/**
+ * set attribute view mode
+ * @param string $view [abstract|column]
+ */
+function setViewMode(&$action,$famid,$view) {
+  return setFamilyParameter($action,$famid,'GENE_VIEWMODE',$view);
+}
+/**
+ * set attribute view tab letters
+ * @param string $letter [Y|N] Yes/No
+ */
+function setTabLetter(&$action,$famid,$letter) {
+  return setFamilyParameter($action,$famid,'GENE_TABLETTER',$letter);
+}
+
+/**
+ * return parameters key search
+ * @param action $action current action
+ * @param int $famid family identificator
+ * @param string $key parameter name
+ * return string the value of the parameter according to family
+*/
+function getFamilyParameter(&$action,$famid,$key,$def="") { 
   $pu = $action->GetParam($key);
   if ($pu) {
     $tu = explode(",",$pu);
@@ -108,22 +167,30 @@ function getDefU(&$action,$key) {
       if ($afamid == $famid) return $aorder;
     }
   }
-  return "";
+  return $def;
 }
-
-// return attribute split mode
-function getSplitMode(&$action,$famid="") {
-  if ($famid=="") $famid=getDefFam($action);
-  $tmode= explode(",",$action->getParam("GENE_SPLITMODE"));
+/**
+ * set family attribute for generic application
+ */
+function setFamilyParameter(&$action,$famid,$attrid,$value) {
+  $tmode= explode(",",$action->getParam($attrid));
 
   // explode parameters
   while (list($k,$v) = each($tmode)) {
     list($fid,$vmode)=explode("|",$v);
-    if ($fid == $famid) return $vmode;
+    $tview[$fid]=$vmode;
   }
-  return "V";
+  
+  $tview[$famid]=$value;
+  // implode parameters to change user preferences
+  $tmode=array();
+  while (list($k,$v) = each($tview)) {
+    if ($k>0) $tmode[]="$k|$v";
+  }
+  $pmode=implode(",",$tmode);
+  $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
+  $action->parent->session->close();
 }
-
 
 // -----------------------------------
 function getChildCatg($docid, $level,$notfldsearch=false,$maxlevel=2) {
