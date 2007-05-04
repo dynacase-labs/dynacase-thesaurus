@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.124 2007/05/03 06:46:20 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.125 2007/05/04 07:09:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -412,7 +412,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
-	print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
+	//	print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
 
       } else {
 	// error in query          
