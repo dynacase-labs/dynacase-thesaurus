@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.125 2007/05/04 07:09:51 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.126 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -359,10 +359,8 @@ function getChildDoc($dbaccess,
   }
   if ($trash=="only") $distinct=true;
  
-
   //   xdebug_var_dump(xdebug_get_function_stack());
  
-
   $tqsql=getSqlSearchDoc($dbaccess,$dirid,$fromid,$sqlfilters,$distinct,$latest,$trash);
 
   $tretdocs=array();

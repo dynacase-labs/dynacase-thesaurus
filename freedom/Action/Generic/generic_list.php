@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.26 2007/05/04 10:19:43 eric Exp $
+ * @version $Id: generic_list.php,v 1.27 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -73,7 +73,9 @@ function generic_list(&$action) {
   }
   getFamilySearches($action,$dbaccess,$famid);
   if ($dirid) {
-    if (viewfolder($action, true, false,$column,$slice,array(),$famid) == $slice) {
+    
+    $only=(getInherit($action,$famid)=="N");
+    if (viewfolder($action, true, false,$column,$slice,array(),($only)?-(abs($famid)):abs($famid)) == $slice) {
       // can see next
       $action->lay->Set("nexticon",$action->GetIcon("next.png",N_("next"),16)); 
     }

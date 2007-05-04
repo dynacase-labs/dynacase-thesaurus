@@ -3,7 +3,7 @@
  * Modify family preferences
  *
  * @author Anakeen 2007
- * @version $Id: generic_modprefs.php,v 1.1 2007/05/04 10:19:43 eric Exp $
+ * @version $Id: generic_modprefs.php,v 1.2 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ function generic_modprefs(&$action) {
   $dirid  = GetHttpVars("dirid");    // last searched
   $dispo  = GetHttpVars("dispo");    // last searched
   $letters  = GetHttpVars("letters");  // want tab letters
+  $inherit  = GetHttpVars("inherit");  // search in inherit
   
   
   
@@ -54,6 +55,8 @@ function generic_modprefs(&$action) {
 
   if ($letters==1) setTabLetter($action,$famid,'Y');
   else setTabLetter($action,$famid,'N');
+  if ($inherit==1) setInherit($action,$famid,'Y');
+  else setInherit($action,$famid,'N');
 
   $action->lay->set("famtitle",$fdoc->title);
   $action->lay->set("famid",$famid);

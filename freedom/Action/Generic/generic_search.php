@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.31 2007/05/03 16:37:37 eric Exp $
+ * @version $Id: generic_search.php,v 1.32 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -74,7 +74,9 @@ function generic_search(&$action) {
 
 
   $full=true;
-  $only=true;
+
+
+  $only=(getInherit($action,$famid)=="N");
 
   
   $sqlfilter=$sdoc->getSqlGeneralFilters($keyword,"yes",false,$full);

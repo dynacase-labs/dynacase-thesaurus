@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.24 2007/04/27 06:52:50 eric Exp $
+ * @version $Id: generic_tab.php,v 1.25 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,8 +105,11 @@ function generic_tab(&$action) {
     if ($tabletter[$tab]!="") $sqlfilter[]="title ~* '^[".$tabletter[$tab]."].*'";
 
 
+    $only=(getInherit($action,$famid)=="N");
+    if (($famid!="") && (! is_numeric($famid))) $famid=getFamIdFromName($dbaccess,$famid);
+    
 
-    $query = getSqlSearchDoc($dbaccess,$sdirid,$famid,$sqlfilter);
+    $query = getSqlSearchDoc($dbaccess,$sdirid,($only)?-(abs($famid)):abs($famid),$sqlfilter);
 
 
     $sdoc->AddQuery($query);

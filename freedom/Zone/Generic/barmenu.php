@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.47 2007/05/04 10:19:43 eric Exp $
+ * @version $Id: barmenu.php,v 1.48 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -162,9 +162,9 @@ function barmenu(&$action) {
   }
 
 
-  popupActive("helpmenu",1,'isplit'); 
-  popupActive("helpmenu",1,'cview'); 
-  popupActive("helpmenu",1,'aview'); 
+  popupInvisible("helpmenu",1,'isplit'); 
+  popupInvisible("helpmenu",1,'cview'); 
+  popupInvisible("helpmenu",1,'aview'); 
   popupActive("helpmenu",1,'prefs'); 
 
   popupInactive("helpmenu",1,'help');// for the moment need to rewrite documentation

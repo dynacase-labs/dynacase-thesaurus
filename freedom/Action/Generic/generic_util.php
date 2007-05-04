@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.26 2007/05/04 10:19:43 eric Exp $
+ * @version $Id: generic_util.php,v 1.27 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.26 2007/05/04 10:19:43 eric Exp $
+// $Id: generic_util.php,v 1.27 2007/05/04 16:11:40 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -128,6 +128,14 @@ function getTabLetter(&$action,$famid="") {
   if ($famid=="") $famid=getDefFam($action);
   return getFamilyParameter($action,$famid,"GENE_TABLETTER","Y");
 }
+/**
+ * return  if search is also in inherit famileis 
+ * @return string [Y|N] Yes/No  according to family
+ */
+function getInherit(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  return getFamilyParameter($action,$famid,"GENE_INHERIT","Y");
+}
 
 /**
  * set attribute split mode
@@ -149,6 +157,13 @@ function setViewMode(&$action,$famid,$view) {
  */
 function setTabLetter(&$action,$famid,$letter) {
   return setFamilyParameter($action,$famid,'GENE_TABLETTER',$letter);
+}
+/**
+ * set attribute view tab letters
+ * @param string $inherit [Y|N] Yes/No
+ */
+function setInherit(&$action,$famid,$inherit) {
+  return setFamilyParameter($action,$famid,'GENE_INHERIT',$inherit);
 }
 
 /**

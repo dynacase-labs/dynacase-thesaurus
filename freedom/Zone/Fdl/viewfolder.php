@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.81 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: viewfolder.php,v 1.82 2007/05/04 16:11:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -110,7 +110,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 		  $action->GetParam("CORE_STANDURL"));
     exit;
   }
-
+  $famid=abs($famid);
   if ($with_popup) {
     // Set Popup
     include_once("FDL/popup_util.php");
