@@ -139,7 +139,7 @@ function openMenu(event, menuid, itemid) {
  // event.stopPropagation();
   return false; // no navigator context menu
 }
-document.write('<img id="WIMG" src="Images/gyro.gif" style="display:none;position:absolute">');
+document.write('<img id="WIMG" src="Images/loading.gif" style="display:none;position:absolute;background-color:#FFFFFF;border:groove black 2px;padding:4px;-moz-border-radius:4px">');
 function viewwait() {
   var wimgo = document.getElementById('WIMG');
   if (wimgo) {

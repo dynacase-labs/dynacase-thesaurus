@@ -1622,7 +1622,7 @@ function dragtr(event) {
   return false;
 }
 
-document.write('<img id="WIMG" src="Images/gyro.gif" style="display:none;position:absolute">');
+document.write('<img id="WIMG" src="Images/loading.gif" style="display:none;position:absolute;background-color:#FFFFFF;border:groove black 2px;padding:4px;-moz-border-radius:4px">');
 function viewwait(view) {
   var wimgo = document.getElementById('WIMG');
   if (wimgo) {
