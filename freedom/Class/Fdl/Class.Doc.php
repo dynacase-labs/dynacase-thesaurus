@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.374 2007/04/27 16:40:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.375 2007/05/07 15:48:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2769,11 +2769,17 @@ final public function PostInsert()  {
   final public function changeIcon($icon) {
 
     if ($this->doctype == "C") { //  a class
-      $query = new QueryDb($this->dbaccess,"Doc");
-      $tableq=$query->Query(0,0,"LIST",
-			    "update doc set icon='$icon' where (fromid=".$this->initid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))");
-    
+      $fromid=$this->initid;
 
+      // need disabled triggers to increase speed
+      $qt[]="begin";
+      $qt[]="ALTER TABLE doc$fromid DISABLE TRIGGER ALL";
+      $qt[]="update doc$fromid set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
+      $qt[]="ALTER TABLE doc$fromid ENABLE TRIGGER ALL";
+      $qt[]="update docread set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
+      $qt[]="commit";
+
+      $this->exec_query(implode(";",$qt));  
 
     } 
     //    $this->title = AddSlashes($this->title);
