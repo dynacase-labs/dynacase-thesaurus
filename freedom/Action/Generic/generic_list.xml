@@ -71,9 +71,9 @@ function SendSimpleSearch(event) {
        var fldid=0;
        var key=document.getElementById('searchkey').value;
        if (did) fldid=did.options[did.selectedIndex].value;
-       if ((fldid>0) && (!key)) document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]';
+       if ((fldid>0) && (!key)) document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&clearkey=Y&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]';
        else if (key)  document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key;
-       else document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]';
+       else document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]&catg=-1&clearkey=Y';
      
 }
 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.27 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: generic_util.php,v 1.28 2007/05/07 09:56:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.27 2007/05/04 16:11:40 eric Exp $
+// $Id: generic_util.php,v 1.28 2007/05/07 09:56:47 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -92,6 +92,42 @@ function getDefUKey(&$action) {
   return "";
 }
 
+/**
+ * memorize search key for generic applications
+ * @param Action $action current action
+ * @param int fmily identificator
+ * @param string $key key to memorize
+ */
+function setUkey(&$action, $famid, $key) {
+  
+  $famid=getDefFam($action);
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+
+
+  $fdoc= new_Doc( $dbaccess, $famid);
+
+  $pu = $action->GetParam("GENE_LATESTTXTSEARCH");
+  $tr=array();
+  if ($pu) {
+    // disambled parameter
+    $tu = explode("|",$pu);
+    
+    while (list($k,$v) = each($tu)) {
+      list($afamid,$uk) = explode(":",$v);
+      $tr[$afamid]=$uk;
+    }
+  }
+  if (trim($key)=="") unset($tr[$famid]);
+  else $tr[$famid]=$key;
+
+  // rebuild parameter
+  $tu=array();
+  foreach($tr as $k=>$v) {
+    $tu[]="$k:$v";
+  }
+
+  return implode("|", $tu);
+}
 /**
  * return parameters key search
  * @param action $action current action

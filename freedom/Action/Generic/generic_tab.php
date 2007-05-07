@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.25 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: generic_tab.php,v 1.26 2007/05/07 09:56:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ function generic_tab(&$action) {
 
   // Get all the params      
   $keyword=GetHttpVars("keyword"); // keyword to search
-  $dirid=GetHttpVars("catg",0); // folder where search
+  $dirid=GetHttpVars("catg",-1); // folder where search
   $tab=GetHttpVars("tab", 1); // tab index
   
 
@@ -43,6 +43,8 @@ function generic_tab(&$action) {
   if ($famid == "0") $action->exitError(_("cookies seem to be blocked"));
 
   $fdoc = new DocFam($dbaccess,$famid);
+
+  if ($dirid == -1) $dirid=$fdoc->dfldid;
   if ($dirid == 0) {
     $dirid=getDefU($action,"GENE_PREFSEARCH");
   }

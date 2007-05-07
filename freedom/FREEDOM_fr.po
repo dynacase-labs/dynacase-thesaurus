@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-03 09:20+0200\n"
-"PO-Revision-Date: 2007-05-03 09:24+0200\n"
+"POT-Creation-Date: 2007-05-07 09:47+0200\n"
+"PO-Revision-Date: 2007-05-07 09:50+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -47,58 +47,6 @@ msgstr "nouvel ordre des colonnes %s"
 
 msgid "action"
 msgstr "action"
-
-msgid "Properties"
-msgstr "Propriétés"
-
-#, c-format
-msgid "Create %s"
-msgstr "Créer %s"
-
-msgid "Change icon"
-msgstr "Changer d'icone"
-
-msgid "Edit attributes"
-msgstr "Éditer les attributs"
-
-msgid "Edit enum attributes"
-msgstr "Éditer les énumérés"
-
-msgid "Set default values"
-msgstr "Valeurs par défaut"
-
-msgid "Parameters values"
-msgstr "Valeurs des paramètres"
-
-msgid "Rename"
-msgstr "Renommer"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
-
-msgid "Change default folder"
-msgstr "Changer dossier par défaut"
-
-msgid "Change current folder"
-msgstr "Changer dossier courant"
-
-msgid "Choose workflow"
-msgstr "Choisir un cycle"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
 
 #, c-format
 msgid "document #%s not found. Affectation aborded"
@@ -481,6 +429,9 @@ msgstr "disposition sauvée : %s"
 msgid "No identificator"
 msgstr "Pas d'identificateurs"
 
+msgid "Properties"
+msgstr "Propriétés"
+
 msgid "View latest"
 msgstr "révision courante"
 
@@ -512,11 +463,29 @@ msgstr "Déverrouiller"
 msgid "Revise"
 msgstr "Réviser"
 
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
 msgid "Duplicate"
 msgstr "Dupliquer"
 
 msgid "Sure duplicate ?"
 msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Change icon"
+msgstr "Changer d'icone"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
 
 msgid "View XML"
 msgstr "Voir XML"
@@ -552,31 +521,39 @@ msgstr "msgid\t\"workflow_init :: id %s n'est pas un cycle de vie"
 msgid "workflow_init :: workflow id %s not found"
 msgstr "workflow_init :: cycle id %s pas trouvé"
 
+#, c-format
+msgid "Create %s"
+msgstr "Créer %s"
+
+msgid "Edit attributes"
+msgstr "Éditer les attributs"
+
+msgid "Edit enum attributes"
+msgstr "Éditer les énumérés"
+
+msgid "Set default values"
+msgstr "Valeurs par défaut"
+
+msgid "Parameters values"
+msgstr "Valeurs des paramètres"
+
+msgid "Rename"
+msgstr "Renommer"
+
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
+
 msgid "Change root folder"
 msgstr "Changer le dossier racine"
 
 msgid "Change first folder"
 msgstr "Changer le dossier primaire"
 
+msgid "Choose workflow"
+msgstr "Choisir un cycle"
+
 msgid "new familly document"
 msgstr "nouvelle famille de document"
-
-#, c-format
-msgid "Search %s"
-msgstr "Recherche %s"
-
-#, c-format
-msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
-msgstr "Résultats <b>%d</b> - <b>%d</b> pour <b>%s</b> %s"
-
-msgid "document too big : no highlight"
-msgstr "Document trop volumineux : pas de mise en évidence"
-
-msgid "change default folder"
-msgstr "changer le dossier par défaut"
-
-msgid "change current folder"
-msgstr "changer le dossier courant"
 
 #, c-format
 msgid ""
@@ -636,11 +613,11 @@ msgstr "commençant par..."
 msgid "ending"
 msgstr "se terminant par..."
 
-msgid "change first folder"
-msgstr "changer le dossier primaire"
-
 msgid "change root folder"
 msgstr "changer le dossier racine"
+
+msgid "change first folder"
+msgstr "changer le dossier primaire"
 
 msgid "change creation profile"
 msgstr "changer de profil par défaut"
@@ -897,6 +874,17 @@ msgid "rss avaible for users"
 msgstr "Le flux RSS est maintenant accessible pour les utilisateurs"
 
 #, c-format
+msgid "Search %s"
+msgstr "Recherche %s"
+
+#, c-format
+msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
+msgstr "Résultats <b>%d</b> - <b>%d</b> pour <b>%s</b> %s"
+
+msgid "document too big : no highlight"
+msgstr "Document trop volumineux : pas de mise en évidence"
+
+#, c-format
 msgid "<b>%d group(s) to refresh</b>"
 msgstr "<b>%d groupe(s) à actualiser"
 
@@ -924,6 +912,30 @@ msgstr "Nouvelle carte"
 
 msgid "parameters values"
 msgstr "valeurs des paramètres"
+
+msgid "cookies seem to be blocked"
+msgstr "les cookies semblent être bloqués par le navigateur"
+
+#, c-format
+msgid "%s all "
+msgstr "%s tout"
+
+msgid "precise search"
+msgstr "Précisez la recherche"
+
+msgid "next"
+msgstr "suivant"
+
+msgid "prev"
+msgstr "suivant"
+
+#, c-format
+msgid "search  contains %s in all state"
+msgstr "recherche contenant %s (tout état)"
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr "recherche contenant %s dans %s"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -956,26 +968,9 @@ msgstr "Ajout dans dossier %s"
 msgid "related search of %s"
 msgstr "recherche relative de %s"
 
-msgid "precise search"
-msgstr "Précisez la recherche"
-
-msgid "next"
-msgstr "suivant"
-
-msgid "prev"
-msgstr "suivant"
-
 #, c-format
 msgid "Modification for attribute %s for family %s"
 msgstr "Modification de l'attribut %s de la famille %s"
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr "recherche contenant %s (tout état)"
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr "recherche contenant %s dans %s"
 
 #, c-format
 msgid "search %s is %s"
@@ -985,12 +980,9 @@ msgstr "recherche %s est %s"
 msgid "search %s is %s in %s"
 msgstr "recherche %s est %s dans %s"
 
-msgid "cookies seem to be blocked"
-msgstr "les cookies semblent être bloqués par le navigateur"
-
 #, c-format
-msgid "%s all "
-msgstr "%s tout"
+msgid "Family (#%s) not exists"
+msgstr "La famille (n°%s) n'existe pas"
 
 msgid "Family is not instanciate"
 msgstr "La famille n'est pas instanciée"
@@ -1475,6 +1467,9 @@ msgstr "changement d'état"
 msgid "edit default folder"
 msgstr "éditer dossier par défaut"
 
+msgid "change default folder"
+msgstr "changer le dossier par défaut"
+
 msgid "choose workflow"
 msgstr "choisir un cycle"
 
@@ -1644,6 +1639,12 @@ msgstr "mode de vues par familles"
 msgid "split view mode by family"
 msgstr "mode de découpage par famille"
 
+msgid "view tab letter by family"
+msgstr "voir les onglets alphabetiques par famille"
+
+msgid "search in inherited family by family"
+msgstr "recherche dans les familles héritées par famille"
+
 msgid "default sort by family"
 msgstr "tri par défaut par famille"
 
@@ -1688,6 +1689,12 @@ msgstr "supprimer"
 
 msgid "add category"
 msgstr "ajout de catégorie"
+
+msgid "edit family preference"
+msgstr "éditer les préférences par familles"
+
+msgid "modify family preference"
+msgstr "modifier les préférences par familles"
 
 msgid "change king in enum attribute"
 msgstr "changer la catégorie d'un attribut énuméré"
@@ -1886,57 +1893,6 @@ msgstr "Préférés"
 
 msgid "main view columns"
 msgstr "Vue principale"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "Document basket"
-msgstr "Porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
 
 msgid "document creation"
 msgstr "Création du document"
@@ -2175,6 +2131,63 @@ msgstr "nouvelle %s"
 msgid "confidential document"
 msgstr "document confidentiel"
 
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "Document basket"
+msgstr "Porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
 msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
@@ -2409,12 +2422,6 @@ msgstr "vers privé"
 
 msgid "Twprocess_public"
 msgstr "vers public"
-
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
 
 #, c-format
 msgid "%s attribute"
@@ -2840,15 +2847,6 @@ msgstr "Ou télécharger un nouvel icone"
 msgid "Detail Permissions"
 msgstr "Détail des droits"
 
-msgid "no folder"
-msgstr "pas de dossier"
-
-msgid "Validate"
-msgstr "Valider"
-
-msgid "Create New"
-msgstr "Créer un nouveau"
-
 msgid "Creation"
 msgstr "Création"
 
@@ -2978,6 +2976,9 @@ msgstr "contrainte"
 msgid "options"
 msgstr "options"
 
+msgid "Validate"
+msgstr "Valider"
+
 msgid "keyword"
 msgstr "mot-clef"
 
@@ -3031,6 +3032,12 @@ msgstr " famille"
 
 msgid " view files"
 msgstr "afficher les fichiers attachés"
+
+msgid "no folder"
+msgstr "pas de dossier"
+
+msgid "Create New"
+msgstr "Créer un nouveau"
 
 msgid "profile access"
 msgstr "Profil d'accès"
@@ -3466,11 +3473,17 @@ msgstr "Actualiser les groupes"
 msgid "Generic Management"
 msgstr "Gestion générique"
 
+msgid "Send search"
+msgstr "Lancer la recherche"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "toedit"
+msgstr "éditer"
+
 msgid "Sort"
 msgstr "Tri"
-
-msgid "All document"
-msgstr "tous les documents"
 
 msgid "invert order"
 msgstr "ordre inverse"
@@ -3621,8 +3634,17 @@ msgstr "Nouvelle catégorie"
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
 
-msgid "toedit"
-msgstr "éditer"
+msgid "Family preferences"
+msgstr "Préférences des familles"
+
+msgid "Preferences for"
+msgstr "Préférences pour"
+
+msgid "View tab letters"
+msgstr "Voir les onglets alphabétiques"
+
+msgid "View inherit family"
+msgstr "Voir les familles dérivées"
 
 msgid "set as first family view"
 msgstr "enregistrer la famille comme la première à voir"
@@ -3783,18 +3805,6 @@ msgstr "fichier VCS"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
-msgid "Familly Document"
-msgstr "Famille de document"
-
-msgid "created profile"
-msgstr "Profil crée"
-
-msgid "created control view"
-msgstr "contrôle de vue de création"
-
-msgid "current folder"
-msgstr "dossier courant"
-
 msgid "fromdate"
 msgstr "date de début"
 
@@ -3946,6 +3956,12 @@ msgstr "Affecter"
 msgid "Confirm"
 msgstr "Confirmez"
 
+msgid "Change default folder"
+msgstr "Changer dossier par défaut"
+
+msgid "Change current folder"
+msgstr "Changer dossier courant"
+
 msgid "delconfirm"
 msgstr "Voulez-vous supprimer"
 
@@ -3975,6 +3991,15 @@ msgstr "mini vue"
 
 msgid "post it"
 msgstr "post-it"
+
+msgid "Familly Document"
+msgstr "Famille de document"
+
+msgid "created profile"
+msgstr "Profil crée"
+
+msgid "created control view"
+msgstr "contrôle de vue de création"
 
 msgid "first folder"
 msgstr "Dossier primaire"
@@ -4252,6 +4277,15 @@ msgstr "Personnel"
 
 msgid "Complete view"
 msgstr "Vue complète"
+
+#~ msgid "change current folder"
+#~ msgstr "changer le dossier courant"
+
+#~ msgid "All document"
+#~ msgstr "tous les documents"
+
+#~ msgid "current folder"
+#~ msgstr "dossier courant"
 
 #~ msgid "My document basket"
 #~ msgstr "Mon porte-document"

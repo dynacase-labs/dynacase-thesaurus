@@ -28,8 +28,8 @@ span.view {
 [IF viewinh] [TEXT:View inherit family] : <input type="checkbox" [inhcheck] name="inherit" value="1"><i> ([ftitle])</i>[ENDIF viewinh]
 </td></tr>
 <tr><td align="right">
-<input type="reset" onclick="document.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_TAB&tab=0&dirid=[dirid]&famid=[famid]'" value="[TEXT:Cancel]">
 <input type="submit" value="[TEXT:Save]">
+<input type="reset" onclick="document.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_TAB&tab=0&dirid=[dirid]&famid=[famid]'" value="[TEXT:Cancel]">
 </td></tr></table>
 </form>
 

@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.27 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: generic_list.php,v 1.28 2007/05/07 09:56:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,6 +28,7 @@ function generic_list(&$action) {
   $tab=GetHttpVars("tab","0"); // tab to see 1 for ABC, 2 for DEF, ...
   $onglet=GetHttpVars("onglet"); // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
+  $clearkey=(GetHttpVars("clearkey","N")=="Y"); // delete last user key search
   setHttpVar("target","finfo" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
@@ -53,7 +54,6 @@ function generic_list(&$action) {
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
   $action->lay->Set("famid",$famid);
-  $action->lay->set("tkey",getDefUKey($action));
   $slice = $action->GetParam("CARD_SLICE_LIST",5);
   //  $action->lay->Set("next",$start+$slice);
   //$action->lay->Set("prev",$start-$slice);
@@ -117,6 +117,11 @@ function generic_list(&$action) {
   }
   
   $action->lay->Set("onglet", $wonglet?"Y":"N");
+
+  if ($clearkey)  $action->parent->param->Set("GENE_LATESTTXTSEARCH",
+					      setUkey($action,$famid,$keyword),PARAM_USER.$action->user->id,
+					      $action->parent->id);
+  $action->lay->set("tkey",getDefUKey($action));
 }
 
 
