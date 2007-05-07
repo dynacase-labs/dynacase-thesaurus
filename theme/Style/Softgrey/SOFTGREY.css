@@ -1,0 +1,10 @@
+input {
+  -moz-border-radius:0px;
+}
+
+input[type="submit"],input[type="button"],BUTTON,nput[type="select"],input[type="reset"] {
+  -moz-border-radius:0px;
+}
+input[type="text"],TEXTAREA {
+  -moz-border-radius:0px 0px 0px 0px;
+}
