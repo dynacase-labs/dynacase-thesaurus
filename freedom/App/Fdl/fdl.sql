@@ -227,13 +227,16 @@ create or replace function fulltext()
 returns trigger as '
 declare 
 begin
+   if (NEW.values != OLD.values) then
   begin
+
    NEW.fulltext := setweight(to_tsvector(''fr'',NEW.title), ''A'')|| to_tsvector(''fr'',replace(NEW.values,''£'','' ''));
 	
      EXCEPTION
 	 WHEN OTHERS THEN
 	    RAISE NOTICE ''Error %'',NEW.id;
    end;
+   end if;
 return NEW;
 END;
 ' language 'plpgsql';
