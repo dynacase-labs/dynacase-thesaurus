@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.66 2007/04/12 12:28:38 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.67 2007/05/07 15:48:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,6 +67,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 
   $phpAdoc->Set("sattr","");
     
+  $phpAdoc->set("hasattr",false);
   if ($query->nb > 0)	{
 
     $tmenu=array();
@@ -240,6 +241,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     reset( $tattr);
     $phpAdoc->SetBlockData("ATTRFIELD", $tattr);
 
+    $phpAdoc->set("hasattr",(count($tattr)>0));
     $phpAdoc->SetBlockData("ACALC", $tcattr);
 
     

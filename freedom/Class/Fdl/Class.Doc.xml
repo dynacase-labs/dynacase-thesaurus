@@ -54,8 +54,9 @@ if not NEW.[attrid] isnull then
   NEW.values := NEW.values || ''£'' || NEW.[attrid];
   NEW.attrids := NEW.attrids || ''£'' || ''[attrid]'';
 end if;[ENDBLOCK ATTRFIELD2]
+[IF hasattr]
 NEW.values := NEW.values || ''£'';
-NEW.attrids := NEW.attrids || ''£'';
+NEW.attrids := NEW.attrids || ''£'';[ENDIF hasattr]
   return NEW;
 end;
 ' LANGUAGE 'plpgsql'; "; // sql trigger
