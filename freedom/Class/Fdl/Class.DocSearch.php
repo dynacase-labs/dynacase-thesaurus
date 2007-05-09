@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.38 2007/04/26 10:05:34 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.39 2007/05/09 13:28:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -125,47 +125,122 @@ Class DocSearch extends PDocSearch {
 	$this->setValue("se_orderby","rank(fulltext,to_tsquery('fr','$keys')) desc");
       }
     } else {
-    $op= ($sensitive)?'~':'~*';
-    //    $filters[] = "usefor != 'D'";
-    $keyword= pg_escape_string($keyword);
-    $keyword= str_replace("^","£",$keyword);
-    $keyword= str_replace("$","\0",$keyword);
-    if (strtolower(substr($keyword,0,5))=="::get") { // only get method allowed
-      // it's method call
-      $keyword = $this->ApplyMethod($keyword);
-      $filters[] = "values $op '$keyword' ";
-    } else if ($keyword != "") {
-      // transform conjonction
-      $tkey=explode(" ",$keyword);
-	  $ing=false;
-      foreach ($tkey as $k=>$v) {
-	if ($ing) {
-	  if ($v[strlen($v)-1]=='"') {
-	    $ing=false;
-	    $ckey.=" ".substr($v,0,-1);
-	    $filters[] = "values $op '$ckey' ";	    
+      $op= ($sensitive)?'~':'~*';
+      //    $filters[] = "usefor != 'D'";
+      $keyword= pg_escape_string($keyword);
+      $keyword= str_replace("^","£",$keyword);
+      $keyword= str_replace("$","\0",$keyword);
+      if (strtolower(substr($keyword,0,5))=="::get") { // only get method allowed
+	// it's method call
+	$keyword = $this->ApplyMethod($keyword);
+	$filters[] = "values $op '$keyword' ";
+      } else if ($keyword != "") {
+	// transform conjonction
+	$tkey=explode(" ",$keyword);
+	$ing=false;
+	foreach ($tkey as $k=>$v) {
+	  if ($ing) {
+	    if ($v[strlen($v)-1]=='"') {
+	      $ing=false;
+	      $ckey.=" ".substr($v,0,-1);
+	      $filters[] = "values $op '$ckey' ";	    
+	    } else {
+	      $ckey.=" ".$v;
+	    }
+	  } else if ($v[0]=='"') {
+	    if ($v[strlen($v)-1]=='"') {	    
+	      $ckey=substr($v,1,-1);
+	      $filters[] = "values $op '$ckey' ";	  
+	    } else {
+	      $ing=true;
+	      $ckey=substr($v,1);
+	    }
 	  } else {
-	    $ckey.=" ".$v;
+	    $filters[] = "values $op '$v' ";	  
 	  }
-	} else if ($v[0]=='"') {
-	  if ($v[strlen($v)-1]=='"') {	    
-	    $ckey=substr($v,1,-1);
-	    $filters[] = "values $op '$ckey' ";	  
-	  } else {
-	    $ing=true;
-	    $ckey=substr($v,1);
-	  }
-	} else {
-	  $filters[] = "values $op '$v' ";	  
 	}
       }
-    }
-    }
-
-   
+    }   
     return $filters;
   }
 
+  /**
+   * return sqlfilters for a simple query in fulltext mode
+   * @param string $keyword the word(s) searched
+   */
+  static function getFullSqlFilters($keyword,&$sqlfilters,&$sqlorder,&$fullkeys) {
+    $pspell_link = pspell_new("fr","","","iso8859-1",PSPELL_FAST);
+    $tstatickeys=explode('"',$keyword);
+    $tkeybrut=array();
+    $tsearchkeys=array();
+    $tkeys=array();
+    $sqlfilters=array();
+    if (count($tstatickeys) > 2) {
+      //each odd
+      $keyword="";
+      foreach ($tstatickeys as $k=>$v) {
+	if (($k%2) == 1) {
+	  $tkeybrut[]=$v;
+	 
+	  $keyword.= " (\"".str_replace(" ","&",trim($v))."\")";
+	} else {
+	  $keyword.= " ".trim($v);
+	}
+      }
+      
+    }
+
+    $keyword=preg_replace('/\s+(OR)\s+/','|',$keyword);
+    $tkeys=explode(" ",$keyword);
+    
+    $sqlfiltersbrut=array();
+    foreach ($tkeys as $k=>$key) {
+      $key=trim($key);
+      if ($key) { 
+	$tsearchkeys[$k]=$key;
+	if ((!is_numeric($key)) && (strstr($key, '|')===false) && (strstr($key, '&')===false) && (ord($key[0])>47) && (!pspell_check($pspell_link, $key))) {
+	  $suggestions = pspell_suggest($pspell_link, $key);
+	  $sug=$suggestions[0];
+	  //foreach ($suggestions as $k=>$suggestion) {  echo "$k : $suggestion\n";  }
+	  if ($sug && (!strstr($sug,' '))) $tsearchkeys[$k]="$key|$sug";
+	} 
+	if (strstr($key, '"')!==false) {
+	  // add more filter for search complete and exact expression
+	  if (strstr($key, '|')===false) {
+	    $sqlfiltersbrut[]="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+									      array("",' ','',''),$key))."\\\\y' ";
+	  } else {
+	    list($left,$right)=explode("|",$key);
+	    if (strstr($left,'"')!==false) $q1="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+										      array("",' ','',''),$left))."\\\\y' ";
+	    else $q1="";
+	    if (strstr($right,'"')!==false) $q2="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+									      array("",' ','',''),$right))."\\\\y' ";
+	    else $q2="";
+	    $q3="fulltext @@ to_tsquery('fr','$left') ";
+	    $q4="fulltext @@ to_tsquery('fr','$right') ";
+
+	    if ((!$q1) && $q2) $sqlfiltersbrut[]="($q4 and $q2) or $q3";
+	    elseif ((!$q2) && $q1) $sqlfiltersbrut[]="($q3 and $q1) or $q4";
+	    elseif ($q2 && $q1) $sqlfiltersbrut[]="($q3 and $q1) or ($q4 and $q2)";
+	    
+
+	  }
+	}
+      }
+    }
+
+
+    if (count($tsearchkeys)>0) {
+      $fullkeys='('.implode(")&(",$tsearchkeys).')';  
+      $fullkeys=pg_escape_string($fullkeys);
+      $sqlfilters[]="fulltext @@ to_tsquery('fr','$fullkeys') ";
+    }
+    if (count($sqlfiltersbrut)>0) $sqlfilters=array_merge($sqlfilters,$sqlfiltersbrut);
+    $sqlorder="rank(fulltext,to_tsquery('fr','$fullkeys')) desc";
+  }
+
+  
   function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
     if ($dirid > 0) {
       if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);

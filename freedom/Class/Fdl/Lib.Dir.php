@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.126 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.127 2007/05/09 13:28:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,11 +65,10 @@ function isSimpleFilter($sqlfilters) {
     $props=$d->fields;
     $props=array_merge($props,$d->sup_fields);
   }
-  
   foreach ($sqlfilters as $k=>$v) {
     $tok = strtok($v," !=~");
     //if ($tok == "fulltext") return true;
-    if (($tok !== false) && (!in_array($tok,$props))) return false;
+    if (($tok !== false) && (!in_array(ltrim($tok,"("),$props))) return false;
   }
   return true;
     
@@ -410,7 +409,7 @@ function getChildDoc($dbaccess,
 	      $tretdocs[]=$tableq;
 	  } else $tretdocs=array_merge($tretdocs,$tableq);
 	}
-	//	print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
+		print "<HR><br><div style=\"border:red 1px inset;background-color:lightyellow;color:black\">".$query->LastQuery; print " - $qtype<B> ".sprintf("%.03fs",microtime_diff(microtime(),$mb))."</B></div>";
 
       } else {
 	// error in query          

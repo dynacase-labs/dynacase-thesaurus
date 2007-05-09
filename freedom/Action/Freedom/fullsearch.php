@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.5 2007/05/03 16:38:04 eric Exp $
+ * @version $Id: fullsearch.php,v 1.6 2007/05/09 13:28:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,6 +15,7 @@
 
 
 include_once("FDL/Lib.Dir.php");
+include_once("FDL/Class.DocSearch.php");
 
 include_once("FDL/freedom_util.php");  
 
@@ -47,75 +48,53 @@ function fullsearch(&$action) {
 
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
     return;
-  } else {
-    $pspell_link = pspell_new("fr","","","iso8859-1",PSPELL_FAST);
-    $tkeys=explode(" ",$keyword);
-    foreach ($tkeys as $k=>$key) {
-      $key=trim($key);
-      if ($key) { 
-	$tsearchkeys[$k]=$key;
-	if ((!is_numeric($key)) && (!pspell_check($pspell_link, $key))) {
-	  $suggestions = pspell_suggest($pspell_link, $key);
-	  $sug=$suggestions[0];
-	  //foreach ($suggestions as $k=>$suggestion) {  echo "$k : $suggestion\n";  }
-	  if ($sug && (!strstr($sug,' '))) $tsearchkeys[$k]="$key|$sug";
-	}    
-      }
+  } else {    
+    DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
+    $slice=10;
+    $tdocs=getChildDoc($dbaccess, 0, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
+
+    $workdoc=new Doc($dbaccess);
+    if ($famid) $famtitle=$workdoc->getTitle($famid);
+    else $famtitle="";
+    $dbid=getDbid($dbaccess);
+    foreach ($tdocs as $k=>$tdoc) {
+      $tdocs[$k]["htext"]=nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80)));
+      $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
+      $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
     }
-  }
 
-
-  $keys='('.implode(")&(",$tsearchkeys).')';
-  
-  $slice=10;
-
-  $keys=pg_escape_string($keys);
-  $sqlfilters[]="fulltext @@ to_tsquery('fr','$keys') ";
-  $orderby="rank(fulltext,to_tsquery('fr','$keys')) desc";
-  $tdocs=getChildDoc($dbaccess, 0, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
-
-  $workdoc=new Doc($dbaccess);
-  if ($famid) $famtitle=$workdoc->getTitle($famid);
-  else $famtitle="";
-  $dbid=getDbid($dbaccess);
-  foreach ($tdocs as $k=>$tdoc) {
-    $tdocs[$k]["htext"]=nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80)));
-    $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
-    $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
-  }
-
-  if ($start > 0) {
-    for ($i=0;$i<$start;$i+=$slice) {
-      $tpages[]=array("xpage"=>$i/$slice+1,
-		      "xstart"=>$i);
-    }    
+    if ($start > 0) {
+      for ($i=0;$i<$start;$i+=$slice) {
+	$tpages[]=array("xpage"=>$i/$slice+1,
+			"xstart"=>$i);
+      }    
     
-    $action->lay->setBlockData("PAGES",$tpages);
+      $action->lay->setBlockData("PAGES",$tpages);
+    }
+
   }
 
+    $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");
 
 
-  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");
+    foreach ($tclassdoc as $k=>$cdoc) {
+      $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+      $selectclass[$k]["classname"]=$cdoc["title"];
+      $selectclass[$k]["famselect"]=($cdoc["initid"]==$famid)?"selected":"";
+    }  
+    $action->lay->SetBlockData("SELECTCLASS", $selectclass);
 
-
-  foreach ($tclassdoc as $k=>$cdoc) {
-    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
-    $selectclass[$k]["classname"]=$cdoc["title"];
-    $selectclass[$k]["famselect"]=($cdoc["initid"]==$famid)?"selected":"";
-  }  
-  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
-
-  $action->lay->set("notfirst",($start!=0));
-  $action->lay->set("notthenend",count($tdocs) >= $slice);
-  $action->lay->set("start",$start);
-  $action->lay->set("cpage",$start/$slice+1);
-  $action->lay->set("nstart",$start+$slice);
-  $action->lay->set("pstart",$start-$slice);
-  $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
-  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
-  $action->lay->set("key",$keyword);
-  $action->lay->setBlockData("DOCS",$tdocs);
-}
+    $action->lay->set("notfirst",($start!=0));
+    $action->lay->set("notthenend",count($tdocs) >= $slice);
+    $action->lay->set("start",$start);
+    $action->lay->set("cpage",$start/$slice+1);
+    $action->lay->set("nstart",$start+$slice);
+    $action->lay->set("pstart",$start-$slice);
+    $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
+    $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
+    $action->lay->set("key",str_replace("\"","&quot;",$keyword));
+    $action->lay->setBlockData("DOCS",$tdocs);
+  }
 
 function highlight_text($dbid,&$s,$k) {
 
