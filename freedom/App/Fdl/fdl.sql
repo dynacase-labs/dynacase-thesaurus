@@ -422,6 +422,25 @@ return NEW;
 end;
 ' language 'plpgsql';
 
+create or replace function fromfld() 
+returns trigger as '
+declare 
+  rs record;
+  a_fromid int;
+  a_doctype char;
+begin
+  select into a_fromid fromid from docfrom where id=NEW.childid;
+  if (a_fromid > 0)  then
+    FOR rs IN EXECUTE ''select fromid,doctype from only doc'' || a_fromid || ''  where id= '' || NEW.childid || ''and doctype != ''''Z'''''' LOOP   
+    END LOOP;
+    NEW.fromid=rs.fromid;
+    NEW.doctype=rs.doctype;
+  end if;
+
+  return NEW;
+end;
+' language 'plpgsql';
+
 create or replace function reldocfld() 
 returns trigger as '
 declare 

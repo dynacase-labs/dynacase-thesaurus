@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.127 2007/05/09 13:28:57 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.128 2007/05/09 15:42:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,12 +45,12 @@ function getChildDir($dbaccess, $userid, $dirid, $notfldsearch=false, $restype="
   // search classid and appid to test privilege
     if ($notfldsearch) {
       // just folder no serach
-      return  getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,2);
+      return  getChildDoc($dbaccess,$dirid,"0","ALL",array(),$userid,$restype,2,false,"title");
     } else {
       // with folder and searches
       
-      return  array_merge(getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='D'"),$userid,$restype,2),
-			  getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='S'"),$userid,$restype,5));
+      return  array_merge(getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='D'"),$userid,$restype,2,false,"title"),
+			  getChildDoc($dbaccess,$dirid,"0","ALL",array("doctype='S'"),$userid,$restype,5,false,"title"));
       
     }
       
@@ -175,17 +175,34 @@ function getSqlSearchDoc($dbaccess,
 	  "where  $sqlcond ";
       } else {
 	$sqlfld="dirid=$dirid";
-	if ($table=="docread") {
-	$qsql= "select $selectfields ".
-	  "from $table where initid in (select childid from fld where $sqlfld)  ".
-	  "and  $sqlcond ";
-	  
-	} else {
-	$qsql= "select $selectfields ".
-	  "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
-	  "where  $sqlcond ";
-	}
+	if ($fromid==2) $sqlfld.= " and doctype='D'";
+	if ($fromid==5) $sqlfld.= " and doctype='S'";
 
+	$q = new QueryDb($dbaccess,"QueryDir");
+	$q->AddQuery($sqlfld);
+	$tfld=$q->Query(0,0,"TABLE");
+	if ($q->nb > 0) {
+	  foreach ($tfld as $onefld) {
+	    $tfldid[]=$onefld["childid"];
+	  }
+	  $sfldids=implode(",",$tfldid);
+
+	  if ($table=="docread") {  
+	    /*$qsql= "select $selectfields ".
+	      "from $table where initid in (select childid from fld where $sqlfld)  ".
+	      "and  $sqlcond ";	*/
+	    $qsql= "select $selectfields ".
+	      "from $table where initid in ($sfldids)  ".
+	      "and  $sqlcond ";	
+	  } else {
+	    /*$qsql= "select $selectfields ".
+	     "from (select childid from fld where $sqlfld) as fld2 inner join $table on (initid=childid)  ".
+	     "where  $sqlcond ";*/
+	    $qsql= "select $selectfields ".
+	      "from $table where initid in ($sfldids)  ".
+	      "and  $sqlcond ";	
+	  }
+	}
 	//$qsql= "select $selectfields "."from $table where $dirid = any(fldrels) and  "."  $sqlcond ";
       }      
     } else {
@@ -642,8 +659,12 @@ function isInDir($dbaccess, $dirid, $docid) {
   return ($query->nb > 0);
 }
 
+/** 
+ * return true if dirid has one or more child dir
+ * @param string $dbaccess database specification
+ * @param int $dirid folder id
+ */
 function hasChildFld($dbaccess, $dirid,$issearch=false) {
-  // return true id dirid has one or more child dir
     
   if ($issearch) {
     $query = new QueryDb($dbaccess,"QueryDir");  
@@ -665,30 +686,13 @@ function hasChildFld($dbaccess, $dirid,$issearch=false) {
     $qfld = new QueryDb($dbaccess,"QueryDir");  
     $qfld->AddQuery("qtype='S'");
     $qfld->AddQuery("fld.dirid=$dirid");
-    $lq=$qfld->Query(0,0,"TABLE");
+    $qfld->AddQuery("doctype='D' or doctype='S'");
+    $lq=$qfld->Query(0,1,"TABLE");
+    print $qfld->LastQuery;
     $qids=array();
     if (! is_array($lq)) return false;
-
-    $query = new QueryDb($dbaccess,"QueryDir");
-    if ($qfld->nb > 100) {  	
-      $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc2 where fld.dirid=$dirid and childid=doc2.id limit 1");
-      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
-      $count = $query->Query(0,0,"TABLE", "select count(*) from fld, doc5 where fld.dirid=$dirid and childid=doc5.id limit 1");
-      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
-    } else {
-      // optimize if not many document
-      foreach ($lq as $v) {
-	$qids[]=$v["childid"];
-      }
-      $lfldid=GetSqlCond($qids,"id",true);    
-
-      $count = $query->Query(0,0,"TABLE", "select count(*) from doc2 where $lfldid  limit 1");
-
-      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
-
-      $count = $query->Query(0,0,"TABLE", "select count(*) from doc5 where $lfldid  limit 1");
-      if (($query->nb > 0) && ($count[0]["count"] > 0)) return true;
-    }
+    return ($qfld->nb > 0);
+    
   }
   return false;
 }
