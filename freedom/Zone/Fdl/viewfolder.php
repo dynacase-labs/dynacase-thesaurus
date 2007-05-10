@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.82 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: viewfolder.php,v 1.83 2007/05/10 13:04:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -143,7 +143,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       usort($ldoc,"orderbyfromid");
       $tfamdoc=array();
     } else {
-      if ((GetHttpVars("sqlorder")=="")&&($slice > 999)) uasort($ldoc,"orderbytitle");
+      if ((GetHttpVars("sqlorder")=="")&&($slice >= $action->GetParam("FDL_FOLDERMAXITEM",1000))) uasort($ldoc,"orderbytitle");
     }
 
     $doc = createDoc($dbaccess,$famid,false);
