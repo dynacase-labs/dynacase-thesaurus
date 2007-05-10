@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.128 2007/05/09 15:42:30 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.129 2007/05/10 13:01:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -14,6 +14,7 @@
 
 include_once('FDL/Class.Dir.php');
 include_once('FDL/Class.DocSearch.php');
+include_once('FDL/Class.DocRead.php');
 include_once('FDL/Class.DocFam.php');
 
 function getFirstDir($dbaccess) {
@@ -383,10 +384,16 @@ function getChildDoc($dbaccess,
   if ($tqsql) {
     foreach ($tqsql as $qsql) {
       if ($qsql != false) {
+	if ($fromid>0) $fdoc=createDoc($dbaccess,$fromid,false);
+	else $fdoc=new DocRead($dbaccess);
+	$sqlfields=implode(", ",array_merge($fdoc->fields,$fdoc->sup_fields));
 	if ($userid > 1) { // control view privilege
 	  $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
 	  // and get permission
-	  $qsql = str_replace("* from ","* ,getuperm($userid,profid) as uperm from ",$qsql);
+	  $qsql = str_replace("* from ","$sqlfields ,getuperm($userid,profid) as uperm from ",$qsql);
+	} else {
+	  
+	  $qsql = str_replace("* from ","$sqlfields  from ",$qsql);
 	}
 
 	if ((!$distinct) && strstr($qsql,"distinct")) $distinct=true;
@@ -663,6 +670,7 @@ function isInDir($dbaccess, $dirid, $docid) {
  * return true if dirid has one or more child dir
  * @param string $dbaccess database specification
  * @param int $dirid folder id
+ * @return bool
  */
 function hasChildFld($dbaccess, $dirid,$issearch=false) {
     
@@ -688,7 +696,7 @@ function hasChildFld($dbaccess, $dirid,$issearch=false) {
     $qfld->AddQuery("fld.dirid=$dirid");
     $qfld->AddQuery("doctype='D' or doctype='S'");
     $lq=$qfld->Query(0,1,"TABLE");
-    print $qfld->LastQuery;
+
     $qids=array();
     if (! is_array($lq)) return false;
     return ($qfld->nb > 0);
