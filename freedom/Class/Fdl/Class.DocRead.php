@@ -3,7 +3,7 @@
  * History log for document
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRead.php,v 1.3 2007/04/27 16:40:34 eric Exp $
+ * @version $Id: Class.DocRead.php,v 1.4 2007/05/10 13:02:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -95,8 +95,7 @@ create index full_docread on docread using gist(fulltext);";
 			   "ldapdn");
 
   public $sup_fields= array("values",
-			    "attrids",
-			    "fulltext"); // not be in fields else trigger error
+			    "attrids"); // not be in fields else trigger error
 
 }
 ?>

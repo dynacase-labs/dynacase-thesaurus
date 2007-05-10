@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.375 2007/05/07 15:48:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.376 2007/05/10 13:02:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -82,8 +82,7 @@ Class Doc extends DocCtrl
 			   "ldapdn");
 
   public $sup_fields= array("values",
-			    "attrids",
-			    "fulltext"); // not be in fields else trigger error
+			    "attrids"); // not be in fields else trigger error
 
   /**
    * identificator of the document
