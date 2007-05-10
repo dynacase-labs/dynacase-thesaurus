@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.39 2007/05/09 13:28:57 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.40 2007/05/10 13:03:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -114,16 +114,9 @@ Class DocSearch extends PDocSearch {
     } 
    
     if ($full) {
-      $tkey=explode(" ",$keyword);
-      $outkey=array();
-      foreach ($tkey as $k=>$v) {
-	if (trim($v))	$outkey[$k]=trim($v);
-      }
-      if (count($outkey) > 0) {
-	$keys=pg_escape_string(implode("&",$tkey));
-	$filters[] = "fulltext @@ to_tsquery('fr','$keys') ";
-	$this->setValue("se_orderby","rank(fulltext,to_tsquery('fr','$keys')) desc");
-      }
+      $this->getFullSqlFilters($keyword,$sqlfilters,$order,$tkeys);
+      $filters=array_merge($filters,$sqlfilters);
+      $this->setValue("se_orderby",$order);
     } else {
       $op= ($sensitive)?'~':'~*';
       //    $filters[] = "usefor != 'D'";
@@ -160,6 +153,7 @@ Class DocSearch extends PDocSearch {
 	  }
 	}
       }
+      $this->setValue("se_orderby"," ");
     }   
     return $filters;
   }
@@ -167,6 +161,9 @@ Class DocSearch extends PDocSearch {
   /**
    * return sqlfilters for a simple query in fulltext mode
    * @param string $keyword the word(s) searched
+   * @param array &$sqlfilters return array of sql conditions
+   * @param string &$sqlorder return sql order by
+   * @param string &$fullkeys return tsearch2 keys for use it in headline sql function 
    */
   static function getFullSqlFilters($keyword,&$sqlfilters,&$sqlorder,&$fullkeys) {
     $pspell_link = pspell_new("fr","","","iso8859-1",PSPELL_FAST);
@@ -222,9 +219,7 @@ Class DocSearch extends PDocSearch {
 
 	    if ((!$q1) && $q2) $sqlfiltersbrut[]="($q4 and $q2) or $q3";
 	    elseif ((!$q2) && $q1) $sqlfiltersbrut[]="($q3 and $q1) or $q4";
-	    elseif ($q2 && $q1) $sqlfiltersbrut[]="($q3 and $q1) or ($q4 and $q2)";
-	    
-
+	    elseif ($q2 && $q1) $sqlfiltersbrut[]="($q3 and $q1) or ($q4 and $q2)";	    
 	  }
 	}
       }
@@ -252,10 +247,10 @@ Class DocSearch extends PDocSearch {
     $full=true;
     $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive,$full);
     if ($full) {
-      if ($famid > 0)  $filters[]="fromid=".intval($famid); // here function to retrieve descendants
+      //if ($famid > 0)  $filters[]="fromid=".intval($famid); // here function to retrieve descendants
     }
 
-    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"),true);
+    $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"));
     return $query;
   }
 
