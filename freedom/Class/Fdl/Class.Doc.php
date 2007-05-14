@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.377 2007/05/14 08:59:22 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.378 2007/05/14 13:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2767,19 +2767,20 @@ final public function PostInsert()  {
   // change icon for a class or a simple doc
   final public function changeIcon($icon) {
 
-    if ($this->doctype == "C") { //  a class
-      $fromid=$this->initid;
+    if ($this->doctype == "C") { //  a class	
+      if ($this->icon!="") {
+	$fromid=$this->initid;
 
-      // need disabled triggers to increase speed
-      $qt[]="begin";
-      $qt[]="ALTER TABLE doc$fromid DISABLE TRIGGER ALL";
-      $qt[]="update doc$fromid set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
-      $qt[]="ALTER TABLE doc$fromid ENABLE TRIGGER ALL";
-      $qt[]="update docread set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
-      $qt[]="commit";
+	// need disabled triggers to increase speed
+	$qt[]="begin";
+	$qt[]="ALTER TABLE doc$fromid DISABLE TRIGGER ALL";
+	$qt[]="update doc$fromid set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
+	$qt[]="ALTER TABLE doc$fromid ENABLE TRIGGER ALL";
+	$qt[]="update docread set icon='$icon' where (fromid=".$fromid.") AND (doctype != 'C') and ((icon='".$this->icon."') or (icon is null))";
+	$qt[]="commit";
 
-      $this->exec_query(implode(";",$qt));  
-
+	$this->exec_query(implode(";",$qt));  
+      }
     } 
     //    $this->title = AddSlashes($this->title);
     $this->icon = $icon;
