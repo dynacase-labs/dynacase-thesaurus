@@ -31,13 +31,16 @@ function hideShowToolbar(imbut) {
 } 
 </script>
 
-<form style="display:none" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
-<form style="display:none" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
+<form style="display:inline" id="f_initress" target="wgcal_toolbar" name="initress" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_INITRESSOURCES"></form>
+<form style="display:inline" id="ftoolsvis" target="wgcal_hidden" name="ftoolsvis" method="POST" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_SETTOOLSTATE"><input id="toolsvis" name="toolsvis" type="hidden" value=""></form>
+
+<div>
+
 <div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
-<table width="100%" cellspacing="0"><tr>
-<td align="center"><img src="[IMG:wm-reloadsync.gif]" height="16px">
-<td align="center"><div><span style="font-weight:bold">[owner]</span>&nbsp;<span id="todaydate" style="font-size:80%">--</span></div>
-[IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]</td></tr></table>
+<img src="[IMG:wm-reloadsync.gif]" style="height:16px; float:left">
+<div style="font-weight:bold"><span>[owner]</span>&nbsp;<span id="todaydate" style="font-size:80%">--</span></div>
+[IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]
+
 </div>
 
 <!-- Rendez-vous en attente -->
@@ -98,19 +101,19 @@ function hideShowToolbar(imbut) {
 </td>
 </tr>
 </table>
+
 <iframe id="icalselframe" style="border:0px; width:100%; height:100px; position:relative; display:none; visibility:hidden;" src="about:blank">
 </iframe>
 
-<div id="vcals"  class="wToolArea" style="overflow:auto;" >
-<table style="border:0px; margin:0px; padding:0px; width:100%;" cellspacing="0" cellpadding="0">
-<thead></thead>
-<tbody id="tabress">
-<tr style="display:none; border:0px;" id="trsample">
-<td style="width:10px; border:0px">
-<span style="display:none" id="rdesc%RID%">%RDESCR%</span>
-<input type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="setCurrentAgenda('%RID%');" />
+<div id="vcals"  class="wToolArea">
+<table style="border:0px; margin:0px; padding:0px; width:[IF ISIE]95[ENDIF ISIE][IFNOT ISIE]100[ENDIF ISIE]%;" cellspacing="0" cellpadding="0">
+<tbody style="border:0px; margin:0px; padding:0px;" id="tabress">
+<tr style="display:none;" id="trsample">
+<td>
+<span style="display:none;" id="rdesc%RID%">%RDESCR%</span>
+<input style="padding:0px; margin:0px; display:inline" type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="setCurrentAgenda('%RID%');" />
 </td>
-<td onclick="curRessource='%RID%'; colpick.show('cp%RID%'); return false;" width="6px" id="cp%RID%" name="cp%RID%" style="cursor:pointer; border: 1px outset">&nbsp;</td>
+<td onclick="curRessource='%RID%'; colpick.show('cp%RID%'); return false;" id="cp%RID%" name="cp%RID%" style="cursor:pointer; width:6px; border: 0px">&nbsp;</td>
 <td nowrap id="%RID%" style="cursor:crosshair" 
     onmouseover="if (this.className=='WGCRessSelected') return; this.className='WGCRessOver'" 
     onmouseout="if (this.className=='WGCRessSelected') return; this.className='WGCRessDefault'"
@@ -120,13 +123,11 @@ function hideShowToolbar(imbut) {
 </td>
 </tr>
 </tbody>
-
-<tfoot>
-<tr><td colspan="2"></td></tr>
-</tfoot>
 </table>
 </div>
 
+
+</div>
  
 [IF VContactSBottom]<iframe id="contactss" name="contactss" style="border:0px; width:100%; height:auto; position:relative;" src="[CORE_STANDURL]&app=USERCARD&action=FADDBOOK_SPEEDSEARCH"></iframe>[ENDIF VContactSBottom]
 

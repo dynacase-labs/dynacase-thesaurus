@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000
- * @version $Id: wgcal_todoview.php,v 1.10 2006/10/23 16:19:02 marc Exp $
+ * @version $Id: wgcal_todoview.php,v 1.11 2007/05/14 13:27:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -92,6 +92,7 @@ function wgcal_todoview(&$action) {
   $action->lay->set("Todos", count($todos)>0);
   $action->lay->set("uptime", strftime("%H:%M %d/%m/%Y", time()));
 
+  $action->lay->set("TOTO", false);
 }
 
 

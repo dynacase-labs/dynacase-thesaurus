@@ -12,17 +12,22 @@
 [IFNOT lmode]
 [ZONE WGCAL:WGCAL_HTMLHEAD]
 
-<form style="display:none" id="tododone" name="tododone" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE"><input type="hidden" value="-1" name="idtodo" id="idtodo"></form>
-<div width="100%" id="btodo" style="cursor:default" class="wToolButtonUnselect">
+<form style="display:inline" id="tododone" name="tododone" method="POST" target="_self" action="[CORE_STANDURL]&app=WGCAL&action=WGCAL_TODODONE"><input type="hidden" value="-1" name="idtodo" id="idtodo"></form>
+<div id="btodo" style="cursor:default;" class="wToolButtonUnselect">
 <table cellspacing="0" cellpadding="0" width="100%"><tr>
 <td>[TEXT:my todo] ([todocount])</td>
 <td align="right"><img id="addTodo" class="wSmallButton" onclick="todoEdit(event,-1);" src="[IMG:todo-new.gif]" title="[TEXT:add a todo]">&nbsp;</td>
 </tr>
-</table></div>
+</table>
+</div>
 
-<div id="todoeditzone" style="display:none; border:3px groove [CORE_BGCOLORALTERN]; padding:3px;">
-<div><input class="Mandatory" id="todoTitle" title="[TEXT:give a title]" onkeypress="todoTitleChange(event)"  style="width:100%" type="text" title="[TEXT:enter todo title]" value=""></div>
+<!-- zone edition -->
+<div id="todoeditzone" class="wToolArea" style="display:none;">
+
 <div>
+<input class="Mandatory" id="todoTitle" title="[TEXT:give a title]" onkeypress="todoTitleChange(event)"  style="width:100%;" type="text" title="[TEXT:enter todo title]" value="">
+</div>
+
 [TEXT:todo date limit] : <span onmouseover="this.style.background='[CORE_BGCOLORALTERN]'" onmouseout="this.style.background=''" id="todoDate" style="cursor:pointer;" title="[TEXT:click here to set the todo limit date]"<img src="WGCAL/Images/wm-refreshcal.gif" height="15">&nbsp;<span id="todoTextDate"></span></span>
 <input type="hidden" value="0" id="todoStart" name="todoStart">
 <script>  
@@ -37,26 +42,29 @@
   };
   Calendar.setup( tododate );
 </script>
-</div>
 <textarea  style="width:100%" title="[TEXT:todo note]" rows="2" id="todoNote"></textarea>
-<div style="border:1px outset [CORE_BGCOLORALTERN]; text-align:right; width:100%">
-<img height="12px" src="[IMG:wm-accept.gif]" id="btnSave" style="visibility:hidden" title="[TEXT:save]" class="wSmallButton" onclick="todoSave(event);">&nbsp;<img height="12px" src="[IMG:wm-cancel.gif]" id="btnCancel" title="[TEXT:cancel]" class="wSmallButton" onclick="todoCancelEdit();">
+<div style="text-align:right;">
+<span id="btnSave" class="wSmallButton" style="visibility:hidden" onclick="todoSave();">&nbsp;[TEXT:save]&nbsp;</span>
+<span id="btnCancel" class="wSmallButton" onclick="todoCancelEdit();">&nbsp;[TEXT:cancel]&nbsp;</span>
 </div>
 </div>
+<!-- zone edition -->
 
 <div id="todolistzone">
 
 
 [IFNOT Todos]<div class="WGCRessDefault">[TEXT: no todo][ENDIF Todos]
-[IF Todos]<div class="wToolArea">
-[BLOCK TodoList]
-<div class="tododef" onclick="todoEdit(event,[idTodo]);" onmouseover="this.className='todoover'" onmouseout="this.className='tododef'" ><table width="100%" cellspacing="0">
+[IF Todos]<div class="wToolArea"
+[BLOCK TodoList]<div class="tododef" onclick="todoEdit(event,[idTodo]);" onmouseover="this.className='todoover'" onmouseout="this.className='tododef'" >
+<table style="width:99%; padding:0px; margin:0px; border:0px;" cellspacing="0" cellpadding="0">
 <tr style="vertical-align:top" title="[lTextTodo] [IF warning]([TEXT:todo warning])[ENDIF warning][IF alert]([TEXT:todo alert])[ENDIF alert]">
 <td style="width:14px; text-align:center"><img src="[IMG:todo-done.gif]" style="cursor:pointer;border:0px; width:12px" title="[TEXT:todo done]" onclick="if (confirm('[TEXT:todo] : [jsTextTodo]\n[TEXT:set to done] ? ')) document.getElementById('idtodo').value = [idTodo]; document.getElementById('tododone').submit(); stopPropagation(event); return false;"></td>
 <td style="text-align:left;padding-left:5px;padding-right:5px;" >[sTextTodo]</td>
 <td style="text-align:right; font-size:80%;padding-right:5px;" nowrap>[dateTodo]</td>
 <td style="background-color:[colorTodo]; width:8px">&nbsp;</td>
-</tr></table></div>[ENDBLOCK TodoList]
+</tr></table>
+
+</div>[ENDBLOCK TodoList]
 </div>[ENDIF Todos]
 </div>
 
