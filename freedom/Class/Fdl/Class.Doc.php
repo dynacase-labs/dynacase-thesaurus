@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.376 2007/05/10 13:02:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.377 2007/05/14 08:59:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -315,8 +315,8 @@ create table doc ( id int not null,
                    classname varchar(64),
                    state varchar(64),
                    wid int DEFAULT 0,  
-                   values text,  
-                   attrids text,  
+                   values text DEFAULT '',
+                   attrids text DEFAULT '',
                    fulltext tsvector,  
                    postitid int,
                    cvid int,
@@ -3412,7 +3412,7 @@ final public function PostInsert()  {
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
     $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
-    $sql .="create trigger VFULL{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fulltext();";
+    $sql .="create trigger VFULL{$cid} BEFORE INSERT OR UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fulltext();";
     $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
     $sql .="create trigger zread{$cid} AFTER INSERT OR UPDATE OR DELETE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE setread();";
     
@@ -3724,18 +3724,30 @@ final public function PostInsert()  {
 	}
 
 
+	  $tableframe[$v]["nonelabel"]=false;
+	  $tableframe[$v]["normallabel"]=true;
+	  $tableframe[$v]["uplabel"]=false;
 	
 	// print name except image (printed otherthere)
 	if ($attr->type != "image") {	
-	  $tableframe[$v]["wvalue"]=($attr->type == "array")||($attr->type == "htmltext")?"1%":"30%"; // width
-	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
+	  $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width
 	  if ($attr->type != "array")  $tableframe[$v]["ndisplay"]="inherit";
 	  else $tableframe[$v]["ndisplay"]="none";
+	  if ($attr->getOption("vlabel")=="none") {
+	    $tableframe[$v]["nonelabel"]=true;
+	    $tableframe[$v]["normallabel"]=false;	    
+	  } else if ($attr->getOption("vlabel")=="up") {
+	    $tableframe[$v]["normallabel"]=false;
+	    $tableframe[$v]["uplabel"]=true;
+	  }
+	  $tableframe[$v]["name"]=$this->GetLabel($attr->id);
 	  if ( ($attr->type == "htmltext") && (count($tableframe)==1)) {
 	    $keys=array_keys($listattr);
-	    
 	    $na=$listattr[$keys[$iattr]]; // next attribute
-	    if ($na->fieldSet->id != $attr->fieldSet->id)   $tableframe[$v]["ndisplay"]="none";
+	    if ($na->fieldSet->id != $attr->fieldSet->id) { // only when only one attribute in frame
+	      $tableframe[$v]["ndisplay"]="none";
+	      $tableframe[$v]["wvalue"]="1%";
+	    }
 	  }
 	  
 
