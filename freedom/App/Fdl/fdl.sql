@@ -10,18 +10,18 @@ begin
   if (not rvalue) then	
     
      -- search in middle
-    wt := \'\n\'||arg_v||\'\n\';
+    wt := ''\n''||arg_v||''\n'';
     rvalue := (position(wt in arg_tl) > 0);
 
      -- search in begin
      if (not rvalue) then	
-       wt := arg_v||\'\n\';
+       wt := arg_v||''\n'';
        rvalue := (position(wt in arg_tl) = 1);
 
 	
         -- search in end
        if (not rvalue) then	
-          wt := \'\n\'||arg_v;
+          wt := ''\n''||arg_v;
           rvalue := (position(wt in arg_tl) = (char_length(arg_tl)-char_length(arg_v))) and (position(wt in arg_tl) > 0);	
         end if;
      end if;
@@ -224,22 +224,27 @@ end;
 
 
 create or replace function fulltext() 
-returns trigger as '
+returns trigger as $$
 declare 
+  good bool;
 begin
-   if (NEW.values != OLD.values) then
-  begin
+  good := true;
+  if (TG_OP = 'UPDATE') then 
+    good:=(NEW.values != OLD.values);
+  end if;
 
-   NEW.fulltext := setweight(to_tsvector(''fr'',NEW.title), ''A'')|| to_tsvector(''fr'',replace(NEW.values,''£'','' ''));
-	
+  if (good) then
+  begin
+   NEW.fulltext := setweight(to_tsvector('fr',NEW.title), 'A')|| to_tsvector('fr',replace(NEW.values,'£',' '));
+
      EXCEPTION
 	 WHEN OTHERS THEN
-	    RAISE NOTICE ''Error %'',NEW.id;
+	    RAISE NOTICE 'Error %',NEW.id;
    end;
    end if;
 return NEW;
 END;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 create or replace function fixeddoc() 
 returns trigger as '
@@ -256,8 +261,8 @@ if (TG_OP = ''INSERT'') then
      else
        cfromid=NEW.fromid;
        if (NEW.revision > 0) then
-         EXECUTE ''update doc'' || cfromid || '' set lmodify=\\''N\\'' where initid= '' || NEW.initid;
-         EXECUTE ''update doc'' || cfromid || '' set lmodify=\\''L\\'' where  id=(select distinct on (initid) id from doc where initid = '' || NEW.initid || '' and locked = -1 order by initid, revision desc)'';
+         EXECUTE ''update doc'' || cfromid || '' set lmodify=''''N'''' where initid= '' || NEW.initid;
+         EXECUTE ''update doc'' || cfromid || '' set lmodify=''''L'''' where  id=(select distinct on (initid) id from doc where initid = '' || NEW.initid || '' and locked = -1 order by initid, revision desc)'';
        end if;
      end if;
      select into lid id from docfrom where id= NEW.id;
@@ -292,14 +297,15 @@ if (TG_OP = ''DELETE'') then
    delete from docread where id=OLD.id;   
 end if;
 
-if ((TG_OP = ''UPDATE'') OR (TG_OP = ''INSERT'')) and NEW.doctype != ''T'' then
+if ((TG_OP = ''UPDATE'') OR (TG_OP = ''INSERT'')) then
+  if  NEW.doctype != ''T'' then
      select into lid id from docread where id= NEW.id;
      if (lid = NEW.id) then 
 	update docread set id=NEW.id,owner=NEW.owner,title=NEW.title,revision=NEW.revision,initid=NEW.initid,fromid=NEW.fromid,doctype=NEW.doctype,locked=NEW.locked,allocated=NEW.allocated,icon=NEW.icon,lmodify=NEW.lmodify,profid=NEW.profid,usefor=NEW.usefor,revdate=NEW.revdate,version=NEW.version,cdate=NEW.cdate,adate=NEW.adate,comment=NEW.comment,classname=NEW.classname,state=NEW.state,wid=NEW.wid,attrids=NEW.attrids,postitid=NEW.postitid,cvid=NEW.cvid,name=NEW.name,dprofid=NEW.dprofid,prelid=NEW.prelid,atags=NEW.atags,confidential=NEW.confidential,ldapdn=NEW.ldapdn,values=NEW.values,fulltext=NEW.fulltext where id=NEW.id;
      else 
 	insert into docread(id,owner,title,revision,initid,fromid,doctype,locked,allocated,icon,lmodify,profid,usefor,revdate,version,cdate,adate,comment,classname,state,wid,attrids,postitid,cvid,name,dprofid,prelid,atags,confidential,ldapdn,values,fulltext) values (NEW.id,NEW.owner,NEW.title,NEW.revision,NEW.initid,NEW.fromid,NEW.doctype,NEW.locked,NEW.allocated,NEW.icon,NEW.lmodify,NEW.profid,NEW.usefor,NEW.revdate,NEW.version,NEW.cdate,NEW.adate,NEW.comment,NEW.classname,NEW.state,NEW.wid,NEW.attrids,NEW.postitid,NEW.cvid,NEW.name,NEW.dprofid,NEW.prelid,NEW.atags,NEW.confidential,NEW.ldapdn,NEW.values,NEW.fulltext);
      end if;
- 
+  end if;
 --RAISE NOTICE ''coucou %'',replace(NEW.values,''£'','' '');
 end if;
 
@@ -340,7 +346,7 @@ returns bool as '
 declare 
   tname alias for $1;
 begin
-   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = 0 WHERE oid = \\'''' || quote_ident(tname) || ''\\''::pg_catalog.regclass'';
+   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = 0 WHERE oid = '''''' || quote_ident(tname) || ''''''::pg_catalog.regclass'';
 
 
 
@@ -356,7 +362,7 @@ returns bool as '
 declare 
   tname alias for $1;
 begin
-   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = (SELECT pg_catalog.count(*) FROM pg_catalog.pg_trigger where pg_class.oid = tgrelid) WHERE oid =  \\'''' || quote_ident(tname) || ''\\''::pg_catalog.regclass;'';
+   EXECUTE ''UPDATE pg_catalog.pg_class SET reltriggers = (SELECT pg_catalog.count(*) FROM pg_catalog.pg_trigger where pg_class.oid = tgrelid) WHERE oid =  '''''' || quote_ident(tname) || ''''''::pg_catalog.regclass;'';
 
 
 
@@ -487,25 +493,25 @@ end;
 ' language 'plpgsql';
 
 create or replace function vaultreindex(int, text) 
-returns bool as '
+returns bool as $$
 declare 
   a_docid alias for $1;
   sfile alias for $2;
   rvalue bool;
   wt text;
   wti int;
-  i int;	
+  i int;
 begin
   i:=2;
   LOOP
     -- some computations
-    wt:=split_part(sfile,''|'',i);
-    IF wt = '''' THEN
+    wt:=split_part(sfile,'|',i);
+    IF wt = '' THEN
         EXIT;  -- exit loop
     END IF;
-    wt:=split_part(wt,''\n'',1);
+    wt:=split_part(wt,E'\n',1);
     wti=wt::int;
-    --RAISE NOTICE ''wt %'',wt;
+    --RAISE NOTICE 'wt %',wt;
     insert into docvaultindex(docid,vaultid) values (a_docid,wti);
 
     i:=i+1;
@@ -513,7 +519,7 @@ begin
     
   return rvalue;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 create or replace function getreldocfld(int) 
 returns int[] as '
