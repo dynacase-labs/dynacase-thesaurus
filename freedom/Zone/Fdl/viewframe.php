@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.19 2006/09/20 15:40:36 eric Exp $
+ * @version $Id: viewframe.php,v 1.20 2007/05/14 09:31:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.19 2006/09/20 15:40:36 eric Exp $
+// $Id: viewframe.php,v 1.20 2007/05/14 09:31:46 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -105,9 +105,18 @@ function viewframe(&$action) {
    	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
+	      $tval[$k]["nonelabel"]=false;
+	      $tval[$k]["normallabel"]=true;
+	      $tval[$k]["uplabel"]=false;
 	      $tval[$k]["wvalue"]=($v->type=="array")?"1%":"30%";  // width
 	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"inherit";  // display alabel ?
-	     
+	      if ($v->getOption("vlabel")=="none") {
+		$tval[$k]["nonelabel"]=true;
+		$tval[$k]["normallabel"]=false;	    
+	      } else if ($v->getOption("vlabel")=="up") {
+		$tval[$k]["normallabel"]=false;
+		$tval[$k]["uplabel"]=true;
+	      }
 	      $tval[$k]["alabel"]=  $v->labelText;;
 	      $tval[$k]["avalue"]=  $htmlvalue;
 	    }
