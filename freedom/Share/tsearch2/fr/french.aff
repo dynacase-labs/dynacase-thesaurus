@@ -1,9 +1,13 @@
 # Francais-GUTenberg v1.0
 # Copyright 1999, Christophe Pythoud et GUTenberg
+# ATTENTION ne PAS utiliser ce dictionnaire pour la correction orthographique
+# Ce dictionnaire est conçu pour l'inxation. Il accepte donc «avanca», et l'indexera
+# comme étant dérivé du verbe «avancer». (la bonne orthographe étant «avança» qui est
+# bien sûr également reconnue comme dérivée du verbe «avancer»).
 
 # Fichier d'affixes pour le français
 
-# Caractéristiques requises d'ispell : 
+# Caractéristiques requises d'ispell :
 #	- support 8 bits (NO8BIT ne doit pas être défini)
 #	- utilisations des majuscules et minuscules pour les drapeaux
 #	  (MASKBITS = 64)
@@ -102,7 +106,7 @@ altstringchar	\\\"U		Ü
 # Drapeau	a b c d e f g h i j k l m n o p q r s t u v w x y z
 # Préfixe       * *     * *     * * * * * *         * *
 # Suffixe           * *     *                 * *       * * * * * *
-# Libre                       #             #     # 
+# Libre                       #             #     #
 
 
 # ------------------------------------------------------------
@@ -125,31 +129,31 @@ flag *A:			# préfixe latin 'a(d)-'
 	[S]			>	AS
 	[T]			>	AT	# id.
 
-flag *B:			# préfixe latin 'a(d)-'
-				# non-verbes uniquement
-	[^BCDFGLMNPQRST]	>	D'AD
-	[BDGM]			>	D'A
-	[CQ]			>	D'AC
-	[F]			>	D'AF
-	[L]			>	D'AL	# exceptions !
-	[N]			>	D'AN	# id.
-	[P]			>	D'AP	# id.
-	[R]			>	D'AR
-	[S]			>	D'AS
-	[T]			>	D'AT	# id.
+#flag *B:			# préfixe latin 'a(d)-'
+#				# non-verbes uniquement
+#	[^BCDFGLMNPQRST]	>	D'AD
+#	[BDGM]			>	D'A
+#	[CQ]			>	D'AC
+#	[F]			>	D'AF
+#	[L]			>	D'AL	# exceptions !
+#	[N]			>	D'AN	# id.
+#	[P]			>	D'AP	# id.
+#	[R]			>	D'AR
+#	[S]			>	D'AS
+#	[T]			>	D'AT	# id.
 
-flag  H:			# préfixe latin 'a(d)-'
+#flag  H:			# préfixe latin 'a(d)-'
 				# non-verbes uniquement
-	[^BCDFGLMNPQRST]	>	L'AD
-	[BDGM]			>	L'A
-	[CQ]			>	L'AC
-	[F]			>	L'AF
-	[L]			>	L'AL	# exceptions !
-	[N]			>	L'AN	# id.
-	[P]			>	L'AP	# id.
-	[R]			>	L'AR
-	[S]			>	L'AS
-	[T]			>	L'AT	# id.
+#	[^BCDFGLMNPQRST]	>	L'AD
+#	[BDGM]			>	L'A
+#	[CQ]			>	L'AC
+#	[F]			>	L'AF
+#	[L]			>	L'AL	# exceptions !
+#	[N]			>	L'AN	# id.
+#	[P]			>	L'AP	# id.
+#	[R]			>	L'AR
+#	[S]			>	L'AS
+#	[T]			>	L'AT	# id.
 
 flag *C:			# préfixe latin 'con-'
 	[^LMR]			>	CON
@@ -171,17 +175,17 @@ flag *E:			# préfixe latin 'ex-'
 	[LMNRV]			>	é
 	[F]			>	EF
 
-flag *Y:			# préfixe latin 'ex-'
+#flag *Y:			# préfixe latin 'ex-'
 				# non-verbes uniquement
-	[^FLMNRV]		>	D'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	D'é
-	[F]			>	D'EF
+#	[^FLMNRV]		>	D'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	D'é
+#	[F]			>	D'EF
 
-flag  Z:			# préfixe latin 'ex-'
+#flag  Z:			# préfixe latin 'ex-'
 				# non-verbes uniquement
-	[^FLMNRV]		>	L'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	L'é
-	[F]			>	L'EF
+#	[^FLMNRV]		>	L'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	L'é
+#	[F]			>	L'EF
 
 flag *I:			# les deux préfixes latins 'in-'
 				# (privatif et locatif/inchoatif)
@@ -191,19 +195,19 @@ flag *I:			# les deux préfixes latins 'in-'
 	[BMP]			>	IM
 	[R]			>	IR
 
-flag *J:			# préfixes latins 'in-'
+#flag *J:			# préfixes latins 'in-'
 				# non-verbes uniquement
-	[^BLMPR]		>	D'IN
-	[L]			>	D'IL
-	[BMP]			>	D'IM
-	[IR]			>	D'IR
+#	[^BLMPR]		>	D'IN
+#	[L]			>	D'IL
+#	[BMP]			>	D'IM
+#	[IR]			>	D'IR
 
-flag  K:			# préfixes latins 'in-'
+#flag  K:			# préfixes latins 'in-'
 				# non-verbes uniquement
-	[^BLMPR]		>	L'IN
-	[L]			>	L'IL
-	[BMP]			>	L'IM
-	[IR]			>	L'IR
+#	[^BLMPR]		>	L'IN
+#	[L]			>	L'IL
+#	[BMP]			>	L'IM
+#	[IR]			>	L'IR
 
 flag *P:			# préfixe 'pré-'
 	.			>	PRé	# exceptions !
@@ -228,138 +232,139 @@ flag *W:			# préfixe latin 'sub-'
 	# Selon le nombre de drapeaux restant, on traitera également des
 	# préfixes 'sur' et 'sous'
 
-flag  L:
-    	[aàâeèéêiîoôuh] 	>	L'
+#flag  L:
+#    	[aàâeèéêiîoôuh] 	>	L'
 
-flag *M:
-    	[aàâeèéêiîoôuh] 	>	D'
+#flag *M:
+#    	[aàâeèéêiîoôuh] 	>	D'
 
-flag *Q:
-    	[aàâeèéêiîoôuh] 	>	QU'
-    	[aàâeèéêiîoôuh] 	>	QUOIQU'	
-    	[aàâeèéêiîoôuh] 	>	PUISQU'	
-    	[aàâeèéêiîoôuh]		>	LORSQU'
+#flag *Q:
+#    	[aàâeèéêiîoôuh] 	>	QU'
+#    	[aàâeèéêiîoôuh] 	>	QUOIQU'
+#    	[aàâeèéêiîoôuh] 	>	PUISQU'
+#    	[aàâeèéêiîoôuh]		>	LORSQU'
 
-flag *U:
-    	[aàâeèéêiîoôuh] 	>	JUSQU'
+#flag *U:
+#    	[aàâeèéêiîoôuh] 	>	JUSQU'
 
 
 
 # verbes (principalement)
 
-flag  j:	# pour accompagner le système à 5 lemmes
-    	[aàâeèéêiîoôuh] 	>	J'
+#flag  j:	# pour accompagner le système à 5 lemmes
+#    	[aàâeèéêiîoôuh] 	>	J'
 
-flag *n:			# élision de la négation et de 'que'
-    	[aàâeèéêiîoôuh] 	>	N'
-    	[aàâeèéêiîoôuh] 	>	QU'
+#flag *n:			# élision de la négation et de 'que'
+#    	[aàâeèéêiîoôuh] 	>	N'
+#    	[aàâeèéêiîoôuh] 	>	QU'
 
-flag *m:			# élision du pronom 'me'
-    	[aàâeèéêiîoôuh] 	>	M'	# tu m'aides
+#flag *m:			# élision du pronom 'me'
+#    	[aàâeèéêiîoôuh] 	>	M'	# tu m'aides
 
-flag *t:			# élision du pronom 'te'
-    	[aàâeèéêiîoôuh] 	>	T'	# je t'énerve
+#flag *t:			# élision du pronom 'te'
+#    	[aàâeèéêiîoôuh] 	>	T'	# je t'énerve
 				# pose problème : vous t'énerviez ???
 				# moins ennuyeux que 'l'éléphants' cpdt
 				# et peu probable
 
-flag *l:			# élision d'un pronom complément d'objet
+#flag *l:			# élision d'un pronom complément d'objet
 				# direct uniquement, à n'employer que pour
 				# les verbes transitifs directs et surtout
 				# jamais pour les noms ou adj. (utiliser L)
-    	[aàâeèéêiîoôuh] 	>	L'	# je l'attends
+#    	[aàâeèéêiîoôuh] 	>	L'	# je l'attends
 
-flag  s:			# élision du pronom réfléchi 'se'
+#flag  s:			# élision du pronom réfléchi 'se'
 				# à employer uniquement devant l'infinitif
 				# (sinon avec parcimonie)
-    	[aàâeèéêiîoôuh] 	>	S'	# s'attendre
+#    	[aàâeèéêiîoôuh] 	>	S'	# s'attendre
 
 
 flag *a:			# préfixe latin 'a(d)-'
 				# verbes transitifs uniquement
-	[^BCDFGLMNPQRST]	>	L'AD
-	[BDGM]			>	L'A
-	[CQ]			>	L'AC
-	[F]			>	L'AF
-	[L]			>	L'AL	# exceptions !
-	[N]			>	L'AN	# id.
-	[P]			>	L'AP	# id.
-	[R]			>	L'AR
-	[S]			>	L'AS
-	[T]			>	L'AT	# id.
-	[^BCDFGLMNPQRST]	>	M'AD
-	[BDGM]			>	M'A
-	[CQ]			>	M'AC
-	[F]			>	M'AF
-	[L]			>	M'AL	# exceptions !
-	[N]			>	M'AN	# id.
-	[P]			>	M'AP	# id.
-	[R]			>	M'AR
-	[S]			>	M'AS
-	[T]			>	M'AT	# id.
-	[^BCDFGLMNPQRST]	>	T'AD
-	[BDGM]			>	T'A
-	[CQ]			>	T'AC
-	[F]			>	T'AF
-	[L]			>	T'AL	# exceptions !
-	[N]			>	T'AN	# id.
-	[P]			>	T'AP	# id.
-	[R]			>	T'AR
-	[S]			>	T'AS
-	[T]			>	T'AT	# id.
+#	[^BCDFGLMNPQRST]	>	L'AD
+#	[BDGM]			>	L'A
+#	[CQ]			>	L'AC
+#	[F]			>	L'AF
+#	[L]			>	L'AL	# exceptions !
+#	[N]			>	L'AN	# id.
+#	[P]			>	L'AP	# id.
+#	[R]			>	L'AR
+#	[S]			>	L'AS
+#	[T]			>	L'AT	# id.
+#	[^BCDFGLMNPQRST]	>	M'AD
+#	[BDGM]			>	M'A
+#	[CQ]			>	M'AC
+#	[F]			>	M'AF
+#	[L]			>	M'AL	# exceptions !
+#	[N]			>	M'AN	# id.
+#	[P]			>	M'AP	# id.
+#	[R]			>	M'AR
+#	[S]			>	M'AS
+#	[T]			>	M'AT	# id.
+#	[^BCDFGLMNPQRST]	>	T'AD
+#	[BDGM]			>	T'A
+#	[CQ]			>	T'AC
+#	[F]			>	T'AF
+#	[L]			>	T'AL	# exceptions !
+#	[N]			>	T'AN	# id.
+#	[P]			>	T'AP	# id.
+#	[R]			>	T'AR
+#	[S]			>	T'AS
+#	[T]			>	T'AT	# id.
 
 flag  b:			# préfixe latin 'a(d)-'
 				# verbes uniquement
-	[^BCDFGLMNPQRST]	>	J'AD
-	[BDGM]			>	J'A
-	[CQ]			>	J'AC
-	[F]			>	J'AF
-	[L]			>	J'AL	# exceptions !
-	[N]			>	J'AN	# id.
-	[P]			>	J'AP	# id.
-	[R]			>	J'AR
-	[S]			>	J'AS
-	[T]			>	J'AT	# id.
+#	[^BCDFGLMNPQRST]	>	J'AD
+#	[BDGM]			>	J'A
+#	[CQ]			>	J'AC
+#	[F]			>	J'AF
+#	[L]			>	J'AL	# exceptions !
+#	[N]			>	J'AN	# id.
+#	[P]			>	J'AP	# id.
+#	[R]			>	J'AR
+#	[S]			>	J'AS
+#	[T]			>	J'AT	# id.
 
-flag *e:			# préfixe latin 'ex-'
+#flag *e:			# préfixe latin 'ex-'
 				# verbes transitifs uniquement
-	[^FLMNRV]		>	L'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	L'é
-	[F]			>	L'EF
-	[^FLMNRV]		>	M'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	M'é
-	[F]			>	M'EF
-	[^FLMNRV]		>	T'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	T'é
-	[F]			>	T'EF
+#	[^FLMNRV]		>	L'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	L'é
+#	[F]			>	L'EF
+#	[^FLMNRV]		>	M'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	M'é
+#	[F]			>	M'EF
+#	[^FLMNRV]		>	T'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	T'é
+#	[F]			>	T'EF
 
-flag  f:			# préfixe latin 'ex-'
+#flag  f:			# préfixe latin 'ex-'
 				# verbes uniquement
-	[^FLMNRV]		>	J'EX	# exceptions pour C,P,T !
-	[LMNRV]			>	J'é
-	[F]			>	J'EF
+#	[^FLMNRV]		>	J'EX	# exceptions pour C,P,T !
+#	[LMNRV]			>	J'é
+#	[F]			>	J'EF
 
-flag *i:			# préfixes latins 'in-'
+
+#flag *i:			# préfixes latins 'in-'
 				# verbes transitifs uniquement
-	[^BLMPR]		>	L'IN
-	[L]			>	L'IL
-	[BMP]			>	L'IM
-	[R]			>	L'IR
-	[^BLMPR]		>	M'IN
-	[L]			>	M'IL
-	[BMP]			>	M'IM
-	[R]			>	M'IR
-	[^BLMPR]		>	T'IN
-	[L]			>	T'IL
-	[BMP]			>	T'IM
-	[R]			>	T'IR
+#	[^BLMPR]		>	L'IN
+#	[L]			>	L'IL
+#	[BMP]			>	L'IM
+#	[R]			>	L'IR
+#	[^BLMPR]		>	M'IN
+#	[L]			>	M'IL
+#	[BMP]			>	M'IM
+#	[R]			>	M'IR
+#	[^BLMPR]		>	T'IN
+#	[L]			>	T'IL
+#	[BMP]			>	T'IM
+#	[R]			>	T'IR
 
-flag  k:			# préfixes latins 'in-'
+#flag  k:			# préfixes latins 'in-'
 				# verbes uniquement
-	[^BLMPR]		>	J'IN
-	[L]			>	J'IL
-	[BMP]			>	J'IM
-	[R]			>	J'IR
+#	[^BLMPR]		>	J'IN
+#	[L]			>	J'IL
+#	[BMP]			>	J'IM
+#	[R]			>	J'IR
 
 
 # ------------------------------------------------------------
@@ -372,7 +377,7 @@ suffixes
 flag *F:			# gestion du masculin et du pluriel à
 				# partir du féminin (sauf mots en -eur)
 	# règle générale du féminin pluriel
-	[^SXZ]			>	S		
+	[^SXZ]			>	S
 
 	# Voyelle + e/ë :
         é E                     >       -éE,é   # = -E (employée)
@@ -405,7 +410,7 @@ flag *F:			# gestion du masculin et du pluriel à
 
 	# Consonne d + e
 	D E			>	-DE,D	# = -E (lourde)
-	D E			>	-E,S			
+	D E			>	-E,S
 
 	# Consonnes ff + e
 	F F E			>	-FFE,F	# = -FE (cheffe)
@@ -460,7 +465,7 @@ flag *F:			# gestion du masculin et du pluriel à
 
 flag *G:			# mots en -eur et en -al qui font le pluriel
 				# en -als (pas en -aux -> drapeau F)
-	E			>	S		
+	E			>	S
 
 	# prometteuse
 	E U S E			>	-SE,R
@@ -482,9 +487,1017 @@ flag *G:			# mots en -eur et en -al qui font le pluriel
 	A L E			>	-LE,L	# = -E
 	A L E			>	-E,S
 
+flag *h:			# verbes premier groupe
+				# CHANTER, MANGER, PAYER, APPELER, JETER
+
+	ER			>	-ER,E #infinitif passé
+				#Indicatif present  je / il idem infinitif passé sauf PAYER
+	YER			>	-YER,IE # je paie
+	ER			>	-ER,ES #tu
+	[Y]ER			>	-YER,IES # tu paies
+	[L]ER			>	-LER,LLES # tu appelles
+	[T]ER			>	-TER,TTES # tu jettes
+	ALLER			>	-ALLER,VAS
+	[L]ER			>	-LER,LLE # il appelle
+	[T]ER			>	-TER,TTE # il jette
+	[^G]ER			>	-ER,ONS # nous
+	[G]ER			>	-ER,EONS # nous mangeons
+	ER			>	-ER,EZ # vous
+	ER			>	-ER,ENT # ils
+	[Y]ER			>	-YER,IENT # ils paient
+	[L]ER			>	-LER,LLENT # ils appellent
+	[T]ER			>	-TER,TTENT # ils jettent
+				#imparfait
+	[^G]ER			>	-ER,AIS #Je, Tu
+	[G]ER			>	-ER,EAIS #Je, Tu
+	[^G]ER			>	-ER,AIT #Il
+	[G]ER			>	-ER,EAIT #Il
+	ER			>	-ER,IONS #Nous
+	ER			>	-ER,IEZ #Vous
+	[^G]ER			>	-ER,AIENT #ils
+	[G]ER			>	-ER,EAIENT #ils mangeaient
+				#Passe simple
+	[^G]ER			>	-ER,AI	#je
+	[G]ER			>	-ER,EAI	#je
+	[^G]ER			>	-ER,AS	#tu
+	[G]ER			>	-ER,EAS	#tu
+	[^G]ER			>	-ER,A	#il
+	[G]ER			>	-ER,EA	#il
+	[^G]ER			>	-ER,AMES	#nous
+	[G]ER			>	-ER,EAMES	#nous
+	[^G]ER			>	-ER,ATES	#vous
+	[G]ER			>	-ER,EATES	#vous
+	ER			>	-ER,ERENT	#ILS
+				#Futur simple
+	ER			>	-ER,ERAI	#je
+	[L]ER			>	-LER,LLERAI	#j'appellerai
+	[T]ER			>	-TER,TTERAI	#je jetterai
+	[Y]ER			>	-YER,IERAI	#je paierai
+        ENVOYER			>	-VOYER,VERRAI   #j'enverrai
+	ER			>	-ER,ERAS	#tu
+	[Y]ER			>	-YER,IERAS	#tu paieras
+	[L]ER			>	-LER,LLERAS	#tu appelleras
+	[T]ER			>	-TER,TTERAS	#tu jetteras
+        ENVOYER			>	-VOYER,VERRAS   #tu enverras
+	ER			>	-ER,ERA	#il
+	[Y]ER			>	-YER,IERA	#il paiera
+	[L]ER			>	-LER,LLERA	#il appellera
+	[T]ER			>	-TER,TTERA	#il jettera
+        ENVOYER			>	-VOYER,VERRA    #il enverra
+	ER			>	-ER,ERONS	#nous
+	[Y]ER			>	-YER,IERONS	#nous paierons
+	[L]ER			>	-LER,LLERONS	#nous appellerons
+	[T]ER			>	-TER,TTERONS	#nous jetterons
+        ENVOYER			>	-VOYER,VERRONS  #nous enverrons
+	ER			>	-ER,EREZ	#vous
+	[Y]ER			>	-YER,IEREZ	#vous paierez
+	[L]ER			>	-LER,LLEREZ	#vous appellerez
+	[T]ER			>	-TER,TTEREZ	#vous jetterez
+        ENVOYER			>	-VOYER,VERREZ   #vous enverrez
+	ER			>	-ER,ERONT	#ils
+	[Y]ER			>	-YER,IERONT	#ils paieront
+	[L]ER			>	-LER,LLERONT	#ils appelleront
+	[T]ER			>	-TER,TTERONT	#ils jetteront
+        ENVOYER			>	-VOYER,VERRONT  #ils enverront
+				#Passé composé id. participe passé
+				#Plus que parfait id. participe passé
+				#Passé antérieur id. participe passé
+				#Futur antérieur id. participe passé
+				#subjonctif present, idem participes et imparfait
+				#subjonctif imparfait
+	[^G]ER			>	-ER,ASSE	#je
+	[G]ER			>	-ER,EASSE	#je
+	[^G]ER			>	-ER,ASSES	#tu
+	[G]ER			>	-ER,EASES	#tu
+	[^G]ER			>	-ER,AT	#il
+	[G]ER			>	-ER,EAT	#il
+	[^G]ER			>	-ER,ASSIONS	#nous
+	[G]ER			>	-ER,EASSIONS	#nous
+	[^G]ER			>	-ER,ASSIEZ	#vous
+	[G]ER			>	-ER,EASSIEZ	#vous
+	[^G]ER			>	-ER,ASSENT	#ils
+	[G]ER			>	-ER,EASSENT	#ils
+				#Subjonctif passé id. participe passé
+				#Subjonctif plus que parfair id. participe passé
+				#Conditionnel présent
+	ER			>	-ER,ERAIS	#je,tu
+	[Y]ER			>	-YER,IERAIS	#je,tu paierais
+	[L]ER			>	-LER,LLERAIS	#je,tu appellerais
+	[T]ER			>	-TER,TTERAIS	#je,tu jetterais
+        ENVOYER			>	-VOYER,VERRAIS  #je,tu enverrais
+	ER			>	-ER,ERAIT	#il
+	[Y]ER			>	-YER,IERAIT	#il paierait
+	[L]ER			>	-LER,LLERAIT	#il appellerait
+	[T]ER			>	-TER,TTERAIT	#il jetterait
+        ENVOYER			>	-VOYER,VERRAIT  #il enverrait
+	ER			>	-ER,ERIONS	#nous
+	[Y]ER			>	-YER,IERIONS	#nous paierons
+	[L]ER			>	-LER,LLERIONS	#nous appellerions
+	[T]ER			>	-TER,TTERIONS	#nous jetterions
+        ENVOYER			>	-VOYER,VERRIONS #nous enverrions
+	ER			>	-ER,ERIEZ	#vous
+	[Y]ER			>	-YER,IERIEZ	#vous paieriez
+	[L]ER			>	-LER,LLERIEZ	#vous appelleriez
+	[T]ER			>	-TER,TTERIEZ	#vous jetteriez
+        ENVOYER			>	-VOYER,VERRIEZ  #nous enverriez
+	ER			>	-ER,ERAIENT	#ils
+	[Y]ER			>	-YER,IERAIENT	#ils paieraient
+	[L]ER			>	-LER,LLERAIENT	#ils appelleraient
+	[T]ER			>	-TER,TTERAIENT	#ils jetteraient
+        ENVOYER			>	-VOYER,VERRAIENT  #ils enverraient
+				#Conditionnel passé 1ère et 2nde forme : id. participe passé
+				#Impératif présent : id. indicatif présent
+				#Impératif passé : id. participe passé
+				#participes
+	[^G]ER			>	-ER,ANT	#présent
+	[G]ER			>	-ER,EANT	#présent
+	ER			>	-ER,EE	#passé féminin
+	ER			>	-ER,EES	#passé féminin pl.
+	ER			>	-ER,EUR
+	ER			>	-ER,EURS
+	ER			>	-ER,EUSE
+	ER			>	-ER,EUSES
+	[^G]ER			>	-ER,ANTE
+	[G]ER			>	-ER,EANTE
+
+				#Gérondif présent : id. participe présent
+				#Gérondif passé : id. participe passé
+
+
+# Verbe 2nd groupe : FINIR
+	IR			>	-IR,I		#infinitif passé
+				#Indicatif present
+	IR			>	-IR,IS		# je/tu finis
+	IR			>	-IR,IT		# il finit
+	IR			>	-IR,ISSONS	# nous finissons
+	IR			>	-IR,ISSEZ	# vous finissez
+	IR			>	-IR,ISSENT	# ils finissent
+
+				#Indicatif imparfait
+	IR			>	-IR,ISSAIS	# je,tu finissais
+	IR			>	-IR,ISSAIT	# il finissait
+	IR			>	-IR,ISSIONS	# nous finissions
+	IR			>	-IR,ISSIEZ	# vous finissiez
+	IR			>	-IR,ISSAIENT	# ils finissaient
+
+				#passé simple
+							#je,tu,il idem ind.présent
+	IR			>	-IR,IMES	#nous finîmes
+	IR			>	-IR,ITES	#vous finîtes
+	IR			>	-IR,IRENT	#ils finirent
+
+				#futur simple
+	IR			>	-IR,IRAI	# je finirais
+	IR			>	-IR,IRAS	# tu finiras
+	IR			>	-IR,IRA		# il finira
+	IR			>	-IR,IRONS	# nous finirons
+	IR			>	-IR,IREZ	# vous finirez
+	IR			>	-IR,IRONT	# ils finiront
+
+				#passé composé, plus que prf,passé ant., futur ant. idem infinitif passé
+
+				#subjonctif présent
+	IR			>	-IR,ISSE	# que je/il finisse
+	IR			>	-IR,ISSES	# que tu finisse
+
+				#conditionnel présent
+	IR			>	-IR,IRAIS	# je/tu finirais
+	IR			>	-IR,IRAIT	# il finirais
+	IR			>	-IR,IRIONS	# nous finirions
+	IR			>	-IR,IRIEZ	# nous finiriez
+	IR			>	-IR,IRAIENT	# nous finiraient
+
+				# participe présent
+	IR			>	-IR,ISSANT
+	IR			>	-IR,ISSANTE
+				# participe passé
+	IR			>	-IR,IE
+	IR			>	-IR,IES
+
+flag *r:			# verbes 3eme groupe
+				# ouvrir/offrir/souffrir et composés
+
+				#ind present
+	[VF]RIR			>	-IR,RE
+	[VF]RIR			>	-IR,RES
+	[VF]RIR			>	-IR,RONS
+	[VF]RIR			>	-IR,REZ
+	[VF]RIR			>	-IR,RENT
+
+				#imparfait
+	[VF]RIR			>	-IR,AIS
+	[VF]RIR			>	-IR,AIT
+	[VF]RIR			>	-IR,IONS
+	[VF]RIR			>	-IR,IEZ
+	[VF]RIR			>	-IR,AIENT
+
+				#passé simple
+	[VF]RIR			>	-IR,IS
+	[VF]RIR			>	-IR,IT
+	[VF]RIR			>	-IR,IMES
+	[VF]RIR			>	-IR,ITES
+	[VF]RIR			>	-IR,IRENT
+
+				#futur simple
+	[VF]RIR			>	-IR,IRAI
+	[VF]RIR			>	-IR,IRAS
+	[VF]RIR			>	-IR,IRONS
+	[VF]RIR			>	-IR,IREZ
+	[VF]RIR			>	-IR,IRONT
+
+				#subj. imparfait
+	[VF]RIR			>	-IR,ISSE
+	[VF]RIR			>	-IR,ISSES
+	[VF]RIR			>	-IR,ISSIONS
+	[VF]RIR			>	-IR,ISSIEZ
+	[VF]RIR			>	-IR,ISSENT
+
+				#cond. présent
+	[VF]RIR			>	-IR,IRAIS
+	[VF]RIR			>	-IR,IRAIT
+	[VF]RIR			>	-IR,IRIONS
+	[VF]RIR			>	-IR,IRIEZ
+	[VF]RIR			>	-IR,IRAIENT
+
+				#participe présent
+	[VF]RIR			>	-IR,ANT
+	[VF]RIR			>	-IR,ANTE
+				#participe passé
+	[VF]RIR			>	-IR,ERT
+	[VF]RIR			>	-IR,ERTS
+	[VF]RIR			>	-IR,ERTE
+	[VF]RIR			>	-IR,ERTES
+
+
+				# fuir/enfuir et ouïr (1ère forme)
+				#ind present
+	UIR			>	-IR,IS
+	UIR			>	-IR,IT
+	UIR			>	-IR,YONS
+	UIR			>	-IR,YEZ
+	UIR			>	-IR,IENT
+
+				#imparfait
+	UIR			>	-IR,YAIS
+	UIR			>	-IR,YAIT
+	UIR			>	-IR,YIONS
+	UIR			>	-IR,YIEZ
+	UIR			>	-IR,YAIENT
+
+				#passé simple
+	UIR			>	-IR,IMES
+	UIR			>	-IR,ITES
+	UIR			>	-IR,IRENT
+
+				#futur simple
+	UIR			>	-IR,IRAI
+	UIR			>	-IR,IRAS
+	UIR			>	-IR,IRA
+	UIR			>	-IR,IRONS
+	UIR			>	-IR,IREZ
+	UIR			>	-IR,IRONT
+
+				#subj. présent
+	UIR			>	-IR,IE
+	UIR			>	-IR,IES
+
+				#subj. imparfait
+	UIR			>	-IR,ISSE
+	UIR			>	-IR,ISSES
+	UIR			>	-IR,UISSIONS
+	UIR			>	-IR,UISSIEZ
+	UIR			>	-IR,UISSENT
+
+				#Cond. présent
+	UIR			>	-IR,IRAIS
+	UIR			>	-IR,IRAIT
+	UIR			>	-IR,IRIONS
+	UIR			>	-IR,IRIEZ
+	UIR			>	-IR,IRAIENT
+
+				#part. présent
+	UIR			>	-IR,YANT
+	UIR			>	-IR,YANTE
+	UIR			>	-IR,YANTES
+				#part. passé
+	UIR			>	-IR,I
+	UIR			>	-IR,IE
+	UIR			>	-IR,IES
+
+				# dormir/endormir
+				#ind present
+	RMIR			>	-MIR,S 		#je,tu dors
+	RMIR			>	-MIR,T		#il dort
+	RMIR			>	-IR,ONS		#nous dormons
+	RMIR			>	-IR,EZ		#vous dormez
+	RMIR			>	-IR,ENT		#ils dorment
+
+				#imparfait
+	RMIR			>	-IR,AIS
+	RMIR			>	-IR,AIT
+	RMIR			>	-IR,IONS
+	RMIR			>	-IR,IEZ
+	RMIR			>	-IR,AIENT
+
+				#passé simple
+	RMIR			>	-IR,IS
+	RMIR			>	-IR,IT
+	RMIR			>	-IR,IMES
+	RMIR			>	-IR,ITES
+	RMIR			>	-IR,IRENT
+
+				#futur simple
+	RMIR			>	-IR,IRAI
+	RMIR			>	-IR,IRAS
+	RMIR			>	-IR,IRA
+	RMIR			>	-IR,IRONS
+	RMIR			>	-IR,IREZ
+	RMIR			>	-IR,IRONT
+
+				#subjonctif présent
+	RMIR			>	-IR,E
+	RMIR			>	-IR,ES
+
+				#subjonctif imparfait
+	RMIR			>	-IR,ISSE
+	RMIR			>	-IR,ISSES
+	RMIR			>	-IR,ISSIONS
+	RMIR			>	-IR,ISSIEZ
+	RMIR			>	-IR,ISSENT
+
+				#conditionnel présent
+	RMIR			>	-IR,IRAIS
+	RMIR			>	-IR,IRAIT
+	RMIR			>	-IR,IRIONS
+	RMIR			>	-IR,IRIEZ
+	RMIR			>	-IR,IRAIENT
+
+				#participes
+	RMIR			>	-IR,ANT
+	RMIR			>	-IR,ANTE
+	RMIR			>	-IR,ANTES
+	RMIR			>	-IR,I
+	RMIR			>	-IR,IE
+	RMIR			>	-IR,IES
+
+
+				# mentir, sentir, partir, se repentir
+				#ind present
+	[^E]TIR			>	-TIR,S
+	[^E]TIR			>	-TIR,T
+	[^E]TIR			>	-TIR,TONS
+	[^E]TIR			>	-TIR,TEZ
+	[^E]TIR			>	-TIR,TENT
+
+				#imparfait
+	[^E]TIR			>	-TIR,TAIS
+	[^E]TIR			>	-TIR,TAIT
+	[^E]TIR			>	-TIR,TIONS
+	[^E]TIR			>	-TIR,TIEZ
+	[^E]TIR			>	-TIR,TAIENT
+
+				#passé simple
+	[^E]TIR			>	-TIR,TIS
+	[^E]TIR			>	-TIR,TIT
+	[^E]TIR			>	-TIR,TIMES
+	[^E]TIR			>	-TIR,TITES
+	[^E]TIR			>	-TIR,TIRENT
+
+				#futur simple
+	[^E]TIR			>	-TIR,TIRAI
+	[^E]TIR			>	-TIR,TIRAS
+	[^E]TIR			>	-TIR,TIRA
+	[^E]TIR			>	-TIR,TIRONS
+	[^E]TIR			>	-TIR,TIREZ
+	[^E]TIR			>	-TIR,TIRONT
+
+				#subjonctif présent
+	[^E]TIR			>	-TIR,TE
+	[^E]TIR			>	-TIR,TES
+				#subjonctif imparfait
+	[^E]TIR			>	-TIR,TISSE
+	[^E]TIR			>	-TIR,TISSES
+	[^E]TIR			>	-TIR,TISSIONS
+	[^E]TIR			>	-TIR,TISSIEZ
+	[^E]TIR			>	-TIR,TISSENT
+
+				#conditionnel
+	[^E]TIR			>	-TIR,TIRAIS
+	[^E]TIR			>	-TIR,TIRAIT
+	[^E]TIR			>	-TIR,TIRIONS
+	[^E]TIR			>	-TIR,TIRIEZ
+	[^E]TIR			>	-TIR,TIRAIENT
+
+				#participe
+	[^E]TIR			>	-TIR,TANT
+	[^E]TIR			>	-TIR,TI
+	[^E]TIR			>	-TIR,TIS
+	[^E]TIR			>	-TIR,TIE
+	[^E]TIR			>	-TIR,TIES
+
+				# verbes en -quérir
+				#ind present
+	QUERIR			>	-ERIR,IERS
+	QUERIR			>	-ERIR,IERT
+	QUERIR			>	-ERIR,ERONS
+	QUERIR			>	-ERIR,EREZ
+	QUERIR			>	-ERIR,IERENT
+				#ind imparfait
+	QUERIR			>	-ERIR,ERAIS
+	QUERIR			>	-ERIR,ERAIT
+	QUERIR			>	-ERIR,ERIONS
+	QUERIR			>	-ERIR,ERIEZ
+	QUERIR			>	-ERIR,ERAIENT
+				#passé simple
+	QUERIR			>	-ERIR,IS
+	QUERIR			>	-ERIR,IT
+	QUERIR			>	-ERIR,IMES
+	QUERIR			>	-ERIR,ITES
+	QUERIR			>	-ERIR,IRENT
+				#futur simple
+	QUERIR			>	-ERIR,ERRAI
+	QUERIR			>	-ERIR,ERRAS
+	QUERIR			>	-ERIR,ERRA
+	QUERIR			>	-ERIR,ERRONS
+	QUERIR			>	-ERIR,ERREZ
+	QUERIR			>	-ERIR,ERRONT
+				#subjonctif présent
+	QUERIR			>	-ERIR,IERE
+	QUERIR			>	-ERIR,IERES
+				#subjonctif imparfait
+	QUERIR			>	-ERIR,ISSE
+	QUERIR			>	-ERIR,ISSES
+	QUERIR			>	-ERIR,ISSIONS
+	QUERIR			>	-ERIR,ISSIEZ
+	QUERIR			>	-ERIR,ISSENT
+				#conditionnel
+	QUERIR			>	-ERIR,ERRAIS
+	QUERIR			>	-ERIR,ERRAIT
+	QUERIR			>	-ERIR,ERRIONS
+	QUERIR			>	-ERIR,ERRAIENT
+				#participes
+	QUERIR			>	-ERIR,ERANT
+	QUERIR			>	-ERIR,ISE
+	QUERIR			>	-ERIR,ISES
+	QUERIR			>	-ERIR,ERRIEZ
+
+				# verbes en -venir
+				#ind present
+	VENIR			>	-ENIR,IENS
+	VENIR			>	-ENIR,IENT
+	VENIR			>	-ENIR,ENONS
+	VENIR			>	-ENIR,ENEZ
+	VENIR			>	-ENIR,IENNENT
+
+				#imparfait
+	VENIR			>	-ENIR,ENAIS
+	VENIR			>	-ENIR,ENAIT
+	VENIR			>	-ENIR,ENIONS
+	VENIR			>	-ENIR,ENIEZ
+	VENIR			>	-ENIR,ENAIENT
+
+				#passé simple
+	VENIR			>	-ENIR,INS
+	VENIR			>	-ENIR,INT
+	VENIR			>	-ENIR,INMES
+	VENIR			>	-ENIR,INTES
+	VENIR			>	-ENIR,INRENT
+
+				#futur simple
+	VENIR			>	-ENIR,IENDRAI
+	VENIR			>	-ENIR,IENDRAS
+	VENIR			>	-ENIR,IENDRA
+	VENIR			>	-ENIR,IENDREZ
+	VENIR			>	-ENIR,IENDRONT
+
+				#subj. présent
+	VENIR			>	-ENIR,IENNE
+	VENIR			>	-ENIR,IENNES
+				#subj. imparfait
+	VENIR			>	-ENIR,INSSE
+	VENIR			>	-ENIR,INSSE
+	VENIR			>	-ENIR,INSSIONS
+	VENIR			>	-ENIR,INSSIEZ
+	VENIR			>	-ENIR,INSSENT
+
+				#conditionnel
+	VENIR			>	-ENIR,INDRAIS
+	VENIR			>	-ENIR,INDRAIT
+	VENIR			>	-ENIR,INDRIONS
+	VENIR			>	-ENIR,INDRIEZ
+	VENIR			>	-ENIR,INDRAIENT
+
+				#participes
+	VENIR			>	-ENIR,ENANT
+	VENIR			>	-ENIR,ENU
+	VENIR			>	-ENIR,ENUS
+	VENIR			>	-ENIR,ENUE
+	VENIR			>	-ENIR,ENUES
+
+				#verbes en -cueillir
+				#ind present
+	CUEILLIR		>	-IR,E
+	CUEILLIR		>	-IR,ES
+	CUEILLIR		>	-IR,ONS
+	CUEILLIR		>	-IR,EZ
+	CUEILLIR		>	-IR,ENT
+
+				#imparfait
+	CUEILLIR		>	-IR,AIS
+	CUEILLIR		>	-IR,AIT
+	CUEILLIR		>	-IR,IONS
+	CUEILLIR		>	-IR,IEZ
+	CUEILLIR		>	-IR,AIENT
+
+				#passé simple
+	CUEILLIR		>	-IR,IS
+	CUEILLIR		>	-IR,IT
+	CUEILLIR		>	-IR,IMES
+	CUEILLIR		>	-IR,ITES
+	CUEILLIR		>	-IR,IRENT
+
+				#futur simple
+	CUEILLIR		>	-IR,ERAI
+	CUEILLIR		>	-IR,ERAS
+	CUEILLIR		>	-IR,ERA
+	CUEILLIR		>	-IR,ERONS
+	CUEILLIR		>	-IR,EREZ
+	CUEILLIR		>	-IR,ERONT
+
+				#subjonctif imparfait
+	CUEILLIR		>	-IR,ISSE
+	CUEILLIR		>	-IR,ISSES
+	CUEILLIR		>	-IR,ISSIONS
+	CUEILLIR		>	-IR,ISSIEZ
+	CUEILLIR		>	-IR,ISSENT
+
+				#conditionnel
+	CUEILLIR		>	-IR,ERAIS
+	CUEILLIR		>	-IR,ERAIT
+	CUEILLIR		>	-IR,ERIONS
+	CUEILLIR		>	-IR,ERIEZ
+	CUEILLIR		>	-IR,ERAIENT
+
+				#participes
+	CUEILLIR		>	-IR,ANT
+	CUEILLIR		>	-IR,I
+	CUEILLIR		>	-IR,IE
+	CUEILLIR		>	-IR,IES
+
+				# verbes en -ouillir
+
+				#ind present
+	OUILLIR			>	-ILLIR,S
+	OUILLIR			>	-ILLIR,T
+	OUILLIR			>	-IR,ONS
+	OUILLIR			>	-IR,EZ
+	OUILLIR			>	-IR,ENT
+
+				#ind imparfait
+	OUILLIR			>	-IR,AIS
+	OUILLIR			>	-IR,AIT
+	OUILLIR			>	-IR,IONS
+	OUILLIR			>	-IR,IEZ
+	OUILLIR			>	-IR,AIENT
+
+				#passé simple
+	OUILLIR			>	-IR,IS
+	OUILLIR			>	-IR,IT
+	OUILLIR			>	-IR,IMES
+	OUILLIR			>	-IR,ITES
+	OUILLIR			>	-IR,IRENT
+
+				#futur simple
+	OUILLIR			>	-IR,IRAI
+	OUILLIR			>	-IR,IRAS
+	OUILLIR			>	-IR,IRA
+	OUILLIR			>	-IR,IRONS
+	OUILLIR			>	-IR,IREZ
+	OUILLIR			>	-IR,IRONT
+
+				#subjonctif
+	OUILLIR			>	-IR,E
+	OUILLIR			>	-IR,ES
+
+	OUILLIR			>	-IR,ISSE
+	OUILLIR			>	-IR,ISSES
+	OUILLIR			>	-IR,IT
+	OUILLIR			>	-IR,ISSIONS
+	OUILLIR			>	-IR,ISSIEZ
+	OUILLIR			>	-IR,ISSENT
+
+				#conditionnel
+	OUILLIR			>	-IR,IRAIS
+	OUILLIR			>	-IR,IRAIT
+	OUILLIR			>	-IR,IRIONS
+	OUILLIR			>	-IR,IRIEZ
+	OUILLIR			>	-IR,IRAIENT
+
+				#participes
+	OUILLIR			>	-IR,ANT
+	OUILLIR			>	-IR,I
+	OUILLIR			>	-IR,IE
+	OUILLIR			>	-IR,IES
+				# vêtir,dévêtir et revêtir
+				#ind present
+
+#irr. mourir
+
+
+flag *r:
+				# verbes 3eme groupe en OIR
+				# recevoir,apercevoir, concevoir, décevoir, percevoir.
+				#
+
+				#ind. présent
+	EVOIR			>	-EVOIR,OIS
+	EVOIR			>	-EVOIR,OIT
+	EVOIR			>	-OIR,ONS
+	EVOIR			>	-OIR,EZ
+	EVOIR			>	-EVOIR,OIVENT
+
+				#imparfait
+	EVOIR			>	-OIR,AIS
+	EVOIR			>	-OIR,AIT
+	EVOIR			>	-OIR,IONS
+	EVOIR			>	-OIR,IEZ
+	EVOIR			>	-OIR,AIENT
+
+				#passé simple
+	EVOIR			>	-EVOIR,US
+	EVOIR			>	-EVOIR,UT
+	EVOIR			>	-EVOIR,UMES
+	EVOIR			>	-EVOIR,UTES
+	EVOIR			>	-EVOIR,URENT
+
+				#futur
+	EVOIR			>	-OIR,RAI
+	EVOIR			>	-OIR,RAS
+	EVOIR			>	-OIR,RA
+	EVOIR			>	-OIR,RONS
+	EVOIR			>	-OIR,REZ
+	EVOIR			>	-OIR,RONT
+
+				#subjonctif
+	EVOIR			>	-EVOIR,OIVE
+	EVOIR			>	-EVOIR,OIVES
+	EVOIR			>	-EVOIR,USSE
+	EVOIR			>	-EVOIR,USSES
+	EVOIR			>	-EVOIR,USSIONS
+	EVOIR			>	-EVOIR,USSIEZ
+	EVOIR			>	-EVOIR,USSENT
+
+				#conditionnel
+	EVOIR			>	-OIR,RAIS
+	EVOIR			>	-OIR,RAIT
+	EVOIR			>	-OIR,RIONS
+	EVOIR			>	-OIR,RIEZ
+	EVOIR			>	-OIR,RAIENT
+
+				#participes
+	EVOIR			>	-OIR,ANT
+	EVOIR			>	-EVOIR,U
+	EVOIR			>	-EVOIR,UE
+	EVOIR			>	-EVOIR,UES
+
+				# mouvoir, emouvoir, promouvoir
+				#
+				#ind. présent
+
+	MOUVOIR			>	-OUVOIR,EUS
+	MOUVOIR			>	-OUVOIR,EUT
+	MOUVOIR			>	-OIR,ONS
+	MOUVOIR			>	-OIR,EZ
+	MOUVOIR			>	-OUVOIR,EUVENT
+
+				#imparfait
+	MOUVOIR			>	-OIR,AIS
+	MOUVOIR			>	-OIR,AIT
+	MOUVOIR			>	-OIR,IONS
+	MOUVOIR			>	-OIR,IEZ
+	MOUVOIR			>	-OIR,AIENT
+
+				#passé simple
+	MOUVOIR			>	-OUVOIR,US
+	MOUVOIR			>	-OUVOIR,UT
+	MOUVOIR			>	-OUVOIR,UMES
+	MOUVOIR			>	-OUVOIR,UTES
+	MOUVOIR			>	-OUVOIR,URENT
+
+
+				#futur
+	MOUVOIR			>	-OIR,RAI
+	MOUVOIR			>	-OIR,RAS
+	MOUVOIR			>	-OIR,RA
+	MOUVOIR			>	-OIR,RONS
+	MOUVOIR			>	-OIR,REZ
+	MOUVOIR			>	-OIR,RONT
+
+				#conditionnel
+	MOUVOIR			>	-OIR,RAIS
+	MOUVOIR			>	-OIR,RAIT
+	MOUVOIR			>	-OIR,RIONS
+	MOUVOIR			>	-OIR,RIEZ
+	MOUVOIR			>	-OIR,RAIENT
+
+				#participes
+	MOUVOIR			>	-OIR,ANT
+	MOUVOIR			>	-OUVOIR,U
+	MOUVOIR			>	-OUVOIR,UE
+	MOUVOIR			>	-OUVOIR,UES
+
+				# vouloir
+				#
+				#ind. présent
+	VOULOIR			>	-OULOIR,EUX
+	VOULOIR			>	-OULOIR,EUT
+	VOULOIR			>	-OIR,ONS
+	VOULOIR			>	-OIR,EZ
+	VOULOIR			>	-OULOIR,EULENT
+				#imparfait
+	VOULOIR			>	-OIR,AIS
+	VOULOIR			>	-OIR,AIT
+	VOULOIR			>	-OIR,IONS
+	VOULOIR			>	-OIR,IEZ
+	VOULOIR			>	-OIR,AIENT
+				#passé simple
+	VOULOIR			>	-OIR,US
+	VOULOIR			>	-OIR,UT
+	VOULOIR			>	-OIR,UMES
+	VOULOIR			>	-OIR,UTES
+	VOULOIR			>	-OIR,URENT
+				#futur simple
+	VOULOIR			>	-LOIR,DRAI
+	VOULOIR			>	-LOIR,DRAS
+	VOULOIR			>	-LOIR,DRA
+	VOULOIR			>	-LOIR,DRONS
+	VOULOIR			>	-LOIR,DREZ
+	VOULOIR			>	-LOIR,DRONT
+				#subjonctif
+	VOULOIR			>	-OULOIR,EUILLE
+	VOULOIR			>	-OULOIR,EUILLES
+	VOULOIR			>	-OULOIR,EUILLENT
+	VOULOIR			>	-OIR,USSE
+	VOULOIR			>	-OIR,USSES
+	VOULOIR			>	-OIR,USSIONS
+	VOULOIR			>	-OIR,USSIEZ
+	VOULOIR			>	-OIR,USSENT
+				#conditionnel
+	VOULOIR			>	-LOIR,DRAIS
+	VOULOIR			>	-LOIR,DRAIT
+	VOULOIR			>	-LOIR,DRIONS
+	VOULOIR			>	-LOIR,DRIEZ
+	VOULOIR			>	-LOIR,DRAIENT
+				#participes
+	VOULOIR			>	-OIR,ANT
+	VOULOIR			>	-OIR,U
+
+				# pouvoir
+				#
+				#ind. présent
+	POUVOIR			>	-OUVOIR,EUX
+	POUVOIR			>	-OUVOIR,UIS
+	POUVOIR			>	-OUVOIR,EUT
+	POUVOIR			>	-OIR,ONS
+	POUVOIR			>	-OIR,EZ
+				#imparfait
+	POUVOIR			>	-OIR,AIS
+	POUVOIR			>	-OIR,AIT
+	POUVOIR			>	-OIR,IONS
+	POUVOIR			>	-OIR,IEZ
+	POUVOIR			>	-OIR,AIENT
+				#passé simple
+	POUVOIR			>	-OUVOIR,US
+	POUVOIR			>	-OUVOIR,UT
+	POUVOIR			>	-OUVOIR,UMES
+	POUVOIR			>	-OUVOIR,UTES
+	POUVOIR			>	-OUVOIR,URENT
+				#futur simple
+	POUVOIR			>	-VOIR,RRAI
+	POUVOIR			>	-VOIR,RRAS
+	POUVOIR			>	-VOIR,RRONS
+	POUVOIR			>	-VOIR,RREZ
+	POUVOIR			>	-VOIR,RRONT
+				#subjonctif
+	POUVOIR			>	-OUVOIR,UISSE
+	POUVOIR			>	-OUVOIR,UISSES
+	POUVOIR			>	-OUVOIR,UISSIONS
+	POUVOIR			>	-OUVOIR,UISSIEZ
+	POUVOIR			>	-OUVOIR,UISSENT
+	POUVOIR			>	-OUVOIR,USSE
+	POUVOIR			>	-OUVOIR,USSES
+	POUVOIR			>	-OUVOIR,USSIONS
+	POUVOIR			>	-OUVOIR,USSIEZ
+	POUVOIR			>	-OUVOIR,USSENT
+				#conditionnel
+	POUVOIR			>	-VOIR,RRAIS
+	POUVOIR			>	-VOIR,RRAIT
+	POUVOIR			>	-VOIR,RRIONS
+	POUVOIR			>	-VOIR,RRIEZ
+	POUVOIR			>	-VOIR,RRAIENT
+
+				#participes
+	POUVOIR			>	-OIR,ANT
+	POUVOIR			>	-OUVOIR,U
+	POUVOIR			>	-OUVOIR,UE
+	POUVOIR			>	-OUVOIR,UES
+
+				# savoir
+				#
+				#ind. présent
+	SAVOIR			>	-VOIR,AIS
+	SAVOIR			>	-VOIR,AIT
+	SAVOIR			>	-OIR,ONS
+	SAVOIR			>	-OIR,EZ
+	SAVOIR			>	-OIR,ENT
+				#imparfait
+	SAVOIR			>	-OIR,AIS
+	SAVOIR			>	-OIR,AIT
+	SAVOIR			>	-OIR,IONS
+	SAVOIR			>	-OIR,IEZ
+	SAVOIR			>	-OIR,AIENT
+				#passé simple
+	SAVOIR			>	-AVOIR,US
+	SAVOIR			>	-AVOIR,UT
+	SAVOIR			>	-AVOIR,UMES
+	SAVOIR			>	-AVOIR,UTES
+	SAVOIR			>	-AVOIR,URENT
+				#futur simple
+	SAVOIR			>	-VOIR,URAI
+	SAVOIR			>	-VOIR,URAS
+	SAVOIR			>	-VOIR,URA
+	SAVOIR			>	-VOIR,URONS
+	SAVOIR			>	-VOIR,UREZ
+	SAVOIR			>	-VOIR,URONT
+				#subjonctif
+	SAVOIR			>	-VOIR,CHE
+	SAVOIR			>	-VOIR,CHES
+	SAVOIR			>	-VOIR,CHIONS
+	SAVOIR			>	-VOIR,CHIEZ
+	SAVOIR			>	-VOIR,CHENT
+	SAVOIR			>	-AVOIR,USSE
+	SAVOIR			>	-AVOIR,USSES
+	SAVOIR			>	-AVOIR,USSIONS
+	SAVOIR			>	-AVOIR,USSIEZ
+	SAVOIR			>	-AVOIR,USSENT
+				#conditionnel
+	SAVOIR			>	-VOIR,URAIS
+	SAVOIR			>	-VOIR,URAIT
+	SAVOIR			>	-VOIR,URIONS
+	SAVOIR			>	-VOIR,URIEZ
+	SAVOIR			>	-VOIR,URAIENT
+				#participes
+	SAVOIR			>	-VOIR,CHANT
+	SAVOIR			>	-AVOIR,U
+	SAVOIR			>	-AVOIR,UE
+	SAVOIR			>	-AVOIR,UES
+
+
+				# valoir,équivaloir, prévaloir, revaloir
+				#
+				#ind. présent
+	VALOIR			>	-LOIR,UX
+	VALOIR			>	-LOIR,UT
+	VALOIR			>	-OIR,ONS
+	VALOIR			>	-OIR,EZ
+	VALOIR			>	-OIR,ENT
+				#imparfait
+	VALOIR			>	-OIR,AIS
+	VALOIR			>	-OIR,AIT
+	VALOIR			>	-OIR,IONS
+	VALOIR			>	-OIR,IEZ
+	VALOIR			>	-OIR,AIENT
+				#passé simple
+	VALOIR			>	-OIR,US
+	VALOIR			>	-OIR,UT
+	VALOIR			>	-OIR,UMES
+	VALOIR			>	-OIR,UTES
+	VALOIR			>	-OIR,URENT
+				#futur
+	VALOIR			>	-LOIR,UDRAI
+	VALOIR			>	-LOIR,UDRA
+	VALOIR			>	-LOIR,UDRONS
+	VALOIR			>	-LOIR,UDREZ
+	VALOIR			>	-LOIR,UDRONT
+				#subjonctif
+	VALOIR			>	-LOIR,ILLE
+	VALOIR			>	-LOIR,ILLES
+	VALOIR			>	-OIR,IONS
+	VALOIR			>	-OIR,IEZ
+	VALOIR			>	-LOIR,ILLENT
+	PREVALOIR		>	-OIR,E
+	PREVALOIR		>	-OIR,ES
+	VALOIR			>	-LOIR,ILIEZ
+	PREVALOIR		>	-OIR,ENT
+	VALOIR			>	-OIR,USSE
+	VALOIR			>	-OIR,USSES
+	VALOIR			>	-OIR,USSIONS
+	VALOIR			>	-OIR,USSIEZ
+	VALOIR			>	-OIR,USSENT
+				#conditionnel
+	VALOIR			>	-LOIR,UDRAIS
+	VALOIR			>	-LOIR,UDRAIT
+	VALOIR			>	-LOIR,UDRIONS
+	VALOIR			>	-LOIR,UDRIEZ
+	VALOIR			>	-LOIR,UDRAIENT
+	VALOIR			>	-LOIR,ILLE
+				#participes
+	VALOIR			>	-OIR,ANT
+	VALOIR			>	-OIR,U
+	VALOIR			>	-OIR,UE
+	VALOIR			>	-OIR,UES
+
+				# voir,entrevoir, revoir,prévoir et pourvoir.
+				#
+				#ind. présent
+	VOIR			>	-R,S
+	VOIR			>	-R,T
+	VOIR			>	-IR,YONS
+	VOIR			>	-IR,YEZ
+	VOIR			>	-R,ENT
+				#imparfait. présent
+	VOIR			>	-IR,YAIS
+	VOIR			>	-IR,YAIT
+	VOIR			>	-IR,YIONS
+	VOIR			>	-IR,YIEZ
+	VOIR			>	-IR,YAIENT
+				#passé simple
+	[^R]VOIR		>	-OIR,IS
+	RVOIR			>	-OIR,US
+	[^R]VOIR		>	-OIR,IT
+	RVOIR			>	-OIR,UT
+	[^R]VOIR		>	-OIR,IMES
+	RVOIR			>	-OIR,UMES
+	[^R]VOIR		>	-OIR,ITES
+	RVOIR			>	-OIR,UTES
+	[^R]VOIR		>	-OIR,IRENT
+	RVOIR			>	-OIR,URENT
+				#futur simple
+	[^R]VOIR		>	-OIR,ERRAI
+	[^R]VOIR		>	-OIR,ERRAS
+	[^R]VOIR		>	-OIR,ERRONS
+	[^R]VOIR		>	-OIR,ERREZ
+	[^R]VOIR		>	-OIR,ERRONT
+	PREVOIR			>	-R,RAI
+	RVOIR			>	-R,RAI
+	PREVOIR			>	-R,RAS
+	RVOIR			>	-R,RAS
+	PREVOIR			>	-R,RONS
+	RVOIR			>	-R,RONS
+	PREVOIR			>	-R,REZ
+	RVOIR			>	-R,REZ
+	PREVOIR			>	-R,RONT
+	RVOIR			>	-R,RONT
+				#subjonctif
+	VOIR			>	-R,E
+	VOIR			>	-R,ES
+	VOIR			>	-R,E
+	VOIR			>	-R,YIONS
+	VOIR			>	-R,YIEZ
+	VOIR			>	-R,IENT
+	[^R]VOIR		>	-OIR,ISSE
+	RVOIR			>	-OIR,USSE
+	[^R]VOIR		>	-OIR,ISSES
+	RVOIR			>	-OIR,USSES
+	[^R]VOIR		>	-OIR,IT
+	RVOIR			>	-OIR,UT
+	[^R]VOIR		>	-OIR,ISSIONS
+	RVOIR			>	-OIR,USSIONS
+	[^R]VOIR		>	-OIR,ISSIEZ
+	RVOIR			>	-OIR,USSIEZ
+	[^R]VOIR		>	-OIR,ISSENT
+	RVOIR			>	-OIR,USSENT
+				#conditionnel
+	[^R]VOIR		>	-OIR,ERRAIS
+	PREVOIR			>	-R,RAIS
+	RVOIR			>	-R,RAIS
+	[^R]VOIR		>	-OIR,ERRAIT
+	PREVOIR			>	-R,RAIT
+	RVOIR			>	-R,RAIT
+	[^R]VOIR		>	-OIR,ERRIONS
+	PREVOIR			>	-R,RIONS
+	RVOIR			>	-R,RIONS
+	[^R]VOIR		>	-OIR,ERRIEZ
+	PREVOIR			>	-R,RIEZ
+	RVOIR			>	-R,RIEZ
+	[^R]VOIR		>	-OIR,ERRAIENT
+	PREVOIR			>	-R,RAIENT
+	RVOIR			>	-R,RAIENT
+				#participe
+	VOIR			>	-IR,YANT
+	VOIR			>	-OIR,U
+	VOIR			>	-OIR,US
+	VOIR			>	-OIR,UE
+	VOIR			>	-OIR,UES
+
+				# asseoir
+				#
+				#ind. présent
+	VOIR			>	-R,S
+
 
 flag *S:			# pluriels en 's'
-	[^SXZ]			>	S		
+	[^SXZ]			>	S
 
 
 flag *X:			# pluriels en 'x'
@@ -958,7 +1971,7 @@ flag *z:
 	V R I R			>	-RIR,ERTES
 
 				# certains V du 3e gp en -ir
-	[^O] I R		>	-IR,U	
+	[^O] I R		>	-IR,U
 	[^O] I R		>	-IR,US
 	[^O] I R		>	-IR,UE
 	[^O] I R		>	-IR,UES
