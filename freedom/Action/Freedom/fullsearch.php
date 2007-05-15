@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.6 2007/05/09 13:28:57 eric Exp $
+ * @version $Id: fullsearch.php,v 1.7 2007/05/15 14:20:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -28,16 +28,13 @@ include_once("FDL/freedom_util.php");
  * @param Action &$action current action
  * @global keyword Http var : word to search in any values
  * @global famid Http var : restrict to this family identioficator
- * @global viewone Http var : (Y|N) if Y direct view document detail if only one returned
- * @global view Http var : display mode : icon|column|list
+ * @global start Http var : page number 
  */
 function fullsearch(&$action) {
 
   $famid=GetHttpVars("famid",0);
   $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
-  $viewone=GetHttpVars("viewone"); // direct view if only one Y|N
   $target=GetHttpVars("target"); // target window when click on document
-  $view=GetHttpVars("view"); // display mode : icon|column|list
   $start=GetHttpVars("start",0); // page number
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
@@ -96,19 +93,91 @@ function fullsearch(&$action) {
     $action->lay->setBlockData("DOCS",$tdocs);
   }
 
+
+
+/**
+ * return part of text where are found keywords
+ * Due to unaccent fulltext vectorisation need to transpose original text with highlight text done by headline tsearch2 sql function
+ * @param resource $dbid database access
+ * @param string original text
+ * @param string keywords
+ * @return string HTML text with <b> tags
+ */
 function highlight_text($dbid,&$s,$k) {
 
   if (strlen($s) > 100000) {
     $headline=_("document too big : no highlight");
   } else {
-    $s=pg_escape_string($s);
+    $s=strtr($s, "£", " ");
 
-    $result = pg_query($dbid,"select headline('fr','$s',to_tsquery('fr','$k'))");
+
+    $result = pg_query($dbid,"select headline('fr','".pg_escape_string(unaccent($s))."',to_tsquery('fr','$k'))");
     //  print "select headline('fr','$s',to_tsquery('fr','$k'))";
     if (pg_numrows ($result) > 0) {
       $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
       $headline= $arr["headline"];
     }
+
+
+
+    $pos=strpos($headline,'<b>');
+
+  
+    //    print "<hr> POSBEG:".$pos;
+    if ($pos !== false) {
+      $sw=(str_replace(array("<b>","</b>","  "),array('','',' '),$headline));
+      $offset=strpos(unaccent($s),$sw);
+
+      //if (! $offset)   print "\n<hr> SEARCH:[$sw] in [".unaccent($s)."]\n";
+      //    print "<br> OFFSET:".$offset;
+      $before=20; // 20 characters before;
+      if (($pos+$offset) < $before) $p0=0;
+      else $p0=$pos+$offset-$before;
+      $h=substr($s,$p0,$pos+$offset-$p0); // begin of text
+      $possp=strpos($h,' ');
+      if ($possp > 0) $h=substr($h,$possp); // first word
+
+      $pe=strpos($headline,'</b>',$pos);    
+      
+      if ($pe > 0) {
+	$h.="<b>";
+	$h.=substr($s,$pos+$offset,$pe-$pos-3);	
+	$h.="</b>";
+      }
+      //      print "<br> POS:$pos [ $pos : $pe ]";
+      $pos=$pe+1;
+      $i=1;
+      // 7 is strlen('<b></b>');
+
+      while ($pe>0) {
+	$pb=strpos($headline,'<b>',$pos);   
+	$pe=strpos($headline,'</b>',$pos);
+	//	print "<br> POS:$pos [ $pb : $pe ]";
+	if ($pe) {
+	  $h.=substr($s,$pos-4-(7*($i-1))+$offset,$pb-$pos-3);
+	  $h.="<b>";
+	  $h.=substr($s,$pb-(7*$i)+$offset,$pe-$pb-3);
+	  $h.="</b>";
+	  $pos=$pe+1;
+	  $i++;
+	} else {
+	  $cur=$pos-(7*$i)+3+$offset;
+	  if (($cur-$offset) > 150) $pend=30;
+	  else $pend=180-$cur+$offset;
+	  $send=substr($s,$cur,$pend);
+	  $possp=strrpos($send,' ');
+	  $send=substr($send,0,$possp);
+
+	  $h.=$send;
+	  //  print "<br> POSEND: $cur $pend";
+	}
+	
+      }
+      //      print "<br>[$headline]";
+      return $h;
+
+    }
+    
   }
   return $headline;   
 }

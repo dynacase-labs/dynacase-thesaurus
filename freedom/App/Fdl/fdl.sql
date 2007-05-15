@@ -222,6 +222,13 @@ return NEW;
 end;
 ' language 'plpgsql';
 
+create or replace function to2_ascii(text) 
+returns text as $$
+declare 
+begin
+   return translate(lower($1),'ÈËÍÎ‡‚˘¸ÁÙÓÔ…» À¿¬Ÿ‹«‘Œœ','eeeeaauucoiieeeeaauucoii');
+end;
+$$ language 'plpgsql' ;
 
 create or replace function fulltext() 
 returns trigger as $$
@@ -230,12 +237,14 @@ declare
 begin
   good := true;
   if (TG_OP = 'UPDATE') then 
-    good:=(NEW.values != OLD.values);
+    if (NEW.fulltext is not null) then
+      good:=(NEW.values != OLD.values);
+    end if;
   end if;
 
   if (good) then
   begin
-   NEW.fulltext := setweight(to_tsvector('fr',NEW.title), 'A')|| to_tsvector('fr',replace(NEW.values,'£',' '));
+   NEW.fulltext := setweight(to_tsvector('fr',to2_ascii(NEW.title)), 'A')|| to_tsvector('fr',replace(to2_ascii(NEW.values),'£',' '));
 
      EXCEPTION
 	 WHEN OTHERS THEN

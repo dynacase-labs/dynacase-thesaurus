@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.40 2007/05/10 13:03:43 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.41 2007/05/15 14:20:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -199,7 +199,7 @@ Class DocSearch extends PDocSearch {
 	  $suggestions = pspell_suggest($pspell_link, $key);
 	  $sug=$suggestions[0];
 	  //foreach ($suggestions as $k=>$suggestion) {  echo "$k : $suggestion\n";  }
-	  if ($sug && (!strstr($sug,' '))) $tsearchkeys[$k]="$key|$sug";
+	  if ($sug && (unaccent($sug) != $key) &&  (!strstr($sug,' '))) $tsearchkeys[$k]="$key|$sug";
 	} 
 	if (strstr($key, '"')!==false) {
 	  // add more filter for search complete and exact expression
@@ -214,8 +214,8 @@ Class DocSearch extends PDocSearch {
 	    if (strstr($right,'"')!==false) $q2="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
 									      array("",' ','',''),$right))."\\\\y' ";
 	    else $q2="";
-	    $q3="fulltext @@ to_tsquery('fr','$left') ";
-	    $q4="fulltext @@ to_tsquery('fr','$right') ";
+	    $q3="fulltext @@ to_tsquery('fr','".pg_escape_string(unaccent($left))."') ";
+	    $q4="fulltext @@ to_tsquery('fr','".pg_escape_string(unaccent($right))."') ";
 
 	    if ((!$q1) && $q2) $sqlfiltersbrut[]="($q4 and $q2) or $q3";
 	    elseif ((!$q2) && $q1) $sqlfiltersbrut[]="($q3 and $q1) or $q4";
@@ -228,6 +228,7 @@ Class DocSearch extends PDocSearch {
 
     if (count($tsearchkeys)>0) {
       $fullkeys='('.implode(")&(",$tsearchkeys).')';  
+      $fullkeys=unaccent($fullkeys);
       $fullkeys=pg_escape_string($fullkeys);
       $sqlfilters[]="fulltext @@ to_tsquery('fr','$fullkeys') ";
     }
