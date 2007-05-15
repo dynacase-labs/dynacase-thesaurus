@@ -67,15 +67,28 @@ function KeySendSimpleSearch(e) {
      }
 }
 function SendSimpleSearch(event) {    
+       
+       var dmainid=document.getElementById('cellmain');
+       if (dmainid) dmainid.innerHTML='<img  src="Images/loading.gif" style="background-color:#FFFFFF;border:groove black 2px;padding:4px;-moz-border-radius:4px">';
+     
        var did=document.getElementById('csid');
        var fldid=0;
        var key=document.getElementById('searchkey').value;
+       var dmainid=document.getElementById('cellmain');
+       if (dmainid) {
+	 dmainid.innerHTML='<img  src="Images/loading.gif" style="background-color:#FFFFFF;border:groove black 2px;padding:4px;-moz-border-radius:4px">';
+	 dmainid.style.textAlign='center';
+       }
        if (did) fldid=did.options[did.selectedIndex].value;
-       if ((fldid>0) && (!key)) document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&clearkey=Y&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]';
-       else if (key)  document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key;
-       else document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]&catg=-1&clearkey=Y';
-     
+       
+
+       if ((fldid>0) && (!key)) document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&clearkey=Y&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]');
+       else if (key)  document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key);
+       else document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]&catg=-1&clearkey=Y');   
+       return true;  
+  
 }
+
 
 function focusInput(event) {
   var i=document.getElementById('searchkey');
@@ -93,7 +106,6 @@ addEvent(window,"load",focusInput);
 [ZONE [APPNAME]:GENERIC_BARMENU?catg=[catg]]
 <br>
 <br>
-
 <div onmouseup="closeAllMenu();">
 
 
@@ -105,7 +117,7 @@ addEvent(window,"load",focusInput);
 [BLOCK USERSEARCH]<option [selected] value="[id]">[title]</option>[ENDBLOCK USERSEARCH]
 </select>
 [ENDIF ONESEARCH]
-<input title="[TEXT:Send search]" onclick="SendSimpleSearch(event)" type="submit" value="[TEXT:Go]">
+<input title="[TEXT:Send search]" onclick="SendSimpleSearch(event);return false" type="submit" value="[TEXT:Go]">
 
 <table class="transparent" cellspacing="0" width="100%"><tr>
 <td align="left" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&famid=[famid][pds]">[previcon]</a></td>
@@ -124,7 +136,7 @@ addEvent(window,"load",focusInput);
 [ENDBLOCK ONGLET]
 </table>
 </td>
-<td valign="top">
+<td id="cellmain" valign="top">
 
 
                     [BLOCK TABLEBODY]
