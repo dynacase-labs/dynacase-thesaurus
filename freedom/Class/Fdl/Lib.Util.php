@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.16 2007/03/22 16:33:26 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.17 2007/05/15 16:35:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -315,4 +315,7 @@ function unaccent($string) {
    return($string);
 }
 
+function unaccent_utf8($string) {
+  return iconv("UTF-8","ASCII//TRANSLIT",$string);
+}
 ?>
