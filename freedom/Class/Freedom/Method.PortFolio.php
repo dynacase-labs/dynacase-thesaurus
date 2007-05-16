@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.13 2005/09/21 16:02:21 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.14 2007/05/16 15:46:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,30 +12,50 @@
  */
 
 
-
-function PostCreated() {
-
-  
+  /**
+   * Call to create default tabs
+   */
+function PostCreated() {  
   if ($this->revision > 0) return;
   if (! method_exists($this,"addfile")) return;
   // copy all guide-card from default values
+  return $this->CreateDefaultTabs();
+}
+
+
+
+function ReCreateDefaultTabs() {  
   include_once("FDL/Lib.Dir.php");  
+  $child = getChildDir($this->dbaccess,1,$this->initid, false,"TABLE");
+  if (count($child) == 0) {
+    $err=$this->CreateDefaultTabs();
+  }
+  return $err;
+}
+/**
+ * Create default tabs based on tabs of PFL_IDDEF document
+ * @return string message error (empty if no error)
+ */
+function CreateDefaultTabs() {
 
   $err="";
 
   $ddocid = $this->getValue("PFL_IDDEF");
 
-
-  if ($ddocid > 0) {
+  if ($ddocid != "") {
     $ddoc = new_Doc($this->dbaccess,$ddocid);
-    $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"TABLE");
-
-    foreach($child as $k=>$tdoc) {
-      $doc=getDocObject($this->dbaccess,$tdoc);
-      $copy=$doc->Copy();
-      if (! is_object($copy)) return $copy;
-
-      $err.=$this->AddFile($copy->id);
+    if ($ddoc->isAffected()) {
+      $child = getChildDir($this->dbaccess,$this->userid,$ddoc->initid, false,"TABLE");
+      
+      foreach($child as $k=>$tdoc) {
+	$doc=getDocObject($this->dbaccess,$tdoc);
+	$copy=$doc->Copy();
+	if (! is_object($copy)) return $copy;
+	
+	$err.=$this->AddFile($copy->id);
+      }
+    } else {
+      $err=sprintf(_("Error in portfolio : folder %s not exists"),$ddocid);
     }
   }
   return $err;
