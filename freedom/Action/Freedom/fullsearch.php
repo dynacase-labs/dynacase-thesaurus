@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.7 2007/05/15 14:20:05 eric Exp $
+ * @version $Id: fullsearch.php,v 1.8 2007/05/22 16:05:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -153,7 +153,9 @@ function highlight_text($dbid,&$s,$k) {
 	$pb=strpos($headline,'<b>',$pos);   
 	$pe=strpos($headline,'</b>',$pos);
 	//	print "<br> POS:$pos [ $pb : $pe ]";
-	if ($pe) {
+	if (($pe)&&($pb<$pe)) {
+	  $pb--;
+	  $pe; //
 	  $h.=substr($s,$pos-4-(7*($i-1))+$offset,$pb-$pos-3);
 	  $h.="<b>";
 	  $h.=substr($s,$pb-(7*$i)+$offset,$pe-$pb-3);
@@ -167,13 +169,14 @@ function highlight_text($dbid,&$s,$k) {
 	  $send=substr($s,$cur,$pend);
 	  $possp=strrpos($send,' ');
 	  $send=substr($send,0,$possp);
-
+	  $pe=0;
 	  $h.=$send;
 	  //  print "<br> POSEND: $cur $pend";
 	}
 	
       }
-      //      print "<br>[$headline]";
+      //print "<br>[$headline]";
+	
       return $h;
 
     }
