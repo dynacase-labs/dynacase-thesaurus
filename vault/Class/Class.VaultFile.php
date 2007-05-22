@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.18 2007/02/19 16:25:40 marc Exp $
+ * @version $Id: Class.VaultFile.php,v 1.19 2007/05/22 13:01:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -11,7 +11,6 @@
  */
 
 include_once("VAULT/Class.VaultDiskStorage.php");
-include_once("VAULT/Class.VaultCache.php");
 include_once("Class.Log.php");
 define("VAULT_FMODE",0600);
 define("VAULT_DMODE",0700);
@@ -44,11 +43,7 @@ Class VaultFile {
     default:
       // Not implemented yet
     }
-    if ($this->use_cache) {
-      // Please, test before use....
-      $this->logger->debug("Instanciate Cache...");
-      $this->cache = new VaultCache($access, $cache_def);
-    }
+    
   }
  
   // ---------------------------------------------------------
