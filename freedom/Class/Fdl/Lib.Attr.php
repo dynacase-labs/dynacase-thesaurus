@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.67 2007/05/07 15:48:09 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.68 2007/05/22 16:06:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -232,13 +232,12 @@ function AttrToPhp($dbaccess, $tdoc) {
     }	 
 
 
+    
     $phpAdoc->Set("sattr", implode(",",$attrids));
     $phpAdoc->SetBlockData("MATTR", $tmenu);
     $phpAdoc->SetBlockData("FATTR", $tfield);
     $phpAdoc->SetBlockData("AATTR", $taction);
     $phpAdoc->SetBlockData("NATTR", $tnormal);
-    $phpAdoc->SetBlockData("ATTRFIELD2", $tattr);
-    reset( $tattr);
     $phpAdoc->SetBlockData("ATTRFIELD", $tattr);
 
     $phpAdoc->set("hasattr",(count($tattr)>0));
@@ -300,8 +299,8 @@ function PgUpdateFamilly($dbaccess, $docid) {
     $msg .= "Create table doc".$docid."\n";
     // create postgres table if new familly
     $cdoc = createDoc($dbaccess, $docid);
-    
-    $cdoc->exec_query($cdoc->sqltcreate,1);
+    $triggers=$cdoc->sqltrigger(false,true);
+    $cdoc->exec_query($triggers,1);
     // step by step
     $cdoc->Create();
     setSqlIndex($dbaccess, $docid);
@@ -340,43 +339,52 @@ function PgUpdateFamilly($dbaccess, $docid) {
     if ($qattr->nb > 0) {
       foreach($oattr as $ka => $attr) {	
 	$tattr[strtolower($attr->id)]=$attr;
-      }
+	if ($attr->type=='file') {
+	  $tattr[strtolower($attr->id).'_txt']=$attr;
+	  $tattr[strtolower($attr->id).'_vec']=clone($attr);
+	  $tattr[strtolower($attr->id).'_vec']->type='tsvector';
+	}
+      }     
+      
       foreach($tattr as $ka => $attr) {
 	if ($attr->type == "array") continue; // skip array but must be in table to search element in arrays
 	$attr->id=chop($attr->id);
 	if ($attr->type=="array") continue; // don't use column for container
 	if ($attr->docid == $docid) { // modify my field not inherited fields
 
-	  if (! in_array($attr->id, $pgatt)) {
-	    $msg .= "add field {$attr->id} in table doc".$docid."\n";
+	  if (! in_array($ka, $pgatt)) {
+	    $msg .= "add field $ka in table doc".$docid."\n";
 
-	    if (($attr->repeat) || ($tattr[$attr->frameid]->type=="array")) { 
+	    if (($attr->repeat) || (($tattr[$attr->frameid]->type=="array")&&($attr->type!='tsvector'))) { 
 		
-		$sqltype = strtolower($v->id)." text";  // for the moment all repeat are text
+		$sqltype = " text";  // for the moment all repeat are text
 	    } else {
 	      switch($attr->type) {
 	      case double:
 	      case money:
-		$sqltype = strtolower($v->id)." float8";  
+		$sqltype = " float8";  
 		break;
 	      case int:
 	      case integer:
-		$sqltype = strtolower($v->id)." int4";  
+		$sqltype = " int4";  
 		break;
 	      case date:
-		$sqltype = strtolower($v->id)." date"; 
+		$sqltype = " date"; 
 		break;
 	      case timestamp:
-		$sqltype = strtolower($v->id)." timestamp with time zone"; 
+		$sqltype = " timestamp with time zone"; 
 		break;
 	      case time:
-		$sqltype = strtolower($v->id)." time";  
+		$sqltype = " time";  
+		break;
+	      case tsvector:
+		$sqltype = " tsvector";  
 		break;
 	      default: 
-		$sqltype = strtolower($v->id)." text";    
+		$sqltype = " text";    
 	      }
 	    }
-	    $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN {$attr->id} $sqltype;";
+	    $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN $ka $sqltype;";
 	    $doc->exec_query($sqlquery,1); // add new field
 	  }
 	}
@@ -419,11 +427,10 @@ function createDocFile($dbaccess, $tdoc) {
 
 function activateTrigger($dbaccess, $docid) {
   $cdoc = createDoc($dbaccess, $docid);
-    $msg=$cdoc->exec_query($cdoc->sqltcreate,1);
-  //  print $cdoc->sqltcreate;
+    $msg=$cdoc->exec_query($cdoc->sqltrigger(false,true),1);  
     $sqlcmds = explode(";",$cdoc->SqlTrigger());
 
-    //$cdoc = new_Doc($dbaccess, $docid);
+    //$cdoc = new_Doc($dbacceanss, $docid);
     //  print $cdoc->SqlTrigger();
     while (list($k,$sqlquery)=each($sqlcmds)) {
       if ($sqlquery != "") $msg=$cdoc->exec_query($sqlquery,1);

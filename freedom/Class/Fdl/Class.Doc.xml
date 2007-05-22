@@ -45,21 +45,7 @@ Class Doc[docid] extends [DocParent] {
      "create sequence seq_doc[docid] start 1;",
      "alter TABLE doc[docid] ADD primary key (id);",
      "select setval('seq_doc[docid]', count(distinct initid)+1, false )  from only doc[docid];");
-   public $sqltcreate =
-     "CREATE OR REPLACE FUNCTION upval[docid]() RETURNS trigger AS '
-declare	
-begin
-[BLOCK ATTRFIELD2]
-if not NEW.[attrid] isnull then
-  NEW.values := NEW.values || ''£'' || NEW.[attrid];
-  NEW.attrids := NEW.attrids || ''£'' || ''[attrid]'';
-end if;[ENDBLOCK ATTRFIELD2]
-[IF hasattr]
-NEW.values := NEW.values || ''£'';
-NEW.attrids := NEW.attrids || ''£'';[ENDIF hasattr]
-  return NEW;
-end;
-' LANGUAGE 'plpgsql'; "; // sql trigger
+   
 
      public $fromid=[docid];
 

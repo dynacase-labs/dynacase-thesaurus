@@ -230,6 +230,28 @@ begin
 end;
 $$ language 'plpgsql' ;
 
+create or replace function setweight2(text,"char") 
+returns tsvector as $$
+declare 
+  a_text alias for $1;
+  a_weight alias for $2;
+begin
+   if (a_text is null) then
+     return to_tsvector('simple','');
+   else
+     return setweight(to_tsvector('fr',to2_ascii(a_text)), a_weight);
+   end if;      
+end;
+$$ language 'plpgsql' ;
+
+create or replace function setweight2(text) 
+returns tsvector as $$
+declare   
+begin
+     return setweight2($1, 'D');
+end;
+$$ language 'plpgsql' ;
+
 create or replace function fulltext() 
 returns trigger as $$
 declare 

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_trigger.php,v 1.7 2006/08/04 10:29:15 eric Exp $
+ * @version $Id: fdl_trigger.php,v 1.8 2007/05/22 16:06:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,10 +57,11 @@ if ($docid!=-1) {
     
       if ($trig)    print $doc->sqltrigger($drop)."\n";
       else {
-	if (is_array($doc->sqltcreate)) {
-	  print implode(";\n",$doc->sqltcreate);
+	$triggers=$doc->sqltrigger(false,true);
+	if (is_array($triggers)) {
+	  print implode(";\n",$triggers);
 	} else {
-	  print $doc->sqltcreate."\n";
+	  print $triggers."\n";
 	}
       }
       print $doc->getSqlIndex();

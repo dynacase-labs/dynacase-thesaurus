@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.378 2007/05/14 13:07:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.379 2007/05/22 16:06:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3383,9 +3383,10 @@ final public function PostInsert()  {
   }
 
   /**
-   * use triggers to update docvalue table
+   * add several triggers to update different tables (such as docread) or attributes (such as values)
+   * @param bool $onlydrop set to false for only drop triggers
    */
-  final public function SqlTrigger($drop=false) {
+  final public function SqlTrigger($onlydrop=false,$code=false) {
 
     if (get_class($this) == "DocFam") {
       $cid = "fam";
@@ -3395,28 +3396,55 @@ final public function PostInsert()  {
       
       $cid = $this->fromid;
     }
-    
-      
+          
     $sql = "";
-
     // delete all relative triggers
-    $sql .= "select droptrigger('doc".$cid."');";
-     
-    if ($drop) return $sql; // only drop
-    if (is_array($this->attributes->fromids)) {
-    reset($this->attributes->fromids);
-    while(list($k,$v) = each($this->attributes->fromids)) {
+    $sql .= "select droptrigger('doc".$cid."');";     
+    if ($onlydrop) return $sql; // only drop
 
-      $sql .="create trigger UV{$cid}_$v BEFORE INSERT OR UPDATE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
+    if ($code) { 
+      $lay = new Layout("FDL/Layout/sqltrigger.xml");
+      $na=$this->GetNormalAttributes();
+      $tvalues=array();
+      foreach ($na as $k=>$v) {
+	if (($v->type != "array") && ($v->type != "frame") && ($v->type != "tab") && ($v->type != "file") && ($v->type != "image") && ($v->type != "password")) {
+	  $tvalues[]=array("attrid"=>$k);
+	}
+	if ($v->type == "file") {
+	  $files[]=array("attrid"=>$k."_txt",
+			 "vecid"=>$k."_vec");	  
+	}
+      }      
+      $na=$this->GetAbstractAttributes();
+      foreach ($na as $k=>$v) {
+	if (($v->type != "file") && ($v->type != "image") && ($v->type != "password")) {
+	  $tabstract[]=array("attrid"=>$k);
+	}
+      }    
+      $lay->setBlockData("ATTRFIELD",$tvalues);
+      $lay->setBlockData("ABSATTR",$tabstract);
+      $lay->setBlockData("FILEATTR",$files);
+      $lay->setBlockData("FILEATTR2",$files);
+      $lay->set("hasattr",(count($tvalues)>0));
+      $lay->set("hasabsattr",(count($tabstract)>0));
+      $lay->set("docid",$this->fromid);
+      $sql=$lay->gen();
+    } else {
+
+
+    if (is_array($this->attributes->fromids)) {
+      foreach($this->attributes->fromids as $k=>$v) {
+
+	$sql .="create trigger UV{$cid}_$v BEFORE INSERT OR UPDATE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE upval$v();";
      
-    }
+      }
     }
     // the reset trigger must begin with 'A' letter to be proceed first (pgsql 7.3.2)
     $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
-    $sql .="create trigger VFULL{$cid} BEFORE INSERT OR UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fulltext();";
+    $sql .="create trigger VFULL{$cid} BEFORE INSERT OR UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fullvectorize$cid();";
     $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
     $sql .="create trigger zread{$cid} AFTER INSERT OR UPDATE OR DELETE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE setread();";
-    
+    }
     return $sql;
   }
 
