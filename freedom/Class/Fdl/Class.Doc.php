@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.379 2007/05/22 16:06:21 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.380 2007/05/23 07:54:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -44,6 +44,8 @@ define('POPUP_ACTIVE',1);
 define('POPUP_CTRLACTIVE',3);
 define('POPUP_CTRLINACTIVE',4);
 define('POPUP_INVISIBLE',2);
+
+define ("DELVALUE", 'DEL??');
 /**#@-*/
 /**
  * max cache document
@@ -1772,6 +1774,10 @@ final public function PostInsert()  {
       $oattr=$this->GetAttribute($attrid);
       if ($oattr === false) return sprintf(_("attribute %s unknow in family %s [%d]"),$attrid, $this->title, $this->id);
       if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
+      if ($value === DELVALUE) {
+	if ( $oattr->type != "password") $value=" ";
+	else return;
+      }
       if ($value === " ") {
 	$value=""; // erase value
 	if  ($this->$attrid != "") {
@@ -1789,63 +1795,63 @@ final public function PostInsert()  {
 	  //	  print "change $attrid  to <PRE>[{$this->$attrid}] [$value]</PRE><BR>";
 	
 
-	if ($oattr->repeat) {
-	  $tvalues = $this->_val2array($value);
-	} else {
-	  $tvalues[]=$value;
-	}
+	  if ($oattr->repeat) {
+	    $tvalues = $this->_val2array($value);
+	  } else {
+	    $tvalues[]=$value;
+	  }
     
 
-	while (list($kvalue, $avalue) = each($tvalues)) {
-	  if ($avalue != "") {
-	    if ($oattr) {
-	      switch($oattr->type) {
-	      case 'docid':
-		if  (!is_numeric($avalue)) {		  
-		  $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
-		}
-		break;
-	      case 'double':
-	      case 'money':
-		$tvalues[$kvalue]=str_replace(",",".",$avalue);
-		$tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
-		$tvalues[$kvalue]=round(doubleval($tvalues[$kvalue]),2);
-		break;
-	      case 'integer':
-	      case 'int':
-		$tvalues[$kvalue]=intval($avalue);
-		break;
-	      case 'time':
-		$tt=explode(":",$avalue);
-		if (count($tt)==2) {
-		  list($hh,$mm) = $tt;
-		  $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
-		} else if (count($tt)==3) {
-		  list($hh,$mm,$ss) = $tt;
-		  $tvalues[$kvalue]=sprintf("%02d:%02d:%02d",intval($hh)%24,intval($mm)%60,intval($ss)%60);		  
-		}
-		break;
-	      case 'date':
-		list($dd,$mm,$yy) = explode("/",$avalue);
-		if (($mm == 0) || ($dd == 0)) list($yy,$mm,$dd) = explode("-",$avalue); // iso8601
-		$yy = intval($yy);
-		$mm = intval($mm); 
-		$dd = intval($dd); 
+	  while (list($kvalue, $avalue) = each($tvalues)) {
+	    if ($avalue != "") {
+	      if ($oattr) {
+		switch($oattr->type) {
+		case 'docid':
+		  if  (!is_numeric($avalue)) {		  
+		    $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
+		  }
+		  break;
+		case 'double':
+		case 'money':
+		  $tvalues[$kvalue]=str_replace(",",".",$avalue);
+		  $tvalues[$kvalue]=str_replace(" ","",$tvalues[$kvalue]);
+		  $tvalues[$kvalue]=round(doubleval($tvalues[$kvalue]),2);
+		  break;
+		case 'integer':
+		case 'int':
+		  $tvalues[$kvalue]=intval($avalue);
+		  break;
+		case 'time':
+		  $tt=explode(":",$avalue);
+		  if (count($tt)==2) {
+		    list($hh,$mm) = $tt;
+		    $tvalues[$kvalue]=sprintf("%02d:%02d",intval($hh)%24,intval($mm)%60);
+		  } else if (count($tt)==3) {
+		    list($hh,$mm,$ss) = $tt;
+		    $tvalues[$kvalue]=sprintf("%02d:%02d:%02d",intval($hh)%24,intval($mm)%60,intval($ss)%60);		  
+		  }
+		  break;
+		case 'date':
+		  list($dd,$mm,$yy) = explode("/",$avalue);
+		  if (($mm == 0) || ($dd == 0)) list($yy,$mm,$dd) = explode("-",$avalue); // iso8601
+		  $yy = intval($yy);
+		  $mm = intval($mm); 
+		  $dd = intval($dd); 
 	      
-		if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
-		if ($mm == 0) $mm=1; // 1st january
-		if ($dd == 0) $dd=1; // 1st day
-		//	$tvalues[$kvalue]=sprintf("%04d-%02d-%02d", ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy),$mm,$dd);
-		$tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm, ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
-		break;
+		  if (($mm == 0) || ($dd == 0)) AddWarningMsg(sprintf(_("the date '%s' for %s attribute is not correct. It has been corrected automatically"),$avalue,$oattr->labelText));
+		  if ($mm == 0) $mm=1; // 1st january
+		  if ($dd == 0) $dd=1; // 1st day
+		  //	$tvalues[$kvalue]=sprintf("%04d-%02d-%02d", ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy),$mm,$dd);
+		  $tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm, ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
+		  break;
+		}
 	      }
 	    }
 	  }
-	}
 	
-	//   print $oattr->id."-".$oattr->type;print_r2($tvalues);
-	$this->_oldvalue[$attrid]=$this->$attrid;
-	$this->$attrid=implode("\n",$tvalues); 
+	  //   print $oattr->id."-".$oattr->type;print_r2($tvalues);
+	  $this->_oldvalue[$attrid]=$this->$attrid;
+	  $this->$attrid=implode("\n",$tvalues); 
 
 	}
 	
@@ -3407,7 +3413,7 @@ final public function PostInsert()  {
       $na=$this->GetNormalAttributes();
       $tvalues=array();
       foreach ($na as $k=>$v) {
-	if (($v->type != "array") && ($v->type != "frame") && ($v->type != "tab") && ($v->type != "file") && ($v->type != "image") && ($v->type != "password")) {
+	if (($v->type != "array") && ($v->type != "frame") && ($v->type != "tab") ) {
 	  $tvalues[]=array("attrid"=>$k);
 	}
 	if ($v->type == "file") {

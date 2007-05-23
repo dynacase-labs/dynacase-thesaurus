@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.87 2007/02/28 16:44:30 eric Exp $
+ * @version $Id: modcard.php,v 1.88 2007/05/23 07:54:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -224,8 +224,8 @@ function setPostVars(&$doc) {
 	    else $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
-
-	  $doc->SetValue($attrid, $value);	      
+	  if ($value=="")$doc->SetValue($attrid, DELVALUE);	 
+	  else $doc->SetValue($attrid, $value);	      
 	      
 	      
 	}      

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.7 2006/12/22 14:39:52 eric Exp $
+ * @version $Id: modattribute.php,v 1.8 2007/05/23 07:54:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,6 +46,7 @@ function modattribute(&$action) {
 
     if ($err=="") $action->AddActionDone("UNLOCKFILE",$doc->id);
   }
+  if ($value=="") $value=DELVALUE;
   if ($value != "") {
 
     if ($err != "") {    
