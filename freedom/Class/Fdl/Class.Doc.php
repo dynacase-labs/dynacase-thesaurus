@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.380 2007/05/23 07:54:35 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.381 2007/05/23 16:00:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1464,6 +1464,45 @@ final public function PostInsert()  {
     }
 
     return $tinfo;
+  } 
+
+  /**
+   * set encoded text of file 
+   * update $attrid_txt table column
+   * @param string $idAttr identificator of attribute
+   * @return string error message, if no error empty string
+   */
+  public function SetFileText($attrid) {      
+    include_once("FDL/Lib.Vault.php");
+    $oa=$this->getAttribute($attrid);
+    $err="";
+    if ($oa->type=="file") {
+      $tf=array();
+      if ($oa->inArray())   $tf=$this->GetTValue($oa->id);
+      else $tf[]=$this->GetValue($oa->id);
+      $ak=array();
+      $at=$oa->id.'_txt';
+      $this->$at='';
+      foreach ($tf as $vf) {
+	 if (ereg ("(.*)\|(.*)", $vf, $reg)) {  
+	   $vid=$reg[2];
+	   $info=vault_properties($vid,'latin');
+	   //print_r2($info);
+	   if ($vid > 0) {
+	     $err=vault_generate('latin',$vid,$newid);
+	     
+	     if ($err=="") {
+	       $fcontent=vault_get_content($newid);
+	       $this->$at.=$fcontent;
+	       $ak[$at]=$at;
+	     }	     
+	   }
+	 }
+      }
+
+      if (count($ak)>0)  $err.=$this->modify(false,$ak);
+    }  
+    return $err;
   }
   
   /** return all the attributes object for popup menu
@@ -1843,6 +1882,15 @@ final public function PostInsert()  {
 		  if ($dd == 0) $dd=1; // 1st day
 		  //	$tvalues[$kvalue]=sprintf("%04d-%02d-%02d", ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy),$mm,$dd);
 		  $tvalues[$kvalue]=sprintf("%02d/%02d/%04d",$dd,$mm, ($yy<30)?2000+$yy:(($yy<100)?1900+$yy:$yy));
+		  break;
+		case 'file':
+		  // clear fulltext realtive column
+		  $ak=$oattr->id.'_txt';
+		  $this->$ak='';
+		  $this->fields[$ak]=$ak;
+		  $ak=$oattr->id.'_vec';
+		  $this->$ak='';
+		  $this->fields[$ak]=$ak;
 		  break;
 		}
 	      }
