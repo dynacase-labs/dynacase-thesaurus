@@ -3,7 +3,7 @@
  * Tranformation Engine Definition
  *
  * @author Anakeen 2005
- * @version $Id: Class.VaultEngine.php,v 1.1 2007/05/22 13:01:47 eric Exp $
+ * @version $Id: Class.VaultEngine.php,v 1.2 2007/05/23 16:01:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -65,7 +65,9 @@ create table vaultengine ( name text not null,
 	$eng=new VaultEngine($this->dbaccess,array($engine,$mime));
       }
       if (! $eng->isAffected()) {
-	$mime=strtok($mime,"/");
+	$eng=new VaultEngine($this->dbaccess,array($engine,$mime.'/*'));
+      }
+      if (! $eng->isAffected()) {
 	$eng=new VaultEngine($this->dbaccess,array($engine,'*'));
       }
       if ( $eng->isAffected()) return $eng;

@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultDiskStorage.php,v 1.5 2007/05/22 13:01:47 eric Exp $
+ * @version $Id: Class.VaultDiskStorage.php,v 1.6 2007/05/23 16:01:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -33,6 +33,7 @@ Class VaultDiskStorage extends DbObj {
 			"teng_state",     // Transformation Engine state
 			"teng_lname",     // Transformation Engine logical name (VIEW, THUMBNAIL, ....)
 			"teng_id_file",      // Transformation Engine source file id
+			"teng_comment",      // Comment for transformation
 			
 			);
   var $id_fields = array ("id_file");
@@ -55,7 +56,8 @@ Class VaultDiskStorage extends DbObj {
  
                                      teng_state       int DEFAULT 0,
                                      teng_lname       text DEFAULT '',
-                                     teng_id_file        int DEFAULT -1
+                                     teng_id_file        int DEFAULT -1,
+                                     teng_comment        text DEFAULT ''
 
                                );
            create sequence seq_id_vaultdiskstorage start 10;";
@@ -180,19 +182,16 @@ function seems_utf8($Str) {
     $this->logger->debug("File $infile stored in $f");
     return "";
   }
+
 /**
- * Add/Update new generated file in VAULT
- * @param string $infile complete server path of generated file to store
- * @param string $te_name engine name which has produce the file
- * @param int $new_idfile vault identificator of new stored file
+ * Get the VaultDiskStorage transforming object corresponding to the current object
+ * @param  VaultDiskStorage &$ngf returned object
  * @return string error message (empty if OK)
  */
- function StoreEngineFile($infile, $te_name,&$new_idfile) {
-  // -------------------------------------------------------------------- 
-   include_once ("WHAT/Lib.FileMime.php");
+ function GetEngineObject($te_name,&$ngf) {
 
    if (! $this->isAffected()) return _("vault file is not initialized");
-   $size = filesize($infile);
+
 
    $q=new QueryDb($this->dbaccess,"VaultDiskStorage");
    $q->AddQuery("teng_id_file=".$this->id_file);
@@ -202,23 +201,42 @@ function seems_utf8($Str) {
      $ngf=new VaultDiskStorage($this->dbaccess);
      $ngf->teng_id_file=$this->id_file;
      $ngf->teng_lname=$te_name;
+     $size=1;
      $ngf->fs->SetFreeFs($size, $id_fs, $id_dir, $f_path, $fsname);
      $ngf->cdate = $ngf->mdate = $ngf->adate = date("c", time());
      $ngf->id_fs = $id_fs;
      $ngf->id_dir = $id_dir;
-     $ngf->size=$size;
+     $ngf->size=0;
      $err=$ngf->Add();
      if ($err) return $err;
    } else {
      $ngf=$tn[0];
-     $oldsize=$ngf->size;     
-     $ngf->size=$size;
-     $ngf->mdate = $ngf->adate = date("c", time());
    }
+   return $err;
+ }
 
+/**
+ * Add/Update new generated file in VAULT
+ * @param string $infile complete server path of generated file to store
+ * @param string $te_name engine name which has produce the file
+ * @param int $new_idfile vault identificator of new stored file
+ * @return string error message (empty if OK)
+ */
+ function StoreEngineFile($infile, $engine,&$new_idfile) {
+   include_once ("WHAT/Lib.FileMime.php");
 
+   if (! $this->isAffected()) return _("vault file is not initialized");
+   $te_name=$engine->name;
+
+   $err=$this->GetEngineObject($te_name,$ngf);
+   if ($err!="") return $err;
+
+   $oldsize=$ngf->size;   
+   $size = filesize($infile);
+   $ngf->size=$size;
+   $ngf->mdate = $ngf->adate = date("c", time());
    $ngf->public_access = $this->public_access;
-
+   $ngf->teng_comment=sprintf(_("produce by [%s] command"),$engine->command);
    $path_parts = pathinfo($this->name);
    $ext=$path_parts['extension'];
    if ($ext=="") $newname=$this->name."_".$te_name;
@@ -233,8 +251,7 @@ function seems_utf8($Str) {
    $ngf->mime_t = getTextMimeFile($infile);
    $ngf->mime_s = getSysMimeFile($infile, $ngf->name);
     
-   $this->teng_state = 1;
-
+   $ngf->teng_state = 1;
 
    $f = $ngf->getPath();
     if (! @copy($infile, $f)) {
@@ -257,23 +274,43 @@ function seems_utf8($Str) {
     $this->logger->debug("File $infile stored in $f");
     return $err;
   }
+
+
+/**
+ * Add/Update new generated file in VAULT
+ * @param string $te_name engine name which has produce the file
+ * @param string $texterror text error
+ * @param int $new_idfile vault identificator of new stored file
+ * @return string error message (empty if OK)
+ */
+ function StoreEngineError( $engine,$texterror,&$new_idfile) { 
+   if (! $this->isAffected()) return _("vault file is not initialized");
+   $te_name=$engine->name;
+
+   $err=$this->GetEngineObject($te_name,$ngf);
+   if ($err!="") return $err;
+   $ngf->teng_comment=$texterror;
+   $ngf->teng_state = -1;
+   $err=$ngf->modify();
+   $new_idfile=$ngf->id_file;
+ }
   // --------------------------------------------------------------------     
  function Show($id_file, &$f_infos, $teng_lname="") { 
    // --------------------------------------------------------------------     
    $this->id_file = -1;
-   
-   if ($teng_lname!="") {
+   if ($teng_lname!="") {     
      $query = new QueryDb($this->dbaccess, $this->dbtable);
-     $query->basic_elem->sup_where = array( "teng_idfs=".$id_file, 
-					    "teng_lname='".$teng_lname."'", 
-					    "teng_state=1" );
+     $query->AddQuery("teng_id_file=".$id_file);
+     $query->AddQuery("teng_lname='".pg_escape_string($teng_lname)."'");
+     
      $t = $query->Query(0,0,"TABLE");
+    
      if ($query->nb > 0) {
        $msg = DbObj::Select($t[0]["id_file"]);
      }
    }
    
-   if ($this->id_file==-1) {
+   if (($this->id_file==-1) && ($teng_lname=="")) {
      $msg = DbObj::Select($id_file);
    }
 
@@ -290,6 +327,7 @@ function seems_utf8($Str) {
       $f_infos->teng_state = $this->teng_state;
       $f_infos->teng_lname = $this->teng_lname;
       $f_infos->teng_vid = $this->teng_id_file;
+      $f_infos->teng_comment = $this->teng_comment;
       $f_infos->path = vaultfilename($f_path, $this->name, $id_file);
 
       $this->adate = date("c", time());
@@ -417,13 +455,14 @@ function seems_utf8($Str) {
       if ($retval!=0) {
 	//error mode
 	$err=file_get_contents($errfile);
+	$err.=$this->StoreEngineError($engine,$err,$new_idfile);
       } else {
 	$warcontent=file_get_contents($errfile);
-	$err=$this->StoreEngineFile($outfile,$engine->name,$new_idfile);
+	$err=$this->StoreEngineFile($outfile,$engine,$new_idfile);
 	
       }
-      unlink($outfile);
-      unlink($errfile);
+      @unlink($outfile);
+      @unlink($errfile);
     }
 
     return $err;

@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.19 2007/05/22 13:01:47 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.20 2007/05/23 16:01:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -47,10 +47,10 @@ Class VaultFile {
   }
  
   // ---------------------------------------------------------
-  function Show($id_file, &$infos) {
+  function Show($id_file, &$infos, $teng_lname="") {
   // ---------------------------------------------------------
     if ($this->chrono) $this->logger->start("Show");
-    $msg = $this->storage->Show($id_file, $infos);
+    $msg = $this->storage->Show($id_file, $infos, $teng_lname);
     if ($msg!='') $this->logger->error($msg);
     if ($this->chrono) $this->logger->end("Show");
     return($msg);
