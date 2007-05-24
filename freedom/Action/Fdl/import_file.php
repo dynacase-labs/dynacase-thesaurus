@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.124 2007/04/13 06:23:28 eric Exp $
+ * @version $Id: import_file.php,v 1.125 2007/05/24 15:06:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -61,7 +61,7 @@ function add_import_file(&$action, $fimport) {
 	     "familyname"=>"",
 	     "action"=>" ");
     $tcr[$nline]["title"]=substr($data[0],0,10);
-    switch ($data[0]) {
+    switch (trim($data[0])) {
       // -----------------------------------
     case "BEGIN":
       $err="";	
