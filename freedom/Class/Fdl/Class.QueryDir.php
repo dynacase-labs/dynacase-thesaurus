@@ -3,7 +3,7 @@
  * Folder managing
  *
  * @author Anakeen 2001
- * @version $Id: Class.QueryDir.php,v 1.24 2007/05/09 15:42:30 eric Exp $
+ * @version $Id: Class.QueryDir.php,v 1.25 2007/05/24 15:01:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -23,9 +23,10 @@ include_once("Class.Log.php");
  */
 Class QueryDir extends DbObj
 {
-  var $fields = array ( "dirid","query","childid","qtype");
-
-  var $id_fields = array ("dirid","childid");
+  public $fields = array ( "dirid","query","childid","qtype","fromid","doctype");
+  /*public $sup_fields= array("fromid",
+   "doctype"); */ // not be in fieldsset by trigger 
+  public $id_fields = array ("dirid","childid");
 
   var $dbtable = "fld";
 
