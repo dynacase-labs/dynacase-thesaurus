@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.382 2007/05/25 10:06:44 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.383 2007/05/25 12:41:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3875,6 +3875,8 @@ final public function PostInsert()  {
     $this->lay->SetBlockData("TABLEBODY",$frames);
     $this->lay->SetBlockData("TABS",$ttabs);
     $this->lay->Set("ONETAB",count($ttabs)>0);
+    $this->lay->Set("NOTAB",($target=="mail"));
+
     if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
   
   }

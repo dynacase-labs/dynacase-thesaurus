@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.102 2007/05/25 10:06:44 eric Exp $
+ * $Id: freedom.css,v 1.103 2007/05/25 12:41:32 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -511,6 +511,12 @@ input.state {
   .onlyprint { 
     display:block;
     }
+  FIELDSET.mfield {
+    display:block!important;
+  }
+  DIV.tabsh {
+    display:none;
+  }
 }
 TABLE.huge {
   width:100%;

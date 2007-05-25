@@ -457,7 +457,7 @@ function showFirstFieldset(event) {
   if (to) {
     ltr=to.getElementsByTagName('span');
     if (ltr.length > 0) {
-      ltr[0].onclick.apply(ltr[0],[event]);
+      ltr[0].onmousedown.apply(ltr[0],[event]);
       ltr[0].className='tabsel';
     }
   }
