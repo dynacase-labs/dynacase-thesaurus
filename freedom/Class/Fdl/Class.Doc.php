@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.381 2007/05/23 16:00:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.382 2007/05/25 10:06:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4219,7 +4219,7 @@ final public function PostInsert()  {
 	$tableframe[$v]["value"]=chop(htmlentities($value));
 	$label = $listattr[$i]->labelText;
 	$tableframe[$v]["attrid"]=$listattr[$i]->id;
-	$tableframe[$v]["name"]=$label;
+	$tableframe[$v]["name"]=ucfirst($label);
 
 	if ($listattr[$i]->needed ) $tableframe[$v]["labelclass"]="FREEDOMLabelNeeded";
 	else $tableframe[$v]["labelclass"]="FREEDOMLabel";
@@ -4233,9 +4233,10 @@ final public function PostInsert()  {
 		
 	$tableframe[$v]["NORMALROW"]="NORMALROW$i";		
 	$tableframe[$v]["ARRAYROW"]="ARRAYROW$i";
-
-	if (($listattr[$i]->type=="array")||($listattr[$i]->type=="htmltext")) $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
+	$vlabel=$listattr[$i]->getOption("vlabel");
+	if (($listattr[$i]->type=="array")||(($listattr[$i]->type=="htmltext")&&($vlabel!='left'))||($vlabel=='up')||($vlabel=='none')) $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
 	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou"=>"zou")));
+	$tableframe[$v]["viewlabel"]=(($listattr[$i]->type != "array")&&($vlabel!='none'));
 	$v++;
 		
       }

@@ -10,7 +10,7 @@
   <td  >[avalue]</td>
             [ENDIF TESTARRAY]
             [IF TESTARRAY]
-  <td colspan="3">[avalue]</td>
+  <td colspan="3">[IF viewlabel]<span class="[labelclass]">[alabel]&nbsp;:&nbsp;</span><br>[ENDIF viewlabel][avalue]</td>
             [ENDIF TESTARRAY]
 </tr>
 [ENDBLOCK FVALUES]

@@ -16,7 +16,7 @@
             [ENDBLOCK [NORMALROW]]
             [BLOCK [ARRAYROW]]
   
-  <td colspan="3">[inputtype]</td>
+  <td colspan="3">[IF viewlabel]<span class="[labelclass]" >[name]&nbsp;:&nbsp;</span><br>[ENDIF viewlabel][inputtype]</td>
             [ENDBLOCK [ARRAYROW]]
 </tr>
 </table>
