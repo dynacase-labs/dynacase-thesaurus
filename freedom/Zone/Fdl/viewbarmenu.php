@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.1 2007/05/25 15:46:01 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.2 2007/05/25 16:29:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,12 +13,16 @@
 
 
 include_once("FDL/popupdocdetail.php");
+include_once("FDL/popupfamdetail.php");
 
 
 function viewbarmenu(&$action) {
   $docid = GetHttpVars("id");
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $doc = new_Doc($dbaccess, $docid);
   if ($docid == "") $action->exitError(_("No identificator"));
-  $popup=getpopupdocdetail($action,$docid);
+  if ($doc->doctype=='C') $popup=getpopupfamdetail($action,$docid);
+  else $popup=getpopupdocdetail($action,$docid);
   foreach ($popup as $k=>$v) {
     if ($v["visibility"]!=POPUP_ACTIVE) unset($popup[$k]);
     else {
@@ -34,5 +38,7 @@ function viewbarmenu(&$action) {
   }
   $action->lay->setBlockData("LINKS",$popup);
   $action->lay->set("id",$docid);
+  
+  $action->lay->Set("canmail",(($doc->usefor != "P")&& ($doc->control('send')=="")));
 
 }

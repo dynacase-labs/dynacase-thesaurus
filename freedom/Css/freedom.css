@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.104 2007/05/25 15:46:01 eric Exp $
+ * $Id: freedom.css,v 1.105 2007/05/25 16:29:07 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -11,6 +11,7 @@
   font-size: [SIZE_X-LARGE];
   text-align: center;
   font-variant: small-caps;
+  padding-left:30px;
 }
 
 .FREEDOMTextTitle{

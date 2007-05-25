@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.2 2007/05/03 07:37:10 eric Exp $
+ * @version $Id: popupfamdetail.php,v 1.3 2007/05/25 16:29:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,8 +13,20 @@
 
 
 include_once("FDL/popupdoc.php");
+
 function popupfamdetail(&$action) {
   $docid = GetHttpVars("id");
+  if ($docid == "") $action->exitError(_("No identificator"));
+  $popup=getpopupfamdetail($action,$docid);
+
+  
+  popupdoc($action,$popup);
+  
+}
+
+
+
+function getpopupfamdetail(&$action,$docid) {
 
   
 
@@ -192,18 +204,17 @@ function popupfamdetail(&$action) {
 				   "submenu"=>"",
 				   "barmenu"=>"false"));
 
-  changeMenuVisibility($action,$tlink,$doc);
+  changeFamMenuVisibility($action,$tlink,$doc);
   
+  return $tlink;
 
-
-  popupdoc($action,$tlink);
 
          
 }
 /**
  * Add control view menu
  */
-function changeMenuVisibility(&$action,&$tlink,&$doc) {
+function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
    $clf = ($doc->CanEdit() == "");
 
   if (getParam("FREEDOM_IDBASKET") == 0)  $tlink["tobasket"]["visibility"]=POPUP_INVISIBLE;

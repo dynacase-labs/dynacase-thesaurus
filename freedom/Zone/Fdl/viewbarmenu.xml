@@ -1,3 +1,3 @@
 <div   class="barmenu">[BLOCK LINKS]
-<a href="javascript:void(0)" onclick="[IF confirm]if (confirm('[tconfirm]'))[ENDIF confirm] [IFNOT ISJS]subwindow('[mwidth]','[mheight]','[target]','[url]')[ENDIF ISJS][IF ISJS][jsfunction][ENDIF ISJS]">[descr]</a>  
-[ENDBLOCK LINKS]<a  href="javascript:void(0)" onclick="self.print()">[TEXT:print]</a> <a  href="javascript:void(0)" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')" title="[TEXT:senddoc]">[TEXT:Email]</a></div>
+<a href="javascript:void(0)"  onclick="[IF confirm]if (confirm('[tconfirm]'))[ENDIF confirm] [IFNOT ISJS]subwindow('[mwidth]','[mheight]','[target]','[url]')[ENDIF ISJS][IF ISJS][jsfunction][ENDIF ISJS]">[descr]</a>  
+[ENDBLOCK LINKS]<a  href="javascript:void(0)" onclick="self.print()">[TEXT:print]</a> [IF canmail]<a  href="javascript:void(0)" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')" title="[TEXT:senddoc]">[TEXT:Email]</a>[ENDIF canmail]</div>
