@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.103 2007/05/25 12:41:32 eric Exp $
+ * $Id: freedom.css,v 1.104 2007/05/25 15:46:01 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -106,7 +106,12 @@ TABLE.barmenu {
 	border-spacing: 0px;
 	empty-cells: show;
 }
-
+DIV.barmenu A {
+  border-color: [COLOR_B5];
+  border-width: 1px;
+  border-style:  none none none solid;
+  padding-left:5px;
+}
 TD.MenuInactive{
 	background-color: [CORE_BGCOLORALTERN];
         background-image: [CORE_FGIMG];	
