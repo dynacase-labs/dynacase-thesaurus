@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.132 2007/05/15 14:20:05 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.133 2007/05/28 08:14:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -187,8 +187,12 @@ function getSqlSearchDoc($dbaccess,
 	  foreach ($tfld as $onefld) {
 	    $tfldid[]=$onefld["childid"];
 	  }
+	  if (count($tfldid) > 1000) {
+	    $qsql= "select $selectfields ".
+	      "from $table where initid in (select childid from fld where $sqlfld)  ".
+	      "and  $sqlcond ";
+	  } else {
 	  $sfldids=implode(",",$tfldid);
-
 	  if ($table=="docread") {  
 	    /*$qsql= "select $selectfields ".
 	      "from $table where initid in (select childid from fld where $sqlfld)  ".
@@ -203,6 +207,7 @@ function getSqlSearchDoc($dbaccess,
 	    $qsql= "select $selectfields ".
 	      "from $table where initid in ($sfldids)  ".
 	      "and  $sqlcond ";	
+	  }
 	  }
 	}
 	//$qsql= "select $selectfields "."from $table where $dirid = any(fldrels) and  "."  $sqlcond ";
