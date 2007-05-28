@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.29 2007/05/15 14:18:43 eric Exp $
+ * @version $Id: generic_list.php,v 1.30 2007/05/28 08:13:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -179,7 +179,7 @@ function getFamilySearches($action,$dbaccess,$famid) {
   $fdoc = new_Doc($dbaccess,$famid);
   $dirid=GetHttpVars("dirid"); // search
   $catgid=GetHttpVars("catg", $dirid); // primary directory
- 
+  if ($catgid==0) $catgid=$dirid;
   if ($fdoc->dfldid > 0) {
     $homefld = new_Doc( $dbaccess, $fdoc->dfldid);
     $stree=array();

@@ -3,7 +3,7 @@
  * Redirector for generic
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_togen.php,v 1.7 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: onefam_togen.php,v 1.8 2007/05/28 08:13:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,7 +29,7 @@ function onefam_togen(&$action)
 			
   if ($gonlylist == "yes") {
     $gapp="GENERIC";
-    $gaction="GENERIC_TAB&tab=0&famid=$famid";
+    $gaction="GENERIC_TAB&catg=0&tab=0&famid=$famid";
   } else {
     $gapp=$action->GetParam("APPNAME","ONEFAM");
     $gaction="ONEFAM_GENROOT&famid=$famid";
