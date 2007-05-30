@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.17 2007/01/11 10:15:01 eric Exp $
+ * @version $Id: editstate.php,v 1.18 2007/05/30 15:52:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,7 +128,7 @@ function editstate(&$action) {
 	}
       }
       $action->lay->SetBlockData("FINPUTS",$tinputs);
-      $action->lay->Set("Wattrntitle",	 "'".implode("','",$tneed)."'");
+      $action->lay->Set("Wattrntitle",	 "'".implode("','",str_replace("'","&rsquo;",$tneed))."'");
       $action->lay->Set("Wattrnid",	 "'".implode("','",array_keys($tneed))."'");
       
     } else {	
