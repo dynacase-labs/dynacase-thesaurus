@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.383 2007/05/25 12:41:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.384 2007/05/31 16:18:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1241,7 +1241,7 @@ final public function PostInsert()  {
   final public function ApplyMask($mid = 0) {
     
     // copy default visibilities
-    if (isset($this->attributes->attr)) {
+    if (is_object($this->attributes)) {
 
       foreach($this->attributes->attr as $k=>$v) {
 	//	if (is_object($v))
@@ -1891,6 +1891,8 @@ final public function PostInsert()  {
 		  $ak=$oattr->id.'_vec';
 		  $this->$ak='';
 		  $this->fields[$ak]=$ak;
+		  $this->fulltext='';
+		  $this->fields['fulltext']='fulltext'; // to enable trigger
 		  break;
 		}
 	      }
@@ -2055,7 +2057,11 @@ final public function PostInsert()  {
 	$mime=trim(`file -ib $filename`);
 	$value="$mime|$vaultid";
 	$err=$this->setValue($attrid,$value);
-
+	if ($err=="") {
+	  $index=0;     
+	  include_once("FDL/Lib.Vault.php");
+	  sendLatinTransformation($this->dbaccess,$this->id,$attrid,$index,$vaultid);
+	}
 	//$err="file conversion $mime|$vid";
       }
       unlink($filename);
@@ -3479,6 +3485,7 @@ final public function PostInsert()  {
       $lay->setBlockData("ABSATTR",$tabstract);
       $lay->setBlockData("FILEATTR",$files);
       $lay->setBlockData("FILEATTR2",$files);
+      $lay->setBlockData("FILEATTR3",$files);
       $lay->set("hasattr",(count($tvalues)>0));
       $lay->set("hasabsattr",(count($tabstract)>0));
       $lay->set("docid",$this->fromid);
