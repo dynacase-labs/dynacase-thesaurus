@@ -236,7 +236,7 @@ declare
   a_text alias for $1;
   a_weight alias for $2;
 begin
-   if (a_text is null) then
+   if (a_text is null) or (a_text = '') then
      return to_tsvector('simple','');
    else
      return setweight(to_tsvector('fr',to2_ascii(a_text)), a_weight);
