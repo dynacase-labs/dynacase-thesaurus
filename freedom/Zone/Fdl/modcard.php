@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.88 2007/05/23 07:54:35 eric Exp $
+ * @version $Id: modcard.php,v 1.89 2007/05/31 16:17:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,6 +16,7 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/freedom_util.php");  
+include_once("FDL/Lib.Vault.php");  
 include_once("VAULT/Class.VaultFile.php");
 
 
@@ -47,8 +48,7 @@ function modcard(&$action, &$ndocid) {
     specialmodcard($action,$usefor);
     return "";
   }
-  if ( $docid == 0 )
-    {
+  if ( $docid == 0 ) {
       // add new document
       // search the good class of document
       $doc = createDoc($dbaccess, $classid);
@@ -63,10 +63,7 @@ function modcard(&$action, &$ndocid) {
 	$doc->profid = "0"; // NO PROFILE ACCESS
       }
 
-    } 
-  else 
-    {
-      
+    }   else    {      
       // initialise object
       $doc = new_Doc($dbaccess, $docid);
       
@@ -131,6 +128,18 @@ function modcard(&$action, &$ndocid) {
       
       $doc->initid = $doc->id;// it is initial doc	    
       $ndocid = $doc->id;
+      $afiles=$doc->GetFileAttributes();
+      foreach ($afiles as $oa) {
+	if ($oa->type=='file') {
+	  $infos=$doc->vault_properties($oa);
+	  print_r2($info);
+	  foreach ($infos as $ik=>$info) {
+	    $err.=sendLatinTransformation($dbaccess,$ndocid,$oa->id,$ik,$info['vid']);
+	  }
+	}
+      }
+
+
     }
     $doc->lmodify='Y'; // locally modified
     $ndocid = $doc->id;
@@ -178,7 +187,7 @@ function modcard(&$action, &$ndocid) {
 	      $wdoc = new_Doc($dbaccess,$doc->wid);
 	
 	      $wdoc->Set($doc);
-	      setPostVars($wdoc);
+	      setPostVars($wdoc); // set for ask values
 	      $err=$wdoc->ChangeState($newstate,$comment,$force);
 	    }
 	  }
@@ -224,10 +233,8 @@ function setPostVars(&$doc) {
 	    else $value = stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
 	  }
 	  else $value = stripslashes($v);
-	  if ($value=="")$doc->SetValue($attrid, DELVALUE);	 
-	  else $doc->SetValue($attrid, $value);	      
-	      
-	      
+	  if ($value=="") $doc->SetValue($attrid, DELVALUE);	 
+	  else $doc->SetValue($attrid, $value);	
 	}      
     }
     // ------------------------------
@@ -344,7 +351,7 @@ function insert_file($dbaccess,$docid, $attrid)
 	move_uploaded_file($userfile['tmp_name'], $destfile);
 	if (isset($vf)) unset($vf);
 	$vf = newFreeVaultFile($dbaccess);
-	$err=$vf -> Store($destfile, false , $vid);
+	$err=$vf->Store($destfile, false , $vid);
       
 
 	if ($userfile['type']=="none") {
@@ -353,15 +360,15 @@ function insert_file($dbaccess,$docid, $attrid)
 	}
 	if ($err != "") {
 	  AddWarningMsg($err);
+	} else {
+	  if ($docid>0)	 $err=sendLatinTransformation($dbaccess,$docid,substr($attrid,4),$k,$vid);	  
 	}
 	unlink($destfile);
       } else {
 	$err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
 	$action->ExitError($err);
       }
-
       $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
-    
     }
   }
   
@@ -434,4 +441,7 @@ function specialmodcard(&$action,$usefor) {
 	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=N&id=$classid"),
 	   $action->GetParam("CORE_STANDURL"));
 }
+
+
+
 ?>
