@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.1 2007/05/23 16:01:14 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.2 2007/05/31 16:18:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -87,6 +87,28 @@ function vault_get_content($idfile) {
   return false;
 }
 
-
+function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
+  if (($docid >0)  && ($vid>0)) {
+    if (include_once("TE/Class.TEClient.php")) {
+      global $action;
+      include_once("FDL/Class.TaskRequest.php");
+      $of=new VaultDiskStorage($dbaccess,$vid);
+      $filename=$of->getPath();
+      error_log("sendLatinTransformation $filename");
+      $callback=getParam("CORE_ABSURL").getParam("CORE_STANDURL")."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
+      $ot=new TransformationEngine();
+      $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
+      if ($err != "") AddWarningMsg($err);
+      $tr=new TaskRequest($dbaccess);
+      $tr->tid=$info["tid"];
+      $tr->fkey=$vid;
+      $tr->status=$info["status"];
+      $tr->comment=$info["comment"];
+      $tr->uid=$action->user->id;
+      $tr->uname=$action->user->firstname." ".$action->user->lastname;
+      $err=$tr->Add();
+    }
+  }
+}
 
 ?>
