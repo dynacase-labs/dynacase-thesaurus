@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.39 2007/01/12 17:37:09 eric Exp $
+// $Id: FDL.app,v 1.40 2007/05/31 16:16:20 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -290,6 +290,11 @@ $action_desc = array (
    "name"		=>"VIEW_WORKFLOW_GRAPH",
    "short_name"		=>N_("view graph of workflow"),
    "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"SETTXTFILE",
+   "short_name"		=>N_("update text file for fulltext"),
+   "acl"		=>"EDIT"
   ) 
                       );	
    
