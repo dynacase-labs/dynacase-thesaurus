@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.76 2007/01/11 10:15:01 eric Exp $
+ * @version $Id: viewcard.php,v 1.77 2007/06/01 13:37:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -226,7 +226,8 @@ function viewcard(&$action) {
     
   // see or don't see head
   if ($dochead)  $action->lay->SetBlockData("HEAD",array(array("boo"=>1))); 
-  if ($ulink)  $action->lay->SetBlockData("ACTIONS",array(array("boo"=>1))); 
+
+  $action->lay->Set("ACTIONS",(getHttpVars("viewbarmenu")==1));
 
   $action->lay->Set("amail",(($doc->usefor != "P")&&
 			     ($doc->control('send')==""))?"inline":"none");
