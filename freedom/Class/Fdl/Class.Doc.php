@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.384 2007/05/31 16:18:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.385 2007/06/01 13:39:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1238,13 +1238,10 @@ final public function PostInsert()  {
    *
    * @param int $mid mask ident, if not set it is found from possible workflow
    */
-  final public function ApplyMask($mid = 0) {
-    
+  final public function ApplyMask($mid = 0) {    
     // copy default visibilities
     if (is_object($this->attributes)) {
-
       foreach($this->attributes->attr as $k=>$v) {
-	//	if (is_object($v))
 	$this->attributes->attr[$k]->mvisibility=ComputeVisibility($v->visibility,$v->fieldSet->mvisibility);
 
       }
@@ -1885,14 +1882,7 @@ final public function PostInsert()  {
 		  break;
 		case 'file':
 		  // clear fulltext realtive column
-		  $ak=$oattr->id.'_txt';
-		  $this->$ak='';
-		  $this->fields[$ak]=$ak;
-		  $ak=$oattr->id.'_vec';
-		  $this->$ak='';
-		  $this->fields[$ak]=$ak;
-		  $this->fulltext='';
-		  $this->fields['fulltext']='fulltext'; // to enable trigger
+		  $this->clearFullAttr($oattr->id);
 		  break;
 		}
 	      }
@@ -1907,6 +1897,23 @@ final public function PostInsert()  {
 	
       }      
     }
+  }
+
+ /**
+  * clear $attrid_txt and $attrid_vec
+  *
+  * @param string $idAttr identificator of file attribute 
+  * @return string error message, if no error empty string
+  */
+  final private function clearFullAttr($attrid) {
+    $ak=$attrid.'_txt';
+    $this->$ak='';
+    $this->fields[$ak]=$ak;
+    $ak=$attrid.'_vec';
+    $this->$ak='';
+    $this->fields[$ak]=$ak;
+    $this->fulltext='';
+    $this->fields['fulltext']='fulltext'; // to enable trigger
   }
 
    /**
@@ -2057,8 +2064,10 @@ final public function PostInsert()  {
 	$mime=trim(`file -ib $filename`);
 	$value="$mime|$vaultid";
 	$err=$this->setValue($attrid,$value);
+	
 	if ($err=="") {
-	  $index=0;     
+	  $index=0;
+	  $this->clearFullAttr($attrid); // because internal values not changed
 	  include_once("FDL/Lib.Vault.php");
 	  sendLatinTransformation($this->dbaccess,$this->id,$attrid,$index,$vaultid);
 	}

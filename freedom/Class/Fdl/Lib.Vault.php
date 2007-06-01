@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.2 2007/05/31 16:18:53 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.3 2007/06/01 13:39:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,7 +95,11 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
       $of=new VaultDiskStorage($dbaccess,$vid);
       $filename=$of->getPath();
       error_log("sendLatinTransformation $filename");
-      $callback=getParam("CORE_ABSURL").getParam("CORE_STANDURL")."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
+      $scheme=getParam("CORE_ABSURL");
+      if ($scheme=="") $urlindex=getParam("CORE_URLINDEX").'?sole=Y';
+      else $urlindex=getParam("CORE_ABSURL").getParam("CORE_STANDURL");
+	
+      $callback=$urlindex."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
       $ot=new TransformationEngine();
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
       if ($err != "") AddWarningMsg($err);
