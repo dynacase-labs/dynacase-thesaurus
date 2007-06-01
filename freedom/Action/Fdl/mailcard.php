@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.67 2007/01/19 16:27:26 eric Exp $
+ * @version $Id: mailcard.php,v 1.68 2007/06/01 13:37:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,7 +45,7 @@ function mailcard(&$action) {
 
   $tuid=array(); // list of user id to notify
 
-  $mt = GetHttpVars("_mail_to","");
+  $mt = GetHttpVars("to"); // simple arguments (can be use with wsh
   if ($mt == "") {
     $rtype = GetHttpVars("_mail_copymode", "");
     $raddr = GetHttpVars("_mail_recip", "");
@@ -67,9 +67,17 @@ function mailcard(&$action) {
         }
       }
     }
+  } else {
+    // other notation
+    $tmailto["plain"][0]=$mt;
+    $oldcc=GetHttpVars("cc");
+    if ($oldcc) $tmailcc["plain"][0]=$oldcc;
+    $oldbcc=GetHttpVars("bcc");
+    if ($oldbcc) $tmailbcc["plain"][0]=$oldbcc;
+    if ($mailfrom=="") $mailfrom=GetHttpVars("from");
   }
 
-  $sendedmail=false;
+  $sendedmail=false;  
   foreach (array("plain","link") as $format) {
     
     $mailto=implode(",",$tmailto[$format]);
@@ -447,7 +455,6 @@ function sendCard(&$action,
       $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
     }
   }  
-
 
   $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'related');
   
