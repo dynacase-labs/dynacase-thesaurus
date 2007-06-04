@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.385 2007/06/01 13:39:31 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.386 2007/06/04 16:26:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1956,7 +1956,13 @@ final public function PostInsert()  {
 	$mime=trim(`file -ib $filename`);
 	$value="$mime|$vid";
 	$err=$this->setValue($attrid,$value);
-	//$err="file conversion $mime|$vid";
+	//$err="file conversion $mime|$vid";	
+	if ($err=="") {
+	  $index=0;
+	  $this->clearFullAttr($attrid); // because internal values not changed
+	  include_once("FDL/Lib.Vault.php");
+	  sendLatinTransformation($this->dbaccess,$this->id,$attrid,$index,$vid);
+	}
       }
       if ($nc>0) unlink($filename);	     
     } 	
@@ -2043,15 +2049,12 @@ final public function PostInsert()  {
 	$revdoc=$trev[1];
 	$prevfile=getv($revdoc,strtolower($attrid));
 	if ($prevfile == $fvalue) $newfile=true;
-	error_log("FDL STORE PREV : $prevfile - ".$revdoc["id"]);
       }
 
       if (! $newfile) {
 	$err=$vf->Save($filename, false , $vaultid);
-	error_log("FDL SAVE :".$filename."-".$vaultid);
       } else {
 	$err=$vf->Store($filename, false , $vaultid);
-	error_log("FDL STORE [$err]:".$filename."-".$vaultid);	
       }
       if ($ftitle != "") {
 	$vf->Rename($vaultid,$ftitle);
