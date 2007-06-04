@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.89 2007/05/31 16:17:42 eric Exp $
+ * @version $Id: modcard.php,v 1.90 2007/06/04 16:25:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -132,7 +132,6 @@ function modcard(&$action, &$ndocid) {
       foreach ($afiles as $oa) {
 	if ($oa->type=='file') {
 	  $infos=$doc->vault_properties($oa);
-	  print_r2($info);
 	  foreach ($infos as $ik=>$info) {
 	    $err.=sendLatinTransformation($dbaccess,$ndocid,$oa->id,$ik,$info['vid']);
 	  }

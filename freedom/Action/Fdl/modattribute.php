@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: modattribute.php,v 1.8 2007/05/23 07:54:35 eric Exp $
+ * @version $Id: modattribute.php,v 1.9 2007/06/04 16:25:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,7 +46,8 @@ function modattribute(&$action) {
 
     if ($err=="") $action->AddActionDone("UNLOCKFILE",$doc->id);
   }
-  if ($value=="") $value=DELVALUE;
+  $a=$doc->getAttribute($attrid);
+  if (($value=="") && ($a->type != "file")&&($a->type != "image")&&($a->type != "password")) $value=DELVALUE;
   if ($value != "") {
 
     if ($err != "") {    
@@ -56,7 +57,6 @@ function modattribute(&$action) {
 
 
     if ($err=="") {
-      $a=$doc->getAttribute($attrid);
       if (! $a)  $err=sprintf(_("unknown attribute %s for document %s"),$attrid,$doc->title);
       if ($err=="") {
 	$vis=$a->mvisibility;
