@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.2 2007/06/01 13:39:31 eric Exp $
+ * @version $Id: settxtfile.php,v 1.3 2007/06/05 16:54:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,8 +34,6 @@ function settxtfile(&$action) {
   else {
     $ot=new TransformationEngine();
     $err=$ot->getInfo($tid,$info);
-    print "<hr>";
-    print_r2($info);
     if ($err=="") {
       $tr=new TaskRequest($dbaccess,$tid);
       if ($tr->isAffected()) {
@@ -48,7 +46,7 @@ function settxtfile(&$action) {
 	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
 	  if ($err=="") {
 	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
-	    $err=$ot->getTransformation($tid,$filename,$info);
+	    $err=$ot->getTransformation($tid,$filename);
 	    if ($err=="") {
 	      $at=$attrid.'_txt';
 	      if (file_exists($filename) && $info['status']=='D') {
