@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.8 2007/05/22 16:05:29 eric Exp $
+ * @version $Id: fullsearch.php,v 1.9 2007/06/07 15:24:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -55,6 +55,7 @@ function fullsearch(&$action) {
     else $famtitle="";
     $dbid=getDbid($dbaccess);
     foreach ($tdocs as $k=>$tdoc) {
+      $tdoc["values"].=getFileTxt($dbid,$tdoc);
       $tdocs[$k]["htext"]=nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80)));
       $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
       $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
@@ -93,7 +94,31 @@ function fullsearch(&$action) {
     $action->lay->setBlockData("DOCS",$tdocs);
   }
 
+/**
+ * return file text values from  _txt column
+ */
+function getFileTxt($dbid,&$tdoc) {
+  getvs($tdoc);
+  $ta=array();
+  foreach ($tdoc as $k=>$v) {
+    $v=strtok($v,"\n");
+    if (preg_match('/^[a-z\/\+\.-]+\|[0-9]+$/i',$v)) {
+      if ($k!='icon') $ta[$k]=$k."_txt";
+    }
+  }
+  if (count($ta)>0) {
+  $sqlselect=implode(',',$ta);
+  $sqlfrom='doc'.$tdoc["fromid"];
+  $sqlwhere='id='.$tdoc["id"];
 
+  $result = pg_query($dbid,"select $sqlselect from $sqlfrom where $sqlwhere ;");
+  //  print "select headline('fr','$s',to_tsquery('fr','$k'))";
+  if (pg_numrows ($result) > 0) {
+    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
+    return implode(' - ',$arr);
+  }
+  }
+}
 
 /**
  * return part of text where are found keywords
