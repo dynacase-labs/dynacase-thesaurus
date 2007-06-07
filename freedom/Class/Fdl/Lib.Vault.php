@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.3 2007/06/01 13:39:31 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.4 2007/06/07 08:54:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -100,7 +100,7 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
       else $urlindex=getParam("CORE_ABSURL").getParam("CORE_STANDURL");
 	
       $callback=$urlindex."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
-      $ot=new TransformationEngine();
+      $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
       if ($err != "") AddWarningMsg($err);
       $tr=new TaskRequest($dbaccess);

@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.3 2007/06/05 16:54:14 eric Exp $
+ * @version $Id: settxtfile.php,v 1.4 2007/06/07 08:54:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,8 @@ function settxtfile(&$action) {
 
   if (! $tid) $$err=_("no task identificator found");
   else {
-    $ot=new TransformationEngine();
+    $ot=new TransformationEngine($action->getParam("TE_HOST"),$action->getParam("TE_PORT"));
+
     $err=$ot->getInfo($tid,$info);
     if ($err=="") {
       $tr=new TaskRequest($dbaccess,$tid);
