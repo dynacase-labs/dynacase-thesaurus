@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.386 2007/06/04 16:26:36 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.387 2007/06/07 14:45:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2482,6 +2482,17 @@ final public function PostInsert()  {
     $err=$this->modify();
     if ($err != "") return $err;
 
+    $fa=$this->GetFileAttributes(); // copy cached values
+    $ca=array();
+    foreach ($fa as $k=>$v) {
+      if ($v->type=="file") {
+	$ca[]=$v->id."_txt";
+      }
+    }
+    $this->AffectColumn($ca);
+    foreach ($ca as $a) {
+      if ($this->$a != "") $this->fields[$a]=$a;
+    }
     //$listvalue = $this->GetValues(); // save copy of values
 
     // duplicate values
