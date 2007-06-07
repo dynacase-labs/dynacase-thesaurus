@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.95 2007/03/16 11:21:12 eric Exp $
+ * @version $Id: freedom_util.php,v 1.96 2007/06/07 15:23:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -294,7 +294,7 @@ function getTDoc($dbaccess, $id,$sqlfilters=array()) {
   return false;  
 } 
 /**
- * return the value of an array item
+ * return the value of an doc array item
  *
  * @param array $t the array where get value
  * @param string $k the index of the value
@@ -318,6 +318,22 @@ function getv(&$t,$k,$d="") {
     }
   }
   return $d;
+}
+/**
+ * complete all values of an doc array item
+ *
+ * @param array &$t the array where get value
+ * @return void
+ */
+function getvs(&$t) {    
+  $tvalues = explode("£",$t["values"]);
+  $tattrids = explode("£",$t["attrids"]);
+  foreach($tattrids as $ka=>$va) {
+    if ($va != "") {
+      if (!isset($t[$va])) $t[$va]=$tvalues[$ka];     
+    }    
+  }
+  return $t;
 }
 
 /** 
