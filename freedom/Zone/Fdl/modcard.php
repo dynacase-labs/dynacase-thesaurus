@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.90 2007/06/04 16:25:18 eric Exp $
+ * @version $Id: modcard.php,v 1.91 2007/06/07 16:19:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,17 +128,6 @@ function modcard(&$action, &$ndocid) {
       
       $doc->initid = $doc->id;// it is initial doc	    
       $ndocid = $doc->id;
-      $afiles=$doc->GetFileAttributes();
-      foreach ($afiles as $oa) {
-	if ($oa->type=='file') {
-	  $infos=$doc->vault_properties($oa);
-	  foreach ($infos as $ik=>$info) {
-	    $err.=sendLatinTransformation($dbaccess,$ndocid,$oa->id,$ik,$info['vid']);
-	  }
-	}
-      }
-
-
     }
     $doc->lmodify='Y'; // locally modified
     $ndocid = $doc->id;
@@ -359,9 +348,7 @@ function insert_file($dbaccess,$docid, $attrid)
 	}
 	if ($err != "") {
 	  AddWarningMsg($err);
-	} else {
-	  if ($docid>0)	 $err=sendLatinTransformation($dbaccess,$docid,substr($attrid,4),$k,$vid);	  
-	}
+	} 
 	unlink($destfile);
       } else {
 	$err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.387 2007/06/07 14:45:40 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.388 2007/06/07 16:19:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -426,6 +426,7 @@ final public function PostInsert()  {
       if ($this->doctype != "T") {
 	$err=$this->PostCreated(); 
 	if ($err!="") AddWarningMsg($err);
+	$this->sendLatinToEngine();
 	if ($this->dprofid >0) {
 	  $this->setProfil($this->dprofid);// recompute profil if needed
 	}
@@ -524,6 +525,7 @@ final public function PostInsert()  {
       $this->UpdateVaultIndex();
       $this->updateRelations();
     }
+    $this->sendLatinToEngine();
     $this->hasChanged=false;
   }
 
@@ -1905,7 +1907,7 @@ final public function PostInsert()  {
   * @param string $idAttr identificator of file attribute 
   * @return string error message, if no error empty string
   */
-  final private function clearFullAttr($attrid) {
+  final private function clearFullAttr($attrid,$index=0) {
     $ak=$attrid.'_txt';
     $this->$ak='';
     $this->fields[$ak]=$ak;
@@ -1914,6 +1916,24 @@ final public function PostInsert()  {
     $this->fields[$ak]=$ak;
     $this->fulltext='';
     $this->fields['fulltext']='fulltext'; // to enable trigger
+    $this->latinsend[$attrid]=$attrid;
+  }
+ /**
+  * send latin transformation 
+  * after ::clearFullAttr is called
+  * 
+  */
+  final private function sendLatinToEngine() {
+    if (is_array($this->latinsend)) { 
+      include_once("FDL/Lib.Vault.php");
+      foreach($this->latinsend as $k=>$v) {
+	if (ereg ("(.*)\|(.*)", $this->getValue($v), $reg)) {
+	  $vid= $reg[2];
+	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v,$index,$vid);	 
+	}
+      }
+      $this->latinsend=array();//reinit
+    }
   }
 
    /**
@@ -1957,11 +1977,9 @@ final public function PostInsert()  {
 	$value="$mime|$vid";
 	$err=$this->setValue($attrid,$value);
 	//$err="file conversion $mime|$vid";	
-	if ($err=="") {
+	if ($err=="xx") {
 	  $index=0;
 	  $this->clearFullAttr($attrid); // because internal values not changed
-	  include_once("FDL/Lib.Vault.php");
-	  sendLatinTransformation($this->dbaccess,$this->id,$attrid,$index,$vid);
 	}
       }
       if ($nc>0) unlink($filename);	     
@@ -2071,8 +2089,6 @@ final public function PostInsert()  {
 	if ($err=="") {
 	  $index=0;
 	  $this->clearFullAttr($attrid); // because internal values not changed
-	  include_once("FDL/Lib.Vault.php");
-	  sendLatinTransformation($this->dbaccess,$this->id,$attrid,$index,$vaultid);
 	}
 	//$err="file conversion $mime|$vid";
       }
