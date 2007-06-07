@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.4 2007/06/07 08:54:19 eric Exp $
+ * @version $Id: settxtfile.php,v 1.5 2007/06/07 13:09:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,7 +47,7 @@ function settxtfile(&$action) {
 	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
 	  if ($err=="") {
 	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
-	    $err=$ot->getTransformation($tid,$filename);
+	    $err=$ot->getTransformation($tid,$filename);	    
 	    if ($err=="") {
 	      $at=$attrid.'_txt';
 	      if (file_exists($filename) && $info['status']=='D') {
@@ -55,7 +55,21 @@ function settxtfile(&$action) {
 		$doc->fulltext='';
 		$doc->fields[$at]=$at;
 		$doc->fields['fulltext']='fulltext';
-		$err=$doc->modify(false,array('fulltext',$at));
+		$err=$doc->modify(true,array('fulltext',$at),true);
+		if (($err=="") && ($doc->locked == -1)) {
+		  // propagation in case of auto revision
+		  $idl=$doc->latestId();
+		  $ldoc=new_Doc($dbaccess, $idl);
+		  if ($doc->getValue($attrid) == $ldoc->getValue($attrid)) {
+		    $ldoc->$at=$doc->$at;
+		    $ldoc->fulltext='';
+		    $ldoc->fields[$at]=$at;
+		    $ldoc->fields['fulltext']='fulltext';
+		    $err=$ldoc->modify(true,array('fulltext',$at),true);
+		  }
+		  
+		}
+
 	      } else {
 		$err=sprintf(_("output file [%s] not found"),$filename);
 	      }
