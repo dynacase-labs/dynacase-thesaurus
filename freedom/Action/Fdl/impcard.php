@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.7 2005/09/23 07:48:46 eric Exp $
+ * @version $Id: impcard.php,v 1.8 2007/06/08 07:31:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,7 +60,7 @@ function impcard(&$action) {
     fwrite($of, $action->lay->gen());
     fclose($of);
   
-    http_DownloadFile($export_file, chop($doc->title).".$ext", "$mime");
+    http_DownloadFile($export_file, chop($doc->title).".$ext", "$mime",false,false);
   
     unlink($export_file);
     exit;
