@@ -173,21 +173,21 @@ end;
 
 
 create or replace function resetvalues() 
-returns trigger as '
+returns trigger as $$
 declare 
    lname text;
    cfromid int;
 begin
 
+NEW.values:='';
+NEW.svalues:='';
+NEW.attrids:='';
 
-NEW.values:='''';
-NEW.attrids:='''';
-
-if (NEW.doctype = ''Z'') and (NEW.name is not null) then
+if (NEW.doctype = 'Z') and (NEW.name is not null) then
 	delete from docname where name=NEW.name;
 end if;	
 if (NEW.name is not null and OLD.name is null) then
-  if (NEW.doctype = ''C'') then 
+  if (NEW.doctype = 'C') then 
        cfromid=-1; -- for families
      else
        cfromid=NEW.fromid;
@@ -201,7 +201,7 @@ if (NEW.name is not null and OLD.name is null) then
   end if;
 return NEW;
 end;
-' language 'plpgsql';
+$$ language 'plpgsql';
 
 create or replace function initacl() 
 returns trigger as '
