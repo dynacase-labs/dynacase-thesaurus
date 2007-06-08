@@ -6,6 +6,12 @@ if not NEW.[attrid] isnull then
   NEW.values := NEW.values || '£' || NEW.[attrid];
   NEW.attrids := NEW.attrids || '£' || '[attrid]';
 end if;[ENDBLOCK ATTRFIELD]
+[BLOCK SEARCHFIELD]
+if not NEW.[attrid] isnull then
+  NEW.svalues := NEW.svalues || '£' || NEW.[attrid];
+end if;[ENDBLOCK SEARCHFIELD]
+[IF hassattr]
+NEW.svalues := NEW.svalues || '£';[ENDIF hassattr]
 [IF hasattr]
 NEW.values := NEW.values || '£';
 NEW.attrids := NEW.attrids || '£';[ENDIF hasattr]
@@ -31,7 +37,6 @@ begin
 
    NEW.fulltext := setweight2(NEW.title, 'A')|| [BLOCK ABSATTR]setweight2(NEW.[attrid], 'B')|| [ENDBLOCK ABSATTR] [BLOCK FILEATTR2]NEW.[vecid] || [ENDBLOCK FILEATTR2] setweight2(replace(to2_ascii(NEW.values),'£',' '),'C') ;
 
-	    RAISE NOTICE 'GOOD %',NEW.fulltext;
      EXCEPTION
 	 WHEN OTHERS THEN
 	    RAISE NOTICE 'Error %',NEW.id;
