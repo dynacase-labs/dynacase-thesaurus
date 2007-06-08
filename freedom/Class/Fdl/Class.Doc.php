@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.388 2007/06/07 16:19:00 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.389 2007/06/08 12:51:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -327,7 +327,8 @@ create table doc ( id int not null,
                    prelid int DEFAULT 0,
                    atags text,
                    confidential int DEFAULT 0,
-                   ldapdn text
+                   ldapdn text,
+                   svalues text DEFAULT ''
                    );
 create table docfrom ( id int not null,
                    primary key (id),
@@ -3505,13 +3506,16 @@ final public function PostInsert()  {
       $lay = new Layout("FDL/Layout/sqltrigger.xml");
       $na=$this->GetNormalAttributes();
       $tvalues=array();
+      $tsearch=array();
       foreach ($na as $k=>$v) {
-	if (($v->type != "array") && ($v->type != "frame") && ($v->type != "tab") ) {
+	if (($v->type != "array") && ($v->type != "frame") && ($v->type != "tab") && ($v->type != "idoc") ) {
 	  $tvalues[]=array("attrid"=>$k);
+	  if (($v->type != "file") && ($v->type != "image") && ($v->type != "password"))  $tsearch[]=array("attrid"=>$k);
 	}
 	if ($v->type == "file") {
 	  $files[]=array("attrid"=>$k."_txt",
-			 "vecid"=>$k."_vec");	  
+			 "vecid"=>$k."_vec");
+	  $tsearch[]=array("attrid"=>$k."_txt");
 	}
       }      
       $na=$this->GetAbstractAttributes();
@@ -3521,11 +3525,13 @@ final public function PostInsert()  {
 	}
       }    
       $lay->setBlockData("ATTRFIELD",$tvalues);
+      $lay->setBlockData("SEARCHFIELD",$tsearch);
       $lay->setBlockData("ABSATTR",$tabstract);
       $lay->setBlockData("FILEATTR",$files);
       $lay->setBlockData("FILEATTR2",$files);
       $lay->setBlockData("FILEATTR3",$files);
       $lay->set("hasattr",(count($tvalues)>0));
+      $lay->set("hassattr",(count($tsearch)>0));
       $lay->set("hasabsattr",(count($tabstract)>0));
       $lay->set("docid",$this->fromid);
       $sql=$lay->gen();
