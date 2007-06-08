@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.41 2007/05/15 14:20:05 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.42 2007/06/08 12:51:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -204,14 +204,14 @@ Class DocSearch extends PDocSearch {
 	if (strstr($key, '"')!==false) {
 	  // add more filter for search complete and exact expression
 	  if (strstr($key, '|')===false) {
-	    $sqlfiltersbrut[]="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+	    $sqlfiltersbrut[]="svalues ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
 									      array("",' ','',''),$key))."\\\\y' ";
 	  } else {
 	    list($left,$right)=explode("|",$key);
-	    if (strstr($left,'"')!==false) $q1="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+	    if (strstr($left,'"')!==false) $q1="svalues ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
 										      array("",' ','',''),$left))."\\\\y' ";
 	    else $q1="";
-	    if (strstr($right,'"')!==false) $q2="values ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
+	    if (strstr($right,'"')!==false) $q2="svalues ~* '\\\\y".pg_escape_string(str_replace(array('"','&','(',')'),
 									      array("",' ','',''),$right))."\\\\y' ";
 	    else $q2="";
 	    $q3="fulltext @@ to_tsquery('fr','".pg_escape_string(unaccent($left))."') ";
@@ -269,7 +269,7 @@ Class DocSearch extends PDocSearch {
 
     if (! $this->isStaticSql()) {
       if (! $this->isParameterizable()) $query=$this->getQuery();
-      else $query='select id from doc where false';
+      else $query='select id from only doc where false';
       $err=$this->AddQuery($query);
     }
     return $err;
