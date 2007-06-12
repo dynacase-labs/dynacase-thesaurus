@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.9 2007/06/07 15:24:09 eric Exp $
+ * @version $Id: fullsearch.php,v 1.10 2007/06/12 08:05:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -114,7 +114,7 @@ function getFileTxt($dbid,&$tdoc) {
   $result = pg_query($dbid,"select $sqlselect from $sqlfrom where $sqlwhere ;");
   //  print "select headline('fr','$s',to_tsquery('fr','$k'))";
   if (pg_numrows ($result) > 0) {
-    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);
+    $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);    
     return implode(' - ',$arr);
   }
   }
@@ -135,7 +135,6 @@ function highlight_text($dbid,&$s,$k) {
   } else {
     $s=strtr($s, "£", " ");
 
-
     $result = pg_query($dbid,"select headline('fr','".pg_escape_string(unaccent($s))."',to_tsquery('fr','$k'))");
     //  print "select headline('fr','$s',to_tsquery('fr','$k'))";
     if (pg_numrows ($result) > 0) {
@@ -143,18 +142,27 @@ function highlight_text($dbid,&$s,$k) {
       $headline= $arr["headline"];
     }
 
-
-
+    // $headline=str_replace('  ',' ',$headline);
+    $headline=preg_replace('/[ ]+ /', ' ',$headline);
     $pos=strpos($headline,'<b>');
 
   
     //    print "<hr> POSBEG:".$pos;
     if ($pos !== false) {
-      $sw=(str_replace(array("<b>","</b>","  "),array('','',' '),$headline));
+      // OE not in iso8859-1
+      $sw=(str_replace(array("<b>","</b>","æ","Æ"),array('','','ae','AE'),$headline));
+      $s=preg_replace('/[ ]+ /', ' ',$s);
+      $s=str_replace(array("æ","Æ"),array('ae','AE'),$s);
       $offset=strpos(unaccent($s),$sw);
+    
 
-      //if (! $offset)   print "\n<hr> SEARCH:[$sw] in [".unaccent($s)."]\n";
-      //    print "<br> OFFSET:".$offset;
+      /*if (! $offset)   print "\n<hr> SEARCH:[$sw] in [".unaccent($s)."]\n";
+       print "<br> OFFSET:".$offset."--".substr($s,$offset,10)."--".substr(unaccent($s),$offset,10);
+      print "<br>[".str_replace(" ",".",unaccent($s))."]\n<br>\n";
+      print "<br>[".str_replace(" ",".",$sw)."]\n<br>\n";
+      print "\n[$s]\n";
+      print "[".unaccent($s)."]\n";*/
+
       $before=20; // 20 characters before;
       if (($pos+$offset) < $before) $p0=0;
       else $p0=$pos+$offset-$before;
