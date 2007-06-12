@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.389 2007/06/08 12:51:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.390 2007/06/12 14:29:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1886,6 +1886,9 @@ final public function PostInsert()  {
 		case 'file':
 		  // clear fulltext realtive column
 		  $this->clearFullAttr($oattr->id);
+		  break;
+		case 'htmltext':
+		  $tvalues[$kvalue]=html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-15');
 		  break;
 		}
 	      }
