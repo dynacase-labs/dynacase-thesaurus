@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.4 2007/06/07 08:54:19 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.5 2007/06/12 14:28:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -94,11 +94,14 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
       include_once("FDL/Class.TaskRequest.php");
       $of=new VaultDiskStorage($dbaccess,$vid);
       $filename=$of->getPath();
-      error_log("sendLatinTransformation $filename");
-      $scheme=getParam("CORE_ABSURL");
-      if ($scheme=="") $urlindex=getParam("CORE_URLINDEX").'?sole=Y';
-      else $urlindex=getParam("CORE_ABSURL").getParam("CORE_STANDURL");
-	
+      //      error_log("sendLatinTransformation $filename");
+      $au=getParam("CORE_URLINDEX");
+      if ($au != "") $urlindex=getParam("CORE_URLINDEX").'?sole=Y';
+      else {
+	$scheme=getParam("CORE_ABSURL");
+	if ($scheme=="") $urlindex='?sole=Y';
+	else $urlindex=getParam("CORE_ABSURL").getParam("CORE_STANDURL");
+      }
       $callback=$urlindex."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
