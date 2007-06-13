@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.116 2007/03/27 08:37:31 eric Exp $
+ * @version $Id: editutil.php,v 1.117 2007/06/13 16:04:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -159,14 +159,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $rows=2;
       if ($action->Read("navigator","")=="NETSCAPE") $rows--;
       $expid="exp".$attridk;
-      $input="<textarea $oc wrap=\"virtual\" onclick=\"increaselongtext('$attridk')\"  class=\"fullresize\" rows=$rows name=\"".
+      $input="<textarea $oc wrap=\"virtual\"  onkeyup=\"textautovsize(event,this)\"  onclick=\"textautovsize(event,this)\" class=\"autoresize\" rows=$rows name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " >".
 	str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
-	"</textarea>".
-	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=$rows;this.style.display='none'\" value=\"&Delta;\">";
+	"</textarea>";
+      //	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=$rows;this.style.display='none'\" value=\"&Delta;\">";
     
     
       break;

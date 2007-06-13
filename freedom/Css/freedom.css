@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.105 2007/05/25 16:29:07 eric Exp $
+ * $Id: freedom.css,v 1.106 2007/06/13 16:04:40 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -488,6 +488,11 @@ TD.hidden {
 
 INPUT.fullresize, TEXTAREA.fullresize {
 	width:100%;
+}
+TEXTAREA.autoresize {
+  overflow:hidden;
+  vertical-align:text-top;
+  width:100%;
 }
 input[type="file"] { 
 	width:auto;

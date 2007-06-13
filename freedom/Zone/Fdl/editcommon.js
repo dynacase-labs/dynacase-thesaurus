@@ -1634,3 +1634,17 @@ function viewwait(view) {
     }
   }
 }
+
+function textautovsize(event,o) {
+  if (! event) event=window.event;
+
+  var i=1;
+  var hb=o.clientHeight;
+  var hs=o.scrollHeight;
+
+  if (hs > hb) {
+    o.parentNode.style.height=hs+'px';
+    o.style.height=hs+'px';
+  }
+  
+}
