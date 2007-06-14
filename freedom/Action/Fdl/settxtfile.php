@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.6 2007/06/12 14:30:45 eric Exp $
+ * @version $Id: settxtfile.php,v 1.7 2007/06/14 15:50:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,6 +27,7 @@ include_once("TE/Class.TEClient.php");
 function settxtfile(&$action) {
   $docid = GetHttpVars("docid");
   $attrid = GetHttpVars("attrid");
+  $index = GetHttpVars("index",-1);
   $tid = GetHttpVars("tid");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -47,16 +48,28 @@ function settxtfile(&$action) {
 	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
 	  if ($err=="") {
 	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
-	    $err=$ot->getTransformation($tid,$filename);
-	    //$err=$ot->getAndLeaveTransformation($tid,$filename);	    
+	    //$err=$ot->getTransformation($tid,$filename);
+	    $err=$ot->getAndLeaveTransformation($tid,$filename);	    
 	    if ($err=="") {
 	      $at=$attrid.'_txt';
 	      if (file_exists($filename) && $info['status']=='D') {
-		$doc->$at=file_get_contents($filename);
+		if ($index == -1) {
+		  $doc->$at=file_get_contents($filename);
+		} else {		  
+		  if ($doc->AffectColumn(array($at))) {
+		    $doc->$at=sep_replace($doc->$at,$index,str_replace("\n"," ",file_get_contents($filename)));
+		    
+		  }
+		  
+		}
+		$av=$attrid.'_vec';
+		$doc->fields[$av]=$av;
+		$doc->$av='';
+
 		$doc->fulltext='';
 		$doc->fields[$at]=$at;
 		$doc->fields['fulltext']='fulltext';
-		$err=$doc->modify(true,array('fulltext',$at),true);
+		$err=$doc->modify(true,array('fulltext',$at,$av),true);
 		$doc->AddComment(_("update file to text conversion done"),HISTO_NOTICE);
 		if (($err=="") && ($doc->locked == -1)) {
 		  // propagation in case of auto revision
@@ -77,6 +90,7 @@ function settxtfile(&$action) {
 	      }
 	      @unlink($filename);
 	    }
+	    $doc->AddComment(_("conversion failed : ").$err,HISTO_NOTICE);
 	  } else {
 	    $err=sprintf(_("document [%s] not found"),$docid);
 	  }
@@ -90,7 +104,8 @@ function settxtfile(&$action) {
     }
   }
 
-  if ($err != '') $action->lay->template=$err;
+  if ($err != '')     $action->lay->template=$err;
+  else $action->lay->template="OK : ".sprintf(_("doc %d indexed"),$docid);
 
 }
 
