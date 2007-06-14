@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.10 2007/06/12 08:05:31 eric Exp $
+ * @version $Id: fullsearch.php,v 1.11 2007/06/14 15:46:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -130,7 +130,7 @@ function getFileTxt($dbid,&$tdoc) {
  */
 function highlight_text($dbid,&$s,$k) {
 
-  if (strlen($s) > 100000) {
+  if (strlen($s) > 200000) {
     $headline=_("document too big : no highlight");
   } else {
     $s=strtr($s, "£", " ");
@@ -144,24 +144,28 @@ function highlight_text($dbid,&$s,$k) {
 
     // $headline=str_replace('  ',' ',$headline);
     $headline=preg_replace('/[ ]+ /', ' ',$headline);
+    $headline=str_replace(array(" \r","\n ","æ","Æ"),array('',"\n",'ae','AE'),$headline);
     $pos=strpos($headline,'<b>');
 
   
     //    print "<hr> POSBEG:".$pos;
     if ($pos !== false) {
       // OE not in iso8859-1
-      $sw=(str_replace(array("<b>","</b>","æ","Æ"),array('','','ae','AE'),$headline));
+      $sw=(str_replace(array("<b>","</b>"),array('',''),$headline));
       $s=preg_replace('/[ ]+ /', ' ',$s);
-      $s=str_replace(array("æ","Æ"),array('ae','AE'),$s);
+      $s=preg_replace('/<[a-z][^>]+>/', '',$s);
+      $s=str_replace(array("æ","Æ","<br />","\r"),array('ae','AE','',''),$s);
       $offset=strpos(unaccent($s),$sw);
     
+      if ($offset===false) return $headline; // case mismatch in characters
 
-      /*if (! $offset)   print "\n<hr> SEARCH:[$sw] in [".unaccent($s)."]\n";
+      /*  if (! $offset)   print "\n<hr> SEARCH:[$sw] in [".unaccent($s)."]\n";
        print "<br> OFFSET:".$offset."--".substr($s,$offset,10)."--".substr(unaccent($s),$offset,10);
-      print "<br>[".str_replace(" ",".",unaccent($s))."]\n<br>\n";
-      print "<br>[".str_replace(" ",".",$sw)."]\n<br>\n";
-      print "\n[$s]\n";
-      print "[".unaccent($s)."]\n";*/
+       print "<br>\nS[".str_replace(array(" ","\n","\r"),array(".","-CR-","-LF-"),unaccent($s))."]\n";
+       print "W[".str_replace(array(" ","\n","\r"),array(".","-CR-","-LF-"),$sw)."]\n\n";
+       print "H[".str_replace(array(" ","\n","\r"),array(".","-CR-","-LF-"),$headline)."]\n<br>\n";
+      // print "\n[$s]\n";
+      //print "[".unaccent($s)."]\n";*/
 
       $before=20; // 20 characters before;
       if (($pos+$offset) < $before) $p0=0;
