@@ -3,7 +3,7 @@
  * Document permissions
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocPerm.php,v 1.14 2006/02/10 15:33:45 eric Exp $
+ * @version $Id: Class.DocPerm.php,v 1.15 2007/06/14 15:48:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -58,6 +58,10 @@ create trigger tinitacl AFTER INSERT OR UPDATE ON docperm FOR EACH ROW EXECUTE P
     if (($this->upacl==0) && ($this->unacl==0)) return _("not pertinent");   
     if ($this->unacl==="") $this->unacl="0";
     if ($this->cacl==="") $this->cacl="0";
+  }
+
+  function preUpdate() {
+    return $this->preInsert();
   }
 
   function getUperm($docid, $userid) {
