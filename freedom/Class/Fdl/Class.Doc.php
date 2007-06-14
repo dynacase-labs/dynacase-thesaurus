@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.390 2007/06/12 14:29:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.391 2007/06/14 15:47:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1840,8 +1840,7 @@ final public function PostInsert()  {
 	    $tvalues[]=$value;
 	  }
     
-
-	  while (list($kvalue, $avalue) = each($tvalues)) {
+	  foreach($tvalues as $kvalue=>$avalue) {
 	    if ($avalue != "") {
 	      if ($oattr) {
 		switch($oattr->type) {
@@ -1885,7 +1884,10 @@ final public function PostInsert()  {
 		  break;
 		case 'file':
 		  // clear fulltext realtive column
-		  $this->clearFullAttr($oattr->id);
+		  if ((!$oattr->repeat) || ($avalue != $this->getTValue($attrid,"",$kvalue))) {
+		    // only if changed
+		    $this->clearFullAttr($oattr->id,($oattr->repeat)?$kvalue:-1);
+		  }
 		  break;
 		case 'htmltext':
 		  $tvalues[$kvalue]=html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-15');
@@ -1911,16 +1913,24 @@ final public function PostInsert()  {
   * @param string $idAttr identificator of file attribute 
   * @return string error message, if no error empty string
   */
-  final private function clearFullAttr($attrid,$index=0) {
+  final private function clearFullAttr($attrid,$index=-1) {
     $ak=$attrid.'_txt';
-    $this->$ak='';
+    if ($index == -1) {
+      $this->$ak='';
+    } else {
+      if ($this->AffectColumn(array($ak))) {
+	$this->$ak=sep_replace($this->$ak,$index);
+	
+      }
+    }
     $this->fields[$ak]=$ak;
     $ak=$attrid.'_vec';
     $this->$ak='';
     $this->fields[$ak]=$ak;
     $this->fulltext='';
     $this->fields['fulltext']='fulltext'; // to enable trigger
-    $this->latinsend[$attrid]=$attrid;
+    $this->latinsend[$attrid.$index]=array("attrid"=>$attrid,
+					   "index"=>$index);
   }
  /**
   * send latin transformation 
@@ -1931,9 +1941,12 @@ final public function PostInsert()  {
     if (is_array($this->latinsend)) { 
       include_once("FDL/Lib.Vault.php");
       foreach($this->latinsend as $k=>$v) {
-	if (ereg ("(.*)\|(.*)", $this->getValue($v), $reg)) {
+	$index=$v["index"];
+	if ($index>0) $fval=$this->getTValue($v["attrid"],"",$index);
+	else $fval=strtok($this->getValue($v["attrid"]),"\n");
+	if (ereg ("(.*)\|(.*)", $fval, $reg)) {
 	  $vid= $reg[2];
-	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v,$index,$vid);	 
+	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v["attrid"],$index,$vid);	 
 	}
       }
       $this->latinsend=array();//reinit

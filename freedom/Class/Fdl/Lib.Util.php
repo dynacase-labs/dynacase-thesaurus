@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.17 2007/05/15 16:35:03 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.18 2007/06/14 15:47:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -317,5 +317,24 @@ function unaccent($string) {
 
 function unaccent_utf8($string) {
   return iconv("UTF-8","ASCII//TRANSLIT",$string);
+}
+
+/**
+ * replace a string separate by $sep
+ */
+function sep_replace($ak,$idx,$by="-",$sep="\n") {
+  $endoff=-1;
+  do {
+    $offset=$endoff+1;
+    $endoff=strpos($ak,"\n",$offset);
+    $idx--;
+  } while (($idx>=0)&&($endoff!==false));
+
+  if ($idx>=0) return $ak.str_repeat("\n-",$idx)."\n$by";
+  else if ($endoff == false) {
+    if ($offset==0) return "$by";
+    else return substr($ak,0,$offset-1)."\n$by";
+  }  else return substr($ak,0,$offset)."$by\n".substr($ak,$endoff+1);	
+					 
 }
 ?>
