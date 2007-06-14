@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.11 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.12 2007/06/14 15:46:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.11 2005/06/28 08:37:46 eric Exp $
+// $Id: freedom_modaccess.php,v 1.12 2007/06/14 15:46:12 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -59,8 +59,7 @@ function freedom_modaccess(&$action) {
   $err = $doc->Control("modifyacl");
   if ($err != "") $action->exitError($err);
 
-  
-  while (list($userid,$aclon) = each ($acls)) {     
+  foreach ($acls as $userid => $aclon) {     
   
     // modif permission for a particular user
     $perm = new DocPerm($dbaccess, array($docid,$userid));
@@ -68,11 +67,10 @@ function freedom_modaccess(&$action) {
     while (list($k,$pos) = each ($aclon)) { 
       if (intval($pos) > 0)  $perm->SetControlP($pos);
     }
-    if ($perm->isAffected()) $perm ->modify();
-    else $perm->Add();
-    
+    if ($perm->isAffected()) $err=$perm ->modify();
+    else $err=$perm->Add();
   }
-  
+  if ($err!="") $action->exitError($err);
   // recompute all related profile
   $pfamid=$doc->getValue("DPDOC_FAMID");
   if ($pfamid > 0) {
