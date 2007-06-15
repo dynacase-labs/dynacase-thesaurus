@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.393 2007/06/15 15:31:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.394 2007/06/15 15:31:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1971,7 +1971,6 @@ final public function PostInsert()  {
 	$this->clearFullAttr($k);
       }
     }
-    print_r2($this->latinsend);
     $this->sendLatinToEngine();
   }
    /**
