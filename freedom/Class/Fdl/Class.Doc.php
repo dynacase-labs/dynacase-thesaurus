@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.391 2007/06/14 15:47:50 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.392 2007/06/15 12:50:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3618,7 +3618,8 @@ final public function PostInsert()  {
 	}             
       } else {
 	foreach ($tdefval as $aid=>$dval) {
-	  $this->setValue($aid, $dval);
+	  $this->$aid= $dval; // raw data
+	  
 	}             
       }
     }
