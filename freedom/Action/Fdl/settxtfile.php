@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.7 2007/06/14 15:50:46 eric Exp $
+ * @version $Id: settxtfile.php,v 1.8 2007/06/15 15:29:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,11 +42,12 @@ function settxtfile(&$action) {
 
 	$outfile=$info["outfile"];
 	$status=$info["status"];
-	if (($status=='D') && ($outfile != '')) {
-	  
-	  $doc = new_Doc($dbaccess, $docid);
-	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
-	  if ($err=="") {
+		  
+	$doc = new_Doc($dbaccess, $docid);
+	if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
+	if ($err=="") {
+
+	  if (($status=='D') && ($outfile != '')) {
 	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
 	    //$err=$ot->getTransformation($tid,$filename);
 	    $err=$ot->getAndLeaveTransformation($tid,$filename);	    
@@ -70,7 +71,8 @@ function settxtfile(&$action) {
 		$doc->fields[$at]=$at;
 		$doc->fields['fulltext']='fulltext';
 		$err=$doc->modify(true,array('fulltext',$at,$av),true);
-		$doc->AddComment(_("update file to text conversion done"),HISTO_NOTICE);
+		$doc->AddComment(sprintf(_("text conversion done for file %s"),
+					 $doc->vault_filename($attrid,false,$index)) ,HISTO_NOTICE);
 		if (($err=="") && ($doc->locked == -1)) {
 		  // propagation in case of auto revision
 		  $idl=$doc->latestId();
@@ -89,13 +91,13 @@ function settxtfile(&$action) {
 		$err=sprintf(_("output file [%s] not found"),$filename);
 	      }
 	      @unlink($filename);
-	    }
-	    $doc->AddComment(_("conversion failed : ").$err,HISTO_NOTICE);
+	    }	    
 	  } else {
-	    $err=sprintf(_("document [%s] not found"),$docid);
+	    $err=sprintf(_("task %s is not done correctly"),$tid);
 	  }
+	  if ($err!="") $doc->AddComment(sprintf(_("conversion failed for %s: ").$err,$doc->vault_filename($attrid,false,$index)),HISTO_NOTICE);
 	} else {
-	  $err=sprintf(_("task %s is not done correctly"),$tid);
+	  $err=sprintf(_("document [%s] not found"),$docid);
 	}
       } else {
 	$err=sprintf(_("task %s is not recorded"),$tid);
