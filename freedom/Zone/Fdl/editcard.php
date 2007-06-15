@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.62 2007/03/16 11:21:34 eric Exp $
+ * @version $Id: editcard.php,v 1.63 2007/06/15 15:29:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 
 // ---------------------------------------------------------------
-// $Id: editcard.php,v 1.62 2007/03/16 11:21:34 eric Exp $
+// $Id: editcard.php,v 1.63 2007/06/15 15:29:22 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -104,6 +104,7 @@ function editcard(&$action) {
   $fdoc = new DocFam($dbaccess, $classid);
   if ($fdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$fdoc->title));
   if (($usefor == "D")||($usefor == "Q")) {
+    // special edit
     $zonebodycard="FDL:EDITBODYCARD";
     switch ($usefor) {
     case "D":
@@ -116,17 +117,17 @@ function editcard(&$action) {
       break;
     }
   
-  }
-  
-  if ($doc->cvid > 0) {
-    // special controlled view
-    $cvdoc= new_Doc($dbaccess, $doc->cvid);
-    $cvdoc->set($doc);
-    if (($docid == 0) && ($vid == "")) {
-      // search default create view     
-      $vid = $cvdoc->getValue("CV_IDCVIEW");
-    }
-    if ($vid == "") {
+  } else {
+    // normal edit
+    if ($doc->cvid > 0) {
+      // special controlled view
+      $cvdoc= new_Doc($dbaccess, $doc->cvid);
+      $cvdoc->set($doc);
+      if (($docid == 0) && ($vid == "")) {
+	// search default create view     
+	$vid = $cvdoc->getValue("CV_IDCVIEW");
+      }
+      if ($vid == "") {
 	// search preferred view
 	$tv=$cvdoc->getAValues("CV_T_VIEWS");
 
@@ -146,41 +147,49 @@ function editcard(&$action) {
 	  }
 	}	
       }
-  }
+    }
   
-  if (($vid != "") && ($doc->cvid > 0)) {
-    $err = $cvdoc->control($vid); // control special view
-    if ($err != "") $action->exitError($err);
-    $tview = $cvdoc->getView($vid);
-    $doc->setMask($tview["CV_MSKID"]);
-    if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
-  }  
+    if (($vid != "") && ($doc->cvid > 0)) {
+      $err = $cvdoc->control($vid); // control special view
+      if ($err != "") $action->exitError($err);
+      $tview = $cvdoc->getView($vid);
+      $doc->setMask($tview["CV_MSKID"]);
+      if ($zonebodycard == "") $zonebodycard=$tview["CV_ZVIEW"];
+    }  
 
-  if (($vid == "")&&($mskid != "")) {
-    $mdoc=new_Doc($dbaccess,$mskid);
-    if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
-  }
+    if (($vid == "")&&($mskid != "")) {
+      $mdoc=new_Doc($dbaccess,$mskid);
+      if ($mdoc->isAlive() && ($mdoc->control('view')==""))  $doc->setMask($mdoc->id);
+    }
 
-  if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error
+    if (GetHttpVars("viewconstraint")=="Y") { // from modcard function if constraint error
     
-    include_once("FDL/modcard.php");  
-    setPostVars($doc); // HTTP VARS comes from previous edition
+      include_once("FDL/modcard.php");  
+      setPostVars($doc); // HTTP VARS comes from previous edition
 
     
-  }
+    }
   
 
-  if ($zonebodycard == "") {
-    if ((! $docid) && $doc->defaultcreate!="") $zonebodycard = $doc->defaultcreate;
-    else $zonebodycard = $doc->defaultedit;
+    if ($zonebodycard == "") {
+      if ((! $docid) && $doc->defaultcreate!="") $zonebodycard = $doc->defaultcreate;
+      else $zonebodycard = $doc->defaultedit;
+    }
   }
-
   if ($zonebodycard == "") $zonebodycard="FDL:EDITBODYCARD";
   $action->lay->Set("classid", $classid);
   $action->lay->Set("usefor", $usefor);
 
-  if ($usefor == "D") $doc->SetWriteVisibility();
-  else  setNeededAttributes($action,$doc);
+  if ($usefor == "D") {
+    $doc->SetWriteVisibility();
+  // contruct js functions
+    $jsfile=$action->GetLayoutFile("editcard.js");
+    $jslay = new Layout($jsfile,$action);
+    $jslay->Set("attrnid",'[]');
+    $jslay->Set("attrntitle",'[]');
+    $jslay->SetBlockData("RATTR",$tjsa);
+    $action->parent->AddJsCode($jslay->gen());
+  } else  setNeededAttributes($action,$doc);
   $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   // compute modify condition js
