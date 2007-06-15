@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.392 2007/06/15 12:50:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.393 2007/06/15 15:31:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1431,16 +1431,18 @@ final public function PostInsert()  {
   /**
    * return all the attributes object for abstract
    * the attribute can be defined in fathers
+   * @param bool $onlyfile set to true if don't want images
    * @return array DocAttribute
    */
-  final public function GetFileAttributes()
+  final public function GetFileAttributes($onlyfile=false)
     {      
       if (!$this->_maskApplied) $this->ApplyMask();
       $tsa=array();
       
       foreach($this->attributes->attr as $k=>$v) {
-	if ((get_class($v) == "NormalAttribute") && (($v->type == "image") || 
-						     ($v->type == "file"))) $tsa[$v->id]=$v;
+	if ((get_class($v) == "NormalAttribute") && 
+	    ((($v->type == "image") && (! $onlyfile) ) || 
+	     ($v->type == "file"))) $tsa[$v->id]=$v;
       }
       return $tsa;      
     }
@@ -1952,7 +1954,26 @@ final public function PostInsert()  {
       $this->latinsend=array();//reinit
     }
   }
-
+ /**
+  * force recompute all file latin transformation 
+  * 
+  * 
+  */
+  final public function recomputeLatinFiles() {
+    $afiles=$this->GetFileAttributes(true);
+    foreach ($afiles as $k=>$v) {
+      if ($v->inArray()) {
+	$tv=$this->getTValue($k);
+	foreach ($tv as $kv=>$vv) {
+	  $this->clearFullAttr($k,$kv);	  
+	}
+      }  else {
+	$this->clearFullAttr($k);
+      }
+    }
+    print_r2($this->latinsend);
+    $this->sendLatinToEngine();
+  }
    /**
    * affect text value in $attrid file attribute
    *
@@ -2515,12 +2536,10 @@ final public function PostInsert()  {
     $err=$this->modify();
     if ($err != "") return $err;
 
-    $fa=$this->GetFileAttributes(); // copy cached values
+    $fa=$this->GetFileAttributes(true); // copy cached values
     $ca=array();
     foreach ($fa as $k=>$v) {
-      if ($v->type=="file") {
-	$ca[]=$v->id."_txt";
-      }
+	$ca[]=$v->id."_txt";      
     }
     $this->AffectColumn($ca);
     foreach ($ca as $a) {
@@ -4402,12 +4421,14 @@ final public function PostInsert()  {
   /**
    * get vault file name or server path of filename
    * @param string $idAttr identificator of file attribute 
-   * @param bool false return original file name (basename) , true the real path
+   * @param bool $path false return original file name (basename) , true the real path
+   * @param int $index in case of array of files
    * @return string the file name of the attribute
    */
-  final public function vault_filename($attrid,$path=false) {
+  final public function vault_filename($attrid,$path=false,$index=-1) {
 
-    $fileid= $this->getValue($attrid);
+    if ($index == -1)  $fileid= $this->getValue($attrid);
+    else $fileid= $this->getTValue($attrid,'',$index);
     $fname="";
     if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
       // reg[1] is mime type
