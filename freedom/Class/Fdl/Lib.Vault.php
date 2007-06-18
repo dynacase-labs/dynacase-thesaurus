@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.5 2007/06/12 14:28:28 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.6 2007/06/18 12:38:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -86,7 +86,9 @@ function vault_get_content($idfile) {
   }
   return false;
 }
-
+/**
+ * send request to have text conversion of file
+ */
 function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
   if (($docid >0)  && ($vid>0)) {
     if (include_once("TE/Class.TEClient.php")) {
@@ -105,17 +107,19 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
       $callback=$urlindex."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
-      if ($err != "") AddWarningMsg($err);
-      $tr=new TaskRequest($dbaccess);
-      $tr->tid=$info["tid"];
-      $tr->fkey=$vid;
-      $tr->status=$info["status"];
-      $tr->comment=$info["comment"];
-      $tr->uid=$action->user->id;
-      $tr->uname=$action->user->firstname." ".$action->user->lastname;
-      $err=$tr->Add();
+      if ($err=="") {
+	$tr=new TaskRequest($dbaccess);
+	$tr->tid=$info["tid"];
+	$tr->fkey=$vid;
+	$tr->status=$info["status"];
+	$tr->comment=$info["comment"];
+	$tr->uid=$action->user->id;
+	$tr->uname=$action->user->firstname." ".$action->user->lastname;
+	$err=$tr->Add();
+      }
     }
   }
+  return $err;
 }
 
 ?>
