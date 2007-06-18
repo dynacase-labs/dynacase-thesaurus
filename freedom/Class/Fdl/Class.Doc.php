@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.394 2007/06/15 15:31:29 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.395 2007/06/18 12:39:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1948,7 +1948,8 @@ final public function PostInsert()  {
 	else $fval=strtok($this->getValue($v["attrid"]),"\n");
 	if (ereg ("(.*)\|(.*)", $fval, $reg)) {
 	  $vid= $reg[2];
-	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v["attrid"],$index,$vid);	 
+	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v["attrid"],$index,$vid);
+	  if ($err!="") $this->AddComment(_("error sending text conversion").": $err",HISTO_NOTICE);
 	}
       }
       $this->latinsend=array();//reinit
@@ -1961,7 +1962,10 @@ final public function PostInsert()  {
   */
   final public function recomputeLatinFiles() {
     $afiles=$this->GetFileAttributes(true);
+    $ttxt=array();
     foreach ($afiles as $k=>$v) {
+      $kt=$k.'_txt';
+      $ttxt[]=$kt;
       if ($v->inArray()) {
 	$tv=$this->getTValue($k);
 	foreach ($tv as $kv=>$vv) {
@@ -1970,7 +1974,12 @@ final public function PostInsert()  {
       }  else {
 	$this->clearFullAttr($k);
       }
+      $this->$kt='';
+      $kv=$k.'_vec';
+      $ttxt[]=$kv;
+      $this->$kv='';
     }
+    $this->modify(true,$ttxt,true);
     $this->sendLatinToEngine();
   }
    /**
