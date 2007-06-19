@@ -24,7 +24,12 @@
    <script language="JavaScript">
   <!--
     [JS:CODE]
-addEvent(window,"load",focusFirst);
+function mailfocus(event) {
+  var i=document.getElementById('mail_recip0');
+  if (i) i.focus();
+  else focusFirst(event);
+ }
+addEvent(window,"load",mailfocus);
 
 
   //-->
