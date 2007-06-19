@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.23 2007/06/14 15:47:08 eric Exp $
+// $Id: FDL_init.php.in,v 1.24 2007/06/19 15:27:25 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -114,7 +114,12 @@ $app_const= array(
   "TE_PORT"   =>array("val"=>"",
 		      "global"=>"Y",
 		      "user"=>"N",
-		      "descr"=>N_("Transformation Engine server port number"))
+		      "descr"=>N_("Transformation Engine server port number")),
+  "FDL_FULLIDX"    =>array("val"=>"gist",
+			   "descr"=>N_("fulltext index mode"),
+			   "user"=>"N",
+			   "global"=>"Y",
+			   "kind"=>"enum(gist|gin)"),
 );
 
 

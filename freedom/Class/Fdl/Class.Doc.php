@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.396 2007/06/19 08:09:55 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.397 2007/06/19 15:27:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -276,7 +276,7 @@ Class Doc extends DocCtrl
 				"doc_title"=>array("unique"=>false,
 						   "on"=>"title"),
 				"doc_full"=>array("unique"=>false,
-						  "using"=>"gist",
+						  "using"=>"@FDL_FULLIDX",
 						  "on"=>"fulltext"),
 				"doc_profid"=>array("unique"=>false,
 						    "on"=>"profid"));
@@ -3613,6 +3613,10 @@ final public function PostInsert()  {
       if ($v["unique"])  $unique="unique";
       else $unique="";
       if ($v["using"]!= "") {
+	
+	if ($v["using"][0]== "@") {
+	  $v["using"]=getParam(substr($v["using"],1));
+	}
 	$t.=sprintf("CREATE $unique INDEX %s$id on  doc$id using %s(%s);\n",$k,$v["using"],$v["on"]);
       } else {
 	$t.=sprintf("CREATE $unique INDEX %s$id on  doc$id(%s);\n",$k,$v["on"]);
