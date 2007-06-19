@@ -4,7 +4,7 @@
   <head>
 
    <title>[TEXT:Properties:] [TITLE]</title>
-<BASE HREF="[CORE_ABSURL]">
+<BASE HREF="[baseurl]">
 
    <style type="text/css">
 [ZONE CORE:SYSTEMCSS]
@@ -33,7 +33,7 @@ A.nounder:hover, A.nounder:link,A.nounder:visited, A.nounder {
 <P>[comment]</P>
 <HR>
 [ENDBLOCK COMMENT]
-<a class="nounder" title="[TEXT:Click to access to the document]" href="[CORE_ABSURL]/[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[ID]">
+<a class="nounder" title="[TEXT:Click to access to the document]" href="[absurl][CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id=[ID]">
 <div class="border" style="width:300px">
 [ZONE FDL:VIEWCARD?target=mail&zone=FDL:VIEWTHUMBCARD:T]
 </div></a>

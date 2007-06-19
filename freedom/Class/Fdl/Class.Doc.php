@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.395 2007/06/18 12:39:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.396 2007/06/19 08:09:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1957,11 +1957,13 @@ final public function PostInsert()  {
   }
  /**
   * force recompute all file latin transformation 
-  * 
-  * 
+  * @param string $aid file attribute identificator. If false all files attributes will be reseted
+  * @return string error message, if no error empty string
   */
-  final public function recomputeLatinFiles() {
-    $afiles=$this->GetFileAttributes(true);
+  final public function recomputeLatinFiles($aid=false) {
+    if (! $aid) $afiles=$this->GetFileAttributes(true);
+    else $afiles[$aid]=$this->getAttribute($aid);
+
     $ttxt=array();
     foreach ($afiles as $k=>$v) {
       $kt=$k.'_txt';
@@ -1980,7 +1982,8 @@ final public function PostInsert()  {
       $this->$kv='';
     }
     $this->modify(true,$ttxt,true);
-    $this->sendLatinToEngine();
+    $err=$this->sendLatinToEngine();
+    return $err;
   }
    /**
    * affect text value in $attrid file attribute
@@ -3433,7 +3436,7 @@ final public function PostInsert()  {
 		$scheme=$reg[1];
 	      }
 	    $abegin="<A target=\"$target\"  href=\"";
-	    if ($scheme == "") $abegin.= $action->GetParam("CORE_ABSURL")."/".$ulink;
+	    if ($scheme == "") $abegin.= $action->GetParam("CORE_URLINDEX",($action->GetParam("CORE_ABSURL")."/")).$ulink;
 	    else $abegin.= $ulink;
 	    $abegin.="\">";
 	  } else {

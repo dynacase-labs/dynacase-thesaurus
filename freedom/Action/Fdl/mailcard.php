@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.68 2007/06/01 13:37:17 eric Exp $
+ * @version $Id: mailcard.php,v 1.69 2007/06/19 08:09:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -263,6 +263,17 @@ function sendCard(&$action,
       $docmail->Set("TITLE", $doc->title);
       $docmail->Set("ID", $doc->id);
       $docmail->Set("zone", $zonebodycard);
+      if ($action->GetParam("CORE_URLINDEX") != "") {
+	$turl=parse_url($action->GetParam("CORE_URLINDEX"));
+	$url=$turl["scheme"].'://'.$turl["host"];
+	if (isset($turl["port"])) $url.=':'.$turl["port"];
+	if (isset($turl["path"])) $url.=dirname($turl["path"])."/";
+	$docmail->Set("baseurl",$url) ;	
+	$docmail->Set("absurl",$action->GetParam("CORE_URLINDEX")) ;	
+      } else {
+	$docmail->Set("baseurl",$action->GetParam("CORE_ABSURL")) ;
+	$docmail->Set("absurl",$action->GetParam("CORE_ABSURL")."/") ;	
+      }
       if ($comment != "") {
 	$docmail->setBlockData("COMMENT", array(array("boo")));
 	$docmail->set("comment", nl2br($comment));
