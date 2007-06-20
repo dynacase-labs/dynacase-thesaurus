@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.11 2007/06/14 15:46:51 eric Exp $
+ * @version $Id: fullsearch.php,v 1.12 2007/06/20 16:13:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -98,16 +98,8 @@ function fullsearch(&$action) {
  * return file text values from  _txt column
  */
 function getFileTxt($dbid,&$tdoc) {
-  getvs($tdoc);
-  $ta=array();
-  foreach ($tdoc as $k=>$v) {
-    $v=strtok($v,"\n");
-    if (preg_match('/^[a-z\/\+\.-]+\|[0-9]+$/i',$v)) {
-      if ($k!='icon') $ta[$k]=$k."_txt";
-    }
-  }
-  if (count($ta)>0) {
-  $sqlselect=implode(',',$ta);
+ 
+  $sqlselect='svalues';
   $sqlfrom='doc'.$tdoc["fromid"];
   $sqlwhere='id='.$tdoc["id"];
 
@@ -117,7 +109,7 @@ function getFileTxt($dbid,&$tdoc) {
     $arr = pg_fetch_array ($result, 0,PGSQL_ASSOC);    
     return implode(' - ',$arr);
   }
-  }
+  
 }
 
 /**
