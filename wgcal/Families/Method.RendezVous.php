@@ -873,7 +873,7 @@ function EventSetDate($dstart, $dend, $type)
   
   $start_H = gmdate("H", $dstart);
   $start_M = gmdate("i", $dstart);
-  $this->lay->set("START", ($dstart*1000));
+  $this->lay->set("START", $dstart*1000);
   $this->lay->set("STARTsec", $dstart);
   $this->lay->set("STARTREAD", ucwords(strftime("%a %d %b %Y", $dstart)));
   $th = array();
