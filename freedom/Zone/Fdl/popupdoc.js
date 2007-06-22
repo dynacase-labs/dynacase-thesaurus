@@ -76,7 +76,7 @@ function viewTextError() {
   MENUCIBLE.style.display='';
   setTimeout("MENUCIBLE.style.display='none'",2000);  
 }
-function menuSend(event,menuurl,cible) {
+function menuSend(event,menuurl,cible,coord) {
   if (INPROGRESSMENU) return false; // one request only
     // branch for native XMLHttpRequest object
     if (window.XMLHttpRequest) {
@@ -100,22 +100,35 @@ function menuSend(event,menuurl,cible) {
 	
 	INPROGRESSMENU=true;
 	document.body.style.cursor='progress';	
-	GetXY(event);
-	cible.style.left = Xpos+'px';
-	cible.style.top  = Ypos+'px';
+
+	cible.style.left='0px';
+	cible.style.top='0px';
 	cible.style.width  = '30px';
+	
 	//	clipboardWait(cible);
 	return true;
     }    
 }
 
-function viewmenu(event,murl,source) {
+function viewmenu(event,murl,source,coord) {
   closeDocMenu()
   CTRLKEYMENU=ctrlKeyPushed(event);
-  MENUSOURCE=source;
-  GetXY(event);
-  XMENU=Xpos;
-  YMENU=Ypos;
+  MENUSOURCE=source;	
+  if (coord) {    
+    XMENU = coord.x;
+    YMENU  = coord.y;
+    if (isNetscape) {      
+      YMENU+=3;
+    }
+  } else {
+    GetXY(event);
+    XMENU=Xpos;
+    YMENU=Ypos;
+    if (isNetscape) {
+      XMENU+=3;
+      YMENU+=3;
+    }
+  }
   //   MENUSOURCE.style.borderStyle='solid';
   // MENUSOURCE.style.borderColor='black';
   //MENUSOURCE.style.borderWidth='1px';
@@ -124,7 +137,7 @@ function viewmenu(event,murl,source) {
     MENUSOURCE.style.borderTop='dashed 1px #777777';
     MENUSOURCE.style.borderBottom='dashed 1px #777777';
   }
-  menuSend(event,murl,DIVPOPUPMENU);
+  menuSend(event,murl,DIVPOPUPMENU,coord);
 }
 
 function closeDocMenu() {
@@ -234,7 +247,8 @@ function openSubDocMenu(event, th, menuid) {
   var y=xy.y;
   
   if (OPENSUBMENU) {
-    OPENSUBMENU.style.display='none';
+    //    OPENSUBMENU.style.display='none';
+    OPENSUBMENU.style.visibility='hidden';
   }
 
   el=document.getElementById(menuid);

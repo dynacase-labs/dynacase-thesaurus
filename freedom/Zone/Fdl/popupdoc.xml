@@ -34,7 +34,7 @@
 </div>
 
 [BLOCK SUBDIVMENU]
-<div  id="popup[idlink]" name="popupcard" class="popup"></div>   
+<div  id="popup[idlink]" name="popupcard" style="left:0px;top:0px" class="popup"></div>   
 [ENDBLOCK SUBDIVMENU]
 
 
