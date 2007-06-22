@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.106 2007/06/13 16:04:40 eric Exp $
+ * $Id: freedom.css,v 1.107 2007/06/22 16:18:50 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -112,6 +112,7 @@ DIV.barmenu A {
   border-width: 1px;
   border-style:  none none none solid;
   padding-left:5px;
+  white-space:nowrap;
 }
 TD.MenuInactive{
 	background-color: [CORE_BGCOLORALTERN];

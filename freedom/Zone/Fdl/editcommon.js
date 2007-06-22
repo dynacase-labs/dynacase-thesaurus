@@ -545,6 +545,16 @@ function autoUnlock(docid) {
   }  	
   return false;  
 }
+function submitEdit(event) {
+  var fedit= document.getElementById('fedit');
+     var r=true;
+   if (fedit) {
+     var fedit= document.getElementById('fedit');
+     if (fedit.onsubmit) r=fedit.onsubmit();
+     if (r) fedit.submit();
+   }
+   return r;
+}
 
 function pleaseSave(event) {
   if (document.isChanged && (! document.isSubmitted) && (! document.isCancelled)) {

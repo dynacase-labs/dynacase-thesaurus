@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.56 2007/03/07 14:54:56 eric Exp $
+ * @version $Id: generic_edit.php,v 1.57 2007/06/22 16:18:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -78,7 +78,6 @@ function generic_edit(&$action) {
     }
   else
     {    
-
       $doc= new_Doc($dbaccess,$docid);
       $docid=$doc->id;
       setHttpVar("id",$doc->id);
@@ -95,7 +94,6 @@ function generic_edit(&$action) {
       $doc->modify(true,array("adate"),true);
 
       $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", _("Save"));
     }
     
   $action->lay->Set("STITLE",addJsSlashes($action->lay->get("TITLE"))); // for include in JS
@@ -144,12 +142,25 @@ function generic_edit(&$action) {
     if ((! $docid) && $doc->defaultcreate!="") $zonebodycard = $doc->defaultcreate;
     else $zonebodycard = $doc->defaultedit;
   }
+
+  $action->lay->set("emblem",$doc->getEmblem());
   $action->lay->Set("HEAD", (! ereg("[A-Z]+:[^:]+:[T|S|U|V]", $zonebodycard, $reg)));
   $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:[S|U]", $zonebodycard, $reg)));
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   $action->lay->Set("NOSAVE", (ereg("[A-Z]+:[^:]+:V", $zonebodycard, $reg)));
 
-  $action->lay->Set("iconsrc", $doc->geticon());
+  $action->lay->Set("iconsrc", $doc->geticon());  $action->lay->Set("viewstate", "none");
+  $action->lay->Set("state", "");
+
+  $state=$doc->getState();
+  $action->lay->Set("statecolor",$doc->getStateColor("transparent"));
+  if ($state) { // see only if it is a transitionnal doc
+    if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($state));
+    else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($state)));
+    $action->lay->Set("viewstate", "inherit");
+    $action->lay->Set("wid", ($doc->wid>0)?$doc->wid:$doc->state);
+  } 
+  $action->lay->Set("version", $doc->version);
   
   if ($doc->fromid > 0) {
     $fdoc= $doc->getFamDoc();
@@ -162,30 +173,7 @@ function generic_edit(&$action) {
   $action->lay->Set("id", $docid);
   $action->lay->Set("dirid", $dirid);
 
-  // control view of special constraint button
-  $action->lay->Set("boverdisplay", "none");
-  
-  if (GetHttpVars("viewconstraint")=="Y") {
-    $action->lay->Set("bconsdisplay", "");
-    if ($action->user->id==1) {
-      $action->lay->SetBlockData("INPUTCONSTRAINT",array(array("zou")));
-      $action->lay->Set("boverdisplay", ""); // only admin can do this
-    }
-    
-  } else {
-    // verify if at least on attribute constraint
-    
-    $action->lay->Set("bconsdisplay", "none");
-    /*
-    $listattr = $doc->GetNormalAttributes();
-    foreach ($listattr as $k => $v) {
-      if ($v->phpconstraint != "")  {
-	$action->lay->Set("bconsdisplay", "");
-	break;
-      }
-    }
-    */
-  }
+
   $action->lay->set("tablefoot","tableborder");
   $action->lay->set("tablehead","tableborder");
   $action->lay->set("ddivfoot","none");
@@ -199,24 +187,7 @@ function generic_edit(&$action) {
     }
     
   } 
-  $taction=array();
-  
-  $listattr = $doc->GetActionAttributes();
-  foreach ($listattr as $k => $v) {
-    if (($v->mvisibility != "H")&&($v->mvisibility != "R")) {
-      $mvis=MENU_ACTIVE;
-      if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
-      if ($mvis == MENU_ACTIVE) {
-	$taction[$k]=array("wadesc"=>$v->getOption("llabel"),
-			   "walabel"=>ucfirst($v->labelText),
-			   "waction"=>$v->waction,
-			   "wtarget"=>$v->id,
-			   "wapplication"=>$v->wapplication);
-      }
-    }
-  }
 
-  $action->lay->setBlockData("WACTION",$taction);
 
   $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
   // information propagation
