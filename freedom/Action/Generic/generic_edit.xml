@@ -86,9 +86,7 @@ addEvent(window,"load",focusFirst);
   <IMG align="left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[FTITLE]</I><br><span class="FREEDOMTextBigTitle">[TITLE]</span>
-<div  style="float:right">
-  <a  style="display:none" href="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&wedit=Y&id=[id]" target="_blank"><img  align="absmiddle"  alt="[TEXT:wordedit]" title="[TEXT:wordedit]" height="22" width="30" border="0" src="[IMG:openoffice.png]"></a>   
-
+<div style="float:right">    
       <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">  
          <span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b class="statetext" style="border-color:[statecolor]" title="[TEXT:View historique]">[state]</b></A></span></div>
   [IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT]
@@ -100,8 +98,8 @@ addEvent(window,"load",focusFirst);
 [ENDIF HEAD]
 
 [IFNOT HEAD][IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT][ENDIF HEAD]
-[IFNOT NOFORM][IFNOT NOSAVE]
-[ZONE FDL:EDITSTATE][ENDIF NOSAVE]
+[IFNOT NOFORM][IFNOT NOSAVE][IF wid]
+[ZONE FDL:EDITSTATE][ENDIF wid][ENDIF NOSAVE]
 [ENDIF NOFORM]
 
 [ZONE FDL:EDITCARD]

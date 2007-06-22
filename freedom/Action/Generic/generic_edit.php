@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.57 2007/06/22 16:18:50 eric Exp $
+ * @version $Id: generic_edit.php,v 1.58 2007/06/22 16:39:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,6 +16,7 @@
 
 include_once("FDL/Class.Doc.php");
 
+include_once("FDL/family_help.php");
 include_once("Class.QueryDb.php");
 include_once("GENERIC/generic_util.php"); 
 
@@ -150,10 +151,16 @@ function generic_edit(&$action) {
   $action->lay->Set("NOSAVE", (ereg("[A-Z]+:[^:]+:V", $zonebodycard, $reg)));
 
   $action->lay->Set("iconsrc", $doc->geticon());  $action->lay->Set("viewstate", "none");
+  $action->lay->Set("dhelp", "none");
+  if (getFamilyHelpFile($action,$doc->fromid) ) {      
+      $action->lay->Set("dhelp", "");
+      $action->lay->Set("helpid", $doc->fromid);
+    }
   $action->lay->Set("state", "");
 
   $state=$doc->getState();
   $action->lay->Set("statecolor",$doc->getStateColor("transparent"));
+  $action->lay->Set("wid",false);
   if ($state) { // see only if it is a transitionnal doc
     if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($state));
     else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($state)));
