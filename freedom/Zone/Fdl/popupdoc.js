@@ -109,7 +109,7 @@ function menuSend(event,menuurl,cible) {
     }    
 }
 
-function viewmenu(event,docid,source) {
+function viewmenu(event,murl,source) {
   closeDocMenu()
   CTRLKEYMENU=ctrlKeyPushed(event);
   MENUSOURCE=source;
@@ -124,7 +124,7 @@ function viewmenu(event,docid,source) {
     MENUSOURCE.style.borderTop='dashed 1px #777777';
     MENUSOURCE.style.borderBottom='dashed 1px #777777';
   }
-  menuSend(event,docid,DIVPOPUPMENU);
+  menuSend(event,murl,DIVPOPUPMENU);
 }
 
 function closeDocMenu() {

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.15 2006/10/04 09:25:50 eric Exp $
+ * @version $Id: popupdoc.php,v 1.16 2007/06/22 07:47:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,9 +15,9 @@
 include_once("FDL/Class.Doc.php");
 // -----------------------------------
 function popupdoc(&$action,$tlink,$tsubmenu=array()) {
-  // -----------------------------------
-  // ------------------------------
+
   header('Content-type: text/xml; charset=utf-8'); 
+  $onlyctrl = (GetHttpVars("onlyctrl")=="yes"); // view only ctrl
   $action->lay = new Layout(getLayoutFile("FDL","popupdoc.xml"),$action);
 
   $mb=microtime();
@@ -33,6 +33,12 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
   $rlink=array();
   $rlinkbottom=array();
   foreach ($tlink as $k=>$v) {
+    if ($onlyctrl) {
+      if (( $v["visibility"] != POPUP_CTRLACTIVE) && ( $v["visibility"] != POPUP_CTRLINACTIVE)) $v["visibility"]=POPUP_INVISIBLE;
+      if ($v["visibility"] == POPUP_CTRLACTIVE) $v["visibility"]=POPUP_ACTIVE;
+      else if ($v["visibility"] == POPUP_CTRLINACTIVE)$v["visibility"]=POPUP_INACTIVE;
+    }
+
     if ($v["visibility"]!=POPUP_INVISIBLE)   {
       if ((!isset($v["icon"])) || ($v["icon"]=="")) {
 	$v["icon"]="Images/none.gif";
