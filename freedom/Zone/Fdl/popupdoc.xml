@@ -11,11 +11,11 @@
 
 [BLOCK ADDLINK]
 [IF URL]
-<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
+<a href="#" id="[idlink]"  [IF color]style="background-color:[color]"[ENDIF color] visibility="[visibility]" submenu="[smid]"
     onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) sendMenuUrl(this,'[url]','[target]',[barmenu],'[mwidth]','[mheight]');closeDocMenu();">
 [IF ICONS]<img src="[icon]">[ENDIF ICONS][descr]</a>[ENDIF URL]
 [IF JSFT]
-<a href="#" id="[idlink]"  visibility="[visibility]" submenu="[smid]"
+<a href="#" id="[idlink]"  [IF color]style="background-color:[color]"[ENDIF color] visibility="[visibility]" submenu="[smid]"
     onmouseup="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) {[jsfunction];}closeDocMenu();">
 [IF ICONS]<img src="[icon]">[ENDIF ICONS][descr]</a>[ENDIF JSFT]
 [IF separator]    

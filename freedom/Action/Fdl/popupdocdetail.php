@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.14 2007/05/25 15:46:01 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.15 2007/06/22 16:18:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,6 +67,7 @@ function getpopupdocdetail(&$action,$docid) {
 				 "barmenu"=>"false"));
 
   addCvPopup($tlink,$doc);
+  addStatesPopup($tlink,$doc);
   $tlink=array_merge($tlink,  array(
 	       "delete"=>array( "descr"=>_("Delete"),
 				 "url"=>"$surl&app=GENERIC&action=GENERIC_DEL&id=$docid",
@@ -274,6 +275,37 @@ function addCvPopup(&$tlink,&$doc) {
 				 "target"=>"_self",
 				 "visibility"=>POPUP_ACTIVE,
 				 "submenu"=>$v["typeview"],
+				 "barmenu"=>"false");
+    }
+
+  
+  }
+}
+
+/**
+ * Add control view menu
+ */
+function addStatesPopup(&$tlink,&$doc) {
+ 
+  if ($doc->wid > 0 )  {
+      $wdoc = new_Doc($doc->dbaccess,$doc->wid);
+      $wdoc->Set($doc);
+      $fstate = $wdoc->GetFollowingStates();
+
+    $surl=getParam("CORE_STANDURL");
+    $docid=$doc->id;
+
+    foreach ($fstate as $v) {
+      $tlink[$v["idview"]]=array( "descr"=>ucfirst( _("To".$v)).'-'._("State").' : '._($v),
+				  "jsfunction"=>sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",
+							utf8_encode(str_replace("'","&quot;",sprintf(_("Comment for change state to %s"),_($v))))),
+				 "confirm"=>"false",
+				 "control"=>"false",
+				  "color"=>$wdoc->getColor($v),
+				 "tconfirm"=>"",
+				 "target"=>"_self",
+				 "visibility"=>POPUP_ACTIVE,
+				 "submenu"=>"states",
 				 "barmenu"=>"false");
     }
 
