@@ -3,7 +3,7 @@
  * Display interface to change state
  *
  * @author Anakeen 2007
- * @version $Id: editchangestate.php,v 1.1 2007/06/25 14:23:04 eric Exp $
+ * @version $Id: editchangestate.php,v 1.2 2007/06/25 16:29:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,7 +51,7 @@ function editchangestate(&$action) {
 	    if ($oa) {
 	      $tinputs[]=array("alabel"=>$oa->labelText,
 			       "labelclass"=>($oa->needed)?"FREEDOMLabelNeeded":"FREEDOMLabel",
-			       "avalue"=>getHtmlInput($wdoc,$oa,""),
+			       "avalue"=>getHtmlInput($wdoc,$oa,"","","",true),
 			       "aid"=>$oa->id,
 			       "idisplay"=>($oa->visibility=="H")?"none":"");
 	      if ($oa->needed) $tneed[$oa->id]=$oa->labelText;

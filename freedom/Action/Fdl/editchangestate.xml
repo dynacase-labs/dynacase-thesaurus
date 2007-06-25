@@ -7,21 +7,20 @@
        method="POST"  
        action="[CORE_STANDURL]&app=FREEDOM&action=MODSTATE&id=[docid]" >
 <input type="hidden" name="newstate" value="[nextstate]">
-<table ><tbody>
-[BLOCK FINPUTS]
-<tr style="display:[idisplay];"  id="TWF[aid]" class="FREEDOMBack1">
-  <td  valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
-  <td>[avalue]</td>
-</tr>
-[ENDBLOCK FINPUTS]</tbody>
-<tfoot>
-<tr >
-  <td  colspan="3" align="right" id="editbutton"><input id="iSubmit" style="background-color:[wcolor]" type="submit" title="[tonewstate]" value="[tostate]"   >
-    <input type="button" title="[TEXT:Cancel the change state]" value="[TEXT:Cancel]" onclick="window.parent.hidebox('POPDOC')"> 
-  </td>
-</tr>
-</tfoot>
-</table>
 
+[BLOCK FINPUTS]
+<div style="display:[idisplay];"  id="TWF[aid]" class="FREEDOMBack1">
+  <span  valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</span><br>
+
+  <table width="100%"><tr><td style="padding-left:20px">[avalue]</td></tr></table>
+</div>
+[ENDBLOCK FINPUTS]
+
+<table><tr><td>
+<textarea name="comment" title="[TEXT:Comment for change state]"></textarea></td><td align="center">
+  <input id="iSubmit" style="background-color:[wcolor]" type="submit" title="[tonewstate]" value="[tostate]">
+  <input type="button" title="[TEXT:Cancel the change state]" value="[TEXT:Cancel]" onclick="window.parent.hidebox('POPDOC')"> </td></tr></table>
+
+  
 </form>
 [ZONE FDL:HTMLFOOT]

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.40 2007/05/31 16:16:20 eric Exp $
+// $Id: FDL.app,v 1.41 2007/06/25 16:29:52 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -241,6 +241,11 @@ $action_desc = array (
    "short_name"		=>N_("verify constraint attribute"),
    "acl"		=>"NORMAL"
   )  ,
+  array( 
+   "name"		=>"EDITCHANGESTATE",
+   "short_name"		=>N_("interface to change state"),
+   "acl"		=>"NORMAL"
+  ) ,
   array( 
    "name"		=>"FDL_PUBMAIL",
    "short_name"		=>N_("emailing"),

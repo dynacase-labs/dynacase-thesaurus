@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.15 2007/06/22 16:18:25 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.16 2007/06/25 16:29:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -296,17 +296,24 @@ function addStatesPopup(&$tlink,&$doc) {
     $docid=$doc->id;
 
     foreach ($fstate as $v) {
-      $tlink[$v["idview"]]=array( "descr"=>ucfirst( _("To".$v)).'-'._("State").' : '._($v),
-				  "jsfunction"=>sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",
-							utf8_encode(str_replace("'","&quot;",sprintf(_("Comment for change state to %s"),_($v))))),
-				 "confirm"=>"false",
-				 "control"=>"false",
-				  "color"=>$wdoc->getColor($v),
-				 "tconfirm"=>"",
-				 "target"=>"_self",
-				 "visibility"=>POPUP_ACTIVE,
-				 "submenu"=>"states",
-				 "barmenu"=>"false");
+      $tr=$wdoc->getTransition($doc->state,$v);
+      if (is_array($tr["ask"])) {
+	$jsf=sprintf("popdoc(event,'$surl&app=FDL&action=EDITCHANGESTATE&id=$docid&nstate=$v','%s',0,40,400,250)",
+		     str_replace("'","&quot;",sprintf("Change state %s",_($v))));
+      } else {
+	$jsf=sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",	utf8_encode(str_replace("'","&quot;",sprintf(_("Comment for change state to %s"),_($v)))));
+      }
+
+      $tlink[$v]=array( "descr"=>ucfirst(_($v)),			
+			"jsfunction"=>$jsf,
+			"confirm"=>"false",
+			"control"=>"false",
+			"color"=>$wdoc->getColor($v),
+			"tconfirm"=>"",
+			"target"=>"_self",
+			"visibility"=>POPUP_ACTIVE,
+			"submenu"=>"states",
+			"barmenu"=>"false");
     }
 
   
