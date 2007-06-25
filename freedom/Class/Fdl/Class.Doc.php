@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.397 2007/06/19 15:27:25 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.398 2007/06/25 16:29:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3917,7 +3917,7 @@ final public function PostInsert()  {
 	// print name except image (printed otherthere)
 	if ($attr->type != "image") {	
 	  $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width
-	  if ($attr->type != "array")  $tableframe[$v]["ndisplay"]="inherit";
+	  if ($attr->type != "array")  $tableframe[$v]["ndisplay"]="inline";
 	  else $tableframe[$v]["ndisplay"]="none";
 	  if ($attr->getOption("vlabel")=="none") {
 	    $tableframe[$v]["nonelabel"]=true;
