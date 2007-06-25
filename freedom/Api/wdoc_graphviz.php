@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.3 2007/01/15 17:04:01 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.4 2007/06/25 16:30:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -92,8 +92,8 @@ foreach ($states as $k=>$v) {
   if ($color)  $line[]='"'.str_replace(" ","\\n",_($v)).'" [ color="'.$color.'" ];';
 }
 
+#        page=\"11.6,8.2\";
 $dot="digraph \"".$doc->title."\" {
-        page=\"11.6,8.2\";
         ratio=\"compress\";
 	rankdir=$rankdir;
         splines=false;
