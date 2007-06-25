@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.17 2007/06/22 16:17:51 eric Exp $
+ * @version $Id: popupdoc.php,v 1.18 2007/06/25 16:28:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,6 +18,7 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
 
   header('Content-type: text/xml; charset=utf-8'); 
   $onlyctrl = (GetHttpVars("onlyctrl")=="yes"); // view only ctrl
+  $onlysub= GetHttpVars("submenu"); // view only sub menu
   $action->lay = new Layout(getLayoutFile("FDL","popupdoc.xml"),$action);
 
   $mb=microtime();
@@ -39,6 +40,10 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
       else if ($v["visibility"] == POPUP_CTRLINACTIVE)$v["visibility"]=POPUP_INACTIVE;
     }
 
+    if ($onlysub) {
+      if ($v["submenu"]!=$onlysub) $v["visibility"]=POPUP_INVISIBLE;
+      else $v["submenu"]="";
+    }
     if ($v["visibility"]!=POPUP_INVISIBLE)   {
       if ((!isset($v["icon"])) || ($v["icon"]=="")) {
 	$v["icon"]="Images/none.gif";
@@ -82,6 +87,7 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
 				 "descr"=>ucfirst(utf8_encode(_($v["submenu"]))),
 				 "visibility"=>false,
 				 "confirm"=>false,
+				 "color"=>false,
 				 "jsfunction"=>false,
 				 "barmenu"=>false,
 				 "url"=>false,
