@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.96 2007/06/07 15:23:34 eric Exp $
+ * @version $Id: freedom_util.php,v 1.97 2007/06/26 16:46:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -426,6 +426,7 @@ function getNextDoc($dbaccess,&$tres) {
 function countDocs($tres) {
   $n=0;
   foreach ($tres as $res)  $n+=pg_num_rows($res);
+  reset($tres);
   return $n;
 }
 
