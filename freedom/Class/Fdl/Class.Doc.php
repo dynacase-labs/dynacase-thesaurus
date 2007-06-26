@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.398 2007/06/25 16:29:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.399 2007/06/26 10:09:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3566,7 +3566,7 @@ final public function PostInsert()  {
       }      
       $na=$this->GetAbstractAttributes();
       foreach ($na as $k=>$v) {
-	if (($v->type != "file") && ($v->type != "image") && ($v->type != "password")) {
+	if (($v->type != "array") && ($v->type != "file") && ($v->type != "image") && ($v->type != "password")) {
 	  $tabstract[]=array("attrid"=>$k);
 	}
       }    
