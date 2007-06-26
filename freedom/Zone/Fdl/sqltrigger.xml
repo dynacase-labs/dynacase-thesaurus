@@ -23,6 +23,7 @@ CREATE OR REPLACE FUNCTION fullvectorize[docid]() RETURNS trigger AS $$
 declare 
   good bool;
 begin
+if NEW.doctype != 'T' then
   good := true;
   if (TG_OP = 'UPDATE') then 
     if (NEW.fulltext is not null) then
@@ -42,6 +43,7 @@ begin
 	    RAISE NOTICE 'Error %',NEW.id;
    end;
    end if;
+end if;
 return NEW;
 end;
 $$ LANGUAGE 'plpgsql'; 
