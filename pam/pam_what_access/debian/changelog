@@ -1,0 +1,6 @@
+libpam-what-access (0.3.4-2) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- yannick <yannick.lebriquer@anakeen.com>  Tue, 26 Jun 2007 01:37:32 +0200
+
