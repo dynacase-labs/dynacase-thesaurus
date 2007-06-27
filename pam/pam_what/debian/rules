@@ -64,7 +64,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/pam-what.
-	$(MAKE) bindir=$(CURDIR)/debian/pam-what/lib/security install
+	$(MAKE) bindir=$(CURDIR)/debian/libpam-what/lib/security install
 
 
 # Build architecture-independent files here.

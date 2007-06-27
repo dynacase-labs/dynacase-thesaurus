@@ -1,11 +1,11 @@
-Source: pam-what
+Source: libpam-what
 Section: unknown
 Priority: extra
 Maintainer: yannick <yannick.lebriquer@anakeen.com>
 Build-Depends: debhelper (>= 5), autotools-dev, libpam-dev, postgresql-dev
 Standards-Version: 3.7.2
 
-Package: pam-what
+Package: libpam-what
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Pam module that uses FreeDom What auth base

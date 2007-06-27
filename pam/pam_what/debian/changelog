@@ -1,4 +1,4 @@
-pam-what (0.4.3-1) unstable; urgency=low
+libpam-what (0.4.3-1) unstable; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
