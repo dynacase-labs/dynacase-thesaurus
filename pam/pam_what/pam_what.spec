@@ -1,4 +1,4 @@
-# $Revision: 1.14 $, $Date: 2006/05/09 15:16:26 $
+# $Revision: 1.15 $, $Date: 2007/06/27 09:52:30 $
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(uname -o | grep -c PLD)
 
@@ -8,7 +8,7 @@ Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
 Version:	0.4.3
 %if %{cerbere} || %{pld}
-Release: 1
+Release: 2
 %else
 Release: 1.fc5
 %endif
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.15  2007/06/27 09:52:30  yannick
+Modify release
+
 Revision 1.14  2006/05/09 15:16:26  jerome
 - version++
 
