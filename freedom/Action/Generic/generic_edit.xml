@@ -82,26 +82,28 @@ addEvent(window,"load",focusFirst);
 <table id="fixtablehead" class="[tablehead]"   cellspacing="0" width="100%">
 <thead>
 <tr class="FREEDOMBack1">
- <td>
+ <td colspan="3"><div style="float:right">    
+      <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">  
+         <span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b class="statetext" style="border-color:[statecolor]" title="[TEXT:View historique]">[state]</b></A></span></div>
   <IMG align="left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[FTITLE]</I><br><span class="FREEDOMTextBigTitle">[TITLE]</span>
-<div style="float:right">    
-      <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">  
-         <span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b class="statetext" style="border-color:[statecolor]" title="[TEXT:View historique]">[state]</b></A></span></div>
+
   [IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT]
   </td>
 </tr>
 </thead>
+[IFNOT NOFORM][IFNOT NOSAVE][IF wid]
+<tbody>[ZONE FDL:EDITSTATE]</tbody>[ENDIF wid][ENDIF NOSAVE]
+[ENDIF NOFORM]
 </table>
-[IFNOT ISIE]<div id="fixspanhead" style="visibility:visible;padding:0px;margin:0px;height:0px"></div>[ENDIF ISIE]
 [ENDIF HEAD]
-
-[IFNOT HEAD][IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT][ENDIF HEAD]
+[IFNOT HEAD][IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT]
 [IFNOT NOFORM][IFNOT NOSAVE][IF wid]
 <table>[ZONE FDL:EDITSTATE]</table>[ENDIF wid][ENDIF NOSAVE]
 [ENDIF NOFORM]
-
+[ENDIF HEAD]
+[IFNOT ISIE]<div id="fixspanhead" style="visibility:visible;padding:0px;margin:0px;height:0px"></div>[ENDIF ISIE]
 [ZONE FDL:EDITCARD]
 
 [IFNOT NOFORM]

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editbarmenu.php,v 1.1 2007/06/22 16:18:50 eric Exp $
+ * @version $Id: editbarmenu.php,v 1.2 2007/06/27 16:43:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,7 +31,7 @@ function editbarmenu(&$action) {
       $doc= createDoc($dbaccess,$classid);
   } else {
     $doc = new_Doc($dbaccess, $docid);
-    $action->lay->Set("editaction", _("Save and close"));
+    $action->lay->Set("editaction", _("Save"));
     $action->lay->Set("id",$doc->id);
   }
 

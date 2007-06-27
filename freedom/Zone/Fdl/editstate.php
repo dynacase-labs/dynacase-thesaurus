@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.19 2007/06/27 10:04:29 eric Exp $
+ * @version $Id: editstate.php,v 1.20 2007/06/27 16:43:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,6 +95,7 @@ function editstate(&$action) {
 
 	$tstate[$k]["statename"] = _($v);
 	$tstate[$k]["tostatename"] =ucfirst( _("To".$v));
+	$tstate[$k]["asktitle"] =str_replace("'","&rsquo;",sprintf(_("parameters for %s state"),_($v)));
 	$tstate[$k]["transid"] = $tk;
 	$color=$wdoc->getColor($v);;
 	$tstate[$k]["color"] = ($color)?$color:'';

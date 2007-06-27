@@ -583,7 +583,7 @@ var OattrNid=null; //original attrNid
 var OattrNtitle=null; //original attrNtitle
 var askState=null; // memo displayed state
 
-function askForTransition(event) {
+function askForTransition(event,thetitle,thecolor) {
   var th=document.getElementById('seltrans');
   var state=getIValue(th);
   
@@ -616,7 +616,7 @@ function askForTransition(event) {
 
   if (askState) {
     // display or not comment area
-    if (state != '-') {document.getElementById('comment').style.visibility='';} else document.getElementById('comment').style.visibility='hidden';
+    if (state != '-') {document.getElementById('comment').style.visibility='visible';} else document.getElementById('comment').style.visibility='hidden';
 
     // move button nodes
     for (i=0;i<nf.childNodes.length;i++) {
@@ -675,6 +675,15 @@ function askForTransition(event) {
 	  nfd.style.MozOpacity=0.02;
 	  moz_unfade(nfd.id);
 	}
+      var lg=document.getElementById('legendask');
+      if (lg && thetitle) {
+	lg.innerHTML=thetitle;
+	if (thecolor) {
+	  nf.style.borderColor=thecolor;
+	  lg.style.borderColor=thecolor;
+	  lg.style.borderStyle='none none solid none';
+	}
+      }
       nfd.style.display='none';	
       nfd.style.display='';	// to refresh div
     } else nfd.style.display='none';
@@ -1265,7 +1274,7 @@ function fixedPosition() {
   var h;
 
 
-  if ((document.body.scrollHeight) <= document.body.clientHeight) {    
+  if (isIE && ((document.body.scrollHeight) <= document.body.clientHeight)) {    
     if (fspan && ftable) {
       ftable.style.position='static';
       fspan.style.display='none';
@@ -1307,7 +1316,7 @@ function focusFirst() {
       case 'select-multiple':
       case 'textarea':
       case 'FIELDSET':
-	if (! fedit.elements[i].disabled) {
+	if ((! fedit.elements[i].disabled)&&(fedit.elements[i].style.display != 'none')&&(fedit.elements[i].style.visibility != 'hidden')) {
 	  fedit.elements[i].focus();
 	  return;
 	}

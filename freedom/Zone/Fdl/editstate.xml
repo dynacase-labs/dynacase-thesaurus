@@ -8,8 +8,39 @@ var WattrNtitle=new Array([Wattrntitle]);
   //-->
 </script>
 [IF WID]
+ 
+[BLOCK LISTSTATE]
+<tr id="iTstate" onmouseover="askForTransition(event);">
+ <td colspan="3" align="right">
+  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment]"></textarea>
+  
+ 
+ <select id="seltrans" name="newstate" onchange="askForTransition(event);"> 
+[BLOCK UNCHANGE]
+ <option VALUE="-" >[TEXT:unchanged]</option> 
+[ENDBLOCK UNCHANGE]
+[BLOCK NEWSTATE]
+ <option style="background-color:[color]" VALUE="[statevalue]" [checked]>[statename]</option>  
+[ENDBLOCK NEWSTATE]
+  </select>
+  </td>
+</tr>
+[ENDBLOCK LISTSTATE]
+[BLOCK BUTTONSTATE]
+<tr id="iTstate2"  onmouseover="askForTransition(event);">
+  <td colspan="3" align="right" id="editstatebutton">
+<div   class="barmenu">
+  
  <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
- <textarea title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100%;visibility:[dcomment]"></textarea>
+ <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment];float:left"></textarea>
+ 
+[BLOCK NEWSTATE]
+<a  href="javascript:void(0)" onclick="submitEdit(event)" style="border-style:none none solid none;border-width:3px;border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[asktitle]','[color]');" >[tostatename]</a>
+[ENDBLOCK NEWSTATE] </div>
+  </td>
+</tr>
+[ENDBLOCK BUTTONSTATE]
+
 [ENDIF WID]
 
 
@@ -17,7 +48,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 <tr class="FREEDOMBack2">
   <td colspan="3" >
 
-  <textarea title="[TEXT:revision comment for autorevision]" rows="1" style="width:100%" name="comment" id="comment" ></textarea>
+  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment for autorevision]" rows="1" style="width:100%" name="comment" id="comment" ></textarea>
   </td>
 </tr>
 [ENDBLOCK COMMENT]
@@ -34,7 +65,7 @@ var WattrNtitle=new Array([Wattrntitle]);
 [ENDBLOCK FINPUTS]
 </fieldset>
 <div id="dfask" class="contour" style="position:absolute;top:100px;left:300px;display:none">
-<fieldset style="width:auto;display:inline"  id="wfask"><legend>[TEXT:Transition parameters]</legend>
+<fieldset style="width:auto;display:inline"  id="wfask"><legend id="legendask">[TEXT:Transition parameters]</legend>
 </fieldset></div>
 
 </td></tr>
