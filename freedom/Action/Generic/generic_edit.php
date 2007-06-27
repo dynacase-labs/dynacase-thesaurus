@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.58 2007/06/22 16:39:28 eric Exp $
+ * @version $Id: generic_edit.php,v 1.59 2007/06/27 10:04:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,7 +53,9 @@ function generic_edit(&$action) {
   $action->lay->Set("SELFTARGET",($rtarget=="_self"));
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
-   
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/popupdoc.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/popupdocmenu.js");
+  $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
 
   if (($docid === 0) || ($docid === "") || ($docid === "0") )

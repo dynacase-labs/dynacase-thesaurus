@@ -32,15 +32,9 @@ function viewdocmenu(event,docid,onlyctrl,upobject) {
   } else {
     if (onlyctrl) menuopt='&onlyctrl=yes';
   }
-  if (upobject) {
-    coord=new Object();;
-    coord.x=AnchorPosition_getPageOffsetLeft(upobject);
-    coord.y=AnchorPosition_getPageOffsetTop(upobject)+getObjectHeight(upobject);
-  } 
-
+  
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
-  var source=false;
-  viewmenu(event,menuurl,source,coord);
+  viewsubmenu(event,menuurl,upobject);
 }
 function viewdocsubmenu(event,docid,submenu,upobject) {
   POPMENUINPROGRESSELT=false;
@@ -55,13 +49,8 @@ function viewdocsubmenu(event,docid,submenu,upobject) {
   } else {
     if (submenu) menuopt='&submenu='+submenu;
   }
-  if (upobject) {
-    coord=new Object();;
-    coord.x=AnchorPosition_getPageOffsetLeft(upobject);
-    coord.y=AnchorPosition_getPageOffsetTop(upobject)+getObjectHeight(upobject);
-  } 
+ 
 
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
-  var source=false;
-  viewmenu(event,menuurl,source,coord);
+  viewsubmenu(event,menuurl,upobject);
 }

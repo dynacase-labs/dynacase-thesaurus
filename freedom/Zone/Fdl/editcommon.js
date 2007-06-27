@@ -596,7 +596,7 @@ function askForTransition(event) {
   var k=-1; // index for searches
   var xy;
   var nx;
-  var h;
+  var h=0;
   
   if (askState == state) return;
   askState=state;
@@ -644,8 +644,11 @@ function askForTransition(event) {
       // search table
       ftable=th.parentNode;
       while (ftable && ((ftable.tagName!='TABLE')&&(ftable.tagName!='TBODY'))) ftable=ftable.parentNode;
-      if (! ftable) {alert('button edit state not in table');return;}
-      yfoot=AnchorPosition_getPageOffsetTop(ftable);
+      if (ftable) {
+	yfoot=AnchorPosition_getPageOffsetTop(ftable);
+      } else {
+	yfoot=50;
+      }
       GetXY(event);
       
       nfd.style.display='none';	
@@ -658,7 +661,7 @@ function askForTransition(event) {
       if (nx < 0) nx=0;
       nfd.style.left=nx+'px';
       if (yfoot < 100) {
-	h=getObjectHeight(ftable);
+	if (ftable) h=getObjectHeight(ftable);
 	nfd.style.top=(yfoot+10+h)+'px';
       } else {
 	

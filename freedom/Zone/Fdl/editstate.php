@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.18 2007/05/30 15:52:59 eric Exp $
+ * @version $Id: editstate.php,v 1.19 2007/06/27 10:04:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,6 +54,7 @@ function editstate(&$action) {
   $action->lay->Set("Wattrnid","");
   $action->lay->Set("Wattrntitle","");
   $action->lay->Set("dcomment","hidden");
+  $action->lay->Set("WID", false);
   $action->lay->set("dvalidate","");
   if (($usefor!="D")&&($usefor!="Q")) {
   
@@ -107,6 +108,7 @@ function editstate(&$action) {
       $action->lay->set("ttransid","'".implode("','",$tjstransid)."'");
       $action->lay->set("askes","".strtolower(implode(",",$tjsaskes))."");
       $action->lay->SetBlockData("NEWSTATE", $tstate);
+      $action->lay->Set("WID", true);
       if ($wdoc->viewlist=="button") {
 	$action->lay->SetBlockData("BUTTONSTATE", array(0=>array("boo")));
       } else {

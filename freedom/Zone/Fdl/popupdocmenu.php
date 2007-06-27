@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocmenu.php,v 1.1 2006/09/08 16:28:17 eric Exp $
+ * @version $Id: popupdocmenu.php,v 1.2 2007/06/27 10:04:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -22,7 +22,7 @@ function popupdocmenu(&$action) {
   $zone = GetHttpVars("zone"); // special zone
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $doc = new_Doc($dbaccess, $docid);
+  $doc = new_Doc($dbaccess, $docid); # _("States")
 
   $specmenu=$doc->specialmenu;
   if (ereg("(.*):(.*)",$specmenu,$reg)) {

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.41 2007/06/25 16:29:52 eric Exp $
+// $Id: FDL.app,v 1.42 2007/06/27 10:04:29 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -105,6 +105,11 @@ $action_desc = array (
    "name"		=>"POPUPDOCDETAIL",
    "short_name"		=>N_("Document context menu"),
    "acl"		=>"NORMAL"	
+  ),
+  array(
+   "name"		=>"POPUPEDITSTATE",
+   "short_name"		=>N_("Edit state bar menu"),
+   "acl"		=>"EDIT"	
   ),
   array(
    "name"		=>"POPUPFAMDETAIL",
