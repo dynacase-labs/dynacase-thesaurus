@@ -20,6 +20,7 @@ var WattrNtitle=new Array([Wattrntitle]);
  <option style="background-color:[color]" action="[tostatename]" VALUE="[statevalue]" [checked]>[statename]</option>  
 [ENDBLOCK NEWSTATE]
   </select> <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment]"></textarea>
+<script>addEvent(window,"load",applyFirstSelect);</script>
   </td>
 </tr>
 [ENDBLOCK LISTSTATE]

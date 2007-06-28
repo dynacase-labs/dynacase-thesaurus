@@ -1405,9 +1405,14 @@ function mvSaveAnchor() {
     isub.parentNode.insertBefore(isub2,isub);
     isub2.innerHTML=isub.innerHTML;
   }
-
-  
-  
+}
+function applyFirstSelect(event) {
+  var th=document.getElementById('seltrans');
+  if (th) {
+    if (th.tagName=='SELECT') {
+      askForTransition(event);
+    }
+  }
 }
 
 function preview(faction,ntarget) {
