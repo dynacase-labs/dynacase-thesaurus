@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-27 09:39+0200\n"
-"PO-Revision-Date: 2007-06-27 09:47+0200\n"
+"POT-Creation-Date: 2007-06-28 17:19+0200\n"
+"PO-Revision-Date: 2007-06-28 17:21+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -24,99 +24,6 @@ msgstr "la référence logique '%s' est inconnue"
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "Document %s is not alive"
-msgstr "Le document [%s] n'est pas vivant"
-
-#, c-format
-msgid "to the %s state"
-msgstr "vers l'état %s"
-
-msgid "To"
-msgstr "Vers"
-
-#, c-format
-msgid "Change state to %s"
-msgstr "Changement d'état vers %s"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "cannot copy %s"
-msgstr "écriture impossible : %s"
-
-msgid "Zip Archive cannot be created"
-msgstr "L'archive Zip n'a pas pu être créée"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
 
 msgid "No identificator"
 msgstr "Pas d'identificateurs"
@@ -198,6 +105,91 @@ msgstr "Raison du changement d'état vers %s"
 #, c-format
 msgid "Sure %s ?"
 msgstr "Confirmation : %s ?"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "cannot copy %s"
+msgstr "écriture impossible : %s"
+
+msgid "Zip Archive cannot be created"
+msgstr "L'archive Zip n'a pas pu être créée"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
+
+#, c-format
+msgid "Change state %s"
+msgstr "Changement d'état vers %s"
+
+msgid "chgstates"
+msgstr "Changer d'état"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -610,8 +602,23 @@ msgid "document %s has been unaffected"
 msgstr "L'affectation du document %s a été enlevée."
 
 #, c-format
+msgid "Document %s is not alive"
+msgstr "Le document [%s] n'est pas vivant"
+
+#, c-format
+msgid "to the %s state"
+msgstr "vers l'état %s"
+
+msgid "To"
+msgstr "Vers"
+
+#, c-format
 msgid "to %s"
 msgstr "vers %s"
+
+#, c-format
+msgid "Change state to %s"
+msgstr "Changement d'état vers %s"
 
 #, c-format
 msgid ""
@@ -1161,6 +1168,9 @@ msgstr "Initialisation Freedom"
 
 msgid "Document context menu"
 msgstr "Menu contextuel du document"
+
+msgid "Edit state bar menu"
+msgstr "Barre de menu d'édition"
 
 msgid "export folder"
 msgstr "exportation de dossier"
@@ -2798,8 +2808,8 @@ msgstr "Autre..."
 msgid "submenu"
 msgstr "sous-menu"
 
-msgid "Save and close"
-msgstr "Sauver et fermer"
+msgid "States"
+msgstr "États"
 
 #, c-format
 msgid "%d documents"
@@ -3930,26 +3940,26 @@ msgstr ""
 "Le document maître a été fermé.\n"
 "Voulez-vous fermer la fenêtre ?"
 
-msgid "to"
-msgstr "vers"
-
 msgid "unchanged"
 msgstr "inchangé"
 
 msgid "revision comment"
 msgstr "commentaire de révision"
 
-msgid "Tounchanged"
-msgstr "Sauver"
+msgid "to"
+msgstr "vers"
 
-msgid "no change state"
-msgstr "Pas de changement d'état"
+msgid "Save without change state"
+msgstr "Sauver sans changement d'état"
 
-msgid "revision comment for autorevision"
-msgstr " commentaire de révision pour révision automatique"
+msgid "Use Ctrl-S to save and stay in edit mode"
+msgstr "Utiliser Ctrl-S pour sauver et rester en édition"
 
 msgid "Transition parameters"
 msgstr "Paramètres pour le changement d'état"
+
+msgid "revision comment for autorevision"
+msgstr " commentaire de révision pour révision automatique"
 
 msgid "Confidential Document"
 msgstr "Document confidentiel"
@@ -4374,6 +4384,15 @@ msgid ""
 msgstr ""
 "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser "
 "le menu \"Ouvrir\" à partir du menu contextuel."
+
+#~ msgid "Save and close"
+#~ msgstr "Sauver et fermer"
+
+#~ msgid "Tounchanged"
+#~ msgstr "Sauver"
+
+#~ msgid "no change state"
+#~ msgstr "Pas de changement d'état"
 
 #~ msgid "change current folder"
 #~ msgstr "changer le dossier courant"

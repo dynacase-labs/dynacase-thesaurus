@@ -25,15 +25,15 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 <thead>
 <tr class="FREEDOMBack1">
   
- <td >
-
+ <td > <img class="click"  style="margin-left:2px" align="right" needresize="1" height="22px" onclick="self.print"  alt="[TEXT:Print]" title="[TEXT:Print]"  src="[IMG:print.png]">
+       <img class="click"  align="right" needresize="1" height="22px" src="[IMG:mail.png]" style="display:[amail]"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'_blank','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]&mzone=[mzone]')"   alt="[TEXT:mail]"  title="[TEXT:senddoc]">
+   
   <IMG align="left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[classtitle]</I><br><span class="FREEDOMTextBigTitle">[TITLE]</span>
 <div  style="float:right">
   <a  style="display:none" href="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&wedit=Y&id=[id]" target="_blank"><img  align="absmiddle"  alt="[TEXT:wordedit]" title="[TEXT:wordedit]" height="22" width="30" border="0" src="[IMG:openoffice.png]"></a>   
-
-      <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]">  
+      <img class="click" style="display:[dhelp]" align="absmiddle"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'[fhelp]','[CORE_STANDURL]&app=FDL&action=FAMILY_HELP&id=[helpid]')"  alt="[TEXT:help]" title="[TEXT:family manual]"  src="[IMG:help.gif]"> 
          <span ><b title="[TEXT:Version]">[version]</b> <a onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'histo','[CORE_STANDURL]&app=FREEDOM&action=HISTO&id=[id]')"><b class="statetext" style="border-color:[statecolor]" title="[TEXT:View historique]">[state]</b></A></span></div>
   
 

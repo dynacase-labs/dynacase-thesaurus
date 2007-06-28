@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.16 2007/06/25 16:29:52 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.17 2007/06/28 16:32:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -299,9 +299,10 @@ function addStatesPopup(&$tlink,&$doc) {
       $tr=$wdoc->getTransition($doc->state,$v);
       if (is_array($tr["ask"])) {
 	$jsf=sprintf("popdoc(event,'$surl&app=FDL&action=EDITCHANGESTATE&id=$docid&nstate=$v','%s',0,40,400,250)",
-		     str_replace("'","&quot;",sprintf("Change state %s",_($v))));
+		     utf8_encode(str_replace("'","&rsquo;",sprintf(_("Change state %s"),_($v)))));
       } else {
-	$jsf=sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",	utf8_encode(str_replace("'","&quot;",sprintf(_("Comment for change state to %s"),_($v)))));
+	$jsf=sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",	
+		     utf8_encode(str_replace("'","&rsquo;",sprintf(_("Comment for change state to %s"),_($v)))));
       }
 
       $tlink[$v]=array( "descr"=>ucfirst(_($v)),			
@@ -312,7 +313,7 @@ function addStatesPopup(&$tlink,&$doc) {
 			"tconfirm"=>"",
 			"target"=>"_self",
 			"visibility"=>POPUP_ACTIVE,
-			"submenu"=>"states",
+			"submenu"=>"chgstates", #_("chgstates")
 			"barmenu"=>"false");
     }
 
@@ -452,7 +453,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   } 
 
 
-
+  /*
   if ($doc->locked != -1) {
     if ($doc->wid > 0) {
       $wdoc=new_Doc($doc->dbaccess, $doc->wid);
@@ -462,7 +463,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 	else $tlink["editstate"]["visibility"]=POPUP_INACTIVE;
       }
     }
-  }
+    }*/
 
   if (($doc->wid > 0)|| ($doc->revision > 0))  $tlink["histo"]["visibility"]=POPUP_ACTIVE;
 

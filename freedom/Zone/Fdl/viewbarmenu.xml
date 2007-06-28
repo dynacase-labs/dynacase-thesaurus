@@ -3,4 +3,4 @@
 
 [IFNOT menu]<a href="javascript:void(0)"  onclick="[IF confirm]if (confirm('[tconfirm]'))[ENDIF confirm] [IFNOT ISJS]subwindow('[mwidth]','[mheight]','[target]','[url]')[ENDIF ISJS][IF ISJS][jsfunction][ENDIF ISJS]">[descr]</a>[ENDIF menu]
 [IF menu]<a href="javascript:void(0)" onmouseover="godocmenu(event,this)" onmouseout="aborddocmenu()" onclick="viewdocsubmenu(event,'[id]','[idlink]',this);">[descr]&darr;</a>[ENDIF menu]
-[ENDBLOCK LINKS]<a  href="javascript:void(0)" onclick="self.print()">[TEXT:Print]</a> [IF canmail] <a  href="javascript:void(0)" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'fdoc','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')" title="[TEXT:senddoc]">[TEXT:Email]</a>[ENDIF canmail] <a  href="javascript:void(0)" onclick="viewdocmenu(event,'[id]',true,this);return false" onmouseout="aborddocmenu()" onmouseover="godocmenu(event,this)" title="[TEXT:Click to view menu]">[TEXT:Others]&darr;</a> </div>
+[ENDBLOCK LINKS] <a  href="javascript:void(0)" onclick="viewdocmenu(event,'[id]',true,this);return false" onmouseout="aborddocmenu()" onmouseover="godocmenu(event,this)" title="[TEXT:Click to view menu]">[TEXT:Others]&darr;</a> </div>
