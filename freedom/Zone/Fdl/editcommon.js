@@ -583,13 +583,14 @@ var OattrNid=null; //original attrNid
 var OattrNtitle=null; //original attrNtitle
 var askState=null; // memo displayed state
 
-function askForTransition(event,thetitle,thecolor) {
+function askForTransition(event,thestate,thetitle,thecolor) {
   var th=document.getElementById('seltrans');
   var state=getIValue(th);
   
   var wf=document.getElementById('hwfask');
   var nf=document.getElementById('wfask');
   var nfd=document.getElementById('dfask');
+  var as=document.getElementById('aSubmit3');
   var i;
   var ask=new Array();
   var tnf=new Array();
@@ -599,6 +600,21 @@ function askForTransition(event,thetitle,thecolor) {
   var h=0;
   
   if (askState == state) return;
+
+  if (!thestate) {
+    if (th.tagName=='SELECT') {
+      thestate=th.options[th.selectedIndex].getAttribute('action');
+      var as1=document.getElementById('aSubmit');
+      if (as1) as1.innerHTML=thestate;
+    }
+  }
+  
+  if (!thecolor) {
+    if (th.tagName=='SELECT') {     
+      thecolor=th.options[th.selectedIndex].style.backgroundColor;
+      th.style.backgroundColor=thecolor;
+    }
+  }
   askState=state;
   if (OattrNid == null) {
     OattrNid=new Array();
@@ -691,6 +707,10 @@ function askForTransition(event,thetitle,thecolor) {
 	  lg.style.borderColor=thecolor;
 	  lg.style.borderStyle='none none solid none';
 	}
+      }
+      if (as) {
+	as.style.borderColor=thecolor;
+	as.innerHTML=thestate;
       }
       //  nfd.style.display='none';	
       nfd.style.display='';	// to refresh div
@@ -1328,8 +1348,11 @@ function focusFirst() {
       case 'textarea':
       case 'FIELDSET':
 	if ((! fedit.elements[i].disabled)&&(fedit.elements[i].style.display != 'none')&&(fedit.elements[i].style.visibility != 'hidden')) {
-	  fedit.elements[i].focus();
-	  return;
+	  try {
+	    fedit.elements[i].focus();
+	    return;
+	  } catch(exception) {
+	  }
 	}
 	break;
       case 'hidden':
@@ -1371,6 +1394,19 @@ function mvbuttonsState() {
   if (isub) isub.style.display='none';
 
   mvbuttons('editstatebutton','editbutton');
+  
+}
+
+function mvSaveAnchor() {
+  var isub=document.getElementById('aSubmit');
+  var isub2=document.getElementById('aSubmit2');
+  if (isub) {
+    isub.style.display='none';    
+    isub.parentNode.insertBefore(isub2,isub);
+    isub2.innerHTML=isub.innerHTML;
+  }
+
+  
   
 }
 

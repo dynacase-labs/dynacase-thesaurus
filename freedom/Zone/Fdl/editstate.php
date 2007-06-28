@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.21 2007/06/28 09:36:12 eric Exp $
+ * @version $Id: editstate.php,v 1.22 2007/06/28 14:40:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,6 +69,7 @@ function editstate(&$action) {
       } else {
 	$action->lay->setBlockData("UNCHANGE",array(array("zou")));
       }
+      $dcolor=$action->getParam("COLOR_A9");
       $fstate = $wdoc->GetFollowingStates();
       $tjsstate=array();
       $tjstransid=array();
@@ -87,18 +88,20 @@ function editstate(&$action) {
 	  $tstate[$k]["checked"]="selected";
 	  $action->lay->Set("dstate",$dstate);
 	  $action->lay->Set("dcomment","visible");
-	  $tstate[$k]["dsubmit"]="dsubmit";
+	  $tstate[$k]["dsubmit"]="boldstate";
 	} else {
 	  $tstate[$k]["checked"]="";
 	  $tstate[$k]["dsubmit"]="state";
 	}
 
 	$tstate[$k]["statename"] = _($v);
-	$tstate[$k]["tostatename"] =ucfirst( _("To".$v));
+	if ( _("To".$v) == "To".$v) $lnextstate=sprintf(_("to %s"),_($v));
+	else $lnextstate=_("To".$v);
+	$tstate[$k]["tostatename"] =ucfirst($lnextstate);
 	$tstate[$k]["asktitle"] =str_replace("'","&rsquo;",sprintf(_("parameters for %s state"),_($v)));
 	$tstate[$k]["transid"] = $tk;
 	$color=$wdoc->getColor($v);;
-	$tstate[$k]["color"] = ($color)?$color:'';
+	$tstate[$k]["color"] = ($color)?$color:$dcolor;
 	if (is_array($tr["ask"]))  $tjsaskes[] = "['".implode("','",$tr["ask"])."']";
 	else $tjsaskes[] = "[]";
 	if (is_array($tr["ask"])) $taskes= array_merge($taskes,$tr["ask"]);

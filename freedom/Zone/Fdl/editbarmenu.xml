@@ -9,7 +9,7 @@
  
 [IFNOT NOSAVE]
 <a href="javascript:void(0)" style="display:none" onmouseover="godocmenu(event,this)" onmouseout="aborddocmenu()" onclick="viewsubmenu(event,'[CORE_STANDURL]&app=FDL&action=POPUPEDITSTATE&id=[id]',this);">[TEXT:States]</a>
-<a  href="javascript:void(0)" id="aSubmit"    title="[TEXT:Save and quit edit mode. Use Ctrl-S to save and stay in edit mode]"   onclick="submitEdit(event)">[editaction]</a>
+<a  href="javascript:void(0)" id="aSubmit"    title="[TEXT:Save and quit edit mode]. [TEXT:Use Ctrl-S to save and stay in edit mode]"   onclick="submitEdit(event)">[editaction]</a>
 <a  href="javascript:void(0)" style="display:none" id="iQuicksave" title="[TEXT:Save and stay in edition]"  onclick="quicksave();return false">[TEXT:Save]</a>
 <input id="iSubmit" style="display:none" type="submit">
 [ENDIF NOSAVE]

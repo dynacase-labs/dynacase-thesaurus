@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.59 2007/06/27 10:04:29 eric Exp $
+ * @version $Id: generic_edit.php,v 1.60 2007/06/28 14:40:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -161,8 +161,15 @@ function generic_edit(&$action) {
   $action->lay->Set("state", "");
 
   $state=$doc->getState();
-  $action->lay->Set("statecolor",$doc->getStateColor("transparent"));
+  $action->lay->Set("statecolor",$doc->getStateColor("transparent"));  
   $action->lay->Set("wid",false);
+  if ($doc->fromid > 0) {
+    $fdoc= $doc->getFamDoc();
+    $action->lay->Set("wid",($fdoc->schar == 'R'));
+    $action->lay->Set("FTITLE", $fdoc->title);
+  } else {
+    $action->lay->Set("FTITLE", _("no family"));
+  }
   if ($state) { // see only if it is a transitionnal doc
     if (($doc->locked == -1)||($doc->lmodify != 'Y'))    $action->lay->Set("state", $action->text($state));
     else $action->lay->Set("state", sprintf(_("current (<i>%s</i>)"),$action->text($state)));
@@ -171,12 +178,7 @@ function generic_edit(&$action) {
   } 
   $action->lay->Set("version", $doc->version);
   
-  if ($doc->fromid > 0) {
-    $fdoc= $doc->getFamDoc();
-    $action->lay->Set("FTITLE", $fdoc->title);
-  } else {
-    $action->lay->Set("FTITLE", _("no family"));
-  }
+
   
 
   $action->lay->Set("id", $docid);

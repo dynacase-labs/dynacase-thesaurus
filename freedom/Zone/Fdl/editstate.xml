@@ -12,17 +12,14 @@ var WattrNtitle=new Array([Wattrntitle]);
 [BLOCK LISTSTATE]
 <tr id="iTstate" onmouseover="askForTransition(event);">
  <td colspan="3" align="right">
-  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment]"></textarea>
-  
- 
  <select id="seltrans" name="newstate" onchange="askForTransition(event);"> 
 [BLOCK UNCHANGE]
- <option VALUE="-" >[TEXT:unchanged]</option> 
+ <option action="[TEXT:Save]" VALUE="-" >[TEXT:unchanged]</option> 
 [ENDBLOCK UNCHANGE]
 [BLOCK NEWSTATE]
- <option style="background-color:[color]" VALUE="[statevalue]" [checked]>[statename]</option>  
+ <option style="background-color:[color]" action="[tostatename]" VALUE="[statevalue]" [checked]>[statename]</option>  
 [ENDBLOCK NEWSTATE]
-  </select>
+  </select> <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment]"></textarea>
   </td>
 </tr>
 [ENDBLOCK LISTSTATE]
@@ -35,24 +32,14 @@ var WattrNtitle=new Array([Wattrntitle]);
  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100px;height:[SIZE_X-LARGE];visibility:[dcomment];float:left"></textarea>
  
 [BLOCK NEWSTATE]
-<a  href="javascript:void(0)" onclick="submitEdit(event)" style="border-style:none none solid none;border-width:2px;border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[asktitle]','[color]');" >[tostatename]</a>
+<a  class="[dsubmit]"  href="javascript:void(0)" onclick="submitEdit(event)" style="border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[tostatename]','[asktitle]','[color]');" >[tostatename]</a>
 [ENDBLOCK NEWSTATE] </div>
+
+<a  href="javascript:void(0)" id="aSubmit2" style="display:[dvalidate]" title="[TEXT:Save without change state]. [TEXT:Use Ctrl-S to save and stay in edit mode]"   onclick="submitEdit(event)" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);"></a>
+<script>addEvent(window,"load",mvSaveAnchor);</script>
   </td>
 </tr>
 [ENDBLOCK BUTTONSTATE]
-
-[ENDIF WID]
-
-
-[BLOCK COMMENT]
-<tr class="FREEDOMBack2">
-  <td colspan="3" >
-
-  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment for autorevision]" rows="1" style="width:100%" name="comment" id="comment" ></textarea>
-  </td>
-</tr>
-[ENDBLOCK COMMENT]
-
 <tr >
   <td  colspan="3" ><fieldset style="display:none" id="hwfask"><legend style="cursor:pointer" onclick="viewornot('T[key]')">hidden parameters</legend>
 
@@ -65,7 +52,20 @@ var WattrNtitle=new Array([Wattrntitle]);
   <table width="100%"><tr><td style="padding-left:20px">[avalue]</td></tr></table>
 </div>
 [ENDBLOCK FINPUTS]
+<a  href="javascript:void(0)" id="aSubmit3"  class="state"   onclick="submitEdit(event)" >ZOU</a>
 </fieldset></div>
 
 </td></tr>
+[ENDIF WID]
+
+
+[BLOCK COMMENT]
+<tr class="FREEDOMBack2">
+  <td colspan="3" >
+  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment for autorevision]" rows="1" style="width:100%" name="comment" id="comment" ></textarea>
+  </td>
+</tr>
+[ENDBLOCK COMMENT]
+
+
 

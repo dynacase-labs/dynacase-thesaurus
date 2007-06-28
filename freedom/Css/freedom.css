@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.108 2007/06/28 09:36:12 eric Exp $
+ * $Id: freedom.css,v 1.109 2007/06/28 14:40:55 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -504,6 +504,13 @@ input.dsubmit {
 }
 input.state {
   background: [CORE_BGCOLORALTERN]; 
+}
+A.boldstate {
+  font-weight: bold;
+}
+A.state, A.boldstate {
+  border-style:none none solid none !important;
+  border-width:2px!important;
 }
 @media print {
   .noprint {
