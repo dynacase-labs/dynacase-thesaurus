@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.8 2007/06/15 15:29:48 eric Exp $
+ * @version $Id: settxtfile.php,v 1.9 2007/06/28 16:47:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,8 +49,8 @@ function settxtfile(&$action) {
 
 	  if (($status=='D') && ($outfile != '')) {
 	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
-	    //$err=$ot->getTransformation($tid,$filename);
-	    $err=$ot->getAndLeaveTransformation($tid,$filename);	    
+	    $err=$ot->getTransformation($tid,$filename);
+	    //$err=$ot->getAndLeaveTransformation($tid,$filename);	    
 	    if ($err=="") {
 	      $at=$attrid.'_txt';
 	      if (file_exists($filename) && $info['status']=='D') {
