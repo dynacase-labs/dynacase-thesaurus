@@ -32,10 +32,10 @@ var WattrNtitle=new Array([Wattrntitle]);
 <div   class="barmenu">
   
  <input id="seltrans" name="newstate" value="[dstate]" type="hidden"> 
- <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:50%;height:[SIZE_X-LARGE];visibility:[dcomment];float:left"></textarea>
+ <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100px;height:[SIZE_X-LARGE];visibility:[dcomment];float:left"></textarea>
  
 [BLOCK NEWSTATE]
-<a  href="javascript:void(0)" onclick="submitEdit(event)" style="border-style:none none solid none;border-width:3px;border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[asktitle]','[color]');" >[tostatename]</a>
+<a  href="javascript:void(0)" onclick="submitEdit(event)" style="border-style:none none solid none;border-width:2px;border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[asktitle]','[color]');" >[tostatename]</a>
 [ENDBLOCK NEWSTATE] </div>
   </td>
 </tr>
@@ -55,17 +55,16 @@ var WattrNtitle=new Array([Wattrntitle]);
 
 <tr >
   <td  colspan="3" ><fieldset style="display:none" id="hwfask"><legend style="cursor:pointer" onclick="viewornot('T[key]')">hidden parameters</legend>
-[BLOCK FINPUTS]
-<table style="display:[idisplay];"  id="TWF[aid]">
-<tr class="FREEDOMBack1">
-  <td width="30%" valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</td>
-  <td>[avalue]</td>
-</tr>
-</table>
-[ENDBLOCK FINPUTS]
+
 </fieldset>
-<div id="dfask" class="contour" style="position:absolute;top:100px;left:300px;display:none">
-<fieldset style="width:auto;display:inline"  id="wfask"><legend id="legendask">[TEXT:Transition parameters]</legend>
+<div id="dfask" class="contour" style="position:absolute;top:100px;left:50%;display:none">
+<fieldset style="width:auto;display:inline"  id="wfask"><legend id="legendask">[TEXT:Transition parameters]</legend>[BLOCK FINPUTS]
+<div style="visibility:[visibility]"  id="TWF[aid]" class="FREEDOMBack1">
+  <span  valign="top" class="[labelclass]">[alabel]&nbsp;:&nbsp;</span><br>
+
+  <table width="100%"><tr><td style="padding-left:20px">[avalue]</td></tr></table>
+</div>
+[ENDBLOCK FINPUTS]
 </fieldset></div>
 
 </td></tr>

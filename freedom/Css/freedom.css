@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.107 2007/06/22 16:18:50 eric Exp $
+ * $Id: freedom.css,v 1.108 2007/06/28 09:36:12 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -238,7 +238,7 @@ DIV.select {
 DIV.contour {
   background: [CORE_BGCOLOR];
   width:auto;
-  border:outset 4px [CORE_BGCOLORALTERN];
+  border:ridge 4px [CORE_BGCOLORALTERN];
   padding:2px;
 } 
 HR {

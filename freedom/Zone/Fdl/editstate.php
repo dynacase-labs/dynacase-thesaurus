@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.20 2007/06/27 16:43:46 eric Exp $
+ * @version $Id: editstate.php,v 1.21 2007/06/28 09:36:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -126,7 +126,7 @@ function editstate(&$action) {
 			   "labelclass"=>($oa->needed)?"FREEDOMLabelNeeded":"FREEDOMLabel",
 			   "avalue"=>getHtmlInput($wdoc,$oa,""),
 			   "aid"=>$oa->id,
-			   "idisplay"=>($oa->visibility=="H")?"none":"");
+			   "visibility"=>($oa->visibility=="H")?"hidden":"visible");
 	  if ($oa->needed) $tneed[$oa->id]=$oa->labelText;
 	}
       }

@@ -615,15 +615,20 @@ function askForTransition(event,thetitle,thecolor) {
   
 
   if (askState) {
+
+      //nfd.style.visibility='hidden';	
     // display or not comment area
     if (state != '-') {document.getElementById('comment').style.visibility='visible';} else document.getElementById('comment').style.visibility='hidden';
 
     // move button nodes
     for (i=0;i<nf.childNodes.length;i++) {
-      if (nf.childNodes[i].id && (nf.childNodes[i].id.substring(0,3)=="TWF")) tnf.push(nf.childNodes[i]);
+      if (nf.childNodes[i].id && (nf.childNodes[i].id.substring(0,3)=="TWF")) {
+	//tnf.push(nf.childNodes[i]);
+	nf.childNodes[i].style.display='none';
+      }
     }
     for (i=0;i<tnf.length;i++) {
-      wf.appendChild(tnf[i]);
+      // wf.appendChild(tnf[i]);
     }
     for (i=0;i<states.length;i++) {
       if (states[i]==askState) {
@@ -633,7 +638,9 @@ function askForTransition(event,thetitle,thecolor) {
 
     for (i=0;i<ask.length;i++) {
       twf=document.getElementById('TWF'+ask[i]);
-      nf.appendChild(twf);
+      //nf.appendChild(twf);
+      if (twf.style.visibility!='hidden') twf.style.display='';
+      twf.style.width='90%';
       k=array_search(twf.id.substr(3),WattrNid);
       if (k >= 0) {
 	attrNid.push(WattrNid[k]);
@@ -651,15 +658,16 @@ function askForTransition(event,thetitle,thecolor) {
       }
       GetXY(event);
       
-      nfd.style.display='none';	
+      //nfd.style.display='none';	
       nfd.style.display='';	// to refresh div
       	
-      nfd.style.top='160px';
+      //nfd.style.top='160px';
       //nf.style.top='300px';
       w=getObjectWidth(nfd);
       nx=Xpos-w+40;
       if (nx < 0) nx=0;
-      nfd.style.left=nx+'px';
+      //nfd.style.left=nx+'px';
+     
       if (yfoot < 100) {
 	if (ftable) h=getObjectHeight(ftable);
 	nfd.style.top=(yfoot+10+h)+'px';
@@ -667,13 +675,13 @@ function askForTransition(event,thetitle,thecolor) {
 	
 	//	alert(xy.y+'/'+h+'/'+(xy.y-h));
 	hnf=getObjectHeight(nfd);
-	nfd.style.top=(yfoot-hnf)+'px';
+	//nfd.style.top=(yfoot-hnf)+'px';
 
       }
       if (isNetscape) { // more beautifull
 	  nfd.style.position='fixed';//h-=document.body.scrollTop; // fixed position
-	  nfd.style.MozOpacity=0.02;
-	  moz_unfade(nfd.id);
+	  //  nfd.style.MozOpacity=0.02;
+	  // moz_unfade(nfd.id);
 	}
       var lg=document.getElementById('legendask');
       if (lg && thetitle) {
@@ -684,9 +692,12 @@ function askForTransition(event,thetitle,thecolor) {
 	  lg.style.borderStyle='none none solid none';
 	}
       }
-      nfd.style.display='none';	
+      //  nfd.style.display='none';	
       nfd.style.display='';	// to refresh div
-    } else nfd.style.display='none';
+      //nfd.style.visibility='visible';
+    } else {
+       nfd.style.display='none';
+    }
   }
 
 }
