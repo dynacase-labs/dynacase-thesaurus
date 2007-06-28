@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.117 2007/06/13 16:04:40 eric Exp $
+ * @version $Id: editutil.php,v 1.118 2007/06/28 09:37:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -701,7 +701,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 			   "ahvis"=>(!$visible)?"hidden":"visible");
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
 			   "ihw"=>(!$visible)?"0px":"auto",
-			   "bgcolor"=>$v->getOption("bgcolor","inherits"),
+			   "bgcolor"=>$v->getOption("bgcolor","inherit"),
 			   "ihvis"=>(!$visible)?"hidden":"visible");
 	$tvattr[]=array("bvalue" => "bvalue_$k",
 			"attrid" => $v->id);
@@ -767,7 +767,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	  
 	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
 			   "ehvis"=>(!$visible)?"hidden":"visible",
-			   "bgcolor"=>$va->getOption("bgcolor","inherits"),
+			   "bgcolor"=>$va->getOption("bgcolor","inherit"),
 			   "vhw"=>(!$visible)?"0pt":$talabel[$ika]["ahw"]);
 	  $ika++;
 	}

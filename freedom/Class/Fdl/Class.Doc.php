@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.399 2007/06/26 10:09:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.400 2007/06/28 09:36:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3309,9 +3309,9 @@ final public function PostInsert()  {
 		$hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
 		if ($va->type=="image") $hval="<img width=\"128\" src=\"".$hval."\">";
 		$tivalue[]=array("evalue"=>$hval,
-				 "color"=>$va->getOption("color","inherits"),
-				 "bgcolor"=>$va->getOption("bgcolor","inherits"),
-				 "align"=>$va->getOption("align","inherits") );
+				 "color"=>$va->getOption("color","inherit"),
+				 "bgcolor"=>$va->getOption("bgcolor","inherit"),
+				 "align"=>$va->getOption("align","inherit") );
 	      }
 	      $lay->setBlockData("bevalue_$k",$tivalue);
 	    }
