@@ -3,7 +3,7 @@
  * History log for document
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRead.php,v 1.4 2007/05/10 13:02:24 eric Exp $
+ * @version $Id: Class.DocRead.php,v 1.5 2007/06/29 14:12:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -60,7 +60,8 @@ create table docread ( id int not null,
                    atags text,
                    confidential int,
                    ldapdn text,
-                   fulltext tsvector
+                   fulltext tsvector,
+                   svalues text
                    );
 create index fromid_docread on docread(fromid);
 create index initid_docread on docread(initid);
@@ -95,6 +96,7 @@ create index full_docread on docread using gist(fulltext);";
 			   "ldapdn");
 
   public $sup_fields= array("values",
+			    "svalues",
 			    "attrids"); // not be in fields else trigger error
 
 }

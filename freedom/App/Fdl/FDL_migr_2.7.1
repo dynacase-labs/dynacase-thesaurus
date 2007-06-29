@@ -6,5 +6,7 @@ if [ "$dbpsql" == "" ]; then
 fi
 
 
+echo "alter table docread add column svalues text;" | psql $dbfree
 echo "alter table doc add column svalues text default '';" | psql $dbfree
+
 
