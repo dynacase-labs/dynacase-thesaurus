@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.2 2006/11/03 15:53:45 eric Exp $
+# $Id: Makefile.in,v 1.3 2007/06/29 11:50:08 yannick Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -15,7 +15,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR= Actions Javascript Images
+SUBDIR= Actions Javascript Images debian
 
 include $(utildir)/PubRule
 

@@ -1,0 +1,12 @@
+Source: freedom-common
+Section: web
+Priority: extra
+Maintainer: yannick <yannick.lebriquer@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom-common
+Architecture: all
+Depends: freedom-lib
+Description: Common function for FreeDom
+ The AJAX Api for FreeDom
