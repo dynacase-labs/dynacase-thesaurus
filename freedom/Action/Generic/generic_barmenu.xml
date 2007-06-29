@@ -51,7 +51,7 @@ testSplit();
 <table  class="barmenu"  cols="[nbcol]"  cellspacing="0"  >
 <thead>
 <tr>
-<td  class="MenuInactive"  
+<td  class="MenuInactive"  title="[TEXT:Creation]"
      style="padding: 0px 0pt 0px 10px;[IFNOT cancreate]display:none[ENDIF cancreate]" 
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
      onMouseOver="ActiveMenu(this)"
@@ -62,20 +62,20 @@ testSplit();
 
 
 [BLOCK KIND]
-<td  class="MenuInactive"  
+<td  class="MenuInactive"  title="[kindname]"
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 <div>[kindname]</div>
 </td>
 [ENDBLOCK KIND]
-<td  class="MenuInactive"  
+<td  class="MenuInactive"  title="[TEXT:Sort]"
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Sort]
 </td>
-<td  class="MenuInactive"  
+<td  class="MenuInactive"  title="[TEXT:Tools]"
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">

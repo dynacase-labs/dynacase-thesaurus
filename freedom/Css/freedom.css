@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.109 2007/06/28 14:40:55 eric Exp $
+ * $Id: freedom.css,v 1.110 2007/06/29 14:13:45 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -144,7 +144,7 @@ TD.MenuSelected {
 }
 
 TD.MenuInactive div, TD.MenuActive div, TD.MenuSelected div {
-	max-height:30px;
+	height:[SIZE_XX-LARGE];
 	overflow:hidden;
 }
 
