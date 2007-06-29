@@ -107,7 +107,7 @@ function openMenuOrAbstract(event) {
 	shiftKey = event.shiftKey
 	button= event.button +1;
 }
-  window.status=shiftKey+"/"+button;
+  //window.status=shiftKey+"/"+button;
 
   if (button == 1) {
     if (shiftKey ) {
@@ -129,7 +129,7 @@ function openMenuOrProperties(event,menuid,itemid,wtarget) {
     shiftKey = event.shiftKey
       button= event.button +1;
   }
-  window.status=shiftKey+"/"+button;
+  //window.status=shiftKey+"/"+button;
   if (button == 1) {
     if (parent.parent.ffoliolist && (parent.parent.ffoliolist!=self)) {
       // copy to portfolio
@@ -188,7 +188,7 @@ function trackKey(event) {
     ctrlKey = window.event.ctrlKey;
   }
  
-  window.status=intKeyCode + ':'+altKey;
+  //window.status=intKeyCode + ':'+altKey;
   if (ctrlKey &&  ( (intKeyCode == 99)||(intKeyCode == 67))) { // Ctrl-C key
     // activedrag(event); 
     if (parent.parent.ffoliolist) {

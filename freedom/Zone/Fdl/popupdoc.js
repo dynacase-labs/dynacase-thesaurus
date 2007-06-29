@@ -292,14 +292,12 @@ function openSubDocMenu(event, th, menuid) {
     el.style.visibility = "visible";
 }
 function menuover() {
-  window.status='menuover';
   MENUOUT=false;
   if (MENUOUTTIMER) window.clearTimeout(MENUOUTTIMER);
   MENUOUTTIMER=false;
 }
 
 function menuout() {
-  window.status='menuout';
   MENUOUTTIMER=window.setTimeout('closeDocMenu()',1500);
 
 }

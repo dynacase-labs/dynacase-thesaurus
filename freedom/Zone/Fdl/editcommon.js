@@ -1531,7 +1531,7 @@ function trackKeys(event,onlystop)
     altKey = window.event.altKey;
     ctrlKey = window.event.ctrlKey
    }
-  window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
+  //window.status=intKeyCode + ':'+altKey+ ':'+ctrlKey;
   if (!onlystop) {
     if (((intKeyCode == 83)||(intKeyCode == 22)) && (altKey || ctrlKey)) {
       // Ctrl-S
