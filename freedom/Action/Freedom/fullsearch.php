@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.12 2007/06/20 16:13:40 eric Exp $
+ * @version $Id: fullsearch.php,v 1.13 2007/06/29 14:16:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -46,7 +46,11 @@ function fullsearch(&$action) {
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
     return;
   } else {    
-    DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
+    if ($keyword[0]=='~') {
+      $sqlfilters[]="svalues ~* '".pg_escape_string(substr($keyword,1))."'";
+    } else {
+      DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
+    }
     $slice=10;
     $tdocs=getChildDoc($dbaccess, 0, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
 

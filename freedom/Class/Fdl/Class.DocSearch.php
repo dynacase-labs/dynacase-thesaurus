@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.42 2007/06/08 12:51:47 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.43 2007/06/29 14:16:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -112,7 +112,10 @@ Class DocSearch extends PDocSearch {
     } else if ($latest == "allfixed") {
       $filters[] = "locked = -1";
     } 
-   
+    if ($keyword[0]=='~') {
+      $full=false;
+      $keyword=substr($keyword,1);      
+    }
     if ($full) {
       $this->getFullSqlFilters($keyword,$sqlfilters,$order,$tkeys);
       $filters=array_merge($filters,$sqlfilters);
@@ -246,6 +249,10 @@ Class DocSearch extends PDocSearch {
     } else $cdirid=0;
 
     $full=true;
+    if ($keyword[0]=='~') {
+      $full=false;
+      $keyword=substr($keyword,1);      
+    }
     $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive,$full);
     if ($full) {
       //if ($famid > 0)  $filters[]="fromid=".intval($famid); // here function to retrieve descendants

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.133 2007/05/28 08:14:37 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.134 2007/06/29 14:16:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,6 +66,7 @@ function isSimpleFilter($sqlfilters) {
     $props=$d->fields;
     $props=array_merge($props,$d->sup_fields);
     $props[]="fulltext";
+    $props[]="svalues";
   }
   foreach ($sqlfilters as $k=>$v) {
     $tok = strtok($v," !=~@");
