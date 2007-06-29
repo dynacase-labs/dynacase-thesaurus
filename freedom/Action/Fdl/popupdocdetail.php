@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.17 2007/06/28 16:32:43 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.18 2007/06/29 18:46:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -196,6 +196,15 @@ function getpopupdocdetail(&$action,$docid) {
 			       "visibility"=>POPUP_CTRLACTIVE,
 			       "submenu"=>"",
 			       "barmenu"=>"false"),
+	       "reference2"=>array( "descr"=>_("Search linked documents 2"),
+				    "url"=>"$surl&app=FREEDOM&action=RNAVIGATE&id=$docid",
+				    "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"",
+				   "visibility"=>POPUP_CTRLACTIVE,
+				   "submenu"=>"",
+				    "barmenu"=>"false"),
 	       "reference"=>array( "descr"=>_("Search linked documents"),
 				   "url"=>"$surl&app=GENERIC&action=GENERIC_ISEARCH&id=$docid",
 				   "confirm"=>"false",

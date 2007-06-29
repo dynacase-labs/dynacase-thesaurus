@@ -552,6 +552,33 @@ begin
 end;
 $$ language 'plpgsql';
 
+create or replace function docrelreindex(int, text,text) 
+returns bool as $$
+declare 
+  a_docid alias for $1;
+  sfile alias for $2;
+  rvalue bool;
+  wt text;
+  wti int;
+  i int;
+begin
+  i:=1;
+  LOOP
+    -- some computations
+    wt:=split_part(sfile,E'\n',i);   
+    IF wt = '' THEN
+        EXIT;  -- exit loop
+    END IF;
+    wti=wt::int;
+    --RAISE NOTICE 'wt %',wt;
+    insert into docrel(sinitid,cinitid,type) values (a_docid,wti,$3);
+
+    i:=i+1;
+  END LOOP;
+    
+  return rvalue;
+end;
+$$ language 'plpgsql';
 create or replace function getreldocfld(int) 
 returns int[] as '
 declare 
