@@ -1,7 +1,8 @@
-[ZONE FDL:HTMLHEAD]
+[ZONE FDL:HTMLHEAD?title=[TEXT:Relation document]]
 <script>
 var inprogress=false;
 var ccol=1; // current column
+var icol=0; // insert column
 var maxcol=4; // maximum visible column
 function viewrel(o,docid) {
   if (inprogress) return; // one request only
@@ -19,19 +20,28 @@ function viewrel(o,docid) {
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
         req.send("id="+docid);
 	inprogress=true;
-	o.style.backgroundColor='[CORE_BGCOLORHIGH]';
-
+	if (o) {
+	  var op=o.parentNode;	  	 
+	  for (var i=0;i<op.childNodes.length;i++) {
+	    if (op.childNodes[i].style) {
+	      op.childNodes[i].style.backgroundColor='';
+	    }
+	  }
+	  o.style.backgroundColor='[CORE_BGCOLORHIGH]';
+	  var dname=o.parentNode.id;
+	  if (dname) {
+	    dname=dname.substr(3);
+	    icol=parseInt(dname);
+	  }
+	}
     }
-    
-
-
 }
 
 function processReqChange() {
   // only if req shows "loaded"
   inprogress=false; 
   var o=document.getElementById('easycr');
-  var i,j,docid,icon,title,type,elt,oa,ods,od,w,path;
+  var i,j,docid,icon,title,type,elt,oa,ods,od,w,path,aid,ptype,alabel;
   if (o) o.innerHTML='Done';
   if (req.readyState == 4) {
     // only if "OK"
@@ -42,11 +52,19 @@ function processReqChange() {
 	var path=req.responseXML.getElementsByTagName("path")[0].firstChild.nodeValue;
 	var elts = req.responseXML.getElementsByTagName("relation");
 	
-	if (elts.length > 0) {
+	if (elts.length >= 0) {
 	  
 	  od=document.getElementById('path');
-	  od.innerHTML=od.innerHTML+'/'+path;
+	  if (od) od.innerHTML=od.innerHTML+'/'+path;
 	  ccol++;
+	  if (icol > 0) {
+	    for (i=icol+2;i<=ccol;i++) {
+	      od=document.getElementById('col'+i);
+	       if (od) od.style.display='none';	  
+	    }
+	    ccol=icol+1;
+	    icol=0;
+	  }
 	  if (ccol > maxcol) { // max column to view
 	    j=ccol-maxcol;
 	    //if (j<maxcol) j=maxcol;
@@ -58,7 +76,7 @@ function processReqChange() {
 	  od=document.getElementById('col'+ccol);
 	  if (!od) {
 	    //create new col
-	     od=  document.createElement("div");
+	     od=document.createElement("div");
 	     od.id='col'+ccol;
 	     od.className='mh';
 	     document.getElementById('dbody').appendChild(od);
@@ -75,19 +93,37 @@ function processReqChange() {
 		 
 	       }
 	     }
-
+	  } else {
+	    od.innerHTML='';
+	    od.style.display='';
 	  }
+	  oa=document.createElement("span");	   
+	  oa.title=path;	   
+	  oa.style.marginLeft='10px';
+	  oa.style.fontWeight='bold';
+	  oa.innerHTML=path+'<br/>';
+	  od.appendChild(oa);
+
 	  for (i=0;i<elts.length;i++) {
+
 	    elt=elts[i];
 	    sdocid=elt.getAttribute("docid");
+	    type=elt.getElementsByTagName("kind")[0].firstChild.nodeValue;
+	    if (type != ptype) {
+	      ptype=type;
+	      oa=document.createElement("span");	   	      
+	      oa.innerHTML=type+' : <br/>';
+	      od.appendChild(oa);
+	    }
 	    icon=elt.getElementsByTagName("icon")[0].firstChild.nodeValue;
 	    title=elt.getElementsByTagName("title")[0].firstChild.nodeValue;
-	    type=elt.getElementsByTagName("kind")[0].firstChild.nodeValue;
-	    oa=  document.createElement("a");
+	    aid=elt.getElementsByTagName("aid")[0].firstChild.nodeValue;
+	    alabel=elt.getElementsByTagName("alabel")[0].firstChild.nodeValue;
+	    oa=document.createElement("a");
 	    oa.onclick=new Function("viewrel(this,'"+sdocid+"');");
-	    oa.title=type;
+	    oa.title=alabel;
 	    oa.className='mha';
-	    oa.innerHTML='<img height="16px" src="'+icon+'">'+title+'<br/>';
+	    oa.innerHTML='<img height="16px" title="[TEXT:view document]" onclick="subwindow(300,400,\'_blank\',\'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id='+sdocid+'\');stopPropagation(event);return false" src="'+icon+'">'+title+'<br/>';
 	    od.appendChild(oa);
 	    
 	  }
@@ -129,12 +165,11 @@ A.mha {
   width:100%;
   display:block;
 }
-</style><span id="path">[Title]</span>
-
+</style>
+<script>
+addEvent(window,"load",viewrel(false,[docid]));
+</script>
 <div id="dbody">
-<div id="col1" class="mh">
-[BLOCK RELS]
-<a title="[type]" class="mha"  onclick="viewrel(this,'[initid]')"><img height="16px" src="[iconsrc]">[title]</a>
-[ENDBLOCK RELS]</div>
+
 </div>
 [ZONE FDL:HTMLFOOT]

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-28 17:19+0200\n"
-"PO-Revision-Date: 2007-06-28 17:21+0200\n"
+"POT-Creation-Date: 2007-07-02 14:59+0200\n"
+"PO-Revision-Date: 2007-07-02 15:00+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -89,6 +89,9 @@ msgstr "Ajouter un post-it"
 msgid "View XML"
 msgstr "Voir XML"
 
+msgid "Search linked documents 2"
+msgstr "Recherche des documents liés"
+
 msgid "Search linked documents"
 msgstr "Recherche des documents liés"
 
@@ -99,8 +102,15 @@ msgid "specialview"
 msgstr "Vues spéciales"
 
 #, c-format
+msgid "Change state %s"
+msgstr "Changement d'état vers %s"
+
+#, c-format
 msgid "Comment for change state to %s"
 msgstr "Raison du changement d'état vers %s"
+
+msgid "chgstates"
+msgstr "Changer d'état"
 
 #, c-format
 msgid "Sure %s ?"
@@ -184,12 +194,8 @@ msgstr "absence d'adresse couriel"
 msgid "no avalaible persons found"
 msgstr "pas de personnes valides trouvées"
 
-#, c-format
-msgid "Change state %s"
-msgstr "Changement d'état vers %s"
-
-msgid "chgstates"
-msgstr "Changer d'état"
+msgid "Document relations"
+msgstr "Relations du document"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -925,6 +931,12 @@ msgstr "figé"
 
 msgid "changed"
 msgstr "modifié"
+
+msgid "Referenced from"
+msgstr "Référencé depuis"
+
+msgid "Reference"
+msgstr "Référence"
 
 msgid "creation of document family"
 msgstr "Création de famille de documents"
@@ -1981,6 +1993,242 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+msgid "document creation"
+msgstr "Création du document"
+
+#, c-format
+msgid "untitle %s %d"
+msgstr "%s sans titre %d"
+
+msgid "cannot update no initialized document"
+msgstr "mise à jour impossible : document non initialisé"
+
+msgid "untitle document"
+msgstr "document sans titre"
+
+#, c-format
+msgid "convertion from %s to %s family"
+msgstr "conversion de la famille %s vers la famille %s"
+
+#, c-format
+msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid "the file %s (rev %d) must be locked before"
+msgstr "le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr "le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
+msgstr "le fichier %s [%d] (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid "cannot lock file %s [%d] : already locked by %s."
+msgstr "le fichier %s [%d] est déjà verrouillé par %s."
+
+msgid "cannot unlock"
+msgstr "ne peut pas déverrouiller"
+
+msgid "already deleted"
+msgstr "déjà supprimé"
+
+#, c-format
+msgid "delete by action %s/%s from %s"
+msgstr "supprimé avec l'action %s/%s depuis %s"
+
+msgid "document deleted"
+msgstr "document supprimé"
+
+msgid "revival document"
+msgstr "restauration du document"
+
+#, c-format
+msgid "document %s [%d] is not in the trash"
+msgstr "le document %s [%d] n'est pas dans la corbeille"
+
+msgid "Only owner of document can restore it"
+msgstr "Seul le propriétaire peut restaurer un document"
+
+msgid "unknow attribute"
+msgstr "attribut inconnu"
+
+#, c-format
+msgid "%s needed\n"
+msgstr "%s doit être rempli\n"
+
+#, c-format
+msgid "attribute %s unknow in family %s [%d]"
+msgstr "attribu %s inconnu pour la famille %s [%d]"
+
+#, c-format
+msgid "no permission to modify this attribute %s"
+msgstr "vous n'avez pas le permission de modifier cet attribut : %s"
+
+#, c-format
+msgid ""
+"the date '%s' for %s attribute is not correct. It has been corrected "
+"automatically"
+msgstr ""
+"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
+"automatiquement."
+
+msgid "error sending text conversion"
+msgstr "erreur lors de l'envoi de la conversion texte"
+
+#, c-format
+msgid "modify file %s"
+msgstr "modification du fichier %s"
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr "la contrainte retourne [%s] pour l'attribut %s"
+
+msgid "no user tag specified"
+msgstr "pas d'étiquette utilisateur spécifiée"
+
+msgid "document already revised"
+msgstr "document déjà révisé"
+
+#, c-format
+msgid "the document of %s family cannot be revised"
+msgstr "lee documents de la famille %s ne peuvent être révisés"
+
+#, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr ""
+"l'affectation d'un état libre est impossible dans un document controlé par "
+"un cycle de vie : %s"
+
+#, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le document %s : cycle de "
+"vie non autorisé"
+
+#, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le  document %s : non "
+"révisable"
+
+#, c-format
+msgid "remove state : %s"
+msgstr "état supprimé : %s"
+
+#, c-format
+msgid "invalid freestate document %s"
+msgstr "état libre %s invalide"
+
+#, c-format
+msgid "not a freestate document %s"
+msgstr "ce document n'est pas un état libre : %s"
+
+#, c-format
+msgid "change state to %s : %s"
+msgstr "changement d'état vers %s : %s"
+
+#, c-format
+msgid "copy from document #%d -%s-"
+msgstr "copie à partir du document n°%d -%s-"
+
+msgid "Affectation aborded"
+msgstr "Affectation annulée"
+
+#, c-format
+msgid ""
+"Affectation aborded\n"
+"%s for user %s %s"
+msgstr ""
+"Affectation annulée :\n"
+"%s pour l'utilisateur %s %s"
+
+#, c-format
+msgid "Affected to %s %s"
+msgstr "Affectation à %s %s"
+
+#, c-format
+msgid "Affected for %s"
+msgstr "Affectation pour %s"
+
+msgid "Affectation aborded : user not know"
+msgstr "Affectation annulée : utilisateur inconnu"
+
+#, c-format
+msgid "Unallocated of %s %s : %s"
+msgstr "Suppression de l'affectation de %s %s : %s"
+
+#, c-format
+msgid "Unallocated of %s %s: %s"
+msgstr "Suppression de l'affectation de %s %s : %s"
+
+msgid "user not know"
+msgstr "utilisateur inconnu"
+
+msgid "Unallocate aborded"
+msgstr "Suppression de l'affectation abandonnée"
+
+#, c-format
+msgid "unknown document id %s"
+msgstr "Document id %s inconnu"
+
+msgid "vault file error"
+msgstr "erreur fichier Vault"
+
+msgid "no filename"
+msgstr "pas de fichier"
+
+msgid "AbbrKbyte"
+msgstr "Ko"
+
+#, c-format
+msgid "cannot control : object not initialized : %s"
+msgstr "contrôle impossible : objet non initialisé : %s"
+
+msgid "control :: user identificator is null"
+msgstr "control :: identifiant de l'utilisateur est vide"
+
+#, c-format
+msgid "error in pzone format %s"
+msgstr "erreur dans la format pzone %s"
+
+msgid "no state"
+msgstr "pas d'état"
+
+msgid "last modification date"
+msgstr "date de dernière modification"
+
+msgid "suppression date"
+msgstr "date de suppression"
+
+msgid "revision date"
+msgstr "date de révision"
+
+msgid "no access control"
+msgstr "pas de contrôle d'accès"
+
+msgid "specific control"
+msgstr "Contrôle dédié"
+
+msgid "dynamic control"
+msgstr "contrôle dynamique"
+
+msgid "no view control"
+msgstr "pas de contrôle de vues"
+
+msgid "no allocate"
+msgstr "pas d'affectation"
+
+#, c-format
+msgid "new %s"
+msgstr "nouvelle %s"
+
+msgid "confidential document"
+msgstr "document confidentiel"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2250,242 +2498,6 @@ msgstr "vers privé"
 
 msgid "Twprocess_public"
 msgstr "vers public"
-
-msgid "document creation"
-msgstr "Création du document"
-
-#, c-format
-msgid "untitle %s %d"
-msgstr "%s sans titre %d"
-
-msgid "cannot update no initialized document"
-msgstr "mise à jour impossible : document non initialisé"
-
-msgid "untitle document"
-msgstr "document sans titre"
-
-#, c-format
-msgid "convertion from %s to %s family"
-msgstr "conversion de la famille %s vers la famille %s"
-
-#, c-format
-msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid "the file %s (rev %d) must be locked before"
-msgstr "le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr "le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
-msgstr "le fichier %s [%d] (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid "cannot lock file %s [%d] : already locked by %s."
-msgstr "le fichier %s [%d] est déjà verrouillé par %s."
-
-msgid "cannot unlock"
-msgstr "ne peut pas déverrouiller"
-
-msgid "already deleted"
-msgstr "déjà supprimé"
-
-#, c-format
-msgid "delete by action %s/%s from %s"
-msgstr "supprimé avec l'action %s/%s depuis %s"
-
-msgid "document deleted"
-msgstr "document supprimé"
-
-msgid "revival document"
-msgstr "restauration du document"
-
-#, c-format
-msgid "document %s [%d] is not in the trash"
-msgstr "le document %s [%d] n'est pas dans la corbeille"
-
-msgid "Only owner of document can restore it"
-msgstr "Seul le propriétaire peut restaurer un document"
-
-msgid "unknow attribute"
-msgstr "attribut inconnu"
-
-#, c-format
-msgid "%s needed\n"
-msgstr "%s doit être rempli\n"
-
-#, c-format
-msgid "attribute %s unknow in family %s [%d]"
-msgstr "attribu %s inconnu pour la famille %s [%d]"
-
-#, c-format
-msgid "no permission to modify this attribute %s"
-msgstr "vous n'avez pas le permission de modifier cet attribut : %s"
-
-#, c-format
-msgid ""
-"the date '%s' for %s attribute is not correct. It has been corrected "
-"automatically"
-msgstr ""
-"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
-"automatiquement."
-
-msgid "error sending text conversion"
-msgstr "erreur lors de l'envoi de la conversion texte"
-
-#, c-format
-msgid "modify file %s"
-msgstr "modification du fichier %s"
-
-#, c-format
-msgid "constraint return [%s] for %s attribute"
-msgstr "la contrainte retourne [%s] pour l'attribut %s"
-
-msgid "no user tag specified"
-msgstr "pas d'étiquette utilisateur spécifiée"
-
-msgid "document already revised"
-msgstr "document déjà révisé"
-
-#, c-format
-msgid "the document of %s family cannot be revised"
-msgstr "lee documents de la famille %s ne peuvent être révisés"
-
-#, c-format
-msgid "cannot set free state in workflow controlled document %s"
-msgstr ""
-"l'affectation d'un état libre est impossible dans un document controlé par "
-"un cycle de vie : %s"
-
-#, c-format
-msgid "cannot set free state for document %s: workflow not allowed"
-msgstr ""
-"l'affectation d'un état libre est impossible pour le document %s : cycle de "
-"vie non autorisé"
-
-#, c-format
-msgid "cannot set free state for document %s: document cannot be revised"
-msgstr ""
-"l'affectation d'un état libre est impossible pour le  document %s : non "
-"révisable"
-
-#, c-format
-msgid "remove state : %s"
-msgstr "état supprimé : %s"
-
-#, c-format
-msgid "invalid freestate document %s"
-msgstr "état libre %s invalide"
-
-#, c-format
-msgid "not a freestate document %s"
-msgstr "ce document n'est pas un état libre : %s"
-
-#, c-format
-msgid "change state to %s : %s"
-msgstr "changement d'état vers %s : %s"
-
-#, c-format
-msgid "copy from document #%d -%s-"
-msgstr "copie à partir du document n°%d -%s-"
-
-msgid "Affectation aborded"
-msgstr "Affectation annulée"
-
-#, c-format
-msgid ""
-"Affectation aborded\n"
-"%s for user %s %s"
-msgstr ""
-"Affectation annulée :\n"
-"%s pour l'utilisateur %s %s"
-
-#, c-format
-msgid "Affected to %s %s"
-msgstr "Affectation à %s %s"
-
-#, c-format
-msgid "Affected for %s"
-msgstr "Affectation pour %s"
-
-msgid "Affectation aborded : user not know"
-msgstr "Affectation annulée : utilisateur inconnu"
-
-#, c-format
-msgid "Unallocated of %s %s : %s"
-msgstr "Suppression de l'affectation de %s %s : %s"
-
-#, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Suppression de l'affectation de %s %s : %s"
-
-msgid "user not know"
-msgstr "utilisateur inconnu"
-
-msgid "Unallocate aborded"
-msgstr "Suppression de l'affectation abandonnée"
-
-#, c-format
-msgid "unknown document id %s"
-msgstr "Document id %s inconnu"
-
-msgid "vault file error"
-msgstr "erreur fichier Vault"
-
-msgid "no filename"
-msgstr "pas de fichier"
-
-msgid "AbbrKbyte"
-msgstr "Ko"
-
-#, c-format
-msgid "cannot control : object not initialized : %s"
-msgstr "contrôle impossible : objet non initialisé : %s"
-
-msgid "control :: user identificator is null"
-msgstr "control :: identifiant de l'utilisateur est vide"
-
-#, c-format
-msgid "error in pzone format %s"
-msgstr "erreur dans la format pzone %s"
-
-msgid "no state"
-msgstr "pas d'état"
-
-msgid "last modification date"
-msgstr "date de dernière modification"
-
-msgid "suppression date"
-msgstr "date de suppression"
-
-msgid "revision date"
-msgstr "date de révision"
-
-msgid "no access control"
-msgstr "pas de contrôle d'accès"
-
-msgid "specific control"
-msgstr "Contrôle dédié"
-
-msgid "dynamic control"
-msgstr "contrôle dynamique"
-
-msgid "no view control"
-msgstr "pas de contrôle de vues"
-
-msgid "no allocate"
-msgstr "pas d'affectation"
-
-#, c-format
-msgid "new %s"
-msgstr "nouvelle %s"
-
-msgid "confidential document"
-msgstr "document confidentiel"
 
 msgid "uncomplete request"
 msgstr "requête incomplète"
@@ -3423,6 +3435,9 @@ msgstr "toutes les familles"
 msgid "restrict to preferred families"
 msgstr "restriction aux familles préférées"
 
+msgid "Relation document"
+msgstr "Relations entre documents"
+
 msgid "Family Creation"
 msgstr "Création de famille"
 
@@ -4048,6 +4063,15 @@ msgstr "Changer dossier courant"
 msgid "delconfirm"
 msgstr "Voulez-vous supprimer"
 
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "Envoyer le document"
+
 msgid "wordedit"
 msgstr "édition par traitement de texte"
 
@@ -4182,15 +4206,6 @@ msgstr "Annuler les changements et quitter le mode édition"
 
 msgid "Cancel changes and close window"
 msgstr "Annuler les changements et fermer la fenêtre"
-
-msgid "Print"
-msgstr "Imprimer"
-
-msgid "senddoc"
-msgstr "Envoyer le document"
-
-msgid "Email"
-msgstr "Mail"
 
 msgid "Click to view menu"
 msgstr "Cliquer pour voir le menu"
@@ -4840,9 +4855,6 @@ msgstr ""
 
 #~ msgid "edited the"
 #~ msgstr "Édition du"
-
-#~ msgid "Reference"
-#~ msgstr "Référence"
 
 #~ msgid "Title"
 #~ msgstr "Titre"

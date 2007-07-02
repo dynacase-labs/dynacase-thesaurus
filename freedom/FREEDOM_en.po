@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-28 17:19+0200\n"
+"POT-Creation-Date: 2007-07-02 14:59+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -104,6 +104,10 @@ msgid "View XML"
 msgstr ""
 
 #, fuzzy
+msgid "Search linked documents 2"
+msgstr "Delete"
+
+#, fuzzy
 msgid "Search linked documents"
 msgstr "Delete"
 
@@ -115,8 +119,16 @@ msgid "specialview"
 msgstr ""
 
 #, fuzzy, c-format
+msgid "Change state %s"
+msgstr "Category"
+
+#, fuzzy, c-format
 msgid "Comment for change state to %s"
 msgstr "Category"
+
+#, fuzzy
+msgid "chgstates"
+msgstr "Identity"
 
 #, c-format
 msgid "Sure %s ?"
@@ -201,13 +213,9 @@ msgstr "Address"
 msgid "no avalaible persons found"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Change state %s"
-msgstr "Category"
-
 #, fuzzy
-msgid "chgstates"
-msgstr "Identity"
+msgid "Document relations"
+msgstr "Organisation"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -960,6 +968,14 @@ msgstr ""
 
 msgid "changed"
 msgstr ""
+
+#, fuzzy
+msgid "Referenced from"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Reference"
+msgstr "Delete"
 
 #, fuzzy
 msgid "creation of document family"
@@ -2123,6 +2139,249 @@ msgid "main view columns"
 msgstr "Start search"
 
 #, fuzzy
+msgid "document creation"
+msgstr "Organisation"
+
+#, fuzzy, c-format
+msgid "untitle %s %d"
+msgstr "Update Title Cards"
+
+msgid "cannot update no initialized document"
+msgstr ""
+
+msgid "untitle document"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "convertion from %s to %s family"
+msgstr "Category"
+
+#, c-format
+msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "the file %s (rev %d) must be locked before"
+msgstr ""
+
+#, c-format
+msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr ""
+
+#, c-format
+msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "cannot lock file %s [%d] : already locked by %s."
+msgstr ""
+
+#, fuzzy
+msgid "cannot unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "already deleted"
+msgstr "Delete"
+
+#, c-format
+msgid "delete by action %s/%s from %s"
+msgstr ""
+
+#, fuzzy
+msgid "document deleted"
+msgstr "Delete"
+
+#, fuzzy
+msgid "revival document"
+msgstr "Organisation"
+
+#, c-format
+msgid "document %s [%d] is not in the trash"
+msgstr ""
+
+msgid "Only owner of document can restore it"
+msgstr ""
+
+msgid "unknow attribute"
+msgstr ""
+
+#, c-format
+msgid "%s needed\n"
+msgstr ""
+
+#, c-format
+msgid "attribute %s unknow in family %s [%d]"
+msgstr ""
+
+#, c-format
+msgid "no permission to modify this attribute %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"the date '%s' for %s attribute is not correct. It has been corrected "
+"automatically"
+msgstr ""
+
+msgid "error sending text conversion"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify file %s"
+msgstr "Modify"
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr ""
+
+msgid "no user tag specified"
+msgstr ""
+
+msgid "document already revised"
+msgstr ""
+
+#, c-format
+msgid "the document of %s family cannot be revised"
+msgstr ""
+
+#, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "remove state : %s"
+msgstr "Create"
+
+#, fuzzy, c-format
+msgid "invalid freestate document %s"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "not a freestate document %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state to %s : %s"
+msgstr "Category"
+
+#, c-format
+msgid "copy from document #%d -%s-"
+msgstr ""
+
+#, fuzzy
+msgid "Affectation aborded"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid ""
+"Affectation aborded\n"
+"%s for user %s %s"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "Affected to %s %s"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "Affected for %s"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Affectation aborded : user not know"
+msgstr "Edit"
+
+#, c-format
+msgid "Unallocated of %s %s : %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Unallocated of %s %s: %s"
+msgstr "Category"
+
+msgid "user not know"
+msgstr ""
+
+#, fuzzy
+msgid "Unallocate aborded"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "unknown document id %s"
+msgstr "Start search"
+
+msgid "vault file error"
+msgstr ""
+
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
+msgid "AbbrKbyte"
+msgstr ""
+
+#, c-format
+msgid "cannot control : object not initialized : %s"
+msgstr ""
+
+msgid "control :: user identificator is null"
+msgstr ""
+
+#, c-format
+msgid "error in pzone format %s"
+msgstr ""
+
+#, fuzzy
+msgid "no state"
+msgstr "Identity"
+
+#, fuzzy
+msgid "last modification date"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "suppression date"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "revision date"
+msgstr "Organisation"
+
+msgid "no access control"
+msgstr ""
+
+msgid "specific control"
+msgstr ""
+
+#, fuzzy
+msgid "dynamic control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no view control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no allocate"
+msgstr "Email"
+
+#, c-format
+msgid "new %s"
+msgstr ""
+
+#, fuzzy
+msgid "confidential document"
+msgstr "Delete"
+
+#, fuzzy
 msgid "locked document of "
 msgstr "Import"
 
@@ -2397,249 +2656,6 @@ msgstr ""
 
 msgid "Twprocess_public"
 msgstr ""
-
-#, fuzzy
-msgid "document creation"
-msgstr "Organisation"
-
-#, fuzzy, c-format
-msgid "untitle %s %d"
-msgstr "Update Title Cards"
-
-msgid "cannot update no initialized document"
-msgstr ""
-
-msgid "untitle document"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "convertion from %s to %s family"
-msgstr "Category"
-
-#, c-format
-msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "the file %s (rev %d) must be locked before"
-msgstr ""
-
-#, c-format
-msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr ""
-
-#, c-format
-msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "cannot lock file %s [%d] : already locked by %s."
-msgstr ""
-
-#, fuzzy
-msgid "cannot unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "already deleted"
-msgstr "Delete"
-
-#, c-format
-msgid "delete by action %s/%s from %s"
-msgstr ""
-
-#, fuzzy
-msgid "document deleted"
-msgstr "Delete"
-
-#, fuzzy
-msgid "revival document"
-msgstr "Organisation"
-
-#, c-format
-msgid "document %s [%d] is not in the trash"
-msgstr ""
-
-msgid "Only owner of document can restore it"
-msgstr ""
-
-msgid "unknow attribute"
-msgstr ""
-
-#, c-format
-msgid "%s needed\n"
-msgstr ""
-
-#, c-format
-msgid "attribute %s unknow in family %s [%d]"
-msgstr ""
-
-#, c-format
-msgid "no permission to modify this attribute %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"the date '%s' for %s attribute is not correct. It has been corrected "
-"automatically"
-msgstr ""
-
-msgid "error sending text conversion"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify file %s"
-msgstr "Modify"
-
-#, c-format
-msgid "constraint return [%s] for %s attribute"
-msgstr ""
-
-msgid "no user tag specified"
-msgstr ""
-
-msgid "document already revised"
-msgstr ""
-
-#, c-format
-msgid "the document of %s family cannot be revised"
-msgstr ""
-
-#, c-format
-msgid "cannot set free state in workflow controlled document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: workflow not allowed"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: document cannot be revised"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "remove state : %s"
-msgstr "Create"
-
-#, fuzzy, c-format
-msgid "invalid freestate document %s"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "not a freestate document %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state to %s : %s"
-msgstr "Category"
-
-#, c-format
-msgid "copy from document #%d -%s-"
-msgstr ""
-
-#, fuzzy
-msgid "Affectation aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid ""
-"Affectation aborded\n"
-"%s for user %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected to %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected for %s"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Affectation aborded : user not know"
-msgstr "Edit"
-
-#, c-format
-msgid "Unallocated of %s %s : %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Category"
-
-msgid "user not know"
-msgstr ""
-
-#, fuzzy
-msgid "Unallocate aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "unknown document id %s"
-msgstr "Start search"
-
-msgid "vault file error"
-msgstr ""
-
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
-msgid "AbbrKbyte"
-msgstr ""
-
-#, c-format
-msgid "cannot control : object not initialized : %s"
-msgstr ""
-
-msgid "control :: user identificator is null"
-msgstr ""
-
-#, c-format
-msgid "error in pzone format %s"
-msgstr ""
-
-#, fuzzy
-msgid "no state"
-msgstr "Identity"
-
-#, fuzzy
-msgid "last modification date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "suppression date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "revision date"
-msgstr "Organisation"
-
-msgid "no access control"
-msgstr ""
-
-msgid "specific control"
-msgstr ""
-
-#, fuzzy
-msgid "dynamic control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no view control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no allocate"
-msgstr "Email"
-
-#, c-format
-msgid "new %s"
-msgstr ""
-
-#, fuzzy
-msgid "confidential document"
-msgstr "Delete"
 
 msgid "uncomplete request"
 msgstr ""
@@ -3727,6 +3743,10 @@ msgid "restrict to preferred families"
 msgstr "Modify"
 
 #, fuzzy
+msgid "Relation document"
+msgstr "Delete"
+
+#, fuzzy
 msgid "Family Creation"
 msgstr "Edit"
 
@@ -4455,6 +4475,18 @@ msgid "delconfirm"
 msgstr "Really Delete"
 
 #, fuzzy
+msgid "Print"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "senddoc"
+msgstr "Edit"
+
+#, fuzzy
 msgid "wordedit"
 msgstr "Modify not possible"
 
@@ -4612,18 +4644,6 @@ msgstr ""
 
 msgid "Cancel changes and close window"
 msgstr ""
-
-#, fuzzy
-msgid "Print"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "senddoc"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Email"
-msgstr "Email"
 
 msgid "Click to view menu"
 msgstr ""

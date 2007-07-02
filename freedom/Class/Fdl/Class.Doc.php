@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.400 2007/06/28 09:36:40 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.401 2007/07/02 13:21:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -534,14 +534,14 @@ final public function PostInsert()  {
    * Set relation doc id use on docrel table
    */
   function updateRelations() {
-    return; // for the moment
+    //    return; // for the moment
     include_once("FDL/Class.DocRel.php");
     $nattr = $this->GetNormalAttributes();
     $or=new DocRel($this->dbaccess);
     $or->sinitid=$this->initid;
     $or->resetRelations();
 
-    foreach($nattr as $k=>$v) {
+    foreach($nattr as $k=>$v) {     
       if (isset($this->$k) && ($this->$k != "") && ($v->type=="docid")) {
 	if ($v->inArray()) $tv=array_unique($this->getTValue($v->id));
 	else $tv=array($this->$k);
@@ -554,6 +554,7 @@ final public function PostInsert()  {
 	    $or->stitle=$this->title;
 	    $or->sicon=$this->icon;
 	    $or->type=$v->id;
+	    $or->doctype=$v->doctype;
 	    $or->Add();
 	  }
 	}
