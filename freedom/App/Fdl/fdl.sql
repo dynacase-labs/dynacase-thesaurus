@@ -571,8 +571,12 @@ begin
     END IF;
     wti=wt::int;
     --RAISE NOTICE 'wt %',wt;
+    begin
     insert into docrel(sinitid,cinitid,type) values (a_docid,wti,$3);
-
+     EXCEPTION
+	 WHEN OTHERS THEN
+	    RAISE NOTICE 'Error %',wti;
+     end;
     i:=i+1;
   END LOOP;
     

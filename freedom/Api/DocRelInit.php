@@ -3,7 +3,7 @@
  * Reinit vault files
  *
  * @author Anakeen 2004
- * @version $Id: DocRelInit.php,v 1.2 2007/07/02 13:21:07 eric Exp $
+ * @version $Id: DocRelInit.php,v 1.3 2007/07/02 15:50:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -61,6 +61,9 @@ print "stitle\n";
 $sql="UPDATE docrel set stitle = (select title from docread where id=sinitid) where stitle is  null;";
   $o->exec_query($sql);
 print "ctitle\n";
+
+$sql="DELETE FROM docrel where cinitid not in (select id from docread);";
+  $o->exec_query($sql);
 $sql="UPDATE docrel set ctitle = (select title from docread where id=cinitid) where ctitle is  null;";
   $o->exec_query($sql);
 $sql="UPDATE docrel set cinitid = (select initid from docread where id=cinitid) where cinitid is not null and cinitid > 0";
