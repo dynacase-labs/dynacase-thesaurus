@@ -3,7 +3,7 @@
  * Document Relation Class
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRel.php,v 1.9 2006/09/07 09:09:06 eric Exp $
+ * @version $Id: Class.DocRel.php,v 1.10 2007/07/02 15:51:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -72,7 +72,7 @@ create unique index docrel_u on docrel(sinitid,cinitid,type);
     if ($reltype!="") $q->AddQuery("type='$reltype'");
     if ($doctype!="") $q->AddQuery("doctype='$doctype'");
     $userid=$action->user->id;
-    if ($userid!=1) $q->AddQuery("(profid <= 0 or hasviewprivilege($userid, profid))");
+    //    if ($userid!=1) $q->AddQuery("(profid <= 0 or hasviewprivilege($userid, profid))");
     $l=$q->Query(0,0,"TABLE");
     if (is_array($l))  return $l;
     return array();
