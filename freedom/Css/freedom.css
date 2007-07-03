@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.110 2007/06/29 14:13:45 eric Exp $
+ * $Id: freedom.css,v 1.111 2007/07/03 14:40:55 marc Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -9,10 +9,10 @@
 .FREEDOMTextBigTitle{
   font-weight: bold;
   font-size: [SIZE_X-LARGE];
-  text-align: center;
   font-variant: small-caps;
-  padding-left:30px;
 }
+.famicon { margin-right : 5px; }
+.emblem { margin-right : 2px; }
 
 .FREEDOMTextTitle{
   font-weight: bold;
@@ -106,6 +106,9 @@ TABLE.barmenu {
 	border-width: 0px;
 	border-spacing: 0px;
 	empty-cells: show;
+}
+DIV.barmenu {
+  margin-bottom : 10px; 
 }
 DIV.barmenu A {
   border-color: [COLOR_B5];
