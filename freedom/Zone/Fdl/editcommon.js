@@ -550,8 +550,18 @@ function submitEdit(event) {
      var r=true;
    if (fedit) {
      var fedit= document.getElementById('fedit');
+     //bsubmit.onclick.apply(null,[event]);
      if (fedit.onsubmit) r=fedit.onsubmit();
-     if (r) fedit.submit();
+     if (r) {
+       if (isIE) {
+	 fedit.fireEvent("onsubmit");
+       } else {
+	 oEvent = document.createEvent("HTMLEvents");
+	 oEvent.initEvent("submit",false,false);
+	 fedit.dispatchEvent(oEvent);
+       }
+       fedit.submit();
+     }
    }
    return r;
 }
