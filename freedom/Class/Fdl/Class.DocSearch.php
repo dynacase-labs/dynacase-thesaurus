@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.43 2007/06/29 14:16:21 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.44 2007/07/06 07:40:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -169,6 +169,10 @@ Class DocSearch extends PDocSearch {
    * @param string &$fullkeys return tsearch2 keys for use it in headline sql function 
    */
   static function getFullSqlFilters($keyword,&$sqlfilters,&$sqlorder,&$fullkeys) {
+    $fullkeys="";
+    $sqlorder="";
+    $sqlfilters=array("true");
+    if ($keyword=="") return;
     $pspell_link = pspell_new("fr","","","iso8859-1",PSPELL_FAST);
     $tstatickeys=explode('"',$keyword);
     $tkeybrut=array();
