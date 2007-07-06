@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.15 2006/11/15 18:07:38 marc Exp $
+# $Id: Makefile.in,v 1.16 2007/07/06 12:56:47 yannick Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -17,7 +17,7 @@ GZIP_ENV = --best
 
 export targetdir PACKAGE
 
-SUBDIR=  Class Images Zone Xml Action Css Javascript Families Themes OSync Batch Api Doc
+SUBDIR=  Class Images Zone Xml Action Css Javascript Families Themes OSync Batch Api Doc debian
 
 include $(utildir)/PubRule
 

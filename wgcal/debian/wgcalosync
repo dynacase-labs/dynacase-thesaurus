@@ -1,0 +1,16 @@
+Alias /whatsync /usr/share/what/osync
+<Directory /usr/share/what/osync>
+    php_value include_path ".:/usr/share/what/:/usr/share/what/WHAT:/home/httpd/advGraph:/usr/share/php"
+    php_value session.use_cookies 1
+    php_value session.name "session"
+    php_value session.use_trans_sid 0
+    php_value post_max_size "80M"
+    AddType application/x-httpd-php .php
+    DirectoryIndex  index.php
+    ErrorDocument 401 /what/expire/tryexpire.html
+    AuthType Basic
+    AuthName 'FREEDOM Connection'
+    AuthBasicProvider pam
+    AuthnPAMService httpdwa
+    Require valid-user
+</Directory>

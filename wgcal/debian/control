@@ -1,0 +1,20 @@
+Source: freedom-wgcal
+Section: web
+Priority: extra
+Maintainer: yannick <yannick.lebriquer@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom-wgcal
+Architecture: all
+Depends: freedom-lib , freedom-freeevent
+Description: The Freedom Workgroup Calendar
+ The Freedom Workgroup Calendar
+
+Package: freedom-wgcal-osync
+Architecture: all
+Depends: freedom-wgcal
+Description: Calendar sync with Outlook(tm)
+ Calendar sync with Outlook(tm)
+
+
