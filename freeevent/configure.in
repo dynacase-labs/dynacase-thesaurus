@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.1 2004/11/22 17:10:46 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.2 2007/07/06 12:18:07 yannick Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -53,4 +53,4 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile FREEEVENT_init.php FREEEVENT.spec)
+AC_OUTPUT(Makefile FREEEVENT_init.php FREEEVENT.spec debian/changelog)

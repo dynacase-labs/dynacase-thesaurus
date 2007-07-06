@@ -1,0 +1,12 @@
+Source: freedom-freeevent
+Section: web
+Priority: extra
+Maintainer: yannick <yannick.lebriquer@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom-freeevent
+Architecture: all
+Depends: freedom-lib, freedom-what
+Description:  The Freedom Event Package
+ This package offers the freedom engine to process events

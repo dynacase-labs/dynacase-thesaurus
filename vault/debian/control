@@ -1,0 +1,12 @@
+Source: freedom-vault
+Section: web
+Priority: extra
+Maintainer: yannick <yannick.lebriquer@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom-vault
+Architecture: all
+Depends: apache2, php5-pgsql , postgresql-8.1 | postgresql-8.2 , freedom-what
+Description: The FreeDom Vault Management
+ Vault is a storage file system.

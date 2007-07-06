@@ -1,0 +1,6 @@
+/var/log/what-vault/*.log {
+  weekly
+  rotate 4
+  compress
+}
+
