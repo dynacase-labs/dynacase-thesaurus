@@ -1,0 +1,24 @@
+Source: freedom
+Section: web
+Priority: extra
+Maintainer: yannick <yannick.lebriquer@anakeen.com>
+Build-Depends: debhelper (>= 5), autoconf
+Standards-Version: 3.7.2
+
+Package: freedom
+Architecture: all
+Depends: freedom-lib, freedom-usercard
+Description: Web Hosting Application Toolkit
+ The FREEDOM (Free Document Object Model) module is use to manage document in intranet
+
+Package: freedom-lib
+Architecture: all
+Depends: php5-cli, php-pear, php5-pgsql, php5-gd, php5-mhash , php5-ldap , netpbm, bzip2, unzip, tar, libjpeg-dev, gs, gsfonts, freedom-what, freedom-vault, gettext
+Description: The FreeDom libraries functions
+ The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
+
+Package: freedom-usercard
+Architecture: all
+Depends: freedom-lib, freedom
+Description: The FREEDOM users management
+ The FREEDOM user card module allow to view & edit user card and to insert them in a LDAP server
