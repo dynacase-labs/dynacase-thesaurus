@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.69 2007/05/23 09:13:04 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.70 2007/07/06 08:13:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -304,102 +304,102 @@ function PgUpdateFamilly($dbaccess, $docid) {
     // step by step
     $cdoc->Create();
     setSqlIndex($dbaccess, $docid);
-  } else {      
-    $row = $doc->fetch_array(0,PGSQL_ASSOC);
-    $relid= $row["oid"]; // pg id of the table
-    $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";  
-    $doc->exec_query($sqlquery,1); // search existed attribute of the table
+  }
+  $row = $doc->fetch_array(0,PGSQL_ASSOC);
+  $relid= $row["oid"]; // pg id of the table
+  $sqlquery="select attname FROM pg_attribute where attrelid=$relid;";  
+  $doc->exec_query($sqlquery,1); // search existed attribute of the table
       
-    $nbidx = $doc->numrows();
-    $pgatt = array();
-    for ($c=0; $c < $nbidx; $c++) {
-      $row = $doc->fetch_array($c,PGSQL_ASSOC);      
-      $pgatt[$row["attname"]]=$row["attname"];
+  $nbidx = $doc->numrows();
+  $pgatt = array();
+  for ($c=0; $c < $nbidx; $c++) {
+    $row = $doc->fetch_array($c,PGSQL_ASSOC);      
+    $pgatt[$row["attname"]]=$row["attname"];
 	
-    }
-    // -----------------------------
-    // add column attribute
-    $classname="Doc".$docid;
-    include_once("FDL$GEN/Class.$classname.php");
-    $cdoc = new $classname($dbaccess);
+  }
+  // -----------------------------
+  // add column attribute
+  $classname="Doc".$docid;
+  include_once("FDL$GEN/Class.$classname.php");
+  $cdoc = new $classname($dbaccess);
       
-    $qattr = new QueryDb($dbaccess,"DocAttr");
-    $qattr->AddQuery("docid=".$docid);
-    $qattr->AddQuery("type != 'menu'");
-    $qattr->AddQuery("type != 'frame'");
-    $qattr->AddQuery("type != 'tab'");
-    $qattr->AddQuery("type != 'action'");
-    $qattr->AddQuery("id !~ '^:'");
-    //$qattr->AddQuery("type != 'array'");
-    $qattr->AddQuery("visibility != 'M'");
-    $qattr->AddQuery("visibility != 'F'");
-    $qattr->AddQuery("usefor != 'Q' or usefor is null");
+  $qattr = new QueryDb($dbaccess,"DocAttr");
+  $qattr->AddQuery("docid=".$docid);
+  $qattr->AddQuery("type != 'menu'");
+  $qattr->AddQuery("type != 'frame'");
+  $qattr->AddQuery("type != 'tab'");
+  $qattr->AddQuery("type != 'action'");
+  $qattr->AddQuery("id !~ '^:'");
+  //$qattr->AddQuery("type != 'array'");
+  $qattr->AddQuery("visibility != 'M'");
+  $qattr->AddQuery("visibility != 'F'");
+  $qattr->AddQuery("usefor != 'Q' or usefor is null");
 
-    $oattr=$qattr->Query();
-    if ($qattr->nb > 0) {
-      foreach($oattr as $ka => $attr) {	
-	$tattr[strtolower($attr->id)]=$attr;
-	if ($attr->type=='file') {
-	  $tattr[strtolower($attr->id).'_txt']=$attr;
-	  $tattr[strtolower($attr->id).'_vec']=clone($attr);
-	  $tattr[strtolower($attr->id).'_vec']->type='tsvector';
-	}
-      }     
+  $oattr=$qattr->Query();
+  if ($qattr->nb > 0) {
+    foreach($oattr as $ka => $attr) {	
+      $tattr[strtolower($attr->id)]=$attr;
+      if ($attr->type=='file') {
+	$tattr[strtolower($attr->id).'_txt']=$attr;
+	$tattr[strtolower($attr->id).'_vec']=clone($attr);
+	$tattr[strtolower($attr->id).'_vec']->type='tsvector';
+      }
+    }     
       
-      foreach($tattr as $ka => $attr) {
-	if ($attr->type == "array") continue; // skip array but must be in table to search element in arrays
-	$attr->id=chop($attr->id);
-	if ($attr->type=="array") continue; // don't use column for container
-	if ($attr->docid == $docid) { // modify my field not inherited fields
+    foreach($tattr as $ka => $attr) {
+      if ($attr->type == "array") continue; // skip array but must be in table to search element in arrays
+      $attr->id=chop($attr->id);
+      if ($attr->type=="array") continue; // don't use column for container
+      if ($attr->docid == $docid) { // modify my field not inherited fields
 
-	  if (! in_array($ka, $pgatt)) {
-	    $msg .= "add field $ka in table doc".$docid."\n";
+	if (! in_array($ka, $pgatt)) {
+	  $msg .= "add field $ka in table doc".$docid."\n";
 
-	    if (($attr->repeat) || (($tattr[$attr->frameid]->type=="array")&&($attr->type!='tsvector'))) { 
+	  if (($attr->repeat) || (($tattr[$attr->frameid]->type=="array")&&($attr->type!='tsvector'))) { 
 		
-		$sqltype = " text";  // for the moment all repeat are text
-	    } else {
-	      switch($attr->type) {
-	      case double:
-	      case money:
-		$sqltype = " float8";  
-		break;
-	      case int:
-	      case integer:
-		$sqltype = " int4";  
-		break;
-	      case date:
-		$sqltype = " date"; 
-		break;
-	      case timestamp:
-		$sqltype = " timestamp with time zone"; 
-		break;
-	      case time:
-		$sqltype = " time";  
-		break;
-	      case tsvector:
-		$sqltype = " tsvector";  
-		break;
-	      default: 
-		$sqltype = " text";    
-	      }
+	    $sqltype = " text";  // for the moment all repeat are text
+	  } else {
+	    switch($attr->type) {
+	    case double:
+	    case money:
+	      $sqltype = " float8";  
+	      break;
+	    case int:
+	    case integer:
+	      $sqltype = " int4";  
+	      break;
+	    case date:
+	      $sqltype = " date"; 
+	      break;
+	    case timestamp:
+	      $sqltype = " timestamp with time zone"; 
+	      break;
+	    case time:
+	      $sqltype = " time";  
+	      break;
+	    case tsvector:
+	      $sqltype = " tsvector";  
+	      break;
+	    default: 
+	      $sqltype = " text";    
 	    }
-	    $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN $ka $sqltype;";
-	    $doc->exec_query($sqlquery,1); // add new field
 	  }
+	  $sqlquery="ALTER TABLE doc".$docid." ADD COLUMN $ka $sqltype;";
+	  $doc->exec_query($sqlquery,1); // add new field
 	}
       }
     }
-
-    $ncdoc=new_Doc($dbaccess,$docid);
-    if (isset($ncdoc->attributes->fromids)&& (in_array(2,$ncdoc->attributes->fromids)) && ($ncdoc->usefor=="N")) {
-      // its a folder
-      $ncdoc->usefor="F";
-      print "\nchange usefor to F\n";
-      $ncdoc->modify();
-    }
-
   }
+
+  $ncdoc=new_Doc($dbaccess,$docid);
+  if (isset($ncdoc->attributes->fromids)&& (in_array(2,$ncdoc->attributes->fromids)) && ($ncdoc->usefor=="N")) {
+    // its a folder
+    $ncdoc->usefor="F";
+    print "\nchange usefor to F\n";
+    $ncdoc->modify();
+  }
+
+  
   return $msg;
 }
 
