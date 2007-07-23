@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.118 2007/06/28 09:37:20 eric Exp $
+ * @version $Id: editutil.php,v 1.119 2007/07/23 16:31:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -773,6 +773,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
       }
+      $lay->set("readonly",($oattr->mvisibility=='U'));
       if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
       
 
