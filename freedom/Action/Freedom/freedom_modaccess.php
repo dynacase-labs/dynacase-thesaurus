@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_modaccess.php,v 1.12 2007/06/14 15:46:12 eric Exp $
+ * @version $Id: freedom_modaccess.php,v 1.13 2007/07/23 13:56:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: freedom_modaccess.php,v 1.12 2007/06/14 15:46:12 eric Exp $
+// $Id: freedom_modaccess.php,v 1.13 2007/07/23 13:56:56 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/freedom_modaccess.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2000
@@ -69,6 +69,9 @@ function freedom_modaccess(&$action) {
     }
     if ($perm->isAffected()) $err=$perm ->modify();
     else $err=$perm->Add();
+    if ($err!="") {
+      if ($perm->isAffected()) $err=$perm->delete();
+    }
   }
   if ($err!="") $action->exitError($err);
   // recompute all related profile
