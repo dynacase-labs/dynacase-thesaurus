@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.3 2007/05/25 16:29:07 eric Exp $
+ * @version $Id: popupfamdetail.php,v 1.4 2007/07/23 13:56:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,6 +33,7 @@ function getpopupfamdetail(&$action,$docid) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
 
+  if ($doc->isAffected()) $docid=$doc->id;
 
 
 
@@ -119,7 +120,7 @@ function getpopupfamdetail(&$action,$docid) {
 				  "visibility"=>POPUP_ACTIVE,
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
-	       "editprof"=>array( "descr"=>_("Change profile"),
+	       "editprof"=>array( "descr"=>_("Change profile of family document"),
 				  "url"=>"$surl&app=FREEDOM&action=EDITPROF&id=$docid",
 				  "confirm"=>"false",
 				  "control"=>"false",
@@ -128,7 +129,7 @@ function getpopupfamdetail(&$action,$docid) {
 				  "visibility"=>POPUP_ACTIVE,
 				  "submenu"=>"security",
 				  "barmenu"=>"false"),
-	       "editcprof"=>array( "descr"=>_("Change creation profile"),
+	       "editcprof"=>array( "descr"=>_("Change profile for new documents"),
 				  "url"=>"$surl&app=FREEDOM&action=EDITPROF&create=1&id=$docid",
 				  "confirm"=>"false",
 				  "control"=>"false",
@@ -152,7 +153,7 @@ function getpopupfamdetail(&$action,$docid) {
 				  "control"=>"false",
 				  "tconfirm"=>"",
 				  "target"=>"_self",
-				  "visibility"=>POPUP_ACTIVE,
+				  "visibility"=>POPUP_INACTIVE,
 				  "submenu"=>"",
 				  "barmenu"=>"false"),
 	       "editwdoc"=>array( "descr"=>_("Choose workflow"),
@@ -227,9 +228,9 @@ function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
   }
 
   if ($doc->Control("modifyacl") == "") {
-    $tlink["editprof"]["visibility"]=POPUP_CTRLACTIVE;
+    $tlink["editprof"]["visibility"]=POPUP_ACTIVE;
   } else {
-    $tlink["editprof"]["visibility"]=POPUP_CTRLINACTIVE;
+    $tlink["editprof"]["visibility"]=POPUP_INACTIVE;
   }
 
 
@@ -246,7 +247,9 @@ function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
 
 
 
-  
+  if ($doc->dfldid != "") {
+    $tlink["editcfld"]["visibility"]=POPUP_ACTIVE;
+  }
 
 
 

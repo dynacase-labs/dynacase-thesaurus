@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.19 2007/07/02 13:21:07 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.20 2007/07/23 13:56:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,7 +28,7 @@ function getpopupdocdetail(&$action,$docid) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid);
-
+  if ($doc->isAffected()) $docid=$doc->id;
   //  if ($doc->doctype=="C") return; // not for familly
 
 
