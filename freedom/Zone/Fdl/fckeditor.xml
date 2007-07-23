@@ -37,13 +37,38 @@ oFCKeditor[aid].Height='[height]';
 oFCKeditor[aid].Value='[Value]';
 
 oFCKeditor[aid].Create();
-
-function trackQS() {
+NB_FCKEDITORS++;
+function trackQS_[aid]() {
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
-  if (oEditor.EditorDocument) addEvent(oEditor.EditorDocument,"keydown",trackKeysQuickSave);
-  else window.setTimeout( trackQS, 1000 ) ;
+  if (oEditor.EditorDocument) {   
+    addEvent(oEditor.EditorDocument,"keydown",trackKeysQuickSave);  
+    if (isNetscape) addEvent(oEditor.EditorDocument,"mouseover",fckforceedit_[aid]);    
+  } else window.setTimeout( trackQS_[aid], 1000 ) ;
 }
 
-addEvent(window,"load",trackQS);
+function fckforceedit_[aid]() {
+  var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
+
+  if (oEditor.EditorDocument) {
+    if (  oEditor.EditMode == FCK_EDITMODE_WYSIWYG ){
+      oEditor.MakeEditable();
+    }
+  } 
+}
+function wstop_[aid]() { 
+  var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
+
+  if (oEditor.EditorDocument) {
+    //    alert('_[aid]');
+    NB_FCKEDITORS_INIT--;
+    if (NB_FCKEDITORS_INIT<=0) window.stop();
+  } else {
+    window.setTimeout( wstop_[aid], 1000 ) ;
+  }
+  
+ }
+addEvent(window,"load",trackQS_[aid]);
+if (isNetscape) window.setTimeout( wstop_[aid], 3000 ) ;
+
 </script>

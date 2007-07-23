@@ -1,7 +1,8 @@
 var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
-
+var NB_FCKEDITORS_INIT=0;
+var NB_FCKEDITORS=0;
 // current instance
 var colorPick = new ColorPicker();
 initDHTMLAPI();
