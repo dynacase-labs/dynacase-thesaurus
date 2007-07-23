@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.125 2007/05/24 15:06:39 eric Exp $
+ * @version $Id: import_file.php,v 1.126 2007/07/23 16:36:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -628,8 +628,19 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
       if ($docid > 0) $doc->id=$docid;
     }
   }
+  if ($doc->id > 0) {
+    $doc=new_doc($doc->dbaccess,$doc->id);
+  }
 
-  if ( (intval($doc->id) == 0) || (! $doc -> Select($doc->id))) {
+  $tcr["err"]="$fromid -".$doc->fromid;
+  if ($doc->fromid != $fromid) {
+      //       $doc = new_Doc($doc->dbaccess,$doc->latestId());
+      $tcr["action"]="ignored"; 
+      $tcr["id"]=$doc->id;
+      $tcr["err"]=_('not same family');
+      return $tcr;
+  }
+  if ( (intval($doc->id) == 0) || (! $doc->isAffected())) {
     $tcr["action"]="added";    
   } else {
     if ($doc->doctype=='Z') {
@@ -638,8 +649,13 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     }
 
     if ($doc->locked == -1) {
-       $doc = new_Doc($doc->dbaccess,$doc->latestId());
+      //       $doc = new_Doc($doc->dbaccess,$doc->latestId());
+      $tcr["action"]="ignored"; 
+      $tcr["id"]=$doc->id;
+      $tcr["err"]=_('fixed document');
+      return $tcr;
     }
+    
     $tcr["action"]="updated";
     $tcr["id"]=$doc->id;
     $msg .= $err . sprintf(_("update id [%d] "),$doc->id);
