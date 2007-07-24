@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.6 2007/06/18 12:38:15 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.7 2007/07/24 15:15:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,7 +91,7 @@ function vault_get_content($idfile) {
  */
 function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
   if (($docid >0)  && ($vid>0)) {
-    if (include_once("TE/Class.TEClient.php")) {
+    if (@include_once("TE/Class.TEClient.php")) {
       global $action;
       include_once("FDL/Class.TaskRequest.php");
       $of=new VaultDiskStorage($dbaccess,$vid);
