@@ -226,7 +226,7 @@ create or replace function to2_ascii(text)
 returns text as $$
 declare 
 begin
-   return translate(lower($1),'éèêëàâùüçôîïÉÈÊËÀÂÙÜÇÔÎÏ','eeeeaauucoiieeeeaauucoii');
+   return translate(lower($1),'éèêëàâùüçôîïÉÈÊËÀÂÙÜÇÔÎÏ.','eeeeaauucoiieeeeaauucoii ');
 end;
 $$ language 'plpgsql' ;
 
