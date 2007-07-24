@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.48 2007/05/04 16:11:40 eric Exp $
+ * @version $Id: barmenu.php,v 1.49 2007/07/24 15:02:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,12 +53,14 @@ function barmenu(&$action) {
     $child[$famid] = array("title"=> $fdoc->title,
 			   "id" => $famid);
   } else $child=array();
-  $child += $fdoc->GetChildFam($fdoc->id,true);
+  
+  $onlyonefam=(getInherit($action,$famid)=="N");
+  if (!$onlyonefam) $child += $fdoc->GetChildFam($fdoc->id,true);
   
 
   $tchild = array();
   $tnewmenu= array();
-  while (list($k,$vid) = each($child)) {
+  foreach($child as $k=>$vid) {
     $tchild[] = array("stitle" => $vid["title"],
 		      "subfam" => $vid["id"]);
     $tnewmenu[]="newdoc".$k;
