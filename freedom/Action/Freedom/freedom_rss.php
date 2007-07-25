@@ -3,7 +3,7 @@
  * RSS syndication on a folder (search, folders, report....)
  *
  * @author Anakeen 2003
- * @version $Id: freedom_rss.php,v 1.5 2007/07/25 09:45:03 eric Exp $
+ * @version $Id: freedom_rss.php,v 1.6 2007/07/25 11:35:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -110,6 +110,7 @@ function freedom_rss(&$action) {
   $action->lay->set("rssname", $doc->getTitle());
 
   $lines = array();
+  setlocale(LC_TIME, "C");
   foreach ($ldoc as $kdoc => $vdoc) {
     $zdoc = getDocObject($dbaccess,$vdoc);
     $descr = '';
