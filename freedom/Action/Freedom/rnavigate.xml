@@ -119,11 +119,16 @@ function processReqChange() {
 	    title=elt.getElementsByTagName("title")[0].firstChild.nodeValue;
 	    aid=elt.getElementsByTagName("aid")[0].firstChild.nodeValue;
 	    alabel=elt.getElementsByTagName("alabel")[0].firstChild.nodeValue;
+	    if (parseInt(sdocid)>0) {
 	    oa=document.createElement("a");
 	    oa.onclick=new Function("viewrel(this,'"+sdocid+"');");
 	    oa.title=alabel;
 	    oa.className='mha';
-	    oa.innerHTML='<img height="16px" title="[TEXT:view document]" onclick="subwindow(300,400,\'_blank\',\'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id='+sdocid+'\');stopPropagation(event);return false" src="'+icon+'">'+title+'<br/>';
+	       oa.innerHTML='<img height="16px" title="[TEXT:view document]" onclick="subwindow(300,400,\'_blank\',\'[CORE_STANDURL]app=FDL&action=FDL_CARD&latest=Y&id='+sdocid+'\');stopPropagation(event);return false" src="'+icon+'">'+title+'<br/>';
+	    } else {
+	      oa=document.createElement("i");
+	      oa.innerHTML='&nbsp;&nbsp;'+'[TEXT:noone document]<br/>';
+	    }
 	    od.appendChild(oa);
 	    
 	  }

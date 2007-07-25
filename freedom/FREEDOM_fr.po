@@ -6,115 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-02 14:59+0200\n"
-"PO-Revision-Date: 2007-07-02 15:00+0200\n"
+"POT-Creation-Date: 2007-07-25 16:25+0200\n"
+"PO-Revision-Date: 2007-07-25 16:27+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "no document reference"
-msgstr "pas de référence au document"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
-
 #, c-format
 msgid "cannot see unknow reference %s"
 msgstr "impossible de voir : la référence %s est inconnue"
-
-msgid "No identificator"
-msgstr "Pas d'identificateurs"
-
-msgid "Properties"
-msgstr "Propriétés"
-
-msgid "View latest"
-msgstr "révision courante"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-#, c-format
-msgid "Sure delete %s ?"
-msgstr "Etes vous sur de vouloir supprimer %s ?"
-
-msgid "restore"
-msgstr "restaurer"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "security"
-msgstr "sécurité"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Sure duplicate ?"
-msgstr "Etes vous sur de vouloir dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Change icon"
-msgstr "Changer d'icone"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Search linked documents 2"
-msgstr "Recherche des documents liés"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-msgid "specialedit"
-msgstr "Éditions spéciales"
-
-msgid "specialview"
-msgstr "Vues spéciales"
-
-#, c-format
-msgid "Change state %s"
-msgstr "Changement d'état vers %s"
-
-#, c-format
-msgid "Comment for change state to %s"
-msgstr "Raison du changement d'état vers %s"
-
-msgid "chgstates"
-msgstr "Changer d'état"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
 
 #, c-format
 msgid "unknown attribute %s for document %s"
@@ -180,6 +82,13 @@ msgstr "L'archive Zip n'a pas pu être créée"
 msgid "file for %s not found."
 msgstr "fichier pour %s non trouvé"
 
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
+
 #, c-format
 msgid "the method %s does not exist for this document"
 msgstr "La méthode '%s' n'existe pas pour ce document"
@@ -194,8 +103,96 @@ msgstr "absence d'adresse couriel"
 msgid "no avalaible persons found"
 msgstr "pas de personnes valides trouvées"
 
+msgid "No identificator"
+msgstr "Pas d'identificateurs"
+
+msgid "Properties"
+msgstr "Propriétés"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+#, c-format
+msgid "Sure delete %s ?"
+msgstr "Etes vous sur de vouloir supprimer %s ?"
+
+msgid "restore"
+msgstr "restaurer"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "security"
+msgstr "sécurité"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Sure duplicate ?"
+msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Change icon"
+msgstr "Changer d'icone"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
 msgid "Document relations"
 msgstr "Relations du document"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+msgid "specialedit"
+msgstr "Éditions spéciales"
+
+msgid "specialview"
+msgstr "Vues spéciales"
+
+#, c-format
+msgid "Change state %s"
+msgstr "Changement d'état vers %s"
+
+#, c-format
+msgid "Comment for change state to %s"
+msgstr "Raison du changement d'état vers %s"
+
+msgid "chgstates"
+msgstr "Changer d'état"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -587,8 +584,11 @@ msgstr "Valeurs des paramètres"
 msgid "Rename"
 msgstr "Renommer"
 
-msgid "Change creation profile"
-msgstr "Changer de profil par défaut"
+msgid "Change profile of family document"
+msgstr "Changer le profil du document famille"
+
+msgid "Change profile for new documents"
+msgstr "Changer le profil pour les nouveaux documents"
 
 msgid "Change root folder"
 msgstr "Changer le dossier racine"
@@ -625,6 +625,15 @@ msgstr "vers %s"
 #, c-format
 msgid "Change state to %s"
 msgstr "Changement d'état vers %s"
+
+msgid "type"
+msgstr "type"
+
+msgid "Referenced from"
+msgstr "Référencé depuis"
+
+msgid "Reference"
+msgstr "Référence"
 
 #, c-format
 msgid ""
@@ -932,12 +941,6 @@ msgstr "figé"
 msgid "changed"
 msgstr "modifié"
 
-msgid "Referenced from"
-msgstr "Référencé depuis"
-
-msgid "Reference"
-msgstr "Référence"
-
 msgid "creation of document family"
 msgstr "Création de famille de documents"
 
@@ -967,6 +970,15 @@ msgstr "<b>%d groupe(s) à actualiser"
 
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
+
+msgid "precise search"
+msgstr "Précisez la recherche"
+
+msgid "next"
+msgstr "suivant"
+
+msgid "prev"
+msgstr "suivant"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1024,15 +1036,6 @@ msgstr "Ajout dans dossier %s"
 #, c-format
 msgid "related search of %s"
 msgstr "recherche relative de %s"
-
-msgid "precise search"
-msgstr "Précisez la recherche"
-
-msgid "next"
-msgstr "suivant"
-
-msgid "prev"
-msgstr "suivant"
 
 #, c-format
 msgid "Modification for attribute %s for family %s"
@@ -2686,64 +2689,6 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr "période du %s au %s"
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid "this kind of document cannot be duplicate"
-msgstr "ce type de document ne peut être dupliqué"
-
-msgid "duplication of"
-msgstr "duplication de"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr "la duplication est nommée : %s"
-
-msgid "error in filename"
-msgstr "erreur dans le nom de fichier"
-
-msgid "no image"
-msgstr "pas d'image"
-
-msgid "open file with your editor"
-msgstr "ouvrir le fichier avec votre éditeur"
-
-#, c-format
-msgid "set for %s, unset for %s"
-msgstr "cocher pour %s, décocher pour %s"
-
-msgid "color picker"
-msgstr "choix de couleur"
-
-#, c-format
-msgid "choose inputs for %s"
-msgstr "choisir une valeur pour %s"
-
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
-
-msgid "add inputs"
-msgstr "ajouter entrée"
-
-#, c-format
-msgid "elinkEncode::attribute not found %s"
-msgstr "elinkEncode :  attribut non trouvé %s"
-
-#, c-format
-msgid "create new %s"
-msgstr "créé par %s"
-
 #, c-format
 msgid ""
 "Document cannot be created.\n"
@@ -2802,6 +2747,58 @@ msgstr "Le fichier '%s' n'a pu être transmis."
 msgid "Possible file upload attack: filename '%s'."
 msgstr "Possibilité d'atttaque 'upload' : fichier %s"
 
+#, c-format
+msgid "period from %s to %s"
+msgstr "période du %s au %s"
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid "this kind of document cannot be duplicate"
+msgstr "ce type de document ne peut être dupliqué"
+
+msgid "duplication of"
+msgstr "duplication de"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr "la duplication est nommée : %s"
+
+msgid "error in filename"
+msgstr "erreur dans le nom de fichier"
+
+msgid "no image"
+msgstr "pas d'image"
+
+msgid "open file with your editor"
+msgstr "ouvrir le fichier avec votre éditeur"
+
+#, c-format
+msgid "set for %s, unset for %s"
+msgstr "cocher pour %s, décocher pour %s"
+
+msgid "color picker"
+msgstr "choix de couleur"
+
+#, c-format
+msgid "choose inputs for %s"
+msgstr "choisir une valeur pour %s"
+
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
+
+msgid "add inputs"
+msgstr "ajouter entrée"
+
+#, c-format
+msgid "elinkEncode::attribute not found %s"
+msgstr "elinkEncode :  attribut non trouvé %s"
+
+#, c-format
+msgid "create new %s"
+msgstr "créé par %s"
+
 msgid "Security"
 msgstr "Sécurité"
 
@@ -2822,6 +2819,12 @@ msgstr "sous-menu"
 
 msgid "States"
 msgstr "États"
+
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
 
 #, c-format
 msgid "%d documents"
@@ -2948,6 +2951,9 @@ msgstr "Raison du changement d'état"
 msgid "Cancel the change state"
 msgstr "Annulation du changement d'état"
 
+msgid "Relation document"
+msgstr "Relations entre documents"
+
 msgid "Creation"
 msgstr "Création"
 
@@ -3031,9 +3037,6 @@ msgstr "ordre"
 
 msgid "name"
 msgstr "Nom"
-
-msgid "type"
-msgstr "type"
 
 msgid "frame"
 msgstr "fenêtre"
@@ -3435,8 +3438,8 @@ msgstr "toutes les familles"
 msgid "restrict to preferred families"
 msgstr "restriction aux familles préférées"
 
-msgid "Relation document"
-msgstr "Relations entre documents"
+msgid "no document"
+msgstr "Aucun document"
 
 msgid "Family Creation"
 msgstr "Création de famille"
@@ -3501,35 +3504,6 @@ msgstr "Suivant"
 msgid "Freedom Search"
 msgstr "Recherche Freedom"
 
-msgid "Refresh users characteristics from system"
-msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
-
-msgid "Refresh users may take long time. Sure ?"
-msgstr ""
-"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
-
-msgid "Refresh users"
-msgstr "Actualiser les utilisateurs"
-
-msgid "Refresh LDAP"
-msgstr "Actualiser LDAP"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
-
-msgid "Refresh Groups members and mail"
-msgstr "Raffraichissement des membres et du mail"
-
-msgid "Refersh groups may take long time. Sure ?"
-msgstr ""
-"Rafraichir les groupes peut prendre beaucoup de temps.  Êtes vous sûr ?"
-
-msgid "Refresh groups"
-msgstr "Actualiser les groupes"
-
-msgid "Generic Management"
-msgstr "Gestion générique"
-
 msgid "users list"
 msgstr "liste des utilisateurs"
 
@@ -3545,9 +3519,21 @@ msgstr "Créer un nouveau groupe"
 msgid "view detail"
 msgstr "voir détails"
 
+msgid "Refresh users characteristics from system"
+msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
+
 msgid "Refersh users may take long time. Sure ?"
 msgstr ""
 "Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh users"
+msgstr "Actualiser les utilisateurs"
+
+msgid "Refresh LDAP"
+msgstr "Actualiser LDAP"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
 
 msgid "Refresh Group members and mail"
 msgstr "Actualiser les membres du groupe ainsi que son email"
@@ -3580,8 +3566,34 @@ msgstr "Ajouter uo modifier des valeurs de catégorie"
 msgid "Modify"
 msgstr "Modifier"
 
+msgid "Refresh users may take long time. Sure ?"
+msgstr ""
+"Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh Groups members and mail"
+msgstr "Raffraichissement des membres et du mail"
+
+msgid "Refersh groups may take long time. Sure ?"
+msgstr ""
+"Rafraichir les groupes peut prendre beaucoup de temps.  Êtes vous sûr ?"
+
+msgid "Refresh groups"
+msgstr "Actualiser les groupes"
+
+msgid "Generic Management"
+msgstr "Gestion générique"
+
 msgid "enum attribute list"
 msgstr "liste des attributs énumérés"
+
+msgid "Send search"
+msgstr "Lancer la recherche"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "toedit"
+msgstr "éditer"
 
 msgid "Sort"
 msgstr "Tri"
@@ -3740,15 +3752,6 @@ msgstr "Nouvelle catégorie"
 
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
-
-msgid "Send search"
-msgstr "Lancer la recherche"
-
-msgid "Go"
-msgstr "Go"
-
-msgid "toedit"
-msgstr "éditer"
 
 msgid "Family preferences"
 msgstr "Préférences des familles"
@@ -4054,6 +4057,9 @@ msgstr "Affecter"
 msgid "Confirm"
 msgstr "Confirmez"
 
+msgid "Change creation profile"
+msgstr "Changer de profil par défaut"
+
 msgid "Change default folder"
 msgstr "Changer dossier par défaut"
 
@@ -4062,18 +4068,6 @@ msgstr "Changer dossier courant"
 
 msgid "delconfirm"
 msgstr "Voulez-vous supprimer"
-
-msgid "Print"
-msgstr "Imprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "Envoyer le document"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
 
 msgid "mini view"
 msgstr "mini vue"
@@ -4167,6 +4161,21 @@ msgstr "Choisissez un document avant de choisir les options"
 
 msgid "quick save not possible"
 msgstr "Sauvegarde rapide impossible"
+
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "Envoyer le document"
+
+msgid "RSS link"
+msgstr "S'abonner au lien RSS"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
 
 msgid "View family"
 msgstr "Voir la famille"
@@ -4399,6 +4408,9 @@ msgid ""
 msgstr ""
 "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser "
 "le menu \"Ouvrir\" à partir du menu contextuel."
+
+#~ msgid "Search linked documents 2"
+#~ msgstr "Recherche des documents liés"
 
 #~ msgid "Save and close"
 #~ msgstr "Sauver et fermer"

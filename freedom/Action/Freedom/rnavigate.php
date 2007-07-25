@@ -3,7 +3,7 @@
  * Relation Navigation
  *
  * @author Anakeen 2005
- * @version $Id: rnavigate.php,v 1.3 2007/07/02 13:21:07 eric Exp $
+ * @version $Id: rnavigate.php,v 1.4 2007/07/25 14:53:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -34,22 +34,39 @@ function rnavigate(&$action) {
   $tlay=array();
   
   $trel=$rdoc->getIRelations();
+  if (count($trel)==0) {
+    $tlay['_F']=array("iconsrc"=>"",
+		      "initid"=>0,
+		      "title"=>"",
+		      "aid"=>"",
+		      "alabel"=>"",
+		      "type"=>_("Referenced from"));
+  }
   foreach ($trel as $k=>$v) {
     $tlay[$v["sinitid"].'_F']=array("iconsrc"=>$doc->getIcon($v["sicon"]),
-			       "initid"=>$v["sinitid"],
-			       "title"=>$v["stitle"],
-			       "aid"=>$v["type"],
+				    "initid"=>$v["sinitid"],
+				    "title"=>$v["stitle"],
+				    "aid"=>$v["type"],
 				    "alabel"=>_($v["type"]),
-			       "type"=>_("Referenced from"));
+				    "type"=>_("Referenced from"));
   }
+  
   $trel=$rdoc->getRelations();
+  if (count($trel)==0) {
+    $tlay['_T']=array("iconsrc"=>"",
+		      "initid"=>0,
+		      "title"=>"",
+		      "aid"=>"",
+		      "alabel"=>"",
+		      "type"=>_("Reference"));
+  }
   foreach ($trel as $k=>$v) {
     $tlay[$v["cinitid"].'_T']=array("iconsrc"=>$doc->getIcon($v["cicon"]),
-			       "initid"=>$v["cinitid"],
-			       "title"=>$v["ctitle"],
-			       "aid"=>$v["type"],
+				    "initid"=>$v["cinitid"],
+				    "title"=>$v["ctitle"],
+				    "aid"=>$v["type"],
 				    "alabel"=>_($v["type"]),
-			       "type"=>_("Reference"));
+				    "type"=>_("Reference"));
   }
   
   if (count($tlay)>0) {

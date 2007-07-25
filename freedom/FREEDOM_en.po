@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-02 14:59+0200\n"
+"POT-Creation-Date: 2007-07-25 16:25+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,6 +14,74 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot copy %s"
+msgstr "Category"
+
+msgid "Zip Archive cannot be created"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
 
 #, fuzzy
 msgid "no document reference"
@@ -24,7 +92,18 @@ msgid "unknow logical reference '%s'"
 msgstr ""
 
 #, c-format
-msgid "cannot see unknow reference %s"
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
 msgstr ""
 
 msgid "No identificator"
@@ -104,8 +183,8 @@ msgid "View XML"
 msgstr ""
 
 #, fuzzy
-msgid "Search linked documents 2"
-msgstr "Delete"
+msgid "Document relations"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Search linked documents"
@@ -133,89 +212,6 @@ msgstr "Identity"
 #, c-format
 msgid "Sure %s ?"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot copy %s"
-msgstr "Category"
-
-msgid "Zip Archive cannot be created"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
-msgstr ""
-
-#, fuzzy
-msgid "Document relations"
-msgstr "Organisation"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -620,7 +616,11 @@ msgid "Rename"
 msgstr "Lastname"
 
 #, fuzzy
-msgid "Change creation profile"
+msgid "Change profile of family document"
+msgstr "Category"
+
+#, fuzzy
+msgid "Change profile for new documents"
 msgstr "Category"
 
 #, fuzzy
@@ -661,6 +661,17 @@ msgstr "Modify"
 #, fuzzy, c-format
 msgid "Change state to %s"
 msgstr "Category"
+
+msgid "type"
+msgstr ""
+
+#, fuzzy
+msgid "Referenced from"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Reference"
+msgstr "Delete"
 
 #, c-format
 msgid ""
@@ -970,14 +981,6 @@ msgid "changed"
 msgstr ""
 
 #, fuzzy
-msgid "Referenced from"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Reference"
-msgstr "Delete"
-
-#, fuzzy
 msgid "creation of document family"
 msgstr "Start search"
 
@@ -1009,6 +1012,17 @@ msgstr ""
 #, fuzzy
 msgid "No need to refresh group"
 msgstr "Delete"
+
+#, fuzzy
+msgid "precise search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "next"
+msgstr "Export this card"
+
+msgid "prev"
+msgstr ""
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1066,17 +1080,6 @@ msgstr "Modify"
 #, fuzzy, c-format
 msgid "related search of %s"
 msgstr "Start search"
-
-#, fuzzy
-msgid "precise search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "next"
-msgstr "Export this card"
-
-msgid "prev"
-msgstr ""
 
 #, c-format
 msgid "Modification for attribute %s for family %s"
@@ -2852,12 +2855,54 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
-msgid "This document has been deleted"
+#, c-format
+msgid ""
+"Document cannot be created.\n"
+"The upload size limit is %s bytes."
 msgstr ""
 
+msgid ""
+"Some constraint attribute are not respected.\n"
+"You must correct these values before save document."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "change %s"
+msgstr "Start search"
+
 #, fuzzy
-msgid "nobody"
-msgstr "No embed file"
+msgid "change"
+msgstr "Start search"
+
+#, fuzzy, c-format
+msgid "auto revision"
+msgstr "Organisation"
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit is %s bytes."
+msgstr ""
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit was specified in the HTML form."
+msgstr ""
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted completly.\n"
+"May be saturation of server disk."
+msgstr ""
+
+#, c-format
+msgid "Filename '%s' cannot be transmitted."
+msgstr ""
+
+#, c-format
+msgid "Possible file upload attack: filename '%s'."
+msgstr ""
 
 #, c-format
 msgid "period from %s to %s"
@@ -2914,55 +2959,6 @@ msgstr ""
 msgid "create new %s"
 msgstr "Edit"
 
-#, c-format
-msgid ""
-"Document cannot be created.\n"
-"The upload size limit is %s bytes."
-msgstr ""
-
-msgid ""
-"Some constraint attribute are not respected.\n"
-"You must correct these values before save document."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "change %s"
-msgstr "Start search"
-
-#, fuzzy
-msgid "change"
-msgstr "Start search"
-
-#, fuzzy, c-format
-msgid "auto revision"
-msgstr "Organisation"
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit is %s bytes."
-msgstr ""
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit was specified in the HTML form."
-msgstr ""
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted completly.\n"
-"May be saturation of server disk."
-msgstr ""
-
-#, c-format
-msgid "Filename '%s' cannot be transmitted."
-msgstr ""
-
-#, c-format
-msgid "Possible file upload attack: filename '%s'."
-msgstr ""
-
 msgid "Security"
 msgstr ""
 
@@ -2984,6 +2980,13 @@ msgstr ""
 #, fuzzy
 msgid "States"
 msgstr "Identity"
+
+msgid "This document has been deleted"
+msgstr ""
+
+#, fuzzy
+msgid "nobody"
+msgstr "No embed file"
 
 #, fuzzy, c-format
 msgid "%d documents"
@@ -3140,6 +3143,10 @@ msgid "Cancel the change state"
 msgstr "Category"
 
 #, fuzzy
+msgid "Relation document"
+msgstr "Delete"
+
+#, fuzzy
 msgid "Creation"
 msgstr "Edit"
 
@@ -3242,9 +3249,6 @@ msgstr "Delete"
 #, fuzzy
 msgid "name"
 msgstr "Lastname"
-
-msgid "type"
-msgstr ""
 
 #, fuzzy
 msgid "frame"
@@ -3743,8 +3747,8 @@ msgid "restrict to preferred families"
 msgstr "Modify"
 
 #, fuzzy
-msgid "Relation document"
-msgstr "Delete"
+msgid "no document"
+msgstr "Import"
 
 #, fuzzy
 msgid "Family Creation"
@@ -3825,36 +3829,6 @@ msgstr "Export this card"
 msgid "Freedom Search"
 msgstr "Start search"
 
-msgid "Refresh users characteristics from system"
-msgstr ""
-
-msgid "Refresh users may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh users"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh LDAP"
-msgstr "Delete"
-
-msgid "Refresh LDAP may take long time. Sure ?"
-msgstr ""
-
-msgid "Refresh Groups members and mail"
-msgstr ""
-
-msgid "Refersh groups may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh groups"
-msgstr "Delete"
-
-msgid "Generic Management"
-msgstr ""
-
 msgid "users list"
 msgstr ""
 
@@ -3873,7 +3847,21 @@ msgstr "Create"
 msgid "view detail"
 msgstr "Start search"
 
+msgid "Refresh users characteristics from system"
+msgstr ""
+
 msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh users"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh LDAP"
+msgstr "Delete"
+
+msgid "Refresh LDAP may take long time. Sure ?"
 msgstr ""
 
 msgid "Refresh Group members and mail"
@@ -3913,9 +3901,36 @@ msgstr ""
 msgid "Modify"
 msgstr "Modify"
 
+msgid "Refresh users may take long time. Sure ?"
+msgstr ""
+
+msgid "Refresh Groups members and mail"
+msgstr ""
+
+msgid "Refersh groups may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh groups"
+msgstr "Delete"
+
+msgid "Generic Management"
+msgstr ""
+
 #, fuzzy
 msgid "enum attribute list"
 msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Send search"
+msgstr "Start search"
+
+msgid "Go"
+msgstr ""
+
+#, fuzzy
+msgid "toedit"
+msgstr "Edit"
 
 #, fuzzy
 msgid "Sort"
@@ -4093,17 +4108,6 @@ msgstr "Category"
 #, fuzzy
 msgid "add new category"
 msgstr "Category"
-
-#, fuzzy
-msgid "Send search"
-msgstr "Start search"
-
-msgid "Go"
-msgstr ""
-
-#, fuzzy
-msgid "toedit"
-msgstr "Edit"
 
 #, fuzzy
 msgid "Family preferences"
@@ -4464,6 +4468,10 @@ msgid "Confirm"
 msgstr "Really Delete"
 
 #, fuzzy
+msgid "Change creation profile"
+msgstr "Category"
+
+#, fuzzy
 msgid "Change default folder"
 msgstr "Delete"
 
@@ -4473,22 +4481,6 @@ msgstr "Delete"
 
 msgid "delconfirm"
 msgstr "Really Delete"
-
-#, fuzzy
-msgid "Print"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "senddoc"
-msgstr "Edit"
-
-#, fuzzy
-msgid "wordedit"
-msgstr "Modify not possible"
 
 msgid "mini view"
 msgstr ""
@@ -4597,6 +4589,26 @@ msgstr ""
 
 msgid "quick save not possible"
 msgstr ""
+
+#, fuzzy
+msgid "Print"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "senddoc"
+msgstr "Edit"
+
+#, fuzzy
+msgid "RSS link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "wordedit"
+msgstr "Modify not possible"
 
 #, fuzzy
 msgid "View family"
@@ -4874,6 +4886,10 @@ msgid ""
 "Too many members to display there here. Use Open context menu to display "
 "them."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Search linked documents 2"
+#~ msgstr "Delete"
 
 #, fuzzy
 #~ msgid "Tounchanged"
