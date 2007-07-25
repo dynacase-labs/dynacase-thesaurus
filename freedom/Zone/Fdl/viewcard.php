@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.77 2007/06/01 13:37:45 eric Exp $
+ * @version $Id: viewcard.php,v 1.78 2007/07/25 09:45:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -81,7 +81,7 @@ function viewcard(&$action) {
     redirect($action,"FDL",
 	     "FDL_CONFIDENTIAL&id=".$doc->id);
   }
-
+  $action->lay->set("RSS", ($doc->getValue("gui_isrss")=="yes"));
   if ($doc->cvid > 0) {
     // special controlled view
     $cvdoc= new_Doc($dbaccess, $doc->cvid);

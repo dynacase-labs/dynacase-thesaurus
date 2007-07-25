@@ -30,6 +30,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
    
   <IMG align="left" class="famicon" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" class="emblem" title="[locked]" SRC="[emblem]">
+  [IF RSS]<a href="[CORE_EXTERNURL][CORE_STANDURL]&app=FREEDOM&action=FREEDOM_RSS&id=[id]"><IMG  style="float:left;border:none" class="emblem" title="[TEXT:RSS link]" SRC="[IMG:rss22.png]"></a>[ENDIF RSS]
   <I style="font-size:70%">[classtitle]</I><br><span class="FREEDOMTextBigTitle">[TITLE]</span>
 <div  style="float:right">
   <a  style="display:none" href="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&wedit=Y&id=[id]" target="_blank"><img  align="absmiddle"  alt="[TEXT:wordedit]" title="[TEXT:wordedit]" height="22" width="30" border="0" src="[IMG:openoffice.png]"></a>   
