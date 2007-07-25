@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.402 2007/07/25 09:59:17 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.403 2007/07/25 14:52:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -415,7 +415,7 @@ final public function PostInsert()  {
       if (($this->revision == 0) && ($this->doctype != "T")) {
 	// increment family sequence
 	$this->nextSequence();
-	$this->Addcomment(_("document creation"),HISTO_NOTICE,"CREATE");
+	$this->Addcomment(_("document creation"),HISTO_INFO,"CREATE");
       }
       $this->Select($this->id);
       // set creation date
