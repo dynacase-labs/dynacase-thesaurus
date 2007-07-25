@@ -244,7 +244,7 @@ function cancelattr(event,docid,attrid) {
     DIVATTR.innerHTML='';
     DIVATTR.style.display='none';
   
-    var menuurl=corestandurl+'&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid;
+    var menuurl=corestandurl+'&app=FDL&action=MODATTRIBUTE&docid='+docid+'&attrid='+attrid+'&value=.';
 
   attributeSend(event,menuurl,ATTRREADCIBLE);
 }
