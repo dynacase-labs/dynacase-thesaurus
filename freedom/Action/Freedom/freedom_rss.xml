@@ -4,7 +4,7 @@
 <channel>
 
   <title>[rssname]</title>
-  <link>[server][rsslink]</link>
+  <link>[rsslink]</link>
   <description>[rssname] ([TEXT: folder containt]) -Freedom RSS-</description>
   <copyright>[copy]</copyright>
   <language>[lang]</language>
@@ -14,15 +14,15 @@
   <generator>[generator]</generator>
   <ttl>[ttl]</ttl>
   <image>
-    <url>[server][IMG:freedom-rss.png]</url>
+    <url>[server]/[icon]</url>
     <title>[rssname] (Freedom RSS)</title>
-    <link>[server][rsslink]</link>
+    <link>[rsslink]</link>
   </image>
 
 
 [BLOCK Items]<item>
   <title>[title]</title>
-  <link>[server][link]</link>
+  <link>[link]</link>
   <description>
 [IF report]
 &lt;table style="width:100%"&gt;
@@ -37,7 +37,7 @@
   <guid>[id]</guid>
   <category>[category]</category>
   <author>[author]</author>
-  <source url="[server][rsslink]">[rssname]</source>
+  <source url="[rsslink]">[rssname]</source>
 </item>[ENDBLOCK Items]
 
 </channel>

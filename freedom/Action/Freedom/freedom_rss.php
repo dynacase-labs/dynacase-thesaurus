@@ -3,7 +3,7 @@
  * RSS syndication on a folder (search, folders, report....)
  *
  * @author Anakeen 2003
- * @version $Id: freedom_rss.php,v 1.4 2007/06/15 15:13:59 eric Exp $
+ * @version $Id: freedom_rss.php,v 1.5 2007/07/25 09:45:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,18 +26,19 @@ function freedom_rss(&$action) {
   header('Content-type: text/xml; charset=utf-8');
   $action->lay->setEncoding("utf-8");
   
-  $baseurl=__xmlentities($action->GetParam("CORE_BASEURL"));
-  $action->lay->set("baseurl", $baseurl);
+ 
+  $baseurl=$action->getparam("CORE_EXTERNURL"); 
+
 
   $standurl=__xmlentities($action->GetParam("CORE_STANDURL"));
   $action->lay->set("standurl", $standurl);
+  $action->lay->set("server", substr($baseurl,0,strrpos($baseurl,'/')));
 
-  $action->lay->set("server", $action->getparam("CORE_ABSURL")); 
 
   $cssf = getparam("CORE_STANDURL")."&app=CORE&action=CORE_CSS&session=".$action->session->id."&layout=FDL:RSS.CSS";
   $action->lay->set("rsscss", $cssf); 
 
-  $rsslink = $baseurl.__xmlentities("sole=Y&app=FDL&action=FDL_CARD&latest=Y&id=".$id);
+  $rsslink = $baseurl.__xmlentities("?sole=Y&app=FDL&action=FDL_CARD&latest=Y&id=".$id);
   $action->lay->set("rsslink", $rsslink);
   $action->lay->set("copy", "Copyright 2006 Anakeen");
   $action->lay->set("lang", substr(getParam("CORE_LANG"),0,2));
@@ -57,7 +58,7 @@ function freedom_rss(&$action) {
     $action->log->error($err);
     return; 
   }
-
+  $action->lay->set("icon",$doc->getIcon());
   if ($doc->doctype!='S' && $doc->doctype!='D') {
 
     $ldoc = array(getTDoc($dbaccess, $id));
@@ -105,7 +106,8 @@ function freedom_rss(&$action) {
     }
  }
 
-  $action->lay->set("rssname", $doc->getTitle()."  -".count($ldoc)."-");
+  // $action->lay->set("rssname", $doc->getTitle()."  -".count($ldoc)."-");
+  $action->lay->set("rssname", $doc->getTitle());
 
   $lines = array();
   foreach ($ldoc as $kdoc => $vdoc) {
@@ -113,7 +115,7 @@ function freedom_rss(&$action) {
     $descr = '';
     
     $items[$zdoc->id] = array( "title" => "",
-			       "link" => $baseurl.__xmlentities("sole=Y&app=FDL&action=IMPCARD&id=".$zdoc->id),
+			       "link" => $baseurl.__xmlentities("?sole=Y&app=FDL&action=FDL_CARD&id=".$zdoc->id),
 			       "descr" => "",
 			       "revdate" => strftime("%a, %d %b %Y %H:%M:%S %z",$zdoc->revdate),
 			       "id" => $zdoc->id,
@@ -149,7 +151,7 @@ function freedom_rss(&$action) {
       }
       
     } else {
-      $items[$zdoc->id]["descr"] = ($dhtml ? __xmlentities($zdoc->viewdoc("FDL:VIEWTHUMBCARD")) : "..." );
+      $items[$zdoc->id]["descr"] = ($dhtml ? __xmlentities(($zdoc->viewdoc("FDL:VIEWTHUMBCARD"))) : "..." );
       $items[$zdoc->id]["title"] = __xmlentities($zdoc->getTitle());
     }      
   }
