@@ -92,7 +92,7 @@ testSplit();
 <div  id="newmenu" class="popup" style="position:[positionstyle];">
 
 
-[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
+[BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
 [ENDBLOCK NEWFAM]
 
 
@@ -124,7 +124,7 @@ testSplit();
 <!-- ------------ MENU TOOL --------------------- -->
 <div  id="helpmenu" class="popup" style="position:[positionstyle];">
   <a id="help" target="[fhelp]" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
-<a  id="imvcard" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
+<a  id="imvcard" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 <a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0&famid=[famid]';closeAllMenu()">[TEXT:Abstract card]</a>
 <a  id="cview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=column&catg=[dirid]&tab=0&famid=[famid]';closeAllMenu()">[TEXT:Column mode]</a>
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
@@ -132,7 +132,7 @@ testSplit();
 <a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
 <a  id="prefs" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'_self','[CORE_STANDURL]app=GENERIC&action=GENERIC_PREFS&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Preferences]</a>
 
-<a  id="kindedit" href="#" onClick="parent.finfo.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITFAMCATG&famid=[famid]';closeAllMenu()">[TEXT:Edit attribute kinds]</a><a class="separator"></a>
+<a  id="kindedit" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITFAMCATG&famid=[famid]';closeAllMenu()">[TEXT:Edit attribute kinds]</a><a class="separator"></a>
 [BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
 [ENDBLOCK FAMMENU]
 </div>

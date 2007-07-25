@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.30 2007/05/28 08:13:57 eric Exp $
+ * @version $Id: generic_list.php,v 1.31 2007/07/25 14:54:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,7 +29,7 @@ function generic_list(&$action) {
   $onglet=GetHttpVars("onglet"); // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
   $clearkey=(GetHttpVars("clearkey","N")=="Y"); // delete last user key search
-  setHttpVar("target","finfo" );
+  setHttpVar("target","finfo$famid" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
   $column=generic_viewmode($action,$famid); // choose the good view mode
