@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.111 2007/07/03 14:40:55 marc Exp $
+ * $Id: freedom.css,v 1.112 2007/07/25 09:46:27 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -12,7 +12,8 @@
   font-variant: small-caps;
 }
 .famicon { margin-right : 5px; }
-.emblem { margin-right : 2px; }
+.emblem { margin-right : 2px;
+  height:22px }
 
 .FREEDOMTextTitle{
   font-weight: bold;
