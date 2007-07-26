@@ -3,8 +3,8 @@
 
  [IF INPUTCONSTRAINT]
  <a  href="javascript:void(0)" title="[TEXT:view constraints]" style="display:[bconsdisplay]" 
-     onclick="document.isSubmitted=true;enableall();document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> [TEXT:Constraints]</a>
- <a  href="javascript:void(0)"  title="[TEXT:override constraints]" style="display:[boverdisplay]"  onclick="document.modifydoc.noconstraint.value='Y';document.modifydoc.submit();return true"> [editaction]!</a>
+     onclick="document.isSubmitted=true;document.modifydoc.action='[CORE_STANDURL]&app=GENERIC&action=GENERIC_EDIT&viewconstraint=Y';document.modifydoc.submit();"> [TEXT:Constraints]</a>
+ <a  href="javascript:void(0)"  title="[TEXT:override constraints]" style="display:[boverdisplay]"  onclick="document.modifydoc.noconstraint.value='Y';submitEdit(event);return true"> [editaction]!</a>
  [ENDIF INPUTCONSTRAINT]
  
 [IFNOT NOSAVE]

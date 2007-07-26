@@ -1,12 +1,13 @@
 var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
-var NB_FCKEDITORS_INIT=0;
+
 var NB_FCKEDITORS=0;
+var FCKEDITORS=new Array();
 // current instance
 var colorPick = new ColorPicker();
 initDHTMLAPI();
-
+var THESTATUS=new Array();
 
 document.isCancelled=false;
 document.isSubmitted=false;
@@ -551,6 +552,12 @@ function submitEdit(event) {
      var r=true;
    if (fedit) {
      var fedit= document.getElementById('fedit');
+     alert(FCKEDITORS);
+     var oEditor;
+     for (var i=0;i<FCKEDITORS.length;i++) {
+        oEditor = FCKeditorAPI.GetInstance(FCKEDITORS[i]);
+	if (oEditor) oEditor.UpdateLinkedField();
+     }
      //bsubmit.onclick.apply(null,[event]);
      if (fedit.onsubmit) r=fedit.onsubmit();
      if (r) {

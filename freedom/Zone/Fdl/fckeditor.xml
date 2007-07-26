@@ -38,6 +38,7 @@ oFCKeditor[aid].Value='[Value]';
 
 oFCKeditor[aid].Create();
 NB_FCKEDITORS++;
+FCKEDITORS.push('_[aid]');
 function trackQS_[aid]() {
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
@@ -59,10 +60,9 @@ function fckforceedit_[aid]() {
 function wstop_[aid]() { 
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
-  if (oEditor.EditorDocument) {
-    //    alert('_[aid]');
-    NB_FCKEDITORS_INIT--;
-    if (NB_FCKEDITORS_INIT<=0) window.stop();
+  if (oEditor && oEditor.EditorDocument && (oEditor.Status==FCK_STATUS_COMPLETE)) {     
+    NB_FCKEDITORS--;
+    if (NB_FCKEDITORS<=0) window.stop();
   } else {
     window.setTimeout( wstop_[aid], 1000 ) ;
   }
