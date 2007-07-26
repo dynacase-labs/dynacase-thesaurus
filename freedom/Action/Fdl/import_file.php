@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.127 2007/07/26 14:57:49 eric Exp $
+ * @version $Id: import_file.php,v 1.128 2007/07/26 15:02:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -630,8 +630,10 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   }
   if ($docc->id > 0) {
     $doc=new_doc($docc->dbaccess,$docc->id);
+    if (! $doc->isAffected()) $doc=$docc;
+  } else {
+    $doc=$docc;
   }
-  if (! $doc->isAffected()) $doc=$docc;
   
   if ( (intval($doc->id) == 0) || (! $doc->isAffected())) {
     
