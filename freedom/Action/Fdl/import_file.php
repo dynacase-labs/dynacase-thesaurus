@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.126 2007/07/23 16:36:22 eric Exp $
+ * @version $Id: import_file.php,v 1.127 2007/07/26 14:57:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -613,36 +613,37 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
   $err="";
   if (is_numeric($data[1]))   $fromid = $data[1];
   else $fromid = getFamIdFromName($dbaccess,$data[1]);
-  $doc = createDoc($dbaccess, $fromid);
-  if (! $doc) return;
+  $docc = createDoc($dbaccess, $fromid);
+  if (! $docc) return;
  
   $msg =""; // information message
-  $doc->fromid = $fromid;
-  $tcr["familyid"]=$doc->fromid;
-  $tcr["familyname"]=$doc->getTitle($doc->fromid);
-  if  ($data[2] > 0) $doc->id= $data[2]; // static id
+  $docc->fromid = $fromid;
+  $tcr["familyid"]=$docc->fromid;
+  $tcr["familyname"]=$docc->getTitle($docc->fromid);
+  if  ($data[2] > 0) $docc->id= $data[2]; // static id
   elseif (trim($data[2]) != "") {
     if (! is_numeric(trim($data[2]))) {
-      $doc->name=trim($data[2]); // logical name
-      $docid=getIdFromName($dbaccess,$doc->name,$fromid);
-      if ($docid > 0) $doc->id=$docid;
+      $docc->name=trim($data[2]); // logical name
+      $docid=getIdFromName($dbaccess,$docc->name,$fromid);
+      if ($docid > 0) $docc->id=$docid;
     }
   }
-  if ($doc->id > 0) {
-    $doc=new_doc($doc->dbaccess,$doc->id);
+  if ($docc->id > 0) {
+    $doc=new_doc($docc->dbaccess,$docc->id);
   }
-
-  $tcr["err"]="$fromid -".$doc->fromid;
-  if ($doc->fromid != $fromid) {
+  if (! $doc->isAffected()) $doc=$docc;
+  
+  if ( (intval($doc->id) == 0) || (! $doc->isAffected())) {
+    
+    $tcr["action"]="added";    
+  } else {
+    if ($doc->fromid != $fromid) {
       //       $doc = new_Doc($doc->dbaccess,$doc->latestId());
       $tcr["action"]="ignored"; 
       $tcr["id"]=$doc->id;
       $tcr["err"]=_('not same family');
       return $tcr;
-  }
-  if ( (intval($doc->id) == 0) || (! $doc->isAffected())) {
-    $tcr["action"]="added";    
-  } else {
+    }
     if ($doc->doctype=='Z') {
       if (! $analyze ) $doc->revive();
       $tcr["msg"].=_("restore document")."\n";   
