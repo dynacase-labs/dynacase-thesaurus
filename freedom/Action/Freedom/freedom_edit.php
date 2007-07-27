@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.35 2007/07/27 09:13:47 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.36 2007/07/27 10:30:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -36,7 +36,6 @@ function freedom_edit(&$action) {
   $alsosub = (GetHttpVars("alsosubfam","N")=="Y"); 
 
 
-  generic_edit($action);
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
@@ -52,6 +51,8 @@ function freedom_edit(&$action) {
     if ($dirid > 0) {
       $dir = new_Doc($dbaccess, $dirid);
       if (method_exists($dir,"isAuthorized")) {	
+	if ($dir->locked==-1) $dir=new_Doc($dbaccess,$dir->latestId());
+
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
 	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
@@ -60,7 +61,7 @@ function freedom_edit(&$action) {
 	  $tclassdoc=$dir->getAuthorizedFamilies();
 	  $first = current($tclassdoc);
 	  $classid = $first["id"];
-	  //setHttpVar("classid",$classid); // propagate to subzones
+	  setHttpVar("classid",$classid); // propagate to subzones
 	}
       }
       else {
@@ -82,7 +83,7 @@ function freedom_edit(&$action) {
 	}
 	$first = current($tclassdoc);
 	if ($classid=="") $classid = $first["id"];
-	//setHttpVar("classid",$classid); // propagate to subzones
+	setHttpVar("classid",$classid); // propagate to subzones
       } else    $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }
 
@@ -92,6 +93,7 @@ function freedom_edit(&$action) {
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
 
   
+  generic_edit($action);
   // build list of class document
 
   $selectclass=array();
