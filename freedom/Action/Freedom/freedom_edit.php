@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.36 2007/07/27 10:30:41 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.37 2007/07/27 15:16:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -125,6 +125,7 @@ function freedom_edit(&$action) {
       default:
 	//$action->lay->Set("TITLE", _("new document"));
       }
+      $action->lay->Set("TITLE", _("Creation"));
       if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class

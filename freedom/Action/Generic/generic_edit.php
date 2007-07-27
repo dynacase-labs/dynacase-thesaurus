@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.61 2007/07/27 09:13:47 eric Exp $
+ * @version $Id: generic_edit.php,v 1.62 2007/07/27 15:16:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -73,7 +73,7 @@ function generic_edit(&$action) {
     if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
     if ($usefor=="Q") $action->lay->Set("TITLE", _("parameters values"));
     
-      $action->lay->Set("editaction", $action->text("Create"));
+    $action->lay->Set("editaction", $action->text("Create"));
       $doc= createDoc($dbaccess,$classid);
       if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
       if ($usefor!="") $doc->doctype='T';

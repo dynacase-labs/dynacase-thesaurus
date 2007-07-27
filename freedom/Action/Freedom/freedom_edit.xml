@@ -85,7 +85,7 @@ addEvent(window,"load",focusFirst);
  <td width="60%">
   <IMG align="left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
-  <I style="font-size:70%">[FTITLE]</I><br><span  class="FREEDOMTextBigTitle">[TITLE]</span><select name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value+'&onlysubfam=[onlysubfam]&alsosubfam=[alsosubfam]'">  
+  <I style="font-size:70%">[FTITLE]</I><br><span  class="FREEDOMTextBigTitle">[TITLE]</span> <select class="family" name="sclassid" onChange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=FREEDOM_EDIT&id=[id]&dirid=[dirid]&classid='+this.options[this.selectedIndex].value+'&onlysubfam=[onlysubfam]&alsosubfam=[alsosubfam]'">  
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
