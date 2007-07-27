@@ -26,11 +26,12 @@ function viewdocmenu(event,docid,onlyctrl,upobject) {
   var menuaction=MENUACTION;
   var menuopt='';
   var coord=false;
-  if (ctrlPushed(event) && altPushed(event)) {
-    menuapp='FDL';
-    menuaction='POPUPDOCDETAIL';
-  } else {
-    if (onlyctrl) menuopt='&onlyctrl=yes';
+  if (onlyctrl) menuopt='&onlyctrl=yes';
+  else {
+    if (ctrlPushed(event) && altPushed(event)) {
+      menuapp='FDL';
+      menuaction='POPUPDOCDETAIL';
+    }     
   }
   
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
@@ -43,11 +44,15 @@ function viewdocsubmenu(event,docid,submenu,upobject) {
   var menuaction=MENUACTION;
   var menuopt='';
   var coord=false;
-  if (ctrlPushed(event) && altPushed(event)) {
-    menuapp='FDL';
-    menuaction='POPUPDOCDETAIL';
-  } else {
-    if (submenu) menuopt='&submenu='+submenu;
+  alert(event);
+  alert(ctrlPushed(event));
+  alert(altPushed(event));
+  if (submenu) menuopt='&submenu='+submenu;
+  else {
+    if (ctrlPushed(event) && altPushed(event)) {
+      menuapp='FDL';
+      menuaction='POPUPDOCDETAIL';
+    }     
   }
  
 
