@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.27 2007/04/12 13:07:38 eric Exp $
+ * @version $Id: modattr.php,v 1.28 2007/07/27 15:13:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -97,6 +97,8 @@ function modattr(&$action) {
   // update POSGRES attributes
   $oattr=new DocAttr($dbaccess);
   $oattr->docid = $doc->initid;
+  $tadd=array();
+  $tmod=array();
   while(list($k,$v) = each($orders) )
     {
       //  print $k.":".$v."<BR>";
@@ -125,12 +127,13 @@ function modattr(&$action) {
 	      //     print "add $names[$k]<BR>";
 	      if (isset($nattrids[$k]) && ($nattrids[$k] != ""))
 		$oattr->id = $nattrids[$k];
-	      $err = $oattr ->Add();
+	      $err = $oattr->Add();
+	      if ($err=="") $tadd[]=$oattr->id;
 	      //	      print($err);
 	    } else {
 	      //print "mod $names[$k]<BR>";
 	      $err=$oattr ->Modify();
-
+	      if ($err=="") $tmod[]=$oattr->id;
 	    }
 
 	  }
@@ -140,7 +143,8 @@ function modattr(&$action) {
       
     }
 
-
+  if (count($tmod)>0) $doc->AddComment(_("Modify Attributes"));
+  if (count($tadd)>0) $doc->AddComment(sprintf(_("Add Attributes : %s"),implode(", ",$tadd)));
   $wsh = getWshCmd();
   $cmd = $wsh . "--userid={$action->user->id} --api=fdl_adoc --docid=".$doc->initid;
 

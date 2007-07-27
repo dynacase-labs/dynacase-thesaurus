@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modprof.php,v 1.15 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: modprof.php,v 1.16 2007/07/27 15:13:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.15 2005/06/28 08:37:46 eric Exp $
+// $Id: modprof.php,v 1.16 2007/07/27 15:13:54 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -78,18 +78,25 @@ function modprof(&$action) {
 
   if ($createp) {
     // change creation profile
-    $doc->cprofid = $profid; // new creation profile access
-    $doc->ccvid = $cvid; //  default control view for creation
+    if ( $doc->cprofid != $profid) {
+      $doc->AddComment(sprintf(_("Change creation profil to %s [%d]"),$doc->getTitle($profid),$profid));
+      $doc->cprofid = $profid; // new creation profile access
+    }
+    if ($doc->ccvid != $cvid) {
+      $doc->ccvid = $cvid; //  default control view for creation
+      $doc->AddComment(sprintf(_("Change creation view control to %s [%d]"),$doc->getTitle($cvid),$cvid));
+    }
   } else {
 
     if (($doc->profid == $doc->id) && ($profid == 0)) {
       // unset control
       $doc->UnsetControl();
     }  
-
+    if ($doc->profid != $profid)    $doc->AddComment(sprintf(_("Change profil to %s [%d]"),$doc->getTitle($profid),$profid));
+    if ($doc->cvid != $cvid)    $doc->AddComment(sprintf(_("Change view control  to %s [%d]"),$doc->getTitle($cvid),$cvid));
     $doc->setProfil($profid);// change profile
     $doc->setCvid($cvid);// change view control
-  
+    
     // specific control
     if ($doc->profid == $doc->id)    $doc->SetControl();
   
@@ -98,7 +105,6 @@ function modprof(&$action) {
   $err= $doc-> Modify();
   
   if ( $err != "" ) $action->exitError($err);
-  
   
   
   

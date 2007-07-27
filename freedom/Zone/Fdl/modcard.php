@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.92 2007/07/25 14:52:09 eric Exp $
+ * @version $Id: modcard.php,v 1.93 2007/07/27 15:17:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -375,7 +375,7 @@ function specialmodcard(&$action,$usefor) {
   
   $cdoc = new_Doc($dbaccess, $classid); // family doc
 
- 
+  $tmod=array();
 
   foreach ($_POST as $k=>$v)    {
       //print $k.":".$v."<BR>";
@@ -393,10 +393,9 @@ function specialmodcard(&$action,$usefor) {
 	  if ($value != "") {
 	   if ($usefor=="D") $cdoc->setDefValue($attrid,$value);
 	   else if ($usefor=="Q") $cdoc->setParam($attrid,$value);
-	  }
-	      
-	      
-	}      
+	   $tmod[$attrid]=$value;
+	  }	      	      
+	}    
     }
 
   
@@ -414,14 +413,23 @@ function specialmodcard(&$action,$usefor) {
 	  if ($filename != "")
 	    {
 	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
-	      $cdoc->setDefValue($k,$filename);
+	      $cdoc->setDefValue($k,$filename); 
+	      $tmod[$k]=$filename;
 	    }
 	}
     }
   
 
   $cdoc->modify();
-
+  if (count($tmod)>0) {
+    if ($usefor=="D")  $s=_("modify default values :");
+    else if ($usefor=="Q") $s=_("modify parameters :");
+    $s.=" ";
+    foreach ($tmod as $k=>$v) {
+      $s.="$k:$v, ";
+    }
+    $cdoc->AddComment($s);
+  }
   
   redirect($action,GetHttpVars("redirect_app","FDL"),
 	   GetHttpVars("redirect_act","FDL_CARD&refreshfld=N&id=$classid"),
