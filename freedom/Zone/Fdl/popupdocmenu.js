@@ -44,9 +44,6 @@ function viewdocsubmenu(event,docid,submenu,upobject) {
   var menuaction=MENUACTION;
   var menuopt='';
   var coord=false;
-  alert(event);
-  alert(ctrlPushed(event));
-  alert(altPushed(event));
   if (submenu) menuopt='&submenu='+submenu;
   else {
     if (ctrlPushed(event) && altPushed(event)) {
