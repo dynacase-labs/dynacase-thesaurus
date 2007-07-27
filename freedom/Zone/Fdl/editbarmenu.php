@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editbarmenu.php,v 1.2 2007/06/27 16:43:46 eric Exp $
+ * @version $Id: editbarmenu.php,v 1.3 2007/07/27 15:17:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ function editbarmenu(&$action) {
   $docid = GetHttpVars("id");
   $zonebodycard = GetHttpVars("zone"); // define view action  
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $usefor = GetHttpVars("usefor"); // default values for a document
   $rtarget = GetHttpVars("rtarget","_self"); // special zone when finish edition return target
   $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
   $action->lay->Set("SELFTARGET",($rtarget=="_self"));
@@ -28,6 +29,8 @@ function editbarmenu(&$action) {
   $action->lay->Set("id",$docid);
   if (($docid === 0) || ($docid === "") || ($docid === "0") ) {
     $action->lay->Set("editaction", _("Create"));
+    if ($usefor=="D") $action->lay->Set("editaction", _("Set default values"));
+    if ($usefor=="Q") $action->lay->Set("editaction", _("Save parameters"));
       $doc= createDoc($dbaccess,$classid);
   } else {
     $doc = new_Doc($dbaccess, $docid);
