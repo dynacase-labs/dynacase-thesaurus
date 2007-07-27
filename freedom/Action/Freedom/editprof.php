@@ -3,7 +3,7 @@
  * Profil edition
  *
  * @author Anakeen 2000 
- * @version $Id: editprof.php,v 1.20 2006/03/31 12:29:30 eric Exp $
+ * @version $Id: editprof.php,v 1.21 2007/07/27 07:42:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -45,7 +45,7 @@ function editprof(&$action)
 
 
   $selectclass=array();
-  if ($doc->usefor != "P") { // cannot redirect profil document (only normal document)
+  if (($doc->usefor != "P") && ($doc->usefor != "W") && ($doc->fromid != 28) ){ // cannot redirect profil document (only normal document) also workflow and iw control
     if ($createp) {
       // search from profil of the document family (not the family)
       $tdoc= createDoc($dbaccess, $doc->id);
@@ -100,7 +100,7 @@ function editprof(&$action)
       
     
   }
-  if ((($doc->doctype != 'C') || $createp) &&($doc->doctype != "P")) {
+  if ((($doc->doctype != 'C') || $createp) &&($doc->doctype != "P") && ($doc->usefor != "W") && ($doc->fromid != 28)) {
 
     setControlView($action,$doc,$createp);
     $action->lay->set("CV",true);
