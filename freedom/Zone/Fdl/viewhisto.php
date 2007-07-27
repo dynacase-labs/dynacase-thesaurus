@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.22 2007/04/13 15:38:19 eric Exp $
+ * @version $Id: viewhisto.php,v 1.23 2007/07/27 13:05:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,6 +25,7 @@ function viewhisto(&$action)
   $target = GetHttpVars("target","doc_properties");
   $viewrev = (GetHttpVars("viewrev","Y")=="Y");
   $comment = GetHttpVars("comment",_("no comment"));
+  $notice = (GetHttpVars("notice","N")=="Y"); // view notice
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/common.js");
@@ -35,6 +36,7 @@ function viewhisto(&$action)
   $action->lay->Set("VIEWAPP",$viewapp);
   $action->lay->Set("VIEWACT",$viewact);
   $action->lay->Set("VIEWREV",$viewrev);
+  $action->lay->Set("notice",$notice);
   $hastate=false;
   $ldoc = $doc->GetRevisions("TABLE");
 
@@ -75,7 +77,7 @@ function viewhisto(&$action)
     $tlc = array();
     $kc=0; // index comment
     foreach ($tc as $vc) {
-
+      if ((!$notice) && ($vc["level"]<HISTO_INFO)) continue;
       $stime=$vc["date"];
       /*	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
 		 $reg[1], $regt)) {   
@@ -84,6 +86,7 @@ function viewhisto(&$action)
       */
 	$tlc[]=array("cdate"=>$stime,
 		     "cauthor"=>$vc["uname"],
+		     "clevel"=>$vc["level"],
 		     "ccomment"=>nl2br(htmlentities($vc["comment"])));            
     }
     $action->lay->SetBlockData("COMMENT$k",$tlc);

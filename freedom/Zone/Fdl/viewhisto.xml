@@ -57,6 +57,21 @@ TD.date,  {
 TD.date span, TD.author span {
   white-space:nowrap;
 }
+.histo1 {
+  color:[COLOR_A0]; /* notice */
+}
+.histo2 {
+   /* info */
+}
+.histo4 {
+   /* message */
+}
+.histo8 {
+  color:orange;/* warning */
+}
+.histo16 {
+  color:red;/* error */
+}
 
 </style>
 
@@ -64,7 +79,7 @@ TD.date span, TD.author span {
 
 <table class="tablesimple" cellspacing="0" cellpadding="0"  width="100%" >
 <thead>
-<tr><td class="CORETblHeadBold" align="center" colspan="6">[title]</td><tr>
+<tr><td class="CORETblHeadBold" align="center" colspan="6">[IFNOT notice]<a title="[TEXT:View notice messages]" onclick="this.href=window.location.href+'&notice=Y'" href="#"><img needresize=1 style="width:[SIZE_IMG-X-SMALL];border:none" align="right" class="button" src="[IMG:notice.png]" ></a>[ENDIF notice][title]</td><tr>
 <tr><td width="40px" class="CORETblHeadBold">[TEXT:version]</td>
     <td width="20px" class="CORETblHeadBold">[IF VIEWREV][TEXT:rev][ENDIF VIEWREV]</td>
     <td class="CORETblHeadBold">[IF STATE][TEXT:state][ENDIF STATE]</td>
@@ -88,8 +103,8 @@ TD.date span, TD.author span {
 </tr>
 
      [BLOCK [COMMENT]]
-<tr class="dash" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
-       <P style="border-left:10px;border-style: none none none solid;border-color:[color]"> [ccomment]</P>
+<tr  class="dash histo[clevel]" name="[vername]" [IF nodetail]style="display:none" [ENDIF nodetail]><td colspan="3"  >  
+       <P style="border-left:10px;border-style: none none none solid;border-color:[color]" > [ccomment]</P>
 </td><td><I>[cauthor]</I></td><td colspan="2">[cdate]</td> </tr>
        [ENDBLOCK [COMMENT]]
 [ENDBLOCK TABLEBODY]
