@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.4 2007/07/23 13:56:13 eric Exp $
+ * @version $Id: popupfamdetail.php,v 1.5 2007/07/27 07:41:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -222,7 +222,7 @@ function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
 
 
   if ($doc->IsControlled() && ($doc->profid > 0) && ($doc->Control("viewacl") == "")) {
-    $tlink["access"]["visibility"]=POPUP_CTRLACTIVE;
+    $tlink["access"]["visibility"]=POPUP_ACTIVE;
   } else {
     $tlink["access"]["visibility"]=POPUP_INVISIBLE;
   }
