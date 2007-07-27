@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.23 2007/07/27 13:05:46 eric Exp $
+ * @version $Id: viewhisto.php,v 1.24 2007/07/27 15:14:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,6 +40,7 @@ function viewhisto(&$action)
   $hastate=false;
   $ldoc = $doc->GetRevisions("TABLE");
 
+  $hasnotice=false;
   $trdoc= array();
   $tversion=array();
   $iversion=0;
@@ -77,7 +78,10 @@ function viewhisto(&$action)
     $tlc = array();
     $kc=0; // index comment
     foreach ($tc as $vc) {
-      if ((!$notice) && ($vc["level"]<HISTO_INFO)) continue;
+      if ((!$notice) && ($vc["level"]<HISTO_INFO)) {
+	$hasnotice=true;
+	continue;
+      }
       $stime=$vc["date"];
       /*	if (ereg("([0-9]{1,2})/([0-9]{1,2})/([0-9]{1,4}) ([0-2]{0,1}[0-9]):([0-5]{0,1}[0-9])", 
 		 $reg[1], $regt)) {   
@@ -96,6 +100,7 @@ function viewhisto(&$action)
 
     
   }
+  if (!$hasnotice) $action->lay->Set("notice",true);
   // not display detail display 
   $action->lay->Set("STATE",$hastate);
   $action->lay->Set("viewdiff",(count($ldoc)>1));
