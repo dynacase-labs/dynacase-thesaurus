@@ -83,7 +83,7 @@ addEvent(window,"load",focusFirst);
 <thead>
 <tr class="FREEDOMBack1">
  <td width="60%">
-  <IMG align="left" border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
+  <IMG align="left" border="0"  title="[FTITLE]" alt="[FTITLE]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]">
   <IMG  style="float:left" border="0" title="[locked]" SRC="[emblem]">
   <I style="font-size:70%">[FTITLE]</I><br><span  class="FREEDOMTextBigTitle">[TITLE]</span>
   [IF FOOT][ZONE FDL:EDITBARMENU][ENDIF FOOT]

@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.34 2006/09/20 10:27:52 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.35 2007/07/27 09:13:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -11,12 +11,8 @@
  /**
  */
 
-include_once("FDL/Class.WDoc.php");
+include_once("GENERIC/generic_edit.php");
 
-include_once("Class.QueryDb.php");
-include_once("FDL/freedom_util.php");
-include_once("FDL/Lib.Dir.php");
-include_once("VAULT/Class.VaultFile.php");
 
 /**
  * Edit or create a document
@@ -40,6 +36,7 @@ function freedom_edit(&$action) {
   $alsosub = (GetHttpVars("alsosubfam","N")=="Y"); 
 
 
+  generic_edit($action);
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
@@ -63,7 +60,7 @@ function freedom_edit(&$action) {
 	  $tclassdoc=$dir->getAuthorizedFamilies();
 	  $first = current($tclassdoc);
 	  $classid = $first["id"];
-	  setHttpVar("classid",$classid); // propagate to subzones
+	  //setHttpVar("classid",$classid); // propagate to subzones
 	}
       }
       else {
@@ -85,7 +82,7 @@ function freedom_edit(&$action) {
 	}
 	$first = current($tclassdoc);
 	if ($classid=="") $classid = $first["id"];
-	setHttpVar("classid",$classid); // propagate to subzones
+	//setHttpVar("classid",$classid); // propagate to subzones
       } else    $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }
 
@@ -116,19 +113,17 @@ function freedom_edit(&$action) {
   if ($docid == 0)
     {
       switch ($classid) {
-	case 2:
-	  $action->lay->Set("TITLE", _("new directory"));
+	case 2:	  
 	  $action->lay->Set("refreshfld", "yes");
 	break;
 	case 3:	  
 	case 4:	  
-	  $action->lay->Set("TITLE", _("new profile"));
+	  //$action->lay->Set("TITLE", _("new profile"));
 	break;
       default:
-	$action->lay->Set("TITLE", _("new document"));
+	//$action->lay->Set("TITLE", _("new document"));
       }
       if ($usefor=="D") $action->lay->Set("TITLE", _("default values"));
-      $action->lay->Set("editaction", $action->text("Create"));
       if ($classid > 0) {
 	$doc=createDoc($dbaccess,$classid); // the doc inherit from chosen class
 	if ($doc === false) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
@@ -154,12 +149,7 @@ function freedom_edit(&$action) {
     {     
       if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
 
-      $err = $doc->lock(true); // autolock
-      if ($err != "")   $action->ExitError($err);
   
-
-      $action->lay->Set("TITLE", $doc->title);
-      $action->lay->Set("editaction", _("Save"));
       
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	
@@ -169,22 +159,7 @@ function freedom_edit(&$action) {
       }
     }
 
-  $action->lay->Set("STITLE",addslashes($action->lay->get("TITLE")));
-  $action->lay->Set("iconsrc", $doc->geticon());
- 
-  // compute the changed state
-  $tstate= array();
-  if ($doc->wid > 0) {
-    $wdoc = new_Doc($dbaccess,$doc->wid);
-    $wdoc->Set($doc);
-    $fstate = $wdoc->GetFollowingStates();
-    $action->lay->Set("initstatevalue",$doc->state );
-    while (list($k, $v) = each($fstate)) {
-      $tstate[$k]["statevalue"] = $v;
-      $tstate[$k]["statename"] = _($v);
-    }
-  }
-  $action->lay->SetBlockData("NEWSTATE", $tstate);
+
 
   
 
@@ -202,26 +177,6 @@ function freedom_edit(&$action) {
   // control view of special constraint button
   $action->lay->Set("boverdisplay", "none");
   
-  if (GetHttpVars("viewconstraint")=="Y") {
-    $action->lay->Set("bconsdisplay", "");
-    if ($action->user->id==1) {
-      $action->lay->SetBlockData("INPUTCONSTRAINT",array(array("zou")));
-      $action->lay->Set("boverdisplay", ""); // only admin can do this
-    }
-    
-  } else {
-    // verify if at least on attribute constraint
-    
-    $action->lay->Set("bconsdisplay", "none");
-    $listattr = $doc->GetNormalAttributes();
-    foreach ($listattr as $k => $v) {
-      if ($v->phpconstraint != "")  {
-	$action->lay->Set("bconsdisplay", "");
-	break;
-      }
-    }
-  }
- 
     
 
 }
