@@ -549,10 +549,10 @@ function autoUnlock(docid) {
 }
 function submitEdit(event) {
   var fedit= document.getElementById('fedit');
-     var r=true;
+  var r=true;
    if (fedit) {
      var fedit= document.getElementById('fedit');
-     alert(FCKEDITORS);
+
      var oEditor;
      for (var i=0;i<FCKEDITORS.length;i++) {
         oEditor = FCKeditorAPI.GetInstance(FCKEDITORS[i]);
