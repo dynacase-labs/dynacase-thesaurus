@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC_init.php.in,v 1.10 2007/05/04 16:11:50 eric Exp $
+// $Id: GENERIC_init.php.in,v 1.11 2007/07/30 16:05:27 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -77,6 +77,11 @@ array("INIT" => "yes",
 				 "user"=>"Y"),
       "GENE_LATESTTXTSEARCH" => array("val"=>"",
 				      "descr"=>N_("last search text typed"),
+				      "global"=>"Y",
+				      "kind"=>"static",
+				      "user"=>"Y"),
+      "GENE_MODESEARCH" => array("val"=>"",
+				      "descr"=>N_("search mode"),
 				      "global"=>"Y",
 				      "kind"=>"static",
 				      "user"=>"Y")

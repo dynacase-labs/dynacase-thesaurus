@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.31 2007/07/25 14:54:56 eric Exp $
+ * @version $Id: generic_list.php,v 1.32 2007/07/30 16:05:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,6 +54,8 @@ function generic_list(&$action) {
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
   $action->lay->Set("famid",$famid);
+  $mode=getSearchMode($action,$famid);
+  $action->lay->Set("FULLMODE",($mode=="FULL"));
   $slice = $action->GetParam("CARD_SLICE_LIST",5);
   //  $action->lay->Set("next",$start+$slice);
   //$action->lay->Set("prev",$start-$slice);

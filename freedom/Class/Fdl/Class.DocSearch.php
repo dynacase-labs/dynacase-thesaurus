@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.44 2007/07/06 07:40:17 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.45 2007/07/30 16:05:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -88,7 +88,8 @@ Class DocSearch extends PDocSearch {
 				  $this->getValue("se_latest"),
 				  $this->getValue("se_case")=="yes",
 				  $this->getValue("se_idfld"),
-				  $this->getValue("se_sublevel") === "") ;
+				  $this->getValue("se_sublevel") === "",
+				  $this->getValue("se_case")=="full") ;
       // print "<HR>getQuery1:[$query]";
     } else {
       $query[]=$this->getValue("SE_SQLSELECT");
@@ -113,9 +114,12 @@ Class DocSearch extends PDocSearch {
       $filters[] = "locked = -1";
     } 
     if ($keyword[0]=='~') {
-      $full=false;
+      $full=false; // force REGEXP
       $keyword=substr($keyword,1);      
-    }
+    } else if ($keyword[0]=='*') {
+      $full=true;// force FULLSEARCH
+      $keyword=substr($keyword,1);      
+    } 
     if ($full) {
       $this->getFullSqlFilters($keyword,$sqlfilters,$order,$tkeys);
       $filters=array_merge($filters,$sqlfilters);
@@ -244,7 +248,7 @@ Class DocSearch extends PDocSearch {
   }
 
   
-  function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true) {
+  function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$dirid=-1, $subfolder=true,$full=false) {
     if ($dirid > 0) {
       if ($subfolder)  $cdirid = getRChildDirId($this->dbaccess, $dirid);
       else $cdirid=$dirid;
@@ -252,15 +256,15 @@ Class DocSearch extends PDocSearch {
        
     } else $cdirid=0;
 
-    $full=true;
     if ($keyword[0]=='~') {
       $full=false;
       $keyword=substr($keyword,1);      
+    } else  if ($keyword[0]=='*') {
+      $full=true;
+      $keyword=substr($keyword,1);      
     }
     $filters=$this->getSqlGeneralFilters($keyword,$latest,$sensitive,$full);
-    if ($full) {
-      //if ($famid > 0)  $filters[]="fromid=".intval($famid); // here function to retrieve descendants
-    }
+
 
     $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"));
     return $query;

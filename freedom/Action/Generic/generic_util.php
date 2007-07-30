@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * Collection of utilities functions for GENERIC application
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.28 2007/05/07 09:56:47 eric Exp $
+ * @version $Id: generic_util.php,v 1.29 2007/07/30 16:05:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,28 +11,6 @@
  /**
  */
 
-// ---------------------------------------------------------------
-// $Id: generic_util.php,v 1.28 2007/05/07 09:56:47 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_util.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
 
 include_once("FDL/Lib.Dir.php");  
 
@@ -172,7 +150,14 @@ function getInherit(&$action,$famid="") {
   if ($famid=="") $famid=getDefFam($action);
   return getFamilyParameter($action,$famid,"GENE_INHERIT","Y");
 }
-
+/**
+ * return  if search is also in inherit famileis 
+ * @return string [Y|N] Yes/No  according to family
+ */
+function getSearchMode(&$action,$famid="") {
+  if ($famid=="") $famid=getDefFam($action);
+  return getFamilyParameter($action,$famid,"GENE_MODESEARCH","REGEXP");
+}
 /**
  * set attribute split mode
  * @param string $split [V|H]
@@ -201,7 +186,13 @@ function setTabLetter(&$action,$famid,$letter) {
 function setInherit(&$action,$famid,$inherit) {
   return setFamilyParameter($action,$famid,'GENE_INHERIT',$inherit);
 }
-
+/**
+ * set attribute search mode
+ * @param string $split [REGEXP|FULL]
+ */
+function setSearchMode(&$action,$famid,$mode) {
+  return setFamilyParameter($action,$famid,'GENE_MODESEARCH',$mode);
+}
 /**
  * return parameters key search
  * @param action $action current action
@@ -231,16 +222,17 @@ function setFamilyParameter(&$action,$famid,$attrid,$value) {
     list($fid,$vmode)=explode("|",$v);
     $tview[$fid]=$vmode;
   }
-  
-  $tview[$famid]=$value;
-  // implode parameters to change user preferences
-  $tmode=array();
-  while (list($k,$v) = each($tview)) {
-    if ($k>0) $tmode[]="$k|$v";
+  if ($tview[$famid]!=$value) {
+    $tview[$famid]=$value;
+    // implode parameters to change user preferences
+    $tmode=array();
+    while (list($k,$v) = each($tview)) {
+      if ($k>0) $tmode[]="$k|$v";
+    }
+    $pmode=implode(",",$tmode);
+    $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
+    $action->parent->session->close();
   }
-  $pmode=implode(",",$tmode);
-  $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
-  $action->parent->session->close();
 }
 
 // -----------------------------------

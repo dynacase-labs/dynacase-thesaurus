@@ -74,6 +74,7 @@ function SendSimpleSearch(event) {
        var did=document.getElementById('csid');
        var fldid=0;
        var key=document.getElementById('searchkey').value;
+       var mode=document.getElementById('searchmode').value;
        var dmainid=document.getElementById('cellmain');
        if (dmainid) {
 	 dmainid.innerHTML='<img  src="Images/loading.gif" style="background-color:#FFFFFF;border:groove black 2px;padding:4px;-moz-border-radius:4px">';
@@ -83,13 +84,24 @@ function SendSimpleSearch(event) {
        
 
        if ((fldid>0) && (!key)) document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&clearkey=Y&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]');
-       else if (key)  document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key);
+       else if (key)  document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key+'&mode='+mode);
        else document.location.replace('[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]&catg=-1&clearkey=Y');   
        return true;  
   
 }
 
-
+function changeMode(o) {
+  var mode=document.getElementById('searchmode').value;
+  if (mode=='FULL') {
+    document.getElementById('searchmode').value='REGEXP';
+    o.value='~';
+    o.title="[TEXT:Search containing characters]";
+  } else {
+    document.getElementById('searchmode').value='FULL';
+    o.title="[TEXT:Search Words]";
+    o.value='*';
+  }
+}
 function focusInput(event) {
   var i=document.getElementById('searchkey');
   if (i) i.focus();
@@ -108,7 +120,9 @@ addEvent(window,"load",focusInput);
 <br>
 <div onmouseup="closeAllMenu();">
 
-
+<input id="searchmode" name="mode" type="hidden" value="REGEXP">
+<input id="searchbutton" class="searchbutton" title="[TEXT:Search containing characters]" type="button" value="~" onclick="changeMode(this)">
+[IF FULLMODE]<script>changeMode(document.getElementById('searchbutton'))</script>[ENDIF FULLMODE]
 <input   onMouseUp="return true" onKeyPress="KeySendSimpleSearch(event)" type="text"  value="[tkey]" id="searchkey">
 [IF ONESEARCH]
 <select id="csid" onchange="focusInput(event)" >
