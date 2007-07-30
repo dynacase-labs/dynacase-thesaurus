@@ -11,7 +11,15 @@ function deletenew() {
 }
   
 
+function trackCR(event) {
+  var intKeyCode;
 
+  if (!event) event=window.event;
+  intKeyCode=event.keyCode;
+  if (intKeyCode == 13) return true;
+
+  return false;
+}
 function sendsearch(faction,rtarget) {
   var fedit = document.fedit;
   resetInputs('newcond');

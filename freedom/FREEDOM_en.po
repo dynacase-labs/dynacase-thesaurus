@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 08:58+0200\n"
+"POT-Creation-Date: 2007-07-30 12:36+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,210 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
-
-msgid "no import file specified"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "create %s family"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "update %s family"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "modify %s family"
-msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "update %s search"
-msgstr "Update Title Cards"
-
-#, fuzzy, c-format
-msgid "add %s search"
-msgstr "Start search"
-
-#, c-format
-msgid "set doctype to '%s'"
-msgstr ""
-
-#, c-format
-msgid "set icon to '%s'"
-msgstr ""
-
-msgid "icon already set. No update allowed"
-msgstr ""
-
-#, c-format
-msgid "document %s : set icon to '%s'"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no change icon : document %s not found"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "create default folder (id [%d])\n"
-msgstr "Delete"
-
-msgid "default folder already set. Auto ignored"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "set default folder to '%s'"
-msgstr "Delete"
-
-#, c-format
-msgid "set default workflow to '%s'"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "set view control to '%s'"
-msgstr "Start search"
-
-#, c-format
-msgid "set special characteristics to '%s'"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "change methods to '%s'"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change special use to '%s'"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change application tag to '%s'"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change default creation profile id  to '%s'"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change profile id  to '%s'"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "add default value %s %s"
-msgstr "Delete"
-
-#, c-format
-msgid "copy attribute %s from %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "update %s attribute"
-msgstr "Update Title Cards"
-
-#, c-format
-msgid "new column order %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "error in import keys : %s"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "new import keys : %s"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "profil id unkonow %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change profil %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "%s application not exists"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "%s application has no aclss"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "try add acl %s"
-msgstr "Add new contact card"
-
-#, fuzzy, c-format
-msgid "add acl %s"
-msgstr "Add new contact card"
-
-#, fuzzy, c-format
-msgid "unknow acl %s"
-msgstr "Modify"
-
-#, c-format
-msgid "LDAP Attribute modified to %s %s"
-msgstr ""
-
-#, c-format
-msgid "LDAP Attribute added to %s %s"
-msgstr ""
-
-#, fuzzy
-msgid "restore document"
-msgstr "Organisation"
-
-#, c-format
-msgid "update id [%d] "
-msgstr ""
-
-#, fuzzy
-msgid "added"
-msgstr "Add new contact card"
-
-#, fuzzy, c-format
-msgid "pre-import:%s"
-msgstr "Import"
-
-#, c-format
-msgid "add %s id [%d]  "
-msgstr ""
-
-#, c-format
-msgid "%s to be add"
-msgstr ""
-
-#, c-format
-msgid "add id [%d] "
-msgstr ""
-
-#, fuzzy
-msgid "updated"
-msgstr "Update LDAP server"
-
-#, fuzzy, c-format
-msgid "update %s [%d] "
-msgstr "Update Title Cards"
-
-#, c-format
-msgid "to be update %s [%d] "
-msgstr ""
-
-msgid "ignored"
-msgstr ""
-
-#, c-format
-msgid "too many similar document %s <B>ignored</B> "
-msgstr ""
-
-#, c-format
-msgid "similar document %s found. keep similar"
-msgstr ""
-
-#, fuzzy
-msgid "updated by import"
-msgstr "Update LDAP server"
-
-#, c-format
-msgid "and add in %s folder "
-msgstr ""
 
 #, c-format
 msgid "cannot see unknow reference %s"
@@ -476,9 +272,213 @@ msgstr "Delete"
 msgid "search"
 msgstr "Start search"
 
+msgid "no import file specified"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "create %s family"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "update %s family"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "modify %s family"
+msgstr "Modify"
+
 #, fuzzy
 msgid "Update by importation"
 msgstr "Update LDAP server"
+
+#, fuzzy, c-format
+msgid "update %s search"
+msgstr "Update Title Cards"
+
+#, fuzzy, c-format
+msgid "add %s search"
+msgstr "Start search"
+
+#, c-format
+msgid "set doctype to '%s'"
+msgstr ""
+
+#, c-format
+msgid "set icon to '%s'"
+msgstr ""
+
+msgid "icon already set. No update allowed"
+msgstr ""
+
+#, c-format
+msgid "document %s : set icon to '%s'"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no change icon : document %s not found"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "create default folder (id [%d])\n"
+msgstr "Delete"
+
+msgid "default folder already set. Auto ignored"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "set default folder to '%s'"
+msgstr "Delete"
+
+#, c-format
+msgid "set default workflow to '%s'"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "set view control to '%s'"
+msgstr "Start search"
+
+#, c-format
+msgid "set special characteristics to '%s'"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "change methods to '%s'"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change special use to '%s'"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change application tag to '%s'"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change default creation profile id  to '%s'"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change profile id  to '%s'"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "add default value %s %s"
+msgstr "Delete"
+
+#, c-format
+msgid "copy attribute %s from %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "update %s attribute"
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "new column order %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "error in import keys : %s"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "new import keys : %s"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "profil id unkonow %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change profil %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "%s application not exists"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "%s application has no aclss"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "try add acl %s"
+msgstr "Add new contact card"
+
+#, fuzzy, c-format
+msgid "add acl %s"
+msgstr "Add new contact card"
+
+#, fuzzy, c-format
+msgid "unknow acl %s"
+msgstr "Modify"
+
+#, c-format
+msgid "LDAP Attribute modified to %s %s"
+msgstr ""
+
+#, c-format
+msgid "LDAP Attribute added to %s %s"
+msgstr ""
+
+#, fuzzy
+msgid "restore document"
+msgstr "Organisation"
+
+#, c-format
+msgid "update id [%d] "
+msgstr ""
+
+#, fuzzy
+msgid "added"
+msgstr "Add new contact card"
+
+#, fuzzy, c-format
+msgid "pre-import:%s"
+msgstr "Import"
+
+#, c-format
+msgid "add %s id [%d]  "
+msgstr ""
+
+#, c-format
+msgid "%s to be add"
+msgstr ""
+
+#, c-format
+msgid "add id [%d] "
+msgstr ""
+
+#, fuzzy
+msgid "updated"
+msgstr "Update LDAP server"
+
+#, fuzzy, c-format
+msgid "update %s [%d] "
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "to be update %s [%d] "
+msgstr ""
+
+msgid "ignored"
+msgstr ""
+
+#, c-format
+msgid "too many similar document %s <B>ignored</B> "
+msgstr ""
+
+#, c-format
+msgid "similar document %s found. keep similar"
+msgstr ""
+
+#, fuzzy
+msgid "updated by import"
+msgstr "Update LDAP server"
+
+#, c-format
+msgid "and add in %s folder "
+msgstr ""
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -667,31 +667,13 @@ msgid "Change state to %s"
 msgstr "Category"
 
 #, c-format
-msgid "document id %d not found"
-msgstr ""
-
-msgid "no document type"
-msgstr ""
-
-#, fuzzy
-msgid "Creation"
-msgstr "Edit"
-
-#, fuzzy
-msgid "default values"
-msgstr "Delete"
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
-msgstr ""
-
-msgid "document not referenced"
-msgstr ""
-
-#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
+msgstr ""
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 msgid "no file specified : change icon aborted"
@@ -829,6 +811,20 @@ msgstr ""
 
 #, c-format
 msgid "archive file %s has been deleted"
+msgstr ""
+
+#, c-format
+msgid "document id %d not found"
+msgstr ""
+
+msgid "no document type"
+msgstr ""
+
+#, fuzzy
+msgid "default values"
+msgstr "Delete"
+
+msgid "document not referenced"
 msgstr ""
 
 #, fuzzy
@@ -1029,6 +1025,25 @@ msgid "No need to refresh group"
 msgstr "Delete"
 
 #, c-format
+msgid "search  contains %s in all state"
+msgstr ""
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr ""
+
+#, fuzzy
+msgid "precise search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "next"
+msgstr "Export this card"
+
+msgid "prev"
+msgstr ""
+
+#, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
@@ -1089,27 +1104,8 @@ msgstr "Modify"
 msgid "related search of %s"
 msgstr "Start search"
 
-#, fuzzy
-msgid "precise search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "next"
-msgstr "Export this card"
-
-msgid "prev"
-msgstr ""
-
 #, c-format
 msgid "Modification for attribute %s for family %s"
-msgstr ""
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr ""
-
-#, c-format
-msgid "search contains %s in %s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -2160,6 +2156,10 @@ msgstr "Start search"
 msgid "main view columns"
 msgstr "Start search"
 
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr ""
+
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -2350,10 +2350,6 @@ msgid "not perm for admin"
 msgstr ""
 
 msgid "not pertinent"
-msgstr ""
-
-#, c-format
-msgid "query [%s] not valid for select document"
 msgstr ""
 
 #, c-format
@@ -3177,22 +3173,9 @@ msgstr "Category"
 msgid "Cancel the change state"
 msgstr "Category"
 
-msgid "Changes will be loosed if you continue"
-msgstr ""
-
-msgid "help"
-msgstr ""
-
 #, fuzzy
-msgid "family manual"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Version"
-msgstr "Organisation"
-
-msgid "View historique"
-msgstr ""
+msgid "Creation"
+msgstr "Edit"
 
 msgid "Bookmarks"
 msgstr ""
@@ -3256,6 +3239,9 @@ msgid "fulltext"
 msgstr "Start search"
 
 msgid "Ref"
+msgstr ""
+
+msgid "help"
 msgstr ""
 
 #, fuzzy
@@ -3558,6 +3544,9 @@ msgstr ""
 msgid "A_Link"
 msgstr "Delete"
 
+msgid "Changes will be loosed if you continue"
+msgstr ""
+
 #, fuzzy
 msgid "Choose another family document"
 msgstr "Category"
@@ -3565,6 +3554,17 @@ msgstr "Category"
 #, fuzzy
 msgid "Other family"
 msgstr "Category"
+
+#, fuzzy
+msgid "family manual"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Version"
+msgstr "Organisation"
+
+msgid "View historique"
+msgstr ""
 
 #, fuzzy
 msgid "Import Documents"
@@ -3972,6 +3972,17 @@ msgid "enum attribute list"
 msgstr "Update Title Cards"
 
 #, fuzzy
+msgid "Send search"
+msgstr "Start search"
+
+msgid "Go"
+msgstr ""
+
+#, fuzzy
+msgid "toedit"
+msgstr "Edit"
+
+#, fuzzy
 msgid "Sort"
 msgstr "Export selected cards"
 
@@ -4137,16 +4148,12 @@ msgstr "Category"
 msgid "add new category"
 msgstr "Category"
 
-#, fuzzy
-msgid "Send search"
-msgstr "Start search"
-
-msgid "Go"
+msgid "Search containing characters"
 msgstr ""
 
 #, fuzzy
-msgid "toedit"
-msgstr "Edit"
+msgid "Search Words"
+msgstr "Start search"
 
 #, fuzzy
 msgid "Family preferences"

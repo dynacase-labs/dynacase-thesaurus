@@ -13,6 +13,9 @@ function verifytrash() {
     
   }
 }
+function simplesearch(){
+  sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH','[rtarget]');
+}
 </script>
 
 <table width="100%" cellspacing="0">
@@ -25,7 +28,7 @@ function verifytrash() {
   <td class="FREEDOMLabel" align="right">
        [L_SE_KEY]&nbsp;: </td>
   <td   >
-      [V_SE_KEY]</td>
+      <input onkeydown="if (trackCR(event)) {simplesearch();return false;}"   class="fullresize"   type="text" name="_se_key" value="" id="se_key"  ></td>
 </tr>
 <tr class="FREEDOMBack1">
   <td class="FREEDOMLabel" align="right">
@@ -44,7 +47,7 @@ function verifytrash() {
 <tr class="FREEDOMBack1">
   <td  align="center" colspan="2">
  
- <input type="submit" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH','[rtarget]');return false"> </td>
+ <input type="submit" style="font-weight: bold;" value="[TEXT: send search]" onClick="simplesearch();return false"> </td>
  
   <td>&nbsp</td>
 </tr>
@@ -74,7 +77,7 @@ function verifytrash() {
 
 <tr class="FREEDOMBack1">
   <td class="FREEDOMLabel" align="right">
-       [TEXT:case sensitive]&nbsp;: </td>
+       [L_SE_CASE]&nbsp;: </td>
   <td >[V_SE_CASE]</td>
   <td>&nbsp</td>
 </tr>

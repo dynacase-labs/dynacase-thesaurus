@@ -6,213 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 08:58+0200\n"
-"PO-Revision-Date: 2007-07-30 09:10+0200\n"
+"POT-Creation-Date: 2007-07-30 12:36+0200\n"
+"PO-Revision-Date: 2007-07-30 12:37+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "no import file specified"
-msgstr "pas de fichier d'import spécifié"
-
-#, c-format
-msgid "create %s family"
-msgstr "création de la famille %s"
-
-#, c-format
-msgid "update %s family"
-msgstr "mise à jour de la famille %s"
-
-#, c-format
-msgid "modify %s family"
-msgstr "modification de la famille %s"
-
-#, c-format
-msgid "update %s search"
-msgstr "mise à jour recherche %s"
-
-#, c-format
-msgid "add %s search"
-msgstr "Ajouter la recherche %s"
-
-#, c-format
-msgid "set doctype to '%s'"
-msgstr "affecter le doctype à '%s'"
-
-#, c-format
-msgid "set icon to '%s'"
-msgstr "affecte l'icone à '%s'"
-
-msgid "icon already set. No update allowed"
-msgstr "icone déjà affectée. Pas de mise à jour possible."
-
-#, c-format
-msgid "document %s : set icon to '%s'"
-msgstr "document %s : affecte l'icone à '%s'"
-
-#, c-format
-msgid "no change icon : document %s not found"
-msgstr "pas de changement d'icone : document %s pas trouvé"
-
-#, c-format
-msgid "create default folder (id [%d])\n"
-msgstr "Création du dossier par défaut (id [%d])\n"
-
-msgid "default folder already set. Auto ignored"
-msgstr "dossier par défaut déjà présent. paramètre \"auto\" ignoré."
-
-#, c-format
-msgid "set default folder to '%s'"
-msgstr "affecte le dossier par défaut à '%s'"
-
-#, c-format
-msgid "set default workflow to '%s'"
-msgstr "affecte le cycle de vie par défaut à '%s'"
-
-#, c-format
-msgid "set view control to '%s'"
-msgstr "affecte le contrôle de vue à '%s'"
-
-#, c-format
-msgid "set special characteristics to '%s'"
-msgstr "affecte la caractéristique spéciale à '%s'"
-
-#, c-format
-msgid "change methods to '%s'"
-msgstr "affecte les méthodes à '%s'"
-
-#, c-format
-msgid "change special use to '%s'"
-msgstr "affecte l'utilisation spéciale à '%s'"
-
-#, c-format
-msgid "change application tag to '%s'"
-msgstr "change la balise applicative  à '%s'"
-
-#, c-format
-msgid "change default creation profile id  to '%s'"
-msgstr "changer de profil de création par défaut à '%s'"
-
-#, c-format
-msgid "change profile id  to '%s'"
-msgstr "changer de profil à '%s'"
-
-#, c-format
-msgid "add default value %s %s"
-msgstr "ajout valeurs par défaut pour %s à %s"
-
-#, c-format
-msgid "copy attribute %s from %s"
-msgstr "copie attribut %s à partir de  %s"
-
-#, c-format
-msgid "update %s attribute"
-msgstr "mise à jour attribut %s"
-
-#, c-format
-msgid "new column order %s"
-msgstr "nouvel ordre des colonnes %s"
-
-#, c-format
-msgid "error in import keys : %s"
-msgstr "erreur dans la format des clefs d'importation : %s"
-
-#, c-format
-msgid "new import keys : %s"
-msgstr "nouvelles clefs d'importation : %s"
-
-#, c-format
-msgid "profil id unkonow %s"
-msgstr "identificateur de profil inconnu '%s'"
-
-#, c-format
-msgid "change profil %s"
-msgstr "changer de profil %s"
-
-#, c-format
-msgid "%s application not exists"
-msgstr "l'application %s n'existe pas"
-
-#, c-format
-msgid "%s application has no aclss"
-msgstr "L'application %s n'a pas d'ACL"
-
-#, c-format
-msgid "try add acl %s"
-msgstr "essai d'ajout de l'acl %s "
-
-#, c-format
-msgid "add acl %s"
-msgstr "ajout acl %s "
-
-#, c-format
-msgid "unknow acl %s"
-msgstr "ACL  inconnu : %s"
-
-#, c-format
-msgid "LDAP Attribute modified to %s %s"
-msgstr "Attribut LDAP modifié %s %s"
-
-#, c-format
-msgid "LDAP Attribute added to %s %s"
-msgstr "Attribut LDAP ajouté à %s %s"
-
-msgid "restore document"
-msgstr "restaurer le document"
-
-#, c-format
-msgid "update id [%d] "
-msgstr "mise à jour id [%d] "
-
-msgid "added"
-msgstr "ajouté"
-
-#, c-format
-msgid "pre-import:%s"
-msgstr "pré-Import:%s"
-
-#, c-format
-msgid "add %s id [%d]  "
-msgstr "ajout %s id [%d] "
-
-#, c-format
-msgid "%s to be add"
-msgstr "%s à ajouter"
-
-#, c-format
-msgid "add id [%d] "
-msgstr "ajout id [%d] "
-
-msgid "updated"
-msgstr "mis à jour"
-
-#, c-format
-msgid "update %s [%d] "
-msgstr "mise à jour %s [%d] "
-
-#, c-format
-msgid "to be update %s [%d] "
-msgstr "à mettre à jour %s [%d] "
-
-msgid "ignored"
-msgstr "ignoré"
-
-#, c-format
-msgid "too many similar document %s <B>ignored</B> "
-msgstr "trop de documents similaires trouvés %s <B>ignoré</B> "
-
-#, c-format
-msgid "similar document %s found. keep similar"
-msgstr "document similaire à %s a été trouve. L'original est conservé"
-
-msgid "updated by import"
-msgstr "mise à jour par import"
-
-#, c-format
-msgid "and add in %s folder "
-msgstr "et ajout dans dossier %s"
 
 #, c-format
 msgid "cannot see unknow reference %s"
@@ -450,8 +250,208 @@ msgstr "dossier"
 msgid "search"
 msgstr "recherche"
 
+msgid "no import file specified"
+msgstr "pas de fichier d'import spécifié"
+
+#, c-format
+msgid "create %s family"
+msgstr "création de la famille %s"
+
+#, c-format
+msgid "update %s family"
+msgstr "mise à jour de la famille %s"
+
+#, c-format
+msgid "modify %s family"
+msgstr "modification de la famille %s"
+
 msgid "Update by importation"
 msgstr "Mise à jour par importation"
+
+#, c-format
+msgid "update %s search"
+msgstr "mise à jour recherche %s"
+
+#, c-format
+msgid "add %s search"
+msgstr "Ajouter la recherche %s"
+
+#, c-format
+msgid "set doctype to '%s'"
+msgstr "affecter le doctype à '%s'"
+
+#, c-format
+msgid "set icon to '%s'"
+msgstr "affecte l'icone à '%s'"
+
+msgid "icon already set. No update allowed"
+msgstr "icone déjà affectée. Pas de mise à jour possible."
+
+#, c-format
+msgid "document %s : set icon to '%s'"
+msgstr "document %s : affecte l'icone à '%s'"
+
+#, c-format
+msgid "no change icon : document %s not found"
+msgstr "pas de changement d'icone : document %s pas trouvé"
+
+#, c-format
+msgid "create default folder (id [%d])\n"
+msgstr "Création du dossier par défaut (id [%d])\n"
+
+msgid "default folder already set. Auto ignored"
+msgstr "dossier par défaut déjà présent. paramètre \"auto\" ignoré."
+
+#, c-format
+msgid "set default folder to '%s'"
+msgstr "affecte le dossier par défaut à '%s'"
+
+#, c-format
+msgid "set default workflow to '%s'"
+msgstr "affecte le cycle de vie par défaut à '%s'"
+
+#, c-format
+msgid "set view control to '%s'"
+msgstr "affecte le contrôle de vue à '%s'"
+
+#, c-format
+msgid "set special characteristics to '%s'"
+msgstr "affecte la caractéristique spéciale à '%s'"
+
+#, c-format
+msgid "change methods to '%s'"
+msgstr "affecte les méthodes à '%s'"
+
+#, c-format
+msgid "change special use to '%s'"
+msgstr "affecte l'utilisation spéciale à '%s'"
+
+#, c-format
+msgid "change application tag to '%s'"
+msgstr "change la balise applicative  à '%s'"
+
+#, c-format
+msgid "change default creation profile id  to '%s'"
+msgstr "changer de profil de création par défaut à '%s'"
+
+#, c-format
+msgid "change profile id  to '%s'"
+msgstr "changer de profil à '%s'"
+
+#, c-format
+msgid "add default value %s %s"
+msgstr "ajout valeurs par défaut pour %s à %s"
+
+#, c-format
+msgid "copy attribute %s from %s"
+msgstr "copie attribut %s à partir de  %s"
+
+#, c-format
+msgid "update %s attribute"
+msgstr "mise à jour attribut %s"
+
+#, c-format
+msgid "new column order %s"
+msgstr "nouvel ordre des colonnes %s"
+
+#, c-format
+msgid "error in import keys : %s"
+msgstr "erreur dans la format des clefs d'importation : %s"
+
+#, c-format
+msgid "new import keys : %s"
+msgstr "nouvelles clefs d'importation : %s"
+
+#, c-format
+msgid "profil id unkonow %s"
+msgstr "identificateur de profil inconnu '%s'"
+
+#, c-format
+msgid "change profil %s"
+msgstr "changer de profil %s"
+
+#, c-format
+msgid "%s application not exists"
+msgstr "l'application %s n'existe pas"
+
+#, c-format
+msgid "%s application has no aclss"
+msgstr "L'application %s n'a pas d'ACL"
+
+#, c-format
+msgid "try add acl %s"
+msgstr "essai d'ajout de l'acl %s "
+
+#, c-format
+msgid "add acl %s"
+msgstr "ajout acl %s "
+
+#, c-format
+msgid "unknow acl %s"
+msgstr "ACL  inconnu : %s"
+
+#, c-format
+msgid "LDAP Attribute modified to %s %s"
+msgstr "Attribut LDAP modifié %s %s"
+
+#, c-format
+msgid "LDAP Attribute added to %s %s"
+msgstr "Attribut LDAP ajouté à %s %s"
+
+msgid "restore document"
+msgstr "restaurer le document"
+
+#, c-format
+msgid "update id [%d] "
+msgstr "mise à jour id [%d] "
+
+msgid "added"
+msgstr "ajouté"
+
+#, c-format
+msgid "pre-import:%s"
+msgstr "pré-Import:%s"
+
+#, c-format
+msgid "add %s id [%d]  "
+msgstr "ajout %s id [%d] "
+
+#, c-format
+msgid "%s to be add"
+msgstr "%s à ajouter"
+
+#, c-format
+msgid "add id [%d] "
+msgstr "ajout id [%d] "
+
+msgid "updated"
+msgstr "mis à jour"
+
+#, c-format
+msgid "update %s [%d] "
+msgstr "mise à jour %s [%d] "
+
+#, c-format
+msgid "to be update %s [%d] "
+msgstr "à mettre à jour %s [%d] "
+
+msgid "ignored"
+msgstr "ignoré"
+
+#, c-format
+msgid "too many similar document %s <B>ignored</B> "
+msgstr "trop de documents similaires trouvés %s <B>ignoré</B> "
+
+#, c-format
+msgid "similar document %s found. keep similar"
+msgstr "document similaire à %s a été trouve. L'original est conservé"
+
+msgid "updated by import"
+msgstr "mise à jour par import"
+
+#, c-format
+msgid "and add in %s folder "
+msgstr "et ajout dans dossier %s"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -630,32 +630,16 @@ msgid "Change state to %s"
 msgstr "Changement d'état vers %s"
 
 #, c-format
-msgid "document id %d not found"
-msgstr "identificateur %d du document non trouvé"
-
-msgid "no document type"
-msgstr "pas de famille de document"
-
-msgid "Creation"
-msgstr "Création"
-
-msgid "default values"
-msgstr "Valeurs par défaut"
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
-msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
-
-msgid "document not referenced"
-msgstr "document non référencé"
-
-#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
 msgstr ""
 "Exécution du lot abandonnée\n"
 "Document [%s] non trouvé"
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
 
 msgid "no file specified : change icon aborted"
 msgstr "pas de fichier fournit, changement d'icone abandonnée"
@@ -789,6 +773,19 @@ msgstr "L'archive %s n'a pas pue être supprimée"
 #, c-format
 msgid "archive file %s has been deleted"
 msgstr "L'archive %s a été supprimée"
+
+#, c-format
+msgid "document id %d not found"
+msgstr "identificateur %d du document non trouvé"
+
+msgid "no document type"
+msgstr "pas de famille de document"
+
+msgid "default values"
+msgstr "Valeurs par défaut"
+
+msgid "document not referenced"
+msgstr "document non référencé"
 
 msgid "description"
 msgstr "description"
@@ -986,6 +983,23 @@ msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
 
 #, c-format
+msgid "search  contains %s in all state"
+msgstr "recherche contenant %s (tout état)"
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr "recherche contenant %s dans %s"
+
+msgid "precise search"
+msgstr "Précisez la recherche"
+
+msgid "next"
+msgstr "suivant"
+
+msgid "prev"
+msgstr "suivant"
+
+#, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 "le document %s n'est pas un dossier et ne supporte pas le suppression en "
@@ -1045,26 +1059,9 @@ msgstr "Ajout dans dossier %s"
 msgid "related search of %s"
 msgstr "recherche relative de %s"
 
-msgid "precise search"
-msgstr "Précisez la recherche"
-
-msgid "next"
-msgstr "suivant"
-
-msgid "prev"
-msgstr "suivant"
-
 #, c-format
 msgid "Modification for attribute %s for family %s"
 msgstr "Modification de l'attribut %s de la famille %s"
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr "recherche contenant %s (tout état)"
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr "recherche contenant %s dans %s"
 
 #, c-format
 msgid "search %s is %s"
@@ -2013,6 +2010,10 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr "la requête [%s] n'est pas valide pour une sélection de documents"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2190,10 +2191,6 @@ msgstr "pas de permission pour admin"
 
 msgid "not pertinent"
 msgstr "Pas pertinent"
-
-#, c-format
-msgid "query [%s] not valid for select document"
-msgstr "la requête [%s] n'est pas valide pour une sélection de documents"
 
 #, c-format
 msgid "parameters for %s state"
@@ -2980,20 +2977,8 @@ msgstr "Raison du changement d'état"
 msgid "Cancel the change state"
 msgstr "Annulation du changement d'état"
 
-msgid "Changes will be loosed if you continue"
-msgstr "Les modifications seront perdues si vous continuez"
-
-msgid "help"
-msgstr "Aide"
-
-msgid "family manual"
-msgstr "Manuel de description de famille"
-
-msgid "Version"
-msgstr "Version"
-
-msgid "View historique"
-msgstr "Voir l'historique"
+msgid "Creation"
+msgstr "Création"
 
 msgid "Bookmarks"
 msgstr "Signets"
@@ -3045,6 +3030,9 @@ msgstr "plein texte"
 
 msgid "Ref"
 msgstr "Réf"
+
+msgid "help"
+msgstr "Aide"
 
 msgid "Import documents"
 msgstr "Importer des documents"
@@ -3286,11 +3274,23 @@ msgstr "Copier la référence au dossier dans le lot"
 msgid "A_Link"
 msgstr "Lier"
 
+msgid "Changes will be loosed if you continue"
+msgstr "Les modifications seront perdues si vous continuez"
+
 msgid "Choose another family document"
 msgstr "Choisissez une autre famille de document"
 
 msgid "Other family"
 msgstr "Autres familles"
+
+msgid "family manual"
+msgstr "Manuel de description de famille"
+
+msgid "Version"
+msgstr "Version"
+
+msgid "View historique"
+msgstr "Voir l'historique"
 
 msgid "Import Documents"
 msgstr " Importer des documents"
@@ -3627,6 +3627,15 @@ msgstr "Modifier"
 msgid "enum attribute list"
 msgstr "liste des attributs énumérés"
 
+msgid "Send search"
+msgstr "Lancer la recherche"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "toedit"
+msgstr "éditer"
+
 msgid "Sort"
 msgstr "Tri"
 
@@ -3776,14 +3785,11 @@ msgstr "Nouvelle catégorie"
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
 
-msgid "Send search"
-msgstr "Lancer la recherche"
+msgid "Search containing characters"
+msgstr "Recherche contenant les caractères"
 
-msgid "Go"
-msgstr "Go"
-
-msgid "toedit"
-msgstr "éditer"
+msgid "Search Words"
+msgstr "Recherche des mots"
 
 msgid "Family preferences"
 msgstr "Préférences des familles"

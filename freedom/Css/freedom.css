@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.114 2007/07/30 07:11:53 eric Exp $
+ * $Id: freedom.css,v 1.115 2007/07/30 16:04:15 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -574,7 +574,10 @@ BUTTON.binline:hover, BUTTON.binline:focus {
         text-decoration:  underline;
   border:none;
 }
-
+input[type="button"].searchbutton {
+  border:none;
+  width:[SIZE_LARGE];
+}
 SPAN.selected {
   cursor: pointer;
   background-color:lightgreen;
