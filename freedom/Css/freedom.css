@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.113 2007/07/27 15:17:07 eric Exp $
+ * $Id: freedom.css,v 1.114 2007/07/30 07:11:53 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -921,12 +921,4 @@ DIV.tabsh SPAN.tabsel  {
   border-style:none none solid solid;
   border-width:0px 0px 1px 10px;
   -moz-border-radius:0px 0px 0px 10px;
-}
-SELECT.family {
-  font-size:[SIZE_X-LARGE];font-weight: bold;
-  height:20px;
-}
-SELECT.family OPTION{
-  font-size:[SIZE_MEDIUM];
-  font-weight: normal;
 }
