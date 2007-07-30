@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.128 2007/07/26 15:02:33 eric Exp $
+ * @version $Id: import_file.php,v 1.129 2007/07/30 07:11:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -134,11 +134,11 @@ function add_import_file(&$action, $fimport) {
       }
 
       
+      $doc->AddComment(_("Update by importation"));
      
-      
       $nbdoc++;
 
-      if (isset($famdoc)) $famdoc->modify(); // has default values
+
       break;
       // -----------------------------------
     case "DOC":
@@ -311,7 +311,6 @@ function add_import_file(&$action, $fimport) {
       $tcr[$nline]["msg"]=sprintf(_("change profile id  to '%s'"),$data[1]);
       break;
     case "DEFAULT":     
-      //   $famdoc=$doc->getFamDoc();
       $doc->setDefValue($data[1],str_replace('\n',"\n",$data[2]));
       $doc->setParam($data[1],str_replace('\n',"\n",$data[2]));
 
