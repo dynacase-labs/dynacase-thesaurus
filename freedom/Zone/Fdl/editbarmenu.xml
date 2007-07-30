@@ -22,6 +22,5 @@
  [IFNOT NOSAVE]
 [IF SELFTARGET]<a  href="javascript:void(0)" id="iCancel"  title="[TEXT:Cancel changes and quit edit mode]"  onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) document.location.href='[CORE_STANDURL]&app=GENERIC&action=GENERIC_LOGO'; else document.location.href='[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&rzone=[rzone]&id=[id]'">[TEXT:Cancel]</a>[ENDIF SELFTARGET]
 [IFNOT SELFTARGET]<a  href="javascript:void(0)" id="iCancel" title="[TEXT:Cancel changes and close window]"  onclick="document.isCancelled=true;if (('[id]' == '')||('[id]' == '0')) self.close(); else subwindow(100,100,'[rtarget]','[CORE_STANDURL]&app=FDL&action=UNLOCKFILE&auto=Y&rzone=[rzone]&id=[id]');self.close()">[TEXT:Cancel]</a>[ENDIF SELFTARGET]
-<input id="iSubmit" style="display:none" type="submit">
 [ENDIF NOSAVE]
 </div>
