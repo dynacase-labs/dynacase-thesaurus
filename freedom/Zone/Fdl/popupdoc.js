@@ -140,14 +140,15 @@ function viewmenu(event,murl,source,coord) {
   menuSend(event,murl,DIVPOPUPMENU,coord);
 }
 
-function viewsubmenu(event,murl,upobject) {
+function viewsubmenu(event,murl,upobject,source) {
   var coord=false;
-  var source=false;
-  if (upobject) {
+  // var source=false;
+  if (upobject) {    
     coord=new Object();;
     coord.x=AnchorPosition_getPageOffsetLeft(upobject);
     coord.y=AnchorPosition_getPageOffsetTop(upobject)+getObjectHeight(upobject);
   } 
+
   viewmenu(event,murl,source,coord);
 }
 function closeDocMenu() {

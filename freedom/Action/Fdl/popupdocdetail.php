@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.21 2007/07/31 10:04:37 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.22 2007/07/31 13:49:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -137,7 +137,7 @@ function getpopupdocdetail(&$action,$docid) {
 			       "control"=>"false",
 			       "tconfirm"=>"",
 			       "target"=>"",
-			       "visibility"=>POPUP_CTRLACTIVE,
+			       "visibility"=>POPUP_ACTIVE,
 			       "submenu"=>"",
 			       "barmenu"=>"false"),
 	       "duplicate"=>array( "descr"=>_("Duplicate"),
@@ -236,7 +236,7 @@ function getpopupdocdetail(&$action,$docid) {
 /**
  * Add control view menu
  */
-function addCvPopup(&$tlink,&$doc) {
+function addCvPopup(&$tlink,&$doc,$target="_self") {
  
   if ($doc->cvid > 0 )  {
 
@@ -290,7 +290,7 @@ function addCvPopup(&$tlink,&$doc) {
 				 "confirm"=>"false",
 				 "control"=>"false",
 				 "tconfirm"=>"",
-				 "target"=>"_self",
+				 "target"=>$target,
 				 "visibility"=>POPUP_ACTIVE,
 				 "submenu"=>$v["typeview"],
 				 "barmenu"=>"false");

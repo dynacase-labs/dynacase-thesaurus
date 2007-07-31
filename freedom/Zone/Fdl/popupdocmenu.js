@@ -19,7 +19,7 @@ function setonclick(event) {
   }
 }
 
-function viewdocmenu(event,docid,onlyctrl,upobject) {
+function viewdocmenu(event,docid,onlyctrl,upobject,sourceobject) {
   POPMENUINPROGRESSELT=false;
   var corestandurl=window.location.pathname+'?sole=Y&';
   var menuapp=MENUAPP;
@@ -33,10 +33,11 @@ function viewdocmenu(event,docid,onlyctrl,upobject) {
       menuaction='POPUPDOCDETAIL';
     }     
   }
-  
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
-  viewsubmenu(event,menuurl,upobject);
+  viewsubmenu(event,menuurl,upobject,sourceobject);
 }
+
+
 function viewdocsubmenu(event,docid,submenu,upobject) {
   POPMENUINPROGRESSELT=false;
   var corestandurl=window.location.pathname+'?sole=Y&';

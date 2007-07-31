@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.32 2007/07/30 16:05:27 eric Exp $
+ * @version $Id: generic_list.php,v 1.33 2007/07/31 13:49:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,6 +39,7 @@ function generic_list(&$action) {
   } else {
     $wonglet=(getTabLetter($action,$famid)=='Y');
   }
+
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if ($dirid) {

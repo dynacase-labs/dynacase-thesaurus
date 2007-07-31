@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: GENERIC.app,v 1.19 2007/05/04 10:19:43 eric Exp $
+// $Id: GENERIC.app,v 1.20 2007/07/31 13:49:44 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Generic/GENERIC.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -211,6 +211,11 @@ $action_desc = array (
    "acl"		=>"GENERIC",
    "script"		=>"generic_memosplit.php",
    "function"		=>"generic_memosearch"
+  ),
+  array( 
+   "name"		=>"POPUPLISTDETAIL",
+   "short_name"		=>N_("popup in generic list"),
+   "acl"		=>"GENERIC_READ"
   ) 
                       );
    
