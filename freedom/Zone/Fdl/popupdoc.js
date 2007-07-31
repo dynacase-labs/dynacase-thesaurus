@@ -134,8 +134,8 @@ function viewmenu(event,murl,source,coord) {
   //MENUSOURCE.style.borderWidth='1px';
 
   if (MENUSOURCE) {
-    MENUSOURCE.style.borderTop='dashed 1px #777777';
-    MENUSOURCE.style.borderBottom='dashed 1px #777777';
+    MENUSOURCE.style.borderTop='dashed 1px #777777!important';
+    MENUSOURCE.style.borderBottom='dashed 1px #777777!important';
   }
   menuSend(event,murl,DIVPOPUPMENU,coord);
 }

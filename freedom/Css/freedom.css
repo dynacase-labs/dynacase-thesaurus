@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.115 2007/07/30 16:04:15 eric Exp $
+ * $Id: freedom.css,v 1.116 2007/07/31 16:31:24 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -206,9 +206,14 @@ TD.und {
 }
 
 TD.tlist {
-   border-width : 1px;
-   border-style : dashed none none none;
-   border-color : [CORE_FGCOLOR];
+  /* border-width : inherit;
+   border-style : inherit;*/
+  border-left-style:none;
+  border-right-style:none;
+  border-color : [COLOR_A5];
+  border-top-style:solid;
+  border-top-width:1px;
+  border-bottom-style:none;
 }
 
 DIV.unselect {
@@ -222,8 +227,17 @@ DIV.unselect {
 DIV.normal {
   background-color:[CORE_BGCELLCOLOR];  
 }
-TR.unselecth, DIV.unselecth {
+DIV.unselecth {
    border-style : inset;
+  background-color:[CORE_BGCOLORHIGH]!important;
+  color:[CORE_TEXTFGCOLOR];
+   border-width : 1px;
+  margin: 2px 0px 0px 0px;
+
+}
+TR.unselecth {
+   /*border-top-style : inset;
+   border-bottom-style : inset;*/
   background-color:[CORE_BGCOLORHIGH]!important;
   color:[CORE_TEXTFGCOLOR];
    border-width : 1px;
@@ -412,6 +426,10 @@ IMG.select {
 
 TBODY.unselect, TR.unselect {
   cursor: crosshair;
+}
+TR.unselect {
+  border-color:[COLOR_A5];
+  border-width:1px;
 }
 TR.unselect:hover, TBODY.unselect:hover TR{
   cursor: crosshair;
