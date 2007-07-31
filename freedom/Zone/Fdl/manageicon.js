@@ -163,10 +163,7 @@ function openFld(docid) {
 //--------------------- DRAG & DROP  --------------------------
 var drag=0;
 
-if (isNetscape) {
-    document.captureEvents(Event.MOUSEMOVE);
-    document.captureEvents(Event.KEYPRESS)
-}    
+
 
 
 //document.onmousemove = GetXY;;

@@ -28,9 +28,6 @@
 
 var    winfo = self.opener;
 
-if (isNetscape) {
-    winfo.document.captureEvents(Event.MOUSEMOVE);
-}    
 
 
     //--------------------- ATTR  --------------------------
