@@ -3,7 +3,7 @@
  * Edit enum attribute items
  *
  * @author Anakeen 2000 
- * @version $Id: generic_editcatg.php,v 1.7 2006/02/03 17:03:41 eric Exp $
+ * @version $Id: generic_editcatg.php,v 1.8 2007/07/31 14:13:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,7 +58,7 @@ function generic_editcatg(&$action) {
     $tlabel[]= array("elabel"=>$vlabel,
 		     "velabel"=>$loff.$vlabel);
   }
-
+  
   $action->lay->setBlockData("ALEVEL",$tlevel);
   $action->lay->setBlockData("AREF",$tref);
   $action->lay->setBlockData("ALABEL",$tlabel);

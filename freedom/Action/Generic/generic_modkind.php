@@ -3,7 +3,7 @@
  * Modify item os enumerate attributes
  *
  * @author Anakeen 2000 
- * @version $Id: generic_modkind.php,v 1.5 2005/12/02 11:03:39 eric Exp $
+ * @version $Id: generic_modkind.php,v 1.6 2007/07/31 14:13:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,23 +32,25 @@ function generic_modkind(&$action) {
   $tlabel = GetHttpVars("alabel"); // label
 
   $tsref=array();
+  $tsenum=array();
   $ref="";$ple = 1;
-  while (list($k, $v) = each($tref)) {
-    $le= intval($tlevel[$k]);
-    if ($le == 1) $ref=''; 
-    else if ($ple < $le) {
-      // add level ref index
-      $ref = $ref  . $tref[$k-1].'.';
-    } else  if ($ple > $le) {
-      // suppress one or more level ref index
-      for ($l=0;$l<$ple-$le;$l++)  $ref=substr($ref,0,strrpos($ref,'.')-1);
-    }
-    $ple = $le;
+  if (is_array($tref)) {
+    while (list($k, $v) = each($tref)) {
+      $le= intval($tlevel[$k]);
+      if ($le == 1) $ref=''; 
+      else if ($ple < $le) {
+	// add level ref index
+	$ref = $ref  . $tref[$k-1].'.';
+      } else  if ($ple > $le) {
+	// suppress one or more level ref index
+	for ($l=0;$l<$ple-$le;$l++)  $ref=substr($ref,0,strrpos($ref,'.')-1);
+      }
+      $ple = $le;
    
 
-    $tsenum[$k] = $ref.$v."|".$tlabel[$k];
+      $tsenum[$k] = $ref.$v."|".$tlabel[$k];
+    }
   }
-
   $attr = new DocAttr($dbaccess, array($famid,$aid));
   if ($attr->isAffected()) {
   

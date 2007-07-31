@@ -48,6 +48,7 @@ function correctlevel() {
 
   var ple = 1;
   // first level is always one
+  if (sle.options.length==0) return;
   sle.options[0].value=1;
   sle.options[0].text=sle.options[0].value;
   var ref= '';
@@ -167,6 +168,9 @@ function adda(event) {
   sre.add(new Option(ire.value, ire.value, false, true),pos);
   sle.add(new Option('1', '1', false, true),pos);
   correctlevel();
+  ila.value='';
+  ire.value='';
+  ila.focus();
 }
 
 function moda(event) {
