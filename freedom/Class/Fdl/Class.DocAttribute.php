@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.35 2007/02/27 10:07:18 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.36 2007/07/31 15:13:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -125,26 +125,27 @@ Class NormalAttribute extends BasicAttribute {
 
       $sphpfunc = str_replace("\\.", "-dot-",$this->phpfunc); // to replace dot & comma separators
       $sphpfunc  = str_replace("\\,", "-comma-",$sphpfunc);
-      
-      $tenum = explode(",",$sphpfunc);
+      if ($sphpfunc!="") {
+	$tenum = explode(",",$sphpfunc);
+     
+	while (list($k, $v) = each($tenum)) {
+	  list($n,$text) = explode("|",$v);
+	  list($n1,$n2) = explode(".",$n);
 
-      while (list($k, $v) = each($tenum)) {
-	list($n,$text) = explode("|",$v);
-	list($n1,$n2) = explode(".",$n);
-
-	$text=str_replace( "-dot-",".",$text);
-	$text=str_replace( "-comma-",",",$text);
-	$n=str_replace( "-dot-",".",$n);
-	$n=str_replace( "-comma-",",",$n);
-	$n1=str_replace( "-dot-",".",$n1);
-	$n1=str_replace( "-comma-",",",$n1);
+	  $text=str_replace( "-dot-",".",$text);
+	  $text=str_replace( "-comma-",",",$text);
+	  $n=str_replace( "-dot-",".",$n);
+	  $n=str_replace( "-comma-",",",$n);
+	  $n1=str_replace( "-dot-",".",$n1);
+	  $n1=str_replace( "-comma-",",",$n1);
 
 
-	if ($n2 != "") $this->enum[$n]=$this->enum[$n1]."/".$text;
-	else $this->enum[$n]=$text;
-	if ($n2 != "") $this->enumlabel[substr($n,strrpos($n,'.')+1)]=$this->enum[$n];
-	else $this->enumlabel[$n]=$this->enum[$n];
-      }
+	  if ($n2 != "") $this->enum[$n]=$this->enum[$n1]."/".$text;
+	  else $this->enum[$n]=$text;
+	  if ($n2 != "") $this->enumlabel[substr($n,strrpos($n,'.')+1)]=$this->enum[$n];
+	  else $this->enumlabel[$n]=$this->enum[$n];
+	}
+      } 
     }
     $__tenum[$this->id]=$this->enum;
     $__tlenum[$this->id]=$this->enumlabel;
