@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.135 2007/08/01 14:09:21 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.136 2007/08/01 15:31:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -828,4 +828,22 @@ function getLatestDocsFromIds($dbaccess,$ids,$userid=0) {
   }
   return $tdoc;
 }
+/**
+ * get array of document values from array od document id
+ * @param string $dbaccess database specification
+ * @param string $ids array of init id -only initid-
+ * @param string $userid the user where search visibility
+ */
+function getVisibleDocsFromIds($dbaccess,$ids,$userid) {
+
+  $query = new QueryDb($dbaccess,"DocRead");
+  $query->AddQuery("initid in (".implode(",",$ids).')');
+  $query->AddQuery("locked != -1");
+  if ($userid > 1) $query->AddQuery("hasviewprivilege(".$userid.",profid)");
+  
+  $tdoc=$query->Query(0,0,"TABLE");
+  
+  return $tdoc;
+}
+
 ?>
