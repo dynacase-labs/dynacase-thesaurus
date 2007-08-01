@@ -3,7 +3,7 @@
  * Relation Navigation
  *
  * @author Anakeen 2005
- * @version $Id: rnavigate.php,v 1.4 2007/07/25 14:53:07 eric Exp $
+ * @version $Id: rnavigate.php,v 1.5 2007/08/01 14:04:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -25,6 +25,7 @@ function rnavigate(&$action) {
 
 
   $doc = new_Doc($dbaccess, $docid);
+  if ($doc->locked == -1) $doc=new_Doc($dbaccess,$doc->LatestId());
   $idocid=$doc->initid;
 
   $rdoc=new DocRel($dbaccess,$idocid);
