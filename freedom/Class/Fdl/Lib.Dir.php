@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.134 2007/06/29 14:16:21 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.135 2007/08/01 14:09:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -812,6 +812,18 @@ function getDocsFromIds($dbaccess,$ids,$userid=0) {
   $tdoc=array();
   foreach ($ids as $k=>$id) {
     $tdoc1=getTDoc($dbaccess,$id);
+    if ((($userid==1) || controlTdoc($tdoc1,"view"))&&($tdoc1["doctype"]!='Z'))   $tdoc[$id]=$tdoc1;
+  }
+  return $tdoc;
+}
+/**
+ * get array of document values from array od document id
+ * @param string $dbaccess database specification
+ */
+function getLatestDocsFromIds($dbaccess,$ids,$userid=0) {
+  $tdoc=array();
+  foreach ($ids as $k=>$id) {
+    $tdoc1=getLatestTDoc($dbaccess,$id);
     if ((($userid==1) || controlTdoc($tdoc1,"view"))&&($tdoc1["doctype"]!='Z'))   $tdoc[$id]=$tdoc1;
   }
   return $tdoc;
