@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_isearch.php,v 1.10 2007/05/03 16:38:31 eric Exp $
+ * @version $Id: generic_isearch.php,v 1.11 2007/08/01 09:28:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_isearch.php,v 1.10 2007/05/03 16:38:31 eric Exp $
+// $Id: generic_isearch.php,v 1.11 2007/08/01 09:28:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_isearch.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,6 +40,7 @@ include_once("FDL/freedom_util.php");
 include_once("GENERIC/generic_util.php");  
 
 
+include_once("FDL/Class.DocRel.php");
 
 
 
@@ -62,30 +63,21 @@ function generic_isearch(&$action) {
 
 
   $doc = new_Doc($dbaccess, $docid);
-  $tdoc = $doc->getRevisions("TABLE");
-  $tid=array();
-  while (list($k,$v) = each($tdoc)) {
-    $tid[]=$v["id"];
+
+  $sdoc = createTmpDoc($dbaccess,2); //new Folder
+  $sdoc->title = sprintf(_("related documents of %s"),$doc->title );
+
+  $sdoc->Add();  
+  $idocid=$doc->initid;
+  $rdoc=new DocRel($dbaccess,$idocid);
+  $rdoc->sinitid=$idocid;
+  $trel=$rdoc->getIRelations();
+  $tids=array();
+  foreach ($trel as $k=>$v) {
+      $tids[$v["sinitid"]]=$v["sinitid"];      
   }
-  $full="fulltext @@ to_tsquery('simple','".implode("|",$tid)."')";
-
-  $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
-  $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
-  $sdoc->title = sprintf(_("related search of %s"),$doc->title );
-
-  $sdoc->Add();
-  
-
-  $sqlfilter[]= "locked != -1";
-  //  $sqlfilter[]= "doctype ='F'";
-  //  $sqlfilter[]= "usefor != 'D'";
-  $sqlfilter[]= $full;
-
-  $query=getSqlSearchDoc($dbaccess, 
-			 0,  
-			 $famid, 
-			 $sqlfilter);
-  $sdoc-> AddQuery($query);
+  $sdoc->QuickInsertMSDocId($tids);
+ 
   redirect($action,"FREEDOM","FREEDOM_VIEW&viewone=$viewone&dirid=".$sdoc->id);
   // redirect($action,GetHttpVars("app"),"GENERIC_LIST&dirid=".$sdoc->id."&famid=$famid&catg=0");
   
