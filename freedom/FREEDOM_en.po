@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-30 12:36+0200\n"
+"POT-Creation-Date: 2007-08-01 11:21+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,6 +14,117 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
+
+msgid "No identificator"
+msgstr ""
+
+msgid "Properties"
+msgstr ""
+
+msgid "View latest"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Delete"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "Sure delete %s ?"
+msgstr "Delete"
+
+#, fuzzy
+msgid "restore"
+msgstr "Create"
+
+#, fuzzy
+msgid "Change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Lock"
+msgstr "Create"
+
+#, fuzzy
+msgid "security"
+msgstr "Locality"
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Revise"
+msgstr "Created by"
+
+#, fuzzy
+msgid "Change profile"
+msgstr "Category"
+
+msgid "History"
+msgstr ""
+
+#, fuzzy
+msgid "Duplicate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Sure duplicate ?"
+msgstr "Edit"
+
+msgid "goaccess"
+msgstr "Control access"
+
+msgid "Add to basket"
+msgstr ""
+
+#, fuzzy
+msgid "Change icon"
+msgstr "Start search"
+
+msgid "Add postit"
+msgstr ""
+
+msgid "View XML"
+msgstr ""
+
+#, fuzzy
+msgid "Document relations"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Access path list"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Search linked documents"
+msgstr "Delete"
+
+#, fuzzy
+msgid "specialedit"
+msgstr "Delete"
+
+msgid "specialview"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Change state %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "Comment for change state to %s"
+msgstr "Category"
+
+#, fuzzy
+msgid "chgstates"
+msgstr "Identity"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr ""
 
 #, c-format
 msgid "cannot see unknow reference %s"
@@ -104,113 +215,6 @@ msgid "no email address found"
 msgstr "Address"
 
 msgid "no avalaible persons found"
-msgstr ""
-
-msgid "No identificator"
-msgstr ""
-
-msgid "Properties"
-msgstr ""
-
-msgid "View latest"
-msgstr ""
-
-#, fuzzy
-msgid "Edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Delete"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "Sure delete %s ?"
-msgstr "Delete"
-
-#, fuzzy
-msgid "restore"
-msgstr "Create"
-
-#, fuzzy
-msgid "Change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Create"
-
-#, fuzzy
-msgid "security"
-msgstr "Locality"
-
-#, fuzzy
-msgid "Unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Revise"
-msgstr "Created by"
-
-#, fuzzy
-msgid "Change profile"
-msgstr "Category"
-
-msgid "History"
-msgstr ""
-
-#, fuzzy
-msgid "Duplicate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Sure duplicate ?"
-msgstr "Edit"
-
-msgid "goaccess"
-msgstr "Control access"
-
-msgid "Add to basket"
-msgstr ""
-
-#, fuzzy
-msgid "Change icon"
-msgstr "Start search"
-
-msgid "Add postit"
-msgstr ""
-
-msgid "View XML"
-msgstr ""
-
-#, fuzzy
-msgid "Document relations"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Search linked documents"
-msgstr "Delete"
-
-#, fuzzy
-msgid "specialedit"
-msgstr "Delete"
-
-msgid "specialview"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Change state %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "Comment for change state to %s"
-msgstr "Category"
-
-#, fuzzy
-msgid "chgstates"
-msgstr "Identity"
-
-#, c-format
-msgid "Sure %s ?"
 msgstr ""
 
 msgid "cannot compare two document which comes from two different family"
@@ -666,6 +670,17 @@ msgstr "Modify"
 msgid "Change state to %s"
 msgstr "Category"
 
+#, fuzzy
+msgid "Referenced from"
+msgstr "Delete"
+
+msgid "type"
+msgstr ""
+
+#, fuzzy
+msgid "Reference"
+msgstr "Delete"
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -981,17 +996,6 @@ msgid "changed"
 msgstr ""
 
 #, fuzzy
-msgid "Referenced from"
-msgstr "Delete"
-
-msgid "type"
-msgstr ""
-
-#, fuzzy
-msgid "Reference"
-msgstr "Delete"
-
-#, fuzzy
 msgid "creation of document family"
 msgstr "Start search"
 
@@ -1024,24 +1028,9 @@ msgstr ""
 msgid "No need to refresh group"
 msgstr "Delete"
 
-#, c-format
-msgid "search  contains %s in all state"
-msgstr ""
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr ""
-
-#, fuzzy
-msgid "precise search"
+#, fuzzy, c-format
+msgid "related search of %s"
 msgstr "Start search"
-
-#, fuzzy
-msgid "next"
-msgstr "Export this card"
-
-msgid "prev"
-msgstr ""
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1101,11 +1090,30 @@ msgid "Add it in %s folder"
 msgstr "Modify"
 
 #, fuzzy, c-format
-msgid "related search of %s"
+msgid "related documents of %s"
+msgstr "Import"
+
+#, fuzzy
+msgid "precise search"
 msgstr "Start search"
+
+#, fuzzy
+msgid "next"
+msgstr "Export this card"
+
+msgid "prev"
+msgstr ""
 
 #, c-format
 msgid "Modification for attribute %s for family %s"
+msgstr ""
+
+#, c-format
+msgid "search  contains %s in all state"
+msgstr ""
+
+#, c-format
+msgid "search contains %s in %s"
 msgstr ""
 
 #, fuzzy, c-format
@@ -1122,6 +1130,10 @@ msgstr ""
 #, fuzzy, c-format
 msgid "%s all "
 msgstr "readall"
+
+#, fuzzy, c-format
+msgid "Sure duplicate %s ?"
+msgstr "Edit"
 
 #, c-format
 msgid "Family (#%s) not exists"
@@ -1884,6 +1896,10 @@ msgstr "Start search"
 msgid "last search text typed"
 msgstr ""
 
+#, fuzzy
+msgid "search mode"
+msgstr "Start search"
+
 msgid "Generic"
 msgstr ""
 
@@ -1999,6 +2015,10 @@ msgstr ""
 
 msgid "memorisation of pref search"
 msgstr ""
+
+#, fuzzy
+msgid "popup in generic list"
+msgstr "Title"
 
 #, fuzzy
 msgid "visible user families"
@@ -2155,282 +2175,6 @@ msgstr "Start search"
 #, fuzzy
 msgid "main view columns"
 msgstr "Start search"
-
-#, c-format
-msgid "query [%s] not valid for select document"
-msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "Document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, fuzzy
-msgid "view document"
-msgstr "Organisation"
-
-msgid "view"
-msgstr ""
-
-#, fuzzy
-msgid "send document"
-msgstr "Import"
-
-#, fuzzy
-msgid "send"
-msgstr "Edit"
-
-msgid "edit document"
-msgstr ""
-
-#, fuzzy
-msgid "edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "delete document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "open folder"
-msgstr "Modify"
-
-msgid "open"
-msgstr ""
-
-#, fuzzy
-msgid "execute search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "execute"
-msgstr "Delete"
-
-#, fuzzy
-msgid "modify folder"
-msgstr "Modify"
-
-msgid "modify"
-msgstr "Modify"
-
-#, fuzzy
-msgid "view acl"
-msgstr "Start search"
-
-msgid "viewacl"
-msgstr ""
-
-#, fuzzy
-msgid "modifyacl"
-msgstr "Modify"
-
-#, fuzzy
-msgid "create doc"
-msgstr "Create"
-
-#, fuzzy
-msgid "unlock"
-msgstr "Create"
-
-msgid "unlock unowner locked doc"
-msgstr ""
-
-#, fuzzy
-msgid "icreate"
-msgstr "Create"
-
-#, fuzzy
-msgid "create doc manually"
-msgstr "Create"
-
-#, fuzzy
-msgid "confidential"
-msgstr "Delete"
-
-#, fuzzy
-msgid "view confidential"
-msgstr "Delete"
-
-#, c-format
-msgid "unknow privilege %s"
-msgstr ""
-
-#, c-format
-msgid "unknow virtual user identificateur %s"
-msgstr ""
-
-#, c-format
-msgid "no privilege %s for %s |%d]"
-msgstr ""
-
-msgid "<it's a message>"
-msgstr ""
-
-msgid "the email syntax  is like : john.doe@anywhere.org"
-msgstr ""
-
-msgid "the email must containt the @ character"
-msgstr ""
-
-msgid "the date syntax must be like : DD/MM/AAAA"
-msgstr ""
-
-#, c-format
-msgid "the date %s is in the past: today is %s"
-msgstr ""
-
-#, fuzzy
-msgid "the document id is empty"
-msgstr "Category"
-
-#, c-format
-msgid "the document id [%s] for this attribute is not valid"
-msgstr ""
-
-#, c-format
-msgid "the title of document [%s] is not conform to original [%s]"
-msgstr ""
-
-msgid "clic to the ... button to link document correctly"
-msgstr ""
-
-msgid "clic to the [...] button to link document correctly"
-msgstr ""
-
-#, fuzzy
-msgid "the document title is empty"
-msgstr "Category"
-
-msgid "not perm for admin"
-msgstr ""
-
-msgid "not pertinent"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "%s color"
-msgstr ""
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
-msgid "wprocess_private"
-msgstr ""
-
-msgid "wprocess_qualified"
-msgstr ""
-
-msgid "Twprocess_private"
-msgstr ""
-
-msgid "Twprocess_public"
-msgstr ""
 
 #, fuzzy
 msgid "document creation"
@@ -2679,6 +2423,282 @@ msgid "uncomplete request"
 msgstr ""
 
 msgid "request not found"
+msgstr ""
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "Document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+#, fuzzy
+msgid "view document"
+msgstr "Organisation"
+
+msgid "view"
+msgstr ""
+
+#, fuzzy
+msgid "send document"
+msgstr "Import"
+
+#, fuzzy
+msgid "send"
+msgstr "Edit"
+
+msgid "edit document"
+msgstr ""
+
+#, fuzzy
+msgid "edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "delete document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "open folder"
+msgstr "Modify"
+
+msgid "open"
+msgstr ""
+
+#, fuzzy
+msgid "execute search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "execute"
+msgstr "Delete"
+
+#, fuzzy
+msgid "modify folder"
+msgstr "Modify"
+
+msgid "modify"
+msgstr "Modify"
+
+#, fuzzy
+msgid "view acl"
+msgstr "Start search"
+
+msgid "viewacl"
+msgstr ""
+
+#, fuzzy
+msgid "modifyacl"
+msgstr "Modify"
+
+#, fuzzy
+msgid "create doc"
+msgstr "Create"
+
+#, fuzzy
+msgid "unlock"
+msgstr "Create"
+
+msgid "unlock unowner locked doc"
+msgstr ""
+
+#, fuzzy
+msgid "icreate"
+msgstr "Create"
+
+#, fuzzy
+msgid "create doc manually"
+msgstr "Create"
+
+#, fuzzy
+msgid "confidential"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view confidential"
+msgstr "Delete"
+
+#, c-format
+msgid "unknow privilege %s"
+msgstr ""
+
+#, c-format
+msgid "unknow virtual user identificateur %s"
+msgstr ""
+
+#, c-format
+msgid "no privilege %s for %s |%d]"
+msgstr ""
+
+msgid "<it's a message>"
+msgstr ""
+
+msgid "the email syntax  is like : john.doe@anywhere.org"
+msgstr ""
+
+msgid "the email must containt the @ character"
+msgstr ""
+
+msgid "the date syntax must be like : DD/MM/AAAA"
+msgstr ""
+
+#, c-format
+msgid "the date %s is in the past: today is %s"
+msgstr ""
+
+#, fuzzy
+msgid "the document id is empty"
+msgstr "Category"
+
+#, c-format
+msgid "the document id [%s] for this attribute is not valid"
+msgstr ""
+
+#, c-format
+msgid "the title of document [%s] is not conform to original [%s]"
+msgstr ""
+
+msgid "clic to the ... button to link document correctly"
+msgstr ""
+
+msgid "clic to the [...] button to link document correctly"
+msgstr ""
+
+#, fuzzy
+msgid "the document title is empty"
+msgstr "Category"
+
+msgid "not perm for admin"
+msgstr ""
+
+msgid "not pertinent"
+msgstr ""
+
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr ""
+
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "%s color"
+msgstr ""
+
+#, c-format
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
+
+msgid "wprocess_private"
+msgstr ""
+
+msgid "wprocess_qualified"
+msgstr ""
+
+msgid "Twprocess_private"
+msgstr ""
+
+msgid "Twprocess_public"
 msgstr ""
 
 #, fuzzy, c-format
@@ -3972,17 +3992,6 @@ msgid "enum attribute list"
 msgstr "Update Title Cards"
 
 #, fuzzy
-msgid "Send search"
-msgstr "Start search"
-
-msgid "Go"
-msgstr ""
-
-#, fuzzy
-msgid "toedit"
-msgstr "Edit"
-
-#, fuzzy
 msgid "Sort"
 msgstr "Export selected cards"
 
@@ -4154,6 +4163,17 @@ msgstr ""
 #, fuzzy
 msgid "Search Words"
 msgstr "Start search"
+
+#, fuzzy
+msgid "Send search"
+msgstr "Start search"
+
+msgid "Go"
+msgstr ""
+
+#, fuzzy
+msgid "toedit"
+msgstr "Edit"
 
 #, fuzzy
 msgid "Family preferences"

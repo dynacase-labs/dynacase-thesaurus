@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.22 2007/07/31 13:49:44 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.23 2007/08/01 14:04:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -220,7 +220,7 @@ function getpopupdocdetail(&$action,$docid) {
 				   "control"=>"false",
 				   "tconfirm"=>"",
 				   "target"=>"",
-				   "visibility"=>POPUP_INVISIBLE,
+				   "visibility"=>POPUP_CTRLACTIVE,
 				   "submenu"=>"",
 				   "barmenu"=>"false")));
 
