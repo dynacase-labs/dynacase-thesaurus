@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.49 2007/07/24 15:02:58 eric Exp $
+ * @version $Id: barmenu.php,v 1.50 2007/08/01 14:05:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -221,10 +221,11 @@ function barmenu(&$action) {
 
   $action->lay->set("ukey",getDefUKey($action));
   // select the current sort
+  
+  $csort=GetHttpVars("sqlorder");
+  if ($csort=="") $csort=getDefUSort($action,"--");
 
-  $csort=getDefUSort($action,"--");
-
-  if ($csort=='') {
+  if (($csort=='')||($csort=='--')) {
     $csort='-';
     $cselect = "&bull;";
   } else if ($csort[0]=='-') {

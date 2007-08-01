@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.33 2007/07/31 13:49:44 eric Exp $
+ * @version $Id: generic_list.php,v 1.34 2007/08/01 14:05:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,7 +18,18 @@ include_once("FDL/viewfolder.php");
 include_once("GENERIC/generic_util.php");
 
 
-
+/**
+ * View list of document from folder (or searches)
+ * @param Action &$action current action
+ * @global dirid Http var : folder identificator to see
+ * @global catg Http var : 
+ * @global page Http var : page number
+ * @global tabs Http var : tab number 1 for ABC, 2 for DEF, if onglet=Y..
+ * @global onglet Http var : [Y|N] Y if want see alphabetics tabs
+ * @global famid Http var : main family identificator
+ * @global sqlorder Http var : order by attribute
+ * @global gview Http var : [abstract|column] view mode
+ */
 function generic_list(&$action) {
   // Set the globals elements
   // Get all the params      
@@ -29,6 +40,7 @@ function generic_list(&$action) {
   $onglet=GetHttpVars("onglet"); // if you want onglet
   $famid=GetHttpVars("famid"); // family restriction
   $clearkey=(GetHttpVars("clearkey","N")=="Y"); // delete last user key search
+  $sqlorder=GetHttpVars("sqlorder"); // family restriction
   setHttpVar("target","finfo$famid" );
   if (!($famid > 0)) $famid = getDefFam($action);
 
@@ -64,19 +76,26 @@ function generic_list(&$action) {
   $action->lay->Set("nexticon",""); 
   $action->lay->Set("previcon",""); 
 
+  if ($sqlorder=="") {
+    $sqlorder = getDefUSort($action,"");  
+    setHttpVar("sqlorder",$sqlorder );
+  }
 
-  $aorder = getDefUSort($action,""); 
-  setHttpVar("sqlorder",$aorder);
   if ($famid > 0) {
-    if ($aorder != "title") { // test if attribute order exist
+    if ($sqlorder != "") {
       $ndoc = createDoc($dbaccess, $famid,false);
-      if ($aorder[0]=="-") $aorder=substr($aorder,1);
-      if (in_array($aorder,$ndoc->fields))    setHttpVar("sqlorder",getDefUSort($action,"") );
+      if ($sqlorder[0]=="-") $sqlorder=substr($sqlorder,1);
+      if (! in_array($sqlorder,$ndoc->fields))  setHttpVar("sqlorder","" );
     }
   }
+  
+
   getFamilySearches($action,$dbaccess,$famid);
   if ($dirid) {
-    
+    if ($dir->fromid==38) {
+      $famid=0; // special researches
+      setHttpVar("sqlorder","--" ); // no sort possible
+    }
     $only=(getInherit($action,$famid)=="N");
     if (viewfolder($action, true, false,$column,$slice,array(),($only)?-(abs($famid)):abs($famid)) == $slice) {
       // can see next
