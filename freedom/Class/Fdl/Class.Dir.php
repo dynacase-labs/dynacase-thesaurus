@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.60 2007/07/27 10:30:41 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.61 2007/08/01 14:08:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -557,6 +557,7 @@ Class Dir extends PDir
    * update folder relations
    */
   public function updateFldRelations() {
+    if ($this->doctype=='T') return;
     include_once("FDL/Class.DocRel.php");
     $nattr = $this->GetNormalAttributes();
     $or=new DocRel($this->dbaccess);
