@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.SpecialSearch.php,v 1.2 2006/08/07 10:11:37 eric Exp $
+ * @version $Id: Method.SpecialSearch.php,v 1.3 2007/08/01 14:07:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -34,12 +34,18 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 function getDocList($start=0, $slice="ALL", $qtype="TABLE",$userid="") {
   $phpfile=$this->getValue("se_phpfile");
   $phpfunc=$this->getValue("se_phpfunc");
+  $phparg=$this->getValue("se_phparg");
   if (! @include_once("EXTERNALS/$phpfile")) {
     global $action;
     $action->AddWarningMsg(sprintf(_("php file %s needed for request not found"),"EXTERNALS/$phpfunc"));
     return false;
   }
+  
   $arg=array($start,$slice,$userid);
+  if ($phparg!="") {
+    $moreargs=explode(",",$phparg);
+    $arg=array_merge($arg,$moreargs);
+  }
   $res = call_user_func_array($phpfunc, $arg);
 
   return($res);
