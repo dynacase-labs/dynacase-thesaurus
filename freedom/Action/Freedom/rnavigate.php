@@ -3,7 +3,7 @@
  * Relation Navigation
  *
  * @author Anakeen 2005
- * @version $Id: rnavigate.php,v 1.5 2007/08/01 14:04:47 eric Exp $
+ * @version $Id: rnavigate.php,v 1.6 2007/08/01 15:31:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -13,6 +13,7 @@
 
 
 include_once("FDL/Class.Doc.php");
+include_once("FDL/Lib.Dir.php");
 include_once("FDL/Class.DocRel.php");
 
 
@@ -88,6 +89,20 @@ function rnavigate(&$action) {
       }
     }
   }
+  
+
+  // Verify visibility for current user
+  $tids=array();
+  foreach ($tlay as $k=>$v) {
+    $tids[]=$v["initid"];
+  }
+  $vdoc=getVisibleDocsFromIds($dbaccess,$tids,$action->user->id);
+  $tids=array();
+  foreach ($vdoc as $k=>$v) $tids[]=$v["initid"];
+  foreach ($tlay as $k=>$v) {
+    if ((! in_array($v["initid"],$tids))&&($v["initid"]!=0))  unset($tlay[$k]);
+  }
+
   $action->lay->setBlockData("RELS",$tlay);
   $action->lay->set("docid",$docid);
 }
