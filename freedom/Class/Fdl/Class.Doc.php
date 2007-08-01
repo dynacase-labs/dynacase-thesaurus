@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.404 2007/07/26 14:55:28 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.405 2007/08/01 14:09:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2938,8 +2938,8 @@ final public function PostInsert()  {
   }
   /**
    * declare a dependance between several attributes
-   * @param array $in attributes id use for compute $out attributes
-   * @param array $out attributes id calculated by $in attributes
+   * @param string $in attributes id use for compute $out attributes separates by commas
+   * @param string $out attributes id calculated by $in attributes separates by commas
    */
   final public function AddParamRefresh($in,$out) {
     // to know which attribut must be disabled in edit mode
