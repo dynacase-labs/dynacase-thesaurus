@@ -3,7 +3,7 @@
  * function use for specialised searches
  *
  * @author Anakeen 2006
- * @version $Id: fdlsearches.php,v 1.2 2006/09/06 07:01:44 eric Exp $
+ * @version $Id: fdlsearches.php,v 1.3 2007/08/01 14:08:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,9 +46,8 @@ function mytagdoc($start,$slice,$tag,$userid=0) {
  * @param int $start start cursor
  * @param int $slice offset ("ALL" means no limit)
  * @param int $userid user system identificator (NOT USE in this function)
- * @param string return type "TABLE" only is allowed
  */
-function mytoviewdoc($start="0", $slice="ALL",$userid=0,$qtype="TABLE") {
+function mytoviewdoc($start="0", $slice="ALL",$userid=0) {
   return mytagdoc($start,$slice,"TOVIEW");
 }
 
@@ -60,10 +59,55 @@ function mytoviewdoc($start="0", $slice="ALL",$userid=0,$qtype="TABLE") {
  * @param int $start start cursor
  * @param int $slice offset ("ALL" means no limit)
  * @param int $userid user system identificator (NOT USE in this function)
- * @param string return type "TABLE" only is allowed
  */
-function myaffecteddoc($start="0", $slice="ALL",$userid=0,$qtype="TABLE") {
+function myaffecteddoc($start="0", $slice="ALL",$userid=0) {
   return mytagdoc($start,$slice,"AFFECTED");
 }
+/**
+ * function use for specialised search
+ * return all referenced documents
+ * 
+ * @param int $start start cursor
+ * @param int $slice offset ("ALL" means no limit)
+ * @param int $userid user system identificator (NOT USE in this function)
+ * @param int $docid document referenced
+ * @param int $famid family restriction (0 if no restriction)
+ */
+function relateddoc($start="0", $slice="ALL",$userid=0,$docid=0,$famid=0) {
+  
+  $dbaccess=getParam("FREEDOM_DB");
+  if ($docid>0) {
+    include_once("FDL/Class.DocRel.php");
+    $lid=array();
+    $doc = new_Doc($dbaccess, $docid);
+    $idocid=$doc->initid;
+    $rdoc=new DocRel($dbaccess,$idocid);
+    $rdoc->sinitid=$idocid;
+    $trel=$rdoc->getIRelations();
 
+    foreach ($trel as $k=>$v) {
+      $lid[$v["sinitid"]]=$v["sinitid"];
+      $tlay[$v["sinitid"].'_F']=array("iconsrc"=>$doc->getIcon($v["sicon"]),
+				      "initid"=>$v["sinitid"],
+				      "title"=>$v["stitle"],
+				      "aid"=>$v["type"],
+				      "alabel"=>_($v["type"]),
+				      "type"=>_("Referenced from"));
+    }
+    $ltdoc=getLatestDocsFromIds($dbaccess,$lid);
+    if ($famid!=0) {
+      if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
+      if ($famid > 0) {
+	$tfam=$doc->GetChildFam($famid);
+	$tfamids=array_keys($tfam);
+	$tfamids[]=$famid;
+
+	foreach ($ltdoc as $k=>$v) {
+	  if (!in_array($v["fromid"],$tfamids)) unset($ltdoc[$k]);
+	}
+      }
+    }
+  }
+  return $ltdoc;
+}
 ?>
