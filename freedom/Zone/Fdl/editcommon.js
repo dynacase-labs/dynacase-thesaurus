@@ -409,61 +409,100 @@ function disableReadAttribute() {
   var ndis = true;
   var i;
   var vin;
-  var lin;
-  var inx,inc; // input button
+  var lin,aid;
+  var inx,inc,ind,inb; // input button
   if (tain) {
-  for (var c=0; c< tain.length; c++) {
-    ndis = true;
-    for (var i=0; i< tain[c].length; i++) {
-      vin = getInputValue(tain[c][i]);
+    for (var c=0; c< tain.length; c++) {
+      ndis = true;
+      for (var i=0; i< tain[c].length; i++) {
+	vin = getInputValue(tain[c][i]);
 
-      if ((vin == '') || (vin == ' ')) ndis = false;
+	if ((vin == '') || (vin == ' ')) ndis = false;
       
-    }
-    for (var i=0; i< taout[c].length; i++) {
-      if (document.getElementById(taout[c][i])) {
-	if (document.getElementById(taout[c][i]).type != 'hidden') {
-	  document.getElementById(taout[c][i]).disabled=ndis;
-	  inc=document.getElementById('ic_'+taout[c][i]);
-	  inx=document.getElementById('ix_'+taout[c][i]);
-	  if (inc) inc.disabled=ndis;
+      }
+
+      for (var i=0; i< taout[c].length; i++) {
+	if (document.getElementById(taout[c][i])) {
+	  if (document.getElementById(taout[c][i]).type != 'hidden') {
+	    document.getElementById(taout[c][i]).disabled=ndis;
+	    inc=document.getElementById('ic_'+taout[c][i]);
+	    inx=document.getElementById('ix_'+taout[c][i]);
+	    ind=document.getElementById('id_'+taout[c][i]);
+	    if (inc) inc.disabled=ndis;
+	    if (ind) ind.disabled=ndis;
+
+
 	 
-	  if (ndis) {
-	    // document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
-	    //if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	    if (ndis) {
+	      // document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
+	      //if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	    } else {
+	    
+	      if (inc) inc.style.backgroundColor='';
+	      //if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
+	      document.getElementById(taout[c][i]).style.backgroundColor == '';
+	    }
 	  } else {
+	    // search radio
 	    
-	    if (inc) inc.style.backgroundColor='';
-	    //if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
-	    document.getElementById(taout[c][i]).style.backgroundColor == '';
+	    var rx=document.getElementById(taout[c][i]+'0');
+	    if (rx && (rx.type=='radio')) {
+	      var ir=1;
+	      while (rx) {
+		rx.disabled=ndis;
+		rx=document.getElementById(taout[c][i]+ir);
+		ir++;
+	      }
+	    }
 	  }
-	}
-      } else {
-	// search in arrays
-	if (isNetscape) lin = document.getElementsByName('_'+taout[c][i]+'[]');
-	else lin = getInputsByName('_'+taout[c][i]);
-	//	alert(taout[c][i]+'/'+lin.length);
-	//	alert(document.getElementsByTagName('input').length);
-	//alert(getInputsByName('_'+taout[c][i]).length);
-	for (var j=0; j< lin.length; j++) {
-	  ndis=true;
-	  for (var k=0; k< tain[c].length; k++) {
-	    vin = getInputValue(tain[c][k],j);
-	    if ((vin == '') || (vin == ' ')) ndis = false;
+	} else {
+	  // search in arrays
+	  if (isNetscape) lin = document.getElementsByName('_'+taout[c][i]+'[]');
+	  else lin = getInputsByName('_'+taout[c][i]);
+	  //	alert(taout[c][i]+'/'+lin.length);
+	  //	alert(document.getElementsByTagName('input').length);
+	  //alert(getInputsByName('_'+taout[c][i]).length);
+	  for (var j=0; j< lin.length; j++) {
+	    ndis=true;
+	    for (var k=0; k< tain[c].length; k++) {
+	      vin = getInputValue(tain[c][k],j);
+	      if ((vin == '') || (vin == ' ')) ndis = false;
 	    
-	  }
-	  //	  alert(tain[c].toString()+'['+j+']'+ndis);
-	  if (lin[j].type != 'hidden') {
-	    lin[j].disabled=ndis;
-	    //lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
-	  }
-		
+	    }
+	    //	  alert(tain[c].toString()+'['+j+']'+ndis);
+	    if (lin[j].type != 'hidden') {
+	      aid=lin[j].id;
+	      lin[j].disabled=ndis;
+	      inc=document.getElementById('ic_'+aid);
+	      ind=document.getElementById('ic_'+aid);
+	      if (inc) inc.disabled=ndis;
+	      if (ind) ind.disabled=ndis;
+	      if (lin[j].type=='checkbox') { // for bool checkbox
+		if (aid) aid=aid.substring(0,aid.length -1);
+		inb=document.getElementById(aid);
+		if (inb && (inb.type='checkbox')) inb.disabled=ndis;
+	      }
+	      
+	      //lin[j].style.backgroundColor=(ndis)?'[CORE_BGCOLORALTERN]':'';		
+	    } else {
+	      aid=lin[j].id;
+	      // search radio
+	    
+	      var rx=document.getElementById(aid+'0');
+	      if (rx && (rx.type=='radio')) {
+		var ir=1;
+		while (rx) {
+		  rx.disabled=ndis;
+		  rx=document.getElementById(aid+ir);
+		  ir++;
+		}
+	      }
+	    }
+	  }	
 	}
-      }
       }
     }
-  }
- 
+  } 
 }
 
 function editOnLoad() {

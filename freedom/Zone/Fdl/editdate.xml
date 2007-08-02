@@ -1,7 +1,7 @@
 <input [disabled] size="8"  [BLOCK CONTROLCAL]onblur="control_date(event,this)"[ENDBLOCK CONTROLCAL] type="text" name="[name]" value="[value]" id="[id]" />
 [BLOCK VIEWCALSEL]
-<input  type="button" onmousedown="Calendar_Init('[id]','[id]T',false)" id="[id]T" value="&#133;" />
-<input type="button" value="&diams;"
+<input  type="button" onmousedown="Calendar_Init('[id]','ic_[id]',false)" id="ic_[id]" value="&#133;" />
+<input type="button" value="&diams;" id="id_[id]"
        title="[TEXT:manual date]" onclick="focus_date(event,'[id]')" />
 
 [ENDBLOCK VIEWCALSEL]
