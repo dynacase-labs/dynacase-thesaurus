@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.61 2007/08/01 14:08:55 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.62 2007/08/02 14:17:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -184,9 +184,10 @@ Class Dir extends PDir
    * @param int $docid document ident for the insertion
    * @param string $mode latest|static 
    * @param bool $noprepost if true if the virtuals methods {@link preInsertDoc()} and {@link postInsertDoc()} are not called
+   * @param bool $forcerestrict if true don't test restriction (if have)
    * @return string error message, if no error empty string
    */
-  function AddFile($docid, $mode="latest",$noprepost=false) {     
+  function AddFile($docid, $mode="latest",$noprepost=false,$forcerestrict=false) {     
     $err=$this->canModify();
     if ($err!= "") return $err;
 
@@ -213,7 +214,7 @@ Class Dir extends PDir
       if ($err!= "") return $err;    
 
       // verify if doc family is autorized   
-      if (! $this->isAuthorized($doc->fromid)) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
+      if ((!$forcerestrict)&&(! $this->isAuthorized($doc->fromid))) return sprintf(_("Cannot add %s in %s folder, restriction set to add this kind of document"),  $doc->title ,$this->title);
 
     
 
