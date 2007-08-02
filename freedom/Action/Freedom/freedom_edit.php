@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.38 2007/07/30 07:11:53 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.39 2007/08/02 15:31:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -91,7 +91,7 @@ function freedom_edit(&$action) {
 
   // when modification 
   if (($classid == 0) && ($docid != 0) ) $classid=$doc->fromid;
-
+  setHttpVar("forcehead","yes");
   
   generic_edit($action);
   // build list of class document

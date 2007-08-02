@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.62 2007/07/27 15:16:18 eric Exp $
+ * @version $Id: generic_edit.php,v 1.63 2007/08/02 15:31:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -150,7 +150,7 @@ function generic_edit(&$action) {
   $action->lay->Set("FOOT", (! ereg("[A-Z]+:[^:]+:[S|U]", $zonebodycard, $reg)));
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   $action->lay->Set("NOSAVE", (ereg("[A-Z]+:[^:]+:V", $zonebodycard, $reg)));
-
+  if (getHttpVars("forcehead")=="yes") $action->lay->Set("HEAD",true); // for freedom_edit
   $action->lay->Set("iconsrc", $doc->geticon());  $action->lay->Set("viewstate", "none");
   $action->lay->Set("dhelp", "none");
   if (getFamilyHelpFile($action,$doc->fromid) ) {      
