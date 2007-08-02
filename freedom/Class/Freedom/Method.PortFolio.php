@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.14 2007/05/16 15:46:11 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.15 2007/08/02 14:16:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -39,6 +39,7 @@ function ReCreateDefaultTabs() {
 function CreateDefaultTabs() {
 
   $err="";
+  include_once("FDL/Lib.Dir.php");  
 
   $ddocid = $this->getValue("PFL_IDDEF");
 
@@ -52,7 +53,7 @@ function CreateDefaultTabs() {
 	$copy=$doc->Copy();
 	if (! is_object($copy)) return $copy;
 	
-	$err.=$this->AddFile($copy->id);
+	$err.=$this->AddFile($copy->id,"latest",true,true);
       }
     } else {
       $err=sprintf(_("Error in portfolio : folder %s not exists"),$ddocid);
