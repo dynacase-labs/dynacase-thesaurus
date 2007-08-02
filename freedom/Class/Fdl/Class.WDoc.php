@@ -3,7 +3,7 @@
  * Workflow Class Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.WDoc.php,v 1.52 2007/01/11 10:14:32 eric Exp $
+ * @version $Id: Class.WDoc.php,v 1.53 2007/08/02 13:12:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -151,7 +151,7 @@ Class WDoc extends Doc {
       $oattr->phpfile="fdl.php";
       $oattr->id=$aid;
       $oattr->frameid=$aidframe;
-      $oattr->phpfunc="lprofil(D,{$oattr->id}):$aidprofilid,{$oattr->id}";
+      $oattr->phpfunc="lprofil(D,{$oattr->id},WF_FAMID):$aidprofilid,{$oattr->id}";
       $oattr->labeltext=sprintf(_("%s profile"),_($state));
       $oattr->ordered=$ordered++;
       if ($oattr->isAffected()) $oattr->Modify();

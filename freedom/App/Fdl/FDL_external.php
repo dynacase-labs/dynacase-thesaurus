@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.43 2006/07/27 16:17:05 eric Exp $
+ * @version $Id: FDL_external.php,v 1.44 2007/08/02 13:12:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -234,13 +234,19 @@ function lenum($val, $enum) {
 }
 
 // liste des profils
-function lprofil($dbaccess, $name) {
+function lprofil($dbaccess, $name,$famid=0) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
   global $action;
   $dirid= 0;
+  if ($famid > 0) {
+    $fdoc=createTmpDoc($dbaccess,$famid);
+    if ($fdoc->defDoctype=='D') return lfamily($dbaccess, 4, $name);
+    else if ($fdoc->defDoctype=='S') return lfamily($dbaccess, 6, $name);
+    else return lfamily($dbaccess, 3, $name,0,array("fromid=3"));
+				  
+  }
   
-  
-  return lfamilly($dbaccess, 3, $name, $dirid);
+  return lfamily($dbaccess, 3, $name, $dirid);
   
 }
 
