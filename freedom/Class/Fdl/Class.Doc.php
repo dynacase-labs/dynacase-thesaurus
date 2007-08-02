@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.405 2007/08/01 14:09:38 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.406 2007/08/02 09:56:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -871,7 +871,7 @@ final public function PostInsert()  {
     // --------------------------------------------------------------------
 
 
-
+    $filter[]="doctype!='T'";
     if ($this->initid>0)$filter[]="initid !='".$this->initid."'";  // not itself
     $filter[]="$key1='".addslashes($this->getValue($key1))."'";
     if ($key2 != "") $filter[]="$key2='".addslashes($this->getValue($key2))."'";
@@ -3599,9 +3599,10 @@ final public function PostInsert()  {
     if ($cid!="fam") {
       $sql .="create trigger AUVR{$cid} BEFORE UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE resetvalues();";
       $sql .="create trigger VFULL{$cid} BEFORE INSERT OR UPDATE  ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fullvectorize$cid();";
-      $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
+      
       $sql .="create trigger zread{$cid} AFTER INSERT OR UPDATE OR DELETE ON doc$cid FOR EACH ROW EXECUTE PROCEDURE setread();";
     }
+    $sql .="create trigger FIXDOC{$cid} AFTER INSERT ON doc$cid FOR EACH ROW EXECUTE PROCEDURE fixeddoc();";
     }
     return $sql;
   }
