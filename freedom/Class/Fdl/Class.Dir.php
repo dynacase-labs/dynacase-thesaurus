@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.62 2007/08/02 14:17:22 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.63 2007/08/02 15:33:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -473,6 +473,7 @@ Class Dir extends PDir
     if (! isset($this->authfam)) {
       $tfamid = $this->getTValue("FLD_FAMIDS");
       $tfam   = $this->getTValue("FLD_FAM");
+      $tsubfam   = $this->getTValue("FLD_SUBFAM");
     
       
 
@@ -489,7 +490,6 @@ Class Dir extends PDir
 	include_once("FDL/Lib.Dir.php");
 	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,$classid,"TABLE");
 
-
 	while (list($k,$cdoc)= each ($tallfam)) {
 	  $tclassdoc[$cdoc["id"]]=$cdoc;	 
 	  //	  $tclassdoc += $this->GetChildFam($cdoc["id"]);	  
@@ -498,12 +498,13 @@ Class Dir extends PDir
 
 	reset($tfamid);
 	while (list($k,$famid)= each ($tfamid)) {
-	  $tnofam = $this->GetChildFam(intval($famid));
 	  
 	  unset($tclassdoc[intval($famid)]);
-	  foreach ($tnofam as $ka=>$va) {
-	    unset($tclassdoc[intval($ka)]);
-	    
+	  if ($tsubfam[$k]!="no") {
+	    $tnofam = $this->GetChildFam(intval($famid));
+	    foreach ($tnofam as $ka=>$va) {
+	      unset($tclassdoc[intval($ka)]);	    
+	    }	    
 	  }
 	}
       } else {
@@ -512,13 +513,14 @@ Class Dir extends PDir
 	  $tfdoc=getTDoc($this->dbaccess,$famid);
 	  if ($tfdoc && controlTdoc($tfdoc,'icreate'))  $tclassdoc[intval($famid)]=array("id"=> intval($famid),
 									       "title"=>$tfam[$k]);
-	  $tclassdoc += $this->GetChildFam(intval($famid));
+	  if ($tsubfam[$k]!="no") $tclassdoc += $this->GetChildFam(intval($famid));
 	}
       
       }
       $this->authfam=$tclassdoc;
     }
     $this->kauthfam = array_keys($this->authfam);
+    //    print_r2($this->kauthfam);
     return $this->authfam;
   }  
 
