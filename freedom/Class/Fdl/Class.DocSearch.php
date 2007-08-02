@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.45 2007/07/30 16:05:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.46 2007/08/02 09:56:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -35,6 +35,7 @@ Class DocSearch extends PDocSearch {
     else $query=$tquery;
 
     if ($query == "") return "";
+    if ($this->id=="") return "";
 
     if (substr($query,0,6) != "select") {
       AddWarningMsg(sprintf(_("query [%s] not valid for select document"), $query));
@@ -45,7 +46,7 @@ Class DocSearch extends PDocSearch {
     $oqd->qtype="M"; // multiple
     $oqd->query = $query;
 
-    $this->exec_query("delete from fld where dirid=".$this->id." and qtype='M'");
+    if ($this->id>0) $this->exec_query("delete from fld where dirid=".intval($this->id)." and qtype='M'");
     $err= $oqd-> Add();
     if ($err == "") {
       $this->setValue("SE_SQLSELECT",$query);
