@@ -3,7 +3,7 @@
  * Import Set of documents and files with directories
  *
  * @author Anakeen 2000 
- * @version $Id: import_tar.php,v 1.7 2007/03/22 16:44:39 eric Exp $
+ * @version $Id: import_tar.php,v 1.8 2007/08/02 15:34:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -214,17 +214,30 @@ function analyze_csv($fdlcsv,$dbaccess,$dirid,&$famid,&$dfldid,$analyze) {
 	else $orfromid = getFamIdFromName($dbaccess,$data[1]);
       
 	$tcolorder[$orfromid]=getOrder($data);
-	$tr[$index]["action"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$orfromid]));
+	$tr[$index]["action"]=sprintf(_("new column order %s"),implode(" - ",$tcolorder[$orfromid]));      
+	break;
+      case "KEYS":  
+	if (is_numeric($data[1]))   $orfromid = $data[1];
+	else $orfromid = getFamIdFromName($dbaccess,$data[1]);
       
-      break;
+	$tkeys[$orfromid]=getOrder($data); 
+	if (($tkeys[$orfromid][0]=="") || (count($tkeys[$orfromid])==0)) {	
+	  $tr[$index]["err"]=sprintf(_("error in import keys : %s"),implode(" - ",$tkeys[$orfromid]));
+	  unset($tkeys[$orfromid]);
+	  $tr[$index]["action"]="ignored";
+	} else {
+	  $tr[$index]["action"]=sprintf(_("new import keys : %s"),implode(" - ",$tkeys[$orfromid]));
+	}
+	break;
       case "DOC":
 	if (is_numeric($data[1]))   $fromid = $data[1];
 	else $fromid = getFamIdFromName($dbaccess,$data[1]);
+	if (isset($tkeys[$fromid])) $tk=$tkeys[$fromid];
+	else $tk=array("title");
 	$tr[$index]=csvAddDoc($dbaccess, $data, $dirid,$analyze,$ldir,"update",
-			      array("title"),array(),$tcolorder[$fromid]);
+			      $tk,array(),$tcolorder[$fromid]);
 	if ($tr[$index]["err"]=="") $nbdoc++;
-	if ($tr[$index]["action"]!="") $tr[$index]["action"]=_($tr[$index]["action"]);
-	 
+	if ($tr[$index]["action"]!="") $tr[$index]["action"]=_($tr[$index]["action"]);	 
 	break;    
       }
     }
