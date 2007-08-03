@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.11 2007/08/02 14:19:10 eric Exp $
+ * @version $Id: popupfolio.php,v 1.12 2007/08/03 08:31:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -24,16 +24,7 @@ function popupfolio(&$action) {
   $kdiv=1; // only one division
 
   $dir = new_Doc($dbaccess,$dirid);
-  $sub=$dir->getAuthorizedFamilies();
 
-  $insertgc=true;
-  $insertsgc=true;
-  if (!$dir->norestrict)  {
-    $keys=array_keys($sub);
-
-    $insertgc=(in_array(18,$keys));
-    $insertsgc=(in_array(19,$keys));
-  }
 
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
@@ -54,6 +45,16 @@ function popupfolio(&$action) {
       Popupactive('popupfolio',$kdiv,'searchinsert');
     }
     if ($dir->usefor  != "G") {
+      $sub=$dir->getAuthorizedFamilies();
+
+      $insertgc=true;
+      $insertsgc=true;
+      if (!$dir->norestrict)  {
+	$keys=array_keys($sub);
+    
+	$insertgc=(in_array(18,$keys));
+	$insertsgc=(in_array(19,$keys));
+      }
       if ($insertgc) popupactive('popupfolio',$kdiv,'newgc');
       if ($insertsgc) popupactive('popupfolio',$kdiv,'newsgc');
     }
