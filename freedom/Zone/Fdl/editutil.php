@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.120 2007/08/03 16:06:40 eric Exp $
+ * @version $Id: editutil.php,v 1.121 2007/08/03 16:47:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -108,7 +108,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       // input 
       $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
       $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
-      $input .="<input onchange=\"document.isChanged=true;document.getElementById('$attridk').value=(this.value=='')?document.getElementById('INIV$attridk').value:this.value;\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" name=\"_UPL".$attrin."\"";
+      $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\"";
       
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
@@ -129,7 +129,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/DAV/Layout/getsessionid.js");
 	    
 	    $oc="onclick=\"var sid=getsessionid('".$docid."','$vid');this.href='asdav://$DAV/freedav/vid-'+sid+'/$info->name'\"";
-	    $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc>";
+	    $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc><img style=\"border:none\" src=\"Images/davedit.png\">";
 	  } else {
 	  $fname = "<A target=\"$attrid\" href=\"".
 	    $action->GetParam("CORE_BASEURL").

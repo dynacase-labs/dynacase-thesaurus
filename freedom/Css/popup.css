@@ -123,8 +123,9 @@ a.menuItem:first-letter, a.menuItemDisabled:first-letter {
 }
 */
 
-TR.popupsource TD.tlist,  TR.popupsource TD,  {
-  border-style:dashed none dashed none!important;
+TR.popupsource TD.tlist,  TR.popupsource TD  {
+  border-top-style:dashed!important;
+  border-bottom-style:dashed!important;
   border-width:1px!important;
   border-color:[COLOR_C0]!important;
 }

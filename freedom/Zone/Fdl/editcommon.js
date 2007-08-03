@@ -828,23 +828,45 @@ function clearFile(o,nid) {
 function updatefilebutton(o,nid) {
   var t=document.getElementById(nid);
   var tu=document.getElementById('IF_'+nid);
-  var p;
+  var p,i;
   var t1,v1,t2,v2;
 
   if (t) {
     p=t.previousSibling;   
-    while (p && p.tagName!='SPAN') p=p.previousSibling;  
+    while (p && (p.tagName!='SPAN') && (p.tagName!='A')) p=p.previousSibling;  
     t2=o.getAttribute('title2');
     v2=o.getAttribute('value2');
     t1=o.getAttribute('title1');
     v1=o.getAttribute('value1');
     if (t.value==' ') {
-      if (p) p.style.textDecoration='line-through';
+      if (p) {
+	if (p.tagName=='SPAN') p.style.textDecoration='line-through';
+	if (p.tagName=='A') {
+	    for (i=0;i<p.childNodes.length;i++) {
+	      if (p.childNodes[i].tagName=='IMG') 		{
+		pi=p.childNodes[i];
+		if (! pi.getAttribute('orisrc')) pi.setAttribute('orisrc',pi.src);
+		pi.src='Images/delimage.png';
+	      }
+	    }
+	}
+      }
       if (tu) tu.value='';
       o.setAttribute('title',t2);
       o.value=v2;
     } else {
-      if (p) p.style.textDecoration='';     
+      if (p) {
+	if (p.tagName=='SPAN') 	p.style.textDecoration='';
+	if (p.tagName=='A') {
+	    for (i=0;i<p.childNodes.length;i++) {
+	      if (p.childNodes[i].tagName=='IMG') {
+		pi=p.childNodes[i];
+		if (pi.getAttribute('orisrc')) pi.src=pi.getAttribute('orisrc');
+	      }
+	    }
+	}
+
+      }
       o.setAttribute('title',t1);
       o.value=v1; 
     }
