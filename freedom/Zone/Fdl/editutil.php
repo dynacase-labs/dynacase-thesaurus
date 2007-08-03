@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.119 2007/07/23 16:31:57 eric Exp $
+ * @version $Id: editutil.php,v 1.120 2007/08/03 16:06:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -148,7 +148,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
       $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
 
-      $input .="<input onchange=\"document.isChanged=true;document.getElementById('$attridk').value=(this.value=='')?document.getElementById('INIV$attridk').value:this.value;\"  class=\"\" size=15 type=\"file\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+      $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\"  class=\"\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+
 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
       $input .= " > "; 
@@ -486,6 +487,15 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"clearTime('$attridk')\">";   
+	if (!$notd) $input.="</td><td>";   
+      }else if (($oattr->type == "file")||($oattr->type == "image")) {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear file")."\"".	  
+	  " title1=\""._("clear file")."\"".  
+	  " value1=\"&times;\"".	  
+	  " title2=\""._("restore original file")."\"". 
+	  " value2=\"&minus;\"".
+	  " onclick=\"clearFile(this,'$attridk')\">";   
 	if (!$notd) $input.="</td><td>";   
       } else {
 	if (!$notd) $input.="</td><td>";   

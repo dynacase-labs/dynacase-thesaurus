@@ -134,7 +134,6 @@ function sendEnumChoice(event,docid,  choiceButton ,attrid, sorm,options) {
     
   }
 
-
   wichoose = window.open('', 'wchoose', 'scrollbars=yes,resizable=yes,height=30,width=290,left='+xy.x+',top='+xy.y);
   wichoose.focus();
 
@@ -813,6 +812,51 @@ function clearTime(nid) {
     mm.value='';mm.style.backgroundColor='[CORE_BGCOLORHIGH]';
 
     t.value=' ';
+  }
+}
+function clearFile(o,nid) {
+  var t=document.getElementById(nid);
+  if (t) {    
+    if (t.value!=' ') {
+      t.value=' ';      
+    } else {
+      t.value=document.getElementById('INIV'+nid).value;      
+    }
+    updatefilebutton(o,nid);
+  }
+}
+function updatefilebutton(o,nid) {
+  var t=document.getElementById(nid);
+  var tu=document.getElementById('IF_'+nid);
+  var p;
+  var t1,v1,t2,v2;
+
+  if (t) {
+    p=t.previousSibling;   
+    while (p && p.tagName!='SPAN') p=p.previousSibling;  
+    t2=o.getAttribute('title2');
+    v2=o.getAttribute('value2');
+    t1=o.getAttribute('title1');
+    v1=o.getAttribute('value1');
+    if (t.value==' ') {
+      if (p) p.style.textDecoration='line-through';
+      if (tu) tu.value='';
+      o.setAttribute('title',t2);
+      o.value=v2;
+    } else {
+      if (p) p.style.textDecoration='';     
+      o.setAttribute('title',t1);
+      o.value=v1; 
+    }
+  }
+}
+function changeFile(o,nid) {
+  var t=document.getElementById(nid);
+  var tix=document.getElementById('ix_'+nid);
+  var p;
+  if (t && o) {
+    t.value=(o.value=='')?document.getElementById('INIV'+nid).value:o.value;     
+    updatefilebutton(tix,nid);
   }
 }
 
