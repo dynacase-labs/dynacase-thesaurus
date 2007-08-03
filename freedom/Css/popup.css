@@ -116,10 +116,22 @@ a.menuItemCtrlDisabled:link {
 a.menuItemInvisible{ 
   display: none;
   cursor: default;
-
 }
 /* don't use: not supported by IE6  with hover
 a.menuItem:first-letter, a.menuItemDisabled:first-letter {
   text-transform: uppercase;
 }
 */
+
+TR.popupsource TD.tlist,  TR.popupsource TD,  {
+  border-style:dashed none dashed none!important;
+  border-width:1px!important;
+  border-color:[COLOR_C0]!important;
+}
+
+
+DIV.popupsource, .popupsource {
+  border-style:dashed!important;
+  border-width:1px!important;
+  border-color:[COLOR_C0]!important;
+}
