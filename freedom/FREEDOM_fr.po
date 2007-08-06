@@ -6,216 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-02 15:27+0200\n"
-"PO-Revision-Date: 2007-08-02 15:28+0200\n"
+"POT-Creation-Date: 2007-08-06 16:14+0200\n"
+"PO-Revision-Date: 2007-08-06 16:14+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "no import file specified"
-msgstr "pas de fichier d'import spécifié"
-
-#, c-format
-msgid "create %s family"
-msgstr "création de la famille %s"
-
-#, c-format
-msgid "update %s family"
-msgstr "mise à jour de la famille %s"
-
-#, c-format
-msgid "modify %s family"
-msgstr "modification de la famille %s"
-
-msgid "Update by importation"
-msgstr "Mise à jour par importation"
-
-#, c-format
-msgid "update %s search"
-msgstr "mise à jour recherche %s"
-
-#, c-format
-msgid "add %s search"
-msgstr "Ajouter la recherche %s"
-
-#, c-format
-msgid "set doctype to '%s'"
-msgstr "affecter le doctype à '%s'"
-
-#, c-format
-msgid "set icon to '%s'"
-msgstr "affecte l'icone à '%s'"
-
-msgid "icon already set. No update allowed"
-msgstr "icone déjà affectée. Pas de mise à jour possible."
-
-#, c-format
-msgid "document %s : set icon to '%s'"
-msgstr "document %s : affecte l'icone à '%s'"
-
-#, c-format
-msgid "no change icon : document %s not found"
-msgstr "pas de changement d'icone : document %s pas trouvé"
-
-#, c-format
-msgid "create default folder (id [%d])\n"
-msgstr "Création du dossier par défaut (id [%d])\n"
-
-msgid "default folder already set. Auto ignored"
-msgstr "dossier par défaut déjà présent. paramètre \"auto\" ignoré."
-
-#, c-format
-msgid "set default folder to '%s'"
-msgstr "affecte le dossier par défaut à '%s'"
-
-#, c-format
-msgid "set default workflow to '%s'"
-msgstr "affecte le cycle de vie par défaut à '%s'"
-
-#, c-format
-msgid "set view control to '%s'"
-msgstr "affecte le contrôle de vue à '%s'"
-
-#, c-format
-msgid "set special characteristics to '%s'"
-msgstr "affecte la caractéristique spéciale à '%s'"
-
-#, c-format
-msgid "change methods to '%s'"
-msgstr "affecte les méthodes à '%s'"
-
-#, c-format
-msgid "change special use to '%s'"
-msgstr "affecte l'utilisation spéciale à '%s'"
-
-#, c-format
-msgid "change application tag to '%s'"
-msgstr "change la balise applicative  à '%s'"
-
-#, c-format
-msgid "change default creation profile id  to '%s'"
-msgstr "changer de profil de création par défaut à '%s'"
-
-#, c-format
-msgid "change profile id  to '%s'"
-msgstr "changer de profil à '%s'"
-
-#, c-format
-msgid "add default value %s %s"
-msgstr "ajout valeurs par défaut pour %s à %s"
-
-#, c-format
-msgid "copy attribute %s from %s"
-msgstr "copie attribut %s à partir de  %s"
-
-#, c-format
-msgid "update %s attribute"
-msgstr "mise à jour attribut %s"
-
-#, c-format
-msgid "new column order %s"
-msgstr "nouvel ordre des colonnes %s"
-
-#, c-format
-msgid "error in import keys : %s"
-msgstr "erreur dans la format des clefs d'importation : %s"
-
-#, c-format
-msgid "new import keys : %s"
-msgstr "nouvelles clefs d'importation : %s"
-
-#, c-format
-msgid "profil id unkonow %s"
-msgstr "identificateur de profil inconnu '%s'"
-
-#, c-format
-msgid "change profil %s"
-msgstr "changer de profil %s"
-
-#, c-format
-msgid "%s application not exists"
-msgstr "l'application %s n'existe pas"
-
-#, c-format
-msgid "%s application has no aclss"
-msgstr "L'application %s n'a pas d'ACL"
-
-#, c-format
-msgid "try add acl %s"
-msgstr "essai d'ajout de l'acl %s "
-
-#, c-format
-msgid "add acl %s"
-msgstr "ajout acl %s "
-
-#, c-format
-msgid "unknow acl %s"
-msgstr "ACL  inconnu : %s"
-
-#, c-format
-msgid "LDAP Attribute modified to %s %s"
-msgstr "Attribut LDAP modifié %s %s"
-
-#, c-format
-msgid "LDAP Attribute added to %s %s"
-msgstr "Attribut LDAP ajouté à %s %s"
-
-msgid "restore document"
-msgstr "restaurer le document"
-
-#, c-format
-msgid "update id [%d] "
-msgstr "mise à jour id [%d] "
-
-msgid "added"
-msgstr "ajouté"
-
-#, c-format
-msgid "pre-import:%s"
-msgstr "pré-Import:%s"
-
-#, c-format
-msgid "add %s id [%d]  "
-msgstr "ajout %s id [%d] "
-
-#, c-format
-msgid "%s to be add"
-msgstr "%s à ajouter"
-
-#, c-format
-msgid "add id [%d] "
-msgstr "ajout id [%d] "
-
-msgid "updated"
-msgstr "mis à jour"
-
-#, c-format
-msgid "update %s [%d] "
-msgstr "mise à jour %s [%d] "
-
-#, c-format
-msgid "to be update %s [%d] "
-msgstr "à mettre à jour %s [%d] "
-
-msgid "ignored"
-msgstr "ignoré"
-
-#, c-format
-msgid "too many similar document %s <B>ignored</B> "
-msgstr "trop de documents similaires trouvés %s <B>ignoré</B> "
-
-#, c-format
-msgid "similar document %s found. keep similar"
-msgstr "document similaire à %s a été trouve. L'original est conservé"
-
-msgid "updated by import"
-msgstr "mise à jour par import"
-
-#, c-format
-msgid "and add in %s folder "
-msgstr "et ajout dans dossier %s"
 
 #, c-format
 msgid "cannot see unknow reference %s"
@@ -455,6 +252,209 @@ msgstr "dossier"
 
 msgid "search"
 msgstr "recherche"
+
+msgid "no import file specified"
+msgstr "pas de fichier d'import spécifié"
+
+#, c-format
+msgid "create %s family"
+msgstr "création de la famille %s"
+
+#, c-format
+msgid "update %s family"
+msgstr "mise à jour de la famille %s"
+
+#, c-format
+msgid "modify %s family"
+msgstr "modification de la famille %s"
+
+msgid "Update by importation"
+msgstr "Mise à jour par importation"
+
+#, c-format
+msgid "update %s search"
+msgstr "mise à jour recherche %s"
+
+#, c-format
+msgid "add %s search"
+msgstr "Ajouter la recherche %s"
+
+#, c-format
+msgid "set doctype to '%s'"
+msgstr "affecter le doctype à '%s'"
+
+#, c-format
+msgid "set icon to '%s'"
+msgstr "affecte l'icone à '%s'"
+
+msgid "icon already set. No update allowed"
+msgstr "icone déjà affectée. Pas de mise à jour possible."
+
+#, c-format
+msgid "document %s : set icon to '%s'"
+msgstr "document %s : affecte l'icone à '%s'"
+
+#, c-format
+msgid "no change icon : document %s not found"
+msgstr "pas de changement d'icone : document %s pas trouvé"
+
+#, c-format
+msgid "create default folder (id [%d])\n"
+msgstr "Création du dossier par défaut (id [%d])\n"
+
+msgid "default folder already set. Auto ignored"
+msgstr "dossier par défaut déjà présent. paramètre \"auto\" ignoré."
+
+#, c-format
+msgid "set default folder to '%s'"
+msgstr "affecte le dossier par défaut à '%s'"
+
+#, c-format
+msgid "set default workflow to '%s'"
+msgstr "affecte le cycle de vie par défaut à '%s'"
+
+#, c-format
+msgid "set view control to '%s'"
+msgstr "affecte le contrôle de vue à '%s'"
+
+#, c-format
+msgid "set special characteristics to '%s'"
+msgstr "affecte la caractéristique spéciale à '%s'"
+
+#, c-format
+msgid "change methods to '%s'"
+msgstr "affecte les méthodes à '%s'"
+
+#, c-format
+msgid "change special use to '%s'"
+msgstr "affecte l'utilisation spéciale à '%s'"
+
+#, c-format
+msgid "change application tag to '%s'"
+msgstr "change la balise applicative  à '%s'"
+
+#, c-format
+msgid "change default creation profile id  to '%s'"
+msgstr "changer de profil de création par défaut à '%s'"
+
+#, c-format
+msgid "change profile id  to '%s'"
+msgstr "changer de profil à '%s'"
+
+#, c-format
+msgid "add default value %s %s"
+msgstr "ajout valeurs par défaut pour %s à %s"
+
+#, c-format
+msgid "copy attribute %s from %s"
+msgstr "copie attribut %s à partir de  %s"
+
+#, c-format
+msgid "update %s attribute"
+msgstr "mise à jour attribut %s"
+
+#, c-format
+msgid "new column order %s"
+msgstr "nouvel ordre des colonnes %s"
+
+#, c-format
+msgid "error in import keys : %s"
+msgstr "erreur dans la format des clefs d'importation : %s"
+
+#, c-format
+msgid "new import keys : %s"
+msgstr "nouvelles clefs d'importation : %s"
+
+#, c-format
+msgid "profil id unkonow %s"
+msgstr "identificateur de profil inconnu '%s'"
+
+#, c-format
+msgid "change profil %s"
+msgstr "changer de profil %s"
+
+#, c-format
+msgid "%s application not exists"
+msgstr "l'application %s n'existe pas"
+
+#, c-format
+msgid "%s application has no aclss"
+msgstr "L'application %s n'a pas d'ACL"
+
+#, c-format
+msgid "try add acl %s"
+msgstr "essai d'ajout de l'acl %s "
+
+#, c-format
+msgid "add acl %s"
+msgstr "ajout acl %s "
+
+#, c-format
+msgid "unknow acl %s"
+msgstr "ACL  inconnu : %s"
+
+#, c-format
+msgid "LDAP Attribute modified to %s %s"
+msgstr "Attribut LDAP modifié %s %s"
+
+#, c-format
+msgid "LDAP Attribute added to %s %s"
+msgstr "Attribut LDAP ajouté à %s %s"
+
+msgid "restore document"
+msgstr "restaurer le document"
+
+#, c-format
+msgid "update id [%d] "
+msgstr "mise à jour id [%d] "
+
+msgid "added"
+msgstr "ajouté"
+
+#, c-format
+msgid "pre-import:%s"
+msgstr "pré-Import:%s"
+
+#, c-format
+msgid "add %s id [%d]  "
+msgstr "ajout %s id [%d] "
+
+#, c-format
+msgid "%s to be add"
+msgstr "%s à ajouter"
+
+#, c-format
+msgid "add id [%d] "
+msgstr "ajout id [%d] "
+
+msgid "updated"
+msgstr "mis à jour"
+
+#, c-format
+msgid "update %s [%d] "
+msgstr "mise à jour %s [%d] "
+
+#, c-format
+msgid "to be update %s [%d] "
+msgstr "à mettre à jour %s [%d] "
+
+msgid "ignored"
+msgstr "ignoré"
+
+#, c-format
+msgid "too many similar document %s <B>ignored</B> "
+msgstr "trop de documents similaires trouvés %s <B>ignoré</B> "
+
+#, c-format
+msgid "similar document %s found. keep similar"
+msgstr "document similaire à %s a été trouve. L'original est conservé"
+
+msgid "updated by import"
+msgstr "mise à jour par import"
+
+#, c-format
+msgid "and add in %s folder "
+msgstr "et ajout dans dossier %s"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -1382,6 +1382,9 @@ msgstr "Addresse du serveur de transformation"
 msgid "Transformation Engine server port number"
 msgstr "Numéro de port du serveur de transformation"
 
+msgid "Activate Transformation Engine to index files"
+msgstr "Activation du serveur de transformation pour l'indexation plein texte"
+
 msgid "fulltext index mode"
 msgstr "mode d'indexation fulltext"
 
@@ -2023,6 +2026,242 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+msgid "document creation"
+msgstr "Création du document"
+
+#, c-format
+msgid "untitle %s %d"
+msgstr "%s sans titre %d"
+
+msgid "cannot update no initialized document"
+msgstr "mise à jour impossible : document non initialisé"
+
+msgid "untitle document"
+msgstr "document sans titre"
+
+#, c-format
+msgid "convertion from %s to %s family"
+msgstr "conversion de la famille %s vers la famille %s"
+
+#, c-format
+msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid "the file %s (rev %d) must be locked before"
+msgstr "le fichier %s (rév %d) doit être verrouillé au préalable"
+
+#, c-format
+msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr "le fichier %s (rév. %d) est verrouillé par %s."
+
+#, c-format
+msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
+msgstr "le fichier %s [%d] (rév. %d) est figé. Utilisez la dernière version"
+
+#, c-format
+msgid "cannot lock file %s [%d] : already locked by %s."
+msgstr "le fichier %s [%d] est déjà verrouillé par %s."
+
+msgid "cannot unlock"
+msgstr "ne peut pas déverrouiller"
+
+msgid "already deleted"
+msgstr "déjà supprimé"
+
+#, c-format
+msgid "delete by action %s/%s from %s"
+msgstr "supprimé avec l'action %s/%s depuis %s"
+
+msgid "document deleted"
+msgstr "document supprimé"
+
+msgid "revival document"
+msgstr "restauration du document"
+
+#, c-format
+msgid "document %s [%d] is not in the trash"
+msgstr "le document %s [%d] n'est pas dans la corbeille"
+
+msgid "Only owner of document can restore it"
+msgstr "Seul le propriétaire peut restaurer un document"
+
+msgid "unknow attribute"
+msgstr "attribut inconnu"
+
+#, c-format
+msgid "%s needed\n"
+msgstr "%s doit être rempli\n"
+
+#, c-format
+msgid "attribute %s unknow in family %s [%d]"
+msgstr "attribu %s inconnu pour la famille %s [%d]"
+
+#, c-format
+msgid "no permission to modify this attribute %s"
+msgstr "vous n'avez pas le permission de modifier cet attribut : %s"
+
+#, c-format
+msgid ""
+"the date '%s' for %s attribute is not correct. It has been corrected "
+"automatically"
+msgstr ""
+"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
+"automatiquement."
+
+msgid "error sending text conversion"
+msgstr "erreur lors de l'envoi de la conversion texte"
+
+#, c-format
+msgid "modify file %s"
+msgstr "modification du fichier %s"
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr "la contrainte retourne [%s] pour l'attribut %s"
+
+msgid "no user tag specified"
+msgstr "pas d'étiquette utilisateur spécifiée"
+
+msgid "document already revised"
+msgstr "document déjà révisé"
+
+#, c-format
+msgid "the document of %s family cannot be revised"
+msgstr "lee documents de la famille %s ne peuvent être révisés"
+
+#, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr ""
+"l'affectation d'un état libre est impossible dans un document controlé par "
+"un cycle de vie : %s"
+
+#, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le document %s : cycle de "
+"vie non autorisé"
+
+#, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr ""
+"l'affectation d'un état libre est impossible pour le  document %s : non "
+"révisable"
+
+#, c-format
+msgid "remove state : %s"
+msgstr "état supprimé : %s"
+
+#, c-format
+msgid "invalid freestate document %s"
+msgstr "état libre %s invalide"
+
+#, c-format
+msgid "not a freestate document %s"
+msgstr "ce document n'est pas un état libre : %s"
+
+#, c-format
+msgid "change state to %s : %s"
+msgstr "changement d'état vers %s : %s"
+
+#, c-format
+msgid "copy from document #%d -%s-"
+msgstr "copie à partir du document n°%d -%s-"
+
+msgid "Affectation aborded"
+msgstr "Affectation annulée"
+
+#, c-format
+msgid ""
+"Affectation aborded\n"
+"%s for user %s %s"
+msgstr ""
+"Affectation annulée :\n"
+"%s pour l'utilisateur %s %s"
+
+#, c-format
+msgid "Affected to %s %s"
+msgstr "Affectation à %s %s"
+
+#, c-format
+msgid "Affected for %s"
+msgstr "Affectation pour %s"
+
+msgid "Affectation aborded : user not know"
+msgstr "Affectation annulée : utilisateur inconnu"
+
+#, c-format
+msgid "Unallocated of %s %s : %s"
+msgstr "Suppression de l'affectation de %s %s : %s"
+
+#, c-format
+msgid "Unallocated of %s %s: %s"
+msgstr "Suppression de l'affectation de %s %s : %s"
+
+msgid "user not know"
+msgstr "utilisateur inconnu"
+
+msgid "Unallocate aborded"
+msgstr "Suppression de l'affectation abandonnée"
+
+#, c-format
+msgid "unknown document id %s"
+msgstr "Document id %s inconnu"
+
+msgid "vault file error"
+msgstr "erreur fichier Vault"
+
+msgid "no filename"
+msgstr "pas de fichier"
+
+msgid "AbbrKbyte"
+msgstr "Ko"
+
+#, c-format
+msgid "cannot control : object not initialized : %s"
+msgstr "contrôle impossible : objet non initialisé : %s"
+
+msgid "control :: user identificator is null"
+msgstr "control :: identifiant de l'utilisateur est vide"
+
+#, c-format
+msgid "error in pzone format %s"
+msgstr "erreur dans la format pzone %s"
+
+msgid "no state"
+msgstr "pas d'état"
+
+msgid "last modification date"
+msgstr "date de dernière modification"
+
+msgid "suppression date"
+msgstr "date de suppression"
+
+msgid "revision date"
+msgstr "date de révision"
+
+msgid "no access control"
+msgstr "pas de contrôle d'accès"
+
+msgid "specific control"
+msgstr "Contrôle dédié"
+
+msgid "dynamic control"
+msgstr "contrôle dynamique"
+
+msgid "no view control"
+msgstr "pas de contrôle de vues"
+
+msgid "no allocate"
+msgstr "pas d'affectation"
+
+#, c-format
+msgid "new %s"
+msgstr "nouvelle %s"
+
+msgid "confidential document"
+msgstr "document confidentiel"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2293,242 +2532,6 @@ msgstr "vers privé"
 msgid "Twprocess_public"
 msgstr "vers public"
 
-msgid "document creation"
-msgstr "Création du document"
-
-#, c-format
-msgid "untitle %s %d"
-msgstr "%s sans titre %d"
-
-msgid "cannot update no initialized document"
-msgstr "mise à jour impossible : document non initialisé"
-
-msgid "untitle document"
-msgstr "document sans titre"
-
-#, c-format
-msgid "convertion from %s to %s family"
-msgstr "conversion de la famille %s vers la famille %s"
-
-#, c-format
-msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr "le fichier %s (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid "the file %s (rev %d) must be locked before"
-msgstr "le fichier %s (rév %d) doit être verrouillé au préalable"
-
-#, c-format
-msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr "le fichier %s (rév. %d) est verrouillé par %s."
-
-#, c-format
-msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
-msgstr "le fichier %s [%d] (rév. %d) est figé. Utilisez la dernière version"
-
-#, c-format
-msgid "cannot lock file %s [%d] : already locked by %s."
-msgstr "le fichier %s [%d] est déjà verrouillé par %s."
-
-msgid "cannot unlock"
-msgstr "ne peut pas déverrouiller"
-
-msgid "already deleted"
-msgstr "déjà supprimé"
-
-#, c-format
-msgid "delete by action %s/%s from %s"
-msgstr "supprimé avec l'action %s/%s depuis %s"
-
-msgid "document deleted"
-msgstr "document supprimé"
-
-msgid "revival document"
-msgstr "restauration du document"
-
-#, c-format
-msgid "document %s [%d] is not in the trash"
-msgstr "le document %s [%d] n'est pas dans la corbeille"
-
-msgid "Only owner of document can restore it"
-msgstr "Seul le propriétaire peut restaurer un document"
-
-msgid "unknow attribute"
-msgstr "attribut inconnu"
-
-#, c-format
-msgid "%s needed\n"
-msgstr "%s doit être rempli\n"
-
-#, c-format
-msgid "attribute %s unknow in family %s [%d]"
-msgstr "attribu %s inconnu pour la famille %s [%d]"
-
-#, c-format
-msgid "no permission to modify this attribute %s"
-msgstr "vous n'avez pas le permission de modifier cet attribut : %s"
-
-#, c-format
-msgid ""
-"the date '%s' for %s attribute is not correct. It has been corrected "
-"automatically"
-msgstr ""
-"la date '%s' pour l'attribut %s est incorrect. Il a été corrigé "
-"automatiquement."
-
-msgid "error sending text conversion"
-msgstr "erreur lors de l'envoi de la conversion texte"
-
-#, c-format
-msgid "modify file %s"
-msgstr "modification du fichier %s"
-
-#, c-format
-msgid "constraint return [%s] for %s attribute"
-msgstr "la contrainte retourne [%s] pour l'attribut %s"
-
-msgid "no user tag specified"
-msgstr "pas d'étiquette utilisateur spécifiée"
-
-msgid "document already revised"
-msgstr "document déjà révisé"
-
-#, c-format
-msgid "the document of %s family cannot be revised"
-msgstr "lee documents de la famille %s ne peuvent être révisés"
-
-#, c-format
-msgid "cannot set free state in workflow controlled document %s"
-msgstr ""
-"l'affectation d'un état libre est impossible dans un document controlé par "
-"un cycle de vie : %s"
-
-#, c-format
-msgid "cannot set free state for document %s: workflow not allowed"
-msgstr ""
-"l'affectation d'un état libre est impossible pour le document %s : cycle de "
-"vie non autorisé"
-
-#, c-format
-msgid "cannot set free state for document %s: document cannot be revised"
-msgstr ""
-"l'affectation d'un état libre est impossible pour le  document %s : non "
-"révisable"
-
-#, c-format
-msgid "remove state : %s"
-msgstr "état supprimé : %s"
-
-#, c-format
-msgid "invalid freestate document %s"
-msgstr "état libre %s invalide"
-
-#, c-format
-msgid "not a freestate document %s"
-msgstr "ce document n'est pas un état libre : %s"
-
-#, c-format
-msgid "change state to %s : %s"
-msgstr "changement d'état vers %s : %s"
-
-#, c-format
-msgid "copy from document #%d -%s-"
-msgstr "copie à partir du document n°%d -%s-"
-
-msgid "Affectation aborded"
-msgstr "Affectation annulée"
-
-#, c-format
-msgid ""
-"Affectation aborded\n"
-"%s for user %s %s"
-msgstr ""
-"Affectation annulée :\n"
-"%s pour l'utilisateur %s %s"
-
-#, c-format
-msgid "Affected to %s %s"
-msgstr "Affectation à %s %s"
-
-#, c-format
-msgid "Affected for %s"
-msgstr "Affectation pour %s"
-
-msgid "Affectation aborded : user not know"
-msgstr "Affectation annulée : utilisateur inconnu"
-
-#, c-format
-msgid "Unallocated of %s %s : %s"
-msgstr "Suppression de l'affectation de %s %s : %s"
-
-#, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Suppression de l'affectation de %s %s : %s"
-
-msgid "user not know"
-msgstr "utilisateur inconnu"
-
-msgid "Unallocate aborded"
-msgstr "Suppression de l'affectation abandonnée"
-
-#, c-format
-msgid "unknown document id %s"
-msgstr "Document id %s inconnu"
-
-msgid "vault file error"
-msgstr "erreur fichier Vault"
-
-msgid "no filename"
-msgstr "pas de fichier"
-
-msgid "AbbrKbyte"
-msgstr "Ko"
-
-#, c-format
-msgid "cannot control : object not initialized : %s"
-msgstr "contrôle impossible : objet non initialisé : %s"
-
-msgid "control :: user identificator is null"
-msgstr "control :: identifiant de l'utilisateur est vide"
-
-#, c-format
-msgid "error in pzone format %s"
-msgstr "erreur dans la format pzone %s"
-
-msgid "no state"
-msgstr "pas d'état"
-
-msgid "last modification date"
-msgstr "date de dernière modification"
-
-msgid "suppression date"
-msgstr "date de suppression"
-
-msgid "revision date"
-msgstr "date de révision"
-
-msgid "no access control"
-msgstr "pas de contrôle d'accès"
-
-msgid "specific control"
-msgstr "Contrôle dédié"
-
-msgid "dynamic control"
-msgstr "contrôle dynamique"
-
-msgid "no view control"
-msgstr "pas de contrôle de vues"
-
-msgid "no allocate"
-msgstr "pas d'affectation"
-
-#, c-format
-msgid "new %s"
-msgstr "nouvelle %s"
-
-msgid "confidential document"
-msgstr "document confidentiel"
-
 msgid "uncomplete request"
 msgstr "requête incomplète"
 
@@ -2568,10 +2571,6 @@ msgstr "Le server LDAP n'a pas pu être contacté"
 
 msgid "errldaporginit"
 msgstr "Le server LDAP n'a pas pu être contacté"
-
-#, c-format
-msgid "Error in portfolio : folder %s not exists"
-msgstr "Erreur dans la chemise : dossier %s n'existe pas"
 
 msgid "include"
 msgstr "contient"
@@ -2649,6 +2648,10 @@ msgid "Action"
 msgstr "Action"
 
 #, c-format
+msgid "Error in portfolio : folder %s not exists"
+msgstr "Erreur dans la chemise : dossier %s n'existe pas"
+
+#, c-format
 msgid "php file %s needed for request not found"
 msgstr "le fichier PHP %s nécessaire à la requête n'a pas pu être trouvé"
 
@@ -2716,12 +2719,6 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
-msgid "Save parameters"
-msgstr "Sauver les paramètres"
-
-msgid "Save"
-msgstr "Sauver"
-
 #, c-format
 msgid "period from %s to %s"
 msgstr "période du %s au %s"
@@ -2762,6 +2759,12 @@ msgstr "choisir une valeur pour %s"
 
 msgid "clear inputs"
 msgstr "effacer entrée(s)"
+
+msgid "clear file"
+msgstr "Effacer le fichier"
+
+msgid "restore original file"
+msgstr "Annuler l'effacement du fichier"
 
 msgid "add inputs"
 msgstr "ajouter entrée"
@@ -2861,6 +2864,12 @@ msgstr "États"
 
 msgid "Save default values"
 msgstr "Sauver les valeurs par défaut"
+
+msgid "Save parameters"
+msgstr "Sauver les paramètres"
+
+msgid "Save"
+msgstr "Sauver"
 
 msgid "This document has been deleted"
 msgstr "Ce document a été supprimé"

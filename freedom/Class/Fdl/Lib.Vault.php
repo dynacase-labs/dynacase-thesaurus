@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.8 2007/08/06 14:12:19 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.9 2007/08/06 14:23:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,7 +91,6 @@ function vault_get_content($idfile) {
  */
 function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
   if (($docid >0)  && ($vid>0)) {
-    print_r2("sendLatinTransformation");
     if (@include_once("TE/Class.TEClient.php")) {
       $tea=getParam("TE_ACTIVATE");
       if ($tea!="yes") return;

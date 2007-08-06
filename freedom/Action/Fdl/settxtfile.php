@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.9 2007/06/28 16:47:16 eric Exp $
+ * @version $Id: settxtfile.php,v 1.10 2007/08/06 14:23:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,7 +39,7 @@ function settxtfile(&$action) {
     if ($err=="") {
       $tr=new TaskRequest($dbaccess,$tid);
       if ($tr->isAffected()) {
-
+	$tr->delete(); // no need now
 	$outfile=$info["outfile"];
 	$status=$info["status"];
 		  
