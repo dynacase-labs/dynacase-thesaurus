@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 16:14+0200\n"
+"POT-Creation-Date: 2007-08-06 17:38+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -2418,6 +2418,9 @@ msgstr ""
 msgid "confidential document"
 msgstr "Delete"
 
+msgid "no message : post-it creation aborted"
+msgstr ""
+
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -2715,8 +2718,9 @@ msgstr ""
 msgid "Error : Process %s [%d]: status %d"
 msgstr ""
 
-msgid "no message : post-it creation aborted"
-msgstr ""
+#, fuzzy, c-format
+msgid "postit of %s"
+msgstr "Import"
 
 #, fuzzy, c-format
 msgid ""
@@ -2889,6 +2893,13 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
+msgid "This document has been deleted"
+msgstr ""
+
+#, fuzzy
+msgid "nobody"
+msgstr "No embed file"
+
 #, c-format
 msgid "period from %s to %s"
 msgstr ""
@@ -3042,13 +3053,6 @@ msgstr "Import"
 #, fuzzy
 msgid "Save"
 msgstr "Identity"
-
-msgid "This document has been deleted"
-msgstr ""
-
-#, fuzzy
-msgid "nobody"
-msgstr "No embed file"
 
 #, fuzzy, c-format
 msgid "%d documents"
@@ -4393,6 +4397,26 @@ msgid "VCARD Import Result"
 msgstr "Import"
 
 #, fuzzy
+msgid "Print"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "senddoc"
+msgstr "Edit"
+
+#, fuzzy
+msgid "RSS link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "wordedit"
+msgstr "Modify not possible"
+
+#, fuzzy
 msgid "fromdate"
 msgstr "Edit"
 
@@ -4671,24 +4695,8 @@ msgid "quick save not possible"
 msgstr ""
 
 #, fuzzy
-msgid "Print"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "senddoc"
+msgid "View postit"
 msgstr "Edit"
-
-#, fuzzy
-msgid "RSS link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "wordedit"
-msgstr "Modify not possible"
 
 #, fuzzy
 msgid "View family"

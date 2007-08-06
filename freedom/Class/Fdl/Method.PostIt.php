@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.PostIt.php,v 1.8 2006/10/03 08:30:06 eric Exp $
+ * @version $Id: Method.PostIt.php,v 1.9 2007/08/06 15:42:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -50,6 +50,10 @@ function viewpostit($target="_self",$ulink=true,$abstract=false) {
 }
 function editpostit() {
   $this->editattr();
+}
+
+function getpostittitle($s) {
+  return sprintf(_("postit of %s"),$this->getTitle($s));
 }
 function PostModify() {
   $docid= $this->getValue("PIT_IDADOC");

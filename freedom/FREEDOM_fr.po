@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-06 16:14+0200\n"
-"PO-Revision-Date: 2007-08-06 16:14+0200\n"
+"POT-Creation-Date: 2007-08-06 17:38+0200\n"
+"PO-Revision-Date: 2007-08-06 17:39+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -2262,6 +2262,9 @@ msgstr "nouvelle %s"
 msgid "confidential document"
 msgstr "document confidentiel"
 
+msgid "no message : post-it creation aborted"
+msgstr "pas de message : création de post-it abandonné"
+
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2553,8 +2556,9 @@ msgstr "Processus %s [%d] exécuté"
 msgid "Error : Process %s [%d]: status %d"
 msgstr "Erreur : Processus %s [%d]: status %d"
 
-msgid "no message : post-it creation aborted"
-msgstr "pas de message : création de post-it abandonné"
+#, c-format
+msgid "postit of %s"
+msgstr "post-it de %s"
 
 #, c-format
 msgid ""
@@ -2719,6 +2723,12 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
+
 #, c-format
 msgid "period from %s to %s"
 msgstr "période du %s au %s"
@@ -2870,12 +2880,6 @@ msgstr "Sauver les paramètres"
 
 msgid "Save"
 msgstr "Sauver"
-
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
 
 #, c-format
 msgid "%d documents"
@@ -3987,6 +3991,21 @@ msgstr "Catégorie"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "Envoyer le document"
+
+msgid "RSS link"
+msgstr "S'abonner au lien RSS"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
+
 msgid "fromdate"
 msgstr "date de début"
 
@@ -4228,20 +4247,8 @@ msgstr "Choisissez un document avant de choisir les options"
 msgid "quick save not possible"
 msgstr "Sauvegarde rapide impossible"
 
-msgid "Print"
-msgstr "Imprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "Envoyer le document"
-
-msgid "RSS link"
-msgstr "S'abonner au lien RSS"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
+msgid "View postit"
+msgstr "Voir le post-it"
 
 msgid "View family"
 msgstr "Voir la famille"

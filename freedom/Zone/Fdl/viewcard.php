@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.78 2007/07/25 09:45:41 eric Exp $
+ * @version $Id: viewcard.php,v 1.79 2007/08/06 15:42:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -188,7 +188,7 @@ function viewcard(&$action) {
   } else {
     $action->lay->Set("classtitle", _("no family"));
   }
-  $action->lay->Set("postitid", $doc->postitid);
+  $action->lay->Set("postitid", ($doc->postitid>0)?$doc->postitid:false);
   
   
   if (($target=="mail") && ($doc->icon != "")) $action->lay->Set("iconsrc", "cid:icon");
