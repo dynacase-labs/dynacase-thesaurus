@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.129 2007/07/30 07:11:16 eric Exp $
+ * @version $Id: import_file.php,v 1.130 2007/08/06 08:18:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,7 +68,7 @@ function add_import_file(&$action, $fimport) {
       // search from name or from id
       if ($data[3]=="") $doc=new DocFam($dbaccess,getFamIdFromName($dbaccess,$data[5]) );
       else $doc=new DocFam($dbaccess, $data[3]);
-
+      $famicon="";
      
       if (! $doc->isAffected())  {
 	
@@ -132,7 +132,7 @@ function add_import_file(&$action, $fimport) {
 	  if ((method_exists($dir,"AddFile")) && ($dir->isAlive())) $dir->AddFile($doc->id);
 	}
       }
-
+      if ((! $analyze) && ($famicon!="")) $doc->changeIcon($famicon);
       
       $doc->AddComment(_("Update by importation"));
      
@@ -206,7 +206,7 @@ function add_import_file(&$action, $fimport) {
       // -----------------------------------
     case "ICON": // for family
       if ($doc->icon == "") {
-	if (! $analyze) $doc->changeIcon($data[1]);
+	$famicon=$data[1]; // reported to end section
 	
 	$tcr[$nline]["msg"]=sprintf(_("set icon to '%s'"),$data[1]);
       } else {
