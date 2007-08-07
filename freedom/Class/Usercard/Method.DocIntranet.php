@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.20 2007/05/24 15:03:43 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.21 2007/08/07 10:34:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -107,9 +107,17 @@ function ChooseGroup($target="_self",$ulink=true,$abstract=false) {
   if (!$groups) $groups=array();
   if ($mgroups) {
     foreach ($mgroups as $k=>$v) {
-	$cgroup=$this->_getChildsGroup($v["id"],$groups);
-	$tgroup[$k]=$v;
-	$tgroup[$k]["SUBUL"]=$cgroup;
+      $cgroup=$this->_getChildsGroup($v["id"],$groups);
+      $tgroup[$k]=$v;
+      $tgroup[$k]["SUBUL"]=$cgroup;
+      $fid=$v["fid"];
+      if ($fid) {
+	$tdoc=getTDoc($this->dbaccess,$fid);
+	$icon=$this->getIcon($tdoc["icon"]);
+	$tgroup[$k]["icon"]=$icon;
+      } else {
+	$tgroup[$k]["icon"]="Images/igroup.gif";	  
+      }
       $groupuniq[$v["id"]]=$v;
       $groupuniq[$v["id"]]["checkbox"]="";
       if (in_array($v["id"],$ugroup)) $groupuniq[$v["id"]]["checkbox"]="checked";
