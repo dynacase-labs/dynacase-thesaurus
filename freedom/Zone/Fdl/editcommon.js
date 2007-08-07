@@ -5,8 +5,9 @@ var wichoose= false;
 var NB_FCKEDITORS=0;
 var FCKEDITORS=new Array();
 // current instance
-var colorPick = new ColorPicker();
-initDHTMLAPI();
+var colorPick ;
+if (window.pickColor)  colorPick = new ColorPicker();
+if (window.initDHTMLAPI) initDHTMLAPI();
 var THESTATUS=new Array();
 
 document.isCancelled=false;
