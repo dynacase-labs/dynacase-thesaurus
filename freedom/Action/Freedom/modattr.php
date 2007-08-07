@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.28 2007/07/27 15:13:55 eric Exp $
+ * @version $Id: modattr.php,v 1.29 2007/08/07 10:35:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -95,8 +95,8 @@ function modattr(&$action) {
 
   // ------------------------------
   // update POSGRES attributes
-  $oattr=new DocAttr($dbaccess);
-  $oattr->docid = $doc->initid;
+  $oattr0=new DocAttr($dbaccess);
+  $oattr0->docid = $doc->initid;
   $tadd=array();
   $tmod=array();
   while(list($k,$v) = each($orders) )
@@ -105,13 +105,21 @@ function modattr(&$action) {
 
 	  
 	  if ($names[$k] != "") {
+	    if ($attrids[$k]=="") {
+	      $oattr=$oattr0;
+	      $oattr->id = $nattrids[$k];
+	    } else {
+	      $oattr=new DocAttr($dbaccess,array($doc->initid,strtolower($attrids[$k])));  
+	      if (! $oattr->isAffected()) $oattr=new DocAttr($dbaccess,array($doc->initid,':'.strtolower($attrids[$k])));  	      	      
+	    }
+
+	    if ($oattr->id=="") print "Error line $k";
 
 	    $oattr->labeltext=stripslashes($names[$k]);
 	    $oattr->title=isset($titles[$k])?$titles[$k]:"N";
 	    $oattr->abstract=isset($abstracts[$k])?$abstracts[$k]:"N";
 	    $oattr->needed=isset($needed[$k])?$needed[$k]:"N";
-	    $oattr->type=stripslashes($types[$k]);
-	    $oattr->id=strtolower($attrids[$k]);
+	    $oattr->type=stripslashes($types[$k]);	    
 	    $oattr->frameid=isset($frameids[$k])?$frameids[$k]:"0";
 	    $oattr->ordered=isset($orders[$k])?$orders[$k]:"999";
 	    $oattr->visibility=$visibilities[$k];
@@ -122,17 +130,16 @@ function modattr(&$action) {
 	    $oattr->phpconstraint=$phpconstraint[$k];
 	    $oattr->options=$options[$k];
 	    $oattr->usefor='N';
-	    if ($attrids[$k]=="") {
-	      //print $oattr->id;
-	      //     print "add $names[$k]<BR>";
+	    if (!$oattr->isAffected()) {
+	      //  print "add $names[$k]<BR>";
 	      if (isset($nattrids[$k]) && ($nattrids[$k] != ""))
 		$oattr->id = $nattrids[$k];
 	      $err = $oattr->Add();
 	      if ($err=="") $tadd[]=$oattr->id;
 	      //	      print($err);
 	    } else {
-	      //print "mod $names[$k]<BR>";
-	      $err=$oattr ->Modify();
+	      //print_r2( "mod $names[$k] ".$visibilities[$k]);
+	      $err=$oattr->Modify();
 	      if ($err=="") $tmod[]=$oattr->id;
 	    }
 
