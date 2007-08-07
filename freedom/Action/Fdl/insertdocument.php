@@ -3,7 +3,7 @@
  *  Insert documents in  folder
  *
  * @author Anakeen 2007
- * @version $Id: insertdocument.php,v 1.1 2007/08/07 14:46:07 eric Exp $
+ * @version $Id: insertdocument.php,v 1.2 2007/08/07 16:56:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,24 +35,43 @@ function insertdocument(&$action) {
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
   if ($doc->defDoctype != 'D') $action->exitError(sprintf(_("not a static folder %s"),$doc->title));
   
-  $err=$doc->control("modify");
+  $err=$doc->canModify();
   if ($err != "") $action->exitError($err);
-  if ($doc->isLocked(true)) $action->exitError(sprintf(_("folder locked %s"),$doc->title));
 
-  print_r2($uchange);
+  $erradd=array();
+  $errdel=array();
   foreach ($uchange as $initid=>$state) {
     if ($initid >0) {
 
-    switch ($state) {      
-    case "new":
-      $err[$initid]=$doc->addFile($initid);
-      break;
-    case "deleted":
-      $err[$initid]=$doc->delFile($initid);
-      break;
-    }
+      switch ($state) {      
+      case "new":
+	$erradd[$initid]=$doc->addFile($initid);
+	break;
+      case "deleted":
+	$errdel[$initid]=$doc->delFile($initid);
+	break;
+      }
     }
   }
-  print_r2($err);
+
+  $n=0;
+  $err="";
+  foreach ($erradd as $k=>$v) {
+    if ($v=="") $n++;
+    else $err.= "$v\n";
+  }
+  if ($n>0) $action->addWarningMsg(sprintf(_("Add %d document(s)"),$n));
+  $n=0;
+  foreach ($errdel as $k=>$v) {
+    if ($v=="") $n++;
+    else $err.= "$v\n";
+  }
+  if ($n>0) $action->addWarningMsg(sprintf(_("Suppress %d document(s)"),$n));
+  if ($err !="") $action->addWarningMsg($err);
+
+  redirect($action,GetHttpVars("redirect_app","FDL"),
+	     GetHttpVars("redirect_act","FDL_CARD&refreshfld=Y&id=$docid"),
+	     $action->GetParam("CORE_STANDURL"));
+
 }
 ?>

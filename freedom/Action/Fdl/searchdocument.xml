@@ -5,8 +5,9 @@
 [ENDBLOCK ACTIONS]
   <branch><![CDATA[
 [BLOCK DOCS]
-<div class="uresult" onclick="fdl_addDoc(event,this,'[initid]','[stitle]')"><img align="right" src="[IMG:minileft.gif]">[title]</div>
+<div class="uresult" onclick="fdl_addDoc(event,this,'[initid]','[stitle]','[icon]')"><img align="right" src="[IMG:minileft.gif]"><img  src="[icon]">[title]</div>
 [ENDBLOCK DOCS]
 [IFNOT count][TEXT:No result][ENDIF count]
+[IF onecount][firstinsert][ENDIF onecount]
 ]]></branch>
 </status>

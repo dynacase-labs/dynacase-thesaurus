@@ -3,7 +3,7 @@
  * Search document and return list of them
  *
  * @author Anakeen 2006
- * @version $Id: searchdocument.php,v 1.1 2007/08/07 14:46:07 eric Exp $
+ * @version $Id: searchdocument.php,v 1.2 2007/08/07 16:56:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WORKSPACE
  * @subpackage 
@@ -39,12 +39,13 @@ function searchdocument(&$action) {
   $filter[]="title ~* '".pg_escape_string($key)."'";
 
   $lq=getChildDoc($dbaccess, 0,0,$limit, $filter,$action->user->id,"TABLE",$famid);
-
+  $doc=new_doc($dbaccess);
 
   foreach ($lq as $k=>$v) {
     if (! in_array($v["initid"],$noids)) {
-      $lq[$k]["title"]=utf8_encode($lq[$k]["title"]);
-      $lq[$k]["stitle"]=str_replace("'","\\'",($lq[$k]["title"]));
+      $lq[$k]["title"]=utf8_encode($v["title"]);
+      $lq[$k]["stitle"]=str_replace("'","\\'",($v["title"]));
+      $lq[$k]["icon"]=$doc->getIcon($v["icon"]);
     } else {
       unset($lq[$k]);
     }
@@ -53,7 +54,11 @@ function searchdocument(&$action) {
 
   $action->lay->setBlockData("DOCS",$lq);
 
-
+    $action->lay->set("onecount",false);
+  if (count($lq)==1) {
+    $action->lay->set("onecount",true);
+    $action->lay->set("firstinsert",sprintf(_("%s inserted"),$lq[0]["title"]));
+  }
   $action->lay->set("count",count($lq));
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
 

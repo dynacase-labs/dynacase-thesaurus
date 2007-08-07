@@ -15,7 +15,7 @@ function fdl_searchDocs(event,uname,where,famid) {
   }
 }
 
-function fdl_addDoc(event,o,uid,uname) {
+function fdl_addDoc(event,o,uid,uname,icon) {
   var t=document.getElementById('trtemplate');
   var ntable=document.getElementById('members');
   var ntr;
@@ -27,12 +27,13 @@ function fdl_addDoc(event,o,uid,uname) {
     ntr.style.display='';
     nodereplacestr(ntr,'jsuname',uname);
     nodereplacestr(ntr,'jsuid',uid);
+    nodereplacestr(ntr,'jsicon',icon);
     ntable.appendChild(ntr);
     if (o) o.style.display='none';
     //    alert(ntr.innerHTML);
     document.getElementById('ukey').value='';
     document.getElementById('ukey').focus();
-    
+    fld_countDoc();
   }
 }
 
@@ -56,3 +57,21 @@ function fdl_implodeInputKeyValues(n) {
 }
 
 
+function fld_countDoc() {
+  var ntable=document.getElementById('members');
+  var ti= ntable.getElementsByTagName("tr"); 
+  var i,c=0;
+  for (i=0;i<ti.length;i++) {
+    if (ti[i].style.display!='none') c++;
+  }
+  
+  var sc=document.getElementById('scount');
+  sc.innerHTML=c;
+
+}
+
+function fld_deleteDoc(o,initid) {
+    o.form['uchange['+initid+']'].value='deleted';
+    o.parentNode.parentNode.style.display='none';
+    fld_countDoc();
+}
