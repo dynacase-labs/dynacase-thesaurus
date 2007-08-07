@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.42 2007/06/27 10:04:29 eric Exp $
+// $Id: FDL.app,v 1.43 2007/08/07 14:46:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -305,6 +305,21 @@ $action_desc = array (
    "name"		=>"SETTXTFILE",
    "short_name"		=>N_("update text file for fulltext"),
    "acl"		=>"EDIT"
+  ),
+  array( 
+   "name"		=>"INSERTDOCUMENT",
+   "short_name"		=>N_("insert document in a folder"),
+   "acl"		=>"EDIT"
+  ),
+  array( 
+   "name"		=>"EDITINSERTDOCUMENT",
+   "short_name"		=>N_("interface insert document in a folder"),
+   "acl"		=>"EDIT"
+  ),
+  array( 
+   "name"		=>"SEARCHDOCUMENT",
+   "short_name"		=>N_("search document to insert in a folder"),
+   "acl"		=>"NORMAL"
   ) 
                       );	
    
