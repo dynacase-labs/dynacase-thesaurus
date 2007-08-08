@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.46 2007/04/26 12:23:44 eric Exp $
+// $Id: FREEDOM.app,v 1.47 2007/08/08 10:42:02 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -28,7 +28,7 @@ $app_desc = array (
 "short_name"	=>N_("Documents management"),		//Short name
 "description"	=>N_("Documents management"),//long description
 "access_free"	=>"N",			//Access free ? (Y,N)
-"icon"		=>"freedom.gif",	//Icon
+"icon"		=>"freedom.png",	//Icon
 "displayable"	=>"Y",			//Should be displayed on an app list (Y,N)
 "with_frame"	=>"Y",			//Use multiframe ? (Y,N)
 "iorder"        =>130
