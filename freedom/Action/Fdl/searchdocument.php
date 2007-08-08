@@ -3,7 +3,7 @@
  * Search document and return list of them
  *
  * @author Anakeen 2006
- * @version $Id: searchdocument.php,v 1.2 2007/08/07 16:56:59 eric Exp $
+ * @version $Id: searchdocument.php,v 1.3 2007/08/08 10:43:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WORKSPACE
  * @subpackage 
@@ -37,6 +37,7 @@ function searchdocument(&$action) {
   $action->lay->set("CODE","OK");
   $limit=20;
   $filter[]="title ~* '".pg_escape_string($key)."'";
+  $filter[]="doctype!='T'";
 
   $lq=getChildDoc($dbaccess, 0,0,$limit, $filter,$action->user->id,"TABLE",$famid);
   $doc=new_doc($dbaccess);
