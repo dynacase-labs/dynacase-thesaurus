@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.44 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.45 2007/08/08 15:36:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -19,19 +19,26 @@ var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("n
 
 
 
-var $top=array("~*"=>array("label"=>"include"),
+var $top=array("~*"=>array("label"=>"include",
+			   "type"=>array("text","longtext","htmltext")),
 	       "=" => array("label"=>"equal"),    
-	       "~^" => array("label"=>"begin by"),            
+	       "~^" => array("label"=>"begin by",
+			     "type"=>array("text","longtext","htmltext")),            
 	       "!=" => array("label"=>"not equal"),       
-	       "!~*" => array("label"=>"not include"),       
+	       "!~*" => array("label"=>"not include",
+			      "type"=>array("text","longtext","htmltext")),       
 	       ">" => array("label"=>"&gt;",
 			    "type"=>array("int","float","date","time","timestamp","money")),       
-	       "<" => array("label"=>"&lt;"),       
-	       ">=" => array("label"=>"&gt; or equal"),       
-	       "<=" => array("label"=>"&lt; or equal"),   
+	       "<" => array("label"=>"&lt;",
+			    "type"=>array("int","float","date","time","timestamp","money")),       
+	       ">=" => array("label"=>"&gt; or equal",
+			     "type"=>array("int","float","date","time","timestamp","money")),       
+	       "<=" => array("label"=>"&lt; or equal",
+			     "type"=>array("int","float","date","time","timestamp","money")),   
 	       "is null" => array("label"=>"is empty"),   
 	       "is not null" => array("label"=>"is not empty"),   
-	       "~y" => array("label"=>"one value equal"));    
+	       "~y" => array("label"=>"one value equal",
+			     "type"=>array("array")));    
    
 var $tol=array("and" => "and",              #N_("and")
 	       "or" => "or");               #N_("or")
@@ -349,7 +356,7 @@ function editdsearch() {
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
   $this->lay->SetBlockData("FUNC2", $tfunc);
-
+  $this->lay->Set("icon",$fdoc->getIcon());
 
 
   if ($this->getValue("SE_LATEST") == "no")     $this->lay->Set("select_all","selected");
@@ -380,26 +387,21 @@ function editdsearch() {
   $taid = $this->getTValue("SE_ATTRIDS");
   $tf = $this->getTValue("SE_FUNCS");
   
-  $cond="";
- 
+  $cond=""; 
   $tcond=array();
-  reset($tkey);
-
 
   if ((count($tkey) > 1) || ($tkey[0] != "")) {
-
-    while(list($k,$v) = each($tkey)) {
+    foreach($tkey as $k=>$v) {
+      $oa=$fdoc->getAttribute($taid[$k]);
       $tcond[$k]= array("OLCOND"   => "olcond$k",
 			"ATTRCOND" => "attrcond$k",
 			"FUNCCOND" => "funccond$k",
-			"KEYCOND" => "keycond$k",
-			"STATECOND" => "statecond$k",
+			"ISENUM" => (($taid[$k]=="state")||($oa->type=="enum")),
 			"SSTATE" => "sstate$k",
 			"key" => $v);
     
       $tattr=array();
-      if ($taid[$k]=="state") {
-	$this->lay->SetBlockData("statecond$k", array(array("boo")));
+       if ($taid[$k]=="state") {
 	reset($states);
 	$tstates=array();
 	while(list($ks,$vs) = each($states)) {
@@ -411,26 +413,47 @@ function editdsearch() {
 	$tattr[]=array("attr_id"=> $taid[$k],
 		       "attr_selected" => "selected",
 		       "attr_name" => _("state"));
-      } else {
-	$this->lay->SetBlockData("keycond$k", array(array("boo")));
-	reset($internals);
-	while (list($ki,$vi) = each($internals)) {
-	  $tattr[]=array("attr_id"=> $ki,
-			 "attr_selected" => ($taid[$k]==$ki)?"selected":"",
-			 "attr_name" => $vi);
-	}
-	reset($zpi);
+       } else {
+	 if ($oa->type=="enum") {	
+	   $te=$oa->getEnum();
+	   $tstates=array();
+	   foreach ($te as $ks=>$vs) {
+	     $tstates[] = array("sstateid"=>$vs,
+				"sstate_selected" => ($vs==$v)?"selected":"",
+				"sstatename"=>_($vs));
+	   }
+	   $this->lay->SetBlockData("sstate$k",$tstates );	
+	 }
 
-	while (list($ki,$vi) = each($zpi)) {
-	  $tattr[]=array("attr_id"=> $vi->id,
-			 "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
-			 "attr_name" => $vi->labelText);
-	}
-      }
+	 foreach($internals as $ki=>$vi) {
+	   $tattr[]=array("attr_id"=> $ki,
+			  "attr_selected" => ($taid[$k]==$ki)?"selected":"",
+			  "attr_name" => $vi);
+	 }
+	 foreach($zpi as $ki=>$vi) {
+	   $tattr[]=array("attr_id"=> $vi->id,
+			  "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
+			  "attr_name" => $vi->labelText);
+	 }
+       }
       $this->lay->SetBlockData("attrcond$k", $tattr);
 
       $tfunc=array();
+
       foreach($this->top as $ki=>$vi) {
+	$oa=$fdoc->getAttribute($taid[$k]);
+	$type=$oa->type;
+	if ($type=="") {
+	  if ($taid[$k]=="title") $type="text";
+	  if ($taid[$k]=="revdate") $type="date";
+	  if ($taid[$k]=="owner") $type="docid";
+	  if ($taid[$k]=="values") $type="text";	  
+	} else {
+	  if ($oa->inArray()) $type="array";
+	}
+	if (isset($vi["type"])) {
+	  if (! in_array($type,$vi["type"])) continue;
+	}
 	$tfunc[]=array("func_id"=> $ki,
 		       "func_selected" => ($tf[$k]==$ki)?"selected":"",
 		       "func_name" => _($vi["label"]));
