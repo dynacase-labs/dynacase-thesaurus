@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.116 2007/07/31 16:31:24 eric Exp $
+ * $Id: freedom.css,v 1.117 2007/08/08 15:35:06 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -295,6 +295,9 @@ TABLE.tarray  TR TH {
   border-style:none none solid none;
   padding:0px;
   -moz-border-radius:10px;
+}
+TABLE.tarray  TH {  
+  font-weight: normal;
 }
 
 TABLE.transparent TBODY TR TD {  

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.406 2007/08/02 09:56:00 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.407 2007/08/08 15:35:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3291,7 +3291,7 @@ final public function PostInsert()  {
 	  $nbitem=0;
 	  while (list($k, $v) = each($ta)) {
 	    if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
-	    $talabel[] = array("alabel"=>$v->labelText,
+	    $talabel[] = array("alabel"=>ucfirst($v->labelText),
 			       "cwidth"=>$v->getOption("cwidth","auto"));	
 	    $tval[$k]=$this->getTValue($k);
 	    $nbitem= max($nbitem,count($tval[$k]));
