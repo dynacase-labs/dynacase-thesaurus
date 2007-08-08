@@ -13,5 +13,5 @@
   <Param name="sensitive" value="false"/>
   <Param name="viewone" value=""/>
 </Url>
-<SearchForm>http://localhost/freedom/freedomsearch.php</SearchForm>
+<SearchForm>http://localhost/freedom/?sole=Y&amp;app=FREEDOM&amp;action=FULLSEARCH</SearchForm>
 </SearchPlugin>
