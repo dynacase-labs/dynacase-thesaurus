@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.45 2007/08/08 15:36:47 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.46 2007/08/09 13:46:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -19,9 +19,9 @@ var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("n
 
 
 
-var $top=array("~*"=>array("label"=>"include",
+var $top=array("=" => array("label"=>"equal"),    
+	       "~*"=>array("label"=>"include",
 			   "type"=>array("text","longtext","htmltext")),
-	       "=" => array("label"=>"equal"),    
 	       "~^" => array("label"=>"begin by",
 			     "type"=>array("text","longtext","htmltext")),            
 	       "!=" => array("label"=>"not equal"),       
@@ -37,7 +37,7 @@ var $top=array("~*"=>array("label"=>"include",
 			     "type"=>array("int","float","date","time","timestamp","money")),   
 	       "is null" => array("label"=>"is empty"),   
 	       "is not null" => array("label"=>"is not empty"),   
-	       "~y" => array("label"=>"one value equal",
+	       "~y" => array("label"=>"one value include",
 			     "type"=>array("array")));    
    
 var $tol=array("and" => "and",              #N_("and")
@@ -336,7 +336,11 @@ function editdsearch() {
 		   "values"=> _("any values"));
   
   while (list($k,$v) = each($internals)) {
+    if ($k=="revdate") $type="date";
+    else if ($k=="owner") $type="docid";
+    else $type="text";			    
     $tattr[]=array("attrid"=> $k,
+		   "attrtype"=>$type,
 		   "attrname" => $v);
   }
 
@@ -345,13 +349,19 @@ function editdsearch() {
 
   while (list($k,$v) = each($zpi)) {
     if ($v->type == "array") continue;
+    if ($v->inArray()) $type="array";
+    else $type=$v->type;
     $tattr[]=array("attrid"=> $v->id,
+		   "attrtype"=>$type,
 		   "attrname" => $v->labelText);
   }
   $this->lay->SetBlockData("ATTR", $tattr);
   
-  while (list($k,$v) = each($this->top)) {
+  foreach($this->top as $k=>$v) {
+    if (isset($v["type"])) $ctype=implode(",",$v["type"]);
+    else $ctype="";
     $tfunc[]=array("funcid"=> $k,
+		   "functype"=>$ctype,
 		   "funcname" => _($v["label"]));
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
@@ -418,20 +428,27 @@ function editdsearch() {
 	   $te=$oa->getEnum();
 	   $tstates=array();
 	   foreach ($te as $ks=>$vs) {
-	     $tstates[] = array("sstateid"=>$vs,
+	     $tstates[] = array("sstateid"=>$ks,
 				"sstate_selected" => ($vs==$v)?"selected":"",
-				"sstatename"=>_($vs));
+				"sstatename"=>$vs);
 	   }
 	   $this->lay->SetBlockData("sstate$k",$tstates );	
 	 }
 
 	 foreach($internals as $ki=>$vi) {
+	   if ($ki=="revdate") $type="date";
+	   else if ($ki=="owner") $type="docid";
+	   else $type="text";	   	   
 	   $tattr[]=array("attr_id"=> $ki,
+			  "attr_type"=>$type,
 			  "attr_selected" => ($taid[$k]==$ki)?"selected":"",
 			  "attr_name" => $vi);
 	 }
 	 foreach($zpi as $ki=>$vi) {
+	   if ($vi->inArray()) $type="array";
+	   else $type=$vi->type;
 	   $tattr[]=array("attr_id"=> $vi->id,
+			  "attr_type"=>$type,
 			  "attr_selected" => ($taid[$k]==$vi->id)?"selected":"",
 			  "attr_name" => $vi->labelText);
 	 }
@@ -451,11 +468,16 @@ function editdsearch() {
 	} else {
 	  if ($oa->inArray()) $type="array";
 	}
+	$display='';
+	$ctype='';
 	if (isset($vi["type"])) {
-	  if (! in_array($type,$vi["type"])) continue;
+	  if (! in_array($type,$vi["type"])) $display='none';
+	  $ctype=implode(",",$vi["type"]);
 	}
 	$tfunc[]=array("func_id"=> $ki,
 		       "func_selected" => ($tf[$k]==$ki)?"selected":"",
+		       "func_display"=>$display,
+		       "func_type"=>$ctype,
 		       "func_name" => _($vi["label"]));
       }
       $this->lay->SetBlockData("funccond$k", $tfunc);

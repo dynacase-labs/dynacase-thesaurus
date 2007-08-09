@@ -12,8 +12,7 @@
    <img needresize="1" style="width:[SIZE_IMG-SMALL]" src="[icon]">
       <label for="sensitive"> [TEXT:familly]&nbsp;:</label>
      <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=[ACTION]&classid=[classid]&dirid=[dirid]&sfamid='+this.options[this.selectedIndex].value">  
-         [BLOCK SELECTCLASS]
-           <option VALUE="[idcdoc]" [selected]>[classname]</option>   
+         [BLOCK SELECTCLASS]<option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
     </select>  
     <input type="hidden" name="_se_fam" value="[selfam]">
@@ -37,21 +36,17 @@
 
 <tr id="newcond" style="display:none">
 <td class="und" align="left">
-  <img width="10px" height="10px" title="[TEXT:up]" align="top" onclick="upart(this)" src="[IMG:up.gif]">
-  <img width="10px" height="10px" title="[TEXT:down]" align="bottom" onclick="downart(this)" src="[IMG:down.gif]">
-  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:delete.gif]">
+  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:trash22.gif]">
 </td>
 
 <td class="und" >
-  <select  name="_se_attrids[]" >
-  [BLOCK ATTR]
-     <option  value="[attrid]">[attrname]</option>
+  <select  name="_se_attrids[]"  onchange="filterfunc(this)">
+  [BLOCK ATTR]<option atype="[attrtype]" value="[attrid]">[attrname]</option>
   [ENDBLOCK ATTR]
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
-    [BLOCK FUNC]
-     <option  value="[funcid]">[funcname]</option>
+    [BLOCK FUNC]<option  ctype="[functype]" value="[funcid]">[funcname]</option>
     [ENDBLOCK FUNC]
   </select></td>
 <td class="und"  >
@@ -67,30 +62,22 @@
            <option value="::getDate(1)">[TEXT:tomorrow]</option>
     </select></td>
 </tr>
-
-
 <tr id="newstate" style="display:none">
 <td class="und" align="left">
-  <img width="10px" height="10px" title="[TEXT:up]" align="top" onclick="upart(this)" src="[IMG:up.gif]">
-  <img width="10px" height="10px" title="[TEXT:down]" align="bottom" onclick="downart(this)" src="[IMG:down.gif]">
-  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:delete.gif]">
+  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:trash22.gif]">
 </td>
 <td class="und" >
   <select  name="_se_attrids[]" >
- 
      <option selected value="state">[TEXT:state]</option>
-  
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
-    [BLOCK FUNC2]
-     <option  value="[funcid]">[funcname]</option>
+    [BLOCK FUNC2]<option  value="[funcid]">[funcname]</option>
     [ENDBLOCK FUNC2]
   </select></td>
 <td class="und"  >
   <select  name="_se_keys[]" >
-  [BLOCK STATE]
-     <option  value="[stateid]">[statename]</option>
+  [BLOCK STATE]<option  value="[stateid]">[statename]</option>
   [ENDBLOCK STATE]
   </select></td>
 </tr>
@@ -104,22 +91,16 @@
 <tbody id="condlist">
 [BLOCK CONDITIONS]<tr id="ART[ak]">
 <td class="und">
-
-  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:trash22.gif]"></td>
-  
-
+  <img title="[TEXT:delete]" onclick="delart(this)" src="[IMG:trash22.gif]"></td>  
 <td class="und" >
-  <select  name="_se_attrids[]" >
-  [BLOCK [ATTRCOND]]
-
-     <option [attr_selected] value="[attr_id]">[attr_name]</option>
-
+  <select  name="_se_attrids[]"  onchange="filterfunc(this)" >
+  [BLOCK [ATTRCOND]]<option [attr_selected] atype="[attr_type]" value="[attr_id]">[attr_name]</option>
   [ENDBLOCK [ATTRCOND]]
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >  
   [BLOCK [FUNCCOND]]
-     <option [func_selected] value="[func_id]">[func_name]</option>
+     <option [func_selected] ctype="[func_type]" style="display:[func_display]" value="[func_id]">[func_name]</option>
   [ENDBLOCK [FUNCCOND]]
   </select></td>
 <td class="und"  >
@@ -138,8 +119,7 @@
   [ENDIF ISENUM]
   [IF ISENUM]
   <select  name="_se_keys[]" >
-  [BLOCK [SSTATE]]
-     <option  value="[sstateid]" [sstate_selected]>[sstatename]</option>
+  [BLOCK [SSTATE]]<option  value="[sstateid]" [sstate_selected]>[sstatename]</option>
   [ENDBLOCK [SSTATE]]
   </select>  
   [ENDIF ISENUM]</td>
