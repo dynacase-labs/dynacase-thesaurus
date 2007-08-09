@@ -76,12 +76,13 @@ function filterfunc(th) {
   var atype=opt.getAttribute('atype');
   var ctypes,i;
   var pnode,so=false;
-
+  var aid=opt.value;
+  var sec,se;
   // search brother select input
   pnode=p.nextSibling;
   while (pnode && ((pnode.nodeType != 1) || (pnode.tagName != 'TD'))) pnode = pnode.nextSibling;
 
-  pnode.style.border='red 1px solid';
+ 
   for (i=0;i<pnode.childNodes.length;i++) {
     if (pnode.childNodes[i].tagName=='SELECT') {
       so=pnode.childNodes[i];
@@ -99,6 +100,33 @@ function filterfunc(th) {
       opt.style.display='none';
       opt.selected=false;
       opt.disabled=true;
+    }
+  }
+  // find key cell
+  pnode=pnode.nextSibling;
+  while (pnode && ((pnode.nodeType != 1) || (pnode.tagName != 'TD'))) pnode = pnode.nextSibling;
+  // now enum
+  if ((atype=='enum') || (atype=='enumlist')) {   
+     se=document.getElementById('selenum'+aid);
+    if (se) {      
+      if (pnode) {	
+	pnode.innerHTML='';
+	sec=se.cloneNode(true);
+	sec.name='_se_keys[]';
+	sec.id='';
+	pnode.appendChild(sec);
+      }            
+    }
+  } else {    
+    se=document.getElementById('thekey');
+    if (se) {            
+	sec=se.cloneNode(true);
+	sec.name='_se_keys[]';
+	sec.id='';
+	if (pnode) {            
+	  pnode.innerHTML='';
+	  pnode.appendChild(sec);	  
+	}
     }
   }
   

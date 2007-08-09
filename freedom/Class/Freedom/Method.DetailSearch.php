@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.46 2007/08/09 13:46:11 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.47 2007/08/09 14:56:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -347,7 +347,7 @@ function editdsearch() {
   $fdoc=new_Doc($this->dbaccess, $famid);
   $zpi=$fdoc->GetNormalAttributes();
 
-  while (list($k,$v) = each($zpi)) {
+  foreach($zpi as $k=>$v) {
     if ($v->type == "array") continue;
     if ($v->inArray()) $type="array";
     else $type=$v->type;
@@ -493,8 +493,24 @@ function editdsearch() {
     }
   }
   if (count($tcond) > 0)  $this->lay->SetBlockData("CONDITIONS", $tcond);
-  // Compute value to be inserted in a  layout
+  // Add select for enum attributes
+  
+  $tenums=array();
+  foreach($zpi as $k=>$v) {
+    if (($v->type == "enum")|| ($v->type == "enumlist")) {
+      $tenums[]=array("SELENUM"=>"ENUM$k",
+		      "attrid"=>$v->id);
+      $tenum=$v->getEnum();
+      $te=array();
+      foreach ($tenum as $ke=>$ve) {
+	$te[]=array("enumkey"=>$ke,
+		    "enumlabel"=>$ve);
+      }
+      $this->lay->setBlockData("ENUM$k",$te);
+    }
+  }
 
+  $this->lay->setBlockData("ENUMS",$tenums);
 
   $this->lay->Set("id", $this->id);
   $this->editattr();

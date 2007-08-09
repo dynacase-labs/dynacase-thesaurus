@@ -50,7 +50,7 @@
     [ENDBLOCK FUNC]
   </select></td>
 <td class="und"  >
-   <input  type="text"  size="20"  name="_se_keys[]" >
+   <input id="thekey" type="text"  size="20"  name="_se_keys[]" >
    <input title="[TEXT:function examples]" type="button" value="&Sigma;" onclick="getNextElement(this).style.display='';this.style.display='none'">
    <select  style="display:none" onchange="setKey(event,this)">
            <option disabled style="font-weight: bold;" value="">[TEXT:function examples]</option>
@@ -86,7 +86,16 @@
 <td>[L_SE_ATTRIDS]</td>
 <td>[L_SE_FUNCS]</td>
 <td>[L_SE_KEYS]</td>
-</tr></thead>
+</tr>
+[BLOCK ENUMS]
+<tr  style="display:none"><td colspan="4">
+  <select id="selenum[attrid]"  >
+    [BLOCK [SELENUM]]<option  value="[enumkey]">[enumlabel]</option>
+    [ENDBLOCK [SELENUM]]
+  </select>
+</td></tr>
+[ENDBLOCK ENUMS]
+</thead>
 
 <tbody id="condlist">
 [BLOCK CONDITIONS]<tr id="ART[ak]">
@@ -100,7 +109,7 @@
 <td class="und">
   <select  name="_se_funcs[]" >  
   [BLOCK [FUNCCOND]]
-     <option [func_selected] ctype="[func_type]" style="display:[func_display]" value="[func_id]">[func_name]</option>
+     <option [func_selected] ctype="[func_type]"  style="display:[func_display]" value="[func_id]">[func_name]</option>
   [ENDBLOCK [FUNCCOND]]
   </select></td>
 <td class="und"  >
