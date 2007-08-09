@@ -3,7 +3,7 @@
  * Search document and return list of them
  *
  * @author Anakeen 2006
- * @version $Id: searchdocument.php,v 1.3 2007/08/08 10:43:53 eric Exp $
+ * @version $Id: searchdocument.php,v 1.4 2007/08/09 13:47:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package WORKSPACE
  * @subpackage 
@@ -36,7 +36,7 @@ function searchdocument(&$action) {
   $action->lay->set("warning","");
   $action->lay->set("CODE","OK");
   $limit=20;
-  $filter[]="title ~* '".pg_escape_string($key)."'";
+  if ($key != "") $filter[]="title ~* '".pg_escape_string($key)."'";
   $filter[]="doctype!='T'";
 
   $lq=getChildDoc($dbaccess, 0,0,$limit, $filter,$action->user->id,"TABLE",$famid);
@@ -44,7 +44,7 @@ function searchdocument(&$action) {
 
   foreach ($lq as $k=>$v) {
     if (! in_array($v["initid"],$noids)) {
-      $lq[$k]["title"]=utf8_encode($v["title"]);
+      $lq[$k]["title"]=($v["title"]);
       $lq[$k]["stitle"]=str_replace("'","\\'",($v["title"]));
       $lq[$k]["icon"]=$doc->getIcon($v["icon"]);
     } else {
@@ -55,10 +55,12 @@ function searchdocument(&$action) {
 
   $action->lay->setBlockData("DOCS",$lq);
 
-    $action->lay->set("onecount",false);
+  $action->lay->set("onecount",false);
   if (count($lq)==1) {
     $action->lay->set("onecount",true);
-    $action->lay->set("firstinsert",sprintf(_("%s inserted"),$lq[0]["title"]));
+    reset($lq);
+    $q=current($lq);
+    $action->lay->set("firstinsert",sprintf(_("%s inserted"),$q["title"]));
   }
   $action->lay->set("count",count($lq));
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
