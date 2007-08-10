@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.117 2007/08/08 15:35:06 eric Exp $
+ * $Id: freedom.css,v 1.118 2007/08/10 16:09:35 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -201,8 +201,9 @@ IMG.icononehi {
 }
 
 TD.und {
- border-bottom:1px dashed;
- border-left:1px dashed;
+ border-bottom:1px solid;
+ border-left:1px solid;
+ border-color:[COLOR_A5];
 }
 
 TD.tlist {
