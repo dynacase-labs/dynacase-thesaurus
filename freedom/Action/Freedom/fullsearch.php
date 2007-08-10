@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.13 2007/06/29 14:16:21 eric Exp $
+ * @version $Id: fullsearch.php,v 1.14 2007/08/10 16:08:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -126,8 +126,8 @@ function getFileTxt($dbid,&$tdoc) {
  */
 function highlight_text($dbid,&$s,$k) {
 
-  if (strlen($s) > 200000) {
-    $headline=_("document too big : no highlight");
+  if ((strlen($s)/1024) > getParam("FULLTEXT_HIGHTLIGHTSIZE",200)) {
+    $headline=sprintf(_("document too big (%dKo): no highlight"),(strlen($s)/1024));
   } else {
     $s=strtr($s, "£", " ");
 
