@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.47 2007/08/09 14:56:57 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.48 2007/08/10 09:11:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,13 +15,18 @@
 
 
 var $defaultedit= "FREEDOM:EDITDSEARCH";#N_("include") N_("equal") N_("equal") _("not equal") N_("is empty") N_("is not empty") N_("one value equal")
-var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("not equal") N_("&gt; or equal") N_("&lt; or equal")
+var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("not equal") N_("&gt; or equal") N_("&lt; or equal") N_("one word equal") N_("content file word") N_("content file expression")
 
 
 
-var $top=array("=" => array("label"=>"equal"),    
+var $top=array(  
 	       "~*"=>array("label"=>"include",
 			   "type"=>array("text","longtext","htmltext")),
+	       "@@"=>array("label"=>"content file word",
+			   "type"=>array("file")),
+	       "~@"=>array("label"=>"content file expression",
+			   "type"=>array("file")),
+	       "=" => array("label"=>"equal"),  
 	       "~^" => array("label"=>"begin by",
 			     "type"=>array("text","longtext","htmltext")),            
 	       "!=" => array("label"=>"not equal"),       
@@ -37,7 +42,7 @@ var $top=array("=" => array("label"=>"equal"),
 			     "type"=>array("int","float","date","time","timestamp","money")),   
 	       "is null" => array("label"=>"is empty"),   
 	       "is not null" => array("label"=>"is not empty"),   
-	       "~y" => array("label"=>"one value include",
+	       "~y" => array("label"=>"one word equal",
 			     "type"=>array("array")));    
    
 var $tol=array("and" => "and",              #N_("and")
@@ -85,6 +90,22 @@ function getSqlCond($col,$op,$val="") {
 	if (! is_array($val)) $val=$this->_val2array($val);
 	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\\\\\y(".pg_escape_string(implode('|',$val)).")\\\\\\\\y' ";
 	
+	break;
+      case "~@":	
+	if (trim($val) != "") {
+	  $cond .= " ".$col.'_txt'." ~ '".strtolower($val)."' ";	
+	}
+	break;
+      case "@@":
+	if (trim($val) != "") {
+	$tstatickeys=explode(' ',$val);
+	if (count($tstatickeys) > 1) {
+	  $keyword.= str_replace(" ","&",trim($val));
+	} else {
+	  $keyword=trim($val);
+	}
+	$cond .= " ".$col.'_vec'." @@ to_tsquery('fr','.".unaccent(strtolower($keyword))."') ";
+	}	
 	break;
       default:
 	$cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
@@ -246,7 +267,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $zpi["title"]->labelText=_("doctitle");
     $zpi["revdate"]->labelText=_("revdate");
     $zpi["owner"]->labelText=_("id owner");
-    $zpi["values"]->labelText=_("any values");
+    $zpi["svalues"]->labelText=_("any values");
   
 
     foreach ($tkey as $k=>$v) {
@@ -333,7 +354,7 @@ function editdsearch() {
   $internals=array("title" => _("doctitle"),
 		   "revdate" => _("revdate"),
 		   "owner" => _("id owner"),
-		   "values"=> _("any values"));
+		   "svalues"=> _("any values"));
   
   while (list($k,$v) = each($internals)) {
     if ($k=="revdate") $type="date";
@@ -358,10 +379,16 @@ function editdsearch() {
   $this->lay->SetBlockData("ATTR", $tattr);
   
   foreach($this->top as $k=>$v) {
-    if (isset($v["type"])) $ctype=implode(",",$v["type"]);
-    else $ctype="";
+    $display='';
+    if (isset($v["type"])) {
+      $ctype=implode(",",$v["type"]);
+      if (! in_array('text',$v["type"])) $display='none'; // first is title
+    } else $ctype="";
+       
+    
     $tfunc[]=array("funcid"=> $k,
 		   "functype"=>$ctype,
+		   "funcdisplay"=>$display,
 		   "funcname" => _($v["label"]));
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
@@ -464,7 +491,7 @@ function editdsearch() {
 	  if ($taid[$k]=="title") $type="text";
 	  if ($taid[$k]=="revdate") $type="date";
 	  if ($taid[$k]=="owner") $type="docid";
-	  if ($taid[$k]=="values") $type="text";	  
+	  if ($taid[$k]=="svalues") $type="text";	  
 	} else {
 	  if ($oa->inArray()) $type="array";
 	}

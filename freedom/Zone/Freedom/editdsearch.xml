@@ -46,7 +46,7 @@
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
-    [BLOCK FUNC]<option  ctype="[functype]" value="[funcid]">[funcname]</option>
+    [BLOCK FUNC]<option  ctype="[functype]" style="display:[funcdisplay]" value="[funcid]">[funcname]</option>
     [ENDBLOCK FUNC]
   </select></td>
 <td class="und"  >

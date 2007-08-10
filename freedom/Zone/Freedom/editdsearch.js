@@ -78,6 +78,7 @@ function filterfunc(th) {
   var pnode,so=false;
   var aid=opt.value;
   var sec,se;
+  var needresetselect=false,ifirst=0;
   // search brother select input
   pnode=p.nextSibling;
   while (pnode && ((pnode.nodeType != 1) || (pnode.tagName != 'TD'))) pnode = pnode.nextSibling;
@@ -90,18 +91,25 @@ function filterfunc(th) {
   }
 
   // display only matches
+  ifirst=-1;
   for (i=0;i<so.options.length;i++) {
     opt=so.options[i];
     ctype=opt.getAttribute('ctype');
     if ((ctype=='') || (ctype.indexOf(atype)>=0)) {
+      if (ifirst == -1) ifirst=i;
       opt.style.display='';
       opt.disabled=false;
     } else {
       opt.style.display='none';
+      if (opt.selected) needresetselect=true;
       opt.selected=false;
       opt.disabled=true;
     }
   }
+  if (needresetselect) {
+    so.options[ifirst].selected=true;
+  }
+
   // find key cell
   pnode=pnode.nextSibling;
   while (pnode && ((pnode.nodeType != 1) || (pnode.tagName != 'TD'))) pnode = pnode.nextSibling;
