@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.10 2007/08/06 14:23:20 eric Exp $
+ * @version $Id: settxtfile.php,v 1.11 2007/08/10 16:07:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,61 +43,63 @@ function settxtfile(&$action) {
 	$outfile=$info["outfile"];
 	$status=$info["status"];
 		  
-	$doc = new_Doc($dbaccess, $docid);
-	if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
-	if ($err=="") {
+	$sem=sem_get($docid);
+	if (sem_acquire($sem)) {
+	  $doc = new_Doc($dbaccess, $docid);
+	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
+	  if ($err=="") {
 
-	  if (($status=='D') && ($outfile != '')) {
-	    $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
-	    $err=$ot->getTransformation($tid,$filename);
-	    //$err=$ot->getAndLeaveTransformation($tid,$filename);	    
-	    if ($err=="") {
-	      $at=$attrid.'_txt';
-	      if (file_exists($filename) && $info['status']=='D') {
-		if ($index == -1) {
-		  $doc->$at=file_get_contents($filename);
-		} else {		  
-		  if ($doc->AffectColumn(array($at))) {
-		    $doc->$at=sep_replace($doc->$at,$index,str_replace("\n"," ",file_get_contents($filename)));
-		    
+	    if (($status=='D') && ($outfile != '')) {
+	      $filename= uniqid("/var/tmp/txt-".$doc->id.'-');
+	      $err=$ot->getTransformation($tid,$filename);
+	      //$err=$ot->getAndLeaveTransformation($tid,$filename);	    
+	      if ($err=="") {
+		$at=$attrid.'_txt';
+		if (file_exists($filename) && $info['status']=='D') {
+		  if ($index == -1) {
+		    $doc->$at=file_get_contents($filename);
+		  } else {		  
+		    if ($doc->AffectColumn(array($at))) {
+		      $doc->$at=sep_replace($doc->$at,$index,str_replace("\n"," ",file_get_contents($filename)));		    
+		    }		  
 		  }
-		  
-		}
-		$av=$attrid.'_vec';
-		$doc->fields[$av]=$av;
-		$doc->$av='';
+		  $av=$attrid.'_vec';
+		  $doc->fields[$av]=$av;
+		  $doc->$av='';
 
-		$doc->fulltext='';
-		$doc->fields[$at]=$at;
-		$doc->fields['fulltext']='fulltext';
-		$err=$doc->modify(true,array('fulltext',$at,$av),true);
-		$doc->AddComment(sprintf(_("text conversion done for file %s"),
-					 $doc->vault_filename($attrid,false,$index)) ,HISTO_NOTICE);
-		if (($err=="") && ($doc->locked == -1)) {
-		  // propagation in case of auto revision
-		  $idl=$doc->latestId();
-		  $ldoc=new_Doc($dbaccess, $idl);
-		  if ($doc->getValue($attrid) == $ldoc->getValue($attrid)) {
-		    $ldoc->$at=$doc->$at;
-		    $ldoc->fulltext='';
-		    $ldoc->fields[$at]=$at;
-		    $ldoc->fields['fulltext']='fulltext';
-		    $err=$ldoc->modify(true,array('fulltext',$at),true);		    
+		  $doc->fulltext='';
+		  $doc->fields[$at]=$at;
+		  $doc->fields['fulltext']='fulltext';
+		  $err=$doc->modify(true,array('fulltext',$at,$av),true);
+		  $doc->AddComment(sprintf(_("text conversion done for file %s"),
+					   $doc->vault_filename($attrid,false,$index)) ,HISTO_NOTICE);
+		  if (($err=="") && ($doc->locked == -1)) {
+		    // propagation in case of auto revision
+		    $idl=$doc->latestId();
+		    $ldoc=new_Doc($dbaccess, $idl);
+		    if ($doc->getValue($attrid) == $ldoc->getValue($attrid)) {
+		      $ldoc->$at=$doc->$at;
+		      $ldoc->fulltext='';
+		      $ldoc->fields[$at]=$at;
+		      $ldoc->fields['fulltext']='fulltext';
+		      $err=$ldoc->modify(true,array('fulltext',$at),true);		    
+		    }		  
 		  }
-		  
+		} else {
+		  $err=sprintf(_("output file [%s] not found"),$filename);
 		}
-
-	      } else {
-		$err=sprintf(_("output file [%s] not found"),$filename);
-	      }
-	      @unlink($filename);
-	    }	    
+		@unlink($filename);
+	      }	    
+	    } else {
+	      $err=sprintf(_("task %s is not done correctly"),$tid);
+	    }
+	    if ($err!="") $doc->AddComment(sprintf(_("conversion failed for %s: ").$err,$doc->vault_filename($attrid,false,$index)),HISTO_NOTICE);
 	  } else {
-	    $err=sprintf(_("task %s is not done correctly"),$tid);
+	    $err=sprintf(_("document [%s] not found"),$docid);
 	  }
-	  if ($err!="") $doc->AddComment(sprintf(_("conversion failed for %s: ").$err,$doc->vault_filename($attrid,false,$index)),HISTO_NOTICE);
+	  sem_release($sem);
 	} else {
-	  $err=sprintf(_("document [%s] not found"),$docid);
+	  $err=sprintf(_("semaphore block"),$docid);
 	}
       } else {
 	$err=sprintf(_("task %s is not recorded"),$tid);
