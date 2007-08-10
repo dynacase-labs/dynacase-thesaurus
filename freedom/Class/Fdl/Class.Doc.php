@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.407 2007/08/08 15:35:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.408 2007/08/10 16:09:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1804,8 +1804,7 @@ final public function PostInsert()  {
 	$err = $this-> Control("edit");
 	if ($err != "") return ($err); 
       }
-    }
-      
+    }      
     if (is_array($value)) {
       $value = $this->_array2val($value);
     }
@@ -1826,6 +1825,10 @@ final public function PostInsert()  {
 	  $this->hasChanged=true;
 	  //print "change by delete $attrid  <BR>";
 	  $this->$attrid="";
+	  if ($oattr->type=="file") {
+	    // need clear computed column
+	    $this->clearFullAttr($oattr->id);
+	  }
 	}
       } else {
 
