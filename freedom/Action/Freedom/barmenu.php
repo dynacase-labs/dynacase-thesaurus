@@ -3,7 +3,7 @@
  * Definition of bar menu for folder navigation
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.17 2006/08/10 15:09:18 eric Exp $
+ * @version $Id: barmenu.php,v 1.18 2007/08/10 10:10:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -82,7 +82,7 @@ function barmenu(&$action) {
   popupActive("searchmenu",1,'newsearch');
   popupActive("searchmenu",1,'newdsearch');
   popupInvisible("searchmenu",1,'speedsearch');
-  if ($action->GetParam("FULLTEXT_SEARCH") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
+  if ($action->GetParam("TE_ACTIVATE") == "yes") popupActive("searchmenu",1,'newsearchfulltext');
   else popupInvisible("searchmenu",1,'newsearchfulltext');
  
   popupActive("helpmenu",1,'help');
