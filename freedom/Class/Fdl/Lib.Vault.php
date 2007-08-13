@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.9 2007/08/06 14:23:20 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.10 2007/08/13 15:50:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -99,14 +99,19 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
       $of=new VaultDiskStorage($dbaccess,$vid);
       $filename=$of->getPath();
       //      error_log("sendLatinTransformation $filename");
-      $au=getParam("CORE_URLINDEX");
-      if ($au != "") $urlindex=getParam("CORE_URLINDEX").'?sole=Y';
-      else {
-	$scheme=getParam("CORE_ABSURL");
-	if ($scheme=="") $urlindex='?sole=Y';
-	else $urlindex=getParam("CORE_ABSURL").getParam("CORE_STANDURL");
+      
+      $urlindex=getParam("CORE_EXTERNURL");
+      if ($urlindex=="") { //case DAV
+	$au=getParam("CORE_URLINDEX");
+	if ($au != "") $urlindex=getParam("CORE_URLINDEX");
+	else {
+	  $scheme=getParam("CORE_ABSURL");
+	  if ($scheme=="") $urlindex='/freedom/';
+	  else $urlindex=getParam("CORE_ABSURL");
+	}
       }
-      $callback=$urlindex."&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
+
+      $callback=$urlindex."?sole=Y&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
       if ($err=="") {
