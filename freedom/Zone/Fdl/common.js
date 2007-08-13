@@ -118,21 +118,23 @@ function shiftPushed(event) {
   if (!event) event=window.event;
   return event.shiftKey;
 }
-function altPushed(event) {  
+function altPushed(event) {    
   if (!event) event=window.event;
-  return event.altKey;
+  if (event) return event.altKey;
+  return false;
 }
 function ctrlPushed(event) {  
   if (!event) event=window.event;
-  return event.ctrlKey;
+  if (event) return event.ctrlKey;
+  return false;
 }
 
 
-function trackMenuKey(event)
-{
+function trackMenuKey(event) {
   var intKeyCode;
 
   if (!event) event=window.event;
+  if (!event) return true;
   if (isNetscape) {
     intKeyCode = event.keyCode;
     altKey = event.altKey

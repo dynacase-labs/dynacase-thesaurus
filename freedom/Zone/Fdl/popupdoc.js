@@ -114,7 +114,7 @@ function menuSend(event,menuurl,cible,coord) {
 
 function viewmenu(event,murl,source,coord) {
   closeDocMenu()
-  CTRLKEYMENU=ctrlKeyPushed(event);
+  CTRLKEYMENU=ctrlPushed(event);
   MENUSOURCE=source;	
   if (coord) {    
     XMENU = coord.x;
@@ -186,14 +186,7 @@ function sendMenuUrl(th, url, wname,bar,w,h) {
    
   }
 }
-// return true is ctrl key is pushed
-function ctrlKeyPushed(event) {
 
-  if (window.event) ctrlKey = window.event.ctrlKey	
-  else ctrlKey = event.ctrlKey	
-
-  return ctrlKey;
-}
 function openDocMenu(event, menuid) {
   var el, x, y;
   var cy,h1,hf;
@@ -228,7 +221,7 @@ function openDocMenu(event, menuid) {
   // test if it is on right of the window
   //  w2=getObjectWidth(document.body);
   w2=getFrameWidth();
-      // display right or left to maximize width
+  // display right or left to maximize width
   w1=getObjectWidth(el);
 
       x2=x;
