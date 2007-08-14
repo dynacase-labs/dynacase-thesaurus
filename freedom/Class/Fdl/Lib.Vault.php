@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.10 2007/08/13 15:50:28 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.11 2007/08/14 17:51:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,9 +91,10 @@ function vault_get_content($idfile) {
  */
 function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
   if (($docid >0)  && ($vid>0)) {
+
+    $tea=getParam("TE_ACTIVATE");
+    if ($tea!="yes") return;
     if (@include_once("TE/Class.TEClient.php")) {
-      $tea=getParam("TE_ACTIVATE");
-      if ($tea!="yes") return;
       global $action;
       include_once("FDL/Class.TaskRequest.php");
       $of=new VaultDiskStorage($dbaccess,$vid);
@@ -124,6 +125,8 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
 	$tr->uname=$action->user->firstname." ".$action->user->lastname;
 	$err=$tr->Add();
       }
+    } else {
+      AddWarningMsg(_("TE engine activate but TE-CLIENT not found"));
     }
   }
   return $err;
