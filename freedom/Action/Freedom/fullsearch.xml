@@ -3,7 +3,6 @@
 SELECT.little { font-size:90%; }
 
 </style>
-
 <form  id="fedit"  
        class="fborder" style="display:inline"
        name="searchdoc"       
@@ -11,7 +10,9 @@ SELECT.little { font-size:90%; }
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH" >
 <input type="hidden" name="start" value="0">
+<input type="hidden" name="dirid" value="[dirid]">
 
+[IF viewform]
 <table cellspacing="0" cellpadding="0" width="100%"><tr><td>
 
 <img align="middle" needresize="1" height="60px" style="padding-left:30px" src="[IMG:logofreedom.png]"> 
@@ -22,10 +23,10 @@ SELECT.little { font-size:90%; }
            <option [famselect] VALUE="[idcdoc]" >[classname]</option>   
          [ENDBLOCK SELECTCLASS]
     </select> </td>
-<td align="left"><a href="javascript:void(0)">[TEXT:Advanced search]</a><br>
-<a href="javascript:void(0)">[TEXT:Preferences]</a>
+<td align="left"><a href="[CORE_STANDURL]app=FREEDOM&action=FULLEDITDSEARCH">[TEXT:Advanced search]</a><br>
 </td>
 </tr></table>
+[ENDIF viewform]
 <table cellspacing="0" cellpadding="0" width="100%"><tr><td style="text-align:left;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[CORE_CLIENT]</td><td style="text-align:right;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[resulttext]</td></tr></table>
 [BLOCK DOCS]
 <div ><img align="left" needresize="1" src="[iconsrc]" width="48px"> <a target="T[id]" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]">[title]</a> <i>[mdate]</i><br >[htext]</div><br style="clear:both">

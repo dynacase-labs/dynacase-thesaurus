@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.14 2007/08/10 16:08:18 eric Exp $
+ * @version $Id: fullsearch.php,v 1.15 2007/08/14 17:49:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,6 +29,7 @@ include_once("FDL/freedom_util.php");
  * @global keyword Http var : word to search in any values
  * @global famid Http var : restrict to this family identioficator
  * @global start Http var : page number 
+ * @global dirid Http var : search identificator
  */
 function fullsearch(&$action) {
 
@@ -36,23 +37,27 @@ function fullsearch(&$action) {
   $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
   $target=GetHttpVars("target"); // target window when click on document
   $start=GetHttpVars("start",0); // page number
+  $dirid=GetHttpVars("dirid",0); // special search
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if ($keyword=="") {
+  if (($keyword=="")&&($dirid==0)) {
 
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
     return;
   } else {    
-    if ($keyword[0]=='~') {
-      $sqlfilters[]="svalues ~* '".pg_escape_string(substr($keyword,1))."'";
-    } else {
-      DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
+    $sqlfilters=array();
+    if ($keywords) {
+      if ($keyword[0]=='~') {
+	$sqlfilters[]="svalues ~* '".pg_escape_string(substr($keyword,1))."'";
+      } else {
+	DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
+      }
     }
     $slice=10;
-    $tdocs=getChildDoc($dbaccess, 0, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
+    $tdocs=getChildDoc($dbaccess, $dirid, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
 
     $workdoc=new Doc($dbaccess);
     if ($famid) $famtitle=$workdoc->getTitle($famid);
@@ -96,6 +101,13 @@ function fullsearch(&$action) {
     $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
     $action->lay->set("key",str_replace("\"","&quot;",$keyword));
     $action->lay->setBlockData("DOCS",$tdocs);
+    $action->lay->set("viewform",($dirid == ""));
+    $action->lay->set("dirid",$dirid);
+    if ($dirid != "") {
+      $sdoc=new_doc($dbaccess,$dirid);
+      $action->lay->set("searchtitle",$sdoc->title);    
+      $action->lay->set("dirid",$sdoc->id);        
+    }
   }
 
 /**
