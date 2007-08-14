@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.48 2007/08/10 09:11:10 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.49 2007/08/14 17:50:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -392,7 +392,11 @@ function editdsearch() {
 		   "funcname" => _($v["label"]));
   }
   $this->lay->SetBlockData("FUNC", $tfunc);
-  $this->lay->SetBlockData("FUNC2", $tfunc);
+
+  foreach ($tfunc as $k=>$v) {
+    if (($v["functype"])!="") unset($tfunc[$k]);
+  }
+  $this->lay->SetBlockData("FUNCSTATE", $tfunc);
   $this->lay->Set("icon",$fdoc->getIcon());
 
 

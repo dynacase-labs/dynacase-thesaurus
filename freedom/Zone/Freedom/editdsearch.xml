@@ -72,8 +72,8 @@
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
-    [BLOCK FUNC2]<option  value="[funcid]">[funcname]</option>
-    [ENDBLOCK FUNC2]
+    [BLOCK FUNCSTATE]<option  value="[funcid]">[funcname]</option>
+    [ENDBLOCK FUNCSTATE]
   </select></td>
 <td class="und"  >
   <select  name="_se_keys[]" >
