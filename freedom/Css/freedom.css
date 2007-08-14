@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.118 2007/08/10 16:09:35 eric Exp $
+ * $Id: freedom.css,v 1.119 2007/08/14 17:50:19 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -301,7 +301,7 @@ TABLE.tarray  TH {
   font-weight: normal;
 }
 
-TABLE.transparent TBODY TR TD {  
+TABLE.transparent TBODY TR TD,TABLE.transparent TBODY TR {  
   border-width:1px 0px 0px 0px;	 
   border-color:[CORE_BGCOLORALTERN];
   border-style:solid;
