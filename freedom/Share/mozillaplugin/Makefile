@@ -1,9 +1,10 @@
 # ============================================
-# $Id: Makefile,v 1.3 2007/08/16 16:35:59 eric Exp $
+# $Id: Makefile,v 1.4 2007/08/16 16:57:01 eric Exp $
 # ============================================
 
 appname=$(applib)
 
+include $(utildir)/PubRule
 DISTFILES += Makefile freedom.xml freedom-os.xml 
 
 plugin=$(pubdir)/moz-searchplugin
