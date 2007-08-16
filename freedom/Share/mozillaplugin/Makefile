@@ -1,10 +1,10 @@
 # ============================================
-# $Id: Makefile,v 1.2 2004/11/29 08:58:57 marc Exp $
+# $Id: Makefile,v 1.3 2007/08/16 16:35:59 eric Exp $
 # ============================================
 
 appname=$(applib)
 
-DISTFILES += Makefile
+DISTFILES += Makefile freedom.xml freedom-os.xml 
 
 plugin=$(pubdir)/moz-searchplugin
 
@@ -12,12 +12,20 @@ $(plugin):
 	[ ! -d $(plugin) ] && mkdir -p $(plugin)
 
 $(plugin)/freedom.src : $(plugin) freedom.src
-	cp freedom.src $(plugin)/moz-searchplugin
+	cp freedom.src $(plugin)
 
-$(plugin)/moz-searchplugin/freedom.gif :  $(plugin) freedom.gif
+$(plugin)/freedom.gif :  $(plugin) freedom.gif
 	cp freedom.gif $(plugin)
+
+$(plugin)/freedom.xml : $(plugin) freedom.xml
+	cp freedom.xml $(plugin)
+
+$(plugin)/freedom-os.xml : $(plugin) freedom-os.xml
+	cp freedom-os.xml $(plugin)
+
+
 
 $(pubdir)/freedomsearch.php :
 	cp freedomsearch.php $(pubdir)
 
-publish: $(plugin) $(plugin)/freedom.src $(plugin)/freedom.gif $(pubdir)/freedomsearch.php
+publish: $(plugin) $(plugin)/freedom.src $(plugin)/freedom.gif $(plugin)/freedom.xml $(plugin)/freedom-os.xml  $(pubdir)/freedomsearch.php 

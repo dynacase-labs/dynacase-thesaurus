@@ -1,20 +1,19 @@
 # Mozilla/Google plug-in by amitp+mozilla@google.com
 
 <search 
-   name="Freedom"
-   description="Freedom Search"
+   name="SearchTitle"
+   description="Recherche SearchTitle"
    method="GET"
-   action="http://www.tlse.i-cesam.com/what/freedomsearch.php"
-   update="http://www.tlse.i-cesam.com/freedom.src"
+   action="http://localhost/freedom/"
+   update="http://localhost/freedom/img-cache/orifile"
    updateCheckDays=1   
    queryEncoding="iso8859-1"
    queryCharset="iso8859-1"
 >
 
-<input name="famid" value="0">
-<input type="hidden" name="latest" value="true" >
-<input type="hidden" name="fromdir" value="false" >
-<input type="hidden" name="sensitive" value="false" >
+<input type="hidden" name="app" value="FREEDOM" >
+<input type="hidden" name="action" value="FULLSEARCH" >
+<input type="hidden" name="sole" value="Y" >
 <input type="text" name="keyword" user>
 
 <interpret 

@@ -1,8 +1,8 @@
 # ============================================
-# $Id: Makefile,v 1.8 2007/04/27 08:19:46 eric Exp $
+# $Id: Makefile,v 1.9 2007/08/16 16:35:59 eric Exp $
 # ============================================
 
-SUBDIR= htmlarea fckeditor jscalendar mcal jsXMLParser tsearch2
+SUBDIR= htmlarea fckeditor jscalendar mcal jsXMLParser tsearch2 mozillaplugin
 appname=$(applib)
 
 include $(utildir)/PubRule

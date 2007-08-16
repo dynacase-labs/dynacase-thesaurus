@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.16 2007/08/16 10:12:27 eric Exp $
+ * @version $Id: fullsearch.php,v 1.17 2007/08/16 16:35:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -45,8 +45,8 @@ function fullsearch(&$action) {
   if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
 
   if (($keyword=="")&&($dirid==0)&&($famid==0)) {
-
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
+    createSearchEngine($action);
     return;
   } else {    
     $sqlfilters=array();
@@ -247,5 +247,31 @@ function highlight_text($dbid,&$s,$k) {
 function nobr($text)
 {
   return  strtr(preg_replace('/<br\\s*?\/??>/i', '', $text),"\n\t£","  -");
+}
+
+function createSearchEngine(&$action) {
+  global $_SERVER;
+  $tfiles=array("freedom-os.xml","freedom.src","freedom.gif","freedOM.xml");
+  $script=$_SERVER["SCRIPT_FILENAME"];
+  $dirname=dirname($script);
+  $base=dirname($_SERVER["SCRIPT_NAME"]);
+  $host=$_SERVER["HTTP_HOST"];
+  $action->lay->set("HOST",$host);
+  $newpath=$host.$base;
+  foreach ($tfiles as $k=>$v) {
+    $out=$dirname."/img-cache/".$host."-".$v;
+    if (! file_exists($out)) {
+      $src="$dirname/moz-searchplugin/$v";
+      if (file_exists($src)) {
+	$content=file_get_contents($src);
+	$destsrc= str_replace(array("localhost/freedom","SearchTitle","orifile"),
+			      array($newpath,$action->getParam("CORE_CLIENT"),$host."-".$v),
+			      $content);
+	file_put_contents($out,$destsrc);
+      }
+    }
+    
+  }
+  
 }
 ?>

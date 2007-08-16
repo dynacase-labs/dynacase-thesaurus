@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.1 2002/02/05 16:34:07 eric Exp $
+# $Id: Makefile,v 1.2 2007/08/16 16:35:59 eric Exp $
 # ============================================
 
 # get the new appname (basename in uppercase)
@@ -9,6 +9,5 @@ export appname
 
 
 include $(utildir)/PubRule
-
 
 
