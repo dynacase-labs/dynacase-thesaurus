@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-16 11:09+0200\n"
-"PO-Revision-Date: 2007-08-16 11:10+0200\n"
+"POT-Creation-Date: 2007-08-16 18:36+0200\n"
+"PO-Revision-Date: 2007-08-16 18:38+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -657,17 +657,6 @@ msgid "%s inserted"
 msgstr "%s inséré"
 
 #, c-format
-msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
-msgstr "Résultats <b>%d</b> - <b>%d</b> pour <b>%s</b> %s"
-
-#, c-format
-msgid "document too big (%dKo): no highlight"
-msgstr "Document trop volumineux (%dKo): pas de mise en évidence"
-
-msgid "detailled search"
-msgstr "recherche détaillée"
-
-#, c-format
 msgid "Family %s not exist"
 msgstr "La famille (%s) n'existe pas"
 
@@ -1008,6 +997,17 @@ msgstr "Le flux RSS est rendu NON accessible pour les utilisateurs"
 
 msgid "rss avaible for users"
 msgstr "Le flux RSS est maintenant accessible pour les utilisateurs"
+
+#, c-format
+msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
+msgstr "Résultats <b>%d</b> - <b>%d</b> pour <b>%s</b> %s"
+
+#, c-format
+msgid "document too big (%dKo): no highlight"
+msgstr "Document trop volumineux (%dKo): pas de mise en évidence"
+
+msgid "detailled search"
+msgstr "recherche détaillée"
 
 #, c-format
 msgid "<b>%d group(s) to refresh</b>"
@@ -3145,30 +3145,6 @@ msgstr "options"
 msgid "Validate"
 msgstr "Valider"
 
-msgid "ToSearch"
-msgstr "Rechercher"
-
-msgid "Advanced search"
-msgstr "Recherche avancée"
-
-msgid "Previous"
-msgstr "Précédent"
-
-msgid "Next"
-msgstr "Suivant"
-
-msgid "Mask"
-msgstr "Masquer"
-
-msgid "Unmask"
-msgstr "Démasquer"
-
-msgid "Add filter"
-msgstr "Ajouter une condition"
-
-msgid "addstate"
-msgstr "État"
-
 msgid "Creation"
 msgstr "Création"
 
@@ -3656,8 +3632,26 @@ msgstr "Sans les identificateurs"
 msgid "With identificators"
 msgstr "Avec les identificateurs"
 
-msgid "Freedom Search"
-msgstr "Recherche Freedom"
+msgid "ToSearch"
+msgstr "Rechercher"
+
+msgid "Advanced search"
+msgstr "Recherche avancée"
+
+msgid "Previous"
+msgstr "Précédent"
+
+msgid "Next"
+msgstr "Suivant"
+
+msgid "Full search"
+msgstr "Recheche plein texte"
+
+msgid "Add search engine to your browser"
+msgstr "Ajout du moteur de recherche FREEDOM dans votre navigateur"
+
+msgid "Add search engine"
+msgstr "Ajouter le moteur de recherche"
 
 msgid "State"
 msgstr "État"
@@ -3665,11 +3659,23 @@ msgstr "État"
 msgid "Undisplay the search query"
 msgstr "Ne pas afficher la requête"
 
+msgid "Mask"
+msgstr "Masquer"
+
 msgid "View the search query"
 msgstr "Voir la requête"
 
+msgid "Unmask"
+msgstr "Démasquer"
+
 msgid "Simple search"
 msgstr "Recherche simple"
+
+msgid "Add filter"
+msgstr "Ajouter une condition"
+
+msgid "addstate"
+msgstr "État"
 
 msgid "users list"
 msgstr "liste des utilisateurs"
@@ -4579,6 +4585,9 @@ msgstr "Personnel"
 msgid "Complete view"
 msgstr "Vue complète"
 
+#~ msgid "Freedom Search"
+#~ msgstr "Recherche Freedom"
+
 #~ msgid "up"
 #~ msgstr "monter"
 
@@ -4866,9 +4875,6 @@ msgstr "Vue complète"
 
 #~ msgid "mnoGoSearch: db table contains stop words"
 #~ msgstr "mnoGoSearch: nom de la table contenant les 'stopwords'"
-
-#~ msgid "full text search"
-#~ msgstr "recherche plein texte"
 
 #~ msgid "comment"
 #~ msgstr " commentaire"
