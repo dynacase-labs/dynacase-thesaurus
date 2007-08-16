@@ -1,11 +1,11 @@
 # ============================================
-# $Id: Makefile,v 1.4 2007/08/16 16:57:01 eric Exp $
+# $Id: Makefile,v 1.5 2007/08/16 17:02:23 eric Exp $
 # ============================================
 
 appname=$(applib)
 
 include $(utildir)/PubRule
-DISTFILES += Makefile freedom.xml freedom-os.xml 
+DISTFILES += Makefile freedom.xml freedom-os.xml  freedom.src freedom.gif
 
 plugin=$(pubdir)/moz-searchplugin
 
