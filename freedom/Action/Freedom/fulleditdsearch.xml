@@ -39,7 +39,7 @@ DIV.search {
 </td>
 <td class="und" >
   <select  name="_se_attrids[]" >
-     <option selected value="state">[TEXT:state]</option>
+     <option selected value="state">[TEXT:State]</option>
   </select></td>
 <td class="und">
   <select  name="_se_funcs[]" >
@@ -64,7 +64,7 @@ DIV.search {
 </thead>
 </table>
 
-<table align="right"><tr><td align="right"><a href="javascript:void(0)" onclick="maskfilter()" id="amask" >[TEXT:Mask]</a><a href="javascript:void(0)" style="display:none" onclick="unmaskfilter()" id="aunmask" >[TEXT:Unmask]</a></td>
+<table align="right"><tr><td align="right"><a href="javascript:void(0)" title="[TEXT:Undisplay the search query]" onclick="maskfilter()" id="amask" >[TEXT:Mask]</a><a href="javascript:void(0)" style="display:none" onclick="unmaskfilter()" id="aunmask" title="[TEXT:View the search query]">[TEXT:Unmask]</a></td>
 </tr></table>
 <br>
 
@@ -76,16 +76,18 @@ DIV.search {
        action="[CORE_STANDURL]&app=FREEDOM&action=FULLDSEARCH" >
 
 <table id="famselection" width="100%" ><tr>
-<td  align="right"><img align="middle" needresize="1" height="60px" style="padding-left:30px" src="[IMG:logofreedom.png]"></td>
+<td  align="right"><img align="middle" needresize="1" height="[SIZE_IMG-MEDIUM]" style="padding-left:30px" src="[IMG:logofreedom.png]"></td>
 <td><select onchange="document.location.href='[CORE_STANDURL]&app=FREEDOM&action=FULLEDITDSEARCH&famid='+this.options[this.selectedIndex].value" class="little"   name="famid" >  
-           <option VALUE="0" >[TEXT:any familly]</option> 
          [BLOCK SELECTFAM]
            <option [famselect] VALUE="[idcdoc]" >[classname]</option>   
          [ENDBLOCK SELECTFAM]
-    </select></td>
+    </select><img needresize="1" src="[famicon]" height="[SIZE_IMG-MEDIUM]"></td>
+<td align="left"><a href="[CORE_STANDURL]app=FREEDOM&action=FULLSEARCH&famid=[famid]">[TEXT:Simple search]</a>
+</td>
 </tr></table>
 <table id="conditions" border=0 width="100%">
 <thead>
+<tr><td align="center" colspan="4">[V_SE_OL]</td></tr>
 <tr class="FREEDOMBack2">
 <td>&nbsp;</td>
 <td>[L_SE_ATTRIDS]</td>

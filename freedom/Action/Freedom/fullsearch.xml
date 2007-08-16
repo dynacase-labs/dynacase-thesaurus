@@ -23,7 +23,7 @@ SELECT.little { font-size:90%; }
            <option [famselect] VALUE="[idcdoc]" >[classname]</option>   
          [ENDBLOCK SELECTCLASS]
     </select> </td>
-<td align="left"><a href="[CORE_STANDURL]app=FREEDOM&action=FULLEDITDSEARCH">[TEXT:Advanced search]</a><br>
+<td align="left"><a href="[CORE_STANDURL]app=FREEDOM&action=FULLEDITDSEARCH&famid=[famid]">[TEXT:Advanced search]</a>
 </td>
 </tr></table>
 [ENDIF viewform]

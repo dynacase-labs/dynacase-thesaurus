@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.15 2007/08/14 17:49:37 eric Exp $
+ * @version $Id: fullsearch.php,v 1.16 2007/08/16 10:12:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -41,20 +41,27 @@ function fullsearch(&$action) {
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
 
-  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $dbaccess = $action->GetParam("FREEDOM_DB");  
+  if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
 
-  if (($keyword=="")&&($dirid==0)) {
+  if (($keyword=="")&&($dirid==0)&&($famid==0)) {
 
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
     return;
   } else {    
     $sqlfilters=array();
-    if ($keywords) {
+    if ($keyword) {
       if ($keyword[0]=='~') {
 	$sqlfilters[]="svalues ~* '".pg_escape_string(substr($keyword,1))."'";
       } else {
 	DocSearch::getFullSqlFilters($keyword,$sqlfilters,$orderby,$keys);
       }
+    } else {
+      $sdoc=new_doc($dbaccess,$dirid);
+      
+      $tkeys=$sdoc->getTValue("se_keys");
+      foreach ($tkeys as $k=>$v) if (!$v) unset($tkeys[$k]);
+      $keys=implode('|',$tkeys);
     }
     $slice=10;
     $tdocs=getChildDoc($dbaccess, $dirid, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
@@ -93,6 +100,7 @@ function fullsearch(&$action) {
 
     $action->lay->set("notfirst",($start!=0));
     $action->lay->set("notthenend",count($tdocs) >= $slice);
+    $action->lay->set("famid",$famid);
     $action->lay->set("start",$start);
     $action->lay->set("cpage",$start/$slice+1);
     $action->lay->set("nstart",$start+$slice);
@@ -101,12 +109,16 @@ function fullsearch(&$action) {
     $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
     $action->lay->set("key",str_replace("\"","&quot;",$keyword));
     $action->lay->setBlockData("DOCS",$tdocs);
-    $action->lay->set("viewform",($dirid == ""));
+
+    $action->lay->set("viewform",true);
     $action->lay->set("dirid",$dirid);
-    if ($dirid != "") {
+    if ($dirid != 0) {
       $sdoc=new_doc($dbaccess,$dirid);
-      $action->lay->set("searchtitle",$sdoc->title);    
-      $action->lay->set("dirid",$sdoc->id);        
+      if ($sdoc->isAffected()) {
+	$action->lay->set("viewform",false);      
+	$action->lay->set("searchtitle",$sdoc->title);    
+	$action->lay->set("dirid",$sdoc->id);        
+      }
     }
   }
 
@@ -132,17 +144,20 @@ function getFileTxt($dbid,&$tdoc) {
  * return part of text where are found keywords
  * Due to unaccent fulltext vectorisation need to transpose original text with highlight text done by headline tsearch2 sql function
  * @param resource $dbid database access
- * @param string original text
- * @param string keywords
+ * @param string $s original text
+ * @param string $k keywords
  * @return string HTML text with <b> tags
  */
 function highlight_text($dbid,&$s,$k) {
-
-  if ((strlen($s)/1024) > getParam("FULLTEXT_HIGHTLIGHTSIZE",200)) {
+  if ($k=="") {
+    $h=str_replace('£',' - ',substr($s,0,100));
+    $pos1=strpos($h,' ');
+    $pos2=strrpos($h,' ');
+    $headline=substr($h,$pos1,($pos2-$pos1));
+  } else  if ((strlen($s)/1024) > getParam("FULLTEXT_HIGHTLIGHTSIZE",200)) {
     $headline=sprintf(_("document too big (%dKo): no highlight"),(strlen($s)/1024));
   } else {
     $s=strtr($s, "£", " ");
-
     $result = pg_query($dbid,"select headline('fr','".pg_escape_string(unaccent($s))."',to_tsquery('fr','$k'))");
     //  print "select headline('fr','$s',to_tsquery('fr','$k'))";
     if (pg_numrows ($result) > 0) {
