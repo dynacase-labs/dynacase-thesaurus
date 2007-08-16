@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.5 2007/08/16 17:02:23 eric Exp $
+# $Id: Makefile,v 1.6 2007/08/16 17:07:28 eric Exp $
 # ============================================
 
 appname=$(applib)
@@ -24,9 +24,5 @@ $(plugin)/freedom.xml : $(plugin) freedom.xml
 $(plugin)/freedom-os.xml : $(plugin) freedom-os.xml
 	cp freedom-os.xml $(plugin)
 
-
-
-$(pubdir)/freedomsearch.php :
-	cp freedomsearch.php $(pubdir)
 
 publish: $(plugin) $(plugin)/freedom.src $(plugin)/freedom.gif $(plugin)/freedom.xml $(plugin)/freedom-os.xml  $(pubdir)/freedomsearch.php 

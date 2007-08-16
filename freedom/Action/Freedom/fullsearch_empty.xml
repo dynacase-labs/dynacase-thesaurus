@@ -16,12 +16,12 @@ function addFreedomEngine() {
             try {
 		  window.external.AddSearchProvider("[CORE_ABSURL]img-cache/[HOST]-freedom-os.xml");
             } catch (e) {
-                window.external.AddFavorite("[CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH", "[CORE_CLIENT]");
+                window.external.AddFavorite("[CORE_ABSURL][CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH", "[CORE_CLIENT]");
             }
         } else if ( (typeof window.sidebar == "object") && (typeof window.sidebar.addSearchEngine == "function") ) {
                 window.sidebar.addSearchEngine(
                         '[CORE_ABSURL]img-cache/[HOST]-freedom.src',
-                        '[CORE_ABSURL]img-cache/[HOST]-freedom.gif', '[CORE_CLIENT]', '' );
+                        '[CORE_ABSURL]img-cache/[HOST]-freedom.gif', "[CORE_CLIENT]", '' );
         } else {
                 window.sidebar.addPanel("[TITRERECHERCHE]", "[CORE_STANDURL]&app=FREEDOM&action=FULLSEARCH", "");
         }
