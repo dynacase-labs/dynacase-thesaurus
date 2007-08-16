@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.49 2007/08/14 17:50:10 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.50 2007/08/16 10:12:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -370,7 +370,7 @@ function editdsearch() {
 
   foreach($zpi as $k=>$v) {
     if ($v->type == "array") continue;
-    if ($v->inArray()) $type="array";
+    if ($v->inArray() && ($v->type!='file')) $type="array";
     else $type=$v->type;
     $tattr[]=array("attrid"=> $v->id,
 		   "attrtype"=>$type,
@@ -476,7 +476,7 @@ function editdsearch() {
 			  "attr_name" => $vi);
 	 }
 	 foreach($zpi as $ki=>$vi) {
-	   if ($vi->inArray()) $type="array";
+	   if ($vi->inArray() && ($vi->type!='file')) $type="array";
 	   else $type=$vi->type;
 	   $tattr[]=array("attr_id"=> $vi->id,
 			  "attr_type"=>$type,
@@ -497,7 +497,7 @@ function editdsearch() {
 	  if ($taid[$k]=="owner") $type="docid";
 	  if ($taid[$k]=="svalues") $type="text";	  
 	} else {
-	  if ($oa->inArray()) $type="array";
+	  if ($oa->inArray() && ($oa->type!='file')) $type="array";
 	}
 	$display='';
 	$ctype='';
