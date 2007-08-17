@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.64 2007/08/08 10:43:36 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.65 2007/08/17 14:51:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -110,7 +110,7 @@ Class Dir extends PDir
     // need this privilege
     $err = $this->Control("modify");
     if ($err!= "") return $err;
-
+    $this->AddComment(_("Folder cleared"));
     $err=$this->exec_query("delete from fld where dirid=".$this->initid);
     $this->updateFldRelations();
     return $err;
@@ -222,7 +222,7 @@ Class Dir extends PDir
       $err = $qf->Add();
       if ($err == "") {
 	AddLogMsg(sprintf(_("Add %s in %s folder"), $doc->title, $this->title));
-
+	$this->AddComment(sprintf(_("Document %s inserted"), $doc->title));
 	// add default folder privilege to the doc
 	if ($doc->profid == 0) { // only if no privilege yet
 	
@@ -318,7 +318,8 @@ Class Dir extends PDir
 	if ($err == "") {
 	  $err = $qf->Add();
 	  if ($err == "") {
-	    AddLogMsg(sprintf(_("Add %s in %s folder"), $tdoc["title"], $this->title));
+	    AddLogMsg(sprintf(_("Add %s in %s folder"), $tdoc["title"], $this->title));	
+	    $this->AddComment(sprintf(_("Document %s inserted"),$tdoc["title"] ));
 	  
 	    $tAddeddocids[]=$docid;;
 	    // use post virtual method
@@ -453,6 +454,7 @@ Class Dir extends PDir
 
     AddLogMsg(sprintf(_("Delete %d in %s folder"), $docid, $this->title));
 
+    $this->AddComment(sprintf(_("Document %s umounted"), $doc->title));
     // use post virtual method
     if (!$noprepost) {
       $this->updateFldRelations();
@@ -638,6 +640,7 @@ Class Dir extends PDir
       }
       if ($coulddelete) $terr[$doc->id]=$doc->delete();
     }
+    $this->AddComment(_("Folder cleared"));
     return $terr;        
   }
 
