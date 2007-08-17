@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.50 2007/08/16 10:12:51 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.51 2007/08/17 14:51:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -75,7 +75,21 @@ function getSqlCond($col,$op,$val="") {
   
   switch($op) {
       case "is null":
-	$cond = sprintf(" (%s is null or %s = '') ",$col,$col);
+	$oa=$this->searchfam->getAttribute($col);
+	$atype=$oa->type;
+	case "int":
+	case "double":
+	case "money":
+	  $cond = sprintf(" (%s is null or %s = 0) ",$col,$col);
+	  break;
+	switch ($atype) {
+	case "date":
+	case "time":
+	  $cond = sprintf(" (%s is null) ",$col);
+	  break;
+	default:
+	  $cond = sprintf(" (%s is null or %s = '') ",$col,$col);
+	}
 	break;
       case "is not null":
 	$cond = " ".$col." ".trim($op)." ";
@@ -135,6 +149,9 @@ function getSqlDetailFilter() {
   if ($ol == "") $ol="and";
   $cond="";
   if ((count($taid) > 1) || ($taid[0] != "")) {
+    if (! $this->searchfam) {
+      $this->searchfam=new_doc($this->dbaccess,$this->getValue("se_famid"));
+    }
     // special loop for revdate
     foreach($tkey as $k=>$v) {
       if (strtolower(substr($v,0,5))=="::get") { // only get method allowed

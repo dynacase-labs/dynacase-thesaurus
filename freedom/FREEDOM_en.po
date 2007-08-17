@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-16 18:36+0200\n"
+"POT-Creation-Date: 2007-08-17 16:13+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -50,6 +50,22 @@ msgstr ""
 #, fuzzy
 msgid "action"
 msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "root for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
+msgstr "Start search"
 
 #, c-format
 msgid "the document %s has been sended"
@@ -224,22 +240,6 @@ msgstr "Address"
 
 msgid "no avalaible persons found"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
 
 msgid "no import file specified"
 msgstr ""
@@ -695,6 +695,14 @@ msgid "%s inserted"
 msgstr ""
 
 #, c-format
+msgid "%s has been added in %s folder"
+msgstr ""
+
+#, c-format
+msgid "%s has been removed in %s folder"
+msgstr ""
+
+#, c-format
 msgid "Family %s not exist"
 msgstr ""
 
@@ -966,14 +974,6 @@ msgstr "Start search"
 msgid "the document is not referenced: cannot apply state modification"
 msgstr ""
 
-#, c-format
-msgid "%s has been added in %s folder"
-msgstr ""
-
-#, c-format
-msgid "%s has been removed in %s folder"
-msgstr ""
-
 msgid "no comment"
 msgstr ""
 
@@ -1059,6 +1059,13 @@ msgstr ""
 #, fuzzy
 msgid "No need to refresh group"
 msgstr "Delete"
+
+msgid "cookies seem to be blocked"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s all "
+msgstr "readall"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1151,13 +1158,6 @@ msgstr "Start search"
 #, fuzzy, c-format
 msgid "search %s is %s in %s"
 msgstr "Start search"
-
-msgid "cookies seem to be blocked"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s all "
-msgstr "readall"
 
 #, c-format
 msgid "Family (#%s) not exists"
@@ -2226,52 +2226,6 @@ msgid "main view columns"
 msgstr "Start search"
 
 #, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "Document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy
 msgid "document creation"
 msgstr "Organisation"
 
@@ -2513,6 +2467,68 @@ msgstr ""
 #, fuzzy
 msgid "confidential document"
 msgstr "Delete"
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "Document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, fuzzy
+msgid "Folder cleared"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "Document %s inserted"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "Document %s umounted"
+msgstr "Import"
+
+#, fuzzy
+msgid "no folder"
+msgstr "Modify"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -3534,10 +3550,6 @@ msgid " view files"
 msgstr "Start search"
 
 #, fuzzy
-msgid "no folder"
-msgstr "Modify"
-
-#, fuzzy
 msgid "Create New"
 msgstr "Create"
 
@@ -4521,6 +4533,44 @@ msgid "VCARD Import Result"
 msgstr "Import"
 
 #, fuzzy
+msgid "View family"
+msgstr "Start search"
+
+#, fuzzy
+msgid "initial reference"
+msgstr "Delete"
+
+#, fuzzy
+msgid "reference for this revision"
+msgstr "Organisation"
+
+msgid "author"
+msgstr ""
+
+msgid "allocated to"
+msgstr ""
+
+#, fuzzy
+msgid "locked by"
+msgstr "Create"
+
+#, fuzzy
+msgid "creation date"
+msgstr "Create"
+
+#, fuzzy
+msgid "access date"
+msgstr "Delete"
+
+#, fuzzy
+msgid " profile access"
+msgstr "Control access"
+
+#, fuzzy
+msgid "control view"
+msgstr "Category"
+
+#, fuzzy
 msgid "fromdate"
 msgstr "Edit"
 
@@ -4768,9 +4818,6 @@ msgstr "Organisation"
 msgid "rev"
 msgstr "Create"
 
-msgid "author"
-msgstr ""
-
 #, fuzzy
 msgid "date"
 msgstr "Edit"
@@ -4790,39 +4837,8 @@ msgid "Empty Post-It"
 msgstr ""
 
 #, fuzzy
-msgid "View family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "initial reference"
-msgstr "Delete"
-
-#, fuzzy
-msgid "reference for this revision"
-msgstr "Organisation"
-
-msgid "allocated to"
-msgstr ""
-
-#, fuzzy
-msgid "locked by"
-msgstr "Create"
-
-#, fuzzy
-msgid "creation date"
-msgstr "Create"
-
-#, fuzzy
-msgid "access date"
-msgstr "Delete"
-
-#, fuzzy
-msgid " profile access"
-msgstr "Control access"
-
-#, fuzzy
-msgid "control view"
-msgstr "Category"
+msgid "primary folder"
+msgstr "Modify"
 
 msgid "enumerate input not found"
 msgstr ""
@@ -5095,6 +5111,18 @@ msgstr "Organisation"
 #, fuzzy
 msgid "Complete view"
 msgstr "Create"
+
+#, fuzzy
+#~ msgid "Clear folder"
+#~ msgstr "Delete"
+
+#, fuzzy
+#~ msgid "Insert document %s"
+#~ msgstr "Import"
+
+#, fuzzy
+#~ msgid "Delete document %s"
+#~ msgstr "Delete"
 
 #, fuzzy
 #~ msgid "Freedom Search"

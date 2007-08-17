@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-16 18:36+0200\n"
-"PO-Revision-Date: 2007-08-16 18:38+0200\n"
+"POT-Creation-Date: 2007-08-17 16:13+0200\n"
+"PO-Revision-Date: 2007-08-17 16:13+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,19 @@ msgstr "nouvel ordre des colonnes %s"
 
 msgid "action"
 msgstr "action"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
 
 #, c-format
 msgid "the document %s has been sended"
@@ -218,19 +231,6 @@ msgstr "absence d'adresse couriel"
 
 msgid "no avalaible persons found"
 msgstr "pas de personnes valides trouvées"
-
-#, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
 
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
@@ -657,6 +657,14 @@ msgid "%s inserted"
 msgstr "%s inséré"
 
 #, c-format
+msgid "%s has been added in %s folder"
+msgstr "%s a été ajouté dans le dossier %s"
+
+#, c-format
+msgid "%s has been removed in %s folder"
+msgstr "%s a été supprimé dans le dossier %s"
+
+#, c-format
 msgid "Family %s not exist"
 msgstr "La famille (%s) n'existe pas"
 
@@ -931,14 +939,6 @@ msgstr ""
 "le document n'est pas référencé : la modification du profil d'accès\n"
 "ne peut pas être appliquée"
 
-#, c-format
-msgid "%s has been added in %s folder"
-msgstr "%s a été ajouté dans le dossier %s"
-
-#, c-format
-msgid "%s has been removed in %s folder"
-msgstr "%s a été supprimé dans le dossier %s"
-
 msgid "no comment"
 msgstr "pas de commentaire"
 
@@ -1015,6 +1015,13 @@ msgstr "<b>%d groupe(s) à actualiser"
 
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
+
+msgid "cookies seem to be blocked"
+msgstr "les cookies semblent être bloqués par le navigateur"
+
+#, c-format
+msgid "%s all "
+msgstr "%s tout"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1104,13 +1111,6 @@ msgstr "recherche %s est %s"
 #, c-format
 msgid "search %s is %s in %s"
 msgstr "recherche %s est %s dans %s"
-
-msgid "cookies seem to be blocked"
-msgstr "les cookies semblent être bloqués par le navigateur"
-
-#, c-format
-msgid "%s all "
-msgstr "%s tout"
 
 #, c-format
 msgid "Family (#%s) not exists"
@@ -2072,57 +2072,6 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "Document basket"
-msgstr "Porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
 msgid "document creation"
 msgstr "Création du document"
 
@@ -2358,6 +2307,71 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
+
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "Document basket"
+msgstr "Porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
+msgid "Folder cleared"
+msgstr "Dossier vidé"
+
+#, c-format
+msgid "Document %s inserted"
+msgstr "Insertion document %s "
+
+#, c-format
+msgid "Document %s umounted"
+msgstr "Document %s enlevé"
+
+msgid "no folder"
+msgstr "pas de dossier"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -3271,9 +3285,6 @@ msgstr " famille"
 msgid " view files"
 msgstr "afficher les fichiers attachés"
 
-msgid "no folder"
-msgstr "pas de dossier"
-
 msgid "Create New"
 msgstr "Créer un nouveau"
 
@@ -4097,6 +4108,36 @@ msgstr "fichier VCS"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
+msgid "View family"
+msgstr "Voir la famille"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
+msgid "author"
+msgstr "auteur"
+
+msgid "allocated to"
+msgstr "Affecté à"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid "creation date"
+msgstr "date de création"
+
+msgid "access date"
+msgstr "date de dernière consultation"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
+
 msgid "fromdate"
 msgstr "date de début"
 
@@ -4308,9 +4349,6 @@ msgstr "version"
 msgid "rev"
 msgstr "rev"
 
-msgid "author"
-msgstr "auteur"
-
 msgid "date"
 msgstr "date"
 
@@ -4326,32 +4364,8 @@ msgstr "Ouvrir dans une nouvelle fenêtre"
 msgid "Empty Post-It"
 msgstr "Post-It vide"
 
-msgid "View family"
-msgstr "Voir la famille"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
-msgid "allocated to"
-msgstr "Affecté à"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "creation date"
-msgstr "date de création"
-
-msgid "access date"
-msgstr "date de dernière consultation"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
+msgid "primary folder"
+msgstr "Dossier principal"
 
 msgid "enumerate input not found"
 msgstr "entrée énumérée non trouvé"
@@ -4584,6 +4598,17 @@ msgstr "Personnel"
 
 msgid "Complete view"
 msgstr "Vue complète"
+
+#~ msgid "Clear folder"
+#~ msgstr "Vider le dossier"
+
+#, fuzzy
+#~ msgid "Insert document %s"
+#~ msgstr "Insérer des documents"
+
+#, fuzzy
+#~ msgid "Delete document %s"
+#~ msgstr "supprimer le document"
 
 #~ msgid "Freedom Search"
 #~ msgstr "Recherche Freedom"
@@ -4835,9 +4860,6 @@ msgstr "Vue complète"
 
 #~ msgid "icreation"
 #~ msgstr "création interactive"
-
-#~ msgid "document(s) found"
-#~ msgstr "document(s) trouvé(s)"
 
 #~ msgid "Freedoms"
 #~ msgstr "Freedoms"
