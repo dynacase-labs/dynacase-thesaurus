@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.408 2007/08/10 16:09:05 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.409 2007/08/17 14:51:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4064,8 +4064,14 @@ final public function PostInsert()  {
     if ($this->cvid == 0) {
       $this->lay->Set("cview", _("no view control"));
     } else {  
-      $cvdoc= new_Doc($dbaccess, $this->cvid);
+      $cvdoc= new_Doc($this->dbaccess, $this->cvid);
       $this->lay->Set("cview", $cvdoc->title);
+    }
+    if ($this->prelid == 0) {
+      $this->lay->Set("prel", _("no folder"));
+    } else {  
+      $cvdoc= new_Doc($this->dbaccess, $this->prelid);
+      $this->lay->Set("prel", $cvdoc->title);
     }
     if ($this->allocated == 0) {
       $this->lay->Set("allocate", _("no allocate"));      
