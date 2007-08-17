@@ -3,7 +3,7 @@
  * Collection of utilities functions for GENERIC application
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.29 2007/07/30 16:05:27 eric Exp $
+ * @version $Id: generic_util.php,v 1.30 2007/08/17 13:37:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -114,7 +114,7 @@ function setUkey(&$action, $famid, $key) {
 */
 function getDefU(&$action,$key) {
   $famid=getDefFam($action);
-  return getFamilyParameter($action,$key,$famid);
+  return getFamilyParameter($action,$famid,$key);
 }
 
 /**
