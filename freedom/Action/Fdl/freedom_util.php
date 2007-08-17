@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.97 2007/06/26 16:46:51 eric Exp $
+ * @version $Id: freedom_util.php,v 1.98 2007/08/17 14:19:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -601,6 +601,7 @@ function createAutoFolder(&$doc) {
     $dir->setValue("FLD_FAM",$doc->title."\n"._("folder")."\n"._("search"));
     $dir->setValue("FLD_FAMIDS",$doc->id."\n".getFamIdFromName($doc->dbaccess,"DIR").
 		   "\n".getFamIdFromName($doc->dbaccess,"SEARCH"));
+    $dir->setValue("FLD_SUBFAM","yes\nyes\nyes");
     $dir->Modify();
     $fldid=$dir->id;
     return $fldid;
