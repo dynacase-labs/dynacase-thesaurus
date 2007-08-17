@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: movedirfile.php,v 1.10 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: movedirfile.php,v 1.11 2007/08/17 14:52:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -43,14 +43,18 @@ function movedirfile(&$action) {
 			     $doc->title,
 			     $dir->title));
 
-  $dir= new_Doc($dbaccess, $fromdirid);
-  if (method_exists($dir,"DelFile")) {
-    $err = $dir->DelFile($docid);
+  $dir2= new_Doc($dbaccess, $fromdirid);
+  if (method_exists($dir2,"DelFile")) {
+    $err = $dir2->DelFile($docid);
     if ($err != "") $action->exitError($err);
   
     $action->AddLogMsg(sprintf(_("%s has been removed in %s folder"),
 			       $doc->title,
-			       $dir->title));
+			       $dir2->title));
+  }
+  if (($doc->prelid==0) && ($err=="")) { // because deletion id done after add
+    $doc->prelid=$dir->initid;
+    $doc->modify(true,array("prelid"),true);    
   }
 
   
