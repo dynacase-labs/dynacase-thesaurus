@@ -1284,7 +1284,6 @@ function fcalComputeDateFromEnd() {
   var od_etime = new Date();
   od_etime.setTime(o_etime);
 
-
   // Compute new old time
   var tsE = parseInt(document.getElementById('s_end').value) * 1000;
   var hte = new Date();
@@ -1294,8 +1293,10 @@ function fcalComputeDateFromEnd() {
   var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
 
   if (nE.getTime()<=od_stime.getTime()) {
-    alert('La date demandée est antérieure à celle de début');
-    nE.setTime(od_etime.getTime());
+    var tdiff = (o_etime - o_stime);
+    var nS = new Date();
+    nS.setTime(nE.getTime() - tdiff);
+    fcalSetTime('start', nS, true);
   }
 
   fcalSetTime('end', nE, false);

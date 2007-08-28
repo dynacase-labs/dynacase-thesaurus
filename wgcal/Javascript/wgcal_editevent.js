@@ -69,6 +69,14 @@ function ComputeDateFromStart() {
   
 }
 
+function UpdateStartMinutes(min) {
+  var init = -1;
+  var sb = document.getElementById('Mstart');
+  for (var ib=(sb.options.length-1); ib>=0 && init==-1; ib--) {
+    if (parseInt(min)>=parseInt(sb.options[ib].value)) init=ib;
+  }
+  sb.selectedIndex = init;
+}
 function UpdateEndMinutes(min) {
   var init = -1;
   var sb = document.getElementById('Mend');
@@ -98,8 +106,14 @@ function ComputeDateFromEnd() {
   var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
 
   if (nE.getTime()<=od_stime.getTime()) {
-    alert('La date demandée est antérieure à celle de début');
-    nE.setTime(od_etime.getTime());
+    var tdiff = (o_etime - o_stime);
+    var nS = new Date();
+    nS.setTime(nE.getTime() - tdiff);
+    document.getElementById('TsStart').value = nS.getTime();
+    document.getElementById('DayTsStart').value = (nS.getTime() / 1000);
+    document.getElementById('DayStart').innerHTML = nS.print('%a %d %b %Y');
+    document.getElementById('Hstart').selectedIndex = nS.getHours();
+    UpdateStartMinutes(nS.getMinutes());
   }
   document.getElementById('TsEnd').value = nE.getTime();
   document.getElementById('DayTsEnd').value = (nE.getTime() / 1000);
