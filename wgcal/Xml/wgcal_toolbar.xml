@@ -37,8 +37,8 @@ function hideShowToolbar(imbut) {
 <div>
 
 <div title="[TEXT:click here to refresh toolbar]" onclick="SaveFrameWidth(); document.location.reload(true)" class="wWhoAmI">
-<img src="[IMG:wm-reloadsync.gif]" style="height:16px; float:left">
-<div style="font-weight:bold"><span>[owner]</span>&nbsp;<span id="todaydate" style="font-size:80%">--</span></div>
+<img src="[IMG:wm-reloadsync.gif]" style="height:16px;">
+<span style="font-weight:bold"><span>[owner]</span>&nbsp;<span id="todaydate" style="font-size:80%">--</span></span>
 [IF LSYNC]<div style="[lsyncstyle];font-size:80%"> ([TEXT:last sync] [lastsync])</div>[ENDIF LSYNC]
 
 </div>
