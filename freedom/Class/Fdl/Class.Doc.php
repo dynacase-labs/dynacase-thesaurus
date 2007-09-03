@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.409 2007/08/17 14:51:19 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.410 2007/09/03 15:14:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3838,11 +3838,11 @@ final public function PostInsert()  {
 	  
       $value = chop($this->GetValue($i));
 
-      $goodvalue=((($value != "") || ( $attr->type=="array")) && 
+      $goodvalue=((($value != "") || ( $attr->type=="array") || $attr->getOption("showempty")) && 
 		  ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()));
       if ($goodvalue)   {
-	 
-	$htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
+	if ($value == "") $htmlvalue=$attr->getOption("showempty");
+	else $htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
       } else $htmlvalue="";
     
       if ($htmlvalue !== "") // to define when change frame

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.20 2007/05/14 09:31:46 eric Exp $
+ * @version $Id: viewframe.php,v 1.21 2007/09/03 15:14:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.20 2007/05/14 09:31:46 eric Exp $
+// $Id: viewframe.php,v 1.21 2007/09/03 15:14:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -91,10 +91,11 @@ function viewframe(&$action) {
 
     $value = chop($doc->GetValue($v->id));
     
-    $goodvalue=((($value != "") || ( $v->type=="array")) && 
+    $goodvalue=((($value != "") || ( $v->type=="array") || $v->getOption("showempty")) && 
 		($v->mvisibility != "H") && ($v->mvisibility != "O") && (! $v->inArray()));  
     if ($goodvalue)   {	 
-	$htmlvalue=$doc->GetHtmlValue($v,$value,$target,$ulink);
+      if ($value == "") $htmlvalue=$v->getOption("showempty");
+      else $htmlvalue=$doc->GetHtmlValue($v,$value,$target,$ulink);
     } else $htmlvalue="";
     if ($htmlvalue == "") continue;
     if ($v->mvisibility == "O") continue;
@@ -109,7 +110,7 @@ function viewframe(&$action) {
 	      $tval[$k]["normallabel"]=true;
 	      $tval[$k]["uplabel"]=false;
 	      $tval[$k]["wvalue"]=($v->type=="array")?"1%":"30%";  // width
-	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"inherit";  // display alabel ?
+	      $tval[$k]["ndisplay"]=($v->type=="array")?"none":"inline";  // display alabel ?
 	      if ($v->getOption("vlabel")=="none") {
 		$tval[$k]["nonelabel"]=true;
 		$tval[$k]["normallabel"]=false;	    
