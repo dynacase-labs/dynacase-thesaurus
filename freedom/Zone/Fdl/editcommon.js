@@ -1057,6 +1057,7 @@ function addtr(trid, tbodyid) {
 
   nodereplacestr(ntr,'-1]',']'); // replace name [-1] by []
   nodereplacestr(ntr,'-1',ntable.childNodes.length);
+  nodereplacestr(ntr,'_1x_',ntable.childNodes.length);
   resizeInputFields(); // need to revaluate input width
  
   if (seltr && (seltr.parentNode == ntr.parentNode))  {
@@ -1632,6 +1633,28 @@ function viewquick(event,view) {
   }
 }
 
+// quick save of fckeditors
+function trackKeysQuickSave(event) {
+  var intKeyCode,ctrlKey;
+
+  if (!event) event=window.event;
+ 
+  intKeyCode = event.which;
+  if (!intKeyCode) intKeyCode= event.keyCode;
+  //alert(intKeyCode);
+  ctrlKey = event.ctrlKey;
+  if (((intKeyCode == 115)||(intKeyCode == 83)) && ( ctrlKey)) {
+    // Ctrl-S
+    if (quicksave) quicksave();
+    else if (window.parent.quicksave) window.parent.quicksave();
+    
+    //  window.parent.quicksave();  
+    if (stopPropagation) stopPropagation(event);
+    else if (window.parent.stopPropagation) window.parent.stopPropagation(event);    
+  } else {
+    document.isChanged=true;
+  }
+}
 addEvent(document,"keypress",trackKeysStop); // only stop propagation
 addEvent(document,"keydown",trackKeys);
 //addEvent(document,"keypress",trackKeys);

@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.121 2007/08/03 16:47:21 eric Exp $
+ * @version $Id: editutil.php,v 1.122 2007/09/03 14:27:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -45,8 +45,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   $attrin='_'.$oattr->id; // for js name => for return values from client
   $attridk=$oattr->id.$index;
   if ($oattr->inArray()) {
-    if ($index == -1) $attrin.='[-1]';
-    else $attrin.='[]';
+    if ($index == -1) {
+      $attrin.='[-1]';
+      $attridk=$oattr->id.'_1x_';
+    } else $attrin.='[]';
   }
   if (isset($oattr->mvisibility)) $visibility=$oattr->mvisibility;
   else $visibility=$oattr->visibility;
@@ -195,6 +197,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
       $lay->set("toolbarexpand",(strtolower($oattr->getOption("toolbarexpand"))=="no")?"false":"true");
       $lay->set("aid",$attridk);
+      $lay->set("aname",$attrin);
       if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
       else $lay->set("disabled","");
       $input =$lay->gen(); 

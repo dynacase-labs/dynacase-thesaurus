@@ -1,26 +1,6 @@
 <script type="text/javascript">
 
-function trackKeysQuickSave(event) {
-  var intKeyCode,ctrlKey;
 
-  if (!event) event=window.event;
- 
-  intKeyCode = event.which;
-  if (!intKeyCode) intKeyCode= event.keyCode;
-  //alert(intKeyCode);
-  ctrlKey = event.ctrlKey;
-  if (((intKeyCode == 115)||(intKeyCode == 83)) && ( ctrlKey)) {
-    // Ctrl-S
-    if (quicksave) quicksave();
-    else if (window.parent.quicksave) window.parent.quicksave();
-    
-    //  window.parent.quicksave();  
-    if (stopPropagation) stopPropagation(event);
-    else if (window.parent.stopPropagation) window.parent.stopPropagation(event);    
-  } else {
-    document.isChanged=true;
-  }
-}
 
 var oFCKeditor[aid] = new FCKeditor( '_[aid]' ) ;
 
@@ -37,21 +17,25 @@ oFCKeditor[aid].Height='[height]';
 oFCKeditor[aid].Value='[Value]';
 
 oFCKeditor[aid].Create();
+
 NB_FCKEDITORS++;
+var ita=document.getElementById('_[aid]');
+if (ita) ita.name='[aname]';
+
 FCKEDITORS.push('_[aid]');
 function trackQS_[aid]() {
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
-  if (oEditor.EditorDocument) {   
+  if (oEditor && oEditor.EditorDocument) {   
     addEvent(oEditor.EditorDocument,"keydown",trackKeysQuickSave);  
     if (isNetscape) addEvent(oEditor.EditorDocument,"mouseover",fckforceedit_[aid]);    
-  } else window.setTimeout( trackQS_[aid], 1000 ) ;
+  } else window.setTimeout( trackQS_[aid], 2400 ) ;
 }
 
 function fckforceedit_[aid]() {
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
-  if (oEditor.EditorDocument) {
+  if (oEditor && oEditor.EditorDocument) {
     if (  oEditor.EditMode == FCK_EDITMODE_WYSIWYG ){
       oEditor.MakeEditable();
     }
@@ -60,15 +44,15 @@ function fckforceedit_[aid]() {
 function wstop_[aid]() { 
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
-  if (oEditor && oEditor.EditorDocument && (oEditor.Status==FCK_STATUS_COMPLETE)) {     
-    NB_FCKEDITORS--;
+  if (oEditor && oEditor.EditorDocument && (oEditor.Status==FCK_STATUS_COMPLETE)) {  
+    NB_FCKEDITORS--;    
     if (NB_FCKEDITORS<=0) window.stop();
-  } else {
+  } else {    
     window.setTimeout( wstop_[aid], 1000 ) ;
   }
   
  }
 addEvent(window,"load",trackQS_[aid]);
-if (isNetscape) window.setTimeout( wstop_[aid], 3000 ) ;
+if (isNetscape) window.setTimeout( wstop_[aid], 3000+100*NB_FCKEDITORS ) ;
 
 </script>
