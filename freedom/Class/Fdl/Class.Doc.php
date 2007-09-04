@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.411 2007/09/04 07:32:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.412 2007/09/04 09:55:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5094,7 +5094,28 @@ final public function PostInsert()  {
     return $mydoc->getValue($idattr);
   }
 
-
+  /**
+   * concatenate and format string
+   * @param string $fmt like sprintf format
+   * @param string parameters of string composition
+   * @return string the composed string
+   */
+  function formatString($fmt) {   
+    $nargs = func_num_args();
+    for ($ip=0; $ip<$nargs; $ip++) {
+      $var = func_get_arg($ip);
+    }
+    if ($nargs<1) return "";
+    $fmt = func_get_arg(0);
+    $sp = array();
+    for ($ip=1; $ip<$nargs; $ip++) {
+      if (gettype($var) != "array") {
+	$sp[] = func_get_arg($ip);
+      }
+    }
+    $r = vsprintf($fmt, $sp);
+    return $r;
+  }
 
   final public function UpdateVaultIndex() {
     $dvi = new DocVaultIndex($this->dbaccess);
