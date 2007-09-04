@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocmenu.php,v 1.3 2007/07/31 13:49:44 eric Exp $
+ * @version $Id: popupdocmenu.php,v 1.4 2007/09/04 09:07:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -19,7 +19,7 @@ function popupdocmenu(&$action) {
   // define accessibility
   $docid = GetHttpVars("id");
   $abstract = (GetHttpVars("abstract",'N') == "Y");
-  $zone = GetHttpVars("zone"); // special zone
+  $zone = GetHttpVars("mzone"); // special zone
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $doc = new_Doc($dbaccess, $docid); # _("States")
