@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.9 2006/04/07 13:16:04 eric Exp $
+ * @version $Id: fusers_list.php,v 1.10 2007/09/04 14:45:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FUSERS
@@ -50,11 +50,20 @@ function fusers_list(&$action) {
   }
   if (!$groups) $groups=array();
   if ($mgroups) {
+    $doc=createDoc($dbaccess,1);
     uasort($mgroups,"cmpgroup");
     foreach ($mgroups as $k=>$v) {
-	$cgroup=fusers_getChildsGroup($v["id"],$groups);
-	$tgroup[$k]=$v;
-	$tgroup[$k]["SUBUL"]=$cgroup;	
+      $cgroup=fusers_getChildsGroup($v["id"],$groups);
+      $tgroup[$k]=$v;
+      $tgroup[$k]["SUBUL"]=$cgroup;	
+      $fid=$v["fid"];
+      if ($fid) {
+	$tdoc=getTDoc($dbaccess,$fid);
+	$icon=$doc->getIcon($tdoc["icon"]);
+	$tgroup[$k]["icon"]=$icon;
+      } else {
+	$tgroup[$k]["icon"]="Images/igroup.gif";	  
+      }
       $groupuniq[$v["id"]]=$v;
       $groupuniq[$v["id"]]["checkbox"]="";
       if (in_array($v["id"],$ugroup)) $groupuniq[$v["id"]]["checkbox"]="checked";
@@ -99,12 +108,23 @@ function fusers_list(&$action) {
  * use to compute displayed group tree
  */
 function fusers_getChildsGroup($id,$groups) {
+  static $dbaccess;
+  static $doc;
+  if (!$dbaccess) $dbaccess=getParam("FREEDOM_DB");
+  if (!$doc) $doc=createDoc($dbaccess,1);
   $tlay=array();
   foreach ($groups as $k=>$v) {
     if ($v["idgroup"]==$id) {
       $tlay[$k]=$v;
-       $tlay[$k]["SUBUL"]=fusers_getChildsGroup($v["id"],$groups);
-
+      $tlay[$k]["SUBUL"]=fusers_getChildsGroup($v["id"],$groups);
+      $fid=$v["fid"];
+      if ($fid) {
+	$tdoc=getTDoc($dbaccess,$fid);
+	$icon=$doc->getIcon($tdoc["icon"]);
+	$tlay[$k]["icon"]=$icon;
+      } else {
+	$tlay[$k]["icon"]="Images/igroup.gif";	  
+      }
     }
   }
   

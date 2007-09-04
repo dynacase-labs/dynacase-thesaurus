@@ -3,7 +3,7 @@
  * Intranet User & Group  manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIntranet.php,v 1.21 2007/08/07 10:34:56 eric Exp $
+ * @version $Id: Method.DocIntranet.php,v 1.22 2007/09/04 14:45:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -140,7 +140,14 @@ function _getChildsGroup($id,$groups) {
     if ($v["idgroup"]==$id) {
       $tlay[$k]=$v;
        $tlay[$k]["SUBUL"]=$this->_getChildsGroup($v["id"],$groups);
-
+       $fid=$v["fid"];
+      if ($fid) {
+	$tdoc=getTDoc($this->dbaccess,$fid);
+	$icon=$this->getIcon($tdoc["icon"]);
+	$tlay[$k]["icon"]=$icon;
+      } else {
+	$tlay[$k]["icon"]="Images/igroup.gif";	  
+      }
     }
   }
   
