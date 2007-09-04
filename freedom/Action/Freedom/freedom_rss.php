@@ -3,7 +3,7 @@
  * RSS syndication on a folder (search, folders, report....)
  *
  * @author Anakeen 2003
- * @version $Id: freedom_rss.php,v 1.7 2007/09/04 07:32:53 eric Exp $
+ * @version $Id: freedom_rss.php,v 1.8 2007/09/04 07:33:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -160,11 +160,7 @@ function freedom_rss(&$action) {
   }
   $action->lay->setBlockData("Items", $items);
   $action->lay->set("report", $report);
-  if ($report) {
-    foreach ($lines as $kl => $vl) {
-      // $action->lay->setBlockData("lines".$kl, $vl);
-    }
-  }
+  
 
 }
 
