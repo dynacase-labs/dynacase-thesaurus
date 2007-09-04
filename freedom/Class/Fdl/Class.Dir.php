@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.67 2007/09/04 12:50:28 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.68 2007/09/04 13:39:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -556,7 +556,7 @@ Class Dir extends PDir
     include_once("FDL/Lib.Dir.php");
     if ($controlview) $uid=$this->userid;
     else $uid=1;
-    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, $qtype,$famid="",false, "title",true,$trash);
+    $tdoc = getChildDoc($this->dbaccess, $this->initid ,0,"ALL", $filter, $uid, $qtype,$famid,false, "title",true,$trash);
     return $tdoc;    
   }
 
