@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.66 2007/09/04 08:51:25 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.67 2007/09/04 12:50:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -514,10 +514,10 @@ Class Dir extends PDir
 	while (list($k,$famid)= each ($tfamid)) {
 	  $tfdoc=getTDoc($this->dbaccess,$famid);
 	  if ($tfdoc && controlTdoc($tfdoc,'icreate'))  {
-	    $tclassdoc[intval($famid)]=array("id"=> ($tsubfam[$k]=="yes")?(-intval($famid)):intval($famid),
+	    $tclassdoc[intval($famid)]=array("id"=> ($tsubfam[$k]!="no")?(-intval($famid)):intval($famid),
 					     "title"=>$tfam[$k]);
 	  }
-	  if ($tsubfam[$k]=="yes") $tclassdoc += $this->GetChildFam(intval($famid));
+	  if ($tsubfam[$k]!="no") $tclassdoc += $this->GetChildFam(intval($famid));
 	}
       
       }
