@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.39 2007/08/02 15:31:30 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.40 2007/09/04 09:10:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -61,7 +61,7 @@ function freedom_edit(&$action) {
 	  $tclassdoc=$dir->getAuthorizedFamilies();
 	  $first = current($tclassdoc);
 	  $classid = $first["id"];
-	  setHttpVar("classid",$classid); // propagate to subzones
+	  setHttpVar("classid",abs($classid)); // propagate to subzones
 	}
       }
       else {
@@ -83,7 +83,7 @@ function freedom_edit(&$action) {
 	}
 	$first = current($tclassdoc);
 	if ($classid=="") $classid = $first["id"];
-	setHttpVar("classid",$classid); // propagate to subzones
+	setHttpVar("classid",abs($classid)); // propagate to subzones
       } else    $tclassdoc = GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
     }
 
