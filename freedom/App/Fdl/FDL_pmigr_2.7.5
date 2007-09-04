@@ -6,5 +6,5 @@ if [ "$dbpsql" == "" ]; then
 fi
 
 
-echo "UPDATE doc2 set fld_subfam = regexp_replace(fld_famids, '[0-9]+', 'no','g');" | psql $dbfree
+echo "UPDATE doc2 set fld_subfam = regexp_replace(fld_famids, '[0-9]+', 'yes','g');" | psql $dbfree
 
