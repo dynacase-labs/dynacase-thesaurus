@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.17 2007/08/16 16:35:59 eric Exp $
+ * @version $Id: fullsearch.php,v 1.18 2007/09/04 07:42:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -251,7 +251,7 @@ function nobr($text)
 
 function createSearchEngine(&$action) {
   global $_SERVER;
-  $tfiles=array("freedom-os.xml","freedom.src","freedom.gif","freedOM.xml");
+  $tfiles=array("freedom-os.xml","freedom.src","freedom.gif","freedom.xml");
   $script=$_SERVER["SCRIPT_FILENAME"];
   $dirname=dirname($script);
   $base=dirname($_SERVER["SCRIPT_NAME"]);
@@ -265,7 +265,7 @@ function createSearchEngine(&$action) {
       if (file_exists($src)) {
 	$content=file_get_contents($src);
 	$destsrc= str_replace(array("localhost/freedom","SearchTitle","orifile"),
-			      array($newpath,$action->getParam("CORE_CLIENT"),$host."-".$v),
+			      array($newpath,utf8_encode($action->getParam("CORE_CLIENT")),$host."-".$v),
 			      $content);
 	file_put_contents($out,$destsrc);
       }
