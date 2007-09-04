@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.21 2007/09/03 15:14:38 eric Exp $
+ * @version $Id: viewframe.php,v 1.22 2007/09/04 07:32:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.21 2007/09/03 15:14:38 eric Exp $
+// $Id: viewframe.php,v 1.22 2007/09/04 07:32:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -94,7 +94,7 @@ function viewframe(&$action) {
     $goodvalue=((($value != "") || ( $v->type=="array") || $v->getOption("showempty")) && 
 		($v->mvisibility != "H") && ($v->mvisibility != "O") && (! $v->inArray()));  
     if ($goodvalue)   {	 
-      if ($value == "") $htmlvalue=$v->getOption("showempty");
+      if (($value == "")&&($v->type!="array")) $htmlvalue=$v->getOption("showempty");
       else $htmlvalue=$doc->GetHtmlValue($v,$value,$target,$ulink);
     } else $htmlvalue="";
     if ($htmlvalue == "") continue;

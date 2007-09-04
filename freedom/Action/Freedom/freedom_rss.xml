@@ -27,10 +27,10 @@
 [IF report]
 &lt;table style="width:100%"&gt;
 [BLOCK lines[id]]&lt;tr&gt;
-&lt;td style="align:right"&gt;&amp;rarr;&lt;/td&gt;
-&lt;td style="align:right"&gt;[attr]&lt;/td&gt;
+&lt;td style="align:right;"&gt;&amp;rarr;&lt;/td&gt;
+&lt;td style="align:right;width:40%"&gt;[attr]&lt;/td&gt;
 &lt;td&gt; : &lt;/td&gt;
-&lt;td&gt;[val]&lt;/td&gt;
+&lt;td style="width:60%"&gt;[val]&lt;/td&gt;
 &lt;/tr&gt;[ENDBLOCK lines[id]]&lt;/table&gt;[ENDIF report][IFNOT report][IF html]&lt;div style="border:1px solid [COLOR_C7]; padding:0px 5px 5px 5px" &gt;[ENDIF html][descr][IF html]&lt;/div[ENDIF html][ENDIF report]
   </description>
   <pubDate>[revdate]</pubDate>

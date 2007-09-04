@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.410 2007/09/03 15:14:38 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.411 2007/09/04 07:32:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1805,14 +1805,14 @@ final public function PostInsert()  {
 	if ($err != "") return ($err); 
       }
     }      
-    if (is_array($value)) {
-      $value = $this->_array2val($value);
+    $attrid = strtolower($attrid);
+    $oattr=$this->GetAttribute($attrid);
+    if (is_array($value)) {      
+      if ($oattr->type=='htmltext') $value= $this->_array2val($value,' ');
+      else $value = $this->_array2val($value);
     }
     if (($value !== ""))  {
       // change only if different
-      $attrid = strtolower($attrid);
-
-      $oattr=$this->GetAttribute($attrid);
       if ($oattr === false) return sprintf(_("attribute %s unknow in family %s [%d]"),$attrid, $this->title, $this->id);
       if ($oattr->mvisibility=="I") return sprintf(_("no permission to modify this attribute %s"),$attrid);
       if ($value === DELVALUE) {
@@ -3110,8 +3110,8 @@ final public function PostInsert()  {
     return explode("\n", str_replace("\r","",$v));
   }
   
-  public static function _array2val($v) {    
-    $v=str_replace("\n","<BR>",$v);	  
+  public static function _array2val($v,$br='<BR>') {    
+    $v=str_replace("\n",$br,$v);	  
     if (count($v) == 0) return "";
     return implode("\n", $v);
   }
@@ -3838,10 +3838,10 @@ final public function PostInsert()  {
 	  
       $value = chop($this->GetValue($i));
 
-      $goodvalue=((($value != "") || ( $attr->type=="array") || $attr->getOption("showempty")) && 
+      $goodvalue=((($value != "") || ( $attr->type=="array") || $attr->getOption("showempty") ) && 
 		  ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()));
       if ($goodvalue)   {
-	if ($value == "") $htmlvalue=$attr->getOption("showempty");
+	if (($value == "")&&($attr->type!="array")) $htmlvalue=$attr->getOption("showempty");
 	else $htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
       } else $htmlvalue="";
     

@@ -3,7 +3,7 @@
  * RSS syndication on a folder (search, folders, report....)
  *
  * @author Anakeen 2003
- * @version $Id: freedom_rss.php,v 1.6 2007/07/25 11:35:24 eric Exp $
+ * @version $Id: freedom_rss.php,v 1.7 2007/09/04 07:32:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -127,10 +127,10 @@ function freedom_rss(&$action) {
 			       "report" => $report,
 			       );
     if ($report) {
-      $lines[$zdoc->id] = array();
+      $lines = array();
       $i = 0;
       foreach ($tcolshown as $kc => $vc) {
-	if ($vdoc[$kc] == "") $lines[$zdoc->id][] = array("attr" => $vc["collabel"], "val" => "" );
+	if ($zdoc->getValue($kc) == "") $lines[] = array("attr" => $vc["collabel"], "val" => "" );
 	else {
 	  switch ($kc) {
 	  case "revdate" :
@@ -140,17 +140,19 @@ function freedom_rss(&$action) {
 	    $cval = _($vdoc[$kc]);
 	    break;
 	  default:
-	    $cval = $zdoc->getHtmlValue($lattr[$kc],$vdoc[$kc],"",false);
+	    $cval = $zdoc->getHtmlValue($lattr[$kc],$zdoc->getValue($kc),"",false);
 	    if ($lattr[$kc]->type == "image") $cval="<img width=\"30px\" src=\"$cval\">";
 	  }
-	  $cval = __xmlentities($cval);
 	  if ($i==0) {
-	    $items[$zdoc->id]["title"] = ($cval); 
+	    $items[$zdoc->id]["title"] = __xmlentities(html_entity_decode($cval)); 
 	    $i++; 
-	  } else $lines[$zdoc->id][] = array("attr" => $vc["collabel"], "val" => ($cval));
+	  } else {
+	    $cval = __xmlentities($cval);
+	    $lines[] = array("attr" => $vc["collabel"], "val" => ($cval));
+	  }
 	}
       }
-      
+      $action->lay->setBlockData("lines".$zdoc->id, $lines);
     } else {
       $items[$zdoc->id]["descr"] = ($dhtml ? __xmlentities(($zdoc->viewdoc("FDL:VIEWTHUMBCARD"))) : "..." );
       $items[$zdoc->id]["title"] = __xmlentities($zdoc->getTitle());
@@ -160,7 +162,7 @@ function freedom_rss(&$action) {
   $action->lay->set("report", $report);
   if ($report) {
     foreach ($lines as $kl => $vl) {
-      $action->lay->setBlockData("lines".$kl, $vl);
+      // $action->lay->setBlockData("lines".$kl, $vl);
     }
   }
 
