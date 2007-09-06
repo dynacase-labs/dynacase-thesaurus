@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.94 2007/09/04 09:07:56 eric Exp $
+ * @version $Id: modcard.php,v 1.95 2007/09/06 15:48:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -218,7 +218,7 @@ function setPostVars(&$doc) {
 	      unset($v["-1"]);	     
 	    }
 	    if ((count($v)==0) || ((count($v)==1) && (chop($v[0])==""))) $value=" "; // delete column
-	    else $value = $v;//stripslashes(implode("\n",str_replace("\n","<BR>",$v)));	    
+	    else $value = array_map("stripslashes",$v);
 	  }
 	  else $value = stripslashes($v);
 	  if ($value=="") $doc->SetValue($attrid, DELVALUE);	 
