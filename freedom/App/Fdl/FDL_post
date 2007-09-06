@@ -25,11 +25,15 @@ if [ "$1" = "I" ] ; then
    
   if [ -f /usr/share/pgsql/contrib/tsearch2.sql ]; then
     psql $dbfree -f /usr/share/pgsql/contrib/tsearch2.sql
+  else
+      if [ -f /usr/share/postgresql/contrib/tsearch2.sql ]; then
+	  psql $dbfree -f /usr/share/postgresql/contrib/tsearch2.sql
+      else 
+	  if [ -f /usr/share/postgresql/8.2/contrib/tsearch2.sql ]; then
+	      psql $dbfree -f /usr/share/postgresql/8.2/contrib/tsearch2.sql
+	  fi
+      fi
   fi
-  if [ -f /usr/share/postgresql/contrib/tsearch2.sql ]; then
-    psql $dbfree -f /usr/share/postgresql/contrib/tsearch2.sql
-  fi
-  
   psql $dbfree -f $wpub/FDL/tsearch2_fr.sql
   echo "ALTER DATABASE $dbfreename set DateStyle = sql,european;" | psql  --username=postgres $dbpsql
   psql $dbfree -f $wpub/WHAT/getprivilege.sql
