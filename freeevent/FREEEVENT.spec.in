@@ -1,14 +1,14 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEEVENT.spec.in,v 1.15 2007/05/24 13:47:10 eric Exp $
+#  $Id: FREEEVENT.spec.in,v 1.16 2007/09/07 09:03:15 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
 #
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
-%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q 'Red Hat, Inc.' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q -e 'Red Hat, Inc.' -e "Fedora"  && echo 1 || echo 0)
 
 	
 %{?ncerbere:%define cerbere 1}
