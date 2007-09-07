@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.12 2007/03/08 09:10:54 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.13 2007/09/07 09:31:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -539,6 +539,10 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
 
     $fldid=$this->path2id($options["path"],$vid);
     $doc=new_doc($this->db_freedom,$fldid);
+    if (!$doc->isAlive()) {
+      $this->cleanDeleted($fldid);
+      return false;
+    }
     $afiles=$doc->GetFilesProperties();
 
     $bpath=$options["path"];
@@ -1325,6 +1329,14 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
     //return basename($p);
     $r=strrpos($p,"/");
     return ($r!==false)?substr($p,$r+1):$p;
+  }
+
+
+  function cleanDeleted($fid) {
+    $fid=intval($fid);
+    $query = "delete from properties where value=$fid. and name= 'fid'";
+    
+    pg_query($this->db_res,$query);
   }
 
 }

@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.43 2007/02/21 11:12:53 eric Exp $
+#  $Id: WGCAL.spec.in,v 1.44 2007/09/07 09:34:59 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -20,22 +20,29 @@
 %{?npld:%define redhat 0}
 %{?npld:%define pld 1}
 %if %{cerbere}
-%define destdir /home/httpd/what
-%define httpuser http
-%define apacheconfdir /etc/httpd/httpd.conf
-%define releasepostfix %(echo)
-%endif
-%if %{pld}
-%define destdir /usr/share/what
-%define httpuser http
-%define apacheconfdir /etc/webapps/what
-%define releasepostfix cb
-%endif
-%if %{redhat}
-%define destdir /usr/share/what
-%define apacheconfdir /etc/httpd/conf.d
-%define httpuser apache
-%define releasepostfix fc5
+  %define destdir /home/httpd/what
+  %define httpuser http
+  %define apacheconfdir /etc/httpd/httpd.conf
+  %define releasepostfix %(echo)
+%else
+  %if %{pld}
+    %define destdir /usr/share/what
+    %define httpuser http
+    %define apacheconfdir /etc/webapps/what
+    %define releasepostfix cb
+   %else
+      %if %{redhat}
+        %define destdir /usr/share/what
+        %define httpuser apache
+        %define apacheconfdir /etc/httpd/conf.d
+        %define releasepostfix fc%(cat /etc/fedora-release | sed -e 's/.* release \\([[:digit:]]\\+\\) .*/\\1/')
+      %else        
+        %define destdir /usr/share/what
+        %define httpuser apache
+        %define apacheconfdir /etc/httpd/conf.d
+        %define releasepostfix unk
+      %endif
+  %endif
 %endif
 %define crondir /etc/cron.d
 %{?ndestdir:%define destdir %{ndestdir}}
