@@ -3,7 +3,7 @@
  * Searches of referenced documents
  *
  * @author Anakeen 2000 
- * @version $Id: generic_isearch.php,v 1.12 2007/08/01 14:04:29 eric Exp $
+ * @version $Id: generic_isearch.php,v 1.13 2007/09/07 07:23:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -61,6 +61,7 @@ function generic_isearch(&$action) {
   } else {
     include_once("FREEDOM/freedom_view.php");  
     $action->parent->name="FREEDOM";
+    setHttpVar("target","gisearch");
     freedom_view($action, false);
     //    redirect($action,"FREEDOM","FREEDOM_VIEW&viewone=$viewone&dirid=".$sdoc->id);
   }
