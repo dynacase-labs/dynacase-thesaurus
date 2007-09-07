@@ -3,9 +3,9 @@
  * Search document and return list of them
  *
  * @author Anakeen 2006
- * @version $Id: searchdocument.php,v 1.4 2007/08/09 13:47:23 eric Exp $
+ * @version $Id: searchdocument.php,v 1.5 2007/09/07 15:26:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @package WORKSPACE
+ * @package FREEDOM
  * @subpackage 
  */
  /**
