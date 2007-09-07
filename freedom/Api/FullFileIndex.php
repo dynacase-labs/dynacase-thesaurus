@@ -3,7 +3,7 @@
  * Detect file which are not indexed and index them
  *
  * @author Anakeen 2004
- * @version $Id: FullFileIndex.php,v 1.1 2007/06/18 15:58:10 eric Exp $
+ * @version $Id: FullFileIndex.php,v 1.2 2007/09/07 09:40:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,7 +46,8 @@ foreach ($la as $k=>$v) {
   if (!$force) $filter[]="{$aid}_txt is null";
   $ldoc = getChildDoc($dbaccess, 0,0,"ALL", $filter,$action->user->id,"ITEM",$docid);
   $c=countDocs($ldoc);
-  print "\n-- Family $docid, Attribute : $aid\n";
+
+  print "\n-- Family $docid, Attribute : $aid, count:$c\n";
   while ($doc=getNextDoc($dbaccess,$ldoc)) {
     print "$c)".$doc->title."- $aid -".$doc->id.'- '.$doc->fromid."\n";
     $c--;
