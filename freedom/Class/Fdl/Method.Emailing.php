@@ -3,7 +3,7 @@
  * Methods for emailing family
  *
  * @author Anakeen 2005
- * @version $Id: Method.Emailing.php,v 1.12 2007/03/12 17:37:42 eric Exp $
+ * @version $Id: Method.Emailing.php,v 1.13 2007/09/10 13:26:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,17 +40,17 @@ function fdl_pubedit() {
   $listattr = $udoc->GetNormalAttributes();  
   foreach($listattr as $k=>$v) {
     $tatt[$k]=array("aid"=>"[".strtoupper($k)."]",
-		    "alabel"=>$v->labelText);
+		    "alabel"=>str_replace("'","\\'",$v->labelText));
     
   }
   $listattr = $udoc->GetFileAttributes();  
   foreach($listattr as $k=>$v) {
     if ($v->type=="image") {
       $tatt[$k]=array("aid"=>"<img src=\"[".strtoupper($k)."]\">",
-		      "alabel"=>$v->labelText);
+		      "alabel"=>str_replace("'","\\'",$v->labelText));
     } else {
       $tatt[$k]=array("aid"=>"<a href=\"[".strtoupper($k)."]\">".$v->labelText."</a>",
-		      "alabel"=>$v->labelText);
+		      "alabel"=>str_replace("'","\\'",$v->labelText));
       
     }
     

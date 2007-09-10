@@ -3,7 +3,7 @@
  * Creation of batch document from folder
  *
  * @author Anakeen 2005
- * @version $Id: freedom_addbatch.php,v 1.3 2005/10/05 14:37:58 eric Exp $
+ * @version $Id: freedom_addbatch.php,v 1.4 2007/09/10 13:26:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -43,6 +43,10 @@ function freedom_addbatch(&$action) {
 
   $doc->setTitle(sprintf(_("batch from %s folder"),$fld->title));
   $doc->setValue("ba_desc",sprintf(_("batch from %s folder"),$fld->title));
+  $famid=$fld->getValue("se_famid");
+  if ($famid) {
+    $doc->setValue("pubm_idfam",$famid);
+  }
   $err=$doc->Add();
 
   if ($err != "") $action->exitError($err);
