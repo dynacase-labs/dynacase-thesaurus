@@ -33,10 +33,10 @@ var WattrNtitle=new Array([Wattrntitle]);
  <textarea onkeyup="textautovsize(event,this)"  onclick="textautovsize(event,this)" title="[TEXT:revision comment]" rows="1" name="comment" id="comment" style="width:100px;height:[SIZE_X-LARGE];visibility:[dcomment];float:left"></textarea>
  
 [BLOCK NEWSTATE]
-<a  class="[dsubmit]"  href="javascript:void(0)" onclick="submitEdit(event)" style="border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[tostatename]','[asktitle]','[color]');" >[tostatename]</a>
+<a  class="[dsubmit]"   onclick="submitEdit(event)" style="border-color:[color];" title="[TEXT:to] [statename]"  onmouseover="document.getElementById('seltrans').value='[statevalue]';askForTransition(event,'[tostatename]','[asktitle]','[color]');" >[tostatename]</a>
 [ENDBLOCK NEWSTATE] </div>
 
-<a  href="javascript:void(0)" id="aSubmit2" style="display:[dvalidate]" title="[TEXT:Save without change state]. [TEXT:Use Ctrl-S to save and stay in edit mode]"   onclick="submitEdit(event)" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);"></a>
+<a   id="aSubmit2" style="display:[dvalidate]" title="[TEXT:Save without change state]. [TEXT:Use Ctrl-S to save and stay in edit mode]"   onclick="submitEdit(event)" onmouseover="document.getElementById('seltrans').value='-';askForTransition(event);"></a>
 <script>addEvent(window,"load",mvSaveAnchor);</script>
   </td>
 </tr>
@@ -53,7 +53,7 @@ var WattrNtitle=new Array([Wattrntitle]);
   <table width="100%"><tr><td style="padding-left:20px">[avalue]</td></tr></table>
 </div>
 [ENDBLOCK FINPUTS]
-<a  href="javascript:void(0)" id="aSubmit3"  class="state"   onclick="submitEdit(event)" >ZOU</a>
+<a   id="aSubmit3"  class="state"   onclick="submitEdit(event)" >ZOU</a>
 </fieldset></div>
 
 </td></tr>

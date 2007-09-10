@@ -64,7 +64,7 @@ DIV.search {
 </thead>
 </table>
 
-<table align="right"><tr><td align="right"><a href="javascript:void(0)" title="[TEXT:Undisplay the search query]" onclick="maskfilter()" id="amask" >[TEXT:Mask]</a><a href="javascript:void(0)" style="display:none" onclick="unmaskfilter()" id="aunmask" title="[TEXT:View the search query]">[TEXT:Unmask]</a></td>
+<table align="right"><tr><td align="right"><a  title="[TEXT:Undisplay the search query]" onclick="maskfilter()" id="amask" >[TEXT:Mask]</a><a  style="display:none" onclick="unmaskfilter()" id="aunmask" title="[TEXT:View the search query]">[TEXT:Unmask]</a></td>
 </tr></table>
 <br>
 
