@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-17 16:13+0200\n"
-"PO-Revision-Date: 2007-08-17 16:13+0200\n"
+"POT-Creation-Date: 2007-09-11 09:23+0200\n"
+"PO-Revision-Date: 2007-09-11 09:23+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -49,19 +49,6 @@ msgid "action"
 msgstr "action"
 
 #, c-format
-msgid "root for %s"
-msgstr "racine pour %s"
-
-msgid "default folder"
-msgstr "dossier par défaut"
-
-msgid "folder"
-msgstr "dossier"
-
-msgid "search"
-msgstr "recherche"
-
-#, c-format
 msgid "the document %s has been sended"
 msgstr "Le document %s a été envoyé"
 
@@ -94,6 +81,100 @@ msgstr "envoi de %s à %s"
 #, c-format
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
+
+msgid "No identificator"
+msgstr "Pas d'identificateurs"
+
+msgid "Properties"
+msgstr "Propriétés"
+
+msgid "View latest"
+msgstr "révision courante"
+
+msgid "Edit"
+msgstr "Éditer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+#, c-format
+msgid "Sure delete %s ?"
+msgstr "Etes vous sur de vouloir supprimer %s ?"
+
+msgid "restore"
+msgstr "restaurer"
+
+msgid "Change state"
+msgstr "Changer d'état"
+
+msgid "Lock"
+msgstr "Verrouiller"
+
+msgid "security"
+msgstr "sécurité"
+
+msgid "Unlock"
+msgstr "Déverrouiller"
+
+msgid "Revise"
+msgstr "Réviser"
+
+msgid "Change profile"
+msgstr "Changer de profil"
+
+msgid "History"
+msgstr "Historique"
+
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgid "Sure duplicate ?"
+msgstr "Etes vous sur de vouloir dupliquer"
+
+msgid "goaccess"
+msgstr "accessibilités..."
+
+msgid "Add to basket"
+msgstr "Ajouter au porte-documents"
+
+msgid "Change icon"
+msgstr "Changer d'icone"
+
+msgid "Add postit"
+msgstr "Ajouter un post-it"
+
+msgid "View XML"
+msgstr "Voir XML"
+
+msgid "Document relations"
+msgstr "Relations du document"
+
+msgid "Access path list"
+msgstr "Liste des chemin d'accès"
+
+msgid "Search linked documents"
+msgstr "Recherche des documents liés"
+
+msgid "specialedit"
+msgstr "Éditions spéciales"
+
+msgid "specialview"
+msgstr "Vues spéciales"
+
+#, c-format
+msgid "Change state %s"
+msgstr "Changement d'état vers %s"
+
+#, c-format
+msgid "Comment for change state to %s"
+msgstr "Raison du changement d'état vers %s"
+
+msgid "chgstates"
+msgstr "Changer d'état"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr "Confirmation : %s ?"
 
 msgid "no document reference"
 msgstr "pas de référence au document"
@@ -231,6 +312,19 @@ msgstr "absence d'adresse couriel"
 
 msgid "no avalaible persons found"
 msgstr "pas de personnes valides trouvées"
+
+#, c-format
+msgid "root for %s"
+msgstr "racine pour %s"
+
+msgid "default folder"
+msgstr "dossier par défaut"
+
+msgid "folder"
+msgstr "dossier"
+
+msgid "search"
+msgstr "recherche"
 
 msgid "no import file specified"
 msgstr "pas de fichier d'import spécifié"
@@ -445,100 +539,6 @@ msgstr "modoption: document [%d] n'est pas en vie"
 msgid "geometry saved : %s"
 msgstr "disposition sauvée : %s"
 
-msgid "No identificator"
-msgstr "Pas d'identificateurs"
-
-msgid "Properties"
-msgstr "Propriétés"
-
-msgid "View latest"
-msgstr "révision courante"
-
-msgid "Edit"
-msgstr "Éditer"
-
-msgid "Delete"
-msgstr "Supprimer"
-
-#, c-format
-msgid "Sure delete %s ?"
-msgstr "Etes vous sur de vouloir supprimer %s ?"
-
-msgid "restore"
-msgstr "restaurer"
-
-msgid "Change state"
-msgstr "Changer d'état"
-
-msgid "Lock"
-msgstr "Verrouiller"
-
-msgid "security"
-msgstr "sécurité"
-
-msgid "Unlock"
-msgstr "Déverrouiller"
-
-msgid "Revise"
-msgstr "Réviser"
-
-msgid "Change profile"
-msgstr "Changer de profil"
-
-msgid "History"
-msgstr "Historique"
-
-msgid "Duplicate"
-msgstr "Dupliquer"
-
-msgid "Sure duplicate ?"
-msgstr "Etes vous sur de vouloir dupliquer"
-
-msgid "goaccess"
-msgstr "accessibilités..."
-
-msgid "Add to basket"
-msgstr "Ajouter au porte-documents"
-
-msgid "Change icon"
-msgstr "Changer d'icone"
-
-msgid "Add postit"
-msgstr "Ajouter un post-it"
-
-msgid "View XML"
-msgstr "Voir XML"
-
-msgid "Document relations"
-msgstr "Relations du document"
-
-msgid "Access path list"
-msgstr "Liste des chemin d'accès"
-
-msgid "Search linked documents"
-msgstr "Recherche des documents liés"
-
-msgid "specialedit"
-msgstr "Éditions spéciales"
-
-msgid "specialview"
-msgstr "Vues spéciales"
-
-#, c-format
-msgid "Change state %s"
-msgstr "Changement d'état vers %s"
-
-#, c-format
-msgid "Comment for change state to %s"
-msgstr "Raison du changement d'état vers %s"
-
-msgid "chgstates"
-msgstr "Changer d'état"
-
-#, c-format
-msgid "Sure %s ?"
-msgstr "Confirmation : %s ?"
-
 #, c-format
 msgid "%s has been unlocked"
 msgstr "%s a été déverrouillé"
@@ -655,14 +655,6 @@ msgstr "%d documents ont été enlevés"
 #, c-format
 msgid "%s inserted"
 msgstr "%s inséré"
-
-#, c-format
-msgid "%s has been added in %s folder"
-msgstr "%s a été ajouté dans le dossier %s"
-
-#, c-format
-msgid "%s has been removed in %s folder"
-msgstr "%s a été supprimé dans le dossier %s"
 
 #, c-format
 msgid "Family %s not exist"
@@ -939,6 +931,14 @@ msgstr ""
 "le document n'est pas référencé : la modification du profil d'accès\n"
 "ne peut pas être appliquée"
 
+#, c-format
+msgid "%s has been added in %s folder"
+msgstr "%s a été ajouté dans le dossier %s"
+
+#, c-format
+msgid "%s has been removed in %s folder"
+msgstr "%s a été supprimé dans le dossier %s"
+
 msgid "no comment"
 msgstr "pas de commentaire"
 
@@ -1022,6 +1022,10 @@ msgstr "les cookies semblent être bloqués par le navigateur"
 #, c-format
 msgid "%s all "
 msgstr "%s tout"
+
+#, c-format
+msgid "Sure duplicate %s ?"
+msgstr "Etes vous sur de vouloir dupliquer %s"
 
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
@@ -1116,9 +1120,8 @@ msgstr "recherche %s est %s dans %s"
 msgid "Family (#%s) not exists"
 msgstr "La famille (n°%s) n'existe pas"
 
-#, c-format
-msgid "Sure duplicate %s ?"
-msgstr "Etes vous sur de vouloir dupliquer %s"
+msgid "Edit in new window"
+msgstr "Éditer dans une nouvelle fenêtre"
 
 msgid "Family is not instanciate"
 msgstr "La famille n'est pas instanciée"
@@ -2072,6 +2075,68 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "Document basket"
+msgstr "Porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+msgid "Folder cleared"
+msgstr "Dossier vidé"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Document %s inserted"
+msgstr "Insertion document %s "
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
+#, c-format
+msgid "Document %s umounted"
+msgstr "Document %s enlevé"
+
 msgid "document creation"
 msgstr "Création du document"
 
@@ -2298,6 +2363,9 @@ msgstr "contrôle dynamique"
 msgid "no view control"
 msgstr "pas de contrôle de vues"
 
+msgid "no folder"
+msgstr "pas de dossier"
+
 msgid "no allocate"
 msgstr "pas d'affectation"
 
@@ -2307,71 +2375,6 @@ msgstr "nouvelle %s"
 
 msgid "confidential document"
 msgstr "document confidentiel"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "Document basket"
-msgstr "Porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
-msgid "Folder cleared"
-msgstr "Dossier vidé"
-
-#, c-format
-msgid "Document %s inserted"
-msgstr "Insertion document %s "
-
-#, c-format
-msgid "Document %s umounted"
-msgstr "Document %s enlevé"
-
-msgid "no folder"
-msgstr "pas de dossier"
 
 #, c-format
 msgid "invalid syntax for [%s] for enum attribute"
@@ -3767,6 +3770,21 @@ msgstr "Actualiser les groupes"
 msgid "Generic Management"
 msgstr "Gestion générique"
 
+msgid "Search containing characters"
+msgstr "Recherche contenant les caractères"
+
+msgid "Search Words"
+msgstr "Recherche des mots"
+
+msgid "Send search"
+msgstr "Lancer la recherche"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "toedit"
+msgstr "éditer"
+
 msgid "Sort"
 msgstr "Tri"
 
@@ -3921,21 +3939,6 @@ msgstr "Nouvelle catégorie"
 
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
-
-msgid "Search containing characters"
-msgstr "Recherche contenant les caractères"
-
-msgid "Search Words"
-msgstr "Recherche des mots"
-
-msgid "Send search"
-msgstr "Lancer la recherche"
-
-msgid "Go"
-msgstr "Go"
-
-msgid "toedit"
-msgstr "éditer"
 
 msgid "Family preferences"
 msgstr "Préférences des familles"
@@ -4107,36 +4110,6 @@ msgstr "fichier VCS"
 
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
-
-msgid "View family"
-msgstr "Voir la famille"
-
-msgid "initial reference"
-msgstr "référence initiale"
-
-msgid "reference for this revision"
-msgstr "référence de la dernière révision"
-
-msgid "author"
-msgstr "auteur"
-
-msgid "allocated to"
-msgstr "Affecté à"
-
-msgid "locked by"
-msgstr "verrouillé par"
-
-msgid "creation date"
-msgstr "date de création"
-
-msgid "access date"
-msgstr "date de dernière consultation"
-
-msgid " profile access"
-msgstr " profil d'accès"
-
-msgid "control view"
-msgstr "contrôle de vues"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -4349,6 +4322,9 @@ msgstr "version"
 msgid "rev"
 msgstr "rev"
 
+msgid "author"
+msgstr "auteur"
+
 msgid "date"
 msgstr "date"
 
@@ -4363,6 +4339,33 @@ msgstr "Ouvrir dans une nouvelle fenêtre"
 
 msgid "Empty Post-It"
 msgstr "Post-It vide"
+
+msgid "View family"
+msgstr "Voir la famille"
+
+msgid "initial reference"
+msgstr "référence initiale"
+
+msgid "reference for this revision"
+msgstr "référence de la dernière révision"
+
+msgid "allocated to"
+msgstr "Affecté à"
+
+msgid "locked by"
+msgstr "verrouillé par"
+
+msgid "creation date"
+msgstr "date de création"
+
+msgid "access date"
+msgstr "date de dernière consultation"
+
+msgid " profile access"
+msgstr " profil d'accès"
+
+msgid "control view"
+msgstr "contrôle de vues"
 
 msgid "primary folder"
 msgstr "Dossier principal"

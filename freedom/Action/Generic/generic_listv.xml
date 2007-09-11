@@ -87,7 +87,7 @@ addEvent(window,"load",focusInput);
 
 
 [ZONE [APPNAME]:GENERIC_BARMENU?catg=[catg]]
-[ZONE FDL:POPUPDOCMENU?zone=GENERIC:POPUPLISTDETAIL%26famid=[famid]]
+[ZONE FDL:POPUPDOCMENU?mzone=GENERIC:POPUPLISTDETAIL%26famid=[famid]]
 <br><br>
 <div onmouseup="closeAllMenu();">
 
