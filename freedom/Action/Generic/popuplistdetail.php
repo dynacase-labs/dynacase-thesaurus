@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popuplistdetail.php,v 1.1 2007/07/31 13:49:44 eric Exp $
+ * @version $Id: popuplistdetail.php,v 1.2 2007/09/11 07:31:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,6 +62,15 @@ function popuplistdetail(&$action) {
 				 "control"=>"false",
 				 "tconfirm"=>"",
 				 "target"=>$target,
+				 "visibility"=>POPUP_ACTIVE,
+				 "submenu"=>"",
+				 "barmenu"=>"false"),
+	       "editdocw"=>array( "descr"=>_("Edit in new window"),
+				 "url"=>"$surl&app=GENERIC&action=GENERIC_EDIT&rzone=$zone&id=$docid",
+				 "confirm"=>"false",
+				 "control"=>"false",
+				 "tconfirm"=>"",
+				 "target"=>"_blank",
 				 "visibility"=>POPUP_ACTIVE,
 				 "submenu"=>"",
 				 "barmenu"=>"false"));
@@ -185,7 +194,7 @@ function popuplistdetail(&$action) {
 				   "barmenu"=>"false")));
 
   changeMenuVisibility($action,$tlink,$doc);
-  
+  $tlink["editdocw"]["visibility"]=$tlink["editdoc"]["visibility"];
   popupdoc($action,$tlink);
 
 
