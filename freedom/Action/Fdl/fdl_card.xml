@@ -43,7 +43,7 @@
 
 <div width="100%" class="tablesimple" id="terrible"
      style="cursor:crosshair;"
-     onContextMenu="viewdocmenu(event,'[id]');return false" 
+     onContextMenu="return viewdocmenu(event,'[id]');" 
      onMouseDown="if (shiftPushed(event)) viewdocmenu(event,'[id]')"      >
 
 [ZONE FDL:VIEWCARD]

@@ -52,10 +52,13 @@ function viewdocmenu(event,docid,onlyctrl,upobject,sourceobject) {
     if (ctrlPushed(event) && altPushed(event)) {
       menuapp='FDL';
       menuaction='POPUPDOCDETAIL';
-    }     
+    } else if (altPushed(event)) {
+      return true;
+    } 
   }
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
   viewsubmenu(event,menuurl,upobject,sourceobject);
+  return false;
 }
 
 
@@ -71,7 +74,7 @@ function viewdocsubmenu(event,docid,submenu,upobject) {
     if (ctrlPushed(event) && altPushed(event)) {
       menuapp='FDL';
       menuaction='POPUPDOCDETAIL';
-    }     
+    } 
   }
 
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
