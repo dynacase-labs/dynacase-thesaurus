@@ -139,7 +139,8 @@ function openMenuOrProperties(event,menuid,itemid,wtarget) {
       if (wtarget) target=wtarget;
       else if (docTarget)  target=docTarget;
       else target='fdoc';
-  
+      if ((target=='fdoc') && (! parent.fdoc)) target='_blank'; // open in new because can be unvisible target
+
       if (shiftKey ) {
 	openMenu(event,menuid, itemid);
       } else {
