@@ -31,6 +31,13 @@ if [ "$1" = "I" ] ; then
       else 
 	  if [ -f /usr/share/postgresql/8.2/contrib/tsearch2.sql ]; then
 	      psql $dbfree -f /usr/share/postgresql/8.2/contrib/tsearch2.sql
+          else 
+	     if [ -f /usr/share/postgresql/8.1/contrib/tsearch2.sql ]; then
+	        psql $dbfree -f /usr/share/postgresql/8.1/contrib/tsearch2.sql
+             else
+		 echo "no postgresql tsearch2 found"
+		 exit 1
+	     fi
 	  fi
       fi
   fi
