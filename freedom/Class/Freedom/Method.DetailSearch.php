@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.51 2007/08/17 14:51:00 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.52 2007/09/17 08:21:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -167,7 +167,7 @@ function getSqlDetailFilter() {
       }
       if ($taid[$k] == "revdate") {
 	list($dd,$mm,$yyyy) = explode("/",$tkey[$k]);
-	$tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
+	if ($yyyy > 0) $tkey[$k]=mktime (0,0,0,$mm,$dd,$yyyy);
       }
     }
     
@@ -276,7 +276,7 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
   $taid = $this->getTValue("SE_ATTRIDS");
   $tf = $this->getTValue("SE_FUNCS");
 
-  if ((count($tkey) > 1) || ($tkey[0] != "")) {
+  if ((count($taid) > 1) || ($taid[0] != "")) {
 
     $fdoc=new_Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
     $zpi=$fdoc->GetNormalAttributes();
@@ -286,14 +286,13 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $zpi["owner"]->labelText=_("id owner");
     $zpi["svalues"]->labelText=_("any values");
   
-
-    foreach ($tkey as $k=>$v) {
+    foreach ($taid as $k=>$v) {
       $tcond[]["condition"]=sprintf("%s %s %s",				    
 				    $zpi[$taid[$k]]->labelText,
 				    _($this->top[$tf[$k]]["label"]),
  				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
-       if ($v[0]=='?') {
- 	$tparm[substr($v,1)]=$taid[$k];
+       if ($tkey[$k][0]=='?') {
+ 	$tparm[substr($tkey[$k],1)]=$taid[$k];
        }				    
     }
     $this->lay->SetBlockData("COND", $tcond);
@@ -448,8 +447,9 @@ function editdsearch() {
   $cond=""; 
   $tcond=array();
 
-  if ((count($tkey) > 1) || ($tkey[0] != "")) {
-    foreach($tkey as $k=>$v) {
+  if ((count($taid) > 1) || ($taid[0] != "")) {
+    foreach($taid as $k=>$va) {
+      $v=$tkey[$k];
       $oa=$fdoc->getAttribute($taid[$k]);
       $tcond[$k]= array("OLCOND"   => "olcond$k",
 			"ATTRCOND" => "attrcond$k",
