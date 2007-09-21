@@ -3,7 +3,7 @@
  * Get Values in XML form
  *
  * @author Anakeen 2006
- * @version $Id: getdocvalues.php,v 1.2 2006/06/22 16:18:05 eric Exp $
+ * @version $Id: getdocvalues.php,v 1.3 2007/09/21 13:51:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FDC
@@ -55,3 +55,4 @@ function getdocvalues(&$action) {
   $action->lay->set("delay",microtime_diff(microtime(),$mb));					
 
 }
+?>
