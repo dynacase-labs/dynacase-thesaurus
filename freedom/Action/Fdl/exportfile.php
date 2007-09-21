@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.15 2007/04/12 12:00:19 eric Exp $
+ * @version $Id: exportfile.php,v 1.16 2007/09/21 16:21:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,6 +30,7 @@ function exportfile(&$action)
   //  $imgheight = GetHttpVars("height");
   $imgwidth = GetHttpVars("width");
   $inline = (GetHttpVars("inline")=="yes");
+  $cache = (GetHttpVars("cache","yes")=="yes");
 
   $isControled=false;
 
@@ -56,7 +57,7 @@ function exportfile(&$action)
     $mimetype = "";
   }
 
-  DownloadVault($action, $vaultid, $isControled, $mimetype,$imgwidth,$inline);
+  DownloadVault($action, $vaultid, $isControled, $mimetype,$imgwidth,$inline,$cache);
 
     
   exit;

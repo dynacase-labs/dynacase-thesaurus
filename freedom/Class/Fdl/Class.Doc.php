@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.412 2007/09/04 09:55:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.413 2007/09/21 16:21:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3206,7 +3206,7 @@ final public function PostInsert()  {
 	      $vid=$reg[2];
 	
 	      $htmlval=$action->GetParam("CORE_BASEURL").
-		"app=FDL"."&action=EXPORTFILE&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
+		"app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
 	    } else {
 	      $htmlval=$action->GetImageUrl($avalue);
 	    }
@@ -3237,7 +3237,7 @@ final public function PostInsert()  {
 	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
 	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
-	      "app=FDL"."&action=EXPORTFILE&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
+	      "app=FDL"."&action=EXPORTFILE&size={$info->size}&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
 	      ."\">".$fname.
 	      "</A>";
 	    }
