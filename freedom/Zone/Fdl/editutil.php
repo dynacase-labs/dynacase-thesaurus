@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.122 2007/09/03 14:27:08 eric Exp $
+ * @version $Id: editutil.php,v 1.123 2007/09/24 16:11:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -504,7 +504,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	if (!$notd) $input.="</td><td>";   
       }
 		
-      if ($oattr->elink != "") {
+      
+    } else {
+      if (!$notd) $input.="</td><td>";
+    }
+    if ($oattr->elink != "") {
 
 	if (substr($oattr->elink,0,3)=="JS:") {
 	  // javascript action
@@ -516,40 +520,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  $url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
 
 	  $target= $attrid;
-	  /* --- for idoc ---
-	   if (ereg('\[(.*)\](.*)', $oattr->elink, $reg)) {
-	   // special case wit javascript inputs
-
-	   $oattr->elink=$reg[2];
-	   $tabFunction=explode(":",$reg[1]);
-
-	   if ( $tabFunction[0]!=""){
-	   $target = $tabFunction[0];
-	   }
-	   else{
-	   $target=$attrid;
-	   }
-	   $function=false;
-	   $i=1;
-	   while ( $tabFunction[$i]!=""){
-	   $function=true;
-	   ereg('(.*)\((.*)\)', $tabFunction[$i], $arg);
-	   //print_r($arg);
-	   $args[$i]=addslashes($arg[2]);
-	   $tabFunction[$i]=$arg[1];
-	   $string_function.="doing($tabFunction[$i],'$args[$i]');";
-	   $i++;
-	   }
-	   }
-      
-    
-
-
-	   else {
-	   $target= $attrid;
-	   }
-	   --- end for idoc */
-
+	  
 	  $jsfunc="subwindowm(300,500,'$target','$url');";
 	}
 	
@@ -565,10 +536,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  $input.="\">";
 	}      
       }
-    } else {
-      if (!$notd) $input.="</td><td>";
-    }
-
     if (GetHttpVars("viewconstraint")=="Y") { // set in modcard
       if ($oattr->phpconstraint != "") {
 	$res=$doc->verifyConstraint($oattr->id,$index);
