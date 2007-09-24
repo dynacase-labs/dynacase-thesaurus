@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_main.php,v 1.24 2007/03/06 18:54:23 eric Exp $
+ * @version $Id: faddbook_main.php,v 1.25 2007/09/24 13:35:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -176,7 +176,8 @@ function faddbook_main(&$action)
 
   $psearch = $pstart * $lpage;
   $fsearch = $psearch + $lpage + 1;
-  $cl = $rq=getChildDoc($dbaccess, $dirid, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam);
+  $cl = $rq=getChildDoc($dbaccess, $dirid, $psearch, $fsearch, $filter, $action->user->id, "TABLE", $sfam,false,"title");
+
   $dline = array(); $il = 0;
 
 
