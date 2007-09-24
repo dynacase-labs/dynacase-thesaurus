@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.413 2007/09/21 16:21:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.414 2007/09/24 16:10:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1920,6 +1920,7 @@ final public function PostInsert()  {
   * @return string error message, if no error empty string
   */
   final private function clearFullAttr($attrid,$index=-1) {
+    $attrid=strtolower($attrid);
     $ak=$attrid.'_txt';
     if ($index == -1) {
       $this->$ak='';
