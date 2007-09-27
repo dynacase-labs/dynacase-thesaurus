@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.414 2007/09/24 16:10:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.415 2007/09/27 12:23:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -266,8 +266,8 @@ Class Doc extends DocCtrl
    * @public array
    */
   public $cviews=array("FDL:VIEWBODYCARD",
-		    "FDL:VIEWABSTRACTCARD",
-		    "FDL:VIEWTHUMBCARD");
+		       "FDL:VIEWABSTRACTCARD",
+		       "FDL:VIEWTHUMBCARD");
   public $eviews=array("FDL:EDITBODYCARD");
 
 
@@ -3274,8 +3274,24 @@ final public function PostInsert()  {
 	  break;
 	case "enum": 
 	  $enumlabel = $oattr->getEnumlabel();
-	  if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
-	  else $htmlval=$avalue;
+	  $colors=$oattr->getOption("boolcolor");
+	  if ($colors!="") {
+	    if (isset($enumlabel[$avalue])) {
+	      reset($enumlabel);
+	      $tcolor=explode(",",$colors);
+	      if (current($enumlabel) == $enumlabel[$avalue]) {
+		$color=$tcolor[0];
+		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;-&nbsp;</pre>',$color);
+	      } else {
+		$color=$tcolor[1];
+		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;&bull;&nbsp;</pre>',$color);
+	      }
+	    } else $htmlval=$avalue;	    
+	  } else {
+	    if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
+	    else $htmlval=$avalue;
+
+	  }
 	
 	  break;    
 	case "array": 
@@ -3984,8 +4000,6 @@ final public function PostInsert()  {
       }
     // Out
 
-
-
     $this->lay->SetBlockData("TABLEBODY",$frames);
     $this->lay->SetBlockData("TABS",$ttabs);
     $this->lay->Set("ONETAB",count($ttabs)>0);
@@ -4353,11 +4367,11 @@ final public function PostInsert()  {
 						  $value);
 		
 		
-	$tableframe[$v]["NORMALROW"]="NORMALROW$i";		
-	$tableframe[$v]["ARRAYROW"]="ARRAYROW$i";
+	$tableframe[$v]["SINGLEROW"]=true;
+
 	$vlabel=$listattr[$i]->getOption("vlabel");
-	if (($listattr[$i]->type=="array")||(($listattr[$i]->type=="htmltext")&&($vlabel!='left'))||($vlabel=='up')||($vlabel=='none')) $this->lay->SetBlockData("ARRAYROW$i",array(array("zou"=>"zou")));
-	else	$this->lay->SetBlockData("NORMALROW$i",array(array("zou"=>"zou")));
+	if (($listattr[$i]->type=="array")||(($listattr[$i]->type=="htmltext")&&($vlabel!='left'))||($vlabel=='up')||($vlabel=='none')) $tableframe[$v]["SINGLEROW"]=false;
+
 	$tableframe[$v]["viewlabel"]=(($listattr[$i]->type != "array")&&($vlabel!='none'));
 	$v++;
 		
@@ -4386,15 +4400,11 @@ final public function PostInsert()  {
     }
     
     $this->lay->SetBlockData("HIDDENS",$thidden);
-    $this->lay->SetBlockData("TABLEBODY",$frames);
+    $this->lay->SetBlockData("TABLEBODY",$frames);    
     $this->lay->SetBlockData("TABS",$ttabs);
     $this->lay->Set("ONETAB",count($ttabs)>0);
     if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
-  
-  
-
-      
-  
+    
   
   }
 

@@ -3,7 +3,7 @@
  * Generate Layout to edit array (table)
  *
  * @author Anakeen 2005
- * @version $Id: viewarray.php,v 1.3 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: viewarray.php,v 1.4 2007/09/27 12:23:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -52,7 +52,7 @@ function viewarray(&$action) {
   //$oattr=$doc->getAttribute($arrayid);    
   //$xmlarray=$doc->GetHtmlAttrValue($arrayid,$target,$ulink);
   $xmlarray=$doc->GetHtmlValue($doc->getAttribute($arrayid),
-			       $doc->getValue($arrayid),$target,$htmllink);
+			       $doc->getValue($arrayid),$target,$ulink);
 
   $action->lay->set("array",$xmlarray);
   
