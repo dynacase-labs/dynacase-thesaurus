@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.137 2007/08/02 09:56:48 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.138 2007/09/27 14:50:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -590,7 +590,7 @@ function getKindDoc($dbaccess,
 
   return getChildDoc($dbaccess, 
 		     0,0,$limit,$sqlfilter ,$userid,"TABLE",
-		     getFamIdFromName($dbaccess,$famname));
+		     getFamIdFromName($dbaccess,$famname),false,"title");
 }
 function sqlval2array($sqlvalue) {
   // return values in comprehensive structure
