@@ -10,14 +10,14 @@
             [BLOCK [TABLEVALUE]]
 <table style="width:100%" cellspacing="0">
 <tr class="[classback]">
-            [BLOCK [NORMALROW]]
+            [IF SINGLEROW]
   <td class="[labelclass]"  width="30%"><span >[name]&nbsp;:&nbsp;</span></td>
   <td >[inputtype]</td>
-            [ENDBLOCK [NORMALROW]]
-            [BLOCK [ARRAYROW]]
+            [ENDIF SINGLEROW]
+            [IFNOT SINGLEROW]
   
   <td colspan="3">[IF viewlabel]<span class="[labelclass]" >[name]&nbsp;:&nbsp;</span><br>[ENDIF viewlabel][inputtype]</td>
-            [ENDBLOCK [ARRAYROW]]
+            [ENDIF SINGLEROW]
 </tr>
 </table>
            [ENDBLOCK [TABLEVALUE]]
