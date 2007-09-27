@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.44 2006/09/29 15:08:36 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.45 2007/09/27 13:57:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -492,7 +492,7 @@ Class DocCtrl extends DocLDAP {
     $err="";
     $sug=array(); // suggestions
     if (trim($title)!="") {
-      if (trim($docid)=="") $err=_("the document id is empty");
+      if (trim($docid)=="") $err=_("need to select the document with the list");
       else {
 	$d=new_doc($this->dbaccess,$docid);
 	if (! $d->isAlive()) $err=sprintf(_("the document id [%s] for this attribute is not valid"),$docid);
