@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.130 2007/08/06 08:18:48 eric Exp $
+ * @version $Id: import_file.php,v 1.131 2007/09/27 13:56:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -724,6 +724,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     }
     $iattr++;
   }
+  
   // update title in finish
   $doc->refresh(); // compute read attribute
 
@@ -887,7 +888,8 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     if ($doc->isAffected()) {
       $tcr["specmsg"]=$doc->Refresh(); // compute read attribute
       $err=$doc->PostModify(); // compute read attribute
-      if ($err=="") $doc->modify();
+      if ($err=="") $err=$doc->modify();
+
       if ($err=="-") $err=""; // not really an error add addfile must be tested after
       if ($err=="") {
 	$doc->AddComment(sprintf(_("updated by import")));
