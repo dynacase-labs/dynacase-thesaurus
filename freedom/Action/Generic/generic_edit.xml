@@ -74,6 +74,7 @@ addEvent(window,"load",focusFirst);
 <input type="hidden" name="vid" value="[vid]">
 <input type="hidden" name="ezone" value="[ezone]">
 <input type="hidden" name="rzone" value="[rzone]">
+<input type="hidden" name="rvid" value="[rvid]">
 <input type="hidden" name="noredirect" value="0">
 <input type="hidden" name="catgid" >
 <input type="hidden" name="noconstraint" value="N">

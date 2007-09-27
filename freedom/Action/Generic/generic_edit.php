@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.64 2007/08/08 15:35:34 eric Exp $
+ * @version $Id: generic_edit.php,v 1.65 2007/09/27 13:57:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,6 +40,7 @@ function generic_edit(&$action) {
   $usefor = GetHttpVars("usefor"); // default values for a document
   $zonebodycard = GetHttpVars("zone"); // define view action
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $rvid = GetHttpVars("rvid"); // special zone when finish edition
   $rtarget = GetHttpVars("rtarget","_self"); // special zone when finish edition return target
 
   $vid = GetHttpVars("vid"); // special controlled view
@@ -48,6 +49,7 @@ function generic_edit(&$action) {
   $action->lay->Set("vid", $vid);
   $action->lay->Set("ezone", $zonebodycard); // use for return in case of constraint
   $action->lay->Set("rzone", $rzone);
+  $action->lay->Set("rvid", $rvid);
   $action->lay->Set("rtarget", $rtarget);
   $action->lay->Set("SELFTARGET",($rtarget=="_self"));
   // Set the globals elements

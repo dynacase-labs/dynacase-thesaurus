@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: editbarmenu.php,v 1.4 2007/08/02 14:17:50 eric Exp $
+ * @version $Id: editbarmenu.php,v 1.5 2007/09/27 13:57:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ function editbarmenu(&$action) {
   $docid = GetHttpVars("id");
   $zonebodycard = GetHttpVars("zone"); // define view action  
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $rvid = GetHttpVars("rvid"); // special zone when finish edition
   $usefor = GetHttpVars("usefor"); // default values for a document
   $rtarget = GetHttpVars("rtarget","_self"); // special zone when finish edition return target
   $classid = GetHttpVars("classid",getDefFam($action)); // use when new doc or change class
@@ -45,7 +46,8 @@ function editbarmenu(&$action) {
 
   $action->lay->Set("boverdisplay", "none");
   $action->lay->Set("INPUTCONSTRAINT",false);
-   $action->lay->Set("rzone", $rzone);
+  $action->lay->Set("rzone", $rzone);
+  $action->lay->Set("rvid", $rvid);
   $action->lay->Set("NOSAVE", (ereg("[A-Z]+:[^:]+:V", $zonebodycard, $reg)));
   if (GetHttpVars("viewconstraint")=="Y") {
     $action->lay->Set("bconsdisplay", "");

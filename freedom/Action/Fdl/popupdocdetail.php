@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.23 2007/08/01 14:04:29 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.24 2007/09/27 13:57:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -238,6 +238,7 @@ function getpopupdocdetail(&$action,$docid) {
  */
 function addCvPopup(&$tlink,&$doc,$target="_self") {
  
+  $rvid=getHttpVars("vid"); // for the return
   if ($doc->cvid > 0 )  {
 
     $surl=getParam("CORE_STANDURL");
@@ -265,7 +266,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
 	    if ($v == "VEDIT") {
 	      if ($cud) {	    
 		if ($cvdoc->control($cvk) == "") {
-		  $tv[$cvk] = array("typeview"=>N_("specialedit"),
+		  $tv[$cvk] = array("typeview"=>N_("specialedit"),# N_("specialedit %s")
 				    "idview"   => $cvk,
 				    "zoneview" => $tz[$k],
 				    "txtview"  => $tl[$k]);
@@ -273,7 +274,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
 	      }
 	    } else {      
 	      if ($cvdoc->control($cvk) == "") {
-		$tv[$cvk] = array("typeview"=>N_("specialview"),
+		$tv[$cvk] = array("typeview"=>N_("specialview"),# N_("specialview %s") 
 				  "idview"   => $cvk,
 				  "zoneview" => $tz[$k],
 				  "txtview"  => $tl[$k]);
@@ -284,16 +285,21 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
       }
     } 
 
+    
     foreach ($tv as $v) {
-      $tlink[$v["idview"]]=array( "descr"=>$v["txtview"],
-				  "url"=>($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&vid=".$v["idview"]."&id=$docid",
-				 "confirm"=>"false",
-				 "control"=>"false",
-				 "tconfirm"=>"",
-				 "target"=>$target,
-				 "visibility"=>POPUP_ACTIVE,
-				 "submenu"=>$v["typeview"],
-				 "barmenu"=>"false");
+      $count[$v["typeview"]]++;
+    }
+
+    foreach ($tv as $v) {
+      $tlink[$v["idview"]]=array( "descr"=>($count[$v["typeview"]]>1)?$v["txtview"]:sprintf(_($v["typeview"]. " %s"),$v["txtview"]) ,
+				  "url"=>($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&rvid=$rvid&vid=".$v["idview"]."&id=$docid",
+				  "confirm"=>"false",
+				  "control"=>"false",
+				  "tconfirm"=>"",
+				  "target"=>$target,
+				  "visibility"=>POPUP_ACTIVE,
+				  "submenu"=>($count[$v["typeview"]]>1)?$v["typeview"]:"",
+				  "barmenu"=>"false");
     }
 
   

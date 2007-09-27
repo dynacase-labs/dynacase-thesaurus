@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: unlockfile.php,v 1.9 2006/10/04 09:25:50 eric Exp $
+ * @version $Id: unlockfile.php,v 1.10 2007/09/27 13:57:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: unlockfile.php,v 1.9 2006/10/04 09:25:50 eric Exp $
+// $Id: unlockfile.php,v 1.10 2007/09/27 13:57:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/unlockfile.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,6 +42,7 @@ function unlockfile(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $rvid = GetHttpVars("rvid"); // special zone when finish edition
   $auto = (GetHttpVars("auto","N")=="Y"); // just auto unlock
   $autoclose = (GetHttpVars("autoclose","N")=="Y"); // close window after
 
@@ -63,7 +64,10 @@ function unlockfile(&$action)
   if ($autoclose) {    
     header('Content-type: text/xml; charset=utf-8');
   } else {
-    redirect($action,"FDL","FDL_CARD&zone=$rzone&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+    $opt="";
+    if ($rzone!="") $opt="&zone=$rzone";
+    if ($rvid!="") $opt="&vid=$rvid";
+    redirect($action,"FDL","FDL_CARD$opt&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
   }
   
 }

@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.31 2007/05/10 13:01:26 eric Exp $
+ * @version $Id: generic_mod.php,v 1.32 2007/09/27 13:57:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -31,6 +31,7 @@ function generic_mod(&$action) {
   $retedit=(GetHttpVars("retedit","N")=="Y"); // true  if return need edition
   $noredirect=(GetHttpVars("noredirect")); // true  if return need edition
   $rzone = GetHttpVars("rzone"); // special zone when finish edition
+  $rvid = GetHttpVars("rvid"); // special zone when finish edition
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
@@ -87,6 +88,8 @@ function generic_mod(&$action) {
   
     if ($rzone != "") $zone="&zone=$rzone";
     else $zone="";
+    if ($rvid != "") $zone="&vid=$rvid";
+
     // $action->register("reload$ndocid","Y"); // to reload cached client file
     redirect($action,GetHttpVars("redirect_app","FDL"),
 	     GetHttpVars("redirect_act","FDL_CARD$zone&refreshfld=Y&id=$ndocid"),
