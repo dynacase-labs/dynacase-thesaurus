@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.99 2007/09/07 09:40:21 eric Exp $
+ * @version $Id: freedom_util.php,v 1.100 2007/09/28 15:28:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -100,8 +100,9 @@ function new_Doc($dbaccess, $id='',$latest=false) {
   if ($id > 0) {
 
     if (isset($gdocs[$id])) {
-      if (($gdocs[$id]->doctype!='W')||(!isset($gdoc[$id]->doc))) {
-	$doc = $gdocs[$id]; // optimize for speed
+      $doc= $gdocs[$id];
+      if (($doc->doctype!='W')||(!isset($doc->doc))) {
+	$doc = $gdocs[$id]; // optimize for speed	
 	return $doc;
       }
     }
