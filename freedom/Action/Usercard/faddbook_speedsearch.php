@@ -3,7 +3,7 @@
  * Freedom Address Book
  *
  * @author Anakeen 2000
- * @version $Id: faddbook_speedsearch.php,v 1.7 2005/10/06 13:18:42 eric Exp $
+ * @version $Id: faddbook_speedsearch.php,v 1.8 2007/09/28 15:24:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -58,8 +58,8 @@ function faddbook_speedsearch(&$action)
   if (count($searchfam)==0 || $vtext=="") return;
 
   $filter = array();
-  $opf = ( $ws!=1 ? "^" : "" );
-  $filter[] = "(title ~* '$opf".$vtext."')";
+  if ($ws) $filter[] = "(svalues ~* '".$vtext."')";
+  else $filter[] = "(title ~* '".$vtext."')";
   $cu = array();
   foreach ($searchfam as $ks => $vs) {
     $rq = getChildDoc($dbaccess, 0, 0, 25, $filter, $action->user->id, "TABLE", $vs, true, "title");
