@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.415 2007/09/27 12:23:40 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.416 2007/10/01 08:50:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -630,15 +630,17 @@ final public function PostInsert()  {
   }
   /**
    * convert to another family
+   * loose all revisions
    * @param int $fromid family identificator where the document will be converted
    * @param array $prevalues values which will be added before conversion
    * @return doc the document converted (don't reuse $this) if error return string message
    */
   final public function convert($fromid, $prevalues=array()) {
     
-    if ($this->fromid  == $fromid) return false; // no convert if not needed
     $cdoc = createDoc($this->dbaccess, $fromid);
     if (! $cdoc) return false;
+    if ($this->fromid  == $cdoc->fromid) return false; // no convert if not needed
+    if ($this->locked == -1) return false; // not revised document
     if ($cdoc->fromid == 0) return false;
     $f1doc=$this->getFamDoc();
     $f1from=$f1doc->title."[".$f1doc->id."]";
@@ -646,8 +648,8 @@ final public function PostInsert()  {
     $f2from=$f2doc->title."[".$f2doc->id."]";
     
     $cdoc->id = $this->id;
-    $cdoc->initid=$this->initid;
-    $cdoc->revision=$this->revision;
+    $cdoc->initid=$this->id;
+    $cdoc->revision=0;
     $cdoc->locked=$this->locked;
     $cdoc->comment=$this->comment;
     $values = $this->getValues();
@@ -667,6 +669,12 @@ final public function PostInsert()  {
     }
 
     $err=$cdoc->Modify();
+    if ($err=="") {
+      if ($this->revision > 0) {
+	$this->exec_query(sprintf("update fld set childid=%d where childid=%d",$cdoc->id,$this->initid));
+      }
+    }
+
     $cdoc->AddComment(sprintf(_("convertion from %s to %s family"),$f1from,$f2from));
 			      
     
