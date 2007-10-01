@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: view_workflow_graph.php,v 1.2 2007/01/18 17:12:31 eric Exp $
+ * @version $Id: view_workflow_graph.php,v 1.3 2007/10/01 16:52:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,18 +27,18 @@ function view_workflow_graph(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc=new_doc($dbaccess,$docid);
-  $cmd=getWshCmd();
+  $cmd=getWshCmd(false,$action->user->id);
 
   $filetype="svg";
   if ($action->Read("navigator","")=="EXPLORER") $filetype="png";
 
   $cmd.="--api=wdoc_graphviz --type=$type --docid=".$doc->id;
-  $svgfile="img-cache/w$type".$doc->id.".$filetype";
+  $svgfile="img-cache/w$type-".$action->getParam("CORE_LANG")."-".$doc->id.".$filetype";
   $dest=DEFAULT_PUBDIR."/$svgfile";
   $cmd .= "| dot -T$filetype> $dest";
 
   system($cmd);
-  //  print $cmd;
+  //  print_r2( $cmd);
 
   header("location:$svgfile");
   exit;
