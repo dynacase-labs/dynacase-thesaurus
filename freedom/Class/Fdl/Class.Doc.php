@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.418 2007/10/02 07:44:25 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.419 2007/10/02 07:52:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3340,7 +3340,7 @@ final public function PostInsert()  {
 		if ($va->mvisibility=="H") continue;
 		$hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
 		if ($va->type=="image" ) {
-		  $iwidth=$va->getOption("iwidth","128px");
+		  $iwidth=$va->getOption("iwidth","80px");
 		  if ($tval[$ka][$k]=="") $hval="";
 		  else if ($va->link=="")   $hval="<img width=\"$iwidth\" src=\"".$hval."\">";
 		  else {
