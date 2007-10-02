@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.417 2007/10/01 16:53:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.418 2007/10/02 07:44:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3344,7 +3344,7 @@ final public function PostInsert()  {
 		  if ($tval[$ka][$k]=="") $hval="";
 		  else if ($va->link=="")   $hval="<img width=\"$iwidth\" src=\"".$hval."\">";
 		  else {
-		    $hval=preg_replace("/>(.+)</","><img width=\"$iwidth\" src=\"\\1\"><" ,$hval);
+		    $hval=preg_replace("/>(.+)</",">&nbsp;<img class=\"button\" width=\"$iwidth\" src=\"\\1\">&nbsp;<" ,$hval);
 		  }
 		}
 		$tivalue[]=array("evalue"=>$hval,
