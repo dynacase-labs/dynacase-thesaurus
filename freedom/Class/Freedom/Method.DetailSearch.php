@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.52 2007/09/17 08:21:08 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.53 2007/10/03 13:07:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -348,14 +348,41 @@ function editdsearch() {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/edittable.js");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/editdsearch.js");
 
-  $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,0,"TABLE");
 
-  while (list($k,$cdoc)= each ($tclassdoc)) {
-    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+  if ($dirid > 0) {
+      $dir = new_Doc($this->dbaccess, $dirid);
+      if (method_exists($dir,"isAuthorized")) {	
+	if ($dir->isAuthorized($classid)) { 
+	  // verify if classid is possible
+	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+	  else {
+	    $tclassdoc=$dir->getAuthorizedFamilies();
+	    $this->lay->set("restrict",true);
+	  }
+	} else  {
+	  $tclassdoc=$dir->getAuthorizedFamilies();
+	  $first = current($tclassdoc);
+	  $famid1 = ($first["id"]);
+	  $this->lay->set("restrict",true);
+	  $tfamids=array_keys($tclassdoc);
+	  if (! in_array($famid,$tfamids)) $famid=$famid1;
+	}
+      }
+      else {
+	$tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+      }
+    } else {
+      $tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+    }
+
+
+  foreach ($tclassdoc as $k=>$cdoc) {
+    $selectclass[$k]["idcdoc"]=$cdoc["id"];
     $selectclass[$k]["classname"]=$cdoc["title"];
-    if ($cdoc["initid"] == $famid) {
+    if (abs($cdoc["id"]) == abs($famid)) {
       $selectclass[$k]["selected"]="selected";
-      $this->lay->set("selfam",$cdoc["title"]);
+      if ($famid < 0)	$this->lay->set("selfam",$cdoc["title"]." "._("(only)"));
+      else $this->lay->set("selfam",$cdoc["title"]);
     } else $selectclass[$k]["selected"]="";
   }
   $this->lay->Set("dirid",$dirid);
@@ -381,9 +408,8 @@ function editdsearch() {
 		   "attrname" => $v);
   }
 
-  $fdoc=new_Doc($this->dbaccess, $famid);
+  $fdoc=new_Doc($this->dbaccess, abs($famid));
   $zpi=$fdoc->GetNormalAttributes();
-
   foreach($zpi as $k=>$v) {
     if ($v->type == "array") continue;
     if ($v->inArray() && ($v->type!='file')) $type="array";

@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.47 2007/10/03 09:31:33 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.48 2007/10/03 13:07:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -315,7 +315,7 @@ Class DocSearch extends PDocSearch {
 	} else  {
 	  $tclassdoc=$dir->getAuthorizedFamilies();
 	  $first = current($tclassdoc);
-	  $famid = $first["id"];
+	  $famid = abs($first["id"]);
 	  $this->lay->set("restrict",true);
 	}
       }
@@ -330,9 +330,10 @@ Class DocSearch extends PDocSearch {
     while (list($k,$cdoc)= each ($tclassdoc)) {
       $selectclass[$k]["idcdoc"]=$cdoc["id"];
       $selectclass[$k]["classname"]=$cdoc["title"];
-      if ($cdoc["initid"] == $famid) {
+      if (abs($cdoc["initid"]) == abs($famid)) {
 	$selectclass[$k]["selected"]="selected";
-	$this->lay->set("selfam",$cdoc["title"]);
+	if ($famid < 0)	$this->lay->set("selfam",$cdoc["title"]." ".!!_("(only)"));
+	else $this->lay->set("selfam",$cdoc["title"]);
       } else $selectclass[$k]["selected"]="";
     }
   
