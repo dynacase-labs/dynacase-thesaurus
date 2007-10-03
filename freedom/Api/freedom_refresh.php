@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_refresh.php,v 1.17 2006/12/08 17:52:02 eric Exp $
+ * @version $Id: freedom_refresh.php,v 1.18 2007/10/03 08:10:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,7 +62,8 @@ $pgres = $query->Query(0,0,"ITEM");
 
      
 if ($query->nb > 0)	{
-  $card=countDocs(array($pgres));
+  $tpgres=array($pgres);
+  $card=countDocs($tpgres);
  printf("\n%d documents to refresh\n", $card);
   
   $fdoc[$famId] = createDoc($dbaccess,$famId,false);
