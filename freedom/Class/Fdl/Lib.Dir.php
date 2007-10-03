@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.138 2007/09/27 14:50:52 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.139 2007/10/03 08:52:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -496,10 +496,13 @@ function getFldDoc($dbaccess,$dirid,$sqlfilters=array(),$limit=100,$reallylimit=
       }
     }
   }
+  uasort($t,"sortbytitle");
   //  print "<HR><br><div style=\"border:red 1px inset;background-color:orange;color:black\">"; print " - getFldDoc $dirid [nbdoc:".count($tfld)."]<B>".microtime_diff(microtime(),$mc)."</B></div>";
   return $t;
 }
-
+function sortbytitle($td1,$td2) {
+  return strcasecmp($td1["title"],$td2["title"]);
+}
 /** 
  * optimization for getChildDoc in case of grouped searches
  * not used
