@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.139 2007/10/03 08:52:02 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.140 2007/10/03 09:31:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -131,7 +131,7 @@ function getSqlSearchDoc($dbaccess,
 
   }
 
-  $sqlcond="";
+  $sqlcond="true";
   ksort($sqlfilters);
   if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
 
@@ -144,7 +144,7 @@ function getSqlSearchDoc($dbaccess,
       $sqlfilters[-3] = "doctype = 'Z'";    
     } elseif ($trash=="also") ;
     else if (!$fromid) $sqlfilters[-3] = "doctype != 'Z'";
-      
+
     if (($latest) && (($trash=="no")||(!$trash))) $sqlfilters[-1] = "locked != -1";
     ksort($sqlfilters);
     if (count($sqlfilters)>0)    $sqlcond = " (".implode(") and (", $sqlfilters).")";
