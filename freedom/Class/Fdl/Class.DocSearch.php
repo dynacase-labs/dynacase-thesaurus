@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.46 2007/08/02 09:56:58 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.47 2007/10/03 09:31:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -134,7 +134,7 @@ Class DocSearch extends PDocSearch {
       if (strtolower(substr($keyword,0,5))=="::get") { // only get method allowed
 	// it's method call
 	$keyword = $this->ApplyMethod($keyword);
-	$filters[] = "values $op '$keyword' ";
+	$filters[] = "svalues $op '$keyword' ";
       } else if ($keyword != "") {
 	// transform conjonction
 	$tkey=explode(" ",$keyword);
@@ -144,20 +144,20 @@ Class DocSearch extends PDocSearch {
 	    if ($v[strlen($v)-1]=='"') {
 	      $ing=false;
 	      $ckey.=" ".substr($v,0,-1);
-	      $filters[] = "values $op '$ckey' ";	    
+	      $filters[] = "svalues $op '$ckey' ";	    
 	    } else {
 	      $ckey.=" ".$v;
 	    }
 	  } else if ($v[0]=='"') {
 	    if ($v[strlen($v)-1]=='"') {	    
 	      $ckey=substr($v,1,-1);
-	      $filters[] = "values $op '$ckey' ";	  
+	      $filters[] = "svalues $op '$ckey' ";	  
 	    } else {
 	      $ing=true;
 	      $ckey=substr($v,1);
 	    }
 	  } else {
-	    $filters[] = "values $op '$v' ";	  
+	    $filters[] = "svalues $op '$v' ";	  
 	  }
 	}
       }
@@ -268,6 +268,7 @@ Class DocSearch extends PDocSearch {
 
 
     $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,false,$latest=="yes",$this->getValue("se_trash"));
+
     return $query;
   }
 
