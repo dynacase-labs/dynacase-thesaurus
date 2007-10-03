@@ -3,7 +3,7 @@
  * Folio List Containt
  *
  * @author Anakeen 2003
- * @version $Id: foliolist.php,v 1.14 2005/09/15 07:56:59 eric Exp $
+ * @version $Id: foliolist.php,v 1.15 2007/10/03 13:07:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -44,6 +44,7 @@ function foliolist(&$action) {
       $dir->doctype='T';
       $dir->setValue("SE_IDFLD",$folioid);
       $dir->setValue("SE_SUBLEVEL","1");
+      $dir->setValue("SE_ORDERBY","title");
       $dir->Add();
       $dir->SpecRefresh();
       $dir->Modify();
@@ -56,6 +57,7 @@ function foliolist(&$action) {
       //     $dir->doctype='T';
       if (($folioid > 0) && ($dir->getValue("SE_IDCFLD")!=$folioid)) {
 	$dir->setValue("SE_IDCFLD",$folioid);
+	$dir->setValue("SE_ORDERBY","title");
 	//     $dir->Add();
 	$dir->SpecRefresh();
 	$dir->Modify();
@@ -66,7 +68,7 @@ function foliolist(&$action) {
     }
   }
   
-
+  setHttpVar("sqlorder","title");
   $action->parent->SetVolatileParam("FREEDOM_VIEW", "icon");
   $nbdoc=viewfolder($action, false,true,false,
 		    100,$filter);
