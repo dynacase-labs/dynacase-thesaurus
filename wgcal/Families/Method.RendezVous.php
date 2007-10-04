@@ -18,6 +18,8 @@ var $vcalendarview = "WGCAL:VCALENDAR:U";
 var $sifeview = "WGCAL:SIFEVENT:U";
 
 
+var $acls = array(  "view", "confidential", "send", "edit", "delete", "execute", "unlock" );
+
 function getCurTime() {
   $t = mktime();
   $trs = getParam("TIMEREF_SYNC4J", 0);
@@ -1517,20 +1519,21 @@ function setAccessibility() {
   // Attendees -> read, confidential and execute at least
   foreach ($attendeeswid as $k => $v) {
     if ($v!=$ownerwid && $v!=$creatorwid) {
+
       // set acl for attendee
       $acls[$v] = $aclvals["read_conf_state"];
 
       // search attendee delegation
-      $dattcal = getUserPublicAgenda($v, false);
-      $duid = $dattcal->getTValue("agd_dfid");
-      if (count($duid)>0) {
-	$duwid = $ownercal->getTValue("agd_dwid");
-	$dumode = $ownercal->getTValue("agd_dmode");
-	foreach ($duid as $k=>$v) {
-	  if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["read_conf_state"];
-	}
-      }
-
+        $dattcal = getUserPublicAgenda($v, false);
+        $duid = $dattcal->getTValue("agd_dfid");
+        if (count($duid)>0) {
+  	$duwid = $dattcal->getTValue("agd_dwid");
+  	$dumode = $dattcal->getTValue("agd_dmode");
+  	foreach ($duid as $ka => $va) {
+  	  if ($v!=$duwid[$ka] && $dumode[$ka] == 1) $acls[$duwid[$ka]] = $aclvals["read_conf_state"];
+  	}
+        }
+       
     }
   }
 
