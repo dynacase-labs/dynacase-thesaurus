@@ -1524,15 +1524,15 @@ function setAccessibility() {
       $acls[$v] = $aclvals["read_conf_state"];
 
       // search attendee delegation
-        $dattcal = getUserPublicAgenda($v, false);
-        $duid = $dattcal->getTValue("agd_dfid");
-        if (count($duid)>0) {
+      $dattcal = getUserPublicAgenda($attendeesid[$k], false);
+      $duid = $dattcal->getTValue("agd_dfid");
+      if (count($duid)>0) {
   	$duwid = $dattcal->getTValue("agd_dwid");
-  	$dumode = $dattcal->getTValue("agd_dmode");
-  	foreach ($duid as $ka => $va) {
-  	  if ($v!=$duwid[$ka] && $dumode[$ka] == 1) $acls[$duwid[$ka]] = $aclvals["read_conf_state"];
-  	}
-        }
+   	$dumode = $dattcal->getTValue("agd_dmode");
+   	foreach ($duid as $ka => $va) {
+   	  if ($v!=$duwid[$ka] && $dumode[$ka] == 1) $acls[$duwid[$ka]] = $aclvals["read_conf_state"];
+   	}
+      }
        
     }
   }
@@ -1995,7 +1995,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
     }
   }
 
-  if (wDebugMode())   if ($this->UHaveAccess('viewacl')) {
+  if ($action->user->id) {
     $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["sepaccess"]["visibility"] = POPUP_ACTIVE;
   }
