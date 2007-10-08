@@ -2,8 +2,8 @@
 <table width="100%" border=1 cellspacing="0" id="T[attrid]" class="tarray">
    <thead><tr>[IFNOT readonly]<td width="40px"></td>[ENDIF readonly]
     [BLOCK TATTR]<th colspan="2" style="visibility:[ahvis]" width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
-   </tr></thead>
- <tbody id="tbody[attrid]" >
+   [IFNOT ISIE][IF tableheight]<th style="width:20px;visibility:hidden"></th>[ENDIF tableheight][ENDIF ISIE]</tr></thead>
+ <tbody id="tbody[attrid]" [IFNOT ISIE][IF tableheight]style="height:[tableheight];overflow:auto"[ENDIF tableheight][ENDIF ISIE] >
   
      [BLOCK EATTR]<tr onmouseup="sdrag(event);" >[IFNOT readonly]<td width="50px" align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>[ENDIF readonly]
     [BLOCK [bevalue]]<td style="width:[vhw];background-color:[bgcolor];">[eivalue]</td>[ENDBLOCK [bevalue]]

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.419 2007/10/02 07:52:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.420 2007/10/08 14:58:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3317,6 +3317,9 @@ final public function PostInsert()  {
 
 	  $emptyarray=true;
 	  $nbitem=0;
+	  $height=$oattr->getOption("height",false);
+	  
+	  $lay->set("tableheight",$height);
 	  while (list($k, $v) = each($ta)) {
 	    if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
 	    $talabel[] = array("alabel"=>ucfirst($v->labelText),

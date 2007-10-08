@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.123 2007/09/24 16:11:53 eric Exp $
+ * @version $Id: editutil.php,v 1.124 2007/10/08 14:58:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -661,6 +661,9 @@ function getLayArray(&$lay,&$doc,&$oattr) {
   $attrid=$oattr->id;
   $ta = $doc->attributes->getArrayElements($attrid);
      
+  $height=$oattr->getOption("height",false);
+  $lay->set("tableheight",$height);
+
       $talabel=array();
       $tilabel=array();
       $tvattr = array();

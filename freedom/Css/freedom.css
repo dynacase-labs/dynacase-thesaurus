@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.120 2007/10/02 07:44:25 eric Exp $
+ * $Id: freedom.css,v 1.121 2007/10/08 14:58:23 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -307,7 +307,9 @@ TABLE.transparent TBODY TR TD,TABLE.transparent TBODY TR {
   border-style:solid;
   background-color:transparent;
 }
-
+TBODY.overflow {
+  overflow:auto;
+}
 TABLE.tablefoot {
 	position:fixed;
 	top:auto;
@@ -564,6 +566,9 @@ A.state, A.boldstate {
   DIV.tabsh {
     display:none;
   }
+TBODY.overflow {
+  overflow:visible;
+}
 }
 TABLE.huge {
   width:100%;
