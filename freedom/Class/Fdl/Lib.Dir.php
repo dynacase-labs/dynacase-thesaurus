@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.140 2007/10/03 09:31:59 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.141 2007/10/08 14:59:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -355,7 +355,7 @@ function getChildDoc($dbaccess,
 		     $dirid, 
 		     $start="0", $slice="ALL", $sqlfilters=array(), 
 		     $userid=1, 
-		     $qtype="LIST", $fromid="",$distinct=false, $orderby="",$latest=true,$trash="") {
+		     $qtype="LIST", $fromid="",$distinct=false, $orderby="title",$latest=true,$trash="") {
   
   global $action;
 
