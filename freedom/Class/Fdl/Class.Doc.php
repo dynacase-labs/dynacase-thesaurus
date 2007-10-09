@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.420 2007/10/08 14:58:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.421 2007/10/09 16:46:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2157,6 +2157,35 @@ final public function PostInsert()  {
       unlink($filename);
       $this->AddComment(sprintf(_("modify file %s"),$ftitle));
     } 	
+    }
+    return $err;
+  }
+  /**
+   * store new file in an file attribute
+   *
+   * replace a new file in Vault to replace old file
+   * @param string $idAttr identificator of file attribute 
+   * @param string $filename file path
+   * @return string error message, if no error empty string
+   */
+  final public function storeFile($attrid, $filename,$ftitle="") {   
+    if (is_file($filename) ) {
+      include_once("FDL/Lib.Vault.php");
+
+    $a=$this->getAttribute($attrid);     
+    if (($a->type == "file")||($a->type == "image")) {
+      $err=vault_store($filename,$vaultid);
+      if ($err=="") {
+	$info=vault_properties($vaultid);
+	print_r2($info);
+	$mime=$info->mime_s;
+	$this->setValue($attrid,"$mime|$vaultid");
+	print_r2("$mime|$vaultid");
+      }
+    
+    } else {
+      $err=sprintf(_("attribute %s is not a file attribute"),$a->labelText);
+    }
     }
     return $err;
   }
