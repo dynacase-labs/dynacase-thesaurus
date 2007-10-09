@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.11 2007/08/14 17:51:00 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.12 2007/10/09 16:46:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,6 +72,18 @@ function vault_properties($idfile,$teng_name="") {
 }
 
 /**
+ * return various informations for a file stored in VAULT 
+ * @param string $filename 
+ * @param int &$vid return vaul identificator
+ * @return string error message 
+ */
+function vault_store($filename,&$vid) {
+  
+  $FREEDOM_VAULT=initVaultAccess();  
+  $err=$FREEDOM_VAULT->store($filename,false , $vid);
+  return $err;
+}
+/**
  * return context of a file
  * @param int $idfile vault file identificator 
  * @return array 
@@ -86,6 +98,9 @@ function vault_get_content($idfile) {
   }
   return false;
 }
+
+
+
 /**
  * send request to have text conversion of file
  */
