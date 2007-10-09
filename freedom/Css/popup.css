@@ -35,7 +35,7 @@ a.menuItem, a.menuItem:link, a.menuItem:visited {
   background-color: transparent; 
   cursor: default;
   display: block;
-  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-family: sans-serif;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -49,7 +49,7 @@ a.menuItemCtrl:link, a.menuItemCtrl:visited {
   border-width:3px;
   cursor: default;
   display: block;
-  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-family: sans-serif;
   font-weight: bold;
   padding: 2px 12px 2px 8px;
   text-decoration: none;
@@ -62,7 +62,7 @@ a.separator {
   background-image: [CORE_FGIMGMENU];
   cursor: default;
   display: block;
-  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-family: sans-serif;
   font-weight: bold;
   text-align: center;
   padding: 0px;
@@ -101,7 +101,7 @@ a.menuItemDisabled, a.menuItemDisabled:link,a.menuItemDisabled:visited,a.menuIte
   background-color: transparent; 
   cursor: default;
   display: block;
-  font-family: MS Sans Serif, Arial, Tahoma,sans-serif;
+  font-family: sans-serif;
   font-weight: normal;
   font-style: italic;
   padding: 2px 12px 2px 8px;
