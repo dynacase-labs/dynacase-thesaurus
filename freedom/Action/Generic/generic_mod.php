@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.32 2007/09/27 13:57:11 eric Exp $
+ * @version $Id: generic_mod.php,v 1.33 2007/10/09 16:44:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,13 +56,30 @@ function generic_mod(&$action) {
       if ($dirid > 0) {
 	$fld = new_Doc($dbaccess, $dirid);
 	if (method_exists($fld,"AddFile")) {
-	   $err=$fld->AddFile($doc->id); 
+	  $err=$fld->AddFile($doc->id); 
+	  if ($err!="") {
+	    //try in home folder	    
+	    $home = $fld->getHome(false);      
+	    if ($home && ($home->id>0)) {
+	      $fld = $home; 
+	      $err=$fld->AddFile($doc->id);
+	    }
+	  }
+
 	  if ($err != "") {
 	    $action->AddLogMsg($err);
 	  } else {
 	    if (($doc->doctype=='D')|| ($doc->doctype=='S')) $action->AddActionDone("ADDFOLDER",$fld->initid);
 	    else $action->AddActionDone("ADDFILE",$fld->initid);
 	  }
+	} else {
+	  //try in home folder	 
+	  $fld = new_Doc($dbaccess,UNCLASS_FLD);
+	    $home = $fld->getHome(false);      
+	    if ($home && ($home->id>0)) {
+	      $fld = $home; 
+	      $err=$fld->AddFile($doc->id);
+	    }
 	}
       }     
     } 

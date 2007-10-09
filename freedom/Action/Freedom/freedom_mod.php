@@ -3,7 +3,7 @@
  * Modification of documents
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_mod.php,v 1.23 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: freedom_mod.php,v 1.24 2007/10/09 16:44:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -57,7 +57,9 @@ function freedom_mod(&$action) {
 	}
       }
 
+
       // second try in default folder for family
+      /*
       if ($dirid == 0) {
 	$cdoc = $doc->getFamDoc();
 	if ($cdoc->dfldid>0)  {
@@ -70,7 +72,7 @@ function freedom_mod(&$action) {
 	  }
 	}
       }
-	
+      */
      
       // third try in home folder
 
