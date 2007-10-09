@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.69 2007/10/03 13:06:53 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.70 2007/10/09 16:46:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -34,8 +34,11 @@ Class Dir extends PDir
   }
 
 
-  // get the home and basket folder
-  function GetHome() {
+  /**
+   * get the home and basket folder
+   * @param bool $create set tu false if no want aute creation
+  */
+  function GetHome($create=true) {
     global $action;
     
     include_once("FDL/freedom_util.php");
@@ -46,6 +49,7 @@ Class Dir extends PDir
  
     if (count($rq) > 0)      $home = $rq[0];
     else {
+      if (! $create) return false; 
       $home = createDoc($this->dbaccess,"DIR");
 
       if (! $home) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),getFamIdFromName($dbaccess,"DIR")));
