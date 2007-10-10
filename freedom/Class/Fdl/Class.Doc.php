@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.421 2007/10/09 16:46:45 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.422 2007/10/10 16:16:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2163,30 +2163,66 @@ final public function PostInsert()  {
   /**
    * store new file in an file attribute
    *
-   * replace a new file in Vault to replace old file
    * @param string $idAttr identificator of file attribute 
    * @param string $filename file path
+   * @param string $ftitle basename of file
    * @return string error message, if no error empty string
    */
   final public function storeFile($attrid, $filename,$ftitle="") {   
     if (is_file($filename) ) {
       include_once("FDL/Lib.Vault.php");
 
-    $a=$this->getAttribute($attrid);     
-    if (($a->type == "file")||($a->type == "image")) {
-      $err=vault_store($filename,$vaultid);
-      if ($err=="") {
-	$info=vault_properties($vaultid);
-	print_r2($info);
-	$mime=$info->mime_s;
-	$this->setValue($attrid,"$mime|$vaultid");
-	print_r2("$mime|$vaultid");
-      }
+      $a=$this->getAttribute($attrid);     
+      if (($a->type == "file")||($a->type == "image")) {
+	$err=vault_store($filename,$vaultid,$ftitle);
+	if ($err=="") {
+	  $info=vault_properties($vaultid);
+	  $mime=$info->mime_s;
+	  $this->setValue($attrid,"$mime|$vaultid");	
+	}
     
+      } else {
+	$err=sprintf(_("attribute %s is not a file attribute"),$a->labelText);
+      }
+    }
+    return $err;
+  }  
+  /**
+   * store multiples new files in an file array attribute
+   *
+   * @param string $idAttr identificator of file attribute 
+   * @param array $filename file path
+   * @param array $ftitle basename of file
+   * @return string error message, if no error empty string
+   */
+  final public function storeFiles($attrid, $filenames,$ftitle="") {  
+    if (!is_array($filenames)) return _("no files");
+ 
+    $a=$this->getAttribute($attrid);
+    print_r2($filenames);
+    if (($a->type == "file")||($a->type == "image")) {
+      if ($a->inArray()) {
+	$tvid=array();
+	foreach ($filenames as $k=>$filename) {
+	  if (is_file($filename) ) {
+	    include_once("FDL/Lib.Vault.php");
+
+	    $err=vault_store($filename,$vaultid,$ftitle[$k]);
+	    if ($err=="") {
+	      $info=vault_properties($vaultid);
+	      $mime=$info->mime_s;
+	      $tvid[]="$mime|$vaultid";
+	    }
+	  }	
+	}
+	$this->setValue($attrid,$tvid);
+      } else {
+	$err=sprintf(_("attribute %s is not int a array"),$a->labelText);
+      }
     } else {
       $err=sprintf(_("attribute %s is not a file attribute"),$a->labelText);
     }
-    }
+  
     return $err;
   }
 
