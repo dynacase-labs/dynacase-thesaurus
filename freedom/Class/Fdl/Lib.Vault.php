@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.12 2007/10/09 16:46:54 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.13 2007/10/10 16:16:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -77,10 +77,11 @@ function vault_properties($idfile,$teng_name="") {
  * @param int &$vid return vaul identificator
  * @return string error message 
  */
-function vault_store($filename,&$vid) {
+function vault_store($filename,&$vid,$ftitle="") {
   
   $FREEDOM_VAULT=initVaultAccess();  
   $err=$FREEDOM_VAULT->store($filename,false , $vid);
+  if (($err=="") && ($ftitle != "")) $FREEDOM_VAULT->rename($vid,$ftitle);
   return $err;
 }
 /**
