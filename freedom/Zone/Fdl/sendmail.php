@@ -3,7 +3,7 @@
  * Send document mail with SMTP protocol
  *
  * @author Anakeen 2007
- * @version $Id: sendmail.php,v 1.3 2007/03/27 15:13:08 eric Exp $
+ * @version $Id: sendmail.php,v 1.4 2007/10/10 16:15:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -77,6 +77,8 @@ function sendmail($to,$from,$cc,$bcc,$subject,&$mimemail,$multipart=null) {
   $xh['Date']=strftime("%a, %d %b %Y %H:%M:%S %z",time());
   //  $xh['Content-type']= "multipart/related";
   $xh['Subject']=$subject;
+  $xh['Message-Id']='<'.strftime("%Y%M%d%H%M%S-",time()).rand(1,65535)."@$host>";
+
   $xh['User-Agent']=sprintf("FREEDOM %s",getParam('VERSION'));
   $data="";
   $h=$mimemail->headers($xh);
