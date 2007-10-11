@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.70 2007/10/09 16:46:25 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.71 2007/10/11 16:53:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -468,6 +468,18 @@ Class Dir extends PDir
     return $err;
   }
   // --------------------------------------------------------------------
+
+  function postModify() {
+    // don't see restriction frame is not needed
+     $allbut=$this->getValue("FLD_ALLBUT");
+     $tfamid = $this->getTValue("FLD_FAMIDS");
+
+     if (($allbut === "0") && ((count($tfamid) == 0) || ((count($tfamid) == 1) && ($tfamid[0]==0)))) {
+       
+     $this->deleteValue("FLD_ALLBUT");
+     $this->modify();
+     }
+  }
 
 
   /**
