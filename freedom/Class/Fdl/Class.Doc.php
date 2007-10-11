@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.422 2007/10/10 16:16:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.423 2007/10/11 15:48:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -75,6 +75,7 @@ Class Doc extends DocCtrl
 			   "state",
 			   "wid",
 			   "postitid",
+			   "forumid",
 			   "cvid",
 			   "name",
 			   "dprofid",
@@ -321,6 +322,7 @@ create table doc ( id int not null,
                    attrids text DEFAULT '',
                    fulltext tsvector,  
                    postitid int,
+                   forumid int,
                    cvid int,
                    name text,
                    dprofid int DEFAULT 0,
@@ -2199,7 +2201,6 @@ final public function PostInsert()  {
     if (!is_array($filenames)) return _("no files");
  
     $a=$this->getAttribute($attrid);
-    print_r2($filenames);
     if (($a->type == "file")||($a->type == "image")) {
       if ($a->inArray()) {
 	$tvid=array();
@@ -2612,12 +2613,14 @@ final public function PostInsert()  {
     $locked=$this->locked;
     $allocated=$this->allocated;
     $postitid = $this->postitid; // transfert post-it to latest revision
+    $forumid = $this->forumid; // transfert forum to latest revision
 
     $this->locked = -1; // the file is archived
     $this->lmodify = 'N'; // not locally modified
     $this->allocated = 0; // cannot allocated fixed document
     $this->owner = $this->userid; // rev user 
     $this->postitid=0;
+    $this->forumid=0;
     $date = gettimeofday();
     $this->revdate = $date['sec']; // change rev date
     if ($comment != '') $this->Addcomment($comment,HISTO_MESSAGE,"REVISION");
@@ -2644,6 +2647,7 @@ final public function PostInsert()  {
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
     $this->postitid=$postitid;
+    $this->forumid=$forumid;
    
     $err=$this->Add();
     if ($err != "") return $err;
