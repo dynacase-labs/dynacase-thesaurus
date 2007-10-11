@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumedit.php,v 1.1 2007/10/11 13:39:36 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.1 2007/10/11 15:46:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 

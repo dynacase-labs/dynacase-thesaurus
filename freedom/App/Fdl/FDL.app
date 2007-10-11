@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.43 2007/08/07 14:46:07 eric Exp $
+// $Id: FDL.app,v 1.44 2007/10/11 15:46:17 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -320,7 +320,14 @@ $action_desc = array (
    "name"		=>"SEARCHDOCUMENT",
    "short_name"		=>N_("search document to insert in a folder"),
    "acl"		=>"NORMAL"
-  ) 
+  ),
+
+  array( 
+   "name"		=>"FDL_FORUMADDENTRY",
+   "short_name"		=>N_("add entry in a document forum"),
+   "acl"		=>"NORMAL"
+  ),
+	
                       );	
    
 ?>
