@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.53 2007/10/03 13:07:27 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.54 2007/10/11 15:49:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -102,7 +102,7 @@ function getSqlCond($col,$op,$val="") {
 	break;
       case "~y":
 	if (! is_array($val)) $val=$this->_val2array($val);
-	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\\\\\y(".pg_escape_string(implode('|',$val)).")\\\\\\\\y' ";
+	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\y(".pg_escape_string(implode('|',$val)).")\\\\y' ";
 	
 	break;
       case "~@":	
