@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDoc.php,v 1.12 2006/07/21 15:34:05 eric Exp $
+ * @version $Id: Class.PDoc.php,v 1.13 2007/10/11 12:35:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -20,7 +20,7 @@ Class PDoc extends Doc
 {
     // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","send","unlock","confidential");
+  var $acls = array("view","edit","delete","send","unlock","confidential","forum");
   // --------------------------------------------------------------------
   
  

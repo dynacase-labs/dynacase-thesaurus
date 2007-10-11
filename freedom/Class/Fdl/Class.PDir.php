@@ -3,7 +3,7 @@
  * Profile for folders
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDir.php,v 1.11 2006/04/03 14:56:26 eric Exp $
+ * @version $Id: Class.PDir.php,v 1.12 2007/10/11 12:35:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -19,7 +19,7 @@ Class PDir extends Doc
 {
   // --------------------------------------------------------------------
   //---------------------- OBJECT CONTROL PERMISSION --------------------
-  var $acls = array("view","edit","delete","open","modify","send","unlock","confidential");
+  var $acls = array("view","edit","delete","open","modify","send","unlock","confidential","forum");
   // --------------------------------------------------------------------
   
   
@@ -30,9 +30,6 @@ Class PDir extends Doc
     // don't use Doc constructor because it could call this constructor => infinitive loop
      DocCtrl::__construct($dbaccess, $id, $res, $dbid);
   }
-
-
-
 }
 
 ?>

@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.45 2007/09/27 13:57:21 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.46 2007/10/11 12:35:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -31,6 +31,7 @@ define ("POS_VACL", 7);
 define ("POS_MACL", 8);
 define ("POS_ULCK", 9);
 define ("POS_CONF", 10); // confidential
+define ("POS_FORUM", 11); // edit forum
 
 // family profil
 define ("POS_CREATE", 5);
@@ -82,7 +83,9 @@ Class DocCtrl extends DocLDAP {
 			"icreate" =>array("pos"               =>POS_ICREATE, # N_("icreate")
 					 "description"        =>"create doc manually"), #  N_("create doc manually")
 			"confidential" =>array("pos"               =>POS_CONF, # N_("confidential")
-					 "description"        =>"view confidential") #  N_("view confidential")
+					       "description"        =>"view confidential"), #  N_("view confidential")
+			"forum" =>array("pos"                =>POS_FORUM, # N_("forum")
+					"description"        =>"edit forum") #  N_("edit forum")
 			
 			);
 
