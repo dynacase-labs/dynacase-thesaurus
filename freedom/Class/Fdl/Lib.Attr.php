@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.71 2007/10/11 15:49:14 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.72 2007/10/12 15:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -80,7 +80,8 @@ function AttrToPhp($dbaccess, $tdoc) {
       if ($v->id[0]==':') $v=completeAttribute($dbaccess,$v);
       
       if ($v->visibility == "F") $v->type="frame"; // old notation compliant
-      if ($v->visibility == "M") $v->type="menu"; // old notation compliant      
+      if ($v->visibility == "M") $v->type="menu"; // old notation compliant   
+      if ($v->type == "integer") $v->type="int"; // old notation compliant      
 
       $v->phpfunc=str_replace("\"","\\\"",$v->phpfunc);
       switch (strtolower($v->type)) {
