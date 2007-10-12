@@ -1,0 +1,55 @@
+.forum {
+  margin : 0px 0px 5px 5px; 
+}
+.forum_head {
+  margin : 5px 0px 5px 5px; 
+}
+.forum #resume {
+  cursor : pointer;
+  border-width : 1px ;
+  border-style : none none solid none ;
+  border-color : [COLOR_B8];
+  background-color: [COLOR_B9];
+}
+.forum #resume.first {
+  margin : 5px 0px 0px 0px;
+  padding : 3px 0px 3px 0px;
+  border-width : 1px ;
+  border-style : solid;
+  border-color : [COLOR_B5];
+}
+.forum .content {
+  margin : 0px 0px 0px 3px;
+  padding : 0px;
+  border-width : 1px ;
+  border-style : none none dotted dotted;
+  border-color : [COLOR_A8];
+}
+.forum .content_first {
+  margin : 3px;
+  padding : 3px;
+  border-width : 1px ;
+  border-style : solid;
+  border-color : [COLOR_A8];
+}
+.forum .text {
+  padding : 5px;
+}
+.forum img {
+  padding : 0px 2px 0px 2px;
+}
+.forum #who, .forum #date  {
+  font-size : 80%;
+}
+.forum #action {
+  cursor : pointer;
+  margin : 0px;
+  padding : 0px 5px 0px 5px;
+  font-size : 80%;
+  color : [COLOR_B5];
+  border-right : 1px solid [COLOR_B5];
+}
+.forum #action.first {
+  margin : 0px 0px 0px 10px;
+  border-left : 1px solid [COLOR_B5];
+}

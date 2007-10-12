@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumaddentry.php,v 1.2 2007/10/11 17:56:39 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.3 2007/10/12 09:17:08 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,7 +18,7 @@ include_once("FDL/freedom_util.php");
 function fdl_forumaddentry(&$action) {
 
   $docid  = GetHttpVars("docid", "");
-  $forid  = GetHttpVars("fid", "");
+  $forid  = -1;   // Used forum id store in document property -- GetHttpVars("fid", "");
   $linkid = GetHttpVars("lid", -1);
   $entrid = GetHttpVars("eid", -1);
   $flag  = GetHttpVars("flag", "");
@@ -36,7 +36,7 @@ function fdl_forumaddentry(&$action) {
 
   $doc->disableEditControl();
 
-  if ($forid=="") $action->exitError(_("no forum document reference"));
+  $forid = ($doc->forumid="" || $doc->forumid<1 ? -1 : $doc->forumid );
 
   $date = $doc->getDate();
 
@@ -53,6 +53,7 @@ function fdl_forumaddentry(&$action) {
     $t_lid = array(-1); // Be sure they are no back reference in the first forum entry
     $t_userid = array($action->user->id);
     $t_user = array($doc->getTitle($dbaccess, $action->user->id));
+    $t_usermail = array(getMailAddr($action->user->id));
     $t_text = array( $text );
     $t_flag = array( $flag );
     $t_date = array( $date );
@@ -67,6 +68,7 @@ function fdl_forumaddentry(&$action) {
     $t_lid    = $forum->getTValue("forum_d_link");
     $t_userid = $forum->getTValue("forum_d_userid");
     $t_user   = $forum->getTValue("forum_d_user");
+    $t_usermail   = $forum->getTValue("forum_d_usermail");
     $t_text   = $forum->getTValue("forum_d_text");
     $t_flag   = $forum->getTValue("forum_d_flag");
     $t_date   = $forum->getTValue("forum_d_date");
@@ -83,6 +85,7 @@ function fdl_forumaddentry(&$action) {
     $t_lid[$ventry]    = $linkid;
     $t_userid[$ventry] = $action->user->id;
     $t_user[$ventry]   = $doc->getTitle($dbaccess, $action->user->id);
+    $t_usermail[$ventry]   = getMailAddr($action->user->id);
     $t_text[$ventry]   = $text;
     $t_flag[$ventry]   = $flag;
     $t_date[$ventry]   = $date;
@@ -93,6 +96,7 @@ function fdl_forumaddentry(&$action) {
   $forum->setValue("forum_d_link", $t_lid);
   $forum->setValue("forum_d_userid", $t_userid);
   $forum->setValue("forum_d_user", $t_user);
+  $forum->setValue("forum_d_usermail", $t_usermail);
   $forum->setValue("forum_d_text", $t_text);
   $forum->setValue("forum_d_flag", $t_flag);
   $forum->setValue("forum_d_date", $t_date);
