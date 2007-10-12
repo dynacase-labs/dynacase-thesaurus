@@ -8,8 +8,11 @@
 [ENDBLOCK entry_list]
 </div>
 </div>
-<div id="forum_editform">
-<form style="display:none; position:absolute; visibility:hidden">
+<div style="-moz-border-radius:25px; background-color:[COLOR_WHITE]; width:75%; text-align:center; margin:20px;  padding:20px; display:block; position:absolute; visibility:hidden" id="forum_editform">
+<div style="">
+<form style="display:inline">
 <textarea style="width:100%">qsdqsqs qdqs qqdqs</textarea>
+<div style="width:100%; text-align:left"><a href="#">[TEXT:cancel forum edition]</a><a href="#">[TEXT:apply forum edition]</a></div>
 </form>
+</div>
 </div>

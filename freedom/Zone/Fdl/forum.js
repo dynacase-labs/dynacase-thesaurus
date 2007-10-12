@@ -17,11 +17,13 @@ function forum_edit(event, docid, link, eid) {
 
   if (!document.getElementById('forum_editform')) return;
   var fedit = document.getElementById('forum_editform');
-  fedit.style.display = 'block';
+  GetXY(event);
+  fedit.style.top = parseInt(Xpos)+'px';
   fedit.style.visibility = 'visible';
 
   stopPropagation(event);
-}
+} 
+
 function forum_sendmail(event, addr, docid, eid) {
 
   stopPropagation(event);
