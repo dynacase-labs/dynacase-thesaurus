@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.423 2007/10/11 15:48:41 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.424 2007/10/12 16:07:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3283,8 +3283,10 @@ final public function PostInsert()  {
 	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
 	      $vid=$reg[2];
 	
+	      if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
+	      else $idx=$index;
 	      $htmlval=$action->GetParam("CORE_BASEURL").
-		"app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$index"; // upload name
+		"app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"; // upload name
 	    } else {
 	      $htmlval=$action->GetImageUrl($avalue);
 	    }
@@ -3313,9 +3315,13 @@ final public function PostInsert()  {
 	    $umime = trim(`file -ib $info->path`);
 	    $size=round($info->size/1024)._("AbbrKbyte");
 	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
+	    
+	    if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
+	    else $idx=$index;
+
 	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
-	      "app=FDL"."&action=EXPORTFILE&size={$info->size}&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$index"
+	      "app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
 	      ."\">".$fname.
 	      "</A>";
 	    }
@@ -3508,6 +3514,7 @@ final public function PostInsert()  {
 	  $lay = new Layout("FDL/Layout/viewifile.xml", $action);
 	  $lay->set("aid",$oattr->id);
 	  $lay->set("id",$this->id);
+	  $lay->set("iheight",$oattr->getOption("height","200px"));
 	  $htmlval =$lay->gen(); 
 	
 	  break;
