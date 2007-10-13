@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumaddentry.php,v 1.3 2007/10/12 09:17:08 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.4 2007/10/13 10:20:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,7 +38,8 @@ function fdl_forumaddentry(&$action) {
 
   $forid = ($doc->forumid="" || $doc->forumid<1 ? -1 : $doc->forumid );
 
-  $date = $doc->getDate();
+
+  $date = strftime("%d/%m/%y %H:%S",time());
 
   if ($forid<=0) {
 
@@ -60,7 +61,6 @@ function fdl_forumaddentry(&$action) {
 
   } else {
 
-    $entrid = ($entrid == -1 ? $forum->getEntryId() : $entrid);
     $forum = new_Doc($dbaccess, $forid);
     if (! $forum->isAffected()) $action->exitError(sprintf(_("cannot see unknow forum reference %s"),$forid));
 
@@ -73,17 +73,20 @@ function fdl_forumaddentry(&$action) {
     $t_flag   = $forum->getTValue("forum_d_flag");
     $t_date   = $forum->getTValue("forum_d_date");
 
+    $entrid = ($entrid == -1 ? $forum->getEntryId() : $entrid);
+
     $validlink = false;
     $ventry = -1;
     foreach ($t_id as $k => $v) {
-      if ($linkid==$t_lid[$k] && $linkid!=-1) $validlink = true;
+      if ($linkid==$t_id[$k] && $linkid!=-1) {  $validlink = true; }
       if ($entrid==$v) $ventry = $k;
     }
-    if ($validlink) $linkid=-1;
+    if (!$validlink) $linkid=-1;
     if ($ventry==-1) $ventry = count($t_id);
+
     $t_id[$ventry] = $entrid; 
     $t_lid[$ventry]    = $linkid;
-    $t_userid[$ventry] = $action->user->id;
+    $t_userid[$ventry] = $action->user->fid;
     $t_user[$ventry]   = $doc->getTitle($dbaccess, $action->user->id);
     $t_usermail[$ventry]   = getMailAddr($action->user->id);
     $t_text[$ventry]   = $text;
@@ -105,8 +108,9 @@ function fdl_forumaddentry(&$action) {
   $err = $forum->postModify();
   if ($err!="") $action->exitError(sprintf(_("cannot modify forum %s"),$forum->id));;
 
-
-  //  Redirect("FDL", "FDL????");
+//   print_r2($forum);
+  // http://127.0.0.7/freedom/?sole=Y&app=FDL&action=IMPCARD&zone=FDL:FORUM_VIEW:S&id=1251
+   redirect($action,"FDL","IMPCARD&sole=Y&zone=FDL:FORUM_VIEW:S&id=".$forum->id);
 
 
 }

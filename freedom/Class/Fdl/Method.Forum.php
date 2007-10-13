@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.3 2007/10/12 09:17:08 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.4 2007/10/13 10:20:10 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,6 @@
  */
 
 var $defaultview= "FDL:FORUM_VIEW:T";
-
 
 function getEntryId() {
   $dids = $this->getTValue("forum_d_id");
@@ -30,6 +29,7 @@ function forum_view() {
 
   $action->parent->AddCssRef("FDL:forum.css", true);
   $action->parent->AddJsRef("FDL:forum.js", true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDC/Layout/inserthtml.js");
 
   $entries = $this->getentries();
   foreach ($entries as $k => $v) {
@@ -39,7 +39,8 @@ function forum_view() {
   }
   $this->lay->setBlockData("entry_list", $el);
   $this->lay->set("title", $this->getTitle());
-  $this->lay->set("docid", $this->id);
+  $this->lay->set("closed", false);
+  $this->lay->set("docid", $this->getValue("forum_docid"));
   return;
 }
 
@@ -73,7 +74,7 @@ function getentries() {
 			"docid" => $docid,
 			"next" => $next,
 			"prev" => $prev,
-			"who" => $t_user[$k],
+			"who" => $t_user[$k], // ." [eid:".$v."|link:".$t_lid[$k]."]",
 			"mail" => $t_mail[$k],
 			"havemail" => ($t_mail[$k]=="" ? false : true ),
 			"content" => $t_text[$k],

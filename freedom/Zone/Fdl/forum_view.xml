@@ -1,18 +1,26 @@
 <div id="f_X" class="forum">
 <div id="resume" class="first" onclick="forum_openclose(event,'X');" >
-<img id="fi_X" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]"><span id="title">[title]</span><a id="action" class="first" href="#" onclick="forum_edit(event,[docid], -1, -1)">[TEXT:forum answer]</a>
+<img id="fi_X" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]"><span id="title">[title]</span>
+[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], 'X', -1, -1)">[TEXT:forum answer]</a>[ENDIF closed]
 </div>
+<div style="border:0px" id="fm_X"></div>
 <div class="content_first" id="fc_X">
 [BLOCK entry_list]
 [ZONE FDL:FORUM_ENTRY?fid=[fid]&eid=[eid]]
 [ENDBLOCK entry_list]
 </div>
-</div>
-<div style="-moz-border-radius:25px; background-color:[COLOR_WHITE]; width:75%; text-align:center; margin:20px;  padding:20px; display:block; position:absolute; visibility:hidden" id="forum_editform">
+<div class="forum" style="display:none;  border:1px solid [COLOR_C3]; background-color:[COLOR_C8]; text-align:center; margin:5px;  padding:10px;" id="forum_editform">
 <div style="">
 <form style="display:inline">
-<textarea style="width:100%">qsdqsqs qdqs qqdqs</textarea>
-<div style="width:100%; text-align:left"><a href="#">[TEXT:cancel forum edition]</a><a href="#">[TEXT:apply forum edition]</a></div>
+<input id="foredit_docid" type="hidden" value="[docid]" >
+<input id="foredit_eid" type="hidden" value="-1">
+<input id="foredit_link" type="hidden" value="-1">
+<textarea id="foredit_text" style="width:100%" onchange="forum_change(event)"></textarea>
+<div style="width:100%; text-align:left">
+<a id="action" class="first" href="#" onclick="forum_saveEdit(event)">[TEXT:save]</a>
+<a id="action" href="#" onclick="forum_cancelEdit(event)">[TEXT:cancel]</a>
+</div>
 </form>
+</div>
 </div>
 </div>

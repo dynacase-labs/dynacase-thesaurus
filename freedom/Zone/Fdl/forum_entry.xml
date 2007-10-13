@@ -1,9 +1,8 @@
 [IF show]<div id="f_[eid]" class="forum">
-<div id="resume" onclick="forum_openclose(event,[eid]);" ><img id="fi_[eid]" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]">&nbsp;([rcount])&nbsp;[IF havemail]<a id="who" href="#" onclick="forum_sendmail(event, '[mail]', [docid], [eid])">[who]</a>[ENDIF havemail][IFNOT havemail]<span id="who">[who]</span>[ENDIF havemail]&nbsp<span id="date">[date]</span>[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], [eid], [eid])">[TEXT:forum answer]</a>[IFNOT havenext]<a href="#" id="action" onclick="forum_edit(event,[docid], [eid], -1)">[TEXT:forum edit]</a>[ENDIF havenext][ENDIF closed]</div>
+<div id="resume" onclick="forum_openclose(event,[eid]);" ><img id="fi_[eid]" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]">&nbsp;[IF havemail]<a id="who" href="#" onclick="forum_sendmail(event, '[mail]', [docid], [eid])">[who]</a>[ENDIF havemail][IFNOT havemail]<span id="who">[who]</span>[ENDIF havemail]&nbsp<span id="date">[date]</span>[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], [eid], [eid], -1)">[TEXT:forum answer]</a>[IFNOT havenext]<a href="#" id="action" onclick="forum_edit(event,[docid],[eid], -1, [eid])">[TEXT:forum edit]</a>[ENDIF havenext][ENDIF closed][IF hasresponse]&nbsp;<span id="response">[[rcount]] [TEXT:response for this forum entry]</span>[ENDIF hasresponse]</div>
 <div class="content" id="fc_[eid]">
-<div id="ft_[eid]" class="text">[content]</div>
+<div style="border:0px" id="fm_[eid]">
+<div id="ft_[eid]" [IFNOT closed]ondblclick="forum_edit(event,[docid], [eid], [eid], -1)"[ENDIF closed] class="text">[content]</div>
+</div>
 [BLOCK forum_answer][ZONE FDL:FORUM_ENTRY?fid=[fid]&eid=[eid]]
-[ENDBLOCK forum_answer]
-</div></div>
-[ENDIF show]
-[IFNOT show]<!-- Entrie [eid] on forum [fid] not found -->[ENDIF show]
+[ENDBLOCK forum_answer]</div></div>[ENDIF show][IFNOT show]<!-- Entrie [eid] on forum [fid] not found -->[ENDIF show]

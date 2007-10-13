@@ -27,6 +27,7 @@ function forum_entry(&$action) {
     $action->lay->set("closed", $entries[$eid]["closed"]);
     $action->lay->set("content", $entries[$eid]["content"]);
     $action->lay->set("rcount", count($entries[$eid]["next"]));
+    $action->lay->set("hasresponse", (count($entries[$eid]["next"])>0?true:false));
 
     if (count($entries[$eid]["next"])==0) {
       $rlist = null;

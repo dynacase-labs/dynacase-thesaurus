@@ -1,5 +1,5 @@
 .forum {
-  margin : 0px 0px 5px 5px; 
+  margin : 0px ; 
 }
 .forum_head {
   margin : 5px 0px 5px 5px; 
@@ -7,9 +7,9 @@
 .forum #resume {
   cursor : pointer;
   border-width : 1px ;
-  border-style : none none solid none ;
+  border-style : solid none solid none ;
   border-color : [COLOR_B8];
-  background-color: [COLOR_B9];
+  background-color: [COLOR_A9];
 }
 .forum #resume.first {
   margin : 5px 0px 0px 0px;
@@ -19,18 +19,18 @@
   border-color : [COLOR_B5];
 }
 .forum .content {
-  margin : 0px 0px 0px 3px;
+  margin : 0px 0px 0px 6px;
   padding : 0px;
   border-width : 1px ;
-  border-style : none none dotted dotted;
-  border-color : [COLOR_A8];
+  border-style : none none none dotted;
+  border-color : [COLOR_A6];
 }
 .forum .content_first {
   margin : 3px;
   padding : 3px;
   border-width : 1px ;
   border-style : solid;
-  border-color : [COLOR_A8];
+  border-color : [COLOR_A6];
 }
 .forum .text {
   padding : 5px;
@@ -38,7 +38,7 @@
 .forum img {
   padding : 0px 2px 0px 2px;
 }
-.forum #who, .forum #date  {
+.forum #who, .forum #date, .forum #response  {
   font-size : 80%;
 }
 .forum #action {
