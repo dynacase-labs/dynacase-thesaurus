@@ -4,13 +4,12 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumaddentry.php,v 1.4 2007/10/13 10:20:10 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.5 2007/10/14 08:54:41 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
-  http://127.0.0.7/freedom/?sole=Y&app=FDL&action=FDL_FORUMADDENTRY&docid=1243&fid=-1&lid=-1&eid=-1&text=------------------&flag=#FF0000
  */
 include_once("FDL/Class.Doc.php");
 include_once("FDL/freedom_util.php");
@@ -64,17 +63,19 @@ function fdl_forumaddentry(&$action) {
     $forum = new_Doc($dbaccess, $forid);
     if (! $forum->isAffected()) $action->exitError(sprintf(_("cannot see unknow forum reference %s"),$forid));
 
-    $t_id     = $forum->getTValue("forum_d_id"); 
-    $t_lid    = $forum->getTValue("forum_d_link");
-    $t_userid = $forum->getTValue("forum_d_userid");
-    $t_user   = $forum->getTValue("forum_d_user");
+    $t_id         = $forum->getTValue("forum_d_id"); 
+    $t_lid        = $forum->getTValue("forum_d_link");
+    $t_userid     = $forum->getTValue("forum_d_userid");
+    $t_user       = $forum->getTValue("forum_d_user");
     $t_usermail   = $forum->getTValue("forum_d_usermail");
-    $t_text   = $forum->getTValue("forum_d_text");
-    $t_flag   = $forum->getTValue("forum_d_flag");
-    $t_date   = $forum->getTValue("forum_d_date");
-
+    $t_text       = $forum->getTValue("forum_d_text");
+    $t_flag       = $forum->getTValue("forum_d_flag");
+    $t_date       = $forum->getTValue("forum_d_date");
+      
+    $newentry = ($entrid == -1 ? true : false);
     $entrid = ($entrid == -1 ? $forum->getEntryId() : $entrid);
 
+    $start = $entrid;
     $validlink = false;
     $ventry = -1;
     foreach ($t_id as $k => $v) {
@@ -84,15 +85,17 @@ function fdl_forumaddentry(&$action) {
     if (!$validlink) $linkid=-1;
     if ($ventry==-1) $ventry = count($t_id);
 
-    $t_id[$ventry] = $entrid; 
-    $t_lid[$ventry]    = $linkid;
-    $t_userid[$ventry] = $action->user->fid;
-    $t_user[$ventry]   = $doc->getTitle($dbaccess, $action->user->id);
-    $t_usermail[$ventry]   = getMailAddr($action->user->id);
+    if ($newentry) {
+      $start = $linkid;
+      $t_id[$ventry]         = $entrid; 
+      $t_lid[$ventry]        = $linkid;
+      $t_userid[$ventry]     = $action->user->fid;
+      $t_user[$ventry]       = $doc->getTitle($dbaccess, $action->user->id);
+      $t_usermail[$ventry]   = getMailAddr($action->user->id);
+    } 
     $t_text[$ventry]   = $text;
     $t_flag[$ventry]   = $flag;
     $t_date[$ventry]   = $date;
-    
   }
 
   $forum->setValue("forum_d_id", $t_id);
@@ -109,8 +112,7 @@ function fdl_forumaddentry(&$action) {
   if ($err!="") $action->exitError(sprintf(_("cannot modify forum %s"),$forum->id));;
 
 //   print_r2($forum);
-  // http://127.0.0.7/freedom/?sole=Y&app=FDL&action=IMPCARD&zone=FDL:FORUM_VIEW:S&id=1251
-   redirect($action,"FDL","IMPCARD&sole=Y&zone=FDL:FORUM_VIEW:S&id=".$forum->id);
+  redirect($action,"FDL","IMPCARD&sole=Y&zone=FDL:FORUM_VIEW:S&id=".$forum->id."&start=".$start);
 
 
 }

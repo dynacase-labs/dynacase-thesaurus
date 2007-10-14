@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.44 2007/10/11 15:46:17 marc Exp $
+// $Id: FDL.app,v 1.45 2007/10/14 08:54:41 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -325,6 +325,11 @@ $action_desc = array (
   array( 
    "name"		=>"FDL_FORUMADDENTRY",
    "short_name"		=>N_("add entry in a document forum"),
+   "acl"		=>"NORMAL"
+  ),
+  array( 
+   "name"		=>"FDL_FORUMDELENTRY",
+   "short_name"		=>N_("del entry from a document forum"),
    "acl"		=>"NORMAL"
   ),
 	

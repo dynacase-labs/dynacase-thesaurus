@@ -1,14 +1,14 @@
-<div id="f_X" class="forum">
+[IF viewall]<div id="f_X" class="forum">
 <div id="resume" class="first" onclick="forum_openclose(event,'X');" >
 <img id="fi_X" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]"><span id="title">[title]</span>
-[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], 'X', -1, -1)">[TEXT:forum answer]</a>[ENDIF closed]
+[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], 'X', -1, -1)">[TEXT:new forum answer]</a>[ENDIF closed]
 </div>
 <div style="border:0px" id="fm_X"></div>
-<div class="content_first" id="fc_X">
+<div class="content_first" id="fc_X">[ENDIF viewall]
 [BLOCK entry_list]
 [ZONE FDL:FORUM_ENTRY?fid=[fid]&eid=[eid]]
 [ENDBLOCK entry_list]
-</div>
+[IF viewall]</div>
 <div class="forum" style="display:none;  border:1px solid [COLOR_C3]; background-color:[COLOR_C8]; text-align:center; margin:5px;  padding:10px;" id="forum_editform">
 <div style="">
 <form style="display:inline">
@@ -23,4 +23,4 @@
 </form>
 </div>
 </div>
-</div>
+</div>[ENDIF viewall]

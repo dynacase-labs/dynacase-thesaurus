@@ -16,7 +16,7 @@ function forum_openclose(event, eid, forceopen) {
 var entry_edit = -1;
 var entry_hide = -1;
 var entry_change = false;
-function forum_edit(event, docid, ref, link, eid) {
+function forum_edit(event, docid, ref, eid, link) {
   // link = -1 root entry 
   // eid  = -1 new entry
 
@@ -88,12 +88,27 @@ function forum_saveEdit(event) {
   var link  = document.getElementById('foredit_link').value;
   var text  = document.getElementById('foredit_text').value;
 
-  var url = corestandurl+'app=FDL&action=FDL_FORUMADDENTRY&docid='+docid+'&eid='+eid+'&lid='+link+'&text='+text;
-  
-  requestUrlSend(document.getElementById('f_X'),url);
+  var url = corestandurl+'app=FDL&action=FDL_FORUMADDENTRY&docid='+docid+'&start='+entry_edit+'&eid='+eid+'&lid='+link+'&text='+text;
+  requestUrlSend(document.getElementById('f_'+entry_edit),url);
   disableSynchro();
   
   forum_clean();
+  return;
+}
+function forum_delete(event, docid, eid, prev) {
+
+  var cprev = prev;
+  if (prev==-1) cprev='X';
+
+  var corestandurl=window.location.pathname+'?sole=Y&';
+  var url = corestandurl+'app=FDL&action=FDL_FORUMDELENTRY&docid='+docid+'&eid='+eid+'&start='+prev;
+//   alert('doc='+docid+' eid='+eid+' prev='+prev+' URL='+url);
+
+  enableSynchro();
+  requestUrlSend(document.getElementById('f_'+cprev),url);
+  disableSynchro();
+  
+  stopPropagation(event);
   return;
 }
 

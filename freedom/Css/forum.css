@@ -7,7 +7,7 @@
 .forum #resume {
   cursor : pointer;
   border-width : 1px ;
-  border-style : solid none solid none ;
+  border-style : none none solid none ;
   border-color : [COLOR_B8];
   background-color: [COLOR_A9];
 }
@@ -38,8 +38,13 @@
 .forum img {
   padding : 0px 2px 0px 2px;
 }
-.forum #who, .forum #date, .forum #response  {
+.forum #who, .forum #date {
   font-size : 80%;
+}
+.forum #response  {
+  font-size : 80%;
+  margin-left : 10px;
+  color: [COLOR_A3];
 }
 .forum #action {
   cursor : pointer;
