@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.71 2007/10/11 16:53:54 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.72 2007/10/15 12:11:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -28,6 +28,8 @@ Class Dir extends PDir
   
   var $defDoctype='D';
 
+  public $eviews=array("FDL:EDITBODYCARD",
+		       "FDL:EDITRESTRICTION");
   function Dir($dbaccess='', $id='',$res='',$dbid=0) {
     parent::__construct($dbaccess, $id, $res, $dbid);
     if ($this->fromid == "") $this->fromid= FAM_DIR;
