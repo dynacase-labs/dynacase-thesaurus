@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.95 2007/09/06 15:48:29 eric Exp $
+ * @version $Id: modcard.php,v 1.96 2007/10/15 12:11:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,6 +18,7 @@ include_once("FDL/Class.DocAttr.php");
 include_once("FDL/freedom_util.php");  
 include_once("FDL/Lib.Vault.php");  
 include_once("VAULT/Class.VaultFile.php");
+include_once("Lib.FileMime.php");
 
 
 
@@ -329,27 +330,15 @@ function insert_file($dbaccess,$docid, $attrid)
   
     if (file_exists($userfile['tmp_name'])) {
       if (is_uploaded_file($userfile['tmp_name'])) {
-	// move to add extension
-	//$destfile=str_replace(" ","_","/tmp/".chop($doc->title)."-".$attr->labeltext.".".$ext);
-    
-	$destfile=str_replace(" ","_","/tmp/".$userfile['name']);
-	$destfile=str_replace("'","",$destfile);
-	$destfile=str_replace("\"","",$destfile);
-
-	move_uploaded_file($userfile['tmp_name'], $destfile);
-	if (isset($vf)) unset($vf);
-	$vf = newFreeVaultFile($dbaccess);
-	$err=$vf->Store($destfile, false , $vid);
-      
-
+	// move to add extension   
+	$err=vault_store($userfile['tmp_name'],$vid,$userfile['name']);
 	if ($userfile['type']=="none") {
 	  // read system mime 
-	  $userfile['type']=trim(`file -ib $destfile`);      
+	  $userfile['type']=getSysMimeFile($userfile['tmp_name'],$userfile['name']);
 	}
 	if ($err != "") {
 	  AddWarningMsg($err);
 	} 
-	unlink($destfile);
       } else {
 	$err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
 	$action->ExitError($err);
