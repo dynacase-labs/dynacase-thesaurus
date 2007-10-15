@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.83 2007/05/10 13:04:28 eric Exp $
+ * @version $Id: viewfolder.php,v 1.84 2007/10/15 13:01:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -235,7 +235,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	$tdoc[$k]["locked"] = sprintf("<img src=\"%s\" title=\"%s\" width=\"20px\">",$tdoc[$k]["emblem"],$tdoc[$k]["emblemt"]);
 
       } else if ($doc->control("edit") != "")  {
-	$tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.gif");
+	$tdoc[$k]["emblem"] = $action->GetImageUrl("nowrite.png");
 	$tdoc[$k]["emblemt"] = _("read-only");
 	$tdoc[$k]["emblemw"] ="12";
 	$tdoc[$k]["canedit"] =false;

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: search_fulltext.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: search_fulltext.php,v 1.9 2007/10/15 13:01:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: search_fulltext.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+// $Id: search_fulltext.php,v 1.9 2007/10/15 13:01:06 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/search_fulltext.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -229,7 +229,7 @@ function search_fulltext(&$action) {
       else if ($doc->locked > 0) 
 	$tdoc[$k]["locked"] = $action->GetIcon("clef2.gif",N_("locked"), 20,20);
       else if ($doc->locked < 0) 
-	$tdoc[$k]["locked"] = $action->GetIcon("nowrite.gif",N_("fixed"), 20,20);
+	$tdoc[$k]["locked"] = $action->GetIcon("nowrite.png",N_("fixed"), 20,20);
       else if ($doc->lmodify == "Y") 
 	if ($doc->doctype == 'F') 
 	  $tdoc[$k]["locked"] = $action->GetIcon("changed2.gif",N_("changed"), 20,20);

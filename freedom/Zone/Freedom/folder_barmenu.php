@@ -3,7 +3,7 @@
  * Folder barmenu
  *
  * @author Anakeen 2000 
- * @version $Id: folder_barmenu.php,v 1.15 2007/08/07 16:56:59 eric Exp $
+ * @version $Id: folder_barmenu.php,v 1.16 2007/10/15 13:01:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -66,6 +66,9 @@ function folder_barmenu(&$action) {
       popupActive("toolmenu",1,'insert');
     }
     popupInvisible("toolmenu",1,'clear');
+  }
+  if ($dir->initid==10) {
+    popupActive("toolmenu",1,'clear'); // import folder
   }
   popupActive("toolmenu",1,'props');
   popupActive("toolmenu",1,'openfolio'); 
