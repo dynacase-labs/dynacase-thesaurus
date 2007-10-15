@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.425 2007/10/15 13:01:06 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.426 2007/10/15 14:30:47 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4190,6 +4190,23 @@ final public function PostInsert()  {
       $this->lay->Set("allocate", $user->firstname." ".$user->lastname);
       $this->lay->Set("allocateid", $user->fid);
     }
+
+	
+    if ($this->forumid=="") {
+      $this->lay->Set("forum", _("forum disallowed"));
+      $this->lay->Set("hforum", false);
+    } else if ($this->forumid===0) {
+      $this->lay->Set("forum", _("forum allowed"));
+      $this->lay->Set("hforum", false);
+    } else {
+      if ($this->forumid>0) $this->lay->Set("forum", _("forum opened"));
+      else $this->lay->Set("forum", _("forum closed"));
+      $this->lay->Set("hforum", true);
+      $this->lay->Set("forumid", abs($this->forumid));
+    }
+      
+	
+
   
     
   }

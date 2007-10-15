@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 11:27+0200\n"
+"POT-Creation-Date: 2007-10-15 16:28+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -15,700 +15,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
 
-#, fuzzy, c-format
-msgid "postit of %s"
-msgstr "Import"
-
-msgid "no message : post-it creation aborted"
+msgid "type"
 msgstr ""
 
 #, fuzzy
-msgid "no filename"
-msgstr "Firstname"
+msgid "Referenced from"
+msgstr "Delete"
 
 #, fuzzy, c-format
-msgid "%s attribute"
+msgid "file %d"
 msgstr "Update Title Cards"
-
-msgid "no available persons found"
-msgstr ""
-
-msgid "not perm for admin"
-msgstr ""
-
-msgid "not pertinent"
-msgstr ""
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
-msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "Document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, fuzzy
-msgid "Folder cleared"
-msgstr "Delete"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s inserted"
-msgstr "Import"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s umounted"
-msgstr "Import"
-
-#, fuzzy
-msgid "view document"
-msgstr "Organisation"
-
-msgid "view"
-msgstr ""
-
-#, fuzzy
-msgid "send document"
-msgstr "Import"
-
-#, fuzzy
-msgid "send"
-msgstr "Edit"
-
-msgid "edit document"
-msgstr ""
-
-#, fuzzy
-msgid "edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "delete document"
-msgstr "Delete"
-
-msgid "delete"
-msgstr "Delete"
-
-#, fuzzy
-msgid "open folder"
-msgstr "Modify"
-
-msgid "open"
-msgstr ""
-
-#, fuzzy
-msgid "execute search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "execute"
-msgstr "Delete"
-
-#, fuzzy
-msgid "modify folder"
-msgstr "Modify"
-
-msgid "modify"
-msgstr "Modify"
-
-#, fuzzy
-msgid "view acl"
-msgstr "Start search"
-
-msgid "viewacl"
-msgstr ""
-
-#, fuzzy
-msgid "modify acl"
-msgstr "Modify"
-
-#, fuzzy
-msgid "modifyacl"
-msgstr "Modify"
-
-#, fuzzy
-msgid "create doc"
-msgstr "Create"
-
-#, fuzzy
-msgid "unlock"
-msgstr "Create"
-
-msgid "unlock unowner locked doc"
-msgstr ""
-
-#, fuzzy
-msgid "icreate"
-msgstr "Create"
-
-#, fuzzy
-msgid "create doc manually"
-msgstr "Create"
-
-#, fuzzy
-msgid "confidential"
-msgstr "Delete"
-
-#, fuzzy
-msgid "view confidential"
-msgstr "Delete"
-
-#, fuzzy
-msgid "forum"
-msgstr "Delete"
-
-#, fuzzy
-msgid "edit forum"
-msgstr "Import"
-
-#, c-format
-msgid "unknow privilege %s"
-msgstr ""
-
-#, c-format
-msgid "unknow virtual user identificateur %s"
-msgstr ""
-
-#, c-format
-msgid "no privilege %s for %s |%d]"
-msgstr ""
-
-msgid "<it's a message>"
-msgstr ""
-
-msgid "the email syntax  is like : john.doe@anywhere.org"
-msgstr ""
-
-msgid "the email must containt the @ character"
-msgstr ""
-
-msgid "the date syntax must be like : DD/MM/AAAA"
-msgstr ""
-
-#, c-format
-msgid "the date %s is in the past: today is %s"
-msgstr ""
-
-#, fuzzy
-msgid "need to select the document with the list"
-msgstr "Category"
-
-#, c-format
-msgid "the document id [%s] for this attribute is not valid"
-msgstr ""
-
-#, c-format
-msgid "the title of document [%s] is not conform to original [%s]"
-msgstr ""
-
-msgid "clic to the ... button to link document correctly"
-msgstr ""
-
-#, fuzzy
-msgid "the document id is empty"
-msgstr "Category"
-
-msgid "clic to the [...] button to link document correctly"
-msgstr ""
-
-#, fuzzy
-msgid "the document title is empty"
-msgstr "Category"
-
-msgid "TE engine activate but TE-CLIENT not found"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"errldapadd:%s\n"
-"%s\n"
-"%d\n"
-msgstr ""
-"Card is not modify in LDAP server : one of this attribute is not appropriate"
-
-msgid "errldapconnect"
-msgstr "LDAP server cannot be contacted"
-
-#, fuzzy
-msgid "errldaporginit"
-msgstr "LDAP server cannot be contacted"
-
-#, c-format
-msgid "Process %s [%d] executed"
-msgstr ""
-
-#, c-format
-msgid "Error : Process %s [%d]: status %d"
-msgstr ""
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "invalid syntax for [%s] for enum attribute"
-msgstr ""
-
-#, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "%s color"
-msgstr ""
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
-msgid "wprocess_private"
-msgstr ""
-
-msgid "wprocess_qualified"
-msgstr ""
-
-msgid "Twprocess_private"
-msgstr ""
-
-msgid "Twprocess_public"
-msgstr ""
-
-#, c-format
-msgid "query [%s] not valid for select document"
-msgstr ""
-
-msgid "no family"
-msgstr ""
-
-msgid "(only)"
-msgstr ""
-
-#, fuzzy
-msgid "document creation"
-msgstr "Organisation"
-
-#, fuzzy, c-format
-msgid "untitle %s %d"
-msgstr "Update Title Cards"
-
-msgid "cannot update no initialized document"
-msgstr ""
-
-msgid "untitle document"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "convertion from %s to %s family"
-msgstr "Category"
-
-#, c-format
-msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "the file %s (rev %d) must be locked before"
-msgstr ""
-
-#, c-format
-msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr ""
-
-#, c-format
-msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "cannot lock file %s [%d] : already locked by %s."
-msgstr ""
-
-#, fuzzy
-msgid "cannot unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "already deleted"
-msgstr "Delete"
-
-msgid "locked"
-msgstr ""
-
-#, c-format
-msgid "delete by action %s/%s from %s"
-msgstr ""
-
-#, fuzzy
-msgid "document deleted"
-msgstr "Delete"
-
-#, fuzzy
-msgid "revival document"
-msgstr "Organisation"
-
-#, c-format
-msgid "document %s [%d] is not in the trash"
-msgstr ""
-
-msgid "Only owner of document can restore it"
-msgstr ""
-
-msgid "unknow attribute"
-msgstr ""
-
-#, c-format
-msgid "%s needed\n"
-msgstr ""
-
-#, c-format
-msgid "attribute %s unknow in family %s [%d]"
-msgstr ""
-
-#, c-format
-msgid "no permission to modify this attribute %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"the date '%s' for %s attribute is not correct. It has been corrected "
-"automatically"
-msgstr ""
-
-msgid "error sending text conversion"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify file %s"
-msgstr "Modify"
-
-#, c-format
-msgid "attribute %s is not a file attribute"
-msgstr ""
-
-#, fuzzy
-msgid "no files"
-msgstr "Category"
-
-#, c-format
-msgid "attribute %s is not int a array"
-msgstr ""
-
-#, c-format
-msgid "constraint return [%s] for %s attribute"
-msgstr ""
-
-msgid "no user tag specified"
-msgstr ""
-
-msgid "document already revised"
-msgstr ""
-
-#, c-format
-msgid "the document of %s family cannot be revised"
-msgstr ""
-
-#, c-format
-msgid "cannot set free state in workflow controlled document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: workflow not allowed"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: document cannot be revised"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "remove state : %s"
-msgstr "Create"
-
-#, fuzzy, c-format
-msgid "invalid freestate document %s"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "not a freestate document %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state to %s : %s"
-msgstr "Category"
-
-#, c-format
-msgid "copy from document #%d -%s-"
-msgstr ""
-
-#, fuzzy
-msgid "Affectation aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid ""
-"Affectation aborded\n"
-"%s for user %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected to %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected for %s"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Affectation aborded : user not know"
-msgstr "Edit"
-
-#, c-format
-msgid "Unallocated of %s %s : %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Category"
-
-msgid "user not know"
-msgstr ""
-
-#, fuzzy
-msgid "Unallocate aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "unknown document id %s"
-msgstr "Start search"
-
-msgid "vault file error"
-msgstr ""
-
-msgid "AbbrKbyte"
-msgstr ""
-
-#, c-format
-msgid "cannot control : object not initialized : %s"
-msgstr ""
-
-msgid "control :: user identificator is null"
-msgstr ""
-
-#, c-format
-msgid "error in pzone format %s"
-msgstr ""
-
-#, c-format
-msgid "current (<i>%s</i>)"
-msgstr ""
-
-#, fuzzy
-msgid "no state"
-msgstr "Identity"
-
-#, fuzzy
-msgid "last modification date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "suppression date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "revision date"
-msgstr "Organisation"
-
-msgid "no access control"
-msgstr ""
-
-msgid "specific control"
-msgstr ""
-
-#, fuzzy
-msgid "dynamic control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no view control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no folder"
-msgstr "Modify"
-
-#, fuzzy
-msgid "no allocate"
-msgstr "Email"
-
-#, c-format
-msgid "new %s"
-msgstr ""
-
-msgid "document not referenced"
-msgstr ""
-
-#, fuzzy
-msgid "confidential document"
-msgstr "Delete"
-
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-msgid "mnogosearch php extension not loaded"
-msgstr ""
-
-#, fuzzy
-msgid "include"
-msgstr "Modify"
-
-msgid "equal"
-msgstr ""
-
-#, fuzzy
-msgid "not equal"
-msgstr "Email"
-
-msgid "is empty"
-msgstr ""
-
-msgid "is not empty"
-msgstr ""
-
-msgid "one value equal"
-msgstr ""
-
-#, fuzzy
-msgid "not include"
-msgstr "Modify"
-
-msgid "begin by"
-msgstr ""
-
-msgid "&gt; or equal"
-msgstr ""
-
-msgid "&lt; or equal"
-msgstr ""
-
-#, fuzzy
-msgid "one word equal"
-msgstr "Email"
-
-#, fuzzy
-msgid "content file word"
-msgstr "Start search"
-
-#, fuzzy
-msgid "content file expression"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "and"
-msgstr "Add new contact card"
-
-msgid "or"
-msgstr ""
-
-#, fuzzy
-msgid "state"
-msgstr "Identity"
 
 #, fuzzy
 msgid "doctitle"
@@ -718,161 +34,1062 @@ msgstr "Update Title Cards"
 msgid "revdate"
 msgstr "Create"
 
-msgid "id owner"
-msgstr ""
-
-#, fuzzy
-msgid "any values"
-msgstr "Delete"
-
-msgid "label"
-msgstr ""
-
-#, fuzzy
-msgid "send search"
-msgstr "Start search"
-
 #, fuzzy
 msgid "revision"
 msgstr "Organisation"
 
 #, fuzzy
-msgid "new search "
+msgid "state"
+msgstr "Identity"
+
+#, fuzzy
+msgid "short_name"
+msgstr "Delete"
+
+msgid "Freedoms lib"
+msgstr ""
+
+msgid "Freedoms library"
+msgstr ""
+
+msgid "Access Action Library"
+msgstr ""
+
+msgid "Access to edit action"
+msgstr ""
+
+msgid "For export functions"
+msgstr ""
+
+#, fuzzy
+msgid "Manage families"
 msgstr "Start search"
 
-msgid "can't connect mnogosearch db"
+msgid "nothing action"
 msgstr ""
 
-#, c-format
-msgid "php file %s needed for request not found"
-msgstr ""
-
-msgid "read only"
+msgid "to choose value from set"
 msgstr ""
 
 #, fuzzy
-msgid "read write"
-msgstr "readwriteall"
+msgid "change icon of document"
+msgstr "Category"
 
-msgid "write only"
+#, fuzzy
+msgid "Freedom initialisation"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Document context menu"
+msgstr "Import"
+
+#, fuzzy
+msgid "Edit state bar menu"
+msgstr "Create"
+
+#, fuzzy
+msgid "export folder"
+msgstr "Delete"
+
+msgid "export file to consulting"
 msgstr ""
 
-msgid "hidden"
+msgid "export first file to consulting"
+msgstr ""
+
+msgid "send a document"
 msgstr ""
 
 #, fuzzy
-msgid "read disabled"
+msgid "difference between 2 documents"
 msgstr "Delete"
 
 #, fuzzy
-msgid "invisible"
-msgstr "Visibility"
+msgid "edit mail"
+msgstr "Email"
 
-msgid "Y"
-msgstr ""
+#, fuzzy
+msgid "help manual for family"
+msgstr "Delete"
 
-msgid "N"
+msgid "confirm mail sended before change state"
 msgstr ""
 
 #, fuzzy
-msgid "Action"
+msgid "modify acl"
+msgstr "Modify"
+
+#, fuzzy
+msgid "view standalone card"
+msgstr "Start search"
+
+#, fuzzy
+msgid "printed view card"
+msgstr "Category"
+
+#, fuzzy
+msgid "view card"
+msgstr "Category"
+
+#, fuzzy
+msgid "get value of an attribute"
+msgstr "Title"
+
+#, fuzzy
+msgid "display a confidential doc"
+msgstr "Delete"
+
+msgid "lock file to edit"
+msgstr ""
+
+#, fuzzy
+msgid "interface to change document option"
+msgstr "Category"
+
+#, fuzzy
+msgid "modify document option"
+msgstr "Import"
+
+#, fuzzy
+msgid "view document option"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "view xml"
+msgstr "Start search"
+
+msgid "unlock file to discard edit"
+msgstr ""
+
+msgid "apply a method to a document"
+msgstr ""
+
+msgid "init workflow profile attributes"
+msgstr ""
+
+msgid "save geometry of mini view"
+msgstr ""
+
+msgid "verify constraint attribute"
+msgstr ""
+
+#, fuzzy
+msgid "interface to change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "emailing"
+msgstr "Email"
+
+#, fuzzy
+msgid "eprinting"
+msgstr "Print this page"
+
+msgid "epreview"
+msgstr ""
+
+msgid "enavpreview"
+msgstr ""
+
+#, fuzzy
+msgid "edit attribute inline"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "modify attribute inline"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edition to affect user"
+msgstr "Create"
+
+#, fuzzy
+msgid "affect user to a document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "unaffect user to a document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view graph of workflow"
+msgstr "Delete"
+
+msgid "update text file for fulltext"
+msgstr ""
+
+#, fuzzy
+msgid "insert document in a folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "interface insert document in a folder"
+msgstr "Category"
+
+msgid "search document to insert in a folder"
+msgstr ""
+
+#, fuzzy
+msgid "add entry in a document forum"
+msgstr "Delete"
+
+#, fuzzy
+msgid "del entry from a document forum"
+msgstr "Delete"
+
+#, fuzzy
+msgid "open forum"
+msgstr "Modify"
+
+#, fuzzy
+msgid "close forum"
+msgstr "Start search"
+
+#, fuzzy
+msgid "freedom database"
 msgstr "Edit"
 
-#, c-format
-msgid "Error in portfolio : folder %s not exists"
+msgid "string limit for popup enum"
 msgstr ""
 
 #, fuzzy
-msgid "direct"
+msgid "send mail copy"
+msgstr "Email"
+
+msgid "horizontal size for secondary windows"
+msgstr ""
+
+msgid "vertical size for secondary windows"
+msgstr ""
+
+msgid "max items return when open a folder"
+msgstr ""
+
+msgid "maximum document can be imported directly"
+msgstr ""
+
+msgid "name and address of our society"
+msgstr ""
+
+msgid "logo of our society"
+msgstr ""
+
+msgid "town of our society"
+msgstr ""
+
+msgid "name of our society"
+msgstr ""
+
+msgid "phone of our society"
+msgstr ""
+
+msgid "use ctrl key in popup menu"
+msgstr ""
+
+msgid "view altern color in document fieldset"
+msgstr ""
+
+msgid "geometry of mini view"
+msgstr ""
+
+msgid "SMTP host"
+msgstr ""
+
+#, fuzzy
+msgid "SMTP port"
+msgstr "Export selected cards"
+
+msgid "SMTP login"
+msgstr ""
+
+msgid "SMTP password"
+msgstr ""
+
+msgid "SMTP default from if not"
+msgstr ""
+
+msgid "Transformation Engine server host name"
+msgstr ""
+
+msgid "Transformation Engine server port number"
+msgstr ""
+
+msgid "Activate Transformation Engine to index files"
+msgstr ""
+
+msgid "fulltext index mode"
+msgstr ""
+
+#, fuzzy
+msgid "Documents management"
+msgstr "Import"
+
+#, fuzzy
+msgid "Access Families Management"
+msgstr "Import"
+
+#, fuzzy
+msgid "Access Batch Management"
+msgstr "Import"
+
+msgid "Access To My Own account"
+msgstr ""
+
+msgid "Access To Read Only"
+msgstr ""
+
+msgid "Access To Main Interface"
+msgstr ""
+
+msgid "Freedoms frame"
+msgstr ""
+
+msgid "Freedoms list"
+msgstr ""
+
+msgid "batch execution"
+msgstr ""
+
+#, fuzzy
+msgid "construct batch document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "choose action from batch document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "add batch document"
+msgstr "Import"
+
+#, fuzzy
+msgid "Freedoms list by column"
+msgstr "Organisation"
+
+msgid "query document import"
+msgstr ""
+
+msgid "query tar document import"
+msgstr ""
+
+#, fuzzy
+msgid "interface to export documents"
+msgstr "Category"
+
+msgid "background document import"
+msgstr ""
+
+msgid "add document import"
+msgstr ""
+
+#, fuzzy
+msgid "import archive file"
+msgstr "Import"
+
+msgid "analyze archive file"
+msgstr ""
+
+msgid "add document from directories file import"
+msgstr ""
+
+#, fuzzy
+msgid "view imported tar"
+msgstr "Import"
+
+#, fuzzy
+msgid "delete imported tar"
+msgstr "Import"
+
+msgid "Freedoms view folder"
+msgstr ""
+
+#, fuzzy
+msgid "Freedoms preview document"
+msgstr "Organisation"
+
+msgid "popup menu"
+msgstr ""
+
+msgid "add file query into directory"
+msgstr ""
+
+msgid "insert containt of a folder into another"
+msgstr ""
+
+msgid "clear containt of a folder"
+msgstr ""
+
+msgid "move file query into directory"
+msgstr ""
+
+msgid "delete file query into directory"
+msgstr ""
+
+msgid "folder tree"
+msgstr ""
+
+#, fuzzy
+msgid "expand folder tree"
+msgstr "Delete"
+
+msgid "Freedoms icon list"
+msgstr ""
+
+#, fuzzy
+msgid "Freedoms detail list"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Freedoms RSS syndication"
+msgstr "Organisation"
+
+msgid "folio icon list"
+msgstr ""
+
+msgid "folio select doc"
+msgstr ""
+
+#, fuzzy
+msgid "access path folder list"
+msgstr "Delete"
+
+msgid "bar menu"
+msgstr ""
+
+msgid "Freedoms card"
+msgstr ""
+
+msgid "duplicate document"
+msgstr ""
+
+msgid "attributes definitions"
+msgstr ""
+
+#, fuzzy
+msgid "edit create family"
+msgstr "Category"
+
+#, fuzzy
+msgid "create family"
+msgstr "Category"
+
+msgid "refresh directory"
+msgstr ""
+
+msgid "attributes modification"
+msgstr ""
+
+#, fuzzy
+msgid "edit state "
+msgstr "Create"
+
+#, fuzzy
+msgid "edit icard "
+msgstr "Create"
+
+msgid "edit icard 2 "
+msgstr ""
+
+msgid "edit workflow transitions "
+msgstr ""
+
+msgid "edit args of actions in workflow edition "
+msgstr ""
+
+msgid "edit profile access"
+msgstr ""
+
+msgid "change profile access"
+msgstr ""
+
+msgid "change state transition"
+msgstr ""
+
+#, fuzzy
+msgid "edit default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "change default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "choose workflow"
+msgstr "Delete"
+
+msgid "modify associated worflow"
+msgstr ""
+
+msgid "set the document controlled"
+msgstr ""
+
+msgid "change icon document"
+msgstr ""
+
+msgid "change title family"
+msgstr ""
+
+msgid "query icon"
+msgstr ""
+
+msgid "search document"
+msgstr ""
+
+#, fuzzy
+msgid "full text search document"
+msgstr "Start search"
+
+#, fuzzy
+msgid "detailled full text search document"
+msgstr "Start search"
+
+msgid "detailled full text interface"
+msgstr ""
+
+msgid "search document criteria"
+msgstr ""
+
+msgid "full text search document criteria"
+msgstr ""
+
+msgid "ask for a new file revision"
+msgstr ""
+
+msgid "edit document properties"
+msgstr ""
+
+#, fuzzy
+msgid "edit default document properties"
+msgstr "Delete"
+
+msgid "add comment before revise document"
+msgstr ""
+
+msgid "make a new document revision"
+msgstr ""
+
+msgid "view history revision"
+msgstr ""
+
+msgid "style sheet"
+msgstr ""
+
+msgid "widget display popup for a description card"
+msgstr ""
+
+msgid "Freedom modification"
+msgstr ""
+
+#, fuzzy
+msgid "Freedom imodification"
+msgstr "Organisation"
+
+msgid "view idoc attribute card"
+msgstr ""
+
+msgid "Freedom deletion"
+msgstr ""
+
+msgid "Freedom update title fields"
+msgstr ""
+
+msgid "Freedom accessibilities"
+msgstr ""
+
+msgid "Freedom group accessibilities"
+msgstr ""
+
+msgid "Freedom modify accessibilities"
+msgstr ""
+
+#, fuzzy
+msgid "open portfolio"
+msgstr "Modify"
+
+msgid "set RSS usable"
+msgstr ""
+
+msgid "portfolio tab"
+msgstr ""
+
+msgid "choose preferred families"
+msgstr ""
+
+#, fuzzy
+msgid "modify preferred families"
+msgstr "Modify"
+
+msgid "add folder in bookmark"
+msgstr ""
+
+msgid "processes execution plan"
+msgstr ""
+
+#, fuzzy
+msgid "creation processes"
 msgstr "Edit"
 
-#, fuzzy, c-format
-msgid "refreshing %s"
-msgstr "Delete"
+#, fuzzy
+msgid "search processes"
+msgstr "Start search"
 
-#, c-format
-msgid "group #%d does not exist"
+msgid "navigate between relations"
 msgstr ""
 
-msgid "group has not identificator"
-msgstr ""
-
-msgid "this groups must be refreshed"
-msgstr ""
-
-#, c-format
-msgid "%s group"
-msgstr ""
-
-#, c-format
-msgid "group %d does not exist"
-msgstr ""
-
-msgid "the login must not be empty"
-msgstr ""
-
-msgid "the login syntax is like : john.doe"
-msgstr ""
-
-msgid "login yet use"
-msgstr ""
-
-msgid ""
-"what id already set in freedom\n"
-"This kind of document can not be duplicated"
-msgstr ""
-
-#, c-format
-msgid "user #%d does not exist"
-msgstr ""
-
-msgid "user is desactivated"
-msgstr ""
-
-msgid "user has not identificator"
-msgstr ""
-
-#, c-format
-msgid "user %d does not exist"
-msgstr ""
-
-msgid "the 2 passwords are not the same"
-msgstr ""
-
-msgid "passwords must not be empty"
-msgstr ""
-
-msgid "Expiration delay must not be 0 to keep expiration date"
-msgstr ""
-
-#, c-format
-msgid "<b>%d group(s) to refresh</b>"
+msgid "navigate between relations next"
 msgstr ""
 
 #, fuzzy
-msgid "No need to refresh group"
+msgid "root folder id"
+msgstr "Modify"
+
+msgid "Limit of text size (in Ko) for highlight text"
+msgstr ""
+
+msgid "id of the basket folder"
+msgstr ""
+
+msgid "directory to upload archive"
+msgstr ""
+
+#, fuzzy
+msgid "mode to navigate in folders"
+msgstr "Modify"
+
+#, fuzzy
+msgid "bookmark folders"
+msgstr "Modify"
+
+#, fuzzy
+msgid "visible user families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "visible master families"
+msgstr "Start search"
+
+msgid "icon column number"
+msgstr ""
+
+#, fuzzy
+msgid "default opened family"
 msgstr "Delete"
 
-msgid "No identificator"
+#, fuzzy
+msgid "Onefam"
+msgstr "Lastname"
+
+msgid "One Familly Management"
 msgstr ""
+
+#, fuzzy
+msgid "one familly root"
+msgstr "Start search"
+
+#, fuzzy
+msgid "one family generic root"
+msgstr "Start search"
+
+#, fuzzy
+msgid "familly list"
+msgstr "Start search"
+
+#, fuzzy
+msgid "redirect to generic"
+msgstr "Start search"
+
+#, fuzzy
+msgid "familly result"
+msgstr "Start search"
+
+msgid "edit preferences"
+msgstr ""
+
+#, fuzzy
+msgid "modify preferences"
+msgstr "Modify"
+
+#, fuzzy
+msgid "edit master preferences"
+msgstr "Modify"
+
+#, fuzzy
+msgid "modify master preferences"
+msgstr "Modify"
+
+msgid "To choose other families"
+msgstr ""
+
+msgid "Access To Read Card"
+msgstr ""
+
+msgid "Access choose masters families"
+msgstr ""
+
+msgid "default document family"
+msgstr ""
+
+msgid "number of card by page"
+msgstr ""
+
+msgid "width of the abstract card"
+msgstr ""
+
+msgid "width of the frame for abstract card"
+msgstr ""
+
+msgid "height of the frame for abstract card"
+msgstr ""
+
+msgid "differents view mode by family"
+msgstr ""
+
+msgid "split view mode by family"
+msgstr ""
+
+#, fuzzy
+msgid "view tab letter by family"
+msgstr "Delete"
+
+msgid "search in inherited family by family"
+msgstr ""
+
+#, fuzzy
+msgid "default sort by family"
+msgstr "Delete"
+
+#, fuzzy
+msgid "prefered search"
+msgstr "Start search"
+
+msgid "last search text typed"
+msgstr ""
+
+#, fuzzy
+msgid "search mode"
+msgstr "Start search"
+
+msgid "Generic"
+msgstr ""
+
+msgid "generic Management"
+msgstr ""
+
+msgid "Access Generic Master Management"
+msgstr ""
+
+msgid "Access To Generic Management"
+msgstr ""
+
+msgid "generic home page"
+msgstr ""
+
+msgid "generic vertical home page"
+msgstr ""
+
+#, fuzzy
+msgid "edition"
+msgstr "Edit"
+
+#, fuzzy
+msgid "inverted search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "duplication"
+msgstr "Edit"
+
+msgid "delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "add category"
+msgstr "Category"
+
+#, fuzzy
+msgid "edit family preference"
+msgstr "Modify"
+
+#, fuzzy
+msgid "modify family preference"
+msgstr "Modify"
+
+msgid "change king in enum attribute"
+msgstr ""
+
+msgid "choose for edit enum attribute"
+msgstr ""
+
+msgid "interface to edit enum attribute"
+msgstr ""
+
+msgid "edit to add category"
+msgstr ""
+
+msgid "edit to add or modify category"
+msgstr ""
+
+msgid "edit to change category"
+msgstr ""
+
+#, fuzzy
+msgid "change category"
+msgstr "Category"
+
+msgid "modification or creation"
+msgstr ""
+
+msgid "view as vcard"
+msgstr ""
+
+msgid "display logo"
+msgstr ""
+
+msgid "view list"
+msgstr ""
+
+msgid "define sort attribute"
+msgstr ""
+
+#, fuzzy
+msgid "view a generic"
+msgstr "Start search"
+
+msgid "edit import vcard"
+msgstr ""
+
+msgid "view a part of list"
+msgstr ""
+
+#, fuzzy
+msgid "import csv"
+msgstr "Import"
+
+#, fuzzy
+msgid "search a generict"
+msgstr "Start search"
+
+msgid "search with kind criteria"
+msgstr ""
+
+#, fuzzy
+msgid "initialisation"
+msgstr "Organisation"
+
+msgid "memorisation of split mode"
+msgstr ""
+
+msgid "memorisation of pref search"
+msgstr ""
+
+#, fuzzy
+msgid "popup in generic list"
+msgstr "Title"
+
+msgid "User Card"
+msgstr ""
+
+msgid "User Card Management"
+msgstr ""
+
+msgid "Access To Import Contacts"
+msgstr ""
+
+msgid "Access To Manage Address Book"
+msgstr ""
+
+msgid "Access To View Address Book"
+msgstr ""
+
+#, fuzzy
+msgid "import vcard"
+msgstr "Import"
+
+msgid "tab usercard"
+msgstr ""
+
+msgid "usercard home page"
+msgstr ""
+
+#, fuzzy
+msgid "address book css"
+msgstr "Add new contact card"
+
+msgid "address book set user param"
+msgstr ""
+
+msgid "address book choose main view column"
+msgstr ""
+
+msgid "address book frame page"
+msgstr ""
+
+msgid "address book main page"
+msgstr ""
+
+#, fuzzy
+msgid "address book speed search"
+msgstr "Start search"
+
+msgid "address book prefered contacts"
+msgstr ""
+
+msgid "address book add a prefered contacts"
+msgstr ""
+
+msgid "LDAP server name"
+msgstr ""
+
+#, fuzzy
+msgid "LDAP server port"
+msgstr "Import"
+
+msgid "LDAP server root"
+msgstr ""
+
+msgid "LDAP admin identificatot"
+msgstr ""
+
+msgid "LDAP admin passord"
+msgstr ""
+
+msgid "LDAP activated"
+msgstr ""
+
+#, fuzzy
+msgid "first family used"
+msgstr "Category"
+
+#, fuzzy
+msgid "second family used"
+msgstr "Start search"
+
+msgid "main view line displayed"
+msgstr ""
+
+#, fuzzy
+msgid "prefered contacts"
+msgstr "Start search"
+
+#, fuzzy
+msgid "main view columns"
+msgstr "Start search"
+
+msgid "mail will be calculated from domain"
+msgstr ""
+
+#, fuzzy
+msgid "no mail"
+msgstr "Email"
+
+msgid "Users"
+msgstr ""
+
+msgid "Users Management"
+msgstr ""
+
+msgid "To create and modify users and groups"
+msgstr ""
+
+msgid "Access to user refresh function"
+msgstr ""
+
+msgid "fusers root window"
+msgstr ""
+
+msgid "fusers list window"
+msgstr ""
+
+msgid "fusers view/edit window"
+msgstr ""
+
+msgid "refresh users intranet attributes"
+msgstr ""
+
+#, fuzzy
+msgid "refresh ldap entries"
+msgstr "Delete"
+
+#, fuzzy
+msgid "refresh groups"
+msgstr "Delete"
 
 msgid "Properties"
 msgstr ""
 
-#, fuzzy, c-format
-msgid "Create %s"
+msgid "View latest"
+msgstr ""
+
+#, fuzzy
+msgid "Edit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Lock"
 msgstr "Create"
 
 #, fuzzy
-msgid "Change icon"
+msgid "Change state"
+msgstr "Category"
+
+msgid "View all properties"
+msgstr ""
+
+msgid "Special view"
+msgstr ""
+
+msgid "Special edit"
+msgstr ""
+
+#, fuzzy
+msgid "Unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "Revise"
+msgstr "Created by"
+
+#, fuzzy
+msgid "Allocate"
+msgstr "All"
+
+#, fuzzy
+msgid "Change profile"
+msgstr "Category"
+
+msgid "History"
+msgstr ""
+
+#, fuzzy
+msgid "Confirm"
+msgstr "Really Delete"
+
+#, fuzzy
+msgid "Duplicate"
+msgstr "Edit"
+
+msgid "goaccess"
+msgstr "Control access"
+
+msgid "Add to basket"
+msgstr ""
+
+msgid "Add postit"
+msgstr ""
+
+msgid "View XML"
+msgstr ""
+
+#, fuzzy
+msgid "Search linked documents"
+msgstr "Delete"
+
+#, fuzzy
+msgid " change icon"
 msgstr "Start search"
 
 #, fuzzy
 msgid "Edit attributes"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "Edit enum attributes"
 msgstr "Update Title Cards"
 
 #, fuzzy
@@ -887,39 +1104,2056 @@ msgid "Rename"
 msgstr "Lastname"
 
 #, fuzzy
-msgid "Change profile of family document"
+msgid "Change creation profile"
 msgstr "Category"
 
 #, fuzzy
-msgid "Change profile for new documents"
-msgstr "Category"
-
-#, fuzzy
-msgid "Change root folder"
+msgid "Change default folder"
 msgstr "Delete"
 
 #, fuzzy
-msgid "Change first folder"
+msgid "Change current folder"
 msgstr "Delete"
 
 #, fuzzy
 msgid "Choose workflow"
 msgstr "Delete"
 
-msgid "History"
+msgid "delconfirm"
+msgstr "Really Delete"
+
+#, fuzzy
+msgid "Delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Cancel"
+msgstr "Create"
+
+#, fuzzy
+msgid "Confidential Document"
+msgstr "Delete"
+
+msgid "Restricted Access"
 msgstr ""
 
-msgid "goaccess"
+msgid "clear inputs"
+msgstr ""
+
+msgid "mini view"
+msgstr ""
+
+#, fuzzy
+msgid "post it"
+msgstr "Import"
+
+#, fuzzy
+msgid "save forum edition"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "delete selected"
+msgstr "Delete"
+
+#, fuzzy
+msgid "select"
+msgstr "Delete"
+
+msgid "unselect"
+msgstr ""
+
+#, fuzzy
+msgid "duplicate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "add"
+msgstr "Add new contact card"
+
+msgid "forum open/close"
+msgstr ""
+
+msgid "forum answer"
+msgstr ""
+
+#, fuzzy
+msgid "forum edit"
+msgstr "Modify not possible"
+
+#, fuzzy
+msgid "forum delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "response for this forum entry"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Familly Document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Profile for new document"
+msgstr "Category"
+
+#, fuzzy
+msgid "Control view for new document"
+msgstr "Category"
+
+#, fuzzy
+msgid "First folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Root folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Workflow"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Validate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Close"
+msgstr "Create"
+
+msgid ""
+"Master document has been closed.\n"
+"Close window ?"
+msgstr ""
+
+msgid "PubliPreview"
+msgstr ""
+
+msgid "Click to view menu"
+msgstr ""
+
+#, fuzzy
+msgid "Others"
+msgstr "Delete"
+
+msgid "Empty Post-It"
+msgstr ""
+
+msgid "View notice messages"
+msgstr ""
+
+#, fuzzy
+msgid "version"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "rev"
+msgstr "Create"
+
+msgid "author"
+msgstr ""
+
+#, fuzzy
+msgid "date"
+msgstr "Edit"
+
+#, fuzzy
+msgid "diff"
+msgstr "Modify"
+
+#, fuzzy
+msgid "revised by"
+msgstr "Created by"
+
+#, fuzzy
+msgid "View family"
+msgstr "Start search"
+
+#, fuzzy
+msgid "reference"
+msgstr "Delete"
+
+#, fuzzy
+msgid "initial reference"
+msgstr "Delete"
+
+#, fuzzy
+msgid "reference for this revision"
+msgstr "Organisation"
+
+msgid "allocated to"
+msgstr ""
+
+#, fuzzy
+msgid "locked by"
+msgstr "Create"
+
+#, fuzzy
+msgid "forum state"
+msgstr "Identity"
+
+#, fuzzy
+msgid "creation date"
+msgstr "Create"
+
+#, fuzzy
+msgid "access date"
+msgstr "Delete"
+
+#, fuzzy
+msgid " profile access"
 msgstr "Control access"
 
-msgid "Add to basket"
+#, fuzzy
+msgid "control view"
+msgstr "Category"
+
+#, fuzzy
+msgid "primary folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "fromdate"
+msgstr "Edit"
+
+#, fuzzy
+msgid "todate"
+msgstr "Identity"
+
+#, fuzzy
+msgid "today"
+msgstr "Identity"
+
+#, fuzzy
+msgid "Print"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "senddoc"
+msgstr "Edit"
+
+#, fuzzy
+msgid "goto forum"
+msgstr "Import"
+
+#, fuzzy
+msgid "View postit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "RSS link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "wordedit"
+msgstr "Modify not possible"
+
+msgid "help"
 msgstr ""
 
-msgid "Add postit"
+#, fuzzy
+msgid "family manual"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Version"
+msgstr "Organisation"
+
+msgid "View historique"
+msgstr ""
+
+msgid "Status for sending mail"
+msgstr ""
+
+#, fuzzy
+msgid "username"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "address"
+msgstr "Add new contact card"
+
+msgid "mailstatus"
+msgstr ""
+
+#, fuzzy
+msgid "manual date"
+msgstr "Edit"
+
+msgid "it is the last"
+msgstr ""
+
+msgid "it is the first"
+msgstr ""
+
+#, fuzzy
+msgid "Monday"
+msgstr "Identity"
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Identity"
+
+#, fuzzy
+msgid "Sunday"
+msgstr "Update LDAP server"
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Start search"
+
+#, fuzzy
+msgid "April"
+msgstr "Print this page"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+msgid "August"
+msgstr ""
+
+msgid "September"
+msgstr ""
+
+msgid "October"
+msgstr ""
+
+#, fuzzy
+msgid "November"
+msgstr "No embed file"
+
+msgid "December"
+msgstr ""
+
+#, fuzzy
+msgid "view abstract card"
+msgstr "Start search"
+
+#, fuzzy
+msgid "view constraints"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Constraints"
+msgstr "Edit"
+
+#, fuzzy
+msgid "override constraints"
+msgstr "Edit"
+
+#, fuzzy
+msgid "States"
+msgstr "Identity"
+
+msgid "Save and quit edit mode"
+msgstr ""
+
+msgid "Use Ctrl-S to save and stay in edit mode"
+msgstr ""
+
+msgid "Save and stay in edition"
+msgstr ""
+
+#, fuzzy
+msgid "Save"
+msgstr "Identity"
+
+msgid "Cancel changes and quit edit mode"
+msgstr ""
+
+msgid "Cancel changes and close window"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged"
+msgstr "Start search"
+
+#, fuzzy
+msgid "revision comment"
+msgstr "Organisation"
+
+msgid "to"
+msgstr ""
+
+#, fuzzy
+msgid "Save without change state"
+msgstr "Category"
+
+msgid "Transition parameters"
+msgstr ""
+
+#, fuzzy
+msgid "revision comment for autorevision"
+msgstr "Organisation"
+
+msgid "open in new window"
+msgstr ""
+
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "Attribute not found"
+msgstr ""
+
+msgid "NOT Clear"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
+msgstr ""
+
+msgid "new forum answer"
+msgstr ""
+
+#, fuzzy
+msgid "save"
+msgstr "Identity"
+
+#, fuzzy
+msgid "cancel"
+msgstr "Start search"
+
+msgid "new document"
+msgstr ""
+
+#, fuzzy
+msgid "new guide-card"
+msgstr "Start search"
+
+#, fuzzy
+msgid "new search guide-card"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Search to insert"
+msgstr "Start search"
+
+msgid "Basket to here"
+msgstr ""
+
+#, fuzzy
+msgid "familly"
+msgstr "Start search"
+
+#, fuzzy
+msgid "any familly"
+msgstr "Start search"
+
+#, fuzzy
+msgid " send search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Details"
+msgstr "Email"
+
+msgid "Parameters"
+msgstr ""
+
+#, fuzzy
+msgid "Conditions"
+msgstr "Edit"
+
+msgid "function examples"
+msgstr ""
+
+msgid "my id"
+msgstr ""
+
+#, fuzzy
+msgid "my last name"
+msgstr "Lastname"
+
+msgid "yesterday"
+msgstr ""
+
+msgid "tomorrow"
+msgstr ""
+
+#, fuzzy
+msgid "addcond"
+msgstr "Add new contact card"
+
+#, fuzzy
+msgid "addstate"
+msgstr "Identity"
+
+#, fuzzy
+msgid "Search criteria"
+msgstr "Start search"
+
+#, fuzzy
+msgid "from current folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "only latest revision"
+msgstr "Organisation"
+
+msgid "case sensitive"
+msgstr ""
+
+#, fuzzy
+msgid "fieldset"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "attrname"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "new visibility"
+msgstr "Visibility"
+
+#, fuzzy
+msgid "default visibility"
+msgstr "Visibility"
+
+#, fuzzy
+msgid "for"
+msgstr "Delete"
+
+#, fuzzy
+msgid "no document family"
+msgstr "Start search"
+
+#, fuzzy
+msgid "new needed"
+msgstr "Delete"
+
+msgid "View"
+msgstr ""
+
+#, fuzzy
+msgid "Tools"
+msgstr "Update Title Cards"
+
+msgid "list"
+msgstr ""
+
+#, fuzzy
+msgid "detail"
+msgstr "Email"
+
+#, fuzzy
+msgid "icon"
+msgstr "Edit"
+
+#, fuzzy
+msgid "column"
+msgstr "Add new contact card"
+
+msgid "All To basket"
+msgstr ""
+
+#, fuzzy
+msgid "Open in folio"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Insert documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "Create a batch"
+msgstr "Create"
+
+#, fuzzy
+msgid "Export Folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Clear Folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Change category"
+msgstr "Category"
+
+msgid "View properties"
+msgstr ""
+
+msgid "View headers"
+msgstr ""
+
+#, fuzzy
+msgid "confidentiality"
+msgstr "Delete"
+
+#, fuzzy
+msgid "private card"
+msgstr "Category"
+
+msgid "public card - read access"
+msgstr ""
+
+msgid "public card - write access"
+msgstr ""
+
+#, fuzzy
+msgid "not defined"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Professional"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Society"
+msgstr "Locality"
+
+#, fuzzy
+msgid "socname"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "Phone"
+msgstr "Phone"
+
+#, fuzzy
+msgid "Fax"
+msgstr "Fax"
+
+#, fuzzy
+msgid "Secretary"
+msgstr "Locality"
+
+#, fuzzy
+msgid "Personnel"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Complete view"
+msgstr "Create"
+
+msgid "Help"
+msgstr ""
+
+#, fuzzy
+msgid "Import CSV"
+msgstr "Import"
+
+msgid "Freedom"
+msgstr ""
+
+#, fuzzy
+msgid "view detail"
+msgstr "Start search"
+
+msgid "Select group appartenance"
+msgstr ""
+
+msgid "expand all"
+msgstr ""
+
+msgid "collapse all"
+msgstr ""
+
+msgid "loop detected. You must undo this selection"
+msgstr ""
+
+#, fuzzy
+msgid "(private)"
+msgstr "Create"
+
+msgid "Password"
+msgstr ""
+
+#, fuzzy
+msgid "System"
+msgstr "Identity"
+
+msgid "Group"
+msgstr ""
+
+msgid "Coordonates"
+msgstr ""
+
+#, fuzzy
+msgid "Person"
+msgstr "Organisation"
+
+msgid "double click to edit"
+msgstr ""
+
+#, fuzzy
+msgid "Members"
+msgstr "No embed file"
+
+msgid "number of members"
+msgstr ""
+
+msgid ""
+"Too many members to display there here. Use Open context menu to display "
+"them."
+msgstr ""
+
+#, fuzzy
+msgid "nomail"
+msgstr "Email"
+
+#, fuzzy
+msgid "phones"
+msgstr "Phone"
+
+#, fuzzy
+msgid "Constraint test"
+msgstr "Edit"
+
+msgid "suggestions"
+msgstr ""
+
+msgid "workflow has been recomposed"
+msgstr ""
+
+#, fuzzy
+msgid "No result"
+msgstr "Import"
+
+#, fuzzy
+msgid "mail edition"
+msgstr "Edit"
+
+msgid "email sended"
+msgstr ""
+
+#, fuzzy
+msgid "Send the email and change document state to"
+msgstr "Category"
+
+#, fuzzy
+msgid "send mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "Change the document state to"
+msgstr "Category"
+
+msgid "confirm manually send"
+msgstr ""
+
+#, fuzzy
+msgid "document differences"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view equality attributes"
+msgstr "Title"
+
+#, fuzzy
+msgid "attributes"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "view hidden attributes"
+msgstr "Title"
+
+#, fuzzy
+msgid "Change content"
+msgstr "Start search"
+
+msgid "type characters to filter document on it's title"
+msgstr ""
+
+#, fuzzy
+msgid "Send document searches"
+msgstr "Delete"
+
+#, fuzzy
+msgid "document(s)"
+msgstr "Import"
+
+#, fuzzy
+msgid "suppress document"
+msgstr "Import"
+
+#, fuzzy
+msgid "edition: "
+msgstr "Edit"
+
+msgid "Ok"
+msgstr ""
+
+msgid "Properties:"
+msgstr ""
+
+#, fuzzy
+msgid "Send mail"
+msgstr "Email"
+
+msgid "User to affect"
+msgstr ""
+
+msgid "the state will be unchanged"
+msgstr ""
+
+#, fuzzy
+msgid "unchanged state"
+msgstr "Category"
+
+msgid "the state will be removed"
+msgstr ""
+
+#, fuzzy
+msgid "no state"
+msgstr "Identity"
+
+#, fuzzy
+msgid "Action to do"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Reason for change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Apply"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "Click to access to the document"
+msgstr "Category"
+
+#, fuzzy
+msgid "Comment for change state"
+msgstr "Category"
+
+#, fuzzy
+msgid "Cancel the change state"
+msgstr "Category"
+
+#, fuzzy
+msgid " choose value"
+msgstr "Start search"
+
+#, fuzzy
+msgid "option: "
+msgstr "Edit"
+
+#, fuzzy
+msgid "Change icon"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Choose in icon list"
+msgstr "Title"
+
+msgid "Or upload a new icon"
+msgstr ""
+
+#, fuzzy
+msgid "profile access"
+msgstr "Control access"
+
+#, fuzzy
+msgid "no profile"
+msgstr "Category"
+
+msgid "specific control"
+msgstr ""
+
+#, fuzzy
+msgid "view control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Family Creation"
+msgstr "Edit"
+
+#, fuzzy
+msgid "inherit from"
+msgstr "Import"
+
+#, fuzzy
+msgid "family title"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Create new family"
+msgstr "Category"
+
+#, fuzzy
+msgid "Creation"
+msgstr "Edit"
+
+msgid "Bookmarks"
+msgstr ""
+
+#, fuzzy
+msgid "Search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Document"
+msgstr "Import"
+
+#, fuzzy
+msgid "System document"
+msgstr "Import"
+
+#, fuzzy
+msgid "Folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "BatchProcess"
+msgstr "Control access"
+
+#, fuzzy
+msgid "Profile"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Family"
+msgstr "Start search"
+
+msgid "add to bookmarks"
+msgstr ""
+
+msgid "manage bookmarks"
+msgstr ""
+
+#, fuzzy
+msgid "speed"
+msgstr "Delete"
+
+#, fuzzy
+msgid "simple"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "detailled"
+msgstr "Email"
+
+#, fuzzy
+msgid "fulltext"
+msgstr "Start search"
+
+msgid "Ref"
+msgstr ""
+
+#, fuzzy
+msgid "Import documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "Import Tar"
+msgstr "Import"
+
+msgid "exec plan"
+msgstr ""
+
+#, fuzzy
+msgid " lauch importation"
+msgstr "Import"
+
+#, fuzzy
+msgid " folder containt"
+msgstr "Edit"
+
+msgid "Changes will be loosed if you continue"
+msgstr ""
+
+#, fuzzy
+msgid "Choose another family document"
+msgstr "Category"
+
+#, fuzzy
+msgid "Other family"
+msgstr "Category"
+
+#, fuzzy
+msgid "more families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "restrict to preferred families"
+msgstr "Modify"
+
+msgid " history"
+msgstr ""
+
+#, fuzzy
+msgid "view properties"
+msgstr "Import"
+
+msgid "edit document"
+msgstr ""
+
+#, fuzzy
+msgid "link document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "access path list"
+msgstr "Delete"
+
+#, fuzzy
+msgid "delete link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Detail Permissions"
+msgstr "Edit"
+
+msgid "Processes plan"
+msgstr ""
+
+#, fuzzy
+msgid "PortFolio search"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Import Archive"
+msgstr "Import"
+
+#, fuzzy
+msgid "Archive import"
+msgstr "Import"
+
+msgid "Supported format"
+msgstr ""
+
+msgid "compressed tar"
+msgstr ""
+
+#, fuzzy
+msgid "Zip File"
+msgstr "Import"
+
+#, fuzzy
+msgid "import file:"
+msgstr "Import"
+
+#, fuzzy
+msgid "Upload archive"
+msgstr "Import"
+
+#, fuzzy
+msgid "View Archives"
+msgstr "Import"
+
+#, fuzzy
+msgid "Go to Archives"
+msgstr "Import"
+
+#, fuzzy
+msgid " change title"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Change title"
+msgstr "Category"
+
+msgid "updatetitle"
+msgstr "Update Title Cards"
+
+msgid "updateldap"
+msgstr "Update LDAP server"
+
+#, fuzzy
+msgid "ToSearch"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Advanced search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Previous"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Next"
+msgstr "Export this card"
+
+#, fuzzy
+msgid "Archives"
+msgstr "Import"
+
+#, fuzzy
+msgid "Choose Archive"
+msgstr "Import"
+
+#, fuzzy
+msgid "delete archive"
+msgstr "Start search"
+
+#, fuzzy
+msgid "State"
+msgstr "Identity"
+
+msgid "Undisplay the search query"
+msgstr ""
+
+msgid "Mask"
+msgstr ""
+
+#, fuzzy
+msgid "View the search query"
+msgstr "Start search"
+
+msgid "Unmask"
+msgstr ""
+
+#, fuzzy
+msgid "Simple search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Add filter"
+msgstr "Modify"
+
+#, fuzzy
+msgid "search fulltext"
+msgstr "Start search"
+
+#, fuzzy
+msgid " search words"
+msgstr "Start search"
+
+msgid " match"
+msgstr ""
+
+#, fuzzy
+msgid " search for"
+msgstr "Start search"
+
+#, fuzzy
+msgid " only latest revision"
+msgstr "Organisation"
+
+msgid " from current folder"
+msgstr ""
+
+#, fuzzy
+msgid " familly"
+msgstr "Start search"
+
+#, fuzzy
+msgid " any familly"
+msgstr "Start search"
+
+#, fuzzy
+msgid " view files"
+msgstr "Start search"
+
+#, fuzzy
+msgid " cancel"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Export"
+msgstr "Export selected cards"
+
+#, fuzzy
+msgid "Create subfolder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Copy reference"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Move reference"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Relation document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "view document"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "noone document"
+msgstr "Import"
+
+#, fuzzy
+msgid "no folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Create New"
+msgstr "Create"
+
+#, fuzzy
+msgid "PortFolio"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Import Result"
+msgstr "Import"
+
+#, fuzzy
+msgid "Result Import Documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "documents to examine"
+msgstr "Import"
+
+#, fuzzy
+msgid "line"
+msgstr "Delete"
+
+#, fuzzy
+msgid "foldername"
+msgstr "Delete"
+
+msgid "id"
+msgstr ""
+
+#, fuzzy
+msgid "familyname"
+msgstr "Start search"
+
+#, fuzzy
+msgid "action"
+msgstr "Edit"
+
+msgid "message"
+msgstr ""
+
+msgid "specmessage"
+msgstr ""
+
+#, fuzzy
+msgid "changes"
+msgstr "Start search"
+
+msgid "error"
+msgstr ""
+
+#, fuzzy
+msgid "Full search"
+msgstr "Start search"
+
+msgid "Add search engine to your browser"
+msgstr ""
+
+#, fuzzy
+msgid "Add search engine"
+msgstr "Start search"
+
+msgid "Batch Choose"
+msgstr ""
+
+msgid "Copy the containt of folder in batch document"
+msgstr ""
+
+msgid "A_Copy"
+msgstr ""
+
+msgid "Copy the reference of folder in batch document"
+msgstr ""
+
+#, fuzzy
+msgid "A_Link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Permissions"
+msgstr "Organisation"
+
+msgid "Archive import in progress"
+msgstr ""
+
+#, fuzzy
+msgid " comment for revision"
+msgstr "Organisation"
+
+#, fuzzy
+msgid " revise document"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Change State"
+msgstr "Category"
+
+msgid "Attributes definition"
+msgstr ""
+
+msgid "ID"
+msgstr ""
+
+#, fuzzy
+msgid "order"
+msgstr "Delete"
+
+#, fuzzy
+msgid "name"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "frame"
+msgstr "Lastname"
+
+msgid "A?"
+msgstr ""
+
+msgid "T?"
+msgstr ""
+
+msgid "N?"
+msgstr ""
+
+msgid "Vi"
+msgstr ""
+
+#, fuzzy
+msgid "Link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "file"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "func"
+msgstr "Create"
+
+#, fuzzy
+msgid "elink"
+msgstr "Delete"
+
+#, fuzzy
+msgid "constraint"
+msgstr "Edit"
+
+#, fuzzy
+msgid "options"
+msgstr "Edit"
+
+msgid "Processes to exec"
+msgstr ""
+
+#, fuzzy
+msgid "Choose visibles families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Result Import TAR Documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "View Archive"
+msgstr "Import"
+
+#, fuzzy
+msgid "Export Documents from"
+msgstr "Import"
+
+#, fuzzy
+msgid "Encoding"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Without profil"
+msgstr "Category"
+
+#, fuzzy
+msgid "With profil"
+msgstr "Category"
+
+#, fuzzy
+msgid "Files"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Without files"
+msgstr "Import"
+
+#, fuzzy
+msgid "With files"
+msgstr "Start search"
+
+msgid "Identificators"
+msgstr ""
+
+msgid "Without identificators"
+msgstr ""
+
+msgid "With identificators"
+msgstr ""
+
+msgid "Quick Save"
+msgstr ""
+
+#, fuzzy
+msgid "founded"
+msgstr "Update LDAP server"
+
+#, fuzzy
+msgid "search time"
+msgstr "Start search"
+
+msgid "total count"
+msgstr ""
+
+#, fuzzy
+msgid "informations"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "Import Documents"
+msgstr "Import"
+
+msgid "Description of the import format"
+msgstr ""
+
+#, fuzzy
+msgid "specific import"
+msgstr "Import"
+
+msgid "Analyze"
+msgstr ""
+
+msgid "policy if same title"
+msgstr ""
+
+msgid "Update document if has permission else ignored"
+msgstr ""
+
+msgid "Add new document (similar document)"
+msgstr ""
+
+#, fuzzy
+msgid "Keep original document"
+msgstr "Import"
+
+#, fuzzy
+msgid "Direct Import"
+msgstr "Import"
+
+#, fuzzy
+msgid "Import document description"
+msgstr "Import"
+
+#, fuzzy
+msgid "Background Import"
+msgstr "Import"
+
+#, fuzzy
+msgid "report to (mail address)"
+msgstr "Address"
+
+msgid "proceed background import"
+msgstr ""
+
+#, fuzzy
+msgid "access path folder list:"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Access Path Folder List"
+msgstr "Delete"
+
+msgid "keyword"
+msgstr ""
+
+#, fuzzy
+msgid "folders"
+msgstr "Delete"
+
+#, fuzzy
+msgid "save query in current folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search title"
+msgstr "Start search"
+
+msgid "Batch Action Choose"
+msgstr ""
+
+msgid "Create a new  process document"
+msgstr ""
+
+#, fuzzy
+msgid "Create"
+msgstr "Create"
+
+#, fuzzy
+msgid "Choose Worflow"
+msgstr "Delete"
+
+#, fuzzy
+msgid "workflow"
+msgstr "Delete"
+
+#, fuzzy
+msgid "no workflow"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Analyze Archive"
+msgstr "Start search"
+
+msgid "Options import"
+msgstr ""
+
+#, fuzzy
+msgid "default file family"
+msgstr "Delete"
+
+#, fuzzy
+msgid "default folder family"
+msgstr "Delete"
+
+msgid "Only CSV"
+msgstr ""
+
+#, fuzzy
+msgid "Add top folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Import Direct"
+msgstr "Import"
+
+#, fuzzy
+msgid "Lauch Import"
+msgstr "Import"
+
+#, fuzzy
+msgid "Analysis Results"
+msgstr "Import"
+
+#, fuzzy
+msgid "filename"
+msgstr "Firstname"
+
+msgid "err"
+msgstr ""
+
+msgid "Generic Management"
+msgstr ""
+
+#, fuzzy
+msgid "set as first family view"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "open first family"
+msgstr "Category"
+
+#, fuzzy
+msgid "No family first"
+msgstr "Start search"
+
+#, fuzzy
+msgid "master choose families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "choose user families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Family preferences"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Preferences for"
+msgstr "Delete"
+
+#, fuzzy
+msgid "View tab letters"
+msgstr "Start search"
+
+#, fuzzy
+msgid "View inherit family"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Choose a father category"
+msgstr "Category"
+
+msgid "no father category (its a top category)"
+msgstr ""
+
+#, fuzzy
+msgid "new category"
+msgstr "Category"
+
+#, fuzzy
+msgid "add new category"
+msgstr "Category"
+
+#, fuzzy
+msgid "import edition"
+msgstr "Edit"
+
+msgid "CSV"
+msgstr ""
+
+msgid "CSV specification file"
+msgstr ""
+
+msgid "The separator field is the semicolon(;)"
+msgstr ""
+
+msgid ""
+"The first four fields must not be change, they identified the card structure"
+msgstr ""
+
+msgid "Only one line by document is authorized"
+msgstr ""
+
+msgid ""
+"If an attribut is a multiline string, use the \\ n characters to specify the "
+"new line"
+msgstr ""
+
+msgid "if you want to change order of column"
+msgstr ""
+
+#, fuzzy
+msgid "column order"
+msgstr "Modify"
+
+#, fuzzy
+msgid "View all attributes ?"
+msgstr "Title"
+
+msgid "Be carreful."
+msgstr ""
+
+msgid "Certain attribute can be not use for import"
+msgstr ""
+
+#, fuzzy
+msgid "view all columns"
+msgstr "Start search"
+
+msgid "suppress column"
+msgstr ""
+
+#, fuzzy
+msgid "add column"
+msgstr "Add new contact card"
+
+msgid "to insert document in sub folder"
+msgstr ""
+
+msgid "policy"
+msgstr ""
+
+msgid "policy if same keys"
+msgstr ""
+
+#, fuzzy
+msgid "import keys"
+msgstr "Import"
+
+msgid "no key2"
+msgstr ""
+
+msgid "values use for new document (not for update)"
+msgstr ""
+
+#, fuzzy
+msgid "default import values"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Import description file"
+msgstr "Edit"
+
+msgid "Analyze only"
+msgstr ""
+
+#, fuzzy
+msgid "enum attribute list"
+msgstr "Update Title Cards"
+
+msgid "Add or modify item's category"
+msgstr ""
+
+#, fuzzy
+msgid "Modify"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Choose new categories"
+msgstr "Title"
+
+msgid "level"
+msgstr ""
+
+msgid "labeltext"
+msgstr ""
+
+msgid "upk"
+msgstr ""
+
+msgid "downk"
+msgstr ""
+
+msgid "previous level"
+msgstr ""
+
+msgid "next level"
+msgstr ""
+
+msgid "modify"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Send search"
+msgstr "Start search"
+
+msgid "Go"
+msgstr ""
+
+#, fuzzy
+msgid "toedit"
+msgstr "Edit"
+
+msgid "Search containing characters"
+msgstr ""
+
+#, fuzzy
+msgid "Search Words"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Sort"
+msgstr "Export selected cards"
+
+#, fuzzy
+msgid "invert order"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Import file"
+msgstr "Import"
+
+#, fuzzy
+msgid "Abstract card"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Column mode"
+msgstr "Modify"
+
+msgid "Invert split"
+msgstr ""
+
+#, fuzzy
+msgid "memosearch"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Preferences"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Edit attribute kinds"
+msgstr "Update Title Cards"
+
+msgid "freedom address book"
+msgstr ""
+
+#, fuzzy
+msgid "contact"
+msgstr "Edit"
+
+#, fuzzy
+msgid "other"
+msgstr "Delete"
+
+msgid "other sites"
+msgstr ""
+
+#, fuzzy
+msgid "Import from"
+msgstr "Import"
+
+#, fuzzy
+msgid "vcs file"
+msgstr "Update Title Cards"
+
+msgid "visibility"
+msgstr "Visibility"
+
+msgid "Add new card (duplicate title)"
+msgstr ""
+
+msgid "Replace address book card if has permission else duplicate"
+msgstr ""
+
+msgid "Keep address book card"
+msgstr ""
+
+#, fuzzy
+msgid "Import vcard"
+msgstr "Import"
+
+msgid "Vcard example"
+msgstr ""
+
+#, fuzzy
+msgid "VCARD Import Result"
+msgstr "Import"
+
+msgid "click here to create a new"
+msgstr ""
+
+#, fuzzy
+msgid "view sub families"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Choose family to create"
+msgstr "Category"
+
+#, fuzzy
+msgid "lines"
+msgstr "Delete"
+
+msgid "lines per page"
+msgstr ""
+
+#, fuzzy
+msgid "manage columns"
+msgstr "Add new contact card"
+
+msgid "search all containing"
+msgstr ""
+
+#, fuzzy
+msgid "filter on"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "edit contact card"
+msgstr "Create"
+
+#, fuzzy
+msgid "add to prefered"
+msgstr "Modify"
+
+msgid "VCARD"
+msgstr ""
+
+msgid "category"
+msgstr "Category"
+
+msgid "Only one line by personn is authorized"
+msgstr ""
+
+#, fuzzy
+msgid "choose colums"
+msgstr "Start search"
+
+msgid "select to view colum"
+msgstr ""
+
+#, fuzzy
+msgid "save modifications"
+msgstr "Organisation"
+
+msgid "reset to default"
+msgstr ""
+
+#, fuzzy
+msgid "Address book searches"
+msgstr "Start search"
+
+msgid "search in all contact fields"
+msgstr ""
+
+#, fuzzy
+msgid "view_detail"
+msgstr "Start search"
+
+#, fuzzy
+msgid "society"
+msgstr "Locality"
+
+msgid "other infos"
+msgstr ""
+
+msgid "web"
+msgstr ""
+
+#, fuzzy
+msgid "categorie"
+msgstr "Category"
+
+msgid "click to reload favorites"
+msgstr ""
+
+msgid "my favorites"
+msgstr ""
+
+#, fuzzy
+msgid "delete all favorites"
+msgstr "Start search"
+
+#, fuzzy
+msgid "confirm delete all favorite"
+msgstr "Delete"
+
+#, fuzzy
+msgid "quick search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "confirm delete"
+msgstr "Delete"
+
+#, fuzzy
+msgid "delete from prefered"
+msgstr "Delete"
+
+msgid "Refresh users characteristics from system"
+msgstr ""
+
+msgid "Refresh users may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh users"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh LDAP"
+msgstr "Delete"
+
+msgid "Refresh LDAP may take long time. Sure ?"
+msgstr ""
+
+msgid "Refresh Groups members and mail"
+msgstr ""
+
+msgid "Refersh groups may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "Refresh groups"
+msgstr "Delete"
+
+msgid "users list"
+msgstr ""
+
+msgid "Groups"
+msgstr ""
+
+#, fuzzy
+msgid "Admin"
+msgstr "Admnistration functions"
+
+#, fuzzy
+msgid "Create new group"
+msgstr "Create"
+
+msgid "Refersh users may take long time. Sure ?"
+msgstr ""
+
+msgid "Refresh Group members and mail"
+msgstr ""
+
+msgid "Refresh groups may take long time. Sure ?"
+msgstr ""
+
+#, fuzzy
+msgid "CSV Import Users"
+msgstr "Import"
+
+#, fuzzy
+msgid "Import Users"
+msgstr "Import"
+
+#, fuzzy
+msgid "CSV Import Groups"
+msgstr "Import"
+
+#, fuzzy
+msgid "Import Groups"
+msgstr "Import"
+
+#, fuzzy
+msgid "Modify categories"
+msgstr "Category"
+
+#, fuzzy
+msgid "Attribute"
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 #, c-format
-msgid "%s has been unlocked"
+msgid "no privilege to create interactivaly this kind (%s) of document"
+msgstr ""
+
+msgid "Security"
+msgstr ""
+
+msgid "others..."
 msgstr ""
 
 #, fuzzy
@@ -927,70 +3161,296 @@ msgid "no document reference"
 msgstr "Delete"
 
 #, c-format
-msgid "cannot see unknow reference %s"
-msgstr ""
-
-#, c-format
-msgid "you don't have privilege to edit forum for document %s"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, c-format
-msgid "document #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s not found. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "user #%s has not a real account. Affectation aborded"
-msgstr ""
-
-#, c-format
-msgid "document %s has the new state %s"
-msgstr ""
-
-#, c-format
-msgid "document %s has been allocate to %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "allocation for %s document"
-msgstr "Delete"
-
-#, c-format
 msgid "cannot see unknow forum reference %s"
 msgstr ""
 
+msgid "To"
+msgstr ""
+
 #, fuzzy, c-format
-msgid "cannot modify forum %s"
-msgstr "Category"
+msgid "to %s"
+msgstr "Modify"
 
 #, c-format
-msgid "unknow logical reference '%s'"
+msgid "parameters for %s state"
 msgstr ""
 
-#, c-format
-msgid "%s has been locked"
+msgid "No identificator"
 msgstr ""
 
-#, c-format
-msgid "geometry saved : %s"
+msgid "submenu"
+msgstr ""
+
+msgid "cannot see unknow folder"
 msgstr ""
 
 #, fuzzy
-msgid "click to change option"
-msgstr "Start search"
+msgid "confidential"
+msgstr "Delete"
 
-msgid "cannot compare two document which comes from two different family"
+msgid "fixed"
+msgstr ""
+
+msgid "locked"
+msgstr ""
+
+msgid "read-only"
+msgstr ""
+
+msgid "this kind of document cannot be duplicate"
+msgstr ""
+
+#, fuzzy
+msgid "duplication of"
+msgstr "Edit"
+
+#, c-format
+msgid "new duplicate document is named : %s"
 msgstr ""
 
 #, c-format
-msgid "comparison between<br>%s (rev %d) and %s (rev %d)"
+msgid ""
+"Document cannot be created.\n"
+"The upload size limit is %s bytes."
+msgstr ""
+
+msgid ""
+"Some constraint attribute are not respected.\n"
+"You must correct these values before save document."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "change %s"
+msgstr "Start search"
+
+#, fuzzy
+msgid "change"
+msgstr "Start search"
+
+#, fuzzy, c-format
+msgid "auto revision"
+msgstr "Organisation"
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit is %s bytes."
+msgstr ""
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted.\n"
+"The Size Limit was specified in the HTML form."
+msgstr ""
+
+#, c-format
+msgid ""
+"Filename '%s' cannot be transmitted completly.\n"
+"May be saturation of server disk."
+msgstr ""
+
+#, c-format
+msgid "Filename '%s' cannot be transmitted."
+msgstr ""
+
+#, c-format
+msgid "Possible file upload attack: filename '%s'."
+msgstr ""
+
+#, fuzzy
+msgid "modify default values :"
+msgstr "Delete"
+
+#, fuzzy
+msgid "modify parameters :"
+msgstr "Modify"
+
+msgid "read only"
+msgstr ""
+
+#, fuzzy
+msgid "error in filename"
+msgstr "Firstname"
+
+#, fuzzy
+msgid "no image"
+msgstr "Firstname"
+
+msgid "open file with your editor"
+msgstr ""
+
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
+#, c-format
+msgid "set for %s, unset for %s"
+msgstr ""
+
+msgid "color picker"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "choose inputs for %s"
+msgstr "Modify"
+
+#, fuzzy
+msgid "clear file"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "restore original file"
+msgstr "Import"
+
+msgid "add inputs"
+msgstr ""
+
+#, c-format
+msgid "elinkEncode::attribute not found %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "create new %s"
+msgstr "Edit"
+
+#, c-format
+msgid "Sure %s ?"
+msgstr ""
+
+#, fuzzy
+msgid "description"
+msgstr "Edit"
+
+#, c-format
+msgid "period from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr ""
+
+msgid "menuctrlkey"
+msgstr ""
+
+#, fuzzy
+msgid "Save default values"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Save parameters"
+msgstr "Import"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+msgid "This document has been deleted"
+msgstr ""
+
+#, fuzzy
+msgid "nobody"
+msgstr "No embed file"
+
+msgid "no family"
+msgstr ""
+
+#, c-format
+msgid "current (<i>%s</i>)"
+msgstr ""
+
+msgid "no comment"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Current (%s)"
+msgstr "Create"
+
+#, fuzzy, c-format
+msgid "%d documents"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "%d document"
+msgstr "Import"
+
+#, fuzzy
+msgid "no sort"
+msgstr "Identity"
+
+#, fuzzy
+msgid "createdate"
+msgstr "Create"
+
+#, c-format
+msgid "execution by %s done %s"
+msgstr ""
+
+msgid "e1"
+msgstr ""
+
+msgid "e2"
+msgstr ""
+
+msgid "t"
+msgstr ""
+
+msgid "no subject"
+msgstr ""
+
+#, c-format
+msgid "delete %s on server %s...\n"
+msgstr ""
+
+msgid "LDAP cleaned"
+msgstr ""
+
+#, c-format
+msgid "result of import  %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s updated\n"
+msgstr "Update LDAP server"
+
+#, c-format
+msgid "find %s more than one, created aborded\n"
+msgstr ""
+
+#, c-format
+msgid "%s migrated\n"
+msgstr ""
+
+#, c-format
+msgid "%s igroup created\n"
+msgstr ""
+
+#, c-format
+msgid "%s iuser created\n"
+msgstr ""
+
+#, c-format
+msgid "%s iuser aborded\n"
+msgstr ""
+
+msgid "freedom cron try execute"
+msgstr ""
+
+#, c-format
+msgid "csv file <%s> wroted"
+msgstr ""
+
+#, c-format
+msgid "cannot write  %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%d group(s) to update\n"
+msgstr "Update LDAP server"
+
+msgid "processing...\n"
+msgstr ""
+
+msgid "done\n"
 msgstr ""
 
 #, c-format
@@ -1023,76 +3483,6 @@ msgstr "Import"
 msgid "new import keys : %s"
 msgstr "Import"
 
-#, fuzzy
-msgid "action"
-msgstr "Edit"
-
-#, c-format
-msgid "the document %s has been sended"
-msgstr ""
-
-#, c-format
-msgid "the document %s has not been sended : no recipient"
-msgstr ""
-
-msgid "email sended"
-msgstr ""
-
-#, c-format
-msgid "the document %s is not related to a workflow"
-msgstr ""
-
-msgid "mail dest is empty"
-msgstr ""
-
-#, c-format
-msgid "PDF conversion failed for %s"
-msgstr ""
-
-#, c-format
-msgid "sended to %s"
-msgstr ""
-
-#, c-format
-msgid "sending %s to %s"
-msgstr ""
-
-#, c-format
-msgid "%s cannot be sent"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "document #%s not found. Unaffectation aborded"
-msgstr ""
-
-#, c-format
-msgid "document %s has been unaffected"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "not a static folder %s"
-msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "Search %s"
-msgstr "Start search"
-
-#, c-format
-msgid "Content managing of %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%d documents"
-msgstr "Import"
-
 #, fuzzy, c-format
 msgid "Affectation for %s"
 msgstr "Edit"
@@ -1106,139 +3496,12 @@ msgid "New state"
 msgstr "Identity"
 
 #, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
+msgid "you don't have privilege to edit forum for document %s"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s is not alive"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "to the %s state"
+msgid "cannot modify forum %s"
 msgstr "Category"
-
-msgid "To"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "to %s"
-msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "Change state to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "root for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search"
-msgstr "Start search"
-
-msgid "workflow_init :: id is empty"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: id %s is not a workflow"
-msgstr ""
-
-#, c-format
-msgid "workflow_init :: workflow id %s not found"
-msgstr ""
-
-#, c-format
-msgid "modoption: document [%d] is not alive"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Add %d document(s)"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "Suppress %d document(s)"
-msgstr "Import"
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, c-format
-msgid "%s inserted"
-msgstr ""
-
-msgid "no zone specified"
-msgstr ""
-
-msgid "no task identificator found"
-msgstr ""
-
-#, c-format
-msgid "text conversion done for file %s"
-msgstr ""
-
-#, c-format
-msgid "output file [%s] not found"
-msgstr ""
-
-#, c-format
-msgid "task %s is not done correctly"
-msgstr ""
-
-#, c-format
-msgid "conversion failed for %s: "
-msgstr ""
-
-#, fuzzy, c-format
-msgid "document [%s] not found"
-msgstr "Import"
-
-msgid "semaphore block"
-msgstr ""
-
-#, c-format
-msgid "task %s is not recorded"
-msgstr ""
-
-#, c-format
-msgid "doc %d indexed"
-msgstr ""
-
-msgid "View latest"
-msgstr ""
-
-#, fuzzy
-msgid "Edit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Delete"
-msgstr "Delete"
 
 #, fuzzy, c-format
 msgid "Sure delete %s ?"
@@ -1249,47 +3512,12 @@ msgid "restore"
 msgstr "Create"
 
 #, fuzzy
-msgid "Change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Lock"
-msgstr "Create"
-
-#, fuzzy
 msgid "security"
 msgstr "Locality"
 
 #, fuzzy
-msgid "Unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "Revise"
-msgstr "Created by"
-
-#, fuzzy
-msgid "Change profile"
-msgstr "Category"
-
-#, fuzzy
-msgid "Duplicate"
-msgstr "Edit"
-
-#, fuzzy
 msgid "Sure duplicate ?"
 msgstr "Edit"
-
-#, fuzzy
-msgid "open forum"
-msgstr "Modify"
-
-#, fuzzy
-msgid "close forum"
-msgstr "Start search"
-
-msgid "View XML"
-msgstr ""
 
 #, fuzzy
 msgid "Document relations"
@@ -1297,10 +3525,6 @@ msgstr "Organisation"
 
 #, fuzzy
 msgid "Access path list"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Search linked documents"
 msgstr "Delete"
 
 #, fuzzy
@@ -1322,6 +3546,10 @@ msgid "typeview"
 msgstr ""
 
 #, fuzzy, c-format
+msgid " %s"
+msgstr "Modify"
+
+#, fuzzy, c-format
 msgid "Change state %s"
 msgstr "Category"
 
@@ -1334,27 +3562,37 @@ msgid "chgstates"
 msgstr "Identity"
 
 #, c-format
-msgid "Sure %s ?"
-msgstr ""
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
+msgid "document #%s not found. Unaffectation aborded"
 msgstr ""
 
 #, c-format
-msgid "error in calling function %s"
+msgid "document %s has been unaffected"
+msgstr ""
+
+msgid "workflow_init :: id is empty"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: id %s is not a workflow"
+msgstr ""
+
+#, c-format
+msgid "workflow_init :: workflow id %s not found"
+msgstr ""
+
+#, c-format
+msgid "%s inserted"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "no match for %s"
+msgid "unknown attribute %s for document %s"
 msgstr "Modify"
 
 #, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgid "unknow logical reference '%s'"
+msgstr ""
+
+msgid "no zone specified"
 msgstr ""
 
 #, fuzzy, c-format
@@ -1556,100 +3794,267 @@ msgstr "Update LDAP server"
 msgid "and add in %s folder "
 msgstr ""
 
-msgid "change creation profile"
-msgstr ""
-
-msgid "change profile"
-msgstr ""
-
-msgid "new profile document"
-msgstr ""
-
-#, c-format
-msgid "archive %s not found and cannot be removed"
-msgstr ""
-
-#, c-format
-msgid "cannot suppress extract directory for archive file %s"
-msgstr ""
-
-#, c-format
-msgid "cannot suppress archive file %s"
-msgstr ""
-
-#, c-format
-msgid "archive file %s has been deleted"
-msgstr ""
-
-#, c-format
-msgid "File %s is valid, and was successfully uploaded."
-msgstr ""
-
-#, c-format
-msgid "The file %s has been correctly extracted"
-msgstr ""
-
-#, c-format
-msgid "The file %s cannot be extracted"
-msgstr ""
-
-msgid "Possible file upload attack!  Here's some debugging info:\n"
-msgstr ""
-
-msgid "rss unavaible for users"
-msgstr ""
-
-msgid "rss avaible for users"
-msgstr ""
-
-msgid ""
-"the document is not referenced: cannot apply profile access modification"
-msgstr ""
+#, fuzzy, c-format
+msgid "Document %s is not alive"
+msgstr "Import"
 
 #, fuzzy, c-format
-msgid "Change creation profil to %s [%d]"
+msgid "to the %s state"
 msgstr "Category"
 
 #, fuzzy, c-format
-msgid "Change creation view control to %s [%d]"
-msgstr "Start search"
-
-#, fuzzy, c-format
-msgid "Change profil to %s [%d]"
+msgid "Change state to %s"
 msgstr "Category"
 
-#, fuzzy, c-format
-msgid "Change view control  to %s [%d]"
-msgstr "Start search"
+msgid "no task identificator found"
+msgstr ""
 
-msgid "related search aborted : no parameter found"
+#, c-format
+msgid "text conversion done for file %s"
+msgstr ""
+
+#, c-format
+msgid "output file [%s] not found"
+msgstr ""
+
+#, c-format
+msgid "task %s is not done correctly"
+msgstr ""
+
+#, c-format
+msgid "conversion failed for %s: "
 msgstr ""
 
 #, fuzzy, c-format
-msgid "process search comes from %s"
-msgstr "Start search"
+msgid "document [%s] not found"
+msgstr "Import"
+
+msgid "semaphore block"
+msgstr ""
+
+#, c-format
+msgid "task %s is not recorded"
+msgstr ""
+
+#, c-format
+msgid "doc %d indexed"
+msgstr ""
+
+#, c-format
+msgid "the document %s has been sended"
+msgstr ""
+
+#, c-format
+msgid "the document %s has not been sended : no recipient"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not related to a workflow"
+msgstr ""
+
+msgid "mail dest is empty"
+msgstr ""
+
+#, c-format
+msgid "PDF conversion failed for %s"
+msgstr ""
+
+#, c-format
+msgid "sended to %s"
+msgstr ""
+
+#, c-format
+msgid "sending %s to %s"
+msgstr ""
+
+#, c-format
+msgid "%s cannot be sent"
+msgstr ""
+
+#, c-format
+msgid "geometry saved : %s"
+msgstr ""
 
 #, fuzzy, c-format
-msgid "search %s"
-msgstr "Start search"
+msgid "root for %s"
+msgstr "Modify"
 
 #, fuzzy
-msgid "search result"
+msgid "default folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "search"
 msgstr "Start search"
 
-msgid "new document family"
+#, c-format
+msgid "document #%s not found. Affectation aborded"
 msgstr ""
 
 #, c-format
-msgid "%s has been deleted"
+msgid "user #%s not found. Affectation aborded"
 msgstr ""
 
 #, c-format
-msgid "%s has been modified"
+msgid "user #%s has not a real account. Affectation aborded"
 msgstr ""
 
 #, c-format
-msgid "%s has been created"
+msgid "document %s has the new state %s"
+msgstr ""
+
+#, c-format
+msgid "document %s has been allocate to %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "allocation for %s document"
+msgstr "Delete"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy, c-format
+msgid "not a static folder %s"
+msgstr "Modify"
+
+#, fuzzy, c-format
+msgid "Add %d document(s)"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "Suppress %d document(s)"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "Search %s"
+msgstr "Start search"
+
+#, c-format
+msgid "Content managing of %s"
+msgstr ""
+
+msgid "cannot compare two document which comes from two different family"
+msgstr ""
+
+#, c-format
+msgid "comparison between<br>%s (rev %d) and %s (rev %d)"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
+msgstr ""
+
+#, c-format
+msgid "%s has been unlocked"
+msgstr ""
+
+#, c-format
+msgid "modoption: document [%d] is not alive"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Create %s"
+msgstr "Create"
+
+#, fuzzy
+msgid "Edit enum attributes"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "Change profile of family document"
+msgstr "Category"
+
+#, fuzzy
+msgid "Change profile for new documents"
+msgstr "Category"
+
+#, fuzzy
+msgid "Change root folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Change first folder"
+msgstr "Delete"
+
+msgid "new familly document"
+msgstr ""
+
+#, fuzzy
+msgid "Modify Attributes"
+msgstr "Update Title Cards"
+
+#, fuzzy, c-format
+msgid "Add Attributes : %s"
+msgstr "Update Title Cards"
+
+msgid "folder is not valid: bookmark unchanged"
+msgstr ""
+
+#, c-format
+msgid "folder %s as been added in your bookmark"
 msgstr ""
 
 #, fuzzy, c-format
@@ -1668,122 +4073,7 @@ msgstr ""
 msgid "batch from %s folder"
 msgstr "Modify"
 
-#, fuzzy
-msgid "Referenced from"
-msgstr "Delete"
-
-msgid "type"
-msgstr ""
-
-#, fuzzy
-msgid "Reference"
-msgstr "Delete"
-
-msgid "no comment"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s new revision %d"
-msgstr "Organisation"
-
-msgid "the document is not referenced: cannot apply state modification"
-msgstr ""
-
-#, c-format
-msgid "Family %s not exist"
-msgstr ""
-
-#, c-format
-msgid ""
-"Import %s is in progress. When update will be finished an email to &lt;%"
-"s&gt; will be sended with result rapport"
-msgstr ""
-
-#, c-format
-msgid "update of %s catalogue has failed,"
-msgstr ""
-
-#, c-format
-msgid "no action found for %s document"
-msgstr ""
-
-#, fuzzy
-msgid "change root folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "change first folder"
-msgstr "Delete"
-
-#, c-format
-msgid "%s has been added in %s folder"
-msgstr ""
-
-#, c-format
-msgid "%s has been removed in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "default values for %s"
-msgstr "Delete"
-
-#, fuzzy
-msgid "documents"
-msgstr "Import"
-
-#, fuzzy
-msgid "document"
-msgstr "Import"
-
-#, c-format
-msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
-msgstr ""
-
-#, c-format
-msgid "document too big (%dKo): no highlight"
-msgstr ""
-
-#, c-format
-msgid ""
-"batcexec aborted\n"
-"document [%s] not found"
-msgstr ""
-
-#, c-format
-msgid "proceed background import of %d documents"
-msgstr ""
-
-#, c-format
-msgid "The document <%s> is not a folder"
-msgstr ""
-
-#, c-format
-msgid "Use your home folder instead <%s>"
-msgstr ""
-
-#, c-format
-msgid "new title for %s"
-msgstr ""
-
-msgid "new familly document"
-msgstr ""
-
-#, fuzzy
-msgid "Modify Attributes"
-msgstr "Update Title Cards"
-
-#, fuzzy, c-format
-msgid "Add Attributes : %s"
-msgstr "Update Title Cards"
-
-#, c-format
-msgid ""
-"cannot extract archive file %s.\n"
-"Type %s not recognized as archive file"
-msgstr ""
-
-#, c-format
-msgid "cannot extract archive file %s"
+msgid "the document is not referenced: cannot apply defaut folder"
 msgstr ""
 
 #, c-format
@@ -1797,6 +4087,17 @@ msgstr ""
 msgid "default values"
 msgstr "Delete"
 
+msgid "document not referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has been deleted"
+msgstr ""
+
+#, fuzzy
+msgid "Reference"
+msgstr "Delete"
+
 #, fuzzy
 msgid "creation of document family"
 msgstr "Start search"
@@ -1804,6 +4105,46 @@ msgstr "Start search"
 #, fuzzy
 msgid "untitle family"
 msgstr "Delete"
+
+msgid "mnogosearch php extension not loaded"
+msgstr ""
+
+#, fuzzy
+msgid "new search "
+msgstr "Start search"
+
+#, fuzzy
+msgid "search for "
+msgstr "Start search"
+
+#, fuzzy
+msgid " from any folder"
+msgstr "Modify"
+
+msgid "can't connect mnogosearch db"
+msgstr ""
+
+msgid "Udm_Find Error : "
+msgstr ""
+
+msgid "changed"
+msgstr ""
+
+#, c-format
+msgid "new title for %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"batcexec aborted\n"
+"document [%s] not found"
+msgstr ""
+
+msgid "no file specified : change icon aborted"
+msgstr ""
+
+msgid "file not expected : possible attack : update aborted"
+msgstr ""
 
 #, fuzzy
 msgid "all"
@@ -1832,41 +4173,64 @@ msgstr "Identity"
 msgid "ending"
 msgstr "Edit"
 
+#, c-format
+msgid "%s has been added in %s folder"
+msgstr ""
+
+#, c-format
+msgid "%s has been removed in %s folder"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot extract archive file %s.\n"
+"Type %s not recognized as archive file"
+msgstr ""
+
+#, c-format
+msgid "cannot extract archive file %s"
+msgstr ""
+
 #, fuzzy
 msgid "detailled search"
 msgstr "Email"
 
-#, fuzzy
-msgid " any familly"
-msgstr "Start search"
-
-#, fuzzy
-msgid "search for "
-msgstr "Start search"
-
-msgid " from current folder"
-msgstr ""
-
-#, fuzzy
-msgid " from any folder"
-msgstr "Modify"
-
-msgid "Udm_Find Error : "
-msgstr ""
-
-msgid "fixed"
-msgstr ""
-
-msgid "changed"
+#, c-format
+msgid "result of archive import  %s"
 msgstr ""
 
 #, c-format
-msgid "the document %s is not a container"
+msgid ""
+"Import %s is in progress. When update will be finished an email to &lt;%"
+"s&gt; will be sended with result rapport"
 msgstr ""
 
+#, c-format
+msgid "update of %s catalogue has failed,"
+msgstr ""
+
+msgid "related search aborted : no parameter found"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "process search comes from %s"
+msgstr "Start search"
+
 #, fuzzy
-msgid "description"
-msgstr "Edit"
+msgid "change root folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "change first folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "documents"
+msgstr "Import"
+
+#, fuzzy
+msgid "document"
+msgstr "Import"
 
 #, c-format
 msgid ""
@@ -1874,28 +4238,177 @@ msgid ""
 "limit %d has been reached"
 msgstr ""
 
-msgid "folder is not valid: bookmark unchanged"
+msgid "new document family"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s new revision %d"
+msgstr "Organisation"
+
+msgid ""
+"the document is not referenced: cannot apply profile access modification"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Change creation profil to %s [%d]"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "Change creation view control to %s [%d]"
+msgstr "Start search"
+
+#, fuzzy, c-format
+msgid "Change profil to %s [%d]"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "Change view control  to %s [%d]"
+msgstr "Start search"
+
+#, c-format
+msgid "no action found for %s document"
+msgstr ""
+
+msgid "change creation profile"
+msgstr ""
+
+msgid "change profile"
+msgstr ""
+
+msgid "new profile document"
 msgstr ""
 
 #, c-format
-msgid "folder %s as been added in your bookmark"
+msgid "Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"
 msgstr ""
 
 #, c-format
-msgid "result of archive import  %s"
+msgid "document too big (%dKo): no highlight"
 msgstr ""
 
-msgid "no file specified : change icon aborted"
+#, fuzzy, c-format
+msgid "default values for %s"
+msgstr "Delete"
+
+msgid "rss unavaible for users"
 msgstr ""
 
-msgid "file not expected : possible attack : update aborted"
+msgid "rss avaible for users"
 msgstr ""
 
-msgid "the document is not referenced: cannot apply defaut folder"
+msgid "the document is not referenced: cannot apply state modification"
+msgstr ""
+
+#, c-format
+msgid "proceed background import of %d documents"
+msgstr ""
+
+#, c-format
+msgid "The document <%s> is not a folder"
+msgstr ""
+
+#, c-format
+msgid "Use your home folder instead <%s>"
+msgstr ""
+
+#, c-format
+msgid "the document %s is not a container"
+msgstr ""
+
+#, c-format
+msgid "File %s is valid, and was successfully uploaded."
+msgstr ""
+
+#, c-format
+msgid "The file %s has been correctly extracted"
+msgstr ""
+
+#, c-format
+msgid "The file %s cannot be extracted"
+msgstr ""
+
+msgid "Possible file upload attack!  Here's some debugging info:\n"
+msgstr ""
+
+#, c-format
+msgid "Family %s not exist"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "search %s"
+msgstr "Start search"
+
+#, fuzzy
+msgid "search result"
+msgstr "Start search"
+
+#, c-format
+msgid "%s has been modified"
+msgstr ""
+
+#, c-format
+msgid "%s has been created"
+msgstr ""
+
+#, c-format
+msgid "archive %s not found and cannot be removed"
+msgstr ""
+
+#, c-format
+msgid "cannot suppress extract directory for archive file %s"
+msgstr ""
+
+#, c-format
+msgid "cannot suppress archive file %s"
+msgstr ""
+
+#, c-format
+msgid "archive file %s has been deleted"
+msgstr ""
+
+msgid "Family is not instanciate"
+msgstr ""
+
+#, c-format
+msgid "Family (#%d) is not referenced"
+msgstr ""
+
+#, c-format
+msgid "Family (#%s) not exists"
 msgstr ""
 
 #, c-format
 msgid "definition of enumerate attribute %s of %s family"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "import <I>%s</I> documents from"
+msgstr "Import"
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
+msgstr ""
+
+msgid "Edit in new window"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Sure duplicate %s ?"
+msgstr "Edit"
+
+msgid "cookies seem to be blocked"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s all "
+msgstr "readall"
+
+#, fuzzy, c-format
+msgid "related documents of %s"
+msgstr "Import"
+
+#, c-format
+msgid "Modification for attribute %s for family %s"
 msgstr ""
 
 #, fuzzy
@@ -1908,36 +4421,6 @@ msgstr "Export this card"
 
 msgid "prev"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "related documents of %s"
-msgstr "Import"
-
-msgid "cookies seem to be blocked"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s all "
-msgstr "readall"
-
-#, c-format
-msgid "Family (#%s) not exists"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "search %s is %s"
-msgstr "Start search"
-
-#, fuzzy, c-format
-msgid "search %s is %s in %s"
-msgstr "Start search"
-
-msgid "Edit in new window"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Sure duplicate %s ?"
-msgstr "Edit"
 
 msgid "no csv import file specified"
 msgstr ""
@@ -1954,9 +4437,13 @@ msgstr "Import"
 msgid "Add it in %s folder"
 msgstr "Modify"
 
-#, fuzzy, c-format
-msgid "import <I>%s</I> documents from"
-msgstr "Import"
+#, c-format
+msgid "search  contains %s in all state"
+msgstr ""
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr ""
 
 msgid "Creation aborded : no family specified"
 msgstr ""
@@ -1964,10 +4451,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Creation aborded : unknow family %s"
 msgstr "Category"
-
-#, c-format
-msgid "no privilege to create interactivaly this kind (%s) of document"
-msgstr ""
 
 #, fuzzy, c-format
 msgid "creation %s"
@@ -1980,3243 +4463,780 @@ msgstr "Category"
 msgid "parameters values"
 msgstr ""
 
-#, fuzzy
-msgid "Create"
-msgstr "Create"
+#, fuzzy, c-format
+msgid "search %s is %s"
+msgstr "Start search"
 
-#, c-format
-msgid "Modification for attribute %s for family %s"
-msgstr ""
-
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr ""
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr ""
-
-msgid "Family is not instanciate"
-msgstr ""
-
-#, c-format
-msgid "Family (#%d) is not referenced"
-msgstr ""
+#, fuzzy, c-format
+msgid "search %s is %s in %s"
+msgstr "Start search"
 
 msgid "no vcard file specified"
 msgstr ""
 
-msgid "Generic Management"
-msgstr ""
-
-msgid "Users Management"
-msgstr ""
-
-msgid "users list"
-msgstr ""
-
-msgid "Users"
-msgstr ""
-
-msgid "Groups"
+#, c-format
+msgid "<b>%d group(s) to refresh</b>"
 msgstr ""
 
 #, fuzzy
-msgid "Admin"
-msgstr "Admnistration functions"
-
-#, fuzzy
-msgid "Create new group"
-msgstr "Create"
-
-#, fuzzy
-msgid "view detail"
-msgstr "Start search"
-
-msgid "Refresh users characteristics from system"
-msgstr ""
-
-msgid "Refersh users may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh users"
+msgid "No need to refresh group"
 msgstr "Delete"
 
-#, fuzzy
-msgid "Refresh LDAP"
-msgstr "Delete"
-
-msgid "Refresh LDAP may take long time. Sure ?"
+#, c-format
+msgid "id %s profile"
 msgstr ""
 
-msgid "Refresh Group members and mail"
-msgstr ""
-
-msgid "Refresh groups may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "CSV Import Users"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import Users"
-msgstr "Import"
-
-#, fuzzy
-msgid "CSV Import Groups"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import Groups"
-msgstr "Import"
-
-#, fuzzy
-msgid "Modify categories"
+#, fuzzy, c-format
+msgid "%s profile"
 msgstr "Category"
 
-#, fuzzy
-msgid "Family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Attribute"
-msgstr "Update Title Cards"
-
-msgid "Add or modify item's category"
-msgstr ""
-
-#, fuzzy
-msgid "Modify"
-msgstr "Modify"
-
-msgid "Refresh users may take long time. Sure ?"
-msgstr ""
-
-msgid "Refresh Groups members and mail"
-msgstr ""
-
-msgid "Refersh groups may take long time. Sure ?"
-msgstr ""
-
-#, fuzzy
-msgid "Refresh groups"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Save"
-msgstr "Identity"
-
-#, fuzzy
-msgid "Cancel"
-msgstr "Create"
-
-msgid "Properties:"
-msgstr ""
-
-#, fuzzy
-msgid "Comment for change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Cancel the change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "No result"
-msgstr "Import"
-
-#, fuzzy
-msgid " choose value"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Close"
-msgstr "Create"
-
-#, fuzzy
-msgid "Constraint test"
-msgstr "Edit"
-
-msgid "Attribute not found"
-msgstr ""
-
-msgid "suggestions"
-msgstr ""
-
-#, fuzzy
-msgid "edition: "
-msgstr "Edit"
-
-msgid "Ok"
-msgstr ""
-
-#, fuzzy
-msgid "view constraints"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Constraints"
-msgstr "Edit"
-
-#, fuzzy
-msgid "override constraints"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Version"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Change content"
-msgstr "Start search"
-
-#, fuzzy
-msgid "any familly"
-msgstr "Start search"
-
-msgid "type characters to filter document on it's title"
-msgstr ""
-
-#, fuzzy
-msgid "Send document searches"
-msgstr "Delete"
-
-#, fuzzy
-msgid "document(s)"
-msgstr "Import"
-
-#, fuzzy
-msgid "suppress document"
-msgstr "Import"
-
-msgid "User to affect"
-msgstr ""
-
-msgid "the state will be unchanged"
-msgstr ""
-
-#, fuzzy
-msgid "unchanged state"
-msgstr "Category"
-
-msgid "the state will be removed"
-msgstr ""
-
-#, fuzzy
-msgid "Action to do"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Reason for change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "Apply"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "Choose in icon list"
-msgstr "Title"
-
-msgid "Or upload a new icon"
-msgstr ""
-
-#, fuzzy
-msgid "mail edition"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Send the email and change document state to"
-msgstr "Category"
-
-#, fuzzy
-msgid "send mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "Change the document state to"
-msgstr "Category"
-
-msgid "confirm manually send"
-msgstr ""
-
-#, fuzzy
-msgid "cancel"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Send mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "document differences"
-msgstr "Delete"
-
-#, fuzzy
-msgid "view equality attributes"
-msgstr "Title"
-
-#, fuzzy
-msgid "attributes"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "view hidden attributes"
-msgstr "Title"
-
-msgid "workflow has been recomposed"
-msgstr ""
-
-#, fuzzy
-msgid "Click to access to the document"
-msgstr "Category"
-
-#, fuzzy
-msgid "option: "
-msgstr "Edit"
-
-msgid "Processes to exec"
-msgstr ""
-
-#, fuzzy
-msgid "profile access"
-msgstr "Control access"
-
-#, fuzzy
-msgid "no profile"
-msgstr "Category"
-
-#, fuzzy
-msgid "view control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Validate"
-msgstr "Edit"
-
-#, fuzzy
-msgid " folder containt"
-msgstr "Edit"
-
-#, fuzzy
-msgid " familly"
-msgstr "Start search"
-
-#, fuzzy
-msgid "founded"
-msgstr "Update LDAP server"
-
-#, fuzzy
-msgid "search time"
-msgstr "Start search"
-
-msgid "total count"
-msgstr ""
-
-#, fuzzy
-msgid "informations"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Archives"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import Archive"
-msgstr "Import"
-
-#, fuzzy
-msgid "Choose Archive"
-msgstr "Import"
-
-#, fuzzy
-msgid "for"
-msgstr "Delete"
-
-#, fuzzy
-msgid "delete archive"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Family Creation"
-msgstr "Edit"
-
-#, fuzzy
-msgid "inherit from"
-msgstr "Import"
-
-#, fuzzy
-msgid "no document family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "family title"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Create new family"
-msgstr "Category"
-
-#, fuzzy
-msgid " change title"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Change title"
-msgstr "Category"
-
-#, fuzzy
-msgid " comment for revision"
-msgstr "Organisation"
-
-#, fuzzy
-msgid " revise document"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Archive import"
-msgstr "Import"
-
-msgid "Supported format"
-msgstr ""
-
-msgid "compressed tar"
-msgstr ""
-
-#, fuzzy
-msgid "Zip File"
-msgstr "Import"
-
-#, fuzzy
-msgid "import file:"
-msgstr "Import"
-
-#, fuzzy
-msgid "Upload archive"
-msgstr "Import"
-
-#, fuzzy
-msgid "View Archives"
-msgstr "Import"
-
-#, fuzzy
-msgid "Go to Archives"
-msgstr "Import"
-
-#, fuzzy
-msgid "Choose visibles families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Relation document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "noone document"
-msgstr "Import"
-
-#, fuzzy
-msgid "Detail Permissions"
-msgstr "Edit"
-
-#, fuzzy
-msgid "PortFolio"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Import Result"
-msgstr "Import"
-
-msgid "Archive import in progress"
-msgstr ""
-
-#, fuzzy
-msgid "Result Import TAR Documents"
-msgstr "Import"
-
-#, fuzzy
-msgid "View Archive"
-msgstr "Import"
-
-msgid "Batch Choose"
-msgstr ""
-
-msgid "Copy the containt of folder in batch document"
-msgstr ""
-
-msgid "A_Copy"
-msgstr ""
-
-msgid "Copy the reference of folder in batch document"
-msgstr ""
-
-#, fuzzy
-msgid "A_Link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "access path folder list:"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Access Path Folder List"
-msgstr "Delete"
-
-#, fuzzy
-msgid "State"
-msgstr "Identity"
-
-msgid "Undisplay the search query"
-msgstr ""
-
-msgid "Mask"
-msgstr ""
-
-#, fuzzy
-msgid "View the search query"
-msgstr "Start search"
-
-msgid "Unmask"
-msgstr ""
-
-#, fuzzy
-msgid "Simple search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Add filter"
-msgstr "Modify"
-
-#, fuzzy
-msgid "addstate"
-msgstr "Identity"
-
-#, fuzzy
-msgid "ToSearch"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Analyze Archive"
-msgstr "Start search"
-
-msgid "Options import"
-msgstr ""
-
-#, fuzzy
-msgid "default file family"
-msgstr "Delete"
-
-#, fuzzy
-msgid "default folder family"
-msgstr "Delete"
-
-msgid "Only CSV"
-msgstr ""
-
-#, fuzzy
-msgid "Add top folder"
-msgstr "Modify"
-
-msgid "Analyze"
-msgstr ""
-
-#, fuzzy
-msgid "Import Direct"
-msgstr "Import"
-
-#, fuzzy
-msgid "Lauch Import"
-msgstr "Import"
-
-#, fuzzy
-msgid "report to (mail address)"
-msgstr "Address"
-
-#, fuzzy
-msgid "Analysis Results"
-msgstr "Import"
-
-#, fuzzy
-msgid "foldername"
-msgstr "Delete"
-
-#, fuzzy
-msgid "filename"
-msgstr "Firstname"
-
-#, fuzzy
-msgid "familyname"
-msgstr "Start search"
-
-msgid "err"
-msgstr ""
-
-#, fuzzy
-msgid "Change State"
-msgstr "Category"
-
-#, fuzzy
-msgid "Result Import Documents"
-msgstr "Import"
-
-#, fuzzy
-msgid "documents to examine"
-msgstr "Import"
-
-#, fuzzy
-msgid "line"
-msgstr "Delete"
-
-msgid "id"
-msgstr ""
-
-msgid "message"
-msgstr ""
-
-msgid "specmessage"
-msgstr ""
-
-#, fuzzy
-msgid "changes"
-msgstr "Start search"
-
-msgid "error"
-msgstr ""
-
-msgid "Changes will be loosed if you continue"
-msgstr ""
-
-#, fuzzy
-msgid "Choose another family document"
-msgstr "Category"
-
-#, fuzzy
-msgid "Other family"
-msgstr "Category"
-
-msgid "help"
-msgstr ""
-
-#, fuzzy
-msgid "family manual"
-msgstr "Start search"
-
-msgid "View historique"
-msgstr ""
-
-msgid "updatetitle"
-msgstr "Update Title Cards"
-
-msgid "updateldap"
-msgstr "Update LDAP server"
-
-#, fuzzy
-msgid "Choose Worflow"
-msgstr "Delete"
-
-#, fuzzy
-msgid "workflow"
-msgstr "Delete"
-
-#, fuzzy
-msgid "no workflow"
-msgstr "Delete"
-
-msgid "Processes plan"
-msgstr ""
-
-#, fuzzy
-msgid "Creation"
-msgstr "Edit"
-
-msgid "Bookmarks"
-msgstr ""
-
-#, fuzzy
-msgid "Search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Tools"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "Document"
-msgstr "Import"
-
-#, fuzzy
-msgid "System document"
-msgstr "Import"
-
-#, fuzzy
-msgid "Folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "BatchProcess"
-msgstr "Control access"
-
-#, fuzzy
-msgid "Profile"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "Workflow"
-msgstr "Delete"
-
-msgid "add to bookmarks"
-msgstr ""
-
-msgid "manage bookmarks"
-msgstr ""
-
-#, fuzzy
-msgid "speed"
-msgstr "Delete"
-
-#, fuzzy
-msgid "simple"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "detailled"
-msgstr "Email"
-
-#, fuzzy
-msgid "fulltext"
-msgstr "Start search"
-
-msgid "Ref"
-msgstr ""
-
-#, fuzzy
-msgid "Import documents"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import Tar"
-msgstr "Import"
-
-msgid "exec plan"
-msgstr ""
-
-msgid "search document"
-msgstr ""
-
-msgid "keyword"
-msgstr ""
-
-#, fuzzy
-msgid "only latest revision"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "from current folder"
-msgstr "Modify"
-
-msgid "case sensitive"
-msgstr ""
-
-#, fuzzy
-msgid "familly"
-msgstr "Start search"
-
-#, fuzzy
-msgid "folders"
-msgstr "Delete"
-
-#, fuzzy
-msgid "save query in current folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "search title"
-msgstr "Start search"
-
-#, fuzzy
-msgid " send search"
-msgstr "Start search"
-
-#, fuzzy
-msgid " cancel"
-msgstr "Start search"
-
-#, fuzzy
-msgid "search fulltext"
-msgstr "Start search"
-
-#, fuzzy
-msgid " search words"
-msgstr "Start search"
-
-msgid " match"
-msgstr ""
-
-#, fuzzy
-msgid " search for"
-msgstr "Start search"
-
-#, fuzzy
-msgid " only latest revision"
-msgstr "Organisation"
-
-#, fuzzy
-msgid " view files"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Export Documents from"
-msgstr "Import"
-
-#, fuzzy
-msgid "Encoding"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Without profil"
-msgstr "Category"
-
-#, fuzzy
-msgid "With profil"
-msgstr "Category"
-
-#, fuzzy
-msgid "Files"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "Without files"
-msgstr "Import"
-
-#, fuzzy
-msgid "With files"
-msgstr "Start search"
-
-msgid "Identificators"
-msgstr ""
-
-msgid "Without identificators"
-msgstr ""
-
-msgid "With identificators"
-msgstr ""
-
-#, fuzzy
-msgid "Export"
-msgstr "Export selected cards"
-
-msgid "Freedom"
-msgstr ""
-
-#, fuzzy
-msgid "Create New"
-msgstr "Create"
-
-#, fuzzy
-msgid "more families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "restrict to preferred families"
-msgstr "Modify"
-
-msgid "choose preferred families"
-msgstr ""
-
-msgid " history"
-msgstr ""
-
-#, fuzzy
-msgid "PortFolio search"
-msgstr "Modify"
-
-msgid "Batch Action Choose"
-msgstr ""
-
-msgid "Create a new  process document"
-msgstr ""
-
-#, fuzzy
-msgid "Import Documents"
-msgstr "Import"
-
-msgid "Description of the import format"
-msgstr ""
-
-#, fuzzy
-msgid "specific import"
-msgstr "Import"
-
-msgid "policy if same title"
-msgstr ""
-
-msgid "Update document if has permission else ignored"
-msgstr ""
-
-msgid "Add new document (similar document)"
-msgstr ""
-
-#, fuzzy
-msgid "Keep original document"
-msgstr "Import"
-
-#, fuzzy
-msgid "Direct Import"
-msgstr "Import"
-
-#, fuzzy
-msgid "Import document description"
-msgstr "Import"
-
-#, fuzzy
-msgid "Background Import"
-msgstr "Import"
-
-msgid "proceed background import"
-msgstr ""
-
-#, fuzzy
-msgid "Create subfolder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Copy reference"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Move reference"
-msgstr "Delete"
-
-msgid "Quick Save"
-msgstr ""
-
-#, fuzzy
-msgid "view properties"
-msgstr "Import"
-
-msgid "duplicate document"
-msgstr ""
-
-#, fuzzy
-msgid "link document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "access path list"
-msgstr "Delete"
-
-#, fuzzy
-msgid "delete link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Permissions"
-msgstr "Organisation"
-
-msgid "Attributes definition"
-msgstr ""
-
-msgid "ID"
-msgstr ""
-
-#, fuzzy
-msgid "order"
-msgstr "Delete"
-
-#, fuzzy
-msgid "name"
-msgstr "Lastname"
-
-#, fuzzy
-msgid "frame"
-msgstr "Lastname"
-
-msgid "A?"
-msgstr ""
-
-msgid "T?"
-msgstr ""
-
-msgid "N?"
-msgstr ""
-
-msgid "Vi"
-msgstr ""
-
-#, fuzzy
-msgid "Link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "file"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "func"
-msgstr "Create"
-
-#, fuzzy
-msgid "elink"
-msgstr "Delete"
-
-#, fuzzy
-msgid "constraint"
-msgstr "Edit"
-
-#, fuzzy
-msgid "options"
-msgstr "Edit"
-
-#, fuzzy
-msgid " change icon"
-msgstr "Start search"
-
-#, fuzzy
-msgid " lauch importation"
-msgstr "Import"
-
-#, fuzzy
-msgid "Full search"
-msgstr "Start search"
-
-msgid "Add search engine to your browser"
-msgstr ""
-
-#, fuzzy
-msgid "Add search engine"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Advanced search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Previous"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Next"
-msgstr "Export this card"
-
-#, fuzzy
-msgid "add category"
-msgstr "Category"
-
-#, fuzzy
-msgid "Choose a father category"
-msgstr "Category"
-
-msgid "no father category (its a top category)"
-msgstr ""
-
-#, fuzzy
-msgid "new category"
-msgstr "Category"
-
-#, fuzzy
-msgid "add new category"
-msgstr "Category"
-
-msgid "Search containing characters"
-msgstr ""
-
-#, fuzzy
-msgid "Search Words"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Send search"
-msgstr "Start search"
-
-msgid "Go"
-msgstr ""
-
-#, fuzzy
-msgid "toedit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "import edition"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Import CSV"
-msgstr "Import"
-
-msgid "CSV"
+#, c-format
+msgid "id %s mask"
 msgstr ""
 
-msgid "CSV specification file"
+#, c-format
+msgid "%s mask"
 msgstr ""
 
-msgid "The separator field is the semicolon(;)"
+#, c-format
+msgid "%s color"
 msgstr ""
 
+#, c-format
 msgid ""
-"The first four fields must not be change, they identified the card structure"
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
 msgstr ""
 
-msgid "Only one line by document is authorized"
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
 msgstr ""
 
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
 msgid ""
-"If an attribut is a multiline string, use the \\ n characters to specify the "
-"new line"
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
 msgstr ""
 
-msgid "if you want to change order of column"
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
+
+#, c-format
+msgid "query [%s] not valid for select document"
+msgstr ""
+
+msgid "(only)"
+msgstr ""
+
+#, c-format
+msgid "invalid syntax for [%s] for enum attribute"
+msgstr ""
+
+msgid "not perm for admin"
+msgstr ""
+
+msgid "not pertinent"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"errldapadd:%s\n"
+"%s\n"
+"%d\n"
+msgstr ""
+"Card is not modify in LDAP server : one of this attribute is not appropriate"
+
+msgid "errldapconnect"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy
+msgid "errldaporginit"
+msgstr "LDAP server cannot be contacted"
+
+#, fuzzy, c-format
+msgid "%s attribute"
+msgstr "Update Title Cards"
+
+msgid "no available persons found"
+msgstr ""
+
+msgid "view"
 msgstr ""
 
 #, fuzzy
-msgid "column order"
-msgstr "Modify"
-
-#, fuzzy
-msgid "View all attributes ?"
-msgstr "Title"
-
-msgid "Be carreful."
-msgstr ""
-
-msgid "Certain attribute can be not use for import"
-msgstr ""
-
-#, fuzzy
-msgid "view all columns"
-msgstr "Start search"
-
-msgid "suppress column"
-msgstr ""
-
-#, fuzzy
-msgid "add column"
-msgstr "Add new contact card"
-
-msgid "to insert document in sub folder"
-msgstr ""
-
-msgid "policy"
-msgstr ""
-
-msgid "policy if same keys"
-msgstr ""
-
-#, fuzzy
-msgid "import keys"
+msgid "send document"
 msgstr "Import"
 
-msgid "no key2"
-msgstr ""
-
-msgid "values use for new document (not for update)"
-msgstr ""
-
 #, fuzzy
-msgid "default import values"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Import description file"
+msgid "send"
 msgstr "Edit"
 
-msgid "Analyze only"
-msgstr ""
+#, fuzzy
+msgid "edit"
+msgstr "Edit"
 
 #, fuzzy
-msgid "enum attribute list"
-msgstr "Update Title Cards"
-
-msgid "level"
-msgstr ""
-
-#, fuzzy
-msgid "reference"
+msgid "delete document"
 msgstr "Delete"
 
-msgid "labeltext"
-msgstr ""
-
-msgid "upk"
-msgstr ""
-
-msgid "downk"
-msgstr ""
-
-msgid "previous level"
-msgstr ""
-
-msgid "next level"
-msgstr ""
-
 #, fuzzy
-msgid "add"
-msgstr "Add new contact card"
-
-#, fuzzy
-msgid "change category"
-msgstr "Category"
-
-#, fuzzy
-msgid "Choose new categories"
-msgstr "Title"
-
-#, fuzzy
-msgid "Sort"
-msgstr "Export selected cards"
-
-#, fuzzy
-msgid "invert order"
-msgstr "Delete"
-
-msgid "Help"
-msgstr ""
-
-#, fuzzy
-msgid "Import file"
-msgstr "Import"
-
-#, fuzzy
-msgid "Abstract card"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Column mode"
+msgid "open folder"
 msgstr "Modify"
 
-msgid "Invert split"
+msgid "open"
 msgstr ""
 
 #, fuzzy
-msgid "memosearch"
+msgid "execute search"
 msgstr "Start search"
 
 #, fuzzy
-msgid "Preferences"
+msgid "execute"
 msgstr "Delete"
 
 #, fuzzy
-msgid "Edit attribute kinds"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "Family preferences"
+msgid "modify folder"
 msgstr "Modify"
 
 #, fuzzy
-msgid "Preferences for"
-msgstr "Delete"
-
-#, fuzzy
-msgid "View tab letters"
+msgid "view acl"
 msgstr "Start search"
 
-#, fuzzy
-msgid "View inherit family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "set as first family view"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "open first family"
-msgstr "Category"
-
-#, fuzzy
-msgid "No family first"
-msgstr "Start search"
-
-#, fuzzy
-msgid "master choose families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "choose user families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Import from"
-msgstr "Import"
-
-#, fuzzy
-msgid "vcs file"
-msgstr "Update Title Cards"
-
-msgid "visibility"
-msgstr "Visibility"
-
-#, fuzzy
-msgid "private card"
-msgstr "Category"
-
-msgid "public card - read access"
-msgstr ""
-
-msgid "public card - write access"
-msgstr ""
-
-msgid "Add new card (duplicate title)"
-msgstr ""
-
-msgid "Replace address book card if has permission else duplicate"
-msgstr ""
-
-msgid "Keep address book card"
+msgid "viewacl"
 msgstr ""
 
 #, fuzzy
-msgid "Import vcard"
-msgstr "Import"
-
-msgid "Vcard example"
-msgstr ""
-
-msgid "click here to create a new"
-msgstr ""
+msgid "modifyacl"
+msgstr "Modify"
 
 #, fuzzy
-msgid "view sub families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Choose family to create"
-msgstr "Category"
-
-#, fuzzy
-msgid "lines"
-msgstr "Delete"
-
-msgid "lines per page"
-msgstr ""
-
-#, fuzzy
-msgid "manage columns"
-msgstr "Add new contact card"
-
-msgid "search all containing"
-msgstr ""
-
-#, fuzzy
-msgid "filter on"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "edit contact card"
+msgid "create doc"
 msgstr "Create"
 
 #, fuzzy
-msgid "add to prefered"
+msgid "unlock"
+msgstr "Create"
+
+msgid "unlock unowner locked doc"
+msgstr ""
+
+#, fuzzy
+msgid "icreate"
+msgstr "Create"
+
+#, fuzzy
+msgid "create doc manually"
+msgstr "Create"
+
+#, fuzzy
+msgid "view confidential"
+msgstr "Delete"
+
+#, fuzzy
+msgid "forum"
+msgstr "Delete"
+
+#, fuzzy
+msgid "edit forum"
+msgstr "Import"
+
+#, c-format
+msgid "unknow privilege %s"
+msgstr ""
+
+#, c-format
+msgid "unknow virtual user identificateur %s"
+msgstr ""
+
+#, c-format
+msgid "no privilege %s for %s |%d]"
+msgstr ""
+
+msgid "<it's a message>"
+msgstr ""
+
+msgid "the email syntax  is like : john.doe@anywhere.org"
+msgstr ""
+
+msgid "the email must containt the @ character"
+msgstr ""
+
+msgid "the date syntax must be like : DD/MM/AAAA"
+msgstr ""
+
+#, c-format
+msgid "the date %s is in the past: today is %s"
+msgstr ""
+
+#, fuzzy
+msgid "need to select the document with the list"
+msgstr "Category"
+
+#, c-format
+msgid "the document id [%s] for this attribute is not valid"
+msgstr ""
+
+#, c-format
+msgid "the title of document [%s] is not conform to original [%s]"
+msgstr ""
+
+msgid "clic to the ... button to link document correctly"
+msgstr ""
+
+#, fuzzy
+msgid "the document id is empty"
+msgstr "Category"
+
+msgid "clic to the [...] button to link document correctly"
+msgstr ""
+
+#, fuzzy
+msgid "the document title is empty"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "postit of %s"
+msgstr "Import"
+
+msgid "no message : post-it creation aborted"
+msgstr ""
+
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
+#, fuzzy
+msgid "document creation"
+msgstr "Organisation"
+
+#, fuzzy, c-format
+msgid "untitle %s %d"
+msgstr "Update Title Cards"
+
+msgid "cannot update no initialized document"
+msgstr ""
+
+msgid "untitle document"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "convertion from %s to %s family"
+msgstr "Category"
+
+#, c-format
+msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "the file %s (rev %d) must be locked before"
+msgstr ""
+
+#, c-format
+msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr ""
+
+#, c-format
+msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "cannot lock file %s [%d] : already locked by %s."
+msgstr ""
+
+#, fuzzy
+msgid "cannot unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "already deleted"
+msgstr "Delete"
+
+#, c-format
+msgid "delete by action %s/%s from %s"
+msgstr ""
+
+#, fuzzy
+msgid "document deleted"
+msgstr "Delete"
+
+#, fuzzy
+msgid "revival document"
+msgstr "Organisation"
+
+#, c-format
+msgid "document %s [%d] is not in the trash"
+msgstr ""
+
+msgid "Only owner of document can restore it"
+msgstr ""
+
+msgid "unknow attribute"
+msgstr ""
+
+#, c-format
+msgid "%s needed\n"
+msgstr ""
+
+#, c-format
+msgid "attribute %s unknow in family %s [%d]"
+msgstr ""
+
+#, c-format
+msgid "no permission to modify this attribute %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"the date '%s' for %s attribute is not correct. It has been corrected "
+"automatically"
+msgstr ""
+
+msgid "error sending text conversion"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify file %s"
 msgstr "Modify"
 
-msgid "click to reload favorites"
+#, c-format
+msgid "attribute %s is not a file attribute"
 msgstr ""
 
-msgid "my favorites"
+#, fuzzy
+msgid "no files"
+msgstr "Category"
+
+#, c-format
+msgid "attribute %s is not int a array"
+msgstr ""
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr ""
+
+msgid "no user tag specified"
+msgstr ""
+
+msgid "document already revised"
+msgstr ""
+
+#, c-format
+msgid "the document of %s family cannot be revised"
+msgstr ""
+
+#, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "remove state : %s"
+msgstr "Create"
+
+#, fuzzy, c-format
+msgid "invalid freestate document %s"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "not a freestate document %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state to %s : %s"
+msgstr "Category"
+
+#, c-format
+msgid "copy from document #%d -%s-"
 msgstr ""
 
 #, fuzzy
-msgid "delete all favorites"
-msgstr "Start search"
+msgid "Affectation aborded"
+msgstr "Edit"
 
-#, fuzzy
-msgid "confirm delete all favorite"
-msgstr "Delete"
+#, fuzzy, c-format
+msgid ""
+"Affectation aborded\n"
+"%s for user %s %s"
+msgstr "Edit"
 
-#, fuzzy
-msgid "quick search"
-msgstr "Start search"
+#, fuzzy, c-format
+msgid "Affected to %s %s"
+msgstr "Edit"
 
-#, fuzzy
-msgid "confirm delete"
-msgstr "Delete"
-
-#, fuzzy
-msgid "delete from prefered"
-msgstr "Delete"
-
-#, fuzzy
-msgid "contact"
+#, fuzzy, c-format
+msgid "Affected for %s"
 msgstr "Edit"
 
 #, fuzzy
-msgid "society"
-msgstr "Locality"
+msgid "Affectation aborded : user not know"
+msgstr "Edit"
 
-#, fuzzy
-msgid "other"
-msgstr "Delete"
-
-#, fuzzy
-msgid "address"
-msgstr "Add new contact card"
-
-msgid "other infos"
+#, c-format
+msgid "Unallocated of %s %s : %s"
 msgstr ""
 
-msgid "web"
-msgstr ""
-
-#, fuzzy
-msgid "categorie"
+#, fuzzy, c-format
+msgid "Unallocated of %s %s: %s"
 msgstr "Category"
 
-msgid "VCARD"
-msgstr ""
-
-msgid "category"
-msgstr "Category"
-
-msgid "Only one line by personn is authorized"
-msgstr ""
-
-msgid "freedom address book"
-msgstr ""
-
-msgid "other sites"
+msgid "user not know"
 msgstr ""
 
 #, fuzzy
-msgid "choose colums"
+msgid "Unallocate aborded"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "unknown document id %s"
 msgstr "Start search"
 
-msgid "select to view colum"
+msgid "vault file error"
+msgstr ""
+
+msgid "AbbrKbyte"
+msgstr ""
+
+#, c-format
+msgid "cannot control : object not initialized : %s"
+msgstr ""
+
+msgid "control :: user identificator is null"
+msgstr ""
+
+#, c-format
+msgid "error in pzone format %s"
 msgstr ""
 
 #, fuzzy
-msgid "save modifications"
-msgstr "Organisation"
-
-msgid "reset to default"
-msgstr ""
-
-#, fuzzy
-msgid "Address book searches"
-msgstr "Start search"
-
-msgid "search in all contact fields"
-msgstr ""
-
-#, fuzzy
-msgid "view_detail"
-msgstr "Start search"
-
-#, fuzzy
-msgid "VCARD Import Result"
-msgstr "Import"
-
-msgid "double click to edit"
-msgstr ""
-
-#, fuzzy
-msgid "System"
-msgstr "Identity"
-
-msgid "Group"
-msgstr ""
-
-#, fuzzy
-msgid "Members"
-msgstr "No embed file"
-
-msgid "Coordonates"
-msgstr ""
-
-#, fuzzy
-msgid "Others"
-msgstr "Delete"
-
-msgid "number of members"
-msgstr ""
-
-msgid ""
-"Too many members to display there here. Use Open context menu to display "
-"them."
-msgstr ""
-
-msgid "Password"
-msgstr ""
-
-#, fuzzy
-msgid "Person"
+msgid "last modification date"
 msgstr "Organisation"
 
 #, fuzzy
-msgid "Society"
-msgstr "Locality"
+msgid "suppression date"
+msgstr "Organisation"
 
 #, fuzzy
-msgid "nomail"
+msgid "revision date"
+msgstr "Organisation"
+
+msgid "no access control"
+msgstr ""
+
+#, fuzzy
+msgid "dynamic control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no view control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no allocate"
 msgstr "Email"
 
 #, fuzzy
-msgid "phones"
-msgstr "Phone"
-
-#, fuzzy
-msgid "View family"
-msgstr "Start search"
-
-#, fuzzy
-msgid "initial reference"
+msgid "forum disallowed"
 msgstr "Delete"
 
 #, fuzzy
-msgid "reference for this revision"
-msgstr "Organisation"
-
-msgid "author"
-msgstr ""
-
-msgid "allocated to"
-msgstr ""
-
-#, fuzzy
-msgid "locked by"
-msgstr "Create"
-
-#, fuzzy
-msgid "creation date"
-msgstr "Create"
-
-#, fuzzy
-msgid "access date"
-msgstr "Delete"
-
-#, fuzzy
-msgid " profile access"
-msgstr "Control access"
-
-#, fuzzy
-msgid "control view"
-msgstr "Category"
-
-#, fuzzy
-msgid "primary folder"
-msgstr "Modify"
-
-msgid "Empty Post-It"
-msgstr ""
-
-#, fuzzy
-msgid "Print"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "senddoc"
-msgstr "Edit"
-
-#, fuzzy
-msgid "goto forum"
-msgstr "Import"
-
-#, fuzzy
-msgid "View postit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "RSS link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "wordedit"
-msgstr "Modify not possible"
-
-msgid "open in new window"
-msgstr ""
-
-#, fuzzy
-msgid "Monday"
-msgstr "Identity"
-
-msgid "Tuesday"
-msgstr ""
-
-msgid "Wednesday"
-msgstr ""
-
-msgid "Thursday"
-msgstr ""
-
-msgid "Friday"
-msgstr ""
-
-#, fuzzy
-msgid "Saturday"
-msgstr "Identity"
-
-#, fuzzy
-msgid "Sunday"
-msgstr "Update LDAP server"
-
-msgid "January"
-msgstr ""
-
-msgid "February"
-msgstr ""
-
-#, fuzzy
-msgid "March"
-msgstr "Start search"
-
-#, fuzzy
-msgid "April"
-msgstr "Print this page"
-
-msgid "May"
-msgstr ""
-
-msgid "June"
-msgstr ""
-
-msgid "July"
-msgstr ""
-
-msgid "August"
-msgstr ""
-
-msgid "September"
-msgstr ""
-
-msgid "October"
-msgstr ""
-
-#, fuzzy
-msgid "November"
-msgstr "No embed file"
-
-msgid "December"
-msgstr ""
-
-msgid ""
-"Master document has been closed.\n"
-"Close window ?"
-msgstr ""
-
-msgid "View all properties"
-msgstr ""
-
-msgid "Special view"
-msgstr ""
-
-msgid "Special edit"
-msgstr ""
-
-#, fuzzy
-msgid "Allocate"
-msgstr "All"
-
-#, fuzzy
-msgid "Confirm"
-msgstr "Really Delete"
-
-#, fuzzy
-msgid "Change creation profile"
-msgstr "Category"
-
-#, fuzzy
-msgid "Change default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Change current folder"
-msgstr "Delete"
-
-msgid "delconfirm"
-msgstr "Really Delete"
-
-msgid "clear inputs"
-msgstr ""
-
-msgid "PubliPreview"
-msgstr ""
-
-#, fuzzy
-msgid "manual date"
-msgstr "Edit"
-
-#, fuzzy
-msgid "States"
-msgstr "Identity"
-
-msgid "Save and quit edit mode"
-msgstr ""
-
-msgid "Use Ctrl-S to save and stay in edit mode"
-msgstr ""
-
-msgid "Save and stay in edition"
-msgstr ""
-
-msgid "Cancel changes and quit edit mode"
-msgstr ""
-
-msgid "Cancel changes and close window"
-msgstr ""
-
-msgid "mini view"
-msgstr ""
-
-#, fuzzy
-msgid "post it"
-msgstr "Import"
-
-msgid "forum open/close"
-msgstr ""
-
-msgid "new forum answer"
-msgstr ""
-
-#, fuzzy
-msgid "save"
-msgstr "Identity"
-
-#, fuzzy
-msgid "Confidential Document"
-msgstr "Delete"
-
-msgid "Restricted Access"
-msgstr ""
-
-#, fuzzy
-msgid "delete selected"
-msgstr "Delete"
-
-#, fuzzy
-msgid "select"
-msgstr "Delete"
-
-msgid "unselect"
-msgstr ""
-
-#, fuzzy
-msgid "duplicate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "view abstract card"
-msgstr "Start search"
-
-#, fuzzy
-msgid "unchanged"
-msgstr "Start search"
-
-#, fuzzy
-msgid "revision comment"
-msgstr "Organisation"
-
-msgid "to"
-msgstr ""
-
-#, fuzzy
-msgid "Save without change state"
-msgstr "Category"
-
-msgid "Transition parameters"
-msgstr ""
-
-#, fuzzy
-msgid "revision comment for autorevision"
-msgstr "Organisation"
-
-msgid "it is the last"
-msgstr ""
-
-msgid "it is the first"
-msgstr ""
-
-#, fuzzy
-msgid "Familly Document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Profile for new document"
-msgstr "Category"
-
-#, fuzzy
-msgid "Control view for new document"
-msgstr "Category"
-
-#, fuzzy
-msgid "First folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Root folder"
-msgstr "Modify"
-
-#, fuzzy
-msgid "fromdate"
-msgstr "Edit"
-
-#, fuzzy
-msgid "todate"
-msgstr "Identity"
-
-#, fuzzy
-msgid "today"
-msgstr "Identity"
-
-msgid "forum answer"
-msgstr ""
-
-#, fuzzy
-msgid "forum edit"
+msgid "forum allowed"
 msgstr "Modify not possible"
 
 #, fuzzy
-msgid "forum delete"
+msgid "forum opened"
+msgstr "Modify not possible"
+
+#, fuzzy
+msgid "forum closed"
+msgstr "Modify not possible"
+
+#, c-format
+msgid "new %s"
+msgstr ""
+
+#, fuzzy
+msgid "confidential document"
 msgstr "Delete"
 
 #, fuzzy
-msgid "response for this forum entry"
-msgstr "Organisation"
+msgid "locked document of "
+msgstr "Import"
 
 #, fuzzy
-msgid "save forum edition"
-msgstr "Organisation"
+msgid "Document basket"
+msgstr "Import"
 
-msgid "View notice messages"
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
 msgstr ""
 
 #, fuzzy
-msgid "version"
-msgstr "Organisation"
+msgid "Folder cleared"
+msgstr "Delete"
 
-#, fuzzy
-msgid "rev"
-msgstr "Create"
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
 
-#, fuzzy
-msgid "date"
-msgstr "Edit"
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
 
-#, fuzzy
-msgid "diff"
-msgstr "Modify"
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
 
-#, fuzzy
-msgid "revised by"
-msgstr "Created by"
+#, fuzzy, c-format
+msgid "Document %s inserted"
+msgstr "Import"
 
-msgid "enumerate input not found"
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Document %s umounted"
+msgstr "Import"
+
+msgid "wprocess_private"
+msgstr ""
+
+msgid "wprocess_qualified"
+msgstr ""
+
+msgid "Twprocess_private"
+msgstr ""
+
+msgid "Twprocess_public"
+msgstr ""
+
+msgid "TE engine activate but TE-CLIENT not found"
+msgstr ""
+
+#, c-format
+msgid "Process %s [%d] executed"
+msgstr ""
+
+#, c-format
+msgid "Error : Process %s [%d]: status %d"
 msgstr ""
 
 #, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
+msgid "read write"
+msgstr "readwriteall"
 
-msgid "NOT Clear"
+msgid "write only"
+msgstr ""
+
+msgid "hidden"
 msgstr ""
 
 #, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
+msgid "read disabled"
+msgstr "Delete"
 
 #, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
-msgstr ""
-
-msgid "Click to view menu"
-msgstr ""
-
-msgid "Status for sending mail"
-msgstr ""
-
-#, fuzzy
-msgid "username"
-msgstr "Lastname"
-
-msgid "mailstatus"
-msgstr ""
-
-#, fuzzy
-msgid "Conditions"
-msgstr "Edit"
-
-msgid "function examples"
-msgstr ""
-
-msgid "my id"
-msgstr ""
-
-#, fuzzy
-msgid "my last name"
-msgstr "Lastname"
-
-msgid "yesterday"
-msgstr ""
-
-msgid "tomorrow"
-msgstr ""
-
-#, fuzzy
-msgid "addcond"
-msgstr "Add new contact card"
-
-#, fuzzy
-msgid "Details"
-msgstr "Email"
-
-msgid "Parameters"
-msgstr ""
-
-#, fuzzy
-msgid "fieldset"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "attrname"
-msgstr "Lastname"
-
-#, fuzzy
-msgid "new visibility"
+msgid "invisible"
 msgstr "Visibility"
 
-#, fuzzy
-msgid "default visibility"
-msgstr "Visibility"
+msgid "Y"
+msgstr ""
 
-msgid "new document"
+msgid "N"
 msgstr ""
 
 #, fuzzy
-msgid "new guide-card"
-msgstr "Start search"
+msgid "Action"
+msgstr "Edit"
 
-#, fuzzy
-msgid "new search guide-card"
-msgstr "Start search"
+#, c-format
+msgid "php file %s needed for request not found"
+msgstr ""
 
-#, fuzzy
-msgid "Search to insert"
-msgstr "Start search"
-
-msgid "Basket to here"
+#, c-format
+msgid "Error in portfolio : folder %s not exists"
 msgstr ""
 
 #, fuzzy
-msgid "new needed"
-msgstr "Delete"
+msgid "include"
+msgstr "Modify"
 
-msgid "View"
-msgstr ""
-
-msgid "list"
+msgid "equal"
 msgstr ""
 
 #, fuzzy
-msgid "detail"
+msgid "not equal"
+msgstr "Email"
+
+msgid "is empty"
+msgstr ""
+
+msgid "is not empty"
+msgstr ""
+
+msgid "one value equal"
+msgstr ""
+
+#, fuzzy
+msgid "not include"
+msgstr "Modify"
+
+msgid "begin by"
+msgstr ""
+
+msgid "&gt; or equal"
+msgstr ""
+
+msgid "&lt; or equal"
+msgstr ""
+
+#, fuzzy
+msgid "one word equal"
 msgstr "Email"
 
 #, fuzzy
-msgid "icon"
-msgstr "Edit"
+msgid "content file word"
+msgstr "Start search"
 
 #, fuzzy
-msgid "column"
+msgid "content file expression"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "and"
 msgstr "Add new contact card"
 
-msgid "All To basket"
+msgid "or"
+msgstr ""
+
+msgid "id owner"
 msgstr ""
 
 #, fuzzy
-msgid "Open in folio"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Insert documents"
-msgstr "Import"
-
-#, fuzzy
-msgid "Create a batch"
-msgstr "Create"
-
-#, fuzzy
-msgid "Export Folder"
+msgid "any values"
 msgstr "Delete"
 
-#, fuzzy
-msgid "Clear Folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Search criteria"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Change category"
-msgstr "Category"
-
-msgid "View properties"
-msgstr ""
-
-msgid "View headers"
-msgstr ""
-
-msgid "Select group appartenance"
-msgstr ""
-
-msgid "expand all"
-msgstr ""
-
-msgid "collapse all"
-msgstr ""
-
-msgid "loop detected. You must undo this selection"
-msgstr ""
-
-#, fuzzy
-msgid "confidentiality"
-msgstr "Delete"
-
-#, fuzzy
-msgid "(private)"
-msgstr "Create"
-
-#, fuzzy
-msgid "not defined"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Professional"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "socname"
-msgstr "Lastname"
-
-#, fuzzy
-msgid "Phone"
-msgstr "Phone"
-
-#, fuzzy
-msgid "Fax"
-msgstr "Fax"
-
-#, fuzzy
-msgid "Secretary"
-msgstr "Locality"
-
-#, fuzzy
-msgid "Personnel"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Complete view"
-msgstr "Create"
-
-msgid "To create and modify users and groups"
-msgstr ""
-
-msgid "Access to user refresh function"
-msgstr ""
-
-msgid "address book frame page"
-msgstr ""
-
-msgid "fusers root window"
-msgstr ""
-
-msgid "fusers list window"
-msgstr ""
-
-msgid "fusers view/edit window"
-msgstr ""
-
-msgid "refresh users intranet attributes"
-msgstr ""
-
-#, fuzzy
-msgid "refresh ldap entries"
-msgstr "Delete"
-
-#, fuzzy
-msgid "refresh groups"
-msgstr "Delete"
-
-#, fuzzy
-msgid "freedom database"
-msgstr "Edit"
-
-msgid "string limit for popup enum"
-msgstr ""
-
-#, fuzzy
-msgid "send mail copy"
-msgstr "Email"
-
-msgid "horizontal size for secondary windows"
-msgstr ""
-
-msgid "vertical size for secondary windows"
-msgstr ""
-
-msgid "max items return when open a folder"
-msgstr ""
-
-msgid "maximum document can be imported directly"
-msgstr ""
-
-msgid "name and address of our society"
-msgstr ""
-
-msgid "logo of our society"
-msgstr ""
-
-msgid "town of our society"
-msgstr ""
-
-msgid "name of our society"
-msgstr ""
-
-msgid "phone of our society"
-msgstr ""
-
-msgid "use ctrl key in popup menu"
-msgstr ""
-
-msgid "view altern color in document fieldset"
-msgstr ""
-
-msgid "geometry of mini view"
-msgstr ""
-
-msgid "SMTP host"
-msgstr ""
-
-#, fuzzy
-msgid "SMTP port"
-msgstr "Export selected cards"
-
-msgid "SMTP login"
-msgstr ""
-
-msgid "SMTP password"
-msgstr ""
-
-msgid "SMTP default from if not"
-msgstr ""
-
-msgid "Transformation Engine server host name"
-msgstr ""
-
-msgid "Transformation Engine server port number"
-msgstr ""
-
-msgid "Activate Transformation Engine to index files"
-msgstr ""
-
-msgid "fulltext index mode"
-msgstr ""
-
-msgid "Freedoms lib"
-msgstr ""
-
-msgid "Freedoms library"
-msgstr ""
-
-msgid "Access Action Library"
-msgstr ""
-
-msgid "Access to edit action"
-msgstr ""
-
-msgid "For export functions"
-msgstr ""
-
-#, fuzzy
-msgid "Manage families"
-msgstr "Start search"
-
-msgid "nothing action"
-msgstr ""
-
-msgid "to choose value from set"
-msgstr ""
-
-#, fuzzy
-msgid "change icon of document"
-msgstr "Category"
-
-#, fuzzy
-msgid "Freedom initialisation"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Document context menu"
-msgstr "Import"
-
-#, fuzzy
-msgid "Edit state bar menu"
-msgstr "Create"
-
-#, fuzzy
-msgid "export folder"
-msgstr "Delete"
-
-msgid "export file to consulting"
-msgstr ""
-
-msgid "export first file to consulting"
-msgstr ""
-
-msgid "send a document"
-msgstr ""
-
-#, fuzzy
-msgid "difference between 2 documents"
-msgstr "Delete"
-
-#, fuzzy
-msgid "edit mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "help manual for family"
-msgstr "Delete"
-
-msgid "confirm mail sended before change state"
-msgstr ""
-
-#, fuzzy
-msgid "view standalone card"
-msgstr "Start search"
-
-#, fuzzy
-msgid "printed view card"
-msgstr "Category"
-
-#, fuzzy
-msgid "view card"
-msgstr "Category"
-
-#, fuzzy
-msgid "get value of an attribute"
-msgstr "Title"
-
-#, fuzzy
-msgid "display a confidential doc"
-msgstr "Delete"
-
-msgid "lock file to edit"
-msgstr ""
-
-#, fuzzy
-msgid "interface to change document option"
-msgstr "Category"
-
-#, fuzzy
-msgid "modify document option"
-msgstr "Import"
-
-#, fuzzy
-msgid "view document option"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "view xml"
-msgstr "Start search"
-
-msgid "unlock file to discard edit"
-msgstr ""
-
-msgid "apply a method to a document"
-msgstr ""
-
-msgid "init workflow profile attributes"
-msgstr ""
-
-msgid "save geometry of mini view"
-msgstr ""
-
-msgid "verify constraint attribute"
-msgstr ""
-
-#, fuzzy
-msgid "interface to change state"
-msgstr "Category"
-
-#, fuzzy
-msgid "emailing"
-msgstr "Email"
-
-#, fuzzy
-msgid "eprinting"
-msgstr "Print this page"
-
-msgid "epreview"
-msgstr ""
-
-msgid "enavpreview"
-msgstr ""
-
-#, fuzzy
-msgid "edit attribute inline"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "modify attribute inline"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "edition to affect user"
-msgstr "Create"
-
-#, fuzzy
-msgid "affect user to a document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "unaffect user to a document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "view graph of workflow"
-msgstr "Delete"
-
-msgid "update text file for fulltext"
-msgstr ""
-
-#, fuzzy
-msgid "insert document in a folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "interface insert document in a folder"
-msgstr "Category"
-
-msgid "search document to insert in a folder"
-msgstr ""
-
-#, fuzzy
-msgid "add entry in a document forum"
-msgstr "Delete"
-
-#, fuzzy
-msgid "del entry from a document forum"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "file %d"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "short_name"
-msgstr "Delete"
-
-#, fuzzy
-msgid "root folder id"
-msgstr "Modify"
-
-msgid "Limit of text size (in Ko) for highlight text"
-msgstr ""
-
-msgid "id of the basket folder"
-msgstr ""
-
-msgid "directory to upload archive"
-msgstr ""
-
-#, fuzzy
-msgid "mode to navigate in folders"
-msgstr "Modify"
-
-#, fuzzy
-msgid "bookmark folders"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Documents management"
-msgstr "Import"
-
-#, fuzzy
-msgid "Access Families Management"
-msgstr "Import"
-
-#, fuzzy
-msgid "Access Batch Management"
-msgstr "Import"
-
-msgid "Access To My Own account"
-msgstr ""
-
-msgid "Access To Read Only"
-msgstr ""
-
-msgid "Access To Main Interface"
-msgstr ""
-
-msgid "Freedoms frame"
-msgstr ""
-
-msgid "Freedoms list"
-msgstr ""
-
-msgid "batch execution"
-msgstr ""
-
-#, fuzzy
-msgid "construct batch document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "choose action from batch document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "add batch document"
-msgstr "Import"
-
-#, fuzzy
-msgid "Freedoms list by column"
-msgstr "Organisation"
-
-msgid "query document import"
-msgstr ""
-
-msgid "query tar document import"
-msgstr ""
-
-#, fuzzy
-msgid "interface to export documents"
-msgstr "Category"
-
-msgid "background document import"
-msgstr ""
-
-msgid "add document import"
-msgstr ""
-
-#, fuzzy
-msgid "import archive file"
-msgstr "Import"
-
-msgid "analyze archive file"
-msgstr ""
-
-msgid "add document from directories file import"
-msgstr ""
-
-#, fuzzy
-msgid "view imported tar"
-msgstr "Import"
-
-#, fuzzy
-msgid "delete imported tar"
-msgstr "Import"
-
-msgid "Freedoms view folder"
-msgstr ""
-
-#, fuzzy
-msgid "Freedoms preview document"
-msgstr "Organisation"
-
-msgid "popup menu"
-msgstr ""
-
-msgid "add file query into directory"
-msgstr ""
-
-msgid "insert containt of a folder into another"
-msgstr ""
-
-msgid "clear containt of a folder"
-msgstr ""
-
-msgid "move file query into directory"
-msgstr ""
-
-msgid "delete file query into directory"
-msgstr ""
-
-msgid "folder tree"
-msgstr ""
-
-#, fuzzy
-msgid "expand folder tree"
-msgstr "Delete"
-
-msgid "Freedoms icon list"
-msgstr ""
-
-#, fuzzy
-msgid "Freedoms detail list"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "Freedoms RSS syndication"
-msgstr "Organisation"
-
-msgid "folio icon list"
-msgstr ""
-
-msgid "folio select doc"
-msgstr ""
-
-#, fuzzy
-msgid "access path folder list"
-msgstr "Delete"
-
-msgid "bar menu"
-msgstr ""
-
-msgid "Freedoms card"
-msgstr ""
-
-msgid "attributes definitions"
-msgstr ""
-
-#, fuzzy
-msgid "edit create family"
-msgstr "Category"
-
-#, fuzzy
-msgid "create family"
-msgstr "Category"
-
-msgid "refresh directory"
-msgstr ""
-
-msgid "attributes modification"
-msgstr ""
-
-#, fuzzy
-msgid "edit state "
-msgstr "Create"
-
-#, fuzzy
-msgid "edit icard "
-msgstr "Create"
-
-msgid "edit icard 2 "
-msgstr ""
-
-msgid "edit workflow transitions "
-msgstr ""
-
-msgid "edit args of actions in workflow edition "
-msgstr ""
-
-msgid "edit profile access"
-msgstr ""
-
-msgid "change profile access"
-msgstr ""
-
-msgid "change state transition"
-msgstr ""
-
-#, fuzzy
-msgid "edit default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "change default folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "choose workflow"
-msgstr "Delete"
-
-msgid "modify associated worflow"
-msgstr ""
-
-msgid "set the document controlled"
-msgstr ""
-
-msgid "change icon document"
-msgstr ""
-
-msgid "change title family"
-msgstr ""
-
-msgid "query icon"
-msgstr ""
-
-#, fuzzy
-msgid "full text search document"
-msgstr "Start search"
-
-#, fuzzy
-msgid "detailled full text search document"
-msgstr "Start search"
-
-msgid "detailled full text interface"
-msgstr ""
-
-msgid "search document criteria"
-msgstr ""
-
-msgid "full text search document criteria"
-msgstr ""
-
-msgid "ask for a new file revision"
-msgstr ""
-
-msgid "edit document properties"
-msgstr ""
-
-#, fuzzy
-msgid "edit default document properties"
-msgstr "Delete"
-
-msgid "add comment before revise document"
-msgstr ""
-
-msgid "make a new document revision"
-msgstr ""
-
-msgid "view history revision"
-msgstr ""
-
-msgid "style sheet"
-msgstr ""
-
-msgid "widget display popup for a description card"
-msgstr ""
-
-msgid "Freedom modification"
-msgstr ""
-
-#, fuzzy
-msgid "Freedom imodification"
-msgstr "Organisation"
-
-msgid "view idoc attribute card"
-msgstr ""
-
-msgid "Freedom deletion"
-msgstr ""
-
-msgid "Freedom update title fields"
-msgstr ""
-
-msgid "Freedom accessibilities"
-msgstr ""
-
-msgid "Freedom group accessibilities"
-msgstr ""
-
-msgid "Freedom modify accessibilities"
-msgstr ""
-
-#, fuzzy
-msgid "open portfolio"
-msgstr "Modify"
-
-msgid "set RSS usable"
-msgstr ""
-
-msgid "portfolio tab"
-msgstr ""
-
-#, fuzzy
-msgid "modify preferred families"
-msgstr "Modify"
-
-msgid "add folder in bookmark"
-msgstr ""
-
-msgid "processes execution plan"
-msgstr ""
-
-#, fuzzy
-msgid "creation processes"
-msgstr "Edit"
-
-#, fuzzy
-msgid "search processes"
-msgstr "Start search"
-
-msgid "navigate between relations"
-msgstr ""
-
-msgid "navigate between relations next"
-msgstr ""
-
-msgid "default document family"
-msgstr ""
-
-msgid "number of card by page"
-msgstr ""
-
-msgid "width of the abstract card"
-msgstr ""
-
-msgid "width of the frame for abstract card"
-msgstr ""
-
-msgid "height of the frame for abstract card"
-msgstr ""
-
-msgid "differents view mode by family"
-msgstr ""
-
-msgid "split view mode by family"
-msgstr ""
-
-#, fuzzy
-msgid "view tab letter by family"
-msgstr "Delete"
-
-msgid "search in inherited family by family"
-msgstr ""
-
-#, fuzzy
-msgid "default sort by family"
-msgstr "Delete"
-
-#, fuzzy
-msgid "prefered search"
-msgstr "Start search"
-
-msgid "last search text typed"
-msgstr ""
-
-#, fuzzy
-msgid "search mode"
-msgstr "Start search"
-
-msgid "Generic"
-msgstr ""
-
-msgid "generic Management"
-msgstr ""
-
-msgid "Access Generic Master Management"
-msgstr ""
-
-msgid "Access To Generic Management"
-msgstr ""
-
-msgid "Access To Read Card"
-msgstr ""
-
-msgid "generic home page"
-msgstr ""
-
-msgid "generic vertical home page"
-msgstr ""
-
-#, fuzzy
-msgid "edition"
-msgstr "Edit"
-
-#, fuzzy
-msgid "inverted search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "duplication"
-msgstr "Edit"
-
-#, fuzzy
-msgid "edit family preference"
-msgstr "Modify"
-
-#, fuzzy
-msgid "modify family preference"
-msgstr "Modify"
-
-msgid "change king in enum attribute"
-msgstr ""
-
-msgid "choose for edit enum attribute"
-msgstr ""
-
-msgid "interface to edit enum attribute"
-msgstr ""
-
-msgid "edit to add category"
-msgstr ""
-
-msgid "edit to add or modify category"
-msgstr ""
-
-msgid "edit to change category"
-msgstr ""
-
-msgid "modification or creation"
-msgstr ""
-
-msgid "view as vcard"
-msgstr ""
-
-msgid "display logo"
-msgstr ""
-
-msgid "view list"
-msgstr ""
-
-msgid "define sort attribute"
-msgstr ""
-
-#, fuzzy
-msgid "view a generic"
-msgstr "Start search"
-
-msgid "edit import vcard"
-msgstr ""
-
-msgid "view a part of list"
-msgstr ""
-
-#, fuzzy
-msgid "import csv"
-msgstr "Import"
-
-#, fuzzy
-msgid "search a generict"
-msgstr "Start search"
-
-msgid "search with kind criteria"
-msgstr ""
-
-#, fuzzy
-msgid "initialisation"
-msgstr "Organisation"
-
-msgid "memorisation of split mode"
-msgstr ""
-
-msgid "memorisation of pref search"
-msgstr ""
-
-#, fuzzy
-msgid "popup in generic list"
-msgstr "Title"
-
-#, fuzzy
-msgid "Onefam"
-msgstr "Lastname"
-
-msgid "One Familly Management"
-msgstr ""
-
-#, fuzzy
-msgid "one familly root"
-msgstr "Start search"
-
-#, fuzzy
-msgid "one family generic root"
-msgstr "Start search"
-
-#, fuzzy
-msgid "familly list"
-msgstr "Start search"
-
-#, fuzzy
-msgid "redirect to generic"
-msgstr "Start search"
-
-#, fuzzy
-msgid "familly result"
-msgstr "Start search"
-
-msgid "edit preferences"
-msgstr ""
-
-#, fuzzy
-msgid "modify preferences"
-msgstr "Modify"
-
-#, fuzzy
-msgid "edit master preferences"
-msgstr "Modify"
-
-#, fuzzy
-msgid "modify master preferences"
-msgstr "Modify"
-
-msgid "To choose other families"
-msgstr ""
-
-msgid "Access choose masters families"
-msgstr ""
-
-#, fuzzy
-msgid "visible user families"
-msgstr "Start search"
-
-#, fuzzy
-msgid "visible master families"
-msgstr "Start search"
-
-msgid "icon column number"
-msgstr ""
-
-#, fuzzy
-msgid "default opened family"
-msgstr "Delete"
-
-msgid "mail will be calculated from domain"
-msgstr ""
-
-#, fuzzy
-msgid "no mail"
-msgstr "Email"
-
-msgid "User Card"
-msgstr ""
-
-msgid "User Card Management"
-msgstr ""
-
-msgid "Access To Import Contacts"
-msgstr ""
-
-msgid "Access To Manage Address Book"
-msgstr ""
-
-msgid "Access To View Address Book"
-msgstr ""
-
-#, fuzzy
-msgid "import vcard"
-msgstr "Import"
-
-msgid "tab usercard"
-msgstr ""
-
-msgid "usercard home page"
-msgstr ""
-
-#, fuzzy
-msgid "address book css"
-msgstr "Add new contact card"
-
-msgid "address book set user param"
-msgstr ""
-
-msgid "address book choose main view column"
-msgstr ""
-
-msgid "address book main page"
-msgstr ""
-
-#, fuzzy
-msgid "address book speed search"
-msgstr "Start search"
-
-msgid "address book prefered contacts"
-msgstr ""
-
-msgid "address book add a prefered contacts"
-msgstr ""
-
-msgid "LDAP server name"
-msgstr ""
-
-#, fuzzy
-msgid "LDAP server port"
-msgstr "Import"
-
-msgid "LDAP server root"
-msgstr ""
-
-msgid "LDAP admin identificatot"
-msgstr ""
-
-msgid "LDAP admin passord"
-msgstr ""
-
-msgid "LDAP activated"
-msgstr ""
-
-#, fuzzy
-msgid "first family used"
-msgstr "Category"
-
-#, fuzzy
-msgid "second family used"
-msgstr "Start search"
-
-msgid "main view line displayed"
+msgid "label"
 msgstr ""
-
-#, fuzzy
-msgid "prefered contacts"
-msgstr "Start search"
 
 #, fuzzy
-msgid "main view columns"
+msgid "send search"
 msgstr "Start search"
 
 #, c-format
-msgid "execution by %s done %s"
+msgid "group #%d does not exist"
+msgstr ""
+
+msgid "group has not identificator"
+msgstr ""
+
+msgid "this groups must be refreshed"
 msgstr ""
 
 #, c-format
-msgid "csv file <%s> wroted"
+msgid "%s group"
 msgstr ""
 
 #, c-format
-msgid "cannot write  %s"
+msgid "group %d does not exist"
 msgstr ""
 
-msgid "e1"
-msgstr ""
-
-msgid "e2"
-msgstr ""
-
-msgid "t"
-msgstr ""
-
-msgid "no subject"
+msgid "user is desactivated"
 msgstr ""
 
 #, c-format
-msgid "delete %s on server %s...\n"
+msgid "user #%d does not exist"
 msgstr ""
 
-msgid "LDAP cleaned"
+msgid "user has not identificator"
+msgstr ""
+
+#, c-format
+msgid "user %d does not exist"
+msgstr ""
+
+msgid "the 2 passwords are not the same"
+msgstr ""
+
+msgid "passwords must not be empty"
+msgstr ""
+
+msgid "Expiration delay must not be 0 to keep expiration date"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "%d group(s) to update\n"
-msgstr "Update LDAP server"
+msgid "refreshing %s"
+msgstr "Delete"
 
-msgid "processing...\n"
+#, fuzzy
+msgid "direct"
+msgstr "Edit"
+
+msgid "the login must not be empty"
 msgstr ""
 
-msgid "done\n"
+msgid "the login syntax is like : john.doe"
 msgstr ""
 
-#, c-format
-msgid "result of import  %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s updated\n"
-msgstr "Update LDAP server"
-
-#, c-format
-msgid "find %s more than one, created aborded\n"
-msgstr ""
-
-#, c-format
-msgid "%s migrated\n"
-msgstr ""
-
-#, c-format
-msgid "%s igroup created\n"
-msgstr ""
-
-#, c-format
-msgid "%s iuser created\n"
-msgstr ""
-
-#, c-format
-msgid "%s iuser aborded\n"
-msgstr ""
-
-msgid "freedom cron try execute"
-msgstr ""
-
-#, c-format
-msgid "period from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr ""
-
-#, c-format
-msgid ""
-"Document cannot be created.\n"
-"The upload size limit is %s bytes."
+msgid "login yet use"
 msgstr ""
 
 msgid ""
-"Some constraint attribute are not respected.\n"
-"You must correct these values before save document."
+"what id already set in freedom\n"
+"This kind of document can not be duplicated"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "change %s"
-msgstr "Start search"
-
-#, fuzzy
-msgid "change"
-msgstr "Start search"
-
-#, fuzzy, c-format
-msgid "auto revision"
-msgstr "Organisation"
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit is %s bytes."
-msgstr ""
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted.\n"
-"The Size Limit was specified in the HTML form."
-msgstr ""
-
-#, c-format
-msgid ""
-"Filename '%s' cannot be transmitted completly.\n"
-"May be saturation of server disk."
-msgstr ""
-
-#, c-format
-msgid "Filename '%s' cannot be transmitted."
-msgstr ""
-
-#, c-format
-msgid "Possible file upload attack: filename '%s'."
-msgstr ""
-
-#, fuzzy
-msgid "modify default values :"
-msgstr "Delete"
-
-#, fuzzy
-msgid "modify parameters :"
-msgstr "Modify"
-
-msgid "submenu"
-msgstr ""
-
-#, fuzzy
-msgid "Save default values"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Save parameters"
-msgstr "Import"
-
-#, fuzzy
-msgid "error in filename"
-msgstr "Firstname"
-
-#, fuzzy
-msgid "no image"
-msgstr "Firstname"
-
-msgid "open file with your editor"
-msgstr ""
-
-#, c-format
-msgid "set for %s, unset for %s"
-msgstr ""
-
-msgid "color picker"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "choose inputs for %s"
-msgstr "Modify"
-
-#, fuzzy
-msgid "clear file"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "restore original file"
-msgstr "Import"
-
-msgid "add inputs"
-msgstr ""
-
-#, c-format
-msgid "elinkEncode::attribute not found %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "create new %s"
-msgstr "Edit"
-
-msgid "this kind of document cannot be duplicate"
-msgstr ""
-
-#, fuzzy
-msgid "duplication of"
-msgstr "Edit"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr ""
-
-msgid "menuctrlkey"
-msgstr ""
-
-msgid "This document has been deleted"
-msgstr ""
-
-#, fuzzy
-msgid "nobody"
-msgstr "No embed file"
-
-#, fuzzy, c-format
-msgid "Current (%s)"
-msgstr "Create"
-
-msgid "cannot see unknow folder"
-msgstr ""
-
-msgid "read-only"
-msgstr ""
-
-msgid "Security"
-msgstr ""
-
-msgid "others..."
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%d document"
-msgstr "Import"
-
-#, fuzzy
-msgid "no sort"
-msgstr "Identity"
-
-#, fuzzy
-msgid "createdate"
-msgstr "Create"
-
-#, fuzzy
-#~ msgid " %s"
-#~ msgstr "Modify"
 
 #, fuzzy
 #~ msgid "enabled/disabled full text search"
