@@ -120,6 +120,6 @@ function forum_clean(event) {
   entry_edit = -1;
   entry_change = false;
   var fedit = document.getElementById('forum_editform');
-  fedit.style.display = 'none';
+  if (fedit) fedit.style.display = 'none';
   return;
 }

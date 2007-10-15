@@ -24,8 +24,8 @@ function forum_entry(&$action) {
     $action->lay->set("docid", $entries[$eid]["docid"]);
     $action->lay->set("lid", $entries[$eid]["prev"]);
     $action->lay->set("date", $entries[$eid]["date"]);
-    $action->lay->set("havenext", $entries[$eid]["havenext"]);
-    $action->lay->set("closed", $entries[$eid]["closed"]);
+    $action->lay->set("editable", $entries[$eid]["editable"]);
+    $action->lay->set("opened", $entries[$eid]["opened"]);
     $action->lay->set("content", $entries[$eid]["content"]);
     $action->lay->set("rcount", count($entries[$eid]["next"]));
     $action->lay->set("hasresponse", (count($entries[$eid]["next"])>0?true:false));

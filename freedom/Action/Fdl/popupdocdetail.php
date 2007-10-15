@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.24 2007/09/27 13:57:11 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.25 2007/10/15 10:04:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -185,6 +185,24 @@ function getpopupdocdetail(&$action,$docid) {
 				   "tconfirm"=>"",
 				   "target"=>"",
 				   "visibility"=>POPUP_ACTIVE,
+				   "submenu"=>"",
+				   "barmenu"=>"false"),
+	       "openforum"=>array( "descr"=>_("open forum"),
+				   "url"=>"$surl&app=FDL&action=FDL_FORUMOPEN&docid=$docid",
+				   "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"_self",
+				   "visibility"=>POPUP_INVISIBLE,
+				   "submenu"=>"",
+				   "barmenu"=>"false"),
+	       "closeforum"=>array( "descr"=>_("close forum"),
+				   "url"=>"$surl&app=FDL&action=FDL_FORUMCLOSE&docid=$docid",
+				   "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"_self",
+				   "visibility"=>POPUP_INVISIBLE,
 				   "submenu"=>"",
 				   "barmenu"=>"false"),
 	       "toxml"=>array( "descr"=>_("View XML"),
@@ -516,6 +534,17 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   if (! $action->parent->Haspermission("FREEDOM_READ","FREEDOM")) {
     $tlink["histo"]["visibility"]=POPUP_INVISIBLE;
   }
+
+
+  // Forum
+  $tlink["openforum"]["visibility"] = POPUP_INVISIBLE;
+  $tlink["closeforum"]["visibility"] = POPUP_INVISIBLE;
+  if (($doc->forumid!="") && ($doc->Control("edit") == "")) {
+    $vf = intval($doc->forumid);
+    $tlink["closeforum"]["visibility"] = ($vf>=0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
+    $tlink["openforum"]["visibility"] = ($vf<0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
+  }
+    
 }
 
 ?>

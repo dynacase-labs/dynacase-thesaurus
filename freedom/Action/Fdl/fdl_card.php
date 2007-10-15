@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.22 2007/07/25 09:46:12 eric Exp $
+ * @version $Id: fdl_card.php,v 1.23 2007/10/15 10:04:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,6 +68,9 @@ function fdl_card(&$action) {
   $action->lay->set("RSS", ($doc->getValue("gui_isrss")));
   $action->lay->Set("TITLE",$doc->title);
   $action->lay->Set("id",$docid);
+
+  $action->lay->Set("forumid",abs($doc->forumid));
+  $action->lay->Set("forum",($doc->forumid!="" ? true : false ));
 
   $zo=$doc->getZoneOption($zone);
   if ($zo=="Sxxxxxxxxx") { // on patiente à cause de proposition

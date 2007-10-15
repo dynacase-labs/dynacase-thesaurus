@@ -1,7 +1,7 @@
 [IF viewall]<div id="f_X" class="forum">
 <div id="resume" class="first" onclick="forum_openclose(event,'X');" >
 <img id="fi_X" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]"><span id="title">[title]</span>
-[IFNOT closed]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], 'X', -1, -1)">[TEXT:new forum answer]</a>[ENDIF closed]
+[IF opened]<a id="action" class="first" href="#" onclick="forum_edit(event,[docid], 'X', -1, -1)">[TEXT:new forum answer]</a>[ENDIF opened]
 </div>
 <div style="border:0px" id="fm_X"></div>
 <div class="content_first" id="fc_X">[ENDIF viewall]

@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.5 2007/10/14 08:54:41 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.6 2007/10/15 10:04:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -11,7 +11,8 @@
  /**
  */
 
-var $defaultview= "FDL:FORUM_VIEW:T";
+var $defaultview = "FDL:FORUM_VIEW:T";
+var $defaultedit = "FDL:FORUM_VIEW:S";
 
 function getEntryId() {
   $dids = $this->getTValue("forum_d_id");
@@ -41,7 +42,7 @@ function forum_view() {
   }
   $this->lay->setBlockData("entry_list", $el);
   $this->lay->set("title", $this->getTitle());
-  $this->lay->set("closed", false);
+  $this->lay->set("opened", $this->canAnswer());
   $this->lay->set("docid", $this->getValue("forum_docid"));
   return;
 }
@@ -145,7 +146,7 @@ function getentries() {
   $t_flag   = $this->getTValue("forum_d_flag");
   $t_date   = $this->getTValue("forum_d_date");
 
-  $fclosed = false;
+  $fopened = $this->canAnswer();
   foreach ($t_id as $k => $v) {
     
     $next = array();
@@ -167,13 +168,24 @@ function getentries() {
 			"content" => $t_text[$k],
 			"date" => $t_date[$k],
 			"flag" => $t_flag[$k],
-			"havenext" => (count($next)==0 ? false : true),
-			"closed" => $fclosed,
+			"editable" => (count($next)==0 && $fopened && $action->user->fid==$t_userid[$k] ? true : false),
+			"opened" => $fopened,
 		    );
 
   }
   return $elist;
 }
+
+function canAnswer() {
+  static $fstate = false;
+  if ($fstate===false) {
+    $fstate = $this->getDocValue($this->getValue("forum_docid"), "forumid", "");
+  }
+  if ($fstate<0) return false;
+  if ($this->Control("forum")=="" || $this->Control("edit")=="") return true ;
+  return false; 
+}
+
 
 
 ?>

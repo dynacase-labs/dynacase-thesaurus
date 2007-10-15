@@ -55,6 +55,7 @@
 </div>
 </div>
 
+[IF forum]<a name="forum"></a>[ZONE FDL:IMPCARD?sole=Y&zone=FDL:FORUM_VIEW:S&id=[forumid]][ENDIF forum]
 
 </body>
 </html>
