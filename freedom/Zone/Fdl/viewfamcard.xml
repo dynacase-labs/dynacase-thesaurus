@@ -18,6 +18,9 @@
 
 <tr class="FREEDOMBack2"><td  colspan="2" height="1px"></td></tr>
 
+<tr class="FREEDOMBack1">
+   <td width="50%" class="FREEDOMlabel">[TEXT:forum on new documents] : </td><td  >[forum]</A></td></tr>
+
 <tr class="FREEDOMBack1" style="display:[cprofdisplay]">
    <td width="50%" class="FREEDOMlabel">[TEXT:Profile for new document] : </td><td  ><a href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[cprofid]">[cproftitle]</A></td></tr>
 <tr class="FREEDOMBack1" style="display:[cvdisplay]">

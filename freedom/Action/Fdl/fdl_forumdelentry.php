@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumdelentry.php,v 1.1 2007/10/14 08:54:41 marc Exp $
+ * @version $Id: fdl_forumdelentry.php,v 1.2 2007/10/15 17:46:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -30,7 +30,7 @@ function fdl_forumdelentry(&$action) {
   if ($doc->Control("edit")!="" && $doc->Control("forum")!="") 
     $action->exitError(sprintf(_("you don't have privilege to edit forum for document %s"),$doc->title));
 
-  $forid = $doc->forumid;
+  $forid = abs(intval($doc->forumid));
   $forum = new_Doc($dbaccess, $forid);
   if (! $forum->isAffected()) $action->exitError(sprintf(_("cannot see unknow forum reference %s"),$forid));
 

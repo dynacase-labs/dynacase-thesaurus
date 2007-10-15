@@ -3,7 +3,7 @@
  * Family Document Class
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocFam.php,v 1.28 2006/09/14 15:29:44 eric Exp $
+ * @version $Id: Class.DocFam.php,v 1.29 2007/10/15 17:46:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -130,6 +130,9 @@ create unique index idx_idfam on docfam(id);";
 	} else {
 	  $this->lay->set("cvdisplay","none");
 	}
+	break;
+      case forumid:
+	$this->lay->set("forum",($this->forumid=="" ? _("disable forum") :_("enable forum")));
 	break;
       }
     }

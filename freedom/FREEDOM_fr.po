@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 16:28+0200\n"
+"POT-Creation-Date: 2007-10-15 18:09+0200\n"
 "PO-Revision-Date: 2007-09-27 15:44+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
@@ -195,15 +195,17 @@ msgstr "recherche de document pour l'insertion dans un dossier"
 msgid "add entry in a document forum"
 msgstr "répondre"
 
-#, fuzzy
 msgid "del entry from a document forum"
-msgstr "répondre"
+msgstr "supprimer une entrée de forum"
 
 msgid "open forum"
 msgstr "Ouvrir le forum"
 
 msgid "close forum"
 msgstr "Fermer le forum"
+
+msgid "create forum"
+msgstr "créer le forum"
 
 msgid "freedom database"
 msgstr "base de donnée Freedom"
@@ -564,6 +566,9 @@ msgstr "navigation entre relations"
 
 msgid "navigate between relations next"
 msgstr "navigation entre relations suivantes"
+
+msgid "disable/enable forum on documents"
+msgstr "Autoriser/interdire les forums sur les documents"
 
 msgid "root folder id"
 msgstr "Identificateur du dossier racine"
@@ -1049,6 +1054,9 @@ msgstr "réponse pour cette entrée"
 
 msgid "Familly Document"
 msgstr "Famille de document"
+
+msgid "forum on new documents"
+msgstr "Forum pour les nouveaux documents"
 
 msgid "Profile for new document"
 msgstr "Profil pour les nouveaux documents"
@@ -3542,6 +3550,12 @@ msgstr "Changer le dossier racine"
 
 msgid "Change first folder"
 msgstr "Changer le dossier primaire"
+
+msgid "enable forum"
+msgstr "Autoriser les forums"
+
+msgid "disable forum"
+msgstr "Interdire les forums"
 
 msgid "new familly document"
 msgstr "nouvelle famille de document"

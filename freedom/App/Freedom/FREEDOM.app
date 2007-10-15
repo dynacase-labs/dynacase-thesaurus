@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.48 2007/08/14 17:49:37 eric Exp $
+// $Id: FREEDOM.app,v 1.49 2007/10/15 17:46:54 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -539,7 +539,13 @@ array(
    "function"           =>"rnavigate2",
    "layout"		=>"rnavigate2.xml",
    "script"		=>"rnavigate.php"
-  ) 
+  ),
+
+  array( 
+   "name"		=>"FORUM_SETDEFAULT",
+   "short_name"		=>N_("disable/enable forum on documents"),
+   "acl"		=>"FREEDOM_MASTER"
+  ) ,
                       );
    
 ?>

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-15 16:28+0200\n"
+"POT-Creation-Date: 2007-10-15 18:09+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -244,6 +244,10 @@ msgstr "Modify"
 #, fuzzy
 msgid "close forum"
 msgstr "Start search"
+
+#, fuzzy
+msgid "create forum"
+msgstr "Modify"
 
 #, fuzzy
 msgid "freedom database"
@@ -638,6 +642,10 @@ msgstr ""
 
 msgid "navigate between relations next"
 msgstr ""
+
+#, fuzzy
+msgid "disable/enable forum on documents"
+msgstr "Category"
 
 #, fuzzy
 msgid "root folder id"
@@ -1191,6 +1199,10 @@ msgstr "Organisation"
 #, fuzzy
 msgid "Familly Document"
 msgstr "Delete"
+
+#, fuzzy
+msgid "forum on new documents"
+msgstr "Import"
 
 #, fuzzy
 msgid "Profile for new document"
@@ -4038,6 +4050,14 @@ msgstr "Delete"
 #, fuzzy
 msgid "Change first folder"
 msgstr "Delete"
+
+#, fuzzy
+msgid "enable forum"
+msgstr "Modify"
+
+#, fuzzy
+msgid "disable forum"
+msgstr "Import"
 
 msgid "new familly document"
 msgstr ""

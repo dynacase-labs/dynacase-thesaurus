@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.5 2007/07/27 07:41:49 eric Exp $
+ * @version $Id: popupfamdetail.php,v 1.6 2007/10/15 17:46:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -203,7 +203,27 @@ function getpopupfamdetail(&$action,$docid) {
 				   "target"=>"",
 				   "visibility"=>POPUP_CTRLACTIVE,
 				   "submenu"=>"",
-				   "barmenu"=>"false"));
+				   "barmenu"=>"false"),
+	       "forumenabled"=>array( "descr"=>_("enable forum"),
+				  "url"=>"$surl&app=FREEDOM&action=FORUM_SETDEFAULT&id=$docid&st=Y",
+				   "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"_self",
+				   "visibility"=>POPUP_INACTIVE,
+				   "submenu"=>"",
+				   "barmenu"=>"false"),
+	       "forumdisabled"=>array( "descr"=>_("disable forum"),
+				  "url"=>"$surl&app=FREEDOM&action=FORUM_SETDEFAULT&id=$docid&st=N",
+				   "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"_self",
+				   "visibility"=>POPUP_INACTIVE,
+				   "submenu"=>"",
+				   "barmenu"=>"false"),
+
+	       );
 
   changeFamMenuVisibility($action,$tlink,$doc);
   
@@ -274,6 +294,14 @@ function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
   }
   if (! $action->parent->Haspermission("FREEDOM_READ","FREEDOM")) {
     $tlink["histo"]["visibility"]=POPUP_INVISIBLE;
+  }
+
+  if ($doc->forumid=="") {
+    $tlink["forumdisabled"]["visibility"]=POPUP_INVISIBLE;
+    $tlink["forumenabled"]["visibility"]=POPUP_CTRLACTIVE;
+  } else {
+    $tlink["forumdisabled"]["visibility"]=POPUP_CTRLACTIVE;
+    $tlink["forumenabled"]["visibility"]=POPUP_INVISIBLE;
   }
 }
 

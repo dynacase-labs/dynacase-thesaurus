@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.25 2007/10/15 10:04:54 marc Exp $
+ * @version $Id: popupdocdetail.php,v 1.26 2007/10/15 17:46:54 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -541,7 +541,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   $tlink["closeforum"]["visibility"] = POPUP_INVISIBLE;
   if (($doc->forumid!="") && ($doc->Control("edit") == "")) {
     $vf = intval($doc->forumid);
-    $tlink["closeforum"]["visibility"] = ($vf>=0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
+    $tlink["closeforum"]["visibility"] = ($vf>0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
     $tlink["openforum"]["visibility"] = ($vf<0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
   }
     
