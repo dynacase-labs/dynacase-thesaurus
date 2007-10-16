@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.8 2007/10/16 13:54:30 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.9 2007/10/16 14:07:16 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,8 @@
  */
 
 var $defaultview = "FDL:FORUM_VIEW:T";
-//var $defaultedit = "FDL:FORUM_VIEW:S";
+var $defaultedit = "FDL:FORUM_VIEW:S";
+public $specialmenu = array("forum_menu");
 
 function getEntryId() {
   $dids = $this->getTValue("forum_d_id");
@@ -25,6 +26,9 @@ function getEntryId() {
 
 function forum_view() {
   global $action;
+
+  setHttpVar("specialmenu","forum_menu");
+    
 
   setHttpVar("fid", $this->id);
   $start = GetHttpVars("start", -1);
@@ -187,6 +191,11 @@ function canAnswer() {
   return false; 
 }
 
+
+function forum_menu(&$menu) {
+  global $action;
+  foreach ($menu as $k => $v) $menu[$k] = POPUP_INVISIBLE;
+}
 
 
 ?>
