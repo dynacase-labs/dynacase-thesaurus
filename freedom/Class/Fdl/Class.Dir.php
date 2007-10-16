@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.72 2007/10/15 12:11:04 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.73 2007/10/16 14:28:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -231,13 +231,12 @@ Class Dir extends PDir
 	$this->AddComment(sprintf(_("Document %s inserted"), $doc->title));
 	// add default folder privilege to the doc
 	if ($doc->profid == 0) { // only if no privilege yet
-	
 	  switch ($doc->defProfFamId) {
 	  case FAM_ACCESSDOC:
 	    $profid=$this->getValue("FLD_PDOCID",0);
 	    if ($profid > 0) {
 	      $doc->setProfil($profid);
-	      $doc->modify();
+	      $err=$doc->modify(true,array("profid","dprofid"),true);		     
 	    }
 	    break;
 	  case FAM_ACCESSDIR:
