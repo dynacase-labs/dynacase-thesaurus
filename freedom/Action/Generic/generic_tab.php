@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.27 2007/05/28 08:13:57 eric Exp $
+ * @version $Id: generic_tab.php,v 1.28 2007/10/16 10:24:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -71,7 +71,7 @@ function generic_tab(&$action) {
     // parmeters for redirect in case of parametrizable search
     setHttpVar("dirid",$dir->initid );
     setHttpVar("sapp",$action->getParam("APPNAME","GENERIC"));
-    setHttpVar("saction",urlencode("GENERIC_LIST&famid=$famid&onglet=Y"));
+    setHttpVar("saction",urlencode("GENERIC_LIST&famid=$famid"));
     setHttpVar("sid","dirid");
     setHttpVar("id",$dir->initid);
     
