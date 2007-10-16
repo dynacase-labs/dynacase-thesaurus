@@ -7,5 +7,6 @@ fi
 
 
 echo "alter table doc add column forumid int;" | psql $dbfree
+echo "alter table docread add column forumid int;" | psql $dbfree
 
 

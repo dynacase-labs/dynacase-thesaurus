@@ -3,7 +3,7 @@
  * History log for document
  *
  * @author Anakeen 2005
- * @version $Id: Class.DocRead.php,v 1.5 2007/06/29 14:12:26 eric Exp $
+ * @version $Id: Class.DocRead.php,v 1.6 2007/10/16 10:22:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -51,7 +51,8 @@ create table docread ( id int not null,
                    state varchar(64),
                    wid int ,  
                    values text,  
-                   attrids text,  
+                   attrids text,   
+                   forumid int,
                    postitid int,
                    cvid int,
                    name text,
@@ -87,6 +88,7 @@ create index full_docread on docread using gist(fulltext);";
 			   "state",
 			   "wid",
 			   "postitid",
+			   "forumid",
 			   "cvid",
 			   "name",
 			   "dprofid",
