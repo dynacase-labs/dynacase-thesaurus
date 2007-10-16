@@ -21,6 +21,7 @@ function forum_edit(event, docid, ref, eid, link) {
   // eid  = -1 new entry
 
   if (!document.getElementById('forum_editform')) {
+    alert('pas de forum_editform');
     return;
   }
 
@@ -37,13 +38,11 @@ function forum_edit(event, docid, ref, eid, link) {
   document.getElementById('foredit_link').value = link;
   document.getElementById('foredit_text').value = text;
 
-  var forum_edit = document.getElementById('forum_editform');
-  GetXY(event);
-
+  var f_edit = document.getElementById('forum_editform');
   var mark = document.getElementById('fm_'+ref);
-  mark.appendChild(forum_edit);
-//   forum_edit.style.visibility = 'visible';
-  forum_edit.style.display = 'block';
+  mark.appendChild(f_edit);
+//   f_edit.style.visibility = 'visible';
+  f_edit.style.display = 'block';
   document.getElementById('foredit_text').focus();
 
   entry_edit = ref;
@@ -97,11 +96,18 @@ function forum_saveEdit(event) {
   var link  = document.getElementById('foredit_link').value;
   var text  = document.getElementById('foredit_text').value;
 
-  var url = corestandurl+'app=FDL&action=FDL_FORUMADDENTRY&docid='+docid+'&start='+entry_edit+'&eid='+eid+'&lid='+link+'&text='+text;
+  var f_edit = document.getElementById('forum_editform');
+
+  var mark = document.getElementById('f_X');
+  mark.appendChild(f_edit);
+  f_edit.style.display = 'none';
+
+  var url = corestandurl+'app=FDL&action=FDL_FORUMADDENTRY';
+  var params = '&docid='+docid+'&start='+entry_edit+'&eid='+eid+'&lid='+link+'&text='+escape(text);
 
   var ptag = document.getElementById('f_'+entry_edit).parentNode;
 //   ptag.style.border = '1px solid red';
-  requestUrlSend(document.getElementById('f_'+entry_edit).parentNode,url);
+  requestUrlSend(document.getElementById('f_'+entry_edit).parentNode, url+params);
   disableSynchro();
   
   forum_clean();
@@ -131,7 +137,7 @@ function forum_clean(event) {
   entry_hide = -1;
   entry_edit = -1;
   entry_change = false;
-  var forum_edit = document.getElementById('forum_editform');
-  if (forum_edit) forum_edit.style.display = 'none';
+  var f_edit = document.getElementById('f_editform');
+  if (f_edit) f_edit.style.display = 'none';
   return;
 }

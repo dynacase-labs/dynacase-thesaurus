@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.426 2007/10/15 14:30:47 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.427 2007/10/16 13:54:30 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -964,6 +964,11 @@ final public function PostInsert()  {
       if ($msg!='') return $msg;
     }
 
+    if (abs(intval($this->forumid))>0) {
+      $df = new_Doc($this->dbaccess, abs(intval($this->forumid)));
+      $df->delete($really, $control, $nopost);
+    }
+    
     if ($really) {
       if ($this->id != "") {
 	// delete all revision also
