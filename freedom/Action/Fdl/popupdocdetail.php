@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.26 2007/10/15 17:46:54 marc Exp $
+ * @version $Id: popupdocdetail.php,v 1.27 2007/10/16 12:53:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -185,6 +185,15 @@ function getpopupdocdetail(&$action,$docid) {
 				   "tconfirm"=>"",
 				   "target"=>"",
 				   "visibility"=>POPUP_ACTIVE,
+				   "submenu"=>"",
+				   "barmenu"=>"false"),
+	       "createforum"=>array( "descr"=>_("create forum"),
+				   "url"=>"$surl&app=FDL&action=FDL_FORUMCREATE&docid=$docid",
+				   "confirm"=>"false",
+				   "control"=>"false",
+				   "tconfirm"=>"",
+				   "target"=>"_self",
+				   "visibility"=>POPUP_INVISIBLE,
 				   "submenu"=>"",
 				   "barmenu"=>"false"),
 	       "openforum"=>array( "descr"=>_("open forum"),
@@ -537,10 +546,14 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
 
   // Forum
+  $tlink["createforum"]["visibility"] = POPUP_INVISIBLE;
   $tlink["openforum"]["visibility"] = POPUP_INVISIBLE;
   $tlink["closeforum"]["visibility"] = POPUP_INVISIBLE;
-  if (($doc->forumid!="") && ($doc->Control("edit") == "")) {
+  $fdoc = $doc->getFamDoc();
+  $ff = intval($fdoc->forumid);
+  if ($ff==0 && $doc->Control("edit")=="") {
     $vf = intval($doc->forumid);
+    if ($vf==0) $tlink["createforum"]["visibility"] = POPUP_ACTIVE;
     $tlink["closeforum"]["visibility"] = ($vf>0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
     $tlink["openforum"]["visibility"] = ($vf<0 ? POPUP_ACTIVE : POPUP_INVISIBLE);
   }

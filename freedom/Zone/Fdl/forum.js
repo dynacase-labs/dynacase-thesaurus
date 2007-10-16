@@ -20,7 +20,9 @@ function forum_edit(event, docid, ref, eid, link) {
   // link = -1 root entry 
   // eid  = -1 new entry
 
-  if (!document.getElementById('forum_editform')) return;
+  if (!document.getElementById('forum_editform')) {
+    return;
+  }
 
   forum_openclose(event, ref, true);
   forum_cancelEdit(event);
@@ -35,13 +37,13 @@ function forum_edit(event, docid, ref, eid, link) {
   document.getElementById('foredit_link').value = link;
   document.getElementById('foredit_text').value = text;
 
-  var fedit = document.getElementById('forum_editform');
+  var forum_edit = document.getElementById('forum_editform');
   GetXY(event);
 
   var mark = document.getElementById('fm_'+ref);
-  mark.appendChild(fedit);
-//   fedit.style.visibility = 'visible';
-  fedit.style.display = 'block';
+  mark.appendChild(forum_edit);
+//   forum_edit.style.visibility = 'visible';
+  forum_edit.style.display = 'block';
   document.getElementById('foredit_text').focus();
 
   entry_edit = ref;
@@ -49,9 +51,9 @@ function forum_edit(event, docid, ref, eid, link) {
 } 
 
 function forum_sendmail(event, addr, docid, eid) {
-
   stopPropagation(event);
 }
+
 function forum_opacity(oid, value) {
   if (!document.getElementById(oid)) return;
   var o = document.getElementById(oid);
@@ -61,20 +63,27 @@ function forum_opacity(oid, value) {
 
 
 function forum_change(event) {
-  if (entry_edit!=-1) {
-    entry_change=true;
-    //     addEvent(window,"unload",forum_cancelEdit);
-    window.onbeforeunload = forum_cancelEdit;
-  }
+  entry_change=true;
+  addEvent(window,"beforeunload", forum_alertEdit);
   return;
+}
+function forum_alertEdit(event) {
+  if (! event) event=window.event;
+  if (entry_change && entry_edit!=-1)  event.returnValue='[TEXT:forum modification are not saved]';
 }
 
 function forum_cancelEdit(event) {
+  if (! event) event=window.event;
   if (entry_edit!=-1 && entry_change) {
-    var ok = confirm('[TEXT:save forum edition]');
-    if (ok) forum_saveEdit(event);
+    var ok = confirm('[TEXT:save forum edition] ?');
+    if (ok) {
+      forum_saveEdit(event);
+      return true;
+    } else {
+      forum_clean(event);
+      return false;
+    }
   }
-  forum_clean();
   return true;
 }
 
@@ -122,7 +131,7 @@ function forum_clean(event) {
   entry_hide = -1;
   entry_edit = -1;
   entry_change = false;
-  var fedit = document.getElementById('forum_editform');
-  if (fedit) fedit.style.display = 'none';
+  var forum_edit = document.getElementById('forum_editform');
+  if (forum_edit) forum_edit.style.display = 'none';
   return;
 }

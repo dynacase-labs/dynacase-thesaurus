@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.82 2007/10/16 03:33:05 marc Exp $
+ * @version $Id: viewcard.php,v 1.83 2007/10/16 12:53:36 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -192,10 +192,8 @@ function viewcard(&$action) {
 
   
   if ($doc->doctype=='F' || $doc->doctype=='D') {
-	$action->lay->Set("initforum",($doc->forumid==0 ? true : false ));
 	$action->lay->Set("forum",(abs(intval($doc->forumid))>0 ? true : false ));
   } else {
-	$action->lay->Set("initforum",false);
 	$action->lay->Set("forum",false);
   }
  
