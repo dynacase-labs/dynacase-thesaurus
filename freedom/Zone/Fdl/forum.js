@@ -141,3 +141,25 @@ function forum_clean(event) {
   if (f_edit) f_edit.style.display = 'none';
   return;
 }
+
+
+var lob = false;
+function forum_over(event, eid) {
+  var ob = document.getElementById('f_'+eid);
+  if (!ob) return;
+  if (lob) ob.style.border = '1px solid [COLOR_A3]';
+  ob.style.border = '1px solid [COLOR_C1]';
+  ob.style.backgroundColor = '[COLOR_C9]';
+  lob = ob;
+  stopPropagation(event);
+}
+
+function forum_out(event, eid) {
+  var ob = document.getElementById('f_'+eid);
+  if (!ob) return;
+  ob.style.border = '1px solid [COLOR_A8]';
+  ob.style.backgroundColor = '[COLOR_WHITE]';
+  lob = false;
+  stopPropagation(event);
+}
+

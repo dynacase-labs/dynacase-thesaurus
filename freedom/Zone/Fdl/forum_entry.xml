@@ -1,5 +1,5 @@
 [IF show]<div style="margin:0; padding:0">
-  <fieldset id="f_[eid]" class="forum">
+  <fieldset id="f_[eid]" class="forum" onmouseover="forum_over(event, [eid]);" onmouseout="forum_out(event, [eid]);" >
     <legend id="resume" onclick="forum_openclose(event,[eid]);" >
       <img id="fi_[eid]" title="[TEXT:forum open/close]" src="[IMGF:forum_open.gif:0,0,0|COLOR_BLACK]">&nbsp;
       [IF havemail]<a id="who" onclick="forum_sendmail(event, '[mail]', [docid], [eid])">[who]</a>[ENDIF havemail]
