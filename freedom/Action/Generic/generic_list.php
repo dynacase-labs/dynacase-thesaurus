@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.34 2007/08/01 14:05:10 eric Exp $
+ * @version $Id: generic_list.php,v 1.35 2007/10/16 08:32:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,7 +47,7 @@ function generic_list(&$action) {
   $column=generic_viewmode($action,$famid); // choose the good view mode
 
   if ($onglet) {
-    $wonglet=($onglet!='Y');
+    $wonglet=($onglet!='N');
   } else {
     $wonglet=(getTabLetter($action,$famid)=='Y');
   }
