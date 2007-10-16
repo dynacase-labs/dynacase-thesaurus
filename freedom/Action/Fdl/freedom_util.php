@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.101 2007/10/15 15:45:34 eric Exp $
+ * @version $Id: freedom_util.php,v 1.102 2007/10/16 14:29:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -609,5 +609,40 @@ function createAutoFolder(&$doc) {
     return $fldid;
   
 }
+/**
+ * get personal profil
+ *
+ * return the profil named "PERSONAL-PROFIL-<$uid>" 
+ * the document return is a folder profil that can be use also for "normal" documents
+ * @return PDir may be return false if no hability to create the document
+ */
+function getMyProfil($dbaccess,$create=true) {
+  global $action;
+  $uid=$action->user->id;
+  $pname=sprintf("PERSONAL-PROFIL-%d",$uid);
+  $p=new_doc($dbaccess,$pname);
+  if (! $p->isAffected()) {
+    if ($create) {
+      $p=createDoc($dbaccess,"PDIR");
+      $p->name=$pname;
+      $p->setValue("ba_title",sprintf(_("Personal profile for %s %s"),
+				      $action->user->firstname,
+				      $action->user->lastname));
+      $p->setValue("prf_desc",sprintf(_("Only %s %s can view and edit"),
+				      $action->user->firstname,
+				      $action->user->lastname));
+      
+      $err=$p->Add();
+      if ($err=="") {
+	$err=$p->setControl(); //activate the profile
+      }
+      
+    } else {
+      $p=false;
+    }
+  }
 
+
+  return $p;
+}
 ?>
