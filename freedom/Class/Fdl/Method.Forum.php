@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.6 2007/10/15 10:04:54 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.7 2007/10/16 04:45:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 var $defaultview = "FDL:FORUM_VIEW:T";
-var $defaultedit = "FDL:FORUM_VIEW:S";
+//var $defaultedit = "FDL:FORUM_VIEW:S";
 
 function getEntryId() {
   $dids = $this->getTValue("forum_d_id");
@@ -129,7 +129,7 @@ function getsubentry($top, &$le, $level="") {
 }
 
 function getentries() {
-
+  global $action;
   static $elist = false;
 
   if ($elist!==false) return $elist;
@@ -162,7 +162,7 @@ function getentries() {
 			"next" => $next,
 			"prev" => $prev,
 			"whoid" => $t_userid[$k],
-			"who" => $t_user[$k], // ." [eid:".$v."|link:".$t_lid[$k]."]",
+			"who" => "($v) ".$t_user[$k], // ." [eid:".$v."|link:".$t_lid[$k]."]",
 			"mail" => $t_mail[$k],
 			"havemail" => ($t_mail[$k]=="" ? false : true ),
 			"content" => $t_text[$k],
@@ -177,12 +177,13 @@ function getentries() {
 }
 
 function canAnswer() {
-  static $fstate = false;
-  if ($fstate===false) {
-    $fstate = $this->getDocValue($this->getValue("forum_docid"), "forumid", "");
+  static $doc = false;
+  if ($doc===false) {
+    $doc =  new_Doc($this->dbaccess, $this->getValue("forum_docid"));
   }
-  if ($fstate<0) return false;
-  if ($this->Control("forum")=="" || $this->Control("edit")=="") return true ;
+  if (intval($doc->forumid)<0) return false;
+  if ($doc->Control("forum")=="" || $doc->Control("edit")=="") return true ;
+  
   return false; 
 }
 

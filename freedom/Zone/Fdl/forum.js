@@ -89,7 +89,10 @@ function forum_saveEdit(event) {
   var text  = document.getElementById('foredit_text').value;
 
   var url = corestandurl+'app=FDL&action=FDL_FORUMADDENTRY&docid='+docid+'&start='+entry_edit+'&eid='+eid+'&lid='+link+'&text='+text;
-  requestUrlSend(document.getElementById('f_'+entry_edit),url);
+
+  var ptag = document.getElementById('f_'+entry_edit).parentNode;
+//   ptag.style.border = '1px solid red';
+  requestUrlSend(document.getElementById('f_'+entry_edit).parentNode,url);
   disableSynchro();
   
   forum_clean();

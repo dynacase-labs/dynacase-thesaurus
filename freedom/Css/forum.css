@@ -1,6 +1,6 @@
 .forum {
-  margin : 3px 0px 0px 0px  ; 
-  padding : 1px 1px 1px 3px;
+  margin : 0px  ; 
+  padding : 3px 1px 1px 3px;
   border : 1px solid [COLOR_A3];
   background-color: [COLOR_WHITE];
   -moz-border-radius:4px;  
@@ -17,19 +17,13 @@
 }
 .forum #resume {
   cursor : pointer;
-/*
-  border-width : 1px ;
-  border-style : none none solid none ;
-  border-color : [COLOR_B8];
-  background-color: [COLOR_A9];
-*/
 }
 .forum #resume.first {
-  margin : 5px 0px 0px 0px;
-  padding : 3px 0px 3px 0px;
+  margin : 3px;
+  padding : 3px;
   border-width : 1px ;
-  border-style : solid;
-  border-color : [COLOR_B5];
+  border-style : none none solid none;
+  border-color : [COLOR_A5];
   background-color: [COLOR_A9];
 }
 .forum .content {
@@ -59,6 +53,7 @@
   font-size : 80%;
   margin-left : 5px;
   color: [COLOR_A1];
+  text-transform:none;
 }
 .forum #action {
   cursor : pointer;
