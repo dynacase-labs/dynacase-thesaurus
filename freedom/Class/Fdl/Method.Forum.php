@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.9 2007/10/16 14:07:16 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.10 2007/10/16 14:47:42 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 var $defaultview = "FDL:FORUM_VIEW:T";
 var $defaultedit = "FDL:FORUM_VIEW:S";
-public $specialmenu = array("forum_menu");
+var $specialmenu = "FDL:FDL_FORUMMENU";
 
 function getEntryId() {
   $dids = $this->getTValue("forum_d_id");
@@ -27,8 +27,6 @@ function getEntryId() {
 function forum_view() {
   global $action;
 
-  setHttpVar("specialmenu","forum_menu");
-    
 
   setHttpVar("fid", $this->id);
   $start = GetHttpVars("start", -1);
@@ -172,7 +170,7 @@ function getentries() {
 			"content" => nl2br($t_text[$k]),
 			"date" => $t_date[$k],
 			"flag" => $t_flag[$k],
-			"editable" => (count($next)==0 && $fopened && $action->user->fid==$t_userid[$k] ? true : false),
+			"editable" => ($this->locked!=-1 && count($next)==0 && $fopened && $action->user->fid==$t_userid[$k] ? true : false),
 			"opened" => $fopened,
 		    );
 
@@ -186,16 +184,11 @@ function canAnswer() {
     $doc =  new_Doc($this->dbaccess, $this->getValue("forum_docid"));
   }
   if (intval($doc->forumid)<0) return false;
-  if ($doc->Control("forum")=="" || $doc->Control("edit")=="") return true ;
+  if ($this->locked!=-1 && ($doc->Control("forum")=="" || $doc->Control("edit")=="")) return true ;
   
   return false; 
 }
 
-
-function forum_menu(&$menu) {
-  global $action;
-  foreach ($menu as $k => $v) $menu[$k] = POPUP_INVISIBLE;
-}
 
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.48 2007/10/16 14:07:23 eric Exp $
+// $Id: FDL.app,v 1.49 2007/10/16 14:47:42 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -352,6 +352,12 @@ $action_desc = array (
    "short_name"		=>N_("create forum"),
    "acl"		=>"NORMAL"
   ),
+  array( 
+   "name"		=>"FDL_FORUMMENU",
+   "short_name"		=>N_("menu forum"),
+   "acl"		=>"NORMAL"
+  ),
+	
 	
 	
                       );	
