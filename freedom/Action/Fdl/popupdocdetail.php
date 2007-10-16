@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.27 2007/10/16 12:53:36 marc Exp $
+ * @version $Id: popupdocdetail.php,v 1.28 2007/10/16 14:07:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -79,7 +79,7 @@ function getpopupdocdetail(&$action,$docid) {
 				 "submenu"=>"",
 				 "barmenu"=>"false"), 
 	       "restore"=>array( "descr"=>_("restore"),
-				 "url"=>"$surl&app=WORKSPACE&action=WS_RESTOREDOC&id=$docid&reload=Y",
+				 "url"=>"$surl&app=FDL&action=RESTOREDOC&id=$docid",
 				 "tconfirm"=>"",
 				 "confirm"=>"false",
 				 "target"=>"_self",
@@ -426,6 +426,7 @@ function addFamilyPopup(&$tlink,&$doc) {
       } else {
 	$tlink[$k]["target"] = $v->id;
       }
+      if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
       $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";
       $tlink[$k]["idlink"] = $v->id;
       $tlink[$k]["descr"] = $v->labelText;

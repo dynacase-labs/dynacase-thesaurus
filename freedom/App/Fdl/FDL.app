@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.47 2007/10/15 17:46:54 marc Exp $
+// $Id: FDL.app,v 1.48 2007/10/16 14:07:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -192,6 +192,11 @@ $action_desc = array (
   array( 
    "name"		=>"LOCKFILE",
    "short_name"		=>N_("lock file to edit"),
+   "acl"		=>"EDIT"
+  ) ,
+  array( 
+   "name"		=>"RESTOREDOC",
+   "short_name"		=>N_("restore document from trash"),
    "acl"		=>"EDIT"
   ) ,
   array( 
