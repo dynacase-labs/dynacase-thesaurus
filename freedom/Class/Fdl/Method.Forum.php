@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Forum.php,v 1.10 2007/10/16 14:47:42 marc Exp $
+ * @version $Id: Method.Forum.php,v 1.11 2007/10/16 16:17:46 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -164,7 +164,7 @@ function getentries() {
 			"next" => $next,
 			"prev" => $prev,
 			"whoid" => $t_userid[$k],
-			"who" => "($v) ".$t_user[$k], // ." [eid:".$v."|link:".$t_lid[$k]."]",
+			"who" => $t_user[$k], // ." [eid:".$v."|link:".$t_lid[$k]."]",
 			"mail" => $t_mail[$k],
 			"havemail" => ($t_mail[$k]=="" ? false : true ),
 			"content" => nl2br($t_text[$k]),

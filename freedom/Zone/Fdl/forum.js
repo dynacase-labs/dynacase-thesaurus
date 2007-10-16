@@ -157,7 +157,7 @@ function forum_over(event, eid) {
 function forum_out(event, eid) {
   var ob = document.getElementById('f_'+eid);
   if (!ob) return;
-  ob.style.border = '1px solid [COLOR_A8]';
+  ob.style.border = '1px solid [COLOR_A3]';
   ob.style.backgroundColor = '[COLOR_WHITE]';
   lob = false;
   stopPropagation(event);
