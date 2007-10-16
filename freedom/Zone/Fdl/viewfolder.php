@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.84 2007/10/15 13:01:06 eric Exp $
+ * @version $Id: viewfolder.php,v 1.85 2007/10/16 10:23:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -205,8 +205,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       $tdoc[$k]["emblemw"] ="0";
       $tdoc[$k]["canedit"] =1;
       $tdoc[$k]["postitid"] = ($doc->postitid>0)?$doc->postitid:false;
-
-	
+      $tdoc[$k]["forumid"] = ($doc->forumid>0)?$doc->forumid:false;
       
       if ($doc->confidential > 0) {
 	$tdoc[$k]["emblem"] = $action->GetImageUrl("confidential.gif");
