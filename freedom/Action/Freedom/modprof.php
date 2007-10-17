@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modprof.php,v 1.16 2007/07/27 15:13:54 eric Exp $
+ * @version $Id: modprof.php,v 1.17 2007/10/17 12:01:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: modprof.php,v 1.16 2007/07/27 15:13:54 eric Exp $
+// $Id: modprof.php,v 1.17 2007/10/17 12:01:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Freedom/modprof.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,7 +59,6 @@ function modprof(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   
-  
   // initialise object
   $doc = new_Doc($dbaccess,$docid);
 
@@ -75,6 +74,10 @@ function modprof(&$action) {
   $err=$doc-> CanUpdateDoc();
   if ($err != "")    $action-> ExitError($err);
   
+  if ($profid=="private") {
+    $prof=getMyProfil($dbaccess);
+    $profid=$prof->id;
+  }
 
   if ($createp) {
     // change creation profile

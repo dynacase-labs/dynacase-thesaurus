@@ -6,102 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-16 16:31+0200\n"
-"PO-Revision-Date: 2007-10-16 16:33+0200\n"
+"POT-Creation-Date: 2007-10-17 13:56+0200\n"
+"PO-Revision-Date: 2007-10-17 13:58+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "cannot copy %s"
-msgstr "écriture impossible : %s"
-
-msgid "Zip Archive cannot be created"
-msgstr "L'archive Zip n'a pas pu être créée"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-msgid "no document reference"
-msgstr "pas de référence au document"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
 
 msgid "No identificator"
 msgstr "Pas d'identificateurs"
@@ -216,6 +127,101 @@ msgstr "Changer d'état"
 #, c-format
 msgid "Sure %s ?"
 msgstr "Confirmation : %s ?"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "cannot copy %s"
+msgstr "écriture impossible : %s"
+
+msgid "Zip Archive cannot be created"
+msgstr "L'archive Zip n'a pas pu être créée"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
+
+msgid "Set private"
+msgstr "Rendre privé"
+
+msgid "Set public"
+msgstr "Rendre publique"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -709,6 +715,28 @@ msgstr "impossible de voir le forum, la référence %s est inconnue"
 msgid "cannot modify forum %s"
 msgstr "modification du forum impossible : %s"
 
+msgid ""
+"the document is not referenced: cannot apply profile access modification"
+msgstr ""
+"le document n'est pas référencé : la modification du profil d'accès\n"
+"ne peut pas être appliquée"
+
+#, c-format
+msgid "Change creation profil to %s [%d]"
+msgstr "Changement du profile de création par %s [%d]"
+
+#, c-format
+msgid "Change creation view control to %s [%d]"
+msgstr "Changement du contrôle de vues de création par %s [%d]"
+
+#, c-format
+msgid "Change profil to %s [%d]"
+msgstr "Changement de profil %s [%d]"
+
+#, c-format
+msgid "Change view control  to %s [%d]"
+msgstr "Changement du contrôle de vue %s [%d]"
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -946,28 +974,6 @@ msgid "the document is not referenced: cannot apply defaut folder"
 msgstr ""
 "le document n'est pas référencé : la modification dossier par défaut "
 "abandonné"
-
-msgid ""
-"the document is not referenced: cannot apply profile access modification"
-msgstr ""
-"le document n'est pas référencé : la modification du profil d'accès\n"
-"ne peut pas être appliquée"
-
-#, c-format
-msgid "Change creation profil to %s [%d]"
-msgstr "Changement du profile de création par %s [%d]"
-
-#, c-format
-msgid "Change creation view control to %s [%d]"
-msgstr "Changement du contrôle de vues de création par %s [%d]"
-
-#, c-format
-msgid "Change profil to %s [%d]"
-msgstr "Changement de profil %s [%d]"
-
-#, c-format
-msgid "Change view control  to %s [%d]"
-msgstr "Changement du contrôle de vue %s [%d]"
 
 msgid "the document is not referenced: cannot apply state modification"
 msgstr ""
@@ -1339,9 +1345,8 @@ msgstr "voir un document confidentiel"
 msgid "lock file to edit"
 msgstr "verrouillez le document pour l'éditer"
 
-#, fuzzy
 msgid "restore document from trash"
-msgstr "restaurer le document"
+msgstr "restaurer le document depuis la poubelle"
 
 msgid "interface to change document option"
 msgstr "interface pour changer les options d'un document"
@@ -1420,6 +1425,9 @@ msgstr "répondre"
 
 msgid "del entry from a document forum"
 msgstr "supprimer une entrée de forum"
+
+msgid "menu forum"
+msgstr "menu forum"
 
 msgid "freedom database"
 msgstr "base de donnée Freedom"
@@ -2140,6 +2148,15 @@ msgstr "Préférés"
 
 msgid "main view columns"
 msgstr "Vue principale"
+
+msgid "fgsearch"
+msgstr "recherche générale"
+
+msgid "freedom global search"
+msgstr "Recherche générale freedom"
+
+msgid "freedom detailled global search"
+msgstr "recherche détaillée générale"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -4749,9 +4766,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Delete document %s"
 #~ msgstr "supprimer le document"
-
-#~ msgid "Freedom Search"
-#~ msgstr "Recherche Freedom"
 
 #~ msgid "up"
 #~ msgstr "monter"

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.29 2007/10/17 10:15:39 marc Exp $
+ * @version $Id: popupdocdetail.php,v 1.30 2007/10/17 12:01:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -101,7 +101,7 @@ function getpopupdocdetail(&$action,$docid) {
 				 "control"=>"false",
 				 "tconfirm"=>"",
 				 "target"=>"_self",
-				 "visibility"=>POPUP_CTRLACTIVE,
+				 "visibility"=>POPUP_INACTIVE,
 				 "submenu"=>N_("security"), 
 				 "barmenu"=>"false"),
 	       "unlockdoc"=>array( "descr"=>_("Unlock"),
@@ -110,7 +110,7 @@ function getpopupdocdetail(&$action,$docid) {
 				   "control"=>"false",
 				   "tconfirm"=>"",
 				   "target"=>"_self",
-				   "visibility"=>POPUP_CTRLACTIVE,
+				   "visibility"=>POPUP_INACTIVE,
 				   "submenu"=>"security",
 				   "barmenu"=>"false"),
 	       "revise"=>array( "descr"=>_("Revise"),
@@ -128,7 +128,25 @@ function getpopupdocdetail(&$action,$docid) {
 				  "control"=>"false",
 				  "tconfirm"=>"",
 				  "target"=>"",
-				  "visibility"=>POPUP_ACTIVE,
+				  "visibility"=>POPUP_INACTIVE,
+				  "submenu"=>"security",
+				  "barmenu"=>"false"),
+	       "privateprof"=>array( "descr"=>_("Set private"),
+				  "url"=>"$surl&app=FREEDOM&action=MODPROF&docid=$docid&profid=private",
+				  "confirm"=>"false",
+				  "control"=>"false",
+				  "tconfirm"=>"",
+				  "target"=>"_self",
+				  "visibility"=>POPUP_INVISIBLE,
+				  "submenu"=>"security",
+				  "barmenu"=>"false"),
+	       "publicprof"=>array( "descr"=>_("Set public"),
+				  "url"=>"$surl&app=FREEDOM&action=MODPROF&docid=$docid&profid=0",
+				  "confirm"=>"false",
+				  "control"=>"false",
+				  "tconfirm"=>"",
+				  "target"=>"_self",
+				  "visibility"=>POPUP_INVISIBLE,
 				  "submenu"=>"security",
 				  "barmenu"=>"false"),
 	       "histo"=>array( "descr"=>_("History"),
@@ -474,6 +492,10 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
   if ($doc->Control("modifyacl") == "") {
     $tlink["editprof"]["visibility"]=POPUP_CTRLACTIVE;
+    if ($doc->doctype!='P') {
+      if ($doc->profid != 0) $tlink["publicprof"]["visibility"]=POPUP_CTRLACTIVE;
+      if ($doc->profid == 0) $tlink["privateprof"]["visibility"]=POPUP_CTRLACTIVE;
+    }
   } else {
     $tlink["editprof"]["visibility"]=POPUP_CTRLINACTIVE;
   }
