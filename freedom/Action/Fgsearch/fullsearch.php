@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.1 2007/10/17 04:47:32 marc Exp $
+ * @version $Id: fullsearch.php,v 1.2 2007/10/17 05:52:35 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -44,10 +44,10 @@ function fullsearch(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");  
   if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
 
-  if (($keyword=="")&&($dirid==0)&&($famid==0)) {
-    $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch_empty.xml"),$action);
-    createSearchEngine($action);
-    return;
+  if  (($keyword=="")&&($dirid==0)&&($famid==0)) {
+//     $action->lay = new Layout(getLayoutFile("FGSEARCH","fullsearch_empty.xml"),$action);
+//     createSearchEngine($action);
+//     return;
   } else {    
     $sqlfilters=array();
     if ($keyword) {
