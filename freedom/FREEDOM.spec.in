@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.130 2007/10/17 08:22:38 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.131 2007/10/17 16:35:38 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -194,6 +194,8 @@ install -d $RPM_BUILD_ROOT/var/freedom
 %{destdir}/%{name}/*
 %dir %{destdir}/ONEFAM
 %{destdir}/ONEFAM/*
+%dir %{destdir}/FGSEARCH
+%{destdir}/FGSEARCH/*
 
 %files USERCARD
 %defattr(-,%{httpuser},%{httpuser})
