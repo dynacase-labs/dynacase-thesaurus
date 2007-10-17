@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.30 2007/10/17 12:01:32 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.31 2007/10/17 15:45:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -512,7 +512,6 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
     $tlink["editdoc"]["visibility"]=POPUP_ACTIVE; 
     $tlink["chgicon"]["visibility"]=POPUP_CTRLACTIVE;   
   }  else {
-    $tlink["editprof"]["visibility"]=POPUP_CTRLINACTIVE;
     $tlink["editdoc"]["visibility"]=POPUP_INACTIVE;      
   }
 
