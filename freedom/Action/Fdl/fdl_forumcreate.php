@@ -4,7 +4,7 @@
  * FDL Forum creation
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumcreate.php,v 1.1 2007/10/16 04:52:09 marc Exp $
+ * @version $Id: fdl_forumcreate.php,v 1.2 2007/10/17 10:15:39 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -34,6 +34,7 @@ function fdl_forumcreate(&$action) {
   $forum->setValue("forum_docid", $doc->id);
   $forum->setProfil($doc->profid);
   $forum->Add();
+  $forum->postModify();
 
   $doc->forumid = $forum->id;
   $doc->modify(true, array("forumid"));
