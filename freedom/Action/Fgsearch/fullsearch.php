@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.2 2007/10/17 05:52:35 marc Exp $
+ * @version $Id: fullsearch.php,v 1.3 2007/10/17 14:27:28 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -37,20 +37,32 @@ function fullsearch(&$action) {
   $keyword=GetHttpVars("_se_key",GetHttpVars("keyword")); // keyword to search
   $target=GetHttpVars("target"); // target window when click on document
   $start=GetHttpVars("start",0); // page number
-  $dirid=GetHttpVars("dirid",0); // special search
+  $dirid = GetHttpVars("dirid",0); // special search
+
+  $dd = GetParam("FGSEARCH_INITPAGE","Y");
+
+  $initpage=(GetParam("FGSEARCH_INITPAGE", "Y")=="Y" ? true: false); // special search
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");  
   if (! is_numeric($famid)) $famid=getFamIdFromName($dbaccess,$famid);
 
-  if  (($keyword=="")&&($dirid==0)&&($famid==0)) {
-//     $action->lay = new Layout(getLayoutFile("FGSEARCH","fullsearch_empty.xml"),$action);
-//     createSearchEngine($action);
-//     return;
-  } else {    
+  createSearchEngine($action);
+    
+  if (($keyword=="")&&($dirid==0)&&($famid==0)) {
+    if ($initpage) {
+      $action->lay = new Layout(getLayoutFile("FGSEARCH","fullsearch_empty.xml"),$action);
+      return;
+    }
+    
+  }
+
+  if ($keyword!="")  {
+    
     $sqlfilters=array();
-    if ($keyword) {
+
+    if ($keyword!="") {
       if ($keyword[0]=='~') {
 	$sqlfilters[]="svalues ~* '".pg_escape_string(substr($keyword,1))."'";
       } else {
@@ -58,7 +70,6 @@ function fullsearch(&$action) {
       }
     } else {
       $sdoc=new_doc($dbaccess,$dirid);
-      
       $tkeys=$sdoc->getTValue("se_keys");
       foreach ($tkeys as $k=>$v) if (!$v) unset($tkeys[$k]);
       $keys=implode('|',$tkeys);
@@ -86,31 +97,14 @@ function fullsearch(&$action) {
       $action->lay->setBlockData("PAGES",$tpages);
     }
 
-  }
-
-    $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");
-
-
-    foreach ($tclassdoc as $k=>$cdoc) {
-      $selectclass[$k]["idcdoc"]=$cdoc["initid"];
-      $selectclass[$k]["classname"]=$cdoc["title"];
-      $selectclass[$k]["famselect"]=($cdoc["initid"]==$famid)?"selected":"";
-    }  
-    $action->lay->SetBlockData("SELECTCLASS", $selectclass);
-
     $action->lay->set("notfirst",($start!=0));
     $action->lay->set("notthenend",count($tdocs) >= $slice);
-    $action->lay->set("famid",$famid);
     $action->lay->set("start",$start);
     $action->lay->set("cpage",$start/$slice+1);
     $action->lay->set("nstart",$start+$slice);
     $action->lay->set("pstart",$start-$slice);
-    $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
-    $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
-    $action->lay->set("key",str_replace("\"","&quot;",$keyword));
     $action->lay->setBlockData("DOCS",$tdocs);
-
-    $action->lay->set("viewform",true);
+    
     $action->lay->set("dirid",$dirid);
     if ($dirid != 0) {
       $sdoc=new_doc($dbaccess,$dirid);
@@ -120,7 +114,27 @@ function fullsearch(&$action) {
 	$action->lay->set("dirid",$sdoc->id);        
       }
     }
+  } else {
+    $action->lay->set("cpage","0");
+    $action->lay->set("notfirst",false);
+    $action->lay->set("notthenend",false);
   }
+  $action->lay->set("famid",$famid);
+  $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
+  $action->lay->set("viewform",true);
+  $action->lay->set("key",str_replace("\"","&quot;",$keyword));
+  $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
+  
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
+  foreach ($tclassdoc as $k=>$cdoc) {
+    $selectclass[$k]["idcdoc"]=$cdoc["initid"];
+    $selectclass[$k]["classname"]=$cdoc["title"];
+    $selectclass[$k]["famselect"]=($cdoc["initid"]==$famid)?"selected":"";
+  }  
+  $action->lay->SetBlockData("SELECTCLASS", $selectclass);
+    
+     
+}
 
 /**
  * return file text values from  _txt column
@@ -263,15 +277,16 @@ function createSearchEngine(&$action) {
     if (! file_exists($out)) {
       $src="$dirname/moz-searchplugin/$v";
       if (file_exists($src)) {
-	$content=file_get_contents($src);
-	$destsrc= str_replace(array("localhost/freedom","SearchTitle","orifile"),
-			      array($newpath,utf8_encode($action->getParam("CORE_CLIENT")),$host."-".$v),
-			      $content);
-	file_put_contents($out,$destsrc);
+        $content=file_get_contents($src);
+        $destsrc= str_replace(array("localhost/freedom","SearchTitle","orifile"),
+                              array($newpath,utf8_encode($action->getParam("CORE_CLIENT")),$host."-".$v),
+                              $content);
+        file_put_contents($out,$destsrc);
       }
     }
     
   }
-  
 }
+
+
 ?>

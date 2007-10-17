@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FGSEARCH.app,v 1.1 2007/10/17 04:47:32 marc Exp $
+// $Id: FGSEARCH.app,v 1.2 2007/10/17 14:27:28 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fgsearch/FGSEARCH.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -42,6 +42,11 @@ $action_desc = array (
   )  ,
   array( 
    "name"		=>"FULLDSEARCH",
+   "short_name"		=>N_("freedom  global search"),
+   "acl"		=>"FREEDOM_READ"
+  ) ,
+  array( 
+   "name"		=>"FULLEDITDSEARCH",
    "short_name"		=>N_("freedom detailled global search"),
    "acl"		=>"FREEDOM_READ"
   ) ,

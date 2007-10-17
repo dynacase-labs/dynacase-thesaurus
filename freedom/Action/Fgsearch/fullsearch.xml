@@ -1,7 +1,22 @@
 [ZONE FDL:HTMLHEAD?title=[searchtitle]]
 <style>
 SELECT.little { font-size:90%; }
+div.logo { float:left; width:20%; text-align:center; }
+img.logomini { height:50px; padding-left:30px; }
+div.zsearch { margin-top:20px;}
+div.searchp { float:left; padding:0px 5px 0px 5px; text-align:right; }
+div.searchc { float:left; padding:0px 5px 0px 5px; text-align:left; }
+div.searchm { float:left; padding:0px 15px 0px 15px; text-align:left; }
 
+.bresume { 
+  background-color:[COLOR_B8]; 
+  border-color:[COLOR_B4]; 
+  border-style:solid;
+  border-width:1px 0px 1px 0px;width:50%; 
+  padding:0px 5px 0px 5px;
+}
+.left { text-align:left; }
+.right { text-align:right; }
 </style>
 [ZONE FGSEARCH:FGSEARCH_ADDSEARCH]
 <form  id="fedit"  
@@ -17,22 +32,37 @@ SELECT.little { font-size:90%; }
 <div style="text-align:right">
 <a style="position:absolute;right:3px;top:3px;"  onclick="addFreedomEngine()" type="text/smartbookmark" rel="[CORE_STANDURL]&app=FGSEARH&action=FULLSEARCH&keyword=%s" title="[TEXT:Add search engine to your browser]">[TEXT:Add search engine]</a>
 </div>
-<table cellspacing="0" cellpadding="0" width="100%"><tr><td>
 
-<img align="middle" needresize="1" height="60px" style="padding-left:30px" src="[IMG:logofreedom.png]"> 
-</td><td><input name="keyword" type="text" size="30" value="[key]"><input type="submit" value="[TEXT:ToSearch]"><br><span style="padding-right:30px;">&nbsp;</span>
-<select  class="little"   name="famid" >  
-           <option VALUE="0" >[TEXT:any familly]</option> 
-         [BLOCK SELECTCLASS]
-           <option [famselect] VALUE="[idcdoc]" >[classname]</option>   
-         [ENDBLOCK SELECTCLASS]
-    </select> </td>
-<td align="left">
+<div id="searchzone" class="zsearch">
+
+<div class="logo"><img class="logomini" align="middle" needresize="1"  src="[IMG:logofreedom.png]"></div>
+<div class="searchp">
+<div><input name="keyword" type="text" size="30" value="[key]"></div>
+<div><select  class="little"   name="famid" ><option VALUE="0" >[TEXT:any familly]</option>
+        [BLOCK SELECTCLASS]<option [famselect] VALUE="[idcdoc]" >[classname]</option>   
+        [ENDBLOCK SELECTCLASS]
+      </select></div>
+</div>
+
+<div class="searchc">
+  <input type="submit" value="[TEXT:ToSearch]">
+</div>
+<div class="searchm">
 <a href="[CORE_STANDURL]app=FGSEARCH&action=FULLEDITDSEARCH&famid=[famid]">[TEXT:Advanced search]</a>
-</td>
-</tr></table>
+</div>
+
+</div>
+
+<div style="clear:both"></div>
 [ENDIF viewform]
-<table cellspacing="0" cellpadding="0" width="100%"><tr><td style="text-align:left;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[CORE_CLIENT]</td><td style="text-align:right;background-color:[COLOR_B8];border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">[resulttext]</td></tr></table>
+
+<table cellspacing="0" cellpadding="0"  cellborder="0" style="width:100%; margin:10px 0px 5px 0px; padding:0">
+<tr>
+<td class="bresume left">[CORE_CLIENT]</td>
+<td class="bresume right">[resulttext]</td>
+</tr>
+</table>
+
 [BLOCK DOCS]
 <div ><img align="left" needresize="1" src="[iconsrc]" width="48px"> <a target="T[id]" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]">[title]</a> <i>[mdate]</i><br >[htext]</div><br style="clear:both">
 [ENDBLOCK DOCS]
