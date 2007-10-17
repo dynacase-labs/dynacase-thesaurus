@@ -10,7 +10,7 @@
     <div class="content_first" id="fc_X">[ENDIF viewall]
       [BLOCK entry_list][ZONE FDL:FORUM_ENTRY?fid=[fid]&eid=[eid]][ENDBLOCK entry_list]
     [IF viewall]</div>
-    <div class="forum" style="display:none;  border:1px solid [COLOR_C3]; background-color:[COLOR_C8]; text-align:center; margin:5px;  padding:10px;" id="forum_editform">
+    <div class="forum_edit" id="forum_editform">
     <div style="">
        <form style="display:inline">
           <input id="foredit_docid" type="hidden" value="[docid]" />

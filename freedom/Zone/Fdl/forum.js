@@ -17,16 +17,14 @@ var entry_edit = -1;
 var entry_hide = -1;
 var entry_change = false;
 function forum_edit(event, docid, ref, eid, link) {
-  // link = -1 root entry 
-  // eid  = -1 new entry
 
   if (!document.getElementById('forum_editform')) {
     alert('pas de forum_editform');
     return;
   }
 
-  forum_openclose(event, ref, true);
   forum_cancelEdit(event);
+  forum_openclose(event, ref, true);
 
   var text = '';
   if (eid>0 && document.getElementById('ft_'+eid)) {
@@ -41,7 +39,6 @@ function forum_edit(event, docid, ref, eid, link) {
   var f_edit = document.getElementById('forum_editform');
   var mark = document.getElementById('fm_'+ref);
   mark.appendChild(f_edit);
-//   f_edit.style.visibility = 'visible';
   f_edit.style.display = 'block';
   document.getElementById('foredit_text').focus();
 
@@ -78,12 +75,10 @@ function forum_cancelEdit(event) {
     if (ok) {
       forum_saveEdit(event);
       return true;
-    } else {
-      forum_clean(event);
-      return false;
-    }
+    } 
   }
-  return true;
+  forum_clean(event);
+  return false;
 }
 
 function forum_saveEdit(event) {
@@ -106,7 +101,6 @@ function forum_saveEdit(event) {
   var params = '&docid='+docid+'&start='+entry_edit+'&eid='+eid+'&lid='+link+'&text='+escape(text);
 
   var ptag = document.getElementById('f_'+entry_edit).parentNode;
-//   ptag.style.border = '1px solid red';
   requestUrlSend(document.getElementById('f_'+entry_edit).parentNode, url+params);
   disableSynchro();
   
@@ -120,7 +114,6 @@ function forum_delete(event, docid, eid, prev) {
 
   var corestandurl=window.location.pathname+'?sole=Y&';
   var url = corestandurl+'app=FDL&action=FDL_FORUMDELENTRY&docid='+docid+'&eid='+eid+'&start='+prev;
-//   alert('doc='+docid+' eid='+eid+' prev='+prev+' URL='+url);
 
   enableSynchro();
   requestUrlSend(document.getElementById('f_'+cprev),url);
@@ -137,7 +130,7 @@ function forum_clean(event) {
   entry_hide = -1;
   entry_edit = -1;
   entry_change = false;
-  var f_edit = document.getElementById('f_editform');
+  var f_edit = document.getElementById('forum_editform');
   if (f_edit) f_edit.style.display = 'none';
   return;
 }
@@ -147,9 +140,8 @@ var lob = false;
 function forum_over(event, eid) {
   var ob = document.getElementById('f_'+eid);
   if (!ob) return;
-  if (lob) ob.style.border = '1px solid [COLOR_A3]';
-  ob.style.border = '1px solid [COLOR_C1]';
-  ob.style.backgroundColor = '[COLOR_C9]';
+  if (lob) lob.className = 'forum';
+  ob.className = 'forum forum_over';
   lob = ob;
   stopPropagation(event);
 }
@@ -157,8 +149,7 @@ function forum_over(event, eid) {
 function forum_out(event, eid) {
   var ob = document.getElementById('f_'+eid);
   if (!ob) return;
-  ob.style.border = '1px solid [COLOR_A3]';
-  ob.style.backgroundColor = '[COLOR_WHITE]';
+  ob.className = 'forum';
   lob = false;
   stopPropagation(event);
 }
