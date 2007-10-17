@@ -12,8 +12,7 @@
       [IF hasresponse]&nbsp;<span id="response">[[rcount] [TEXT:response for this forum entry]]</span>[ENDIF hasresponse]
     </legend>
     <div class="content" id="fc_[eid]">
-      <div id="ft_[eid]" [IF opened]ondblclick="forum_edit(event,[docid], [eid], -1, [eid])"[ENDIF opened] class="text">[content]
-      </div>
+      <div id="ft_[eid]" [IF opened]ondblclick="forum_edit(event,[docid], [eid], -1, [eid])"[ENDIF opened] class="text">[content]</div>
       <div style="border:0px" id="fm_[eid]">
         [BLOCK forum_answer][ZONE FDL:FORUM_ENTRY?fid=[fid]&eid=[eid]][ENDBLOCK forum_answer]
       </div>
