@@ -1,12 +1,12 @@
 # ============================================
-# $Id: Makefile,v 1.8 2004/08/12 06:59:45 eric Exp $
+# $Id: Makefile,v 1.9 2007/10/17 04:47:32 marc Exp $
 # ============================================
 
 
 export targetdir
 export utildir
 
-SUBDIR= Freedom Fdl Onefam Usercard  Generic  Fusers
+SUBDIR= Freedom Fdl Onefam Usercard  Generic  Fusers Fgsearch
 
 
 include $(utildir)/PubRule
