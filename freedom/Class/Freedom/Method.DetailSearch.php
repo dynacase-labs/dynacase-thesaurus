@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.54 2007/10/11 15:49:31 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.55 2007/10/19 15:21:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -21,7 +21,7 @@ var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("n
 
 var $top=array(  
 	       "~*"=>array("label"=>"include",
-			   "type"=>array("text","longtext","htmltext")),
+			   "type"=>array("text","longtext","htmltext","ifile")),
 	       "@@"=>array("label"=>"content file word",
 			   "type"=>array("file")),
 	       "~@"=>array("label"=>"content file expression",
