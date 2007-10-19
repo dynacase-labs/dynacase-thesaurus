@@ -68,11 +68,24 @@ function SendSimpleSearch(event) {
        var did=document.getElementById('csid');
        var fldid=0;
        var key=document.getElementById('searchkey').value;
+       var mode=document.getElementById('searchmode').value;
        if (did) fldid=did.options[did.selectedIndex].value;
        if ((fldid>0) && (!key)) document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_LIST&famid=[famid]&catg='+fldid+'&dirid='+fldid+'[pds]';
-       else if (key)  document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key;
+       else if (key)  document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH&famid=[famid]&dirid=[dirid]&catg='+fldid+'[pds]&keyword='+key+'&mode='+mode;
        else document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&tab=0&famid=[famid]';
      
+}
+function changeMode(o) {
+  var mode=document.getElementById('searchmode').value;
+  if (mode=='FULL') {
+    document.getElementById('searchmode').value='REGEXP';
+    o.value='~';
+    o.title="[TEXT:Search containing characters]";
+  } else {
+    document.getElementById('searchmode').value='FULL';
+    o.title="[TEXT:Search Words]";
+    o.value='*';
+  }
 }
 function focusInput(event) {
   var i=document.getElementById('searchkey');
@@ -91,7 +104,15 @@ addEvent(window,"load",focusInput);
 <br><br>
 <div onmouseup="closeAllMenu();">
 
-<input   onMouseUp="return true" onKeyPress="KeySendSimpleSearch(event)" type="text"  value="[tkey]" id="searchkey">
+
+
+
+<table class="transparent" cellspacing="0" width="100%"><tr >
+<td align="left" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[previcon]</a></td>
+
+<td><input id="searchmode" name="mode" type="hidden" value="REGEXP">
+<input id="searchbutton" class="searchbutton" title="[TEXT:Search containing characters]" type="button" value="~" onclick="changeMode(this)">
+[IF FULLMODE]<script>changeMode(document.getElementById('searchbutton'))</script>[ENDIF FULLMODE]<input   onMouseUp="return true" onKeyPress="KeySendSimpleSearch(event)" type="text"  value="[tkey]" id="searchkey">
 [IF ONESEARCH]
 <select id="csid" onchange="focusInput(event)" >
    <option value="0">-</option>
@@ -99,12 +120,8 @@ addEvent(window,"load",focusInput);
 [BLOCK USERSEARCH]<option [selected] value="[id]">[title]</option>[ENDBLOCK USERSEARCH]
 </select>
 [ENDIF ONESEARCH]
-<input title="[TEXT:Send search]" onclick="SendSimpleSearch(event)" type="submit" value="[TEXT:Go]">
-
-
-<table class="transparent" cellspacing="0" width="100%"><tr >
-<td align="left" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[prev]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[previcon]</a></td>
-<td align="center"><i><b>[fldtitle]</b></i></td>
+<input title="[TEXT:Send search]" onclick="SendSimpleSearch(event)" type="submit" value="[TEXT:Go]"></td>
+<td align="left"><i><b>[fldtitle]</b></i></td>
 <td align="right" width="30px"><a href="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_LIST&tab=[tab]&page=[next]&dirid=[dirid]&catg=[catg]&onglet=[onglet]&famid=[famid][pds]">[nexticon]</a></td>
 </tr></table>
 
