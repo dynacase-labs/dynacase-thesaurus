@@ -3,7 +3,7 @@
  * Folio List Containt
  *
  * @author Anakeen 2003
- * @version $Id: foliolist.php,v 1.15 2007/10/03 13:07:59 eric Exp $
+ * @version $Id: foliolist.php,v 1.16 2007/10/19 15:20:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -28,6 +28,7 @@ function foliolist(&$action) {
   $folioid=GetHttpVars("folioid"); // portfolio id
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $refreshtab=(GetHttpVars("refreshtab","N")=="Y"); // need refresh tabs
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
 
   $filter=array();
   if (($dirid==$folioid) || ($folioid==0))  {
