@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FGSEARCH_init.php.in,v 1.2 2007/10/17 14:27:28 marc Exp $
+// $Id: FGSEARCH_init.php.in,v 1.3 2007/10/19 04:08:05 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fgsearch/FGSEARCH_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -29,7 +29,7 @@ $app_const=
 array(
       "VERSION"	   =>"@VERSION@-@RELEASE@",
 
-      "FGSEARCH_INITPAGE"  => array(  "val"=>"Y", "descr"=>N_("fgsearch display init page"), "user"=>"Y"),
+      "FGSEARCH_INITPAGE"  => array( "kind"=>"enum(Y|N)", "val"=>"Y", "descr"=>N_("fgsearch display init page"), "user"=>"Y"),
       );
 
 
