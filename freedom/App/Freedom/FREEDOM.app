@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FREEDOM.app,v 1.49 2007/10/15 17:46:54 marc Exp $
+// $Id: FREEDOM.app,v 1.50 2007/10/22 07:30:17 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Freedom/FREEDOM.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -366,23 +366,8 @@ array(
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
-   "name"		=>"FULLDSEARCH",
-   "short_name"		=>N_("detailled full text search document"),
-   "acl"		=>"FREEDOM_READ"
-  ) ,
-  array( 
-   "name"		=>"FULLEDITDSEARCH",
-   "short_name"		=>N_("detailled full text interface"),
-   "acl"		=>"FREEDOM_READ"
-  ) ,
-  array( 
    "name"		=>"EDIT_SEARCH",
    "short_name"		=>N_("search document criteria"),
-   "acl"		=>"FREEDOM_READ"
-  ) ,
-  array( 
-   "name"		=>"EDIT_SEARCH_FULLTEXT",
-   "short_name"		=>N_("full text search document criteria"),
    "acl"		=>"FREEDOM_READ"
   ) ,
   array( 
