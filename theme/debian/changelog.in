@@ -1,4 +1,4 @@
-freedom-common (@VERSION@-@RELEASE@) unstable; urgency=low
+freedom-theme (@VERSION@-@RELEASE@) unstable; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
