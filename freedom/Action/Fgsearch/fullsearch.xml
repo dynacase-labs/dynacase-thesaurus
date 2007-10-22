@@ -1,8 +1,8 @@
 [ZONE FDL:HTMLHEAD?title=[searchtitle]]
 <style>
 SELECT.little { font-size:90%; }
-div.logo { float:left; width:20%; text-align:center; }
-img.logomini { height:50px; padding-left:30px; }
+div.logo { margin-top:-20px;  float:left; width:20%; z-index:100; text-align:center; }
+img.logomini { height:70px; padding-left:20px; }
 div.zsearch { margin-top:20px;}
 div.searchp { float:left; padding:0px 5px 0px 5px; text-align:right; }
 div.searchc { float:left; padding:0px 5px 0px 5px; text-align:left; }
@@ -30,12 +30,12 @@ div.searchm { float:left; padding:0px 15px 0px 15px; text-align:left; }
 
 [IF viewform]
 <div style="text-align:right">
-<a style="position:absolute;right:3px;top:3px;"  onclick="addFreedomEngine()" type="text/smartbookmark" rel="[CORE_STANDURL]&app=FGSEARH&action=FULLSEARCH&keyword=%s" title="[TEXT:Add search engine to your browser]">[TEXT:Add search engine]</a>
+<a style="font-size:80%; "  onclick="addFreedomEngine()" type="text/smartbookmark" rel="[CORE_STANDURL]&app=FGSEARH&action=FULLSEARCH&keyword=%s" title="[TEXT:Add search engine to your browser]">[TEXT:Add search engine]</a>
 </div>
 
 <div id="searchzone" class="zsearch">
 
-<div class="logo"><img class="logomini" align="middle" needresize="1"  src="[IMG:logofreedom.png]"></div>
+<div class="logo"><img class="logomini" align="middle" needresize="1"  src="[IMG:fgsearch.png]"></div>
 <div class="searchp">
 <div><input name="keyword" type="text" size="30" value="[key]"></div>
 <div><select  class="little"   name="famid" ><option VALUE="0" >[TEXT:any familly]</option>

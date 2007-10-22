@@ -11,7 +11,7 @@
    queryCharset="iso8859-1"
 >
 
-<input type="hidden" name="app" value="FREEDOM" >
+<input type="hidden" name="app" value="FGSEARCH" >
 <input type="hidden" name="action" value="FULLSEARCH" >
 <input type="hidden" name="sole" value="Y" >
 <input type="text" name="keyword" user>

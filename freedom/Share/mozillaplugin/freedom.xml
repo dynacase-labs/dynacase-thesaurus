@@ -6,12 +6,12 @@
 <Url type="text/html" method="GET" template="http://localhost/freedom/">
   <Param name="keyword" value="{searchTerms}"/>
   <Param name="latest" value="true"/>
-  <Param name="app" value="FREEDOM"/>
+  <Param name="app" value="FGSEARCH"/>
   <Param name="action" value="FULLSEARCH"/>
   <Param name="sole" value="Y"/>
   <Param name="fromdir" value="false"/>
   <Param name="sensitive" value="false"/>
   <Param name="viewone" value=""/>
 </Url>
-<SearchForm>http://localhost/freedom/?sole=Y&amp;app=FREEDOM&amp;action=FULLSEARCH</SearchForm>
+<SearchForm>http://localhost/freedom/?sole=Y&amp;app=FGSEARCH&amp;action=FULLSEARCH</SearchForm>
 </SearchPlugin>
