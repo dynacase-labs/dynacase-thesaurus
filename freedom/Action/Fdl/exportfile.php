@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.16 2007/09/21 16:21:20 eric Exp $
+ * @version $Id: exportfile.php,v 1.17 2007/10/23 10:06:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -18,9 +18,7 @@ include_once("FDL/Class.DocAttr.php");
 include_once("VAULT/Class.VaultFile.php");
 
 // --------------------------------------------------------------------
-function exportfile(&$action) 
-// --------------------------------------------------------------------
-{
+function exportfile(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("docid",0);
@@ -31,12 +29,21 @@ function exportfile(&$action)
   $imgwidth = GetHttpVars("width");
   $inline = (GetHttpVars("inline")=="yes");
   $cache = (GetHttpVars("cache","yes")=="yes");
+  $latest = GetHttpVars("latest");
 
   $isControled=false;
 
   if ($vaultid == 0) {
 
     $doc= new_Doc($dbaccess,$docid);
+
+    if (($latest == "Y") && ($doc->locked == -1)) {
+      // get latest revision
+      $docid=$doc->latestId();
+      $doc= new_Doc($dbaccess,$docid);
+    } 
+
+
     // ADD CONTROL ACCESS HERE
     $err = $doc->control("view");
     if ($err != "") $action->exiterror($err);
