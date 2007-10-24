@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.44 2006/08/15 15:37:55 eric Exp $
+ * @version $Id: enum_choice.php,v 1.45 2007/10/24 15:53:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -217,6 +217,7 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     }
   }
 
+  
   $res = call_user_func_array($reg[1], $arg);
 
 

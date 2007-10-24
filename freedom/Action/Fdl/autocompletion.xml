@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<status count="[count]" delay="[delay]" code="[CODE]" warning="[warning]" focus="i[docid][attrid]" >
+<cibles>
+[BLOCK cibles]
+  <cible>[attrid]</cible>[ENDBLOCK cibles]
+</cibles>
+  [BLOCK SELECT]
+<option value="[cindex]" >
+  <title>[choice]</title>
+  <values>[values]</values>
+</option>  [ENDBLOCK SELECT]
+</status>
+
+

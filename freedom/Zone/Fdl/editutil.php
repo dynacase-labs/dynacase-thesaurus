@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.124 2007/10/08 14:58:23 eric Exp $
+ * @version $Id: editutil.php,v 1.125 2007/10/24 15:53:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -72,6 +72,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 
   $oc = "$jsevent onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
 
+  if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
+    if  ($visibility != "S") {
+      if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
+	$autocomplete=" autocomplete=\"off\" onfocus=activeAuto(event,".$docid.",this,'$attridk') ";
+	$oc.=$autocomplete;
+      }
+    }
+  }
   // output change with type
   switch ($attrtype)  {		      
       //----------------------------------------
@@ -456,6 +464,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendEnumChoice(event,".$docid.
 	  ",this,'$attridk','$ctype','$iopt')\">";
+	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"Z\"".
+	  " title=\"".$ititle."\"".
+	  " onclick=\"sendAutoChoice(event,".$docid.
+	  ",this,'$attridk')\">";
 
 	// clear button
 	
@@ -961,5 +973,7 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=ENUMCHOICEJS");  
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/iframe.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=VIEWDOCJS");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/autocompletion.js");
+
 }
 ?>

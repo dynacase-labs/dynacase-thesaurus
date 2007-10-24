@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.49 2007/10/16 14:47:42 marc Exp $
+// $Id: FDL.app,v 1.50 2007/10/24 15:53:38 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -63,6 +63,11 @@ $action_desc = array (
   array( 
    "name"		=>"ENUM_CHOICE",
    "short_name"		=>N_("to choose value from set"),
+   "acl"		=>"NORMAL",
+  ) ,
+  array( 
+   "name"		=>"AUTOCOMPLETION",
+   "short_name"		=>N_("to choose value from input help"),
    "acl"		=>"NORMAL",
   ) ,
   array( 
