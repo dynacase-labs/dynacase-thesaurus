@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.45 2007/09/25 14:35:33 eric Exp $
+ * @version $Id: FDL_external.php,v 1.46 2007/10/25 14:36:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -113,7 +113,7 @@ function lfamilies($dbaccess, $name='',$subfam="") {
   
   $tr = array();
 
-
+  $name=strtolower($name);
   while(list($k,$v) = each($tinter)) {
             
     if (($name == "") || (eregi("$name", $v["title"] , $reg))) {

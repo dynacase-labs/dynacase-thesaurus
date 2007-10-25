@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.9 2006/08/15 13:56:10 eric Exp $
+# $Id: Makefile,v 1.10 2007/10/25 14:36:08 eric Exp $
 # ============================================
 
 # get the new appname (basename in uppercase)
@@ -30,7 +30,8 @@ $(pubdir)/FDLGEN :
 	mkdir -p $@
 
 $(pubdir)/EXTERNALS/fdl.php: $(pubdir)/EXTERNALS $(pubdir)/FDLGEN
-	cp $(appname)_external.php $(pubdir)/EXTERNALS/fdl.php
+	cd $(pubdir)/EXTERNALS; \
+	ln -s ../FDL/$(appname)_external.php fdl.php
 
 
 publish: $(pubdir)/$(appname)/$(appname)_init.sh $(pubdir)/$(appname)/fdl.ods $(pubdir)/$(appname)/freeaction.ods $(pubdir)/EXTERNALS/fdl.php 
