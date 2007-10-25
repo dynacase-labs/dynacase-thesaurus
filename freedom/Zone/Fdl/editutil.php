@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.125 2007/10/24 15:53:38 eric Exp $
+ * @version $Id: editutil.php,v 1.126 2007/10/25 14:35:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,7 +75,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
     if  ($visibility != "S") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
-	$autocomplete=" autocomplete=\"off\" onfocus=activeAuto(event,".$docid.",this,'$attridk') ";
+	$autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this)\" ";
 	$oc.=$autocomplete;
       }
     }
@@ -460,11 +460,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  // case of specific interface
 	  $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.($oattr->labelText);
 	} else $iopt="";
-	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
+	/*$input.="<input id=\"ic2_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendEnumChoice(event,".$docid.
-	  ",this,'$attridk','$ctype','$iopt')\">";
-	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"Z\"".
+	  ",this,'$attridk','$ctype','$iopt')\">";*/
+	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendAutoChoice(event,".$docid.
 	  ",this,'$attridk')\">";

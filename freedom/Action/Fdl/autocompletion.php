@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.1 2007/10/24 15:53:38 eric Exp $
+ * @version $Id: autocompletion.php,v 1.2 2007/10/25 14:35:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -86,7 +86,7 @@ function autocompletion(&$action) {
       }
     }
     $action->lay->set("ititle",$ititle);
-
+    Utf8_decode_POST(); // because deafult is iso8859-1
     $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 
     if (! is_array($res)) {
@@ -121,6 +121,19 @@ function autocompletion(&$action) {
   $action->lay->Set("warning", $err);
 }
 
+function Utf8_decode_POST() {
 
+  global $_POST,$ZONE_ARGS;
+
+
+  foreach($_POST as $k=>$v) {
+    if (is_array($v)) {
+      foreach ($v as $kv=>$vv) $ZONE_ARGS[$k][$kv]=utf8_decode($vv);
+    } else {
+      $ZONE_ARGS[$k]=utf8_decode($v);
+    }
+  }
+ 
+}
 
 ?>

@@ -1,60 +1,48 @@
 
 var BOUNDARY='--------Eric TYYOUPLABOOM7893';
-var _
-function sendAutoChoice(event,docid,  choiceButton ,attrid) {
-  var CORE_STANDURL='?sole=Y';
 
-  var inp  = choiceButton.previousSibling;
-  var index='';
-  var attrid;
- 
-  var domindex=''; // needed to set values in arrays
-  // search the input button in previous element
- 
-  var inid;
+var _documentForm=null; // le formulaire contenant notre champ texte
+var _inputField=null; // le champ texte lui-même
+var _buttonField=null; // search button
+var _submitButton=null; // le bouton submit de notre formulaire
+var _completeDiv=null; // division to choose values
+var _ciblesListe=null; // attribute cible
+var _forceone=false; // auto set if only one suggestion
+var _autoisinit=false;
 
-  if (enuminprogress) return;
-  enuminprogress=true;  
-  //  inid= choiceButton.id.substr(3);
+var _oldInputFieldValue=""; // valeur précédente du champ texte
+var _currentInputFieldValue=""; // valeur actuelle du champ texte
+var _resultCache=new Object(); // mécanisme de cache des requetes
+
+function sendAutoChoice(event,docid,  choiceButton,attrid ) {
+
+
   inp=document.getElementById(attrid);
 
 
   if ((! inp)||(inp==null)) {
-    alert('[TEXT:enumerate input not found]'+':'+attrid);
+    alert('[TEXT: input not found]'+attrid);
+  } else {    
+    activeAutoInit(event,docid,  inp );    
+    _forceone=true;
+    callSuggestions(inp.value);
   }
-
-
-  
-
-
-  if (inp.name.substr(inp.name.length-2,2) == '[]') {
-    // it is an attribute in array
-    attrid=inp.name.substr(1,inp.name.length-3);
-    index=getRowNumber(choiceButton);
-    domindex = inp.id.substring(attrid.length);    
-  } else {
-    attrid=inp.name.substr(1,inp.name.length-1);;
-  }
-
-  
-  
-    // callSuggestions(inp.value);
-
-
-
-  enuminprogress=false;
 }
-function activeAuto(event,docid,  inp ,attrids) {
+function activeAutoInit(event,docid,  inp ) {
   var CORE_STANDURL='?sole=Y'; 
   var index='';
   var domindex=''; // needed to set values in arrays
+  var iskey=inp.id
   addEvent(document,"keydown",onKeyDownHandler);
   _inputField=inp;
+  _buttonField=document.getElementById('ic_'+inp.id);
   _documentForm=inp.form;
   _inputField.autocomplete="off";
   _inputField.onkeyup=onKeyUpHandler;
+  _inputField.onblur=onBlurHandler;
   _currentInputFieldValue=_inputField.value;
   _oldInputFieldValue=_currentInputFieldValue;
+  _resultCache=new Object(); // reinit cache
   cacheResults("",new Array())
   creeAutocompletionDiv();
 
@@ -68,9 +56,13 @@ function activeAuto(event,docid,  inp ,attrids) {
   }
   _adresseRecherche = CORE_STANDURL+'&app=FDL&action=AUTOCOMPLETION&docid='+docid+'&attrid='+attrid+'&index='+index+'&domindex='+domindex;
   
- setTimeout("mainLoop()",200)
 }
 
+function activeAuto(event,docid,  inp ) {
+  activeAutoInit(event,docid,  inp );
+  if (!_autoisinit) setTimeout("mainLoop()",200);
+  _autoisinit=true;
+}
 
 function addPostValue(post,thename,thevalue) {
   var bs = new String("\r\n--" + BOUNDARY + "\r\n");
@@ -81,7 +73,24 @@ function addPostValue(post,thename,thevalue) {
   return post+bs;
 }
 
+function completeChoiceAuto(index) {
+  var allvalues = _xmlHttp.responseXML.getElementsByTagName('values');
+  
+  var values=allvalues[index].getElementsByTagName('val');
+  
+  var tval = new Array();
+  for (var i=0; i < values.length; i++) {
+    if (values[i].firstChild)    tval.push(values[i].firstChild.data);
+    else tval.push('');
+  }
 
+  var tvals = new Array();
+  tvals.push(tval);
+  completechoice(0,_ciblesListe,tvals,window);
+  hideCompleteDiv();
+  _currentInputFieldValue=_inputField.value;
+  _oldInputFieldValue=_currentInputFieldValue;
+}
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~ ORiginal Code ~~~~~~~~
@@ -108,45 +117,22 @@ function getXMLHTTP(){
   return xhr;
 }
 
-var _documentForm=null; // le formulaire contenant notre champ texte
-var _inputField=null; // le champ texte lui-même
-var _submitButton=null; // le bouton submit de notre formulaire
-
-function initAutoComplete(form,field,submit){
-  _documentForm=form;
-  _inputField=field;
-  _submitButton=submit;
-  _inputField.autocomplete="off";
-  creeAutocompletionDiv();
-  _currentInputFieldValue=_inputField.value;
-  _oldInputFieldValue=_currentInputFieldValue;
-  cacheResults("",new Array())
-  document.onkeydown=onKeyDownHandler;
-  _inputField.onkeyup=onKeyUpHandler;
-  _inputField.onblur=onBlurHandler;
-  window.onresize=onResizeHandler;
-  // Premier déclenchement de la fonction dans 200 millisecondes
-  setTimeout("mainLoop()",200)
-}
-
-var _oldInputFieldValue=""; // valeur précédente du champ texte
-var _currentInputFieldValue=""; // valeur actuelle du champ texte
-var _resultCache=new Object(); // mécanisme de cache des requetes
 
 // tourne en permanence pour suggerer suite à un changement du champ texte
 function mainLoop(){
   if(_oldInputFieldValue!=_currentInputFieldValue){
     var valeur=escapeURI(_currentInputFieldValue);
-    var suggestions=_resultCache[_currentInputFieldValue];
-    if(suggestions){ // la réponse était encore dans le cache
-      metsEnPlace(valeur,suggestions)
-    }else{
-      callSuggestions(valeur) // appel distant
-    }
+   
+
+    _forceone=false;;
+    
+    callSuggestions(valeur); // appel distant
+    
     _inputField.focus()
   }
   _oldInputFieldValue=_currentInputFieldValue;
-  setTimeout("mainLoop()",200); // la fonction se redéclenchera dans 200 ms
+   setTimeout("mainLoop()",200); // la fonction se redéclenchera dans 200 ms
+ 
   return true
 }
 
@@ -166,10 +152,12 @@ var _adresseRecherche = "options.php" //l'adresse à interroger pour trouver les
 function callSuggestions(valeur){
   var bs='';
   if(_xmlHttp&&_xmlHttp.readyState!=0){
-    _xmlHttp.abort()
+    _xmlHttp.abort();
+    if (_buttonField) _buttonField.style.backgroundColor='blue';
   }
   _xmlHttp=getXMLHTTP();
   if(_xmlHttp){
+    if (_buttonField) _buttonField.style.backgroundColor='yellow';
     //appel à l'url distante
     _xmlHttp.open("POST",_adresseRecherche+'&skey='+valeur,true);
     _xmlHttp.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
@@ -184,8 +172,13 @@ function callSuggestions(valeur){
       if(_xmlHttp.readyState==4&&_xmlHttp.responseXML) {
 	//	alert(_xmlHttp.responseText);
         var liste = traiteXmlSuggestions(_xmlHttp.responseXML);
-        cacheResults(valeur,liste);
-        metsEnPlace(valeur,liste);
+        //cacheResults(valeur,liste);
+	if (liste.length >0) {
+	  metsEnPlace(valeur,liste);
+	  if (_forceone && (liste.length == 1)) {
+	    completeChoiceAuto(0);
+	  }
+	}
 	//showCompleteDiv();
       }
     };
@@ -201,10 +194,24 @@ function cacheResults(debut,suggestions){
 
 // Transformation XML en tableau
 function traiteXmlSuggestions(xmlDoc) {
+    if (_buttonField) _buttonField.style.backgroundColor='';
   var options = xmlDoc.getElementsByTagName('title');
   var optionsListe = new Array();
-  for (var i=0; i < options.length; ++i) {
+  for (var i=0; i < options.length; i++) {
     optionsListe.push(options[i].firstChild.data);
+  }
+  if (options.length==0) {
+    
+    var status = xmlDoc.getElementsByTagName('status');
+    var msg=status[0].getAttribute('warning');
+    displayWarning(msg);
+  } else {
+    var cibles = xmlDoc.getElementsByTagName('cible');
+    _ciblesListe = new Array();
+    
+    for (i=0; i < cibles.length; i++) {
+      _ciblesListe.push(cibles[i].firstChild.data);
+    }
   }
   return optionsListe;
 }
@@ -267,6 +274,12 @@ function setCompleteDivSize(){
 }
 
 function creeAutocompletionDiv() {
+  if (_completeDiv) {
+    //while(_completeDiv.childNodes.length>0) {
+    //  _completeDiv.removeChild(_completeDiv.childNodes[0]);
+    // }
+    return;
+  }
   initStyle();
   _completeDiv=document.createElement("DIV");
   _completeDiv.id="completeDiv";
@@ -299,6 +312,7 @@ function metsEnPlace(valeur, liste){
     nouveauDiv.onmousedown=divOnMouseDown;
     nouveauDiv.onmouseover=divOnMouseOver;
     nouveauDiv.onmouseout=divOnMouseOut;
+    nouveauDiv.setAttribute('index',f);
     setStylePourElement(nouveauDiv,"AutoCompleteDiv");
     var nouveauSpan=document.createElement("SPAN");
     nouveauSpan.innerHTML=liste[f]; // le texte de la suggestion
@@ -311,8 +325,20 @@ function metsEnPlace(valeur, liste){
   } else {
     hideCompleteDiv();
   }
-
 }
+
+function displayWarning(warning){
+  while(_completeDiv.childNodes.length>0) {
+    _completeDiv.removeChild(_completeDiv.childNodes[0]);
+  }
+  var ow=document.createElement("SPAN");
+  ow.className="Error";
+  ow.innerHTML=warning;
+  _completeDiv.appendChild(ow);
+  showCompleteDiv();
+}
+
+
 
 var _lastKeyCode=null;
 
@@ -325,6 +351,10 @@ var onKeyDownHandler=function(event){
   // on enregistre la touche ayant déclenché l'evenement
   if(event) {
     _lastKeyCode=event.keyCode;
+    if (_lastKeyCode==13) {
+      if (_completeDiv && _completeDiv.style.visibility=='visible') stopPropagation(event); // stop submit
+      completeChoiceAuto(_highlightedSuggestionIndex);
+    }
   }
 }
 
@@ -356,6 +386,7 @@ var onKeyUpHandler=function(event){
     // 13 = touche entrée
     if(_eventKeycode==13||_eventKeycode==3){
       var d=_inputField;
+      
       // on mets en place l'ensemble du champ texte en repoussant la selection
       if(_inputField.createTextRange){
         var t=_inputField.createTextRange();
@@ -367,7 +398,7 @@ var onKeyUpHandler=function(event){
     } else {
       // si on a pas pu agrandir le champ non selectionné, on le mets en place violemment.
       if(_inputField.value!=V) {
-        _inputField.value=V
+	// _inputField.value=V
       }
     }
   }
@@ -413,7 +444,7 @@ function PressAction(){
   // possiblités de complétion
   _completeDivDivList=suggestionList;
   // si le champ est vide, on cache les propositions de complétion
-  if(_currentInputFieldValue==""||suggestionLongueur==0){
+  if(suggestionLongueur==0){
     hideCompleteDiv()
   }else{
     showCompleteDiv()
@@ -476,7 +507,7 @@ function PressAction(){
       }
       // si on peut créer des range dans le document
       if(_inputField.createTextRange||_inputField.setSelectionRange) {
-        _inputField.value=z;
+	//_inputField.value=z;
       }
       // on sélectionne la fin de la suggestion
       if(_inputField.createTextRange){
@@ -593,7 +624,7 @@ function highlightNewValue(C){
   _highlightedSuggestionIndex=C;
   _highlightedSuggestionDiv=_completeDivDivList.item(C);
   setStylePourElement(_highlightedSuggestionDiv,"AutoCompleteDivAct");
-  _inputField.value=getSuggestion(_highlightedSuggestionDiv);
+  //_inputField.value=getSuggestion(_highlightedSuggestionDiv);
 }
 
 // Handler de resize de la fenetre
@@ -618,25 +649,27 @@ var onBlurHandler=function(event){
 
 // declenchee quand on clique sur une div contenant une possibilite
 var divOnMouseDown=function(){
-  _inputField.value=getSuggestion(this);
+  //_inputField.value=getSuggestion(this);
   //  _documentForm.submit()
-  alert("choose"+getSuggestion(this));
+      completeChoiceAuto(_highlightedSuggestionIndex);
+  //  alert("choose"+getSuggestion(this));
 };
+
+
 
 // declenchee quand on passe sur une div de possibilite. La div précédente est passee en style normal
 var divOnMouseOver=function(){
   if(_highlightedSuggestionDiv) {
     setStylePourElement(_highlightedSuggestionDiv,"AutoCompleteDiv");
   }
-  setStylePourElement(this,"AutoCompleteDivAct")
+  setStylePourElement(this,"AutoCompleteDivAct");
+  _highlightedSuggestionIndex=this.getAttribute('index');
 };
 
 // declenchee quand la sourie quitte une div de possiblite. La div repasse a l'etat normal
 var divOnMouseOut = function(){
   setStylePourElement(this,"AutoCompleteDiv");
 };
-
-
 
 
 
