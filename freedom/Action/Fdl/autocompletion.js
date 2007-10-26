@@ -1,4 +1,3 @@
-
 var BOUNDARY='--------Eric TYYOUPLABOOM7893';
 
 var _documentForm=null; // le formulaire contenant notre champ texte
@@ -13,7 +12,7 @@ var _autoisinit=false;
 var _oldInputFieldValue=""; // valeur précédente du champ texte
 var _currentInputFieldValue=""; // valeur actuelle du champ texte
 var _resultCache=new Object(); // mécanisme de cache des requetes
-
+var _weareonselection=false; // to prevent unwanted blur event
 function sendAutoChoice(event,docid,  choiceButton,attrid ) {
 
 
@@ -60,7 +59,7 @@ function activeAutoInit(event,docid,  inp ) {
 
 function activeAuto(event,docid,  inp ) {
   activeAutoInit(event,docid,  inp );
-  if (!_autoisinit) setTimeout("mainLoop()",200);
+  if (! _autoisinit) setTimeout("mainLoop()",200);
   _autoisinit=true;
 }
 
@@ -169,7 +168,8 @@ function callSuggestions(valeur){
     }
 
     _xmlHttp.onreadystatechange=function() {
-      if(_xmlHttp.readyState==4&&_xmlHttp.responseXML) {
+      if(_xmlHttp.readyState==4) {
+	if (_xmlHttp.responseXML) {
 	//	alert(_xmlHttp.responseText);
         var liste = traiteXmlSuggestions(_xmlHttp.responseXML);
         //cacheResults(valeur,liste);
@@ -178,9 +178,11 @@ function callSuggestions(valeur){
 	  if (_forceone && (liste.length == 1)) {
 	    completeChoiceAuto(0);
 	  }
+	
 	}
-	//showCompleteDiv();
+	} else if (_xmlHttp.responseText)	alert(_xmlHttp.responseText);
       }
+    
     };
     // envoi de la requete
     _xmlHttp.send(bs);
@@ -200,11 +202,12 @@ function traiteXmlSuggestions(xmlDoc) {
   for (var i=0; i < options.length; i++) {
     optionsListe.push(options[i].firstChild.data);
   }
-  if (options.length==0) {
-    
+  if (options.length==0) {    
     var status = xmlDoc.getElementsByTagName('status');
-    var msg=status[0].getAttribute('warning');
-    displayWarning(msg);
+    if (status.length==1) {
+      var msg=status[0].getAttribute('warning');
+      displayWarning(msg);
+    }
   } else {
     var cibles = xmlDoc.getElementsByTagName('cible');
     _ciblesListe = new Array();
@@ -298,6 +301,8 @@ function creeAutocompletionDiv() {
   _completeDiv.style.visibility="hidden";
   _completeDiv.style.position="absolute";
   _completeDiv.style.backgroundColor="white";
+  _completeDiv.onmouseout=completeDivOnMouseOut;
+  _completeDiv.onmouseover=completeDivOnMouseOver;
   document.body.appendChild(_completeDiv);
   setStylePourElement(_completeDiv,"AutoCompleteDivListeStyle");
 }
@@ -306,6 +311,15 @@ function metsEnPlace(valeur, liste){
   while(_completeDiv.childNodes.length>0) {
     _completeDiv.removeChild(_completeDiv.childNodes[0]);
   }
+  if (liste.length > 10) {
+    _completeDiv.style.height='100px';
+    _completeDiv.style.overflow='auto';
+    _completeDiv.scrollTop='0px';
+  } else {
+    _completeDiv.style.height='auto';
+    _completeDiv.style.overflow='';    
+  }
+
   // mise en place des suggestions
   for(var f=0; f<liste.length; ++f){
     var nouveauDiv=document.createElement("DIV");
@@ -405,6 +419,10 @@ var onKeyUpHandler=function(event){
   // si la touche n'est ni haut, ni bas, on stocke la valeur utilisateur du champ
   if(_eventKeycode!=40&&_eventKeycode!=38) {
     // le champ courant n est pas change si key Up ou key Down
+    if ((V.length>1) && (V.charAt(0)==' ')) {
+      _inputField.value=V.substring(1);
+      V=_inputField.value;
+    }
   	_currentInputFieldValue=V;
   }
   if(handleCursorUpDownEnter(_eventKeycode)&&_eventKeycode!=0) {
@@ -594,7 +612,7 @@ function trimCR(chaine){
 
 // Cache completement les choix de completion
 function hideCompleteDiv(){
-  _completeDiv.style.visibility="hidden"
+    _completeDiv.style.visibility="hidden"
 }
 
 // Rends les choix de completion visibles
@@ -637,7 +655,7 @@ var onResizeHandler=function(event){
 var onBlurHandler=function(event){
   if(!_cursorUpDownPressed){
     // si le blur n'est pas causé par la touche haut/bas
-    hideCompleteDiv();
+    if (! _weareonselection) hideCompleteDiv();
     // Si la dernière touche préssé est tab, on passe au bouton de validation
     if(_lastKeyCode==9){
       //      _submitButton.focus();
@@ -649,10 +667,7 @@ var onBlurHandler=function(event){
 
 // declenchee quand on clique sur une div contenant une possibilite
 var divOnMouseDown=function(){
-  //_inputField.value=getSuggestion(this);
-  //  _documentForm.submit()
-      completeChoiceAuto(_highlightedSuggestionIndex);
-  //  alert("choose"+getSuggestion(this));
+  completeChoiceAuto(_highlightedSuggestionIndex);
 };
 
 
@@ -669,6 +684,15 @@ var divOnMouseOver=function(){
 // declenchee quand la sourie quitte une div de possiblite. La div repasse a l'etat normal
 var divOnMouseOut = function(){
   setStylePourElement(this,"AutoCompleteDiv");
+};
+
+// declenchee quand la sourie quitte une div de possiblite.
+var completeDivOnMouseOut = function(){
+  _weareonselection=false;
+};
+// declenchee quand la sourie entre une div de possiblite
+var completeDivOnMouseOver = function(){
+  _weareonselection=true;
 };
 
 
