@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.126 2007/10/25 14:35:27 eric Exp $
+ * @version $Id: editutil.php,v 1.127 2007/10/26 15:41:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -974,6 +974,7 @@ function editmode(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/iframe.js");
   $action->parent->AddJsRef($action->GetParam("CORE_STANDURL")."app=FDL&action=VIEWDOCJS");
   $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/autocompletion.js");
-
+$action->parent->AddCssRef("FDL:autocompletion.css", true);
+ 
 }
 ?>
