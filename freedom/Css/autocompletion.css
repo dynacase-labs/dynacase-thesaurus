@@ -1,0 +1,23 @@
+.AutoCompleteDivListeStyle {
+  font-size: 13px; font-family: arial,sans-serif; 
+  white-space:nowrap;
+  cursor:default;
+  border: inset 1px [COLOR_BLACK];
+  padding:0px;
+  z-index:1;
+}
+
+.AutoCompleteDiv {
+  display: block; 
+  padding-left: 3px; 
+  padding-right: 3px; 
+  overflow: hidden; 
+  background-color: [COLOR_WHITE];
+}
+
+.AutoCompleteDivAct {
+  background-color: [COLOR_C7]; 
+  padding-left: 3px; 
+  padding-right: 3px; 
+  color: [COLOR_BLACK] ! important; 
+}

@@ -283,24 +283,14 @@ function creeAutocompletionDiv() {
     // }
     return;
   }
-  initStyle();
+  //initStyle();
   _completeDiv=document.createElement("DIV");
   _completeDiv.id="completeDiv";
   var borderLeftRight=1;
   var borderTopBottom=1;
-  _completeDiv.style.borderRight="black "+borderLeftRight+"px solid";
-  _completeDiv.style.borderLeft="black "+borderLeftRight+"px solid";
-  _completeDiv.style.borderTop="black "+borderTopBottom+"px solid";
-  _completeDiv.style.borderBottom="black "+borderTopBottom+"px solid";
-  _completeDiv.style.zIndex="1";
-  _completeDiv.style.paddingRight="0";
-  _completeDiv.style.paddingLeft="0";
-  _completeDiv.style.paddingTop="0";
-  _completeDiv.style.paddingBottom="0";
   setCompleteDivSize();
   _completeDiv.style.visibility="hidden";
   _completeDiv.style.position="absolute";
-  _completeDiv.style.backgroundColor="white";
   _completeDiv.onmouseout=completeDivOnMouseOut;
   _completeDiv.onmouseover=completeDivOnMouseOver;
   document.body.appendChild(_completeDiv);
