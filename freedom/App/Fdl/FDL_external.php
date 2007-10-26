@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.46 2007/10/25 14:36:08 eric Exp $
+ * @version $Id: FDL_external.php,v 1.47 2007/10/26 15:42:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -153,7 +153,7 @@ function lfamilly($dbaccess, $famid, $name="", $dirid=0, $filter=array(),$idid="
   }
 
 
-  $tinter = getChildDoc($dbaccess, $dirid,0,200, $filter,$action->user->id,"TABLE",$famid,false,"title");
+  $tinter = getChildDoc($dbaccess, $dirid,0,100, $filter,$action->user->id,"TABLE",$famid,false,"title");
   
   $tr = array();
 
