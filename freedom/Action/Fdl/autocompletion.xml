@@ -6,7 +6,7 @@
 </cibles>
   [BLOCK SELECT]
 <option value="[cindex]" >
-  <title>[choice]</title>
+  <title><![CDATA[[choice]]]></title>
   <values>[values]</values>
 </option>  [ENDBLOCK SELECT]
 </status>
