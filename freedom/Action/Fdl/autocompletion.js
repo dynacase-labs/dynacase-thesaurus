@@ -13,6 +13,15 @@ var _oldInputFieldValue=""; // valeur précédente du champ texte
 var _currentInputFieldValue=""; // valeur actuelle du champ texte
 var _resultCache=new Object(); // mécanisme de cache des requetes
 var _weareonselection=false; // to prevent unwanted blur event
+var _mainLoopId=false; // id of timeout
+var _mainLoopDelay=200; // ms before lauch search
+
+// for trace debug
+var _autodebug=true;
+var _timebegin;
+var _timeend;
+var _wdate=new Date();
+
 function sendAutoChoice(event,docid,  choiceButton,attrid ) {
 
 
@@ -59,7 +68,7 @@ function activeAutoInit(event,docid,  inp ) {
 
 function activeAuto(event,docid,  inp ) {
   activeAutoInit(event,docid,  inp );
-  if (! _autoisinit) setTimeout("mainLoop()",200);
+  if (! _autoisinit) _mainLoopId=setTimeout("mainLoop()",_mainLoopDelay);
   _autoisinit=true;
 }
 
@@ -119,6 +128,7 @@ function getXMLHTTP(){
 
 // tourne en permanence pour suggerer suite à un changement du champ texte
 function mainLoop(){
+  _mainLoopId=false;
   if(_oldInputFieldValue!=_currentInputFieldValue){
     var valeur=escapeURI(_currentInputFieldValue);
    
@@ -130,7 +140,7 @@ function mainLoop(){
     _inputField.focus()
   }
   _oldInputFieldValue=_currentInputFieldValue;
-   setTimeout("mainLoop()",200); // la fonction se redéclenchera dans 200 ms
+  _mainLoopId=setTimeout("mainLoop()",_mainLoopDelay); // la fonction se redéclenchera dans 200 ms
  
   return true
 }
@@ -149,6 +159,10 @@ var _xmlHttp = null; //l'objet xmlHttpRequest utilisé pour contacter le serveur
 var _adresseRecherche = "options.php" //l'adresse à interroger pour trouver les suggestions
 
 function callSuggestions(valeur){
+  if (_autodebug) {
+    _wdate=new Date();
+    _timebegin=_wdate.getTime();
+  }
   var bs='';
   if(_xmlHttp&&_xmlHttp.readyState!=0){
     _xmlHttp.abort();
@@ -180,6 +194,7 @@ function callSuggestions(valeur){
 	    completeChoiceAuto(0);
 	  }
 	
+	  
 	}
 	} else if (_xmlHttp.responseText)	alert(_xmlHttp.responseText);
       }
@@ -200,6 +215,11 @@ function traiteXmlSuggestions(xmlDoc) {
     if (_buttonField) _buttonField.style.backgroundColor='';
   var options = xmlDoc.getElementsByTagName('title');
   var optionsListe = new Array();
+  if (_autodebug) {
+    _wdate=new Date();
+    _timeend=_wdate.getTime();
+  }
+
   for (var i=0; i < options.length; i++) {
     optionsListe.push(options[i].firstChild.data);
   }
@@ -207,9 +227,12 @@ function traiteXmlSuggestions(xmlDoc) {
     var status = xmlDoc.getElementsByTagName('status');
     if (status.length==1) {
       var msg=status[0].getAttribute('warning');
+
+       if (_autodebug) msg = msg+' ('+( _timeend - _timebegin ).toString()+'ms)';
       displayWarning(msg);
     }
   } else {
+     if (_autodebug) optionsListe[0]=optionsListe[0]+' ('+( _timeend - _timebegin ).toString()+'ms)';
     var cibles = xmlDoc.getElementsByTagName('cible');
     _ciblesListe = new Array();
     
@@ -325,8 +348,8 @@ function metsEnPlace(valeur, liste){
     _completeDiv.appendChild(nouveauDiv)
   }
   PressAction();
-  if(_completeDivRows>0) {
-    _completeDiv.height=16*_completeDivRows+4;
+  if(_completeDivRows>0)  {
+    //if  (_completeDivRows<11)    _completeDiv.style.height=16*_completeDivRows+4;
   } else {
     hideCompleteDiv();
   }
@@ -335,6 +358,8 @@ function metsEnPlace(valeur, liste){
 function displayWarning(warning){
   while(_completeDiv.childNodes.length>0) {
     _completeDiv.removeChild(_completeDiv.childNodes[0]);
+    _completeDiv.style.height='auto';
+    _completeDiv.style.overflow='';  
   }
   var ow=document.createElement("SPAN");
   ow.className="Error";
@@ -345,6 +370,8 @@ function displayWarning(warning){
 function displayMessage(warning){
   while(_completeDiv.childNodes.length>0) {
     _completeDiv.removeChild(_completeDiv.childNodes[0]);
+    _completeDiv.style.height='auto';
+    _completeDiv.style.overflow='';  
   }
   var ow=document.createElement("SPAN");
   ow.className="AutoMessage";
@@ -423,7 +450,11 @@ var onKeyUpHandler=function(event){
       _inputField.value=V.substring(1);
       V=_inputField.value;
     }
-  	_currentInputFieldValue=V;
+    if (_mainLoopId) {
+      clearTimeout(_mainLoopId); // reported
+      _mainLoopId=setTimeout("mainLoop()",_mainLoopDelay);
+    }
+    _currentInputFieldValue=V;
   }
   if(handleCursorUpDownEnter(_eventKeycode)&&_eventKeycode!=0) {
     // si on a préssé une touche autre que haut/bas/enter
@@ -488,8 +519,13 @@ function PressAction(){
     _highlightedSuggestionIndex=indice;
     _highlightedSuggestionDiv=suggestionList.item(_highlightedSuggestionIndex);
   }else{
-    _highlightedSuggestionIndex=-1;
-    _highlightedSuggestionDiv=null
+    if (suggestionLongueur>0) {
+      _highlightedSuggestionIndex=0;
+      _highlightedSuggestionDiv=suggestionList.item(_highlightedSuggestionIndex);
+    } else {
+      _highlightedSuggestionIndex=-1;
+      _highlightedSuggestionDiv=null;
+    }
   }
   var supprSelection=false;
   switch(_eventKeycode){
@@ -505,7 +541,7 @@ function PressAction(){
     case 45:
     case 46:
       // on supprime la suggestion du texte utilisateur
-      supprSelection=true;
+      //supprSelection=true;
       break;
     default:
       break
