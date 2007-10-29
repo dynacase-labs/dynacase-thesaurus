@@ -157,6 +157,7 @@ function callSuggestions(valeur){
   _xmlHttp=getXMLHTTP();
   if(_xmlHttp){
     if (_buttonField) _buttonField.style.backgroundColor='yellow';
+    displayMessage('searching...');
     //appel à l'url distante
     _xmlHttp.open("POST",_adresseRecherche+'&skey='+valeur,true);
     _xmlHttp.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
@@ -341,7 +342,16 @@ function displayWarning(warning){
   _completeDiv.appendChild(ow);
   showCompleteDiv();
 }
-
+function displayMessage(warning){
+  while(_completeDiv.childNodes.length>0) {
+    _completeDiv.removeChild(_completeDiv.childNodes[0]);
+  }
+  var ow=document.createElement("SPAN");
+  ow.className="AutoMessage";
+  ow.innerHTML=warning;
+  _completeDiv.appendChild(ow);
+  showCompleteDiv();
+}
 
 
 var _lastKeyCode=null;

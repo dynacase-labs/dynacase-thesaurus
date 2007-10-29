@@ -3,6 +3,7 @@
   white-space:nowrap;
   cursor:default;
   border: inset 1px [COLOR_BLACK];
+  background-color: [COLOR_WHITE];
   padding:0px;
   z-index:1;
 }
@@ -12,7 +13,6 @@
   padding-left: 3px; 
   padding-right: 3px; 
   overflow: hidden; 
-  background-color: [COLOR_WHITE];
 }
 
 .AutoCompleteDivAct {
@@ -20,4 +20,10 @@
   padding-left: 3px; 
   padding-right: 3px; 
   color: [COLOR_BLACK] ! important; 
+}
+
+.AutoMessage {
+  background-color: [COLOR_WHITE]; 
+  color: [COLOR_A5]; 
+  
 }
