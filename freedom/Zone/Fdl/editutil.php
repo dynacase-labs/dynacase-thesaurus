@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.127 2007/10/26 15:41:40 eric Exp $
+ * @version $Id: editutil.php,v 1.128 2007/10/30 10:36:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,8 +75,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
     if  ($visibility != "S") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
-	$autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this)\" ";
-	$oc.=$autocomplete;
+	if ($oattr->getOption("autosuggest","yes")!="no") {
+	  $autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this)\" ";
+	  $oc.=$autocomplete;
+	}
       }
     }
   }
