@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.427 2007/10/16 13:54:30 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.428 2007/10/30 16:16:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3394,6 +3394,7 @@ final public function PostInsert()  {
 	  $talabel=array();
 	  $tvattr = array();
 	  $lay->set("caption",$oattr->labelText);
+	  $lay->set("aid",$oattr->id);
 
 	  $emptyarray=true;
 	  $nbitem=0;

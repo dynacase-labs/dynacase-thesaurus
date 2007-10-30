@@ -507,3 +507,12 @@ function getElementsByNameTag(o,n,t) {
   return lf;
   
 }
+function unsrolltable(o,f) {
+  if (o) {
+    o.className='';
+    o.style.height='auto';
+  }
+  if (f) {
+    f.style.display='none';
+  }
+}

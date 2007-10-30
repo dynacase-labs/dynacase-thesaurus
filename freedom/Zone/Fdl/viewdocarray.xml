@@ -2,8 +2,8 @@
 <table width="100%" class="tarray">
    <thead><tr >
     [BLOCK TATTR]<th width="[cwidth]">[alabel]</th> [ENDBLOCK TATTR]
-   [IFNOT ISIE][IF tableheight]<th style="width:20px;visibility:hidden"></th>[ENDIF tableheight][ENDIF ISIE]</tr></thead>
- <tbody [IFNOT ISIE][IF tableheight]class="overflow" style="height:[tableheight];"[ENDIF tableheight][ENDIF ISIE] >
+   [IFNOT ISIE][IF tableheight]<th style="width:20px;visibility:visible"><a title="[TEXT:View all rows]" onclick="unsrolltable(document.getElementById('tbody[aid]'),this.parentNode)">+</a></th>[ENDIF tableheight][ENDIF ISIE]</tr></thead>
+ <tbody id="tbody[aid]" [IFNOT ISIE][IF tableheight]class="overflow" style="height:[tableheight];"[ENDIF tableheight][ENDIF ISIE] >
   
      [BLOCK EATTR]<tr >
     [BLOCK [bevalue]]<td style="color:[color];background-color:[bgcolor];text-align:[align]">[evalue]</td>[ENDBLOCK [bevalue]]
