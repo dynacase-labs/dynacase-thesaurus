@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.11 2007/08/10 16:07:01 eric Exp $
+ * @version $Id: settxtfile.php,v 1.12 2007/10/30 14:43:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,9 +42,10 @@ function settxtfile(&$action) {
 	$tr->delete(); // no need now
 	$outfile=$info["outfile"];
 	$status=$info["status"];
-		  
-	$sem=sem_get($docid);
-	if (sem_acquire($sem)) {
+	$sem = fopen("/var/tmp/lock$docid.lck", "a+");
+	
+	if (flock($sem, LOCK_EX)) {
+	  //fwrite($sem,'fdl'.posix_getpid().":lock\n");
 	  $doc = new_Doc($dbaccess, $docid);
 	  if (! $doc->isAffected()) $err=sprintf(_("cannot see unknow reference %s"),$docid);
 	  if ($err=="") {
@@ -79,10 +80,12 @@ function settxtfile(&$action) {
 		    $ldoc=new_Doc($dbaccess, $idl);
 		    if ($doc->getValue($attrid) == $ldoc->getValue($attrid)) {
 		      $ldoc->$at=$doc->$at;
+		      $ldoc->$av='';
 		      $ldoc->fulltext='';
 		      $ldoc->fields[$at]=$at;
+		      $ldoc->fields[$av]=$av;
 		      $ldoc->fields['fulltext']='fulltext';
-		      $err=$ldoc->modify(true,array('fulltext',$at),true);		    
+		      $err=$ldoc->modify(true,array('fulltext',$at,$av),true);		    
 		    }		  
 		  }
 		} else {
@@ -97,7 +100,8 @@ function settxtfile(&$action) {
 	  } else {
 	    $err=sprintf(_("document [%s] not found"),$docid);
 	  }
-	  sem_release($sem);
+	  //fwrite($sem,posix_getpid().":unlock\n");
+	  fclose($sem);
 	} else {
 	  $err=sprintf(_("semaphore block"),$docid);
 	}
