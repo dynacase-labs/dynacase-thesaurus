@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.48 2007/10/29 14:13:36 eric Exp $
+ * @version $Id: FDL_external.php,v 1.49 2007/10/30 10:36:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,6 +69,7 @@ function lmail( $dbaccess, $name) {
 
   $filter=array();
   if ($name != "") {
+    $name=pg_escape_string($name);
     $filter[]="(title ~* '$name') or (us_mail ~* '$name')";
   }
 
@@ -149,7 +150,8 @@ function lfamilly($dbaccess, $famid, $name="", $dirid=0, $filter=array(),$idid="
 
 
   if ($name != "") {
-    $filter[]="title ilike '%$name%'";
+    $name=pg_escape_string($name);
+    $filter[]="title ~* '$name'";
   }
 
   //$famid=-(abs($famid));
@@ -191,6 +193,7 @@ function lkfamily($dbaccess, $famname, $aid,
   global $action;
   
   if ($name != "") {
+    $name=pg_escape_string($name);
     $filter[]="title ~* '.*$name.*'";
   }
 

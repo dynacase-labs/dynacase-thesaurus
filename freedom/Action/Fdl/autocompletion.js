@@ -9,6 +9,11 @@ var _ciblesListe=null; // attribute cible
 var _forceone=false; // auto set if only one suggestion
 var _autoisinit=false;
 
+var _completeDivRows = 0;
+var _completeDivDivList = null;
+var _highlightedSuggestionIndex = -1;
+var _highlightedSuggestionDiv = null;
+
 var _oldInputFieldValue=""; // valeur précédente du champ texte
 var _currentInputFieldValue=""; // valeur actuelle du champ texte
 var _resultCache=new Object(); // mécanisme de cache des requetes
@@ -33,6 +38,7 @@ function sendAutoChoice(event,docid,  choiceButton,attrid ) {
   } else {    
     activeAutoInit(event,docid,  inp );    
     _forceone=true;
+    inp.focus();
     callSuggestions(inp.value);
   }
 }
@@ -255,14 +261,7 @@ function insereCSS(nom,regle){
   }
 }
 
-function initStyle(){
-  var AutoCompleteDivListeStyle="font-size: 13px; font-family: arial,sans-serif; word-wrap:break-word; ";
-  var AutoCompleteDivStyle="display: block; padding-left: 3; padding-right: 3; height: 16px; overflow: hidden; background-color: white;";
-  var AutoCompleteDivActStyle="background-color: #3366cc; color: white ! important; ";
-  insereCSS(".AutoCompleteDivListeStyle",AutoCompleteDivListeStyle);
-  insereCSS(".AutoCompleteDiv",AutoCompleteDivStyle);
-  insereCSS(".AutoCompleteDivAct",AutoCompleteDivActStyle);
-}
+
 
 function setStylePourElement(c,name){
   c.className=name;
@@ -307,7 +306,7 @@ function creeAutocompletionDiv() {
     // }
     return;
   }
-  //initStyle();
+ 
   _completeDiv=document.createElement("DIV");
   _completeDiv.id="completeDiv";
   var borderLeftRight=1;
@@ -328,7 +327,6 @@ function metsEnPlace(valeur, liste){
   if (liste.length > 10) {
     _completeDiv.style.height='100px';
     _completeDiv.style.overflow='auto';
-    _completeDiv.scrollTop='0px';
   } else {
     _completeDiv.style.height='auto';
     _completeDiv.style.overflow='';    
@@ -349,6 +347,7 @@ function metsEnPlace(valeur, liste){
   }
   PressAction();
   if(_completeDivRows>0)  {
+    _completeDiv.scrollTop='0px';
     //if  (_completeDivRows<11)    _completeDiv.style.height=16*_completeDivRows+4;
   } else {
     hideCompleteDiv();
@@ -467,9 +466,11 @@ var onKeyUpHandler=function(event){
 function handleCursorUpDownEnter(eventCode){
   if(eventCode==40){
     highlightNewValue(_highlightedSuggestionIndex+1);
+    autoScroll();
     return false
   }else if(eventCode==38){
     highlightNewValue(_highlightedSuggestionIndex-1);
+    autoScroll();
     return false
   }else if(eventCode==13||eventCode==3){
     return false
@@ -477,11 +478,14 @@ function handleCursorUpDownEnter(eventCode){
   return true
 }
 
-var _completeDivRows = 0;
-var _completeDivDivList = null;
-var _highlightedSuggestionIndex = -1;
-var _highlightedSuggestionDiv = null;
-
+function autoScroll() {
+  var h=getObjectHeight(_highlightedSuggestionDiv);
+  if (_highlightedSuggestionIndex > 4) {
+    _completeDiv.scrollTop=(_highlightedSuggestionIndex-2)*h;
+  } else {
+    _completeDiv.scrollTop='0px';
+  }
+}
 // gère une touche pressée autre que haut/bas/enter
 function PressAction(){
   _highlightedSuggestionIndex=-1;
@@ -518,6 +522,7 @@ function PressAction(){
   if(trouve){
     _highlightedSuggestionIndex=indice;
     _highlightedSuggestionDiv=suggestionList.item(_highlightedSuggestionIndex);
+    autoScroll();
   }else{
     if (suggestionLongueur>0) {
       _highlightedSuggestionIndex=0;
@@ -710,16 +715,18 @@ var divOnMouseDown=function(){
 
 // declenchee quand on passe sur une div de possibilite. La div précédente est passee en style normal
 var divOnMouseOver=function(){
+  var suggestionList=_completeDiv.getElementsByTagName("div");
   if(_highlightedSuggestionDiv) {
     setStylePourElement(_highlightedSuggestionDiv,"AutoCompleteDiv");
   }
   setStylePourElement(this,"AutoCompleteDivAct");
   _highlightedSuggestionIndex=this.getAttribute('index');
+  _highlightedSuggestionDiv=suggestionList.item(_highlightedSuggestionIndex);
 };
 
 // declenchee quand la sourie quitte une div de possiblite. La div repasse a l'etat normal
 var divOnMouseOut = function(){
-  setStylePourElement(this,"AutoCompleteDiv");
+  //setStylePourElement(this,"AutoCompleteDiv");
 };
 
 // declenchee quand la sourie quitte une div de possiblite.
