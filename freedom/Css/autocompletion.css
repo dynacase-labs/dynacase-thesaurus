@@ -16,7 +16,7 @@
 }
 
 .AutoCompleteDivAct {
-  background-color: [COLOR_C0]; 
+  background-color: [COLOR_C2]; 
   padding-left: 3px; 
   padding-right: 3px; 
   color: [COLOR_BLACK] ! important; 
@@ -24,6 +24,5 @@
 
 .AutoMessage {
   background-color: [COLOR_WHITE]; 
-  color: [COLOR_A5]; 
-  
+  color: [COLOR_A5];  
 }
