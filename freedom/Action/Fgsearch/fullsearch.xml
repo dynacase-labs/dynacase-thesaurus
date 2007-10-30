@@ -2,7 +2,7 @@
 <style>
 SELECT.little { font-size:90%; }
 div.logo { margin-top:-20px;  float:left; width:20%; z-index:100; text-align:center; }
-img.logomini { height:70px; padding-left:20px; }
+img.logomini { width:70px; padding-left:0px; }
 div.zsearch { margin-top:20px;}
 div.searchp { float:left; padding:0px 5px 0px 5px; text-align:right; }
 div.searchc { float:left; padding:0px 5px 0px 5px; text-align:left; }
