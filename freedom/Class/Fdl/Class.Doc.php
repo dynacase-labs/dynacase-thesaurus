@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.429 2007/11/07 15:10:42 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.430 2007/11/07 16:32:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3283,10 +3283,7 @@ final public function PostInsert()  {
 	  if ($target=="mail") {
 	    $htmlval="cid:".$oattr->id;
 	    if ($index >= 0) $htmlval.="+$index";
-	  } else if ($target=="ooo") {	
-	    $htmlval=$this->vault_filename($oattr->id,true,$index);
-	    
-	  } else {
+	  }  else {
 	    $vid="";
 	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
 	      $vid=$reg[2];
@@ -3533,7 +3530,6 @@ final public function PostInsert()  {
 	  break;
 
 	default : 
-	
 	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes($avalue)));
 	  
 	  break;
@@ -3610,7 +3606,135 @@ final public function PostInsert()  {
 			       $v,$target,$htmllink);
   }
 
-  
+ final public function GetOOoValue($oattr, $value, $target="_self",$htmllink=false, $index=-1) { 
+    global $action;
+    
+    $aformat=$oattr->format;
+    $atype=$oattr->type;
+
+    if (($oattr->repeat)&&($index <= 0)){
+      $tvalues = explode("\n",$value);
+    } else {
+      $tvalues[$index]=$value;
+    }
+    $idocfamid=$oattr->format;
+    
+    $attrid=$oattr->id;
+    while (list($kvalue, $avalue) = each($tvalues)) {
+      $htmlval="";
+      switch ($atype)	{
+	 case "idoc":
+	   // nothing
+	   break;	        
+	case "image": 	 
+	  $htmlval=$this->vault_filename($oattr->id,true,$index);	    	 
+	  break;
+	case "file": 	 
+	   // nothing	
+	  break;
+	case "longtext":  
+	  $htmlval=str_replace("\n","<text:line-break/>",$avalue);
+	  $htmlval=str_replace("\r","",$htmlval);
+	  break;
+	case "password": 
+	
+	  break;
+	case "enum": 
+	  $enumlabel = $oattr->getEnumlabel();
+	  $colors=$oattr->getOption("boolcolor");
+	  if ($colors!="") {
+	    if (isset($enumlabel[$avalue])) {
+	      reset($enumlabel);
+	      $tcolor=explode(",",$colors);
+	      if (current($enumlabel) == $enumlabel[$avalue]) {
+		$color=$tcolor[0];
+		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;-&nbsp;</pre>',$color);
+	      } else {
+		$color=$tcolor[1];
+		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;&bull;&nbsp;</pre>',$color);
+	      }
+	    } else $htmlval=$avalue;	    
+	  } else {
+	    if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
+	    else $htmlval=$avalue;
+	  }
+	
+	  break;    
+	case "array": 	
+	  break;
+	case "doc": 	 
+	  break;
+	case "option": 	  
+	  break;
+	case money:    
+	  $htmlval=money_format('%!.2n', doubleval($avalue));
+	  $htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
+	  break;
+	
+	case htmltext:  
+	  $shtmllink=$htmllink?"true":"false";
+	  $avalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
+                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
+                         $avalue);
+	  $htmlval="<DIV>$avalue</DIV>";	
+	  break;
+	case date:  
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=$avalue; 
+	  }	
+	  break;
+	case time:  
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,strtotime($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=substr($avalue,0,5); // do not display second
+	  }
+	
+	  break;
+	case timestamp:   
+	  if ($aformat!="") {
+	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
+	    $aformat="";
+	  } else {
+	    $htmlval=substr($avalue,0,16); // do not display second
+	  }
+	
+	  break;
+	case ifile:  
+	  $lay = new Layout("FDL/Layout/viewifile.xml", $action);
+	  $lay->set("aid",$oattr->id);
+	  $lay->set("id",$this->id);
+	  $lay->set("iheight",$oattr->getOption("height","200px"));
+	  $htmlval =$lay->gen(); 
+	
+	  break;
+	  
+	case color:  	  
+	  $htmlval=sprintf("<span style=\"background-color:%s\">%s</span>",$avalue,$avalue);	
+	  break;
+
+	default : 
+	  $htmlval=stripslashes($avalue);
+	  
+	  break;
+	
+	}
+    
+      if (($aformat != "") && ($atype != "doc") && ($atype != "array")&& ($atype != "option") ){
+	//printf($htmlval);
+	$htmlval=sprintf($aformat,$htmlval);
+      } 
+    
+    
+      $thtmlval[$kvalue]=$htmlval;
+    }
+    
+    return implode("<text:line-break/>",$thtmlval);
+  }
 
   /**
    * Control Access privilege for document for current user
@@ -4307,7 +4431,8 @@ final public function PostInsert()  {
 	$this->lay->Set("V_".strtoupper($v->id),"");
 	$this->lay->Set("L_".strtoupper($v->id),"");
       } else {	
-	$this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
+	if ($target=="ooo") $this->lay->Set("V_".strtoupper($v->id),$this->GetOOoValue($v,$value));
+	else $this->lay->Set("V_".strtoupper($v->id),$this->GetHtmlValue($v,$value,$target,$ulink));
 	$this->lay->Set("L_".strtoupper($v->id),$v->labelText);
       }       
     }
