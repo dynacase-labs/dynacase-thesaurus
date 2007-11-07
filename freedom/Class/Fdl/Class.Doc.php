@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.428 2007/10/30 16:16:14 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.429 2007/11/07 15:10:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3283,6 +3283,9 @@ final public function PostInsert()  {
 	  if ($target=="mail") {
 	    $htmlval="cid:".$oattr->id;
 	    if ($index >= 0) $htmlval.="+$index";
+	  } else if ($target=="ooo") {	
+	    $htmlval=$this->vault_filename($oattr->id,true,$index);
+	    
 	  } else {
 	    $vid="";
 	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
@@ -3867,7 +3870,14 @@ final public function PostInsert()  {
     if (!$changelayout) {
       $play=$this->lay;
     }
-    $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
+    
+    if (strstr($reg[2],'.')) {
+      $ext=substr($reg[2],strrpos($reg[2],'.')+1);
+      if (strtolower($ext)=="odt") {
+	include_once('Class.OOoLayout.php');
+	$this->lay = new OOoLayout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
+      } else $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
+    } else  $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
     
     $this->lay->set("_readonly",($this->Control('edit')!=""));
     $method = strtolower($reg[2]);
