@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.24 2007/10/15 17:46:54 marc Exp $
+ * @version $Id: fdl_card.php,v 1.25 2007/11/07 15:09:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,6 +38,7 @@ function fdl_card(&$action) {
   $zone = GetHttpVars("zone");
   $ulink = (GetHttpVars("ulink",'2')); // add url link
   $target = GetHttpVars("target"); // may be mail
+  $vid = GetHttpVars("vid"); // special controlled view
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid=="") $action->exitError(_("no document reference"));
@@ -74,11 +75,23 @@ function fdl_card(&$action) {
     $action->lay->Set("forumid",abs($doc->forumid));
     $action->lay->Set("forum",($doc->forumid!="" ? true : false ));
   }
-
+  if (($zone=="") && ($vid != "")) {
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
+    $tview = $cvdoc->getView($vid);
+    $zone=$tview["CV_ZVIEW"];
+   }
   $zo=$doc->getZoneOption($zone);
   if ($zo=="Sxxxxxxxxx") { // on patiente à cause de proposition
     $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
     $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
+  } else if ($zo=="B") {
+    // binary layout file
+    $ulink=false;
+    $target="ooo";
+    $file=$doc->viewdoc($zone,$target,$ulink);
+    Http_DownloadFile($file,"test",'application/vnd.oasis.opendocument.text',false,false);
+    //    unlink($file);
+    exit;
   } else {
     $action->lay->set("nocss",($zo=="U"));
     $taction=array();
