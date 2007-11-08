@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.430 2007/11/07 16:32:21 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.431 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3732,8 +3732,8 @@ final public function PostInsert()  {
     
       $thtmlval[$kvalue]=$htmlval;
     }
-    
-    return implode("<text:line-break/>",$thtmlval);
+
+    return implode("<text:tab/>",$thtmlval);
   }
 
   /**

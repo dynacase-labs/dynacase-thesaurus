@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.83 2007/10/16 12:53:36 marc Exp $
+ * @version $Id: viewcard.php,v 1.84 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -128,9 +128,10 @@ function viewcard(&$action) {
   if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
   else $action->lay->set("mzone", $zonebodycard);
   // with doc head ?
-  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[A-Z]+:[^:]+:[T|U]", $zonebodycard, $reg));
+  $zo=$doc->getZoneOption($zonebodycard);
+  if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[T|U|V]", $zo, $reg));
   else $dochead = (GetHttpVars("dochead",'Y') == "Y");
-
+  $action->lay->set("viewbarmenu",($zo=="V"));
   
   if ($doc->doctype == 'Z') {
     $err =_("This document has been deleted");
@@ -231,8 +232,7 @@ function viewcard(&$action) {
 
     
   // see or don't see head
-  if ($dochead)  $action->lay->SetBlockData("HEAD",array(array("boo"=>1))); 
-
+  $action->lay->Set("HEAD",$dochead);
   $action->lay->Set("ACTIONS",(getHttpVars("viewbarmenu")==1));
 
   $action->lay->Set("amail",(($doc->usefor != "P")&&

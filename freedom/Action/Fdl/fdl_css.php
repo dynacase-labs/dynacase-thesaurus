@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_css.php,v 1.5 2005/09/27 13:37:16 eric Exp $
+ * @version $Id: fdl_css.php,v 1.6 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: fdl_css.php,v 1.5 2005/09/27 13:37:16 eric Exp $
+// $Id: fdl_css.php,v 1.6 2007/11/08 15:53:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/fdl_css.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -40,7 +40,10 @@ function fdl_css(&$action) {
   // -----------------------------------
 
   // Set Css
-  setHeaderCache();
+   setHeaderCache();
+
+   
+
    
 }
 ?>

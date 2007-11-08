@@ -3,7 +3,7 @@
  * Set WHAT user & mail parameters
  *
  * @author Anakeen 2003
- * @version $Id: Method.DocIGroup.php,v 1.38 2007/04/12 07:06:10 eric Exp $
+ * @version $Id: Method.DocIGroup.php,v 1.39 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -14,7 +14,7 @@
 
 var $cviews=array("FUSERS:FUSERS_IGROUP");
 var $eviews=array("USERCARD:CHOOSEGROUP");
-var $defaultview="FUSERS:FUSERS_IGROUP:T";
+var $defaultview="FUSERS:FUSERS_IGROUP:V";
 var $defaultedit="FUSERS:FUSERS_EIGROUP:T";
 var $exportLdap = array(
 		      // posixGroup

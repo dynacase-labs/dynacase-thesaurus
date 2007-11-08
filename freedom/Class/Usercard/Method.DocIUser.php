@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.43 2007/03/09 15:40:56 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.44 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,7 +12,7 @@
  */
 var $cviews=array("FUSERS:FUSERS_IUSER");
 var $eviews=array("USERCARD:CHOOSEGROUP");
-var $defaultview="FUSERS:FUSERS_IUSER:T";
+var $defaultview="FUSERS:FUSERS_IUSER:V";
 var $defaultedit="FUSERS:FUSERS_EIUSER:T";
  
 

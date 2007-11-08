@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.8 2007/06/08 07:31:22 eric Exp $
+ * @version $Id: impcard.php,v 1.9 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,8 +43,10 @@ function impcard(&$action) {
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
 
-  if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?
 
+  $zo=$doc->getZoneOption($zonebodycard);
+  if ($zo=='S')  $szone=true;// the zonebodycard is a standalone zone ?
+  $action->lay->set("nocss",($zo=="U"));
   if ($szone) {
     // change layout
     include_once("FDL/viewscard.php");

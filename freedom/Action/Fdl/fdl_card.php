@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.25 2007/11/07 15:09:52 eric Exp $
+ * @version $Id: fdl_card.php,v 1.26 2007/11/08 15:53:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -80,6 +80,7 @@ function fdl_card(&$action) {
     $tview = $cvdoc->getView($vid);
     $zone=$tview["CV_ZVIEW"];
    }
+  if ($zone == "") $zone=$doc->defaultview;
   $zo=$doc->getZoneOption($zone);
   if ($zo=="Sxxxxxxxxx") { // on patiente à cause de proposition
     $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
@@ -89,7 +90,7 @@ function fdl_card(&$action) {
     $ulink=false;
     $target="ooo";
     $file=$doc->viewdoc($zone,$target,$ulink);
-    Http_DownloadFile($file,"test",'application/vnd.oasis.opendocument.text',false,false);
+    Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
     //    unlink($file);
     exit;
   } else {
