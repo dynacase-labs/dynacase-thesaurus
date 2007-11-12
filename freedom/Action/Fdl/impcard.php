@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.9 2007/11/08 15:53:59 eric Exp $
+ * @version $Id: impcard.php,v 1.10 2007/11/12 16:30:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,6 +28,7 @@ function impcard(&$action) {
   $docid = GetHttpVars("id");
   $zonebodycard = GetHttpVars("zone"); // define view action
   $valopt=GetHttpVars("opt"); // value of  options
+  $vid = GetHttpVars("vid"); // special controlled view
   $szone=false;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -40,11 +41,26 @@ function impcard(&$action) {
     $doc = new_Doc($dbaccess, $docid);
   }
   $action->lay->set("TITLE",$doc->title);  
+  if (($zonebodycard=="") && ($vid != "")) {
+    $cvdoc= new_Doc($dbaccess, $doc->cvid);
+    $tview = $cvdoc->getView($vid);
+    $zonebodycard=$tview["CV_ZVIEW"];
+  }
   if ($zonebodycard == "") $zonebodycard=$doc->defaultview;
   if ($zonebodycard == "") $zonebodycard="FDL:VIEWCARD";
 
 
   $zo=$doc->getZoneOption($zonebodycard);
+  if ($zo=="B") {
+    // binary layout file
+    $ulink=false;
+    $target="ooo";
+    $file=$doc->viewdoc($zonebodycard,$target,$ulink);
+    Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
+    @unlink($file);
+    exit;
+  }
+
   if ($zo=='S')  $szone=true;// the zonebodycard is a standalone zone ?
   $action->lay->set("nocss",($zo=="U"));
   if ($szone) {
