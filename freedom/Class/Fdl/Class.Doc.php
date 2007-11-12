@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.433 2007/11/12 16:13:18 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.434 2007/11/12 16:53:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3633,7 +3633,8 @@ final public function PostInsert()  {
 	// nothing	
 	break;
       case "longtext":  
-	$htmlval=str_replace("\n","<text:line-break/>",$avalue);
+	$htmlval=str_replace(array("<",">"),array("&lt;","&gt;"),$avalue);
+	$htmlval=str_replace("\n","<text:line-break/>",$htmlval);
 	$htmlval=str_replace("\r","",$htmlval);
 	break;
       case "password": 
@@ -3740,8 +3741,8 @@ final public function PostInsert()  {
 	break;
 
       default : 
-	$htmlval=stripslashes($avalue);
-	  
+	$htmlval=stripslashes($avalue);	  
+			     $htmlval=str_replace(array("<",">"),array("&lt;","&gt;"),$htmlval);
 	break;
 	
       }
