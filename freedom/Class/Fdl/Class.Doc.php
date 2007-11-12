@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.431 2007/11/08 15:53:59 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.432 2007/11/12 14:56:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3672,11 +3672,36 @@ final public function PostInsert()  {
 	  break;
 	
 	case htmltext:  
-	  $shtmllink=$htmllink?"true":"false";
-	  $avalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
-                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
-                         $avalue);
-	  $htmlval="<DIV>$avalue</DIV>";	
+$html_body=utf8_encode($avalue);
+	  $html_body=preg_replace("/(<\/?)(\w+)([^>]*>)/e",
+             "'\\1'.'xhtml:'.strtolower('\\2').'\\3'",
+            $html_body );
+//print $html_body;
+	  $html_body=str_replace('\"','"',$html_body);
+//print $html_body;
+
+$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8')."</xhtml:body>";
+//print $xmldata;
+$xslt = new xsltProcessor;
+$xslt->importStyleSheet(DomDocument::load(DEFAULT_PUBDIR."/CORE/Layout/html2odt.xsl"));
+$xmlout= $xslt->transformToXML(DomDocument::loadXML($xmldata));
+$dxml=new DomDocument();
+$dxml->loadXML($xmlout);
+//office:text>
+$ot=$dxml->getElementsByTagNameNS("urn:oasis:names:tc:opendocument:xmlns:office:1.0","text");
+$ot1=$ot->item(0);
+
+$officetext= $ot1->ownerDocument->saveXML($ot1);
+ $htmlval=substr($officetext,21,-23);
+ $htmlval=preg_replace("/(<text:p>[\s]*<table:table )/ ",
+		       "<table:table ",$htmlval);
+ $htmlval=preg_replace("/(<\/table:table>[\s]*<\/text:p>)/ ",
+		       "</table:table> ",$htmlval);
+
+
+
+
+	  //$htmlval=preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>//g", "",$htmlval  );
 	  break;
 	case date:  
 	  if ($aformat!="") {
