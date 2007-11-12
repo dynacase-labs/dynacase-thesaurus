@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.432 2007/11/12 14:56:48 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.433 2007/11/12 16:13:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3606,7 +3606,7 @@ final public function PostInsert()  {
 			       $v,$target,$htmllink);
   }
 
- final public function GetOOoValue($oattr, $value, $target="_self",$htmllink=false, $index=-1) { 
+  final public function GetOOoValue($oattr, $value, $target="_self",$htmllink=false, $index=-1) { 
     global $action;
     
     $aformat=$oattr->format;
@@ -3623,131 +3623,128 @@ final public function PostInsert()  {
     while (list($kvalue, $avalue) = each($tvalues)) {
       $htmlval="";
       switch ($atype)	{
-	 case "idoc":
-	   // nothing
-	   break;	        
-	case "image": 	 
-	  $htmlval=$this->vault_filename($oattr->id,true,$index);	    	 
-	  break;
-	case "file": 	 
-	   // nothing	
-	  break;
-	case "longtext":  
-	  $htmlval=str_replace("\n","<text:line-break/>",$avalue);
-	  $htmlval=str_replace("\r","",$htmlval);
-	  break;
-	case "password": 
+      case "idoc":
+	// nothing
+	break;	        
+      case "image": 	 
+	$htmlval=$this->vault_filename($oattr->id,true,$index);	    	 
+	break;
+      case "file": 	 
+	// nothing	
+	break;
+      case "longtext":  
+	$htmlval=str_replace("\n","<text:line-break/>",$avalue);
+	$htmlval=str_replace("\r","",$htmlval);
+	break;
+      case "password": 
 	
-	  break;
-	case "enum": 
-	  $enumlabel = $oattr->getEnumlabel();
-	  $colors=$oattr->getOption("boolcolor");
-	  if ($colors!="") {
-	    if (isset($enumlabel[$avalue])) {
-	      reset($enumlabel);
-	      $tcolor=explode(",",$colors);
-	      if (current($enumlabel) == $enumlabel[$avalue]) {
-		$color=$tcolor[0];
-		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;-&nbsp;</pre>',$color);
-	      } else {
-		$color=$tcolor[1];
-		$htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;&bull;&nbsp;</pre>',$color);
-	      }
-	    } else $htmlval=$avalue;	    
-	  } else {
-	    if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
-	    else $htmlval=$avalue;
-	  }
-	
-	  break;    
-	case "array": 	
-	  break;
-	case "doc": 	 
-	  break;
-	case "option": 	  
-	  break;
-	case money:    
-	  $htmlval=money_format('%!.2n', doubleval($avalue));
-	  $htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
-	  break;
-	
-	case htmltext:  
-$html_body=utf8_encode($avalue);
-	  $html_body=preg_replace("/(<\/?)(\w+)([^>]*>)/e",
-             "'\\1'.'xhtml:'.strtolower('\\2').'\\3'",
-            $html_body );
-//print $html_body;
-	  $html_body=str_replace('\"','"',$html_body);
-//print $html_body;
-
-$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8')."</xhtml:body>";
-//print $xmldata;
-$xslt = new xsltProcessor;
-$xslt->importStyleSheet(DomDocument::load(DEFAULT_PUBDIR."/CORE/Layout/html2odt.xsl"));
-$xmlout= $xslt->transformToXML(DomDocument::loadXML($xmldata));
-$dxml=new DomDocument();
-$dxml->loadXML($xmlout);
-//office:text>
-$ot=$dxml->getElementsByTagNameNS("urn:oasis:names:tc:opendocument:xmlns:office:1.0","text");
-$ot1=$ot->item(0);
-
-$officetext= $ot1->ownerDocument->saveXML($ot1);
- $htmlval=substr($officetext,21,-23);
- $htmlval=preg_replace("/(<text:p>[\s]*<table:table )/ ",
-		       "<table:table ",$htmlval);
- $htmlval=preg_replace("/(<\/table:table>[\s]*<\/text:p>)/ ",
-		       "</table:table> ",$htmlval);
-
-
-
-
-	  //$htmlval=preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>//g", "",$htmlval  );
-	  break;
-	case date:  
-	  if ($aformat!="") {
-	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
-	    $aformat="";
-	  } else {
-	    $htmlval=$avalue; 
-	  }	
-	  break;
-	case time:  
-	  if ($aformat!="") {
-	    $htmlval=strftime($aformat,strtotime($avalue));
-	    $aformat="";
-	  } else {
-	    $htmlval=substr($avalue,0,5); // do not display second
-	  }
-	
-	  break;
-	case timestamp:   
-	  if ($aformat!="") {
-	    $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
-	    $aformat="";
-	  } else {
-	    $htmlval=substr($avalue,0,16); // do not display second
-	  }
-	
-	  break;
-	case ifile:  
-	  $lay = new Layout("FDL/Layout/viewifile.xml", $action);
-	  $lay->set("aid",$oattr->id);
-	  $lay->set("id",$this->id);
-	  $lay->set("iheight",$oattr->getOption("height","200px"));
-	  $htmlval =$lay->gen(); 
-	
-	  break;
-	  
-	case color:  	  
-	  $htmlval=sprintf("<span style=\"background-color:%s\">%s</span>",$avalue,$avalue);	
-	  break;
-
-	default : 
-	  $htmlval=stripslashes($avalue);
-	  
-	  break;
-	
+	break;
+      case "enum": 
+	$enumlabel = $oattr->getEnumlabel();
+	$colors=$oattr->getOption("boolcolor");
+	if ($colors!="") {
+	  if (isset($enumlabel[$avalue])) {
+	    reset($enumlabel);
+	    $tcolor=explode(",",$colors);
+	    if (current($enumlabel) == $enumlabel[$avalue]) {
+	      $color=$tcolor[0];
+	      $htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;-&nbsp;</pre>',$color);
+	    } else {
+	      $color=$tcolor[1];
+	      $htmlval=sprintf('<pre style="background-color:%s;display:inline">&nbsp;&bull;&nbsp;</pre>',$color);
+	    }
+	  } else $htmlval=$avalue;	    
+	} else {
+	  if (isset($enumlabel[$avalue]))  $htmlval=$enumlabel[$avalue];
+	  else $htmlval=$avalue;
 	}
+	
+	break;    
+      case "array": 	
+	break;
+      case "doc": 	 
+	break;
+      case "option": 	  
+	break;
+      case money:    
+	$htmlval=money_format('%!.2n', doubleval($avalue));
+	$htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
+	break;
+	
+      case htmltext:  
+	$html_body=utf8_encode($avalue);
+	$html_body=preg_replace("/(<\/?)(\w+)([^>]*>)/e",
+				"'\\1'.'xhtml:'.strtolower('\\2').'\\3'",
+				$html_body ); // transform to pseudo xhtml
+
+	$html_body=str_replace('\"','"',$html_body);
+	$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8')."</xhtml:body>";
+
+	$xslt = new xsltProcessor;
+	$xslt->importStyleSheet(DomDocument::load(DEFAULT_PUBDIR."/CORE/Layout/html2odt.xsl"));
+	$xmlout= $xslt->transformToXML(DomDocument::loadXML($xmldata));
+	$dxml=new DomDocument();
+	$dxml->loadXML($xmlout);
+	//office:text
+	$ot=$dxml->getElementsByTagNameNS("urn:oasis:names:tc:opendocument:xmlns:office:1.0","text");
+	$ot1=$ot->item(0);
+
+	$officetext= $ot1->ownerDocument->saveXML($ot1);
+	$htmlval=substr($officetext,21,-23);
+
+	// work around : tables are not in paragraph
+	$htmlval=preg_replace("/(<text:p>[\s]*<table:table )/ ",
+			      "<table:table ",$htmlval);
+	$htmlval=preg_replace("/(<\/table:table>[\s]*<\/text:p>)/ ",
+			      "</table:table> ",$htmlval);
+
+	//$htmlval=preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>//g", "",$htmlval  );
+	break;
+      case date:  
+	if ($aformat!="") {
+	  $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
+	  $aformat="";
+	} else {
+	  $htmlval=$avalue; 
+	}	
+	break;
+      case time:  
+	if ($aformat!="") {
+	  $htmlval=strftime($aformat,strtotime($avalue));
+	  $aformat="";
+	} else {
+	  $htmlval=substr($avalue,0,5); // do not display second
+	}
+	
+	break;
+      case timestamp:   
+	if ($aformat!="") {
+	  $htmlval=strftime($aformat,FrenchDateToUnixTs($avalue));
+	  $aformat="";
+	} else {
+	  $htmlval=substr($avalue,0,16); // do not display second
+	}
+	
+	break;
+      case ifile:  
+	$lay = new Layout("FDL/Layout/viewifile.xml", $action);
+	$lay->set("aid",$oattr->id);
+	$lay->set("id",$this->id);
+	$lay->set("iheight",$oattr->getOption("height","200px"));
+	$htmlval =$lay->gen(); 
+	
+	break;
+	  
+      case color:  	  
+	$htmlval=sprintf("<span style=\"background-color:%s\">%s</span>",$avalue,$avalue);	
+	break;
+
+      default : 
+	$htmlval=stripslashes($avalue);
+	  
+	break;
+	
+      }
     
       if (($aformat != "") && ($atype != "doc") && ($atype != "array")&& ($atype != "option") ){
 	//printf($htmlval);
