@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultDiskStorage.php,v 1.6 2007/05/23 16:01:52 eric Exp $
+ * @version $Id: Class.VaultDiskStorage.php,v 1.7 2007/11/13 16:33:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -138,7 +138,7 @@ function seems_utf8($Str) {
  * @param string $fsname name of the VAULT to store (can be empty=>store in one of available VAULT)
  * @return string error message (empty if OK)
  */
- function Store($infile, $public_access, &$idf, $fsname="",$te_name="",$te_id_file=0) {
+ function Store($infile, $public_access, &$idf, $fsname="",$te_lname="",$te_id_file=0) {
   // -------------------------------------------------------------------- 
    include_once ("WHAT/Lib.FileMime.php");
 
@@ -215,85 +215,8 @@ function seems_utf8($Str) {
    return $err;
  }
 
-/**
- * Add/Update new generated file in VAULT
- * @param string $infile complete server path of generated file to store
- * @param string $te_name engine name which has produce the file
- * @param int $new_idfile vault identificator of new stored file
- * @return string error message (empty if OK)
- */
- function StoreEngineFile($infile, $engine,&$new_idfile) {
-   include_once ("WHAT/Lib.FileMime.php");
-
-   if (! $this->isAffected()) return _("vault file is not initialized");
-   $te_name=$engine->name;
-
-   $err=$this->GetEngineObject($te_name,$ngf);
-   if ($err!="") return $err;
-
-   $oldsize=$ngf->size;   
-   $size = filesize($infile);
-   $ngf->size=$size;
-   $ngf->mdate = $ngf->adate = date("c", time());
-   $ngf->public_access = $this->public_access;
-   $ngf->teng_comment=sprintf(_("produce by [%s] command"),$engine->command);
-   $path_parts = pathinfo($this->name);
-   $ext=$path_parts['extension'];
-   if ($ext=="") $newname=$this->name."_".$te_name;
-   else {
-     $newname=substr($this->name,0,-strlen($ext)-1)."_".$te_name.".$ext";
-   }
-
-   $ngf->name = $newname;
-   if ($ngf->seems_utf8( $ngf->name)) $ngf->name=utf8_decode($ngf->name);
 
 
-   $ngf->mime_t = getTextMimeFile($infile);
-   $ngf->mime_s = getSysMimeFile($infile, $ngf->name);
-    
-   $ngf->teng_state = 1;
-
-   $f = $ngf->getPath();
-    if (! @copy($infile, $f)) {
-      // Free entry
-      return(_("Failed to copy $infile to $f"));
-    }
-    if (!chmod($f, VAULT_FMODE)) {
-      $this->logger->warning("Can't change mode for $f");
-    }
-    if (!chown($f, HTTP_USER) || !chgrp($f, HTTP_USER)) {
-      $this->logger->warning("Can't change owner for $f");
-    } 
-    if ($q->nb == 0) {
-      $ngf->fs->AddEntry($size);
-    } else {      
-      $ngf->fs->AddEntry($size - $oldsize);
-    }
-    $err=$ngf->modify();
-    $new_idfile=$ngf->id_file;
-    $this->logger->debug("File $infile stored in $f");
-    return $err;
-  }
-
-
-/**
- * Add/Update new generated file in VAULT
- * @param string $te_name engine name which has produce the file
- * @param string $texterror text error
- * @param int $new_idfile vault identificator of new stored file
- * @return string error message (empty if OK)
- */
- function StoreEngineError( $engine,$texterror,&$new_idfile) { 
-   if (! $this->isAffected()) return _("vault file is not initialized");
-   $te_name=$engine->name;
-
-   $err=$this->GetEngineObject($te_name,$ngf);
-   if ($err!="") return $err;
-   $ngf->teng_comment=$texterror;
-   $ngf->teng_state = -1;
-   $err=$ngf->modify();
-   $new_idfile=$ngf->id_file;
- }
   // --------------------------------------------------------------------     
  function Show($id_file, &$f_infos, $teng_lname="") { 
    // --------------------------------------------------------------------     
@@ -316,6 +239,7 @@ function seems_utf8($Str) {
 
    if ($this->id_file!=-1) {
       $this->fs->Show($this->id_fs, $this->id_dir, $f_path);
+      $f_infos->id_file = $this->id_file;
       $f_infos->name = $this->name;
       $f_infos->size = $this->size;
       $f_infos->public_access = $this->public_access;
@@ -328,7 +252,7 @@ function seems_utf8($Str) {
       $f_infos->teng_lname = $this->teng_lname;
       $f_infos->teng_vid = $this->teng_id_file;
       $f_infos->teng_comment = $this->teng_comment;
-      $f_infos->path = vaultfilename($f_path, $this->name, $id_file);
+      $f_infos->path = vaultfilename($f_path, $this->name, $this->id_file);
 
       $this->adate = date("c", time());
       $this->modify(true, array("adate"),true);
@@ -381,7 +305,7 @@ function seems_utf8($Str) {
    // Verifier s'il y a assez de places ???
    
    $this->public_access = $public_access;
-   $this->name = my_basename($infile);
+   //$this->name = my_basename($infile); // not rename
 
     
    $fd = fopen($path, "w+");
@@ -414,59 +338,8 @@ function seems_utf8($Str) {
     $this->exec_query($up);
   }
  
-  /**
-   * return vault id for the generate file if exists
-   * else return 0
-   * @return int the vault id (0 if not found)
-   */
-  function getEngineFile($engine) {
-    $q=new QueryDb($this->dbaccess,'VaultDiskStorage');
-    $q->AddQuery("teng_id_file=".$this->id_file);
-    $q->AddQuery("teng_lname='".pg_escape_string($engine)."'");
-    $lf=$q->Query(0,0,"TABLE");
-   
-    if ($q->nb >0) return $lf[0]->id_file;
-    return 0;
-  } 
 
-  /**
-   * execute command from the engine to generate and store new file.
-   * @param VaultEngine $engine convert engine object
-   * @param int &$new_idfile vault identificator of new stored file
-   * @return string error message (empty if OK)
-   */
-  function executeEngine($engine,&$new_idfile) {
-    if (! $engine->isAffected()) return _("transformation engine not found");
-    $command=$engine->command;
-    if ($command) {
-      
 
-      $orifile = $this->getPath();
-      $outfile= "/var/tmp/vault-".$this->id_file.".".$engine->name;
-      $errfile=$outfile.".err";
-      $tc=sprintf("%s %s %s 2>%s",
-		  $command,
-		  $orifile,
-		  $outfile,
-		  $errfile);
-
-      system($tc,$retval);
-      if (! file_exists($outfile)) $retval=-1;
-      if ($retval!=0) {
-	//error mode
-	$err=file_get_contents($errfile);
-	$err.=$this->StoreEngineError($engine,$err,$new_idfile);
-      } else {
-	$warcontent=file_get_contents($errfile);
-	$err=$this->StoreEngineFile($outfile,$engine,$new_idfile);
-	
-      }
-      @unlink($outfile);
-      @unlink($errfile);
-    }
-
-    return $err;
-  }
 
 } // End Class.VaultFileDisk.php 
 

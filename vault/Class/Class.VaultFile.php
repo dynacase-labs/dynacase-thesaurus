@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.20 2007/05/23 16:01:51 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.21 2007/11/13 16:33:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -86,6 +86,7 @@ Class VaultFile {
 	return('');
       }
     } else {
+      $infos=new stdClass();
       $msg = $this->storage->Show($id_file, $infos);
  
       if ($msg!='') $this->logger->error($msg);
@@ -95,7 +96,7 @@ Class VaultFile {
   }
 
   // ---------------------------------------------------------
-  function Store($infile, $public_access, &$id, $fsname="") {
+  function Store($infile, $public_access, &$id, $fsname="",$te_name="",$te_id_file=0) {
   // ---------------------------------------------------------
 
     if ($this->chrono) $this->logger->start("Store");
@@ -108,7 +109,7 @@ Class VaultFile {
 	$public_access  = FALSE;
 	$this->logger->warning("Access mode forced to RESTRICTED for ".$infile."].");
       }
-      $msg = $this->storage->Store($infile, $public_access, $id);
+      $msg = $this->storage->Store($infile, $public_access, $id,$fsname,$te_name,$te_id_file);
       $this->logger->error($msg);
     }
     if ($this->chrono) $this->logger->end("Store");
@@ -147,10 +148,14 @@ Class VaultFile {
 	$public_access  = FALSE;
 	$this->logger->warning("Access mode forced to RESTRICTED for ".$infile."].");
      }
-    if ($newname != "") {
+    if ($newname != "") { 
+      include_once ("WHAT/Lib.FileMime.php");
+      $infile=$this->storage->getPath();
       $oldname=$this->storage->name;
       $msg = $this->storage->Show($id_file, $infos);
       $this->storage->name=$newname;
+      $this->storage->mime_t = getTextMimeFile($infile);
+      $this->storage->mime_s = getSysMimeFile($infile, $this->storage->name);
       $msg = $this->storage->Modify();
       if ($msg =="") {
 	$pio=pathinfo($oldname);
