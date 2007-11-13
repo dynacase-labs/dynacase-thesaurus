@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.435 2007/11/13 08:00:22 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.436 2007/11/13 16:36:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1522,7 +1522,38 @@ final public function PostInsert()  {
     }  
     return $err;
   }
-  
+   /**
+   * send a request to TE to convert fiele
+   * update $attrid_txt table column
+   * @param string $idAttr identificator of attribute
+   * @return string error message, if no error empty string
+   */
+  public function convertFile($va,$engine,$index=-1,$force=false) {     
+    include_once("FDL/Lib.Vault.php");   
+    $engine=strtolower($engine);
+    if (ereg ("(.*)\|(.*)", $va, $reg)) {  
+      $vidin=$reg[2];
+      $info=vault_properties($vidin,$engine);
+      if (! $info->teng_vid) {
+	// create temporary file
+	$value=sprintf(_("conversion %s in progress"),$engine);
+	$filename=uniqid("/var/tmp/conv").".txt";
+	$nc=file_put_contents($filename,$value);
+	$vf = newFreeVaultFile($this->dbaccess);
+	$err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
+	$info=vault_properties($vidin);
+	if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
+	unlink($filename);
+	$mime='';
+	$value="$mime|$vidout";
+
+	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout);
+      } else {
+	$value=$info->mime_s.'|'.$info->id_file;
+      }
+    }
+    return $value;
+  }
   /** return all the attributes object for popup menu
    * the attribute can be defined in fathers
    * @return array DocAttribute
