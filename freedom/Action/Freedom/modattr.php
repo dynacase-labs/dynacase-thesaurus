@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.29 2007/08/07 10:35:49 eric Exp $
+ * @version $Id: modattr.php,v 1.30 2007/11/13 08:41:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -99,14 +99,12 @@ function modattr(&$action) {
   $oattr0->docid = $doc->initid;
   $tadd=array();
   $tmod=array();
-  while(list($k,$v) = each($orders) )
-    {
-      //  print $k.":".$v."<BR>";
-
-	  
+  while(list($k,$v) = each($orders) ) {
+      //  print $k.":".$v."<BR>";	  
 	  if ($names[$k] != "") {
 	    if ($attrids[$k]=="") {
 	      $oattr=$oattr0;
+	      $oattr->isset=false;
 	      $oattr->id = $nattrids[$k];
 	    } else {
 	      $oattr=new DocAttr($dbaccess,array($doc->initid,strtolower($attrids[$k])));  
@@ -131,7 +129,7 @@ function modattr(&$action) {
 	    $oattr->options=$options[$k];
 	    $oattr->usefor='N';
 	    if (!$oattr->isAffected()) {
-	      //  print "add $names[$k]<BR>";
+	      // print "add $names[$k]<BR>";
 	      if (isset($nattrids[$k]) && ($nattrids[$k] != ""))
 		$oattr->id = $nattrids[$k];
 	      $err = $oattr->Add();
