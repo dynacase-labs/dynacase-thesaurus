@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.133 2007/11/07 15:11:48 eric Exp $
+#  $Id: FREEDOM.spec.in,v 1.134 2007/11/13 16:31:50 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -88,6 +88,8 @@ Requires: aspell-en
 Requires: ghostscript-fonts-std
 Requires: php-pspell
 Requires: php-sysvsem
+Requires: php-dom
+Requires: php-xslt
 Requires: php-pear-Net_SMTP
 Requires: php-pear-Mail_Mime
 %else
