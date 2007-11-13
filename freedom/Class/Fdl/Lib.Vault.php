@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.13 2007/10/10 16:16:15 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.14 2007/11/13 16:36:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,29 +33,47 @@ function initVaultAccess() {
  * @param int &$gen_idfile vault identificator of new stored file
  * @return string error message (empty if OK)
  */
-function vault_generate($engine,$idfile,&$gen_idfile) {
-  
-  $FREEDOM_VAULT=initVaultAccess();
-  $gen_idfile=0;
-  $vf=new VaultDiskStorage($FREEDOM_VAULT->dbaccess,$idfile);
-  if ($vf->isAffected()) {
-    $nvid=$vf->getEngineFile($engine);
-    if ($nvid > 0) $gen_idfile=$nvid;
-    else {
-      $mime=$vf->mime_s;
-      $eng=new VaultEngine($vf->dbaccess,array($engine,$mime));
-      if (! $eng->isAffected()) {
-	$eng=$eng->GetNearEngine($engine,$mime);	
-      }
-      if ($eng) {
-	//print "Using ".$eng->command."(". $eng->comment;
-	$err=$vf->executeEngine($eng,$gen_idfile);
-	//if ($err) 	print "Error:<b>$err</b> ";
-      }
+function vault_generate($dbaccess,$engine,$vidin,$vidout) {
+  if (($vidin>0)&&($vidout>0))  {
+    $tea=getParam("TE_ACTIVATE");
+    if ($tea!="yes") return;
+    if (@include_once("TE/Class.TEClient.php")) {
+      global $action;
+      include_once("FDL/Class.TaskRequest.php");
+      $of=new VaultDiskStorage($dbaccess,$vidin);
+      $filename=$of->getPath();
       
+      $urlindex=getParam("CORE_EXTERNURL");
+      if ($urlindex=="") { //case DAV
+	$au=getParam("CORE_URLINDEX");
+	if ($au != "") $urlindex=getParam("CORE_URLINDEX");
+	else {
+	  $scheme=getParam("CORE_ABSURL");
+	  if ($scheme=="") $urlindex='/freedom/';
+	  else $urlindex=getParam("CORE_ABSURL");
+	}
+      }
+
+      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout";
+      $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
+      $err=$ot->sendTransformation($engine,$vid,$filename,$callback,$info);
+      if ($err=="") {
+	$tr=new TaskRequest($dbaccess);
+	$tr->tid=$info["tid"];
+	$tr->fkey=$vid;
+	$tr->status=$info["status"];
+	$tr->comment=$info["comment"];
+	$tr->uid=$action->user->id;
+	$tr->uname=$action->user->firstname." ".$action->user->lastname;
+	$err=$tr->Add();
+      }
+    } else {
+      AddWarningMsg(_("TE engine activate but TE-CLIENT not found"));
     }
   }
   return $err;
+  
+  
 }
 
 /**
