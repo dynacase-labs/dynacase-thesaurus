@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.50 2007/10/24 15:53:38 eric Exp $
+// $Id: FDL.app,v 1.51 2007/11/13 16:37:08 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -314,6 +314,11 @@ $action_desc = array (
   array( 
    "name"		=>"SETTXTFILE",
    "short_name"		=>N_("update text file for fulltext"),
+   "acl"		=>"EDIT"
+  ),
+  array( 
+   "name"		=>"INSERTFILE",
+   "short_name"		=>N_("insert converted file"),
    "acl"		=>"EDIT"
   ),
   array( 
