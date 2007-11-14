@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.15 2007/11/14 09:52:54 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.16 2007/11/14 12:47:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -33,7 +33,7 @@ function initVaultAccess() {
  * @param int &$gen_idfile vault identificator of new stored file
  * @return string error message (empty if OK)
  */
-function vault_generate($dbaccess,$engine,$vidin,$vidout) {
+function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
   if (($vidin>0)&&($vidout>0))  {
     $tea=getParam("TE_ACTIVATE");
     if ($tea!="yes") return;
@@ -54,7 +54,7 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout) {
 	}
       }
 
-      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout";
+      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout&ismaige=$isimage";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation($engine,$vid,$filename,$callback,$info);
       if ($err=="") {
@@ -75,6 +75,8 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout) {
 	$err=$vf->Save($filename, false , $vidout);
 	@unlink($filename);
 	$vf->rename($vidout,_("impossible conversion").".txt");
+	$vf->storage->teng_state=-2;
+	$vf->storage->modify();;
       }
     } else {
       AddWarningMsg(_("TE engine activate but TE-CLIENT not found"));

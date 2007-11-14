@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.2 2007/11/14 09:52:54 eric Exp $
+ * @version $Id: insertfile.php,v 1.3 2007/11/14 12:47:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,6 +28,7 @@ function insertfile(&$action) {
   $vidin=GetHttpVars("vidin");
   $vidout=GetHttpVars("vidout");
   $tid = GetHttpVars("tid");
+  $isimage = (GetHttpVars("isimage")!="");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if (! $tid) $$err=_("no task identificator found");

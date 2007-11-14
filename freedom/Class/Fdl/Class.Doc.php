@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.437 2007/11/14 09:52:54 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.438 2007/11/14 12:47:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1525,10 +1525,11 @@ final public function PostInsert()  {
    /**
    * send a request to TE to convert fiele
    * update $attrid_txt table column
-   * @param string $idAttr identificator of attribute
-   * @return string error message, if no error empty string
+   * @param string $va value of file attribute like mime|vid
+   * @param string $engine the name of transformation
+   * @return new file reference
    */
-  public function convertFile($va,$engine,$index=-1,$force=false) {     
+  public function convertFile($va,$engine,$isimage=false,$force=false) {     
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
     $value='?';
@@ -1546,8 +1547,12 @@ final public function PostInsert()  {
 	  $info=vault_properties($vidin);
 	  unlink($filename);
 	  $mime='';
-	  $value="$mime|$vidout";
-	  if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
+	  if ($isimage) {
+	    $value="workinprogress.png";
+	  } else {
+	    $value="$mime|$vidout";
+	    if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
+	  }
 	} else {	 
 	  if ($err=="") {
 	    $info1=vault_properties($vidin);
@@ -1557,9 +1562,18 @@ final public function PostInsert()  {
 	  }
 	}
 
-	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout);
+	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout,$isimage);
       } else {
-	$value=$info->mime_s.'|'.$info->id_file;
+	if ($isimage) {
+	  if ($info->teng_state<0) {
+	    if ($info->teng_state==-1)  $value="convertfail.png";
+	    else $value="convertimpossible.png";
+	  } else {
+	    $value=$info->mime_s.'|'.$info->id_file;
+	  }
+	} else{
+	  $value=$info->mime_s.'|'.$info->id_file;
+	}
       }
     }
     return $value;
