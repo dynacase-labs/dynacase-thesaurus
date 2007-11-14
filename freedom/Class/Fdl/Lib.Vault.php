@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.14 2007/11/13 16:36:44 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.15 2007/11/14 09:52:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,6 +66,15 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout) {
 	$tr->uid=$action->user->id;
 	$tr->uname=$action->user->firstname." ".$action->user->lastname;
 	$err=$tr->Add();
+      } else {
+	$vf=initVaultAccess();
+	$filename= uniqid("/var/tmp/txt-".$vidout.'-');
+	file_put_contents($filename,$err);
+	//$vf->rename($vidout,"toto.txt");
+	$vf->Retrieve($vidout, $info);
+	$err=$vf->Save($filename, false , $vidout);
+	@unlink($filename);
+	$vf->rename($vidout,_("impossible conversion").".txt");
       }
     } else {
       AddWarningMsg(_("TE engine activate but TE-CLIENT not found"));

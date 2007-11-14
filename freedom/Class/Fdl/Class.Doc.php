@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.436 2007/11/13 16:36:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.437 2007/11/14 09:52:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1531,21 +1531,31 @@ final public function PostInsert()  {
   public function convertFile($va,$engine,$index=-1,$force=false) {     
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
+    $value='?';
     if (ereg ("(.*)\|(.*)", $va, $reg)) {  
       $vidin=$reg[2];
       $info=vault_properties($vidin,$engine);
-      if (! $info->teng_vid) {
-	// create temporary file
-	$value=sprintf(_("conversion %s in progress"),$engine);
-	$filename=uniqid("/var/tmp/conv").".txt";
-	$nc=file_put_contents($filename,$value);
+      if ((! $info->teng_vid) || ($info->teng_state==2)) {
 	$vf = newFreeVaultFile($this->dbaccess);
-	$err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
-	$info=vault_properties($vidin);
-	if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
-	unlink($filename);
-	$mime='';
-	$value="$mime|$vidout";
+	if (! $info->teng_vid) {
+	  // create temporary file
+	  $value=sprintf(_("conversion %s in progress"),$engine);
+	  $filename=uniqid("/var/tmp/conv").".txt";
+	  $nc=file_put_contents($filename,$value);
+	  $err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
+	  $info=vault_properties($vidin);
+	  unlink($filename);
+	  $mime='';
+	  $value="$mime|$vidout";
+	  if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
+	} else {	 
+	  if ($err=="") {
+	    $info1=vault_properties($vidin);
+	    $vidout=$info->id_file;
+	    $vf->rename($vidout,sprintf("+++%s.%s",$info1->name,$engine));
+	    $value=$info->mime_s.'|'.$info->id_file;
+	  }
+	}
 
 	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout);
       } else {

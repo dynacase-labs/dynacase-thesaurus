@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.1 2007/11/13 16:37:08 eric Exp $
+ * @version $Id: insertfile.php,v 1.2 2007/11/14 09:52:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -51,17 +51,29 @@ function insertfile(&$action) {
 	  $err=$vf->Retrieve($vidout, $info);
 	  $err=$vf->Save($filename, false , $vidout);
 	
-	  if (substr($info->name,0,3)=="---") {
+	  $tri=substr($info->name,0,3);
+	  if (($tri=="---")||($tri=="+++")) {
 	    $basename=substr($info->name,3);
 	    $vf->Rename($vidout,$basename);
+	    $vf->storage->teng_state=1;
+	    $vf->storage->modify();
 	  }
 	  
 	} else {
 	  $vf = newFreeVaultFile($dbaccess);
-	  $err=$vf->Retrieve($vidout, $info);
-	  if (substr($info->name,0,3)=="---") {
-	    $basename="###".substr($info->name,3);
+	  $err=$vf->Retrieve($vidout, $vinfo);
+
+	  if (substr($vinfo->name,0,3)=="---") {
+	    $filename= uniqid("/var/tmp/txt-".$vidout.'-');
+	    file_put_contents($filename,print_r($info,true));
+	    //$vf->rename($vidout,"toto.txt");
+	    $vf->Retrieve($vidout, $vinfo);
+	    $err=$vf->Save($filename, false , $vidout);
+	    @unlink($filename);
+	    $basename=_("conversion error").".txt";
 	    $vf->Rename($vidout,$basename);
+	    $vf->storage->teng_state=-1;
+	    $vf->storage->modify();;
 	  }
 	}
 	
