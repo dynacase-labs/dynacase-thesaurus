@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultFile.php,v 1.21 2007/11/13 16:33:39 eric Exp $
+ * @version $Id: Class.VaultFile.php,v 1.22 2007/11/14 16:54:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -131,6 +131,9 @@ Class VaultFile {
     $msg = $this->storage->Save($infile, $public_access, $id);
     $this->logger->error($msg);
     
+    $this->storage->mime_t = getTextMimeFile($infile);
+    $this->storage->mime_s = getSysMimeFile($infile, $this->storage->name);
+    $msg = $this->storage->Modify();
     if ($this->chrono) $this->logger->end("Save");
     return($msg);
   }
