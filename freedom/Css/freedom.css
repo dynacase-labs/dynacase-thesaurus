@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.121 2007/10/08 14:58:23 eric Exp $
+ * $Id: freedom.css,v 1.122 2007/11/14 16:55:52 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -953,4 +953,10 @@ DIV.tabsh SPAN.tabsel  {
   border-style:none none solid solid;
   border-width:0px 0px 1px 10px;
   -moz-border-radius:0px 0px 0px 10px;
+}
+
+img.mime {
+  width:[SIZE_IMG-X-SMALL];
+  border:none;
+  vertical-align:bottom;
 }

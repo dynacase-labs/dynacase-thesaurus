@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.439 2007/11/14 14:51:10 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.440 2007/11/14 16:55:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -13,6 +13,7 @@
 
 
 include_once("Class.QueryDb.php");
+include_once("Lib.FileMime.php");
 include_once("FDL/Class.DocCtrl.php");
 include_once("FDL/freedom_util.php");
 include_once("FDL/Class.DocVaultIndex.php");
@@ -3383,11 +3384,13 @@ final public function PostInsert()  {
 	    if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
 	    else $idx=$index;
 
+	    $mimeicon=getIconMimeFile($info->mime_s);
 	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
-	      ."\">".$fname.
-	      "</A>";
+	      ."\">";
+	    if ($mimeicon) $htmlval.="<img class=\"mime\" needresize=1  src=\"Images/$mimeicon\">&nbsp;";
+	    $htmlval.=$fname."</A>";
 	    }
 	    /*
 	    
