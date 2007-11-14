@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.16 2007/11/14 12:47:10 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.17 2007/11/14 14:51:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
 	}
       }
 
-      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout&ismaige=$isimage";
+      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout&isimage=$isimage";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation($engine,$vid,$filename,$callback,$info);
       if ($err=="") {

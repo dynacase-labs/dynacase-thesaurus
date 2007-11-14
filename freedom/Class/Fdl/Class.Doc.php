@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.438 2007/11/14 12:47:10 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.439 2007/11/14 14:51:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1532,10 +1532,12 @@ final public function PostInsert()  {
   public function convertFile($va,$engine,$isimage=false,$force=false) {     
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
-    $value='?';
+    $value='';
     if (ereg ("(.*)\|(.*)", $va, $reg)) {  
       $vidin=$reg[2];
       $info=vault_properties($vidin,$engine);
+
+      
       if ((! $info->teng_vid) || ($info->teng_state==2)) {
 	$vf = newFreeVaultFile($this->dbaccess);
 	if (! $info->teng_vid) {
@@ -1551,13 +1553,15 @@ final public function PostInsert()  {
 	    $value="workinprogress.png";
 	  } else {
 	    $value="$mime|$vidout";
-	    if ($err=="") $vf->rename($vidout,sprintf("---%s.%s",$info->name,$engine));
+	    if ($err=="") $vf->rename($vidout,sprintf(_("conversion of %s.in progress.%s"),$info->name,$engine));
+
 	  }
+	  $this->AddComment("value $engine : $value");
 	} else {	 
 	  if ($err=="") {
 	    $info1=vault_properties($vidin);
 	    $vidout=$info->id_file;
-	    $vf->rename($vidout,sprintf("+++%s.%s",$info1->name,$engine));
+	    $vf->rename($vidout,sprintf(_("update of %s.in progress.%s"),$info1->name,$engine));
 	    $value=$info->mime_s.'|'.$info->id_file;
 	  }
 	}
@@ -1569,7 +1573,7 @@ final public function PostInsert()  {
 	    if ($info->teng_state==-1)  $value="convertfail.png";
 	    else $value="convertimpossible.png";
 	  } else {
-	    $value=$info->mime_s.'|'.$info->id_file;
+	    if ($info->teng_state==1)   $value=$info->mime_s.'|'.$info->id_file;
 	  }
 	} else{
 	  $value=$info->mime_s.'|'.$info->id_file;
