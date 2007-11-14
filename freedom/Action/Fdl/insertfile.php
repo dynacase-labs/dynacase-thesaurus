@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.3 2007/11/14 12:47:10 eric Exp $
+ * @version $Id: insertfile.php,v 1.4 2007/11/14 14:50:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,6 +15,7 @@
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.TaskRequest.php");
 include_once("TE/Class.TEClient.php");
+include_once("Lib.FileMime.php");
 /**
  * Modify the attrid_txt attribute
  * @param Action &$action current action
@@ -31,7 +32,7 @@ function insertfile(&$action) {
   $isimage = (GetHttpVars("isimage")!="");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
-  if (! $tid) $$err=_("no task identificator found");
+  if (! $tid) $err=_("no task identificator found");
   else {
     $ot=new TransformationEngine($action->getParam("TE_HOST"),$action->getParam("TE_PORT"));
 
@@ -43,22 +44,32 @@ function insertfile(&$action) {
 	
 	$outfile=$info["outfile"];
 	$status=$info["status"];
+	
 	if (($status=='D') && ($outfile != '')) {
 	  $filename= uniqid("/var/tmp/txt-".$vidout.'-');
 	  //$err=$ot->getTransformation($tid,$filename);
 	  $err=$ot->getAndLeaveTransformation($tid,$filename);
 
 	  $vf = newFreeVaultFile($dbaccess);
-	  $err=$vf->Retrieve($vidout, $info);
+	  $err=$vf->Retrieve($vidin, $infoin);
+	  $err=$vf->Retrieve($vidout, $infoout);
 	  $err=$vf->Save($filename, false , $vidout);
+	  $err=$vf->Retrieve($vidout, $infoout); // relaod for mime
 	
-	  $tri=substr($info->name,0,3);
-	  if (($tri=="---")||($tri=="+++")) {
-	    $basename=substr($info->name,3);
-	    $vf->Rename($vidout,$basename);
-	    $vf->storage->teng_state=1;
-	    $vf->storage->modify();
-	  }
+	  $ext=getExtension($infoout->mime_s);
+	  if ($ext=="") $ext=$infoout->teng_lname;
+	  	  print_r($infoout);
+		  // print_r($ext);
+	  
+
+	  $pp=strrpos($infoin->name,'.');
+	  $newname=substr($infoin->name,0,$pp).'.'.$ext;
+
+
+	  $vf->Rename($vidout,$newname);
+	  $vf->storage->teng_state=1;
+	  $vf->storage->modify();
+	  
 	  
 	} else {
 	  $vf = newFreeVaultFile($dbaccess);
