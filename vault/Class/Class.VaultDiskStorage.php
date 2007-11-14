@@ -3,7 +3,7 @@
  * Retrieve and store file in Vault for unix fs
  *
  * @author Anakeen 2004
- * @version $Id: Class.VaultDiskStorage.php,v 1.7 2007/11/13 16:33:39 eric Exp $
+ * @version $Id: Class.VaultDiskStorage.php,v 1.8 2007/11/14 09:53:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  */
@@ -334,7 +334,7 @@ function seems_utf8($Str) {
    * reset all files product by transform engine
    */
   function  resetTEFiles() {
-    $up = "update ".$this->dbtable." set teng_state=0 where teng_id_file=".$this->id_file.";";
+    $up = "update ".$this->dbtable." set teng_state=2 where teng_id_file=".$this->id_file.";";
     $this->exec_query($up);
   }
  
