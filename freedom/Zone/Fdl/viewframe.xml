@@ -12,10 +12,9 @@
   <td valign="top"  class="FREEDOMLabel"  width="[wvalue]"><span style="display:[ndisplay]">[alabel]&nbsp;:&nbsp;</span></td>
   <td valign="top" class="FREEDOMText" >[avalue]</td>[ENDIF normallabel]
   [IF uplabel]<td valign="top" colspan="2" class="FREEDOMText" ><P style="margin:0px" ><u>[alabel]</u>&nbsp;:&nbsp;</P><div style="margin-left:20px">[avalue]</div></td>[ENDIF uplabel]
-  
 </tr>
 [ENDBLOCK FVALUES]
-</table>
+</table></fieldset>
 </td></tr>
 
 [ENDBLOCK FIELDSET]
