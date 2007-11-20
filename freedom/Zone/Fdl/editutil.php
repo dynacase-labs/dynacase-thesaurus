@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.128 2007/10/30 10:36:52 eric Exp $
+ * @version $Id: editutil.php,v 1.129 2007/11/20 10:45:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,7 +58,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   $input="";
 		
   //if (($value == "") && ($docid==0)) {
-    // only for create doc because can be a security failure 
+  // only for create doc because can be a security failure 
   if (($value == "")&&(!$oattr->inArray()))     $value = GetHttpVars($attrid); 
 
 
@@ -71,12 +71,15 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   }
 
   $oc = "$jsevent onchange=\"document.isChanged=true\" "; // use in "pleaseSave" js function
-
+  if ($docid==0) {
+    // case of specific interface
+    $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.($oattr->labelText);
+  } else $iopt="";
   if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
     if  ($visibility != "S") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	if ($oattr->getOption("autosuggest","yes")!="no") {
-	  $autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this)\" ";
+	  $autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this,'$iopt')\" ";
 	  $oc.=$autocomplete;
 	}
       }
@@ -84,358 +87,358 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   }
   // output change with type
   switch ($attrtype)  {		      
-      //----------------------------------------
-    case "image": 
-      if (ereg ("(.*)\|(.*)", $value, $reg)) {
+    //----------------------------------------
+  case "image": 
+    if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
-	$dbaccess = GetParam("FREEDOM_DB");
-	$vf = newFreeVaultFile($dbaccess);
-	if ($vf -> Show ($reg[2], $info) == "") {
-	  $vid=$reg[2];
-	  $fname = "<A target=\"$attrid\" href=\"".
-	    GetParam("CORE_BASEURL").
-	    "app=FDL&action=EXPORTFILE&vid=$vid&docid=$docid&attrid=$attrid&index=$index\" title=\"{$info->name}\">";
-	  // put image
+      $dbaccess = GetParam("FREEDOM_DB");
+      $vf = newFreeVaultFile($dbaccess);
+      if ($vf -> Show ($reg[2], $info) == "") {
+	$vid=$reg[2];
+	$fname = "<A target=\"$attrid\" href=\"".
+	  GetParam("CORE_BASEURL").
+	  "app=FDL&action=EXPORTFILE&vid=$vid&docid=$docid&attrid=$attrid&index=$index\" title=\"{$info->name}\">";
+	// put image
 	  
-	  $fname.="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
-	  $fname .= GetParam("CORE_BASEURL").
-	    "app=FDL&action=EXPORTFILE&vid=$vid&docid=".$docid."&attrid=".$attrid."&index=$index";
-	  $fname .= "\">";
+	$fname.="<IMG align=\"absbottom\" width=\"30\" SRC=\"";
+	$fname .= GetParam("CORE_BASEURL").
+	  "app=FDL&action=EXPORTFILE&vid=$vid&docid=".$docid."&attrid=".$attrid."&index=$index";
+	$fname .= "\">";
 
-	  $fname .= "</A>";
-	}
-	else $fname=_("error in filename");
+	$fname .= "</A>";
       }
-      else {
+      else $fname=_("error in filename");
+    }
+    else {
 	
 	  
-	$fname = $action->GetIcon("noimage.gif",_("no image"),30);
+      $fname = $action->GetIcon("noimage.gif",_("no image"),30);
 	 
 	
-      }
+    }
 
-      $input =$fname;
+    $input =$fname;
    
 		      
-      // input 
-      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
-      $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
-      $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\"";
+    // input 
+    $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
+    $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
+    $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\"";
       
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " > "; 
-      break;
+    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+    $input .= " > "; 
+    break;
 		      
-      //----------------------------------------
-    case "file": 
-      if (ereg ("(.*)\|(.*)", $value, $reg)) {
+    //----------------------------------------
+  case "file": 
+    if (ereg ("(.*)\|(.*)", $value, $reg)) {
 			  
-	$dbaccess = $action->GetParam("FREEDOM_DB");
-	$vf = newFreeVaultFile($dbaccess);
-	if ($vf -> Show ($reg[2], $info) == "") {
-	  $vid=$reg[2];
-	  $DAV=getParam("FREEDAV_SERVEUR",false);
+      $dbaccess = $action->GetParam("FREEDOM_DB");
+      $vf = newFreeVaultFile($dbaccess);
+      if ($vf -> Show ($reg[2], $info) == "") {
+	$vid=$reg[2];
+	$DAV=getParam("FREEDAV_SERVEUR",false);
 	 
-	  if ($DAV) {
-	    global $action;
-	    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/DAV/Layout/getsessionid.js");
+	if ($DAV) {
+	  global $action;
+	  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/DAV/Layout/getsessionid.js");
 	    
-	    $oc="onclick=\"var sid=getsessionid('".$docid."','$vid');this.href='asdav://$DAV/freedav/vid-'+sid+'/$info->name'\"";
-	    $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc><img style=\"border:none\" src=\"Images/davedit.png\">";
-	  } else {
+	  $oc="onclick=\"var sid=getsessionid('".$docid."','$vid');this.href='asdav://$DAV/freedav/vid-'+sid+'/$info->name'\"";
+	  $fname="<A title=\""._("open file with your editor")."\" href=\"#\" $oc><img style=\"border:none\" src=\"Images/davedit.png\">";
+	} else {
 	  $fname = "<A target=\"$attrid\" href=\"".
 	    $action->GetParam("CORE_BASEURL").
 	    "app=FDL&action=EXPORTFILE&vid=$vid&docid=$docid&attrid=$attrid&index=$index\">";
-	  }
-	  $fname .= $info->name;
-	  $fname .= "</A>";
 	}
-	else $fname=_("error in filename");
+	$fname .= $info->name;
+	$fname .= "</A>";
       }
-      else $fname=_("no filename");
+      else $fname=_("error in filename");
+    }
+    else $fname=_("no filename");
 		      
-      $input = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
+    $input = "<span class=\"FREEDOMText\">".$fname."</span><BR>";
 		      
-      // input 
-      $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
-      $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
+    // input 
+    $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
+    $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
 
-      $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\"  class=\"\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+    $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\"  class=\"\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\" value=\"".chop(htmlentities($value))."\"";
 
 
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " > "; 
-      break;
+    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+    $input .= " > "; 
+    break;
 		      
-      //----------------------------------------
-    case "longtext": 
-      $rows=2;
-      if ($action->Read("navigator","")=="NETSCAPE") $rows--;
-      $expid="exp".$attridk;
-      $input="<textarea $oc wrap=\"virtual\"  onkeyup=\"textautovsize(event,this)\"  onclick=\"textautovsize(event,this)\" class=\"autoresize\" rows=$rows name=\"".
-	$attrin."\" ";
-      $input .= " id=\"".$attridk."\" "; 
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " >".
-	str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
-	"</textarea>";
-      //	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=$rows;this.style.display='none'\" value=\"&Delta;\">";
+    //----------------------------------------
+  case "longtext": 
+    $rows=2;
+    if ($action->Read("navigator","")=="NETSCAPE") $rows--;
+    $expid="exp".$attridk;
+    $input="<textarea $oc wrap=\"virtual\"  onkeyup=\"textautovsize(event,this)\"  onclick=\"textautovsize(event,this)\" class=\"autoresize\" rows=$rows name=\"".
+      $attrin."\" ";
+    $input .= " id=\"".$attridk."\" "; 
+    if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+    $input .= " >".
+      str_replace(array("[","$"),array("&#091;","&#036;"),htmlentities(stripslashes(str_replace("<BR>","\n",$value)))).
+      "</textarea>";
+    //	"<input id=\"$expid\" style=\"display:none\" type=\"button\" onclick=\"document.getElementById('$attridk').rows=$rows;this.style.display='none'\" value=\"&Delta;\">";
     
     
-      break;
-      //----------------------------------------
-    case "htmltext": 
-      /*
-      $expid="exp".$attrid;
-      $input="<textarea $oc  style=\"width:100%\" rows=\"20\"   name=\"".
-	$attrin."\" ";
-      $input .= " id=\"".$attridk."\" "; 
-      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-      $input .= " >".
-	htmlentities(stripslashes($value)).
-	"</textarea>";
-      */
+    break;
+    //----------------------------------------
+  case "htmltext": 
+    /*
+     $expid="exp".$attrid;
+     $input="<textarea $oc  style=\"width:100%\" rows=\"20\"   name=\"".
+     $attrin."\" ";
+     $input .= " id=\"".$attridk."\" "; 
+     if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+     $input .= " >".
+     htmlentities(stripslashes($value)).
+     "</textarea>";
+    */
 
-      //      $input .= "<input type=\"button\" onclick=\"var editor$attridk = new HTMLArea('$attridk');editor$attridk.generate();\" value=\"Y\"></input>";
-      // $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
+    //      $input .= "<input type=\"button\" onclick=\"var editor$attridk = new HTMLArea('$attridk');editor$attridk.generate();\" value=\"Y\"></input>";
+    // $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
 
-      $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
-      $lay->set("Value",str_replace(array("\n","\r","'"),array(" "," ","\\'"), $value));
-      $lay->set("label",ucFirst($oattr->labelText));
-      $lay->set("need",$oattr->needed);
-      $lay->set("height",$oattr->getOption("editheight","100%"));
-      $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
-      $lay->set("toolbarexpand",(strtolower($oattr->getOption("toolbarexpand"))=="no")?"false":"true");
-      $lay->set("aid",$attridk);
-      $lay->set("aname",$attrin);
-      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-      else $lay->set("disabled","");
-      $input =$lay->gen(); 
+    $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
+    $lay->set("Value",str_replace(array("\n","\r","'"),array(" "," ","\\'"), $value));
+    $lay->set("label",ucFirst($oattr->labelText));
+    $lay->set("need",$oattr->needed);
+    $lay->set("height",$oattr->getOption("editheight","100%"));
+    $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
+    $lay->set("toolbarexpand",(strtolower($oattr->getOption("toolbarexpand"))=="no")?"false":"true");
+    $lay->set("aid",$attridk);
+    $lay->set("aname",$attrin);
+    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+    else $lay->set("disabled","");
+    $input =$lay->gen(); 
 
     
-      break;
-      //----------------------------------------
-    case "idoc":
+    break;
+    //----------------------------------------
+  case "idoc":
 
-      $input.=getLayIdoc($doc,$oattr,$attridk,$attrin,$value);
+    $input.=getLayIdoc($doc,$oattr,$attridk,$attrin,$value);
       
-      break;
+    break;
       
 
-      //----------------------------------------
-    case "array": 
+    //----------------------------------------
+  case "array": 
 
-      $lay = new Layout("FDL/Layout/editarray.xml", $action);
-      getLayArray($lay,$doc,$oattr);
+    $lay = new Layout("FDL/Layout/editarray.xml", $action);
+    getLayArray($lay,$doc,$oattr);
 		      
-      $input =$lay->gen(); 
-      break;
+    $input =$lay->gen(); 
+    break;
 		      
-      //----------------------------------------
-    case "doc": 
+    //----------------------------------------
+  case "doc": 
 
-      $lay = new Layout("FDL/Layout/editadoc.xml", $action);
-      getLayAdoc($lay,$doc,$oattr,$value,$attrin,$index);
+    $lay = new Layout("FDL/Layout/editadoc.xml", $action);
+    getLayAdoc($lay,$doc,$oattr,$value,$attrin,$index);
 		      
-      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-      else $lay->set("disabled","");
-      $input =$lay->gen(); 
-      break;		
-      //----------------------------------------
+    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+    else $lay->set("disabled","");
+    $input =$lay->gen(); 
+    break;		
+    //----------------------------------------
  
      
-    case "enum": 
-      if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
+  case "enum": 
+    if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
 
-	switch ($oattr->eformat) {
-	case "vcheck":
-	  $lay = new Layout("FDL/Layout/editenumlistvcheck.xml", $action);
-	  break;
-	case "hcheck":
-	  $lay = new Layout("FDL/Layout/editenumlisthcheck.xml", $action);
-	  break;
+      switch ($oattr->eformat) {
+      case "vcheck":
+	$lay = new Layout("FDL/Layout/editenumlistvcheck.xml", $action);
+	break;
+      case "hcheck":
+	$lay = new Layout("FDL/Layout/editenumlisthcheck.xml", $action);
+	break;
 	
-	default:
-	  $lay = new Layout("FDL/Layout/editenumlist.xml", $action);
-	}	
-      } else {
+      default:
+	$lay = new Layout("FDL/Layout/editenumlist.xml", $action);
+      }	
+    } else {
 	
-	$enuml = $oattr->getenumlabel();
-	$lunset=current($enuml);
-	if ($value=="") $value=key($enuml);
-	switch ($oattr->eformat) {
-	case "vcheck":
-	  $lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
-	  break;
-	case "hcheck":
-	  $lay = new Layout("FDL/Layout/editenumhcheck.xml", $action);
-	  break;
-	case "bool":
-	  $lay = new Layout("FDL/Layout/editenumbool.xml", $action);
+      $enuml = $oattr->getenumlabel();
+      $lunset=current($enuml);
+      if ($value=="") $value=key($enuml);
+      switch ($oattr->eformat) {
+      case "vcheck":
+	$lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
+	break;
+      case "hcheck":
+	$lay = new Layout("FDL/Layout/editenumhcheck.xml", $action);
+	break;
+      case "bool":
+	$lay = new Layout("FDL/Layout/editenumbool.xml", $action);
 	  
-	  $lset=next($enuml);
-	  if ($value==key($enuml))  $lay->set("checkedyesno","checked");
-	  else $lay->set("checkedyesno","");
-	  $lay->set("tyesno",sprintf(_("set for %s, unset for %s"),$lset,$lunset));
-	  break;
-	default:
-	  $lay = new Layout("FDL/Layout/editenum.xml", $action);
-	}
-
+	$lset=next($enuml);
+	if ($value==key($enuml))  $lay->set("checkedyesno","checked");
+	else $lay->set("checkedyesno","");
+	$lay->set("tyesno",sprintf(_("set for %s, unset for %s"),$lset,$lunset));
+	break;
+      default:
+	$lay = new Layout("FDL/Layout/editenum.xml", $action);
       }
+
+    }
     
-      getLayOptions($lay,$doc,$oattr,$value,$attrin,$index);
-      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-      else $lay->set("disabled","");
-      $input =$lay->gen(); 
-      break;      
+    getLayOptions($lay,$doc,$oattr,$value,$attrin,$index);
+    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+    else $lay->set("disabled","");
+    $input =$lay->gen(); 
+    break;      
 		      
 
 		      
-      //----------------------------------------
+    //----------------------------------------
 			
-    case "color": 
-      $input="<input size=7  style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
-      $input .= " id=\"".$attridk."\" "; 
+  case "color": 
+    $input="<input size=7  style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+    $input .= " id=\"".$attridk."\" "; 
 
-      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
-      else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
+    if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
+    else  if ($doc->usefor != 'D') $input .=" disabled "; // always but default
 
-      $input .= " >&nbsp;"; 
-      if (!(($visibility == "R")||($visibility == "S"))) {
-	$input.="<input id=\"col$attridk\" type=\"button\" value=\"&#133;\"".
-	  " title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'$attridk')\"".
-	  ">";
-      }
-      break;      
+    $input .= " >&nbsp;"; 
+    if (!(($visibility == "R")||($visibility == "S"))) {
+      $input.="<input id=\"col$attridk\" type=\"button\" value=\"&#133;\"".
+	" title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'$attridk')\"".
+	">";
+    }
+    break;      
 		      
-      //----------------------------------------
+    //----------------------------------------
 			
-    case "date": 
-      $lay = new Layout("FDL/Layout/editdate.xml", $action);
-      getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
+  case "date": 
+    $lay = new Layout("FDL/Layout/editdate.xml", $action);
+    getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
 		      
-      $lay->set("disabled","");
-      if (($visibility == "R")||($visibility == "S")) {
-	$lay->set("disabled",$idisabled);
+    $lay->set("disabled","");
+    if (($visibility == "R")||($visibility == "S")) {
+      $lay->set("disabled",$idisabled);
 
-      } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
+    } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
 
 
-      if (!(($visibility == "R")||($visibility == "S"))) {
-	$lay->setBlockData("VIEWCALSEL",array(array("zou")));
-      }
-      if ($doc->usefor != 'D') 	$lay->setBlockData("CONTROLCAL",array(array("zou")));
-      $input =$lay->gen(); 
-      break;     
-      //----------------------------------------
+    if (!(($visibility == "R")||($visibility == "S"))) {
+      $lay->setBlockData("VIEWCALSEL",array(array("zou")));
+    }
+    if ($doc->usefor != 'D') 	$lay->setBlockData("CONTROLCAL",array(array("zou")));
+    $input =$lay->gen(); 
+    break;     
+    //----------------------------------------
 			
-    case "timestamp": 
-      $lay = new Layout("FDL/Layout/edittimestamp.xml", $action);
-      getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
+  case "timestamp": 
+    $lay = new Layout("FDL/Layout/edittimestamp.xml", $action);
+    getLayDate($lay,$doc,$oattr,$value,$attrin,$index);
 		      
-      $lay->set("disabled","");
-      if (($visibility == "R")||($visibility == "S")) {
-	$lay->set("disabled",$idisabled);	
-      } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
+    $lay->set("disabled","");
+    if (($visibility == "R")||($visibility == "S")) {
+      $lay->set("disabled",$idisabled);	
+    } else  if ($doc->usefor != 'D') 	$lay->set("disabled","disabled");
 
 
-      $input =$lay->gen(); 
-      break;
+    $input =$lay->gen(); 
+    break;
 		      
-      //----------------------------------------
+    //----------------------------------------
 			
-    case "time": 
-      $isDisabled="";
-      if (($visibility == "R")||($visibility == "S")) $isDisabled =$idisabled;
-      list($hh,$mm,$ss) = explode(":",$value);
-      $input ="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$hh."\" id=\"hh".$attridk."\">:";
+  case "time": 
+    $isDisabled="";
+    if (($visibility == "R")||($visibility == "S")) $isDisabled =$idisabled;
+    list($hh,$mm,$ss) = explode(":",$value);
+    $input ="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$hh."\" id=\"hh".$attridk."\">:";
      
-      $input.="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$mm."\"id=\"mm".$attridk."\">";
+    $input.="<input $isDisabled size=2 maxlength=2 onchange=\"chtime('$attridk')\" type=\"text\"  value=\"".$mm."\"id=\"mm".$attridk."\">";
       
 
-      $input.="<input  type=\"hidden\"  name=\"".$attrin."\" id=\"".$attridk."\" value=\"".$value."\">";
+    $input.="<input  type=\"hidden\"  name=\"".$attrin."\" id=\"".$attridk."\" value=\"".$value."\">";
 
-      break;      
+    break;      
 		      
-      //----------------------------------------
-    case "password" : 
-      // don't see the value
-      $eopt="class=\"fullresize\" ";
-      $esize=$oattr->getOption("esize");
-      if ($esize > 0) $eopt="size=$esize";
-      $input="<input $oc $eopt type=\"password\" name=\"".$attrin."\" value=\""."\"";
-      $input .= " id=\"".$attridk."\" "; 
+    //----------------------------------------
+  case "password" : 
+    // don't see the value
+    $eopt="class=\"fullresize\" ";
+    $esize=$oattr->getOption("esize");
+    if ($esize > 0) $eopt="size=$esize";
+    $input="<input $oc $eopt type=\"password\" name=\"".$attrin."\" value=\""."\"";
+    $input .= " id=\"".$attridk."\" "; 
 
 
-      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
+    if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;
 		      
-      $input .= " > "; 
-      break;
+    $input .= " > "; 
+    break;
 
-      //----------------------------------------
-    case "option": 
+    //----------------------------------------
+  case "option": 
 
-      $lay = new Layout("FDL/Layout/editdocoption.xml", $action);
-      getLayDocOption($lay,$doc,$oattr,$value,$attrin,$index);
-      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-      else $lay->set("disabled","");
-      $input =$lay->gen(); 
-      break;
-      //----------------------------------------
-    default : 
+    $lay = new Layout("FDL/Layout/editdocoption.xml", $action);
+    getLayDocOption($lay,$doc,$oattr,$value,$attrin,$index);
+    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+    else $lay->set("disabled","");
+    $input =$lay->gen(); 
+    break;
+    //----------------------------------------
+  default : 
     
-      if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
-	$input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
-	  $attrin."\" ";
-	$input .= " id=\"".$attridk."\" "; 
-	if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
-	$input .= " >\n".
-	  htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
-	  "</textarea>";
-      } else {
-	$hvalue=str_replace(array("[","$"),array("&#091;","&#036;"),chop(htmlentities(stripslashes($value))));
+    if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
+      $input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
+	$attrin."\" ";
+      $input .= " id=\"".$attridk."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
+      $input .= " >\n".
+	htmlentities(stripslashes(str_replace("<BR>","\n",$value))).
+	"</textarea>";
+    } else {
+      $hvalue=str_replace(array("[","$"),array("&#091;","&#036;"),chop(htmlentities(stripslashes($value))));
 
-	if ($oattr->eformat != "") {
-	  // input help with selector 
-	  $lay = new Layout("FDL/Layout/edittextlist.xml", $action);
-	  if (getLayTextOptions($lay,$doc,$oattr,$value,$attrin,$index)) {
-	    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-	    else $lay->set("disabled","");
-	    $lay->set("adisabled",$idisabled);
-	    $lay->set("oc",$jsevent);
+      if ($oattr->eformat != "") {
+	// input help with selector 
+	$lay = new Layout("FDL/Layout/edittextlist.xml", $action);
+	if (getLayTextOptions($lay,$doc,$oattr,$value,$attrin,$index)) {
+	  if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+	  else $lay->set("disabled","");
+	  $lay->set("adisabled",$idisabled);
+	  $lay->set("oc",$jsevent);
 
-	    if ($oattr->eformat=="hlist") $lay->set("atype","hidden");
-	    else $lay->set("atype","text");
-	    $input =$lay->gen(); 
-	    $usephpfunc=false; // disabled default input help
-	  }  else {
-	    $oattr->eformat = ""; // restore default display
-	  }
+	  if ($oattr->eformat=="hlist") $lay->set("atype","hidden");
+	  else $lay->set("atype","text");
+	  $input =$lay->gen(); 
+	  $usephpfunc=false; // disabled default input help
+	}  else {
+	  $oattr->eformat = ""; // restore default display
 	}
-	if ($oattr->eformat == "") {
-	  //Common representation
-	  $eopt="class=\"fullresize\" ";
-	  $esize=$oattr->getOption("esize");
-	  if ($esize > 0) $eopt="size=$esize";
-	  $elabel=$oattr->getOption("elabel");
-	  if ($elabel != "") $eopt.=" title=\"$elabel\"";
-	  $ecolor=$oattr->getOption("color");
-	  $estyle=""; // css style
-	  if ($ecolor != "") $estyle="color:$ecolor;";
-	  $ealign=$oattr->getOption("align");
-	  if ($ealign != "") $estyle.="text-align:$ealign";
-	  if ($estyle) $estyle="style=\"$estyle\"";
-
-	  $input="<input $oc $eopt $estyle type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
-	  $input .= " id=\"".$attridk."\" "; 
-	  if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
-	  $input .= " > "; 
-	} 
       }
-      break;
-		      
+      if ($oattr->eformat == "") {
+	//Common representation
+	$eopt="class=\"fullresize\" ";
+	$esize=$oattr->getOption("esize");
+	if ($esize > 0) $eopt="size=$esize";
+	$elabel=$oattr->getOption("elabel");
+	if ($elabel != "") $eopt.=" title=\"$elabel\"";
+	$ecolor=$oattr->getOption("color");
+	$estyle=""; // css style
+	if ($ecolor != "") $estyle="color:$ecolor;";
+	$ealign=$oattr->getOption("align");
+	if ($ealign != "") $estyle.="text-align:$ealign";
+	if ($estyle) $estyle="style=\"$estyle\"";
+
+	$input="<input $oc $eopt $estyle type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
+	$input .= " id=\"".$attridk."\" "; 
+	if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
+	$input .= " > "; 
+      } 
     }
+    break;
+		      
+  }
   
   if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
     if  ($visibility != "S") {
@@ -458,18 +461,15 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	else $ctype="single";
 
 	if ($alone) $ctype.="-alone";
-	if ($docid==0) {
-	  // case of specific interface
-	  $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.($oattr->labelText);
-	} else $iopt="";
+	
 	/*$input.="<input id=\"ic2_$attridk\" type=\"button\" value=\"&#133;\"".
-	  " title=\"".$ititle."\"".
-	  " onclick=\"sendEnumChoice(event,".$docid.
-	  ",this,'$attridk','$ctype','$iopt')\">";*/
+	 " title=\"".$ititle."\"".
+	 " onclick=\"sendEnumChoice(event,".$docid.
+	 ",this,'$attridk','$ctype','$iopt')\">";*/
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendAutoChoice(event,".$docid.
-	  ",this,'$attridk')\">";
+	  ",this,'$attridk','$iopt')\">";
 
 	// clear button
 	
@@ -524,32 +524,32 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     }
     if ($oattr->elink != "") {
 
-	if (substr($oattr->elink,0,3)=="JS:") {
-	  // javascript action
-	  $url= elinkEncode($doc,substr($oattr->elink,3),$index,$ititle,$isymbol);
+      if (substr($oattr->elink,0,3)=="JS:") {
+	// javascript action
+	$url= elinkEncode($doc,substr($oattr->elink,3),$index,$ititle,$isymbol);
 
-	  $jsfunc=$url;
+	$jsfunc=$url;
 	  
-	} else {
-	  $url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
+      } else {
+	$url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
 
-	  $target= $attrid;
+	$target= $attrid;
 	  
-	  $jsfunc="subwindowm(300,500,'$target','$url');";
-	}
-	
-	if ($oattr->getOption("elsymbol") != "") $isymbol=$oattr->getOption("elsymbol");
-	if ($oattr->getOption("eltitle") != "") $ititle=str_replace("\"","'",$oattr->getOption("eltitle"));
-	$input.="<input type=\"button\" value=\"$isymbol\"".
-	  " title=\"".$ititle."\"".
-	  " onclick=\"$jsfunc;";
-	if ($function) {
-	  $input.="$string_function\">";
-	}
-	else{
-	  $input.="\">";
-	}      
+	$jsfunc="subwindowm(300,500,'$target','$url');";
       }
+	
+      if ($oattr->getOption("elsymbol") != "") $isymbol=$oattr->getOption("elsymbol");
+      if ($oattr->getOption("eltitle") != "") $ititle=str_replace("\"","'",$oattr->getOption("eltitle"));
+      $input.="<input type=\"button\" value=\"$isymbol\"".
+	" title=\"".$ititle."\"".
+	" onclick=\"$jsfunc;";
+      if ($function) {
+	$input.="$string_function\">";
+      }
+      else{
+	$input.="\">";
+      }      
+    }
     if (GetHttpVars("viewconstraint")=="Y") { // set in modcard
       if ($oattr->phpconstraint != "") {
 	$res=$doc->verifyConstraint($oattr->id,$index);

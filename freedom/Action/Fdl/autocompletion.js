@@ -27,22 +27,19 @@ var _timebegin;
 var _timeend;
 var _wdate=new Date();
 
-function sendAutoChoice(event,docid,  choiceButton,attrid ) {
-
-
+function sendAutoChoice(event,docid,  choiceButton,attrid, iopt ) {
   inp=document.getElementById(attrid);
-
 
   if ((! inp)||(inp==null)) {
     alert('[TEXT: input not found]'+attrid);
   } else {    
-    activeAutoInit(event,docid,  inp );    
+    activeAutoInit(event,docid,  inp,iopt );    
     _forceone=true;
     inp.focus();
     callSuggestions(inp.value);
   }
 }
-function activeAutoInit(event,docid,  inp ) {
+function activeAutoInit(event,docid,  inp,iopt ) {
   var CORE_STANDURL='?sole=Y'; 
   var index='';
   var domindex=''; // needed to set values in arrays
@@ -68,12 +65,13 @@ function activeAutoInit(event,docid,  inp ) {
   } else {
     attrid=inp.name.substr(1,inp.name.length-1);;
   }
-  _adresseRecherche = CORE_STANDURL+'&app=FDL&action=AUTOCOMPLETION&docid='+docid+'&attrid='+attrid+'&index='+index+'&domindex='+domindex;
+  if (!iopt) iopt=''; 
+  _adresseRecherche = CORE_STANDURL+'&app=FDL&action=AUTOCOMPLETION&docid='+docid+'&attrid='+attrid+'&index='+index+'&domindex='+domindex+iopt;
   
 }
 
-function activeAuto(event,docid,  inp ) {
-  activeAutoInit(event,docid,  inp );
+function activeAuto(event,docid,  inp, iopt ) {
+  activeAutoInit(event,docid,  inp, iopt );
   if (! _autoisinit) _mainLoopId=setTimeout("mainLoop()",_mainLoopDelay);
   _autoisinit=true;
 }
