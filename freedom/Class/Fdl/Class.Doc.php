@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.440 2007/11/14 16:55:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.441 2007/11/21 16:55:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1971,7 +1971,7 @@ final public function PostInsert()  {
 		  }
 		  break;
 		case 'htmltext':
-		  $tvalues[$kvalue]=html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-15');
+		  $tvalues[$kvalue]=str_replace('script>','pre>',html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-15'));
 		  break;
 		}
 	      }

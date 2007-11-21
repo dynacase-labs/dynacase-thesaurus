@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.129 2007/11/20 10:45:10 eric Exp $
+ * @version $Id: editutil.php,v 1.130 2007/11/21 16:56:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -203,7 +203,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     // $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
 
     $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
-    $lay->set("Value",str_replace(array("\n","\r","'"),array(" "," ","\\'"), $value));
+    $lay->set("Value",str_replace(array("\n","\r","'","script>"),array(" "," ","\\'","pre>"), $value));
     $lay->set("label",ucFirst($oattr->labelText));
     $lay->set("need",$oattr->needed);
     $lay->set("height",$oattr->getOption("editheight","100%"));
