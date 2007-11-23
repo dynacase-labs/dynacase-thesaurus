@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.96 2007/10/15 12:11:27 eric Exp $
+ * @version $Id: modcard.php,v 1.97 2007/11/23 11:12:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -234,7 +234,7 @@ function setPostVars(&$doc) {
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($doc->dbaccess,$doc->id,$k);
+	  $filename=insert_file($doc->dbaccess,$k);
 	
 	  if ($filename != "")
 	    {
@@ -250,18 +250,19 @@ function setPostVars(&$doc) {
 }
 
 
-//------------------------------------------------------------
-function insert_file($dbaccess,$docid, $attrid)
-     //------------------------------------------------------------
-{
+/**
+ * insert file in VAULT from HTTP upload
+ */
+function insert_file($dbaccess, $attrid,$strict=false) {
   
   global $action;
   global $_FILES;
   
   global $upload_max_filesize;
   
+  if ($strict) $postfiles = $_FILES[$attrid];
+  else $postfiles = $_FILES["_".$attrid];
 
-  $postfiles = $_FILES["_".$attrid];
   $toldfile=array();
 
   if (is_array($postfiles['tmp_name'])) {// array of file
@@ -270,11 +271,7 @@ function insert_file($dbaccess,$docid, $attrid)
       while(list($k,$ufv) = each($v) )  {
 	if ($k >= 0)	$tuserfiles[$k][$kp]=$ufv;
       }      
-    }
-    
-
-  
-
+    }      
   } else { // only one file
     $tuserfiles[]=$postfiles;
   }
@@ -396,7 +393,7 @@ function specialmodcard(&$action,$usefor) {
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($dbaccess,$doc->id,$k);
+	  $filename=insert_file($dbaccess,$k);
 	
 	      
 	  if ($filename != "")

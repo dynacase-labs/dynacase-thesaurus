@@ -11,6 +11,8 @@ oFCKeditor[aid].Config['ToolbarStartExpanded'] =  [toolbarexpand];
 
 oFCKeditor[aid].Config['ImageBrowserURL'] = '../../../?sole=Y&app=FDL&action=FCKIMAGE' ;
 oFCKeditor[aid].Config['ImageUploadURL'] = '../../../?sole=Y&app=FDL&action=FCKUPLOAD' ;
+oFCKeditor[aid].Config['ImageBrowserWindowWidth'] = '400px';
+oFCKeditor[aid].Config['ImageBrowserWindowHeight'] = '400px';
 oFCKeditor[aid].Config['LinkBrowser'] = false ;
 
 //oFCKeditor[aid].Config['FontNames'] =  'serif;sans-serif;cursive;fantasy;monospace' ;

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.51 2007/11/13 16:37:08 eric Exp $
+// $Id: FDL.app,v 1.52 2007/11/23 11:12:35 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -366,6 +366,16 @@ $action_desc = array (
    "name"		=>"FDL_FORUMMENU",
    "short_name"		=>N_("menu forum"),
    "acl"		=>"NORMAL"
+  ),
+  array( 
+   "name"		=>"FCKIMAGE",
+   "short_name"		=>N_("fck image browser"),
+   "acl"		=>"EDIT"
+  ),
+  array( 
+   "name"		=>"FCKUPLOAD",
+   "short_name"		=>N_("fck image upload"),
+   "acl"		=>"EDIT"
   ),
 	
 	
