@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.4 2007/11/14 14:50:31 eric Exp $
+ * @version $Id: insertfile.php,v 1.5 2007/11/26 15:04:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,6 +29,7 @@ function insertfile(&$action) {
   $vidin=GetHttpVars("vidin");
   $vidout=GetHttpVars("vidout");
   $tid = GetHttpVars("tid");
+  $name = GetHttpVars("name");
   $isimage = (GetHttpVars("isimage")!="");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
@@ -58,12 +59,16 @@ function insertfile(&$action) {
 	
 	  $ext=getExtension($infoout->mime_s);
 	  if ($ext=="") $ext=$infoout->teng_lname;
-	  	  print_r($infoout);
+	  //	  print_r($infoout);
 		  // print_r($ext);
 	  
 
-	  $pp=strrpos($infoin->name,'.');
-	  $newname=substr($infoin->name,0,$pp).'.'.$ext;
+	  if ($name!="") {
+	    $newname=$name;
+	  } else {
+	    $pp=strrpos($infoin->name,'.');
+	    $newname=substr($infoin->name,0,$pp).'.'.$ext;
+	  }
 
 
 	  $vf->Rename($vidout,$newname);
