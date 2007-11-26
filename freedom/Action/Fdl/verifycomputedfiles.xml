@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<status count="[count]"  code="[CODE]" docid="[docid]" warning="[warning]"  >
+[BLOCK FILES]<file id="[id_file]" name="[name]" status="[teng_state]"></file>[ENDBLOCK FILES]
+</status>
