@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.131 2007/09/27 13:56:30 eric Exp $
+ * @version $Id: import_file.php,v 1.132 2007/11/26 08:06:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -239,6 +239,13 @@ function add_import_file(&$action, $fimport) {
       else $fldid =  getIdFromName($dbaccess,$data[1],2);
       $doc->dfldid =  $fldid;
       $tcr[$nline]["msg"].=sprintf(_("set default folder to '%s'"),$data[1]);
+      break;
+      // -----------------------------------
+    case "CFLDID":
+      if (is_numeric($data[1]))   $cfldid = $data[1];
+      else $cfldid =  getIdFromName($dbaccess,$data[1]);
+      $doc->cfldid =  $cfldid;
+      $tcr[$nline]["msg"]=sprintf(_("set primary folder to '%s'"),$data[1]);
       break;
       // -----------------------------------
     case "WID":
