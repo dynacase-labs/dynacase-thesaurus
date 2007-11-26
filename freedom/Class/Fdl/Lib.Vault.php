@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.17 2007/11/14 14:51:10 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.18 2007/11/26 15:05:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,6 +13,7 @@
 
 include_once("VAULT/Class.VaultFile.php");
 include_once("VAULT/Class.VaultEngine.php");
+include_once("VAULT/Class.VaultDiskStorage.php");
 
 function initVaultAccess() {
   static $FREEDOM_VAULT=false;;
@@ -42,7 +43,9 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
       include_once("FDL/Class.TaskRequest.php");
       $of=new VaultDiskStorage($dbaccess,$vidin);
       $filename=$of->getPath();
-      
+      $ofout=new VaultDiskStorage($dbaccess,$vidout);
+      $ofout->teng_state=2;
+      $ofout->modify();
       $urlindex=getParam("CORE_EXTERNURL");
       if ($urlindex=="") { //case DAV
 	$au=getParam("CORE_URLINDEX");
@@ -60,7 +63,7 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
       if ($err=="") {
 	$tr=new TaskRequest($dbaccess);
 	$tr->tid=$info["tid"];
-	$tr->fkey=$vid;
+	$tr->fkey=$vidout;
 	$tr->status=$info["status"];
 	$tr->comment=$info["comment"];
 	$tr->uid=$action->user->id;
