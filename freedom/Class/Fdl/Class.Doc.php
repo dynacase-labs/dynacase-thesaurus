@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.441 2007/11/21 16:55:46 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.442 2007/11/26 16:02:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1971,7 +1971,8 @@ final public function PostInsert()  {
 		  }
 		  break;
 		case 'htmltext':
-		  $tvalues[$kvalue]=str_replace('script>','pre>',html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-15'));
+		  $tvalues[$kvalue]=str_replace('script>','pre>',html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-1'));
+
 		  break;
 		}
 	      }
@@ -4439,12 +4440,7 @@ final public function PostInsert()  {
   /**
    * write layout for abstract view
    */
-  function viewabstractcard($target="finfo",$ulink=true,$abstract=true) {
-    // -----------------------------------
-    
-
-
-
+  function viewabstractcard($target="finfo",$ulink=true,$abstract=true) {  
     $listattr = $this->GetAbstractAttributes();
  
     $tableframe=array();
@@ -4485,7 +4481,6 @@ final public function PostInsert()  {
       
       }
     }
-
 
 
 
