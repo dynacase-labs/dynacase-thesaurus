@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_duplicate.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_duplicate.php,v 1.9 2007/11/27 16:36:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_duplicate.php,v 1.8 2005/06/28 08:37:46 eric Exp $
+// $Id: generic_duplicate.php,v 1.9 2007/11/27 16:36:19 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_duplicate.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -58,7 +58,7 @@ function generic_duplicate(&$action) {
   $copy=duplicate($action, $dirid, $docid);
 
  
-  redirect($action,"FDL","FDL_CARD&id=".$copy->id, $action->GetParam("CORE_STANDURL"));
+  redirect($action,"FDL","FDL_CARD&refreshfld=Y&id=".$copy->id, $action->GetParam("CORE_STANDURL"));
   
 }
 
