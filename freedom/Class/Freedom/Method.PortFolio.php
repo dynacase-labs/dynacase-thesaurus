@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.15 2007/08/02 14:16:48 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.16 2007/11/27 16:38:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -51,9 +51,8 @@ function CreateDefaultTabs() {
       foreach($child as $k=>$tdoc) {
 	$doc=getDocObject($this->dbaccess,$tdoc);
 	$copy=$doc->Copy();
-	if (! is_object($copy)) return $copy;
-	
-	$err.=$this->AddFile($copy->id,"latest",true,true);
+	if (! is_object($copy)) $err.= $copy;
+	else $err.=$this->AddFile($copy->id,"latest",true,true);
       }
     } else {
       $err=sprintf(_("Error in portfolio : folder %s not exists"),$ddocid);
