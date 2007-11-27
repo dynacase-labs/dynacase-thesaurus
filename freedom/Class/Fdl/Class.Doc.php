@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.442 2007/11/26 16:02:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.443 2007/11/27 16:37:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2829,14 +2829,14 @@ final public function PostInsert()  {
     $cdoc= $this->getFamDoc();
     $copy->setProfil($cdoc->cprofid);
 
-    $err = $copy->PreCopy();
+    $err = $copy->PreCopy($this);
     if ($err != "") return false;
 
     $err = $copy->Add();
     if ($err != "") return $err;
     $copy->addComment(sprintf(_("copy from document #%d -%s-"),$this->id, $this->title));
 
-    $copy->PostCopy();
+    $copy->PostCopy($this);
     if ($err != "") AddWarningMsg($err);
 
     $copy->Modify();
@@ -2847,12 +2847,12 @@ final public function PostInsert()  {
     return $copy;
   }
 
-  function PreCopy() {
+  function PreCopy(&$copyfrom) {
     // to be defined in child class
     return "";
   }
 
-  function PostCopy() {
+  function PostCopy(&$copyfrom) {
     // to be defined in child class
     return "";
   }
