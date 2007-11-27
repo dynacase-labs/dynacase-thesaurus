@@ -6,7 +6,7 @@ var oFCKeditor[aid] = new FCKeditor( '_[aid]' ) ;
 
 oFCKeditor[aid].BasePath = 'fckeditor/';
 oFCKeditor[aid].Config['FullPage'] = false ;
-oFCKeditor[aid].Config['SkinPath'] =  window.location.pathname+'/fckeditor/editor/skins/silver/';
+oFCKeditor[aid].Config['SkinPath'] =  window.location.pathname+'fckeditor/editor/skins/silver/';
 oFCKeditor[aid].Config['ToolbarStartExpanded'] =  [toolbarexpand];
 
 oFCKeditor[aid].Config['ImageBrowserURL'] = '../../../?sole=Y&app=FDL&action=FCKIMAGE' ;
