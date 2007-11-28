@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.443 2007/11/27 16:37:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.444 2007/11/28 16:29:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -277,6 +277,8 @@ Class Doc extends DocCtrl
 					     "on"=>"initid"),
 				"doc_title"=>array("unique"=>false,
 						   "on"=>"title"),
+				"doc_name"=>array("unique"=>true,
+						   "on"=>"name,revision,doctype"),
 				"doc_full"=>array("unique"=>false,
 						  "using"=>"@FDL_FULLIDX",
 						  "on"=>"fulltext"),
@@ -2913,15 +2915,16 @@ final public function PostInsert()  {
    * the automatic unlock is done only if the lock has been set automatically also
    * the explicit unlock, unlock in all case (if CanUnLockFile)
    * @param bool $auto if true it is a automatic unlock 
+   * @param bool $force if true no control oif can unlock
    * 
    * @return string error message, if no error empty string
    * @see Doc::CanUnLockFile()
    * @see Doc::lock()
    */
-  final public function unLock($auto=false) {
+  final public function unLock($auto=false,$force=false) {
     
 
-    $err=$this->CanUnLockFile();
+    if (!$force) $err=$this->CanUnLockFile();
     if ($err != "") return $err;
       
     if ($auto) {
