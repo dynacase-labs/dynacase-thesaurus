@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.3 2007/10/17 14:27:28 marc Exp $
+ * @version $Id: fullsearch.php,v 1.4 2007/11/29 10:09:20 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -58,9 +58,50 @@ function fullsearch(&$action) {
     
   }
 
+  $kfams = array();
+  $fkeyword = $keyword;
   if ($keyword!="")  {
-    
+    // process family specification
+    $kl = explode(":", $keyword);
+    if (count($kl)>1) {
+      $keyword = $kl[1];
+      $faml = $kl[0];
+      $tf = explode(",",$faml);
+      foreach ($tf as $k=>$v) {
+	if ($v=="") continue;
+	$v = trim($v);
+        if ($v[0]!="~") {
+	  $b = true;
+ 	  $n = $v;
+        } else {
+          $b = false;
+          $n = substr($v,1);
+        }
+        $kfams[] = array( "include" => $b, "kfam" => $n);
+      }
+    }
+  }
+
+  $bfam = null;
+  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
+  if ($keyword!="")  {
+
     $sqlfilters=array();
+    $famfilter = $or = $and = "";
+    if (count($kfams)>0) {
+      $tmpdoc=new Doc($dbaccess);
+      foreach ($kfams as $k=>$v) {
+	foreach ($tclassdoc as $kdoc=>$cdoc) {
+	  if (strstr(strtolower($cdoc["title"]),$v["kfam"])!=false) {
+	    if ($v["include"]) $or .= ($or!=""?" OR ":"")."(fromid".($v["include"]?"=":"!=").$cdoc["initid"].")";
+	    else $and .= ($and!=""?" AND ":"")."(fromid".($v["include"]?"=":"!=").$cdoc["initid"].")";
+	    $bfam[] = array("fam"=>$cdoc["title"], "include"=>$v["include"], "icon"=>$tmpdoc->getIcon($cdoc["icon"]));
+	  }
+	}
+      }
+      if ($or!="") $famfilter = "($or)";
+      if ($and!="") $famfilter .= ($famfilter!=""?" AND ":"")." ($and)";
+     }
 
     if ($keyword!="") {
       if ($keyword[0]=='~') {
@@ -75,6 +116,8 @@ function fullsearch(&$action) {
       $keys=implode('|',$tkeys);
     }
     $slice=10;
+    if ($famfilter!="") $sqlfilters[] = $famfilter;
+//  print_r2($sqlfilters);
     $tdocs=getChildDoc($dbaccess, $dirid, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
 
     $workdoc=new Doc($dbaccess);
@@ -119,13 +162,13 @@ function fullsearch(&$action) {
     $action->lay->set("notfirst",false);
     $action->lay->set("notthenend",false);
   }
+  $action->lay->setBlockData("filterfam",$bfam);
   $action->lay->set("famid",$famid);
   $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
   $action->lay->set("viewform",true);
-  $action->lay->set("key",str_replace("\"","&quot;",$keyword));
+  $action->lay->set("key",str_replace("\"","&quot;",$fkeyword));
   $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
   
-  $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
   foreach ($tclassdoc as $k=>$cdoc) {
     $selectclass[$k]["idcdoc"]=$cdoc["initid"];
     $selectclass[$k]["classname"]=$cdoc["title"];
