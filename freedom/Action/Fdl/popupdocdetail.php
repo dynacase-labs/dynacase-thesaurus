@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.32 2007/11/29 15:45:59 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.33 2007/11/29 15:52:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -471,7 +471,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
 
   if ($doc->locked == $doc->userid) $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
   else if (($doc->locked != $doc->userid) && 
-	   $clf) $tlink["lockdoc"]["visibility"]=POPUP_ACTIVE;
+	   $clf) $tlink["lockdoc"]["visibility"]=POPUP_CTRLACTIVE;
   else $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
 
   if ($doc->isLocked()) {
