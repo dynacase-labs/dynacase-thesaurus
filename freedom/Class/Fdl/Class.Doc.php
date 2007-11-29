@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.444 2007/11/28 16:29:41 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.445 2007/11/29 14:56:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1999,23 +1999,28 @@ final public function PostInsert()  {
   */
   final private function clearFullAttr($attrid,$index=-1) {
     $attrid=strtolower($attrid);
-    $ak=$attrid.'_txt';
-    if ($index == -1) {
-      $this->$ak='';
-    } else {
-      if ($this->AffectColumn(array($ak))) {
-	$this->$ak=sep_replace($this->$ak,$index);
+    $oa=$this->getAttribute($attrid);
+    if ($oa) {
+      if ($oa->getOption("search")!="no") {      
+	$ak=$attrid.'_txt';
+	if ($index == -1) {
+	  $this->$ak='';
+	} else {
+	  if ($this->AffectColumn(array($ak))) {
+	    $this->$ak=sep_replace($this->$ak,$index);
 	
+	  }
+	}
+	$this->fields[$ak]=$ak;
+	$ak=$attrid.'_vec';
+	$this->$ak='';
+	$this->fields[$ak]=$ak;
+	$this->fulltext='';
+	$this->fields['fulltext']='fulltext'; // to enable trigger
+	$this->latinsend[$attrid.$index]=array("attrid"=>$attrid,
+					       "index"=>$index);
       }
     }
-    $this->fields[$ak]=$ak;
-    $ak=$attrid.'_vec';
-    $this->$ak='';
-    $this->fields[$ak]=$ak;
-    $this->fulltext='';
-    $this->fields['fulltext']='fulltext'; // to enable trigger
-    $this->latinsend[$attrid.$index]=array("attrid"=>$attrid,
-					   "index"=>$index);
   }
  /**
   * send latin transformation 
@@ -2808,7 +2813,7 @@ final public function PostInsert()  {
    * the copy is not locked and if it is related to a workflow, his state is the first state
    * @param bool $temporary if true the document create is a temporary document
    * @param bool $control if false don't control acl create (generaly use when temporary is true)
-   * @param bool $linkfld if true and document is a folder then document included in folder are also inserte in the copy 
+   * @param bool $linkfld if true and document is a folder then document included in folder are also inserted in the copy (are not duplicated) just linked
    * @return Doc in case of error return a string that indicate the error
    */
   final public function Copy($temporary=false,$control=true,$linkfld=false) {
@@ -3746,7 +3751,8 @@ final public function PostInsert()  {
 				$html_body ); // transform to pseudo xhtml
 
 	$html_body=str_replace('\"','"',$html_body);
-	$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8')."</xhtml:body>";
+	$html_body=str_replace('&','&amp;',html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8'));
+	$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.$html_body."</xhtml:body>";
 
 	$xslt = new xsltProcessor;
 	$xslt->importStyleSheet(DomDocument::load(DEFAULT_PUBDIR."/CORE/Layout/html2odt.xsl"));
