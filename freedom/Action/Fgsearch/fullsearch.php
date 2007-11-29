@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.4 2007/11/29 10:09:20 marc Exp $
+ * @version $Id: fullsearch.php,v 1.5 2007/11/29 10:30:33 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -82,13 +82,15 @@ function fullsearch(&$action) {
     }
   }
 
-  $bfam = null;
+  $bfam = array();
   $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
   if ($keyword!="")  {
 
     $sqlfilters=array();
     $famfilter = $or = $and = "";
     if (count($kfams)>0) {
+      $famid = 0;
+      reset($bfam);
       $tmpdoc=new Doc($dbaccess);
       foreach ($kfams as $k=>$v) {
 	foreach ($tclassdoc as $kdoc=>$cdoc) {
@@ -102,6 +104,8 @@ function fullsearch(&$action) {
       if ($or!="") $famfilter = "($or)";
       if ($and!="") $famfilter .= ($famfilter!=""?" AND ":"")." ($and)";
      }
+    
+    if (count($bfam)==0) $bfam[0] = array("fam"=>$action->text("more families"), "include"=>true, "icon"=>$action->getImageUrl($action->parent->icon));
 
     if ($keyword!="") {
       if ($keyword[0]=='~') {
@@ -118,6 +122,10 @@ function fullsearch(&$action) {
     $slice=10;
     if ($famfilter!="") $sqlfilters[] = $famfilter;
 //  print_r2($sqlfilters);
+    if ($famid>0) {
+      $fdoc = new_Doc($dbaccess, $famid);
+      $bfam[0] = array("fam"=>$fdoc->getTitle(), "include"=>true, "icon"=>$fdoc->getIcon());
+    }
     $tdocs=getChildDoc($dbaccess, $dirid, $start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid,false,$orderby);
 
     $workdoc=new Doc($dbaccess);
