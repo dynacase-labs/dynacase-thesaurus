@@ -1,4 +1,25 @@
 [ZONE FDL:HTMLHEAD?title=[searchtitle]]
+<script>
+function overres(event, id) {
+  if (!event) event=window.event;
+  var e = (event.target) ? event.target : ((event.srcElement) ? event.srcElement : null);
+    if (!e) return false;
+  while (e && e.nodeName!='TR') e=e.parentNode;
+  e.style.cursor = 'pointer';
+  e.style.backgroundColor = '[COLOR_B8]';
+}
+function outres(event, id) {
+  if (!event) event=window.event;
+  var e = (event.target) ? event.target : ((event.srcElement) ? event.srcElement : null);
+    if (!e) return false;
+  e = e.parentNode;
+  e.style.cursor = '';
+  e.style.backgroundColor = '';
+}
+function clickon(event, id) {
+ subwindow(500,600,'T'+id, '[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+id); 
+}
+</script>
 <style>
 SELECT.little { font-size:90%; }
 div.logo { margin-top:-20px;  float:left; width:20%; z-index:100; text-align:center; }
@@ -18,8 +39,15 @@ div.searchm { float:left; padding:0px 15px 0px 15px; text-align:left; }
 .left { text-align:left; }
 .right { text-align:right; }
 
-td.result  { vertical-align:top; padding-bottom:5px; font-size:90%; color:[COLOR_A3]; }
-td.result a { font-size:110%; font-weight:bold; }
+td.result  {
+  padding : 5px 5px 10px 5px;
+  border-width : 1px; 
+  border-color : [COLOR_A8]; 
+  border-style : none;
+  vertical-align:top; 
+  font-size:90%;
+  color:[COLOR_A3]; }
+td.result .title { color:[COLOR_B0]; font-size:110%; font-weight:bold; }
 td.result b { color:[COLOR_A0]; }
 
 div#aide {
@@ -86,10 +114,10 @@ div#aide #closeaide {  right:10px; margin : 5px 0px 10px 0px; }
 <div id="closeaide"><a href="#" onclick="document.getElementById('aide').style.display='none'">[TEXT:close search online help]</a></div>
 [ZONE FGSEARCH:HELP]
 </div>
-<table style="margin:20px">[BLOCK DOCS]
-<tr>
+<table cellspacing=0 style="margin:20px">[BLOCK DOCS]
+<tr onmouseover="overres(event,'[id]')" onmouseout="outres(event,'[id]')" onclick="clickon(event, '[id]')">
 <td class="result"><img align="left" needresize="1" src="[iconsrc]" width="36px"></td>
-<td class="result"><a target="T[id]" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]">[title]</a> <i>[mdate]</i><br >[htext]</td>
+<td class="result"><span class="title">[title]</span><i>[mdate]</i><br >[htext]</td>
 </tr>
 [ENDBLOCK DOCS]</table>
 <div style="text-align:center;border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">

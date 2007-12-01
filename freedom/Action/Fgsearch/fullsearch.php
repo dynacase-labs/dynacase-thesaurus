@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.5 2007/11/29 10:30:33 marc Exp $
+ * @version $Id: fullsearch.php,v 1.6 2007/12/01 07:16:43 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -40,6 +40,12 @@ function fullsearch(&$action) {
   $dirid = GetHttpVars("dirid",0); // special search
 
   $dd = GetParam("FGSEARCH_INITPAGE","Y");
+
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $initpage=(GetParam("FGSEARCH_INITPAGE", "Y")=="Y" ? true: false); // special search
 
