@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.25 2007/08/06 14:12:19 eric Exp $
+// $Id: FDL_init.php.in,v 1.26 2007/12/03 14:48:01 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -59,7 +59,7 @@ $app_const= array(
   "SOCIETY_COORD"   =>array("val"=>"SomeOne<BR>12 paradise road<BR>34000 NewYork<BR>Phone:08.789.678<BR>Fax:09.5627.32",
 			    "global"=>"Y",
 			    "descr"=>N_("name and address of our society")),
-  "SOCIETY_LOGO"   =>array("val"=>"Images/logocesam.jpg",
+  "SOCIETY_LOGO"   =>array("val"=>"Images/logo.png",
 			   "global"=>"Y",
 			   "descr"=>N_("logo of our society")),
   "SOCIETY_TOWN"   =>array("val"=>"New York",
