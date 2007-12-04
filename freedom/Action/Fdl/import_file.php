@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.132 2007/11/26 08:06:59 eric Exp $
+ * @version $Id: import_file.php,v 1.133 2007/12/04 14:08:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,7 @@ function add_import_file(&$action, $fimport) {
   if (! $fdoc) $action->exitError(_("no import file specified"));
   $nline=0;
   while (!feof($fdoc)) { 
-    $buffer = rtrim(fgets($fdoc, 4096));
+    $buffer = rtrim(fgets($fdoc, 16384));
     $data=explode(";",$buffer);
     $nline++;
 
@@ -689,7 +689,7 @@ function csvAddDoc($dbaccess, $data, $dirid=10,$analyze=false,$ldir='',$policy="
     if (isset($lattr[$attrid])) {
       $attr=$lattr[$attrid];
       if (isset($data[$iattr]) &&  ($data[$iattr] != "")) {
-	$dv = str_replace('\n',"\n",$data[$iattr]);
+	$dv = str_replace(array('\n',' -, '),array("\n",';'),$data[$iattr]);
 	if (isUTF8($dv))    $dv=utf8_decode($dv);
 	if (($attr->type == "file") || ($attr->type == "image")) {
 	  // insert file

@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.25 2007/03/22 16:33:26 eric Exp $
+ * @version $Id: exportfld.php,v 1.26 2007/12/04 14:08:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -120,7 +120,7 @@ function exportfld(&$action, $aflid="0", $famid="")
 
 	}
 	fputs_utf8($fout,str_replace(array("\n",";","\r"),
-				array("\\n"," - ",""),
+				array("\\n"," -, ",""),
 				$value) .";");
      
       }
