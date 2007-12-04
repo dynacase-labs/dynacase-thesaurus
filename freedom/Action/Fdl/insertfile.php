@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.5 2007/11/26 15:04:52 eric Exp $
+ * @version $Id: insertfile.php,v 1.6 2007/12/04 14:15:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -35,22 +35,15 @@ function insertfile(&$action) {
 
   if (! $tid) $err=_("no task identificator found");
   else {
-    $ot=new TransformationEngine($action->getParam("TE_HOST"),$action->getParam("TE_PORT"));
-
-    $err=$ot->getInfo($tid,$info);
+    $filename= uniqid("/var/tmp/txt-".$vidout.'-');
+    $err=getTEFile($tid,$filename,$info);
     if ($err=="") {
-      $tr=new TaskRequest($dbaccess,$tid);
-      if ($tr->isAffected()) {
-
-	
+     	
 	$outfile=$info["outfile"];
 	$status=$info["status"];
 	
 	if (($status=='D') && ($outfile != '')) {
-	  $filename= uniqid("/var/tmp/txt-".$vidout.'-');
-	  //$err=$ot->getTransformation($tid,$filename);
-	  $err=$ot->getAndLeaveTransformation($tid,$filename);
-
+	 
 	  $vf = newFreeVaultFile($dbaccess);
 	  $err=$vf->Retrieve($vidin, $infoin);
 	  $err=$vf->Retrieve($vidout, $infoout);
@@ -60,9 +53,7 @@ function insertfile(&$action) {
 	  $ext=getExtension($infoout->mime_s);
 	  if ($ext=="") $ext=$infoout->teng_lname;
 	  //	  print_r($infoout);
-		  // print_r($ext);
-	  
-
+		  // print_r($ext);	  
 	  if ($name!="") {
 	    $newname=$name;
 	  } else {
@@ -75,6 +66,7 @@ function insertfile(&$action) {
 	  $vf->storage->teng_state=1;
 	  $vf->storage->modify();
 	  
+	  @unlink($filename);
 	  
 	} else {
 	  $vf = newFreeVaultFile($dbaccess);
@@ -86,7 +78,6 @@ function insertfile(&$action) {
 	    //$vf->rename($vidout,"toto.txt");
 	    $vf->Retrieve($vidout, $vinfo);
 	    $err=$vf->Save($filename, false , $vidout);
-	    @unlink($filename);
 	    $basename=_("conversion error").".txt";
 	    $vf->Rename($vidout,$basename);
 	    $vf->storage->teng_state=-1;
@@ -94,9 +85,7 @@ function insertfile(&$action) {
 	  }
 	}
 	
-      } else {
-	$err=sprintf(_("task %s is not recorded"),$tid);
-      }
+      
 
     }
   }
@@ -104,6 +93,34 @@ function insertfile(&$action) {
   if ($err != '')     $action->lay->template=$err;
   else $action->lay->template="OK : ".sprintf(_("vid %d stored"),$vidout);
 
+}
+
+
+/**
+ * return filename where is stored produced file
+ * need to delete after use it
+ */
+function getTEFile($tid,$filename,&$info) {  
+  global $action;
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $ot=new TransformationEngine($action->getParam("TE_HOST"),$action->getParam("TE_PORT"));
+
+  $err=$ot->getInfo($tid,$info);
+  if ($err=="") {
+    $tr=new TaskRequest($dbaccess,$tid);
+    if ($tr->isAffected()) {	
+      $outfile=$info["outfile"];
+      $status=$info["status"];
+	
+      if (($status=='D') && ($outfile != '')) {
+	$err=$ot->getTransformation($tid,$filename);
+	//$err=$ot->getAndLeaveTransformation($tid,$filename);	  	  	 	  
+      } 		
+    } else {
+      $err=sprintf(_("task %s is not recorded"),$tid);
+    }
+  }
+  return $err;
 }
 
 
