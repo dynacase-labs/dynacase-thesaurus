@@ -3,7 +3,7 @@
  * Apply document methods
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_method.php,v 1.6 2007/12/04 14:10:17 eric Exp $
+ * @version $Id: fdl_method.php,v 1.7 2007/12/04 14:15:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,7 +46,7 @@ function fdl_method(&$action)
   $action->AddLogMsg(sprintf(_("%s has been locked"),$doc->title));
     
   if (! $noredirect)   redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
-
+  else $action->lay->template=sprintf(_("method %s applied to document %s #%d"),$method,$doc->title,$doc->id);
 }
 
 
