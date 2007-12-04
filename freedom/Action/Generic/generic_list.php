@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.35 2007/10/16 08:32:32 eric Exp $
+ * @version $Id: generic_list.php,v 1.36 2007/12/04 14:09:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -223,6 +223,7 @@ function getFamilySearches($action,$dbaccess,$famid) {
   $filter[]="owner=".$action->user->id;
   $filter[]="se_famid='$famid'";
   $filter[]="usefor!='G'";
+  $filter[]="doctype != 'T'";
   $filter[]="se_memo='yes'";
   $action->lay->set("MSEARCH",false);
   $stree=getChildDoc($dbaccess,"0","0","ALL",$filter,$action->user->id,"TABLE",5);
@@ -234,9 +235,6 @@ function getFamilySearches($action,$dbaccess,$famid) {
   $action->lay->set("MSEARCH",(count($stree) > 0));
   $action->lay->SetBlockData("USERSEARCH",$streeSearch);
   if (count($streeSearch)>0) $action->lay->set("ONESEARCH",true);
-  
-
-  
 }
 
 ?>
