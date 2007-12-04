@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.445 2007/11/29 14:56:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.446 2007/12/04 16:04:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2715,7 +2715,8 @@ final public function PostInsert()  {
     // duplicate values
     $olddocid = $this->id;
     $this->id="";
-    $this->locked = $locked; // report the lock
+    if ($this->locked > 0) $this->locked = $locked; // report the lock
+    else $this->locked = 0;
     $this->allocated = $allocated; // report the allocate
     $this->comment = ""; // change comment
     $this->revision = $this->revision+1;
