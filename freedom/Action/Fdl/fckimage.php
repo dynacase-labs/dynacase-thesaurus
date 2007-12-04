@@ -3,7 +3,7 @@
  * Image browser from FCKeditor
  *
  * @author Anakeen 2007
- * @version $Id: fckimage.php,v 1.3 2007/11/30 17:13:51 eric Exp $
+ * @version $Id: fckimage.php,v 1.4 2007/12/04 14:10:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,7 @@ function fckimage(&$action) {
     $limg[$k]["imgcachesrc"]=str_replace("cache=no","",$limg[$k]["imgsrc"]);
     if (ereg("vid=([0-9]+)",$limg[$k]["imgsrc"],$vids)) {
       $vid=$vids[1];
-      if ($vid >0) $limg[$k]["imgcachesrc"]="/resizeimg.php?size=100&vid=$vid";
+      if ($vid >0) $limg[$k]["imgcachesrc"]="./resizeimg.php?size=100&vid=$vid";
     } 
   }
 
