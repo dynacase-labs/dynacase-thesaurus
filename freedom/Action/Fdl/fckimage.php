@@ -3,7 +3,7 @@
  * Image browser from FCKeditor
  *
  * @author Anakeen 2007
- * @version $Id: fckimage.php,v 1.4 2007/12/04 14:10:02 eric Exp $
+ * @version $Id: fckimage.php,v 1.5 2007/12/04 16:04:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,7 +24,7 @@ function fckimage(&$action) {
   
   $startpage=intval(GetHttpVars("page","0")); // page number
   $key=GetHttpVars("key"); // key filter
-  $slice=30;
+  $slice=28;
   $dbaccess = $action->GetParam("FREEDOM_DB");
   
   
