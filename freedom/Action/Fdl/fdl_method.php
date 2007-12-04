@@ -3,7 +3,7 @@
  * Apply document methods
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_method.php,v 1.5 2005/07/29 16:21:33 eric Exp $
+ * @version $Id: fdl_method.php,v 1.6 2007/12/04 14:10:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,6 +20,7 @@ function fdl_method(&$action)
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid = GetHttpVars("id",0);
   $method = GetHttpVars("method");
+  $noredirect = (strtolower(substr(GetHttpVars("redirect"),0,1))=="n");
 
 
   $doc= new_Doc($dbaccess,$docid);
@@ -44,9 +45,7 @@ function fdl_method(&$action)
   
   $action->AddLogMsg(sprintf(_("%s has been locked"),$doc->title));
     
-  
-    
-  redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
+  if (! $noredirect)   redirect($action,"FDL","FDL_CARD&id=".$doc->id,$action->GetParam("CORE_STANDURL"));
 
 }
 
