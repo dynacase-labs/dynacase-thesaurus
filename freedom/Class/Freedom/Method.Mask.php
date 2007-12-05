@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.17 2006/09/20 15:40:36 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.18 2007/12/05 11:17:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.17 2006/09/20 15:40:36 eric Exp $
+// $Id: Method.Mask.php,v 1.18 2007/12/05 11:17:33 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -54,6 +54,7 @@ function getLabelVis() {
 		    "O" => _("write only"),
 		    "H" => _("hidden"),
 		    "S" => _("read disabled"),
+		    "U" => _("static array"),
 		    "I" => _("invisible"));
 }
 function getLabelNeed() {
