@@ -825,6 +825,7 @@ function clearFile(o,nid) {
     }
     updatefilebutton(o,nid);
   }
+  
 }
 function updatefilebutton(o,nid) {
   var t=document.getElementById(nid);
@@ -872,6 +873,7 @@ function updatefilebutton(o,nid) {
       o.value=v1; 
     }
   }
+  disableReadAttribute();
 }
 function changeFile(o,nid) {
   var t=document.getElementById(nid);
