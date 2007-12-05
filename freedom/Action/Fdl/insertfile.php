@@ -3,7 +3,7 @@
  * Insert rendering file which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: insertfile.php,v 1.6 2007/12/04 14:15:45 eric Exp $
+ * @version $Id: insertfile.php,v 1.7 2007/12/05 17:47:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -114,7 +114,7 @@ function getTEFile($tid,$filename,&$info) {
 	
       if (($status=='D') && ($outfile != '')) {
 	$err=$ot->getTransformation($tid,$filename);
-	//$err=$ot->getAndLeaveTransformation($tid,$filename);	  	  	 	  
+	//$err=$ot->getAndLeaveTransformation($tid,$filename); // to debug	
       } 		
     } else {
       $err=sprintf(_("task %s is not recorded"),$tid);
