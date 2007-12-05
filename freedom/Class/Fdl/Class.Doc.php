@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.446 2007/12/04 16:04:33 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.447 2007/12/05 11:19:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2304,7 +2304,6 @@ final public function PostInsert()  {
    * return the related value by linked attributes
    */
   final public function GetRValue($RidAttr, $def="",$latest=true)  {      
-    
     $tattrid = explode(":",$RidAttr);
     $lattrid=array_pop($tattrid); // last attribute
 
@@ -2314,20 +2313,16 @@ final public function PostInsert()  {
       $docid= $doc->getValue($v);
       if ($docid == "") return $def;
       $doc = new_Doc($this->dbaccess, $docid);
+
       if ($latest) {
 	if ($doc->locked == -1) { // it is revised document
 	  $ldocid = $doc->latestId();
 	  if ($ldocid != $doc->id) $doc = new_Doc($this->dbaccess, $ldocid);
 	}
       }
-
       if (! $doc->isAlive())  return $def;
-
     }
-
     return $doc->getValue($lattrid, $def);
-
-
   }
   
 
@@ -5372,7 +5367,7 @@ final public function PostInsert()  {
    * @param string attribute identificator
    * @param string def default return value
    */
-  final public function getDocValue($docid, $attrid,$def="") {
+  final public function getDocValue($docid, $attrid,$def=" ") {
     if (intval($docid) > 0) {
       $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
