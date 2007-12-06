@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.97 2007/11/23 11:12:36 eric Exp $
+ * @version $Id: modcard.php,v 1.98 2007/12/06 17:03:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -223,7 +223,7 @@ function setPostVars(&$doc) {
 	  }
 	  else $value = stripslashes($v);
 	  if ($value=="") $doc->SetValue($attrid, DELVALUE);	 
-	  else $doc->SetValue($attrid, $value);	
+	  else  $doc->SetValue($attrid, $value);	
 	}      
     }
     // ------------------------------
@@ -234,12 +234,11 @@ function setPostVars(&$doc) {
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($doc->dbaccess,$k);
+	  $filename=insert_file($doc,$k);
 	
 	  if ($filename != "")
 	    {
 	      if (substr($k,0,4) == "UPL_") $k=substr($k,4);
-
 	      $doc->SetValue($k, $filename);
 	    	  
 	    }
@@ -253,13 +252,13 @@ function setPostVars(&$doc) {
 /**
  * insert file in VAULT from HTTP upload
  */
-function insert_file($dbaccess, $attrid,$strict=false) {
-  
+function insert_file(&$doc, $attrid,$strict=false) {
+
   global $action;
   global $_FILES;
-  
+
   global $upload_max_filesize;
-  
+
   if ($strict) $postfiles = $_FILES[$attrid];
   else $postfiles = $_FILES["_".$attrid];
 
@@ -277,6 +276,13 @@ function insert_file($dbaccess, $attrid,$strict=false) {
   }
 
   $rt=array(); // array of file to be returned
+  $rtold=$doc->_val2array($doc->getOldValue(substr($attrid,4))); // special in case of file modification by DAV in revised document
+  /* print "getOldValues";
+  print_r2($doc->getOldValues());
+  print "rtold";
+  print $doc->getOldValue(substr($attrid,4));
+  print_r2($rtold);
+  print ($doc->title);*/
   while(list($k,$userfile) = each($tuserfiles) )    {
 
     $rt[$k]="";
@@ -307,10 +313,27 @@ function insert_file($dbaccess, $attrid,$strict=false) {
 	// reuse old value
 	
 	if (substr($attrid,0,3) == "UPL") {
-	  $oldfile = getHttpVars(substr($attrid,3));
-	 
-	  if (! is_array($oldfile))  $rt[$k]=$oldfile;
-	  else if (isset($oldfile[$k])) $rt[$k]=$oldfile[$k];
+	  $oldfile = getHttpVars(substr($attrid,3));	  
+	  if (! is_array($oldfile)) { 
+	      $vid1=0;$vid2=0;
+	      if (ereg ("(.*)\|(.*)", $rtold[0], $reg)) $vid1=$reg[2];
+	      if (ereg ("(.*)\|(.*)", $oldfile, $reg)) $vid2=$reg[2];
+	       
+	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[0];
+	      else $rt[$k]=$oldfile;
+	     
+
+	  }  else {
+	    
+	    if (isset($oldfile[$k])) {
+	      $vid1=0;$vid2=0;
+	      if (ereg ("(.*)\|(.*)", $rtold[$k], $reg)) $vid1=$reg[2];
+	      if (ereg ("(.*)\|(.*)", $oldfile[$k], $reg)) $vid2=$reg[2];
+	     
+	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[$k];
+	      else $rt[$k]=$oldfile[$k];
+	    }
+	  }
 
 	}
 	
@@ -393,7 +416,7 @@ function specialmodcard(&$action,$usefor) {
 	  $k=substr($k,1);
 
 	      
-	  $filename=insert_file($dbaccess,$k);
+	  $filename=insert_file($cdoc,$k);
 	
 	      
 	  if ($filename != "")
