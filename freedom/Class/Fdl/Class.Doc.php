@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.447 2007/12/05 11:19:14 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.448 2007/12/06 17:01:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1871,9 +1871,10 @@ final public function PostInsert()  {
    * an array can be use as value for values which are in arrays
    * @param string $idAttr identificator of attribute 
    * @param string $value new value for the attribute
+   * @param int $index only for array values affect value in a specific row
    * @return string error message, if no error empty string
    */
-  final public function SetValue($attrid, $value) {
+  final public function SetValue($attrid, $value,$index=-1) {
     // control edit before set values
 	  
     if (! isset($this->withoutControl)) {
@@ -1884,6 +1885,11 @@ final public function PostInsert()  {
     }      
     $attrid = strtolower($attrid);
     $oattr=$this->GetAttribute($attrid);
+    if ($index > -1) { // modify one value in a row
+      $tval=$this->getTValue($attrid);
+      $tval[$index]=$value;
+      $value=$tval;
+    }
     if (is_array($value)) {      
       if ($oattr->type=='htmltext') $value= $this->_array2val($value,' ');
       else $value = $this->_array2val($value);
@@ -2159,9 +2165,10 @@ final public function PostInsert()  {
    * replace a new file in Vault to replace old file
    * @param string $idAttr identificator of file attribute 
    * @param stream $stream file resource from fopen
+   * @param int $index for array of file : modify in specific row
    * @return string error message, if no error empty string
    */
-  final public function saveFile($attrid, $stream,$ftitle="") {   
+  final public function saveFile($attrid, $stream,$ftitle="",$index=-1) {   
     if (is_resource($stream) && get_resource_type($stream) == "stream") {
 
 
@@ -2169,12 +2176,12 @@ final public function PostInsert()  {
     if ($a->type == "file") {
       $err="file conversion";
       $vf = newFreeVaultFile($this->dbaccess);
-      $fvalue=$this->getValue($attrid);
+      if ($index > -1) $fvalue=$this->getTValue($attrid,$index);
+      else $fvalue=$this->getValue($attrid);
       $basename="";
       if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
 	$vaultid= $reg[2];
 	$mimetype=$reg[1];
-	
 	$err=$vf->Retrieve($vaultid, $info);
 
 	if ($err == "") {
@@ -2221,8 +2228,7 @@ final public function PostInsert()  {
       if ($err == "") {
 	$mime=trim(`file -ib $filename`);
 	$value="$mime|$vaultid";
-	$err=$this->setValue($attrid,$value);
-	
+	$err=$this->setValue($attrid,$value,$index);	
 	if ($err=="") {
 	  $index=0;
 	  $this->clearFullAttr($attrid); // because internal values not changed
