@@ -1,25 +1,5 @@
 [ZONE FDL:HTMLHEAD?title=[searchtitle]]
-<script>
-function overres(event, id) {
-  if (!event) event=window.event;
-  var e = (event.target) ? event.target : ((event.srcElement) ? event.srcElement : null);
-    if (!e) return false;
-  while (e && e.nodeName!='TR') e=e.parentNode;
-  e.style.cursor = 'pointer';
-  e.style.backgroundColor = '[COLOR_B8]';
-}
-function outres(event, id) {
-  if (!event) event=window.event;
-  var e = (event.target) ? event.target : ((event.srcElement) ? event.srcElement : null);
-    if (!e) return false;
-  e = e.parentNode;
-  e.style.cursor = '';
-  e.style.backgroundColor = '';
-}
-function clickon(event, id) {
- subwindow(500,600,'T'+id, '[CORE_STANDURL]&app=FDL&action=FDL_CARD&id='+id); 
-}
-</script>
+
 <style>
 SELECT.little { font-size:90%; }
 div.logo { margin-top:-20px;  float:left; width:20%; z-index:100; text-align:center; }
@@ -75,7 +55,7 @@ a.result img {border:none}
        class="fborder" style="display:inline"
        name="searchdoc"       
        target="_self"
-       method="GET" ENCTYPE="multipart/form-data"         >
+       method="GET"        >
 <input type="hidden" name="start" value="0">
 <input type="hidden" name="dirid" value="[dirid]">
 <input type="hidden" name="app" value="FGSEARCH">
@@ -125,7 +105,7 @@ a.result img {border:none}
 [ZONE FGSEARCH:HELP]
 </div>
 [BLOCK DOCS]<a class="result" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]"><table cellspacing=0>
-<tr class="result" [IF ISIE]onmouseover="overres(event,'[id]')" onmouseout="outres(event,'[id]')"[ENDIF ISIE] onclick2="clickon(event, '[id]')">
+<tr class="result"  >
 <td class="result"><img align="left" needresize="1" src="[iconsrc]" width="36px"></td>
 <td class="result"><span class="title">[title]</span> <i>[mdate]</i><br >[htext]</td>
 </tr></table></a>
