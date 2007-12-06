@@ -45,11 +45,19 @@ td.result  {
   border-color : [COLOR_A8]; 
   border-style : none;
   vertical-align:top; 
-  font-size:90%;
+  font-size:90%; 
+  background-color:transparent;
   color:[COLOR_A3]; }
+tr.result  {
+  background-color:transparent;
+}
 td.result .title { color:[COLOR_B0]; font-size:110%; font-weight:bold; }
 td.result b { color:[COLOR_A0]; }
-
+td.result:hover {background-color :[COLOR_B8]}
+tr.result:hover td.result {background-color :[COLOR_B8]}
+a.result:active, a.result:link, a.result:visited {text-decoration:none}
+a.result img {border:none}
+}
 div#aide {
   position:absolute;
   display:inline;
@@ -67,10 +75,12 @@ div#aide #closeaide {  right:10px; margin : 5px 0px 10px 0px; }
        class="fborder" style="display:inline"
        name="searchdoc"       
        target="_self"
-       method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FGSEARCH&action=FULLSEARCH" >
+       method="GET" ENCTYPE="multipart/form-data"         >
 <input type="hidden" name="start" value="0">
 <input type="hidden" name="dirid" value="[dirid]">
+<input type="hidden" name="app" value="FGSEARCH">
+<input type="hidden" name="sole" value="Y">
+<input type="hidden" name="action" value="FULLSEARCH">
 
 [IF viewform]
 <div style="text-align:right">
@@ -114,12 +124,12 @@ div#aide #closeaide {  right:10px; margin : 5px 0px 10px 0px; }
 <div id="closeaide"><a href="#" onclick="document.getElementById('aide').style.display='none'">[TEXT:close search online help]</a></div>
 [ZONE FGSEARCH:HELP]
 </div>
-<table cellspacing=0 style="margin:20px">[BLOCK DOCS]
-<tr onmouseover="overres(event,'[id]')" onmouseout="outres(event,'[id]')" onclick="clickon(event, '[id]')">
+[BLOCK DOCS]<a class="result" href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]"><table cellspacing=0>
+<tr class="result" [IF ISIE]onmouseover="overres(event,'[id]')" onmouseout="outres(event,'[id]')"[ENDIF ISIE] onclick2="clickon(event, '[id]')">
 <td class="result"><img align="left" needresize="1" src="[iconsrc]" width="36px"></td>
-<td class="result"><span class="title">[title]</span><i>[mdate]</i><br >[htext]</td>
-</tr>
-[ENDBLOCK DOCS]</table>
+<td class="result"><span class="title">[title]</span> <i>[mdate]</i><br >[htext]</td>
+</tr></table></a>
+[ENDBLOCK DOCS]
 <div style="text-align:center;border-top-color:[COLOR_B4];border-top-style:solid;border-top-width:1px">
 [IF notfirst]
  <a onclick="document.searchdoc.start.value=[pstart];document.searchdoc.submit()">  <img style="border:none" align="absbottom"  src="[IMG:freeleft.png]"> [TEXT:Previous]</a>[ENDIF notfirst] 

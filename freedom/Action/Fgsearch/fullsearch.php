@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.6 2007/12/01 07:16:43 marc Exp $
+ * @version $Id: fullsearch.php,v 1.7 2007/12/06 10:51:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -47,6 +47,7 @@ function fullsearch(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
+  $action->lay->set("viewform",true);
   $initpage=(GetParam("FGSEARCH_INITPAGE", "Y")=="Y" ? true: false); // special search
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
@@ -90,7 +91,7 @@ function fullsearch(&$action) {
 
   $bfam = array();
   $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
-  if ($keyword!="")  {
+  if (true)  {
 
     $sqlfilters=array();
     $famfilter = $or = $and = "";
@@ -179,7 +180,6 @@ function fullsearch(&$action) {
   $action->lay->setBlockData("filterfam",$bfam);
   $action->lay->set("famid",$famid);
   $action->lay->set("searchtitle",sprintf(_("Search %s"),$keyword));
-  $action->lay->set("viewform",true);
   $action->lay->set("key",str_replace("\"","&quot;",$fkeyword));
   $action->lay->set("resulttext",sprintf(_("Results <b>%d</b> - <b>%d</b> for <b>%s</b> %s"),((count($tdocs)+$start)==0)?0:$start+1,$start+count($tdocs),$keyword,$famtitle));
   

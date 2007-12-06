@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fulldsearch.php,v 1.1 2007/10/17 04:47:32 marc Exp $
+ * @version $Id: fulldsearch.php,v 1.2 2007/12/06 10:51:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -46,6 +46,8 @@ function fulldsearch(&$action) {
     $search->SpecRefresh();
 
     $action->lay = new Layout(getLayoutFile("FREEDOM","fullsearch.xml"),$action);
+    
+
     setHttpVar("dirid",$search->id);
     fullsearch($action);
   }
