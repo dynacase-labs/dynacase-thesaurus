@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.13 2007/09/07 09:31:55 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.14 2007/12/06 16:57:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -639,18 +639,25 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
 	$afiles=$doc->GetFileAttributes();  
 	//error_log("PUT SEARCH FILES:".count($afiles));
 	foreach ($afiles as $afile) {
-	  $fname=utf8_encode($doc->vault_filename($afile->id));
-
-	  //error_log("PUT SEARCH:".$bpath);
-	  if ($fname == $bpath) {
-	    error_log("PUT FOUND:".$path.'-'.$fname);
+	  $fnames=array();
+	  if ($afile->inArray()) {
+	    $tval=$doc->getTValue($afile->id);
+	    foreach ($tval as $k=>$v) {
+	      $fnames[$k]=utf8_encode($doc->vault_filename($afile->id,false,$k));
+	    }
+	  } else $fnames[-1]=utf8_encode($doc->vault_filename($afile->id));
+	  foreach ($fnames as $k=>$fname) {
+	    //	  error_log("PUT SEARCH:.$bpath $fname");
+	    if ($fname == $bpath) {
+	      error_log("PUT FOUND:".$path.'-'.$fname);
 	      
-	    $bpath=utf8_decode($bpath);
-	    $doc->saveFile($afile->id,$options["stream"],$bpath);
-	    $err=$doc->postModify();
-	    $err=$doc->Modify();
+	      $bpath=utf8_decode($bpath);
+	      $doc->saveFile($afile->id,$options["stream"],$bpath,$k);
+	      $err=$doc->postModify();
+	      $err=$doc->Modify();
 
-	    break;
+	      break;
+	    }
 	  }
 	}
       } 
