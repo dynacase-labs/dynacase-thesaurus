@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.449 2007/12/07 14:50:38 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.450 2007/12/07 17:09:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1486,6 +1486,24 @@ final public function PostInsert()  {
 
     return $tinfo;
   } 
+  /**
+   * verify if has some files waiting conversion
+   * 
+   * @return bool 
+   */
+  final public function hasWaitingFiles() {      
+    $dvi = new DocVaultIndex($this->dbaccess);
+    $tvid=$dvi->getVaultIds($this->id);
+    $tinfo=array();
+    if (count($tvid) > 0) {
+      $vf = newFreeVaultFile($this->dbaccess);
+      foreach ($tvid as $vid) {
+	$err=$vf->Retrieve($vid, $info);
+	if ($info->teng_state==2) return true;
+      }
+    }
+    return false;
+  } 
 
   /**
    * set encoded text of file 
@@ -1546,19 +1564,23 @@ final public function PostInsert()  {
 	if (! $info->teng_vid) {
 	  // create temporary file
 	  $value=sprintf(_("conversion %s in progress"),$engine);
-	  $filename=uniqid("/var/tmp/conv").".txt";
+	  if ($isimage) {
+	    $filename=getParam("CORE_PUBDIR")."/Images/workinprogress.png";
+	  } else   $filename=uniqid("/var/tmp/conv").".txt";
 	  $nc=file_put_contents($filename,$value);
 	  $err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
 	  $info=vault_properties($vidin);
-	  unlink($filename);
-	  $mime='';
-	  if ($isimage) {
-	    $value="workinprogress.png";
+	  if (! $isimage) {
+	    unlink($filename);
+	    $mime='text/plain';
 	  } else {
+	    $mime='image/png';
+	  }
+	  
 	    $value="$mime|$vidout";
 	    if ($err=="") $vf->rename($vidout,sprintf(_("conversion of %s.in progress.%s"),$info->name,$engine));
 
-	  }
+	  
 	  $this->AddComment("value $engine : $value");
 	} else {	 
 	  if ($err=="") {
@@ -3395,7 +3417,7 @@ final public function PostInsert()  {
 	    if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
 	    else $idx=$index;
 
-	    $mimeicon=getIconMimeFile($info->mime_s);
+	    $mimeicon=getIconMimeFile($info->mime_s==""?$mime:$info->mime_s);
 	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 	      $action->GetParam("CORE_BASEURL").
 	      "app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
