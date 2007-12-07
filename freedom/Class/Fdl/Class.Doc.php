@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.448 2007/12/06 17:01:37 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.449 2007/12/07 14:50:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2438,7 +2438,7 @@ final public function PostInsert()  {
     $ok=array("err"=>"",
 	      "sug"=>array());
     $oattr = $this->getAttribute($attrid);
-    if (trim($oattr->phpconstraint) != "") {
+    if (strlen(trim($oattr->phpconstraint)) > 1) {
 
        $res = $this->applyMethod($oattr->phpconstraint,'KO',$index);
        if ($res !== true) return $res;
@@ -2457,7 +2457,7 @@ final public function PostInsert()  {
     $err="";
     $listattr = $this->GetNormalAttributes();
     foreach ($listattr as $k => $v) {
-      if ($v->phpconstraint != "") {
+      if (strlen($v->phpconstraint)> 1) {
 	if ($v->inArray()) {
 	  $tv = $this->getTValue($v->id);
 	  for ($i=0;$i<count($tv);$i++) {
