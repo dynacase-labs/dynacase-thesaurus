@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.27 2007/11/12 16:30:49 eric Exp $
+ * @version $Id: fdl_card.php,v 1.28 2007/12/07 17:07:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,6 +65,12 @@ function fdl_card(&$action) {
   }
 
   SetHttpVar("viewbarmenu",1);
+  
+  $action->lay->set('verifyfiles',false);
+  if ($doc->hasWaitingFiles()) {
+    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/verifycomputedfiles.js");
+    $action->lay->set('verifyfiles',true);
+  }
 
   $action->lay->set("RSS", ($doc->getValue("gui_isrss")));
   $action->lay->Set("TITLE",$doc->title);

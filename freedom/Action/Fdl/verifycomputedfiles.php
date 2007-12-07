@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: verifycomputedfiles.php,v 1.1 2007/11/26 15:06:41 eric Exp $
+ * @version $Id: verifycomputedfiles.php,v 1.2 2007/12/07 17:07:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,6 +47,13 @@ function verifycomputedfiles(&$action) {
   $action->lay->set("warning",utf8_encode($err));
   $action->lay->set("delay",microtime_diff(microtime(),$mb));
 
+  foreach ($files as $k=>$v) {
+    if ($v["teng_state"]==1) {
+      $files[$k]["icon"]="img-cache/20-".getIconMimeFile($v["mime_s"]).".png";
+    } else {
+      $files[$k]["icon"]="";
+    }
+  }
 
   $action->lay->setBlockData("FILES",$files);
   $action->lay->set("count",count($files));

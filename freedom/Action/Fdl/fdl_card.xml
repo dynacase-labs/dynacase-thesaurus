@@ -22,6 +22,7 @@
   <!--
     [JS:CODE]
 [IF VALTERN]addEvent(window,"load",function al1() {alterfieldset('terrible','[CORE_BGCOLORALTERN]','[CORE_TEXTFGCOLOR]');});[ENDIF VALTERN]
+[IF verifyfiles]addEvent(window,"load",function fileverf() {verifycomputedfiles('[id]');}) [ENDIF verifyfiles]
   //-->
    </script>
  </head>
