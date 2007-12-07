@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.45 2007/10/24 15:53:38 eric Exp $
+ * @version $Id: enum_choice.php,v 1.46 2007/12/07 17:06:51 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -222,7 +222,7 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
 
 
 
-  if (count($res) > 0) {
+  if (is_array($res) && (count($res) > 0)) {
 
   // addslahes for JS array
   reset($res);
