@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.450 2007/12/07 17:09:42 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.451 2007/12/10 09:18:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1578,7 +1578,7 @@ final public function PostInsert()  {
 	  }
 	  
 	    $value="$mime|$vidout";
-	    if ($err=="") $vf->rename($vidout,sprintf(_("conversion of %s.in progress.%s"),$info->name,$engine));
+	    if ($err=="") $vf->rename($vidout,sprintf(_("conversion of %s in progress").".%s",$info->name,$engine));
 
 	  
 	  $this->AddComment("value $engine : $value");
@@ -1586,12 +1586,16 @@ final public function PostInsert()  {
 	  if ($err=="") {
 	    $info1=vault_properties($vidin);
 	    $vidout=$info->id_file;
-	    $vf->rename($vidout,sprintf(_("update of %s.in progress.%s"),$info1->name,$engine));
+	    $vf->rename($vidout,sprintf(_("update of %s in progress").".%s",$info1->name,$engine));
 	    $value=$info->mime_s.'|'.$info->id_file;
 	  }
 	}
 
 	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout,$isimage);
+	if ($err!="") {
+	  
+	  
+	}
       } else {
 	if ($isimage) {
 	  if ($info->teng_state<0) {
