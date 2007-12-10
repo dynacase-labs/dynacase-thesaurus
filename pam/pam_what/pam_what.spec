@@ -1,4 +1,4 @@
-# $Revision: 1.15 $, $Date: 2007/06/27 09:52:30 $
+# $Revision: 1.16 $, $Date: 2007/12/10 14:15:36 $
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(uname -o | grep -c PLD)
 
@@ -10,7 +10,7 @@ Version:	0.4.3
 %if %{cerbere} || %{pld}
 Release: 2
 %else
-Release: 1.fc5
+Release: 1.fc8
 %endif
 License:	GPL or BSD
 Group:		Base
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.16  2007/12/10 14:15:36  eric
+fc8
+
 Revision 1.15  2007/06/27 09:52:30  yannick
 Modify release
 
