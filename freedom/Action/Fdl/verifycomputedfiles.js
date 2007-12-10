@@ -52,7 +52,7 @@ function XMLprocessverificationfiles() {
 	    for ( i=0;i<values.length;i++) {
 	      state=values[i].getAttribute('status');
 	      vid=values[i].getAttribute('id');
-	      if (state=='1') {
+	      if ((state=='1') || (parseInt(state) < 0)) {
 		r=new RegExp("vid="+vid,"g")
 		title1=getTagContent(values[i],'title');
 		icon1=getTagContent(values[i],'icon');
