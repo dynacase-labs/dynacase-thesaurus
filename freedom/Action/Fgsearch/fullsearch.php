@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.7 2007/12/06 10:51:35 eric Exp $
+ * @version $Id: fullsearch.php,v 1.8 2007/12/10 13:44:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -39,7 +39,6 @@ function fullsearch(&$action) {
   $start=GetHttpVars("start",0); // page number
   $dirid = GetHttpVars("dirid",0); // special search
 
-  $dd = GetParam("FGSEARCH_INITPAGE","Y");
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/DHTMLapi.js");
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/AnchorPosition.js");
@@ -48,8 +47,7 @@ function fullsearch(&$action) {
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
 
   $action->lay->set("viewform",true);
-  $initpage=(GetParam("FGSEARCH_INITPAGE", "Y")=="Y" ? true: false); // special search
-
+  $initpage=false;
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/resizeimg.js");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");  
@@ -57,14 +55,15 @@ function fullsearch(&$action) {
 
   createSearchEngine($action);
     
+  $nosearch=false;
   if (($keyword=="")&&($dirid==0)&&($famid==0)) {
     if ($initpage) {
       $action->lay = new Layout(getLayoutFile("FGSEARCH","fullsearch_empty.xml"),$action);
       return;
     }
-    
+    $nosearch=true;
   }
-
+  $action->lay->set("INITSEARCH",$nosearch);
   $kfams = array();
   $fkeyword = $keyword;
   if ($keyword!="")  {
@@ -91,7 +90,7 @@ function fullsearch(&$action) {
 
   $bfam = array();
   $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,array(1,2),"TABLE");  
-  if (true)  {
+  if (! $nosearch)  {
 
     $sqlfilters=array();
     $famfilter = $or = $and = "";
