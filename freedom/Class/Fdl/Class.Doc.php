@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.451 2007/12/10 09:18:41 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.452 2007/12/10 17:23:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3386,9 +3386,12 @@ final public function PostInsert()  {
 	      $vid=$reg[2];
 	
 	      if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
-	      else $idx=$index;
+	      else $idx=$index; 
+	      $inline=$oattr->getOption("inline");
+	      if ($inline=="yes") $opt="&inline=yes";
+	      else $opt="";
 	      $htmlval=$action->GetParam("CORE_BASEURL").
-		"app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"; // upload name
+		"app=FDL"."&action=EXPORTFILE$opt&cache=no&vid=$vid&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"; // upload name
 	    } else {
 	      $htmlval=$action->GetImageUrl($avalue);
 	    }
