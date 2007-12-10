@@ -77,12 +77,12 @@ function centerError() {
 }
 
 function refreshParentWindows() {
-  if (window.opener && window.opener.document.needreload) window.opener.location.reload();
-  else if (parent.flist) parent.flist.location.reload();
-  else if (parent.fvfolder) parent.fvfolder.location.reload();
+  if (window.opener && window.opener.document.needreload) window.opener.location.reload.href=window.opener.location.reload.href;
+  else if (parent.flist) parent.flist.location.href=parent.flist.location.href;
+  else if (parent.fvfolder) parent.fvfolder.location.href=parent.fvfolder.location.href;
   else if (parent.ffoliolist){
-    parent.ffoliolist.location.reload();
-    if (parent.ffoliotab) parent.ffoliotab.location.reload();
+    parent.ffoliolist.location.href=parent.ffoliolist.location.href;
+    if (parent.ffoliotab) parent.ffoliotab.location.reload.href=parent.ffoliotab.location.reload.href;
   }
   
 }
