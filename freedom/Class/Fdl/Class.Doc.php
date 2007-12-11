@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.454 2007/12/11 14:23:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.455 2007/12/11 14:48:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -906,7 +906,7 @@ final public function PostInsert()  {
     $ldoc = $this->GetRevisions("TABLE");
     $vdocid=0;
     foreach($ldoc as $k=>$v) {
-      if ($v["state"]==$state)) {
+      if ($v["state"]==$state) {
 	$vdocid = $v["id"];
 	break;
       }	  	  
