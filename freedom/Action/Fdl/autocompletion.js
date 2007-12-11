@@ -100,6 +100,7 @@ function completeChoiceAuto(index) {
   tvals.push(tval);
   completechoice(0,_ciblesListe,tvals,window);
   hideCompleteDiv();
+  cleanCompletionDiv();
   _currentInputFieldValue=_inputField.value;
   _oldInputFieldValue=_currentInputFieldValue;
 }
@@ -189,7 +190,7 @@ function callSuggestions(valeur){
     _xmlHttp.onreadystatechange=function() {
       if(_xmlHttp.readyState==4) {
 	if (_xmlHttp.responseXML) {
-	//	alert(_xmlHttp.responseText);
+	
         var liste = traiteXmlSuggestions(_xmlHttp.responseXML);
         //cacheResults(valeur,liste);
 	if (liste.length >0) {
@@ -199,7 +200,7 @@ function callSuggestions(valeur){
 	  }
 	
 	  
-	}
+	} 
 	} else if (_xmlHttp.responseText)	alert(_xmlHttp.responseText);
       }
     
@@ -231,9 +232,11 @@ function traiteXmlSuggestions(xmlDoc) {
     var status = xmlDoc.getElementsByTagName('status');
     if (status.length==1) {
       var msg=status[0].getAttribute('warning');
-
-       if (_autodebug) msg = msg+' ('+( _timeend - _timebegin ).toString()+'ms)';
+      
+      if (_autodebug) msg = msg+' ('+( _timeend - _timebegin ).toString()+'ms)';
       displayWarning(msg);
+    } else {
+      alert(_xmlHttp.responseText);
     }
   } else {
      if (_autodebug) optionsListe[0]=optionsListe[0]+' ('+( _timeend - _timebegin ).toString()+'ms)';
@@ -286,7 +289,9 @@ function calculateOffset(r,attr){
 
 // calcule la largeur du champ
 function calculateWidth(){
-  return _inputField.offsetWidth-2*1
+  var w=_inputField.offsetWidth-2*1;
+  if (w < 200) w=200;
+  return w;
 }
 
 function setCompleteDivSize(){
@@ -318,10 +323,16 @@ function creeAutocompletionDiv() {
   setStylePourElement(_completeDiv,"AutoCompleteDivListeStyle");
 }
 
-function metsEnPlace(valeur, liste){
+
+function cleanCompletionDiv() {
   while(_completeDiv.childNodes.length>0) {
     _completeDiv.removeChild(_completeDiv.childNodes[0]);
   }
+  _completeDiv.style.height='auto';
+  _completeDiv.style.overflow='';   
+}
+function metsEnPlace(valeur, liste){
+  cleanCompletionDiv();
   if (liste.length > 10) {
     _completeDiv.style.height='100px';
     _completeDiv.style.overflow='auto';
@@ -353,11 +364,7 @@ function metsEnPlace(valeur, liste){
 }
 
 function displayWarning(warning){
-  while(_completeDiv.childNodes.length>0) {
-    _completeDiv.removeChild(_completeDiv.childNodes[0]);
-    _completeDiv.style.height='auto';
-    _completeDiv.style.overflow='';  
-  }
+  cleanCompletionDiv();
   var ow=document.createElement("SPAN");
   ow.className="Error";
   ow.innerHTML=warning;
@@ -365,11 +372,7 @@ function displayWarning(warning){
   showCompleteDiv();
 }
 function displayMessage(warning){
-  while(_completeDiv.childNodes.length>0) {
-    _completeDiv.removeChild(_completeDiv.childNodes[0]);
-    _completeDiv.style.height='auto';
-    _completeDiv.style.overflow='';  
-  }
+  cleanCompletionDiv();
   var ow=document.createElement("SPAN");
   ow.className="AutoMessage";
   ow.innerHTML=warning;
@@ -498,7 +501,7 @@ function PressAction(){
   if(suggestionLongueur==0){
     hideCompleteDiv()
   }else{
-    showCompleteDiv()
+    //showCompleteDiv()
   }
   var trouve=false;
   // si on a du texte sur lequel travailler

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.3 2007/10/29 16:58:07 eric Exp $
+ * @version $Id: autocompletion.php,v 1.4 2007/12/11 15:48:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,7 +32,7 @@ function autocompletion(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc= new_Doc($dbaccess,$docid);
-
+  $action->lay->Set("count", 0);
   if ($docid==0) {
     // specific interface  
     $value="";
