@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.452 2007/12/10 17:23:04 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.453 2007/12/11 13:31:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3777,14 +3777,15 @@ final public function PostInsert()  {
 	
       case htmltext:  
 	$html_body=utf8_encode($avalue);
+	$html_body=str_replace(array('<o:p>', '</o:p>'),"",$html_body);
 	$html_body=preg_replace("/(<\/?)(\w+)([^>]*>)/e",
 				"'\\1'.'xhtml:'.strtolower('\\2').'\\3'",
 				$html_body ); // transform to pseudo xhtml
 
-	$html_body=str_replace('\"','"',$html_body);
+	$html_body=str_replace(array('\"','&quot;'),'"',$html_body);
 	$html_body=str_replace('&','&amp;',html_entity_decode($html_body,ENT_NOQUOTES,'UTF-8'));
-	$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.$html_body."</xhtml:body>";
 
+	$xmldata='<xhtml:body xmlns:xhtml="http://www.w3.org/1999/xhtml">'.$html_body."</xhtml:body>";
 	$xslt = new xsltProcessor;
 	$xslt->importStyleSheet(DomDocument::load(DEFAULT_PUBDIR."/CORE/Layout/html2odt.xsl"));
 	$xmlout= $xslt->transformToXML(DomDocument::loadXML($xmldata));
@@ -3795,14 +3796,16 @@ final public function PostInsert()  {
 	$ot1=$ot->item(0);
 
 	$officetext= $ot1->ownerDocument->saveXML($ot1);
-	$htmlval=substr($officetext,21,-23);
+	
+	$htmlval=str_replace(array('<office:text>', '</office:text>','<office:text/>'),"",$officetext);
 
 	// work around : tables are not in paragraph
 	$htmlval=preg_replace("/(<text:p>[\s]*<table:table )/ ",
 			      "<table:table ",$htmlval);
-	$htmlval=preg_replace("/(<\/table:table>[\s]*<\/text:p>)/ ",
+      	$htmlval=preg_replace("/(<\/table:table>[\s]*<\/text:p>)/ ",
 			      "</table:table> ",$htmlval);
-
+	
+	$htmlval="<text:section>".$htmlval."<text:p/></text:section>";
 	//$htmlval=preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>//g", "",$htmlval  );
 	break;
       case date:  
@@ -3846,7 +3849,7 @@ final public function PostInsert()  {
 
       default : 
 	$htmlval=stripslashes($avalue);	  
-			     $htmlval=str_replace(array("<",">"),array("&lt;","&gt;"),$htmlval);
+	$htmlval=str_replace(array("<",">",'&'),array("&lt;","&gt;","&amp;"),$htmlval);
 	break;
 	
       }
