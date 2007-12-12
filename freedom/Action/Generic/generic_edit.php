@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.66 2007/11/20 10:45:59 eric Exp $
+ * @version $Id: generic_edit.php,v 1.67 2007/12/12 15:16:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -62,11 +62,10 @@ function generic_edit(&$action) {
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
 
 
-  if (($docid === 0) || ($docid === "") || ($docid === "0") )
-    {   
-      if ($classid == "") $action->exitError(sprintf(_("Creation aborded : no family specified")));
-      if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);      
-      if ($classid == "") $action->exitError(sprintf(_("Creation aborded : unknow family %s"), GetHttpVars("classid",getDefFam($action))));
+  if (($docid === 0) || ($docid === "") || ($docid === "0") )  {   
+    if ($classid == "") $action->exitError(sprintf(_("Creation aborded : no family specified")));
+    if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);      
+    if ($classid == "") $action->exitError(sprintf(_("Creation aborded : unknow family %s"), GetHttpVars("classid",getDefFam($action))));
     if ($classid > 0) {
       $cdoc= new_Doc($dbaccess,$classid);
       if ($cdoc->control('create') != "") $action->exitError(sprintf(_("no privilege to create this kind (%s) of document"),$cdoc->title));
@@ -79,29 +78,27 @@ function generic_edit(&$action) {
     if ($usefor=="Q") $action->lay->Set("TITLE", _("parameters values"));
     
     $action->lay->Set("editaction", $action->text("Create"));
-      $doc= createDoc($dbaccess,$classid);
-      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
-      if ($usefor!="") $doc->doctype='T';
-    }
-  else
-    {    
-      $doc= new_Doc($dbaccess,$docid);
-      $docid=$doc->id;
-      setHttpVar("id",$doc->id);
-      $err = $doc->lock(true); // autolock
-      if ($err != "")   $action->ExitError($err);  
-      if ($err=="") $action->AddActionDone("LOCKFILE",$doc->id);
+    $doc= createDoc($dbaccess,$classid);
+    if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+    if ($usefor!="") $doc->doctype='T';
+  } else {    
+    $doc= new_Doc($dbaccess,$docid);
+    $docid=$doc->id;
+    setHttpVar("id",$doc->id);
+    $err = $doc->lock(true); // autolock
+    if ($err != "")   $action->ExitError($err);  
+    if ($err=="") $action->AddActionDone("LOCKFILE",$doc->id);
 
 
-      $classid = $doc->fromid;
-      if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
-      $doc->refresh();
-      // update access date
-      $doc->adate=$doc->getTimeDate();
-      $doc->modify(true,array("adate"),true);
+    $classid = $doc->fromid;
+    if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
+    $doc->refresh();
+    // update access date
+    $doc->adate=$doc->getTimeDate();
+    $doc->modify(true,array("adate"),true);
 
-      $action->lay->Set("TITLE", $doc->title);
-    }
+    $action->lay->Set("TITLE", $doc->title);
+  }
     
   $action->lay->Set("STITLE",addJsSlashes($action->lay->get("TITLE"))); // for include in JS
   if ($zonebodycard == "") {
