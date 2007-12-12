@@ -3,7 +3,7 @@
  * Form to edit or create a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_edit.php,v 1.40 2007/09/04 09:10:10 eric Exp $
+ * @version $Id: freedom_edit.php,v 1.41 2007/12/12 15:05:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -39,7 +39,10 @@ function freedom_edit(&$action) {
   // Set the globals elements
   $dbaccess = $action->GetParam("FREEDOM_DB");
   if (! is_numeric($classid))  $classid = getFamIdFromName($dbaccess,$classid);
-  
+  else $classid=abs($classid);
+  setHttpVar("classid",$classid);
+
+
   if ($docid > 0) {
     $doc= new_Doc($dbaccess,$docid);
     if (! $doc->isAlive()) $action->exitError(sprintf(_("document id %d not found"),$docid));
@@ -111,7 +114,6 @@ function freedom_edit(&$action) {
       $selectclass[$k+1]["idcdoc"]="0";
       $selectclass[$k+1]["classname"]=_("no document type");
   }
-
   if ($docid == 0)
     {
       switch ($classid) {
@@ -133,17 +135,17 @@ function freedom_edit(&$action) {
       
 	// restrict to possible family creation permission
 	foreach ($selectclass as $k=>$cdoc) {
-	  $tfid[]=$cdoc["idcdoc"]; 
+	  $tfid[]=abs($cdoc["idcdoc"]); 
 	}
 	$tfid=getFamilyCreationIds($dbaccess,$action->user->id,$tfid);
 	foreach ($selectclass as $k=>$cdoc) {
-	  if (! in_array($cdoc["idcdoc"],$tfid)) unset($selectclass[$k]);
+	  if (! in_array(abs($cdoc["idcdoc"]),$tfid)) unset($selectclass[$k]);
 	}
 
       }
       // selected the current class document
       foreach ($selectclass as $k=>$cdoc) {	
-	if ($classid == $cdoc["idcdoc"]) {	  
+	if ($classid == abs($cdoc["idcdoc"])) {	  
 	  $selectclass[$k]["selected"]="selected";
 	}
       }
@@ -156,7 +158,7 @@ function freedom_edit(&$action) {
       
       // selected the current class document
       while (list($k,$cdoc)= each ($selectclass)) {	
-	if ($doc->fromid == $selectclass[$k]["idcdoc"]) {	  
+	if ($doc->fromid == abs($selectclass[$k]["idcdoc"])) {	  
 	  $selectclass[$k]["selected"]="selected";
 	}
       }
