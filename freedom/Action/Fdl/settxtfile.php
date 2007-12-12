@@ -3,7 +3,7 @@
  * Update file text which comes from transformation engine
  *
  * @author Anakeen 2007
- * @version $Id: settxtfile.php,v 1.12 2007/10/30 14:43:57 eric Exp $
+ * @version $Id: settxtfile.php,v 1.13 2007/12/12 15:22:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -42,7 +42,7 @@ function settxtfile(&$action) {
 	$tr->delete(); // no need now
 	$outfile=$info["outfile"];
 	$status=$info["status"];
-	$sem = fopen("/var/tmp/lock$docid.lck", "a+");
+	$sem = fopen("/var/tmp/fdl$docid.lck", "a+");
 	
 	if (flock($sem, LOCK_EX)) {
 	  //fwrite($sem,'fdl'.posix_getpid().":lock\n");
