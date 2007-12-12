@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.26 2007/12/03 14:48:01 marc Exp $
+// $Id: FDL_init.php.in,v 1.27 2007/12/12 15:15:53 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -120,6 +120,10 @@ $app_const= array(
 			  "user"=>"N",
 			  "descr"=>N_("Activate Transformation Engine to index files"),
 			  "kind"=>"enum(yes|no)"),
+  "TE_URLINDEX"   =>array("val"=>"",
+			  "global"=>"Y",
+			  "user"=>"N",
+			  "descr"=>N_("Transformation Engine callback url")),
   "FDL_FULLIDX"    =>array("val"=>"gist",
 			   "descr"=>N_("fulltext index mode"),
 			   "user"=>"N",
