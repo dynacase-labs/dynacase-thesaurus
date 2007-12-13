@@ -1,9 +1,9 @@
 <?php
 /**
- * for big importation
+ * to big importation
  *
- * @author Anakeen 2002
- * @version $Id: csv2sql.php,v 1.1 2007/12/13 16:03:15 eric Exp $
+ * @author Anakeen 2007
+ * @version $Id: csv2sql.php,v 1.2 2007/12/13 16:54:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WSH
@@ -16,12 +16,17 @@ include_once("FDL/import_file.php");
 
 $fimport=GetHttpVars("file");
 
+if (!$fimport) {
+   print "file needed :usage  --file=<csv file>\n";
+   exit(1);
+ }
 if (seemsODS($fimport)) {
   $cvsfile=ods2csv($fimport);
   $fdoc = fopen($cvsfile,"r");
  } else {
   $fdoc = fopen($fimport,"r");
  }
+if (! $fdoc) exit(1);
 
 $dbaccess = getParam('FREEDOM_DB');
 $idoc=new doc($dbaccess);
@@ -48,13 +53,16 @@ while (!feof($fdoc)) {
       }
       $tval[$orfromid]["id"]="(select nextval ('seq_id_doc'))";
       $tval[$orfromid]["initid"]="(select currval ('seq_id_doc'))";
-      $tval[$orfromid]["owner"]="1";
+      $tval[$orfromid]["owner"]=$action->user->id;
 
     } else if ($data[0]=='DOC') {
       if (is_numeric($data[1]))   $fromid = $data[1];
       else $fromid = getFamIdFromName($dbaccess,$data[1]);
       
-      
+      if (! isset($tval[$fromid])) {
+	print "-- order not defined for $fromid;\n";
+	continue;
+      }
 
       $ini=$tval[$fromid];
       
@@ -78,7 +86,7 @@ while (!feof($fdoc)) {
     }
  }
 
-
+// update family index when finished
 foreach ($titles as $fromid=>$v) {
   $sql=sprintf("select setval ('seq_doc%d',(select max(id) from doc%d));\n",$fromid,$fromid);
   print $sql;
