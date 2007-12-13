@@ -270,7 +270,7 @@ begin
 
      EXCEPTION
 	 WHEN OTHERS THEN
-	    RAISE NOTICE 'Error %',NEW.id;
+	    RAISE NOTICE 'Error fulltext %',NEW.id;
    end;
    end if;
 return NEW;
@@ -575,7 +575,7 @@ begin
     insert into docrel(sinitid,cinitid,type) values (a_docid,wti,$3);
      EXCEPTION
 	 WHEN OTHERS THEN
-	    RAISE NOTICE 'Error %',wti;
+	    RAISE NOTICE 'Error relindex %',wti;
      end;
     i:=i+1;
   END LOOP;
