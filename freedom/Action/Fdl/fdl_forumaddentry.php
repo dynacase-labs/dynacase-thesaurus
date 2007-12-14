@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumaddentry.php,v 1.5 2007/10/14 08:54:41 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.6 2007/12/14 13:25:32 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,6 +43,7 @@ function fdl_forumaddentry(&$action) {
   if ($forid<=0) {
 
     $forum = createDoc($dbaccess, "FORUM");
+    $forum->disableEditControl();
     $forum->setValue("forum_docid", $doc->id);
     $forum->setProfil($doc->profid);
     $forum->Add();
@@ -62,6 +63,7 @@ function fdl_forumaddentry(&$action) {
 
     $forum = new_Doc($dbaccess, $forid);
     if (! $forum->isAffected()) $action->exitError(sprintf(_("cannot see unknow forum reference %s"),$forid));
+    $forum->disableEditControl();
 
     $t_id         = $forum->getTValue("forum_d_id"); 
     $t_lid        = $forum->getTValue("forum_d_link");
