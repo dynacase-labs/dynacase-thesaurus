@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.455 2007/12/11 14:48:36 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.456 2008/01/03 09:07:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4022,6 +4022,16 @@ final public function PostInsert()  {
     if (ereg("([A-Z_-]+):([^:]+):{0,1}([A-Z]{0,1})", $zone, $reg)) {
       return $reg[3];
     }
+  }  
+  /** 
+   * return the characters in fourth part of zone
+   * @return string
+   */
+  public function getZoneTransform($zone="") {
+    if ($zone=="") $zone=$this->defaultview;
+    if (ereg("([A-Z_-]+):([^:]+):{0,1}([A-Z]{0,1}):([^:]+)", $zone, $reg)) {
+      return $reg[4];
+    }    
   }
   /**
    * set default values define in family document
