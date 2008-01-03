@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.28 2007/12/07 17:07:36 eric Exp $
+ * @version $Id: fdl_card.php,v 1.29 2008/01/03 09:05:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,12 +93,20 @@ function fdl_card(&$action) {
     $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
   } else if ($zo=="B") {
     // binary layout file
-    $ulink=false;
-    $target="ooo";
-    $file=$doc->viewdoc($zone,$target,$ulink);
-    Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
-    @unlink($file);
-    exit;
+    $engine=$doc->getZoneTransform($zone);
+    if ($engine) {     
+      redirect($action,"FDL",
+	       "GETFILETRANSFORMATION&zone=$zone&id=".$doc->id,
+	       $action->GetParam("CORE_STANDURL"));
+      exit;
+    } else {
+      $target="ooo";
+      $ulink=false;
+      $file=$doc->viewdoc($zone,$target,$ulink);
+      Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
+      @unlink($file);
+      exit;
+    }
   } else {
     $action->lay->set("nocss",($zo=="U"));
     $taction=array();

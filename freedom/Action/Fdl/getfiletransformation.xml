@@ -1,0 +1,18 @@
+[ZONE FDL:HTMLHEAD?title=[TITLE]]
+
+<script>
+verifytid('[tid]');
+</script>
+
+<h1><img width="[SIZE_IMG-SMALL]" needresize="1" src="[icon]">[TITLE]</h1>
+<p [IF error]class="Error"[ENDIF error]>[processtext]</p>
+
+<div style="text-align:center;max-width:300px">
+[TEXT:Status] : <b id="message">[message]</b>
+<br/>
+[IFNOT error]<img id="loading" src="[IMG:loading.gif]">
+<span id="counter"></span>[ENDIF error]
+</div>
+<a id="areturn" [IFNOT error]style="display:none" [ENDIF error]href="[CORE_STANDURL]app=FDL&action=FDL_CARD&id=[id]">[TEXT:Return to default view]</a>
+
+[ZONE FDL:HTMLFOOT]

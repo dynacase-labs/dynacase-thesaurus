@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.53 2007/11/26 15:06:41 eric Exp $
+// $Id: FDL.app,v 1.54 2008/01/03 09:06:51 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -381,10 +381,20 @@ $action_desc = array (
    "name"		=>"VERIFYCOMPUTEDFILES",
    "short_name"		=>N_("verify files status"),
    "acl"		=>"NORMAL"
+  ),
+  array( 
+   "name"		=>"GETFILETRANSFORMATION",
+   "short_name"		=>N_("retrieve file converted"),
+   "acl"		=>"NORMAL"
+  ),
+  array( 
+   "name"		=>"GETFILETRANSSTATUS",
+   "short_name"		=>N_("retrieve task status"),
+   "acl"		=>"NORMAL"
   )
 	
 	
 	
-                      );	
-   
+			);	
+   		      
 ?>
