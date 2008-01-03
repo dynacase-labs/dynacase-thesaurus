@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.33 2007/11/29 15:52:45 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.34 2008/01/03 09:06:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -412,7 +412,7 @@ function addFamilyPopup(&$tlink,&$doc) {
       $v->link=$reg[2];
       $tlink[$k]["target"] = $reg[1];
     } else {
-      $tlink[$k]["target"] = $v->id;
+      $tlink[$k]["target"] = $v->id."-".$doc->id;
     } 
     if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
     $tlink[$k]["idlink"] = $v->id;
@@ -490,7 +490,7 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
     $tlink["access"]["visibility"]=POPUP_INVISIBLE;
   }
 
-  if ($doc->Control("modifyacl") == "") {
+  if (($doc->Control("modifyacl") == "") && (! $doc->isLocked(true))) {
     $tlink["editprof"]["visibility"]=POPUP_CTRLACTIVE;
     if ($doc->doctype!='P') {
       if ($doc->profid != 0) $tlink["publicprof"]["visibility"]=POPUP_CTRLACTIVE;

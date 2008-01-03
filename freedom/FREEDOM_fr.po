@@ -6,81 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 10:15+0100\n"
-"PO-Revision-Date: 2007-12-10 10:16+0100\n"
+"POT-Creation-Date: 2008-01-03 09:54+0100\n"
+"PO-Revision-Date: 2008-01-03 09:59+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-msgid "no file referenced"
-msgstr "pas de fichier référencé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "cannot copy %s"
-msgstr "écriture impossible : %s"
-
-msgid "Zip Archive cannot be created"
-msgstr "L'archive Zip n'a pas pu être créée"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
 
 msgid "no document reference"
 msgstr "pas de référence au document"
@@ -90,22 +22,8 @@ msgid "unknow logical reference '%s'"
 msgstr "la référence logique '%s' est inconnue"
 
 #, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-#, c-format
-msgid "method %s applied to document %s #%d"
-msgstr "méthode %s appliqué au document %s n°%d"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
+msgid "cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
 
 msgid "No identificator"
 msgstr "Pas d'identificateurs"
@@ -226,6 +144,88 @@ msgstr "Changer d'état"
 #, c-format
 msgid "Sure %s ?"
 msgstr "Confirmation : %s ?"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+msgid "no file referenced"
+msgstr "pas de fichier référencé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "cannot copy %s"
+msgstr "écriture impossible : %s"
+
+msgid "Zip Archive cannot be created"
+msgstr "L'archive Zip n'a pas pu être créée"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+#, c-format
+msgid "method %s applied to document %s #%d"
+msgstr "méthode %s appliqué au document %s n°%d"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -729,6 +729,29 @@ msgstr "erreur de conversion"
 #, c-format
 msgid "vid %d stored"
 msgstr "vid %d enregistré"
+
+#, c-format
+msgid "processing <b>%s</b> transformation"
+msgstr "Conversion <b>%s</b> en cours"
+
+#, c-format
+msgid "cannot lauch <b>%s</b> transformation"
+msgstr "Échec du lancement de la conversion <b>%s</b>"
+
+msgid "TE engine activate but TE-CLIENT not found"
+msgstr "Moteur TE activé mais TE-CLIENT non trouvé"
+
+msgid "File:: Processing"
+msgstr "Conversion en cours"
+
+msgid "File:: Waiting"
+msgstr "Conversion en attente"
+
+msgid "File:: converted"
+msgstr "Conversion réussie"
+
+msgid "File:: failed"
+msgstr "Échec de la conversion"
 
 #, c-format
 msgid ""
@@ -1462,6 +1485,12 @@ msgstr "fck téléchargement"
 msgid "verify files status"
 msgstr "Vérification status des fichiers"
 
+msgid "retrieve file converted"
+msgstr "récupération d'un fichier converti"
+
+msgid "retrieve task status"
+msgstr "récupération des status de tâches"
+
 msgid "freedom database"
 msgstr "base de donnée Freedom"
 
@@ -1530,6 +1559,9 @@ msgstr "Numéro de port du serveur de transformation"
 
 msgid "Activate Transformation Engine to index files"
 msgstr "Activation du serveur de transformation pour l'indexation plein texte"
+
+msgid "Transformation Engine callback url"
+msgstr "URL pour les callback du serveur de transformation"
 
 msgid "fulltext index mode"
 msgstr "mode d'indexation fulltext"
@@ -2185,9 +2217,6 @@ msgstr "Recherche générale freedom"
 msgid "freedom detailled global search"
 msgstr "recherche détaillée générale"
 
-msgid "fgsearch display init page"
-msgstr "accueil recherche générale"
-
 msgid "document creation"
 msgstr "Création du document"
 
@@ -2256,12 +2285,12 @@ msgid "conversion %s in progress"
 msgstr "conversion %s en cours"
 
 #, c-format
-msgid "conversion of %s.in progress.%s"
-msgstr "conversion de %s.en cours.%s"
+msgid "conversion of %s in progress"
+msgstr "conversion de %s en cours"
 
 #, c-format
-msgid "update of %s.in progress.%s"
-msgstr "mise à jour de %s en cours. %s"
+msgid "update of %s in progress"
+msgstr "mise à jour de %s en cours"
 
 #, c-format
 msgid "%s needed\n"
@@ -2462,11 +2491,11 @@ msgstr "nouvelle %s"
 msgid "confidential document"
 msgstr "document confidentiel"
 
-msgid "impossible conversion"
-msgstr "conversion impossible"
+msgid "uncomplete request"
+msgstr "requête incomplète"
 
-msgid "TE engine activate but TE-CLIENT not found"
-msgstr "Moteur TE activé mais TE-CLIENT non trouvé"
+msgid "request not found"
+msgstr "requête non trouvée"
 
 msgid "locked document of "
 msgstr "documents verrouillés par "
@@ -2762,20 +2791,6 @@ msgid "Twprocess_public"
 msgstr "vers public"
 
 #, c-format
-msgid "conversion of %s in progress"
-msgstr "conversion de %s en cours"
-
-#, c-format
-msgid "update of %s in progress"
-msgstr "mise à jour de %s en cours"
-
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
-#, c-format
 msgid "%s attribute"
 msgstr "attribut %s"
 
@@ -2812,6 +2827,9 @@ msgstr "Le server LDAP n'a pas pu être contacté"
 
 msgid "errldaporginit"
 msgstr "Le server LDAP n'a pas pu être contacté"
+
+msgid "impossible conversion"
+msgstr "conversion impossible"
 
 msgid "include"
 msgstr "contient"
@@ -3278,6 +3296,12 @@ msgstr "Pas de résultats"
 msgid " input not found"
 msgstr "entrée non trouvé"
 
+msgid "Status"
+msgstr "État"
+
+msgid "Return to default view"
+msgstr "Retour à la vue par défaut"
+
 msgid "Previous"
 msgstr "Précédent"
 
@@ -3592,9 +3616,6 @@ msgstr "Les modifications seront perdues si vous continuez"
 
 msgid "Choose another family document"
 msgstr "Choisissez une autre famille de document"
-
-msgid "Other family"
-msgstr "Autres familles"
 
 msgid "family manual"
 msgstr "Manuel de description de famille"
@@ -4269,6 +4290,9 @@ msgstr "Recherche avancée"
 msgid "search online help"
 msgstr "Aide à la recherche"
 
+msgid "Return to results"
+msgstr "Retour aux résultats"
+
 msgid "close search online help"
 msgstr "Fermer l'aide à la recherche"
 
@@ -4298,12 +4322,6 @@ msgstr "Ajouter une condition"
 
 msgid "addstate"
 msgstr "État"
-
-msgid "mini view"
-msgstr "mini vue"
-
-msgid "post it"
-msgstr "post-it"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -4455,6 +4473,12 @@ msgstr "Les modifications du forum ne sont pas sauvegardées."
 
 msgid "save forum edition"
 msgstr "sauver les modifications"
+
+msgid "mini view"
+msgstr "mini vue"
+
+msgid "post it"
+msgstr "post-it"
 
 msgid "View all rows"
 msgstr "Voir toutes les rangées"
@@ -4831,6 +4855,18 @@ msgid ""
 msgstr ""
 "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser "
 "le menu \"Ouvrir\" à partir du menu contextuel."
+
+#~ msgid "fgsearch display init page"
+#~ msgstr "accueil recherche générale"
+
+#~ msgid "conversion of %s.in progress.%s"
+#~ msgstr "conversion de %s.en cours.%s"
+
+#~ msgid "update of %s.in progress.%s"
+#~ msgstr "mise à jour de %s en cours. %s"
+
+#~ msgid "Other family"
+#~ msgstr "Autres familles"
 
 #~ msgid "detailled full text search document"
 #~ msgstr "recherche plein texte détaillé"

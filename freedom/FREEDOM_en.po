@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-12-10 10:15+0100\n"
+"POT-Creation-Date: 2008-01-03 09:54+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,74 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-msgid "no file referenced"
-msgstr ""
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot copy %s"
-msgstr "Category"
-
-msgid "Zip Archive cannot be created"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
 
 #, fuzzy
 msgid "no document reference"
@@ -92,22 +24,7 @@ msgid "unknow logical reference '%s'"
 msgstr ""
 
 #, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "method %s applied to document %s #%d"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
+msgid "cannot see unknow reference %s"
 msgstr ""
 
 msgid "No identificator"
@@ -249,6 +166,89 @@ msgstr "Identity"
 
 #, c-format
 msgid "Sure %s ?"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+msgid "no file referenced"
+msgstr ""
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot copy %s"
+msgstr "Category"
+
+msgid "Zip Archive cannot be created"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "method %s applied to document %s #%d"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
 msgstr ""
 
 msgid "cannot compare two document which comes from two different family"
@@ -774,6 +774,31 @@ msgstr "Organisation"
 #, c-format
 msgid "vid %d stored"
 msgstr ""
+
+#, c-format
+msgid "processing <b>%s</b> transformation"
+msgstr ""
+
+#, c-format
+msgid "cannot lauch <b>%s</b> transformation"
+msgstr ""
+
+msgid "TE engine activate but TE-CLIENT not found"
+msgstr ""
+
+msgid "File:: Processing"
+msgstr ""
+
+msgid "File:: Waiting"
+msgstr ""
+
+#, fuzzy
+msgid "File:: converted"
+msgstr "Delete"
+
+#, fuzzy
+msgid "File:: failed"
+msgstr "Update Title Cards"
 
 #, c-format
 msgid ""
@@ -1554,6 +1579,13 @@ msgstr ""
 msgid "verify files status"
 msgstr "Modify"
 
+msgid "retrieve file converted"
+msgstr ""
+
+#, fuzzy
+msgid "retrieve task status"
+msgstr "Modify"
+
 #, fuzzy
 msgid "freedom database"
 msgstr "Edit"
@@ -1624,6 +1656,9 @@ msgid "Transformation Engine server port number"
 msgstr ""
 
 msgid "Activate Transformation Engine to index files"
+msgstr ""
+
+msgid "Transformation Engine callback url"
 msgstr ""
 
 msgid "fulltext index mode"
@@ -2357,9 +2392,6 @@ msgstr "Start search"
 msgid "freedom detailled global search"
 msgstr "Email"
 
-msgid "fgsearch display init page"
-msgstr ""
-
 #, fuzzy
 msgid "document creation"
 msgstr "Organisation"
@@ -2432,12 +2464,12 @@ msgstr ""
 msgid "conversion %s in progress"
 msgstr ""
 
-#, c-format
-msgid "conversion of %s.in progress.%s"
-msgstr ""
+#, fuzzy, c-format
+msgid "conversion of %s in progress"
+msgstr "Organisation"
 
 #, c-format
-msgid "update of %s.in progress.%s"
+msgid "update of %s in progress"
 msgstr ""
 
 #, c-format
@@ -2647,10 +2679,10 @@ msgstr ""
 msgid "confidential document"
 msgstr "Delete"
 
-msgid "impossible conversion"
+msgid "uncomplete request"
 msgstr ""
 
-msgid "TE engine activate but TE-CLIENT not found"
+msgid "request not found"
 msgstr ""
 
 #, fuzzy
@@ -2957,20 +2989,6 @@ msgid "Twprocess_public"
 msgstr ""
 
 #, fuzzy, c-format
-msgid "conversion of %s in progress"
-msgstr "Organisation"
-
-#, c-format
-msgid "update of %s in progress"
-msgstr ""
-
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
-#, fuzzy, c-format
 msgid "%s attribute"
 msgstr "Update Title Cards"
 
@@ -3006,6 +3024,9 @@ msgstr "LDAP server cannot be contacted"
 #, fuzzy
 msgid "errldaporginit"
 msgstr "LDAP server cannot be contacted"
+
+msgid "impossible conversion"
+msgstr ""
 
 #, fuzzy
 msgid "include"
@@ -3525,6 +3546,14 @@ msgid " input not found"
 msgstr "Import"
 
 #, fuzzy
+msgid "Status"
+msgstr "Identity"
+
+#, fuzzy
+msgid "Return to default view"
+msgstr "Import"
+
+#, fuzzy
 msgid "Previous"
 msgstr "Organisation"
 
@@ -3916,10 +3945,6 @@ msgstr ""
 
 #, fuzzy
 msgid "Choose another family document"
-msgstr "Category"
-
-#, fuzzy
-msgid "Other family"
 msgstr "Category"
 
 #, fuzzy
@@ -4719,6 +4744,10 @@ msgstr "Start search"
 msgid "search online help"
 msgstr "Start search"
 
+#, fuzzy
+msgid "Return to results"
+msgstr "Import"
+
 msgid "close search online help"
 msgstr ""
 
@@ -4754,13 +4783,6 @@ msgstr "Modify"
 #, fuzzy
 msgid "addstate"
 msgstr "Identity"
-
-msgid "mini view"
-msgstr ""
-
-#, fuzzy
-msgid "post it"
-msgstr "Import"
 
 #, fuzzy
 msgid "fromdate"
@@ -4936,6 +4958,13 @@ msgstr "Organisation"
 #, fuzzy
 msgid "save forum edition"
 msgstr "Organisation"
+
+msgid "mini view"
+msgstr ""
+
+#, fuzzy
+msgid "post it"
+msgstr "Import"
 
 #, fuzzy
 msgid "View all rows"
@@ -5386,6 +5415,10 @@ msgid ""
 "Too many members to display there here. Use Open context menu to display "
 "them."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Other family"
+#~ msgstr "Category"
 
 #, fuzzy
 #~ msgid "detailled full text search document"
