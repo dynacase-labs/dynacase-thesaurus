@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.456 2008/01/03 09:07:38 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.457 2008/01/03 16:29:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3383,6 +3383,8 @@ final public function PostInsert()  {
 	  if ($target=="mail") {
 	    $htmlval="cid:".$oattr->id;
 	    if ($index >= 0) $htmlval.="+$index";
+	  }   if ($target=="te") {
+	    $htmlval="file://".$this->vault_filename($oattr->id,true,$kvalue);
 	  }  else {
 	    $vid="";
 	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
