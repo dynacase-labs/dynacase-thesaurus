@@ -11,7 +11,7 @@ verifytid('[tid]');
 [TEXT:Status] : <b id="message">[message]</b>
 <br/>
 [IFNOT error]<img id="loading" src="[IMG:loading.gif]">
-<span id="counter"></span>[ENDIF error]
+<span style="margin-left:-60px" id="counter"></span>[ENDIF error]
 </div>
 <a id="areturn" [IFNOT error]style="display:none" [ENDIF error]href="[CORE_STANDURL]app=FDL&action=FDL_CARD&id=[id]">[TEXT:Return to default view]</a>
 

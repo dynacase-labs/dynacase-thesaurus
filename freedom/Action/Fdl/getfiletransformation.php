@@ -3,7 +3,7 @@
  * Retrieve a file converted from source
  *
  * @author Anakeen 2008
- * @version $Id: getfiletransformation.php,v 1.1 2008/01/03 09:05:13 eric Exp $
+ * @version $Id: getfiletransformation.php,v 1.2 2008/01/03 16:28:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -59,10 +59,21 @@ function getfiletransformation(&$action) {
       // binary layout file
       $engine=$doc->getZoneTransform($zone);
       if ($engine) {
-	$target="ooo";
+	if (ereg('\.odt',$zone)) {
+	  $target="ooo";
+	  $file=$doc->viewdoc($zone,$target,$ulink);	  
+	} else {
+	  
+	  $file= uniqid("/var/tmp/doc")."-".$doc->id.".html";
+	  $head="<html><body>";
+	  $view=completeHTMLDoc($doc,$zone);
+	  $foot="</body></html>";
+	  file_put_contents($file,$view);
+	}
+
 	$ulink=false;
-	$file=$doc->viewdoc($zone,$target,$ulink);
 	$err=sendRequestForFileTransformation($file,$engine,$info);
+	@unlink($file);
 	$action->lay->set("error",($err!=""));
 	if ($err=="") {
 	  $action->lay->set("tid",$info["tid"]);
@@ -70,7 +81,7 @@ function getfiletransformation(&$action) {
 	  $action->lay->set("message",$info["comment"]);
 	  $action->lay->set("processtext",sprintf(_("processing <b>%s</b> transformation"),$engine));
 	} else {
-	  print_r2($info);
+
 	  $action->lay->set("tid","");
 	  $action->lay->set("status","K");
 	  $action->lay->set("message",$err);
@@ -82,7 +93,20 @@ function getfiletransformation(&$action) {
 }
 
 
+function completeHTMLDoc(&$doc,$zone) {
+  global $action;
+  $layout="singledoc.xml"; // the default
+  $docmail = new Layout(getLayoutFile("FDL",$layout),$action);
 
+  $docmail->Set("TITLE", $doc->title);
+  $docmail->Set("iconsrc", $doc->getIcon());
+  $docmail->Set("ID", $doc->id);
+  $docmail->Set("zone", $zone);
+  $docmail->Set("baseurl",dirname($action->getParam("TE_URLINDEX"))."/") ;	
+ 
+  
+  return $docmail->gen();
+}
 
 function downloadTid($tid,$title) {  
   $tea=getParam("TE_ACTIVATE");
