@@ -3,7 +3,7 @@
  * Full Text Search document
  *
  * @author Anakeen 2007
- * @version $Id: fullsearch.php,v 1.9 2007/12/21 10:09:29 eric Exp $
+ * @version $Id: fullsearch.php,v 1.10 2008/01/04 17:56:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -140,7 +140,8 @@ function fullsearch(&$action) {
     $dbid=getDbid($dbaccess);
     foreach ($tdocs as $k=>$tdoc) {
       $tdoc["values"].=getFileTxt($dbid,$tdoc);
-      $tdocs[$k]["htext"]=nl2br(str_replace("<","&lt;",preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>/", "", nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80))))));
+      $tdocs[$k]["htext"]=nl2br(str_replace(array('[b]','[/b]'),array('<b>','</b>'),(str_replace("<","&lt;",preg_replace("/<\/?(\w+[^:]?|\w+\s.*?)>/", "", 
+															 str_replace(array('<b>','</b>'),array('[b]','[/b]'),nl2br(wordwrap(nobr(highlight_text($dbid,$tdoc["values"],$keys),80)))))))));
       $tdocs[$k]["iconsrc"]=$workdoc->getIcon($tdoc["icon"]);
       $tdocs[$k]["mdate"]=strftime("%a %d %b %Y",$tdoc["revdate"]);
     }

@@ -51,7 +51,13 @@ a.result img {border:none}
 #aide #closeaide {  right:10px; margin : 5px 0px 10px 0px; }
 </style>
 <script>
-function hideresult() {
+function buttonNumber(event) {
+  
+  if (window.event) return button=window.event.button;
+  else return button= event.button +1;
+}
+function hideresult(event) {
+  if (buttonNumber(event)==3) return;
   var ifr=document.getElementById('searchresult');
   var dr=document.getElementById('dresult');
   var ipr=document.getElementById('iprev');
@@ -142,7 +148,7 @@ addEvent(window,"resize",resizeiframe);
 <div style="text-align:center;vertical-align:middle"><img src="[IMG:logofreedom2.png]"></div>
 [ENDIF INITSEARCH]
 <div id="dresult">
-[BLOCK DOCS]<a target="searchresult" onmouseup="hideresult()" class="result" [IF ISIE]onclick="document.location.href=this.href" [ENDIF ISIE] href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]"><table cellspacing=0>
+[BLOCK DOCS]<a target="searchresult" onmouseup="hideresult(event)" class="result" [IF ISIE]onclick="document.location.href=this.href" [ENDIF ISIE] href="[CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]"><table cellspacing=0>
 <tr class="result"  >
 <td class="result"><img align="left" needresize="1" src="[iconsrc]" width="36px"></td>
 <td class="result"><span class="title">[title]</span> <i>[mdate]</i><br >[htext]</td>
