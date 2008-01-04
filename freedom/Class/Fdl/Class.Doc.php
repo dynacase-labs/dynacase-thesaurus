@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.457 2008/01/03 16:29:07 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.458 2008/01/04 13:06:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4031,7 +4031,7 @@ final public function PostInsert()  {
    */
   public function getZoneTransform($zone="") {
     if ($zone=="") $zone=$this->defaultview;
-    if (ereg("([A-Z_-]+):([^:]+):{0,1}([A-Z]{0,1}):([^:]+)", $zone, $reg)) {
+    if (ereg("([A-Z_-]+):([^:]+):([A-Z]{0,1}):([^:]+)", $zone, $reg)) {
       return $reg[4];
     }    
   }
