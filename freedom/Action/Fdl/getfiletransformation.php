@@ -3,7 +3,7 @@
  * Retrieve a file converted from source
  *
  * @author Anakeen 2008
- * @version $Id: getfiletransformation.php,v 1.2 2008/01/03 16:28:26 eric Exp $
+ * @version $Id: getfiletransformation.php,v 1.3 2008/01/04 13:07:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,25 +55,23 @@ function getfiletransformation(&$action) {
 
     if ($zone == "") $zone=$doc->defaultview;
     $zo=$doc->getZoneOption($zone);
-    if ($zo=="B") {
-      // binary layout file
-      $engine=$doc->getZoneTransform($zone);
-      if ($engine) {
+   
+    $engine=$doc->getZoneTransform($zone);
+    if ($engine) {
 	if (ereg('\.odt',$zone)) {
 	  $target="ooo";
 	  $file=$doc->viewdoc($zone,$target,$ulink);	  
 	} else {
 	  
 	  $file= uniqid("/var/tmp/doc")."-".$doc->id.".html";
-	  $head="<html><body>";
-	  $view=completeHTMLDoc($doc,$zone);
-	  $foot="</body></html>";
-	  file_put_contents($file,$view);
+	  if ($zo=="S") $view=$doc->viewdoc($zone,"te");
+	  else $view=completeHTMLDoc($doc,$zone);
+	  file_put_contents($file,preg_replace("/<script([^>]*)>.*?<\/script>/is","",$view));
 	}
 
 	$ulink=false;
 	$err=sendRequestForFileTransformation($file,$engine,$info);
-	@unlink($file);
+	//@unlink($file);
 	$action->lay->set("error",($err!=""));
 	if ($err=="") {
 	  $action->lay->set("tid",$info["tid"]);
@@ -88,7 +86,7 @@ function getfiletransformation(&$action) {
 	  $action->lay->set("processtext",sprintf(_("cannot lauch <b>%s</b> transformation"),$engine));
 	}
       }   
-    }
+    
   }
 }
 

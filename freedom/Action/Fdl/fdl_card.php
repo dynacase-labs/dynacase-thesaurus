@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.29 2008/01/03 09:05:14 eric Exp $
+ * @version $Id: fdl_card.php,v 1.30 2008/01/04 13:07:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,44 +91,47 @@ function fdl_card(&$action) {
   if ($zo=="Sxxxxxxxxx") { // on patiente à cause de proposition
     $action->lay = new Layout(getLayoutFile("FDL","viewscard.xml"),$action);
     $action->lay->set("ZONESCARD",$doc->viewdoc($zone,$target,$ulink));
-  } else if ($zo=="B") {
-    // binary layout file
-    $engine=$doc->getZoneTransform($zone);
-    if ($engine) {     
-      redirect($action,"FDL",
-	       "GETFILETRANSFORMATION&zone=$zone&id=".$doc->id,
-	       $action->GetParam("CORE_STANDURL"));
-      exit;
-    } else {
-      $target="ooo";
-      $ulink=false;
-      $file=$doc->viewdoc($zone,$target,$ulink);
-      Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
-      @unlink($file);
-      exit;
-    }
   } else {
-    $action->lay->set("nocss",($zo=="U"));
-    $taction=array();
-    if ($doc->doctype!='C') {
-      $listattr = $doc->GetActionAttributes();
-      foreach ($listattr as $k => $v) {
-	if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
-	  if ($v->getOption("onlymenu")!="yes") {
-	    $mvis=MENU_ACTIVE;
-	    if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
-	    if ($mvis == MENU_ACTIVE) {
-	      $taction[$k]=array("wadesc"=>$v->getOption("llabel"),
-				 "walabel"=>ucfirst($v->labelText),
-				 "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
-				 "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
+    $engine=$doc->getZoneTransform($zone);
+      if ($engine) {     
+	redirect($action,"FDL",
+		 "GETFILETRANSFORMATION&zone=$zone&id=".$doc->id,
+		 $action->GetParam("CORE_STANDURL"));
+	exit;
+      } 
+    if ($zo=="B") {
+      // binary layout file
+      
+	$target="ooo";
+	$ulink=false;
+	$file=$doc->viewdoc($zone,$target,$ulink);
+	Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
+	@unlink($file);
+	exit;
+      } else {
+      $action->lay->set("nocss",($zo=="U"));
+      $taction=array();
+      if ($doc->doctype!='C') {
+	$listattr = $doc->GetActionAttributes();
+	foreach ($listattr as $k => $v) {
+	  if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
+	    if ($v->getOption("onlymenu")!="yes") {
+	      $mvis=MENU_ACTIVE;
+	      if ($v->precond != "") $mvis=$doc->ApplyMethod($v->precond,MENU_ACTIVE);
+	      if ($mvis == MENU_ACTIVE) {
+		$taction[$k]=array("wadesc"=>$v->getOption("llabel"),
+				   "walabel"=>ucfirst($v->labelText),
+				   "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
+				   "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
+	      }
 	    }
+	
 	  }
 	}
       }
+      $action->lay->setBlockData("WACTION",$taction);
+      $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
     }
-    $action->lay->setBlockData("WACTION",$taction);
-    $action->lay->set("VALTERN",($action->GetParam("FDL_VIEWALTERN","yes")=="yes"));
   }
 }
 ?>
