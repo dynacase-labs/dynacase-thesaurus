@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.122 2007/11/14 16:55:52 eric Exp $
+ * $Id: freedom.css,v 1.123 2008/01/14 15:20:28 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -950,9 +950,11 @@ DIV.tabsh SPAN.tabsel  {
   background: [CORE_BGCOLOR];
 }
 .statetext {
-  border-style:none none solid solid;
-  border-width:0px 0px 1px 10px;
-  -moz-border-radius:0px 0px 0px 10px;
+  border-style:none solid solid none ;
+  border-width:0px 10px 1px 0px;
+  -moz-border-radius:0px 0px 8px 0px;
+  padding-right:2px;
+  text-decoration:none;
 }
 
 img.mime {
