@@ -22,7 +22,7 @@ var _mainLoopId=false; // id of timeout
 var _mainLoopDelay=200; // ms before lauch search
 
 // for trace debug
-var _autodebug=true;
+var _autodebug=false;
 var _timebegin;
 var _timeend;
 var _wdate=new Date();
