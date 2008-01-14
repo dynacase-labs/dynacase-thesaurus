@@ -17,7 +17,7 @@
 [ENDBLOCK FINPUTS]
 
 <table><tr><td>
-<textarea name="comment" title="[TEXT:Comment for change state]"></textarea></td><td align="center">
+[IFNOT noreason]<textarea name="comment" title="[TEXT:Comment for change state]"></textarea></td><td align="center">[ENDIF noreason]
   <input id="iSubmit" style="background-color:[wcolor]" type="submit" title="[tonewstate]" value="[tostate]">
   <input type="button" title="[TEXT:Cancel the change state]" value="[TEXT:Cancel]" onclick="window.parent.hidebox('POPDOC')"> </td></tr></table>
 

@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.34 2008/01/03 09:06:16 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.35 2008/01/14 14:47:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -366,12 +366,17 @@ function addStatesPopup(&$tlink,&$doc) {
 
     foreach ($fstate as $v) {
       $tr=$wdoc->getTransition($doc->state,$v);
+      $jsf="";
       if (is_array($tr["ask"])) {
 	$jsf=sprintf("popdoc(event,'$surl&app=FDL&action=EDITCHANGESTATE&id=$docid&nstate=$v','%s',0,40,400,250)",
 		     utf8_encode(str_replace("'","&rsquo;",sprintf(_("Change state %s"),_($v)))));
       } else {
-	$jsf=sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",	
-		     utf8_encode(str_replace("'","&rsquo;",sprintf(_("Comment for change state to %s"),_($v)))));
+	if (! $tr["nr"]) {
+	  $jsf=sprintf("s=prompt('%s');if (s!=null) subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid&comment='+s);",	
+		       utf8_encode(str_replace("'","&rsquo;",sprintf(_("Comment for change state to %s"),_($v)))));
+	} else {
+	  $jsf=sprintf("subwindow(100,100,'_self','$surl&app=FREEDOM&action=MODSTATE&newstate=$v&id=$docid');");
+	}
       }
 
       $tlink[$v]=array( "descr"=>ucfirst(_($v)),			

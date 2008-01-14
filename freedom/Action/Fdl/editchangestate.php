@@ -3,7 +3,7 @@
  * Display interface to change state
  *
  * @author Anakeen 2007
- * @version $Id: editchangestate.php,v 1.3 2007/06/27 10:04:29 eric Exp $
+ * @version $Id: editchangestate.php,v 1.4 2008/01/14 14:47:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,6 +58,7 @@ function editchangestate(&$action) {
 	    }
 	  }
 	}
+	$action->lay->set("noreason",($tr["nr"]==true));
 	$action->lay->setBlockData("FINPUTS",$tinputs);
       }
     }
