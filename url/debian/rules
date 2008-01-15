@@ -59,11 +59,8 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/freedom-what.
-	make -i pubdir=$(CURDIR)/debian/freedom-dav/usr/share/what rootprefix=$(CURDIR)/debian/freedom-dav publish
-	install -d $(CURDIR)/debian/freedom-dav/usr/share/what/dav
-	ln -s ../DAV/dav.php $(CURDIR)/debian/freedom-dav/usr/share/what/dav/zou679__e.php
-	install -d $(CURDIR)/debian/freedom-dav/etc/apache2/sites-available
-	install $(CURDIR)/debian/freedom-dav/usr/share/what/DAV/DAV_conf.apache $(CURDIR)/debian/freedom-dav/etc/apache2/sites-available/freedom-dav
+	make -i pubdir=$(CURDIR)/debian/freedom-url/usr/share/what rootprefix=$(CURDIR)/debian/freedom-url publish
+	install -d $(CURDIR)/debian/freedom-url/usr/share/what/url
 
 # Build architecture-independent files here.
 binary-indep: build install

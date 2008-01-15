@@ -1,4 +1,4 @@
-freedom-dav (@VERSION@-@RELEASE@) unstable; urgency=low
+freedom-url (@VERSION@-@RELEASE@) unstable; urgency=low
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
 
