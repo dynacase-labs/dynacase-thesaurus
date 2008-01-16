@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.141 2007/10/08 14:59:01 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.142 2008/01/16 14:53:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -126,7 +126,7 @@ function getSqlSearchDoc($dbaccess,
     $selectfields =  "distinct on (initid) $table.*";
   } else {
     $selectfields =  "$table.*"; 
-    if (!$fromid) $sqlfilters[-2] = "doctype != 'T'";
+    $sqlfilters[-2] = "doctype != 'T'";
     ksort($sqlfilters);
 
   }
