@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.55 2007/10/19 15:21:01 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.56 2008/01/21 17:17:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -179,6 +179,7 @@ function getSqlDetailFilter() {
     }
   }
 
+  if (trim($cond)=="") $cond="true";
   return $cond;
 }
 
