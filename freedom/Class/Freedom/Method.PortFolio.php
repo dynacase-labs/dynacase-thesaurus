@@ -3,7 +3,7 @@
  * PortFolio Methods
  *
  * @author Anakeen 2003
- * @version $Id: Method.PortFolio.php,v 1.16 2007/11/27 16:38:33 eric Exp $
+ * @version $Id: Method.PortFolio.php,v 1.17 2008/01/22 16:44:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -19,6 +19,7 @@ function PostCreated() {
   if ($this->revision > 0) return;
   if (! method_exists($this,"addfile")) return;
   // copy all guide-card from default values
+  $err=$this->CreateDefaultTabsFromParameter();
   return $this->CreateDefaultTabs();
 }
 
@@ -61,6 +62,32 @@ function CreateDefaultTabs() {
   return $err;
 }
 
+
+/**
+ * Create default tabs based on tabs of PFL_IDCOPYTAB parameter
+ * @return string message error (empty if no error)
+ */
+function CreateDefaultTabsFromParameter() {
+
+  $err="";
+  include_once("FDL/Lib.Dir.php");  
+
+  $copytab=$this->getParamValue("pfl_idcopytab");
+  if ($copytab) {
+    $copytab=$this->_val2array($copytab);
+    foreach ($copytab as $k=>$id) {
+      $tdoc=getTDoc($this->dbaccess,$id);
+      
+      $doc=getDocObject($this->dbaccess,$tdoc);
+      $copy=$doc->Copy();
+      if (! is_object($copy)) $err.= $copy;
+      else $err.=$this->AddFile($copy->id,"latest",true,true);
+
+    }
+  }
+  
+  return $err;
+}
 function postInsertDoc($docid,$multiple=false) { 
   $doc = new_Doc($this->dbaccess,$docid);
   if ($doc->doctype == "S") {    
