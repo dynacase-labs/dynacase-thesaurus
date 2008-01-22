@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.458 2008/01/04 13:06:30 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.459 2008/01/22 16:44:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -989,6 +989,9 @@ final public function PostInsert()  {
       if ($msg!='') return $msg;
 
       if ($this->doctype != 'Z') {
+
+	if ($this->name != "") $this->exec_query(sprintf("delete from doc%d where name='%s' and doctype='Z'",
+							 $this->fromid,pg_escape_string($this->name))); // need to not have twice document with same name
 	$this->doctype='Z'; // Zombie Doc
 	$this->locked= -1; 
 	$date = gettimeofday();
@@ -2270,6 +2273,35 @@ final public function PostInsert()  {
     }
     return $err;
   }
+
+  /**
+   * use for duplicate physicaly the file
+   *
+   * @param string $idattr identificator of file attribute 
+   * @param string $newname basename if want change name of file
+   * @return string attribut value formated to be inserted into a file attribute
+   */
+  final function copyFile($idattr,$newname="") {  
+    $f=$this->getValue($idattr);
+    if ($f) {
+      if (ereg ("(.*)\|(.*)", $f, $reg)) {
+	$vf = newFreeVaultFile($this->dbaccess);
+	if ($vf->Show($reg[2], $info) == "") {
+	  $cible=$info->path;
+	  if (file_exists($cible)) {
+	    $err=$vf->Store($cible, false , $vid);
+	    if ($err == "") {	 
+	      if ($newname) {
+		$vf->Rename($vid,$newname);   
+	      }
+	      return $reg[1]."|$vid";
+	    }
+	  }
+	}
+      }
+    }
+    return false;
+  }
   /**
    * store new file in an file attribute
    *
@@ -2439,14 +2471,16 @@ final public function PostInsert()  {
 	    $this->AddParamRefresh($reg[2],$attrid);
 	  }
 	      
-	  while(list($k,$v) = each($args)) { 
+	  foreach($args as $k=>$v) { 
 	    if ($attr=$this->getAttribute($v)) {
 	      if ($attr->inArray())   $args[$k]=$this->GetTValue($v,"",$index);
 	      else $args[$k]=$this->GetValue($v);
+	    } else {
+	      if ($v[0]=="'") $v=substr($v,1);
+	      $args[$k]=$v; // not an attribute just text
 	    }
-	    else $args[$k]=$v; // not an attribute just text
 	    //   $args[$k]=$this->GetTValue($args[$k],$def,$index);
-	  }
+	  }	  
 	  $value=call_user_method_array($reg[1],$this,$args);
 	}
       } 
