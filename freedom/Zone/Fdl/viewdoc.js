@@ -75,15 +75,23 @@ function postit(url,x,y,w,h) {
 function centerError() {
   CenterDiv('error');
 }
+function reloadWindow(w) {
+  var h=w.location.href;
 
-function refreshParentWindows() {
-  if (window.opener && window.opener.document.needreload) window.opener.location.reload.href=window.opener.location.reload.href;
-  else if (parent.flist) parent.flist.location.href=parent.flist.location.href;
-  else if (parent.fvfolder) parent.fvfolder.location.href=parent.fvfolder.location.href;
-  else if (parent.ffoliolist){
-    parent.ffoliolist.location.href=parent.ffoliolist.location.href;
-    if (parent.ffoliotab) parent.ffoliotab.location.reload.href=parent.ffoliotab.location.reload.href;
-  }
+  var l=h.substring(h.length-1);
+  if (l=='#') h=h.substring(0,h.length-1);
+  w.location.href=h;
+
+  
+}
+function refreshParentWindows() {  
+
+  if (parent.flist) reloadWindow(parent.flist);
+  else if (parent.fvfolder) reloadWindow(parent.fvfolder);
+  else if (parent.ffoliolist) {
+    reloadWindow(parent.ffoliolist);
+    if (parent.ffoliotab) reloadWindow(parent.ffoliotab);
+  } else if (window.opener && window.opener.document.needreload) reloadWindow(window.opener);
   
 }
 function updatePopDocTitle() {
