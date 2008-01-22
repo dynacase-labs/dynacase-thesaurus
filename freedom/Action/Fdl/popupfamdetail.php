@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupfamdetail.php,v 1.6 2007/10/15 17:46:54 marc Exp $
+ * @version $Id: popupfamdetail.php,v 1.7 2008/01/22 16:42:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -253,7 +253,8 @@ function changeFamMenuVisibility(&$action,&$tlink,&$doc) {
     $tlink["editprof"]["visibility"]=POPUP_INACTIVE;
   }
 
-
+  $param=$doc->getParamAttributes();
+  if (count($param)==0) $tlink["param"]["visibility"]=POPUP_INVISIBLE;
 
 
   if ($doc->locked == -1) { // fixed document
