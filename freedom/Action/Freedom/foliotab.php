@@ -3,7 +3,7 @@
  * View tab in portfolio
  *
  * @author Anakeen 2000 
- * @version $Id: foliotab.php,v 1.8 2007/10/19 15:20:34 eric Exp $
+ * @version $Id: foliotab.php,v 1.9 2008/01/22 16:42:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -53,6 +53,15 @@ function foliotab(&$action) {
     $tabongletsel = "ongletvs";
   }
 
+  $linktab=$doc->getParamValue("pfl_idlinktab");
+  if ($linktab) {
+    $linktab=$doc->_val2array($linktab);
+    foreach ($linktab as $k=>$id) {
+      $tdoc=getTDoc($dbaccess,$id);
+      if (controlTdoc($tdoc,"view"))  $child[]=$tdoc;
+    }
+  }
+
   $action->lay->set("tabonglets",$tabongletsel);
   $action->lay->set("icon",$doc->getIcon());
   $ttag=array();
@@ -67,8 +76,7 @@ function foliotab(&$action) {
 		      "icolor"=>$icolor,
 		      "icontab"=>$doc->getIcon($v["icon"]),
 		      "tabtitle"=>str_replace(" ","&nbsp;",$v["title"]));
-      }
-   
+      }   
   }
 
   $action->lay->setBlockData("TAG",$ttag);
