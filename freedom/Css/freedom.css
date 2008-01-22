@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.123 2008/01/14 15:20:28 eric Exp $
+ * $Id: freedom.css,v 1.124 2008/01/22 09:43:01 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -562,6 +562,9 @@ A.state, A.boldstate {
     }
   FIELDSET.mfield {
     display:block!important;
+  }
+  FIELDSET TABLE {
+    display:inline;
   }
   DIV.tabsh {
     display:none;
