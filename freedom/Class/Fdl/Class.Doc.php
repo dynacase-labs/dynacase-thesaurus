@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.459 2008/01/22 16:44:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.460 2008/01/25 15:48:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2369,6 +2369,9 @@ final public function PostInsert()  {
 
   /**
    * return the related value by linked attributes
+   * @param string $RidAttr attribute identificator
+   * @param string def $def default return value
+   * @param bool $latest always last revision of document
    */
   final public function GetRValue($RidAttr, $def="",$latest=true)  {      
     $tattrid = explode(":",$RidAttr);
@@ -5450,15 +5453,16 @@ final public function PostInsert()  {
 
   /**
    * return value of an attribute for the document referenced
-   * @param int document identificator
-   * @param string attribute identificator
-   * @param string def default return value
+   * @param int $docid document identificator
+   * @param string $attrid attribute identificator
+   * @param string def $def default return value
+   * @param bool $latest always last revision of document
    */
-  final public function getDocValue($docid, $attrid,$def=" ") {
+  final public function getDocValue($docid, $attrid,$def=" ",$latest=false) {
     if (intval($docid) > 0) {
       $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
-	return $doc->getRValue($attrid,$def);
+	return $doc->getRValue($attrid,$def,$latest);
       }
     }
     return "";
@@ -5468,13 +5472,13 @@ final public function PostInsert()  {
    * return value of an property for the document referenced
    * @param int document identificator
    * @param string  property identificator
+   * @param bool $latest always last revision of document if true
    */
-  final public function getDocProp($docid, $propid) {
+  final public function getDocProp($docid, $propid,$latest=false) {
     if (intval($docid) > 0) {
-      $doc = new_Doc($this->dbaccess, $docid);
-      if ($doc->isAlive()) {
-	return $doc->$propid;
-      }
+      if ($latest) $tdoc = getTDoc($this->dbaccess, $docid);
+      else $tdoc = getLatestTDoc($this->dbaccess, $docid);
+      return $tdoc[strtolower($propid)];
     }
     return "";
   }
