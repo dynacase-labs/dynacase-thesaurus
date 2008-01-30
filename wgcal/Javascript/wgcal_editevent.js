@@ -711,8 +711,24 @@ function normalEditCheckConflict(ev, displayZero) {
   rll += me;
   
   var corestandurl=window.location.pathname+'?sole=Y';
+
+  var allday = document.getElementById('allday');
   var ts = parseInt(document.getElementById('DayTsStart').value) + 60;
   var te = parseInt(document.getElementById('DayTsEnd').value) - 60;
+  if (allday.checked) {
+    var hts = new Date();
+    hts.setTime(ts*1000);
+    var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), 0, 0, 0, 0);
+    var nE = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), 23, 59, 0, 0);
+   
+    ts = nS.getTime() / 1000;
+    te = nE.getTime() / 1000;
+
+    hts.setTime(ts*1000);
+    var hte = new Date();
+    hte.setTime(te*1000);
+   //alert('all day '+hts.print('%a %d %b %Y %H:%M')+' - '+hte.print('%a %d %b %Y %H:%M'));
+  }
   var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+evid+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+rll;
   var rq;
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
