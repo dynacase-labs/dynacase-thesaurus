@@ -3,7 +3,7 @@
  * Upload image from FCKeditor
  *
  * @author Anakeen 2007
- * @version $Id: fckupload.php,v 1.1 2007/11/23 11:12:35 eric Exp $
+ * @version $Id: fckupload.php,v 1.2 2008/02/01 09:08:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,7 +29,7 @@ function fckupload(&$action) {
   $doc=createDoc($dbaccess,"IMAGE");
   
   $k='NewFile';
-  $filename=insert_file($doc->dbaccess,$k,true);
+  $filename=insert_file($doc,$k,true);
 
   if ($filename != "")  {    
       $doc->SetValue("img_file", $filename);
