@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.70 2007/07/26 14:55:28 eric Exp $
+ * @version $Id: mailcard.php,v 1.71 2008/02/01 08:01:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -181,6 +181,7 @@ function sendCard(&$action,
   global $vf; 
   global $doc;
   global $pubdir;
+  global $action;
 
   $ifiles=array();
   $tfiles=array();
