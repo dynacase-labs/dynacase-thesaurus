@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.98 2007/12/06 17:03:40 eric Exp $
+ * @version $Id: modcard.php,v 1.99 2008/02/01 08:01:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -276,13 +276,8 @@ function insert_file(&$doc, $attrid,$strict=false) {
   }
 
   $rt=array(); // array of file to be returned
-  $rtold=$doc->_val2array($doc->getOldValue(substr($attrid,4))); // special in case of file modification by DAV in revised document
-  /* print "getOldValues";
-  print_r2($doc->getOldValues());
-  print "rtold";
-  print $doc->getOldValue(substr($attrid,4));
-  print_r2($rtold);
-  print ($doc->title);*/
+  if ($doc) $rtold=$doc->_val2array($doc->getOldValue(substr($attrid,4))); // special in case of file modification by DAV in revised document
+
   while(list($k,$userfile) = each($tuserfiles) )    {
 
     $rt[$k]="";
