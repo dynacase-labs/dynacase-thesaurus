@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.63 2007/06/15 15:29:22 eric Exp $
+ * @version $Id: editcard.php,v 1.64 2008/02/01 09:07:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,36 +12,11 @@
  */
 
 
-// ---------------------------------------------------------------
-// $Id: editcard.php,v 1.63 2007/06/15 15:29:22 eric Exp $
-// $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/editcard.php,v $
-// ---------------------------------------------------------------
-//  O   Anakeen - 2001
-// O*O  Anakeen development team
-//  O   dev@anakeen.com
-// ---------------------------------------------------------------
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or (at
-//  your option) any later version.
-//
-// This program is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-// or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-// for more details.
-//
-// You should have received a copy of the GNU General Public License along
-// with this program; if not, write to the Free Software Foundation, Inc.,
-// 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-// ---------------------------------------------------------------
-
-//
-// ---------------------------------------------------------------
 include_once("FDL/Class.Doc.php");
 include_once("FDL/Class.DocAttr.php");
 include_once("FDL/editutil.php");
 
-// -----------------------------------
+
 function editcard(&$action) {
   
   $docid = GetHttpVars("id",0);        // document to edit
@@ -88,6 +63,9 @@ function editcard(&$action) {
   if ($docid == 0) { // new document
     if ($classid > 0) {
       $doc= createDoc($dbaccess,$classid,true,($usefor!="D"));
+      if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
+      $fdoc = new DocFam($dbaccess, $classid);
+      if ($fdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$fdoc->title));
     }
   } else { // modify document
     
@@ -97,12 +75,10 @@ function editcard(&$action) {
       redirect($action,"FDL",
 	       "FDL_CONFIDENTIAL&&id=".$doc->id);
     }
+    $fdoc = new DocFam($dbaccess, $classid);
   }
   
 
-  if (! $doc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
-  $fdoc = new DocFam($dbaccess, $classid);
-  if ($fdoc->control('icreate') != "") $action->exitError(sprintf(_("no privilege to create interactivaly this kind (%s) of document"),$fdoc->title));
   if (($usefor == "D")||($usefor == "Q")) {
     // special edit
     $zonebodycard="FDL:EDITBODYCARD";
