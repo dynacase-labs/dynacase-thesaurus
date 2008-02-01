@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.71 2008/02/01 08:01:18 eric Exp $
+ * @version $Id: mailcard.php,v 1.72 2008/02/01 15:44:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -101,7 +101,7 @@ function mailcard(&$action) {
     elseif ($sendedmail) $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
     else $action->addWarningMsg(sprintf(_("the document %s has not been sended : no recipient"),$doc->title));
   }
-  //  print_r2($tuid);
+
   foreach ($tuid as $uid) {
     if ($uid > 0) {
       $tu=getTDoc($dbaccess,$uid);
@@ -466,6 +466,7 @@ function sendCard(&$action,
     $fpdf= uniqid("/var/tmp/".$doc->id)."pdf";
     $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
 
+
     system ($cmdpdf, $status);
     if ($status == 0)  {     
       $themail->addAttachment($fpdf,'application/pdf',$doc->title.".pdf");
@@ -522,6 +523,10 @@ function srcfile($src) {
   if (substr($src,0,3) == "cid")   return "src=\"$src\"";
   if (substr($src,0,4) == "http")  return "src=\"$src\"";
 
+  if (ereg("app=FDL&action=EXPORTFILE",$src)) {
+    return imgvaultfile($src);
+  }
+  
   if ( ! in_array(fileextension($src),$vext)) return "";
 
   $ifiles[$src] = $src;
@@ -542,11 +547,10 @@ function copyvault($src) {
 
   $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/what/".$src;
   $newfile=uniqid("/var/tmp/img");
- 
 
   if (!copy($url, $newfile)) {
     return "";
-  }
+  } 
   return $newfile;
 }
 
@@ -562,7 +566,7 @@ function realfile($src) {
     $va=$doc->icon;
   } else { 
     if (substr($src,0,4) == "cid:") $va=$doc->getValue(substr($src,4));
-    elseif (substr($src,0,5) == "index") {
+    elseif (ereg("app=FDL&action=EXPORTFILE",$src)) {
       $va= copyvault($src);
       $tmpfile[]=$va;
     } else $va=$src;
@@ -577,10 +581,10 @@ function realfile($src) {
       }
 
     } else {
+      
       if (file_exists($pubdir."/$va")) $f=$pubdir."/$va";
       elseif (file_exists($pubdir."/Images/$va")) $f=$pubdir."/Images/$va";
-      elseif ((substr($va,0,8)=='/var/tmp/img') && file_exists($va)) $f=$va;
-
+      elseif ((substr($va,0,12)=='/var/tmp/img') && file_exists($va)) $f=$va;
     }
   }
   

@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.85 2008/01/03 16:29:07 eric Exp $
+ * @version $Id: viewcard.php,v 1.86 2008/02/01 15:44:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,8 @@ function viewcard(&$action) {
   $target = GetHttpVars("target"); // may be mail
   $reload = ($action->read("reload$docid","N")=="Y"); // need reload
 
-  if (($target != "mail")&&($target != "te")) $action->lay->setBlockData("MVIEW",array(array("zou")));
+  if (($target != "mail")&&($target != "te")) $action->lay->set("MAILVIEW",false);
+  else $action->lay->set("MAILVIEW",true);
   $action->lay->set("fhelp",($action->Read("navigator","")=="EXPLORER")?"_blank":"fhidden");
  
 
