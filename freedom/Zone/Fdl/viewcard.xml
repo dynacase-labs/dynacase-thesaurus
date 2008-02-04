@@ -55,7 +55,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 [ENDIF MAILVIEW]
 [IF MAILVIEW]
 <table><tr><td>
-<IMG  border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]"><br><I style="font-size:70%">[classtitle]</I></td><td><H1>[TITLE]</H1></td></tr></table>
+<IMG  border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]"><br><I style="font-size:70%">[classtitle]</I></td><td><H1>[IF ulink]<a href="[CORE_EXTERNURL][CORE_STANDURL]&app=FDL&action=FDL_CARD&id=[id]">[ENDIF ulink][TITLE][IF ulink]</a>[ENDIF ulink]</H1></td></tr></table>
 [ENDIF MAILVIEW]
 
 <!-- TABLEBODY -->

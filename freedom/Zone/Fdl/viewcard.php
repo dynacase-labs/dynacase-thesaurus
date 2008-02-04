@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.86 2008/02/01 15:44:05 eric Exp $
+ * @version $Id: viewcard.php,v 1.87 2008/02/04 10:55:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -47,6 +47,7 @@ function viewcard(&$action) {
 
   if ($ulink == "N") $ulink = false;
   else  if ($ulink == "Y") $ulink = 1;
+  $action->lay->set("ulink",$ulink);
 
   // Set the globals elements
 
