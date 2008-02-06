@@ -3,7 +3,7 @@
  * View Document History
  *
  * @author Anakeen 2000 
- * @version $Id: viewhisto.php,v 1.24 2007/07/27 15:14:35 eric Exp $
+ * @version $Id: viewhisto.php,v 1.25 2008/02/06 17:01:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,13 +43,17 @@ function viewhisto(&$action)
   $hasnotice=false;
   $trdoc= array();
   $tversion=array();
-  $iversion=0;
+  $iversion=0;  
   foreach($ldoc as $k=>$zdoc) {
     $rdoc=getDocObject($dbaccess,$zdoc);
     $owner = new User("", $rdoc->owner);
     $trdoc[$k]["owner"]= $owner->firstname." ".$owner->lastname;
+    if ($k==0) $trdoc[$k]["owner"]=_("Modification date");
+
     $trdoc[$k]["revision"]= $rdoc->revision;
     $trdoc[$k]["version"]= $rdoc->version;
+
+
     $state=$rdoc->getState();
     $color=$rdoc->getStateColor();
     $trdoc[$k]["state"]= ($state=="")?"":(($rdoc->locked==-1)?_($state):sprintf(_("Current (%s)"),_($state)));
