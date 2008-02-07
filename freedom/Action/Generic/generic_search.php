@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.35 2007/07/30 16:05:27 eric Exp $
+ * @version $Id: generic_search.php,v 1.36 2008/02/07 16:20:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -77,7 +77,7 @@ function generic_search(&$action) {
   
     
 
-    //    AddwarningMsg( "[dirid:$dirid][catg:$catgid][sdirid:$sdirid]");
+    //       AddwarningMsg( "[dirid:$dirid][catg:$catgid][sdirid:$sdirid]");
 
 
     $full=($mode=="FULL");

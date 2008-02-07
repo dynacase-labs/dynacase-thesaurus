@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.36 2007/12/04 14:09:04 eric Exp $
+ * @version $Id: generic_list.php,v 1.37 2008/02/07 16:20:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,13 +54,19 @@ function generic_list(&$action) {
 
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  if ($dirid) {
-    $dir = new_Doc($dbaccess,$dirid);
-    $action->lay->Set("pds",$dir->urlWhatEncodeSpec(""));
+  $dir = new_Doc($dbaccess,$dirid);
+  if ($catgid) {
+    $catg = new_Doc($dbaccess,$catgid);
+    $action->lay->Set("pds",$catg->urlWhatEncodeSpec(""));
+    
     $action->lay->Set("fldtitle",$dir->getTitle());
-  } else {    
-    $action->lay->Set("fldtitle",_("precise search"));
-    $action->lay->Set("pds","");
+  } else {
+    if ($dirid==0) {
+      $action->lay->Set("fldtitle",_("precise search"));
+      $action->lay->Set("pds","");
+    } else {      
+      $action->lay->Set("fldtitle",$dir->getTitle());
+    }
   }
 
   $action->lay->Set("dirid",$dirid);
@@ -88,8 +94,11 @@ function generic_list(&$action) {
       if (! in_array($sqlorder,$ndoc->fields))  setHttpVar("sqlorder","" );
     }
   }
-  
-
+  if ($clearkey)  {
+    $action->parent->param->Set("GENE_LATESTTXTSEARCH",
+				setUkey($action,$famid,$keyword),PARAM_USER.$action->user->id,
+				$action->parent->id);
+  }
   getFamilySearches($action,$dbaccess,$famid);
   if ($dirid) {
     if ($dir->fromid==38) {
@@ -140,9 +149,7 @@ function generic_list(&$action) {
   
   $action->lay->Set("onglet", $wonglet?"Y":"N");
 
-  if ($clearkey)  $action->parent->param->Set("GENE_LATESTTXTSEARCH",
-					      setUkey($action,$famid,$keyword),PARAM_USER.$action->user->id,
-					      $action->parent->id);
+  
   $action->lay->set("tkey",getDefUKey($action));
 }
 
@@ -212,6 +219,17 @@ function getFamilySearches($action,$dbaccess,$famid) {
       if (($v["doctype"] == "S" )&&($v["fromid"] != $fdoc->id) ) {
 	$streeSearch[$v["id"]] = $v;
 	$streeSearch[$v["id"]]["selected"]=($v["id"]==$catgid)?"selected":"";
+	$streeSearch[$v["id"]]["isreport"]="0";
+	$streeSearch[$v["id"]]["isparam"]="0";
+	$keys=getv($v,"se_keys");
+	if (ereg('\?',$keys)) {
+	  $streeSearch[$v["id"]]["title"]="(P)".$streeSearch[$v["id"]]["title"];
+	  $streeSearch[$v["id"]]["isparam"]="1";
+	}
+	if ($v["fromid"]==25) {
+	  $streeSearch[$v["id"]]["title"]="(R)".$streeSearch[$v["id"]]["title"];	
+	  $streeSearch[$v["id"]]["isreport"]="1";
+	}
       } 
     }
   }
@@ -231,6 +249,14 @@ function getFamilySearches($action,$dbaccess,$famid) {
   foreach ($stree as $k=>$v) {
     if (!isset($streeSearch[$v["id"]]))    $streeSearch [$v["id"]] = $v;
     $streeSearch[$v["id"]]["selected"]=($v["id"]==$catgid)?"selected":"";
+    if (ereg('\?',$keys)) {
+      $streeSearch[$v["id"]]["title"]="(P)".$streeSearch[$v["id"]]["title"];
+      $streeSearch[$v["id"]]["isparam"]="1";
+    }
+    if ($v["fromid"]==25) {
+      $streeSearch[$v["id"]]["title"]="(R)".$streeSearch[$v["id"]]["title"];	
+      $streeSearch[$v["id"]]["isreport"]="1";
+    }
   }
   $action->lay->set("MSEARCH",(count($stree) > 0));
   $action->lay->SetBlockData("USERSEARCH",$streeSearch);
