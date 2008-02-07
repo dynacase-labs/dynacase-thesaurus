@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.87 2008/02/07 15:55:26 eric Exp $
+ * @version $Id: viewfolder.php,v 1.88 2008/02/07 16:19:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -347,9 +347,13 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	    $lattr=$adoc->GetAbstractAttributes();
 	    $taname=array();
 	    $emptytableabstract=array();
-	    while (list($ka,$attr) = each($lattr))  {	
-	      $emptytableabstract[$attr->id]["value"]="-";
-	      $taname[$attr->id]["aname"]=_($attr->labelText);
+	    foreach($lattr as $ka=>$attr)  {	
+	      if (($attr->mvisibility == 'H')||($attr->mvisibility == 'I')) unset($lattr[$ka]);
+	    }
+
+	    foreach($lattr as $ka=>$attr)  {	
+		$emptytableabstract[$attr->id]["value"]="-";
+		$taname[$attr->id]["aname"]=_($attr->labelText);	      
 	    }
 	    $action->lay->SetBlockData("BATT".$doc->fromid,$taname);
 	  }
