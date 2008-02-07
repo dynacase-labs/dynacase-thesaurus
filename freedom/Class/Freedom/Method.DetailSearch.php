@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.56 2008/01/21 17:17:47 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.57 2008/02/07 15:56:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -288,8 +288,10 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $zpi["svalues"]->labelText=_("any values");
   
     foreach ($taid as $k=>$v) {
+      $label=$zpi[$taid[$k]]->labelText;
+      if ($label=="") $label=$taid[$k];
       $tcond[]["condition"]=sprintf("%s %s %s",				    
-				    $zpi[$taid[$k]]->labelText,
+				    $label,
 				    _($this->top[$tf[$k]]["label"]),
  				    ($tkey[$k]!="")?_($tkey[$k]):$tkey[$k]);
        if ($tkey[$k][0]=='?') {
@@ -298,6 +300,39 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     }
     $this->lay->SetBlockData("COND", $tcond);
   }
+  $this->lay->Set("ddetail", "");
+
+}
+
+
+function paramdsearch($target="_self",$ulink=true,$abstract=false) {
+  // Compute value to be inserted in a  layout
+   $this->viewattr();
+  //-----------------------------------------------
+  // display already condition written
+  
+  $tkey = $this->getTValue("SE_KEYS");
+  $taid = $this->getTValue("SE_ATTRIDS");
+  $tf = $this->getTValue("SE_FUNCS");
+
+  if ((count($taid) > 1) || ($taid[0] != "")) {
+
+    $fdoc=new_Doc($this->dbaccess, $this->getValue("SE_FAMID",1));
+    $zpi=$fdoc->GetNormalAttributes();
+    $zpi["state"]->labelText=_("state");
+    $zpi["title"]->labelText=_("doctitle");
+    $zpi["revdate"]->labelText=_("revdate");
+    $zpi["owner"]->labelText=_("id owner");
+    $zpi["svalues"]->labelText=_("any values");
+  
+    foreach ($taid as $k=>$v) {      
+       if ($tkey[$k][0]=='?') {
+	 $tparm[substr($tkey[$k],1)]=$taid[$k];
+       }				    
+    }
+    $this->lay->SetBlockData("COND", $tcond);
+  }
+ 
   $this->lay->Set("ddetail", "");
   if (count($tparm) > 0) {
     include_once("FDL/editutil.php");
@@ -325,15 +360,12 @@ function viewdsearch($target="_self",$ulink=true,$abstract=false) {
     $this->lay->setBlockData("TRANSFERT",$ttransfert);
     $this->lay->setBlockData("PINPUTS",$ttransfert);
     $this->lay->Set("ddetail", "none");
-    $this->lay->setBlockData("VPARAM1",array(array("zou")));
-    $this->lay->setBlockData("VPARAM2",array(array("zou")));
-    $this->lay->setBlockData("VPARAM3",array(array("zou")));
     $this->lay->set("stext",_("send search"));
     $this->lay->set("saction",getHttpVars("saction","FREEDOM_VIEW"));
     $this->lay->set("sapp",getHttpVars("sapp","FREEDOM"));
     $this->lay->set("sid",getHttpVars("sid","dirid"));
-    $this->lay->set("starget",getHttpVars("starget","flist"));
-    
+    $this->lay->set("starget",getHttpVars("starget",""));    
+    $this->lay->set("icon",$this->getIcon());    
   } 
 }
   // -----------------------------------

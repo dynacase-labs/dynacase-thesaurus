@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.99 2008/02/01 08:01:01 eric Exp $
+ * @version $Id: modcard.php,v 1.100 2008/02/07 15:55:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -126,7 +126,7 @@ function modcard(&$action, &$ndocid) {
       // now can create new doc
       $err = $doc->Add();
       if ($err != "")  $action->ExitError($err);
-      
+      $doc->disableEditControl(); // in case of dynamic profil from computed attributes
       $doc->initid = $doc->id;// it is initial doc	    
       $ndocid = $doc->id;
     }

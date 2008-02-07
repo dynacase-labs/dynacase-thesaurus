@@ -1,6 +1,6 @@
 <H1 align="center">[TITLE]</H1>
 [BLOCK PARAMS]
-[ZONE FDL:IMPCARD?zone=FREEDOM:VIEWDSEARCH:S&sapp=FDL&saction=FDL_CARD&sid=id&starget=_self]
+[ZONE FDL:IMPCARD?zone=FREEDOM:PARAMDSEARCH:S&sapp=FDL&saction=FDL_CARD&sid=id&starget=_self]
 [ENDBLOCK PARAMS]
 
 <table class="[reportstyle]" width="100%" cellspacing=0>

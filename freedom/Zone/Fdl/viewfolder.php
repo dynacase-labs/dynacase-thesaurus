@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.86 2007/11/15 10:58:52 eric Exp $
+ * @version $Id: viewfolder.php,v 1.87 2008/02/07 15:55:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -93,9 +93,17 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 
   $terr = getChildDocError($dbaccess, $dirid);
   if (count($terr) > 0) {
-    redirect($action,"FDL",
-	     "FDL_CARD&id=$dirid",
-	     $action->GetParam("CORE_STANDURL"),true);
+    if ($dir->defDoctype=='S') {
+      redirect($action,"FDL",
+	       "IMPCARD&zone=FREEDOM:PARAMDSEARCH:T&id=$dirid",
+	       $action->GetParam("CORE_STANDURL"),true);
+    } else {
+      $action->addWarningMsg(implode("\n",$terr));
+      redirect($action,"FDL",
+	       "FDL_CARD&id=$dirid",
+	       $action->GetParam("CORE_STANDURL"),true);
+    }
+    
   }
   $ldoc = getChildDoc($dbaccess, $dirid,$start,$slice,$sqlfilters,$action->user->id,"TABLE",$famid, 
 		      $distinct, $sqlorder);
