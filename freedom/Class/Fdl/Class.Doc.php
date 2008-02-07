@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.461 2008/02/07 15:54:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.462 2008/02/07 16:20:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1373,7 +1373,7 @@ final public function PostInsert()  {
 
       if (isset($this->attributes->attr)) {
 	foreach($this->attributes->attr as $k=>$v) {
-	  if ((get_class($v) == "NormalAttribute")&&($v->isInAbstract)) $tsa[$v->id]=$v;
+	  if ((get_class($v) == "NormalAttribute")&&($v->usefor!='Q')&&($v->isInAbstract)) $tsa[$v->id]=$v;
 	}
       }
       return $tsa;      
