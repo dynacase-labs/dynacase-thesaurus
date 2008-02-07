@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.17 2007/10/23 10:06:44 eric Exp $
+ * @version $Id: exportfile.php,v 1.18 2008/02/07 15:53:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,8 +54,8 @@ function exportfile(&$action) {
       $tvalue = explode("\n",$ovalue);
       $ovalue= $tvalue[$index];
     }
-    
-    if ($ovalue == "") $action->exiterror(_("no file referenced"));
+
+    if ($ovalue == "") $action->exiterror(sprintf(_("no file referenced for %s document"),$doc->title));
     
     ereg ("(.*)\|(.*)", $ovalue, $reg);
     $vaultid= $reg[2];
