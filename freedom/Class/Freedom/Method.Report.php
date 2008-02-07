@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.11 2005/08/18 09:17:42 eric Exp $
+ * @version $Id: Method.Report.php,v 1.12 2008/02/07 15:56:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2005/08/18 09:17:42 $
-// Version         $Revision: 1.11 $
+// Last Update     $Date: 2008/02/07 15:56:08 $
+// Version         $Revision: 1.12 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -139,15 +139,28 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
     $tcell=array();
     reset($tcolumn2);
     reset($tcolor);
-    while (list($kc,$vc) = each($tcolumn2)) {
+
+    foreach($tcolumn2 as $kc=>$vc) {
       if ($v[$kc] == "") $tcell[$kc]=array("cellval"=>"");
       else {
 	switch ($kc) {
-	  case "revdate" :
-	    $cval = strftime ("%x %T",$v[$kc]);
+	case "revdate" :
+	  $cval = strftime ("%x %T",$v[$kc]);
 	  break;
-	  case "state" :
-	    $cval = _($v[$kc]);
+	case "state" :
+	  $cval = _($v[$kc]);
+	  break;
+	case "title" :
+	  if ($ulink) {
+	    $trid=$v["id"];
+	    $trlink=getparam("CORE_STANDURL")."&app=FDL&action=FDL_CARD&id=$trid";
+	    $cval="<A target=\"rdoc".$v["id"]."\"  onmousedown=\"document.noselect=true;\" ";
+	    $cval.="onclick=\"subwindowm(200,600,'rdoc$trid','$trlink')\" oncontextmenu=\"popdoc(event,'$trlink');return false;\">";
+	    $cval.=$v[$kc]."</a>";
+	  } else {
+	    $cval.=$v[$kc];
+	  }
+
 	  break;
 	    
 	default:
