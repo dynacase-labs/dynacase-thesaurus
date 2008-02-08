@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.35 2008/01/14 14:47:00 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.36 2008/02/08 09:50:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -528,6 +528,8 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
     $tlink["editprof"]["visibility"]=POPUP_INVISIBLE;
     $tlink["revise"]["visibility"]=POPUP_INVISIBLE;
     $tlink["lockdoc"]["visibility"]=POPUP_INVISIBLE;
+    $tlink["publicprof"]["visibility"]=POPUP_INVISIBLE;
+    $tlink["privateprof"]["visibility"]=POPUP_INVISIBLE;
   } 
 
 
