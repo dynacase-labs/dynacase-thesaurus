@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.462 2008/02/07 16:20:10 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.463 2008/02/08 09:51:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -900,15 +900,19 @@ final public function PostInsert()  {
    * return the latest revision id with the indicated state 
    * For the user the document is in the trash
    * @param string $state wanted state
+   * @param bool $fixed set to true if not search in current state
    * @return int document id (0 if no found)
    */
-  final public function getRevisionState($state) {    
+  final public function getRevisionState($state,$fixed=false) {    
     $ldoc = $this->GetRevisions("TABLE");
     $vdocid=0;
+
     foreach($ldoc as $k=>$v) {
       if ($v["state"]==$state) {
-	$vdocid = $v["id"];
-	break;
+	if ((($v["locked"]==-1) && $fixed) || (! $fixed)) {
+	  $vdocid = $v["id"];
+	  break;
+	}
       }	  	  
     }
     return $vdocid;
