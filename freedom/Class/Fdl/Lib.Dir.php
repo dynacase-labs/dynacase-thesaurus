@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.142 2008/01/16 14:53:27 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.143 2008/02/08 15:10:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -98,7 +98,6 @@ function getSqlSearchDoc($dbaccess,
 			 $latest=true,// only latest document
 			 $trash="",
 			 $simplesearch=false) {
-  
   if (($fromid!="") && (! is_numeric($fromid))) $fromid=getFamIdFromName($dbaccess,$fromid);
   $table="doc";$only="";
   if ($trash=="only") $distinct=true;

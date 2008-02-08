@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.48 2007/10/03 13:07:27 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.49 2008/02/08 15:10:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -112,6 +112,8 @@ Class DocSearch extends PDocSearch {
       $filters[] = "locked = -1";
       $filters[] = "lmodify = 'L'";       
     } else if ($latest == "allfixed") {
+      $filters[] = "locked = -1";
+    } if ($latest == "lastfixed") {
       $filters[] = "locked = -1";
     } 
     if ($keyword[0]=='~') {

@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.58 2008/02/07 16:57:49 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.59 2008/02/08 15:11:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -65,7 +65,8 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
 
   $cond=$this->getSqlDetailFilter();
   if ($cond === false) return array(false);
- 
+  $distinct=false;
+  if ($latest=="lastfixed") $distinct=true;
   if ($cond != "") $filters[]=$cond;
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes",$this->getValue("se_trash"),false);
 
@@ -347,6 +348,7 @@ function paramdsearch($target="_self",$ulink=true,$abstract=false) {
 			 "value"=>getHttpVars($k));
      $tinputs[$k]["label"]=$zpi[$v]->labelText;
      if ($zpi[$v]->visibility=='R') $zpi[$v]->mvisibility='W';
+     if ($zpi[$v]->visibility=='S') $zpi[$v]->mvisibility='W';
      if (isset($zpi[$v]->id)) {
        $zpi[$v]->isAlone=true;
        $tinputs[$k]["inputs"]=getHtmlInput($doc,$zpi[$v],getHttpVars($k));
@@ -519,13 +521,15 @@ function editdsearch() {
     
       $tattr=array();
        if ($taid[$k]=="state") {
-	reset($states);
 	$tstates=array();
-	while(list($ks,$vs) = each($states)) {
+	$stateselected=false;
+	foreach($states as $ks=>$vs) {
 	  $tstates[] = array("sstateid"=>$vs,
 			     "sstate_selected" => ($vs==$v)?"selected":"",
 			     "sstatename"=>_($vs));
+	  if ($vs==$v) $stateselected=true;
 	}
+	if (! $stateselected) $tcond[$k]["ISENUM"]=false;
 	$this->lay->SetBlockData("sstate$k",$tstates );
 	$tattr[]=array("attr_id"=> $taid[$k],
 		       "attr_selected" => "selected",
@@ -534,12 +538,15 @@ function editdsearch() {
 	 if ($oa->type=="enum") {	
 	   $te=$oa->getEnum();
 	   $tstates=array();
+	   $enumselected=false;
 	   foreach ($te as $ks=>$vs) {
 	     $tstates[] = array("sstateid"=>$ks,
-				"sstate_selected" => ($vs==$v)?"selected":"",
+				"sstate_selected" => ($ks==$v)?"selected":"",
 				"sstatename"=>$vs);
+	     if ($ks==$v) $enumselected=true;
 	   }
-	   $this->lay->SetBlockData("sstate$k",$tstates );	
+	   $this->lay->SetBlockData("sstate$k",$tstates );
+	   if (! $enumselected) $tcond[$k]["ISENUM"]=false;	
 	 }
 
 	 foreach($internals as $ki=>$vi) {
