@@ -3,7 +3,8 @@
 <form  class="fborder" 
        id="fedit" 
        name="modifydoc" 
-       onsubmit="this.target=window.parent.name;if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();viewwait(true);return true"
+       target="_parent"
+       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();viewwait(true);return true"
        method="POST"  
        action="[CORE_STANDURL]&app=FREEDOM&action=MODSTATE&id=[docid]" >
 <input type="hidden" name="newstate" value="[nextstate]">
