@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.30 2008/01/04 13:07:22 eric Exp $
+ * @version $Id: fdl_card.php,v 1.31 2008/02/08 09:50:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,6 +21,7 @@ include_once("FDL/Class.Dir.php");
  * @param Action &$action current action
  * @global id Http var : document identificator to see
  * @global latest Http var : (Y|N|L|P) if Y force view latest revision, L : latest fixed revision, P : previous revision
+ * @global state Http var : to view document in latest fixed state (only if revision > 0) 
  * @global abstract Http var : (Y|N) if Y view only abstract attribute
  * @global props Http var : (Y|N) if Y view properties also
  * @global zonebodycard Http var : if set, view other specific representation
@@ -39,6 +40,7 @@ function fdl_card(&$action) {
   $ulink = (GetHttpVars("ulink",'2')); // add url link
   $target = GetHttpVars("target"); // may be mail
   $vid = GetHttpVars("vid"); // special controlled view
+  $state = GetHttpVars("state"); // search doc in this state
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($docid=="") $action->exitError(_("no document reference"));
@@ -47,23 +49,31 @@ function fdl_card(&$action) {
   $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
 
-  if (($latest == "Y") && ($doc->locked == -1)) {
-    // get latest revision
-    $docid=$doc->latestId();
-    SetHttpVar("id",$docid);
-  } 
-  if (($latest == "L") && ($doc->lmodify != 'L')) {
-    // get latest fixed revision
-    $docid=$doc->latestId(true);
-    SetHttpVar("id",$docid);
-  }
-  if (($latest == "P") && ($doc->revision > 0)) {
-    // get previous fixed revision
-    $pdoc = getRevTDoc($dbaccess, $doc->initid,$doc->revision-1);
-    $docid=$pdoc["id"];
-    SetHttpVar("id",$docid);
-  }
 
+  if ($state != "") {
+    $docid=$doc->getRevisionState($state,true);
+    if ($docid==0) {
+      $action->exitError(sprintf(_("Document %s in %s state not found"),
+				 $doc->title,_($state)));
+    }
+    SetHttpVar("id",$docid);
+  } else {
+    if (($latest == "Y") && ($doc->locked == -1)) {
+      // get latest revision
+      $docid=$doc->latestId();
+      SetHttpVar("id",$docid);
+    } else if (($latest == "L") && ($doc->lmodify != 'L')) {
+      // get latest fixed revision
+      $docid=$doc->latestId(true);
+      SetHttpVar("id",$docid);
+    } else if (($latest == "P") && ($doc->revision > 0)) {
+      // get previous fixed revision
+      $pdoc = getRevTDoc($dbaccess, $doc->initid,$doc->revision-1);
+      $docid=$pdoc["id"];
+      SetHttpVar("id",$docid);
+    }
+  }
+  
   SetHttpVar("viewbarmenu",1);
   
   $action->lay->set('verifyfiles',false);

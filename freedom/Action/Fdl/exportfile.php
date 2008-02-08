@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.18 2008/02/07 15:53:57 eric Exp $
+ * @version $Id: exportfile.php,v 1.19 2008/02/08 09:50:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,28 +21,36 @@ include_once("VAULT/Class.VaultFile.php");
 function exportfile(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $docid = GetHttpVars("docid",0);
+  $docid = GetHttpVars("docid", GetHttpVars("id",0)); // same docid id
   $attrid = GetHttpVars("attrid",0);
-  $vaultid = GetHttpVars("vaultid",0);
+  $vaultid = GetHttpVars("vaultid",0); // only for public file
   $index = GetHttpVars("index");
   //  $imgheight = GetHttpVars("height");
   $imgwidth = GetHttpVars("width");
   $inline = (GetHttpVars("inline")=="yes");
   $cache = (GetHttpVars("cache","yes")=="yes");
   $latest = GetHttpVars("latest");
+  $state = GetHttpVars("state"); // search doc in this state
 
   $isControled=false;
 
   if ($vaultid == 0) {
 
     $doc= new_Doc($dbaccess,$docid);
-
-    if (($latest == "Y") && ($doc->locked == -1)) {
-      // get latest revision
-      $docid=$doc->latestId();
+    if ($state != "") {
+      $docid=$doc->getRevisionState($state,true);
+      if ($docid==0) {
+	$action->exitError(sprintf(_("Document %s in %s state not found"),
+				   $doc->title,_($state)));
+      } 
       $doc= new_Doc($dbaccess,$docid);
-    } 
-
+    } else {
+      if (($latest == "Y") && ($doc->locked == -1)) {
+	// get latest revision
+	$docid=$doc->latestId();
+	$doc= new_Doc($dbaccess,$docid);
+      } 
+    }
 
     // ADD CONTROL ACCESS HERE
     $err = $doc->control("view");
@@ -55,6 +63,10 @@ function exportfile(&$action) {
       $ovalue= $tvalue[$index];
     }
 
+    if ($ovalue == "") {
+      print(sprintf(_("no file referenced for %s document"),$doc->title));
+      exit;
+    }
     if ($ovalue == "") $action->exiterror(sprintf(_("no file referenced for %s document"),$doc->title));
     
     ereg ("(.*)\|(.*)", $ovalue, $reg);
@@ -74,37 +86,22 @@ function exportfile(&$action) {
 }
 
 
-  // --------------------------------------------------------------------
-function exportfirstfile(&$action) 
-  // --------------------------------------------------------------------
-{
+
+/**
+ * Idem like exportfile instead that download first file attribute found
+ */
+function exportfirstfile(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $docid = GetHttpVars("docid",0);
+  $docid = GetHttpVars("docid", GetHttpVars("id",0));
 
-
-    $doc= new_Doc($dbaccess,$docid);
-  // ADD CONTROL ACCESS HERE
-    $err = $doc->control("view");
-    if ($err != "") $action->exiterror($err);
-
-  $isControled=true;
+  $doc= new_Doc($dbaccess,$docid);
   $attr = $doc->GetFirstFileAttributes();
+  if (! $attr) $action->exiterror(_("no attribute file found"));
 
-  $ovalue = $doc->getValue($attr->id);
+  setHttpVar("attrid",$attr->id);
 
-    
-  if ($ovalue == "") $action->exiterror(_("no file referenced"));
-    
-  ereg ("(.*)\|(.*)", $ovalue, $reg);
-  $vaultid= $reg[2];
-  $mimetype=$reg[1];
-
-  
-  DownloadVault($action, $vaultid, $isControled, $mimetype);
-        
-  
-    
+  exportfile($action);                  
 }
 
 

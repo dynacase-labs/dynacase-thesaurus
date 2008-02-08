@@ -1,9 +1,9 @@
 <?php
 /**
- * Generated Header (not documented yet)
+ * View document only - without any menu
  *
  * @author Anakeen 2000 
- * @version $Id: impcard.php,v 1.10 2007/11/12 16:30:39 eric Exp $
+ * @version $Id: impcard.php,v 1.11 2008/02/08 09:50:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,10 +16,7 @@
 include_once("FDL/Class.Doc.php");
 
 
-// -----------------------------------
-// -----------------------------------
 function impcard(&$action) {
-  // -----------------------------------
 
   // GetAllParameters
 
@@ -29,6 +26,8 @@ function impcard(&$action) {
   $zonebodycard = GetHttpVars("zone"); // define view action
   $valopt=GetHttpVars("opt"); // value of  options
   $vid = GetHttpVars("vid"); // special controlled view
+  $state = GetHttpVars("state"); // search doc in this state
+  $latest = GetHttpVars("latest");
   $szone=false;
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -40,6 +39,31 @@ function impcard(&$action) {
   } else {
     $doc = new_Doc($dbaccess, $docid);
   }
+
+  if ($state != "") {
+    $docid=$doc->getRevisionState($state,true);
+    if ($docid==0) {
+      $action->exitError(sprintf(_("Document %s in %s state not found"),
+				 $doc->title,_($state)));
+    }
+    SetHttpVar("id",$docid);
+  } else {
+    if (($latest == "Y") && ($doc->locked == -1)) {
+      // get latest revision
+      $docid=$doc->latestId();
+      SetHttpVar("id",$docid);
+    } else if (($latest == "L") && ($doc->lmodify != 'L')) {
+      // get latest fixed revision
+      $docid=$doc->latestId(true);
+      SetHttpVar("id",$docid);
+    } else if (($latest == "P") && ($doc->revision > 0)) {
+      // get previous fixed revision
+      $pdoc = getRevTDoc($dbaccess, $doc->initid,$doc->revision-1);
+      $docid=$pdoc["id"];
+      SetHttpVar("id",$docid);
+    }
+  }
+
   $action->lay->set("TITLE",$doc->title);  
   if (($zonebodycard=="") && ($vid != "")) {
     $cvdoc= new_Doc($dbaccess, $doc->cvid);
