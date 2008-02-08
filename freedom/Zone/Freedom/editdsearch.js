@@ -35,7 +35,8 @@ function sendsearch(faction,rtarget) {
       var nt=document.getElementById('newstate');
       if (nt)   disabledInput(nt,true);
     }
-    if (!rtarget) rtarget='fvfolder';
+    if ((!rtarget) &&  (window.parent.fvfolder)) rtarget='fvfolder';
+    else  if (!rtarget) rtarget='_blank';
     target=rtarget;
     action=faction;
     submit();

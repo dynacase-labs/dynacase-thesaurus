@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-08 11:25+0100\n"
+"POT-Creation-Date: 2008-02-08 17:14+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -5216,6 +5216,13 @@ msgstr "Edit"
 msgid "function examples"
 msgstr ""
 
+msgid "Opt"
+msgstr ""
+
+#, fuzzy
+msgid "addcond"
+msgstr "Add new contact card"
+
 msgid "my id"
 msgstr ""
 
@@ -5228,10 +5235,6 @@ msgstr ""
 
 msgid "tomorrow"
 msgstr ""
-
-#, fuzzy
-msgid "addcond"
-msgstr "Add new contact card"
 
 #, fuzzy
 msgid "fieldset"
@@ -5256,6 +5259,10 @@ msgstr "Visibility"
 #, fuzzy
 msgid "Search criteria"
 msgstr "Start search"
+
+#, fuzzy
+msgid "More options"
+msgstr "Edit"
 
 msgid "View"
 msgstr ""
@@ -5315,6 +5322,10 @@ msgstr "Start search"
 #, fuzzy
 msgid "Search to insert"
 msgstr "Start search"
+
+#, fuzzy
+msgid "Parameters for"
+msgstr "Delete"
 
 #, fuzzy
 msgid "System"

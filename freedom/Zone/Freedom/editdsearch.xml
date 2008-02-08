@@ -8,7 +8,7 @@
 <tbody>
 <tr class="FREEDOMBack1">
   <td> </td>
-  <td class="FREEDOMLabel" align="right" valign="bottom">
+  <td class="FREEDOMLabel" style="text-align:right" valign="bottom">
    <img needresize="1" style="width:[SIZE_IMG-SMALL]" src="[icon]">
       <label for="sensitive"> [TEXT:familly]&nbsp;:</label>
      <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=[ACTION]&classid=[classid]&dirid=[dirid]&sfamid='+this.options[this.selectedIndex].value">  

@@ -18,56 +18,37 @@ function simplesearch(){
 }
 </script>
 
-<table width="100%" cellspacing="0">
-<tbody>
-<tr><td>
-<table  cellspacing="0">
-<tbody>
 
-<tr >
-  <td class="FREEDOMLabel" align="right">
-       [L_SE_KEY]&nbsp;: </td>
-  <td   >
-      <input onkeydown="if (trackCR(event)) {simplesearch();return false;}"   class="fullresize"   type="text" name="_se_key" value="" id="se_key"  ></td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td class="FREEDOMLabel" align="right">
-     [TEXT:familly]&nbsp;: </td>
-  <td >
-     <select name="_se_famid" onchange="document.getElementById('se_fam').value=this.options[this.selectedIndex].text">  
+<table cellspacing="0"><tr><td>
+[L_SE_KEY]&nbsp;: </td><td colspan="2"><input onkeydown="if (trackCR(event)) {simplesearch();return false;}"      type="text" name="_se_key" value="" id="se_key"  >
+</td></tr>
+<tr class="FREEDOMBack1"><td> [TEXT:familly]&nbsp;: </td><td><select name="_se_famid" onchange="document.getElementById('se_fam').value=this.options[this.selectedIndex].text">  
            <option VALUE="0" >[TEXT:any familly]</option> 
          [BLOCK SELECTCLASS]
            <option VALUE="[idcdoc]" [selected] >[classname]</option>   
          [ENDBLOCK SELECTCLASS]
-    </select> 
+    </select> <input type="hidden" id="se_fam" name="_se_fam" value="[selfam]"></td><td><a onclick="document.getElementById('moreoptions').style.visibility='visible';this.style.display='none'">[TEXT:More options]</a></td></tr>
+</table>
 
-    <input type="hidden" id="se_fam" name="_se_fam" value="[selfam]"> </td>
-  <td>&nbsp</td>
-</tr>
-<tr class="FREEDOMBack1">
-  <td  align="center" colspan="2">
+<table width="100%" cellspacing="0">
+<tbody>
+<tr><td>
+
  
  <input type="submit" style="font-weight: bold;" value="[TEXT: send search]" onClick="simplesearch();return false"> </td>
  
-  <td>&nbsp</td>
-</tr>
-</tbody>
-</table>
 
 </td><td>
-<table  cellspacing="0">
+<table  cellspacing="0" style="visibility:hidden" id="moreoptions">
 <tbody>
-
-
 <tr class="FREEDOMBack1">
   <td class="FREEDOMLabel" align="right">
       [L_SE_LATEST]&nbsp;: </td>
   <td   >[V_SE_LATEST]</td>
 </tr>
 <tr class="FREEDOMBack1">
-  <td class="FREEDOMLabel" align="right">
-       [TEXT:from current folder]&nbsp;: </td>
-  <td   >
+  <td class="FREEDOMLabel" style="text-align:left" colspan="2">
+       [TEXT:from current folder]&nbsp;: 
       <input type="checkbox" id="ifromdir" name="fromdir" value="true" 
              onclick="document.getElementById('se_idfld').value=(this.checked)?parent.ffolder.dirid:'0';document.getElementById('se_cfld').value=(this.checked)?'dossier':' ';" > 
       <input type="hidden" id="se_idfld" name="_se_idfld" value="0" >
@@ -79,14 +60,14 @@ function simplesearch(){
   <td class="FREEDOMLabel" align="right">
        [L_SE_CASE]&nbsp;: </td>
   <td >[V_SE_CASE]</td>
-  <td>&nbsp</td>
+  
 </tr>
 
 <tr class="FREEDOMBack1">
   <td class="FREEDOMLabel" align="right">
        [L_SE_TRASH]&nbsp;: </td>
   <td onmouseout="verifytrash()">[V_SE_TRASH]</td>
-  <td>&nbsp</td>
+  
 </tr>
  
 </tbody>
