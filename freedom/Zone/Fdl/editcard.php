@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.64 2008/02/01 09:07:34 eric Exp $
+ * @version $Id: editcard.php,v 1.65 2008/02/08 16:34:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -99,10 +99,12 @@ function editcard(&$action) {
       // special controlled view
       $cvdoc= new_Doc($dbaccess, $doc->cvid);
       $cvdoc->set($doc);
-      if (($docid == 0) && ($vid == "")) {
+      if (($docid == 0) ) {
 	// search default create view     
-	$vid = $cvdoc->getValue("CV_IDCVIEW");
+	$vidcreate = $cvdoc->getValue("CV_IDCVIEW");
+	if ($vidcreate) $vid=$vidcreate; // use it first if exist
       }
+
       if ($vid == "") {
 	// search preferred view
 	$tv=$cvdoc->getAValues("CV_T_VIEWS");
