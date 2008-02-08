@@ -50,7 +50,16 @@ function sendsearch(faction,rtarget) {
     
   }
 }
-
+function callFunction(event,th) {
+  var pnode=getPrevElement(th.parentNode);
+  var ex=document.getElementById('example');
+  if (pnode) {
+    pnode.innerHTML='<input  type="text"  size="20" name="_se_keys[]">';
+    pnode.appendChild(ex);
+    ex.style.display='';
+  }
+  
+}
 function setKey(event,th) {
   var pnode;
 
@@ -70,6 +79,14 @@ function getNextElement(th) {
   
 }
 
+function getPrevElement(th) {
+  var pnode;
+  pnode=th.previousSibling;
+  while (pnode && (pnode.nodeType != 1)) pnode = pnode.previousSibling;
+  return pnode;
+  
+}
+
 function filterfunc(th) {
   var p=th.parentNode;
   var opt=th.options[th.selectedIndex];
@@ -79,6 +96,13 @@ function filterfunc(th) {
   var aid=opt.value;
   var sec,se;
   var needresetselect=false,ifirst=0;
+  var ex=document.getElementById('example');
+  var lc=document.getElementById('lastcell');
+
+  // move to tfoot to not be removed
+  ex.style.display='none';
+  lc.appendChild(ex);
+
   // search brother select input
   pnode=p.nextSibling;
   while (pnode && ((pnode.nodeType != 1) || (pnode.tagName != 'TD'))) pnode = pnode.nextSibling;
