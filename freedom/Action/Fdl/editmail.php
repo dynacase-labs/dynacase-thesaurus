@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.17 2006/07/27 16:20:18 eric Exp $
+ * @version $Id: editmail.php,v 1.18 2008/02/11 16:20:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -65,6 +65,9 @@ function editmail(&$action) {
   if ($err != "") $action->exitError($err);
 
   if ($zone=="") $zone=$doc->defaultmview;
+  $zo=$doc->getZoneOption("$zone");
+  
+  $action->lay->Set("binarymode",($zo=="B"));
 
   $action->lay->Set("from",$from);
   $action->lay->Set("mid",$docid);

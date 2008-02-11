@@ -87,9 +87,14 @@ addEvent(window,"load",mailfocus);
 <!--  FOOT HTML -->
 
 [IF VIEWDOC]
+[IFNOT binarymode]
 <iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=IMPCARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
+[ENDIF binarymode]
+[IF binarymode]
+<div style="width:100%;text-align:center">
+<img  title="[TEXT:Binary file layout]" src="[IMG:mime-document2.png]"></div>
+[ENDIF binarymode]
 [ENDIF VIEWDOC]
-
 
 </body>
 </html>
