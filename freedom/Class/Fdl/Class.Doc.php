@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.463 2008/02/08 09:51:22 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.464 2008/02/11 14:21:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4185,6 +4185,8 @@ final public function PostInsert()  {
       $ext=substr($reg[2],strrpos($reg[2],'.')+1);
       if (strtolower($ext)=="odt") {
 	include_once('Class.OOoLayout.php');
+	$target="ooo";
+	$ulink=false;
 	$this->lay = new OOoLayout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
       } else $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
     } else  $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
