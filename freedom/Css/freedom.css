@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.124 2008/01/22 09:43:01 eric Exp $
+ * $Id: freedom.css,v 1.125 2008/02/11 09:25:24 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -559,19 +559,14 @@ A.state, A.boldstate {
   }
   .onlyprint { 
     display:block;
-    }
-  FIELDSET.mfield {
-    display:block!important;
   }
-  FIELDSET TABLE {
-    display:inline;
-  }
+
   DIV.tabsh {
     display:none;
   }
-TBODY.overflow {
-  overflow:visible;
-}
+  TBODY.overflow {
+    overflow:visible;
+  }
 }
 TABLE.huge {
   width:100%;

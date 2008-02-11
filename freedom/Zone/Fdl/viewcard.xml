@@ -44,6 +44,8 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 </tr>
 </thead>
 </table>
+<table class="onlyprint"><tr><td>
+<IMG  border="0"  title="[classtitle]" alt="[classtitle]" align="absbottom" needresize="1" width="[SIZE_IMG-MEDIUM]" SRC="[iconsrc]"></td><td><I style="font-size:70%">[classtitle]</I><br><H1>[TITLE]</H1></td></tr></table>
 [ENDIF HEAD]
 
 [IFNOT HEAD]
