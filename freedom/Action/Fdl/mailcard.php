@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.72 2008/02/01 15:44:05 eric Exp $
+ * @version $Id: mailcard.php,v 1.73 2008/02/11 14:18:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -190,7 +190,6 @@ function sendCard(&$action,
   // set title
   
   
-  setHttpVar("target","mail");
   setHttpVar("id",$docid); // for view zone
   if (GetHttpVars("_mail_format") == "") setHttpVar("_mail_format",$format);
 
@@ -226,6 +225,8 @@ function sendCard(&$action,
     if ($from == "")  $from = $action->user->login.'@'.$_SERVER["HTTP_HOST"];    
   }
 
+  if ($subject == "") $subject = $ftitle;
+  $subject = str_replace("\"","'",$subject);
   
   $layout="maildoc.xml"; // the default
   if ($format=="htmlnotif") {
@@ -240,11 +241,21 @@ function sendCard(&$action,
 
   if (ereg("[A-Z]+:[^:]+:S", $zonebodycard, $reg))  $szone=true;// the zonebodycard is a standalone zone ?
   if (ereg("[A-Z]+:[^:]+:T", $zonebodycard, $reg))  setHttpVar("dochead","N");// the zonebodycard without head ?
+  if (ereg("[A-Z]+:[^:]+:B", $zonebodycard, $reg))  $binary=true;
 
 
-  if (ereg("html",$format, $reg)) {
+  if ($binary) {
 
-    if ($action->GetParam("CORE_URLINDEX") != "") {
+    $binfile=$doc->viewDoc($zonebodycard);
+    $themail->addAttachment($binfile,'application/z',$doc->title.".odt");
+    //    $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'mixed');
+    $zonebodycard="FDL:EMPTY";
+  } 
+
+    setHttpVar("target","mail");
+    if (ereg("html",$format, $reg)) {
+
+      if ($action->GetParam("CORE_URLINDEX") != "") {
 	$turl=parse_url($action->GetParam("CORE_URLINDEX"));
 	$url=$turl["scheme"].'://'.$turl["host"];
 	if (isset($turl["port"])) $url.=':'.$turl["port"];
@@ -257,59 +268,59 @@ function sendCard(&$action,
       }
 
 
-    // ---------------------------
-    if ($szone) {
+
+      if ($szone) {
            
-      $sgen = $doc->viewDoc($zonebodycard,"mail",$ulink,false,true);
+	$sgen = $doc->viewDoc($zonebodycard,"mail",$ulink,false,true);
 
-      $doc->lay->Set("absurl",$absurl);
-      $doc->lay->Set("baseurl",$baseurl);
-      $sgen=$doc->lay->gen();
-      if ($comment != "") {
-	$comment= nl2br($comment);
-	$sgen = preg_replace("'<body([^>]*)>'i",
-			     "<body \\1><P>$comment<P><HR>",
-			     $sgen);
-      }
+	$doc->lay->Set("absurl",$absurl);
+	$doc->lay->Set("baseurl",$baseurl);
+	$sgen=$doc->lay->gen();
+	if ($comment != "") {
+	  $comment= nl2br($comment);
+	  $sgen = preg_replace("'<body([^>]*)>'i",
+			       "<body \\1><P>$comment<P><HR>",
+			       $sgen);
+	}
        
-    } else {
-      // contruct HTML mail
+      } else {
+	// contruct HTML mail
       
-      $docmail = new Layout(getLayoutFile("FDL",$layout),$action);
+	$docmail = new Layout(getLayoutFile("FDL",$layout),$action);
 
-      $docmail->Set("TITLE", $doc->title);
-      $docmail->Set("ID", $doc->id);
-      $docmail->Set("zone", $zonebodycard);
-      $docmail->Set("absurl",$absurl);
-      $docmail->Set("baseurl",$baseurl) ;	
-      if ($comment != "") {
-	$docmail->setBlockData("COMMENT", array(array("boo")));
-	$docmail->set("comment", nl2br($comment));
+	$docmail->Set("TITLE", $doc->title);
+	$docmail->Set("ID", $doc->id);
+	$docmail->Set("zone", $zonebodycard);
+	$docmail->Set("absurl",$absurl);
+	$docmail->Set("baseurl",$baseurl) ;	
+	if ($comment != "") {
+	  $docmail->setBlockData("COMMENT", array(array("boo")));
+	  $docmail->set("comment", nl2br($comment));
+	}
+
+	$sgen = $docmail->gen();
       }
-
-      $sgen = $docmail->gen();
-    }
-    if ($viewonly) {echo $sgen;exit;}
+      if ($viewonly) {echo $sgen;exit;}
 
 
    
-    $sgen1 = preg_replace("/src=\"(FDL\/geticon[^\"]+)\"/ei",
+      $sgen1 = preg_replace("/src=\"(FDL\/geticon[^\"]+)\"/ei",
 			    "imgvaultfile('\\1')",
 			    $sgen);
 
-    $sgen1 = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
-			 "srcfile('\\1')",
-			 $sgen1);
+      $sgen1 = preg_replace(array("/SRC=\"([^\"]+)\"/e","/src=\"([^\"]+)\"/e"),
+			    "srcfile('\\1')",
+			    $sgen1);
 
-    $pfout = uniqid("/var/tmp/".$doc->id);
-    $fout = fopen($pfout,"w");
+      $pfout = uniqid("/var/tmp/".$doc->id);
+      $fout = fopen($pfout,"w");
    
-    fwrite($fout,$sgen1);
+      fwrite($fout,$sgen1);
     
-    fclose($fout);
-  }
+      fclose($fout);
+    }
 
-  if (ereg("pdf",$format, $reg)) {
+    if (ereg("pdf",$format, $reg)) {
       // ---------------------------
       // contruct PDF mail
       if ($szone) {
@@ -326,157 +337,155 @@ function sendCard(&$action,
 	$sgen = $docmail2->gen();
       }
       $sgen2 = preg_replace("/src=\"([^\"]+)\"/ei",
-			   "realfile('\\1')",
-			   $sgen);
+			    "realfile('\\1')",
+			    $sgen);
 
       $ppdf = uniqid("/var/tmp/".$doc->id).".pdf.html";
       $fout = fopen($ppdf,"w");
       fwrite($fout,$sgen2);
       fclose($fout);
-  }
-
-
-  // ---------------------------
-  // contruct mail_mime object
-  if ($subject == "") $subject = $ftitle;
-  $subject = str_replace("\"","'",$subject);
-
-  if (ereg("html",$format, $reg)) {
-    $themail->setHTMLBody($pfout,true);
-  } else if ($format == "pdf") {   
-    $themail->setTxtBody($comment,false);
-  }
-
-
-  if ($format != "pdf") {
-
-    // ---------------------------
-    // insert attached files
-  if (preg_match_all("/(href|src)=\"cid:([^\"]*)\"/i",$sgen,$match)) {
-    $tcids = $match[2]; // list of file references inserted in mail
-
-    $afiles = $doc->GetFileAttributes();
-    $taids = array_keys($afiles);
-    if (count($afiles) > 0) {
-      foreach($tcids as $kf=>$vaf) {
-	$tf=explode("+",$vaf);
-	if (count($tf)==1) {
-	  $aid=$tf[0];
-	  $index=-1;
-	} else {
-	  $aid=$tf[0];
-	  $index=$tf[1];	  
-	}
-	if (in_array($aid, $taids)) {	
-	  $tva=array();
-	  $cidindex="";
-	  if ($afiles[$aid]->repeat) $va=$doc->getTValue($aid,"",$index);
-	  else $va=$doc->getValue($aid);
-
-	  if ($va != "") {
-	      list($mime,$vid)=explode("|",$va);
-
-	      if ($vid != "") {
-		if ($vf->Retrieve ($vid, $info) == "") {  
-		
-		  $cidindex= $vaf;
-		  if (($mixed) && ($afiles[$aid]->type != "image"))  $cidindex=$info->name;
-		  $themail->addAttachment($info->path,$mime,$info->name,true,'base64',$cidindex);
-	  
-		}
-	      }	    
-	  }
-	}
-      }
     }
-  }
+
 
     // ---------------------------
-    // add icon image
+    // contruct mail_mime object
+
     if (ereg("html",$format, $reg)) {
-      if (! $szone) {
-	$va=$doc->icon;
-	if ($va != "") {
-	  list($mime,$vid)=explode("|",$va);
+      $themail->setHTMLBody($pfout,true);
+    } else if ($format == "pdf") {   
+      $themail->setTxtBody($comment,false);
+    }
 
-	  if ($vid != "") {
-	    if ($vf->Retrieve ($vid, $info) == "") {  
-	      $themail->addAttachment($info->path,$mime,$info->name,true,'base64','icon');
-	      
+
+    if ($format != "pdf") {
+
+      // ---------------------------
+      // insert attached files
+      if (preg_match_all("/(href|src)=\"cid:([^\"]*)\"/i",$sgen,$match)) {
+	$tcids = $match[2]; // list of file references inserted in mail
+
+	$afiles = $doc->GetFileAttributes();
+	$taids = array_keys($afiles);
+	if (count($afiles) > 0) {
+	  foreach($tcids as $kf=>$vaf) {
+	    $tf=explode("+",$vaf);
+	    if (count($tf)==1) {
+	      $aid=$tf[0];
+	      $index=-1;
+	    } else {
+	      $aid=$tf[0];
+	      $index=$tf[1];	  
 	    }
-	  } else {
-	    $icon=$doc->getIcon();
-	    if (file_exists($pubdir."/$icon")) {
-	      $themail->addAttachment($pubdir."/$icon","image/".fileextension($icon),"icon",true,'base64','icon');
+	    if (in_array($aid, $taids)) {	
+	      $tva=array();
+	      $cidindex="";
+	      if ($afiles[$aid]->repeat) $va=$doc->getTValue($aid,"",$index);
+	      else $va=$doc->getValue($aid);
+
+	      if ($va != "") {
+		list($mime,$vid)=explode("|",$va);
+
+		if ($vid != "") {
+		  if ($vf->Retrieve ($vid, $info) == "") {  
+		
+		    $cidindex= $vaf;
+		    if (($mixed) && ($afiles[$aid]->type != "image"))  $cidindex=$info->name;
+		    $themail->addAttachment($info->path,$mime,$info->name,true,'base64',$cidindex);
+	  
+		  }
+		}	    
+	      }
 	    }
 	  }
 	}
       }
-    }
+
+      // ---------------------------
+      // add icon image
+      if (ereg("html",$format, $reg)) {
+	if (! $szone) {
+	  $va=$doc->icon;
+	  if ($va != "") {
+	    list($mime,$vid)=explode("|",$va);
+
+	    if ($vid != "") {
+	      if ($vf->Retrieve ($vid, $info) == "") {  
+		$themail->addAttachment($info->path,$mime,$info->name,true,'base64','icon');
+	      
+	      }
+	    } else {
+	      $icon=$doc->getIcon();
+	      if (file_exists($pubdir."/$icon")) {
+		$themail->addAttachment($pubdir."/$icon","image/".fileextension($icon),"icon",true,'base64','icon');
+	      }
+	    }
+	  }
+	}
+      }
   
     
-    // ---------------------------
-    // add inserted image
+      // ---------------------------
+      // add inserted image
 
 
-    foreach($ifiles as $v) {
+      foreach($ifiles as $v) {
 
-      if (file_exists($pubdir."/$v")) {
-	$themail->addAttachment($pubdir."/$v","image/".fileextension($v),$v,true,'base64',$v);
+	if (file_exists($pubdir."/$v")) {
+	  $themail->addAttachment($pubdir."/$v","image/".fileextension($v),$v,true,'base64',$v);
+	}
       }
-    }
 
 
-    foreach($tfiles as $k=>$v) {
-      if (file_exists($v)) {
-	$themail->addAttachment($v,trim(`file -ib "$v"`),"$k",true,'base64',$k);
-      }
+      foreach($tfiles as $k=>$v) {
+	if (file_exists($v)) {
+	  $themail->addAttachment($v,trim(`file -ib "$v"`),"$k",true,'base64',$k);
+	}
       
-    }
+      }
   
-    // Other files, 
-    if (count($addfiles)>0) 
-      {
-	foreach ($addfiles as $kf => $vf) 
-	  {
-	    if (count($vf)==3) 
-	      {
-		$fview = $vf[0];
-		$fname = $vf[1];
-		$fmime = $vf[2];
+      // Other files, 
+      if (count($addfiles)>0) 
+	{
+	  foreach ($addfiles as $kf => $vf) 
+	    {
+	      if (count($vf)==3) 
+		{
+		  $fview = $vf[0];
+		  $fname = $vf[1];
+		  $fmime = $vf[2];
 		
-		$fgen = $doc->viewDoc($fview, "mail");
-		$fpname = "/var/tmp/".str_replace(array(" ","/","(",")"), "_", uniqid($doc->id).$fname);
-		if ($fp = fopen($fpname, 'w')) {
-		  fwrite($fp, $fgen);
-		  fclose($fp);
+		  $fgen = $doc->viewDoc($fview, "mail");
+		  $fpname = "/var/tmp/".str_replace(array(" ","/","(",")"), "_", uniqid($doc->id).$fname);
+		  if ($fp = fopen($fpname, 'w')) {
+		    fwrite($fp, $fgen);
+		    fclose($fp);
+		  }
+		  $fpst = stat($fpname);
+		  if (is_array($fpst) && $fpst["size"]>0) {
+		    $themail->addAttachment($fpname,$fmime,$fname,true,'base64',$fname);
+		  }
 		}
-		$fpst = stat($fpname);
-		if (is_array($fpst) && $fpst["size"]>0) {
-		  $themail->addAttachment($fpname,$fmime,$fname,true,'base64',$fname);
-		}
-	      }
-	  }
-      }
+	    }
+	}
 
-  }
-  if (ereg("pdf",$format, $reg)) {
-    // try PDF 
-    $fps= uniqid("/var/tmp/".$doc->id)."ps";
-    $fpdf= uniqid("/var/tmp/".$doc->id)."pdf";
-    $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
-
-
-    system ($cmdpdf, $status);
-    if ($status == 0)  {     
-      $themail->addAttachment($fpdf,'application/pdf',$doc->title.".pdf");
-      
-    } else {
-      $action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
     }
-  }  
+    if (ereg("pdf",$format, $reg)) {
+      // try PDF 
+      $fps= uniqid("/var/tmp/".$doc->id)."ps";
+      $fpdf= uniqid("/var/tmp/".$doc->id)."pdf";
+      $cmdpdf = "/usr/bin/html2ps -U -i 0.5 -b $pubdir/ $ppdf > $fps && ps2pdf $fps $fpdf";
 
-  $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'related');
+
+      system ($cmdpdf, $status);
+      if ($status == 0)  {     
+	$themail->addAttachment($fpdf,'application/pdf',$doc->title.".pdf");
+      
+      } else {
+	$action->addlogmsg(sprintf(_("PDF conversion failed for %s"),$doc->title));
+      }
+    }  
+    $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'related');
+  
   
 
 
