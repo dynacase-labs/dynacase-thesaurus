@@ -182,7 +182,7 @@ oncontextmenu="viewdocmenu(event,'[id]',false,false,this);return false"
      class="unselect" >   
      <img   align="right" width="30" id="ic[id]" [IFNOT canedit]class="aiconnoh"[ENDIF canedit][IF canedit]class="aicon" title="[TEXT:toedit]" onclick="document.noselect=true;vselect(this.parentNode);vedit(event,'[id]');"[ENDIF canedit]  needresize="1" src="[iconsrc]"><img  align="right" title="[emblemt]" src="[emblem]" width="[emblemw]">
      [IF postitid]<img  align="right" needresize="1" src="[IMG:stickynotes.png]" width="20px">[ENDIF postitid][IF forumid]<img  align="right" needresize="1" src="[IMG:forum.png]" width="20px">[ENDIF forumid]
-<A class="title"  style="float:left;" id="t[id]">[title]</A> <I class="statetext" style="float:right;border-color:[statecolor]">[state]</I><br/>
+<A class="title"  style="float:left;" id="t[id]">[title]</A> <I class="statetext" style="float:right;border-color:[statecolor]">[state]</I><br style="clear:both"/>
 [ABSTRACTVALUES]
 </div>
 
