@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.73 2008/02/11 14:18:40 eric Exp $
+ * @version $Id: mailcard.php,v 1.74 2008/02/11 16:20:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -247,8 +247,7 @@ function sendCard(&$action,
   if ($binary) {
 
     $binfile=$doc->viewDoc($zonebodycard);
-    $themail->addAttachment($binfile,'application/z',$doc->title.".odt");
-    //    $err=sendmail($to,$from,$cc,$bcc,$subject,$themail,'mixed');
+    $themail->addAttachment($binfile,'application/vnd.oasis.opendocument.text',$doc->title.".odt");
     $zonebodycard="FDL:EMPTY";
   } 
 
