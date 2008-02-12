@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.125 2008/02/11 09:25:24 eric Exp $
+ * $Id: freedom.css,v 1.126 2008/02/12 17:21:22 marc Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -38,6 +38,8 @@ TR.FREEDOMBack2{
 	background-color: [CORE_BGCOLORALTERN];
 	color : [CORE_TEXTFGCOLOR];
 }
+
+TD { vertical-align:top; };
 
 TD.FREEDOMText, .FREEDOMText {
   color: [CORE_TEXTFGCOLOR];
