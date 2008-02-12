@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.51 2008/01/22 16:44:04 eric Exp $
+ * @version $Id: FDL_external.php,v 1.52 2008/02/12 09:35:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -181,7 +181,53 @@ function lfamily($dbaccess, $famid, $name="", $dirid=0, $filter=array(),$idid="i
   return lfamilly($dbaccess, $famid, $name, $dirid, $filter,$idid);
 }
 
+/**
+ * list of documents of a same family and their specific attributes
+ *
+ * @param string $dbaccess database specification
+ * @param string $famid family identifier (if 0 any family). It can be internal name
+ * @param string $name string filter on the title
+ * @param string $attrids argument variable of name of attribute to be returned
+ * @return array/string*3 array of (title, identifier, attr1, attr2, ...)
+ */
+function lfamilyvalues($dbaccess, $famid, $name="") {
+  //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
+  global $action;
+  
+  $only=false;
+  if ($famid[0]=='-') {
+    $only=true;
+    $famid=substr($famid,1);
+  }
 
+  if (! is_numeric($famid)) {
+    $famid=getFamIdFromName($dbaccess,$famid);
+  }
+
+  if ($name != "") {
+    $name=pg_escape_string($name);
+    $filter[]="title ~* '$name'";
+  }
+  $attr=array();
+  $args=func_get_args();
+  foreach ($args as $k=>$v) {
+    if ($k>2) $attr[]=strtolower($v);
+  }
+
+  //$famid=-(abs($famid));
+  if ($only) $famid=-($famid);
+  $tinter = getChildDoc($dbaccess, $dirid,0,100, $filter,$action->user->id,"TABLE",$famid,false,"title");
+  
+  $tr = array();
+
+  foreach($tinter as $k=>$v) {
+    $tr[$k] = array($v["title"]);
+    foreach ($attr as $a) {
+      $tr[$k][]=$v[$a];
+    }    
+  }
+  return $tr;
+}
 /**
  * list of documents of a same family and which are in the $kid category
  *
