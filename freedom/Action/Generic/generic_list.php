@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.37 2008/02/07 16:20:54 eric Exp $
+ * @version $Id: generic_list.php,v 1.38 2008/02/12 15:24:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -83,7 +83,7 @@ function generic_list(&$action) {
   $action->lay->Set("previcon",""); 
 
   if ($sqlorder=="") {
-    $sqlorder = getDefUSort($action,"");  
+    $sqlorder = getDefUSort($action,"title");  
     setHttpVar("sqlorder",$sqlorder );
   }
 
