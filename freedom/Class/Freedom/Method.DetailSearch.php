@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.59 2008/02/08 15:11:01 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.60 2008/02/13 15:32:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -17,8 +17,6 @@
 var $defaultedit= "FREEDOM:EDITDSEARCH";#N_("include") N_("equal") N_("equal") _("not equal") N_("is empty") N_("is not empty") N_("one value equal")
 var $defaultview= "FREEDOM:VIEWDSEARCH"; #N_("not include") N_("begin by") N_("not equal") N_("&gt; or equal") N_("&lt; or equal") N_("one word equal") N_("content file word") N_("content file expression")
 
-
-
 var $top=array(  
 	       "~*"=>array("label"=>"include",
 			   "type"=>array("text","longtext","htmltext","ifile","array","file","image")),
@@ -28,7 +26,7 @@ var $top=array(
 			   "type"=>array("file")),
 	       "=" => array("label"=>"equal"),  
 	       "~^" => array("label"=>"begin by",
-			     "type"=>array("text","longtext","htmltext")),            
+			     "type"=>array("text","longtext")),            
 	       "!=" => array("label"=>"not equal"),       
 	       "!~*" => array("label"=>"not include",
 			      "type"=>array("text","longtext","htmltext")),       
@@ -44,9 +42,9 @@ var $top=array(
 	       "is not null" => array("label"=>"is not empty"),   
 	       "~y" => array("label"=>"one word equal",
 			     "type"=>array("array")));    
-   
-var $tol=array("and" => "and",              #N_("and")
-	       "or" => "or");               #N_("or")
+	       
+public $tol=array("and" => "and",              #N_("and")
+		  "or" => "or");               #N_("or")
 
 
 /**
@@ -71,61 +69,96 @@ function ComputeQuery($keyword="",$famid=-1,$latest="yes",$sensitive=false,$diri
   $query = getSqlSearchDoc($this->dbaccess, $cdirid, $famid, $filters,$distinct,$latest=="yes",$this->getValue("se_trash"),false);
 
   return $query;
-}
+ }
+/**
+ */
 function getSqlCond($col,$op,$val="") {
   
   switch($op) {
-      case "is null":
-	$oa=$this->searchfam->getAttribute($col);
-	$atype=$oa->type;
-	case "int":
-	case "double":
-	case "money":
-	  $cond = sprintf(" (%s is null or %s = 0) ",$col,$col);
-	  break;
-	switch ($atype) {
-	case "date":
-	case "time":
-	  $cond = sprintf(" (%s is null) ",$col);
-	  break;
-	default:
-	  $cond = sprintf(" (%s is null or %s = '') ",$col,$col);
-	}
-	break;
-      case "is not null":
-	$cond = " ".$col." ".trim($op)." ";
-	break;
-      case "~*":
-	if (trim($val) != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
-	break;
-      case "~^":
-	if (trim($val) != "") $cond .= " ".$col."~* '^".pg_escape_string(trim($val))."' ";
-	break;
-      case "~y":
-	if (! is_array($val)) $val=$this->_val2array($val);
-	if (count($val) > 0) $cond .= " ".$col." ~ '\\\\y(".pg_escape_string(implode('|',$val)).")\\\\y' ";
+  case "is null":
+    $oa=$this->searchfam->getAttribute($col);
+    $atype=$oa->type;
+  case "int":
+  case "double":
+  case "money":
+    $cond = sprintf(" (%s is null or %s = 0) ",$col,$col);
+    break;
+    switch ($atype) {
+    case "date":
+    case "time":
+      $cond = sprintf(" (%s is null) ",$col);
+      break;
+    default:
+      $cond = sprintf(" (%s is null or %s = '') ",$col,$col);
+    }
+    break;
+  case "is not null":
+    $cond = " ".$col." ".trim($op)." ";
+    break;
+  case "~*":
+    if (trim($val) != "") $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+    break;
+  case "~^":
+    if (trim($val) != "") $cond .= " ".$col."~* '^".pg_escape_string(trim($val))."' ";
+    break;
+  case "~y":
+    if (! is_array($val)) $val=$this->_val2array($val);
+    if (count($val) > 0) $cond .= " ".$col." ~ '\\\\y(".pg_escape_string(implode('|',$val)).")\\\\y' ";
 	
-	break;
-      case "~@":	
-	if (trim($val) != "") {
-	  $cond .= " ".$col.'_txt'." ~ '".strtolower($val)."' ";	
-	}
-	break;
-      case "@@":
-	if (trim($val) != "") {
-	$tstatickeys=explode(' ',$val);
-	if (count($tstatickeys) > 1) {
-	  $keyword.= str_replace(" ","&",trim($val));
-	} else {
-	  $keyword=trim($val);
-	}
-	$cond .= " ".$col.'_vec'." @@ to_tsquery('fr','.".unaccent(strtolower($keyword))."') ";
-	}	
-	break;
-      default:
-	$cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
-      
+    break;
+  case "~@":	
+    if (trim($val) != "") {
+      $cond .= " ".$col.'_txt'." ~ '".strtolower($val)."' ";	
+    }
+    break;
+  case "@@":
+    if (trim($val) != "") {
+      $tstatickeys=explode(' ',$val);
+      if (count($tstatickeys) > 1) {
+	$keyword.= str_replace(" ","&",trim($val));
+      } else {
+	$keyword=trim($val);
       }
+      $cond .= " ".$col.'_vec'." @@ to_tsquery('fr','.".unaccent(strtolower($keyword))."') ";
+    }	
+    break;
+  default:
+    $oa=$this->searchfam->getAttribute($col);
+    $atype=$oa->type;
+    switch ($atype) {
+    case "enum": 
+      $enum = $oa->getEnum(); 
+      if (strrpos($val,'.') !== false)   $val = substr($val,strrpos($val,'.')+1); 
+      $tkids=array();;
+      foreach($enum as $k=>$v) {
+	if (in_array($val,explode(".",$k))) {
+	  $tkids[] = substr($k,strrpos(".".$k,'.'));
+	}
+      }
+
+      if ($op=='=') {
+	if ($oa->repeat) {
+	  $cond .= " ".$col." ~ '\\\\y(".pg_escape_string(implode('|',$tkids)).")\\\\y' ";
+	} else {
+	  $cond .= "$col='". implode("' or $col='",$tkids)."'";    
+	}
+      } elseif ($op=='!=') {
+	if ($oa->repeat) {
+	  $cond1 = " ".$col." !~ '\\\\y(".pg_escape_string(implode('|',$tkids)).")\\\\y' ";
+
+	} else {
+	  $cond1 = "$col !='". implode("' and $col != '",$tkids)."'";    
+	}
+	$cond= "($cond1) or ($col is null)";
+      }
+
+      break;
+    default:
+      $cond .= " ".$col." ".trim($op)." '".pg_escape_string(trim($val))."' ";
+    }
+    
+      
+  }
   return $cond;
 }
 
