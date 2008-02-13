@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.36 2008/02/08 09:50:54 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.37 2008/02/13 17:42:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -334,10 +334,19 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
     foreach ($tv as $v) {
       $count[$v["typeview"]]++;
     }
-
+    
     foreach ($tv as $v) {
+      $engine=$cvdoc->getZoneTransform($v["zoneview"]);
+      $url=($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&rvid=$rvid&vid=".$v["idview"]."&id=$docid";
+      if ($engine) {	
+	$js="popdoc(event,'$url')";
+	$url="";
+      } else {	
+	$js="";
+      }
       $tlink[$v["idview"]]=array( "descr"=>($count[$v["typeview"]]>1)?$v["txtview"]:sprintf(_($v["typeview"]. " %s"),$v["txtview"]) ,
-				  "url"=>($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&rvid=$rvid&vid=".$v["idview"]."&id=$docid",
+				  "url"=>$url,
+				  "jsfunction"=>$js,
 				  "confirm"=>"false",
 				  "control"=>"false",
 				  "tconfirm"=>"",

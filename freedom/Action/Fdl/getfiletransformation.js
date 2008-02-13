@@ -64,7 +64,6 @@ function XMLprocesstid() {
 	    setTimeout(function() { verifytid(tid) }, 4000);
 	  } else {
 	    document.getElementById('loading').style.display='none';
-	    document.getElementById('areturn').style.display='';
 	    if (state=='D') window.location.href=window.location.href+'&tid='+tid;
 	  }
 	}
