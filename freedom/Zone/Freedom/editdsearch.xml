@@ -8,8 +8,8 @@
 <tbody>
 <tr class="FREEDOMBack1">
   <td> </td>
-  <td class="FREEDOMLabel" style="text-align:right" valign="bottom">
-   <img needresize="1" style="width:[SIZE_IMG-SMALL]" src="[icon]">
+  <td class="FREEDOMLabel" style="text-align:right">
+   <img needresize="1" align="top" style="width:[SIZE_IMG-SMALL]" src="[icon]">
       <label for="sensitive"> [TEXT:familly]&nbsp;:</label>
      <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=[ACTION]&classid=[classid]&dirid=[dirid]&sfamid='+this.options[this.selectedIndex].value">  
          [BLOCK SELECTCLASS]<option VALUE="[idcdoc]" [selected]>[classname]</option>   
@@ -20,7 +20,7 @@
     </td>
  
   <td class="FREEDOMLabel" style="text-align:left" valign="bottom">
-      <label for="latest"> [L_SE_LATEST]&nbsp;:</label>[V_SE_LATEST]  </td>
+      <label for="latest"> [L_SE_LATEST]&nbsp;:</label> [V_SE_LATEST]  </td>
 </tr></tbody>
 </table>
 
@@ -156,9 +156,9 @@
 </tr>
 
 <tr class="FREEDOMBack1">
-  <td  align="right" colspan="2" >
+  <td  align="left" colspan="2" >
  
- <input type="submit" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH');return false"> </td>
+ <input type="submit" style="font-weight: bold;" value="[TEXT: send search]" onClick="sendsearch('[CORE_STANDURL]&app=FREEDOM&action=SEARCH');return false"> </td>
   <td  align="right"></td>
 </tr>
 
