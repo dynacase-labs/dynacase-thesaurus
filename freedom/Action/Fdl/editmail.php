@@ -3,7 +3,7 @@
  * Edition to send mail
  *
  * @author Anakeen 2000 
- * @version $Id: editmail.php,v 1.18 2008/02/11 16:20:13 eric Exp $
+ * @version $Id: editmail.php,v 1.19 2008/02/13 10:57:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,6 +68,11 @@ function editmail(&$action) {
   $zo=$doc->getZoneOption("$zone");
   
   $action->lay->Set("binarymode",($zo=="B"));
+  if ($zo=="B") {
+    $engine=$doc->getZoneTransform($zone);
+    if ($engine=="pdf")  $action->lay->Set("iconmime",$action->getImageUrl("mime-pdf.png"));
+    else $action->lay->Set("iconmime",$action->getImageUrl("mime-document2.png"));
+  }
 
   $action->lay->Set("from",$from);
   $action->lay->Set("mid",$docid);
