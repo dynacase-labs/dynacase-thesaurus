@@ -6,11 +6,11 @@ function completechoice(index,tattrid,tattrv,winfo) {
 	
 	if (winfo.document.getElementById(tattrid[i])) {
 	  rvalue = tattrv[index][i].replace(/\\n/g,'\n');
-	  ec_setIValue(winfo.document.getElementById(tattrid[i]),rvalue);
+	  ec_setIValue(winfo,winfo.document.getElementById(tattrid[i]),rvalue);
 	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[COLOR_C8]';
 	} else {
 	  rvalue = tattrv[index][i].replace(/\\n/g,'\n');
-	  if (! ec_setIValuePlus(tattrid[i],rvalue)) {
+	  if (! ec_setIValuePlus(winfo,tattrid[i],rvalue)) {
 	    if (notalone) alert('[TEXT:Attribute not found]'+'['+tattrid[i]+']'+winfo.name);
 	  }
 	}
@@ -19,7 +19,7 @@ function completechoice(index,tattrid,tattrv,winfo) {
 	if ((tattrv[index][i].length > 1) &&
 	    ((winfo.document.getElementById(tattrid[i]).value == "") || (winfo.document.getElementById(tattrid[i]).value == " "))) {
 	  rvalue = tattrv[index][i].substring(1).replace(/\\n/g,'\n');
-	  winfo.document.getElementById(tattrid[i]).value = rvalue;
+	  winfo.document.getElementById(tattrid[i]).value = rvalue;	 
 	  winfo.document.getElementById(tattrid[i]).style.backgroundColor='[COLOR_C8]';
 	}
 						      
@@ -81,13 +81,14 @@ function autoClose() {
  
 }
 
-function ec_setIValue(i,v) {
+function ec_setIValue(winfo,i,v) {
   if (i) {
    
     if (i.tagName == "INPUT") {
       if ((i.type=='radio')||(i.type=='checkbox')) {
 	i.checked=v;
 	if (v && (i.type=='radio')) winfo.changeCheckClasses(i,false);
+	//if (v && (i.type=='checkbox')) winfo.changeCheckBoolClasses(i,false);
       }
       else i.value=v;
     }
@@ -98,15 +99,12 @@ function ec_setIValue(i,v) {
       }
     }
   }
-  ec_setIValuePlus(i.id,v);
+  ec_setIValuePlus(winfo,i.id,v);
 }
 
-function ec_setIValuePlus(iid,v) {
-
-    if (! window.winfo) return false;
+function ec_setIValuePlus(winfo,iid,v) {    
     var iid0= iid+'0';
     var i=0;
-
     var oi=winfo.document.getElementById(iid0);
     var ret=false;
 
