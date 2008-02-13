@@ -105,14 +105,8 @@ function viewloading(event) {
 <div style="width:100%;text-align:center" id="divpreview">
 <img  title="[TEXT:Binary file layout]" src="[iconmime]">
 </div>
-<div style="width:100%;text-align:center;display:none" id="divloading">
-
-<p>[TEXT:Composing the email]</p>
-<img  src="[IMG:loading.gif]">
-</div>
-
 [ENDIF binarymode]
 [ENDIF VIEWDOC]
-
+<div style="width:100%;text-align:center;display:none" id="divloading"><p>[TEXT:Composing the email]</p><img  src="[IMG:loading.gif]"></div>
 </body>
 </html>
