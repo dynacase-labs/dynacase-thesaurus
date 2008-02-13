@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.464 2008/02/11 14:21:05 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.465 2008/02/13 11:00:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1557,7 +1557,7 @@ final public function PostInsert()  {
    * @param string $engine the name of transformation
    * @return new file reference
    */
-  public function convertFile($va,$engine,$isimage=false,$force=false) {     
+  public function convertVaultFile($va,$engine,$isimage=false,$force=false) {     
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
     $value='';
