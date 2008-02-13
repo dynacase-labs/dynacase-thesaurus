@@ -30,7 +30,16 @@ function mailfocus(event) {
   else focusFirst(event);
  }
 addEvent(window,"load",mailfocus);
+function viewloading(event) {
+  var preview=document.getElementById('divpreview');
+  var loading=document.getElementById('divloading');
+  var buttons=document.getElementById('buttons');
 
+  if (preview) preview.style.display='none';
+  if (buttons) buttons.style.display='none';
+  if (loading) loading.style.display='';
+
+}
 
   //-->
    </script>  
@@ -51,12 +60,14 @@ addEvent(window,"load",mailfocus);
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
+       onsubmit="viewloading(event)"
        action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&props=N&id=[mid]" >
 
 <input type="hidden" name="zone" value="[mzone]">
 <input type="hidden" name="dochead" value="[dochead]">
 <input type="hidden" name="ulink" value="[ulink]">
 <input type="hidden" name="_mail_from" value="[from]">
+<input type="hidden" name="cr" value="Y">
 
 <table class="tableborder"  cellspacing="0" width="100%">
 
@@ -76,7 +87,7 @@ addEvent(window,"load",mailfocus);
 <tr class="FREEDOMBack2"><td  colspan="3"  height="1px"></td></tr>
 <tr class="FREEDOMBack1">
 
-  <td colspan="3" align="right" >
+  <td colspan="3" align="right" id="buttons">
  <input type="submit" value="[TEXT:Send mail]" onclick="if (!canmodify()) return false;enableall();">
  <input type="button" value="[TEXT:Cancel]" onclick="if (window.top==window) window.close(); else history.back();"> 
   </td>
@@ -88,11 +99,18 @@ addEvent(window,"load",mailfocus);
 
 [IF VIEWDOC]
 [IFNOT binarymode]
-<iframe style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=IMPCARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
+<iframe id="divpreview" style="height:100%"  width="100%" src="[CORE_STANDURL]&app=FDL&action=IMPCARD&ulink=[ulink]&dochead=[dochead]&zone=[mzone]&id=[mid]"></iframe>
 [ENDIF binarymode]
 [IF binarymode]
-<div style="width:100%;text-align:center">
-<img  title="[TEXT:Binary file layout]" src="[IMG:mime-document2.png]"></div>
+<div style="width:100%;text-align:center" id="divpreview">
+<img  title="[TEXT:Binary file layout]" src="[iconmime]">
+</div>
+<div style="width:100%;text-align:center;display:none" id="divloading">
+
+<p>[TEXT:Composing the email]</p>
+<img  src="[IMG:loading.gif]">
+</div>
+
 [ENDIF binarymode]
 [ENDIF VIEWDOC]
 
