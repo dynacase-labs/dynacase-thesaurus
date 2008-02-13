@@ -3,7 +3,7 @@
  * View document zone
  *
  * @author Anakeen 2000 
- * @version $Id: viewcard.php,v 1.87 2008/02/04 10:55:14 eric Exp $
+ * @version $Id: viewcard.php,v 1.88 2008/02/13 11:08:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -127,8 +127,6 @@ function viewcard(&$action) {
     }
   
 
-  if ($doc->defaultmview != "") $action->lay->set("mzone", $doc->defaultmview);
-  else $action->lay->set("mzone", $zonebodycard);
   // with doc head ?
   $zo=$doc->getZoneOption($zonebodycard);
   if (GetHttpVars("dochead")=="")   $dochead=  (! ereg("[T|U|V]", $zo, $reg));
