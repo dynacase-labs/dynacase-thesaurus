@@ -3,7 +3,7 @@
  * display users and groups list
  *
  * @author Anakeen 2000 
- * @version $Id: fusers_list.php,v 1.10 2007/09/04 14:45:09 eric Exp $
+ * @version $Id: fusers_list.php,v 1.11 2008/02/13 15:33:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FUSERS
@@ -50,7 +50,7 @@ function fusers_list(&$action) {
   }
   if (!$groups) $groups=array();
   if ($mgroups) {
-    $doc=createDoc($dbaccess,1);
+    $doc=createTmpDoc($dbaccess,1);
     uasort($mgroups,"cmpgroup");
     foreach ($mgroups as $k=>$v) {
       $cgroup=fusers_getChildsGroup($v["id"],$groups);

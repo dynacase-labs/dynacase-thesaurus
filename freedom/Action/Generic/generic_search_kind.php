@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.12 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.13 2008/02/13 15:33:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.12 2005/06/28 08:37:46 eric Exp $
+// $Id: generic_search_kind.php,v 1.13 2008/02/13 15:33:45 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,8 +66,7 @@ function generic_search_kind(&$action) {
 
   $dir = new_Doc($dbaccess, $dirid);
 
-  $sdoc = createDoc($dbaccess,5); //new DocSearch($dbaccess);
-  $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
+  $sdoc = createTmpDoc($dbaccess,5); //new DocSearch($dbaccess);
   $sdoc->title = sprintf(_("search %s"),$keyword);
   if (($dirid == 0) || ($dir->id == getDefFld($action))) $sdoc->title = sprintf(_("search %s is %s"),
 							     $attr->labelText,$kindname );
