@@ -87,6 +87,7 @@ function addPostValue(post,thename,thevalue) {
 
 function completeChoiceAuto(index) {
   if (index < 0) return;
+  if (! _xmlHttp) return;
   var allvalues = _xmlHttp.responseXML.getElementsByTagName('values');  
   var values=allvalues[index].getElementsByTagName('val');
   
