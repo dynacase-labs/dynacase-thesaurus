@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.74 2008/02/11 16:20:57 eric Exp $
+ * @version $Id: mailcard.php,v 1.75 2008/02/13 10:59:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,6 @@ include_once("Class.MailAccount.php");
 
 // -----------------------------------
 function mailcard(&$action) {
-  // -----------------------------------
 
   $docid = GetHttpVars("id"); 
   $cr = GetHttpVars("cr"); // want a status
@@ -97,9 +96,8 @@ function mailcard(&$action) {
   }
 
   if ($cr == "Y") {
-    if ($err != "") $action->exitError($err);
-    elseif ($sendedmail) $action->addWarningMsg(sprintf(_("the document %s has been sended"),$doc->title));
-    else $action->addWarningMsg(sprintf(_("the document %s has not been sended : no recipient"),$doc->title));
+    if ($err != "") $action->exitError(sprintf(_("the document %s has not be sended :\n %s"), $doc->title, $err));
+    elseif (! $sendedmail) $action->addWarningMsg(sprintf(_("the document %s has not been sended : no recipient"),$doc->title));
   }
 
   foreach ($tuid as $uid) {
@@ -247,10 +245,29 @@ function sendCard(&$action,
   if ($binary) {
 
     $binfile=$doc->viewDoc($zonebodycard);
-    $themail->addAttachment($binfile,'application/vnd.oasis.opendocument.text',$doc->title.".odt");
-    $zonebodycard="FDL:EMPTY";
+    if (! is_file($binfile)) $err=$binfile;
+
+    if ($err=="") {
+      $engine=$doc->getZoneTransform($zonebodycard);
+      if ($engine) {
+	include_once("FDL/Lib.Vault.php");
+	$outfile= uniqid("/var/tmp/conv").".$engine";
+	$err=convertFile($binfile,$engine,$outfile,$info);
+	if ($err=="") {
+	  $mime=getSysMimeFile($outfile);
+	  $ext=getExtension($mime);
+	  $binfile=$outfile;
+	}
+      } else {
+	$mime=getSysMimeFile($binfile,basename($binfile));
+	$ext=getExtension($mime);
+      }
+      $themail->addAttachment($binfile,$mime,$doc->title.".$ext");
+      $zonebodycard="FDL:EMPTY";
+    }
   } 
 
+  if ($err=="") {
     setHttpVar("target","mail");
     if (ereg("html",$format, $reg)) {
 
@@ -488,35 +505,38 @@ function sendCard(&$action,
   
 
 
-  if ($err=="")  {
-    if ($cc != "") $lsend=sprintf("%s and %s",$to,$cc);
-    else $lsend=$to;
-    $doc->addcomment(sprintf(_("sended to %s"), $lsend));
-    $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend)); 
-    $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend));   
-  } else {
-    $action->log->warning($err);
-    $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
-    $action->addwarningmsg(sprintf(_("%s cannot be sent"),$doc->title));
-    $action->addwarningmsg($err);
+    if ($err=="")  {
+      if ($cc != "") $lsend=sprintf("%s and %s",$to,$cc);
+      else $lsend=$to;
+      $doc->addcomment(sprintf(_("sended to %s"), $lsend));
+      $action->addlogmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend)); 
+      $action->addwarningmsg(sprintf(_("sending %s to %s"),$doc->title, $lsend));   
+    } else {
+      $action->log->warning($err);
+      $action->addlogmsg(sprintf(_("%s cannot be sent"),$doc->title));
+      $action->addwarningmsg(sprintf(_("%s cannot be sent"),$doc->title));
+      $action->addwarningmsg($err);
    
-  }
+    }
 
   
-  // suppress temporaries files
-  if (isset($ftxt))  unlink($ftxt);
-  if (isset($fpdf))  unlink($fpdf);
-  if (isset($fps))   unlink($fps);
-  if (isset($pfout)) unlink($pfout);
-  if (isset($ppdf)) unlink($ppdf);
+    // suppress temporaries files
+    if (isset($ftxt))  unlink($ftxt);
+    if (isset($fpdf))  unlink($fpdf);
+    if (isset($fps))   unlink($fps);
+    if (isset($pfout)) unlink($pfout);
+    if (isset($ppdf)) unlink($ppdf);
+    if (isset($binfile)) unlink($binfile);
 
   
-  $tmpfile=array_merge($tmpfile,$tfiles);
-  foreach($tmpfile as $k=>$v) {
-    if (file_exists($v) && (substr($v,0,5)=="/var/tmp/"))
-      unlink($v);    
-  }
+    $tmpfile=array_merge($tmpfile,$tfiles);
+    foreach($tmpfile as $k=>$v) {
+      if (file_exists($v) && (substr($v,0,5)=="/var/tmp/"))
+	unlink($v);    
+    }
  
+  }
+
 
   return $err;
 
