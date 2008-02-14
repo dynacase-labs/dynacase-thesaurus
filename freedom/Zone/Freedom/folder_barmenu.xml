@@ -1,5 +1,5 @@
 <!-- ------------------ BAR MENU ------------------ -->
-<div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;z-index:6;" >
+<div id="barmenu" style="width:100%;position:fixed;left:0;top:0;cursor:default;z-index:6;" >
 <table  class="barmenu"    cellspacing="0"  >
 <thead>
 <tr>

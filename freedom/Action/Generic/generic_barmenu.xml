@@ -47,7 +47,7 @@ testSplit();
    </script>
 
 <!-- ------------------ BAR MENU ------------------ -->
-<div id="barmenu" style="position:fixed;left:0;top:0;cursor:default;" >
+<div id="barmenu" style="width:100%;position:fixed;left:0;top:0;cursor:default;" >
 <table  class="barmenu"  cols="[nbcol]"  cellspacing="0"  >
 <thead>
 <tr>
