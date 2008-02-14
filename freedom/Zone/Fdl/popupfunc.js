@@ -156,10 +156,12 @@ function openMenuXY(event, menuid, x, y) {
   var bm=document.getElementById('barmenu');
   el = document.getElementById(menuid);
   if (el) {
+    if (isNetscape) el.style.position = "fixed";
     if (isNetscape && (el.style.position=='fixed')) {
       y -= getScrollYOffset();
     } 
     activeMenuItem(event,menuid, 1); // first item (no context : only one item)
+    
     el.style.display = "none";
     el.style.top  = y + "px";
     el.style.left = "0px";

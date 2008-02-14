@@ -89,7 +89,7 @@ testSplit();
 
 
 <!-- ------------ MENU NEW --------------------- -->
-<div  id="newmenu" class="popup" style="position:[positionstyle];">
+<div  id="newmenu" class="popup" >
 
 
 [BLOCK NEWFAM]<a  id="newdoc[subfam]" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDIT&classid=[subfam]';closeAllMenu()">[stitle]</a>
@@ -106,7 +106,7 @@ testSplit();
 
 <!-- ------------ MENU KIND  --------------------- -->
 [BLOCK MKIND]
-<div  id="[kindid]menu" class="popup" style="position:[positionstyle];">
+<div  id="[kindid]menu" class="popup" >
 [BLOCK [vkind]]
 <a  id="[kindid][kid]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_SEARCH_KIND&famid=[famid]&kid=[kid]&aid=[kindid]&catg=[catg][pds]';closeAllMenu()" ><span style="margin:0px 0px 0px [level]px">[ktitle]</span></a>
 [ENDBLOCK [vkind]]
@@ -114,7 +114,7 @@ testSplit();
 [ENDBLOCK MKIND]
 
 <!-- ------------ MENU SORT --------------------- -->
-<div  id="sortmenu" class="popup" style="position:[positionstyle];">
+<div  id="sortmenu" class="popup" >
 <a  id="sortdesc" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&famid=[famid]&catg=[dirid]&aorder=-';closeAllMenu()">[TEXT:invert order]</a>
 <a class="separator"></a>
 [BLOCK USORT]<a  id="sortdoc[said]" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_USORT&catg=[dirid]&famid=[famid]&aorder=[said]';closeAllMenu()">[dsort]&nbsp;[satitle]</a>
@@ -122,7 +122,7 @@ testSplit();
 </div>
 
 <!-- ------------ MENU TOOL --------------------- -->
-<div  id="helpmenu" class="popup" style="position:[positionstyle];">
+<div  id="helpmenu" class="popup" >
   <a id="help" target="[fhelp]" href="[CORE_STANDURL]app=CORE&action=HELPVIEW&appname=[APPNAME]" onClick="closeAllMenu()"><img  border="0" height="10" src="[IMG:help.gif]">[TEXT:Help]</a>
 <a  id="imvcard" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITIMPORT';closeAllMenu()">[TEXT:Import file]</a>
 <a  id="aview" href="#" onClick="document.location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_TAB&gview=abstract&catg=[dirid]&tab=0&famid=[famid]';closeAllMenu()">[TEXT:Abstract card]</a>
