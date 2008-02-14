@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.38 2008/02/12 15:24:03 eric Exp $
+ * @version $Id: generic_list.php,v 1.39 2008/02/14 11:22:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,6 +55,7 @@ function generic_list(&$action) {
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $dir = new_Doc($dbaccess,$dirid);
+  $action->lay->Set("pds","");
   if ($catgid) {
     $catg = new_Doc($dbaccess,$catgid);
     $action->lay->Set("pds",$catg->urlWhatEncodeSpec(""));
