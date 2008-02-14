@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.130 2007/11/21 16:56:10 eric Exp $
+ * @version $Id: editutil.php,v 1.131 2008/02/14 11:33:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -265,7 +265,10 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	
       $enuml = $oattr->getenumlabel();
       $lunset=current($enuml);
-      if ($value=="") $value=key($enuml);
+      if ($value=="") {
+	if ($doc->id==0) $value=key($enuml);
+	else $value=" ";
+      }
       switch ($oattr->eformat) {
       case "vcheck":
 	$lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
@@ -298,7 +301,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     //----------------------------------------
 			
   case "color": 
-    $input="<input size=7  style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
+    $elabel=$oattr->getOption("elabel");
+    if ($elabel != "") $eopt.=" title=\"$elabel\"";
+    $input="<input size=7  $eopt style=\"background-color:$value\" type=\"text\"  name=\"".$attrin."\" value=\"".chop(htmlentities($value))."\"";
     $input .= " id=\"".$attridk."\" "; 
 
     if (($visibility == "R")||($visibility == "S")) $input .= $idisabled; 
@@ -306,7 +311,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 
     $input .= " >&nbsp;"; 
     if (!(($visibility == "R")||($visibility == "S"))) {
-      $input.="<input id=\"col$attridk\" type=\"button\" value=\"&#133;\"".
+      $input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	" title=\""._("color picker")."\" onclick=\"colorPick.select(document.getElementById('$attridk'),'$attridk')\"".
 	">";
     }
