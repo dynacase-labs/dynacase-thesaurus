@@ -169,7 +169,7 @@ function attributeSend(event,menuurl,cible,newval) {
 
         ATTRREQ.open("POST", menuurl,false); 
 	//ATTRREQ.setRequestHeader("Content-type", "application/x-www-form-urlencoded");  
-	ATTRREQ.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+	ATTRREQ.setRequestHeader("Content-Type", "multipart/form-data; boundary=\"" + BOUNDARY +"\"");
 	ATTRCIBLE=cible;
 	if (newval) { 
 	  var bs = new String("\r\n--" + BOUNDARY + "\r\n");

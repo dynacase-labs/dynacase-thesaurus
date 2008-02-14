@@ -180,7 +180,8 @@ function callSuggestions(valeur){
     displayMessage('searching...');
     //appel à l'url distante
     _xmlHttp.open("POST",_adresseRecherche+'&skey='+valeur,true);
-    _xmlHttp.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + BOUNDARY);
+    _xmlHttp.setRequestHeader("Toto", "zou");
+    _xmlHttp.setRequestHeader("Content-Type", "multipart/form-data; boundary=\"" + BOUNDARY +"\"");
     var ie=_documentForm.elements.length;
     for (var i=0;i<ie;i++) {
       if (_documentForm.elements[i].name && _documentForm.elements[i].name!='')
