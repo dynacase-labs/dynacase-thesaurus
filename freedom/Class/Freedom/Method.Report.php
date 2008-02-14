@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.12 2008/02/07 15:56:08 eric Exp $
+ * @version $Id: Method.Report.php,v 1.13 2008/02/14 11:34:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2008/02/07 15:56:08 $
-// Version         $Revision: 1.12 $
+// Last Update     $Date: 2008/02/14 11:34:44 $
+// Version         $Revision: 1.13 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -80,8 +80,10 @@ function editreport() {
 
 }
 function viewreport($target="_self",$ulink=true,$abstract=false) {
+  global $action;
   $this->viewattr($target,$ulink, $abstract);
-
+  $this->viewprop($target,$ulink, $abstract);
+  $action->parent->AddCssRef("FREEDOM:viewreport.css",true);
   // --------------------------
   // display headers column  
   $rfamid = $this->getValue("SE_FAMID",1);
@@ -114,8 +116,8 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   include_once("FDL/Lib.Dir.php");
    
 
-  $this->lay->set("reportstyle",$this->getValue("REP_STYLE","reportHBlue"));
-  
+  $this->lay->set("reportstyle",$this->getValue("REP_STYLE","perso"));
+  $this->lay->set("isperso",($this->getValue("REP_STYLE","perso")=="perso"));
   if ($this->isParameterizable() && $ulink) {
     $this->lay->setBlockData("PARAMS",array(array("zou")));
   } 
