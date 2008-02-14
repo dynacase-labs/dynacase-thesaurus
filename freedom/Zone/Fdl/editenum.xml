@@ -1,4 +1,4 @@
-<select  name="[name]" id="[id]" [disabled]>
+<select  name="[name]" id="[id]"  onchange="disableReadAttribute()" [disabled]>
 [BLOCK OPTIONS]
 <option [selected] value="[kvalue]">[fvalue]</option>
 [ENDBLOCK OPTIONS]

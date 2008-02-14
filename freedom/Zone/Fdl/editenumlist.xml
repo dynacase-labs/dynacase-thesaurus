@@ -1,4 +1,4 @@
-<select multiple size=3 name="[name][]" id="[id]" [disabled]>
+<select multiple size=3 name="[name][]" onchange="disableReadAttribute()" id="[id]" [disabled]>
 [BLOCK OPTIONS]
 <option [selected] value="[kvalue]">[fvalue]</option>
 [ENDBLOCK OPTIONS]<option  style="display:none"  value=" "></option>
