@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.46 2007/10/11 12:35:10 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.47 2008/02/15 14:54:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -566,7 +566,7 @@ public function isValidLink($title, $docid){
    * @return int
    */
   public function controlAclAccess($acl) {
-    if ($this->profid != $this->id) return MENU_INVISIBLE;
+    //    if ($this->profid != $this->id) return MENU_INVISIBLE;
     $err= $this->control($acl);
 
     if ($err == "") return MENU_ACTIVE;

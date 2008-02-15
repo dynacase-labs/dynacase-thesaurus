@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.37 2008/02/13 17:42:17 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.38 2008/02/15 14:54:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -431,6 +431,7 @@ function addFamilyPopup(&$tlink,&$doc) {
     if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
     $tlink[$k]["idlink"] = $v->id;
     $tlink[$k]["descr"] = $v->labelText;
+    $tlink[$k]["title"] = $v->getOption("ltitle");
     $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
     $tlink[$k]["confirm"]=$confirm?"true":"false";
     $tlink[$k]["control"]=$control;
