@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.131 2008/02/14 11:33:47 eric Exp $
+ * @version $Id: editutil.php,v 1.132 2008/02/18 11:14:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -202,18 +202,26 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     //      $input .= "<input type=\"button\" onclick=\"var editor$attridk = new HTMLArea('$attridk');editor$attridk.generate();\" value=\"Y\"></input>";
     // $input .= "<script >var editor$attridk = new HTMLArea('$attridk');setTimeout(\"editor$attridk.generate()\",500)</script>";
 
-    $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
-    $lay->set("Value",str_replace(array("\n","\r","'","script>"),array(" "," ","\\'","pre>"), $value));
-    $lay->set("label",ucFirst($oattr->labelText));
-    $lay->set("need",$oattr->needed);
-    $lay->set("height",$oattr->getOption("editheight","100%"));
-    $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
-    $lay->set("toolbarexpand",(strtolower($oattr->getOption("toolbarexpand"))=="no")?"false":"true");
-    $lay->set("aid",$attridk);
-    $lay->set("aname",$attrin);
-    if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
-    else $lay->set("disabled","");
-    $input =$lay->gen(); 
+    if (($visibility=="H")||($visibility=="R")) {
+      $input="<textarea    name=\"$attrin\">$value</textarea>";
+    } elseif ($visibility=="S") {
+      // no input : just text
+      $input="<div class=\"static\" name=\"$attrin\">$value</div>";
+      
+    } else {
+      $lay = new Layout("FDL/Layout/fckeditor.xml", $action);
+      $lay->set("Value",str_replace(array("\n","\r","'","script>"),array(" "," ","\\'","pre>"), $value));
+      $lay->set("label",ucFirst($oattr->labelText));
+      $lay->set("need",$oattr->needed);
+      $lay->set("height",$oattr->getOption("editheight","100%"));
+      $lay->set("toolbar",$oattr->getOption("toolbar","Simple"));
+      $lay->set("toolbarexpand",(strtolower($oattr->getOption("toolbarexpand"))=="no")?"false":"true");
+      $lay->set("aid",$attridk);
+      $lay->set("aname",$attrin);
+      if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+      else $lay->set("disabled","");
+      $input =$lay->gen(); 
+    }
 
     
     break;
