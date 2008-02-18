@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.465 2008/02/13 11:00:47 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.466 2008/02/18 17:29:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3818,7 +3818,7 @@ final public function PostInsert()  {
 	break;
       case money:    
 	$htmlval=money_format('%!.2n', doubleval($avalue));
-	$htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
+	//$htmlval=str_replace(" ","&nbsp;",$htmlval); // need to replace space by non breaking spaces
 	break;
 	
       case htmltext:  
@@ -4192,7 +4192,7 @@ final public function PostInsert()  {
     } else  $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
     
     $this->lay->set("_readonly",($this->Control('edit')!=""));
-    $method = strtolower($reg[2]);
+    $method = strtok(strtolower($reg[2]),'.');
 
    
     if (method_exists ( $this, $method)) {
