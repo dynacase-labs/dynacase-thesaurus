@@ -29,6 +29,11 @@ if (ita) ita.name='[aname]';
 
 FCKEDITORS.push('_[aid]');
 function trackQS_[aid]() {
+  if (! FCKeditorAPI) {
+    window.setTimeout( trackQS_[aid], 2400 );
+    return;
+  }
+
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
   if (oEditor && oEditor.EditorDocument) {   
@@ -47,6 +52,10 @@ function fckforceedit_[aid]() {
   } 
 }
 function wstop_[aid]() { 
+  if (! FCKeditorAPI) {
+    window.setTimeout( wstop_[aid], 1000 ) ;
+    return;
+  }
   var oEditor = FCKeditorAPI.GetInstance('_[aid]') ;
 
   if (oEditor && oEditor.EditorDocument && (oEditor.Status==FCK_STATUS_COMPLETE)) {  
