@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.127 2008/02/14 11:34:14 eric Exp $
+ * $Id: freedom.css,v 1.128 2008/02/18 17:29:45 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -801,4 +801,8 @@ img.mime {
   width:[SIZE_IMG-X-SMALL];
   border:none;
   vertical-align:bottom;
+}
+
+DIV.static {
+  border : 1px solid [COLOR_A0];
 }
