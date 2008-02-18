@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.3 2007/06/25 16:28:42 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.4 2008/02/18 11:13:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,6 +36,7 @@ function viewbarmenu(&$action) {
 				 "visibility"=>false,
 				 "confirm"=>false,
 				 "jsfunction"=>false,
+				 "title"=>false,
 				 "barmenu"=>false,
 				 "url"=>false,
 				 "target"=>false,
@@ -55,6 +56,7 @@ function viewbarmenu(&$action) {
 	if ($v["mheight"]=="")  $popup[$k]["mheight"]=$action->getParam("FDL_HD2SIZE");
 	if ($v["target"]=="")  $popup[$k]["target"]="$k$docid";
 	$popup[$k]["descr"]=ucfirst($v["descr"]);
+	$popup[$k]["title"]=ucfirst($v["title"]);
 	$popup[$k]["ISJS"]=($v["jsfunction"]!="");
 	$popup[$k]["confirm"]=($v["confirm"]=="true");
 	$popup[$k]["tconfirm"]=str_replace("'","&rsquo;",$v["tconfirm"]);
