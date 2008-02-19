@@ -36,7 +36,10 @@ function sendsearch(faction,rtarget) {
       if (nt)   disabledInput(nt,true);
     }
     if ((!rtarget) &&  (window.parent.fvfolder)) rtarget='fvfolder';
-    else  if (!rtarget) rtarget='_blank';
+    else if ((!rtarget) &&  (window.parent.flist)) {
+      rtarget='flist';
+      faction=faction + '&ingeneric=yes';
+    } else  if (!rtarget) rtarget='_blank';
     target=rtarget;
     action=faction;
     submit();

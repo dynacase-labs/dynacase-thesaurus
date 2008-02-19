@@ -3,7 +3,7 @@
  * Search document
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.27 2008/02/19 16:06:06 eric Exp $
+ * @version $Id: search.php,v 1.28 2008/02/19 16:50:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -40,7 +40,8 @@ function search(&$action) {
   $viewone=GetHttpVars("viewone"); // direct view if only one Y|N
   $target=GetHttpVars("target"); // target window when click on document
   $view=GetHttpVars("view"); // display mode : icon|column|list
-  
+  $famid=GetHttpVars("famid");
+  $generic=(GetHttpVars("ingeneric")=="yes");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   if ($classid == 0) {
@@ -70,7 +71,7 @@ function search(&$action) {
   }
   $ndoc->setValue("se_key",$keyword);
   $ndoc->setValue("se_latest","yes");
-  $ndoc->setValue("se_famid",GetHttpVars("famid"));
+  $ndoc->setValue("se_famid",$famid);
   $err = $ndoc->Add();
  
   if ($err != "")  $action->ExitError($err);
@@ -81,8 +82,14 @@ function search(&$action) {
   $err = modcard($action, $ndocid); // ndocid change if new doc
     
   $orderby=urlencode($ndoc->getValue("se_orderby"));
-  redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&view=$view&target=$target&viewone=$viewone&dirid=".$ndoc->id."&sqlorder=$orderby",
+  
+  if ($generic) {
+    redirect($action,"GENERIC","GENERIC_LIST&famid=$famid&catg=0&dirid=".$ndoc->id,
 	   $action->GetParam("CORE_STANDURL"));
+  } else {
+    redirect($action,GetHttpVars("app"),"FREEDOM_VIEW&view=$view&target=$target&viewone=$viewone&dirid=".$ndoc->id."&sqlorder=$orderby",
+	   $action->GetParam("CORE_STANDURL"));
+  }
   
   
 }
