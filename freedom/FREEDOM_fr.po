@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-13 12:01+0100\n"
-"PO-Revision-Date: 2008-02-13 12:03+0100\n"
+"POT-Creation-Date: 2008-02-19 16:09+0100\n"
+"PO-Revision-Date: 2008-02-19 16:09+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -766,16 +766,26 @@ msgid "File:: failed"
 msgstr "Échec de la conversion"
 
 #, c-format
+msgid "no privilege to create this kind (%d) of document"
+msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
+
+msgid "new search "
+msgstr "Recherche "
+
+#, c-format
+msgid "search %s"
+msgstr "recherche %s"
+
+msgid "search result"
+msgstr "résultat de la recherche"
+
+#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
 msgstr ""
 "Exécution du lot abandonnée\n"
 "Document [%s] non trouvé"
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
-msgstr "vous n'avez pas la permission de créer ce type (%d) de document "
 
 msgid "no file specified : change icon aborted"
 msgstr "pas de fichier fournit, changement d'icone abandonnée"
@@ -1042,16 +1052,6 @@ msgstr "%s a été supprimé dans le dossier %s"
 msgid "%s new revision %d"
 msgstr "%s nouvelle révision %d"
 
-msgid "new search "
-msgstr "Recherche "
-
-#, c-format
-msgid "search %s"
-msgstr "recherche %s"
-
-msgid "search result"
-msgstr "résultat de la recherche"
-
 msgid " any familly"
 msgstr "toute famille"
 
@@ -1121,12 +1121,6 @@ msgstr "les cookies semblent être bloqués par le navigateur"
 msgid "%s all "
 msgstr "%s tout"
 
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-"le document %s n'est pas un dossier et ne supporte pas le suppression en "
-"cascade"
-
 msgid "Creation aborded : no family specified"
 msgstr "Création abandonnée : pas de famille spécifiée"
 
@@ -1155,6 +1149,12 @@ msgstr "Créer"
 #, c-format
 msgid "current (<i>%s</i>)"
 msgstr "courant (<i>%s</i>)"
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
+msgstr ""
+"le document %s n'est pas un dossier et ne supporte pas le suppression en "
+"cascade"
 
 #, c-format
 msgid "definition of enumerate attribute %s of %s family"
@@ -3012,6 +3012,24 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
+#, c-format
+msgid "period from %s to %s"
+msgstr "période du %s au %s"
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid "this kind of document cannot be duplicate"
+msgstr "ce type de document ne peut être dupliqué"
+
+msgid "duplication of"
+msgstr "duplication de"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr "la duplication est nommée : %s"
+
 msgid "error in filename"
 msgstr "erreur dans le nom de fichier"
 
@@ -3051,30 +3069,6 @@ msgstr "elinkEncode :  attribut non trouvé %s"
 #, c-format
 msgid "create new %s"
 msgstr "créé par %s"
-
-msgid "This document has been deleted"
-msgstr "Ce document a été supprimé"
-
-msgid "nobody"
-msgstr "personne"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr "période du %s au %s"
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid "this kind of document cannot be duplicate"
-msgstr "ce type de document ne peut être dupliqué"
-
-msgid "duplication of"
-msgstr "duplication de"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr "la duplication est nommée : %s"
 
 #, c-format
 msgid ""
@@ -3172,6 +3166,12 @@ msgstr "Sauver les paramètres"
 
 msgid "Save"
 msgstr "Sauver"
+
+msgid "This document has been deleted"
+msgstr "Ce document a été supprimé"
+
+msgid "nobody"
+msgstr "personne"
 
 #, c-format
 msgid "%d document"
@@ -3329,9 +3329,6 @@ msgstr "entrée non trouvé"
 
 msgid "Status"
 msgstr "État"
-
-msgid "Return to default view"
-msgstr "Retour à la vue par défaut"
 
 msgid "Previous"
 msgstr "Précédent"
@@ -3998,6 +3995,12 @@ msgstr "Préférences"
 msgid "Edit attribute kinds"
 msgstr "Éditer les catégories"
 
+msgid "New search"
+msgstr "Nouvelle recherche"
+
+msgid "New report"
+msgstr "Nouveau rapport"
+
 msgid "level"
 msgstr "niveau"
 
@@ -4354,30 +4357,6 @@ msgstr "Ajouter une condition"
 msgid "addstate"
 msgstr "État"
 
-msgid "Print"
-msgstr "Imprimer"
-
-msgid "mail"
-msgstr "mail"
-
-msgid "senddoc"
-msgstr "Envoyer le document"
-
-msgid "goto forum"
-msgstr "aller au forum"
-
-msgid "View postit"
-msgstr "Voir le post-it"
-
-msgid "RSS link"
-msgstr "S'abonner au lien RSS"
-
-msgid "wordedit"
-msgstr "édition par traitement de texte"
-
-msgid "View cycle graph"
-msgstr "Voir le graphe du cycle de vie"
-
 msgid "enumerate input not found"
 msgstr "entrée énumérée non trouvé"
 
@@ -4631,6 +4610,30 @@ msgstr "premier"
 msgid "PubliPreview"
 msgstr "prévisualisation"
 
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "mail"
+msgstr "mail"
+
+msgid "senddoc"
+msgstr "Envoyer le document"
+
+msgid "goto forum"
+msgstr "aller au forum"
+
+msgid "View postit"
+msgstr "Voir le post-it"
+
+msgid "RSS link"
+msgstr "S'abonner au lien RSS"
+
+msgid "wordedit"
+msgstr "édition par traitement de texte"
+
+msgid "View cycle graph"
+msgstr "Voir le graphe du cycle de vie"
+
 msgid "View family"
 msgstr "Voir la famille"
 
@@ -4703,9 +4706,6 @@ msgstr "Cliquer pour voir le menu"
 msgid "Others"
 msgstr "Autres"
 
-msgid "Parameters for"
-msgstr "Paramètres pour"
-
 msgid "Conditions"
 msgstr "Conditions"
 
@@ -4730,6 +4730,12 @@ msgstr "hier"
 msgid "tomorrow"
 msgstr "demain"
 
+msgid "Search criteria"
+msgstr "Critères de recherche"
+
+msgid "Parameters for"
+msgstr "Paramètres pour"
+
 msgid "fieldset"
 msgstr "cadre"
 
@@ -4744,9 +4750,6 @@ msgstr "Nouvelle obligation"
 
 msgid "default visibility"
 msgstr "visibilité par défaut"
-
-msgid "Search criteria"
-msgstr "Critères de recherche"
 
 msgid "More options"
 msgstr "Plus d'options"
@@ -4889,6 +4892,9 @@ msgid ""
 msgstr ""
 "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser "
 "le menu \"Ouvrir\" à partir du menu contextuel."
+
+#~ msgid "Return to default view"
+#~ msgstr "Retour à la vue par défaut"
 
 #~ msgid "no file referenced"
 #~ msgstr "pas de fichier référencé"
@@ -5622,9 +5628,6 @@ msgstr ""
 
 #~ msgid "SOCIETY category id to find constructors"
 #~ msgstr "identificateur catégorie pour la recherche de sociétés clientes"
-
-#~ msgid "New category"
-#~ msgstr "Nouvelle catégorie"
 
 #~ msgid "Category"
 #~ msgstr "Catégorie"

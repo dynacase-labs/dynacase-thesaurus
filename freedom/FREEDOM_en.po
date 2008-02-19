@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-13 12:01+0100\n"
+"POT-Creation-Date: 2008-02-19 16:09+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -812,13 +812,25 @@ msgid "File:: failed"
 msgstr "Update Title Cards"
 
 #, c-format
+msgid "no privilege to create this kind (%d) of document"
+msgstr ""
+
+#, fuzzy
+msgid "new search "
+msgstr "Start search"
+
+#, fuzzy, c-format
+msgid "search %s"
+msgstr "Start search"
+
+#, fuzzy
+msgid "search result"
+msgstr "Start search"
+
+#, c-format
 msgid ""
 "batcexec aborted\n"
 "document [%s] not found"
-msgstr ""
-
-#, c-format
-msgid "no privilege to create this kind (%d) of document"
 msgstr ""
 
 msgid "no file specified : change icon aborted"
@@ -1084,18 +1096,6 @@ msgid "%s new revision %d"
 msgstr "Organisation"
 
 #, fuzzy
-msgid "new search "
-msgstr "Start search"
-
-#, fuzzy, c-format
-msgid "search %s"
-msgstr "Start search"
-
-#, fuzzy
-msgid "search result"
-msgstr "Start search"
-
-#, fuzzy
 msgid " any familly"
 msgstr "Start search"
 
@@ -1173,10 +1173,6 @@ msgstr ""
 msgid "%s all "
 msgstr "readall"
 
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-
 msgid "Creation aborded : no family specified"
 msgstr ""
 
@@ -1205,6 +1201,10 @@ msgstr "Create"
 
 #, c-format
 msgid "current (<i>%s</i>)"
+msgstr ""
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
 #, c-format
@@ -3220,6 +3220,25 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
+#, c-format
+msgid "period from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr ""
+
+msgid "this kind of document cannot be duplicate"
+msgstr ""
+
+#, fuzzy
+msgid "duplication of"
+msgstr "Edit"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr ""
+
 #, fuzzy
 msgid "error in filename"
 msgstr "Firstname"
@@ -3263,32 +3282,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "create new %s"
 msgstr "Edit"
-
-msgid "This document has been deleted"
-msgstr ""
-
-#, fuzzy
-msgid "nobody"
-msgstr "No embed file"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr ""
-
-msgid "this kind of document cannot be duplicate"
-msgstr ""
-
-#, fuzzy
-msgid "duplication of"
-msgstr "Edit"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr ""
 
 #, c-format
 msgid ""
@@ -3384,6 +3377,13 @@ msgstr "Import"
 #, fuzzy
 msgid "Save"
 msgstr "Identity"
+
+msgid "This document has been deleted"
+msgstr ""
+
+#, fuzzy
+msgid "nobody"
+msgstr "No embed file"
 
 #, fuzzy, c-format
 msgid "%d document"
@@ -3579,10 +3579,6 @@ msgstr "Import"
 #, fuzzy
 msgid "Status"
 msgstr "Identity"
-
-#, fuzzy
-msgid "Return to default view"
-msgstr "Import"
 
 #, fuzzy
 msgid "Previous"
@@ -4400,6 +4396,14 @@ msgstr "Delete"
 msgid "Edit attribute kinds"
 msgstr "Update Title Cards"
 
+#, fuzzy
+msgid "New search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "New report"
+msgstr "Category"
+
 msgid "level"
 msgstr ""
 
@@ -4815,37 +4819,6 @@ msgstr "Modify"
 msgid "addstate"
 msgstr "Identity"
 
-#, fuzzy
-msgid "Print"
-msgstr "Print this page"
-
-#, fuzzy
-msgid "mail"
-msgstr "Email"
-
-#, fuzzy
-msgid "senddoc"
-msgstr "Edit"
-
-#, fuzzy
-msgid "goto forum"
-msgstr "Import"
-
-#, fuzzy
-msgid "View postit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "RSS link"
-msgstr "Delete"
-
-#, fuzzy
-msgid "wordedit"
-msgstr "Modify not possible"
-
-msgid "View cycle graph"
-msgstr ""
-
 msgid "enumerate input not found"
 msgstr ""
 
@@ -5141,6 +5114,37 @@ msgid "PubliPreview"
 msgstr ""
 
 #, fuzzy
+msgid "Print"
+msgstr "Print this page"
+
+#, fuzzy
+msgid "mail"
+msgstr "Email"
+
+#, fuzzy
+msgid "senddoc"
+msgstr "Edit"
+
+#, fuzzy
+msgid "goto forum"
+msgstr "Import"
+
+#, fuzzy
+msgid "View postit"
+msgstr "Edit"
+
+#, fuzzy
+msgid "RSS link"
+msgstr "Delete"
+
+#, fuzzy
+msgid "wordedit"
+msgstr "Modify not possible"
+
+msgid "View cycle graph"
+msgstr ""
+
+#, fuzzy
 msgid "View family"
 msgstr "Start search"
 
@@ -5228,10 +5232,6 @@ msgid "Others"
 msgstr "Delete"
 
 #, fuzzy
-msgid "Parameters for"
-msgstr "Delete"
-
-#, fuzzy
 msgid "Conditions"
 msgstr "Edit"
 
@@ -5259,6 +5259,14 @@ msgid "tomorrow"
 msgstr ""
 
 #, fuzzy
+msgid "Search criteria"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Parameters for"
+msgstr "Delete"
+
+#, fuzzy
 msgid "fieldset"
 msgstr "Update Title Cards"
 
@@ -5277,10 +5285,6 @@ msgstr "Delete"
 #, fuzzy
 msgid "default visibility"
 msgstr "Visibility"
-
-#, fuzzy
-msgid "Search criteria"
-msgstr "Start search"
 
 #, fuzzy
 msgid "More options"
@@ -5450,6 +5454,10 @@ msgid ""
 "Too many members to display there here. Use Open context menu to display "
 "them."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Return to default view"
+#~ msgstr "Import"
 
 #, fuzzy
 #~ msgid "Details"
@@ -5798,10 +5806,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "%s %s category "
 #~ msgstr "Title"
-
-#, fuzzy
-#~ msgid "New category"
-#~ msgstr "Category"
 
 #, fuzzy
 #~ msgid "Category"

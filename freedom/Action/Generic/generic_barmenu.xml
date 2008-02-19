@@ -130,6 +130,9 @@ testSplit();
 <a  id="isplit" href="#" onClick="invertSplit(event,true);closeAllMenu();return false">[TEXT:Invert split]</a>
 <a  id="memosearch" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'fhidden','[CORE_STANDURL]app=GENERIC&action=GENERIC_MEMOSEARCH&famid=[famid]&psearchid=[catg]');closeAllMenu()">[TEXT:memosearch]</a>
 <a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
+<a  id="newdsearch" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&se_memo=yes&classid=16&onlysubfam=[famid]&sfamid=[famid]';closeAllMenu()">[TEXT:New search]</a>
+<a  id="newreport" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&se_memo=yes&classid=25&onlysubfam=[famid]&sfamid=[famid]';closeAllMenu()">[TEXT:New report]</a>
+
 <a  id="prefs" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'_self','[CORE_STANDURL]app=GENERIC&action=GENERIC_PREFS&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Preferences]</a>
 
 <a  id="kindedit" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=[APPNAME]&action=GENERIC_EDITFAMCATG&famid=[famid]';closeAllMenu()">[TEXT:Edit attribute kinds]</a><a class="separator"></a>

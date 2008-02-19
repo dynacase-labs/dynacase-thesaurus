@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.50 2007/08/01 14:05:40 eric Exp $
+ * @version $Id: barmenu.php,v 1.51 2008/02/19 16:05:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -117,7 +117,7 @@ function barmenu(&$action) {
 
   popupInit("newmenu",  $tnewmenu   );
 
-  popupInit("helpmenu", array('help','imvcard','folders','memosearch','isplit','cview','aview','kindedit','prefs'));
+  popupInit("helpmenu", array('help','imvcard','folders','newdsearch','newreport','memosearch','isplit','cview','aview','kindedit','prefs'));
 
   $lmenu = $fdoc->GetMenuAttributes();
   foreach($lmenu as $k=>$v) {    
@@ -154,8 +154,9 @@ function barmenu(&$action) {
       popupInactive("newmenu",1,$vid); 
     }
   }
-   if ($dirid < 1000000000 )   popupActive("helpmenu",1,'memosearch');  
-   else  popupInvisible("helpmenu",1,'memosearch'); 
+
+  if (($dirid < 1000000000 ) && ($catg > 1))  popupActive("helpmenu",1,'memosearch');  
+  else  popupInvisible("helpmenu",1,'memosearch'); 
    
   if ($action->HasPermission("GENERIC_MASTER"))  {
     popupActive("helpmenu",1,'imvcard');  
@@ -168,6 +169,8 @@ function barmenu(&$action) {
   popupInvisible("helpmenu",1,'cview'); 
   popupInvisible("helpmenu",1,'aview'); 
   popupActive("helpmenu",1,'prefs'); 
+  popupActive("helpmenu",1,'newdsearch');
+  popupActive("helpmenu",1,'newreport');
 
   popupInactive("helpmenu",1,'help');// for the moment need to rewrite documentation
 
