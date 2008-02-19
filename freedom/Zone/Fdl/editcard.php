@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.65 2008/02/08 16:34:25 eric Exp $
+ * @version $Id: editcard.php,v 1.66 2008/02/19 16:07:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -46,6 +46,7 @@ function editcard(&$action) {
       redirect($action,"FDL",
 	       "FDL_CONFIDENTIAL&&id=".$doc->id);
     }
+    $classid=$doc->fromid;
   }
   
   $usefor = GetHttpVars("usefor"); // default values for a document

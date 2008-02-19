@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.67 2007/12/12 15:16:30 eric Exp $
+ * @version $Id: generic_edit.php,v 1.68 2008/02/19 16:05:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -43,7 +43,7 @@ function generic_edit(&$action) {
   $rvid = GetHttpVars("rvid"); // special zone when finish edition
   $rtarget = GetHttpVars("rtarget","_self"); // special zone when finish edition return target
 
-  setHttpVar("classid",$classid);
+  if ($docid==0) setHttpVar("classid",$classid);
   $vid = GetHttpVars("vid"); // special controlled view
   $mskid = GetHttpVars("mskid"); // special mask
 
