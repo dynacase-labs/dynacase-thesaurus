@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.88 2008/02/07 16:19:33 eric Exp $
+ * @version $Id: viewfolder.php,v 1.89 2008/02/19 16:06:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,7 +41,6 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
   // $column = ($with_popup && ($action->getParam("FREEDOM_VIEW")=="column"));
   
   // Set the globals elements
-
 
   $baseurl=$action->GetParam("CORE_BASEURL");
   $standurl=$action->GetParam("CORE_STANDURL");
@@ -315,7 +314,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	  if ($with_abstract === 2 ){    
 	    $tdoc[$k]["ABSTRACTVALUES"]=getAbstractDetail($doc,$target);	  
 	  } else {
-	    $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,"finfo");	
+	    $tdoc[$k]["ABSTRACTVALUES"]=$doc->viewDoc($doc->defaultabstract,$target);
 	    $tdoc[$k]["LOrR"]=($k%2==0)?"left":"right";  
 	  }
 	} else $tdoc[$k]["ABSTRACTVALUES"]="";
@@ -440,7 +439,6 @@ function getAbstractDetail(&$doc,$target) {
   $tout=array();
   $lattr=$doc->GetAbstractAttributes();
   $emptytableabstract=array();
-
   foreach($lattr as $ka=>$attr)  {	
     $val = $doc->GetHtmlAttrValue($ka,$target);
 
