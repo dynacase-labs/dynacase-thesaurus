@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.75 2008/02/13 10:59:31 eric Exp $
+ * @version $Id: mailcard.php,v 1.76 2008/02/19 09:47:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -261,6 +261,10 @@ function sendCard(&$action,
       } else {
 	$mime=getSysMimeFile($binfile,basename($binfile));
 	$ext=getExtension($mime);
+	if (!$ext) {
+	  $tplfile=$doc->getZoneFile($zonebodycard);
+	  if (strstr($tplfile,'.')) $ext=substr($tplfile,strrpos($tplfile,'.')+1);
+	}
       }
       $themail->addAttachment($binfile,$mime,$doc->title.".$ext");
       $zonebodycard="FDL:EMPTY";
