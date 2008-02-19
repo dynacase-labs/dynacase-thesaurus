@@ -6,7 +6,7 @@
 
 </fieldset>
 
-<table class="tableborder"  cellspacing="0" width="100%">
+<table  cellspacing="0" cellpadding="0" width="100%">
 <tbody>
 
 [ZONE FDL:EDITFRAME?frameid=REP_FR_PRESENTATION]
