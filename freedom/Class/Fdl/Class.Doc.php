@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.466 2008/02/18 17:29:27 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.467 2008/02/19 09:48:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4055,7 +4055,16 @@ final public function PostInsert()  {
     return $t;
   }
   
-
+  /** 
+   * return the basename of template file
+   * @return string
+   */
+  public function getZoneFile($zone="") {
+    if ($zone=="") $zone=$this->defaultview;
+    if (ereg("([A-Z_-]+):([^:]+):{0,1}([A-Z]{0,1})", $zone, $reg)) {
+      return $reg[2];
+    }
+  }  
   /** 
    * return the character in third part of zone
    * @return char
@@ -4180,7 +4189,7 @@ final public function PostInsert()  {
     if (!$changelayout) {
       $play=$this->lay;
     }
-    
+    $binary=($this->getZoneOption($layout)=="B");
     if (strstr($reg[2],'.')) {
       $ext=substr($reg[2],strrpos($reg[2],'.')+1);
       if (strtolower($ext)=="odt") {
@@ -4189,7 +4198,9 @@ final public function PostInsert()  {
 	$ulink=false;
 	$this->lay = new OOoLayout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
       } else $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2])), $action);
-    } else  $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
+    } else  {
+      $this->lay = new Layout(getLayoutFile($reg[1],strtolower($reg[2]).".xml"), $action);
+    }
     
     $this->lay->set("_readonly",($this->Control('edit')!=""));
     $method = strtok(strtolower($reg[2]),'.');
@@ -4215,6 +4226,14 @@ final public function PostInsert()  {
       // suppress session id
       return preg_replace("/\?session=[^&]*&/", "?" ,$laygen );
     }
+    if ($binary && ($target != "ooo")) {
+      // set result into file
+      $tmpfile=uniqid("/var/tmp/fdllay").".html";
+      $nc=file_put_contents($tmpfile,$laygen);
+      $laygen=$tmpfile;
+      
+    }
+
     return $laygen;
   }
   // --------------------------------------------------------------------
