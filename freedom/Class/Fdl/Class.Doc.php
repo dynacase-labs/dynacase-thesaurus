@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.467 2008/02/19 09:48:57 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.468 2008/02/19 14:08:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -611,7 +611,7 @@ final public function PostInsert()  {
    *
    * @return bool true is revisable
    */
-  final public function isRevisable() {
+  public function isRevisable() {
     if (($this->doctype == 'F') && ($this->usefor != 'P')) {
       $fdoc = $this->getFamDoc();
       if ($fdoc->schar != "S") return true;
