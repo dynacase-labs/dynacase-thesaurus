@@ -4,7 +4,7 @@
  * FDL Forum edition action
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_forumaddentry.php,v 1.6 2007/12/14 13:25:32 marc Exp $
+ * @version $Id: fdl_forumaddentry.php,v 1.7 2008/02/19 14:08:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,6 +29,11 @@ function fdl_forumaddentry(&$action) {
   if ($docid=="") $action->exitError(_("no document reference"));
   $doc = new_Doc($dbaccess, $docid);
   if (! $doc->isAffected()) $action->exitError(sprintf(_("cannot see unknow reference %s"),$docid));
+  if ($doc->locked == -1) { // it is revised document
+    $docid = $doc->latestId();
+    if ($docid != $doc->id) $doc = new_Doc($dbaccess, $docid);
+  }
+
 
   if ($doc->Control("edit")!="" && $doc->Control("forum")!="") 
     $action->exitError(sprintf(_("you don't have privilege to edit forum for document %s"),$doc->title));
