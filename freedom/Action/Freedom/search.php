@@ -3,7 +3,7 @@
  * Search document
  *
  * @author Anakeen 2000 
- * @version $Id: search.php,v 1.26 2007/04/26 12:23:44 eric Exp $
+ * @version $Id: search.php,v 1.27 2008/02/19 16:06:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -53,8 +53,9 @@ function search(&$action) {
       //      $action->exitError(_("kind of search is not defined"));
     }
   }
+
   // new doc
-  $ndoc = createDoc($dbaccess, $classid);
+  $ndoc = createTmpDoc($dbaccess, $classid);
   if (! $ndoc) $action->exitError(sprintf(_("no privilege to create this kind (%d) of document"),$classid));
     
   if ($keyword != "") $ndoc->title=_("new search ").$keyword;
@@ -67,7 +68,6 @@ function search(&$action) {
       $ndoc->title=sprintf(_("search result"));
     }
   }
-  $ndoc->doctype='T';
   $ndoc->setValue("se_key",$keyword);
   $ndoc->setValue("se_latest","yes");
   $ndoc->setValue("se_famid",GetHttpVars("famid"));
