@@ -6,22 +6,18 @@
 
 <table width="100%" cellspacing="0">
 <tbody>
-<tr class="FREEDOMBack1">
-  <td> </td>
-  <td class="FREEDOMLabel" style="text-align:right">
+<tr class="FREEDOMBack1">  
+  <td   >
    <img needresize="1" align="top" style="width:[SIZE_IMG-SMALL]" src="[icon]">
       <label for="sensitive"> [TEXT:familly]&nbsp;:</label>
-     <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=[ACTION]&classid=[classid]&dirid=[dirid]&sfamid='+this.options[this.selectedIndex].value">  
+     <select name="_se_famid" onchange="document.location.href='[CORE_STANDURL]&app=[APPNAME]&action=[ACTION]&classid=[classid]&dirid=[dirid]&onlysubfam=[onlysubfam]&sfamid='+this.options[this.selectedIndex].value">  
          [BLOCK SELECTCLASS]<option VALUE="[idcdoc]" [selected]>[classname]</option>   
          [ENDBLOCK SELECTCLASS]
     </select>  
     <input type="hidden" name="_se_fam" value="[selfam]">
     <input type="hidden" name="id" value="[id]">
     </td>
- 
-  <td class="FREEDOMLabel" style="text-align:left" valign="bottom">
-      <label for="latest"> [L_SE_LATEST]&nbsp;:</label> [V_SE_LATEST]  </td>
-</tr></tbody>
+ </tr></tbody>
 </table>
 
 <table width="100%" cellspacing="0">
@@ -30,7 +26,9 @@
 <td colspan="3" align="center"> 
 
 <fieldset><legend>[TEXT:Conditions]</legend>
-<table><tr><td>[V_SE_OL]</td></tr></table>
+<table><tr><td>[V_SE_OL]</td></tr>
+<tr><td><label for="latest"> [L_SE_LATEST]&nbsp;:</label>[V_SE_LATEST]</td></tr>
+</table>
 <table border=0 width="100%">
 <thead>
 

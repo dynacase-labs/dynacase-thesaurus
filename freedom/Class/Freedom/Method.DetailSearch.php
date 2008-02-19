@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.60 2008/02/13 15:32:59 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.61 2008/02/19 16:04:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -410,6 +410,7 @@ function editdsearch() {
   // -----------------------------------
 
   $famid = GetHttpVars("sfamid",$this->getValue("SE_FAMID",1));
+  $onlysubfam = GetHttpVars("onlysubfam"); // restricy to sub fam of
   $dirid = GetHttpVars("dirid");
   $this->lay->set("ACTION",$action->name);
 
@@ -440,10 +441,26 @@ function editdsearch() {
 	$tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
       }
     } else {
-      $tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+    if ($onlysubfam) {	
+      $alsosub=true;
+	if (! is_numeric($onlysubfam))  $onlysubfam = getFamIdFromName($this->dbaccess,$onlysubfam);
+	$cdoc = new_Doc($this->dbaccess,$onlysubfam);
+	$tsub=$cdoc->GetChildFam($cdoc->id,false);
+	if ($alsosub) {
+	  $tclassdoc[$classid] = array("id"=>$cdoc->id ,
+				       "title"=>$cdoc->title);
+	  $tclassdoc = array_merge($tclassdoc,$tsub);
+	} else {
+	  $tclassdoc=$tsub;
+	}
+	$first = current($tclassdoc);
+	if ($classid=="") $classid = $first["id"];
+
+      } else  $tclassdoc = GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
     }
 
 
+  $this->lay->set("onlysubfam",$onlysubfam);
   foreach ($tclassdoc as $k=>$cdoc) {
     $selectclass[$k]["idcdoc"]=$cdoc["id"];
     $selectclass[$k]["classname"]=$cdoc["title"];
