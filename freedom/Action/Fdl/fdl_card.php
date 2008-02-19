@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.31 2008/02/08 09:50:26 eric Exp $
+ * @version $Id: fdl_card.php,v 1.32 2008/02/19 09:47:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -109,13 +109,21 @@ function fdl_card(&$action) {
 		 $action->GetParam("CORE_STANDURL"));
 	exit;
       } 
-    if ($zo=="B") {
-      // binary layout file
-      
-	$target="ooo";
-	$ulink=false;
+      if ($zo=="B") {
+	// binary layout file
+	$isodt=(ereg("\.odt",$target));
+	if ($isodt) {
+	  $target="ooo";
+	  $ulink=false;
+	}
 	$file=$doc->viewdoc($zone,$target,$ulink);
-	Http_DownloadFile($file,$doc->title.".odt",'application/vnd.oasis.opendocument.text',false,false);
+	$tplfile=$doc->getZoneFile($zone);
+	if (strstr($tplfile,'.')) $ext=substr($tplfile,strrpos($tplfile,'.')+1);
+	else $ext="html";
+	$mime=getSysMimeFile($file,basename($file));
+
+	//	print "$file,".$doc->title.".$ext $mime"; exit;
+	Http_DownloadFile($file,$doc->title.".$ext",$mime,false,false);
 	@unlink($file);
 	exit;
       } else {
