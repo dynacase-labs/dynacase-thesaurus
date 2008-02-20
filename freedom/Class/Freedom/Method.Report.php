@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.13 2008/02/14 11:34:44 eric Exp $
+ * @version $Id: Method.Report.php,v 1.14 2008/02/20 16:53:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2008/02/14 11:34:44 $
-// Version         $Revision: 1.13 $
+// Last Update     $Date: 2008/02/20 16:53:45 $
+// Version         $Revision: 1.14 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -84,6 +84,7 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   $this->viewattr($target,$ulink, $abstract);
   $this->viewprop($target,$ulink, $abstract);
   $action->parent->AddCssRef("FREEDOM:viewreport.css",true);
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/sorttable.js");
   // --------------------------
   // display headers column  
   $rfamid = $this->getValue("SE_FAMID",1);

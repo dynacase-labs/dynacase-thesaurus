@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.128 2008/02/18 17:29:45 eric Exp $
+ * $Id: freedom.css,v 1.129 2008/02/20 16:53:45 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -120,36 +120,40 @@ DIV.barmenu A {
   padding-left:5px;
   white-space:nowrap;
 }
-TD.MenuInactive{
+TD.MenuInactive{  
+  vertical-align:middle;
 	background-color: [CORE_BGCOLORALTERN];
         background-image: [CORE_FGIMG];	
 	color : [CORE_TEXTFGCOLOR];
         text-transform:capitalize;	
-	border-width : 2px;
+	border-width : 1px;
 	border-style : outset;
 	border-color : [CORE_BGCOLORALTERN];
 }
 TD.MenuActive {
+  vertical-align:middle;
 	background-color: [CORE_BGCOLORALTERN];
         background-image: [CORE_FGIMG];	
 	color : [CORE_TEXTFGCOLOR];
         text-transform:capitalize;
-	border-width : 2px;
+	border-width : 1px;
 	border-style : solid;
 	border-color : [CORE_BGCOLORALTERN];
 }
 TD.MenuSelected {
+  vertical-align:middle;
 	background-color: [CORE_FGCOLOR];
         background-image: [CORE_FGIMG];
 	color : [CORE_TEXTBGCOLOR];
 	color : [CORE_TEXTBGCOLOR];   
         text-transform:capitalize;
-	border-width : 2px;
+	border-width : 1px;
 	border-style : outset;
 	border-color : [CORE_BGCOLORALTERN];
 }
 
 TD.MenuInactive div, TD.MenuActive div, TD.MenuSelected div {
+  vertical-align:middle;
 	height:[SIZE_XX-LARGE];
 	overflow:hidden;
 }
@@ -519,6 +523,10 @@ TD.hidden {
     display:none;
 }
 
+
+TABLE.sortable TH {
+  cursor:pointer;
+}
 INPUT.fullresize, TEXTAREA.fullresize {
 	width:100%;
 }
