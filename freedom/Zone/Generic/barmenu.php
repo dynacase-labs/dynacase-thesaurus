@@ -3,7 +3,7 @@
  * Generate bar menu
  *
  * @author Anakeen 2000 
- * @version $Id: barmenu.php,v 1.51 2008/02/19 16:05:11 eric Exp $
+ * @version $Id: barmenu.php,v 1.52 2008/02/20 16:53:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -234,12 +234,15 @@ function barmenu(&$action) {
   } else if ($csort[0]=='-') {
     $csort=substr($csort,1);
     $cselect = "&uarr;";
+    
   } else {
     $cselect = "&darr;";
   }
-  reset ($tsort);
-  while (list($k,$v) = each($tsort)) {
+
+  $action->lay->set("sortby",_("Sort"));
+  foreach($tsort as $k=>$v) {
     $tsort[$k]["dsort"]=($csort==$k)?$cselect:"&nbsp;"; // use puce
+    if ($csort==$k)$action->lay->set("sortby",$v["satitle"].$cselect);
   }
   popupInit("sortmenu",$tmsort);
   reset ($tmsort);

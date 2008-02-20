@@ -73,7 +73,7 @@ testSplit();
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
-[TEXT:Sort]
+[sortby]
 </td>
 <td  class="MenuInactive"  title="[TEXT:Tools]"
      onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
