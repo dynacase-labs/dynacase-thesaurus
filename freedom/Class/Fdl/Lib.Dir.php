@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.143 2008/02/08 15:10:49 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.144 2008/02/20 16:54:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -237,7 +237,7 @@ function getSqlSearchDoc($dbaccess,
 	  foreach ($tsqlM as $sqlM) {
 	    if ($sqlM != false) {
 	      if (! ereg("doctype[ ]*=[ ]*'Z'",$sqlM,$reg)) {
-		if (($trash != "also")&&($trash != "only")) if (!$fromid) $sqlfilters[-3] = "doctype != 'Z'";	   
+		if (($trash != "also")&&($trash != "only"))  $sqlfilters[-3] = "doctype != 'Z'"; // no zombie if no trash
 		ksort($sqlfilters);
 		foreach ($sqlfilters as $kf=>$sf) { // suppress doubles
 		  if (strstr ($sqlM , $sf )) {		   
