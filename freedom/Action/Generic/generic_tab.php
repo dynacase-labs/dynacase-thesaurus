@@ -3,7 +3,7 @@
  * List document of a category
  *
  * @author Anakeen 2000 
- * @version $Id: generic_tab.php,v 1.28 2007/10/16 10:24:21 eric Exp $
+ * @version $Id: generic_tab.php,v 1.29 2008/02/20 16:55:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -76,11 +76,7 @@ function generic_tab(&$action) {
     setHttpVar("id",$dir->initid);
     
   } else {
-    $sdoc = createDoc($dbaccess,5,false); // new DocSearch
-
-
-    $sdoc->doctype = 'T';// it is a temporary document (will be delete after)
-
+    $sdoc = createTmpDoc($dbaccess,5); // new DocSearch
 
     if ($dir->id == $fdoc->dfldid)   {
       $sdoc->title = sprintf(_("%s all "),$tabletter[$tab] );
