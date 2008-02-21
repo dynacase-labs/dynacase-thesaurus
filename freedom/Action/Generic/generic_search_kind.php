@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search_kind.php,v 1.13 2008/02/13 15:33:45 eric Exp $
+ * @version $Id: generic_search_kind.php,v 1.14 2008/02/21 14:16:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: generic_search_kind.php,v 1.13 2008/02/13 15:33:45 eric Exp $
+// $Id: generic_search_kind.php,v 1.14 2008/02/21 14:16:23 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Generic/generic_search_kind.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -89,7 +89,10 @@ function generic_search_kind(&$action) {
 
   if (strrpos($kid,'.') !== false)   $kid = substr($kid,strrpos($kid,'.')+1); // last reference
 
-
+  // clear key
+  $action->parent->param->Set("GENE_LATESTTXTSEARCH",
+			      setUkey($action,$famid,$keyword),PARAM_USER.$action->user->id,
+			      $action->parent->id);
 
 
 
