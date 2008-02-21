@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.14 2008/02/20 16:53:45 eric Exp $
+ * @version $Id: Method.Report.php,v 1.15 2008/02/21 15:34:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2008/02/20 16:53:45 $
-// Version         $Revision: 1.14 $
+// Last Update     $Date: 2008/02/21 15:34:05 $
+// Version         $Revision: 1.15 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -218,6 +218,52 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
   $this->lay->set("TITLE",$this->getTitle());
   
 }
+function viewreportcsv($target="_self",$ulink=true,$abstract=false) {
+  $rfamid = $this->getValue("SE_FAMID",1);
+  
+  $limit=$this->getValue("REP_LIMIT","ALL");
+  $order=$this->getValue("REP_IDSORT","title");
+
+  $tdoc = getChildDoc($this->dbaccess, $this->initid,0,$limit,array(),$this->userid,"TABLE",$rfamid,false,$order);
+  $tcols = $this->getTValue("REP_IDCOLS");
+
+  $trow=array();
+  foreach($tdoc as $k=>$v) {
+    
+    $tcell=array();
+
+    foreach($tcols as $kc=>$vc) {
+      if ($v[$vc] == "") $cval="";
+      else {
+	switch ($vc) {
+	case "revdate" :
+	  $cval = strftime ("%x %T",$v[$vc]);
+	  break;
+	case "state" :
+	  $cval = _($v[$vc]);
+	  break;
+	case "title" :	  
+	  $cval=$v[$vc];	  
+	  break;
+	    
+	default:
+	  $cval = $v[$vc];
+	  
+	
+	}
+      }
+      
+      $tcell[$kc]=str_replace(array(";","\n"),array(" - ","\\n"),$cval);
+      
+    }
+
+    $trow[]=array("row"=>implode($tcell,';'));
+        
+  }
+  $this->lay->setBlockData("rows",$trow);
+
+}
+
 function viewminireport($target="_self",$ulink=true,$abstract=false) {
   return $this->viewreport($target,$ulink,$abstract);
 }
