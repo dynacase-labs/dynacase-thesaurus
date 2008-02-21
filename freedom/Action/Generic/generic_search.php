@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.36 2008/02/07 16:20:54 eric Exp $
+ * @version $Id: generic_search.php,v 1.37 2008/02/21 08:33:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -36,6 +36,7 @@ function generic_search(&$action) {
   $catgid=GetHttpVars("catg", getDefFld($action)); // primary folder/search where search
   $dirid=GetHttpVars("dirid", getDefFld($action)); // temporary subsearch
   $mode=GetHttpVars("mode");
+  $mysearches=(GetHttpVars("mysearches")=="yes");
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $famid = getDefFam($action);
@@ -44,9 +45,30 @@ function generic_search(&$action) {
 			      $action->parent->id);
 
   setSearchMode($action,$famid,$mode);
+  if ($mysearches) {
 
+    $sdoc = createTmpDoc($dbaccess,5); //new DocSearch($dbaccess);
+    $sdoc->title = sprintf(_("my search %s"),$keyword);
+    $sdoc->setValue("se_famid",16);
+    $fdoc=new_doc($dbaccess,abs($famid));
+    if (! $keyword) $sdoc->title = sprintf(_("my searches about %s"), $fdoc->title );    
+    $sdoc->Add();  
+    $full=($mode=="FULL");
+  
+    $sqlfilter=$sdoc->getSqlGeneralFilters($keyword,"yes",false,$full);
 
-  if ($keyword) {
+    $sqlfilter[]="owner=".$action->user->id;
+    $sqlfilter[]="se_famid='".pg_escape_string($famid)."'";
+    $query=getSqlSearchDoc($dbaccess, 
+			   $sdirid,  
+			   16, 
+			   $sqlfilter,false,true,"",false);
+
+    $sdoc->AddQuery($query);
+
+    redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&mode=$mode&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
+    
+  } elseif ($keyword) {
     if ($keyword[0]!=">") {
       $dirid=$catgid; 
       $doc = new_Doc($dbaccess, $dirid);
@@ -96,7 +118,7 @@ function generic_search(&$action) {
 			   ($only)?-($famid):$famid, 
 			   $sqlfilter,false,true,"",false);
 
-    $sdoc-> AddQuery($query);
+    $sdoc->AddQuery($query);
 
     redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&mode=$mode&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
   } else {
