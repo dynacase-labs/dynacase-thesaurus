@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.37 2008/02/21 08:33:21 eric Exp $
+ * @version $Id: generic_search.php,v 1.38 2008/02/21 14:16:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -66,7 +66,7 @@ function generic_search(&$action) {
 
     $sdoc->AddQuery($query);
 
-    redirect($action,GetHttpVars("app"),"GENERIC_LIST$pds&mode=$mode&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
+    redirect($action,GetHttpVars("app"),"GENERIC_LIST&sqlorder=title$pds&mode=$mode&famid=$famid&dirid=".$sdoc->id."&catg=$catgid");
     
   } elseif ($keyword) {
     if ($keyword[0]!=">") {
