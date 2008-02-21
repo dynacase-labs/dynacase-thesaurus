@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.72 2007/10/12 15:07:53 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.73 2008/02/21 15:34:58 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -307,6 +307,12 @@ function PgUpdateFamilly($dbaccess, $docid) {
     // step by step
     $cdoc->Create();
     setSqlIndex($dbaccess, $docid);
+
+    $err = $doc->exec_query("SELECT oid FROM pg_class where relname='doc".$docid."';");
+    if ($doc->numrows() == 0) {
+      $msg .= "Cannot create Table : $err\n";
+    }
+    
   }
   $row = $doc->fetch_array(0,PGSQL_ASSOC);
   $relid= $row["oid"]; // pg id of the table
