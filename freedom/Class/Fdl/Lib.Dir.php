@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.144 2008/02/20 16:54:27 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.145 2008/02/21 08:34:19 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -378,7 +378,12 @@ function getChildDoc($dbaccess,
       // try optimize containt of folder
       $td=getFldDoc($dbaccess,$dirid,$sqlfilters);
       if (is_array($td)) return $td;
-    } 
+    } else {
+      if ($fld->getValue("se_famid")) $fromid=$fld->getValue("se_famid");
+    }
+  } elseif ($dirid!=0) {
+    $fld = new_Doc($dbaccess, $dirid);
+    if (( $fld->defDoctype = 'S') && ($fld->getValue("se_famid"))) $fromid=$fld->getValue("se_famid");
   }
   if ($trash=="only") $distinct=true;
  
@@ -390,7 +395,7 @@ function getChildDoc($dbaccess,
   if ($tqsql) {
     foreach ($tqsql as $qsql) {
       if ($qsql != false) {
-	if ($fromid>0) $fdoc=createDoc($dbaccess,$fromid,false);
+	if ($fromid!=0) $fdoc=createDoc($dbaccess,abs($fromid),false);
 	else $fdoc=new DocRead($dbaccess);
 	$sqlfields=implode(", ",array_merge($fdoc->fields,$fdoc->sup_fields));
 	if ($userid > 1) { // control view privilege
