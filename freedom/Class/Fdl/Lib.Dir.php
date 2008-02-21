@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.145 2008/02/21 08:34:19 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.146 2008/02/21 14:16:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -383,7 +383,7 @@ function getChildDoc($dbaccess,
     }
   } elseif ($dirid!=0) {
     $fld = new_Doc($dbaccess, $dirid);
-    if (( $fld->defDoctype = 'S') && ($fld->getValue("se_famid"))) $fromid=$fld->getValue("se_famid");
+    if (( $fld->defDoctype == 'S') && ($fld->getValue("se_famid"))) $fromid=$fld->getValue("se_famid");
   }
   if ($trash=="only") $distinct=true;
  
