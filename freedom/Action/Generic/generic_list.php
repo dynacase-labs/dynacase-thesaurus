@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.41 2008/02/21 08:48:25 eric Exp $
+ * @version $Id: generic_list.php,v 1.42 2008/02/21 14:17:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -252,6 +252,8 @@ function getFamilySearches($action,$dbaccess,$famid) {
   foreach ($stree as $k=>$v) {
     if (!isset($streeSearch[$v["id"]]))    $streeSearch [$v["id"]] = $v;
     $streeSearch[$v["id"]]["selected"]=($v["id"]==$catgid)?"selected":"";
+    $streeSearch[$v["id"]]["isreport"]="0";
+    $streeSearch[$v["id"]]["isparam"]="0";
     if (ereg('\?',$keys)) {
       $streeSearch[$v["id"]]["title"]="(P)".$streeSearch[$v["id"]]["title"];
       $streeSearch[$v["id"]]["isparam"]="1";

@@ -83,7 +83,7 @@ function SendSimpleSearch(event) {
     isparam=(did.options[did.selectedIndex].getAttribute('isparam')=='1');    
   }
   if (isreport) {
-    subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo[famid]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=N&latest=Y&id='+fldid);  
+    subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo[famid]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=Y&latest=Y&id='+fldid);  
   } else {
     if (isparam) {
       if (fldid != parseInt('[catg]')) {
@@ -118,7 +118,18 @@ function changeMode(o) {
     o.value='*';
   }
 }
-function focusInput(event) {
+function focusInput(event,did) {
+  if (did) {
+    var isreport=(did.options[did.selectedIndex].getAttribute('isreport')=='1');   
+    if (isreport) {
+      SendSimpleSearch(event);
+      var i=0;
+      did.selectedIndex=0;
+      for (i=0;i<did.options.length;i++) {
+	if (did.options[i].defaultSelected) did.selectedIndex=i;
+      }
+    }
+  }
   var i=document.getElementById('searchkey');
   if (i) i.focus();
 }
@@ -145,7 +156,7 @@ addEvent(window,"load",focusInput);
 <input id="searchbutton" class="searchbutton" title="[TEXT:Search containing characters]" type="button" value="~" onclick="changeMode(this)">
 [IF FULLMODE]<script>changeMode(document.getElementById('searchbutton'))</script>[ENDIF FULLMODE]<input   onMouseUp="return true" onKeyPress="KeySendSimpleSearch(event)" type="text"  value="[tkey]" id="searchkey">
 [IF ONESEARCH]
-<select id="csid" onchange="focusInput(event)" >
+<select id="csid" onchange="focusInput(event,this)" >
    <option value="0">-</option>
 [BLOCK SYSSEARCH]<option isreport="[isreport]" isparam="[isparam]" style="background-color:[gui_color]" [selected] value="[id]">[title]</option>[ENDBLOCK SYSSEARCH][IF MSEARCH]<option style="border-top:solid 1px [COLOR_BLACK];height:2px;font-size:1px" disabled value=""></option>[ENDIF MSEARCH]
 [BLOCK USERSEARCH]<option isreport="[isreport]" isparam="[isparam]" style="background-color:[gui_color]" [selected] value="[id]">[title]</option>[ENDBLOCK USERSEARCH]
