@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.40 2008/02/21 08:29:26 eric Exp $
+ * @version $Id: generic_list.php,v 1.41 2008/02/21 08:48:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -68,7 +68,7 @@ function generic_list(&$action) {
     } else {      
       $action->lay->Set("fldtitle",$dir->getTitle());
     }
-  }n
+  }
   $action->lay->Set("famtarget",$target);
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);

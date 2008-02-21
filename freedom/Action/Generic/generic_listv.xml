@@ -83,7 +83,7 @@ function SendSimpleSearch(event) {
     isparam=(did.options[did.selectedIndex].getAttribute('isparam')=='1');    
   }
   if (isreport) {
-    subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo[famid]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&&latest=Y&id='+fldid);  
+    subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'finfo[famid]','[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=N&latest=Y&id='+fldid);  
   } else {
     if (isparam) {
       if (fldid != parseInt('[catg]')) {
