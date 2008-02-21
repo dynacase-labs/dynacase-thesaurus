@@ -132,6 +132,7 @@ testSplit();
 <a  id="folders" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'freedom','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_FRAME&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Freedom]</a>
 <a  id="newdsearch" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&se_memo=yes&classid=16&onlysubfam=[famid]&sfamid=[famid]';closeAllMenu()">[TEXT:New search]</a>
 <a  id="newreport" href="#" onClick="parent.finfo[famid].location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_EDIT&se_memo=yes&classid=25&onlysubfam=[famid]&sfamid=[famid]';closeAllMenu()">[TEXT:New report]</a>
+<a  id="viewdsearch" href="#" onClick="window.location.href='[CORE_STANDURL]app=GENERIC&action=GENERIC_SEARCH&catg=0&mysearches=yes&famid=[famid]';closeAllMenu()">[TEXT:View my searches]</a>
 
 <a  id="prefs" href="#" onClick="subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'_self','[CORE_STANDURL]app=GENERIC&action=GENERIC_PREFS&dirid=[topid]&famid=[famid]');closeAllMenu()">[TEXT:Preferences]</a>
 
