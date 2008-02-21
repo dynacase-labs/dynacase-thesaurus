@@ -3,7 +3,7 @@
  * View set of documents of same family
  *
  * @author Anakeen 2000 
- * @version $Id: generic_list.php,v 1.39 2008/02/14 11:22:01 eric Exp $
+ * @version $Id: generic_list.php,v 1.40 2008/02/21 08:29:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,7 +41,8 @@ function generic_list(&$action) {
   $famid=GetHttpVars("famid"); // family restriction
   $clearkey=(GetHttpVars("clearkey","N")=="Y"); // delete last user key search
   $sqlorder=GetHttpVars("sqlorder"); // family restriction
-  setHttpVar("target","finfo$famid" );
+  $target="finfo$famid";
+  setHttpVar("target",$target);
   if (!($famid > 0)) $famid = getDefFam($action);
 
   $column=generic_viewmode($action,$famid); // choose the good view mode
@@ -51,7 +52,6 @@ function generic_list(&$action) {
   } else {
     $wonglet=(getTabLetter($action,$famid)=='Y');
   }
-
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $dir = new_Doc($dbaccess,$dirid);
@@ -68,8 +68,8 @@ function generic_list(&$action) {
     } else {      
       $action->lay->Set("fldtitle",$dir->getTitle());
     }
-  }
-
+  }n
+  $action->lay->Set("famtarget",$target);
   $action->lay->Set("dirid",$dirid);
   $action->lay->Set("tab",$tab);
   $action->lay->Set("catg",$catgid);
@@ -186,6 +186,8 @@ function generic_viewmode(&$action,$famid) {
   case "column":
     $action->layout = $action->GetLayoutFile("generic_listv.xml");
     $action->lay = new Layout($action->layout,$action);
+    //    $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/FREEDOM/Layout/sorttable.js");
+
     //    $column=true;
     $column=2;
     break;
