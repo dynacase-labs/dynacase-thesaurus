@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.4 2008/02/18 11:13:42 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.5 2008/02/21 15:34:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -38,6 +38,7 @@ function viewbarmenu(&$action) {
 				 "jsfunction"=>false,
 				 "title"=>false,
 				 "barmenu"=>false,
+			   "m"=>"",
 				 "url"=>false,
 				 "target"=>false,
 				 "mwidth"=>false,
@@ -57,6 +58,7 @@ function viewbarmenu(&$action) {
 	if ($v["target"]=="")  $popup[$k]["target"]="$k$docid";
 	$popup[$k]["descr"]=ucfirst($v["descr"]);
 	$popup[$k]["title"]=ucfirst($v["title"]);
+	$popup[$k]["m"]=($v["barmenu"]=="true")?"m":"";
 	$popup[$k]["ISJS"]=($v["jsfunction"]!="");
 	$popup[$k]["confirm"]=($v["confirm"]=="true");
 	$popup[$k]["tconfirm"]=str_replace("'","&rsquo;",$v["tconfirm"]);
