@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.129 2008/02/20 16:53:45 eric Exp $
+ * $Id: freedom.css,v 1.130 2008/02/22 14:53:08 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -39,7 +39,7 @@ TR.FREEDOMBack2{
 	color : [CORE_TEXTFGCOLOR];
 }
 
-TD { vertical-align:top; };
+TD { vertical-align:top; }
 
 TD.FREEDOMText, .FREEDOMText {
   color: [CORE_TEXTFGCOLOR];
@@ -82,6 +82,9 @@ TD.FREEDOMLabelNeeded SPAN:first-letter {
   text-transform:capitalize;
 }
 
+TABLE.edittable TD {
+  padding: 0px 0px 3px 0px;
+}
 SPAN.FREEDOMLabel:first-letter {
   text-transform:capitalize;
   color:red;
