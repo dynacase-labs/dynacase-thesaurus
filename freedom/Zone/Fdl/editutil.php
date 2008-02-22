@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.132 2008/02/18 11:14:28 eric Exp $
+ * @version $Id: editutil.php,v 1.133 2008/02/22 15:27:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -342,7 +342,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $lay->setBlockData("VIEWCALSEL",array(array("zou")));
     }
     if ($doc->usefor != 'D') 	$lay->setBlockData("CONTROLCAL",array(array("zou")));
-    $input =$lay->gen(); 
+    $input =trim($lay->gen()); 
     break;     
     //----------------------------------------
 			
