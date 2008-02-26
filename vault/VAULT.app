@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: VAULT.app,v 1.7 2006/12/14 17:14:59 eric Exp $
+// $Id: VAULT.app,v 1.8 2008/02/26 13:49:05 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/vault/VAULT.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -37,6 +37,13 @@ $action_desc = array (
    "short_name"		=>N_("analyze vaults occupation"),
    "acl"		=>"VAULT_MASTER",
    "root"		=>"Y"
+  ),
+  array( 
+   "name"		=>"VAULT_SHOWFS",
+   "short_name"		=>N_("show vaults occupation"),
+   "script"             =>"vault_view.php",
+   "function"           =>"vault_view",
+   "acl"		=>"VAULT_USER",
   ),
   array( 
    "name"		=>"VAULT_CREATEFS",
