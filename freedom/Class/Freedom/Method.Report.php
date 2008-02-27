@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Report.php,v 1.15 2008/02/21 15:34:05 eric Exp $
+ * @version $Id: Method.Report.php,v 1.16 2008/02/27 08:55:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -15,8 +15,8 @@
 
 // Author          Eric Brison	(Anakeen)
 // Date            jun, 12 2003 - 14:23:15
-// Last Update     $Date: 2008/02/21 15:34:05 $
-// Version         $Revision: 1.15 $
+// Last Update     $Date: 2008/02/27 08:55:29 $
+// Version         $Revision: 1.16 $
 // ==========================================================================
 
 //var $defDoctype='F';
@@ -148,7 +148,10 @@ function viewreport($target="_self",$ulink=true,$abstract=false) {
       else {
 	switch ($kc) {
 	case "revdate" :
-	  $cval = strftime ("%x %T",$v[$kc]);
+	  //	  setlocale (LC_TIME, GetParam("CORE_LANG"));
+	  setlocale (LC_TIME, "fr_FR");
+	  $cval=strftime("%d/%m/%Y",$v[$kc]);
+	  //	  $cval = strftime ("%x %T",$v[$kc]);
 	  break;
 	case "state" :
 	  $cval = _($v[$kc]);
