@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.133 2007/12/04 14:08:02 eric Exp $
+ * @version $Id: import_file.php,v 1.134 2008/02/27 08:57:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -376,6 +376,9 @@ function add_import_file(&$action, $fimport) {
     case "PARAM":
     case "OPTION":
       if     ($num < 13) $tcr[$nline]["err"]= "Error in line $nline: $num cols < 14";
+      foreach ($data as $kd=>$vd) {
+	$data[$kd]=str_replace(' - ',';',$vd); // restore ; semi-colon
+      }
 
       $modattr=($data[0]=="MODATTR");
       if ($data[0]=="MODATTR") $data[1]=':'.$data[1]; // to mark the modified attribute
