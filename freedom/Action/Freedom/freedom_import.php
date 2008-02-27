@@ -3,7 +3,7 @@
  * Import document descriptions
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_import.php,v 1.12 2006/08/15 13:56:10 eric Exp $
+ * @version $Id: freedom_import.php,v 1.13 2008/02/27 11:43:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -27,10 +27,14 @@ function freedom_import(&$action) {
   if (isset($_FILES["file"])) {
     $filename=$_FILES["file"]['name'];
     $csvfile=$_FILES["file"]['tmp_name'];
+    $ext=substr($filename,strrpos($filename,'.')+1);
+    rename($csvfile,$csvfile.".$ext");
+    $csvfile.=".$ext";
   } else {
     $filename=GetHttpVars("file");
     $csvfile=$filename;
   }
+  
   $cr=add_import_file($action,$csvfile); 
 
   $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/subwindow.js");
@@ -47,6 +51,8 @@ function freedom_import(&$action) {
   $nbdoc=count(array_filter($cr,"isdoc"));
   $action->lay->SetBlockData("ADDEDDOC",$cr);
   $action->lay->Set("nbdoc","$nbdoc");
+
+  if (isset($_FILES["file"])) @unlink($csvfile); //tmp file
 }
 
 function isdoc($var) {
