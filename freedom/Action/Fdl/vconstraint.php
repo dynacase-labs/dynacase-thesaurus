@@ -3,7 +3,7 @@
  * Verify constraint on special attribute
  *
  * @author Anakeen 2003
- * @version $Id: vconstraint.php,v 1.5 2005/06/28 08:37:46 eric Exp $
+ * @version $Id: vconstraint.php,v 1.6 2008/02/27 08:55:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage
@@ -60,10 +60,13 @@ function vconstraint(&$action) {
 
     // list suggestion
     $tres=array();
-    foreach ($res["sug"] as $sug) {
-      $tres[]= array($sug, $sug);
+    if (is_array($res["sug"])) {
+      foreach ($res["sug"] as $sug) {
+	$tres[]= array($sug, $sug);
+      }
     }
 
+    $action->lay->set("suggest", (count($tres)>0));
     // view possible correction
     while (list($k, $v) = each($tres)) {
       $tselect[$k]["choice"]= htmlentities($v[0]);
