@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: confirmmail.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+ * @version $Id: confirmmail.php,v 1.3 2008/02/28 17:50:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: confirmmail.php,v 1.2 2003/08/18 15:47:03 eric Exp $
+// $Id: confirmmail.php,v 1.3 2008/02/28 17:50:36 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Action/Fdl/confirmmail.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -41,9 +41,11 @@ include_once("FDL/editmail.php");
 function confirmmail(&$action) {
 
   $nextstate = GetHttpVars("state"); 
+  $ulink = GetHttpVars("ulink"); 
   editmail($action); 
 
  
+  $action->lay->Set("ulink",$ulink);
   $action->lay->Set("state",$nextstate);
   $action->lay->Set("tstate",_($nextstate));
   

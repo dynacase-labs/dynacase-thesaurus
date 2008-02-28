@@ -51,7 +51,7 @@ function viewCard(w) {
        class="fborder" 
        name="modifydoc" 
        method="POST" ENCTYPE="multipart/form-data" 
-       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=N&props=N&cr=Y&id=[mid]" >
+       action="[CORE_STANDURL]&app=FDL&action=MAILCARD&target=mail&ulink=[ulink]&props=N&cr=Y&id=[mid]" >
 
 <input type="hidden" name="zone" value="[mzone]">
 <input type="hidden" name="szone" value="[szone]">
