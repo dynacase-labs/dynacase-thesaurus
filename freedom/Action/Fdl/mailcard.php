@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.76 2008/02/19 09:47:46 eric Exp $
+ * @version $Id: mailcard.php,v 1.77 2008/02/28 17:50:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -147,7 +147,7 @@ function sendmailcard(&$action) {
 	$wdoc = new_Doc($dbaccess,$doc->wid);
 	$wdoc->Set($doc);
 	$err=$wdoc->ChangeState($state,_("email sended"),true);
-	if ($err != "")  $action-> ExitError($err);
+	if ($err != "")  $action->addWarningMsg($err);
       }
     } else {
       $action->AddLogMsg(sprintf(_("the document %s is not related to a workflow"),$doc->title));
