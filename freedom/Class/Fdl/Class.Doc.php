@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.468 2008/02/19 14:08:32 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.469 2008/02/28 17:51:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -479,7 +479,7 @@ final public function PostInsert()  {
       if ($this->lmodify == "") $this->lmodify = "N";
       if ($this->locked == "") $this->locked = "0";
       if ($this->owner == "") $this->owner = $this->userid;
-      //      if ($this->classname == "") $this->classname= $this->defClassname; //get_class($this);// dont use this because lost of uppercase letters
+
       //      if ($this->state == "") $this->state=$this->firstState;
       $this->version=$this->getVersion();
 
