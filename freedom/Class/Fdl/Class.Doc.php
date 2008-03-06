@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.470 2008/03/06 07:45:51 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.471 2008/03/06 08:01:41 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3463,37 +3463,40 @@ final public function PostInsert()  {
 	    $htmlval.=  "\">".$fname."</A>";
 	  } else {
 	    if ($info) {
-	    $umime = trim(`file -ib $info->path`);
-	    $size=round($info->size/1024)._("AbbrKbyte");
-	    $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
+	      $umime = trim(`file -ib $info->path`);
+	      $size=round($info->size/1024)._("AbbrKbyte");
+	      $utarget= ($action->Read("navigator","")=="NETSCAPE")?"_self":"_blank";
 	    
-	    if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
-	    else $idx=$index;
+	      if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
+	      else $idx=$index;
 
-	    $mimeicon=getIconMimeFile($info->mime_s==""?$mime:$info->mime_s);
-	    $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
-	      $action->GetParam("CORE_BASEURL").
-	      "app=FDL"."&action=EXPORTFILE&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
-	      ."\">";
-	    if ($mimeicon) $htmlval.="<img class=\"mime\" needresize=1  src=\"Images/$mimeicon\">&nbsp;";
-	    $htmlval.=$fname."</A>";
+	      $mimeicon=getIconMimeFile($info->mime_s==""?$mime:$info->mime_s);
+	      $opt="";
+	      $inline=$oattr->getOption("inline");
+	      if ($inline=="yes") $opt="&inline=yes";
+	      $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
+		$action->GetParam("CORE_BASEURL").
+		"app=FDL"."&action=EXPORTFILE$opt&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
+		."\">";
+	      if ($mimeicon) $htmlval.="<img class=\"mime\" needresize=1  src=\"Images/$mimeicon\">&nbsp;";
+	      $htmlval.=$fname."</A>";
 	    }
 	    /*
 	    
 	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$mime\" href=\"".
-	      "http://".$_SERVER["HTTP_HOST"].
-	      "/davfreedom/doc".$this->id."/$fname".
-	      "\">"."[DAV:$vid]($mime)".
-	      "</A>";
+	    "http://".$_SERVER["HTTP_HOST"].
+	    "/davfreedom/doc".$this->id."/$fname".
+	    "\">"."[DAV:$vid]($mime)".
+	    "</A>";
 
 	    
 	    $htmlval.=" <A onmousedown=\"document.noselect=true;\" target=\"_blank\" type=\"$umime\" href=\"".
-	      "http://".$_SERVER["HTTP_HOST"].
-	      "/davfreedom/doc".$this->id."/$fname".
-	      "\">"."[DAV:$vid]($umime)".
-	      "</A>";
+	    "http://".$_SERVER["HTTP_HOST"].
+	    "/davfreedom/doc".$this->id."/$fname".
+	    "\">"."[DAV:$vid]($umime)".
+	    "</A>";
 	    */
-	     }
+	  }
 	
 	  break;
 	case "longtext":  
