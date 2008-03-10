@@ -95,7 +95,7 @@ function viewCard(w) {
 <!--  FOOT HTML -->
 
 
-<iframe width="100%" src="[CORE_STANDURL]&app=FDL&action=FDL_CARD&dochead=[dochead]&zone=[mzone]&szone=[szone]&id=[mid]"></iframe>
+<iframe width="100%" src="[CORE_STANDURL]&app=FDL&action=IMPCARD&dochead=[dochead]&zone=[mzone]&szone=[szone]&id=[mid]"></iframe>
 
 
 </body>
