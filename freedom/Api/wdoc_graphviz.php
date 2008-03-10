@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.7 2008/03/10 16:17:28 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.8 2008/03/10 17:51:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,18 +28,19 @@ if ($dbaccess == "") {
 
 $docid = GetHttpVars("docid",0); // special docid
 $type = GetHttpVars("type"); // type of graph
+$orient = GetHttpVars("orient","LR"); // type of graph
 
 $label=($type=="complet");
 $doc=new_doc($dbaccess,$docid);
 
-$rankdir="LR";
-$size="8,8";
+$rankdir=$orient;
+$size="10,10";
 if ($label) {
   $rankdir="TB";
-  $rankdir="LR";
+  $rankdir=$orient;
   //  $size="11.6,8.2";  //A4
   //  $size="11.6,8.2";  //A4
-  $size="20,20";
+  
 
  }
 

@@ -1,9 +1,9 @@
 <?php
 /**
- * Edition to affect document
+ * View workflow graph
  *
  * @author Anakeen 2000 
- * @version $Id: view_workflow_graph.php,v 1.4 2008/03/10 17:51:05 eric Exp $
+ * @version $Id: workflow_graph.php,v 1.1 2008/03/10 17:51:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,28 +20,14 @@ include_once("FDL/Class.WDoc.php");
  * @global id Http var : document id to affect
  * @global viewdoc Http var : with preview of affect document [Y|N]
  */
-function view_workflow_graph(&$action) {
+function workflow_graph(&$action) {
   $docid = GetHttpVars("id"); 
   $viewdoc = (GetHttpVars("viewdoc","N")=="Y"); 
   $type = GetHttpVars("type","simple"); // type of graph
-  $format = GetHttpVars("format","png"); // type of graph
-  $orient = GetHttpVars("orient","LR"); // type of graph
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc=new_doc($dbaccess,$docid);
-  $cmd=getWshCmd(false,$action->user->id);
-
- 
-
-  $cmd.="--api=wdoc_graphviz --type=$type --orient=$orient --docid=".$doc->id;
-  $svgfile="img-cache/w$type-".$action->getParam("CORE_LANG")."-".$doc->id.".$format";
-  $dest=DEFAULT_PUBDIR."/$svgfile";
-  $cmd .= "| dot -T$format> $dest";
-
-  system($cmd);
-  //  print_r2( $cmd);
-
-  header("location:$svgfile");
-  exit;
+  $action->lay->set("id",$doc->id);
+  $action->lay->set("TITLE",$doc->title);
   
 }

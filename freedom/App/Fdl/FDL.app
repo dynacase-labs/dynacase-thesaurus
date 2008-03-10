@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.54 2008/01/03 09:06:51 eric Exp $
+// $Id: FDL.app,v 1.55 2008/03/10 17:51:05 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -308,6 +308,16 @@ $action_desc = array (
   ) ,
   array( 
    "name"		=>"VIEW_WORKFLOW_GRAPH",
+   "short_name"		=>N_("view graph of workflow"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"WORKFLOW_GRAPH",
+   "short_name"		=>N_("view graph of workflow"),
+   "acl"		=>"NORMAL"
+  ) ,
+  array( 
+   "name"		=>"PARAM_WORKFLOW_GRAPH",
    "short_name"		=>N_("view graph of workflow"),
    "acl"		=>"NORMAL"
   ) ,

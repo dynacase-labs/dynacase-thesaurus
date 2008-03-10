@@ -1,0 +1,32 @@
+<html>
+<head>
+
+<title>Workflow - parameters</title>
+<link rel="shortcut icon" href="FDL/Images/logo16.ico" >
+
+</head>
+
+<form 
+      name="fviewidoc"style="display:inline"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=FDL&action=VIEW_WORKFLOW_GRAPH"
+   target="wkf[id]"
+       >
+<input type="hidden" value="[id]" name="id">
+
+[TEXT:Type] <select name="type">
+  <option value="simple">[TEXT:Just states]</option>
+  <option value="complet">[TEXT:With conditions]</option>
+  </select>
+<select name="format">
+  <option value="png">[TEXT:Image]</option>
+  <option value="svg">[TEXT:SVG]</option>
+  </select>
+<select name="orient">
+  <option value="LR">[TEXT:Left Right]</option>
+  <option value="TB">[TEXT:Top Bottom]</option>
+  </select>
+<input type="submit">
+</form>
+
+</html>
