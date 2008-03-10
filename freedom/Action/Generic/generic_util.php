@@ -3,7 +3,7 @@
  * Collection of utilities functions for GENERIC application
  *
  * @author Anakeen 2000 
- * @version $Id: generic_util.php,v 1.30 2007/08/17 13:37:32 eric Exp $
+ * @version $Id: generic_util.php,v 1.31 2008/03/10 15:08:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -230,8 +230,7 @@ function setFamilyParameter(&$action,$famid,$attrid,$value) {
       if ($k>0) $tmode[]="$k|$v";
     }
     $pmode=implode(",",$tmode);
-    $action->parent->param->Set($attrid,$pmode,PARAM_USER.$action->user->id,$action->parent->id);
-    $action->parent->session->close();
+    $action->setParamU($attrid,$pmode);
   }
 }
 

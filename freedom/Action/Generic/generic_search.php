@@ -3,7 +3,7 @@
  * Generic searches
  *
  * @author Anakeen 2000 
- * @version $Id: generic_search.php,v 1.38 2008/02/21 14:16:50 eric Exp $
+ * @version $Id: generic_search.php,v 1.39 2008/03/10 15:08:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,9 +40,8 @@ function generic_search(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $famid = getDefFam($action);
-  $action->parent->param->Set("GENE_LATESTTXTSEARCH",
-			      setUkey($action,$famid,$keyword),PARAM_USER.$action->user->id,
-			      $action->parent->id);
+
+  $action->setParamU("GENE_LATESTTXTSEARCH",setUkey($action,$famid,$keyword));
 
   setSearchMode($action,$famid,$mode);
   if ($mysearches) {
