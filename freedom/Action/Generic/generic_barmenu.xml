@@ -53,7 +53,7 @@ testSplit();
 <tr>
 <td  class="MenuInactive"  title="[TEXT:Creation]"
      style="padding: 0px 0pt 0px 10px;[IFNOT cancreate]display:none[ENDIF cancreate]" 
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
+     onClick="openBarMenu(event,this,'newmenu');" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 <span>[TEXT:Creation]</span>
@@ -63,20 +63,20 @@ testSplit();
 
 [BLOCK KIND]
 <td  class="MenuInactive"  title="[kindname]"
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'[kindid]menu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="openBarMenu(event,this,'[kindid]menu');return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 <div>[kindname]</div>
 </td>
 [ENDBLOCK KIND]
 <td  class="MenuInactive"  title="[TEXT:Sort]"
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'sortmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="openBarMenu(event,this,'sortmenu');return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [sortby]
 </td>
 <td  class="MenuInactive"  title="[TEXT:Tools]"
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="openBarMenu(event,this,'helpmenu');return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Tools]

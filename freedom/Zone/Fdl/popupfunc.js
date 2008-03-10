@@ -1,6 +1,6 @@
 var isNetscape = navigator.appName=="Netscape";
 
-
+var BARMENUIDENTIFICATOR=false;
 
 
 function changeClass(th, name)
@@ -82,6 +82,7 @@ function closeSubMenu(menuid) {
 var Xold; // for short cut key
 var Yold;
 function openMenu(event, menuid, itemid) {
+
   var el, x, y;
   var cy,h1,hf;
   GetXY(event);
@@ -150,6 +151,7 @@ function viewwait() {
 
 function openMenuXY(event, menuid, x, y) {
 
+ 
   var el,menudiv;
 
   var x1,x2,w1,w2,dw;
@@ -194,6 +196,22 @@ function openMenuXY(event, menuid, x, y) {
     el.style.visibility = "visible";
   }
   return false; // no navigator context menu
+}
+
+function openBarMenu(event, th, menuid) { 
+  var mid='bar'+menuid;
+  var x=th.offsetLeft;
+  var y=th.offsetTop+th.offsetHeight+getScrollYOffset();
+  
+  if (mid == BARMENUIDENTIFICATOR) {
+    closeMenu(menuid);
+    unSelectMenu();    
+  } else {
+    closeAllMenu();
+    selectMenu(th);
+    BARMENUIDENTIFICATOR=mid;
+    openMenuXY(event, menuid, x, y);
+  }
 }
 var menusel=null;
 function selectMenu(th) {
@@ -253,7 +271,9 @@ function closeMenu(menuid) {
          divpop = document.getElementById(menuid);
 	 if (divpop) divpop.style.visibility = 'hidden';
 	 if (this.className == 'MenuSelected') this.className='MenuInactive';
-   }    
+  }    
+
+  BARMENUIDENTIFICATOR=false;
   return false;
 }
 
