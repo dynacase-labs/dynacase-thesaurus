@@ -2,5 +2,5 @@
 
 
 [IFNOT menu]<a  title="[title]" onclick="[IF confirm]if (confirm('[tconfirm]'))[ENDIF confirm] [IFNOT ISJS]subwindow[m]('[mwidth]','[mheight]','[target]','[url]')[ENDIF ISJS][IF ISJS][jsfunction][ENDIF ISJS]">[descr]</a>[ENDIF menu]
-[IF menu]<a  title="[title]" onmouseover="godocmenu(event,this)" onmouseout="aborddocmenu()" onclick="viewdocsubmenu(event,'[id]','[idlink]',this);">[descr]&darr;</a>[ENDIF menu]
-[ENDBLOCK LINKS] <a   onclick="viewdocmenu(event,'[id]',true,this);return false" onmouseout="aborddocmenu()" onmouseover="godocmenu(event,this)" title="[TEXT:Click to view menu]">[TEXT:Others]&darr;</a> </div>
+[IF menu]<a  title="[title]"  onclick="bardocsubmenu(event,'[id]','[idlink]',this);">[descr]&darr;</a>[ENDIF menu]
+[ENDBLOCK LINKS] <a   onclick="bardocmenu(event,'[id]',true,this);return false"  title="[TEXT:Click to view menu]">[TEXT:Others]&darr;</a> </div>

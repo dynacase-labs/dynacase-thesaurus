@@ -10,6 +10,7 @@ var OPENSUBMENU=false;
 var DIVPOPUPMENU=document.createElement("div");
 var MENUSOURCETOPBORDER,MENUSOURCEBOTTOMBORDER;
 var MENUSOURCECLASS;
+var MENUIDENTIFICATOR=false;
 
 addEvent(window,"load",function adddivpop() {document.body.appendChild(DIVPOPUPMENU)});
 function reqViewMenu() {
@@ -167,6 +168,7 @@ function closeDocMenu() {
     //MENUSOURCE.style.borderTop=MENUSOURCETOPBORDER;
     // MENUSOURCE.style.borderBottom=MENUSOURCEBOTTOMBORDER;
   }
+  MENUIDENTIFICATOR=false;
 }
 function sendMenuUrl(th, url, wname,bar,w,h) {
   if ((th.className == 'menuItem') || (th.className == 'menuItemCtrl')) {

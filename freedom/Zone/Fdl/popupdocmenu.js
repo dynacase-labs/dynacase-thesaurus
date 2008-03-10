@@ -2,6 +2,7 @@
 var POPMENUINPROGRESSELT=false;
 var POPMENUINPROGRESSEVENT=false;
 
+
 function cloneEvent(e) {
   var c=new Object();
   var names="";
@@ -79,4 +80,24 @@ function viewdocsubmenu(event,docid,submenu,upobject) {
 
   var menuurl=corestandurl+'app='+menuapp+'&action='+menuaction+menuopt+'&id='+docid;
   viewsubmenu(event,menuurl,upobject);
+}
+
+/* verify first if is open */
+function bardocmenu(event,docid,onlyctrl,upobject,sourceobject) {
+  var mid='bar'+docid;
+  if (mid == MENUIDENTIFICATOR) {
+    closeDocMenu();
+  } else {
+    viewdocmenu(event,docid,onlyctrl,upobject,sourceobject);
+    MENUIDENTIFICATOR=mid;
+  }
+}
+function bardocsubmenu(event,docid,submenu,upobject) {
+  var mid='bar'+docid+submenu;
+  if (mid == MENUIDENTIFICATOR) {
+    closeDocMenu();
+  } else {
+    viewdocsubmenu(event,docid,submenu,upobject);
+    MENUIDENTIFICATOR=mid;
+  }
 }

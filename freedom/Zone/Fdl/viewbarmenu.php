@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.5 2008/02/21 15:34:42 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.6 2008/03/10 08:48:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -32,21 +32,21 @@ function viewbarmenu(&$action) {
 	if (! isset($mpopup[$idxmenu])) {
 	  $mpopup[$idxmenu]=true;
 	  $popup[$k]=array("idlink"=>$idxmenu,
-				 "descr"=>ucfirst((_($v["submenu"]))),
-				 "visibility"=>false,
-				 "confirm"=>false,
-				 "jsfunction"=>false,
-				 "title"=>false,
-				 "barmenu"=>false,
+			   "descr"=>ucfirst((_($v["submenu"]))),
+			   "visibility"=>false,
+			   "confirm"=>false,
+			   "jsfunction"=>false,
+			   "title"=>_("Click to view menu"),
+			   "barmenu"=>false,
 			   "m"=>"",
-				 "url"=>false,
-				 "target"=>false,
-				 "mwidth"=>false,
-				 "mheight"=>false,
-				 "smid"=>false,
-				 "menu"=>true,
-				 "tconfirm"=>false,
-				 "issubmenu"=>false);
+			   "url"=>false,
+			   "target"=>false,
+			   "mwidth"=>false,
+			   "mheight"=>false,
+			   "smid"=>false,
+			   "menu"=>true,
+			   "tconfirm"=>false,
+			   "issubmenu"=>false);
 	} else {
 	  unset($popup[$k]);
 	}
