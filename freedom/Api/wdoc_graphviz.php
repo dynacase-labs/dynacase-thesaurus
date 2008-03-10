@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.6 2008/03/10 16:01:21 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.7 2008/03/10 16:17:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -86,7 +86,7 @@ foreach ($doc->cycle as $k=>$v) {
   }
   //  $line[]='"'.utf8_encode(_($v["e1"])).'" -> "'.utf8_encode(_($v["e2"])).' [label="'..'";';
 }
-$line[]='"'.str_replace(" ","\\n",_($doc->firstState)).'" [shape = doublecircle,style=filled, fontsize=14,fontname=sans];';;
+$line[]='"'.str_replace(" ","\\n",_($doc->firstState)).'" [shape = doublecircle,style=filled, width=1.5, fixedsize=true,fontsize=14,fontname=sans];';;
 $states=$doc->getStates();
 foreach ($states as $k=>$v) {
   $color=$doc->getColor($v);
@@ -101,7 +101,7 @@ $dot="digraph \"".$doc->title."\" {
         size=\"$size\";
         {rank=1; $ft;}
         splines=false;
-	node [shape = circle, style=filled, fixedsize=true,width=1, fontsize=14, fontname=sans];\n";
+	node [shape = circle, style=filled, fixedsize=true,width=1.5, size=20, fontsize=14, fontname=sans];\n";
 
 
 
