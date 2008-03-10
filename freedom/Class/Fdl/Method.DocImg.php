@@ -3,7 +3,7 @@
  * Image document
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocImg.php,v 1.7 2004/08/05 09:47:20 eric Exp $
+ * @version $Id: Method.DocImg.php,v 1.8 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -58,7 +58,7 @@ function viewimgcard($target="_self",$ulink=true,$abstract=false) {
       case "image": 
 		  
 	$tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
-	if (ereg ("(.*)\|(.*)", $value, $reg)) {		 
+	if (ereg (REGEXPFILE, $value, $reg)) {		 
 	  // reg[1] is mime type
 	  $tableimage[$nbimg]["type"]=$reg[1];
 	  if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;

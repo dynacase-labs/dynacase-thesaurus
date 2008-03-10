@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.52 2008/02/12 09:35:57 eric Exp $
+ * @version $Id: FDL_external.php,v 1.53 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,7 @@ include_once("FDL/Lib.Dir.php");
 function vault_filename($th, $fileid) {
 
 
-  if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
+  if (ereg (REGEXPFILE, $fileid, $reg)) {	 
     // reg[1] is mime type
       $vf = newFreeVaultFile($th->dbaccess);
     if ($vf -> Show ($reg[2], $info) == "") $fname = $info->name;

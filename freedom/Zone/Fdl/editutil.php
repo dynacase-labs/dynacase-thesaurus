@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.133 2008/02/22 15:27:57 eric Exp $
+ * @version $Id: editutil.php,v 1.134 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -89,7 +89,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   switch ($attrtype)  {		      
     //----------------------------------------
   case "image": 
-    if (ereg ("(.*)\|(.*)", $value, $reg)) {
+    if (ereg (REGEXPFILE, $value, $reg)) {
 			  
       $dbaccess = GetParam("FREEDOM_DB");
       $vf = newFreeVaultFile($dbaccess);
@@ -131,7 +131,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 		      
     //----------------------------------------
   case "file": 
-    if (ereg ("(.*)\|(.*)", $value, $reg)) {
+    if (ereg (REGEXPFILE, $value, $reg)) {
 			  
       $dbaccess = $action->GetParam("FREEDOM_DB");
       $vf = newFreeVaultFile($dbaccess);

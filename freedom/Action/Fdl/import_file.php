@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.134 2008/02/27 08:57:45 eric Exp $
+ * @version $Id: import_file.php,v 1.135 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -987,8 +987,9 @@ function AddVaultFile($dbaccess,$path,$analyze,&$vid) {
     AddWarningMsg($err);
     return $err;
   } else {
-    $importedFiles[$path]="$mime|$vid";
-    $vid="$mime|$vid";
+    $base=basename($path);
+    $importedFiles[$path]="$mime|$vid|$base";
+    $vid="$mime|$vid|$base";
   
    
     return "";

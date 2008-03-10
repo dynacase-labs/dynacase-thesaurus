@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.100 2008/02/07 15:55:26 eric Exp $
+ * @version $Id: modcard.php,v 1.101 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -311,8 +311,8 @@ function insert_file(&$doc, $attrid,$strict=false) {
 	  $oldfile = getHttpVars(substr($attrid,3));	  
 	  if (! is_array($oldfile)) { 
 	      $vid1=0;$vid2=0;
-	      if (ereg ("(.*)\|(.*)", $rtold[0], $reg)) $vid1=$reg[2];
-	      if (ereg ("(.*)\|(.*)", $oldfile, $reg)) $vid2=$reg[2];
+	      if (ereg (REGEXPFILE, $rtold[0], $reg)) $vid1=$reg[2];
+	      if (ereg (REGEXPFILE, $oldfile, $reg)) $vid2=$reg[2];
 	       
 	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[0];
 	      else $rt[$k]=$oldfile;
@@ -322,8 +322,8 @@ function insert_file(&$doc, $attrid,$strict=false) {
 	    
 	    if (isset($oldfile[$k])) {
 	      $vid1=0;$vid2=0;
-	      if (ereg ("(.*)\|(.*)", $rtold[$k], $reg)) $vid1=$reg[2];
-	      if (ereg ("(.*)\|(.*)", $oldfile[$k], $reg)) $vid2=$reg[2];
+	      if (ereg (REGEXPFILE, $rtold[$k], $reg)) $vid1=$reg[2];
+	      if (ereg (REGEXPFILE, $oldfile[$k], $reg)) $vid2=$reg[2];
 	     
 	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[$k];
 	      else $rt[$k]=$oldfile[$k];
@@ -358,7 +358,7 @@ function insert_file(&$doc, $attrid,$strict=false) {
 	$err = sprintf(_("Possible file upload attack: filename '%s'."), $userfile['name']);
 	$action->ExitError($err);
       }
-      $rt[$k]=$userfile['type']."|".$vid; // return file type and upload file name
+      $rt[$k]=$userfile['type']."|".$vid.'|'.$userfile['name']; // return file type and upload file name
     }
   }
   

@@ -3,7 +3,7 @@
  * Upload image from FCKeditor
  *
  * @author Anakeen 2007
- * @version $Id: fckupload.php,v 1.2 2008/02/01 09:08:12 eric Exp $
+ * @version $Id: fckupload.php,v 1.3 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,7 @@ function fckupload(&$action) {
 
 	$action->lay->set("docid",$doc->id);	
 	$action->lay->set("title",$doc->title);
-	 if (ereg ("(.*)\|(.*)",$filename , $reg)) {  
+	 if (ereg (REGEXPFILE,$filename , $reg)) {  
 	   $vid=$reg[2];
 	   $action->lay->set("vid",$vid);	   
 	 }

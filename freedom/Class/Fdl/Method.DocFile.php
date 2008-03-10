@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocFile.php,v 1.9 2005/06/01 08:47:06 caroline Exp $
+ * @version $Id: Method.DocFile.php,v 1.10 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ function viewfilecard($target="_self",$ulink=true,$abstract=false) {
       case "file": 
 		  
 	$tableimage[$nbimg]["imgsrc"]=$this->GetHtmlValue($attr,$value,$target,$ulink);
-      if (ereg ("(.*)\|(.*)", $value, $reg)) {		 
+      if (ereg (REGEXPFILE, $value, $reg)) {		 
 	// reg[1] is mime type
 	$tableimage[$nbimg]["type"]=$reg[1];
 	if ($vf -> Show ($reg[2], $info) == "") {

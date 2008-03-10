@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.19 2008/02/08 09:50:26 eric Exp $
+ * @version $Id: exportfile.php,v 1.20 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -69,13 +69,13 @@ function exportfile(&$action) {
     }
     if ($ovalue == "") $action->exiterror(sprintf(_("no file referenced for %s document"),$doc->title));
     
-    ereg ("(.*)\|(.*)", $ovalue, $reg);
+    ereg (REGEXPFILE, $ovalue, $reg);
+
     $vaultid= $reg[2];
     $mimetype=$reg[1];
   } else {
     $mimetype = "";
   }
-
   DownloadVault($action, $vaultid, $isControled, $mimetype,$imgwidth,$inline,$cache);
 
     

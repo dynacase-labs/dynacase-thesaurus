@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.471 2008/03/06 08:01:41 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.472 2008/03/10 10:45:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -52,6 +52,8 @@ define ("DELVALUE", 'DEL??');
  * max cache document
  */
 define ("MAXGDOCS", 20);
+
+define("REGEXPFILE","([^\|]*)\|([0-9]*)\|?(.*)?");
 /**
  * Document Class
  *
@@ -1530,7 +1532,7 @@ final public function PostInsert()  {
       $at=$oa->id.'_txt';
       $this->$at='';
       foreach ($tf as $vf) {
-	 if (ereg ("(.*)\|(.*)", $vf, $reg)) {  
+	 if (ereg (REGEXPFILE, $vf, $reg)) {  
 	   $vid=$reg[2];
 	   $info=vault_properties($vid,'latin');
 	   //print_r2($info);
@@ -1561,7 +1563,7 @@ final public function PostInsert()  {
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
     $value='';
-    if (ereg ("(.*)\|(.*)", $va, $reg)) {  
+    if (ereg (REGEXPFILE, $va, $reg)) {  
       $vidin=$reg[2];
       $info=vault_properties($vidin,$engine);
 
@@ -2076,7 +2078,7 @@ final public function PostInsert()  {
 	$index=$v["index"];
 	if ($index>0) $fval=$this->getTValue($v["attrid"],"",$index);
 	else $fval=strtok($this->getValue($v["attrid"]),"\n");
-	if (ereg ("(.*)\|(.*)", $fval, $reg)) {
+	if (ereg (REGEXPFILE, $fval, $reg)) {
 	  $vid= $reg[2];
 	  $err=sendLatinTransformation($this->dbaccess,$this->id,$v["attrid"],$index,$vid);
 	  if ($err!="") $this->AddComment(_("error sending text conversion").": $err",HISTO_NOTICE);
@@ -2131,7 +2133,7 @@ final public function PostInsert()  {
       $vf = newFreeVaultFile($this->dbaccess);
       $fvalue=$this->getValue($attrid);
       $basename="";
-      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+      if (ereg (REGEXPFILE, $fvalue, $reg)) {
 	$vaultid= $reg[2];
 	$mimetype=$reg[1];
 	
@@ -2179,7 +2181,7 @@ final public function PostInsert()  {
       $vf = newFreeVaultFile($this->dbaccess);
       $fvalue=$this->getValue($attrid);
       $basename="";
-      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+      if (ereg (REGEXPFILE, $fvalue, $reg)) {
 	$vaultid= $reg[2];
 	$mimetype=$reg[1];
 	
@@ -2215,9 +2217,10 @@ final public function PostInsert()  {
       if ($index > -1) $fvalue=$this->getTValue($attrid,$index);
       else $fvalue=$this->getValue($attrid);
       $basename="";
-      if (ereg ("(.*)\|(.*)", $fvalue, $reg)) {
+      if (ereg (REGEXPFILE, $fvalue, $reg)) {
 	$vaultid= $reg[2];
 	$mimetype=$reg[1];
+	$oftitle=$reg[3];
 	$err=$vf->Retrieve($vaultid, $info);
 
 	if ($err == "") {
@@ -2262,8 +2265,10 @@ final public function PostInsert()  {
 	}
       }
       if ($err == "") {
-	$mime=trim(`file -ib $filename`);
-	$value="$mime|$vaultid";
+	if ($mimetype) $mime=$mimetype;
+	else $mime=trim(`file -ib $filename`);
+	if ($ftitle) $value="$mime|$vaultid|$ftitle";
+	else $value="$mime|$vaultid|$oftitle";
 	$err=$this->setValue($attrid,$value,$index);	
 	if ($err=="") {
 	  $index=0;
@@ -2288,7 +2293,7 @@ final public function PostInsert()  {
   final function copyFile($idattr,$newname="") {  
     $f=$this->getValue($idattr);
     if ($f) {
-      if (ereg ("(.*)\|(.*)", $f, $reg)) {
+      if (ereg (REGEXPFILE, $f, $reg)) {
 	$vf = newFreeVaultFile($this->dbaccess);
 	if ($vf->Show($reg[2], $info) == "") {
 	  $cible=$info->path;
@@ -3116,7 +3121,7 @@ final public function PostInsert()  {
     if ($idicon=="") $idicon=$this->icon;
     if ($idicon != "") {
     
-      if (ereg ("(.*)\|(.*)", $idicon, $reg)) {    
+      if (ereg (REGEXPFILE, $idicon, $reg)) {    
 	$efile="FDL/geticon.php?vaultid=".$reg[2]."&mimetype=".$reg[1];
       } else {
 	$efile=$action->GetImageUrl($idicon);
@@ -3428,7 +3433,7 @@ final public function PostInsert()  {
 	    $htmlval="file://".$this->vault_filename($oattr->id,true,$kvalue);
 	  }  else {
 	    $vid="";
-	    if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
+	    if (ereg (REGEXPFILE, $avalue, $reg)) {
 	      $vid=$reg[2];
 	
 	      if (($oattr->repeat)&&($index <= 0))   $idx=$kvalue;
@@ -3445,7 +3450,8 @@ final public function PostInsert()  {
 	  break;
 	case "file": 
 	  $vid="";
-	  if (ereg ("(.*)\|(.*)", $avalue, $reg)) {
+
+	  if (ereg(REGEXPFILE, $avalue, $reg)) {
 	    // reg[1] is mime type
 	    $vid=$reg[2];
 	    $mime=$reg[1];
@@ -4928,7 +4934,7 @@ final public function PostInsert()  {
     if ($index == -1)  $fileid= $this->getValue($attrid);
     else $fileid= $this->getTValue($attrid,'',$index);
     $fname="";
-    if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
+    if (ereg (REGEXPFILE, $fileid, $reg)) {	 
       // reg[1] is mime type
       $vf = newFreeVaultFile($this->dbaccess);
       if ($vf -> Show ($reg[2], $info) == "") {
@@ -4956,7 +4962,7 @@ final public function PostInsert()  {
    
     $tinfo=array();
     foreach ($fileids as $k=>$fileid) {
-      if (ereg ("(.*)\|(.*)", $fileid, $reg)) {	 
+      if (ereg (REGEXPFILE, $fileid, $reg)) {	 
 	// reg[1] is mime type
 	$vf = newFreeVaultFile($this->dbaccess);
 	if ($vf->Show ($reg[2], $info) == "") {	
@@ -5599,7 +5605,7 @@ final public function PostInsert()  {
       }
       foreach ($ta as $k=>$v) {
 	$vid="";
-	if (ereg ("(.*)\|(.*)", $v, $reg)) {
+	if (ereg (REGEXPFILE, $v, $reg)) {
 	  $vid=$reg[2];
 	  $tvid[$vid]=$vid;
 	}
