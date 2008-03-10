@@ -6,13 +6,13 @@
 
 <td class="CORETblHead" onClick="closeAllMenu();" width="50%" ><div class="headtitle" style="max-height:30px;overflow:hidden">[title] - [nbdoc]</div></td>
 <td  class="MenuInactive"  width="25%" 
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'viewmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="openBarMenu(event,this,'viewmenu');stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:View]
 </td>
 <td  class="MenuInactive"  width="25%" 
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'toolmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onClick="openBarMenu(event,this,'toolmenu');stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Tools]

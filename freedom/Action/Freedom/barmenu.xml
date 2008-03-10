@@ -22,26 +22,26 @@ function SendSearchId(e,id) {
 <tr>
 <td  class="MenuInactive"  
      style="padding: 0px 0pt 0px 10px;" 
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'newmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());" 
+     onmouseup="openBarMenu(event,this,'newmenu');stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Creation]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'bookmarks',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onmouseup="openBarMenu(event,this,'bookmarks');;stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Bookmarks]
 </td>
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'searchmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());document.getElementById('searchid').focus();document.getElementById('searchid').select();return false" 
+     onmouseup="openBarMenu(event,this,'searchmenu');document.getElementById('searchid').focus();document.getElementById('searchid').select();;stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Search]
 </td>
 
 <td  class="MenuInactive"  
-     onClick="closeAllMenu();selectMenu(this);openMenuXY(event,'helpmenu',this.offsetLeft, this.offsetTop+this.offsetHeight+getScrollYOffset());return false" 
+     onmouseup="openBarMenu(event,this,'helpmenu');stopPropagation(event);return false" 
      onMouseOver="ActiveMenu(this)"
      onMouseOut="DeactiveMenu(this)">
 [TEXT:Tools]
