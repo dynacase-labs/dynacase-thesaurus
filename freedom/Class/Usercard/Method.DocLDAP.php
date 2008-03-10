@@ -3,7 +3,7 @@
  *  LDAP methods
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DocLDAP.php,v 1.8 2006/01/23 17:09:03 eric Exp $
+ * @version $Id: Method.DocLDAP.php,v 1.9 2008/03/10 11:18:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -206,7 +206,7 @@ function ConvertToLdap()    {
 	    
 	    switch ($oa->type) {
 	    case "image":
-	      if (ereg ("(.*)\|(.*)", $value, $reg)) {
+	      if (ereg (REGEXPFILE, $value, $reg)) {
 		$vf = newFreeVaultFile($this->dbaccess);
 		if ($vf->Retrieve ($reg[2], $info) == "") { 
 		  $fd=fopen($info->path, "r");      
