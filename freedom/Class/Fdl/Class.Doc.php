@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.472 2008/03/10 10:45:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.473 2008/03/11 13:10:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1364,8 +1364,12 @@ final public function PostInsert()  {
    */
   final public function GetActionAttributes() {      
       if (!$this->_maskApplied) $this->ApplyMask();
-      
-      return $this->attributes->GetActionAttributes();      
+      $tsa=array();
+      $at= $this->attributes->GetActionAttributes(); 
+      foreach($at as $k=>$v) {
+	if ($v->visibility != 'H') $tsa[$v->id]=$v;	  	
+      }
+      return $tsa;     
     }
   /**
    * return all the attributes object for abstract
