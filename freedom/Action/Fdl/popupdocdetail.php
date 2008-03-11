@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.39 2008/03/11 11:24:33 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.40 2008/03/11 13:21:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -473,6 +473,7 @@ function addFamilyPopup(&$tlink,&$doc) {
       $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
       $tlink[$k]["visibility"]=($control)?POPUP_CTRLACTIVE:POPUP_ACTIVE;
       $tlink[$k]["submenu"]=$v->getOption("submenu");
+      if ($v->precond != "") $tlink[$k]["visibility"]=$doc->ApplyMethod($v->precond,POPUP_ACTIVE);
       
     
   }
