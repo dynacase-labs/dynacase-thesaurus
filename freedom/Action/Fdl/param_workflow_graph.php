@@ -3,7 +3,7 @@
  * View workflow graph
  *
  * @author Anakeen 2000 
- * @version $Id: param_workflow_graph.php,v 1.1 2008/03/10 17:51:05 eric Exp $
+ * @version $Id: param_workflow_graph.php,v 1.2 2008/03/11 11:25:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -24,6 +24,8 @@ function param_workflow_graph(&$action) {
   $docid = GetHttpVars("id"); 
   $viewdoc = (GetHttpVars("viewdoc","N")=="Y"); 
   $type = GetHttpVars("type","simple"); // type of graph
+  $action->parent->AddJsRef($action->GetParam("CORE_JSURL")."/geometry.js");
+
   $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $doc=new_doc($dbaccess,$docid);

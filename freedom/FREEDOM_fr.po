@@ -6,114 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 09:21+0100\n"
-"PO-Revision-Date: 2008-02-21 09:25+0100\n"
+"POT-Creation-Date: 2008-03-11 12:14+0100\n"
+"PO-Revision-Date: 2008-03-11 12:15+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr "impossible de voir : la référence %s est inconnue"
-
-#, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "attribut inconnu %s pour le document %s"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
-
-#, c-format
-msgid "modify [%s] attribute"
-msgstr "modification attribut %s"
-
-msgid "no family"
-msgstr "pas de famille"
-
-msgid "click to change option"
-msgstr "Cliquez pour changer les options"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
-
-#, c-format
-msgid "Document %s in %s state not found"
-msgstr "Document %s dans l'état %s non trouvé"
-
-#, c-format
-msgid "no file referenced for %s document"
-msgstr "pas de fichier trouvé pour le document %s"
-
-msgid "no attribute file found"
-msgstr "Aucun attribut de type fichier trouvé"
-
-#, c-format
-msgid "%s has be sended"
-msgstr "%s a été envoyé"
-
-msgid "file must be controlled : read permission needed"
-msgstr "la fichier doit être controllé : permission de lire refusé"
-
-#, c-format
-msgid "cannot copy %s"
-msgstr "écriture impossible : %s"
-
-msgid "Zip Archive cannot be created"
-msgstr "L'archive Zip n'a pas pu être créée"
-
-#, c-format
-msgid "file for %s not found."
-msgstr "fichier pour %s non trouvé"
-
-msgid "no document reference"
-msgstr "pas de référence au document"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr "la référence logique '%s' est inconnue"
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr "La méthode '%s' n'existe pas pour ce document"
-
-#, c-format
-msgid "%s has been locked"
-msgstr "%s a été verrouillé"
-
-#, c-format
-msgid "method %s applied to document %s #%d"
-msgstr "méthode %s appliqué au document %s n°%d"
-
-msgid "no email address found"
-msgstr "absence d'adresse couriel"
-
-msgid "no avalaible persons found"
-msgstr "pas de personnes valides trouvées"
 
 msgid "No identificator"
 msgstr "Pas d'identificateurs"
@@ -234,6 +133,107 @@ msgstr "Changer d'état"
 #, c-format
 msgid "Sure %s ?"
 msgstr "Confirmation : %s ?"
+
+msgid "no document reference"
+msgstr "pas de référence au document"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr "la référence logique '%s' est inconnue"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr "impossible de voir : la référence %s est inconnue"
+
+#, c-format
+msgid "Document %s in %s state not found"
+msgstr "Document %s dans l'état %s non trouvé"
+
+#, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "attribut inconnu %s pour le document %s"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+"la visibilité %s ne permet pas de modifier l'attribut %s du document %s"
+
+#, c-format
+msgid "modify [%s] attribute"
+msgstr "modification attribut %s"
+
+msgid "no family"
+msgstr "pas de famille"
+
+msgid "click to change option"
+msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
+
+#, c-format
+msgid "no file referenced for %s document"
+msgstr "pas de fichier trouvé pour le document %s"
+
+msgid "no attribute file found"
+msgstr "Aucun attribut de type fichier trouvé"
+
+#, c-format
+msgid "%s has be sended"
+msgstr "%s a été envoyé"
+
+msgid "file must be controlled : read permission needed"
+msgstr "la fichier doit être controllé : permission de lire refusé"
+
+#, c-format
+msgid "cannot copy %s"
+msgstr "écriture impossible : %s"
+
+msgid "Zip Archive cannot be created"
+msgstr "L'archive Zip n'a pas pu être créée"
+
+#, c-format
+msgid "file for %s not found."
+msgstr "fichier pour %s non trouvé"
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr "La méthode '%s' n'existe pas pour ce document"
+
+#, c-format
+msgid "%s has been locked"
+msgstr "%s a été verrouillé"
+
+#, c-format
+msgid "method %s applied to document %s #%d"
+msgstr "méthode %s appliqué au document %s n°%d"
+
+msgid "no email address found"
+msgstr "absence d'adresse couriel"
+
+msgid "no avalaible persons found"
+msgstr "pas de personnes valides trouvées"
 
 msgid "cannot compare two document which comes from two different family"
 msgstr ""
@@ -1114,23 +1114,6 @@ msgstr "<b>%d groupe(s) à actualiser"
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
 
-msgid "precise search"
-msgstr "Précisez la recherche"
-
-msgid "next"
-msgstr "suivant"
-
-msgid "prev"
-msgstr "suivant"
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr "recherche contenant %s (tout état)"
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr "recherche contenant %s dans %s"
-
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
@@ -1191,6 +1174,15 @@ msgstr "Ajout dans dossier %s"
 msgid "related documents of %s"
 msgstr "documents référençant %s "
 
+msgid "precise search"
+msgstr "Précisez la recherche"
+
+msgid "next"
+msgstr "suivant"
+
+msgid "prev"
+msgstr "suivant"
+
 #, c-format
 msgid "Modification for attribute %s for family %s"
 msgstr "Modification de l'attribut %s de la famille %s"
@@ -1202,6 +1194,14 @@ msgstr "mes recherches %s"
 #, c-format
 msgid "my searches about %s"
 msgstr "mes recherches concernant %s"
+
+#, c-format
+msgid "search  contains %s in all state"
+msgstr "recherche contenant %s (tout état)"
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr "recherche contenant %s dans %s"
 
 #, c-format
 msgid "search %s is %s"
@@ -1252,6 +1252,15 @@ msgstr "Document trop volumineux (%dKo): pas de mise en évidence"
 
 msgid "detailled search"
 msgstr "recherche détaillée"
+
+msgid "e1"
+msgstr "e1"
+
+msgid "e2"
+msgstr "e2"
+
+msgid "t"
+msgstr "t"
 
 msgid "freedom cron try execute"
 msgstr "Cron Freedom essai d'execution"
@@ -1315,15 +1324,6 @@ msgstr "en cours...\n"
 
 msgid "done\n"
 msgstr "effectué\n"
-
-msgid "e1"
-msgstr "e1"
-
-msgid "e2"
-msgstr "e2"
-
-msgid "t"
-msgstr "t"
 
 msgid "Freedoms lib"
 msgstr "bibliothèque freedom"
@@ -2511,12 +2511,6 @@ msgstr "nouvelle %s"
 msgid "confidential document"
 msgstr "document confidentiel"
 
-msgid "uncomplete request"
-msgstr "requête incomplète"
-
-msgid "request not found"
-msgstr "requête non trouvée"
-
 msgid "locked document of "
 msgstr "documents verrouillés par "
 
@@ -2810,6 +2804,12 @@ msgstr "vers privé"
 msgid "Twprocess_public"
 msgstr "vers public"
 
+msgid "uncomplete request"
+msgstr "requête incomplète"
+
+msgid "request not found"
+msgstr "requête non trouvée"
+
 #, c-format
 msgid "%s attribute"
 msgstr "attribut %s"
@@ -3020,6 +3020,12 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
+msgid "menuctrlkey"
+msgstr "Autre..."
+
+msgid "submenu"
+msgstr "sous-menu"
+
 #, c-format
 msgid "period from %s to %s"
 msgstr "période du %s au %s"
@@ -3157,12 +3163,6 @@ msgstr "dossier inconnu, ne peut être consulté"
 msgid "read-only"
 msgstr "lecture seule"
 
-msgid "menuctrlkey"
-msgstr "Autre..."
-
-msgid "submenu"
-msgstr "sous-menu"
-
 msgid "States"
 msgstr "États"
 
@@ -3174,6 +3174,9 @@ msgstr "Sauver les paramètres"
 
 msgid "Save"
 msgstr "Sauver"
+
+msgid "Click to view menu"
+msgstr "Cliquer pour voir le menu"
 
 msgid "This document has been deleted"
 msgstr "Ce document a été supprimé"
@@ -3356,6 +3359,54 @@ msgstr "Suivant"
 msgid "No results"
 msgstr "Pas de résultats"
 
+msgid "Workflow - parameters"
+msgstr "Paramètres d'affichage"
+
+msgid "dotType"
+msgstr "Type"
+
+msgid "Just states"
+msgstr "Que les états"
+
+msgid "With conditions"
+msgstr "Avec les traitements"
+
+msgid "dotFormat"
+msgstr "Format"
+
+msgid "SVG"
+msgstr "vectoriel (SVG)"
+
+msgid "Image"
+msgstr "Image (PNG)"
+
+msgid "Dot"
+msgstr "Dot"
+
+msgid "dotOrient"
+msgstr "Orientation"
+
+msgid "Left Right"
+msgstr "Gauche droite"
+
+msgid "Top Bottom"
+msgstr "Haut Bas"
+
+msgid "dotSize"
+msgstr "Taille"
+
+msgid "dotNoSize"
+msgstr "Sans taille"
+
+msgid "Fit to screen"
+msgstr "Ajuster à l'écran"
+
+msgid "dotRatio"
+msgstr "Ratio"
+
+msgid "Draw graph"
+msgstr "Dessiner le graphe"
+
 msgid "Attributes definition"
 msgstr "définition des attributs"
 
@@ -3406,6 +3457,21 @@ msgstr "options"
 
 msgid "Validate"
 msgstr "Valider"
+
+msgid "Export"
+msgstr "Exporter"
+
+msgid "Create subfolder"
+msgstr "Créer un dossier"
+
+msgid "Refresh folder"
+msgstr "Actualiser"
+
+msgid "Copy reference"
+msgstr "Copier la référence"
+
+msgid "Move reference"
+msgstr "Déplacer la référence"
 
 msgid "Creation"
 msgstr "Création"
@@ -3547,21 +3613,6 @@ msgstr "cycle de vie"
 
 msgid "no workflow"
 msgstr "pas de cycle de vie"
-
-msgid "Export"
-msgstr "Exporter"
-
-msgid "Create subfolder"
-msgstr "Créer un dossier"
-
-msgid "Refresh folder"
-msgstr "Actualiser"
-
-msgid "Copy reference"
-msgstr "Copier la référence"
-
-msgid "Move reference"
-msgstr "Déplacer la référence"
 
 msgid " folder containt"
 msgstr " contenu du dossier"
@@ -4003,29 +4054,14 @@ msgstr "Nouvelle recherche"
 msgid "New report"
 msgstr "Nouveau rapport"
 
+msgid "View my searches"
+msgstr "Voir mes recherches"
+
 msgid "Preferences"
 msgstr "Préférences"
 
 msgid "Edit attribute kinds"
 msgstr "Éditer les catégories"
-
-msgid "Search containing characters"
-msgstr "Recherche contenant les caractères"
-
-msgid "Search Words"
-msgstr "Recherche des mots"
-
-msgid "Send search"
-msgstr "Lancer la recherche"
-
-msgid "Go"
-msgstr "Go"
-
-msgid "toedit"
-msgstr "éditer"
-
-msgid "View my searches"
-msgstr "Voir mes recherches"
 
 msgid "level"
 msgstr "niveau"
@@ -4148,6 +4184,21 @@ msgstr "Nouvelle catégorie"
 
 msgid "add new category"
 msgstr "ajout nouvelle catégorie"
+
+msgid "Search containing characters"
+msgstr "Recherche contenant les caractères"
+
+msgid "Search Words"
+msgstr "Recherche des mots"
+
+msgid "Send search"
+msgstr "Lancer la recherche"
+
+msgid "Go"
+msgstr "Go"
+
+msgid "toedit"
+msgstr "éditer"
 
 msgid "Family preferences"
 msgstr "Préférences des familles"
@@ -4397,6 +4448,9 @@ msgstr "Choisissez un document avant de choisir les options"
 
 msgid "quick save not possible"
 msgstr "Sauvegarde rapide impossible"
+
+msgid "Others"
+msgstr "Autres"
 
 msgid "fromdate"
 msgstr "date de début"
@@ -4710,12 +4764,6 @@ msgstr "ajouter une entrée"
 
 msgid "save"
 msgstr "Sauver"
-
-msgid "Click to view menu"
-msgstr "Cliquer pour voir le menu"
-
-msgid "Others"
-msgstr "Autres"
 
 msgid "Parameters for"
 msgstr "Paramètres pour"
@@ -5350,9 +5398,6 @@ msgstr ""
 
 #~ msgid "stocked"
 #~ msgstr "stocké"
-
-#~ msgid "out"
-#~ msgstr "sorti"
 
 #~ msgid "Tvirtual"
 #~ msgstr "vers virtuel"

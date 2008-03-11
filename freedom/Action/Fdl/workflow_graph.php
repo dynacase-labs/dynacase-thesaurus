@@ -3,7 +3,7 @@
  * View workflow graph
  *
  * @author Anakeen 2000 
- * @version $Id: workflow_graph.php,v 1.1 2008/03/10 17:51:05 eric Exp $
+ * @version $Id: workflow_graph.php,v 1.2 2008/03/11 11:25:04 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -29,5 +29,8 @@ function workflow_graph(&$action) {
   $doc=new_doc($dbaccess,$docid);
   $action->lay->set("id",$doc->id);
   $action->lay->set("TITLE",$doc->title);
+
+  $filetype="svg";
+  if ($action->Read("navigator","")=="EXPLORER") $filetype="png";
   
 }

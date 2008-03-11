@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-02-21 09:21+0100\n"
+"POT-Creation-Date: 2008-03-11 12:14+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,110 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s in %s state not found"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "no file referenced for %s document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "no attribute file found"
-msgstr "Update Title Cards"
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot copy %s"
-msgstr "Category"
-
-msgid "Zip Archive cannot be created"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, fuzzy
-msgid "no document reference"
-msgstr "Delete"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "method %s applied to document %s #%d"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
-msgstr ""
 
 msgid "No identificator"
 msgstr ""
@@ -258,6 +154,110 @@ msgstr "Identity"
 
 #, c-format
 msgid "Sure %s ?"
+msgstr ""
+
+#, fuzzy
+msgid "no document reference"
+msgstr "Delete"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr ""
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Document %s in %s state not found"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no file referenced for %s document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "no attribute file found"
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot copy %s"
+msgstr "Category"
+
+msgid "Zip Archive cannot be created"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "method %s applied to document %s #%d"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
 msgstr ""
 
 msgid "cannot compare two document which comes from two different family"
@@ -1166,25 +1166,6 @@ msgstr ""
 msgid "No need to refresh group"
 msgstr "Delete"
 
-#, fuzzy
-msgid "precise search"
-msgstr "Start search"
-
-#, fuzzy
-msgid "next"
-msgstr "Export this card"
-
-msgid "prev"
-msgstr ""
-
-#, c-format
-msgid "search  contains %s in all state"
-msgstr ""
-
-#, c-format
-msgid "search contains %s in %s"
-msgstr ""
-
 #, c-format
 msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
@@ -1246,6 +1227,17 @@ msgstr "Modify"
 msgid "related documents of %s"
 msgstr "Import"
 
+#, fuzzy
+msgid "precise search"
+msgstr "Start search"
+
+#, fuzzy
+msgid "next"
+msgstr "Export this card"
+
+msgid "prev"
+msgstr ""
+
 #, c-format
 msgid "Modification for attribute %s for family %s"
 msgstr ""
@@ -1257,6 +1249,14 @@ msgstr "Start search"
 #, fuzzy, c-format
 msgid "my searches about %s"
 msgstr "Start search"
+
+#, c-format
+msgid "search  contains %s in all state"
+msgstr ""
+
+#, c-format
+msgid "search contains %s in %s"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "search %s is %s"
@@ -1309,6 +1309,15 @@ msgstr ""
 #, fuzzy
 msgid "detailled search"
 msgstr "Email"
+
+msgid "e1"
+msgstr ""
+
+msgid "e2"
+msgstr ""
+
+msgid "t"
+msgstr ""
 
 msgid "freedom cron try execute"
 msgstr ""
@@ -1371,15 +1380,6 @@ msgid "processing...\n"
 msgstr ""
 
 msgid "done\n"
-msgstr ""
-
-msgid "e1"
-msgstr ""
-
-msgid "e2"
-msgstr ""
-
-msgid "t"
 msgstr ""
 
 msgid "Freedoms lib"
@@ -2698,12 +2698,6 @@ msgstr ""
 msgid "confidential document"
 msgstr "Delete"
 
-msgid "uncomplete request"
-msgstr ""
-
-msgid "request not found"
-msgstr ""
-
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -3007,6 +3001,12 @@ msgstr ""
 msgid "Twprocess_public"
 msgstr ""
 
+msgid "uncomplete request"
+msgstr ""
+
+msgid "request not found"
+msgstr ""
+
 #, fuzzy, c-format
 msgid "%s attribute"
 msgstr "Update Title Cards"
@@ -3228,6 +3228,12 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
+msgid "menuctrlkey"
+msgstr ""
+
+msgid "submenu"
+msgstr ""
+
 #, c-format
 msgid "period from %s to %s"
 msgstr ""
@@ -3364,12 +3370,6 @@ msgstr ""
 msgid "read-only"
 msgstr ""
 
-msgid "menuctrlkey"
-msgstr ""
-
-msgid "submenu"
-msgstr ""
-
 #, fuzzy
 msgid "States"
 msgstr "Identity"
@@ -3385,6 +3385,9 @@ msgstr "Import"
 #, fuzzy
 msgid "Save"
 msgstr "Identity"
+
+msgid "Click to view menu"
+msgstr ""
 
 msgid "This document has been deleted"
 msgstr ""
@@ -3612,6 +3615,60 @@ msgstr "Export this card"
 msgid "No results"
 msgstr "Import"
 
+#, fuzzy
+msgid "Workflow - parameters"
+msgstr "Modify"
+
+msgid "dotType"
+msgstr ""
+
+#, fuzzy
+msgid "Just states"
+msgstr "Create"
+
+#, fuzzy
+msgid "With conditions"
+msgstr "Edit"
+
+msgid "dotFormat"
+msgstr ""
+
+msgid "SVG"
+msgstr ""
+
+#, fuzzy
+msgid "Image"
+msgstr "Start search"
+
+msgid "Dot"
+msgstr ""
+
+#, fuzzy
+msgid "dotOrient"
+msgstr "Edit"
+
+msgid "Left Right"
+msgstr ""
+
+msgid "Top Bottom"
+msgstr ""
+
+#, fuzzy
+msgid "dotSize"
+msgstr "Update Title Cards"
+
+msgid "dotNoSize"
+msgstr ""
+
+msgid "Fit to screen"
+msgstr ""
+
+msgid "dotRatio"
+msgstr ""
+
+msgid "Draw graph"
+msgstr ""
+
 msgid "Attributes definition"
 msgstr ""
 
@@ -3673,6 +3730,26 @@ msgstr "Edit"
 #, fuzzy
 msgid "Validate"
 msgstr "Edit"
+
+#, fuzzy
+msgid "Export"
+msgstr "Export selected cards"
+
+#, fuzzy
+msgid "Create subfolder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Refresh folder"
+msgstr "Delete"
+
+#, fuzzy
+msgid "Copy reference"
+msgstr "Modify"
+
+#, fuzzy
+msgid "Move reference"
+msgstr "Delete"
 
 #, fuzzy
 msgid "Creation"
@@ -3851,26 +3928,6 @@ msgstr "Delete"
 
 #, fuzzy
 msgid "no workflow"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Export"
-msgstr "Export selected cards"
-
-#, fuzzy
-msgid "Create subfolder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Refresh folder"
-msgstr "Delete"
-
-#, fuzzy
-msgid "Copy reference"
-msgstr "Modify"
-
-#, fuzzy
-msgid "Move reference"
 msgstr "Delete"
 
 #, fuzzy
@@ -4405,34 +4462,16 @@ msgid "New report"
 msgstr "Category"
 
 #, fuzzy
+msgid "View my searches"
+msgstr "Start search"
+
+#, fuzzy
 msgid "Preferences"
 msgstr "Delete"
 
 #, fuzzy
 msgid "Edit attribute kinds"
 msgstr "Update Title Cards"
-
-msgid "Search containing characters"
-msgstr ""
-
-#, fuzzy
-msgid "Search Words"
-msgstr "Start search"
-
-#, fuzzy
-msgid "Send search"
-msgstr "Start search"
-
-msgid "Go"
-msgstr ""
-
-#, fuzzy
-msgid "toedit"
-msgstr "Edit"
-
-#, fuzzy
-msgid "View my searches"
-msgstr "Start search"
 
 msgid "level"
 msgstr ""
@@ -4565,6 +4604,24 @@ msgstr "Category"
 #, fuzzy
 msgid "add new category"
 msgstr "Category"
+
+msgid "Search containing characters"
+msgstr ""
+
+#, fuzzy
+msgid "Search Words"
+msgstr "Start search"
+
+#, fuzzy
+msgid "Send search"
+msgstr "Start search"
+
+msgid "Go"
+msgstr ""
+
+#, fuzzy
+msgid "toedit"
+msgstr "Edit"
 
 #, fuzzy
 msgid "Family preferences"
@@ -4863,6 +4920,10 @@ msgstr ""
 
 msgid "quick save not possible"
 msgstr ""
+
+#, fuzzy
+msgid "Others"
+msgstr "Delete"
 
 #, fuzzy
 msgid "fromdate"
@@ -5235,13 +5296,6 @@ msgstr ""
 #, fuzzy
 msgid "save"
 msgstr "Identity"
-
-msgid "Click to view menu"
-msgstr ""
-
-#, fuzzy
-msgid "Others"
-msgstr "Delete"
 
 #, fuzzy
 msgid "Parameters for"
