@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.9 2008/03/11 11:25:04 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.10 2008/03/11 16:16:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,7 +56,7 @@ if ($isize=="auto") $size="";
  }
 $statefontsize=14;
 $conditionfontsize=12;
-$labelfontsize=6;
+$labelfontsize=10;
 
 foreach ($doc->cycle as $k=>$v) {
   $tmain='';
@@ -75,7 +75,7 @@ foreach ($doc->cycle as $k=>$v) {
 
       $line[]='"'.str_replace(" ","\\n",$m1.$k).'" [ label="'.$m1.'.", fixedsize=false,fontsize='.$conditionfontsize.',shape=diamond,color="'."yellow".'" ];';
 
-      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, labelfontsize='.$labelfontsize.', labelfontname=sans, label="%s"];',
+      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize='.$labelfontsize.', labelfontname=sans, label="%s"];',
 		    str_replace(" ","\\n",$e1),
 		      str_replace(" ","\\n",$m1.$k), _($v["t"]));
       $e1=$m1.$k;
@@ -83,13 +83,13 @@ foreach ($doc->cycle as $k=>$v) {
     }
     if ($m2) {
       $line[]='"'.str_replace(" ","\\n",$m2.$k).'" [ label="'.$m2.'",fixedsize=false,shape=box,color="'."orange".'", fontsize='.$conditionfontsize.' ];';
-      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, labelfontsize='.$labelfontsize.',labelfontname=sans];',
+      $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize='.$labelfontsize.',labelfontname=sans];',
 		    str_replace(" ","\\n",$e1),
 		    str_replace(" ","\\n",$m2.$k));
       $e1=$m2.$k;
       
     }
-    $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, labelfontsize='.$labelfontsize.',labelfontname=sans,label="%s" %s];',
+    $line[]=sprintf('"%s" -> "%s" [labelfontcolor="#555555",decorate=false, color=darkblue, fontsize='.$labelfontsize.',labelfontname=sans,label="%s" %s];',
 		    str_replace(" ","\\n",$e1),
 		    str_replace(" ","\\n",$e2),
 		    _($v["t"]),$tmain);
@@ -109,13 +109,14 @@ foreach ($states as $k=>$v) {
 }
 
 #        page=\"11.6,8.2\";
-$ft=_($doc->firstState);
+$ft=str_replace(" ",'\n',_($doc->firstState));
+
 $dot="digraph \"".$doc->title."\" {
         ratio=\"$ratio\";
 	rankdir=$rankdir;
         $size
         bgcolor=\"transparent\";
-        {rank=1; $ft;}
+        {rank=1; \"$ft\";}
         splines=false;
 	node [shape = circle, style=filled, fixedsize=true,width=1.5,  fontsize=$statefontsize, fontname=sans];\n";
 
