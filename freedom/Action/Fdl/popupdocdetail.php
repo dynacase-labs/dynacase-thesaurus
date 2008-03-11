@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.38 2008/02/15 14:54:36 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.39 2008/03/11 11:24:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -435,6 +435,8 @@ function addFamilyPopup(&$tlink,&$doc) {
     $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
     $tlink[$k]["confirm"]=$confirm?"true":"false";
     $tlink[$k]["control"]=$control;
+    $tlink[$k]["mwidth"]=$v->getOption("mwidth");
+    $tlink[$k]["mheight"]=$v->getOption("mheight");
     $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
     $tlink[$k]["visibility"]=($control)?POPUP_CTRLACTIVE:POPUP_ACTIVE;
     $tlink[$k]["submenu"]=$v->getOption("submenu");
@@ -457,7 +459,7 @@ function addFamilyPopup(&$tlink,&$doc) {
 	$v->link=$reg[2];
 	$tlink[$k]["target"] = $reg[1];
       } else {
-	$tlink[$k]["target"] = $v->id;
+	$tlink[$k]["target"] = $v->id."-".$doc->id;;
       }
       if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
       $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";
@@ -466,6 +468,8 @@ function addFamilyPopup(&$tlink,&$doc) {
       $tlink[$k]["url"] = addslashes($doc->urlWhatEncode($v->link));
       $tlink[$k]["confirm"]=$confirm?"true":"false";
       $tlink[$k]["control"]=$control;
+      $tlink[$k]["mwidth"]=$v->getOption("mwidth");
+      $tlink[$k]["mheight"]=$v->getOption("mheight");
       $tlink[$k]["tconfirm"]=sprintf(_("Sure %s ?"),addslashes($v->labelText));
       $tlink[$k]["visibility"]=($control)?POPUP_CTRLACTIVE:POPUP_ACTIVE;
       $tlink[$k]["submenu"]=$v->getOption("submenu");

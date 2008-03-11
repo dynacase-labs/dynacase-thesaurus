@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.6 2008/03/10 08:48:29 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.7 2008/03/11 11:25:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,8 +53,8 @@ function viewbarmenu(&$action) {
       } else {
 	$popup[$k]["idlink"]=$k;
 	if (!isset($v["jsfunction"])) $popup[$k]["jsfunction"]='';
-	if ($v["mwidth"]=="")  $popup[$k]["mwidth"]=$action->getParam("FDL_VD2SIZE");
-	if ($v["mheight"]=="")  $popup[$k]["mheight"]=$action->getParam("FDL_HD2SIZE");
+	if ($v["mwidth"]=="")  $popup[$k]["mwidth"]=$action->getParam("FDL_HD2SIZE");
+	if ($v["mheight"]=="")  $popup[$k]["mheight"]=$action->getParam("FDL_VD2SIZE");
 	if ($v["target"]=="")  $popup[$k]["target"]="$k$docid";
 	$popup[$k]["descr"]=ucfirst($v["descr"]);
 	$popup[$k]["title"]=ucfirst($v["title"]);

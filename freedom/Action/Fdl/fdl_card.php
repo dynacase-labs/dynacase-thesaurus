@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.32 2008/02/19 09:47:08 eric Exp $
+ * @version $Id: fdl_card.php,v 1.33 2008/03/11 11:24:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -131,6 +131,8 @@ function fdl_card(&$action) {
       $taction=array();
       if ($doc->doctype!='C') {
 	$listattr = $doc->GetActionAttributes();
+	$mwidth=$action->getParam("FDL_HD2SIZE",300);
+	$mheight=$action->getParam("FDL_VD2SIZE",400);
 	foreach ($listattr as $k => $v) {
 	  if (($v->mvisibility != "H")&&($v->mvisibility != "O")) {
 	    if ($v->getOption("onlymenu")!="yes") {
@@ -139,7 +141,9 @@ function fdl_card(&$action) {
 	      if ($mvis == MENU_ACTIVE) {
 		$taction[$k]=array("wadesc"=>$v->getOption("llabel"),
 				   "walabel"=>ucfirst($v->labelText),
-				   "wtarget"=>($v->getOption("ltarget")=="")?$v->id:$v->getOption("ltarget"),
+				   "wwidth"=>$v->getOption("mwidth",$mwidth),
+				   "wheight"=>$v->getOption("mheight",$mheight),
+				   "wtarget"=>($v->getOption("ltarget")=="")?$v->id."-".$doc->id:$v->getOption("ltarget"),
 				   "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
 	      }
 	    }
