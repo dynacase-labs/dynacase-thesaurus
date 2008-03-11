@@ -1,7 +1,7 @@
 [ZONE CORE:HTMLHEAD?title=[TEXT:Workflow - parameters]]
 
 <form 
-      name="fviewidoc"style="display:inline"
+      name="fwkf"style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
       action="[CORE_STANDURL]&app=FDL&action=VIEW_WORKFLOW_GRAPH"
    onsubmit="setifit()"
@@ -23,14 +23,14 @@
   <option value="TB">[TEXT:Top Bottom]</option>
   </select>
 <select title="[TEXT:dotSize]" name="size">
-  <option value="auto">[TEXT:dotNoSize]</option>
+  <option  value="auto">[TEXT:dotNoSize]</option>
   <option value="5">5cmx5cm</option>
-  <option selected value="10">10cmx10cm</option>
+  <option value="10">10cmx10cm</option>
   <option value="20">20cmx20cm</option>
   <option value="A4">21cmx29.7cm</option>
   <option value="30,30">30cmx30cm</option>
   <option value="40">40cmx40cm</option>
-  <option id="fit" value="40">[TEXT:Fit to screen]</option>
+  <option selected id="fit" value="40">[TEXT:Fit to screen]</option>
   </select>
 <select title="[TEXT:dotRatio]" name="ratio">
   <option value="fill">fill</option>
@@ -56,6 +56,8 @@ function setifit() {
 
   }
 }
+
+addEvent(window,'load',function z() {setifit();document.fwkf.submit();});
 
 </script>
 </html>
