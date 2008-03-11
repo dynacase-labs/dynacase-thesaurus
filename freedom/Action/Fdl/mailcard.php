@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.77 2008/02/28 17:50:57 eric Exp $
+ * @version $Id: mailcard.php,v 1.78 2008/03/11 10:49:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -559,7 +559,7 @@ function srcfile($src) {
     return imgvaultfile($src);
   }
   
-  if ( ! in_array(fileextension($src),$vext)) return "";
+  if ( ! in_array(strtolower(fileextension($src)),$vext)) return "";
 
   $ifiles[$src] = $src;
   return "src=\"cid:$src\"";
