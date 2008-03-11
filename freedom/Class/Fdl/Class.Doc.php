@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.473 2008/03/11 13:10:11 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.474 2008/03/11 13:24:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1367,7 +1367,7 @@ final public function PostInsert()  {
       $tsa=array();
       $at= $this->attributes->GetActionAttributes(); 
       foreach($at as $k=>$v) {
-	if ($v->visibility != 'H') $tsa[$v->id]=$v;	  	
+	if ($v->mvisibility != 'H') $tsa[$v->id]=$v;	  	
       }
       return $tsa;     
     }
@@ -1635,7 +1635,7 @@ final public function PostInsert()  {
       
       reset($this->attributes->attr);
       foreach($this->attributes->attr as $k=>$v) {
-	if (((get_class($v) == "MenuAttribute"))&&($v->visibility != 'H')) $tsa[$v->id]=$v;
+	if (((get_class($v) == "MenuAttribute"))&&($v->mvisibility != 'H')) $tsa[$v->id]=$v;
 	  
 	
       }
