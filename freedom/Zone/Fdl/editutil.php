@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.134 2008/03/10 10:45:52 eric Exp $
+ * @version $Id: editutil.php,v 1.135 2008/03/11 16:17:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -546,7 +546,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       } else {
 	$url= elinkEncode($doc,$oattr->elink,$index,$ititle,$isymbol);
 
-	$target= $attrid;
+	$target= $oattr->getOption("eltarget",$attrid);
 	  
 	$jsfunc="subwindowm(300,500,'$target','$url');";
       }
