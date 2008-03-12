@@ -1,5 +1,16 @@
 <?php
-
+/**
+ * Add forum entry
+ *
+ * @author Anakeen 2008
+ * @version $Id: forum_entry.php,v 1.6 2008/03/12 09:59:24 eric Exp $
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @package FREEDOM
+ * @subpackage 
+ */
+ /**
+ */
+include_once("FDL/Class.Doc.php");
 function forum_entry(&$action) {
 
   $dbaccess = GetParam("FREEDOM_DB");
