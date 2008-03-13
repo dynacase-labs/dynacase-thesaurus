@@ -3,7 +3,7 @@
  * FREEDOM File system
  *
  * @author Anakeen 2006
- * @version $Id: Class.FdlDav.php,v 1.14 2007/12/06 16:57:16 eric Exp $
+ * @version $Id: Class.FdlDav.php,v 1.15 2008/03/13 11:04:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM-DAV
  */
@@ -1034,7 +1034,7 @@ class HTTP_WebDAV_Server_Freedom extends HTTP_WebDAV_Server {
 	    
 	$f=$copy->getValue($ff->id);
 	error_log("RENAME SEARCH:".$f);
-	if (ereg ("(.*)\|(.*)", $f, $reg)) {
+	if (ereg (REGEXPFILE, $f, $reg)) {
 	  $vf = newFreeVaultFile($this->db_freedom);
 	  $vid=$reg[2];
 	      
