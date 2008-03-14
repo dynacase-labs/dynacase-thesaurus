@@ -40,7 +40,7 @@ if NEW.doctype != 'T' then
 
      EXCEPTION
 	 WHEN OTHERS THEN
-	    RAISE NOTICE 'Error %',NEW.id;
+	    RAISE NOTICE 'fulltext not set %',NEW.id;
    end;
    end if;
 end if;
