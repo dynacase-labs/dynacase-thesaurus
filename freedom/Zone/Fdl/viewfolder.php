@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.89 2008/02/19 16:06:44 eric Exp $
+ * @version $Id: viewfolder.php,v 1.90 2008/03/14 13:58:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -260,7 +260,9 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
 	popupInvisible("popuplist",$kdiv,'vprop'); // don't use : idem like simple clic
 	popupActive("popuplist",$kdiv,'cancel');
 	popupActive("popuplist",$kdiv,'copy');
-	popupActive("popuplist",$kdiv,'addbasket');
+	
+	if (! $action->getParam("FREEDOM_IDBASKET")) popupInvisible("popuplist",$kdiv,'addbasket');
+	else popupActive("popuplist",$kdiv,'addbasket');
 	popupActive("popuplist",$kdiv,'ifld');
 	popupActive("popuplist",$kdiv,'duplicate');
 

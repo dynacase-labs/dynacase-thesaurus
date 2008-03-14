@@ -3,7 +3,7 @@
  * Modify a document
  *
  * @author Anakeen 2000 
- * @version $Id: generic_mod.php,v 1.33 2007/10/09 16:44:47 eric Exp $
+ * @version $Id: generic_mod.php,v 1.34 2008/03/14 13:58:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -55,6 +55,10 @@ function generic_mod(&$action) {
 
       if ($dirid > 0) {
 	$fld = new_Doc($dbaccess, $dirid);
+	if ($fld->locked == -1) { // it is revised document
+	  $dirid= $fld->latestId();
+	  if ($dirid != $fld->id) $fld = new_Doc($dbaccess, $dirid);
+	}
 	if (method_exists($fld,"AddFile")) {
 	  $err=$fld->AddFile($doc->id); 
 	  if ($err!="") {

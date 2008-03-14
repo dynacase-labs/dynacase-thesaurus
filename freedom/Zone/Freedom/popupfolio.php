@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.12 2007/08/03 08:31:57 eric Exp $
+ * @version $Id: popupfolio.php,v 1.13 2008/03/14 13:58:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -22,9 +22,13 @@ function popupfolio(&$action) {
   $folioid=GetHttpVars("folioid"); // portfolio id
 
   $kdiv=1; // only one division
-
+  $dbaccess=$action->getParam("FREEDOM_DB");
+  
   $dir = new_Doc($dbaccess,$dirid);
-
+  if ($dir->locked == -1) { // it is revised document
+    $ldocid = $dir->latestId();
+    if ($ldocid != $dir->id) $dir = new_Doc($dbaccess, $ldocid);
+  }
 
   include_once("FDL/popup_util.php");
   // ------------------------------------------------------
@@ -44,6 +48,8 @@ function popupfolio(&$action) {
       Popupactive('popupfolio',$kdiv,'insertbasket');
       Popupactive('popupfolio',$kdiv,'searchinsert');
     }
+    if (! $action->getParam("FREEDOM_IDBASKET")) Popupinvisible('popupfolio',$kdiv,'insertbasket');
+
     if ($dir->usefor  != "G") {
       $sub=$dir->getAuthorizedFamilies();
 
