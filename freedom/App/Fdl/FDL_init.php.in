@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL_init.php.in,v 1.27 2007/12/12 15:15:53 eric Exp $
+// $Id: FDL_init.php.in,v 1.28 2008/03/17 17:15:17 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -118,7 +118,12 @@ $app_const= array(
   "TE_ACTIVATE"   =>array("val"=>"no",
 			  "global"=>"Y",
 			  "user"=>"N",
-			  "descr"=>N_("Activate Transformation Engine to index files"),
+			  "descr"=>N_("Activate Transformation Engine"),
+			  "kind"=>"enum(yes|no)"),
+  "TE_FULLTEXT"   =>array("val"=>"yes",
+			  "global"=>"Y",
+			  "user"=>"N",
+			  "descr"=>N_("Activate file indexing with TE"),
 			  "kind"=>"enum(yes|no)"),
   "TE_URLINDEX"   =>array("val"=>"",
 			  "global"=>"Y",

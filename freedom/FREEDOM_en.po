@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-11 12:14+0100\n"
+"POT-Creation-Date: 2008-03-17 18:12+0100\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,6 +14,110 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
+
+#, c-format
+msgid "cannot see unknow reference %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "unknown attribute %s for document %s"
+msgstr "Modify"
+
+#, c-format
+msgid "visibility %s does not allow modify attribute %s for document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify [%s] attribute"
+msgstr "Update Title Cards"
+
+msgid "no family"
+msgstr ""
+
+#, fuzzy
+msgid "click to change option"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Document %s in %s state not found"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "no file referenced for %s document"
+msgstr "Delete"
+
+#, fuzzy
+msgid "no attribute file found"
+msgstr "Update Title Cards"
+
+#, c-format
+msgid "%s has be sended"
+msgstr ""
+
+msgid "file must be controlled : read permission needed"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot copy %s"
+msgstr "Category"
+
+msgid "Zip Archive cannot be created"
+msgstr ""
+
+#, c-format
+msgid "file for %s not found."
+msgstr ""
+
+#, fuzzy
+msgid "no document reference"
+msgstr "Delete"
+
+#, c-format
+msgid "unknow logical reference '%s'"
+msgstr ""
+
+#, c-format
+msgid "the method %s does not exist for this document"
+msgstr ""
+
+#, c-format
+msgid "%s has been locked"
+msgstr ""
+
+#, c-format
+msgid "method %s applied to document %s #%d"
+msgstr ""
+
+#, fuzzy
+msgid "no email address found"
+msgstr "Address"
+
+msgid "no avalaible persons found"
+msgstr ""
 
 msgid "No identificator"
 msgstr ""
@@ -154,110 +258,6 @@ msgstr "Identity"
 
 #, c-format
 msgid "Sure %s ?"
-msgstr ""
-
-#, fuzzy
-msgid "no document reference"
-msgstr "Delete"
-
-#, c-format
-msgid "unknow logical reference '%s'"
-msgstr ""
-
-#, c-format
-msgid "cannot see unknow reference %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s in %s state not found"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "unknown attribute %s for document %s"
-msgstr "Modify"
-
-#, c-format
-msgid "visibility %s does not allow modify attribute %s for document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify [%s] attribute"
-msgstr "Update Title Cards"
-
-msgid "no family"
-msgstr ""
-
-#, fuzzy
-msgid "click to change option"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no file referenced for %s document"
-msgstr "Delete"
-
-#, fuzzy
-msgid "no attribute file found"
-msgstr "Update Title Cards"
-
-#, c-format
-msgid "%s has be sended"
-msgstr ""
-
-msgid "file must be controlled : read permission needed"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot copy %s"
-msgstr "Category"
-
-msgid "Zip Archive cannot be created"
-msgstr ""
-
-#, c-format
-msgid "file for %s not found."
-msgstr ""
-
-#, c-format
-msgid "the method %s does not exist for this document"
-msgstr ""
-
-#, c-format
-msgid "%s has been locked"
-msgstr ""
-
-#, c-format
-msgid "method %s applied to document %s #%d"
-msgstr ""
-
-#, fuzzy
-msgid "no email address found"
-msgstr "Address"
-
-msgid "no avalaible persons found"
 msgstr ""
 
 msgid "cannot compare two document which comes from two different family"
@@ -1310,15 +1310,6 @@ msgstr ""
 msgid "detailled search"
 msgstr "Email"
 
-msgid "e1"
-msgstr ""
-
-msgid "e2"
-msgstr ""
-
-msgid "t"
-msgstr ""
-
 msgid "freedom cron try execute"
 msgstr ""
 
@@ -1380,6 +1371,15 @@ msgid "processing...\n"
 msgstr ""
 
 msgid "done\n"
+msgstr ""
+
+msgid "e1"
+msgstr ""
+
+msgid "e2"
+msgstr ""
+
+msgid "t"
 msgstr ""
 
 msgid "Freedoms lib"
@@ -1674,7 +1674,10 @@ msgstr ""
 msgid "Transformation Engine server port number"
 msgstr ""
 
-msgid "Activate Transformation Engine to index files"
+msgid "Activate Transformation Engine"
+msgstr ""
+
+msgid "Activate file indexing with TE"
 msgstr ""
 
 msgid "Transformation Engine callback url"
@@ -2411,6 +2414,19 @@ msgstr "Start search"
 msgid "freedom detailled global search"
 msgstr "Email"
 
+msgid "impossible conversion"
+msgstr ""
+
+msgid "TE not activated"
+msgstr ""
+
+msgid "no task identificator"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "file %s not found"
+msgstr "Import"
+
 #, fuzzy
 msgid "document creation"
 msgstr "Organisation"
@@ -3043,19 +3059,6 @@ msgstr "LDAP server cannot be contacted"
 #, fuzzy
 msgid "errldaporginit"
 msgstr "LDAP server cannot be contacted"
-
-msgid "impossible conversion"
-msgstr ""
-
-msgid "TE not activated"
-msgstr ""
-
-msgid "no task identificator"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "file %s not found"
-msgstr "Import"
 
 #, fuzzy
 msgid "include"
@@ -4922,10 +4925,6 @@ msgid "quick save not possible"
 msgstr ""
 
 #, fuzzy
-msgid "Others"
-msgstr "Delete"
-
-#, fuzzy
 msgid "fromdate"
 msgstr "Edit"
 
@@ -5296,6 +5295,10 @@ msgstr ""
 #, fuzzy
 msgid "save"
 msgstr "Identity"
+
+#, fuzzy
+msgid "Others"
+msgstr "Delete"
 
 #, fuzzy
 msgid "Parameters for"
