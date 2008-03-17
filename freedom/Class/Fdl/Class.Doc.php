@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.474 2008/03/11 13:24:26 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.475 2008/03/17 17:17:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1512,7 +1512,7 @@ final public function PostInsert()  {
       $vf = newFreeVaultFile($this->dbaccess);
       foreach ($tvid as $vid) {
 	$err=$vf->Retrieve($vid, $info);
-	if ($info->teng_state==2) return true;
+	if ($info->teng_state==3) return true;
       }
     }
     return false;
@@ -1567,58 +1567,61 @@ final public function PostInsert()  {
     include_once("FDL/Lib.Vault.php");   
     $engine=strtolower($engine);
     $value='';
-    if (ereg (REGEXPFILE, $va, $reg)) {  
-      $vidin=$reg[2];
-      $info=vault_properties($vidin,$engine);
+
+    if (getParam("TE_ACTIVATE")=="yes") {
+      if (ereg (REGEXPFILE, $va, $reg)) {  
+	$vidin=$reg[2];
+	$info=vault_properties($vidin,$engine);
 
       
-      if ((! $info->teng_vid) || ($info->teng_state==2)) {
-	$vf = newFreeVaultFile($this->dbaccess);
-	if (! $info->teng_vid) {
-	  // create temporary file
-	  $value=sprintf(_("conversion %s in progress"),$engine);
-	  if ($isimage) {
-	    $filename=getParam("CORE_PUBDIR")."/Images/workinprogress.png";
-	  } else   $filename=uniqid("/var/tmp/conv").".txt";
-	  $nc=file_put_contents($filename,$value);
-	  $err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
-	  $info=vault_properties($vidin);
-	  if (! $isimage) {
-	    unlink($filename);
-	    $mime='text/plain';
-	  } else {
-	    $mime='image/png';
-	  }
+	if ((! $info->teng_vid) || ($info->teng_state==2)) {
+	  $vf = newFreeVaultFile($this->dbaccess);
+	  if (! $info->teng_vid) {
+	    // create temporary file
+	    $value=sprintf(_("conversion %s in progress"),$engine);
+	    if ($isimage) {
+	      $filename=getParam("CORE_PUBDIR")."/Images/workinprogress.png";
+	    } else   $filename=uniqid("/var/tmp/conv").".txt";
+	    $nc=file_put_contents($filename,$value);
+	    $err=$vf->Store($filename, false , $vidout,"",$engine,$vidin);
+	    $info=vault_properties($vidin);
+	    if (! $isimage) {
+	      unlink($filename);
+	      $mime='text/plain';
+	    } else {
+	      $mime='image/png';
+	    }
 	  
 	    $value="$mime|$vidout";
 	    if ($err=="") $vf->rename($vidout,sprintf(_("conversion of %s in progress").".%s",$info->name,$engine));
 
 	  
-	  $this->AddComment("value $engine : $value");
-	} else {	 
-	  if ($err=="") {
-	    $info1=vault_properties($vidin);
-	    $vidout=$info->id_file;
-	    $vf->rename($vidout,sprintf(_("update of %s in progress").".%s",$info1->name,$engine));
+	    $this->AddComment("value $engine : $value");
+	  } else {	 
+	    if ($err=="") {
+	      $info1=vault_properties($vidin);
+	      $vidout=$info->id_file;
+	      $vf->rename($vidout,sprintf(_("update of %s in progress").".%s",$info1->name,$engine));
+	      $value=$info->mime_s.'|'.$info->id_file;
+	    }
+	  }
+
+	  $err=vault_generate($this->dbaccess,$engine,$vidin,$vidout,$isimage);
+	  if ($err!="") {
+	  
+	  
+	  }
+	} else {
+	  if ($isimage) {
+	    if ($info->teng_state<0) {
+	      if ($info->teng_state==-1)  $value="convertfail.png";
+	      else $value="convertimpossible.png";
+	    } else {
+	      if ($info->teng_state==1)   $value=$info->mime_s.'|'.$info->id_file;
+	    }
+	  } else{
 	    $value=$info->mime_s.'|'.$info->id_file;
 	  }
-	}
-
-	$err=vault_generate($this->dbaccess,$engine,$vidin,$vidout,$isimage);
-	if ($err!="") {
-	  
-	  
-	}
-      } else {
-	if ($isimage) {
-	  if ($info->teng_state<0) {
-	    if ($info->teng_state==-1)  $value="convertfail.png";
-	    else $value="convertimpossible.png";
-	  } else {
-	    if ($info->teng_state==1)   $value=$info->mime_s.'|'.$info->id_file;
-	  }
-	} else{
-	  $value=$info->mime_s.'|'.$info->id_file;
 	}
       }
     }

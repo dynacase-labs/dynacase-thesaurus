@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.20 2008/02/13 11:00:10 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.21 2008/03/17 17:17:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -44,7 +44,7 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
       $of=new VaultDiskStorage($dbaccess,$vidin);
       $filename=$of->getPath();
       $ofout=new VaultDiskStorage($dbaccess,$vidout);
-      $ofout->teng_state=2;
+      $ofout->teng_state=3; // in progress
       $ofout->modify();
       $urlindex=getParam("TE_URLINDEX");
       if ($urlindex=="") { //case DAV
@@ -141,6 +141,8 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
   if (($docid >0)  && ($vid>0)) {
 
     $tea=getParam("TE_ACTIVATE");
+    if ($tea!="yes") return;
+    $tea=getParam("TE_FULLTEXT");
     if ($tea!="yes") return;
     if (@include_once("TE/Class.TEClient.php")) {
       global $action;

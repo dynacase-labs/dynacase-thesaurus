@@ -42,7 +42,7 @@ function XMLprocessverificationfiles() {
 	  var state;
 	  for (var i=0;i<values.length;i++) {
 	    state=values[i].getAttribute('status');
-	    if (state=='2') needverify=true;	    
+	    if ((state=='3')||(state=='2')) needverify=true;	    
 	  }
 	  if (needverify) {
 	    setTimeout(function() { verifycomputedfiles(docid) }, 5000);
