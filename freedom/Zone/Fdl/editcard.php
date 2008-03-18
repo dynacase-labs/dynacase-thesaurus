@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.66 2008/02/19 16:07:18 eric Exp $
+ * @version $Id: editcard.php,v 1.67 2008/03/18 10:51:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -196,8 +196,8 @@ function setNeededAttributes(&$action,&$doc) {
   if ($usefor != "D") {
     if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
     else {
-      $err=$doc->SpecRefresh();
-      $err.=$doc->SpecRefreshGen();      
+      $err=$doc->SpecRefresh(); // to use addParamRefresh
+      $err.=$doc->SpecRefreshGen(true);      
     }
     
     $ka=0;

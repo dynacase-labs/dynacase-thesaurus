@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.475 2008/03/17 17:17:05 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.476 2008/03/18 10:51:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3221,7 +3221,7 @@ final public function PostInsert()  {
    * Special Refresh Generated automatically
    * is defined in generated child classes
    */
-  function SpecRefreshGen() {}
+  function SpecRefreshGen($onlyspec=false) {}
 
   /**
    * recompute all calculated attribut

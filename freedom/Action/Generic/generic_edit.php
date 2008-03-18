@@ -3,7 +3,7 @@
  * Display edition interface
  *
  * @author Anakeen 2000 
- * @version $Id: generic_edit.php,v 1.68 2008/02/19 16:05:38 eric Exp $
+ * @version $Id: generic_edit.php,v 1.69 2008/03/18 10:51:47 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -92,10 +92,12 @@ function generic_edit(&$action) {
 
     $classid = $doc->fromid;
     if (! $doc->isAlive()) $action->ExitError(_("document not referenced"));
-    $doc->refresh();
-    // update access date
-    $doc->adate=$doc->getTimeDate();
-    $doc->modify(true,array("adate"),true);
+    if (GetHttpVars("viewconstraint")!="Y") {      
+      $doc->refresh();
+      // update access date
+      $doc->adate=$doc->getTimeDate();
+      $doc->modify(true,array("adate"),true);
+    }
 
     $action->lay->Set("TITLE", $doc->title);
   }

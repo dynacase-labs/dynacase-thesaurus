@@ -60,7 +60,7 @@ Class Doc[docid] extends [DocParent] {
        
    }
 
-   function SpecRefreshGen() {
+   function SpecRefreshGen($onlyspec=false) {
      $err = parent::SpecRefreshGen();
 [BLOCK ACALC]
     // -------------------
@@ -83,6 +83,7 @@ Class Doc[docid] extends [DocParent] {
   [ENDBLOCK [biattr]]
 
     $this->AddParamRefresh("[niargs]","[rarg]");
+    if ($onlyspec) return "";
     if ($arraycount > 0) {
       $tv=array();
       $tvi=$this->getTValue("[rarg]");
