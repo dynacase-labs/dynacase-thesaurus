@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.10 2008/03/11 16:16:48 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.11 2008/03/18 16:36:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,7 +105,7 @@ $line[]='"'.str_replace(" ","\\n",_($doc->firstState)).'" [shape = doublecircle,
 $states=$doc->getStates();
 foreach ($states as $k=>$v) {
   $color=$doc->getColor($v);
-  if ($color)  $line[]='"'.str_replace(" ","\\n",_($v)).'" [color="'.$color.'" ];';
+  if ($color)  $line[]='"'.str_replace(" ","\\n",_($v)).'" [fillcolor="'.$color.'" ];';
 }
 
 #        page=\"11.6,8.2\";
