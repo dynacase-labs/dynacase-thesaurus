@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.131 2008/02/22 15:27:57 eric Exp $
+ * $Id: freedom.css,v 1.132 2008/03/18 16:07:39 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -39,7 +39,7 @@ TR.FREEDOMBack2{
 	color : [CORE_TEXTFGCOLOR];
 }
 
-TD { vertical-align:top; }
+TABLE.edittable TD { vertical-align:top; }
 
 TD.FREEDOMText, .FREEDOMText {
   color: [CORE_TEXTFGCOLOR];
@@ -52,11 +52,13 @@ TR.FREEDOMOpt TD.FREEDOMLabel {
   text-align:right;
   font-style: italic;
   background-color: [CORE_BGCOLORALTERN];
+  vertical-align:top;
 }
 TR.FREEDOMOpt TD.FREEDOMText {
   color: [CORE_TEXTFGCOLOR];
   text-align:left;
   background-color: [CORE_BGCOLORALTERN];
+  vertical-align:top;
 }
 TR.FREEDOMOpt TD {
   color: [CORE_TEXTFGCOLOR];
