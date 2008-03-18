@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.40 2008/03/11 13:21:14 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.41 2008/03/18 16:47:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -426,7 +426,7 @@ function addFamilyPopup(&$tlink,&$doc) {
       $v->link=$reg[2];
       $tlink[$k]["target"] = $reg[1];
     } else {
-      $tlink[$k]["target"] = $v->id."-".$doc->id;
+      $tlink[$k]["target"] = $v->id."_".$doc->id;
     } 
     if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
     $tlink[$k]["idlink"] = $v->id;
@@ -459,7 +459,7 @@ function addFamilyPopup(&$tlink,&$doc) {
 	$v->link=$reg[2];
 	$tlink[$k]["target"] = $reg[1];
       } else {
-	$tlink[$k]["target"] = $v->id."-".$doc->id;;
+	$tlink[$k]["target"] = $v->id."_".$doc->id;;
       }
       if ($v->getOption("ltarget")!="") $tlink[$k]["target"] = $v->getOption("ltarget");
       $tlink[$k]["barmenu"] = ($v->getOption("barmenu")=="yes")?"true":"false";

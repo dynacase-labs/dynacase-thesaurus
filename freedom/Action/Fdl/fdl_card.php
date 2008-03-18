@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.33 2008/03/11 11:24:12 eric Exp $
+ * @version $Id: fdl_card.php,v 1.34 2008/03/18 16:47:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -143,7 +143,7 @@ function fdl_card(&$action) {
 				   "walabel"=>ucfirst($v->labelText),
 				   "wwidth"=>$v->getOption("mwidth",$mwidth),
 				   "wheight"=>$v->getOption("mheight",$mheight),
-				   "wtarget"=>($v->getOption("ltarget")=="")?$v->id."-".$doc->id:$v->getOption("ltarget"),
+				   "wtarget"=>($v->getOption("ltarget")=="")?$v->id."_".$doc->id:$v->getOption("ltarget"),
 				   "wlink"=>$doc->urlWhatEncode($v->getLink($doc->latestId())));
 	      }
 	    }
