@@ -15,6 +15,7 @@ function enablefrom(th) {
     imgs[i].style.display='none';
   }
 }
+[IFNOT ISIE]
 function resizetbody() {
   var eiurl=document.getElementById("idtbody");
   var xy=getAnchorPosition("idtbody");
@@ -24,7 +25,7 @@ function resizetbody() {
   eiurl.style.height=nh;
 }
 addEvent(window,"load",resizetbody);
-addEvent(window,"resize",resizetbody);
+addEvent(window,"resize",resizetbody);[ENDIF ISIE]
 </script>
 <style>
 TABLE.hborder td {
@@ -63,10 +64,10 @@ TABLE.hborder td.left {
     <input type="hidden" disabled name="acls[[gid]][500]" value="nc"></TD>
 
    <TD align="right"  class="left"  >
-     <button style="display:[dmodify]" onclick="enablefrom(this.parentNode.parentNode);"  type="button" ></button></TD>
+     <button style="display:[dmodify]" onclick="enablefrom(this.parentNode.parentNode);"  type="button" >&there4;</button></TD>
     [BLOCK [ACLS]]
     <TD  align="center">
-      <img  src="[IMG:[bimg]]" width="10" height="10"  >
+      <img  src="[IMG:[bimg]]" width="10px" height="10px"  >
       <input align="top" style="display:none" disabled type="checkbox" name="acls[[gid]][[iacl]]" value="[aclid]" [selected] >
   </TD>
     [ENDBLOCK [ACLS]]
