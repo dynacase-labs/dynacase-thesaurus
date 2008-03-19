@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.476 2008/03/18 10:51:47 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.477 2008/03/19 13:07:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5427,7 +5427,7 @@ final public function PostInsert()  {
    * @see Doc::getSpecTitle()
    */
   final public function getTitle($id="-1") {
-    if ($id=="") return " ";
+    if ($id=="") return "";
     if ($id=="-1") {
       if ($this->isConfidential())  return _("confidential document");      
       return $this->getSpecTitle();
