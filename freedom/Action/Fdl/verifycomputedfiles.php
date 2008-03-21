@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: verifycomputedfiles.php,v 1.3 2007/12/10 09:15:02 eric Exp $
+ * @version $Id: verifycomputedfiles.php,v 1.4 2008/03/21 11:11:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -53,6 +53,7 @@ function verifycomputedfiles(&$action) {
     } else {
       $files[$k]["icon"]="";
     }
+    $files[$k]["name"]=str_replace('&','&amp;',files[$k]["name"]);
   }
 
   $action->lay->setBlockData("FILES",$files);
