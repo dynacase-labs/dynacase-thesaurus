@@ -3,7 +3,7 @@
  * Generate worflow graph
  *
  * @author Anakeen 2007
- * @version $Id: wdoc_graphviz.php,v 1.11 2008/03/18 16:36:25 eric Exp $
+ * @version $Id: wdoc_graphviz.php,v 1.12 2008/03/21 11:12:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,9 +54,9 @@ if ($isize=="auto") $size="";
      }
    }
  }
-$statefontsize=14;
+$statefontsize=13;
 $conditionfontsize=12;
-$labelfontsize=10;
+$labelfontsize=11;
 
 foreach ($doc->cycle as $k=>$v) {
   $tmain='';
