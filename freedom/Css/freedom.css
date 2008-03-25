@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.132 2008/03/18 16:07:39 eric Exp $
+ * $Id: freedom.css,v 1.133 2008/03/25 08:45:44 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -299,7 +299,7 @@ TABLE.tarray  TR TD {
   border-color:[CORE_BGCOLORALTERN]; 
   border-style:none none solid none;
   padding:0px;
-  vertical-align:bottom;
+  vertical-align:top;
 }
 TABLE.tarray  TR TH {  
   border-width:0px 0px 1px 0px;	 
