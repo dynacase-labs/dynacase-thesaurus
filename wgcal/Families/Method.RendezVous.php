@@ -1527,15 +1527,16 @@ function setAccessibility() {
 
       // search attendee delegation
       $dattcal = getUserPublicAgenda($attendeesid[$k], false);
-      $duid = $dattcal->getTValue("agd_dfid");
-      if (count($duid)>0) {
-  	$duwid = $dattcal->getTValue("agd_dwid");
-   	$dumode = $dattcal->getTValue("agd_dmode");
-   	foreach ($duid as $ka => $va) {
-   	  if ($v!=$duwid[$ka] && $dumode[$ka] == 1) $acls[$duwid[$ka]] = $aclvals["read_conf_state"];
-   	}
+      if (is_object($dattcal)) {
+	$duid = $dattcal->getTValue("agd_dfid");
+	if (count($duid)>0) {
+	  $duwid = $dattcal->getTValue("agd_dwid");
+	  $dumode = $dattcal->getTValue("agd_dmode");
+	  foreach ($duid as $ka => $va) {
+	    if ($v!=$duwid[$ka] && $dumode[$ka] == 1) $acls[$duwid[$ka]] = $aclvals["read_conf_state"];
+	  }
+	}
       }
-       
     }
   }
 
@@ -1544,12 +1545,14 @@ function setAccessibility() {
   if ($conf!=3) {
     if ($creatorid!=$ownerid) $acls[$creatorwid] = $aclvals["all"];
     $ownercal = getUserPublicAgenda($ownerid, false);
-    $duid = $ownercal->getTValue("agd_dfid");
-    if (count($duid)>0) {
-      $duwid = $ownercal->getTValue("agd_dwid");
-      $dumode = $ownercal->getTValue("agd_dmode");
-      foreach ($duid as $k=>$v) {
-	if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
+    if (is_object($ownercal)) {
+      $duid = $ownercal->getTValue("agd_dfid");
+      if (count($duid)>0) {
+	$duwid = $ownercal->getTValue("agd_dwid");
+	$dumode = $ownercal->getTValue("agd_dmode");
+	foreach ($duid as $k=>$v) {
+	  if ($dumode[$k] == 1) $acls[$duwid[$k]] = $aclvals["all"];
+	}
       }
     }
   }
