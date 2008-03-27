@@ -648,7 +648,9 @@ function RendezVousEdit() {
   $action->parent->AddJsRef("jscalendar/Layout/calendar-fr.js");
 
   $action->parent->AddJsRef("WGCAL:wgcal.js", true);
-  $action->parent->AddJsRef("WGCAL:wgcal_editevent.js", true);
+   $action->parent->AddJsRef("WGCAL:wgcal_editevent.js", true);
+//   $jslay = new Layout("WGCAL/Layout/wgcal_editevent.js", $action);
+//   $action->parent->AddJsCode($jslay->gen());
   $action->parent->AddJsRef("WGCAL:wgcal_searchcontacts.js", true);
   
   $this->lay->set("checkConflict", $action->getParam("WGCAL_U_CHECKCONFLICT", 1));
@@ -730,7 +732,7 @@ function RendezVousEdit() {
       $evrweekd = pow(2, gmdate("w",$evstart)-1);
       $evrmonth = 0;
       $evruntil = 0;
-      $evruntild = $timee + (7*24*3600);
+      $evruntild = $evstart + (7*24*3600);
       $evrexcld  = array();
       $evstatus = EVST_ACCEPT;
       $evcategory = GetHttpVars("ca", "");
@@ -876,7 +878,7 @@ function EventSetDate($dstart, $dend, $type)
   $start_H = gmdate("H", $dstart);
   $start_M = gmdate("i", $dstart);
   $this->lay->set("START", sprintf("%.0f",$dstart*1000+1));
-  $this->lay->set("STARTsec", $dstart);
+  $this->lay->set("STARTsec", strftime("%d/%m/%Y",$dstart));
   $this->lay->set("STARTREAD", ucwords(strftime("%a %d %b %Y", $dstart)));
   $th = array();
   for ($h=0; $h<24; $h++) {
@@ -901,7 +903,7 @@ function EventSetDate($dstart, $dend, $type)
   $end_H = gmdate("H", $dend);
   $end_M = gmdate("i", $dend);
   $this->lay->set("END", sprintf("%.0f",$dend*1000+1));
-  $this->lay->set("ENDsec", $dend);
+  $this->lay->set("ENDsec", strftime("%d/%m/%Y", $dend));
   $this->lay->set("ENDREAD", ucwords(strftime("%a %d %b %Y", $dend)));
   $th = array();
    for ($h=0; $h<24; $h++) {
@@ -1059,7 +1061,7 @@ function EventSetRepeat($rmode, $rday, $rmonthdate, $runtil,
   $this->lay->set("D_RUNTIL_DATE", ($runtil==1?"checked":""));
   $this->lay->set("RUNUNTIL_DATE_DISPLAY", ($rmode>0 && $runtil==1?"visible":"hidden"));
   
-  $this->lay->set("uDate", ucwords(strftime("%a %d %b %Y", $runtildate))); //w_strftime($runtildate, WD_FMT_DAYLTEXT));
+  $this->lay->set("uDate", ucwords(strftime("%a %d %b %Y", $runtildate)));
   $this->lay->set("umDate", $runtildate*1000);
   $this->lay->set("usDate", $runtildate);
   

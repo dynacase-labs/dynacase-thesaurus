@@ -77,8 +77,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <td align="left" nowrap>
 <input type="hidden" value="[START]" id="TsStart" name="TsStart">
 <input type="hidden" value="[STARTsec]" id="DayTsStart" name="DayTsStart" onchange="ComputeDateFromStart()">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
-<script type="text/javascript">InitStartCalendar();</script>
+<span onmousedown="Calendar_Init('DayTsStart','ButStart',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButStart" name="ButStart" style="cursor:pointer;" title="[TEXT:click here to enter the start date]">
 <img src="[IMG:cal-other.gif]" height="15" >&nbsp;<span id="DayStart">[STARTREAD]</span></span>
 </td>
 <td id="start_hour" align="left" style="visibility:[HVISIBLE]" nowrap>
@@ -92,8 +91,7 @@ var saveForceMsg = '[TEXT:save modification before close]';
 <td align="left" id="end_hour2" style="visibility:[HVISIBLE]" nowrap>
 <input type="hidden" value="[END]" id="TsEnd" name="TsEnd">
 <input type="hidden" value="[ENDsec]" id="DayTsEnd" name="DayTsEnd" onchange="ComputeDateFromEnd();">
-<span onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
-<script type="text/javascript">InitEndCalendar();</script>
+<span onmousedown="Calendar_Init('DayTsEnd','ButEnd',false)" onmouseover="this.className='wTextActive'" onmouseout="this.className='wTextNormal'" id="ButEnd" title="[TEXT:click here to enter the end date]">
 <img src="[IMG:cal-other.gif]" height="15">&nbsp;<span id="DayEnd">[ENDREAD]</span></span>
 </td>
 <td align="left" id="end_hour3" style="visibility:[HVISIBLE]" nowrap>

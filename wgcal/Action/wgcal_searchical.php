@@ -21,9 +21,14 @@ function wgcal_searchical(&$action) {
     // Init popup
     $action->lay->set("POPUPICONS", $action->getParam("WGCAL_U_ICONPOPUP", true));
 
-    $filter[0] = "title ~* '".$sical."'";
-    $rdoc = GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $max, $filter, 
-			  $action->user->id, "TABLE", getIdFromName($action->GetParam("FREEDOM_DB"), "IUSER"));
+    $filter[0] = "(title ~* '".$sical."') ";
+    $rf = wGetUsedFamilies();
+    $rfam = array();
+    $rdoc = array();
+    foreach ($rf as $kr => $vr) {
+      $rdoc = array_merge($rdoc, GetChildDoc($action->GetParam("FREEDOM_DB"), 0, 0, $max, $filter, 
+					     $action->user->id, "TABLE", $vr["id"]));
+    }
     foreach ($rdoc as $kd => $vd) {
       if ($action->user->fid!=$vd["id"] && !isset($rlist[$vd["id"]])) {
 	if (wIsFamilieInteractive($vd["fromid"])) {

@@ -838,8 +838,8 @@ function fastEditSetUrlParam(settz) {
     var otime = new Date();
     tzd = otime.getTimezoneOffset()*60;
   }
-  var ts = parseInt(eltId('s_start').value) - tzd;
-  var te = parseInt(eltId('s_end').value) - tzd;
+  var ts = (parseInt(eltId('js_start').value)/1000) - tzd;
+  var te = (parseInt(eltId('js_end').value)/1000) - tzd;
   urlparam += "&ts="+ ts;
   urlparam += "&te="+ te;
   urlparam += "&ca="+cat;
@@ -997,8 +997,9 @@ function fastEditReset() {
   fastEditCanSave(false);
   eltId('nohour').checked = '';
   eltId('allday').checked = '';
-  eltId('s_start').value = 0;
-  eltId('s_end').value = 0;
+  var today = new Date();
+  eltId('s_start').value = today.getDate()+"/"+parseInt(today.getMonth())+"/"+today.getFullYear();
+  eltId('s_end').value = today.getDate()+"/"+parseInt(today.getMonth()+1)+"/"+today.getFullYear();
   datehourChanged = false;
   eltId('fastedit').style.display = 'none';
   eltId('fastedit').style.visibility = 'hidden';
@@ -1088,8 +1089,8 @@ function fastEditCheckConflict(ev) {
     ress = wt.calCurrentEdit.id;
   }
   
-  var ts = parseInt(eltId('s_start').value) + 60;
-  var te = parseInt(eltId('s_end').value) - 60;
+  var ts = (parseInt(eltId('js_start').value)/1000) + 60;
+  var te = (parseInt(eltId('js_end').value)/1000) - 60;
   var corestandurl=window.location.pathname+'?sole=Y';
   var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_GVIEW&stda=1&rvfs_pexc="+EventInEdition.idp+"&rvfs_ts="+ts+"&rvfs_te="+te+"&rvfs_ress="+ress;
   var rq;
@@ -1129,11 +1130,15 @@ function fcalFastEditEvent(ev, ie) {
        
     var note = String(dv.calev_evnote);
     var mnote = note.replace(/<br>/g, "\n");
+
+    var ts = new Date(fcalEvents[ie].start*1000);
+    var te = new Date(fcalEvents[ie].end*1000);
+
     EventInEdition = { rg:ie, id:fcalEvents[ie].id, idp:fcalEvents[ie].idp, 
 		       idowner:dv.calev_ownerid, titleowner:dv.calev_owner,
 		       title:dv.calev_evtitle, hmode:dv.calev_timetype, 
 		       alarm:dv.calev_evalarm, 
-		       occstart:fcalEvents[ie].start, occend:fcalEvents[ie].end, start:dv.tsstart, end:dv.tsend, 
+		       start:dv.tsstart, end:dv.tsend, 
 		       category:dv.calev_category, note:mnote, location:dv.calev_location, 
 		       confidentiality:dv.calev_visibility, rcolor:rcol, 
 		       eventjs:dv };
@@ -1256,12 +1261,11 @@ function fcalComputeDateFromStart() {
   var tdiff = (o_etime - o_stime);
 
   // Compute new start time
-  var tsS = parseInt(document.getElementById('s_start').value) * 1000;
-  var hts = new Date();
-  hts.setTime(tsS);
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var r = document.getElementById('s_start').value.match(dpat);
   var Hstart = parseInt(document.getElementById('h_start').options[document.getElementById('h_start').selectedIndex].value);
   var Mstart = parseInt(document.getElementById('m_start').options[document.getElementById('m_start').selectedIndex].value);
-  var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), Hstart, Mstart, 0, 0);
+  var nS = new Date(r[3], parseInt(r[2]-1), r[1], Hstart, Mstart, 0, 0);
   var nE = new Date();
   nE.setTime(nS.getTime() + tdiff);
 
@@ -1285,28 +1289,30 @@ function fcalComputeDateFromEnd() {
   od_etime.setTime(o_etime);
 
   // Compute new old time
-  var tsE = parseInt(document.getElementById('s_end').value) * 1000;
-  var hte = new Date();
-  hte.setTime(tsE);
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var r = document.getElementById('s_end').value.match(dpat);
   var Hend = parseInt(document.getElementById('h_end').options[document.getElementById('h_end').selectedIndex].value);
   var Mend = parseInt(document.getElementById('m_end').options[document.getElementById('m_end').selectedIndex].value);
-  var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
+  var nE = new Date(r[3], parseInt(r[2]-1), r[1], Hend, Mend, 0, 0);
 
   if (nE.getTime()<=od_stime.getTime()) {
-    var tdiff = (o_etime - o_stime);
-    var nS = new Date();
-    nS.setTime(nE.getTime() - tdiff);
-    fcalSetTime('start', nS, true);
+    alert('[TEXT:can not set end date before start date]');
+    fcalSetTime('end', od_etime, false);
+//     var tdiff = (o_etime - o_stime);
+//     var nS = new Date();
+//     nS.setTime(nE.getTime() - tdiff);
+//     fcalSetTime('start', nS, true);
+  } else {
+    fcalSetTime('end', nE, false);
+    datehourChanged = true;
   }
-
-  fcalSetTime('end', nE, false);
-  datehourChanged = true;
   return;
 }
 
 function fcalSetTime(startend, oTime, full) {
   eltId('js_'+startend).value = oTime.getTime();
-  eltId('s_'+startend).value = (oTime.getTime() / 1000);
+  var ts = new Date(oTime.getTime());
+  eltId('s_'+startend).value = ts.getDate()+"/"+parseInt(ts.getMonth()+1)+"/"+ts.getFullYear();
   eltId('t_'+startend).innerHTML = oTime.print('%a %d %b %Y');
   if (startend=='end')  { 
     eltId('h_'+startend).selectedIndex = oTime.getHours();

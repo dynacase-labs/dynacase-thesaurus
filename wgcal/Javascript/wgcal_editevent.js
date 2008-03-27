@@ -46,26 +46,26 @@ function ComputeDateFromStart() {
   var tdiff = (o_etime - o_stime);
 
   // Compute new start time
-  var tsS = parseInt(document.getElementById('DayTsStart').value) * 1000;
-  var hts = new Date();
-  hts.setTime(tsS);
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var r = document.getElementById('DayTsStart').value.match(dpat);
   var Hstart = parseInt(document.getElementById('Hstart').options[document.getElementById('Hstart').selectedIndex].value);
   var Mstart = parseInt(document.getElementById('Mstart').options[document.getElementById('Mstart').selectedIndex].value);
-  var nS = new Date(hts.getFullYear(), hts.getMonth(), hts.getDate(), Hstart, Mstart, 0, 0);
+  var nS = new Date(r[3], parseInt(r[2]-1), r[1], Hstart, Mstart, 0, 0);
   var nE = new Date();
   nE.setTime(nS.getTime() + tdiff);
 
 
   // Updating all fields....
   document.getElementById('TsStart').value = nS.getTime();
-  document.getElementById('DayTsStart').value = (nS.getTime() / 1000);
+  document.getElementById('DayTsStart').value = nS.getDate()+"/"+parseInt(nS.getMonth()+1)+"/"+nS.getFullYear();
   document.getElementById('DayStart').innerHTML = nS.print('%a %d %b %Y');
 
   document.getElementById('TsEnd').value = nE.getTime();
-  document.getElementById('DayTsEnd').value = (nE.getTime() / 1000);
+  document.getElementById('DayTsEnd').value = nE.getDate()+"/"+parseInt(nE.getMonth()+1)+"/"+nE.getFullYear();
   document.getElementById('DayEnd').innerHTML = nE.print('%a %d %b %Y');
   document.getElementById('Hend').selectedIndex = nE.getHours();
   UpdateEndMinutes(nE.getMinutes());
+  checkRepeatEndTime();
   
 }
 
@@ -98,66 +98,64 @@ function ComputeDateFromEnd() {
 
 
   // Compute new old time
-  var tsE = parseInt(document.getElementById('DayTsEnd').value) * 1000;
-  var hte = new Date();
-  hte.setTime(tsE);
+  var dpat = /(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/;
+  var r = document.getElementById('DayTsEnd').value.match(dpat);
   var Hend = parseInt(document.getElementById('Hend').options[document.getElementById('Hend').selectedIndex].value);
   var Mend = parseInt(document.getElementById('Mend').options[document.getElementById('Mend').selectedIndex].value);
-  var nE = new Date(hte.getFullYear(), hte.getMonth(), hte.getDate(), Hend, Mend, 0, 0);
+  var nE = new Date(r[3], parseInt(r[2]-1), r[1], Hend, Mend, 0, 0);
 
   if (nE.getTime()<=od_stime.getTime()) {
-    var tdiff = (o_etime - o_stime);
-    var nS = new Date();
-    nS.setTime(nE.getTime() - tdiff);
-    document.getElementById('TsStart').value = nS.getTime();
-    document.getElementById('DayTsStart').value = (nS.getTime() / 1000);
-    document.getElementById('DayStart').innerHTML = nS.print('%a %d %b %Y');
-    document.getElementById('Hstart').selectedIndex = nS.getHours();
-    UpdateStartMinutes(nS.getMinutes());
+    alert('[TEXT:can not set end date before start date]');
+    document.getElementById('TsEnd').value = od_etime.getTime();
+    document.getElementById('DayTsEnd').value = od_etime.getDate()+"/"+parseInt(od_etime.getMonth()+1)+"/"+od_etime.getFullYear();
+    document.getElementById('DayEnd').innerHTML = od_etime.print('%a %d %b %Y');
+    document.getElementById('Hend').selectedIndex = od_etime.getHours();
+  } else {
+    document.getElementById('TsEnd').value = nE.getTime();
+    document.getElementById('DayTsEnd').value = nE.getDate()+"/"+parseInt(nE.getMonth()+1)+"/"+nE.getFullYear();
+    document.getElementById('DayEnd').innerHTML = nE.print('%a %d %b %Y');
+    document.getElementById('Hend').selectedIndex = nE.getHours();
+    UpdateEndMinutes(nE.getMinutes());
   }
-  document.getElementById('TsEnd').value = nE.getTime();
-  document.getElementById('DayTsEnd').value = (nE.getTime() / 1000);
-  document.getElementById('DayEnd').innerHTML = nE.print('%a %d %b %Y');
-  document.getElementById('Hend').selectedIndex = nE.getHours();
-  UpdateEndMinutes(nE.getMinutes());
+  checkRepeatEndTime();
   return;
 }
 
 
-function InitStartCalendar() {
-  var e = document.getElementById('DayTsStart');
-  if (!e) return;
-  var cts = parseInt(e.value)*1000;
-  var cd = new Date;
-  cd.setTime(cts);
-  var calO = { 
-    date:cd, 
-    firstDay:1, 
-    inputField:'DayTsStart', 
-    ifFormat:'%s', 
-    button:'ButStart',
-    date:cd };
-  Calendar.setup( calO );
-  return;
-}
+// function InitStartCalendar() {
+//   var e = document.getElementById('DayTsStart');
+//   if (!e) return;
+//   var cts = parseInt(e.value)*1000;
+//   var cd = new Date;
+//   cd.setTime(cts);
+//   var calO = { 
+//     date:cd, 
+//     firstDay:1, 
+//     inputField:'DayTsStart', 
+//     ifFormat:'%s', 
+//     button:'ButStart',
+//     date:cd };
+//   Calendar.setup( calO );
+//   return;
+// }
 
-function InitEndCalendar() {
-  var e = document.getElementById('DayTsEnd');
-  if (!e) return;
-  var cts = parseInt(e.value)*1000;
-  var cd = new Date;
-  cd.setTime(cts);
-  var calO = { 
-    date:cd, 
-    firstDay:1, 
-    inputField:'DayTsEnd', 
-    ifFormat:'%s', 
-    button:'ButEnd',
-    date:cd
-  };
-  Calendar.setup( calO );
-  return;
-}
+// function InitEndCalendar() {
+//   var e = document.getElementById('DayTsEnd');
+//   if (!e) return;
+//   var cts = parseInt(e.value)*1000;
+//   var cd = new Date;
+//   cd.setTime(cts);
+//   var calO = { 
+//     date:cd, 
+//     firstDay:1, 
+//     inputField:'DayTsEnd', 
+//     ifFormat:'%s', 
+//     button:'ButEnd',
+//     date:cd
+//   };
+//   Calendar.setup( calO );
+//   return;
+// }
 
 function checkrdays(ic) {
   var ix=0;
@@ -402,12 +400,13 @@ function saveEvent(event, checkconflict) {
   var ti = document.getElementById('rvtitle');
   var refi = document.getElementById('editevent');
 
-
   if (event && ti.value=='') {
     ti.style.background = 'red';
     document.getElementById('errTitle').style.display='';
     return false;
   }
+
+  if (!checkRepeatEndTime()) return false;
 
   if (event && checkconflict) {
     var nbe=normalEditCheckConflict(event, false);
@@ -743,4 +742,19 @@ function normalEditCheckConflict(ev, displayZero) {
   }
   unglobalcursor();
   return nbc;
+}
+
+function  checkRepeatEndTime() {
+
+  if (!document.getElementById('repeattype0').checked) {
+    if (document.getElementById('runtild').checked) {
+      var rdate = document.getElementById('evruntildate').value;
+      var edate = document.getElementById('TsEnd').value;
+      if (rdate<edate) {
+	alert('[TEXT:repeat date stops before end date]');
+	return false;
+      }
+    }
+  }
+  return true;
 }
