@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.5 2006/10/16 15:35:23 marc Exp $)
+AC_REVISION($Id: configure.in,v 1.6 2008/03/28 13:06:07 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -18,7 +18,9 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=FREEDOM-WS
+PACKAGE=freedom-ws
+AC_SUBST(APPNAME)
+APPNAME=freedomWS
 
 ac_default_prefix=/usr/share/
 
@@ -73,4 +75,4 @@ nusoapdir=/usr/share/nusoap
 AC_ARG_WITH(nusoapdir,
 [  --with-nusoapdir=nusoap install dir (default /usr/share/nusoap)], nusoapdir=$withval)
 
-AC_OUTPUT(Makefile FREEDOM-WS.spec apache_ws.conf Wsdl/freedom-doc.wsdl Class/Lib.Install.php)
+AC_OUTPUT(Makefile freedom-ws.spec apache_ws.conf Wsdl/freedom-doc.wsdl Class/Lib.Install.php)

@@ -1,10 +1,10 @@
 # ============================================
-# $Id: Makefile.in,v 1.6 2006/10/19 09:11:39 marc Exp $
+# $Id: Makefile.in,v 1.7 2008/03/28 13:06:07 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
 utildir = @PUBRULE@
-appname = freedomWS
+appname = @APPNAME@
 pubdir = @prefix@
 srcdir = @srcdir@
 
