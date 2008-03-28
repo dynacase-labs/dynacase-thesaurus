@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: FREEDOM-DAV.spec.in,v 1.13 2008/03/13 11:33:53 eric Exp $
+#  $Id: freedom-dav.spec.in,v 1.1 2008/03/28 13:17:11 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -46,7 +46,7 @@
   %endif
 %endif
 
-%define dirname DAV
+%define dirname @APPNAME@
 
 %{?ndestdir:%define destdir %{ndestdir}}
 %{?nhttpuser:%define httpuser %{nhttpuser}}
