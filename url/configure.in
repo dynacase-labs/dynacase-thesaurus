@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.1 2007/11/27 15:56:22 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.2 2008/03/28 13:00:31 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -18,7 +18,9 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=FREEDOM-URL
+PACKAGE=freedom-url
+AC_SUBST(APPNAME)
+APPNAME=URL
 
 ac_default_prefix=/usr/share/what
 
@@ -53,4 +55,4 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile URL_init.php FREEDOM-URL.spec debian/changelog)
+AC_OUTPUT(Makefile URL_init.php freedom-url.spec debian/changelog)
