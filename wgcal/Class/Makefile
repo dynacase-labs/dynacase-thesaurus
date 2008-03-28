@@ -1,6 +1,19 @@
 # ============================================
-# $Id: Makefile,v 1.1 2004/11/26 18:05:35 marc Exp $
+# $Id: Makefile,v 1.2 2008/03/28 09:38:37 eric Exp $
 # ============================================
 
 include $(utildir)/PubRule
 
+
+
+pages_fdl = $(patsubst %.php,$(pubdir)/$(applib)/%.php,$(wildcard Method*.php))
+pages_fdl += $(patsubst %.php,$(pubdir)/$(applib)/%.php,$(wildcard Class*.php))
+
+$(pubdir)/$(applib):
+	mkdir $@
+
+$(pubdir)/$(applib)/%.php: %.php $(pubdir)/$(applib)
+	cd $(pubdir)/$(applib); \
+	ln -sf ../$(appname)/$< .
+
+publish: $(pubdir)/$(applib) $(pages_fdl) 

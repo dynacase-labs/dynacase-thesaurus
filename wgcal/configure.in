@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.4 2007/07/06 12:56:47 yannick Exp $)
+AC_REVISION($Id: configure.in,v 1.5 2008/03/28 09:38:37 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -18,7 +18,9 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=WGCAL
+PACKAGE=freedom-wgcal
+AC_SUBST(APPNAME)
+APPNAME=WGCAL
 
 ac_default_prefix=/usr/share/what
 
@@ -53,4 +55,4 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(73_mod_wgcalosync.conf Makefile WGCAL_init.php WGCAL.spec debian/changelog)
+AC_OUTPUT(73_mod_wgcalosync.conf Makefile WGCAL_init.php freedom-wgcal.spec debian/changelog)

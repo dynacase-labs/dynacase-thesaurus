@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: WGCAL.spec.in,v 1.44 2007/09/07 09:34:59 eric Exp $
+#  $Id: freedom-wgcal.spec.in,v 1.1 2008/03/28 09:38:37 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -89,16 +89,14 @@ autoconf
 	     --prefix=%{destdir}
 make  rootdir=$RPM_BUILD_ROOT pubdir=$RPM_BUILD_ROOT%{destdir} 
 install -d $RPM_BUILD_ROOT/%{apacheconfdir}
-install  $RPM_BUILD_ROOT/%{destdir}/%{name}/73_mod_wgcalosync.conf $RPM_BUILD_ROOT/%{apacheconfdir}/73_mod_wgcalosync.conf
-install -d $RPM_BUILD_ROOT/%{destdir}/FDL
-cd $RPM_BUILD_ROOT/%{destdir}/FDL
-ln -s ../@PACKAGE@/Method*.php  .
+install  $RPM_BUILD_ROOT/%{destdir}/@APPNAME@/73_mod_wgcalosync.conf $RPM_BUILD_ROOT/%{apacheconfdir}/73_mod_wgcalosync.conf
+
 install -d $RPM_BUILD_ROOT/%{destdir}/EXTERNALS
 cd $RPM_BUILD_ROOT/%{destdir}/EXTERNALS
-ln -s ../@PACKAGE@/*external.php  .
+ln -s ../@APPNAME@/*external.php  .
 install -d $RPM_BUILD_ROOT/%{destdir}/API
 cd $RPM_BUILD_ROOT/%{destdir}/API
-ln -s ../@PACKAGE@/wgcal_alert.php .
+ln -s ../@APPNAME@/wgcal_alert.php .
 
 
 %clean
@@ -120,8 +118,11 @@ ln -s ../@PACKAGE@/wgcal_alert.php .
 
 %files
 %defattr(-,%{httpuser},%{httpuser})
-%dir %{destdir}/%{name}
-%{destdir}/%{name}/*
+%dir %{destdir}/@APPNAME@
+%dir %{destdir}/FDL
+%dir %{destdir}/EXTERNALS
+%dir %{destdir}/locale
+%{destdir}/@APPNAME@/*
 %{destdir}/locale/*
 %{destdir}/API/*
 %{destdir}/FDL/*
