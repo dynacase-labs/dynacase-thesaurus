@@ -1,10 +1,10 @@
 # ============================================
-# $Id: Makefile.in,v 1.8 2007/07/06 12:21:16 yannick Exp $
+# $Id: Makefile.in,v 1.9 2008/03/28 09:02:21 eric Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
 utildir=@PUBRULE@
-appname = @PACKAGE@
+appname = @APPNAME@
 pubdir = @prefix@
 srcdir = @srcdir@
 
