@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: 
-#  $Id: freedom-wgcal.spec.in,v 1.2 2008/03/28 10:00:59 eric Exp $
+#  $Id: freedom-wgcal.spec.in,v 1.3 2008/03/28 13:17:39 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -70,12 +70,14 @@ Provides:	WGCAL = @VERSION@
 The Freedom Workgroup Calendar
 
 
-%package SYNC
+%package sync
 Summary: Synchro util for Outlook
 Group: Applications/Web
 Requires: @PACKAGE@ = %{version}
+Obsoletes:	WGCAL-SYNC
+Provides:	WGCAL-SYNC = @VERSION@
 
-%description SYNC
+%description sync
 Synchronise event calendar with Microsoft Outlook
 
 %prep
@@ -131,7 +133,7 @@ ln -s ../@APPNAME@/wgcal_alert.php .
 %{destdir}/EXTERNALS/*
 %attr(755,root,root) %{crondir}/*
 
-%files SYNC
+%files sync
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/osync
 %{destdir}/osync/*
