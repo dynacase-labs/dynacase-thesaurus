@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: FREEDOM.spec.in,v 1.139 2008/03/10 15:08:25 eric Exp $
+#  $Id: freedom.spec.in,v 1.1 2008/03/28 08:46:16 eric Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -54,6 +54,7 @@
 %{?ndestdir:%define destdir %{ndestdir}}
 %{?nhttpuser:%define httpuser %{nhttpuser}}
 %{?rpost:%define releasepostfix %{rpost}}
+
 Summary: The freedom ECM  Management Module
 Name: @PACKAGE@
 Version: @VERSION@
@@ -67,13 +68,15 @@ URL: http://www.anakeen.com/
 Packager: Yannick Le Briquer <yannick.lebriquer@anakeen.com>
 BuildArchitectures: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-root-%(id -u -n)
-PreReq: @PACKAGE@-LIB = %{version}
-Requires: @PACKAGE@-USERCARD
+PreReq: @PACKAGE@-lib = %{version}
+Requires: @PACKAGE@-usercard
+Obsoletes:	FREEDOM
+Provides:	FREEDOM = @VERSION@
 %description
 The FREEDOM (Free Document Object Model) module is use to manage document in intranet
 
 
-%package LIB
+%package lib
 Summary: The freedom ECM libraries functions
 Group: Applications/Web
 Requires: php-gd
@@ -117,11 +120,13 @@ Prereq: php
 %endif
 Conflicts: ROAMING < 0.0.5
 Conflicts: AFFMON < 0.2.5
+Obsoletes:	FREEDOM-LIB
+Provides:	FREEDOM-LIB = @VERSION@
 
-%description LIB
+%description lib
 The FREEDOM LIBS is necessary to use functionnality of the FREEDOM module
 
-%package USERCARD
+%package usercard
 Summary: The FREEDOM users management
 Group: Applications/Web
 Requires: php-ldap
@@ -134,11 +139,13 @@ Requires: openldap-servers
 Requires: postgresql-contrib
 %endif
 Requires: graphviz
-PreReq: WHAT
-PreReq: @PACKAGE@-LIB = %{version}
-PreReq: @PACKAGE@ = %{version}
+PreReq: freedom-core
+PreReq: freedom-lib = %{version}
+PreReq: freedom = %{version}
+Obsoletes:	FREEDOM-USERCARD
+Provides:	FREEDOM-USERCARD = @VERSION@
 
-%description USERCARD
+%description usercard
 The freedom ECM user card module allow to view & edit user card and to insert them in a LDAP server
 
 
@@ -175,31 +182,31 @@ install -d $RPM_BUILD_ROOT/var/freedom
 %preun
 
 
-%post USERCARD
+%post usercard
 %{destdir}/wstop
 
-%preun USERCARD
+%preun usercard
 
 
 
 
-%post LIB
+%post lib
 %{destdir}/wstop
 
 
-%preun LIB
+%preun lib
 
 
 %files
 %defattr(-,%{httpuser},%{httpuser})
-%dir %{destdir}/%{name}
-%{destdir}/%{name}/*
+%dir %{destdir}/@APPNAME@
+%{destdir}/@APPNAME@/*
 %dir %{destdir}/ONEFAM
 %{destdir}/ONEFAM/*
 %dir %{destdir}/FGSEARCH
 %{destdir}/FGSEARCH/*
 
-%files USERCARD
+%files usercard
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/USERCARD
 %dir %{destdir}/FUSERS
@@ -208,7 +215,7 @@ install -d $RPM_BUILD_ROOT/var/freedom
 %attr(600,%{ldapuser},%{ldapuser}) %config(noreplace) /etc/openldap/slapd_anakeen.conf
 
 
-%files LIB
+%files lib
 %defattr(-,%{httpuser},%{httpuser})
 %dir %{destdir}/FDLGEN
 %dir %{destdir}/FDL

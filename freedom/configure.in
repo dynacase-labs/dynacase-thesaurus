@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.19 2007/10/17 04:47:32 marc Exp $)
+AC_REVISION($Id: configure.in,v 1.20 2008/03/28 08:46:16 eric Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -18,7 +18,9 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=FREEDOM
+PACKAGE=freedom
+AC_SUBST(APPNAME)
+APPNAME=FREEDOM
 AC_SUBST(PACKAGELIB)
 PACKAGELIB=FDL
 
@@ -72,5 +74,5 @@ AC_OUTPUT(Makefile \
 	App/Fdl/tsearch2_fr.sql \
 	FREEDOM.cron \
 	FREEDOM.vault \
-        FREEDOM.spec \
+        freedom.spec \
 	debian/changelog)
