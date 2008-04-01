@@ -12,6 +12,10 @@ var MENUSOURCETOPBORDER,MENUSOURCEBOTTOMBORDER;
 var MENUSOURCECLASS;
 var MENUIDENTIFICATOR=false;
 
+include_js('WHAT/Layout/geometry.js');
+include_js('WHAT/Layout/DHTMLapi.js');
+include_js('WHAT/Layout/AnchorPosition.js');
+
 addEvent(window,"load",function adddivpop() {document.body.appendChild(DIVPOPUPMENU)});
 function reqViewMenu() {
   INPROGRESSMENU=false; 

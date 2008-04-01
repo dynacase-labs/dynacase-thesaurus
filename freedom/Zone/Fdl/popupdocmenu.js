@@ -2,6 +2,8 @@
 var POPMENUINPROGRESSELT=false;
 var POPMENUINPROGRESSEVENT=false;
 
+include_js('FDL/Layout/common.js');
+include_js('FDL/Layout/popupdoc.js');
 
 function cloneEvent(e) {
   var c=new Object();
