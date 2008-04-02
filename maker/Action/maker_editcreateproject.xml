@@ -1,0 +1,21 @@
+[ZONE FDL:HTMLHEAD]
+
+<script>
+function alphanumminus(o){
+  o.value=o.value.toUpperCase().replace(/([^0-9A-Z\-])/g,"");
+}
+</script>
+
+<form 
+      name="createproject"style="display:inline"
+      method="POST" ENCTYPE="multipart/form-data"
+      action="[CORE_STANDURL]&app=MAKER&action=MAKER_CREATEPROJECT">
+
+<H1>Create project</H1>
+[TEXT:identificator] : <input  onkeyup="alphanumminus(this);" name="identificator"><br/>
+[TEXT:label] :<input name="label"><br/>
+[TEXT:description]<textarea name="description"></textarea><br/>
+<input type="submit" value="[TEXT:Create project]">
+</form>
+
+[ZONE FDL:HTMLFOOT]

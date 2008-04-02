@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: MAKER_init.php.in,v 1.1 2008/03/28 16:34:24 eric Exp $
+// $Id: MAKER_init.php.in,v 1.2 2008/04/02 11:44:39 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/maker/MAKER_init.php.in,v $
 // ---------------------------------------------------------------
 
@@ -9,6 +9,9 @@ global $app_const;
 
 $app_const= array(
 		  "INIT" => "yes",
-		  "VERSION" => "@VERSION@-@RELEASE@");
+		  "VERSION" => "@VERSION@-@RELEASE@",
+		  "MAKER_PROJECTDIR"    =>array("val"=>"@prefix@/Projects",
+						"descr"=>N_("projects directory"),
+						"user"=>"N"));
 
 ?>
