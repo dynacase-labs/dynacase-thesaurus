@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.73 2008/02/21 15:34:58 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.74 2008/04/02 13:36:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -275,8 +275,8 @@ function AttrToPhp($dbaccess, $tdoc) {
       }
     }
 
-    $phpAdoc->Set("METHODS",str_replace(array( "<?php\n","\n?>",'\\'),
-					array("","",'\\\\'),$contents)  );
+    $phpAdoc->Set("METHODS",str_replace(array( "<?php\n","\n?>"),
+					array("",""),$contents)  );
   } else $phpAdoc->Set("METHODS","");
 
   $phpAdoc->Set("DocParent1",$phpAdoc->Get("DocParent"));
