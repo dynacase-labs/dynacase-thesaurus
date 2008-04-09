@@ -712,8 +712,8 @@ function normalEditCheckConflict(ev, displayZero) {
   var corestandurl=window.location.pathname+'?sole=Y';
 
   var allday = document.getElementById('allday');
-  var ts = parseInt(document.getElementById('DayTsStart').value) + 60;
-  var te = parseInt(document.getElementById('DayTsEnd').value) - 60;
+  var ts = parseInt(document.getElementById('TsStart').value)/1000 + 60;
+  var te = parseInt(document.getElementById('TsEnd').value)/1000 - 60;
   if (allday.checked) {
     var hts = new Date();
     hts.setTime(ts*1000);
