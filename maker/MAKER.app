@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: MAKER.app,v 1.2 2008/04/02 11:44:39 eric Exp $
+// $Id: MAKER.app,v 1.3 2008/04/14 16:37:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/maker/MAKER.app,v $
 
 
@@ -32,6 +32,10 @@ $action_desc = array (
   array( 
    "name"		=>"MAKER_MENU",
    "short_name"		=>N_("set of different menu"),
+   "acl"		=>"MAKER" ),
+  array( 
+   "name"		=>"MAKER_TREE",
+   "short_name"		=>N_("project tree"),
    "acl"		=>"MAKER" ),
   array( 
    "name"		=>"MAKER_EDITCREATEPROJECT",

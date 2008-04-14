@@ -3,7 +3,7 @@
  * Create new project 
  *
  * @author Anakeen 2008
- * @version $Id: maker_createproject.php,v 1.1 2008/04/02 11:44:39 eric Exp $
+ * @version $Id: maker_createproject.php,v 1.2 2008/04/14 16:37:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -24,9 +24,10 @@ function maker_createproject(&$action) {
   $err=createproject($action,$id,$label,$description);
   if ($err) $action->exitError($err);
 
-  print $gen;
+
+  redirect($action,"MAKER","MAKER_ROOT");
   
-  }
+}
 
 
 
