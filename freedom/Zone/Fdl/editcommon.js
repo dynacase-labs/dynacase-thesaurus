@@ -1871,3 +1871,10 @@ function textautovsize(event,o) {
   }
   
 }
+
+// Supprime les espaces inutiles en début et fin de la chaîne passée en paramètre.
+function trim(aString) {
+  var regExpBeginning = /^\s+/;
+  var regExpEnd       = /\s+$/;
+  return aString.replace(regExpBeginning, '').replace(regExpEnd, '');
+}
