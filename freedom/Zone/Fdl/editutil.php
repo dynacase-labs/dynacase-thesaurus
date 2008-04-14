@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.135 2008/03/11 16:17:29 eric Exp $
+ * @version $Id: editutil.php,v 1.136 2008/04/14 10:13:05 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -648,7 +648,7 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
 	}
 	if ($attr->inArray())	$sattrid.=$index;
 	//print "attr=$sattrid";
-	$urllink.= "'+document.getElementById('$sattrid').value+'";
+	$urllink.= "'+trim(document.getElementById('$sattrid').value)+'";
       }
       break;
 
