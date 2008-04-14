@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.36 2007/07/31 15:13:41 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.37 2008/04/14 10:12:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -231,7 +231,7 @@ Class ActionAttribute extends BasicAttribute {
     } else {
       $l.="&app=".$this->wapplication;
       $l.="&action=".$this->waction;
-      $l.="&id=".$docid;
+      if (! stristr($this->waction,"&id=")) $l.="&id=".$docid;
     }
     return $l;
   }
