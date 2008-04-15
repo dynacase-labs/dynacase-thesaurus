@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.67 2008/03/18 10:51:47 eric Exp $
+ * @version $Id: editcard.php,v 1.68 2008/04/15 06:15:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -168,8 +168,11 @@ function editcard(&$action) {
     $jslay->Set("attrntitle",'[]');
     $jslay->SetBlockData("RATTR",$tjsa);
     $action->parent->AddJsCode($jslay->gen());
-  } else  setNeededAttributes($action,$doc);
-  $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
+    $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
+  } else  {
+    $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
+    setNeededAttributes($action,$doc);
+  }
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   // compute modify condition js
 
