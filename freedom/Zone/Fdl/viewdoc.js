@@ -1,3 +1,11 @@
+include_js('WHAT/Layout/AnchorPosition.js')
+include_js('FDL/Layout/common.js')
+include_js('WHAT/Layout/DHTMLapi.js')
+include_js('WHAT/Layout/AnchorPosition.js')
+include_js('WHAT/Layout/geometry.js')
+include_js('FDL/Layout/iframe.js')
+
+
 function popdoc(event,url) {
 
   if (event) event.cancelBubble=true;     
