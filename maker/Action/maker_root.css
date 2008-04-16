@@ -1,0 +1,12 @@
+div.select {
+  background-color:[COLOR_B3];
+}
+
+div.unselect {
+  background-color:[COLOR_C7];
+}
+
+div.entrytab {
+  display:inline;
+  float:left;
+}

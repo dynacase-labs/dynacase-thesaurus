@@ -3,7 +3,7 @@
  * Project maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_root.php,v 1.2 2008/04/14 16:37:11 eric Exp $
+ * @version $Id: maker_root.php,v 1.3 2008/04/16 07:20:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -21,6 +21,7 @@ function maker_root(&$action) {
   $action->parent->AddJsRef("MAKER:maker_root.js",true);
   
   $action->parent->AddCssRef("FDL:POPUP.CSS",true);
+  $action->parent->AddCssRef("MAKER:maker_root.css",true);
   $action->parent->AddCssRef($action->GetParam("CORE_PUBURL")."/FDL/Layout/prototree.css");
   }
 ?>
