@@ -9,4 +9,20 @@ div.unselect {
 div.entrytab {
   display:inline;
   float:left;
+  font-size:[SIZE_SMALL];
+  cursor:pointer;
+  -moz-border-radius:0px 10px 0px 0px;
+}
+
+iframe.windowtab, div.windowtab {
+  border:none;
+  padding:0px;
+  margin:0px;
+  width:100%;
+  height:100px;
+  display:inline;
+}
+
+div.windowstabs {
+  clear:both;
 }
