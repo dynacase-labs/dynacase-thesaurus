@@ -1,8 +1,10 @@
-
 include_js('WHAT/Layout/prototype.js');
 function viewtree(event,where,url) {
   if (! where) return 0;
-  var element = event.element();
+
+  var element = (event.target) ? event.target : ((event.srcElement) ? event.srcElement : null);//event.element();
+  //  if (! event.element) element=Event.extend(event).target;      
+  // else  element = event.element();
 
   if ($(where).visible()) {
     $(where).hide();
@@ -10,7 +12,7 @@ function viewtree(event,where,url) {
   } else {
     if ($(where).empty()) {      
       var theAjax=   new Ajax.Request(url, {
-	onSuccess: function(transport) {
+	onComplete: function(transport) {
 	    // yada yada yada
 	    $(where).value=transport.responseText;
 	    var rep=transport.responseXML;
@@ -33,16 +35,22 @@ function viewtree(event,where,url) {
       if (element) element.setAttribute('src','Images/b_down.png');
     }
   } 
-
 }
 
 function  reloadtree(event,where,url) {
+
+  var element;
     if (! where) return 0;
-    var element = event.element();
+
+    if (! event.element) element=Event.extend(event).target;      
+    else  element = event.element();
+    
+  
     if (element && (element.nodeType == 1)) element.setAttribute('src','Images/b_wait.png');
 
     $(where).hide();
     $(where).innerHTML=''; 
     viewtree(event,where,url);
     event.stop();
+	//Event.stop(event);
 }
