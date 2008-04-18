@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: onefam_root.php,v 1.8 2007/01/03 19:38:59 eric Exp $
+ * @version $Id: onefam_root.php,v 1.9 2008/04/18 09:47:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -21,6 +21,7 @@ function onefam_root(&$action) {
   
   $iz=$action->getParam("CORE_ICONSIZE");
  
+  $dbaccess = $action->GetParam("FREEDOM_DB");
 
   $izpx=intval($action->getParam("SIZE_IMG-SMALL"))+2;
   $action->lay->set("wcols",$izpx*$nbcol+$delta);
@@ -28,8 +29,8 @@ function onefam_root(&$action) {
  
   
   $openfam=$action->getParam("ONEFAM_FAMOPEN");
+  if (($openfam!="") && (! is_numeric($openfam))) $openfam=getFamIdFromName($dbaccess, $openfam);
   if ($openfam > 0) {
-
     $action->lay->set("OPENFAM",true);
     $action->lay->set("openfam",$openfam);
   } else {
