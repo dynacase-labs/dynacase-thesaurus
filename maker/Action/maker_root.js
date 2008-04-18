@@ -2,6 +2,9 @@ include_js('FDL/Layout/popupdocmenu.js');
 include_js('FDL/Layout/popupfunc.js');
 include_js('FDL/Layout/prototree.js');
 include_js('FDL/Layout/iframe.js');
+
+
+include_js('editarea/edit_area/edit_area_full.js');
 function viewmakermenu(event,type,upobject) {
   var corestandurl=window.location.pathname+'?sole=Y&';
   var menuapp='MAKER';
@@ -14,7 +17,6 @@ function viewmakermenu(event,type,upobject) {
 
 
 function viewprojecttree(event,where) {
-
   poptree(event,'[TEXT:the project tree]',10,20,300,500);
   //poptest(event,'[TEXT:the test]',315,20,800,500);
   var CORE_STANDURL=window.location.pathname+'?sole=Y&';
@@ -64,10 +66,10 @@ function openSingleFrame(name,url,title) {
 
 
 function openTabFrame(name,taburl,title) {
-  var x=30;
-  var y=30;
-  var w=200;
-  var h=100;
+  var x=330;
+  var y=20;
+  var w=600;
+  var h=500;
   var dpopdiv = document.getElementById(name+'_s');
   var fpopdiv;
   var text='<div id="menutabs'+name+'"></div><div class="windowstabs" id="windowstabs'+name+'"></div>';
@@ -94,7 +96,7 @@ function addTabEntry(dpopdiv,mainframe,tabname,tabtitle) {
     if (tab) {
     } else {
 
-      var nf=document.createElement('div');
+      var nf=$(document.createElement('div'));
       nf.id=idf;
       //      nf.name=idf;
       nf.className='entrytab';
@@ -135,29 +137,30 @@ function openFrameInTabFrame(mainframe,tabname,taburl,tabtitle) {
 }
 
 function undisplaytabs(main) {
-  var tabs=$A(main.getElementsByClassName('windowtab'));//$$('iframe.windowtab','div.windowtab');
-   //var tabs=$$('iframe.windowtab','div.windowtab');
+  var tabs=$(main).select('.windowtab');//$$('iframe.windowtab','div.windowtab');
+  // var tabs=$$('iframe.windowtab','div.windowtab');
+
+  
   tabs.each(function(tab){
       tab.hide();
     });
-  tabs=$A(main.getElementsByClassName('entrytab'));
+  
+  tabs=$(main).select('.entrytab');
   tabs.each(function(tab){
       tab.addClassName('unselect');
       tab.removeClassName('select');
     });  
 }
 function displaytab(tabname) { 
-  //undisplaytabs(main);
   var idf='tab'+tabname;
   var tab=$(idf);
   if (tab) {
     undisplaytabs(tab.parentNode.parentNode);
     tab.show();
-  }
+  }  
+  var ih=$(tab.parentNode.parentNode).getHeight() - tab.positionedOffset().top;
 
-  var ih=tab.parentNode.parentNode.getHeight() - tab.positionedOffset().top;
-  //  alert(ih);
-  tab.style.height=(ih-8)+'px';
+  if (ih > 40) tab.style.height=(ih-8)+'px';
   idf='menuentry'+tabname;
   tab=$(idf);
   if (tab) {    
@@ -187,11 +190,11 @@ function openDivInTabFrame(mainframe,tabname,taburl,tabtitle) {
       nf.id=idf;
       //      nf.name=idf;
       nf.className='windowtab';
-      nf.innerHTML=getUrlContent(taburl);
 
       undisplaytabs(dpopdiv);
       dpopdiv.appendChild(nf); 
       addTabEntry(dpopdiv,mainframe,tabname,tabtitle);
+      setUrlContent(taburl,nf);
       displaytab(tabname);
     }
   }
@@ -199,11 +202,28 @@ function openDivInTabFrame(mainframe,tabname,taburl,tabtitle) {
 
 
 
+function setUrlContent(aurl,cible){
+    var temp;
+    new Ajax.Request(aurl, {
+      method: 'get',
+      asynchronous:false,
+	  evalScripts:true,
+      onComplete: function(transport) {        
+        temp = transport.responseText;
+      }
+    });
+
+    cible.innerHTML=temp.stripScripts();
+    temp.evalScripts();
+    return temp;
+}
+
 function getUrlContent(aurl){
     var temp;
     new Ajax.Request(aurl, {
       method: 'get',
       asynchronous:false,
+	  evalScripts:true,
       onComplete: function(transport) {        
         temp = transport.responseText;
       }

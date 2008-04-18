@@ -3,7 +3,7 @@
  * Folder tree for maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_tree.php,v 1.3 2008/04/17 16:05:01 eric Exp $
+ * @version $Id: maker_tree.php,v 1.4 2008/04/18 15:18:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -23,6 +23,7 @@ function maker_tree(&$action) {
   // -------------------- Tree ------------------
 
   $surl=$action->getParam("CORE_STANDURL");
+  $projectdir=$action->getParam('MAKER_PROJECTDIR');
   $tree=array();
 
   if ($type=='test') {    
@@ -38,7 +39,6 @@ function maker_tree(&$action) {
   }
 
   if ($type=='top') {    
-    $projectdir=$action->getParam('MAKER_PROJECTDIR');
     if ($handle = opendir($projectdir)) {
       while (false !== ($dir = readdir($handle))) {       
 	if (is_file("$projectdir/$dir/project.xml")) {
@@ -131,11 +131,41 @@ function maker_tree(&$action) {
     
   }
 
+  if ($type=='other') { 
+    include_once("Lib.FileMime.php");
+    $filesdir=$projectdir."/$project/files";
+    if ($handle = opendir($filesdir)) {
+      while (false !== ($file = readdir($handle))) {       
+	if ($file[0]!='.') {
+	  $tree[]=array("label"=>_("$file"),
+			"icon"=>getIconFile($filesdir.'/'.$file),
+			"tooltip"=>false, 
+			"selectjs"=>"openDivInTabFrame( 'Documents$project' , '$file', '?sole=Y&&app=MAKER&action=MAKER_FILEEDIT&project=$project&file=files/$file','".$file."')",
+			"target"=>"_blank",
+			"leaf"=>true);
+	}
+		
+      }    
+      closedir($handle);
+    }
+  }   
+    // list all files in files sub-directory
+    
   
 
 
   prototree($action,$tree);
 }
 
+function getIconFile($filename) {
+  $ext=substr($filename,strrpos($filename,'.')+1);
+  
+  if ($ext=="php") {
+    $mime="text/x-php";
+  }
+  else $mime=getSysMimeFile($filename);
+  $icon=getIconMimeFile($mime);
+  return 'Images/'.$icon;
+}
 
 ?>

@@ -3,7 +3,7 @@
  * Project maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_root.php,v 1.3 2008/04/16 07:20:25 eric Exp $
+ * @version $Id: maker_root.php,v 1.4 2008/04/18 15:18:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -16,7 +16,7 @@
  * @param Action &$action current action
  */
 function maker_root(&$action) {
-  //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/WHAT/Layout/prototype.js");
+  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/WHAT/Layout/prototype.js");
   //  $action->parent->AddJsRef($action->GetParam("CORE_PUBURL")."/MAKER/Layout/maker_root.js");
   $action->parent->AddJsRef("MAKER:maker_root.js",true);
   

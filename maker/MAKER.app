@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: MAKER.app,v 1.3 2008/04/14 16:37:11 eric Exp $
+// $Id: MAKER.app,v 1.4 2008/04/18 15:18:43 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/maker/MAKER.app,v $
 
 
@@ -40,6 +40,10 @@ $action_desc = array (
   array( 
    "name"		=>"MAKER_EDITCREATEPROJECT",
    "short_name"		=>N_("interface to create project"),
+   "acl"		=>"MAKER" ),
+  array( 
+   "name"		=>"MAKER_FILEEDIT",
+   "short_name"		=>N_("interface to edit file"),
    "acl"		=>"MAKER" ),
   array( 
    "name"		=>"MAKER_CREATEPROJECT",
