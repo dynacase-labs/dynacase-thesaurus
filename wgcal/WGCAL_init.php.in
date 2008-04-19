@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: WGCAL_init.php.in,v 1.59 2007/02/16 14:44:35 marc Exp $
+// $Id: WGCAL_init.php.in,v 1.60 2008/04/19 09:45:29 marc Exp $
 // $Source: /home/cvsroot/anakeen/freedom/wgcal/WGCAL_init.php.in,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -66,6 +66,7 @@ array(
 "WGCAL_U_DISPLAYREFUSED" => array("kind"=>"static", "val"=>"0", "descr"=>N_("displayed refused events"), "user"=>"Y"),
 "WGCAL_U_CHECKCONFLICT" => array("kind"=>"static", "val"=>"1", "descr"=>N_("check for conflicts"), "user"=>"Y"),
 
+"WGCAL_U_EVOPACITY" => array("kind"=>"static", "val"=>"70", "descr"=>N_("event opacity"),"user"=>"Y"),
 "WGCAL_U_RESUMEICON" => array("kind"=>"static", "val"=>"1", "descr"=>N_("show icons in resume"),"user"=>"Y"),
 "WGCAL_U_ALTFIXED" => array("kind"=>"static", "val"=>"Float", "descr"=>N_("alt postion is fixed"),"user"=>"Y"),
 "WGCAL_U_THEME" => array( "kind"=>"static", "val"=>"ardoise", "descr"=>N_("general theme"),"user"=>"Y"),

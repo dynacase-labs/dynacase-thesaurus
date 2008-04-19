@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_prefs_look.php,v 1.22 2006/10/27 15:12:32 marc Exp $
+ * @version $Id: wgcal_prefs_look.php,v 1.23 2008/04/19 09:45:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -62,6 +62,13 @@ function wgcal_prefs_look(&$action) {
     $refresh[$k]["sel"] = ($rinit==$v["val"] ? "selected" : "");
   }			  
   $action->lay->SetBlockData("refresh", $refresh);
+ 
+  $dop = getParam("WGCAL_U_EVOPACITY", "70");
+  $op = array();
+  for ($iop=10; $iop<=100; $iop=$iop+10) {
+    $op[] = array( "val" => "$iop",  "sel" => ($dop==$iop?"selected":""), "text" => "$iop%");
+  }
+  $action->lay->SetBlockData("evopac", $op);
  
 
   $popuptimer = array( "200" => _("200 milli second"),

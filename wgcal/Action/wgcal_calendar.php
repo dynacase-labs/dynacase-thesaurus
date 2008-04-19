@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: wgcal_calendar.php,v 1.104 2008/03/27 14:41:37 marc Exp $
+ * @version $Id: wgcal_calendar.php,v 1.105 2008/04/19 09:45:29 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage WGCAL
@@ -31,9 +31,9 @@ function wgcal_calendar(&$action) {
   $action->parent->AddJsRef("FDL/Layout/iframe.js");
 
   $action->parent->AddJsRef("WGCAL:wgcal.js", true);
-  $action->parent->AddJsRef("WGCAL:wgcal_calendar.js", true);
-//     $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
-//     $action->parent->AddJsCode($jslay->gen());
+//   $action->parent->AddJsRef("WGCAL:wgcal_calendar.js", true);
+  $jslay = new Layout("WGCAL/Layout/wgcal_calendar.js", $action);
+  $action->parent->AddJsCode($jslay->gen());
 
   $action->parent->AddJsRef("FDL/Layout/popupdoc.js");  
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -246,6 +246,7 @@ function wgcal_calendar(&$action) {
   $action->lay->set("IDSTOP", "D".($ndays-1)."H".($nl-1));
   $action->lay->set("ALTFIXED", $action->GetParam("WGCAL_U_ALTFIXED", "Float"));
   $action->lay->set("ALTTIMER", $action->GetParam("WGCAL_U_ALTTIMER", "500"));
+  $action->lay->set("evopacity", $action->GetParam("WGCAL_U_EVOPACITY", "60"));
   
   $action->lay->set("WGCAL_U_HLINETITLE", $action->GetParam("WGCAL_U_HLINETITLE", 20));
   $action->lay->set("WGCAL_U_HLINEHOURS", $action->GetParam("WGCAL_U_HLINEHOURS", 40));

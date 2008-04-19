@@ -20,6 +20,9 @@ var Wshift = 0;
 var frameWidth = 0;
 var frameHeight = 0;
 
+var decalageLeft = 10;
+var decalageRight = 5;
+
 // Coordinate of the top-left corner for calendar display
 var Xs = 0;
 var Ys = 0;
@@ -29,8 +32,8 @@ var Ye = 0;
 
 var AltCoord = new Object();
 
-var  P_DURATION = 10;
-var  P_DEB = 100;
+var  P_DURATION = 1;
+var  P_DEB = 10;
 var  P_FIN = 1;
 
 
@@ -208,13 +211,21 @@ function WGCalChangeClass(event, id, refclass, nclass)
 
 
 // --------------------------------------------------------
-function WGCalIntersect(asy,aey,bsy,bey) {
-  var IsInt = false;
-  if ((bsy>asy && bsy<aey)) IsInt = true;
-  if ((bey>asy && bey<aey)) IsInt = true;
-  if (bsy==asy && bey==aey) IsInt = true;
-  return IsInt;
-}
+// function WGCalIntersect(asy,aey,bsy,bey) {
+//   var IsInt = false;
+//    if ((bsy>asy && bsy<aey)) IsInt = true;
+//    if ((bey>=asy && bey<=aey)) IsInt = true;
+//    if (bsy==asy && bey==aey) IsInt = true;
+//   return IsInt;
+// }
+// --------------------------------------------------------
+function WGCalIntersect(A,B,C,D) {
+   if (A<C && C<B) return true;
+   if (A<D && D<B) return true;
+   if (A==C && B==D) return true;
+   return false;
+ }
+
 
 
 // --------------------------------------------------------
@@ -294,7 +305,8 @@ function WGCalAddEvent(nev)
       Days[id].ev[cEv].dend = dend;
       Days[id].ev[cEv].vstart = vstart;
       Days[id].ev[cEv].vend = vend;
-      Days[id].ev[cEv].weight = ((vend - vstart) * P_DURATION) - (vstart  * P_DEB);
+       Days[id].ev[cEv].weight = ((vend - vstart) * P_DURATION) - (vstart  * P_DEB);
+//       Days[id].ev[cEv].weight =  - (vstart);
       Days[id].ev[cEv].mdays = mdays;
       Days[id].ev[cEv].occ = 0;
       Days[id].ev[cEv].base = -1;
@@ -426,19 +438,19 @@ function WGCalDisplayDailyEvents(dEv) {
     }
     evts[ie].base = base;
     evts[ie].col = col;
-    evts[ie].rwidth = 1;
   }
   
   // Optimize event width according column count
   s='';
   for (it=0; it<evts.length; it++) {
-    ncol = WGCalGetColForBase(evts, evts[it].base);
-    haveR = WGCalGetRightEvForBase(it, evts, evts[it].base);
-     if (haveR) {
-       evts[it].rwidth = 1 / ncol;
-     } else {
-       evts[it].rwidth = (ncol - (evts[it].col - 1) ) / ncol;
-     }
+    ncol = WGCalGetColForBase(evts, it);
+    evts[it].decalage = (evts[it].col-1)*decalageLeft;
+    evts[it].haveR = WGCalGetRightEvForBase(it, evts, evts[it].base);
+//     if (evts[it].haveR) {
+//     } else {
+//       evts[it].decalage = 0;
+//       evts[it].col = 1;
+//     }
     WGCalDisplayEvent(evts[it], ncol);
   }
 }
@@ -451,32 +463,32 @@ function WGCalEmptyColBase(evts, base, ic) {
   return true;
 }
 
-function WGCalCountColsForBase(icur, iprev, evts,  b) {
-  var icol = 0;
-  var ix;
-  for (ix=0; ix<iprev; ix++) {
-    if (evts[ix].base==b && WGCalIntersect(evts[icur].vstart, evts[icur].vend, evts[ix].vstart, evts[ix].vend)) icol++;
-  }
-  return icol;
-}
-
-function WGCalGetColForBase(evts, b) {
+function WGCalGetColForBase(evts, it) {
   var ncol = 0;
   var ix;
   for (ix=0; ix<evts.length; ix++) {
-    if (evts[ix].base==b) ncol++;
+//     if (WGCalIntersect(evts[it].vstart, evts[it].vend, evts[ix].vstart, evts[ix].vend)) ncol++;
+     if (evts[ix].base==evts[it].base) ncol++;
   }
   return ncol;
 }
 
 function WGCalGetRightEvForBase(first, evts, b) {
-  var ix;
-  if (first+1>=evts.length) return false;
-  for (ix=first+1; ix<evts.length; ix++) {
-    if (evts[ix].base==b && WGCalIntersect(evts[first].vstart, evts[first].vend, evts[ix].vstart, evts[ix].vend)) return true;
-  }
-  return false;
+   var ix;
+   for (ix=0; ix<first; ix++) {
+     if (WGCalIntersect(evts[first].vstart, evts[first].vend, evts[ix].vstart, evts[ix].vend)) return true;
+   }
+   return false;
 }
+
+// function WGCalGetRightEvForBase(first, evts, b) {
+//   var ix;
+//   if (first+1>evts.length) return false;
+//    for (ix=first; ix<evts.length; ix++) {
+//      if (evts[ix].base==b && WGCalIntersect(evts[first].vstart, evts[first].vend, evts[ix].vstart, evts[ix].vend)) return true;
+//    }
+//   return false;
+// }
 
 function WGCalSortByWeight(e1, e2) {
   return e2.weight - e1.weight;
@@ -513,18 +525,23 @@ function WGCalDisplayEvent(cEv, ncol) {
   }
   eE = eltId(ename);   // Event abstract container
   eE2 = eltId(esname); // Event abstract 
-  // Compute width and X coord
-  xw = (cWidth-clickmargin) * cEv.rwidth;
-  delta = (cWidth-clickmargin) / ncol;
+//   eE2.innerHTML = 'ncol='+ncol+' col='+cEv.col;
+  var colW = (cWidth-clickmargin) / ncol;
+  var xw = cWidth-clickmargin;
+  if (ncol>1) {
+    var resa = xw - parseInt((ncol*(decalageRight)));
+    xw = xw - ((cEv.col-1)*decalageLeft);
+    xw = xw - ((ncol)*parseInt(decalageRight));
+    xw = xw +  ((cEv.col-1)*parseInt(decalageRight));
+ }
   with (eE) {
     style.top = startY+"px";
-    style.left = startX + clickmargin + ((cEv.col-1) * delta)  + "px";
-    style.width = (xw-4>0?xw-4:6)+"px";
-    style.height = (h-2>0?h-2:6)+"px";
+    style.left = startX + clickmargin + cEv.decalage  + "px";
+    style.width = xw+"px";
+    style.height = (h>0?h:6)+"px";
     style.position = 'absolute';
     style.display = 'block';
-    style.padding = '0px';
-    style.backgroundColor = 'red';
+    className = "eventBack";
   }
   with (eE2) {
     style.top = style.left = 0;
@@ -534,8 +551,9 @@ function WGCalDisplayEvent(cEv, ncol) {
     style.width = (tt<1) ? 2 : tt;
     tt = parseInt(getObjectHeight(eE))-bwidth;
     style.height = (tt<1) ? 2 : tt;
-    style.margin = '0px';
+    className = "eventFrontend";
   }
+  fcalSetOpacity(eE2, evOpacity);
   return;
 }
 
@@ -619,11 +637,8 @@ function fcalCreateEvent(ie,isclone) {
       }
     }
 
-//     inhtml += '&nbsp;['+ie+'] '+ fcalEvents[ie].title;
     inhtml += '&nbsp;'+ fcalEvents[ie].title;
     innerHTML = inhtml;
-//     style.opacity = '0.6';
-//     style.filter = 'alpha(opacity=60)';
     style.backgroundColor = fcalEvents[ie].bgColor;
 
     var tcol = getHSL(style.backgroundColor);
@@ -634,8 +649,7 @@ function fcalCreateEvent(ie,isclone) {
       if (trgb[i]>15)  trgb[i]=trgb[i].toString(16);
       else trgb[i]='0'+trgb[i].toString(16);
     }
-    style.color = fcalEvents[ie].fgColor; //'#'+trgb.join('');
-//     alert(style.backgroundColor+'  :   '+style.color);
+    style.color = fcalEvents[ie].fgColor;
    
     style.borderWidth = '3px';
     style.borderStyle = 'solid'; 
@@ -745,6 +759,10 @@ function addCalEvContent(ev, ie) {
 function initCalEvent(ie) {
   var eid = fcalGetEvtCardName(ie);
 
+  eE2 = eltId(fcalGetEvtSubRName(ie,0)); // Event abstract 
+  eE2.style.zIndex = 1000;
+  fcalSetOpacity(eE2, 100); 
+
   if (eltId(eid)) {
     fcalInitCardPosition(ie);
     return;
@@ -755,11 +773,13 @@ function initCalEvent(ie) {
   
   nev.id= fcalGetEvtCardName(ie);
   nev.name = fcalGetEvtCardName(ie);
+  nev.style.zIndex = 2000;
   nev.style.visibility = 'hidden';
   nev.innerHTML = '';
    
   ref.appendChild(nev);
   fcalGetCalEvent(false, ie);
+
   return;  
 }
 
@@ -768,6 +788,7 @@ function fcalShowCalEvent() {
   evLoaded[evDisplayed] = true;
   initCalEvent(evDisplayed);
   fcalSetEvCardPosition(evDisplayed,10);
+  
 }
 
 
@@ -803,6 +824,11 @@ function hideCalEvent(ie) {
   if (eltId(fcalGetEvtCardName(ie))) {
     evLoaded[ie] = false;
     eltId(fcalGetEvtCardName(ie)).style.display = 'none';
+    
+    var eE2 = eltId(fcalGetEvtSubRName(ie,0)); // Event abstract 
+    eE2.style.zIndex = 'auto';
+    fcalSetOpacity(eE2, evOpacity); 
+
   }
 }
 
@@ -1425,7 +1451,7 @@ function msgUser(tt) {
     deb.style.position = 'absolute';
     deb.style.display = 'block';
     deb.style.textAlign = 'right';
-    deb.style.zIndex = 10000;
+    deb.style.zIndex = 500;
     deb.style.visibility = 'hidden';
     fcalAddEvent(deb, 'click', cancelMsgUser);
     document.getElementById('root').appendChild(deb);

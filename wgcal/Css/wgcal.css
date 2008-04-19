@@ -5,6 +5,22 @@
 *, span, div, tr, td { background-color:transparent; }
 td { empty-cells: show; }
 
+
+.eventBack {
+  padding:0px;
+  border-width : 1px;
+  border-style : solid;
+  border-color : [COLOR_A8];
+  -moz-border-radius: 4px;
+}
+.eventFrontend {
+  border-width : 0px;
+  margin : 0px;
+  -moz-border-radius: 4px;
+  font-size: [SIZE_SMALL];
+}
+
+
 .slid_noweek { float:left; font-size: [SIZE_SMALL]; text-align:center;  background-color:[COLOR_A9]; }
 .slid_week { font-size:[SIZE_SMALL]; text-align: center; float:left; background-color:[COLOR_A9]; 
              border-top:1px solid [COLOR_A9]; border-left:1px solid [COLOR_A9]; border-right: 1px solid [COLOR_A0]; border-bottom: 1px solid [COLOR_A9]; }

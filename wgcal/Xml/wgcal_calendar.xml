@@ -131,6 +131,7 @@ Days[[iday]] = { start:[days], vstart:[vstart], vend:[vend], view:[view], isWE:[
 [BLOCK EVENTS]
 fcalEvents[[rg]] = [jscode];[ENDBLOCK EVENTS]
 var AltTimerValue = '[ALTTIMER]';
+var evOpacity = '[evopacity]';
 function displayInit() {
   globalcursor('progress'); 
   frameWidth = getFrameWidth();
