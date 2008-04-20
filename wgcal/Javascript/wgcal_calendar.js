@@ -445,12 +445,6 @@ function WGCalDisplayDailyEvents(dEv) {
   for (it=0; it<evts.length; it++) {
     ncol = WGCalGetColForBase(evts, it);
     evts[it].decalage = (evts[it].col-1)*decalageLeft;
-    evts[it].haveR = WGCalGetRightEvForBase(it, evts, evts[it].base);
-//     if (evts[it].haveR) {
-//     } else {
-//       evts[it].decalage = 0;
-//       evts[it].col = 1;
-//     }
     WGCalDisplayEvent(evts[it], ncol);
   }
 }
@@ -526,14 +520,10 @@ function WGCalDisplayEvent(cEv, ncol) {
   eE = eltId(ename);   // Event abstract container
   eE2 = eltId(esname); // Event abstract 
 //   eE2.innerHTML = 'ncol='+ncol+' col='+cEv.col;
-  var colW = (cWidth-clickmargin) / ncol;
   var xw = cWidth-clickmargin;
-  if (ncol>1) {
-    var resa = xw - parseInt((ncol*(decalageRight)));
-    xw = xw - ((cEv.col-1)*decalageLeft);
-    xw = xw - ((ncol)*parseInt(decalageRight));
-    xw = xw +  ((cEv.col-1)*parseInt(decalageRight));
- }
+  xw = xw - ((cEv.col-1)*decalageLeft);
+  xw = xw - ((ncol)*parseInt(decalageRight));
+  xw = xw +  ((cEv.col-1)*parseInt(decalageRight));
   with (eE) {
     style.top = startY+"px";
     style.left = startX + clickmargin + cEv.decalage  + "px";
