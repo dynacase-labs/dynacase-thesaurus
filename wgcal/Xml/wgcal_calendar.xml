@@ -27,7 +27,7 @@
 <div style="display:none" id="waitmessage"><img src="[IMG:fcal-wait.gif]">
 </div>
 
-<div style="top:0px; left:0px; position:absolute; display:inline;  visibility:hidden; padding:2px; background:white" id="fastedit">
+<div style="top:0px; left:0px; position:absolute; display:inline;  visibility:hidden; padding:4px;" id="fastedit">
   <div class="fasteditcontent">
   <table>
 

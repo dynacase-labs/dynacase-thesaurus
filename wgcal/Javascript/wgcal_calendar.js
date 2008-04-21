@@ -461,8 +461,7 @@ function WGCalGetColForBase(evts, it) {
   var ncol = 0;
   var ix;
   for (ix=0; ix<evts.length; ix++) {
-//     if (WGCalIntersect(evts[it].vstart, evts[it].vend, evts[ix].vstart, evts[ix].vend)) ncol++;
-     if (evts[ix].base==evts[it].base) ncol++;
+    if (evts[ix].base==evts[it].base && evts[ix].col>ncol) ncol=evts[ix].col;
   }
   return ncol;
 }
@@ -474,15 +473,6 @@ function WGCalGetRightEvForBase(first, evts, b) {
    }
    return false;
 }
-
-// function WGCalGetRightEvForBase(first, evts, b) {
-//   var ix;
-//   if (first+1>evts.length) return false;
-//    for (ix=first; ix<evts.length; ix++) {
-//      if (evts[ix].base==b && WGCalIntersect(evts[first].vstart, evts[first].vend, evts[ix].vstart, evts[ix].vend)) return true;
-//    }
-//   return false;
-// }
 
 function WGCalSortByWeight(e1, e2) {
   return e2.weight - e1.weight;
@@ -519,7 +509,7 @@ function WGCalDisplayEvent(cEv, ncol) {
   }
   eE = eltId(ename);   // Event abstract container
   eE2 = eltId(esname); // Event abstract 
-//   eE2.innerHTML = 'ncol='+ncol+' col='+cEv.col;
+  //eE2.innerHTML = 'ncol='+ncol+' col='+cEv.col;
   var xw = cWidth-clickmargin;
   xw = xw - ((cEv.col-1)*decalageLeft);
   xw = xw - ((ncol)*parseInt(decalageRight));

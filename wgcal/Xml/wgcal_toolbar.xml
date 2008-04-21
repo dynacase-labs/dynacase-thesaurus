@@ -109,7 +109,7 @@ function hideShowToolbar(imbut) {
 <table style="border:0px; margin:0px; padding:0px; width:[IF ISIE]95[ENDIF ISIE][IFNOT ISIE]100[ENDIF ISIE]%;" cellspacing="0" cellpadding="0">
 <tbody style="border:0px; margin:0px; padding:0px;" id="tabress">
 <tr style="display:none;" id="trsample">
-<td>
+<td style="text-align:right">
 <span style="display:none;" id="rdesc%RID%">%RDESCR%</span>
 <input style="padding:0px; margin:0px; display:inline" type="radio" name="agdsel" id="agd%RID%" title="[TEXT:select to edit agenda for] %RDESCR%" onclick="setCurrentAgenda('%RID%');" />
 </td>
