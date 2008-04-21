@@ -1444,7 +1444,7 @@ function msgUser(tt) {
     deb.style.zIndex = 500;
     deb.style.visibility = 'hidden';
     fcalAddEvent(deb, 'click', cancelMsgUser);
-    document.getElementById('root').appendChild(deb);
+    if (document.getElementById('root')) document.getElementById('root').appendChild(deb);
   }  else {
     var deb = document.getElementById('userMessage');
   }
