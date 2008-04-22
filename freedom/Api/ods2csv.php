@@ -3,7 +3,7 @@
  * Convert OpenDocument Spreadsheet to csv (semicolon)
  *
  * @author Anakeen 2000 
- * @version $Id: ods2csv.php,v 1.4 2007/11/20 17:09:02 eric Exp $
+ * @version $Id: ods2csv.php,v 1.5 2008/04/22 13:09:33 jerome Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,12 +13,13 @@
 define ("SEPCHAR", ';');
 
 $inrow=false;
+$incell=false;
 $nrow=0;
 $ncol=0;
 $rows=array();
 $colrepeat=0;
 function startElement($parser, $name, $attrs) {
-  global $rows,$nrow,$inrow,$ncol,$colrepeat;
+  global $rows,$nrow,$inrow,$incell,$ncol,$colrepeat;
   if ($name ==  "TABLE:TABLE-ROW") {
     $inrow=true;
     if (isset($rows[$nrow])) {
@@ -36,6 +37,7 @@ function startElement($parser, $name, $attrs) {
   }
   
   if ($name ==  "TABLE:TABLE-CELL") {
+    $incell=true;
     if ($attrs["TABLE:NUMBER-COLUMNS-REPEATED"]) {
       $colrepeat=intval($attrs["TABLE:NUMBER-COLUMNS-REPEATED"]);      
      }
@@ -43,12 +45,12 @@ function startElement($parser, $name, $attrs) {
 }
 
 function endElement($parser, $name) {
-  global $rows,$nrow,$inrow,$ncol,$colrepeat;
+  global $rows,$nrow,$inrow,$incell,$ncol,$colrepeat;
   if ($name ==  "TABLE:TABLE-ROW") $inrow=false;
 
 
   if ($name ==  "TABLE:TABLE-CELL") {
-
+    $incell=false;
 
 
     if (($colrepeat > 1) &&($colrepeat < 64)) {
@@ -68,8 +70,12 @@ function endElement($parser, $name) {
 
 function characterData($parser, $data)
 {
-  global $rows,$nrow,$inrow,$ncol;
-  if ($inrow) $rows[$nrow][$ncol].=str_replace(SEPCHAR,' - ',$data);
+  global $rows,$nrow,$inrow,$incell,$ncol;
+  if ($inrow && $incell) {
+    $rows[$nrow][$ncol].=preg_replace(
+      '/^\s*[\r\n]\s*$/ms', '', str_replace(SEPCHAR,' - ',$data)
+    );
+  }
   //  print $data. "- ";
 }
 
