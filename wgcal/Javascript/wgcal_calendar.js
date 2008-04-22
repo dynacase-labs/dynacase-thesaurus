@@ -588,7 +588,7 @@ function fcalCreateEvent(ie,isclone) {
 		   function foo(event) {   
 		     posM.x = getX(event); 
 		     posM.y = getY(event);
-		     fcalSetEvCardPosition(ie,  10); } );
+		     fcalSetEvCardPosition(ie,  10, false); } );
   } else {
       fcalAddEvent(nev, 'mouseover',  function foo(event) { 
 	                                       event || (event = window.event);
@@ -711,7 +711,7 @@ function addCalEvContent(ie) {
       var eid = eltId(fcalGetEvtCardName(ie));
       eid.innerHTML = rq.responseText;
       eid.style.visibility=='hidden';
-      fcalSetEvCardPosition(ie,10);
+      fcalSetEvCardPosition(ie,10, true);
       if (evDisplayed!=ie) return;
    }
   }
@@ -730,7 +730,8 @@ function initCalEvent(ie) {
   }
 
   if (eltId(eid)) {
-    fcalSetEvCardPosition(ie,10);
+    eltId(fcalGetEvtCardName(ie)).style.visibility = 'visible';
+//     fcalSetEvCardPosition(ie,10);
     return;
   }
 
@@ -768,7 +769,7 @@ function fcalShowCalEvent() {
 }
 
 
-function fcalSetEvCardPosition(evid, shift) {
+function fcalSetEvCardPosition(evid, shift, forcevis) {
   if (!eltId(fcalGetEvtCardName(evid))) return;
   if (evDisplayed!=evid) return;   
   var eid = eltId(fcalGetEvtCardName(evid));
@@ -779,7 +780,7 @@ function fcalSetEvCardPosition(evid, shift) {
   }
   evHeight = parseInt(getObjectHeight(eid));
   computeDivPosition(fcalGetEvtCardName(evid),posM.x,posM.y, shift);
-  eid.style.visibility = 'visible';
+  if (forcevis) eid.style.visibility = 'visible';
   return true;
 }
 

@@ -52,8 +52,9 @@ function wgcal_searchical(&$action) {
 	  
 	  // Active menu items
 	  PopupActive('mRess', $vd["id"], 'radd');
-	  if ($writeaccess) PopupActive('mRess', $vd["id"], 'rrendezvous');
-          else PopupInactive('mRess', $vd["id"], 'rrendezvous');
+// 	  if ($writeaccess) PopupActive('mRess', $vd["id"], 'rrendezvous');
+//           else PopupInactive('mRess', $vd["id"], 'rrendezvous');
+	  PopupInvisible('mRess', $vd["id"], 'radd');
 	  PopupActive('mRess', $vd["id"], 'rcalendar');
 	  PopupActive('mRess', $vd["id"], 'rprefered');
 	}

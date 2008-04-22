@@ -427,7 +427,9 @@ function saveEvent(event, checkconflict) {
   try {
     top.opener.fcalReloadEvents();
   } catch(e) {
-    top.window.fcalReloadEvents();
+    try {
+      top.window.fcalReloadEvents();
+    } catch(e) { }
   };
   unglobalcursor();
    
