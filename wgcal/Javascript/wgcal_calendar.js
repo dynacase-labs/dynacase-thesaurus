@@ -61,7 +61,7 @@ function GetYForTime(ts) {
 function WGCalCleanAllFullView() {
   for (var io=0; io<fcalEvents.length; io++) {
     evtc = fcalGetEvtCardName(io);
-    if (eltId(evtc)) eltId(evtc).style.display = 'none';
+    if (eltId(evtc)) eltId(evtc).style.visibily = 'hidden';
   }
 }
   
@@ -582,7 +582,7 @@ function fcalCreateEvent(ie,isclone) {
     setAttribute('id', fcalGetEvtSubRName(ie,fcalEvents[ie].occur));
     setAttribute('name', fcalGetEvtSubRName(ie,fcalEvents[ie].occur));
     if (fcalEvents[ie].display) {
-      fcalAddEvent(nev, 'mouseover', function foo(event) { fcalStartEvDisplay(event,fcalEvents[ie].occur, ie) } );
+      fcalAddEvent(nev, 'mouseover', function foo(event) {posM.x = getX(event); posM.y = getY(event);  fcalStartEvDisplay(event,fcalEvents[ie].occur, ie) } );
       fcalAddEvent(nev, 'mouseout', function foo(event) { fcalCancelEvDisplay(event, ie) } );
       fcalAddEvent(nev, 'mousemove', 
 		   function foo(event) {   
@@ -690,6 +690,7 @@ function fcalResetTempo(ev) {
   if (TempoId>-1) clearTimeout(TempoId);
   TempoId = -1;
   evDisplayed = -1;
+  evOccur = -1;
   return;
 }
 
@@ -700,65 +701,69 @@ function fcalCancelEvDisplay(ev, ie) {
   hideCalEvent(ie);
   posM.x = 0;
   posM.y = 0;
-  evDisplayed = evWidth = evHeight = -1;
+  evDisplayed = evOccur = evWidth = evHeight = -1;
 }
 
-
-var rq;
-function fcalGetCalEvent(ev, ie) {
-  evLoaded[ie] = true;
-  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
-  else if (window.ActiveXObject) rq = new ActiveXObject("Microsoft.XMLHTTP");
-  else alert('pas de XMLHttpRequest');
-  if (rq) {
-    rq.onreadystatechange = function foo() { addCalEvContent(ev, ie) };
-    var corestandurl=window.location.pathname+'?sole=Y';
-    var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
-    rq.open("GET", urlsend, true);
-    rq.send('');
-  }
-}
-
-
-function addCalEvContent(ev, ie) {
+function addCalEvContent(ie) {
   if (rq.readyState == 4) {
     if (rq.responseText && rq.status==200) {
       if (!eltId(fcalGetEvtCardName(ie))) return;
       var eid = eltId(fcalGetEvtCardName(ie));
       eid.innerHTML = rq.responseText;
       eid.style.visibility=='hidden';
-      if (evDisplayed!=ie) return;
-      fcalInitCardPosition(ie);
       fcalSetEvCardPosition(ie,10);
+      evWidth = parseInt(getObjectWidth(eid));
+      if (evWidth>(frameWidth*0.7)) {
+        eid.style.width = frameWidth*0.7;
+        evWidth = parseInt(getObjectWidth(eid));
+      }
+      evHeight = parseInt(getObjectHeight(eid));
+      if (evDisplayed!=ie) return;
    }
   }
   return;
 }
 
   
+var rq;
 function initCalEvent(ie) {
   var eid = fcalGetEvtCardName(ie);
 
-  eE2 = eltId(fcalGetEvtSubRName(ie,0)); // Event abstract 
-  eE2.style.zIndex = 1000;
-  fcalSetOpacity(eE2, 100); 
+  for (var iocc=0; iocc<fcalEvents[ie].occur; iocc++) {
+    var eE2 = eltId(fcalGetEvtSubRName(ie,iocc)); // Event abstract 
+    eE2.style.zIndex = 1000;
+    fcalSetOpacity(eE2, 100);
+  }
 
   if (eltId(eid)) {
-    fcalInitCardPosition(ie);
+    fcalSetEvCardPosition(ie,10);
     return;
   }
 
   var ref = eltId(Root);
   var nev = document.createElement('div');
-  
+  nev.style.visibility = 'hidden';
   nev.id= fcalGetEvtCardName(ie);
   nev.name = fcalGetEvtCardName(ie);
-  nev.style.zIndex = 2000;
-  nev.style.visibility = 'hidden';
+  nev.style.position = 'absolute';
+  nev.style.display = 'inline';
+  nev.style.zIndex = 3000;
   nev.innerHTML = '';
-   
   ref.appendChild(nev);
-  fcalGetCalEvent(false, ie);
+  computeDivPosition(nev.name,posM.x,posM.y, 10);
+  
+   
+  evLoaded[ie] = true;
+  if (window.XMLHttpRequest) rq = new XMLHttpRequest();
+  else if (window.ActiveXObject) rq = new ActiveXObject("Microsoft.XMLHTTP");
+  else alert('pas de XMLHttpRequest');
+  if (rq) {
+    rq.onreadystatechange = function foo() { addCalEvContent(ie) };
+    var corestandurl=window.location.pathname+'?sole=Y';
+    var urlsend = corestandurl+"&app=WGCAL&action=WGCAL_VIEWEVENT&id="+fcalEvents[ie].idp;
+    rq.open("GET", urlsend, true);
+    rq.send('');
+  }
 
   return;  
 }
@@ -767,48 +772,30 @@ function fcalShowCalEvent() {
   if (evLoaded[evDisplayed] || evDisplayed<0) return;
   evLoaded[evDisplayed] = true;
   initCalEvent(evDisplayed);
-  fcalSetEvCardPosition(evDisplayed,10);
   
-}
-
-
-function fcalInitCardPosition(evid) {
-  if (!eltId(fcalGetEvtCardName(evid))) {
-    alert('Element '+o+' not found');
-    return;
-  }
-  var eid = eltId(fcalGetEvtCardName(evid));
-  eid.style.visibility = 'hidden';
-  eid.style.position = 'absolute';
-  eid.style.display = 'inline';
-  eid.style.left = '0px';
-  eid.style.top = '0px';
-  evWidth = parseInt(getObjectWidth(eid));
-  if (evWidth>(frameWidth*0.7)) {
-    eid.style.width = frameWidth*0.7;
-    evWidth = parseInt(getObjectWidth(eid));
-  }
-  evHeight = parseInt(getObjectHeight(eid));
 }
 
 
 function fcalSetEvCardPosition(evid, shift) {
   if (!eltId(fcalGetEvtCardName(evid))) return;
   if (evDisplayed!=evid) return;   
+  var eid = eltId(fcalGetEvtCardName(evid));
   computeDivPosition(fcalGetEvtCardName(evid),posM.x,posM.y, shift);
-  eltId(fcalGetEvtCardName(evid)).style.visibility = 'visible';
+  eid.style.visibility = 'visible';
   return true;
 }
 
 function hideCalEvent(ie) {
   if (eltId(fcalGetEvtCardName(ie))) {
     evLoaded[ie] = false;
-    eltId(fcalGetEvtCardName(ie)).style.display = 'none';
+    eltId(fcalGetEvtCardName(ie)).style.visibility = 'hidden';
     
-    var eE2 = eltId(fcalGetEvtSubRName(ie,0)); // Event abstract 
-    eE2.style.zIndex = 'auto';
-    fcalSetOpacity(eE2, evOpacity); 
-
+    for (var iocc=0; iocc<fcalEvents[ie].occur; iocc++) {
+      var eE2 = eltId(fcalGetEvtSubRName(ie,iocc)); // Event abstract 
+      eE2.style.zIndex = 1000;
+      eE2.style.zIndex = 'auto';
+      fcalSetOpacity(eE2, evOpacity);
+    }
   }
 }
 
