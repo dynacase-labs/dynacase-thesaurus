@@ -712,12 +712,6 @@ function addCalEvContent(ie) {
       eid.innerHTML = rq.responseText;
       eid.style.visibility=='hidden';
       fcalSetEvCardPosition(ie,10);
-      evWidth = parseInt(getObjectWidth(eid));
-      if (evWidth>(frameWidth*0.7)) {
-        eid.style.width = frameWidth*0.7;
-        evWidth = parseInt(getObjectWidth(eid));
-      }
-      evHeight = parseInt(getObjectHeight(eid));
       if (evDisplayed!=ie) return;
    }
   }
@@ -750,8 +744,6 @@ function initCalEvent(ie) {
   nev.style.zIndex = 3000;
   nev.innerHTML = '';
   ref.appendChild(nev);
-  computeDivPosition(nev.name,posM.x,posM.y, 10);
-  
    
   evLoaded[ie] = true;
   if (window.XMLHttpRequest) rq = new XMLHttpRequest();
@@ -780,6 +772,12 @@ function fcalSetEvCardPosition(evid, shift) {
   if (!eltId(fcalGetEvtCardName(evid))) return;
   if (evDisplayed!=evid) return;   
   var eid = eltId(fcalGetEvtCardName(evid));
+  evWidth = parseInt(getObjectWidth(eid));
+  if (evWidth>(frameWidth*0.7)) {
+    eid.style.width = frameWidth*0.7;
+    evWidth = parseInt(getObjectWidth(eid));
+  }
+  evHeight = parseInt(getObjectHeight(eid));
   computeDivPosition(fcalGetEvtCardName(evid),posM.x,posM.y, shift);
   eid.style.visibility = 'visible';
   return true;
