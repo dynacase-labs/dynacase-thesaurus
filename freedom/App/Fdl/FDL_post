@@ -5,83 +5,90 @@ if [ "$dbpsql" == "" ]; then
    wchoose -b
 fi
 
-dbfreename=`$wpub/wsh.php --api=get_param --param=FREEDOM_DB | sed -e 's/^.*dbname[[:space:]]*=[[:space:]]*\([[:alnum:]]*\).*$/\1/'`
-if [ "$dbfreename" = "" ]; then
-    dbfreename="freedom";
+. $wpub/log.sh
+. $wpub/libutil.sh
+
+if [ -z $pgservice_core -o -z $pgservice_freedom ]; then
+    echo "Env variables pgservice_core or pgservice_freedom is empty !"
+    echo "Check your freedom environment for missing or misconfigured environment."
+    exit 1
 fi
-echo $dbname $dbfreename
 
 #------------------------------
 #post installation
 #------------------------------
 if [ "$1" = "I" ] ; then
 
-  echo "Create $dbfreename database"
-  createdb --username=postgres --encoding LATIN1 $dbfreename
-   if [ $? != 0 ] ; then
-    echo "cannot create db $dbfreename"
-    exit 1
-  fi
-   
-  if [ -f /usr/share/pgsql/contrib/tsearch2.sql ]; then
-    psql $dbfree -f /usr/share/pgsql/contrib/tsearch2.sql
-  else
-      if [ -f /usr/share/postgresql/contrib/tsearch2.sql ]; then
-	  psql $dbfree -f /usr/share/postgresql/contrib/tsearch2.sql
-      else 
-	  if [ -f /usr/share/postgresql/8.2/contrib/tsearch2.sql ]; then
-	      psql $dbfree -f /usr/share/postgresql/8.2/contrib/tsearch2.sql
-          else 
-	     if [ -f /usr/share/postgresql/8.1/contrib/tsearch2.sql ]; then
-	        psql $dbfree -f /usr/share/postgresql/8.1/contrib/tsearch2.sql
-             else
-		 echo "no postgresql tsearch2 found"
-		 exit 1
-	     fi
-	  fi
-      fi
-  fi
-  psql $dbfree -f $wpub/FDL/tsearch2_fr.sql
-  echo "ALTER DATABASE $dbfreename set DateStyle = sql,european;" | psql  --username=postgres $dbpsql
-  psql $dbfree -f $wpub/WHAT/getprivilege.sql
-  psql $dbfree -f $wpub/FDL/fdl.sql
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=Doc
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocRead
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocPerm
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=VGroup
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --appc=FDL --class=DocRel
-  /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="$dbfree" --class=Group
-  #copy postgres group table
-  $wpub/wsh.php --api=freedom_groups
+    log "Checking if the database service $pgservice_freedom is running and available..."
+    PGSERVICE="$pgservice_freedom" pgIsRunning
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Could not connect to database service $pgservice_freedom) !"
+	echo "Check that your database is running and acessible with the service from pgservice.conf."
+	exit $RET
+    fi
+    
+    PGSERVICE="$pgservice_freedom" pgExecuteSqlFile "$wpub/WHAT/getprivilege.sql"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Error executing sql file \"$wpub/WHAT/getprivilege.sql\""
+	exit $RET
+    fi
+    
+    PGSERVICE="$pgservice_freedom" pgExecuteSqlFile "$wpub/FDL/fdl.sql"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Error executing sql file \"$wpub/FDL/fdl.sql\""
+	exit $RET
+    fi
 
+    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=Doc
+    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocRead
+    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocPerm
+    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=VGroup
+    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocRel
+    /usr/bin/php -q $wpub/API/updateclass.php --class=Group
+    #copy postgres group table
+    $wpub/wsh.php --api=freedom_groups
 
-  DBFREENAME=`echo $dbfreename | tr '[a-z]' '[A-Z]'`
-  if [ ! -f $wpub/VAULT/$DBFREENAME.vault ]; then
-    #cp $wpub/FDL/FREEDOM.vault $wpub/VAULT/FREEDOM.vault
-    sed -e"s/fs1/$dbfreename/g" $wpub/FDL/FREEDOM.vault > $wpub/VAULT/$DBFREENAME.vault
-  fi
-  $wpub/wsh.php --api=vault_init
-
-#  $wpub/wsh.php --app=FDL --action=FREEDOM_INIT  
- # psql $dbfreename anakeen -f $wpub/API/freedom_clean.sql
+    if [ ! -f "$wpub/VAULT/$freedomenv.vault" ]; then
+        #cp $wpub/FDL/FREEDOM.vault $wpub/VAULT/FREEDOM.vault
+	sed -e"s/fs1/$freedomenv/g" "$wpub/FDL/FREEDOM.vault" > "$wpub/VAULT/$freedomenv.vault"
+    fi
+    $wpub/wsh.php --api=vault_init
+    
+    # $wpub/wsh.php --app=FDL --action=FREEDOM_INIT  
+    # psql $dbfreename anakeen -f $wpub/API/freedom_clean.sql
 fi
+
 #------------------------------
 #post update
 #------------------------------
 if [ "$1" = "U" ] ; then
 
 
-  #copy postgres group table
-  $wpub/wsh.php --api=freedom_groups
+    #copy postgres group table
+    $wpub/wsh.php --api=freedom_groups
 
+    $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/fdl.ods
+    $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/freeaction.ods
 
-  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/fdl.ods
-  $wpub/wsh.php --api=freedom_import --file=$wpub/FDL/freeaction.ods
+    PGSERVICE="$pgservice_freedom" pgExecuteSqlFile "$wpub/WHAT/getprivilege.sql"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Error executing sql file \"$wpub/WHAT/getprivilege.sql\""
+	exit $RET
+    fi
+    
+    PGSERVICE="$pgservice_freedom" pgExecuteSqlFile "$wpub/FDL/fdl.sql"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Error executing sql file \"$wpub/FDL/fdl.sql\""
+	exit $RET
+    fi
 
-  su - postgres -c "psql $dbfree -f $wpub/WHAT/getprivilege.sql"
-  su - postgres -c "psql $dbfree -f $wpub/FDL/fdl.sql"
-  $wpub/wsh.php --api=fdl_adoc
-  $wpub/wsh.php --api=fdl_trigger | psql $dbfree
-  $wpub/wsh.php --api=fdl_trigger --trigger=Y | psql $dbfree
+    $wpub/wsh.php --api=fdl_adoc
+    $wpub/wsh.php --api=fdl_trigger | PGSERVICE="$pgservice_freedom" psql
+    $wpub/wsh.php --api=fdl_trigger --trigger=Y | PGSERVICE="$pgservice_freedom" psql
 
 fi

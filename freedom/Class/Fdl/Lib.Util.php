@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.18 2007/06/14 15:47:50 eric Exp $
+ * @version $Id: Lib.Util.php,v 1.19 2008/04/25 09:18:15 jerome Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -16,8 +16,11 @@ function newFreeVaultFile($dbaccess) {
   return new VaultFile($dbaccess, strtoupper(getDbName($dbaccess)));
 }
 function getGen($dbaccess) {
-  if (getDbName($dbaccess) != "freedom") return "GEN/".strtoupper(getDbName($dbaccess));
-  return "GEN";
+  $freedomenv = getenv("freedomenv");
+  if ($freedomenv != "" ) {
+    return "GEN/".$freedomenv;
+  }
+  return "GEN/default";
 }
 
 
