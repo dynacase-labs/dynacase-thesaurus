@@ -66,6 +66,13 @@ fi
 #------------------------------
 if [ "$1" = "U" ] ; then
 
+    log "Setting FREEDOM_DB in paramv..."
+    PGSERVICE="$pgservice_core" psql -c "UPDATE paramv SET val = 'service=''$pgservice_freedom''' WHERE name = 'FREEDOM_DB'"
+    RET=$?
+    if [ $RET -ne 0 ]; then
+	echo "Error setting FREEDOM_DB"
+        exit $RET
+    fi
 
     #copy postgres group table
     $wpub/wsh.php --api=freedom_groups
