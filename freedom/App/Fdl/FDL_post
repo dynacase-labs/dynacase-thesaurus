@@ -42,20 +42,20 @@ if [ "$1" = "I" ] ; then
 	exit $RET
     fi
 
-    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=Doc
-    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocRead
-    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocPerm
-    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=VGroup
-    /usr/bin/php -q $wpub/API/updateclass.php --appc=FDL --class=DocRel
-    /usr/bin/php -q $wpub/API/updateclass.php --class=Group
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --appc=FDL --class=Doc
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --appc=FDL --class=DocRead
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --appc=FDL --class=DocPerm
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --appc=FDL --class=VGroup
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --appc=FDL --class=DocRel
+    /usr/bin/php -q $wpub/API/updateclass.php --dbcoord="service='$pgservice_freedom'" --class=Group
     #copy postgres group table
     $wpub/wsh.php --api=freedom_groups
 
-    if [ ! -f "$wpub/VAULT/$freedomenv.vault" ]; then
-        #cp $wpub/FDL/FREEDOM.vault $wpub/VAULT/FREEDOM.vault
-	sed -e"s/fs1/$freedomenv/g" "$wpub/FDL/FREEDOM.vault" > "$wpub/VAULT/$freedomenv.vault"
-    fi
-    $wpub/wsh.php --api=vault_init
+    #if [ ! -f "$wpub/VAULT/$freedomenv.vault" ]; then
+    #    #cp $wpub/FDL/FREEDOM.vault $wpub/VAULT/FREEDOM.vault
+    #	sed -e"s/fs1/$freedomenv/g" "$wpub/FDL/FREEDOM.vault" > "$wpub/VAULT/$freedomenv.vault"
+    #fi
+    #$wpub/wsh.php --api=vault_init
     
     # $wpub/wsh.php --app=FDL --action=FREEDOM_INIT  
     # psql $dbfreename anakeen -f $wpub/API/freedom_clean.sql
