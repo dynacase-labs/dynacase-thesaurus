@@ -64,7 +64,7 @@ install: build
 	install debian/wgcalosync $(CURDIR)/debian/freedom-wgcal-osync/etc/apache2/sites-available
 	mv $(CURDIR)/debian/freedom-wgcal/usr/share/what/osync/* $(CURDIR)/debian/freedom-wgcal-osync/usr/share/what/osync
 	install -d $(CURDIR)/debian/freedom-wgcal/usr/share/what/FDL
-	(cd $(CURDIR)/debian/freedom-wgcal/usr/share/what/FDL; ln -s ../WGCAL/Method*.php .)
+	# (cd $(CURDIR)/debian/freedom-wgcal/usr/share/what/FDL; ln -s ../WGCAL/Method*.php .)
 	install -d $(CURDIR)/debian/freedom-wgcal/usr/share/what/EXTERNALS
 	(cd $(CURDIR)/debian/freedom-wgcal/usr/share/what/EXTERNALS; ln -s ../WGCAL/*external.php  .)
 	install -d $(CURDIR)/debian/freedom-wgcal/usr/share/what/API
