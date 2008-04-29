@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-22 09:16+0100\n"
+"POT-Creation-Date: 2008-04-29 15:15+0200\n"
 "PO-Revision-Date: 2006-12-22 09:19+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: french-anakeen <distrib@anakeen.com>\n"
@@ -15,11 +15,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
 
-msgid "no empty vault dir found"
-msgstr "Pas de système de fichier libre"
+msgid "can't access file"
+msgstr "Accès au fichier impossible"
 
-msgid "Directory already exists"
-msgstr "Répertoire déjà existant"
+msgid "Failed to copy $infile to $f"
+msgstr "Echec de la copie de $infile vers $f"
+
+msgid "vault file is not initialized"
+msgstr ""
+
+msgid "file does not exist in vault"
+msgstr "Fichier inexistant dans le Coffre"
 
 #, c-format
 msgid "%s directory not found"
@@ -41,14 +47,11 @@ msgstr "Pas de système de fichier trouvé"
 msgid "no vault file system found"
 msgstr "Pas de système de fichier trouvé"
 
-msgid "can't access file"
-msgstr "Accès au fichier impossible"
+msgid "no empty vault dir found"
+msgstr "Pas de système de fichier libre"
 
-msgid "Failed to copy $infile to $f"
-msgstr "Echec de la copie de $infile vers $f"
-
-msgid "file does not exist in vault"
-msgstr "Fichier inexistant dans le Coffre"
+msgid "Directory already exists"
+msgstr "Répertoire déjà existant"
 
 msgid "Vault"
 msgstr "Coffre"
@@ -63,6 +66,10 @@ msgid "Vault user"
 msgstr "Utilisateur du Coffre"
 
 msgid "analyze vaults occupation"
+msgstr "Analyse des taux d'occupation des coffres"
+
+#, fuzzy
+msgid "show vaults occupation"
 msgstr "Analyse des taux d'occupation des coffres"
 
 msgid "create new vault"
@@ -85,20 +92,24 @@ msgid "new directory %s"
 msgstr "nouveau répertoire %s"
 
 #, c-format
-msgid "%s directory not empty"
-msgstr "répertoire %s non vide"
+msgid "Orphan Cleaned in %s directory"
+msgstr "Orphelins supprimés dans le répertoire %s"
 
 #, c-format
-msgid "create vault %s"
-msgstr "Création du nouveau coffre %s"
+msgid "Error : Cleaning %s  status %d"
+msgstr "Erreur : Nettoyage %s état %d"
 
 #, c-format
-msgid "vault already created %s: aborted\n"
-msgstr "coffre déjà créé %s : abandon\n"
+msgid "the new size must be upper than %s"
+msgstr "La nouvelle taille doit être supérieure à %s"
 
 #, c-format
-msgid "%d stored files"
-msgstr "%d fichiers stockés"
+msgid "adding %s"
+msgstr "ajout de %s"
+
+#, c-format
+msgid "Cannot adding : [%s]"
+msgstr "Ajout impossible : [%s]"
 
 #, c-format
 msgid "%d bytes"
@@ -116,29 +127,55 @@ msgstr "%d Mo"
 msgid "%d Gb"
 msgstr "%d Go"
 
+msgid "no vault initialised."
+msgstr "Aucun coffre d'initialisé"
+
+#, c-format
+msgid "%d stored files"
+msgstr "%d fichiers stockés"
+
+#, fuzzy, c-format
+msgid "%.02f Kb"
+msgstr "%d Ko"
+
+#, fuzzy, c-format
+msgid "%.02f Mb"
+msgstr "%d Mo"
+
+#, fuzzy, c-format
+msgid "%.02f Gb"
+msgstr "%d Go"
+
 #, c-format
 msgid "%d Tb"
 msgstr "%d To"
 
 #, c-format
-msgid "the new size must be upper than %s"
-msgstr "La nouvelle taille doit être supérieure à %s"
+msgid "%s directory not empty"
+msgstr "répertoire %s non vide"
 
 #, c-format
-msgid "adding %s"
-msgstr "ajout de %s"
+msgid "create vault %s"
+msgstr "Création du nouveau coffre %s"
 
 #, c-format
-msgid "Cannot adding : [%s]"
-msgstr "Ajout impossible : [%s]"
+msgid "vault already created %s: aborted\n"
+msgstr "coffre déjà créé %s : abandon\n"
 
-#, c-format
-msgid "Orphan Cleaned in %s directory"
-msgstr "Orphelins supprimés dans le répertoire %s"
+msgid "Capacity"
+msgstr "Capacité"
 
-#, c-format
-msgid "Error : Cleaning %s  status %d"
-msgstr "Erreur : Nettoyage %s état %d"
+msgid "Used"
+msgstr "Utilisé"
+
+msgid "Trash"
+msgstr "Poubelle"
+
+msgid "Orphean"
+msgstr "Orphelins"
+
+msgid "Free"
+msgstr "Libre"
 
 msgid "New Vault FS"
 msgstr "Nouveau coffre"
@@ -197,20 +234,31 @@ msgstr "Nouveau répertoire"
 msgid "Move FS"
 msgstr "Déplacer FS"
 
-msgid "Used"
-msgstr "Utilisé"
+#, fuzzy, c-format
+msgid "create directory %s\n"
+msgstr "nouveau répertoire %s"
 
-msgid "Trash"
-msgstr "Poubelle"
+#, c-format
+msgid "cannot change owner of %s: aborted\n"
+msgstr ""
 
-msgid "Orphean"
-msgstr "Orphelins"
+#, c-format
+msgid ""
+"cannot create directory %s\n"
+"Parent directory must be create before"
+msgstr ""
 
-msgid "Free"
-msgstr "Libre"
+#, c-format
+msgid "cannot create %s: %s\n"
+msgstr ""
 
-msgid "Capacity"
-msgstr "Capacité"
+#, c-format
+msgid "vault %s created.\n"
+msgstr ""
+
+#, c-format
+msgid "ERROR %s\n"
+msgstr ""
 
 #~ msgid "Generate FS"
 #~ msgstr "Générer FS"

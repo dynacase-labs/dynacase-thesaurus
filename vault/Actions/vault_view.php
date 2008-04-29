@@ -3,7 +3,7 @@
  * View Vault 
  *
  * @author Anakeen 2006
- * @version $Id: vault_view.php,v 1.6 2007/01/22 15:31:25 eric Exp $
+ * @version $Id: vault_view.php,v 1.7 2008/04/29 16:58:17 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package VAULT
  * @subpackage 
@@ -37,9 +37,14 @@ function vault_view(&$action) {
   $q->order_by="id_fs";
   $l=$q->Query(0,0,"TABLE");
 
+  if (!is_array($l) || count($l)<1) {
+
+  $action->lay->setBlockData("FS",$tfs);
+  echo _("no vault initialised.");
+
+  } else {
+
   foreach ($l as $k=>$fs) {
-
-
 
     $sqlfs="id_fs=".intval($fs["id_fs"])." and ";
     
@@ -93,6 +98,7 @@ function vault_view(&$action) {
 		  
   }
   $action->lay->setBlockData("FS",$tfs);
+  }
 }
 
 function humanreadsize($bytes) {
