@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Dir.php,v 1.146 2008/02/21 14:16:12 eric Exp $
+ * @version $Id: Lib.Dir.php,v 1.147 2008/05/02 12:35:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -395,32 +395,32 @@ function getChildDoc($dbaccess,
   if ($tqsql) {
     foreach ($tqsql as $qsql) {
       if ($qsql != false) {
-	if ($fromid!=0) $fdoc=createDoc($dbaccess,abs($fromid),false);
-	else $fdoc=new DocRead($dbaccess);
-	$sqlfields=implode(", ",array_merge($fdoc->fields,$fdoc->sup_fields));
-	if ($userid > 1) { // control view privilege
-	  $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
-	  // and get permission
-	  $qsql = str_replace("* from ","$sqlfields ,getuperm($userid,profid) as uperm from ",$qsql);
-	} else {
+	if ($fromid!=-1) { // not families
+	  if ($fromid!=0) $fdoc=createDoc($dbaccess,abs($fromid),false);
+	  else $fdoc=new DocRead($dbaccess);
+	  $sqlfields=implode(", ",array_merge($fdoc->fields,$fdoc->sup_fields));
+	  if ($userid > 1) { // control view privilege
+	    $qsql .= " and (profid <= 0 or hasviewprivilege($userid, profid))";
+	    // and get permission
+	    $qsql = str_replace("* from ","$sqlfields ,getuperm($userid,profid) as uperm from ",$qsql);
+	  } else {
 	  
-	  $qsql = str_replace("* from ","$sqlfields  from ",$qsql);
-	}
-
-	if ((!$distinct) && strstr($qsql,"distinct")) $distinct=true;
-	if ($start == "") $start="0";
-	if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
-	else  {
-	  if (($fromid == "") && $orderby=="") $orderby="title";
-	  elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
-	  if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
-	  else {
-	    if ($orderby[0]=='-') $orderby=substr($orderby,1)." desc";
-	    $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+	    $qsql = str_replace("* from ","$sqlfields  from ",$qsql);
 	  }
-	}
-   
 
+	  if ((!$distinct) && strstr($qsql,"distinct")) $distinct=true;
+	  if ($start == "") $start="0";
+	  if ($distinct) $qsql .= " ORDER BY initid, id desc  LIMIT $slice OFFSET $start;";
+	  else  {
+	    if (($fromid == "") && $orderby=="") $orderby="title";
+	    elseif (substr($qsql,0,12)  == "select doc.*") $orderby="title";
+	    if ($orderby=="") $qsql .= "  LIMIT $slice OFFSET $start;";
+	    else {
+	      if ($orderby[0]=='-') $orderby=substr($orderby,1)." desc";
+	      $qsql .= " ORDER BY $orderby LIMIT $slice OFFSET $start;";
+	    }
+	  }   
+	}
 	if ($fromid != "") {
 	  if ($fromid == -1) {
 	    include_once "FDL$GEN/Class.DocFam.php";
