@@ -3,7 +3,7 @@
  * Functions to send document by email
  *
  * @author Anakeen 2000 
- * @version $Id: mailcard.php,v 1.78 2008/03/11 10:49:27 eric Exp $
+ * @version $Id: mailcard.php,v 1.79 2008/05/02 15:18:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -577,7 +577,9 @@ function imgvaultfile($src) {
 function copyvault($src) {
   global $_SERVER;
 
-  $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/what/".$src;
+
+  if ((! strstr($src,"freedom/"))&&(! strstr($src,"what/"))) $src="freedom/$src";
+  $url="http://".$_SERVER['PHP_AUTH_USER'].":".$_SERVER['PHP_AUTH_PW'].'@'.$_SERVER['SERVER_NAME']."/".$src;
   $newfile=uniqid("/var/tmp/img");
 
   if (!copy($url, $newfile)) {
