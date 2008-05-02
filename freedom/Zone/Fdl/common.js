@@ -8,6 +8,14 @@ function viewornot(id) {
   }
 }
 
+function visibleornot(id) {
+  var o=document.getElementById(id);
+  if (o) {
+    if (o.style.visibility=='hidden') o.style.visibility='visible';
+    else o.style.visibility='hidden';
+  }
+}
+ 
 // serach element in array
 // return index found (-1 if not)
 function array_search(elt,ar) {
