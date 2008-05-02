@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.136 2008/04/14 10:13:05 eric Exp $
+ * @version $Id: editutil.php,v 1.137 2008/05/02 12:35:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -274,7 +274,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $enuml = $oattr->getenumlabel();
       $lunset=current($enuml);
       if ($value=="") {
-	if ($doc->id==0) $value=key($enuml);
+	if (($doc->id==0)||($oattr->eformat=='bool')) $value=key($enuml);
 	else $value=" ";
       }
       switch ($oattr->eformat) {
