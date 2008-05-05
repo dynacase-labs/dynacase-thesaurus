@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.102 2008/05/05 11:52:09 eric Exp $
+ * @version $Id: modcard.php,v 1.103 2008/05/05 13:46:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -350,9 +350,8 @@ function insert_file(&$doc, $attrid,$strict=false) {
       if (is_uploaded_file($userfile['tmp_name'])) {
 	// move to add extension   
 	if ($rn) {
-	  $fname=$doc->applyMethod($rn);
-	  $ext=getFileExtension($userfile['name']);
-	  if ($ext) $fname.=".$ext";
+	  $fname=$doc->applyMethod($rn,"",-1,array($userfile['name']));
+	  if ($fname=="") $fname=$userfile['name'];
 	} else $fname=$userfile['name'];
 	$err=vault_store($userfile['tmp_name'],$vid,$fname);
 	if ($userfile['type']=="none") {

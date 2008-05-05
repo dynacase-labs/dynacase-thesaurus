@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.477 2008/03/19 13:07:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.478 2008/05/05 13:46:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2474,7 +2474,17 @@ final public function PostInsert()  {
     return $value;
   } 
 
-  final public function ApplyMethod($method,$def="",$index=-1) {
+  /**
+   * apply a method to a doc 
+   * specified like ::getFoo(10)
+   * @param string $method the method to apply
+   * @param string $def default value if no method
+   * @param int $index index in case of value in row
+   * @param array $bargs first arguments sent before for the method
+   * 
+   * @return string the value
+   */
+  final public function ApplyMethod($method,$def="",$index=-1, $bargs=false) {
     $value=$def;
     if (ereg("::([^\(]+)\(([^\)]*)\)",$method, $reg)) {
       if (method_exists ( $this, $reg[1])) {
@@ -2485,7 +2495,7 @@ final public function PostInsert()  {
 	} else {
 	  // with argument
 	  $args = explode(",",$reg[2]);
-	      
+	  if ($bargs && is_array($bargs)) $args=array_merge($bargs,$args);
 	  if ($attrid != "") {
 	    $this->AddParamRefresh($reg[2],$attrid);
 	  }
