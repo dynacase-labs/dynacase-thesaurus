@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.22 2007/09/04 07:32:53 eric Exp $
+ * @version $Id: viewframe.php,v 1.23 2008/05/06 09:25:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.22 2007/09/04 07:32:53 eric Exp $
+// $Id: viewframe.php,v 1.23 2008/05/06 09:25:11 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -85,7 +85,7 @@ function viewframe(&$action) {
     if ($v->fieldSet->id != $frameid) continue;
 
 
-    $action->lay->set("flabel",$v->fieldSet->labelText);
+    $action->lay->set("flabel",ucfirst($v->fieldSet->labelText));
     $action->lay->set("frameid",$v->fieldSet->id);
 
 

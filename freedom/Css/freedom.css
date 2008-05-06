@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.133 2008/03/25 08:45:44 eric Exp $
+ * $Id: freedom.css,v 1.134 2008/05/06 09:25:11 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -96,10 +96,11 @@ SPAN.FREEDOMLabel:first-letter {
   -moz-opacity:.5;	
 	
 }
-LEGEND {
+LEGEND.frame {
   color: [CORE_ACOLOR];
-  text-transform:capitalize;
+  cursor:pointer;
 }
+
 
 [IFNOT ISIE]
 FIELDSET {

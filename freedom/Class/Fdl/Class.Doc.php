@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.479 2008/05/06 08:45:49 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.480 2008/05/06 09:25:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3625,7 +3625,7 @@ final public function PostInsert()  {
 	    // detect special row zone
 	    AddWarningMsg("detect special row zone $viewzone");
 	  } else {
-	    AddWarningMsg("NO detect special row zone $viewzone");
+
 	    
 	  }
 
@@ -4517,7 +4517,7 @@ final public function PostInsert()  {
     if (($v+$nbimg) > 0) // // last fieldset
       {
 				      
-	$frames[$k]["frametext"]=$this->GetLabel($currentFrameId);
+	$frames[$k]["frametext"]=ucfirst($this->GetLabel($currentFrameId));
 	$frames[$k]["frameid"]=$currentFrameId;
 	$frames[$k]["tag"]="";
 	$frames[$k]["TAB"]=false;;
@@ -4860,7 +4860,7 @@ final public function PostInsert()  {
 	$changeframe=false;
 	if ($v > 0 ) {// one value detected	  
 	      
-	  $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	  $frames[$k]["frametext"]=ucfirst($this->GetLabel($currentFrameId));
 	  $frames[$k]["frameid"]=$currentFrameId;
 	  $frames[$k]["tag"]="";
 	  $frames[$k]["TAB"]=false;;
