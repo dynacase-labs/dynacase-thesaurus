@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.103 2008/05/05 13:46:53 eric Exp $
+ * @version $Id: modcard.php,v 1.104 2008/05/06 08:45:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -134,6 +134,7 @@ function modcard(&$action, &$ndocid) {
     $ndocid = $doc->id;
     if (! $noredirect) { // else quick save
       $doc->refresh();
+      if ($doc->hasNewFiles) $doc->refreshRn(); // hasNewFiles set by insertFile below
       $err=$doc->PostModify(); 
       // add trace to know when and who modify the document
       if ( $docid == 0 ) {
@@ -280,7 +281,7 @@ function insert_file(&$doc, $attrid,$strict=false) {
 
   $oa=$doc->getAttribute(substr($attrid,4));
 
-  if ($oa) $rn=$oa->getOption("rn");
+ 
   while(list($k,$userfile) = each($tuserfiles) )    {
 
     $rt[$k]="";
@@ -349,10 +350,8 @@ function insert_file(&$doc, $attrid,$strict=false) {
     if (file_exists($userfile['tmp_name'])) {
       if (is_uploaded_file($userfile['tmp_name'])) {
 	// move to add extension   
-	if ($rn) {
-	  $fname=$doc->applyMethod($rn,"",-1,array($userfile['name']));
-	  if ($fname=="") $fname=$userfile['name'];
-	} else $fname=$userfile['name'];
+	$fname=$userfile['name'];
+	$doc->hasNewFiles=true; // to use in modcard call to refreshRn
 	$err=vault_store($userfile['tmp_name'],$vid,$fname);
 	if ($userfile['type']=="none") {
 	  // read system mime 
@@ -372,7 +371,6 @@ function insert_file(&$doc, $attrid,$strict=false) {
   if ((count($rt) == 0) || ((count($rt) == 1) && ($rt[0]==""))) return "";
   // return file type and upload file name
   return implode("\n",$rt);
-  
 }
 // -----------------------------------
 function specialmodcard(&$action,$usefor) {

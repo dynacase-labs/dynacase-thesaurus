@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.478 2008/05/05 13:46:53 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.479 2008/05/06 08:45:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2318,6 +2318,36 @@ final public function PostInsert()  {
     }
     return false;
   }
+
+  /**
+   * rename physicaly the file
+   *
+   * @param string $idattr identificator of file attribute 
+   * @param string $newname base name file
+   * @param int $index in case of array of files
+   * @return string empty if no error
+   */
+  final function renameFile($idattr,$newname,$index=-1) {
+    if ($newname) {
+      if ($index==-1)  $f=$this->getValue($idattr);
+      else $f=$this->getTValue($idattr,"",$index);
+      if ($f) {
+	if (ereg (REGEXPFILE, $f, $reg)) {
+	  $vf = newFreeVaultFile($this->dbaccess);
+	  $vid=$reg[2];
+	  if ($vf->Show($reg[2], $info) == "") {
+	    $cible=$info->path;	  
+	    if (file_exists($cible)) {	    
+	      if ($err == "") {	 	      
+		$vf->Rename($vid,$newname);   
+	      }	      
+	    }
+	  }
+	}
+      }
+    }
+    return false;
+  }
   /**
    * store new file in an file attribute
    *
@@ -3255,7 +3285,40 @@ final public function PostInsert()  {
     return $err;
 	
   }
-  
+  /**
+   * Recompute file name in concardance with rn option
+   * 
+   */
+  function refreshRn() {
+    $err="";
+    $fa=$this->GetFileAttributes();    
+    foreach ($fa as $aid=>$oa) {
+      $rn=$oa->getOption("rn");
+      if ($rn) {
+	if ($oa->inArray()) {
+	  $t=$this->getTvalue($oa->id);
+	  foreach ($t as $k=>$v) {
+	    $cfname=$this->vault_filename($oa->id,false,$k);
+	    if ($cfname) {
+	      $fname=$this->applyMethod($rn,"",-1,array($cfname));
+	      if ($fname != $cfname) {
+		$err.=$this->renameFile($oa->id,$fname,$k);
+	      }
+	    }
+	  }
+	} else {
+	  $cfname=$this->vault_filename($oa->id);
+	  if ($cfname) {
+	    $fname=$this->applyMethod($rn,"",-1,array($cfname));
+	    if ($fname != $cfname) {
+	      $err.=$this->renameFile($oa->id,$fname);
+	    }
+	  }
+	}
+      }
+    }
+    return $err;
+  }
   
   final public function urlWhatEncode( $link, $k=-1) {
     // -----------------------------------
@@ -3557,6 +3620,14 @@ final public function PostInsert()  {
 	
 	  break;    
 	case "array": 
+	  $viewzone=$oattr->getOption("rowviewzone");
+	  if (($viewzone != "") &&  ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}",$viewzone)) {
+	    // detect special row zone
+	    AddWarningMsg("detect special row zone $viewzone");
+	  } else {
+	    AddWarningMsg("NO detect special row zone $viewzone");
+	    
+	  }
 
 	  $lay = new Layout("FDL/Layout/viewdocarray.xml", $action);
 	  if (! method_exists($this->attributes,"getArrayElements")) {	    
