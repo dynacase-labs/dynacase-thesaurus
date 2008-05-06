@@ -10,7 +10,7 @@ fi
 
 if [ -z $pgservice_core -o -z $pgservice_freedom ]; then
     echo "Env variables pgservice_core or pgservice_freedom is empty !"
-    echo "Check your freedom environment for missing or misconfigured environment."
+    echo "Check your freedom context for missing or misconfigured environment variables."
     exit 1
 fi
 
@@ -51,9 +51,9 @@ if [ "$1" = "I" ] ; then
     #copy postgres group table
     $wpub/wsh.php --api=freedom_groups
 
-    #if [ ! -f "$wpub/VAULT/$freedomenv.vault" ]; then
+    #if [ ! -f "$wpub/VAULT/${freedom_context}.vault" ]; then
     #    #cp $wpub/FDL/FREEDOM.vault $wpub/VAULT/FREEDOM.vault
-    #	sed -e"s/fs1/$freedomenv/g" "$wpub/FDL/FREEDOM.vault" > "$wpub/VAULT/$freedomenv.vault"
+    #	sed -e"s/fs1/$freedom_context/g" "$wpub/FDL/FREEDOM.vault" > "$wpub/VAULT/${freedom_context}.vault"
     #fi
     #$wpub/wsh.php --api=vault_init
     

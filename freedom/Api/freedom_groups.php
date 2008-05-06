@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_groups.php,v 1.14 2008/04/25 09:18:15 jerome Exp $
+ * @version $Id: freedom_groups.php,v 1.15 2008/05/06 08:43:33 jerome Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -28,8 +28,8 @@ if ($dbaccess == "") {
 
 $doc = new_Doc($dbaccess);
 
-$pgservice_core = getServiceCoreFromEnv();
-$pgservice_freedom = getServiceFreedomFromEnv();
+$pgservice_core = getServiceCore();
+$pgservice_freedom = getServiceFreedom();
 
 $big=false; // need to set to true when table count > 20000
 
