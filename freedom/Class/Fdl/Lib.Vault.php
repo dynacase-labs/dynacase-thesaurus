@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.21 2008/03/17 17:17:05 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.22 2008/05/06 07:05:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,7 +20,7 @@ function initVaultAccess() {
   if (! $FREEDOM_VAULT) {
     include_once("VAULT/Class.VaultFile.php");
     $dbaccess=getParam("FREEDOM_DB");
-    $FREEDOM_VAULT= new VaultFile($dbaccess, strtoupper(getDbName($dbaccess)));
+    $FREEDOM_VAULT= new VaultFile($dbaccess, "FREEDOM");
   }
   return $FREEDOM_VAULT;
 }

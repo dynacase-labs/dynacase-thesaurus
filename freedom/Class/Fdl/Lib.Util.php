@@ -3,7 +3,7 @@
  * Utilities functions for freedom
  *
  * @author Anakeen 2004
- * @version $Id: Lib.Util.php,v 1.19 2008/04/25 09:18:15 jerome Exp $
+ * @version $Id: Lib.Util.php,v 1.20 2008/05/06 07:05:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -13,7 +13,7 @@
 
 function newFreeVaultFile($dbaccess) {
   include_once("VAULT/Class.VaultFile.php");
-  return new VaultFile($dbaccess, strtoupper(getDbName($dbaccess)));
+  return new VaultFile($dbaccess, "FREEDOM");
 }
 function getGen($dbaccess) {
   $freedomenv = getenv("freedomenv");
