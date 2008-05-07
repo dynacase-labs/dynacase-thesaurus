@@ -1,17 +1,28 @@
-# $Revision: 1.18 $, $Date: 2008/05/07 08:56:43 $
+# $Revision: 1.19 $, $Date: 2008/05/07 09:01:50 $
+
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
-%define pld		%(uname -o | grep -c PLD)
-
-
+%define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
+%define redhat	        %(rpm -q --queryformat '%{VENDOR}' rpm | grep -q -e 'Red Hat, Inc.' -e "Fedora"  && echo 1 || echo 0)
+%if %{cerbere}
+  %define releasepostfix %(echo)
+%else
+  %if %{pld}
+    %define releasepostfix cb
+   %else
+      %if %{redhat}
+        %define releasepostfix fc%(cat /etc/fedora-release | sed -e 's/.* release \\([[:digit:]]\\+\\) .*/\\1/')
+      %else        
+        %define releasepostfix unk
+      %endif
+  %endif
+%endif
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
 Version:	0.4.4
-%if %{cerbere} || %{pld}
-Release: 0
-%else
-Release: 1.fc8
-%endif
+
+Release: 1.%{releasepostfix}
+
 License:	GPL or BSD
 Group:		Base
 Source0:	ftp://ftp.souillac.anakeen.com/pub/anakeen/%{name}-%{version}.tar.gz
@@ -73,6 +84,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.19  2008/05/07 09:01:50  eric
+post fix release
+
 Revision 1.18  2008/05/07 08:56:43  marc
 for rpm build stage
 
