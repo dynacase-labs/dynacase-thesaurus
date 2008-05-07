@@ -55,10 +55,8 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
 
   retval = what_getuser(pamh,0,argc,argv,&wu);
-  
   if ( retval != PAM_SUCCESS ) return retval;
   
-
   /* get the password */
   retval = pam_get_item (pamh, PAM_AUTHTOK, (const void **) &passwd);
   if ( retval != PAM_SUCCESS ) {

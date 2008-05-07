@@ -175,15 +175,21 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   snprintf (query, BUFLEN-1, 
 	      "select %s  from %s where %s='%s' limit 1", 
 	      opts->passcol,  opts->table, opts->usercol, userdomaintmp);
+
   result = db_exec (conn, query);
+  if ( ! result ) {
+    syslog (LOG_ERR, "Query failed %s",query);
+    db_close(conn);
+    return PAM_SERVICE_ERR;
+  }
 
-  if ( result && db_numrows(result)== 1 ) {
+  if ( db_numrows(result)== 1 ) {
 
-    strcpy(lwu.login, userdomaintmp);
+    strcpy(lwu.login, userdomaintmp); 
     strcpy(lwu.domain, "" );
     strcpy(lwu.password, db_getNvalue(result,0) );
     
-  } else {
+  } else { 
 
     stok=strtok(userdomaintmp,"@");
     if (stok) {
@@ -286,8 +292,8 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
     strcpy(lwu.login, user);
     strcpy(lwu.domain, domain );
     strcpy(lwu.password, db_getNvalue(result,0) );
+
   }
-    
 
   db_free_result(result);
   db_close(conn);
