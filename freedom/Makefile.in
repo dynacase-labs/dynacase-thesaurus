@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.23 2008/05/06 13:11:05 marc Exp $
+# $Id: Makefile.in,v 1.24 2008/05/07 16:35:35 jerome Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -43,7 +43,23 @@ $(rootprefix)/etc/cron.d/$(appname).cron:$(appname).cron $(rootprefix)/etc/cron.
 
 $(pubdir)/$(applib)/FREEDOM.vault : FREEDOM.vault
 	cp $< $(pubdir)/$(applib)/$<
-publish: $(pubdir)/$(applib) $(pubdir)/img-cache  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.d/$(appname).cron $(rootprefix)/var/freedom
+
+$(pubdir)/$(applib)/Layout:
+	mkdir -p $@
+
+$(pubdir)/$(applib)/Layout/editoptcard.xml: $(pubdir)/$(applib)/Layout
+	ln -s editbodycard.xml $@
+
+$(pubdir)/$(applib)/Layout/viewoptcard.xml: $(pubdir)/$(applib)/Layout
+	ln -s viewbodycard.xml $@
+
+$(pubdir)/EXTERNALS:
+	mkdir -p $@
+
+$(pubdir)/EXTERNALS/fdlsearches.php: $(pubdir)/EXTERNALS
+	ln -s ../FDL/fdlsearches.php $@
+
+publish: $(pubdir)/$(applib) $(pubdir)/img-cache  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.d/$(appname).cron $(rootprefix)/var/freedom $(pubdir)/$(applib)/Layout/editoptcard.xml $(pubdir)/$(applib)/Layout/viewoptcard.xml $(pubdir)/EXTERNALS/fdlsearches.php
 
 clean:
 	rm -f *.*~ config.* Makefile configure $(PACKAGE).spec \
