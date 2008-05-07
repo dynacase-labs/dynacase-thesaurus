@@ -3,14 +3,14 @@
  * Construct vault index database
  *
  * @author Anakeen 2004
- * @version $Id: SetDocVaultIndex.php.in,v 1.1 2005/09/13 12:53:57 yannick Exp $
+ * @version $Id: SetDocVaultIndex.php.in,v 1.2 2008/05/07 10:24:02 jerome Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
  */
  /**
  */
-ini_set("include_path", ".:@prefix@:@prefix@/WHAT:/usr/share/pear");
+ini_set("include_path", ".:@prefix@:@prefix@/WHAT:@PEAR@");
 ini_set("max_execution_time", "36000");
 
 include_once('Class.Action.php');

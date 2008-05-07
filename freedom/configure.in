@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.20 2008/03/28 08:46:16 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.21 2008/05/07 10:24:02 jerome Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -61,6 +61,10 @@ HTTPUSER=http
 AC_ARG_WITH(httpuser,
 [  --with-httpuser=user id for httpd process (default http)], HTTPUSER=$withval)
 
+AC_SUBST(PEAR)
+PEAR=/usr/share/pear
+AC_ARG_WITH(pear,
+[ --with-pear=PHP PEAR directory (default "/usr/share/pear")], PEAR=$withval)
 
 AC_OUTPUT(Makefile \
 	App/Freedom/FREEDOM_init.php  \
