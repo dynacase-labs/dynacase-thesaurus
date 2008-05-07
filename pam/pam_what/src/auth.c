@@ -41,7 +41,7 @@ extern char DEBUG; /* global to log debug */
 PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 				    int argc, const char **argv)
 {
-  int retval, i;
+  int retval;
   const char   *passwd;
    whatuser_t wu;
   char passwdk[50];
@@ -56,25 +56,27 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
 
   retval = what_getuser(pamh,0,argc,argv,&wu);
   if ( retval != PAM_SUCCESS ) return retval;
-  
   /* get the password */
   retval = pam_get_item (pamh, PAM_AUTHTOK, (const void **) &passwd);
   if ( retval != PAM_SUCCESS ) {
-    syslog (LOG_NOTICE, "No authtoken provided: %s", 
-	    pam_strerror(pamh, retval));
+    syslog (LOG_NOTICE, "No authtoken provided: %s",  pam_strerror(pamh, retval));
     
     return retval;
   }
   
   
- 
+  if (passwd == NULL) {
+    syslog (LOG_NOTICE, "No password returned");
+    return PAM_AUTH_ERR;
+  }
+  
 
   /* compare cryted passwords */
   strcpy(passwdk, wu.password);
   salt[0]=passwdk[0];
   salt[1]=passwdk[1];
   salt[2]='\0';
-
+    return retval;
   if (strcmp(crypt(passwd, salt) , passwdk)) {
     if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s", wu.login);
    

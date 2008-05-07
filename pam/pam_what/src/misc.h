@@ -15,10 +15,7 @@
 void           pam_sql_opt_free    (pam_handle_t *pamh,
 				    void *data,
 				    int error);
-static int     converse            (pam_handle_t *pamh, 
-				    struct pam_message **message,
-				    struct pam_response **response);
-static char *  _pam_delete         (register char *xx);
+
 int            conversation        (pam_handle_t *pamh);
 
 
@@ -31,5 +28,6 @@ typedef struct whatuser_t {
   int expires;
   char status;
 } whatuser_t;
-
+int what_getuser (pam_handle_t *pamh, int eflag,
+		  int argc, const char **argv, whatuser_t* wu);
 #endif /* INCLUDE_PAM_SQL_MISC */

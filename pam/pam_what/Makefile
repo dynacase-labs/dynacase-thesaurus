@@ -27,7 +27,7 @@ libs       :=
 inc        :=
 auto       :=   $(wildcard $(dir)/*.in)
 objs        =   $(srcs:.c=.o)
-
+CFLAGS= -Wall
 
 # look for a dir.mk in these subdirectories
 subdirs    :=   src

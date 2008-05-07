@@ -131,7 +131,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   int retval;
   static whatuser_t lwu;
   char status[16]; /* the status of user */
-  int i,j;
+
   
   /* load the options */
   /*
@@ -175,7 +175,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
   snprintf (query, BUFLEN-1, 
 	      "select %s  from %s where %s='%s' limit 1", 
 	      opts->passcol,  opts->table, opts->usercol, userdomaintmp);
-
+  syslog(LOG_DEBUG, "requete (%s)", query);
   result = db_exec (conn, query);
   if ( ! result ) {
     syslog (LOG_ERR, "Query failed %s",query);
@@ -183,12 +183,11 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
     return PAM_SERVICE_ERR;
   }
 
-  if ( db_numrows(result)== 1 ) {
-
+  if ((db_numrows(result)== 1) && (1)) {
     strcpy(lwu.login, userdomaintmp); 
-    strcpy(lwu.domain, "" );
+    strcpy(lwu.domain, "1" );
     strcpy(lwu.password, db_getNvalue(result,0) );
-    
+      
   } else { 
 
     stok=strtok(userdomaintmp,"@");
@@ -238,12 +237,7 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
     } else {
       strcpy(optdomain,"");
     }
-
-    /* talk to the user on the other end */
-    /* FIXME: error check? */
-    conversation(pamh);
-
-  
+      
     /* set up the query string */
 
     len = PQescapeString(escaped_user, user, strlen(user));
@@ -297,6 +291,10 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
 
   db_free_result(result);
   db_close(conn);
+
+  /* talk to the user on the other end */
+  /* FIXME: error check? */
+  conversation(pamh); 
 
   strcpy(wu->login, lwu.login);
   strcpy(wu->domain, lwu.domain);
