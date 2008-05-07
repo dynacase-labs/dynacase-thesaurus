@@ -1,4 +1,4 @@
-# $Revision: 1.16 $, $Date: 2007/12/10 14:15:36 $
+# $Revision: 1.17 $, $Date: 2008/05/07 08:49:35 $
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(uname -o | grep -c PLD)
 
@@ -6,9 +6,9 @@
 Summary:	PAM Modules to postgres connection
 Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
-Version:	0.4.3
+Version:	0.4.4
 %if %{cerbere} || %{pld}
-Release: 2
+Release: 0
 %else
 Release: 1.fc8
 %endif
@@ -40,7 +40,11 @@ Seuls les services d'authenfication et de compte sont fournis
 
 
 %build
-
+libtoolize --force --copy
+aclocal
+autoheader
+automake --add-missing
+autoconf
 %configure \
 	--with-postgres --bindir="/lib/security"
 %{__make}
@@ -71,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.17  2008/05/07 08:49:35  marc
+Accept mail address as username  (without freedom domain)
+
 Revision 1.16  2007/12/10 14:15:36  eric
 fc8
 

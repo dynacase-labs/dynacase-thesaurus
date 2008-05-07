@@ -170,109 +170,123 @@ PAM_EXTERN int what_getuser (pam_handle_t *pamh, int eflag,
 
   /* add slashes */
   PQescapeString(userdomaintmp, userdomain, strlen(userdomain));
+
+
+  snprintf (query, BUFLEN-1, 
+	      "select %s  from %s where %s='%s' limit 1", 
+	      opts->passcol,  opts->table, opts->usercol, userdomaintmp);
+  result = db_exec (conn, query);
+
+  if ( result && db_numrows(result)== 1 ) {
+
+    strcpy(lwu.login, userdomaintmp);
+    strcpy(lwu.domain, "" );
+    strcpy(lwu.password, db_getNvalue(result,0) );
+    
+  } else {
+
+    stok=strtok(userdomaintmp,"@");
+    if (stok) {
+      if (strlen(stok) >= (LUSER)) {
+	syslog (LOG_NOTICE, "user login name too long");
+	db_close(conn);
+	return PAM_AUTH_ERR;
+      }
+      strcpy(user,stok);
+    }
+    stok=strtok(NULL,"@");
+    if (stok) {
+      if (strlen(stok) >= (LDOMAIN)) {
+	syslog (LOG_NOTICE, "user domain name too long");
+	db_close(conn);
+	return PAM_AUTH_ERR;
+      }
+      strcpy(domain,stok);
+      len = PQescapeString(escaped_domain, domain, strlen(domain));
+      if( len < strlen(domain) ) {
+	syslog(LOG_NOTICE, "error escaping domain string (%d < %d)", len, strlen(domain));
+	db_close(conn);
+	return PAM_AUTH_ERR;
+      }
+      /* set up the query string */
+      snprintf (query, BUFLEN-1, 
+		"select iddomain from domain where name='%s' ", 
+		escaped_domain);
+
+      result = db_exec (conn, query);
+      if ( ! result ) {
+	syslog (LOG_ERR, "Query failed %s",query);
+	db_close(conn);
+	return PAM_SERVICE_ERR;
+      }
+  
+      if ( db_numrows(result) != 1 ) {
+	if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
+	db_free_result(result);
+	db_close(conn);
+	return PAM_USER_UNKNOWN;
+      }
+    
+      sprintf(optdomain, "AND iddomain = '%s'", db_getvalue(result));
+      db_free_result(result);
+    } else {
+      strcpy(optdomain,"");
+    }
+
+    /* talk to the user on the other end */
+    /* FIXME: error check? */
+    conversation(pamh);
+
+  
+    /* set up the query string */
+
+    len = PQescapeString(escaped_user, user, strlen(user));
+    if( len < strlen(user) ) {
+      syslog(LOG_NOTICE, "error escaping user string (%d < %d)", len, strlen(user));
+      db_close(conn);
+      return PAM_AUTH_ERR;
+    }
+    if (eflag) {
+      snprintf (query, BUFLEN-1, 
+		"select %s, %s, status from %s where %s='%s' %s order by iddomain limit 1", 
+		opts->passcol, opts->expcol, opts->table, opts->usercol, escaped_user, optdomain);
+    } else {
+      snprintf (query, BUFLEN-1, 
+		"select %s  from %s where %s='%s' %s order by iddomain limit 1", 
+		opts->passcol,  opts->table, opts->usercol, escaped_user, optdomain);
+    }
+    
   
 
-  stok=strtok(userdomaintmp,"@");
-  if (stok) {
-    if (strlen(stok) >= (LUSER)) {
-      syslog (LOG_NOTICE, "user login name too long");
-      db_close(conn);
-      return PAM_AUTH_ERR;
-    }
-    strcpy(user,stok);
-  }
-  stok=strtok(NULL,"@");
-  if (stok) {
-    if (strlen(stok) >= (LDOMAIN)) {
-      syslog (LOG_NOTICE, "user domain name too long");
-      db_close(conn);
-      return PAM_AUTH_ERR;
-    }
-    strcpy(domain,stok);
-    len = PQescapeString(escaped_domain, domain, strlen(domain));
-    if( len < strlen(domain) ) {
-      syslog(LOG_NOTICE, "error escaping domain string (%d < %d)", len, strlen(domain));
-      db_close(conn);
-      return PAM_AUTH_ERR;
-    }
-    /* set up the query string */
-    snprintf (query, BUFLEN-1, 
-	      "select iddomain from domain where name='%s' ", 
-	      escaped_domain);
-
     result = db_exec (conn, query);
+
     if ( ! result ) {
-      syslog (LOG_ERR, "Query failed %s",query);
+      syslog (LOG_ERR, "Query failed");
+      db_free_result(result);
       db_close(conn);
       return PAM_SERVICE_ERR;
     }
-  
+
+
+    /* could be more than one row but get only the first*/
     if ( db_numrows(result) != 1 ) {
-      if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s [%s]", user,query);
       db_free_result(result);
       db_close(conn);
       return PAM_USER_UNKNOWN;
     }
-    
-    sprintf(optdomain, "AND iddomain = '%s'", db_getvalue(result));
-    db_free_result(result);
-  } else {
-    strcpy(optdomain,"");
-  }
-
-  /* talk to the user on the other end */
-  /* FIXME: error check? */
-  conversation(pamh);
-
-  
-  /* set up the query string */
-
-  len = PQescapeString(escaped_user, user, strlen(user));
-  if( len < strlen(user) ) {
-    syslog(LOG_NOTICE, "error escaping user string (%d < %d)", len, strlen(user));
-    db_close(conn);
-    return PAM_AUTH_ERR;
-  }
-  if (eflag) {
-    snprintf (query, BUFLEN-1, 
-	      "select %s, %s, status from %s where %s='%s' %s order by iddomain limit 1", 
-	      opts->passcol, opts->expcol, opts->table, opts->usercol, escaped_user, optdomain);
-  } else {
-    snprintf (query, BUFLEN-1, 
-	      "select %s  from %s where %s='%s' %s order by iddomain limit 1", 
-	      opts->passcol,  opts->table, opts->usercol, escaped_user, optdomain);
-  }
-    
   
 
-  result = db_exec (conn, query);
+    if (eflag) {
+      /* verify that the status is not 'D' */
+      strcpy(status,db_getNvalue(result,2));
+      lwu.status=status[0];    
+      lwu.expires=atoi(db_getNvalue(result,1)) ;
+    }
 
-  if ( ! result ) {
-    syslog (LOG_ERR, "Query failed");
-    db_free_result(result);
-    db_close(conn);
-    return PAM_SERVICE_ERR;
+    strcpy(lwu.login, user);
+    strcpy(lwu.domain, domain );
+    strcpy(lwu.password, db_getNvalue(result,0) );
   }
-
-
-  /* could be more than one row but get only the first*/
-  if ( db_numrows(result) != 1 ) {
-    db_free_result(result);
-    db_close(conn);
-    return PAM_USER_UNKNOWN;
-  }
-  
-
-  if (eflag) {
-    /* verify that the status is not 'D' */
-    strcpy(status,db_getNvalue(result,2));
-    lwu.status=status[0];    
-    lwu.expires=atoi(db_getNvalue(result,1)) ;
-  }
-
-  strcpy(lwu.login, user);
-  strcpy(lwu.domain, domain );
-  strcpy(lwu.password, db_getNvalue(result,0) );
     
 
   db_free_result(result);
