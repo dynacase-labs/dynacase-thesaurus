@@ -1,4 +1,4 @@
-# $Revision: 1.17 $, $Date: 2008/05/07 08:49:35 $
+# $Revision: 1.18 $, $Date: 2008/05/07 08:56:43 $
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(uname -o | grep -c PLD)
 
@@ -42,8 +42,6 @@ Seuls les services d'authenfication et de compte sont fournis
 %build
 libtoolize --force --copy
 aclocal
-autoheader
-automake --add-missing
 autoconf
 %configure \
 	--with-postgres --bindir="/lib/security"
@@ -75,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.18  2008/05/07 08:56:43  marc
+for rpm build stage
+
 Revision 1.17  2008/05/07 08:49:35  marc
 Accept mail address as username  (without freedom domain)
 
