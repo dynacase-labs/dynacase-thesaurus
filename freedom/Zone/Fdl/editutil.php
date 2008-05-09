@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.137 2008/05/02 12:35:26 eric Exp $
+ * @version $Id: editutil.php,v 1.138 2008/05/09 09:33:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -60,7 +60,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   //if (($value == "") && ($docid==0)) {
   // only for create doc because can be a security failure 
   if (($value == "")&&(!$oattr->inArray()))     $value = GetHttpVars($attrid); 
-
+  if (! $notd) $classname="class=\"fullresize\"";
+  else $classname="";
 
   if ($visibility == "H") {
     $input="<input  type=\"hidden\" name=\"".$attrin."\" value=\"".chop(htmlentities(stripslashes($value)))."\"";    
@@ -123,7 +124,8 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     // input 
     $input .="<input name=\"".$attrin."\" type=\"hidden\" value=\"".$value."\" id=\"".$attridk."\">";
     $input .="<input type=\"hidden\" value=\"".$value."\" id=\"INIV".$attridk."\">";
-    $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\" class=\"fullresize\" accept=\"image/*\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\"";
+    ;
+    $input .="<input onchange=\"document.isChanged=true;changeFile(this,'$attridk')\" $classname accept=\"image/*\" size=15 type=\"file\" id=\"IF_$attridk\" name=\"_UPL".$attrin."\"";
       
     if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
     $input .= " > "; 
@@ -237,7 +239,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   case "array": 
 
     $lay = new Layout("FDL/Layout/editarray.xml", $action);
-    getLayArray($lay,$doc,$oattr);
+    $rn=$oattr->getOption("roweditzone");
+    if ($rn) getZoneLayArray($lay,$doc,$oattr,$rn);
+    else getLayArray($lay,$doc,$oattr);
 		      
     $input =$lay->gen(); 
     break;
@@ -257,7 +261,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
      
   case "enum": 
     if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
-
+      print "<br>ID1:$oattr->id";
       switch ($oattr->eformat) {
       case "vcheck":
 	$lay = new Layout("FDL/Layout/editenumlistvcheck.xml", $action);
@@ -269,14 +273,14 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       default:
 	$lay = new Layout("FDL/Layout/editenumlist.xml", $action);
       }	
-    } else {
-	
+    } else {	     
       $enuml = $oattr->getenumlabel();
       $lunset=current($enuml);
       if ($value=="") {
 	if (($doc->id==0)||($oattr->eformat=='bool')) $value=key($enuml);
 	else $value=" ";
-      }
+	
+      } 
       switch ($oattr->eformat) {
       case "vcheck":
 	$lay = new Layout("FDL/Layout/editenumvcheck.xml", $action);
@@ -377,7 +381,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     //----------------------------------------
   case "password" : 
     // don't see the value
-    $eopt="class=\"fullresize\" ";
+    $eopt="$classname ";
     $esize=$oattr->getOption("esize");
     if ($esize > 0) $eopt="size=$esize";
     $input="<input $oc $eopt type=\"password\" name=\"".$attrin."\" value=\""."\"";
@@ -402,7 +406,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   default : 
     
     if (($oattr->repeat)&&(!$oattr->inArray())) { // textlist
-      $input="<textarea $oc class=\"fullresize\" rows=2 name=\"".
+      $input="<textarea $oc $classname rows=2 name=\"".
 	$attrin."\" ";
       $input .= " id=\"".$attridk."\" "; 
       if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
@@ -431,7 +435,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       }
       if ($oattr->eformat == "") {
 	//Common representation
-	$eopt="class=\"fullresize\" ";
+	$eopt="$classname ";
 	$esize=$oattr->getOption("esize");
 	if ($esize > 0) $eopt="size=$esize";
 	$elabel=$oattr->getOption("elabel");
@@ -690,6 +694,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
      
   $height=$oattr->getOption("height",false);
   $lay->set("tableheight",$height);
+  $lay->set("thspan","2");
 
       $talabel=array();
       $tilabel=array();
@@ -708,13 +713,14 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	$visible = ($v->mvisibility!="H");
 	$talabel[] = array("alabel"=>(!$visible)?"":$v->labelText,
 			   "ahw"=>(!$visible)?"0px":$v->getOption("cwidth","auto"),
+			   "astyle"=>$v->getOption("cellheadstyle"),
 			   "ahvis"=>(!$visible)?"hidden":"visible");
 	$tilabel[] = array("ilabel"=>getHtmlInput($doc,$v,$ddoc->getValue($tad[$k]->id),-1),
 			   "ihw"=>(!$visible)?"0px":"auto",
 			   "bgcolor"=>$v->getOption("bgcolor","inherit"),
+			   "tdstyle"=>$v->getOption("cellbodystyle"),
 			   "ihvis"=>(!$visible)?"hidden":"visible");
-	$tvattr[]=array("bvalue" => "bvalue_$k",
-			"attrid" => $v->id);
+	
 	
 	if ($visible) $nbcolattr++;
 	$tval[$k]=$doc->getTValue($k);
@@ -755,11 +761,8 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 
       $lay->setBlockData("TATTR",$talabel);
       $lay->setBlockData("IATTR",$tilabel);
-      $lay->setBlockData("VATTR",$tvattr);
       $lay->set("attrid",$attrid);
-
-      $lay->set("caption",$oattr->labelText);
-     
+      $lay->set("caption",$oattr->labelText);     
       $lay->set("footspan",count($ta)*2);
 
       reset($tval);
@@ -778,16 +781,138 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	  $tivalue[]=array("eivalue"=>getHtmlInput($doc,$va,$tval[$ka][$k],$k),
 			   "ehvis"=>(!$visible)?"hidden":"visible",
 			   "bgcolor"=>$va->getOption("bgcolor","inherit"),
+			   "tdstyle"=>$va->getOption("cellbodystyle"),
 			   "vhw"=>(!$visible)?"0pt":$talabel[$ika]["ahw"]);
 	  $ika++;
 	}
 	$lay->setBlockData("bevalue_$k",$tivalue);
       }
       $lay->set("readonly",($oattr->mvisibility=='U'));
-      if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
-      
+      if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);          
+}
 
+function getZoneLayArray(&$lay,&$doc,&$oattr,$zone) {
+  global $action;
+
+  $height=$oattr->getOption("height",false);
+  $lay->set("tableheight",$height);
+  $lay->set("readonly",($oattr->mvisibility=='U'));
+  $lay->set("thspan","1");
+
+  if (($zone != "") &&  ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}",$zone,$reg)) {
+  $attrid=$oattr->id;
+  $ta = $doc->attributes->getArrayElements($attrid);
+  function xt_innerXML(&$node){
+    if(!$node) return false;
+    $document = $node->ownerDocument;
+    $nodeAsString = $document->saveXML($node);
+    preg_match('!\<.*?\>(.*)\</.*?\>!s',$nodeAsString,$match);
+    return $match[1];
+  }
+
+  $dxml=new DomDocument();
+  $rowlayfile=getLayoutFile($reg[1],strtolower($reg[2]).".xml");
+  if (! @$dxml->load(DEFAULT_PUBDIR."/$rowlayfile")) {	      
+    AddwarningMsg(sprintf(_("cannot open %s layout file"),DEFAULT_PUBDIR."/$rowlayfile"));
+    return;
+  }
+  $theads=$dxml->getElementsByTagName('table-head');
+  if ($theads->length > 0) {
+    $thead=$theads->item(0);
+    $theadcells=$thead->getElementsByTagName('cell');
+    $talabel=array();
+    for ($i = 0; $i < $theadcells->length; $i++) {   
+      $th= xt_innerXML($theadcells->item($i));
+      $thstyle=$theadcells->item($i)->getAttribute("style");
+      
+      $talabel[] = array("alabel"=>$th,
+			 "ahw"=>"auto",
+			 "astyle"=>$thstyle,
+			 "ahvis"=>"visible");
+    }
+    $lay->setBlockData("TATTR",$talabel);
+  }
+
+  $tbodies=$dxml->getElementsByTagName('table-body');
+  if ($tbodies->length > 0) {
+    $tbody=$tbodies->item(0);
+    $tbodycells=$tbody->getElementsByTagName('cell');
+    for ($i = 0; $i < $tbodycells->length; $i++) {   
+      $tr[]= xt_innerXML($tbodycells->item($i));      
+      $tcellstyle[]=$tbodycells->item($i)->getAttribute("style");
+    }
+  }
+
+  $nbitem=0;
+
+  foreach($ta as $k=>$v) {	      	
+    $tval[$k]=$doc->getTValue($k);
+    $nbitem= max($nbitem,count($tval[$k]));
+    if ($emptyarray && ($doc->getValue($k)!="")) $emptyarray=false;	 
+    $lay->set("L_".strtoupper($v->id),ucfirst($v->labelText));  
+  }
+
+
+  $lay->set("attrid",$attrid);
+  $lay->set("caption",$oattr->labelText);     
+  $lay->set("footspan",count($ta)*2);
+
+  
+  // get default values
+  $fdoc=$doc->getFamDoc();
+  $defval=$fdoc->getDefValues();
+
+  $tvattr = array();
+  for ($k=0;$k<$nbitem;$k++) {
+    $tvattr[]=array("bevalue" => "bevalue_$k");
+    $tivalue=array();
     
+    foreach ($tr as $kd=>$td) {
+      $val = preg_replace("/\[([^\]]*)\]/e",
+			   "rowattrReplace(\$doc,'\\1',$k)",
+			   $td);	  
+      $tivalue[]=array("eivalue"=>$val,
+		       "ehvis"=>"visible",
+		       "tdstyle"=>$tcellstyle[$kd],
+		       "bgcolor"=>"inherit",
+		       "vhw"=>"auto");
+    }
+    $lay->setBlockData("bevalue_$k",$tivalue);
+  }
+
+  foreach ($tr as $kd=>$td) {
+    $dval = preg_replace("/\[([^\]]*)\]/e",
+			 "rowattrReplace(\$doc,'\\1',-1,\$defval)",
+			 $td);
+    $tilabel[] = array("ilabel"=>$dval,
+		       "ihw"=>"auto",
+		       "tdstyle"=>$tcellstyle[$kd],
+		       "bgcolor"=>"inherit",
+		       "ihvis"=>"visible");
+  }
+
+  $lay->setBlockData("IATTR",$tilabel);
+  $lay->set("readonly",($oattr->mvisibility=='U'));
+  if (count($tvattr) > 0) $lay->setBlockData("EATTR",$tvattr);
+      
+ }    
+}
+
+function rowattrReplace(&$doc,$s,$index,&$defval=null) {
+  if (substr($s,0,2)=="L_") return "[$s]";
+    if (substr($s,0,2)=="V_") {
+      $s=substr($s,2);
+      if ($index != -1)  $value=$doc->getTValue($s,"",$index);
+      else $value=$defval[strtolower($s)];
+      $oattr=$doc->getAttribute($s);
+      $v=getHtmlInput($doc, $oattr, $value, $index,"",true);
+    } else {
+      $sl=strtolower($s);
+      if (! isset($doc->$sl)) return "[$s]";
+      if ($index==-1) $v=$doc->getValue($sl);
+      else $v=$doc->getTValue($sl,"",$index);
+    }
+    return $v;
 }
 
 /**

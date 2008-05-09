@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.480 2008/05/06 09:25:11 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.481 2008/05/09 09:33:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3447,7 +3447,22 @@ final public function PostInsert()  {
     }
     return $a;
   }
-  final public function GetHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
+  final private function rowattrReplace($s,$index) {
+    if (substr($s,0,2)=="L_") return "[$s]";
+    
+
+    if (substr($s,0,2)=="V_") {
+      $sl=substr(strtolower($s),2);
+      $v=$this->GetHtmlAttrValue($sl,"_self",2,$index);
+    } else {
+      $sl=strtolower($s);
+      if (! isset($this->$sl)) return "[$s]";
+      $v=$this->getTValue($sl,"",$index);
+    }
+    return $v;
+  }
+
+  final public function getHtmlValue($oattr, $value, $target="_self",$htmllink=true, $index=-1) {
     global $action;
     
     $aformat=$oattr->format;
@@ -3459,50 +3474,50 @@ final public function PostInsert()  {
       $tvalues[$index]=$value;
     }
     $idocfamid=$oattr->format;
-    
+
     $attrid=$oattr->id;
     while (list($kvalue, $avalue) = each($tvalues)) {
       $htmlval="";
       switch ($atype)
 	{
 
-	 case "idoc":
-	   $aformat=""; 
+	case "idoc":
+	  $aformat=""; 
 	   
 
-	   $value=$avalue;
-	     if($value!=""){
-	       // printf("la ");
-	       $temp=base64_decode($value);
-	       $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
-	       $xml=$entete;
-	       $xml.=$temp; 
-	       $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
-	     }
-	     $attrid=$attrid.$index;
-	     $htmlval="<FORM style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
-	     $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','');viewidoc('_$attrid','$idocfamid')\" ";
-	     $htmlval.="oncontextmenu=\"viewidoc_in_popdoc(event,'$attrid','_$attrid','$idocfamid');return false\">$title</a>";
-// 	     $htmlval.="<input id='ivc_$attrid' type=\"button\" value=\"x\"".
-// 	       " title=\""._("close beside window")."\"".
-// 	       " style=\"display:none\"".
-// 	       " onclick=\"close_frame('$attrid')\">";
+	  $value=$avalue;
+	  if($value!=""){
+	    // printf("la ");
+	    $temp=base64_decode($value);
+	    $entete="<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\" ?>";
+	    $xml=$entete;
+	    $xml.=$temp; 
+	    $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
+	  }
+	  $attrid=$attrid.$index;
+	  $htmlval="<FORM style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
+	  $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','');viewidoc('_$attrid','$idocfamid')\" ";
+	  $htmlval.="oncontextmenu=\"viewidoc_in_popdoc(event,'$attrid','_$attrid','$idocfamid');return false\">$title</a>";
+	  // 	     $htmlval.="<input id='ivc_$attrid' type=\"button\" value=\"x\"".
+	  // 	       " title=\""._("close beside window")."\"".
+	  // 	       " style=\"display:none\"".
+	  // 	       " onclick=\"close_frame('$attrid')\">";
 
 	  //    $htmlval.="<input type=\"button\" value=\"o\"".
-// 	       " title=\""._("view in other window")."\"".
-// 	       " onclick=\"viewidoc_in_frame('$attrid','_$attrid','$idocfamid')\">";
+	  // 	       " title=\""._("view in other window")."\"".
+	  // 	       " onclick=\"viewidoc_in_frame('$attrid','_$attrid','$idocfamid')\">";
 
-	     $htmlval.="</FORM>";
-	     //     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
+	  $htmlval.="</FORM>";
+	  //     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
 	     
 	     
 	     
 
 	     
-	     //print_r($htmlval);
+	  //print_r($htmlval);
 	     
 	     
-	   break;
+	  break;
 	   
      
 	case "image": 
@@ -3589,8 +3604,8 @@ final public function PostInsert()  {
 	  $bvalue=nl2br(htmlentities(stripslashes(str_replace("<BR>","\n",$avalue))));
 	  $shtmllink=$htmllink?"true":"false";
 	  $bvalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
-                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
-                         $bvalue);	  
+				 "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
+				 $bvalue);	  
 	  $htmlval=str_replace(array("[","$"),array("&#091;","&#036;"),$bvalue);
 	  break;
 	case "password": 
@@ -3621,73 +3636,142 @@ final public function PostInsert()  {
 	  break;    
 	case "array": 
 	  $viewzone=$oattr->getOption("rowviewzone");
-	  if (($viewzone != "") &&  ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}",$viewzone)) {
-	    // detect special row zone
-	    AddWarningMsg("detect special row zone $viewzone");
-	  } else {
-
-	    
-	  }
-
 	  $lay = new Layout("FDL/Layout/viewdocarray.xml", $action);
+	  
 	  if (! method_exists($this->attributes,"getArrayElements")) {	    
 	    break;
 	  }
-	   
-	  
-	  $ta = $this->attributes->getArrayElements($oattr->id);
-	  $talabel=array();
-	  $tvattr = array();
+	  $height=$oattr->getOption("height",false);	  
+	  $lay->set("tableheight",$height);
 	  $lay->set("caption",$oattr->labelText);
 	  $lay->set("aid",$oattr->id);
 
-	  $emptyarray=true;
-	  $nbitem=0;
-	  $height=$oattr->getOption("height",false);
-	  
-	  $lay->set("tableheight",$height);
-	  while (list($k, $v) = each($ta)) {
-	    if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
-	    $talabel[] = array("alabel"=>ucfirst($v->labelText),
-			       "cwidth"=>$v->getOption("cwidth","auto"));	
-	    $tval[$k]=$this->getTValue($k);
-	    $nbitem= max($nbitem,count($tval[$k]));
-	    if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
-	   
-	  }
-	  $lay->setBlockData("TATTR",$talabel);
-	  if (! $emptyarray) {	    
-	    
-	    if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
-	    else $lay->set("caption",$oattr->labelText);
-	    $tvattr = array();
-	    for ($k=0;$k<$nbitem;$k++) {
-	      $tvattr[]=array("bevalue" => "bevalue_$k");
-	      reset($ta);
-	      $tivalue=array();
-	      while (list($ka, $va) = each($ta)) {	  
-		if ($va->mvisibility=="H") continue;
-		$hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
-		if ($va->type=="image" ) {
-		  $iwidth=$va->getOption("iwidth","80px");
-		  if ($tval[$ka][$k]=="") $hval="";
-		  else if ($va->link=="")   $hval="<img width=\"$iwidth\" src=\"".$hval."\">";
-		  else {
-		    $hval=preg_replace("/>(.+)</",">&nbsp;<img class=\"button\" width=\"$iwidth\" src=\"\\1\">&nbsp;<" ,$hval);
-		  }
-		}
-		$tivalue[]=array("evalue"=>$hval,
-				 "color"=>$va->getOption("color","inherit"),
-				 "bgcolor"=>$va->getOption("bgcolor","inherit"),
-				 "align"=>$va->getOption("align","inherit") );
-	      }
-	      $lay->setBlockData("bevalue_$k",$tivalue);
+	  if (($viewzone != "") &&  ereg("([A-Z_-]+):([^:]+):{0,1}[A-Z]{0,1}",$viewzone,$reg)) {
+	    // detect special row zone
+	    function xt_innerXML(&$node){
+	      if(!$node) return false;
+	      $document = $node->ownerDocument;
+	      $nodeAsString = $document->saveXML($node);
+	      preg_match('!\<.*?\>(.*)\</.*?\>!s',$nodeAsString,$match);
+	      return $match[1];
 	    }
-	    $lay->setBlockData("EATTR",$tvattr);
-      
+
+	    $dxml=new DomDocument();
+	    $rowlayfile=getLayoutFile($reg[1],strtolower($reg[2]).".xml");
+	    if (! @$dxml->load(DEFAULT_PUBDIR."/$rowlayfile")) {	      
+	      AddwarningMsg(sprintf(_("cannot open %s layout file"),DEFAULT_PUBDIR."/$rowlayfile"));
+	      break;
+	    }
+	    $theads=$dxml->getElementsByTagName('table-head');
+	    if ($theads->length > 0) {
+	      $thead=$theads->item(0);
+	      $theadcells=$thead->getElementsByTagName('cell');
+	      $talabel=array();
+	      for ($i = 0; $i < $theadcells->length; $i++) {   
+		$th= xt_innerXML($theadcells->item($i));
+		$thstyle=$theadcells->item($i)->getAttribute("style");
+		if ($thstyle!="") $thstyle="style=\"$thstyle\"";
+		$talabel[] = array("alabel"=>$th,
+				   "astyle"=>$thstyle,
+				   "cwidth"=>"auto");
+	      }
+	      $lay->setBlockData("TATTR",$talabel);
+	    }
+
+	    $tbodies=$dxml->getElementsByTagName('table-body');
+	    if ($tbodies->length > 0) {
+	      $tbody=$tbodies->item(0);
+	      $tbodycells=$tbody->getElementsByTagName('cell');
+	      for ($i = 0; $i < $tbodycells->length; $i++) {   
+		$tr[]= xt_innerXML($tbodycells->item($i));
+		$tcellstyle[]=$tbodycells->item($i)->getAttribute("style");
+	      }
+	    }
+	    $ta = $this->attributes->getArrayElements($oattr->id);
+	    $nbitem=0;
+	    foreach($ta as $k=>$v) {	      	
+	      $tval[$k]=$this->getTValue($k);
+	      $nbitem= max($nbitem,count($tval[$k]));
+	      if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;	 
+	      $lay->set("L_".strtoupper($v->id),ucfirst($v->labelText));  
+	    }
+	    // view values
+	     $tvattr = array();
+	     for ($k=0;$k<$nbitem;$k++) {
+		$tvattr[]=array("bevalue" => "bevalue_$k");
+		reset($ta);
+		$tivalue=array();
+
+		foreach($tr as $kd=>$vd) {	  
+
+		  $hval = preg_replace("/\[([^\]]*)\]/e",
+				       "\$this->rowattrReplace('\\1',$k)",
+				       $vd);
+		  $tdstyle=$tcellstyle[$kd];
+		  $tivalue[]=array("evalue"=>$hval,
+				   "color"=>"inherit",
+				   "tdstyle"=>$tdstyle,
+				   "bgcolor"=>"inherit",
+				   "align"=>"inherit" );
+		}
+		$lay->setBlockData("bevalue_$k",$tivalue);
+	      }
+	      $lay->setBlockData("EATTR",$tvattr);
+	      if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
+	      
 	    $htmlval =$lay->gen(); 
-	  } else {
-	    $htmlval = "";
+	  } else {	    	    	   	  
+	    $ta = $this->attributes->getArrayElements($oattr->id);
+	    $talabel=array();
+	    $tvattr = array();
+
+	    $emptyarray=true;
+	    $nbitem=0;
+	    while (list($k, $v) = each($ta)) {
+	      if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
+	      $talabel[] = array("alabel"=>ucfirst($v->labelText),
+				 "astyle"=>$v->getOption("cellheadstyle"),
+				 "cwidth"=>$v->getOption("cwidth","auto"));	
+	      $tval[$k]=$this->getTValue($k);
+	      $nbitem= max($nbitem,count($tval[$k]));
+	      if ($emptyarray && ($this->getValue($k)!="")) $emptyarray=false;
+	   
+	    }
+	    $lay->setBlockData("TATTR",$talabel);
+	    if (! $emptyarray) {	    
+	    
+	      if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
+	      else $lay->set("caption",$oattr->labelText);
+	      $tvattr = array();
+	      for ($k=0;$k<$nbitem;$k++) {
+		$tvattr[]=array("bevalue" => "bevalue_$k");
+		reset($ta);
+		$tivalue=array();
+		while (list($ka, $va) = each($ta)) {	  
+		  if ($va->mvisibility=="H") continue;
+		  $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
+		  if ($va->type=="image" ) {
+		    $iwidth=$va->getOption("iwidth","80px");
+		    if ($tval[$ka][$k]=="") $hval="";
+		    else if ($va->link=="")   $hval="<img width=\"$iwidth\" src=\"".$hval."\">";
+		    else {
+		      $hval=preg_replace("/>(.+)</",">&nbsp;<img class=\"button\" width=\"$iwidth\" src=\"\\1\">&nbsp;<" ,$hval);
+		    }
+		  }
+		  $tivalue[]=array("evalue"=>$hval,
+				   "tdstyle"=>$va->getOption("cellbodystyle"),
+				   "color"=>$va->getOption("color","inherit"),
+				   "bgcolor"=>$va->getOption("bgcolor","inherit"),
+				   "align"=>$va->getOption("align","inherit") );
+		}
+		$lay->setBlockData("bevalue_$k",$tivalue);
+	      }
+	      $lay->setBlockData("EATTR",$tvattr);
+	  
+	      $htmlval =$lay->gen(); 
+	    } else {
+	      $htmlval = "";
+	    }
 	  }
 	  break;
  
@@ -3731,8 +3815,8 @@ final public function PostInsert()  {
 	case htmltext:  
 	  $shtmllink=$htmllink?"true":"false";
 	  $avalue = preg_replace("/\[ADOC ([^\]]*)\]/e",
-                         "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
-                         $avalue);
+				 "\$this->getDocAnchor('\\1',\"$target\",$shtmllink)",
+				 $avalue);
 	  $htmlval="<DIV>$avalue</DIV>";	
 	  break;
 	case date:  
@@ -3799,10 +3883,10 @@ final public function PostInsert()  {
 
 
 	  if ($target == "mail") {
-	      $scheme="";
-	      if (ereg("^([[:alpha:]]*):(.*)",$ulink,$reg)) {
-		$scheme=$reg[1];
-	      }
+	    $scheme="";
+	    if (ereg("^([[:alpha:]]*):(.*)",$ulink,$reg)) {
+	      $scheme=$reg[1];
+	    }
 	    $abegin="<A target=\"$target\"  href=\"";
 	    if ($scheme == "") $abegin.= $action->GetParam("CORE_URLINDEX",($action->GetParam("CORE_ABSURL")."/")).$ulink;
 	    else $abegin.= $ulink;
@@ -3844,11 +3928,12 @@ final public function PostInsert()  {
     return implode("<BR>",$thtmlval);
   }
   
-  final public function GetHtmlAttrValue($attrid, $target="_self",$htmllink=2) {
-    $v=$this->getValue($attrid);
+  final public function GetHtmlAttrValue($attrid, $target="_self",$htmllink=2, $index=-1) {
+    if ($index != -1) $v=$this->getTValue($attrid,"",$index);
+    else $v=$this->getValue($attrid);
     if ($v=="") return "";
     return $this->GetHtmlValue($this->getAttribute($attrid),
-			       $v,$target,$htmllink);
+			       $v,$target,$htmllink,$index);
   }
 
   final public function GetOOoValue($oattr, $value, $target="_self",$htmllink=false, $index=-1) { 

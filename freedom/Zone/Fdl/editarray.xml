@@ -1,12 +1,12 @@
 <fieldset ><legend style="cursor:pointer" onclick="viewornot('T[attrid]')">[caption]</legend>
 <table width="100%" border=1 cellspacing="0" id="T[attrid]" class="tarray">
    <thead><tr>[IFNOT readonly]<td width="40px"></td>[ENDIF readonly]
-    [BLOCK TATTR]<th colspan="2" style="visibility:[ahvis]" width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
+    [BLOCK TATTR]<th colspan="[thspan]" style="visibility:[ahvis];[astyle]"   width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
    [IFNOT ISIE][IF tableheight]<th style="width:20px;visibility:hidden"></th>[ENDIF tableheight][ENDIF ISIE]</tr></thead>
  <tbody id="tbody[attrid]" [IFNOT ISIE][IF tableheight]style="height:[tableheight];overflow:auto"[ENDIF tableheight][ENDIF ISIE] >
   
      [BLOCK EATTR]<tr onmouseup="sdrag(event);" >[IFNOT readonly]<td width="50px" align="left"><img  name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>[ENDIF readonly]
-    [BLOCK [bevalue]]<td style="width:[vhw];background-color:[bgcolor];">[eivalue]</td>[ENDBLOCK [bevalue]]
+    [BLOCK [bevalue]]<td style="width:[vhw];background-color:[bgcolor];[tdstyle]">[eivalue]</td>[ENDBLOCK [bevalue]]
  </tr>[ENDBLOCK EATTR]
 [IFNOT readonly]<tr id="lasttr[attrid]">
 <td class="und" width="50px" align="right" >
@@ -14,7 +14,7 @@
 </td><td colspan="[footspan]"><img id="tiadd[attrid]" src="[IMG:add22.gif]" title="[TEXT:add]" onclick="addtr('tnew[attrid]','tbody[attrid]');return false;"></td></tr>[ENDIF readonly]
   </tbody>
    <tfoot><tr style="display:none;" onmouseup="sdrag(event);" id="tnew[attrid]"><td width="50px" align="left"><img   name="trash" style="visibility:hidden" title="[TEXT:delete selected]" onclick="delseltr()" src="[IMG:trash22.gif]"><img  src="[IMG:next22.gif]"  title="[TEXT:select]" onmousedown="selecttr(this,this.parentNode.parentNode);adrag(event,this);"></td>
-    [BLOCK IATTR]<td  style="background-color:[bgcolor];width:[ihw]">[ilabel]</td> [ENDBLOCK IATTR]
+    [BLOCK IATTR]<td  style="background-color:[bgcolor];width:[ihw];[tdstyle]">[ilabel]</td> [ENDBLOCK IATTR]
    </tr>
   </tfoot>
 </table>
