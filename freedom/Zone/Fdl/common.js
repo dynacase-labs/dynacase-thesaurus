@@ -403,8 +403,10 @@ function alterfieldset(tid,co,cot,by) {
 	//      alert(tds.lenght);
 	for (var j=0;j<tds.length;j++) {
 	  if (!tds[j].style.backgroundColor) {
-	    if (!by) tds[j].style.backgroundColor=c[(ci%2)];
-	    else tds[j].style.backgroundColor=c[parseInt((ci % by2)/by)]; 
+	    //if (!by) tds[j].style.backgroundColor=c[(ci%2)];
+	    //else tds[j].style.backgroundColor=c[parseInt((ci % by2)/by)]; 
+	    tds[j].style.backgroundColor='transparent';
+	    
 	  }
 	}
 	ci++;

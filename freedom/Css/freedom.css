@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.134 2008/05/06 09:25:11 eric Exp $
+ * $Id: freedom.css,v 1.135 2008/05/09 09:34:02 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -26,7 +26,7 @@
 }
 
 TR.FREEDOMBack1 {
-	background-color: [CORE_BGCELLCOLOR];
+/*	background-color: [CORE_BGCELLCOLOR];*/
 	color : [CORE_TEXTFGCOLOR];	
 }
 
@@ -96,10 +96,13 @@ SPAN.FREEDOMLabel:first-letter {
   -moz-opacity:.5;	
 	
 }
-LEGEND.frame {
+LEGEND {
   color: [CORE_ACOLOR];
+}
+LEGEND.frame {
   cursor:pointer;
 }
+
 
 
 [IFNOT ISIE]
@@ -301,6 +304,7 @@ TABLE.tarray  TR TD {
   border-style:none none solid none;
   padding:0px;
   vertical-align:top;
+  white-space:nowrap;
 }
 TABLE.tarray  TR TH {  
   border-width:0px 0px 1px 0px;	 
@@ -580,6 +584,9 @@ A.state, A.boldstate {
 
   DIV.tabsh {
     display:none;
+  }
+  FIELDSET.mfield {
+    display:block!important;
   }
   TBODY.overflow {
     overflow:visible;
