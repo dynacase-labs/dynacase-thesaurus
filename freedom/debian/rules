@@ -62,12 +62,6 @@ install: build
 
 #	Add here commands to install the package into debian/freedom-what.
 	make pubdir=$(CURDIR)/debian/freedom/usr/share/what publish rootprefix=$(CURDIR)/debian/freedom
-	ln -s editbodycard.xml $(CURDIR)/debian/freedom/usr/share/what/FDL/Layout/editoptcard.xml
-	ln -s viewbodycard.xml $(CURDIR)/debian/freedom/usr/share/what/FDL/Layout/viewoptcard.xml
-	mkdir -p $(CURDIR)/debian/freedom/usr/share/what/htmlarea/htmlarea
-	ln -sf ../images $(CURDIR)/debian/freedom/usr/share/what/htmlarea/htmlarea/images
-	ln -sf ../popups $(CURDIR)/debian/freedom/usr/share/what/htmlarea/htmlarea/popups
-	ln -s ../FDL/fdlsearches.php $(CURDIR)/debian/freedom/usr/share/what/EXTERNALS/fdlsearches.php
 	install -d $(CURDIR)/debian/freedom-lib/var/freedom
 #	Move packages elements
 #	1°) USERCARD

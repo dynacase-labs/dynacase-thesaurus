@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile,v 1.9 2007/08/16 16:35:59 eric Exp $
+# $Id: Makefile,v 1.10 2008/05/09 10:00:58 jerome Exp $
 # ============================================
 
 SUBDIR= htmlarea fckeditor jscalendar mcal jsXMLParser tsearch2 mozillaplugin
@@ -12,6 +12,9 @@ DISTFILES += $(SUBDIR) Makefile php2V2
 
 $(pubdir)/htmlarea :
 	cp -r htmlarea $(pubdir)
+	mkdir -p $(pubdir)/htmlarea/htmlarea
+	ln -s ../images $(pubdir)/htmlarea/htmlarea/images
+	ln -s ../popups $(pubdir)/htmlarea/htmlarea/popups
 
 $(pubdir)/jscalendar :
 	cp -r jscalendar $(pubdir)
