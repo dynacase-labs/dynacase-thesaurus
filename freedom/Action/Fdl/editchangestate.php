@@ -3,7 +3,7 @@
  * Display interface to change state
  *
  * @author Anakeen 2007
- * @version $Id: editchangestate.php,v 1.4 2008/01/14 14:47:00 eric Exp $
+ * @version $Id: editchangestate.php,v 1.5 2008/05/09 12:57:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -49,6 +49,7 @@ function editchangestate(&$action) {
 	  foreach ($tr["ask"] as $ka=>$va) {
 	    $oa = $wdoc->getAttribute($va);
 	    if ($oa) {
+	      if ($oa->needed) $tneed[$oa->id]=$oa->labelText;
 	      $tinputs[]=array("alabel"=>$oa->labelText,
 			       "labelclass"=>($oa->needed)?"FREEDOMLabelNeeded":"FREEDOMLabel",
 			       "avalue"=>getHtmlInput($wdoc,$oa,"","","",true),
@@ -71,6 +72,8 @@ function editchangestate(&$action) {
     $action->lay->set("tostate",ucfirst($lnextstate));
     $action->lay->set("wcolor",	$wdoc->getColor($nextstate));
 		      
+    $action->lay->Set("Wattrntitle",	 "'".implode("','",str_replace("'","&rsquo;",$tneed))."'");
+    $action->lay->Set("Wattrnid",	 "'".implode("','",array_keys($tneed))."'");
     $action->lay->set("docid",$doc->id);
     $action->lay->set("thetitle",sprintf(_("Change state to %s"),_($nextstate)));
     $action->lay->set("nextstate",$nextstate);

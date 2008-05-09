@@ -1,5 +1,8 @@
 [ZONE FDL:HTMLHEAD?title=[thetitle]]
-
+<script>
+attrNid=new Array([Wattrnid]);
+attrNtitle=new Array([Wattrntitle]);
+</script>
 <form  class="fborder" 
        id="fedit" 
        name="modifydoc" 
