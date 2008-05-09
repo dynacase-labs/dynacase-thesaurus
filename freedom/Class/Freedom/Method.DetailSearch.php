@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.61 2008/02/19 16:04:24 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.62 2008/05/09 10:12:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -140,14 +140,14 @@ function getSqlCond($col,$op,$val="") {
 	if ($oa->repeat) {
 	  $cond .= " ".$col." ~ '\\\\y(".pg_escape_string(implode('|',$tkids)).")\\\\y' ";
 	} else {
-	  $cond .= "$col='". implode("' or $col='",$tkids)."'";    
+	  $cond .= " $col='". implode("' or $col='",$tkids)."'";    
 	}
       } elseif ($op=='!=') {
 	if ($oa->repeat) {
 	  $cond1 = " ".$col." !~ '\\\\y(".pg_escape_string(implode('|',$tkids)).")\\\\y' ";
 
 	} else {
-	  $cond1 = "$col !='". implode("' and $col != '",$tkids)."'";    
+	  $cond1 = " $col !='". implode("' and $col != '",$tkids)."'";    
 	}
 	$cond= "($cond1) or ($col is null)";
       }
