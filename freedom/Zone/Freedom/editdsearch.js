@@ -1,12 +1,13 @@
 
 // use when submit to avoid first unused item
 function deletenew() {
-  resetInputs('newcond');
-  var na=document.getElementById('newcond');
-  if (na) na.parentNode.removeChild(na); 
-  na=document.getElementById('newstate');
-  if (na) na.parentNode.removeChild(na);
-  
+  if (canmodify(true)) {
+    resetInputs('newcond');
+    var na=document.getElementById('newcond');
+    if (na) na.parentNode.removeChild(na); 
+    na=document.getElementById('newstate');
+    if (na) na.parentNode.removeChild(na);
+  }
   
 }
   

@@ -207,7 +207,7 @@ function closechoose() {
     if (wichoose) wichoose.close();
 }
 
-function canmodify() {
+function canmodify(withoutalert) {
     var err='';
     var v;
     for (var i=0; i< attrNid.length; i++) {
@@ -233,7 +233,7 @@ function canmodify() {
 	}
     }
     if (err != '') {
-	    alert('[TEXT:these needed attributes are empty]\n'+err);
+      if (! withoutalert) alert('[TEXT:these needed attributes are empty]\n'+err);
 	    return false;
     }
     return true;
