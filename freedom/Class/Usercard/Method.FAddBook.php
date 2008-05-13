@@ -3,7 +3,7 @@
  * Adsress book methods for persons
  *
  * @author Anakeen 2005
- * @version $Id: Method.FAddBook.php,v 1.14 2006/07/04 15:14:51 eric Exp $
+ * @version $Id: Method.FAddBook.php,v 1.15 2008/05/13 10:21:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,13 +12,12 @@
  */
 public $faddbook_card = "USERCARD:VIEWPERSON:T";
 public $faddbook_resume = "USERCARD:FADDBOOK_RESUME:U";
-public $specialmenu=array("menuab");
+
 
 function faddbook_resume($target="finfo",$ulink=true,$abstract=false) {
 
   global $action;
   $action->parent->AddCssRef("USERCARD:faddbook.css",true);
-  setHttpVar("specialmenu","menuab");
   
   $imgu = "";
   $img = $this->getValue("us_photo");
@@ -112,7 +111,6 @@ function faddbook_card($target="finfo",$ulink=true,$abstract=false) {
 }
 
 function viewperson($target="finfo",$ulink=true,$abstract=false) {
-  setHttpVar("specialmenu","menuab");
   $this->viewdefaultcard($target,$ulink,$abstract);
   $socid=$this->getValue("us_idsociety");
   if ($socid) $soc=new_doc($this->dbaccess,$socid);
@@ -134,17 +132,5 @@ function viewperson($target="finfo",$ulink=true,$abstract=false) {
 
   
 }
-function menuab(&$ta) {
-  global $action;
-  foreach ($ta as $k => $v) {
-    if ($k!="editdoc" &&
-	$k!="duplicate" &&
-	$k!="histo" &&
-	$k!="us_vcard" &&
-        $k!="delete" ) $ta[$k] = POPUP_INVISIBLE;
-  }
-  $ta["us_viewagenda"] =  $ta["us_nrendezvous"] = POPUP_INACTIVE;
-  if ($this->fromid == getIdFromName($this->dbaccess, "IUSER")) $ta["us_viewagenda"] = POPUP_ACTIVE;
-  if ($action->user->fid!=$this->id) $ta["us_nrendezvous"]= POPUP_ACTIVE;
-}
+
 ?>
