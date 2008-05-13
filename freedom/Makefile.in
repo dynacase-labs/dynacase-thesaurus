@@ -1,5 +1,5 @@
 # ============================================
-# $Id: Makefile.in,v 1.24 2008/05/07 16:35:35 jerome Exp $
+# $Id: Makefile.in,v 1.25 2008/05/13 10:44:00 marc Exp $
 # ============================================
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -48,16 +48,16 @@ $(pubdir)/$(applib)/Layout:
 	mkdir -p $@
 
 $(pubdir)/$(applib)/Layout/editoptcard.xml: $(pubdir)/$(applib)/Layout
-	ln -s editbodycard.xml $@
+	ln -sf editbodycard.xml $@
 
 $(pubdir)/$(applib)/Layout/viewoptcard.xml: $(pubdir)/$(applib)/Layout
-	ln -s viewbodycard.xml $@
+	ln -sf viewbodycard.xml $@
 
 $(pubdir)/EXTERNALS:
 	mkdir -p $@
 
 $(pubdir)/EXTERNALS/fdlsearches.php: $(pubdir)/EXTERNALS
-	ln -s ../FDL/fdlsearches.php $@
+	ln -sf ../FDL/fdlsearches.php $@
 
 publish: $(pubdir)/$(applib) $(pubdir)/img-cache  $(pubdir)/$(applib)/FREEDOM.vault $(rootprefix)/etc/cron.d/$(appname).cron $(rootprefix)/var/freedom $(pubdir)/$(applib)/Layout/editoptcard.xml $(pubdir)/$(applib)/Layout/viewoptcard.xml $(pubdir)/EXTERNALS/fdlsearches.php
 
