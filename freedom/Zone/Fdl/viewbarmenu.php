@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: viewbarmenu.php,v 1.8 2008/05/09 09:55:42 eric Exp $
+ * @version $Id: viewbarmenu.php,v 1.9 2008/05/13 15:02:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,13 +25,13 @@ function viewbarmenu(&$action) {
   else {
     if ($doc->specialmenu) {
       if (ereg("(.*):(.*)",$doc->specialmenu,$reg)) {
-	$action->viewbarmenu=true;
+	$action->getmenulink=true;
 	$dir=$reg[1];
 	$function=strtolower($reg[2]);
 	$file=$function.".php";
 	if (include_once("$dir/$file")) {
 	  $function($action);
-	  $popup=$action->barmenulink;
+	  $popup=$action->menulink;
 	} else {	  
 	  AddwarningMsg(sprintf(_("Incorrect specification of special menu : %s"),$doc->specialmenu));
 	}

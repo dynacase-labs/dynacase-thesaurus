@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.20 2008/05/09 09:55:42 eric Exp $
+ * @version $Id: popupdoc.php,v 1.21 2008/05/13 15:02:27 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -15,8 +15,8 @@
 include_once("FDL/Class.Doc.php");
 // -----------------------------------
 function popupdoc(&$action,$tlink,$tsubmenu=array()) {
-  if ($action->viewbarmenu) { // to be use in viewbarmenu function
-    $action->barmenulink=$tlink;
+  if ($action->getmenulink) { // to be use in viewbarmenu function
+    $action->menulink=$tlink;
     return;
   }
   
