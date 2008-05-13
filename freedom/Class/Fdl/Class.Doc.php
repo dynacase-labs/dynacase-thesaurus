@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.481 2008/05/09 09:33:33 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.482 2008/05/13 10:24:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3448,12 +3448,13 @@ final public function PostInsert()  {
     return $a;
   }
   final private function rowattrReplace($s,$index) {
-    if (substr($s,0,2)=="L_") return "[$s]";
-    
-
+    if (substr($s,0,2)=="L_") return "[$s]";    
     if (substr($s,0,2)=="V_") {
       $sl=substr(strtolower($s),2);
-      $v=$this->GetHtmlAttrValue($sl,"_self",2,$index);
+      $vis=$this->getAttribute($sl)->mvisibility;
+
+      if (($vis=="H")||($vis=="I")||($vis=="O")) $v="";      
+      else $v=$this->GetHtmlAttrValue($sl,"_self",2,$index);
     } else {
       $sl=strtolower($s);
       if (! isset($this->$sl)) return "[$s]";
@@ -3495,28 +3496,10 @@ final public function PostInsert()  {
 	    $title=recup_argument_from_xml($xml,"title");//in freedom_util.php
 	  }
 	  $attrid=$attrid.$index;
-	  $htmlval="<FORM style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
+	  $htmlval="<form style=\"display:inline\"><INPUT id=\"_" .$attrid."\" TYPE=\"hidden\"  name=\"_".$attrid."\" value=\"".$value." \">";
 	  $htmlval.="<a onclick=\"subwindow(400,400,'_$attrid','');viewidoc('_$attrid','$idocfamid')\" ";
 	  $htmlval.="oncontextmenu=\"viewidoc_in_popdoc(event,'$attrid','_$attrid','$idocfamid');return false\">$title</a>";
-	  // 	     $htmlval.="<input id='ivc_$attrid' type=\"button\" value=\"x\"".
-	  // 	       " title=\""._("close beside window")."\"".
-	  // 	       " style=\"display:none\"".
-	  // 	       " onclick=\"close_frame('$attrid')\">";
-
-	  //    $htmlval.="<input type=\"button\" value=\"o\"".
-	  // 	       " title=\""._("view in other window")."\"".
-	  // 	       " onclick=\"viewidoc_in_frame('$attrid','_$attrid','$idocfamid')\">";
-
-	  $htmlval.="</FORM>";
-	  //     $htmlval.="<iframe name='iframe_$attrid' id='iframe_$attrid' style='display:none' marginwidth=0 marginheight=0  width='100%' heigth=200></iframe>";
-	     
-	     
-	     
-
-	     
-	  //print_r($htmlval);
-	     
-	     
+	  $htmlval.="</form>";	     	     
 	  break;
 	   
      
@@ -3558,10 +3541,10 @@ final public function PostInsert()  {
 	
 	
 	  if ($target=="mail") {
-	    $htmlval="<A target=\"_blank\" href=\"";
+	    $htmlval="<a target=\"_blank\" href=\"";
 	    $htmlval.="cid:".$oattr->id;	    
 	    if ($index >= 0) $htmlval.="+$index";
-	    $htmlval.=  "\">".$fname."</A>";
+	    $htmlval.=  "\">".$fname."</a>";
 	  } else {
 	    if ($info) {
 	      $umime = trim(`file -ib $info->path`);
@@ -3575,12 +3558,12 @@ final public function PostInsert()  {
 	      $opt="";
 	      $inline=$oattr->getOption("inline");
 	      if ($inline=="yes") $opt="&inline=yes";
-	      $htmlval="<A onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
+	      $htmlval="<a onmousedown=\"document.noselect=true;\" title=\"$size\" target=\"$utarget\" type=\"$mime\" href=\"".
 		$action->GetParam("CORE_BASEURL").
 		"app=FDL"."&action=EXPORTFILE$opt&cache=no&vid=$vid"."&docid=".$this->id."&attrid=".$oattr->id."&index=$idx"
 		."\">";
 	      if ($mimeicon) $htmlval.="<img class=\"mime\" needresize=1  src=\"Images/$mimeicon\">&nbsp;";
-	      $htmlval.=$fname."</A>";
+	      $htmlval.=$fname."</a>";
 	    }
 	    /*
 	    
@@ -3887,7 +3870,7 @@ final public function PostInsert()  {
 	    if (ereg("^([[:alpha:]]*):(.*)",$ulink,$reg)) {
 	      $scheme=$reg[1];
 	    }
-	    $abegin="<A target=\"$target\"  href=\"";
+	    $abegin="<a target=\"$target\"  href=\"";
 	    if ($scheme == "") $abegin.= $action->GetParam("CORE_URLINDEX",($action->GetParam("CORE_ABSURL")."/")).$ulink;
 	    else $abegin.= $ulink;
 	    $abegin.="\">";
@@ -3896,7 +3879,7 @@ final public function PostInsert()  {
 	    if ($ltarget != "") $target=$ltarget;
 	    $ltitle=$oattr->getOption("ltitle");
 	    if ($ltitle != "") $ititle=str_replace("\"","'",$ltitle);
-	    $abegin="<A target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
+	    $abegin="<a target=\"$target\" title=\"$ititle\" onmousedown=\"document.noselect=true;\" href=\"";
 	    $abegin.= $ulink."\" ";;
 	    if ($htmllink > 1){
 	      $scheme="";
@@ -3910,7 +3893,7 @@ final public function PostInsert()  {
 	    }
 	    $abegin.=">";
 	  }
-	  $aend="</A>";
+	  $aend="</a>";
 	
 
 	} else {
