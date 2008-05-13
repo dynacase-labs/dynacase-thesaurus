@@ -22,8 +22,7 @@ if (parseInt('[postitid]') > 0) setTimeout("postit('[CORE_STANDURL]&app=FDL&acti
 [IF HEAD]
 <table class="noprint"  cellspacing="0" width="100%"   >
 <thead>
-<tr class="FREEDOMBack1">
-  
+<tr class="FREEDOMBack1">  
  <td > <img class="click"  style="margin-left:2px" align="right" needresize="1" height="22px" onclick="self.print()"  alt="[TEXT:Print]" title="[TEXT:Print]"  src="[IMG:print.png]">
        <img class="click"  align="right" needresize="1" height="22px" src="[IMG:mail.png]" style="display:[amail]"  onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'email[id]','[CORE_STANDURL]&app=FDL&action=EDITMAIL&mid=[id]')"   alt="[TEXT:mail]"  title="[TEXT:senddoc]">
    
