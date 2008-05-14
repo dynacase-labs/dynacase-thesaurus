@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.68 2008/04/15 06:15:20 eric Exp $
+ * @version $Id: editcard.php,v 1.69 2008/05/14 16:46:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -170,6 +170,9 @@ function editcard(&$action) {
     $action->parent->AddJsCode($jslay->gen());
     $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
   } else  {
+    if ($doc->id == 0) {
+      if (fdl_setHttpVars($doc)) $doc->refresh();
+    }
     $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
     setNeededAttributes($action,$doc);
   }
@@ -232,12 +235,49 @@ function moreone($v) {
   return (strlen($v) > 1);
 }
 
-function cmp_cvorder2($a, $b)
-{
+function cmp_cvorder2($a, $b) {
    if ($a["cv_order"] == $b["cv_order"]) {
        return 0;
    }
    return ($a["cv_order"] < $b["cv_order"]) ? -1 : 1;
 }
 
+
+/**
+ * set values from http var in case of creation of doc
+ * values are set only if not set before
+ *
+ * @param Doc $doc current document to edit
+ * @return bool true if , at least, one value is modified
+ */
+function fdl_setHttpVars(&$doc) {
+  global $_GET,$_POST,$ZONE_ARGS;
+  $ismod=false;
+  $http=array();
+  foreach ($_POST as $k=>$v) {
+    $http[$k]=$v;
+  }
+  foreach ($_GET as $k=>$v) {
+    $http[$k]=stripslashes($v);
+  }
+  if (is_array($ZONE_ARGS)) {
+    foreach ($ZONE_ARGS as $k=>$v) {
+      $http[$k]=stripslashes($v);
+    }
+  }
+
+  foreach ($http as $k=>$v) {
+    $oa=$doc->getAttribute($k);
+    if ($oa) {
+      if ($doc->getValue($k)=="") {
+	if ($oa->inArray() && (! is_array($v))) $v=$doc->_val2array(str_replace('\n',"\n",$v));
+	$doc->setValue($k,$v);
+	//	print "<br>Set $k to ";print_r($v);
+	$ismod=true;
+      }
+    }
+  }
+
+  return $ismod;  
+}
 ?>

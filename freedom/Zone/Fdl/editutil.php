@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.138 2008/05/09 09:33:33 eric Exp $
+ * @version $Id: editutil.php,v 1.139 2008/05/14 16:46:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,9 +57,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   $idisabled = " disabled readonly title=\""._("read only")."\" ";
   $input="";
 		
-  //if (($value == "") && ($docid==0)) {
-  // only for create doc because can be a security failure 
-  if (($value == "")&&(!$oattr->inArray()))     $value = GetHttpVars($attrid); 
+  
   if (! $notd) $classname="class=\"fullresize\"";
   else $classname="";
 
@@ -261,7 +259,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
      
   case "enum": 
     if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
-      print "<br>ID1:$oattr->id";
       switch ($oattr->eformat) {
       case "vcheck":
 	$lay = new Layout("FDL/Layout/editenumlistvcheck.xml", $action);
@@ -725,12 +722,7 @@ function getLayArray(&$lay,&$doc,&$oattr) {
 	if ($visible) $nbcolattr++;
 	$tval[$k]=$doc->getTValue($k);
 	$nbitem=count($tval[$k]);	
-	if ($nbitem==0) {
-	  // try http parameters
-	  $tval[$k]=GetHttpVars($k,array());
-	  if (($tval[$k] != "") && (! is_array($tval[$k]))) $tval[$k]=$doc->_val2array(GetHttpVars($k));	 
-	  $nbitem=count($tval[$k]);	
-	}
+	
 	if ($nbitem==0) {
 	  // add first range
 	  if ($oattr->format != "empty") {
