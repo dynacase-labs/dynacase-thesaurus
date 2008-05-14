@@ -26,7 +26,7 @@ AC_DEFINE_UNQUOTED(COPYRIGHT_NOTICE, "$COPYRIGHT_NOTICE")
 
 
 
- dnl get the system type (for the makefile)
+dnl get the system type (for the makefile)
 
 AC_CANONICAL_HOST
 case [$host] in
@@ -37,7 +37,17 @@ esac
 AC_SUBST(PLATFORM)
 AC_DEFINE_UNQUOTED(PLATFORM, $PLATFORM)
 
-
+dnl check for x86_64 systems that needs the -fPIC flag
+AC_MSG_CHECKING(if the system is a x86_64)
+case [$host] in
+  *x86_64*)
+    AC_MSG_RESULT(yes)
+    CFLAGS="$CFLAGS -fPIC"
+    ;;
+  *)
+    AC_MSG_RESULT(no)
+    ;;
+esac
 
 dnl Check the commandline
 BACKEND=postgres
