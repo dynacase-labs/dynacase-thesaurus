@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.4 2007/12/11 15:48:39 eric Exp $
+ * @version $Id: autocompletion.php,v 1.5 2008/05/14 16:47:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -20,17 +20,18 @@ function autocompletion(&$action) {
   // list of choice to be insert in attribute values
 
   $docid = GetHttpVars("docid");        // document being edition
-  if ($docid=="") $docid = GetHttpVars("fromid",0);        // in case of docid is null
+  if (!$docid) $docid = GetHttpVars("classid",0);        // in case of docid is null
   $attrid = GetHttpVars("attrid",0); // attribute need to enum
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $index = GetHttpVars("index",""); // index of the attributes for arrays
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
 
   header('Content-type: text/xml; charset=utf-8'); 
+
   $action->lay->setEncoding("utf-8");
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
-
+  $docid=intval($docid);
   $doc= new_Doc($dbaccess,$docid);
   $action->lay->Set("count", 0);
   if ($docid==0) {
