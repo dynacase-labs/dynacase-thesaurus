@@ -57,7 +57,10 @@ AC_ARG_WITH(postgres,  \
 
 
 case [$BACKEND] in
-  postgres) AC_DEFINE(USE_POSTGRES,1) ;;
+  postgres)
+    AC_DEFINE(USE_POSTGRES,1)
+    USE_POSTGRES=1
+    ;;
   *) AC_MSG_ERROR([You must define an DBMS to use!]) ;;
 esac
 
@@ -95,6 +98,41 @@ dnl Check for pick-one header files (required)
 if test [$USE_POSTGRES]; then
   AC_CHECK_HEADER(pgsql/libpq-fe.h,,
                   AC_MSG_ERROR([Can't find postgres header files]))
+fi
+
+
+
+dnl Try to guess libpq-fe.h include path location
+
+if test [$USE_POSTGRES]; then
+  AC_CHECK_HEADER(libpq-fe.h, FOUNDLIBPQFE="yes")
+  if test "x$FOUNDLIBPQFE" != "xyes"; then
+    AC_MSG_NOTICE([Trying to guess libpq-fe.h location...])
+    AC_PATH_PROG(PGCONFIG, pg_config)
+    if test "x$PGCONFIG" = "x"; then
+      AC_CHECK_FILE(/usr/include/libpq-fe.h, PGINCLUDE=/usr/include)
+      if test "x$PGINCLUDE" = "x"; then
+        AC_CHECK_FILE(/usr/include/postgresql/libpq-fe.h, PGINCLUDE=/usr/include/postgresql)
+      fi
+      if test "x$PGINCLUDE" = "x"; then
+        AC_CHECK_FILE(/usr/include/pgsql/libpq-fe.h, PGINCLUDE=/usr/include/pgsql)
+      fi
+      if test "x$PGINCLUDE" = "x"; then
+        AC_MSG_WARN([Could not find pg_config command or libpq-fe.h...])
+        AC_MSG_WARN([Perhaps you should install postgresql devel files ?])
+      fi
+    else
+      PGINCLUDE=`"$PGCONFIG" --includedir`
+      if test "x$PGINCLUDE" = "x"; then
+        AC_MSG_ERROR([Could not find --includedir from $PGCONFIG])
+      fi
+    fi
+    if test "x$PGINCLUDE" != "x"; then
+      AC_MSG_NOTICE([include dir for libpq-fe.h is $PGINCLUDE])
+      CFLAGS="$CFLAGS -I'$PGINCLUDE'"
+      AC_MSG_NOTICE([Updated CFLAGS to $CFLAGS])
+    fi
+  fi
 fi
 
 
