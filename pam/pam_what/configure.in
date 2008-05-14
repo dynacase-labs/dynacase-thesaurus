@@ -93,15 +93,6 @@ AC_CHECK_HEADERS(unistd.h syslog.h security/pam_modules.h,,\
 
 
 
-dnl Check for pick-one header files (required)
-
-if test [$USE_POSTGRES]; then
-  AC_CHECK_HEADER(pgsql/libpq-fe.h,,
-                  AC_MSG_ERROR([Can't find postgres header files]))
-fi
-
-
-
 dnl Try to guess libpq-fe.h include path location
 
 if test [$USE_POSTGRES]; then
