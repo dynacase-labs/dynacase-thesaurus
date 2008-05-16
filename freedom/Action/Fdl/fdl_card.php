@@ -3,7 +3,7 @@
  * View Document
  *
  * @author Anakeen 2000 
- * @version $Id: fdl_card.php,v 1.34 2008/03/18 16:47:59 eric Exp $
+ * @version $Id: fdl_card.php,v 1.35 2008/05/16 16:15:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -74,6 +74,8 @@ function fdl_card(&$action) {
     }
   }
   
+  if ($docid != $doc->id) $doc=new_doc($dbaccess,$docid);
+
   SetHttpVar("viewbarmenu",1);
   
   $action->lay->set('verifyfiles',false);
