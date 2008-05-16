@@ -1,5 +1,5 @@
 <fieldset ><legend style="cursor:pointer" onclick="viewornot('T[attrid]')">[caption]</legend>
-<table width="100%" border=1 cellspacing="0" id="T[attrid]" class="tarray">
+<table width="100%" border=1 cellspacing="1" id="T[attrid]" class="tarray">
    <thead><tr>[IFNOT readonly]<td width="40px"></td>[ENDIF readonly]
     [BLOCK TATTR]<th colspan="[thspan]" style="visibility:[ahvis];[astyle]"   width="[ahw]">[alabel]</th> [ENDBLOCK TATTR]
    [IFNOT ISIE][IF tableheight]<th style="width:20px;visibility:hidden"></th>[ENDIF tableheight][ENDIF ISIE]</tr></thead>
