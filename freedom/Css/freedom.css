@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.138 2008/05/16 13:49:13 marc Exp $
+ * $Id: freedom.css,v 1.139 2008/05/16 16:51:13 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -313,7 +313,7 @@ TABLE.tarray  TR TH {
   border-width:0px 0px 1px 0px;
   border-color:[COLOR_B6];
   border-style:none none solid none;
-  padding:0px;
+  padding:0px 4px 0px 4px;
   text-align:left;
 }
 TABLE.tarray  TH {  
@@ -797,11 +797,11 @@ DIV.line {
 DIV.tabsh SPAN  {
   border-width : 1px;
   border-style :outset;
-  border-color : [CORE_BGCOLORALTERN];
+  border-color : [COLOR_B5];
 [IFNOT ISIE]  background-image:url('[IMG:tabvig.png]');
   -moz-border-radius: 8px 8px 0px 0px;	 [ENDIF ISIE]
 [IF ISIE] filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvg.png]',sizingMethod='scale');[ENDIF ISIE]
-  background-color : [CORE_BGCOLORALTERN];
+  background-color : [COLOR_B7];
   padding:2px;
   cursor:pointer;
   float:left;
@@ -809,8 +809,11 @@ DIV.tabsh SPAN  {
 
 
 DIV.tabsh SPAN.tabsel  {
-  background-color : [CORE_FGCOLOR];
-  color : [CORE_TEXTBGCOLOR];	
+  background-color : [COLOR_B3];
+  /*color : [CORE_TEXTBGCOLOR];	*/
+}
+DIV.tabsh SPAN:hover  {
+  background-color : [COLOR_C3];
 }
 #thefolderh {
    border:solid [CORE_BGCOLORALTERN] 1px;
