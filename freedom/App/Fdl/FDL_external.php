@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.53 2008/03/10 10:45:52 eric Exp $
+ * @version $Id: FDL_external.php,v 1.54 2008/05/16 16:14:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -404,11 +404,12 @@ function getSortAttr($dbaccess, $famid, $name="",$sort=true) {
   $ti = array("title" => _("doctitle"),
 	      "revdate" => _("revdate"),
 	      "revision" => _("revision"),
+	      "owner" => _("owner"),
 	      "state" => _("state"));
   
   $tr = array();
   while(list($k,$v) = each($ti)) {
-   
+    if (($name == "") ||    (eregi("$name", $v , $reg)))
       $tr[] = array($v , $k,$v);
     
   }
