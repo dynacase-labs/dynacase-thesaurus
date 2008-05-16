@@ -4,7 +4,7 @@
 <tr >
   <td  colspan="3" >
  <fieldset class="mfield" style="cursor:[cursor];"><legend class="frame" onclick="viewornot('T[frameid]')">[flabel]</legend>
-<table id="T[frameid]" width="100%" >
+<table id="T[frameid]" cellspacing="0" width="100%" >
 [BLOCK FVALUES]
 <tr class="FREEDOMBack1"><td valign="top" >&nbsp;</td>
 [IF nonelabel]<td valign="top" colspan="2" class="FREEDOMText" >[avalue]</td>[ENDIF nonelabel]

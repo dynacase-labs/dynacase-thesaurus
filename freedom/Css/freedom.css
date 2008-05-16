@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.136 2008/05/13 10:23:35 eric Exp $
+ * $Id: freedom.css,v 1.137 2008/05/16 13:00:11 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -565,6 +565,11 @@ A.state, A.boldstate {
   border-style:none none solid none !important;
   border-width:2px!important;
 }
+
+
+FIELDSET.mfield table td {
+  padding:2px;  
+  }
 @media print {
   .noprint {
     display:none;

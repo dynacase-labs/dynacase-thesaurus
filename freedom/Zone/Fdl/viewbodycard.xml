@@ -1,7 +1,7 @@
 [BLOCK TABLEBODY]
 
 <fieldset id="F[frameid]" [IF TAB]name="[tag]" [IFNOT NOTAB]style="display:none"[ENDIF NOTAB] [ENDIF TAB]class="mfield" ><legend class="frame"  onmousedown="viewornot('T[frameid]')">[frametext]</legend>
-<table width="100%" id="T[frameid]" >
+<table width="100%" cellspacing="0" id="T[frameid]" >
 
 <tr class="FREEDOMBack1">
 
