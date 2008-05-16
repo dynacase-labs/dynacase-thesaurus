@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.137 2008/05/16 13:00:11 eric Exp $
+ * $Id: freedom.css,v 1.138 2008/05/16 13:49:13 marc Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -308,13 +308,13 @@ TABLE.tarray  TR TD {
   vertical-align:top;
   white-space:nowrap;
 }
-TABLE.tarray  TR TH {  
-  border-width:0px 0px 1px 0px;	 
-  background-color:[CORE_BGCOLORALTERN];
-  border-color:[CORE_FGCOLOR];
+TABLE.tarray  TR TH {
+  background-color:[COLOR_B8];
+  border-width:0px 0px 1px 0px;
+  border-color:[COLOR_B6];
   border-style:none none solid none;
   padding:0px;
-  -moz-border-radius:10px;
+  text-align:left;
 }
 TABLE.tarray  TH {  
   font-weight: normal;
