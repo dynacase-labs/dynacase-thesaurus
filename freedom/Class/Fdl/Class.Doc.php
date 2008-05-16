@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.483 2008/05/16 13:59:04 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.484 2008/05/16 16:52:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2518,9 +2518,8 @@ final public function PostInsert()  {
     $value=$def;
     if (ereg("::([^\(]+)\(([^\)]*)\)",$method, $reg)) {
       if (method_exists ( $this, $reg[1])) {
-	if ($reg[2] == "") {
+	if (($reg[2] == "")&& (!$bargs)) {
 	  // without argument
-	      
 	  $value=call_user_method($reg[1],$this);
 	} else {
 	  // with argument
