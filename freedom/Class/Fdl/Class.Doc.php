@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.482 2008/05/13 10:24:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.483 2008/05/16 13:59:04 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3300,7 +3300,7 @@ final public function PostInsert()  {
 	  foreach ($t as $k=>$v) {
 	    $cfname=$this->vault_filename($oa->id,false,$k);
 	    if ($cfname) {
-	      $fname=$this->applyMethod($rn,"",-1,array($cfname));
+	      $fname=$this->applyMethod($rn,"",$k,array($cfname));
 	      if ($fname != $cfname) {
 		$err.=$this->renameFile($oa->id,$fname,$k);
 	      }
