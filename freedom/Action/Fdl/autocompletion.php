@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.5 2008/05/14 16:47:36 eric Exp $
+ * @version $Id: autocompletion.php,v 1.6 2008/05/19 09:07:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -110,6 +110,8 @@ function autocompletion(&$action) {
 	  $topt[$k]["cindex"]=$k;
 	  unset($v[0]);
 	  $topt[$k]["values"]='<val><![CDATA['.stripslashes(implode("]]></val><val><![CDATA[",$v)).']]></val>';
+	  
+	   
 	}
 
 	$action->lay->SetBlockData("SELECT", $topt);
@@ -120,6 +122,7 @@ function autocompletion(&$action) {
   }
 
   $action->lay->Set("warning", $err);
+  $action->lay->action=null; // don't want parameters - conflict with possible parameters
 }
 
 function Utf8_decode_POST() {
