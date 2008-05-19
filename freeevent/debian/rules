@@ -62,7 +62,6 @@ install: build
 	# Add here commands to install the package into debian/freedom-what.
 	make -i pubdir=$(CURDIR)/debian/freedom-freeevent/usr/share/what rootprefix=$(CURDIR)/debian/freedom-freeevent publish
 	install -d $(CURDIR)/debian/freedom-freeevent/usr/share/what/FDL
-	(cd $(CURDIR)/debian/freedom-freeevent/usr/share/what/FDL; ln -s ../FREEEVENT/Method*.php .)
 
 # Build architecture-independent files here.
 binary-indep: build install
