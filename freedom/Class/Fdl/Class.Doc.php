@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.484 2008/05/16 16:52:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.485 2008/05/20 15:30:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2419,13 +2419,12 @@ final public function PostInsert()  {
    * @param string def $def default return value
    * @param bool $latest always last revision of document
    */
-  final public function GetRValue($RidAttr, $def="",$latest=true)  {      
+  final public function GetRValue($RidAttr, $def="",$latest=true,$html=false)  {      
     $tattrid = explode(":",$RidAttr);
     $lattrid=array_pop($tattrid); // last attribute
 
     $doc=$this;
-    reset($tattrid);
-    while(list($k,$v) = each($tattrid)) { 
+    foreach($tattrid as $k=>$v) { 
       $docid= $doc->getValue($v);
       if ($docid == "") return $def;
       $doc = new_Doc($this->dbaccess, $docid);
@@ -2438,7 +2437,8 @@ final public function PostInsert()  {
       }
       if (! $doc->isAlive())  return $def;
     }
-    return $doc->getValue($lattrid, $def);
+    if ($html) return $doc->getHtmlAttrValue($lattrid, $def);
+    else return $doc->getValue($lattrid, $def);
   }
   
 
@@ -2539,6 +2539,7 @@ final public function PostInsert()  {
 	    }
 	    //   $args[$k]=$this->GetTValue($args[$k],$def,$index);
 	  }	  
+	  
 	  $value=call_user_method_array($reg[1],$this,$args);
 	}
       } 
