@@ -3,7 +3,7 @@
  * Search Document
  *
  * @author Anakeen 2008
- * @version $Id: Class.SearchDoc.php,v 1.1 2008/04/15 16:37:21 eric Exp $
+ * @version $Id: Class.SearchDoc.php,v 1.2 2008/05/20 09:52:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -91,6 +91,7 @@ Class SearchDoc {
   public function __construct($dbaccess, $fromid=0) {
     $this->dbaccess=$dbaccess;
     $this->fromid=$fromid;
+    $this->orderby='title';
     $this->userid=getUserId();
   }
 
