@@ -64,7 +64,7 @@ addEvent(window,"load",focusFirst);
 <form  id="fedit"  
        class="fborder" style="display:inline"
        name="modifydoc" 
-       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid;this.iSubmit.disabled=true;setTimeout('self.close()',3000);return true"
+       onsubmit="if (document.isSubmitted) return false;if (!canmodify()) return false;document.isSubmitted=true;enableall();if (parent) if (parent.flist) this.catgid.value=parent.flist.catgid;this.iSubmit.disabled=true;return true"
        target="[rtarget]"
        method="POST" ENCTYPE="multipart/form-data" 
        action="[CORE_STANDURL]&app=[APPNAME]&action=GENERIC_MOD" >
