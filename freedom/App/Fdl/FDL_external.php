@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.54 2008/05/16 16:14:02 eric Exp $
+ * @version $Id: FDL_external.php,v 1.55 2008/05/20 15:29:33 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -464,9 +464,12 @@ function lactions($app,$n="") {
       $q->AddQuery("id_application = $appid");      
       if ($n != "") $q->AddQuery("name ~* '$n'");
       $la=$q->Query(0,0,"TABLE");
-      foreach ($la as $k=>$v) {
-	$tr[] = array($v["name"].":"._($v["short_name"]),
-		      $v["name"]);
+
+      if ($q->nb > 0) {
+	foreach ($la as $k=>$v) {
+	  $tr[] = array($v["name"].":"._($v["short_name"]),
+			$v["name"]);
+	}
       }
     }
   }
