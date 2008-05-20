@@ -3,7 +3,7 @@
  * Export Vault Files
  *
  * @author Anakeen 2000 
- * @version $Id: exportfile.php,v 1.20 2008/03/10 10:45:52 eric Exp $
+ * @version $Id: exportfile.php,v 1.21 2008/05/20 15:26:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -113,8 +113,8 @@ function DownloadVault(&$action, $vaultid, $isControled, $mimetype="",$width="",
 
   if ($vf -> Retrieve ($vaultid, $info) != "") {    
       Http_DownloadFile("FREEDOM/Images/doc.gif", "unknow", "image/gif");
-  } else
-    {
+  } else  {
+      if ($info->mime_s) $mimetype=$info->mime_s;
       //Header("Location: $url");
       if ($isControled || ( $info->public_access)) {
 	if (($mimetype != "image/jpeg") || ($width == 0)) {
