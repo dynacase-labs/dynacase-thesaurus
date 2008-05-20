@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.137 2008/05/05 12:52:53 eric Exp $
+ * @version $Id: import_file.php,v 1.138 2008/05/20 15:27:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -396,11 +396,10 @@ function add_import_file(&$action, $fimport) {
       $oattr->labeltext=$data[3];
 
       $oattr->title = ($data[4] == "Y")?"Y":"N";
-      if (! $oattr->isAffected()) { 
-	// don't change config by admin
-	$oattr->abstract = ($data[5] == "Y")?"Y":"N";
-	if ($modattr) $oattr->abstract =$data[5];
-      }
+
+      $oattr->abstract = ($data[5] == "Y")?"Y":"N";
+      if ($modattr) $oattr->abstract =$data[5];
+
      
       $oattr->type = trim($data[6]);
 
