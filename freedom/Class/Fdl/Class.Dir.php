@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.74 2008/05/21 11:24:24 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.75 2008/05/21 11:26:08 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -195,7 +195,7 @@ Class Dir extends PDir
    * @return string error message, if no error empty string
    */
   function AddFile($docid, $mode="latest",$noprepost=false,$forcerestrict=false,$nocontrol=false) {     
-    if ($nocontrol) {
+    if (! $nocontrol) {
       $err=$this->canModify();
       if ($err!= "") return $err;
     }
