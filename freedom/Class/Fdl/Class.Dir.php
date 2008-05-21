@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.73 2007/10/16 14:28:03 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.74 2008/05/21 11:24:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -191,11 +191,14 @@ Class Dir extends PDir
    * @param string $mode latest|static 
    * @param bool $noprepost if true if the virtuals methods {@link preInsertDoc()} and {@link postInsertDoc()} are not called
    * @param bool $forcerestrict if true don't test restriction (if have)
+   * @param bool $nocontrol if true no test acl "modify"
    * @return string error message, if no error empty string
    */
-  function AddFile($docid, $mode="latest",$noprepost=false,$forcerestrict=false) {     
-    $err=$this->canModify();
-    if ($err!= "") return $err;
+  function AddFile($docid, $mode="latest",$noprepost=false,$forcerestrict=false,$nocontrol=false) {     
+    if ($nocontrol) {
+      $err=$this->canModify();
+      if ($err!= "") return $err;
+    }
 
     $doc= new_Doc($this->dbaccess, $docid);
     $qf = new QueryDir($this->dbaccess);
