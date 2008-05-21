@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.486 2008/05/21 17:26:03 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.487 2008/05/21 18:47:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3947,10 +3947,12 @@ final public function PostInsert()  {
 	$htmlval=$this->vault_filename($oattr->id,false,$kvalue);	 	
 	break;
       case "longtext":  
-	$htmlval=str_replace(array("<",">"),array("&lt;","&gt;"),$avalue);
+	$htmlval=str_replace("&","&amp;",$avalue);
+	$htmlval=str_replace(array("<",">"),array("&lt;","&gt;"),$htmlval);
 	$htmlval=str_replace("\n","<text:line-break/>",$htmlval);
 	$htmlval=str_replace("&lt;BR&gt;","<text:line-break/>",$htmlval);
 	$htmlval=str_replace("\r","",$htmlval);
+
 	break;
       case "password": 
 	
