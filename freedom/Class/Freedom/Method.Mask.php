@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.18 2007/12/05 11:17:33 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.19 2008/05/21 16:52:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.18 2007/12/05 11:17:33 eric Exp $
+// $Id: Method.Mask.php,v 1.19 2008/05/21 16:52:59 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -135,12 +135,21 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   $docid = $this->getValue("MSK_FAMID",1);
 
   $tvisibilities=$this->getCVisibilities();
+  $tinitvisibilities=$tvisibilities;
+
+  
   $tneedeeds=$this->getNeedeeds();
 
   $this->lay->Set("docid",$docid);
 
   $doc= new_Doc($this->dbaccess,$docid);
 
+  $tdiff=array_diff(array_keys($doc->attributes->attr),array_keys($tvisibilities));
+  // recompute loosed attributes
+  foreach	($tdiff	as $k)	{
+    $v=$doc->attributes->attr[$k];
+    $tvisibilities[$k]=ComputeVisibility($v->visibility,$v->fieldSet->mvisibility);
+  }
 
   // display current values
   $tmask=array();
@@ -152,14 +161,11 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   $tattr = $doc->GetFieldAttributes();
   $tattr = $doc->GetNormalAttributes();
   $tattr += $doc->GetActionAttributes();
-  foreach($tattr as $k=>$attr) {
-    
+  foreach($tattr as $k=>$attr) {    
     if ((isset($attr->fieldSet))&&
 	($attr->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
   }
  
-
-
 
   //  --------------------  ----------------------
   
@@ -173,7 +179,11 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     $tmask[$k]["vislabel"] = " ";
     if (isset($tvisibilities[$attr->id])) {
       $tmask[$k]["vislabel"] = $labelvis[$tvisibilities[$attr->id]];
-      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) $tmask[$k]["bgcolor"]=getParam("COLOR_B5");
+
+      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) {
+	if (isset($tinitvisibilities[$attr->id])) $tmask[$k]["bgcolor"]=getParam("COLOR_B5");
+	else	$tmask[$k]["bgcolor"]=getParam("COLOR_A7");
+      }
     } else $tmask[$k]["vislabel"] = $labelvis["-"];
 
     
