@@ -3,7 +3,7 @@
  * Search Document
  *
  * @author Anakeen 2008
- * @version $Id: Class.SearchDoc.php,v 1.2 2008/05/20 09:52:31 eric Exp $
+ * @version $Id: Class.SearchDoc.php,v 1.3 2008/05/21 12:38:57 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -157,6 +157,23 @@ Class SearchDoc {
   public function addFilter($filter) {
     if ($filter != "") $this->filters[]=$filter;
   }  
+
+  static function sqlcond($values, $column, $integer=false) {
+    $sql_cond="true";
+  if (count($values) > 0) {
+      if ($integer) { // for integer type 
+	$sql_cond = "$column in (";      
+	$sql_cond .= implode(",",$values);
+	$sql_cond .= ")";
+      } else {// for text type 
+	$sql_cond = "$column in ('";      
+	$sql_cond .= implode("','",$values);
+	$sql_cond .= "')";
+      }
+    }
+
+  return $sql_cond;
+}
 
   /**
    * add a condition in filters
