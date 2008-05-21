@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.62 2008/05/09 10:12:26 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.63 2008/05/21 08:41:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -182,10 +182,10 @@ function getSqlDetailFilter() {
   }
   if ($ol == "") $ol="and";
   $cond="";
+  if (! $this->searchfam) {
+    $this->searchfam=new_doc($this->dbaccess,$this->getValue("se_famid"));
+  }
   if ((count($taid) > 1) || ($taid[0] != "")) {
-    if (! $this->searchfam) {
-      $this->searchfam=new_doc($this->dbaccess,$this->getValue("se_famid"));
-    }
     // special loop for revdate
     foreach($tkey as $k=>$v) {
       if (strtolower(substr($v,0,5))=="::get") { // only get method allowed
