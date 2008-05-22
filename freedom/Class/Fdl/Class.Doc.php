@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.488 2008/05/22 11:38:56 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.489 2008/05/22 16:02:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2353,10 +2353,11 @@ final public function PostInsert()  {
    *
    * @param string $idAttr identificator of file attribute 
    * @param string $filename file path
-   * @param string $ftitle basename of file
+   * @param string $ftitle basename of file   
+   * @param int $index only for array values affect value in a specific row
    * @return string error message, if no error empty string
    */
-  final public function storeFile($attrid, $filename,$ftitle="") {   
+  final public function storeFile($attrid, $filename,$ftitle="",$index=-1) {   
     if (is_file($filename) ) {
       include_once("FDL/Lib.Vault.php");
 
@@ -2366,7 +2367,7 @@ final public function PostInsert()  {
 	if ($err=="") {
 	  $info=vault_properties($vaultid);
 	  $mime=$info->mime_s;
-	  $this->setValue($attrid,"$mime|$vaultid");	
+	  $this->setValue($attrid,"$mime|$vaultid",$index);	
 	}
     
       } else {
@@ -5666,9 +5667,13 @@ final public function PostInsert()  {
    * @param bool $latest always last revision of document
    */
   final public function getDocValue($docid, $attrid,$def=" ",$latest=false) {
-    if (intval($docid) > 0) {
+    if (intval($docid) > 0) {      
       $doc = new_Doc($this->dbaccess, $docid);
       if ($doc->isAlive()) {
+	if ($latest && ($doc->locked==-1)) {
+	  $ldocid = $doc->latestId();
+	  if ($ldocid != $doc->id) $doc = new_Doc($this->dbaccess, $ldocid);	  
+	}
 	return $doc->getRValue($attrid,$def,$latest);
       }
     }
