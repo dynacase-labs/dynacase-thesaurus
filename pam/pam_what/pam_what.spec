@@ -1,4 +1,4 @@
-# $Revision: 1.22 $, $Date: 2008/05/22 15:45:02 $
+# $Revision: 1.23 $, $Date: 2008/05/22 15:49:21 $
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
@@ -35,7 +35,6 @@ Requires:	postgresql-libs >= 7.2
 Provides:	pam_what.so
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	WHAT < 0.3.0
-BuildArchitectures: i686
 
 %description
 This PAM module is used to authent user with the WHAT database.
@@ -84,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.23  2008/05/22 15:49:21  marc
+remove BuildArchitectures
+
 Revision 1.22  2008/05/22 15:45:02  marc
 Increase release
 
