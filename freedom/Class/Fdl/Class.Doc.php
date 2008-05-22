@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.487 2008/05/21 18:47:52 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.488 2008/05/22 11:38:56 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5533,6 +5533,7 @@ final public function PostInsert()  {
   function getSpecTitle() {
     return $this->title;
   }
+
   final public function refreshDocTitle($nameId,$nameTitle) {
   
     // gettitle(D,SI_IDSOC):SI_SOCIETY,SI_IDSOC
@@ -5568,6 +5569,18 @@ final public function PostInsert()  {
   function nothing($a="",$b="",$c="") {
     return "";
   }
+
+
+  /**
+   * return parameter value
+   * @param  string  parameter
+   * @param  string  default return value
+   * @return string  returns parameter value ou default value
+   */
+  final public function getParam($param, $defv="")  {
+    return getParam($param, $defv);
+  }
+
 
   //----------------------------------------------------------------------
   //   USUAL METHODS USE FOR CALCULATED ATTRIBUTES OR FUNCTION SEARCHES
