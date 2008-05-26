@@ -1,4 +1,4 @@
-# $Revision: 1.23 $, $Date: 2008/05/22 15:49:21 $
+# $Revision: 1.24 $, $Date: 2008/05/26 13:34:30 $
 
 %define cerbere         %(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'none' && echo 1 || echo 0)
 %define pld		%(rpm -q --queryformat '%{VENDOR}' rpm |grep -q 'PLD' && echo 1 || echo 0)
@@ -21,7 +21,7 @@ Summary(fr):	Module PAM pour la connection à une base postgres
 Name:		pam_what
 Version:	0.4.5
 
-Release: 2%{releasepostfix}
+Release: 3%{releasepostfix}
 
 License:	GPL or BSD
 Group:		Base
@@ -83,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 $Log: pam_what.spec,v $
+Revision 1.24  2008/05/26 13:34:30  eric
+password
+
 Revision 1.23  2008/05/22 15:49:21  marc
 remove BuildArchitectures
 
