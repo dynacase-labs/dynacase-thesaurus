@@ -76,7 +76,7 @@ PAM_EXTERN int pam_sm_authenticate (pam_handle_t * pamh, int flags,
   salt[0]=passwdk[0];
   salt[1]=passwdk[1];
   salt[2]='\0';
-    return retval;
+
   if (strcmp(crypt(passwd, salt) , passwdk)) {
     if (DEBUG) syslog (LOG_DEBUG, "Authentication failed for user %s", wu.login);
    
