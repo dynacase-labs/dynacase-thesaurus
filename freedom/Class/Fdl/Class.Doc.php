@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.490 2008/05/27 09:47:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.491 2008/05/27 13:48:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1415,11 +1415,19 @@ final public function PostInsert()  {
   final public function GetProfilAttributes() { 
     if (!$this->_maskApplied) $this->ApplyMask();
     $tsa=array();
+    $tsb=array();
+    $wopt=false;
     if (isset($this->attributes->attr)) {
       foreach($this->attributes->attr as $k=>$v) {
-	if ((get_class($v) == "NormalAttribute") && ($v->type=="docid") && (!$v->inArray())) $tsa[$v->id]=$v;      
+	if ((get_class($v) == "NormalAttribute") && ($v->type=="docid") ) {
+	  if ($v->getOption("isuser")!="") {
+	    if ($v->getOption("isuser")=="yes") $tsb[$v->id]=$v;
+	    $wopt=true;
+	  } else  $tsa[$v->id]=$v;
+	}
       }
     }
+    if ($wopt) return $tsb;
     return $tsa;
   }
 
