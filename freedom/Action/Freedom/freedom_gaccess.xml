@@ -56,9 +56,9 @@ TABLE.hborder td.left {
 <TR >
     <TD   align="left" class="left" >
     <span style="margin:0px 0px 0px [level]px">
-      <img style="display:[displaygroup];cursor:pointer" src="[IMG:bblue.gif]" width="10" height="10" onclick="subwindow(300,600,'gaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&gid=[gid]')" >
-      <img style="display:[displayuser]" src="[IMG:bgreen.gif]" width="10" height="10"  >
-      <img style="display:[displaydyn]" src="[IMG:byellow.gif]" width="10" height="10"  >
+      <img style="display:[displaygroup];cursor:pointer" src="[IMG:bblue.png]" width="10" height="10" onclick="subwindow(300,600,'gaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&gid=[gid]')" >
+      <img style="display:[displayuser]" src="[IMG:bgreen.png]" width="10" height="10"  >
+      <img style="display:[displaydyn]" src="[IF isdyngroup][IMG:borange.png][ENDIF isdyngroup][IFNOT isdyngroup][IMG:byellow.png][ENDIF isdyngroup]" width="10" height="10"  >
       <A  href="#" onclick="subwindow([FDL_VD2SIZE],[FDL_HD2SIZE],'uaccess','[CORE_STANDURL]app=FREEDOM&action=FREEDOM_ACCESS&id=[docid]&userid=[gid]')"
            >[gname]</A></span>
     <input type="hidden" disabled name="acls[[gid]][500]" value="nc"></TD>

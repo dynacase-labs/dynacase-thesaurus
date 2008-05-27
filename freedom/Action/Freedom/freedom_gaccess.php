@@ -3,7 +3,7 @@
  * View/Edit ACLs for a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.9 2008/01/14 11:12:31 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.10 2008/05/27 13:47:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -85,10 +85,10 @@ function freedom_gaccess(&$action) {
 
     //    foreach($hg as $k=>$v) {
     foreach($tiduser as $k=>$v) {
-      if (! in_array( $v["id"], $sgroup)) {
+       if (! in_array( $v["id"], $sgroup)) {
 	// it's a root group
 	$tg = array_merge($tg,getTableG($hg, $v["id"]));
-      }
+	 }
     }
     if ($action->user->id > 1) {
       $tg[]=array("level"=>0,
@@ -136,8 +136,8 @@ function freedom_gaccess(&$action) {
    
     $pdoc = new_Doc($dbaccess , $doc->getValue("DPDOC_FAMID"));
     $pattr = $pdoc->GetProfilAttributes();
-    foreach($pattr as $k=>$v) {
 
+    foreach($pattr as $k=>$v) {
       $vg=new Vgroup($dbaccess,$v->id);
       if (! $vg->isAffected()) {
 	$vg->id=$v->id;
@@ -145,6 +145,7 @@ function freedom_gaccess(&$action) {
       }
       $tg[]=array("level"=>0,
 		  "gid"=>$vg->num,
+		  "isdyngroup"=>$v->inArray(),
 		  "displaydyn"=>"inline",
 		  "displayuser"=>"none",
 		  "displaygroup"=>"none");
@@ -212,13 +213,13 @@ function getTacl($dbaccess,$dacls, $acls, $docid,$gid) {
       $tableacl[$k]["iacl"]=$k; // index for table in xml
       if ($perm->ControlUp($pos)) {
 	    $tableacl[$k]["selected"]="checked";
-	    $tableacl[$k]["bimg"]="bgreen.gif";
+	    $tableacl[$k]["bimg"]="bgreen.png";
       } else {
 	    $tableacl[$k]["selected"]="";
 	    if ($perm->ControlU($pos)) {
-	      $tableacl[$k]["bimg"]="bgrey.gif";
+	      $tableacl[$k]["bimg"]="bgrey.png";
 	    } else {
-	      if ($perm->ControlUn($pos)) $tableacl[$k]["bimg"]="bred.gif";
+	      if ($perm->ControlUn($pos)) $tableacl[$k]["bimg"]="bred.png";
 	      else $tableacl[$k]["bimg"]="1x1.gif";
 	    }
       }
