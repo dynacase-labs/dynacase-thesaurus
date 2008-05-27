@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.47 2008/02/15 14:54:36 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.48 2008/05/27 13:48:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -226,21 +226,27 @@ Class DocCtrl extends DocLDAP {
 
       if ($fromdocidvalues==0) $fromdocidvalues=&$this;
       foreach ($tacl as $v) {
+	
 	if ($v["userid"] <STARTIDVGROUP) {
-	  $uid=$v["userid"];
-	  //  $vupacl[$uid]=$v["upacl"];
-	  //$vunacl[$uid]=$v["unacl"];
+	  $tuid=array($v["userid"]);
 	} else {
+	  $tuid=array();
 	  $aid=$tnum[$v["userid"]];
 	  $duid=$fromdocidvalues->getValue($aid);
 	  if ($duid == "") $duid=$fromdocidvalues->getParamValue($aid);
-	  if ($duid > 0) {
-	    $docu=getTDoc($fromdocidvalues->dbaccess,intval($duid)); // not for idoc list for the moment
-	    $uid=$docu["us_whatid"];
-	    //print "<br>$aid:$duid:$uid";
+	  if ($duid != "") {
+	    $tuid=$this->_val2array($duid);
+	    foreach ($tuid as $duid) {
+	      if ($duid > 0) {
+		$docu=getTDoc($fromdocidvalues->dbaccess,intval($duid)); // not for idoc list for the moment
+		$tuid[]=$docu["us_whatid"];
+		//print "<br>$aid:$duid:$uid";
+	      }
+	    }	    
 	  }
-	    
 	}
+      
+	foreach ($tuid as $ku=>$uid) {
 	  // add right in case of multiple use of the same user : possible in dynamic profile
 	  $vupacl[$uid]=(intval($vupacl[$uid]) | intval($v["upacl"]));
 	  $vunacl[$uid]=(intval($vunacl[$uid]) | intval($v["unacl"]));
@@ -252,9 +258,10 @@ Class DocCtrl extends DocLDAP {
 	    $perm->upacl=$vupacl[$uid];
 	    $perm->unacl=$vunacl[$uid];
 
-	    //print "<BR>$uid : ".$this->id."/".$perm->upacl;
+	    //	    print "<BR>set perm $uid : ".$this->id."/".$perm->upacl;
 	    if ($perm -> isAffected()) $err=$perm ->modify();
 	    else $err=$perm->Add();
+	}
 	}
       }      
     }
