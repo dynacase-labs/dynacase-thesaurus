@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.489 2008/05/22 16:02:44 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.490 2008/05/27 09:47:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1949,6 +1949,7 @@ final public function PostInsert()  {
 	if  ($this->$attrid != "") {
 	  $this->hasChanged=true;
 	  //print "change by delete $attrid  <BR>";
+	  $this->_oldvalue[$attrid]=$this->$attrid;
 	  $this->$attrid="";
 	  if ($oattr->type=="file") {
 	    // need clear computed column
@@ -2025,14 +2026,22 @@ final public function PostInsert()  {
 		  break;
 		case 'htmltext':
 		  $tvalues[$kvalue]=str_replace(array('<script','script>'),array('<pre', 'pre>'),html_entity_decode($avalue,ENT_NOQUOTES,'ISO-8859-1'));
-
+		  
+		  if ($oattr->getOption("htmlclean")=="yes") {
+		    $tvalues[$kvalue]=preg_replace("/<\/?span[^>]*>/s","",$tvalues[$kvalue]);
+		    $tvalues[$kvalue]=preg_replace("/<\/?font[^>]*>/s","",$tvalues[$kvalue]);
+		    $tvalues[$kvalue]=preg_replace("/<meta[^>]*>/s","",$tvalues[$kvalue]);
+		    $tvalues[$kvalue]=preg_replace("/<style[^>]*>.*<\/style>/s","",$tvalues[$kvalue]);
+		    $tvalues[$kvalue]=preg_replace("/<([^>]*) style=\"[^\"]*\"/s","<\\1",$tvalues[$kvalue]);
+		    $tvalues[$kvalue]=preg_replace("/<([^>]*) class=\"[^\"]*\"/s","<\\1",$tvalues[$kvalue]);		  
+		  }
 		  break;
 		}
 	      }
 	    }
 	  }
 	
-	  //   print $oattr->id."-".$oattr->type;print_r2($tvalues);
+	  //	  print $oattr->id."-".$oattr->type;print_r2($tvalues);
 	  $this->_oldvalue[$attrid]=$this->$attrid;
 	  $this->$attrid=implode("\n",$tvalues); 
 
@@ -5592,8 +5601,8 @@ final public function PostInsert()  {
    * return title of document
    * @see Doc::getSpecTitle()
    */
-  final public function getTitle($id="-1") {
-    if ($id=="") return "";
+  final public function getTitle($id="-1",$def="") {
+    if ($id=="") return $def;
     if ($id=="-1") {
       if ($this->isConfidential())  return _("confidential document");      
       return $this->getSpecTitle();
@@ -5604,7 +5613,7 @@ final public function PostInsert()  {
       if ($t)    return $t["title"];
       return " "; // delete title
     }
-    return ""; 
+    return $def; 
   }
 
   /**
