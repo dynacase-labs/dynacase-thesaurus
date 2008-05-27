@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.139 2008/05/14 16:46:36 eric Exp $
+ * @version $Id: editutil.php,v 1.140 2008/05/27 16:25:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -754,7 +754,8 @@ function getLayArray(&$lay,&$doc,&$oattr) {
       $lay->setBlockData("TATTR",$talabel);
       $lay->setBlockData("IATTR",$tilabel);
       $lay->set("attrid",$attrid);
-      $lay->set("caption",$oattr->labelText);     
+      if ($oattr->getOption("vlabel")=="") $lay->set("caption",$oattr->labelText);
+      else $lay->set("caption","");
       $lay->set("footspan",count($ta)*2);
 
       reset($tval);

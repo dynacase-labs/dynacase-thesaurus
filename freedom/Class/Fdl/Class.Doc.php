@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.491 2008/05/27 13:48:23 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.492 2008/05/27 16:25:11 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3740,9 +3740,10 @@ final public function PostInsert()  {
 	    }
 	    $lay->setBlockData("TATTR",$talabel);
 	    if (! $emptyarray) {	    
-	    
-	      if ($nbitem > 10) $lay->set("caption",$oattr->labelText." ($nbitem)");
-	      else $lay->set("caption",$oattr->labelText);
+	      if ($oattr->getOption("vlabel")=="") $caption=$oattr->labelText;
+	      else $caption="";
+	      if ($nbitem > 10) $caption.=" ($nbitem)";
+	      $lay->set("caption",$caption);
 	      $tvattr = array();
 	      for ($k=0;$k<$nbitem;$k++) {
 		$tvattr[]=array("bevalue" => "bevalue_$k");
@@ -4570,8 +4571,8 @@ final public function PostInsert()  {
 	
 	// print name except image (printed otherthere)
 	if ($attr->type != "image") {	
-	  $tableframe[$v]["wvalue"]=($attr->type == "array")?"1%":"30%"; // width
-	  if ($attr->type != "array")  $tableframe[$v]["ndisplay"]="inline";
+	  $tableframe[$v]["wvalue"]=(($attr->type == "array")&&($attr->getOption("vlabel")!="left"))?"1%":"30%"; // width
+	  if (($attr->type != "array")||($attr->getOption("vlabel")=="left"))  $tableframe[$v]["ndisplay"]="inline";
 	  else $tableframe[$v]["ndisplay"]="none";
 	  if ($attr->getOption("vlabel")=="none") {
 	    $tableframe[$v]["nonelabel"]=true;
@@ -5009,7 +5010,7 @@ final public function PostInsert()  {
 	$tableframe[$v]["SINGLEROW"]=true;
 
 	$vlabel=$listattr[$i]->getOption("vlabel");
-	if (($listattr[$i]->type=="array")||(($listattr[$i]->type=="htmltext")&&($vlabel!='left'))||($vlabel=='up')||($vlabel=='none')) $tableframe[$v]["SINGLEROW"]=false;
+	if ((($listattr[$i]->type=="array")&&($vlabel!='left'))||(($listattr[$i]->type=="htmltext")&&($vlabel!='left'))||($vlabel=='up')||($vlabel=='none')) $tableframe[$v]["SINGLEROW"]=false;
 
 	$tableframe[$v]["viewlabel"]=(($listattr[$i]->type != "array")&&($vlabel!='none'));
 	$v++;
