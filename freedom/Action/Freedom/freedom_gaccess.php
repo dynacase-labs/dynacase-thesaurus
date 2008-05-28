@@ -3,7 +3,7 @@
  * View/Edit ACLs for a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.10 2008/05/27 13:47:45 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.11 2008/05/28 13:08:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -29,6 +29,7 @@ function freedom_gaccess(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid= GetHttpVars("id");
   $gid= GetHttpVars("gid"); // view user access for the gid group (view all groups if null)
+  $green= (GetHttpVars("allgreen")=="Y"); // view only up or un acl
 
   // 
   // edition of group accessibilities
@@ -61,8 +62,37 @@ function freedom_gaccess(&$action) {
   $action->lay->SetBlockData("DACLS", $hacl);
   $action->lay->Set("title", $doc->title);
   $tg=array(); // users or group list
+  if ($green) {
+    $ouser = new User("", $gid);
+    $tusers = $ouser->GetUserAndGroupList("TABLE");
 
-  if ($gid == 0) {
+    $q=new QueryDb($dbaccess,"DocPerm");
+    $q->AddQuery("docid=".$doc->id);
+    $q->AddQuery("upacl != 0 OR unacl != 0");
+    $l=$q->Query(0,0,"TABLE");
+
+    $lu=array();
+    foreach ($l as $lp) {
+      $lu[]=$lp["userid"];
+    }
+
+    if ($tusers) {       
+      foreach($tusers as $k=>$v) {
+	if (in_array($v["id"],$lu)) {
+	if ($k > 100) {
+	  $action->AddWarningMsg(sprintf(_("Not all users can be vieved.\nlimit %d has been reached"),$k));
+	  break;
+	}
+	$title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
+	$tg[]=array("level"=>10,
+		    "gid"=>$v["id"],
+		    "displaydyn"=>"none",
+		    "displayuser"=>($v["isgroup"]!="Y")?"inline":"none",
+		    "displaygroup"=>($v["isgroup"]=="Y")?"inline":"none");
+	  }
+      }
+    }
+  } else   if ($gid == 0) {
     //-----------------------
     // contruct grouplist
     $ouser = new User();
@@ -111,9 +141,7 @@ function freedom_gaccess(&$action) {
 		"displaydyn"=>"none",
 		"displaygroup"=>"inline");
     $title[$gid]=$ouser->firstname." ".$ouser->lastname;
-    if ($tusers) {
-    
-    
+    if ($tusers) {       
       foreach($tusers as $k=>$v) {
 
 	if ($k > 100) {
@@ -169,6 +197,8 @@ function freedom_gaccess(&$action) {
   $action->lay->set("docid",$docid);
 
 
+  $action->lay->set("allgreen",getHttpVars("allgreen","N"));
+  $action->lay->set("isgreen",$green);
   $err= $doc->control("modifyacl");
   if ($err == "") {
     $action->lay->setBlockData("MODIFY",array(array("zou")));

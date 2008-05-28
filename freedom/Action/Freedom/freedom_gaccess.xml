@@ -39,6 +39,7 @@ TABLE.hborder td.left {
 </style>
 <form  name="edit" method="POST" action="[CORE_STANDURL]app=FREEDOM&action=FREEDOM_MODACCESS">
 <input type="hidden" name="docid" value="[docid]">
+<input type="hidden" name="allgreen" value="[allgreen]">
 
 <table class="hborder" style="margin-bottom:2px" cellspacing="0" cellpadding="0" 
        width="100%" >
@@ -80,8 +81,15 @@ TABLE.hborder td.left {
 [BLOCK MODIFY]
 <input class="CORETblHead" type="submit" 
          name="Modify" value="[TEXT:Validate]"  >
-<input class="CORETblHead" type="reset"  >
+
+<input class="CORETblHead" type="button" onmousedown="document.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&allgreen=[allgreen]'" title="[TEXT:Reload page]" value="[TEXT:Reset]" >
 [ENDBLOCK MODIFY]
+[IFNOT isgreen]
+<input class="CORETblHead" type="button" 
+         name="Modify"  onmousedown="document.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&allgreen=Y'" title="[TEXT:View only access set. Green or Red flag]" value="[TEXT:All set only]"  >[ENDIF isgreen]
+[IF isgreen]
+<input class="CORETblHead" type="button" 
+         name="Modify" onmousedown="document.location.href='[CORE_STANDURL]app=FREEDOM&action=FREEDOM_GACCESS&id=[docid]&allgreen=N'" value="[TEXT:Normal view]"  >[ENDIF isgreen]
 </form>
 
 [ZONE CORE:HTMLFOOT]

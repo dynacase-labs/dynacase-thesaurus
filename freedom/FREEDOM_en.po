@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-17 18:12+0100\n"
+"POT-Creation-Date: 2008-05-28 14:25+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -811,6 +811,16 @@ msgstr "Delete"
 msgid "File:: failed"
 msgstr "Update Title Cards"
 
+#, fuzzy
+msgid "description"
+msgstr "Edit"
+
+#, c-format
+msgid ""
+"Not all users can be vieved.\n"
+"limit %d has been reached"
+msgstr ""
+
 #, c-format
 msgid ""
 "batcexec aborted\n"
@@ -970,16 +980,6 @@ msgid "default values"
 msgstr "Delete"
 
 msgid "document not referenced"
-msgstr ""
-
-#, fuzzy
-msgid "description"
-msgstr "Edit"
-
-#, c-format
-msgid ""
-"Not all users can be vieved.\n"
-"limit %d has been reached"
 msgstr ""
 
 #, c-format
@@ -1166,10 +1166,6 @@ msgstr ""
 msgid "No need to refresh group"
 msgstr "Delete"
 
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-
 msgid "Creation aborded : no family specified"
 msgstr ""
 
@@ -1198,6 +1194,10 @@ msgstr "Create"
 
 #, c-format
 msgid "current (<i>%s</i>)"
+msgstr ""
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
 #, c-format
@@ -1701,6 +1701,10 @@ msgstr "Create"
 #, fuzzy
 msgid "revision"
 msgstr "Organisation"
+
+#, fuzzy
+msgid "owner"
+msgstr "my"
 
 #, fuzzy
 msgid "state"
@@ -2414,306 +2418,6 @@ msgstr "Start search"
 msgid "freedom detailled global search"
 msgstr "Email"
 
-msgid "impossible conversion"
-msgstr ""
-
-msgid "TE not activated"
-msgstr ""
-
-msgid "no task identificator"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "file %s not found"
-msgstr "Import"
-
-#, fuzzy
-msgid "document creation"
-msgstr "Organisation"
-
-#, fuzzy, c-format
-msgid "untitle %s %d"
-msgstr "Update Title Cards"
-
-msgid "cannot update no initialized document"
-msgstr ""
-
-msgid "untitle document"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "convertion from %s to %s family"
-msgstr "Category"
-
-#, c-format
-msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "the file %s (rev %d) must be locked before"
-msgstr ""
-
-#, c-format
-msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
-msgstr ""
-
-#, c-format
-msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
-msgstr ""
-
-#, c-format
-msgid "cannot lock file %s [%d] : already locked by %s."
-msgstr ""
-
-#, fuzzy
-msgid "cannot unlock"
-msgstr "Create"
-
-#, fuzzy
-msgid "already deleted"
-msgstr "Delete"
-
-#, c-format
-msgid "delete by action %s/%s from %s"
-msgstr ""
-
-#, fuzzy
-msgid "document deleted"
-msgstr "Delete"
-
-#, fuzzy
-msgid "revival document"
-msgstr "Organisation"
-
-#, c-format
-msgid "document %s [%d] is not in the trash"
-msgstr ""
-
-msgid "Only owner of document can restore it"
-msgstr ""
-
-msgid "unknow attribute"
-msgstr ""
-
-#, c-format
-msgid "conversion %s in progress"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "conversion of %s in progress"
-msgstr "Organisation"
-
-#, c-format
-msgid "update of %s in progress"
-msgstr ""
-
-#, c-format
-msgid "%s needed\n"
-msgstr ""
-
-#, c-format
-msgid "attribute %s unknow in family %s [%d]"
-msgstr ""
-
-#, c-format
-msgid "no permission to modify this attribute %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"the date '%s' for %s attribute is not correct. It has been corrected "
-"automatically"
-msgstr ""
-
-msgid "error sending text conversion"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "modify file %s"
-msgstr "Modify"
-
-#, c-format
-msgid "attribute %s is not a file attribute"
-msgstr ""
-
-#, fuzzy
-msgid "no files"
-msgstr "Category"
-
-#, c-format
-msgid "attribute %s is not int a array"
-msgstr ""
-
-#, c-format
-msgid "constraint return [%s] for %s attribute"
-msgstr ""
-
-msgid "no user tag specified"
-msgstr ""
-
-msgid "document already revised"
-msgstr ""
-
-#, c-format
-msgid "the document of %s family cannot be revised"
-msgstr ""
-
-#, c-format
-msgid "cannot set free state in workflow controlled document %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: workflow not allowed"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "cannot set free state for document %s: document cannot be revised"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "remove state : %s"
-msgstr "Create"
-
-#, fuzzy, c-format
-msgid "invalid freestate document %s"
-msgstr "Delete"
-
-#, fuzzy, c-format
-msgid "not a freestate document %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state to %s : %s"
-msgstr "Category"
-
-#, c-format
-msgid "copy from document #%d -%s-"
-msgstr ""
-
-#, fuzzy
-msgid "Affectation aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid ""
-"Affectation aborded\n"
-"%s for user %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected to %s %s"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "Affected for %s"
-msgstr "Edit"
-
-#, fuzzy
-msgid "Affectation aborded : user not know"
-msgstr "Edit"
-
-#, c-format
-msgid "Unallocated of %s %s : %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Unallocated of %s %s: %s"
-msgstr "Category"
-
-msgid "user not know"
-msgstr ""
-
-#, fuzzy
-msgid "Unallocate aborded"
-msgstr "Edit"
-
-#, fuzzy, c-format
-msgid "unknown document id %s"
-msgstr "Start search"
-
-msgid "vault file error"
-msgstr ""
-
-#, fuzzy
-msgid "no filename"
-msgstr "Firstname"
-
-msgid "AbbrKbyte"
-msgstr ""
-
-#, c-format
-msgid "cannot control : object not initialized : %s"
-msgstr ""
-
-msgid "control :: user identificator is null"
-msgstr ""
-
-#, c-format
-msgid "error in pzone format %s"
-msgstr ""
-
-#, fuzzy
-msgid "no state"
-msgstr "Identity"
-
-#, fuzzy
-msgid "last modification date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "suppression date"
-msgstr "Organisation"
-
-#, fuzzy
-msgid "revision date"
-msgstr "Organisation"
-
-msgid "no access control"
-msgstr ""
-
-msgid "specific control"
-msgstr ""
-
-#, fuzzy
-msgid "dynamic control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no view control"
-msgstr "Start search"
-
-#, fuzzy
-msgid "no folder"
-msgstr "Modify"
-
-#, fuzzy
-msgid "no allocate"
-msgstr "Email"
-
-#, fuzzy
-msgid "forum disallowed"
-msgstr "Delete"
-
-#, fuzzy
-msgid "forum allowed"
-msgstr "Modify not possible"
-
-#, fuzzy
-msgid "forum opened"
-msgstr "Modify not possible"
-
-#, fuzzy
-msgid "forum closed"
-msgstr "Modify not possible"
-
-#, c-format
-msgid "new %s"
-msgstr ""
-
-#, fuzzy
-msgid "confidential document"
-msgstr "Delete"
-
 #, fuzzy
 msgid "locked document of "
 msgstr "Import"
@@ -3017,6 +2721,297 @@ msgstr ""
 msgid "Twprocess_public"
 msgstr ""
 
+#, fuzzy
+msgid "document creation"
+msgstr "Organisation"
+
+#, fuzzy, c-format
+msgid "untitle %s %d"
+msgstr "Update Title Cards"
+
+msgid "cannot update no initialized document"
+msgstr ""
+
+msgid "untitle document"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "convertion from %s to %s family"
+msgstr "Category"
+
+#, c-format
+msgid "cannot update file %s (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "the file %s (rev %d) must be locked before"
+msgstr ""
+
+#, c-format
+msgid "you are not allowed to update the file %s (rev %d) is locked by %s."
+msgstr ""
+
+#, c-format
+msgid "cannot lock document %s [%d] (rev %d) : fixed. Get the latest version"
+msgstr ""
+
+#, c-format
+msgid "cannot lock file %s [%d] : already locked by %s."
+msgstr ""
+
+#, fuzzy
+msgid "cannot unlock"
+msgstr "Create"
+
+#, fuzzy
+msgid "already deleted"
+msgstr "Delete"
+
+#, c-format
+msgid "delete by action %s/%s from %s"
+msgstr ""
+
+#, fuzzy
+msgid "document deleted"
+msgstr "Delete"
+
+#, fuzzy
+msgid "revival document"
+msgstr "Organisation"
+
+#, c-format
+msgid "document %s [%d] is not in the trash"
+msgstr ""
+
+msgid "Only owner of document can restore it"
+msgstr ""
+
+msgid "unknow attribute"
+msgstr ""
+
+#, c-format
+msgid "conversion %s in progress"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "conversion of %s in progress"
+msgstr "Organisation"
+
+#, c-format
+msgid "update of %s in progress"
+msgstr ""
+
+#, c-format
+msgid "%s needed\n"
+msgstr ""
+
+#, c-format
+msgid "attribute %s unknow in family %s [%d]"
+msgstr ""
+
+#, c-format
+msgid "no permission to modify this attribute %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"the date '%s' for %s attribute is not correct. It has been corrected "
+"automatically"
+msgstr ""
+
+msgid "error sending text conversion"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "modify file %s"
+msgstr "Modify"
+
+#, c-format
+msgid "attribute %s is not a file attribute"
+msgstr ""
+
+#, fuzzy
+msgid "no files"
+msgstr "Category"
+
+#, c-format
+msgid "attribute %s is not int a array"
+msgstr ""
+
+#, c-format
+msgid "constraint return [%s] for %s attribute"
+msgstr ""
+
+msgid "no user tag specified"
+msgstr ""
+
+msgid "document already revised"
+msgstr ""
+
+#, c-format
+msgid "the document of %s family cannot be revised"
+msgstr ""
+
+#, c-format
+msgid "cannot set free state in workflow controlled document %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: workflow not allowed"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "cannot set free state for document %s: document cannot be revised"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "remove state : %s"
+msgstr "Create"
+
+#, fuzzy, c-format
+msgid "invalid freestate document %s"
+msgstr "Delete"
+
+#, fuzzy, c-format
+msgid "not a freestate document %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state to %s : %s"
+msgstr "Category"
+
+#, c-format
+msgid "copy from document #%d -%s-"
+msgstr ""
+
+#, fuzzy
+msgid "Affectation aborded"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid ""
+"Affectation aborded\n"
+"%s for user %s %s"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "Affected to %s %s"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "Affected for %s"
+msgstr "Edit"
+
+#, fuzzy
+msgid "Affectation aborded : user not know"
+msgstr "Edit"
+
+#, c-format
+msgid "Unallocated of %s %s : %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Unallocated of %s %s: %s"
+msgstr "Category"
+
+msgid "user not know"
+msgstr ""
+
+#, fuzzy
+msgid "Unallocate aborded"
+msgstr "Edit"
+
+#, fuzzy, c-format
+msgid "unknown document id %s"
+msgstr "Start search"
+
+msgid "vault file error"
+msgstr ""
+
+#, fuzzy
+msgid "no filename"
+msgstr "Firstname"
+
+msgid "AbbrKbyte"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot open %s layout file"
+msgstr "Category"
+
+#, c-format
+msgid "cannot control : object not initialized : %s"
+msgstr ""
+
+msgid "control :: user identificator is null"
+msgstr ""
+
+#, c-format
+msgid "error in pzone format %s"
+msgstr ""
+
+#, fuzzy
+msgid "no state"
+msgstr "Identity"
+
+#, fuzzy
+msgid "last modification date"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "suppression date"
+msgstr "Organisation"
+
+#, fuzzy
+msgid "revision date"
+msgstr "Organisation"
+
+msgid "no access control"
+msgstr ""
+
+msgid "specific control"
+msgstr ""
+
+#, fuzzy
+msgid "dynamic control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no view control"
+msgstr "Start search"
+
+#, fuzzy
+msgid "no folder"
+msgstr "Modify"
+
+#, fuzzy
+msgid "no allocate"
+msgstr "Email"
+
+#, fuzzy
+msgid "forum disallowed"
+msgstr "Delete"
+
+#, fuzzy
+msgid "forum allowed"
+msgstr "Modify not possible"
+
+#, fuzzy
+msgid "forum opened"
+msgstr "Modify not possible"
+
+#, fuzzy
+msgid "forum closed"
+msgstr "Modify not possible"
+
+#, c-format
+msgid "new %s"
+msgstr ""
+
+#, fuzzy
+msgid "confidential document"
+msgstr "Delete"
+
 msgid "uncomplete request"
 msgstr ""
 
@@ -3059,6 +3054,19 @@ msgstr "LDAP server cannot be contacted"
 #, fuzzy
 msgid "errldaporginit"
 msgstr "LDAP server cannot be contacted"
+
+msgid "impossible conversion"
+msgstr ""
+
+msgid "TE not activated"
+msgstr ""
+
+msgid "no task identificator"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "file %s not found"
+msgstr "Import"
 
 #, fuzzy
 msgid "include"
@@ -3231,12 +3239,6 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
-msgid "menuctrlkey"
-msgstr ""
-
-msgid "submenu"
-msgstr ""
-
 #, c-format
 msgid "period from %s to %s"
 msgstr ""
@@ -3373,6 +3375,12 @@ msgstr ""
 msgid "read-only"
 msgstr ""
 
+msgid "menuctrlkey"
+msgstr ""
+
+msgid "submenu"
+msgstr ""
+
 #, fuzzy
 msgid "States"
 msgstr "Identity"
@@ -3388,6 +3396,10 @@ msgstr "Import"
 #, fuzzy
 msgid "Save"
 msgstr "Identity"
+
+#, c-format
+msgid "Incorrect specification of special menu : %s"
+msgstr ""
 
 msgid "Click to view menu"
 msgstr ""
@@ -3753,6 +3765,10 @@ msgstr "Modify"
 #, fuzzy
 msgid "Move reference"
 msgstr "Delete"
+
+#, fuzzy
+msgid "Permissions"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Creation"
@@ -4141,9 +4157,22 @@ msgstr "Category"
 msgid "Freedom"
 msgstr ""
 
+msgid "View only access set. Green or Red flag"
+msgstr ""
+
+msgid "All set only"
+msgstr ""
+
 #, fuzzy
-msgid "Permissions"
-msgstr "Organisation"
+msgid "Normal view"
+msgstr "Category"
+
+msgid "Reload page"
+msgstr ""
+
+#, fuzzy
+msgid "Reset"
+msgstr "Created by"
 
 msgid "Quick Save"
 msgstr ""
@@ -4891,39 +4920,6 @@ msgstr "Modify"
 msgid "addstate"
 msgstr "Identity"
 
-msgid "enumerate input not found"
-msgstr ""
-
-#, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
-
-msgid "NOT Clear"
-msgstr ""
-
-#, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
-
-#, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
-msgstr ""
-
 #, fuzzy
 msgid "fromdate"
 msgstr "Edit"
@@ -5183,6 +5179,39 @@ msgid "it is the first"
 msgstr ""
 
 msgid "PubliPreview"
+msgstr ""
+
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "NOT Clear"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
 msgstr ""
 
 #, fuzzy
@@ -5948,6 +5977,3 @@ msgstr ""
 
 #~ msgid "newcatg"
 #~ msgstr "Others"
-
-#~ msgid "onlyowner"
-#~ msgstr "my"
