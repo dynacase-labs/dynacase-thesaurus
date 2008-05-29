@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.75 2008/05/21 11:26:08 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.76 2008/05/29 17:19:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -27,6 +27,8 @@ Class Dir extends PDir
 {
   
   var $defDoctype='D';
+  private $authfam=false;
+  private $norestrict=false;
 
   public $eviews=array("FDL:EDITBODYCARD",
 		       "FDL:EDITRESTRICTION");
@@ -492,13 +494,10 @@ Class Dir extends PDir
    */
   function getAuthorizedFamilies($classid=0) {
     
-    if (! isset($this->authfam)) {
+    if (! $this->authfam) {
       $tfamid = $this->getTValue("FLD_FAMIDS");
       $tfam   = $this->getTValue("FLD_FAM");
-      $tsubfam   = $this->getTValue("FLD_SUBFAM");
-    
-      
-
+      $tsubfam   = $this->getTValue("FLD_SUBFAM");    
       $allbut=$this->getValue("FLD_ALLBUT");
      
       if (($allbut != "1") && ((count($tfamid) == 0) || ((count($tfamid) == 1) && ($tfamid[0]==0)))) {
@@ -512,7 +511,8 @@ Class Dir extends PDir
 	include_once("FDL/Lib.Dir.php");
 	$tallfam = GetClassesDoc($this->dbaccess, $this->userid,$classid,"TABLE");
 
-	while (list($k,$cdoc)= each ($tallfam)) {
+
+	foreach ($tallfam as $k=>$cdoc) {
 	  $tclassdoc[$cdoc["id"]]=$cdoc;	 
 	  //	  $tclassdoc += $this->GetChildFam($cdoc["id"]);	  
 	}
@@ -531,7 +531,7 @@ Class Dir extends PDir
 	}
       } else {
 	//add families
-	while (list($k,$famid)= each ($tfamid)) {
+	foreach ($tfamid as $k=>$famid) {
 	  $tfdoc=getTDoc($this->dbaccess,$famid);
 	  if ($tfdoc && controlTdoc($tfdoc,'icreate'))  {
 	    $tclassdoc[intval($famid)]=array("id"=> ($tsubfam[$k]=="no")?(-intval($famid)):intval($famid),
@@ -552,11 +552,9 @@ Class Dir extends PDir
    * return families that can be use in insertion
    * @param int $classid : restrict for same usefor families
    */
-  public function isAuthorized($classid) {
-    
-    if (! isset($this->norestrict)) {
+  public function isAuthorized($classid) {    
+    if (! $this->authfam) {
       $this->getAuthorizedFamilies();
-
     }
     if ($this->norestrict) return true;
 
@@ -638,7 +636,10 @@ Class Dir extends PDir
     $filter[]="prelid=".$this->initid;
     return $this->getContent(true,$filter);
   }
-  
+  function Complete() {
+    $this->authfam=false;
+    $this->norestrict=false;
+  }
   /**
    * delete all document which primary relation is the folder (recurively)
    * different of {@see Clear()}
