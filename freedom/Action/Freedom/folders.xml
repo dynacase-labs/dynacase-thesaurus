@@ -217,6 +217,6 @@ function viewhome(event) {
 <script>initializeDocument()</script>
 <div  id="thefolderh"></div>
 <img id="micon" width="20" height="20"  style="position:absolute;visibility:hidden">
-    <iframe id="fexpand" name="fexpand" style="display:none"   src="about:blank"  ></iframe>
+    <iframe id="fexpand" name="fexpand" style="display:none"   src="[IMG:1x1.gif]"  ></iframe>
 </body>
 </html>

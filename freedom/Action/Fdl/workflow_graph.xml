@@ -12,7 +12,7 @@
 
 
   <frame  src="[CORE_STANDURL]&app=FDL&action=PARAM_WORKFLOW_GRAPH&id=[id]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
-  <frame name="wkf[id]" src="about:blank" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
+  <frame name="wkf[id]" src="[IMG:1x1.gif]" scrolling="needed" bordercolor="[CORE_FGCOLOR]">
   </frameset>
 
 </frameset>

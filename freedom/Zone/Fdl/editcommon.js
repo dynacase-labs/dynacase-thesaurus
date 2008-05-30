@@ -34,7 +34,7 @@ function updateOfr(ofr,onlyclose) {
       if (viid) {
 	nurl=ofr.src;
 	if ((viid.value==' ') || (viid.value=='')) {
-	  nurl='about:blank';
+	  nurl='[IMG:1x1.gif]';
 	  ofr.style.display='none';
 	} else {
 	  if (!onlyclose)  nurl='[CORE_STANDURL]&app=FDL&action=IMPCARD&zone=FDL:VIEWTHUMBCARD:T&id='+viid.value;
@@ -42,7 +42,7 @@ function updateOfr(ofr,onlyclose) {
 
 	if (ofr.src.substr(-10) != nurl.substr(-10) ) {
 	  ofr.src=nurl;	      
-	  if (nurl != 'about:blank') {
+	  if (/1x1.gif/i.test(nurl)) {
 	    ofr.style.display='';  
 	    sdisplay='none';
 	  } else {

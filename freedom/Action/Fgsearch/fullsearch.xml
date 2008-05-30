@@ -61,7 +61,7 @@ function hideresult(event) {
   var ifr=document.getElementById('searchresult');
   var dr=document.getElementById('dresult');
   var ipr=document.getElementById('iprev');
-    ifr.src="about:blank";
+    ifr.src="[IMG:1x1.gif]";
   ifr.style.display='';
   dr.style.display='none';  
   ipr.style.visibility='visible';
@@ -161,5 +161,5 @@ addEvent(window,"resize",resizeiframe);
  <a onclick="document.searchdoc.start.value=[nstart];document.searchdoc.submit()"> [IF notthenend][TEXT:Next] <img style="border:none" align="absbottom"  src="[IMG:freeright.png]"></a>[ENDIF notthenend]</div>
 </div>
 </form>
-<iframe id="searchresult" style="display:none;width:100%;border:none;padding:0px;margin:0px" name="searchresult"></iframe>
+<iframe id="searchresult" src="[IMG:1x1.gif]" style="display:none;width:100%;border:none;padding:0px;margin:0px" name="searchresult"></iframe>
 [ZONE FDL:HTMLFOOT]

@@ -31,7 +31,7 @@ function replaceOption() {
 
   divo.innerHTML=ndivno.innerHTML;
   fvo.style.display='none';
-  fvo.src='about:blank';
+  fvo.src='[IMG:1x1.gif]';
   pdivopt.style.display='';
   return;
 }

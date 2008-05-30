@@ -111,7 +111,7 @@ addEvent(window,"load",focusFirst);
 [IFNOT NOFORM]
 </form>
 <!--  FOOT HTML -->
-<iframe name="fhsave" style="display:none"></iframe>
+<iframe name="fhsave" style="display:none" src="[IMG:1x1.gif]"></iframe>
 </body>
 </html>
 [ENDIF NOFORM]

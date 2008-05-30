@@ -153,7 +153,7 @@ function openMenuOrProperties(event,menuid,itemid,wtarget) {
 function sendFirstFile(docid) {
   var url='[CORE_STANDURL]&app=FDL&action=EXPORTFIRSTFILE&docid='+docid;
 
-  we = window.open('about:blank','','resizable=yes,scrollbars=yes');
+  we = window.open('[IMG:1x1.gif]','','resizable=yes,scrollbars=yes');
   we.document.location.href=url;
 }
 

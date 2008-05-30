@@ -11,7 +11,7 @@
      <frame name="navpreview"  src="[CORE_STANDURL]&app=FDL&action=VIEWSCARD&id=[dirid]&zone=FDL:FDL_PUBNAVPREVIEW:S" scrolling="no" bordercolor="[CORE_FGCOLOR]" >
 
   
-       <frame name="onepreview" src="about:blank" 
+       <frame name="onepreview" src="[IMG:1x1.gif]" 
               scrolling="needed" bordercolor="[CORE_FGCOLOR]"  >
     
   </frameset>
