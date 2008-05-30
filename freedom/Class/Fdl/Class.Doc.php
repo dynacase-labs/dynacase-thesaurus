@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.492 2008/05/27 16:25:11 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.493 2008/05/30 07:32:50 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -823,7 +823,7 @@ final public function PostInsert()  {
    * @return bool true if confidential and current user is not authorized
    */
   final public function isConfidential() {
-    return (($this->confidential > 0) && ($this->control('confidential')!=""));
+    return (($this->confidential > 0) && ($this->controlId($this->profid,'confidential')!=""));
   }
   /** 
    * return the family document where the document comes from
@@ -4105,13 +4105,15 @@ final public function PostInsert()  {
    * @param string $aclname identificator of the privilege to test
    * @return string empty means access granted else it is an error message (access unavailable)
    */
-  public function Control ($aclname) {
+ public function Control($aclname) {
     // -------------------------------------------------------------------- 
     if (($this->IsAffected()) ) {	
       
       if (($this->profid <= 0) || ($this->userid == 1 )) return ""; // no profil or admin
 
-      return $this->controlId($this->profid,$aclname);
+      $err= $this->controlId($this->profid,$aclname);
+      if (($err!="") &&  ($this->isConfidential())) $err=sprintf(_("no privilege %s for %s"),$aclname,$this->getTitle());
+      return $err;
     }
     return "";
     return sprintf(_("cannot control : object not initialized : %s"),$aclname);
