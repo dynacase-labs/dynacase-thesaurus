@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.493 2008/05/30 07:32:50 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.494 2008/05/30 13:45:41 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2602,14 +2602,11 @@ final public function PostInsert()  {
 	  $tv = $this->getTValue($v->id);
 	  for ($i=0;$i<count($tv);$i++) {
 	    $res= $this->verifyConstraint($v->id,$i);
-	    if ($res["err"]!="") return sprintf(_("constraint return [%s] for %s attribute"),
-						$res["err"],$v->labelText);
+	    if ($res["err"]!="") return sprintf("[%s] %s", $v->labelText, $res["err"]);
 	  }
 	} else {
 	  $res= $this->verifyConstraint($v->id);
-	  //	  print print_r2($res);
-	  if ($res["err"]!="") return sprintf(_("constraint return [%s] for %s attribute"),
-						$res["err"],$v->labelText);
+	  if ($res["err"]!="") return sprintf("[%s] %s", $v->labelText, $res["err"]);
 	}
       }
     }
