@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.76 2008/05/29 17:19:32 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.77 2008/05/30 14:16:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -495,6 +495,7 @@ Class Dir extends PDir
   function getAuthorizedFamilies($classid=0) {
     
     if (! $this->authfam) {
+
       $tfamid = $this->getTValue("FLD_FAMIDS");
       $tfam   = $this->getTValue("FLD_FAM");
       $tsubfam   = $this->getTValue("FLD_SUBFAM");    
@@ -544,7 +545,6 @@ Class Dir extends PDir
       $this->authfam=$tclassdoc;
     }
     $this->kauthfam = array_keys($this->authfam);
-    //    print_r2($this->kauthfam);
     return $this->authfam;
   }  
 
@@ -552,7 +552,8 @@ Class Dir extends PDir
    * return families that can be use in insertion
    * @param int $classid : restrict for same usefor families
    */
-  public function isAuthorized($classid) {    
+  public function isAuthorized($classid) { 
+    if (! $classid) return true;
     if (! $this->authfam) {
       $this->getAuthorizedFamilies();
     }

@@ -3,7 +3,7 @@
  * Document searches classes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocSearch.php,v 1.49 2008/02/08 15:10:49 eric Exp $
+ * @version $Id: Class.DocSearch.php,v 1.50 2008/05/30 14:17:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -309,7 +309,7 @@ Class DocSearch extends PDocSearch {
       if (method_exists($dir,"isAuthorized")) {	
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
-	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+	  if ((!$classid)|| $dir->norestrict) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");	  
 	  else {
 	    $tclassdoc=$dir->getAuthorizedFamilies();
 	    $this->lay->set("restrict",true);
@@ -329,7 +329,7 @@ Class DocSearch extends PDocSearch {
     }
 
     $this->lay->set("selfam",_("no family"));
-    while (list($k,$cdoc)= each ($tclassdoc)) {
+    foreach ($tclassdoc as $k=>$cdoc) {
       $selectclass[$k]["idcdoc"]=$cdoc["id"];
       $selectclass[$k]["classname"]=$cdoc["title"];
       if (abs($cdoc["initid"]) == abs($famid)) {
