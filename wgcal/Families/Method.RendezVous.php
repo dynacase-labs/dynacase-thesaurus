@@ -2000,7 +2000,7 @@ function agendaMenu($ctx="CAL", $ue=false, $occurrence="") {
     }
   }
 
-  if ($action->user->id) {
+  if ($action->user->id==1) {
     $menu["main"]["access"]["visibility"] = POPUP_ACTIVE;
     $menu["main"]["sepaccess"]["visibility"] = POPUP_ACTIVE;
   }
