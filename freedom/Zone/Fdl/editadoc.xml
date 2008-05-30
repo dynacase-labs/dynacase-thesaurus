@@ -1,4 +1,4 @@
-<iframe width="100%" id="ifr_[idocid]" style="display:none" src=""></iframe>
+<iframe width="100%" id="ifr_[idocid]" style="display:none" src="[IMG:1x1.gif]"></iframe>
 <div><img title="[TEXT:view abstract card]" align="bottom" onmouseover="updateIfr('ifr_[idocid]')" src="Images/vabstract.gif">
 <input [disabled] type="text" name="[name]" id="[id]" value="[value]" >
 </div>

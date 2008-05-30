@@ -33,6 +33,6 @@ function sendform(evt) {
 [IF Result][BLOCK Contacts]
 <span border="1" onclick="subwindow(300, 550, '[TEXT:view_detail][id]', '[CORE_STANDURL]&app=FDL&action=FDL_CARD&props=N&abstract=N&id=[id]&zone=[fabzone]');">[resume]</span>[ENDBLOCK Contacts][ENDIF Result]
 
-<iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none"></iframe>
+<iframe name="faddbook_pref_hidden" id="faddbook_pref_hidden" style="display:none" src="[IMG:1x1.gif]"></iframe>
 </body>
 </html>

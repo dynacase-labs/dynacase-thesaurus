@@ -108,7 +108,7 @@ window.setInterval('autoclose()',2000);
 </tfoot>
 </table>
 </form>
-<iframe name="fhsave" style="visibility:hidden;display:none"></iframe>
+<iframe name="fhsave" style="visibility:hidden;display:none" src="[IMG:1x1.gif]"></iframe>
 
 </body>
 </html>

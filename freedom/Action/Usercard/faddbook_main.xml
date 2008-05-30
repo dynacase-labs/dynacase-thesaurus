@@ -157,7 +157,7 @@ onmouseout="this.className='fabcontact'; [IF viewpref]document.getElementById('p
 
 </form>
 
-<iframe name="faddbook_main_hidden" id="faddbook_main_hidden" style="display:none"></iframe>
+<iframe name="faddbook_main_hidden" id="faddbook_main_hidden" style="display:none" src="[IMG:1x1.gif]"></iframe>
 
 </body>
 </html>

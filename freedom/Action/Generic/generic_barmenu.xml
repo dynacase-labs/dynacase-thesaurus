@@ -140,5 +140,5 @@ testSplit();
 [BLOCK FAMMENU]<a  id="[mid]" href="#" onClick="if (([confirm] && confirm('[tconfirm]')) || (! [confirm])) subwindowm([FDL_VD2SIZE],[FDL_HD2SIZE],'[mid]','[murl]');closeAllMenu()">[mtitle]</a>
 [ENDBLOCK FAMMENU]
 </div>
-<iframe name="fhidden" style="display:none"></iframe>
+<iframe name="fhidden" style="display:none" src="[IMG:1x1.gif]"></iframe>
 
