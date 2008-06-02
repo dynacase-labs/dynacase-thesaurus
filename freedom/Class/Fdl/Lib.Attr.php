@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.74 2008/04/02 13:36:07 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.75 2008/06/02 09:53:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -495,16 +495,21 @@ function completeAttribute($dbaccess,$ta) {
   $query->order_by="docid";
   $tas = $query->Query(0,0,"TABLE");
 
-  $tw=$ta;
+  if ($query->nb == 0) {
+    error_log("MODATTR error for ".$ta->id);
+    return $ta;
+  } else {
+    $tw=$ta;
 
-  foreach ($tas as $ta1) {
-    foreach ($ta1 as $k=>$v) {
-      if ($v && (!$ta->$k)) $tw->$k=$v;
-      if ($ta->$k == "-") $tw->$k=""; // suppress value
+    foreach ($tas as $ta1) {
+      foreach ($ta1 as $k=>$v) {
+	if ($v && (!$ta->$k)) $tw->$k=$v;
+	if ($ta->$k == "-") $tw->$k=""; // suppress value
+      }
     }
-  }
 
-  return $tw;
+    return $tw;
+  }
 
 }
 ?>
