@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.494 2008/05/30 13:45:41 marc Exp $
+ * @version $Id: Class.Doc.php,v 1.495 2008/06/02 12:10:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5152,6 +5152,26 @@ final public function PostInsert()  {
     return $tinfo;
   }
 
+  /**
+   * return a property of vault file value
+   * 
+   * @param string $filesvalue the file value : like application/pdf|12345
+   * @param string $key one of property id_file, name, size, public_access, mime_t, mime_s, cdate, mdate, adate, teng_state, teng_lname, teng_vid, teng_comment, path
+   * @return string value of property or array of all properties if no key
+   */
+  final public function getFileInfo($filesvalue, $key="") {        
+    if (ereg (REGEXPFILE, $filesvalue, $reg)) {
+      include_once("FDL/Lib.Vault.php");
+      $vid=$reg[2];
+      $info=vault_properties($vid);
+      if ($key != "") {
+	if (isset($info->$key)) return $info->$key;
+	else return sprintf(_("unknow %s file property"),$key);
+      } else {
+	return (array)$info;
+      }
+    }
+  }
  // =====================================================================================
   // ================= Methods use for XML ======================
   final public function toxml($withdtd=false,$id_doc="")  {
