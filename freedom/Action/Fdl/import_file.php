@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.138 2008/05/20 15:27:50 eric Exp $
+ * @version $Id: import_file.php,v 1.139 2008/06/02 15:25:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -27,6 +27,7 @@ function add_import_file(&$action, $fimport) {
   $dirid = GetHttpVars("dirid",10); // directory to place imported doc 
   $analyze = (GetHttpVars("analyze","N")=="Y"); // just analyze
   $policy = GetHttpVars("policy","update"); 
+  $reinit = GetHttpVars("reinitattr"); 
 
   $nbdoc=0; // number of imported document
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -100,7 +101,16 @@ function add_import_file(&$action, $fimport) {
 
 
       $tcr[$nline]["err"].=$err;
-
+      if ($reinit=="yes") {     
+	$tcr[$nline]["msg"].=sprintf(_("reinit all attributes"));
+	if ($analyze) continue;
+	$oattr=new DocAttr($dbaccess);
+	$oattr->docid=intval($doc->id);
+	if ($oattr->docid > 0) {
+	  $err=$oattr->exec_query("delete from docattr where docid=".$oattr->docid);
+	}	      
+	$tcr[$nline]["err"].=$err;
+      }
 	  
       break;
       // -----------------------------------
@@ -422,8 +432,7 @@ function add_import_file(&$action, $fimport) {
       
       $tcr[$nline]["err"].=$err;
 
-      break;
-	
+      break;    
     case "ORDER":  
       if (is_numeric($data[1]))   $orfromid = $data[1];
       else $orfromid = getFamIdFromName($dbaccess,$data[1]);
