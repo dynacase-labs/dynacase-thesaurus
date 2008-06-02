@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.495 2008/06/02 12:10:16 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.496 2008/06/02 16:21:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5168,7 +5168,7 @@ final public function PostInsert()  {
 	if (isset($info->$key)) return $info->$key;
 	else return sprintf(_("unknow %s file property"),$key);
       } else {
-	return (array)$info;
+	return get_object_vars($info);
       }
     }
   }
