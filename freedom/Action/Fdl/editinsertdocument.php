@@ -3,7 +3,7 @@
  * Interface to inser document in  folder
  *
  * @author Anakeen 2007
- * @version $Id: editinsertdocument.php,v 1.2 2007/08/07 16:57:00 eric Exp $
+ * @version $Id: editinsertdocument.php,v 1.3 2008/06/03 10:12:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ function editinsertdocument(&$action) {
     if (method_exists($doc,"isAuthorized")) {	
       if ($doc->isAuthorized($classid)) { 
 	// verify if classid is possible
-	if ($doc->norestrict) $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
+	if ($doc->hasNoRestriction()) $tclassdoc=GetClassesDoc($dbaccess, $action->user->id,$classid,"TABLE");
 	else {
 	  $tclassdoc=$doc->getAuthorizedFamilies();
 	  $action->lay->set("restrict",true);

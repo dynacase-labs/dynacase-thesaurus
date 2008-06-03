@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.78 2008/06/03 07:47:43 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.79 2008/06/03 10:12:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -558,11 +558,11 @@ Class Dir extends PDir
    * @param int $classid : restrict for same usefor families
    */
   public function isAuthorized($classid) {
-    if (! $classid) return true;
     if (! $this->authfam) {
       $this->getAuthorizedFamilies();
     }
     if ($this->norestrict) return true;
+    if (! $classid) return true;
 
     if (isset($this->authfam[$classid])) return true;
     

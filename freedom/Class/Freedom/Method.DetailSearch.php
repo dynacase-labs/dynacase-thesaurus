@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.63 2008/05/21 08:41:20 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.64 2008/06/03 10:12:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -423,7 +423,7 @@ function editdsearch() {
       if (method_exists($dir,"isAuthorized")) {	
 	if ($dir->isAuthorized($classid)) { 
 	  // verify if classid is possible
-	  if ($dir->norestrict) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
+	  if ($dir->hasNoRestriction()) $tclassdoc=GetClassesDoc($this->dbaccess, $action->user->id,$classid,"TABLE");
 	  else {
 	    $tclassdoc=$dir->getAuthorizedFamilies();
 	    $this->lay->set("restrict",true);

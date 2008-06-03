@@ -3,7 +3,7 @@
  * popup for portfolio list
  *
  * @author Anakeen 2000 
- * @version $Id: popupfolio.php,v 1.13 2008/03/14 13:58:03 eric Exp $
+ * @version $Id: popupfolio.php,v 1.14 2008/06/03 10:14:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -55,7 +55,7 @@ function popupfolio(&$action) {
 
       $insertgc=true;
       $insertsgc=true;
-      if (!$dir->norestrict)  {
+      if (!$dir->hasNoRestriction())  {
 	$keys=array_keys($sub);
     
 	$insertgc=(in_array(18,$keys));
