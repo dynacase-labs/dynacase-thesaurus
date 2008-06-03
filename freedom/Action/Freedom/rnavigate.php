@@ -3,7 +3,7 @@
  * Relation Navigation
  *
  * @author Anakeen 2005
- * @version $Id: rnavigate.php,v 1.6 2007/08/01 15:31:46 eric Exp $
+ * @version $Id: rnavigate.php,v 1.7 2008/06/03 16:31:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -97,8 +97,10 @@ function rnavigate(&$action) {
     $tids[]=$v["initid"];
   }
   $vdoc=getVisibleDocsFromIds($dbaccess,$tids,$action->user->id);
+
   $tids=array();
-  foreach ($vdoc as $k=>$v) $tids[]=$v["initid"];
+  if (is_array($vdoc)) foreach ($vdoc as $k=>$v) $tids[]=$v["initid"];
+
   foreach ($tlay as $k=>$v) {
     if ((! in_array($v["initid"],$tids))&&($v["initid"]!=0))  unset($tlay[$k]);
   }
