@@ -3,7 +3,7 @@
  * View/Edit ACLs for a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.11 2008/05/28 13:08:12 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.12 2008/06/03 10:13:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -72,24 +72,25 @@ function freedom_gaccess(&$action) {
     $l=$q->Query(0,0,"TABLE");
 
     $lu=array();
-    foreach ($l as $lp) {
-      $lu[]=$lp["userid"];
-    }
-
-    if ($tusers) {       
-      foreach($tusers as $k=>$v) {
-	if (in_array($v["id"],$lu)) {
-	if ($k > 100) {
-	  $action->AddWarningMsg(sprintf(_("Not all users can be vieved.\nlimit %d has been reached"),$k));
-	  break;
-	}
-	$title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
-	$tg[]=array("level"=>10,
-		    "gid"=>$v["id"],
-		    "displaydyn"=>"none",
-		    "displayuser"=>($v["isgroup"]!="Y")?"inline":"none",
-		    "displaygroup"=>($v["isgroup"]=="Y")?"inline":"none");
+    if ($q->nb>0) {
+      foreach ($l as $lp) {
+	$lu[]=$lp["userid"];
+      }
+      if ($tusers) {       
+	foreach($tusers as $k=>$v) {
+	  if (in_array($v["id"],$lu)) {
+	    if ($k > 100) {
+	      $action->AddWarningMsg(sprintf(_("Not all users can be vieved.\nlimit %d has been reached"),$k));
+	      break;
+	    }
+	    $title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
+	    $tg[]=array("level"=>10,
+			"gid"=>$v["id"],
+			"displaydyn"=>"none",
+			"displayuser"=>($v["isgroup"]!="Y")?"inline":"none",
+			"displaygroup"=>($v["isgroup"]=="Y")?"inline":"none");
 	  }
+	}
       }
     }
   } else   if ($gid == 0) {
