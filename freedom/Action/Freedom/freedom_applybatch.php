@@ -3,7 +3,7 @@
  * Use to help to the construction of batch document
  *
  * @author Anakeen 2005
- * @version $Id: freedom_applybatch.php,v 1.5 2005/10/11 14:20:12 eric Exp $
+ * @version $Id: freedom_applybatch.php,v 1.6 2008/06/03 10:13:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -35,9 +35,8 @@ function freedom_applybatch(&$action) {
   foreach ($tb as $k=>$v) {
     $tb[$k]["iconsrc"]=$bdoc->getIcon($v["icon"]);
 
-    $adoc="Adoc".$v["id"];
-    include_once("FDLGEN/Class.Doc".$v["id"].".php");
-    $fa=new $adoc;
+   
+    $fa=new_doc($dbaccess,$v["id"]);
     $la=$fa->getActionAttributes();
     $ta=array();
     if ($la) {
