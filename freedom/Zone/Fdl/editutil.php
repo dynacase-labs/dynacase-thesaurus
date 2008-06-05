@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.140 2008/05/27 16:25:11 eric Exp $
+ * @version $Id: editutil.php,v 1.141 2008/06/05 08:36:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -54,7 +54,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   else $visibility=$oattr->visibility;
   if ($visibility == "I") return ""; // not editable attribute
  
-  $idisabled = " disabled readonly title=\""._("read only")."\" ";
+  $idisabled = " disabled readonly=1 title=\""._("read only")."\" ";
   $input="";
 		
   

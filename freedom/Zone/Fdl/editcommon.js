@@ -423,35 +423,37 @@ function disableReadAttribute() {
 
       for (var i=0; i< taout[c].length; i++) {
 	if (document.getElementById(taout[c][i])) {
-	  if (document.getElementById(taout[c][i]).type != 'hidden') {
-	    document.getElementById(taout[c][i]).disabled=ndis;
-	    inc=document.getElementById('ic_'+taout[c][i]);
-	    inx=document.getElementById('ix_'+taout[c][i]);
-	    ind=document.getElementById('id_'+taout[c][i]);
-	    if (inc) inc.disabled=ndis;
-	    if (ind) ind.disabled=ndis;
+	  if (true || document.getElementById(taout[c][i]).getAttribute('readonly')!='1') {
+	    if (document.getElementById(taout[c][i]).type != 'hidden') {
+	      document.getElementById(taout[c][i]).disabled=ndis;
+	      inc=document.getElementById('ic_'+taout[c][i]);
+	      inx=document.getElementById('ix_'+taout[c][i]);
+	      ind=document.getElementById('id_'+taout[c][i]);
+	      if (inc) inc.disabled=ndis;
+	      if (ind) ind.disabled=ndis;
 
 
 	 
-	    if (ndis) {
-	      // document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
-	      //if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	      if (ndis) {
+		// document.getElementById(taout[c][i]).style.backgroundColor='[CORE_BGCOLORALTERN]';
+		//if (inc)  inc.style.backgroundColor='[CORE_BGCOLORALTERN]';	      	    
+	      } else {
+	    
+		if (inc) inc.style.backgroundColor='';
+		//if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
+		document.getElementById(taout[c][i]).style.backgroundColor == '';
+	      }
 	    } else {
+	      // search radio
 	    
-	      if (inc) inc.style.backgroundColor='';
-	      //if (document.getElementById(taout[c][i]).style.backgroundColor == '[CORE_BGCOLORALTERN]')
-	      document.getElementById(taout[c][i]).style.backgroundColor == '';
-	    }
-	  } else {
-	    // search radio
-	    
-	    var rx=document.getElementById(taout[c][i]+'0');
-	    if (rx && (rx.type=='radio')) {
-	      var ir=1;
-	      while (rx) {
-		rx.disabled=ndis;
-		rx=document.getElementById(taout[c][i]+ir);
-		ir++;
+	      var rx=document.getElementById(taout[c][i]+'0');
+	      if (rx && (rx.type=='radio')) {
+		var ir=1;
+		while (rx) {
+		  rx.disabled=ndis;
+		  rx=document.getElementById(taout[c][i]+ir);
+		  ir++;
+		}
 	      }
 	    }
 	  }
