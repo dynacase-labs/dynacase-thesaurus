@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Method.Mask.php,v 1.19 2008/05/21 16:52:59 eric Exp $
+ * @version $Id: Method.Mask.php,v 1.20 2008/06/05 12:54:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: Method.Mask.php,v 1.19 2008/05/21 16:52:59 eric Exp $
+// $Id: Method.Mask.php,v 1.20 2008/06/05 12:54:31 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Class/Freedom/Method.Mask.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -135,6 +135,7 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   $docid = $this->getValue("MSK_FAMID",1);
 
   $tvisibilities=$this->getCVisibilities();
+  $tkey_visibilities=array_keys($tvisibilities);
   $tinitvisibilities=$tvisibilities;
 
   
@@ -143,49 +144,37 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
   $this->lay->Set("docid",$docid);
 
   $doc= new_Doc($this->dbaccess,$docid);
+  $doc->applyMask();
+  $origattr=$doc->attributes->attr;
 
-  $tdiff=array_diff(array_keys($doc->attributes->attr),array_keys($tvisibilities));
-  // recompute loosed attributes
-  foreach	($tdiff	as $k)	{
-    $v=$doc->attributes->attr[$k];
-    $tvisibilities[$k]=ComputeVisibility($v->visibility,$v->fieldSet->mvisibility);
-  }
-
+  $tmpdoc=createTmpDoc($this->dbaccess,$docid);
+  $tmpdoc->applyMask($this->id);
+  
   // display current values
   $tmask=array();
   
- 
   $labelvis = $this->getLabelVis();
   
-    
-  $tattr = $doc->GetFieldAttributes();
-  $tattr = $doc->GetNormalAttributes();
-  $tattr += $doc->GetActionAttributes();
-  foreach($tattr as $k=>$attr) {    
-    if ((isset($attr->fieldSet))&&
-	($attr->fieldSet->visibility == "H")) $this->attributes->attr[$k]->mvisibility="H";
-  }
- 
 
-  //  --------------------  ----------------------
-  
-  uasort($tattr,"tordered"); 
+  uasort($tmpdoc->attributes->attr,"tordered"); 
 
-  foreach($tattr as $k=>$attr) {
+  foreach($tmpdoc->attributes->attr as $k=>$attr) {
+    if (!$attr->visibility) continue;
     $tmask[$k]["attrname"]=$attr->labelText;
+    $tmask[$k]["type"]=$attr->type;
     $tmask[$k]["visibility"]=$labelvis[$attr->visibility];
-    $tmask[$k]["wneed"]=($attr->needed)?"bold":"normal";
+    $tmask[$k]["wneed"]=($origattr[$k]->needed)?"bold":"normal";
     $tmask[$k]["bgcolor"]=getParam("COLOR_A9");
-    $tmask[$k]["vislabel"] = " ";
-    if (isset($tvisibilities[$attr->id])) {
-      $tmask[$k]["vislabel"] = $labelvis[$tvisibilities[$attr->id]];
-
-      if ($tmask[$k]["visibility"] != $tmask[$k]["vislabel"]) {
-	if (isset($tinitvisibilities[$attr->id])) $tmask[$k]["bgcolor"]=getParam("COLOR_B5");
-	else	$tmask[$k]["bgcolor"]=getParam("COLOR_A7");
-      }
-    } else $tmask[$k]["vislabel"] = $labelvis["-"];
-
+    $tmask[$k]["mvisibility"] = $labelvis[$attr->mvisibility];
+    
+    
+    if ($tmask[$k]["visibility"] != $tmask[$k]["mvisibility"]) {
+      if ($tmask[$k]["mvisibility"] == $labelvis[$origattr[$k]->mvisibility] ) $tmask[$k]["bgcolor"]=getParam("COLOR_A7");      
+      else $tmask[$k]["bgcolor"]=getParam("COLOR_B7"); 
+    }
+    if (in_array($k, $tkey_visibilities)) {      
+      $tmask[$k]["bgcolor"]=getParam("COLOR_B5");      
+    } 
     
     if (isset($tneedeeds[$attr->id])) {
       if (($tneedeeds[$attr->id]=="Y") || (($tneedeeds[$attr->id]=="-") && ($attr->needed)))  $tmask[$k]["waneed"] = "bold";
@@ -194,14 +183,9 @@ function viewmask($target="_self",$ulink=true,$abstract=false) {
     } else $tmask[$k]["waneed"] = "normal";
 
  
-    // display visibility case of change in needed only
-    if (($tmask[$k]["vislabel"]==" ") && ($tneedeeds[$attr->id] != "-")) $tmask[$k]["vislabel"]=$labelvis[$attr->visibility];
-
-
-    if ($attr->docid == $docid) {
-      $tmask[$k]["disabled"]="";
-    } else {
-      $tmask[$k]["disabled"]="disabled";
+ 
+    if ($tmask[$k]["wneed"] != $tmask[$k]["waneed"]) {
+      $tmask[$k]["bgcolor"]=getParam("COLOR_B5");      
     }
 
 
