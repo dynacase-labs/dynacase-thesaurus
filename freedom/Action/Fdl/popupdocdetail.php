@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.41 2008/03/18 16:47:59 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.42 2008/06/05 07:56:03 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -520,6 +520,9 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
     $tlink["editprof"]["visibility"]=POPUP_CTRLINACTIVE;
   }
 
+  $fdoc = $doc->getFamDoc();
+  if ($fdoc->Control("icreate") != "") $tlink["duplicate"]["visibility"]=POPUP_INVISIBLE;
+
   if ($doc->PreDocDelete() == "") {
     $tlink["delete"]["visibility"]=POPUP_ACTIVE; 
   } else {
@@ -593,7 +596,6 @@ function changeMenuVisibility(&$action,&$tlink,&$doc) {
   $tlink["createforum"]["visibility"] = POPUP_INVISIBLE;
   $tlink["openforum"]["visibility"] = POPUP_INVISIBLE;
   $tlink["closeforum"]["visibility"] = POPUP_INVISIBLE;
-  $fdoc = $doc->getFamDoc();
   $ff = $fdoc->forumid;
   if ($ff!="" && $doc->Control("edit")=="") {
     $vf = intval($doc->forumid);
