@@ -8,7 +8,7 @@ var WattrNtitle=new Array([Wattrntitle]);
   //-->
 </script>
 [IF WID]
- 
+ <table [IF NOSTATE]style="display:none"[ENDIF NOSTATE]>
 [BLOCK LISTSTATE]
 <tr id="iTstate" onmouseover="askForTransition(event);">
  <td colspan="3" align="right">
@@ -67,6 +67,6 @@ var WattrNtitle=new Array([Wattrntitle]);
   </td>
 </tr>
 [ENDBLOCK COMMENT]
-
+</table>
 
 

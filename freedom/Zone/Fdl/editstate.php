@@ -3,7 +3,7 @@
  * State document edition
  *
  * @author Anakeen 2000 
- * @version $Id: editstate.php,v 1.22 2007/06/28 14:40:55 eric Exp $
+ * @version $Id: editstate.php,v 1.23 2008/06/05 08:36:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -113,6 +113,7 @@ function editstate(&$action) {
       $action->lay->set("askes","".strtolower(implode(",",$tjsaskes))."");
       $action->lay->SetBlockData("NEWSTATE", $tstate);
       $action->lay->Set("WID", true);
+      $action->lay->Set("NOSTATE",count($tstate)==0);
       if ($wdoc->viewlist=="button") {
 	$action->lay->SetBlockData("BUTTONSTATE", array(0=>array("boo")));
       } else {
