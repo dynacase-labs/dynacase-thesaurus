@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
- * $Id: freedom.css,v 1.140 2008/05/16 17:03:02 eric Exp $
+ * $Id: freedom.css,v 1.141 2008/06/05 07:56:47 eric Exp $
  * ---------------------------------------------------------------------------
  */
 .FREEDOMTblTitle{
@@ -397,7 +397,7 @@ TABLE.tablehead {
   cursor: pointer;
   background-color:[CORE_BGCOLORALTERN];;
   background-image:url('[IMG:tabvig.png]');
-  color:[CORE_TEXTBGCOLOR];
+/*  color:[CORE_TEXTBGCOLOR];*/
   font-weight: bold;
   border-style: none;
 }
@@ -408,7 +408,7 @@ TABLE.tablehead {
 [IF ISIE]
   filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='[IMG:tabvig.png]',sizingMethod='scale');
 [ENDIF ISIE]
-  color:[CORE_TEXTBGCOLOR];
+/*  color:[CORE_TEXTBGCOLOR];*/
   font-weight: bold;
   border-style: none;
 }
