@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.497 2008/06/05 07:56:34 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.498 2008/06/05 12:54:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3391,6 +3391,7 @@ final public function PostInsert()  {
 	    //$urllink.=urlencode($ovalue); // encode because url values must be encoded
 	    //$urllink.=urlencode($ovalue); // not encode cause url will became invalid
 	    if ($ovalue[0]=='[') $urllink.=urlencode($ovalue);
+	    else if (strstr($ovalue,"\n")) $urllink.=str_replace("\n",'\n',$ovalue);
 	    else $urllink.=($ovalue); // not encode cause url will became invalid	  	  
 	  }
 	}
