@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.496 2008/06/02 16:21:42 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.497 2008/06/05 07:56:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -440,6 +440,7 @@ final public function PostInsert()  {
 	}
 	$this->UpdateVaultIndex();
       }
+      $this->hasChanged=false;
     }  
 
   /**
@@ -3283,20 +3284,18 @@ final public function PostInsert()  {
    * and save the document in database if changes occurred
    */
   final public function Refresh() {	
-    
     if ($this->locked == -1) return; // no refresh revised document
-    if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document
-   
+    if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document   
+    $changed=$this->hasChanged;
+    if (!$changed)  $this->disableEditControl();// disabled control just to refresh
 
     $err=$this->SpecRefresh();
     // if ($this->id == 0) return; // no refresh for no created document
-	
-
     $err.=$this->SpecRefreshGen();
-
     if ($this->hasChanged)  {
-      $this->modify(); // refresh title
+      $err.=$this->modify(); // refresh title
     }
+    if (!$changed)  $this->enableEditControl();
     return $err;
 	
   }
@@ -4508,7 +4507,7 @@ final public function PostInsert()  {
 	  if (($v+$nbimg) > 0) // one value detected
 	    {
 				      
-	      $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+	      $frames[$k]["frametext"]=ucfirst($this->GetLabel($currentFrameId));
 	      $frames[$k]["frameid"]=$currentFrameId;
 	      $frames[$k]["tag"]="";
 	      $frames[$k]["TAB"]=false;;
@@ -5022,7 +5021,7 @@ final public function PostInsert()  {
     if ($v > 0 ) {// latest fieldset
 	  
 	      
-      $frames[$k]["frametext"]="[TEXT:".$this->GetLabel($currentFrameId)."]";
+      $frames[$k]["frametext"]=ucfirst($this->GetLabel($currentFrameId));
       $frames[$k]["frameid"]=$currentFrameId;
       $frames[$k]["TABLEVALUE"]="TABLEVALUE_$k";
       $frames[$k]["tag"]="";
