@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.69 2008/05/14 16:46:36 eric Exp $
+ * @version $Id: editcard.php,v 1.70 2008/06/05 12:53:30 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -258,11 +258,11 @@ function fdl_setHttpVars(&$doc) {
     $http[$k]=$v;
   }
   foreach ($_GET as $k=>$v) {
-    $http[$k]=stripslashes($v);
+    $http[$k]=$v;
   }
   if (is_array($ZONE_ARGS)) {
     foreach ($ZONE_ARGS as $k=>$v) {
-      $http[$k]=stripslashes($v);
+      $http[$k]=$v;
     }
   }
 
@@ -272,7 +272,7 @@ function fdl_setHttpVars(&$doc) {
       if ($doc->getValue($k)=="") {
 	if ($oa->inArray() && (! is_array($v))) $v=$doc->_val2array(str_replace('\n',"\n",$v));
 	$doc->setValue($k,$v);
-	//	print "<br>Set $k to ";print_r($v);
+	//		print "<br>Set $k to ";print_r($v);
 	$ismod=true;
       }
     }
