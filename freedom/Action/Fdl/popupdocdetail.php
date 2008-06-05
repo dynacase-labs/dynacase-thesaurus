@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdocdetail.php,v 1.42 2008/06/05 07:56:03 eric Exp $
+ * @version $Id: popupdocdetail.php,v 1.43 2008/06/05 09:09:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -297,6 +297,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
     $tk = $cvdoc->getTValue("CV_KVIEW");
     $tm = $cvdoc->getTValue("CV_MSKID");
     $td = $cvdoc->getTValue("CV_DISPLAYED");
+    $tmenu = $cvdoc->getTValue("CV_MENU");
 
 
     $tv=array(); // consult array views
@@ -313,6 +314,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
 		if ($cvdoc->control($cvk) == "") {
 		  $tv[$cvk] = array("typeview"=>N_("specialedit"),# N_("specialedit %s")
 				    "idview"   => $cvk,
+				    "menu" => $tmenu[$k],
 				    "zoneview" => $tz[$k],
 				    "txtview"  => $tl[$k]);
 		}
@@ -321,6 +323,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
 	      if ($cvdoc->control($cvk) == "") {
 		$tv[$cvk] = array("typeview"=>N_("specialview"),# N_("specialview %s") 
 				  "idview"   => $cvk,
+				  "menu" => $tmenu[$k],
 				  "zoneview" => $tz[$k],
 				  "txtview"  => $tl[$k]);
 	      }
@@ -334,7 +337,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
     foreach ($tv as $v) {
       $count[$v["typeview"]]++;
     }
-    
+
     foreach ($tv as $v) {
       $engine=$cvdoc->getZoneTransform($v["zoneview"]);
       $url=($v["typeview"]=='specialview')?"$surl&app=FDL&action=FDL_CARD&vid=".$v["idview"]."&id=$docid":"$surl&app=GENERIC&action=GENERIC_EDIT&rvid=$rvid&vid=".$v["idview"]."&id=$docid";
@@ -344,7 +347,15 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
       } else {	
 	$js="";
       }
-      $tlink[$v["idview"]]=array( "descr"=>($count[$v["typeview"]]>1)?$v["txtview"]:sprintf(_($v["typeview"]. " %s"),$v["txtview"]) ,
+      if ($v["menu"]!="") { 
+	if ($v["menu"]=="-") $submenu="";
+	else $submenu=$v["menu"];
+	$mtitle=$v["txtview"];
+      } else  {
+	$submenu=($count[$v["typeview"]]>1)?$v["typeview"]:"";
+	$mtitle=($count[$v["typeview"]]>1)?$v["txtview"]:sprintf(_($v["typeview"]. " %s"),$v["txtview"]);
+      }
+      $tlink[$v["idview"]]=array( "descr"=>$mtitle ,
 				  "url"=>$url,
 				  "jsfunction"=>$js,
 				  "confirm"=>"false",
@@ -352,7 +363,7 @@ function addCvPopup(&$tlink,&$doc,$target="_self") {
 				  "tconfirm"=>"",
 				  "target"=>$target,
 				  "visibility"=>POPUP_ACTIVE,
-				  "submenu"=>($count[$v["typeview"]]>1)?$v["typeview"]:"",
+				  "submenu"=>$submenu,
 				  "barmenu"=>"false");
     }
 
