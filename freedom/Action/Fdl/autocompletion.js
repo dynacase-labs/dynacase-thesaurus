@@ -180,7 +180,6 @@ function callSuggestions(valeur){
     displayMessage('searching...');
     //appel à l'url distante
     _xmlHttp.open("POST",_adresseRecherche+'&skey='+valeur,true);
-    _xmlHttp.setRequestHeader("Toto", "zou");
     _xmlHttp.setRequestHeader("Content-Type", "multipart/form-data; boundary=\"" + BOUNDARY +"\"");
     var ie=_documentForm.elements.length;
     for (var i=0;i<ie;i++) {
@@ -190,20 +189,21 @@ function callSuggestions(valeur){
     }
 
     _xmlHttp.onreadystatechange=function() {
-      if(_xmlHttp.readyState==4) {
+      if(_xmlHttp.readyState==4) {	
 	if (_xmlHttp.responseXML) {
 	
-        var liste = traiteXmlSuggestions(_xmlHttp.responseXML);
-        //cacheResults(valeur,liste);
-	if (liste.length >0) {
-	  metsEnPlace(valeur,liste);
-	  if (_forceone && (liste.length == 1)) {
-	    completeChoiceAuto(0);
-	  }
-	
-	  
-	} 
-	} else if (_xmlHttp.responseText)	alert(_xmlHttp.responseText);
+	  var liste = traiteXmlSuggestions(_xmlHttp.responseXML);
+	  //cacheResults(valeur,liste);
+	  if (liste.length >0) {
+	    metsEnPlace(valeur,liste);
+	    if (_forceone && (liste.length == 1)) {
+	      completeChoiceAuto(0);
+	    }		  
+	  } 
+	} else if (_xmlHttp.responseText) {
+	  if (_xmlHttp.responseText.substring(0,5) != '<?xml')
+	    alert(_xmlHttp.responseText);
+	}
       }
     
     };
