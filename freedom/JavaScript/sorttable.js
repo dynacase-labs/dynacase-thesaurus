@@ -30,7 +30,6 @@ sorttable = {
     if (!document.createElement || !document.getElementsByTagName) return;
     
     sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
-    
     forEach(document.getElementsByTagName('table'), function(table) {
       if (table.className.search(/\bsortable\b/) != -1) {
         sorttable.makeSortable(table);
@@ -270,30 +269,38 @@ sorttable = {
   },
   sort_ddmm: function(a,b) {
     mtch = a[0].match(sorttable.DATE_RE);
-    y = mtch[3]; m = mtch[2]; d = mtch[1];
-    if (m.length == 1) m = '0'+m;
-    if (d.length == 1) d = '0'+d;
-    dt1 = y+m+d;
-    mtch = b[0].match(sorttable.DATE_RE);
-    y = mtch[3]; m = mtch[2]; d = mtch[1];
-    if (m.length == 1) m = '0'+m;
-    if (d.length == 1) d = '0'+d;
-    dt2 = y+m+d;
+    if (mtch) {
+      y = mtch[3]; m = mtch[2]; d = mtch[1];
+      if (m.length == 1) m = '0'+m;
+      if (d.length == 1) d = '0'+d;
+      dt1 = y+m+d;
+    } else dt1=0;
+    mtch = b[0].match(sorttable.DATE_RE); 
+    if (mtch) {
+      y = mtch[3]; m = mtch[2]; d = mtch[1];
+      if (m.length == 1) m = '0'+m;
+      if (d.length == 1) d = '0'+d;
+      dt2 = y+m+d;
+    } else dt2=0;
     if (dt1==dt2) return 0;
     if (dt1<dt2) return -1;
     return 1;
   },
   sort_mmdd: function(a,b) {
     mtch = a[0].match(sorttable.DATE_RE);
-    y = mtch[3]; d = mtch[2]; m = mtch[1];
-    if (m.length == 1) m = '0'+m;
-    if (d.length == 1) d = '0'+d;
-    dt1 = y+m+d;
+    if (mtch) {
+      y = mtch[3]; d = mtch[2]; m = mtch[1];
+      if (m.length == 1) m = '0'+m;
+      if (d.length == 1) d = '0'+d;
+      dt1 = y+m+d;
+    } else dt1=0;
     mtch = b[0].match(sorttable.DATE_RE);
-    y = mtch[3]; d = mtch[2]; m = mtch[1];
-    if (m.length == 1) m = '0'+m;
-    if (d.length == 1) d = '0'+d;
-    dt2 = y+m+d;
+    if (mtch) {
+      y = mtch[3]; d = mtch[2]; m = mtch[1];
+      if (m.length == 1) m = '0'+m;
+      if (d.length == 1) d = '0'+d;
+      dt2 = y+m+d;
+    } else dt2=0;
     if (dt1==dt2) return 0;
     if (dt1<dt2) return -1;
     return 1;
@@ -337,22 +344,10 @@ sorttable = {
 
 // Dean Edwards/Matthias Miller/John Resig
 
-/* for Mozilla/Opera9 */
-if (document.addEventListener) {
-    document.addEventListener("DOMContentLoaded", sorttable.init, false);
-}
 
-/* for Internet Explorer */
-/*@cc_on @*/
-/*@if (@_win32)
-    document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
-    var script = document.getElementById("__ie_onload");
-    script.onreadystatechange = function() {
-        if (this.readyState == "complete") {
-            sorttable.init(); // call the onload handler
-        }
-    };
-/*@end @*/
+
+addEvent(window, "load", sorttable.init);
+
 
 /* for Safari */
 if (/WebKit/i.test(navigator.userAgent)) { // sniff
@@ -363,8 +358,7 @@ if (/WebKit/i.test(navigator.userAgent)) { // sniff
     }, 10);
 }
 
-/* for other browsers */
-window.onload = sorttable.init;
+
 
 // written by Dean Edwards, 2005
 // with input from Tino Zijdel, Matthias Miller, Diego Perini
