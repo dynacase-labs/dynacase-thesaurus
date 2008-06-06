@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.37 2008/04/14 10:12:34 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.38 2008/06/06 10:32:10 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -156,13 +156,27 @@ Class NormalAttribute extends BasicAttribute {
     global $__tlenum;
 
     $this->getEnum();
-    if (isset($__tlenum[$this->id])){
-      if ($enumid=="") return $__tlenum[$this->id]; // not twice
-      else if (isset($__tlenum[$this->id][$enumid])) return $__tlenum[$this->id][$enumid];
-      else return $enumid;
-    }
-    
-  
+
+    $implode=false;
+    if (isset($__tlenum[$this->id])) { // is set
+      if ($enumid=="") return $__tlenum[$this->id]; 
+      if (strstr($enumid,"\n")) {
+	$enumid=explode("\n",$enumid);
+	$implode=true;
+      }
+      if (is_array($enumid)) {
+	$tv=array();
+	foreach ($enumid as $v) {
+	  if (isset($__tlenum[$this->id][$v])) $tv[]= $__tlenum[$this->id][$v];
+	  else $tv[]=$enumid;
+	}
+	if ($implode) return implode("\n",$tv);
+	return $tv;
+      } else {
+	if (isset($__tlenum[$this->id][$enumid])) return $__tlenum[$this->id][$enumid];
+	else return $enumid;
+      }
+    }    
   }
 
  
