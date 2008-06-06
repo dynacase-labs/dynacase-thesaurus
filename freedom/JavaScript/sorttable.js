@@ -28,7 +28,6 @@ sorttable = {
     if (_timer) clearInterval(_timer);
     
     if (!document.createElement || !document.getElementsByTagName) return;
-    
     sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
     forEach(document.getElementsByTagName('table'), function(table) {
       if (table.className.search(/\bsortable\b/) != -1) {
@@ -39,6 +38,10 @@ sorttable = {
   },
   
   makeSortable: function(table) {
+   
+    if (table.getAttribute('isinit')==1) return;
+    table.setAttribute('isinit',1)
+
     if (table.getElementsByTagName('thead').length == 0) {
       // table doesn't have a tHead. Since it should have, create one and
       // put the first table row in it.
@@ -93,6 +96,7 @@ sorttable = {
           if (this.className.search(/\bsorttable_sorted\b/) != -1) {
             // if we're already sorted by this column, just 
             // reverse the table, which is quicker
+	    alert('reverse1');
             sorttable.reverse(this.sorttable_tbody);
             this.className = this.className.replace('sorttable_sorted',
                                                     'sorttable_sorted_reverse');
@@ -104,6 +108,7 @@ sorttable = {
             return;
           }
           if (this.className.search(/\bsorttable_sorted_reverse\b/) != -1) {
+	    alert('reverse2');
             // if we're already sorted by this column in reverse, just 
             // re-reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
