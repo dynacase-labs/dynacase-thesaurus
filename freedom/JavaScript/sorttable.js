@@ -96,7 +96,6 @@ sorttable = {
           if (this.className.search(/\bsorttable_sorted\b/) != -1) {
             // if we're already sorted by this column, just 
             // reverse the table, which is quicker
-	    alert('reverse1');
             sorttable.reverse(this.sorttable_tbody);
             this.className = this.className.replace('sorttable_sorted',
                                                     'sorttable_sorted_reverse');
@@ -108,7 +107,6 @@ sorttable = {
             return;
           }
           if (this.className.search(/\bsorttable_sorted_reverse\b/) != -1) {
-	    alert('reverse2');
             // if we're already sorted by this column in reverse, just 
             // re-reverse the table, which is quicker
             sorttable.reverse(this.sorttable_tbody);
