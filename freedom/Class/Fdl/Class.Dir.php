@@ -3,7 +3,7 @@
  * Folder document definition
  *
  * @author Anakeen 2000 
- * @version $Id: Class.Dir.php,v 1.79 2008/06/03 10:12:21 eric Exp $
+ * @version $Id: Class.Dir.php,v 1.80 2008/06/09 10:35:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -242,6 +242,7 @@ Class Dir extends PDir
 	    if ($profid > 0) {
 	      $doc->setProfil($profid);
 	      $err=$doc->modify(true,array("profid","dprofid"),true);		     
+	      if ($err=="") $doc->addComment(sprintf(_("Change profil to default document profil : %d"),$profid));
 	    }
 	    break;
 	  case FAM_ACCESSDIR:
@@ -257,7 +258,9 @@ Class Dir extends PDir
 		$doc->setValue("FLD_PDOCID", $this->getValue("FLD_PDOCID"));
 		$doc->setValue("FLD_PDOC", $this->getValue("FLD_PDOC"));
 	      }
-	      $doc->modify();
+	      $err=$doc->modify();
+	      if ($err=="") $doc->addComment(sprintf(_("Change profil to default subfolder profil : %d"),$profid));
+	      
 	    }
 	    break;
 
