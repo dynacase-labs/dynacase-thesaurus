@@ -81,7 +81,8 @@
          [ENDBLOCK SELECTDFLD]
     </select><BR>
 
-<input type="checkbox" value="1" [oselected] onclick="document.anatar.famid.disabled=(this.checked);enabledImport(false)" name="onlycsv">[TEXT:Only CSV]</input><br/>
+<input type="radio" value="1" [oselected] onclick="document.anatar.famid.disabled=true;enabledImport(false)" name="onlycsv">[TEXT:Analyse fdl.csv]</input>
+<input type="radio" value="2" [notoselected]  onclick="document.anatar.famid.disabled=false;enabledImport(false)" name="onlycsv">[TEXT:Raw archive]</input><br/>
 <input type="checkbox" name="topfld" onclick="enabledImport(false)" value="1" [tselected]>[TEXT:Add top folder]</input> 
 <hr width="50%">
 <input type="submit" name="banalyze" disabled value="[TEXT:Analyze]"> 

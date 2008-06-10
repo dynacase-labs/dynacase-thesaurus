@@ -3,7 +3,7 @@
  * View imported tar
  *
  * @author Anakeen 2004
- * @version $Id: freedom_ana_tar.php,v 1.8 2007/03/22 16:43:29 eric Exp $
+ * @version $Id: freedom_ana_tar.php,v 1.9 2008/06/10 07:07:39 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -67,7 +67,7 @@ function analyze_tar(&$action,$selfile) {
   $dirid = GetHttpVars("dirid"); // directory to place imported doc 
   $famid = GetHttpVars("famid",7); // default import family
   $dfldid = GetHttpVars("dfldid",2); // default import folder family
-  $onlycsv = (GetHttpVars("onlycsv") != ""); // only files described in fdl.csv files
+  $onlycsv = GetHttpVars("onlycsv"); // only files described in fdl.csv files
   $topfld = (GetHttpVars("topfld") != ""); // add a root folder
   $analyze = (GetHttpVars("analyze","Y")=="Y"); // just analyze
   $filename = GetHttpVars("filename"); // the select filename
@@ -125,7 +125,8 @@ function analyze_tar(&$action,$selfile) {
       
     }
   }
-
+  if (! $onlycsv) $onlycsv=hasfdlpointcsv($untardir);
+  else $onlycsv=($onlycsv!="2");
   $tr=import_directory($action,$untardir,$dirid,$famid,$dfldid,$onlycsv,$analyze);
 
   if ($tr) {
@@ -152,6 +153,7 @@ function analyze_tar(&$action,$selfile) {
   $action->lay->SetBlockData("ADDEDDOC",$tr);
   $action->lay->Set("selfile",stripslashes($selfile));
   $action->lay->Set("oselected",$onlycsv?"checked":"");
+  $action->lay->Set("notoselected",$onlycsv?"":"checked");
   $action->lay->Set("tselected",$topfld?"checked":"");
   $action->lay->Set("fdisabled",$onlycsv?"disabled":"");
   $action->lay->Set("mailaddr",getMailAddr($action->user->id));
@@ -171,5 +173,20 @@ function strposn($s,$c, $i) {
   }
   if ($p==0) $p=strlen($s);
   return $p;
+}
+
+function hasfdlpointcsv($dir) {
+  $found= file_exists("$dir/fdl.csv");
+  if (! $found) {
+    if ($handle = opendir($dir)) {
+      while ((!$found) && (false !== ($file = readdir($handle)))) {
+	if (is_dir("$dir/$file")) {
+	  $found= file_exists("$dir/$file/fdl.csv");	  
+	}
+    }
+    closedir($handle);
+    }    
+  }
+  return $found;
 }
 ?>
