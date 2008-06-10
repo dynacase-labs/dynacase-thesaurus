@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.498 2008/06/05 12:54:10 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.499 2008/06/10 15:04:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -2580,8 +2580,11 @@ final public function PostInsert()  {
 	      "sug"=>array());
     $oattr = $this->getAttribute($attrid);
     if (strlen(trim($oattr->phpconstraint)) > 1) {
+      $ko=array("err"=>sprintf(_("method %s not found"),$oattr->phpconstraint),
+		"sug"=>array());
 
-       $res = $this->applyMethod($oattr->phpconstraint,'KO',$index);
+       $res = $this->applyMethod($oattr->phpconstraint,$ko,$index);
+
        if ($res !== true) return $res;
     }
 
