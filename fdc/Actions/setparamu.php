@@ -3,7 +3,7 @@
  * Get Values in XML form
  *
  * @author Anakeen 2006
- * @version $Id: setparamu.php,v 1.3 2006/08/07 15:54:56 eric Exp $
+ * @version $Id: setparamu.php,v 1.4 2008/06/10 15:00:14 jerome Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FDC
@@ -63,12 +63,8 @@ if ($pdef->nb==0) {
   } else {
     $p = $list[0];
   }
-  $p->val = utf8_decode($parval);
-  if ($p->isAffected())  $err=$p->modify();
-  else $err=$p->add();
-  if ($err != "") $err=sprintf(_("Attribute %s not modified : %s\n"),$parname,$err);
-  else  $action->parent->session->close(); // to reinit cache prameters
-  
+
+  $p->Set($p->name, utf8_decode($parval), $p->type, $p->appid);
 }
 
   if ($err) $action->lay->set("warning",utf8_encode($err));
