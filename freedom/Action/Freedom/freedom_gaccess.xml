@@ -36,6 +36,24 @@ TABLE.hborder td {
 TABLE.hborder td.left {
   background-color:[COLOR_A9];
 }
+TABLE.hborder TBODY td.even {
+  background-color:[COLOR_A8];
+}
+TABLE.hborder TBODY td.odd {
+  background-color:[COLOR_A9];
+}
+TABLE.hborder THEAD td.even {
+  background-color:[COLOR_B8];
+  width:[cellwidth];
+}
+TABLE.hborder THEAD td.odd {
+  background-color:[COLOR_B9];
+  width:[cellwidth];
+}
+TABLE.hborder td.headaccess {
+  background-color:[COLOR_B7];
+  font-weight: bold;
+}
 </style>
 <form  name="edit" method="POST" action="[CORE_STANDURL]app=FREEDOM&action=FREEDOM_MODACCESS">
 <input type="hidden" name="docid" value="[docid]">
@@ -46,8 +64,8 @@ TABLE.hborder td.left {
 <thead>
 
 <TR >
-<TD colspan="2"class="CORETblHeadCell"><span class="CORETblHeadBold">[title]</span></TD>
- [BLOCK DACLS]<TD class="CORETblHeadCell" align="center" valign="top" title="[acldesc]" style="cursor:help"><span class="CORETblHead">[aclname]</span></TD>
+<TD colspan="2" class="headaccess">[title]</TD>
+ [BLOCK DACLS]<TD class="[oddoreven]" align="center" valign="top" title="[acldesc]" style="cursor:help">[aclname]</TD>
  [ENDBLOCK DACLS]
 [IFNOT ISIE]<td style="width:20px;visibility:visible"></td>[ENDIF ISIE]
 </TR>
@@ -67,7 +85,7 @@ TABLE.hborder td.left {
    <TD align="right"  class="left"  >
      <button style="display:[dmodify]" onclick="enablefrom(this.parentNode.parentNode);"  type="button" >&there4;</button></TD>
     [BLOCK [ACLS]]
-    <TD  align="center">
+    <TD  align="center" class="[oddoreven]">
       <img  src="[IMG:[bimg]]" width="10px" height="10px"  >
       <input align="top" style="display:none" disabled type="checkbox" name="acls[[gid]][[iacl]]" value="[aclid]" [selected] >
   </TD>

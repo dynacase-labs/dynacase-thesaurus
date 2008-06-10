@@ -3,7 +3,7 @@
  * View/Edit ACLs for a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.12 2008/06/03 10:13:53 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.13 2008/06/10 07:43:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -54,9 +54,12 @@ function freedom_gaccess(&$action) {
   // contruct headline
   reset($acls);
   $hacl=array();
-  while(list($k,$v) = each($acls)) {
-    $hacl[$k]["aclname"]=_($v);
-    $hacl[$k]["acldesc"]=_($doc->dacls[$v]["description"]);
+  $width=floor(70/count($acls));
+  $action->lay->set("cellwidth",$width.'%');
+  foreach($acls as $k=>$v) {
+    $hacl[$k]["aclname"]=ucfirst(_($v));
+    $hacl[$k]["acldesc"]=ucfirst(_($doc->dacls[$v]["description"]));
+    $hacl[$k]["oddoreven"]=($k%2)?"even":"odd";
   }
   
   $action->lay->SetBlockData("DACLS", $hacl);
@@ -233,13 +236,12 @@ function getTacl($dbaccess,$dacls, $acls, $docid,$gid) {
   
   $perm = new DocPerm($dbaccess, array($docid,$gid));
   
-
+  
   foreach($acls as $k=>$v ) {
-
-
     $tableacl[$k]["aclname"]=$v;
       $pos=$dacls[$v]["pos"];
 
+      $tableacl[$k]["oddoreven"]=($k%2)?"even":"odd";
       $tableacl[$k]["aclid"]=$pos;
       $tableacl[$k]["iacl"]=$k; // index for table in xml
       if ($perm->ControlUp($pos)) {
