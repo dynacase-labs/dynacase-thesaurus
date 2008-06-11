@@ -3,7 +3,7 @@
  * Display doucment explorer
  *
  * @author Anakeen 2006
- * @version $Id: prototree.php,v 1.1 2008/04/04 14:46:55 eric Exp $
+ * @version $Id: prototree.php,v 1.2 2008/06/11 16:18:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage FDL
@@ -33,6 +33,7 @@ function prototree(&$action,$tree,$postact=array()) {
     $tree[$k]["ulid"]=$pulid.$k;
     if (! isset($v["selecturl"])) $tree[$k]["selecturl"]=false;
     if (! isset($v["selectjs"])) $tree[$k]["selectjs"]=false;
+    $tree[$k]["selectnone"]= !($tree[$k]["selectjs"]||$tree[$k]["selecturl"]);
   }
   $action->lay->setBlockData("TREE",$tree);
   $action->lay->setBlockData("ACTIONS",$postact);

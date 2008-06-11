@@ -35,3 +35,8 @@ DIV.prototree LI A {
   overflow:hidden;
   white-space:nowrap;
 }
+DIV.prototree LI A.anosel:hover {
+  cursor:default;
+  text-decoration: none;
+  background-color:transparent;
+}
