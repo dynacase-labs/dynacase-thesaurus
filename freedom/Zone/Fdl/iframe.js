@@ -78,9 +78,9 @@ d.gEl(ids+"_min").h=parseInt(d.gEl(ids+"_b").style.height);
 
 function preloadBttns(){
 var btns=new Array();
-btns[0]=new Image(); btns[0].src="Images/byellow.gif";
-btns[1]=new Image(); btns[1].src="Images/bgreen.gif";
-btns[2]=new Image(); btns[2].src="Images/bred.gif";
+btns[0]=new Image(); btns[0].src="Images/byellow.png";
+btns[1]=new Image(); btns[1].src="Images/bgreen.png";
+btns[2]=new Image(); btns[2].src="Images/bred.png";
 btns[3]=new Image(); btns[3].src="Images/resize.gif";
 }
 preloadBttns();
@@ -251,15 +251,16 @@ function popUp(x,y,w,h,cid,text,bgcolor,textcolor,fontstyleset,title,titlecolor,
       outerdiv.style.zIndex=++zdx;
       tw=(ie5)?w-8:w-5;
       th=(ie5)?h+4:h-4;
-      var titlebar=new subBox(2,2,tw,20,titlecolor,cid+'_t');
+      var ht=15; // height of title bar
+      var titlebar=new subBox(2,2,tw,ht,titlecolor,cid+'_t');
       titlebar.style.overflow="hidden";
       titlebar.style.cursor="move";
       titlebar.style.backgroundImage="url('Images/tabvig.png')";
-      var bsavegeo=(noDecoration)?'<img style="display:none" src="Images/byellow.gif" id="'+cid+'_max">':'<img style="cursor:default" src="Images/byellow.gif" id="'+cid+'_max">';
-      var tmp=(isresize)?'<img style="cursor:default" src="Images/bgreen.gif"  id="'+cid+'_min">'+bsavegeo:'';
-      titlebar.innerHTML='<span id="'+cid+'_ti" style="position:absolute; left:3px; top:1px; font:bold 10pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; height:16px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.gif"  id="'+cid+'_cls"></div>';
+      var bsavegeo=(noDecoration)?'<img style="display:none" src="Images/byellow.png" id="'+cid+'_max">':'<img style="cursor:default" src="Images/byellow.png" id="'+cid+'_max">';
+      var tmp=(isresize)?'<img title="Minimise/Maximise" style="cursor:default" src="Images/bgreen.png"  id="'+cid+'_min">'+bsavegeo:'';
+      titlebar.innerHTML='<span title="Close" id="'+cid+'_ti" style="position:absolute; left:3px; top:1px; font:bold 9pt sans-serif; color:'+titletextcolor+'; height:18px; overflow:hidden; clip-height:16px;">'+title+'</span><div id="'+cid+'_btt" style="position:absolute; width:48px; left:'+(tw-48)+'px; top:2px; text-align:right">'+tmp+'<img style="cursor:default" src="Images/bred.png" title="Close" id="'+cid+'_cls"></div>';
       tw=(ie5)?w-7:w-13;
-      var content=new subBox(2,24,tw,h-36,bgcolor,cid+'_c');
+      var content=new subBox(2,ht+4,tw,h-15-ht,bgcolor,cid+'_c');
       content.style.borderColor=bordercolor;
       content.style.borderWidth="2px";
       if(isExt){
