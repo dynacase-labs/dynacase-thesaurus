@@ -96,7 +96,7 @@ function openFixedDiv(name,text,x,y,w,h) {
   document.body.appendChild(a);  
 }
 
-function openTabFrame(name,taburl,title) {
+function openTabFrame(name,title) {
   var x=330;
   var y=20;
   var w=600;
@@ -107,7 +107,7 @@ function openTabFrame(name,taburl,title) {
   if (! dpopdiv) {
     new popUp(x, y, w, h, name, text, '[CORE_BGCOLOR]', '[CORE_TEXTFGCOLOR]', '16pt serif', title, '[COLOR_B5]', '[CORE_TEXTFGCOLOR]', '[COLOR_B7]', '[CORE_BGCOLORALTERN]', 'black',true, true, true, true, false, false, true);
   } else {
-    changecontent(name,taburl);
+    showbox(name);
   }
 }
 
@@ -146,6 +146,10 @@ function openFrameInTabFrame(mainframe,tabname,taburl,tabtitle) {
   var dpopdiv = $('windowstabs'+mainframe);
 
   if (! dpopdiv) {
+    openTabFrame(mainframe,tabtitle);
+    dpopdiv = $('windowstabs'+mainframe);
+  }
+  if (! dpopdiv) {
     alert('no frame '+name);
   } else {
     var idf='tab'+tabname;
@@ -164,6 +168,7 @@ function openFrameInTabFrame(mainframe,tabname,taburl,tabtitle) {
       addTabEntry(dpopdiv,mainframe,tabname,tabtitle);
       displaytab(tabname);
     }
+    showbox(mainframe);
   }
 }
 

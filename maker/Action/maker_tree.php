@@ -3,7 +3,7 @@
  * Folder tree for maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_tree.php,v 1.5 2008/06/11 06:50:18 eric Exp $
+ * @version $Id: maker_tree.php,v 1.6 2008/06/11 11:49:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -83,14 +83,14 @@ function maker_tree(&$action) {
 		   "icon"=>$action->getImageUrl("document.png"),
 		   "tooltip"=>false,
 		   "expandurl"=>"$surl&app=MAKER&action=MAKER_TREE&type=document&project=$project",
-		   "selectjs"=>"openTabFrame( 'Documents$project' , 'http://www.anakeen.com','".sprintf(_("Families of %s project"),$project)."')",
+		   "selectjs"=>"openTabFrame( 'Documents$project' , '".sprintf(_("Families of %s project"),$project)."')",
 		   "target"=>"_blank",
 		   "leaf"=>false);
 
      $tree[]=array("label"=>_("Create Main Frame"),
 		   "icon"=>$action->getImageUrl("document.png"),
 		   "tooltip"=>false,
-		   "selectjs"=>"openTabFrame( 'Documents$project' , 'http://www.anakeen.com','".sprintf(_("Main %s project"),$project)."')",
+		   "selectjs"=>"openTabFrame( 'Documents$project' , '".sprintf(_("Main %s project"),$project)."')",
 		   "target"=>"_blank",
 		   "leaf"=>true);
 
