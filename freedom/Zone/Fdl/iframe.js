@@ -30,7 +30,7 @@ if(w3c){
 var bx=d.getElementById(id+'_b');
 var sh=d.getElementById(id+'_s');
 bx.style.display='';
-sh.style.display='';
+ if (sh.style.display!='none') sh.style.display='';
 sh.style.zIndex=++zdx;
 bx.style.zIndex=++zdx;
 changez(bx);
