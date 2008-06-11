@@ -17,16 +17,23 @@ function viewmakermenu(event,type,upobject) {
 
 
 function viewprojecttree(event,where) {
-  poptree(event,'[TEXT:the project tree]',10,20,300,500);
-  //poptest(event,'[TEXT:the test]',315,20,800,500);
   var CORE_STANDURL=window.location.pathname+'?sole=Y&';
   var url= CORE_STANDURL+'app=MAKER&action=MAKER_TREE&type=top';
+  //  poptree(event,'[TEXT:the project tree]',10,20,300,500);
+  //openSingleDiv('toptree','','[TEXT:the project tree]');
+   openFixedDiv('toptree','[TEXT:the project tree]',10,40,300,600);
+
+   $('toptree_c').addClassName('prototree');
+   $('toptree_c').style.border='solid black 1px';
+
   reloadtree(event,'toptree_c',url);
 }
+
+
 addEvent(window, 'load', viewprojecttree);
 
 
-
+/*
 // create popup for insert div after
 function poptree(event,divtitle,x,y,w,h) {
   var dpopdiv = document.getElementById('toptree_s');
@@ -48,9 +55,9 @@ function poptest(event,divtitle,x,y,w,h) {
    
   } 
 }
+*/
 
-
-function openSingleFrame(name,url,title) {
+function openSingleFrame(name,url,title,classname) {
   var x=30;
   var y=30;
   var w=200;
@@ -58,12 +65,36 @@ function openSingleFrame(name,url,title) {
   var dpopdiv = document.getElementById(name+'_s');
   var fpopdiv;
   if (! dpopdiv) {
-    new popUp(x, y, w, h, name, url, '[CORE_BGCOLOR]', '[CORE_TEXTFGCOLOR]', '16pt serif', title, '[COLOR_B5]', '[CORE_TEXTFGCOLOR]', '[COLOR_B7]', '[CORE_BGCOLORALTERN]', 'black',true, true, true, true, true, false, true);
+    var iframe=true;
+    new popUp(x, y, w, h, name, url, '[CORE_BGCOLOR]', '[CORE_TEXTFGCOLOR]', '16pt serif', title, '[COLOR_B5]', '[CORE_TEXTFGCOLOR]', '[COLOR_B7]', '[CORE_BGCOLORALTERN]', 'black',true, true, true, true, iframe, false, true);
+    dpopdiv = document.getElementById(name+'_c');
+    if (dpopdiv && classname) $(dpopdiv).addClassName(classname);
+    
   } else {
     changecontent(name,url);
   }
 }
 
+function openSingleDiv(name,text,title) {
+  var x=30;
+  var y=30;
+  var w=200;
+  var h=100;
+  var dpopdiv = document.getElementById(name+'_s');
+  var fpopdiv;
+  if (! dpopdiv) {
+    // no iframe
+    var iframe=false;
+    new popUp(x, y, w, h, name, text, '[CORE_BGCOLOR]', '[CORE_TEXTFGCOLOR]', '16pt serif', title, '[COLOR_B5]', '[CORE_TEXTFGCOLOR]', '[COLOR_B7]', '[CORE_BGCOLORALTERN]', 'black',true, true, true, true, iframe, false, true);
+  } else {
+    changecontent(name,url);
+  }
+}
+function openFixedDiv(name,text,x,y,w,h) {
+  
+  var a = new Element('div', {'id':name+'_c', 'style': 'position:absolute;overflow:auto;top:'+y+';left:'+x+';width:'+w+';height:'+h }).update("Next page");
+  document.body.appendChild(a);  
+}
 
 function openTabFrame(name,taburl,title) {
   var x=330;

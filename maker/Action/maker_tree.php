@@ -3,7 +3,7 @@
  * Folder tree for maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_tree.php,v 1.4 2008/04/18 15:18:42 eric Exp $
+ * @version $Id: maker_tree.php,v 1.5 2008/06/11 06:50:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -117,7 +117,7 @@ function maker_tree(&$action) {
      $tree[]=array("label"=>_("Create First Tab Div"),
 		   "icon"=>$action->getImageUrl("document.png"),
 		   "tooltip"=>false,
-		   "selectjs"=>"openDivInTabFrame( 'Documents$project' , 'TabSecond$project', 'http://chewbacca.tlse.anakeen.com/freedom/?sole=Y&&app=FDL&action=IMPCARD&zone=FDL:VIEWBODYCARD:S&id=9','".sprintf(_("Third %s project"),$project)."')",
+		   "selectjs"=>"openDivInTabFrame( 'Documents$project' , 'TabSecond$project', '/freedom/?sole=Y&&app=FDL&action=IMPCARD&zone=FDL:VIEWBODYCARD:S&id=9','".sprintf(_("Third %s project"),$project)."')",
 		   "target"=>"_blank",
 		   "leaf"=>true);
 
