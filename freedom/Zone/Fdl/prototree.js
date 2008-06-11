@@ -24,7 +24,7 @@ function viewtree(event,where,url) {
 		//alert('insert');
 		$(where).innerHTML=elt;
 		$(where).show();
-		if (element) element.setAttribute('src','Images/b_down.png');
+		if (element && (element.nodeType == 1)) element.setAttribute('src','Images/b_down.png');
 	    
 	      }
 	    }	
@@ -32,7 +32,7 @@ function viewtree(event,where,url) {
 	});
     } else {
       $(where).show();
-      if (element) element.setAttribute('src','Images/b_down.png');
+      if (element && (element.nodeType == 1)) element.setAttribute('src','Images/b_down.png');
     }
   } 
 }
