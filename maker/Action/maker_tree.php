@@ -3,7 +3,7 @@
  * Folder tree for maker
  *
  * @author Anakeen 2008
- * @version $Id: maker_tree.php,v 1.6 2008/06/11 11:49:02 eric Exp $
+ * @version $Id: maker_tree.php,v 1.7 2008/06/11 16:18:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage MAKER
@@ -134,7 +134,7 @@ function maker_tree(&$action) {
   if ($type=='other') { 
     include_once("Lib.FileMime.php");
     $filesdir=$projectdir."/$project/files";
-    if ($handle = opendir($filesdir)) {
+    if ($handle = @opendir($filesdir)) {
       while (false !== ($file = readdir($handle))) {       
 	if ($file[0]!='.') {
 	  $tree[]=array("label"=>_("$file"),
