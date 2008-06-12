@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.500 2008/06/11 09:55:43 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.501 2008/06/12 14:50:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3242,8 +3242,11 @@ final public function PostInsert()  {
    */
   final public function AddParamRefresh($in,$out) {
     // to know which attribut must be disabled in edit mode
-    $this->paramRefresh[]=array("in"=>explode(",",strtolower($in)),
-				"out"=>explode(",",strtolower($out)));
+    $tin=explode(",",strtolower($in));
+    $tout=explode(",",strtolower($out));
+    $this->paramRefresh["$in:$out"]=array("in"=>$tin,
+					  "out"=>$tout);
+    
   }
 
   /** 
