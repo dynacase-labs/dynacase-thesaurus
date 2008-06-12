@@ -50,7 +50,8 @@ function activeAutoInit(event,docid,  inp,iopt ) {
   _documentForm=inp.form;
   _inputField.autocomplete="off";
   _inputField.onkeyup=onKeyUpHandler;
-  _inputField.onblur=onBlurHandler;
+  //  _inputField.onblur=onBlurHandler;
+  addEvent(_inputField,"blur",onBlurHandler);
   _currentInputFieldValue=_inputField.value;
   _oldInputFieldValue=_currentInputFieldValue;
   _resultCache=new Object(); // reinit cache
