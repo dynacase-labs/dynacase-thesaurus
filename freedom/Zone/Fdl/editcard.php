@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.70 2008/06/05 12:53:30 eric Exp $
+ * @version $Id: editcard.php,v 1.71 2008/06/12 14:53:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -206,18 +206,12 @@ function setNeededAttributes(&$action,&$doc) {
       $err.=$doc->SpecRefreshGen(true);      
     }
     
-    $ka=0;
-
-    reset($doc->paramRefresh);
-  
-    while(list($k,$v) = each($doc->paramRefresh)) {
-
+    $ka=0;  
+    foreach ($doc->paramRefresh as $k=>$v) {
       $tjsa[]=array("jstain" => "['".implode("','", $v["in"])."']",
 		    "jstaout" => "['".implode("','", $v["out"])."']",
 		    "jska"=> "$ka");
-      $ka++;
-	
-          
+      $ka++;	          
     }
   }
 
