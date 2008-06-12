@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.6 2008/05/19 09:07:20 eric Exp $
+ * @version $Id: autocompletion.php,v 1.7 2008/06/12 14:51:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -25,10 +25,14 @@ function autocompletion(&$action) {
   $sorm = GetHttpVars("sorm","single"); // single or multiple
   $index = GetHttpVars("index",""); // index of the attributes for arrays
   $domindex = GetHttpVars("domindex",""); // index in dom of the attributes for arrays
+  $enum = GetHttpVars("enum"); // special case when it is an enum
+  $skey = GetHttpVars("skey"); // use only when enum (filter key)
 
   header('Content-type: text/xml; charset=utf-8'); 
 
   $action->lay->setEncoding("utf-8");
+  if ($enum != "") $attrid=$enum;
+
 
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $docid=intval($docid);
@@ -88,10 +92,19 @@ function autocompletion(&$action) {
     }
     $action->lay->set("ititle",$ititle);
     Utf8_decode_POST(); // because deafult is iso8859-1
+    if ($enum != "") {
+      $eval=$oattr->phpfunc;
+      $oattr->phpfile="fdl.php";
+
+      $oattr->phpfunc=sprintf("lenumvalues(%s,'%s):%s,li_%s",
+			      str_replace(',','---',$eval),
+			      $skey,
+			      $oattr->id,$oattr->id);
+    }
     $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 
     if (! is_array($res)) {
-      if ($res=="") $res=sprintf(_("error in calling function %s"),$oattr->phpfunc);
+      if ($res=="") $res=sprintf(_("error in calling function %s\n%s"),$oattr->phpfunc,$res);
       $err=$res;
     }
     if ($err=="") {
@@ -140,4 +153,11 @@ function Utf8_decode_POST() {
  
 }
 
+
+function getResEnum($doc,$oattr,$rargids,$tselect,$tval,$index) {
+
+  print_r2($index);
+  print_r2($tval);
+  print_r2($rargids);
+}
 ?>

@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.46 2007/12/07 17:06:51 eric Exp $
+ * @version $Id: enum_choice.php,v 1.47 2008/06/12 14:51:23 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -146,12 +146,12 @@ function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
 function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,$index="") { 
   global $action;
 
-  if (! include_once("EXTERNALS/$oattr->phpfile")) {
-    $action->exitError(sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile));
+  if (! @include_once("EXTERNALS/$oattr->phpfile")) {
+    return sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile);
   }
   $phpfunc=$oattr->phpfunc;
   if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {    
-    $action->exitError(sprintf(_("the pluggins function description '%s' is not conform for %s attribut"), $phpfunc,$oattr->id));
+    return sprintf(_("the pluggins function description '%s' is not conform for %s attribut"), $phpfunc,$oattr->id);
   }
   $rargids = split(",",$reg[3]); // return args
 
@@ -167,6 +167,7 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     else if ($v == "D") $arg[$k]= $doc->dbaccess;
     else if ($v == "I") $arg[$k]= $doc->id;
     else if ($v == "T") $arg[$k]= &$doc;
+    else if ($v[0] == "'") $arg[$k]= substr($v,1);
     else {
       // can be values or family parameter
       $a = $doc->GetAttribute($v);
