@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.7 2008/06/12 14:51:23 eric Exp $
+ * @version $Id: autocompletion.php,v 1.8 2008/06/12 16:21:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -108,8 +108,17 @@ function autocompletion(&$action) {
       $err=$res;
     }
     if ($err=="") {
-      if (count($res) == 0) $err=sprintf(_("no match for %s"),$oattr->labelText);
- 
+      if (count($res) == 0){
+	$err=sprintf(_("no match for %s"),$oattr->labelText);
+	if ($enum && ($oattr->getOption("etype")!="close")&& ($oattr->getOption("etype")!="")) {
+	  $res=array(array(sprintf(_("new item %s"),$skey),
+			   $skey,$skey));
+	  $err="";
+
+	}
+      }
+
+
       if ($err=="") {  
 	// add  index for return args
 	while (list($k, $v) = each($rargids)) {
