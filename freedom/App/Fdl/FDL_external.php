@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.55 2008/05/20 15:29:33 eric Exp $
+ * @version $Id: FDL_external.php,v 1.56 2008/06/12 14:51:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -287,7 +287,32 @@ function lenum($val, $enum) {
   return $tr;
   
 }
+/**
+ * return list of string for multiple static choice
+ *
+ * @param string $val filter value - can be empty => see all choices
+ * @param string $enum possible choices like 'the first|the second|the last'
+ * @return array/string*2 array of (enum, enum)
+ */
+function lenumvalues($enum, $val="" ) {
+  // $enum like 'a|A,b|B'
+ 
+  $val=trim($val);
+  $tenum=explode("---",$enum);
 
+
+  $tr=array();
+
+
+  foreach($tenum as $k=>$v) {
+    list($key,$label)=explode("|",$v);
+    //    $tr[]=array("$key,$label",$key,$label);
+    if (($val == "") || (eregi("$val", $v , $reg)))   $tr[]=array("$key,$label",$key,$label);
+  }
+
+  return $tr;
+  
+}
 // liste des profils
 function lprofil($dbaccess, $name,$famid=0) {
   //'lsociety(D,US_SOCIETY):US_IDSOCIETY,US_SOCIETY,
