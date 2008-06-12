@@ -512,6 +512,17 @@ function editOnLoad() {
     disableReadAttribute();
 }
 
+function clearEmptyEnum(ikey, ival) {
+  var key=document.getElementById(ikey);
+  var val=document.getElementById(ival);
+
+  if (key && val) {
+    var vkey=trim(key.value);
+    if (vkey=='') {
+      if (trim(val.value)!='') val.value='';
+    }
+  }
+}
 
 function clearInputs(tinput, idx,attrid) {
   var iinput;

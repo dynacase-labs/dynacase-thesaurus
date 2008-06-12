@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.142 2008/06/12 14:52:46 eric Exp $
+ * @version $Id: editutil.php,v 1.143 2008/06/12 16:22:13 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -965,8 +965,8 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idx=$oattr->id.$index;
   $lay->set("id",$idx);
   $lay->set("idi",$oattr->id);
-  
-  $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
+  $etype=$oattr->getOption("etype");
+  if ((!$etype) || ($etype=="close")) $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
 
   $tvalue=$doc->_val2array($value);
 

@@ -1,5 +1,5 @@
-<input type="hidden" id="[id]" name="[name]" value="[value]">
-<input type="text" id="li_[id]" name="_li[name]" value="[lvalue]" autocomplete="off" onfocus="activeAuto(event,'[docid]',this,'&enum=[idi]')">
+<input type="text" id="[id]" name="[name]" value="[value]">
+<input type="text" id="li_[id]" name="_li[name]" value="[lvalue]" autocomplete="off" onfocus="activeAuto(event,'[docid]',this,'&enum=[idi]')" onblur="clearEmptyEnum('[id]','li_[id]')">
 <input id="ic_[id]" type="button" value="&#133"
 	  title="[TEXT:View selection]".
 	  onclick="sendAutoChoice(event,'[docid]',this,'li_[id]','&enum=[idi]')">
