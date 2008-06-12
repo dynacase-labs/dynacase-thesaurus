@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.141 2008/06/05 08:36:38 eric Exp $
+ * @version $Id: editutil.php,v 1.142 2008/06/12 14:52:46 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -258,6 +258,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
  
      
   case "enum": 
+    if ($oattr->eformat=="") $oattr->eformat=$oattr->getOption("eformat");
     if (($oattr->repeat)&&(!$oattr->inArray())) { // enumlist
       switch ($oattr->eformat) {
       case "vcheck":
@@ -265,8 +266,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	break;
       case "hcheck":
 	$lay = new Layout("FDL/Layout/editenumlisthcheck.xml", $action);
-	break;
-	
+	break;	
       default:
 	$lay = new Layout("FDL/Layout/editenumlist.xml", $action);
       }	
@@ -284,6 +284,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	break;
       case "hcheck":
 	$lay = new Layout("FDL/Layout/editenumhcheck.xml", $action);
+	break;
+      case "auto":
+	$lay = new Layout("FDL/Layout/editenumauto.xml", $action);
 	break;
       case "bool":
 	$lay = new Layout("FDL/Layout/editenumbool.xml", $action);
@@ -961,10 +964,13 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("name",$aname);
   $idx=$oattr->id.$index;
   $lay->set("id",$idx);
+  $lay->set("idi",$oattr->id);
   
+  $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
 
   $tvalue=$doc->_val2array($value);
 
+  $lay->set("lvalue","");
   $enuml = $oattr->getenumlabel();
   $ki=0;
   foreach($enuml as $k=>$v) {
@@ -972,6 +978,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
     if (in_array($k,$tvalue)) {
       $topt[$k]["selected"] = "selected";
       $topt[$k]["checked"] = "checked";
+      $lay->set("lvalue",$v);
     } else {
       $topt[$k]["selected"]="";
       $topt[$k]["checked"] = "";
@@ -985,6 +992,8 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   }
   $lay->setBlockData("OPTIONS",$topt);
   $lay->set("value",$value);
+  $lay->set("docid",$doc->fromid);
+  $lay->set("index",$index);
 
 }/**
  * generate HTML for option attributes

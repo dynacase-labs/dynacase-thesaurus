@@ -1,0 +1,8 @@
+<input type="hidden" id="[id]" name="[name]" value="[value]">
+<input type="text" id="li_[id]" name="_li[name]" value="[lvalue]" autocomplete="off" onfocus="activeAuto(event,'[docid]',this,'&enum=[idi]')">
+<input id="ic_[id]" type="button" value="&#133"
+	  title="[TEXT:View selection]".
+	  onclick="sendAutoChoice(event,'[docid]',this,'li_[id]','&enum=[idi]')">
+<input id="ix_[id]" type="button" value="&times;"
+	      title="[TEXT:clear inputs]"
+	      onclick="clearInputs(['[idi]','li_[idi]'],'[index]','li_[id]')">
