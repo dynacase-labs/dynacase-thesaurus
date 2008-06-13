@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.47 2008/06/12 14:51:23 eric Exp $
+ * @version $Id: enum_choice.php,v 1.48 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -150,6 +150,8 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     return sprintf(_("the external pluggin file %s cannot be read"), $oattr->phpfile);
   }
   $phpfunc=$oattr->phpfunc;
+  $phpfunc=str_replace(array('\)','\('),
+		       array('&rparenthesis;','&lparenthesis;'),$phpfunc);
   if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {    
     return sprintf(_("the pluggins function description '%s' is not conform for %s attribut"), $phpfunc,$oattr->id);
   }
@@ -162,7 +164,9 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
 			$reg[2]);
   $argids = split(",",$iarg);  // input args
 
-  while (list($k, $v) = each($argids)) {
+
+  foreach($argids as $k=>$v) {
+    $v=str_replace(array('&rparenthesis;','&lparenthesis;'),array(')','('),$v);
     if ($v == "A") {global $action;$arg[$k]= &$action;}
     else if ($v == "D") $arg[$k]= $doc->dbaccess;
     else if ($v == "I") $arg[$k]= $doc->id;
@@ -254,7 +258,8 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
   
 }
 
-function getAttr($aid) {      
+function getAttr($aid) {
+
   $r=GetParam($aid);
   if ($r == "") $r=getFamIdFromName(GetParam("FREEDOM_DB"),$aid);
   

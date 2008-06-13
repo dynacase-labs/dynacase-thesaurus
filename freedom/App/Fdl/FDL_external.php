@@ -3,7 +3,7 @@
  * Functions used for edition help
  *
  * @author Anakeen 2003
- * @version $Id: FDL_external.php,v 1.56 2008/06/12 14:51:52 eric Exp $
+ * @version $Id: FDL_external.php,v 1.57 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -302,12 +302,13 @@ function lenumvalues($enum, $val="" ) {
 
 
   $tr=array();
-
+  $val=str_replace(array(')','('),array('\)','\('),$val);
 
   foreach($tenum as $k=>$v) {
     list($key,$label)=explode("|",$v);
+    
     //    $tr[]=array("$key,$label",$key,$label);
-    if (($val == "") || (eregi("$val", $v , $reg)))   $tr[]=array("$key,$label",$key,$label);
+    if (($val == "") || (eregi("$val", $label , $reg)))   $tr[]=array("$label",$key,$label);
   }
 
   return $tr;

@@ -1,3 +1,4 @@
+include_js("FDC/Layout/inserthtml.js");
 var isNetscape = navigator.appName=="Netscape";
 // auxilarry window to select choice
 var wichoose= false;
@@ -549,7 +550,36 @@ function clearInputs(tinput, idx,attrid) {
   if (attrid && document.getElementById(attrid)) document.getElementById(attrid).focus();
 
 }
+function addEnum(th,cible,docid,attrid,key) {
+  if (cible) {
+    if (key.style.display=='none') {
+      key.style.display='';
+      key.focus();
+      th.value='>';
+      th.title='[TEXT:Add new entry]';
+    } else {
+      if (trim(key.value)=='') {
+	alert('[TEXT:Item cannot be empty]');
+      } else {
+	var corestandurl=window.location.pathname+'?sole=Y';      
+	var url=corestandurl+'&app=FDL&action=ADDENUMITEM&docid='+docid+'&aid='+attrid+'&key='+key.value;
+        enableSynchro();
+	requestUrlSend(cible,url);
+	disableSynchro();
+	disableReadAttribute();
+      }
+    }
+  }
+}
+function trackCR(event) {
+  var intKeyCode;
 
+  if (!event) event=window.event;
+  intKeyCode=event.keyCode;
+  if (intKeyCode == 13) return true;
+
+  return false;
+}
 
 function unselectInput(id) {
   var sel=document.getElementById(id);
@@ -927,7 +957,7 @@ function changeCheckClasses(th,iin) {
     var  needuncheck=false;
     for (var i=0;i<icheck.length;i++) {
       if (icheck[i].checked) icheck[i].parentNode.parentNode.className='checked';
-      else icheck[i].parentNode.parentNode.className='';
+      else icheck[i].parentNode.parentNode.className='nochecked';
     }
     //alert(icheck[0].type);
    

@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.501 2008/06/12 14:50:37 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.502 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1988,6 +1988,16 @@ final public function PostInsert()  {
 		case 'docid':
 		  if  (!is_numeric($avalue)) {		  
 		    $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
+		  }
+		  break;
+		case 'enum':
+		  if ($oattr->getOption("etype")=="open") {
+		    // added new
+		    $tenum=$oattr->getEnum();
+		    $keys=array_keys($tenum);
+		    if (! in_array($avalue,$keys)) {
+		      $oattr->addEnum($this->dbaccess,$avalue,$avalue);
+		    }
 		  }
 		  break;
 		case 'double':

@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: FDL.app,v 1.55 2008/03/10 17:51:05 eric Exp $
+// $Id: FDL.app,v 1.56 2008/06/13 14:21:24 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/App/Fdl/FDL.app,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2002
@@ -294,6 +294,11 @@ $action_desc = array (
   array( 
    "name"		=>"EDITAFFECT",
    "short_name"		=>N_("edition to affect user"),
+   "acl"		=>"NORMAL"
+  )  ,
+  array( 
+   "name"		=>"ADDENUMITEM",
+   "short_name"		=>N_("add enum html input attribute"),
    "acl"		=>"NORMAL"
   )  ,
   array( 

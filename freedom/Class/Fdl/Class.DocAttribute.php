@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.38 2008/06/06 10:32:10 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.39 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -179,7 +179,50 @@ Class NormalAttribute extends BasicAttribute {
     }    
   }
 
- 
+  /**
+   * add new item in enum list items
+   *
+   * @param int $famid family identificator
+   * @param string $key database key
+   * @param string $label human label
+   * @return string error message (empty means ok)
+   */
+  function addEnum($dbaccess,$key,$label) {
+    if ($key =="") return "";
+
+    $a=new DocAttr($dbaccess, array($this->docid,$this->id));
+    if ($a->isAffected()) {
+      $tenum=$this->getEnum();
+      $key=str_replace(array(',','|'),array('-','_'),$key);
+      $label=str_replace(array(',','|'),array('-','_'),$label);
+      $tkey=array_keys($tenum);
+      if (! in_array($key,$tkey)) {
+
+
+      $tenum[$key]=$label;
+	global $__tenum; // modify cache 
+	global $__tlenum;
+	$__tenum[$this->id][$key]=$label;
+	$__tlenum[$this->id][$key]=$label;
+      // convert array to string
+      $tsenum=array();
+      foreach ($tenum as $k=>$v) {
+	$tsenum[]="$k|$v";
+      }
+      $senum=implode($tsenum,',');
+      $a->phpfunc=$senum;
+      $err=$a->modify();
+      if ($err=="") {
+	include_once("FDL/Lib.Attr.php");
+	refreshPhpPgDoc($dbaccess,$this->docid);
+      }
+      }
+    } else {
+      $err=sprintf(_("unknow attribute %s (family %s)"),$this->id,$this->docid);
+    }
+  
+    return $err;
+  }
 }
 
 

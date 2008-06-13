@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.143 2008/06/12 16:22:13 eric Exp $
+ * @version $Id: editutil.php,v 1.144 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -966,11 +966,12 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("id",$idx);
   $lay->set("idi",$oattr->id);
   $etype=$oattr->getOption("etype");
-  if ((!$etype) || ($etype=="close")) $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
+  if (true ||(!$etype) || ($etype=="close")) $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
 
+  $lay->set("isopen",($etype=="open"));
   $tvalue=$doc->_val2array($value);
 
-  $lay->set("lvalue","");
+  $lay->set("lvalue",$value);
   $enuml = $oattr->getenumlabel();
   $ki=0;
   foreach($enuml as $k=>$v) {
@@ -981,7 +982,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
       $lay->set("lvalue",$v);
     } else {
       $topt[$k]["selected"]="";
-      $topt[$k]["checked"] = "";
+      $topt[$k]["checked"] = "nochecked";
     }
 	  
     $topt[$k]["optid"] = "$idx$ki";
@@ -992,7 +993,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   }
   $lay->setBlockData("OPTIONS",$topt);
   $lay->set("value",$value);
-  $lay->set("docid",$doc->fromid);
+  $lay->set("docid",($doc->doctype=='C')?$doc->id:$doc->fromid);
   $lay->set("index",$index);
 
 }/**

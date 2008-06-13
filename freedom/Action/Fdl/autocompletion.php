@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.8 2008/06/12 16:21:53 eric Exp $
+ * @version $Id: autocompletion.php,v 1.9 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -91,14 +91,14 @@ function autocompletion(&$action) {
       }
     }
     $action->lay->set("ititle",$ititle);
-    Utf8_decode_POST(); // because deafult is iso8859-1
+    Utf8_decode_POST(); // because default is iso8859-1
     if ($enum != "") {
       $eval=$oattr->phpfunc;
       $oattr->phpfile="fdl.php";
 
       $oattr->phpfunc=sprintf("lenumvalues(%s,'%s):%s,li_%s",
 			      str_replace(',','---',$eval),
-			      $skey,
+			      str_replace(array(')','('),array('\)','\('),$skey),
 			      $oattr->id,$oattr->id);
     }
     $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
@@ -110,11 +110,18 @@ function autocompletion(&$action) {
     if ($err=="") {
       if (count($res) == 0){
 	$err=sprintf(_("no match for %s"),$oattr->labelText);
-	if ($enum && ($oattr->getOption("etype")!="close")&& ($oattr->getOption("etype")!="")) {
-	  $res=array(array(sprintf(_("new item %s"),$skey),
-			   $skey,$skey));
-	  $err="";
-
+	if ($enum) {
+	  if ($oattr->getOption("etype")=="open") {
+	    $res=array(array(sprintf(_("new item %s"),$skey),
+			     $skey,$skey.' '._("(new item)")));
+	    $err="";
+	  } elseif ($oattr->getOption("etype")=="free") {
+	    $res=array(array(sprintf(_("free item %s"),$skey),
+			     $skey,$skey.' '._("(free item)")));
+	    $err="";
+	  } else {
+	    $err=sprintf(_("unknow item %s"),$skey);
+	  }
 	}
       }
 

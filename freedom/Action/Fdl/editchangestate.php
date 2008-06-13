@@ -3,7 +3,7 @@
  * Display interface to change state
  *
  * @author Anakeen 2007
- * @version $Id: editchangestate.php,v 1.5 2008/05/09 12:57:36 eric Exp $
+ * @version $Id: editchangestate.php,v 1.6 2008/06/13 14:21:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -80,3 +80,4 @@ function editchangestate(&$action) {
 
   }
 }
+?>
