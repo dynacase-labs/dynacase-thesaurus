@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.145 2008/06/13 16:30:43 eric Exp $
+ * @version $Id: editutil.php,v 1.146 2008/06/13 16:49:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -976,7 +976,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("lvalue",$value);
   $enuml = $oattr->getenumlabel();
   if ($etype=="free") {
-    $enuml['...']=_("Others...");
+    $enuml['...']=_("Other...");
   }
 
   $ki=0;

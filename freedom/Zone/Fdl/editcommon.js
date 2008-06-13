@@ -972,21 +972,18 @@ function changeCheckClasses(th,iin) {
 	  oi.value=icheck[i].value;
 	}
       }
-
-      createOtherEnumInput(th,oi);
-
-	
+      createOtherEnumInput(th,oi);	
     }    
   }
 }
 
 function createOtherEnumInput(radio,ireal,initvalue) {
   var v;
-  if (radio) v=radio.value;
-  if (initvalue) {
-    v='...';
-    
+  if (radio) {
+    if (radio.tagName == "SELECT") v=getIValue(radio);
+    else v=radio.value;
   }
+  if (initvalue) v='...';      
   
   var oid='other_'+ireal.id;
   var o=document.getElementById(oid);
@@ -1010,8 +1007,8 @@ function createOtherEnumInput(radio,ireal,initvalue) {
       o.value='';
     }
   }
-
 }
+
 
 // change style classes for check bool input
 function changeCheckBoolClasses(th,name) {

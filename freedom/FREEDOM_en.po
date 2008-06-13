@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-13 16:02+0200\n"
+"POT-Creation-Date: 2008-06-13 18:32+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -14,28 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "\n"
-
-#, fuzzy
-msgid "no label"
-msgstr "Email"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"error in calling function %s\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "no match for %s"
-msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "new item %s"
-msgstr "Import"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -62,18 +40,6 @@ msgstr ""
 #, fuzzy
 msgid "action"
 msgstr "Edit"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr ""
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr ""
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
 
 #, fuzzy, c-format
 msgid "the document %s has been sended"
@@ -108,25 +74,6 @@ msgstr ""
 #, c-format
 msgid "%s cannot be sent"
 msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s is not alive"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "to the %s state"
-msgstr "Category"
-
-msgid "To"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "to %s"
-msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "Change state to %s"
-msgstr "Category"
 
 #, fuzzy
 msgid "no document reference"
@@ -217,6 +164,30 @@ msgstr ""
 #, fuzzy
 msgid "click to change option"
 msgstr "Start search"
+
+#, fuzzy
+msgid "no label"
+msgstr "Email"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr ""
+
+#, c-format
+msgid "error in calling function %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "no match for %s"
+msgstr "Modify"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr ""
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
 
 #, fuzzy, c-format
 msgid "Document %s in %s state not found"
@@ -766,6 +737,25 @@ msgid "disable forum"
 msgstr "Import"
 
 #, fuzzy, c-format
+msgid "Document %s is not alive"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "to the %s state"
+msgstr "Category"
+
+msgid "To"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "to %s"
+msgstr "Modify"
+
+#, fuzzy, c-format
+msgid "Change state to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
 msgid "Add %d document(s)"
 msgstr "Import"
 
@@ -796,6 +786,16 @@ msgstr "Organisation"
 #, c-format
 msgid "vid %d stored"
 msgstr ""
+
+#, c-format
+msgid ""
+"error in calling function %s\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "new item %s"
+msgstr "Import"
 
 msgid "(new item)"
 msgstr ""
@@ -2896,46 +2896,6 @@ msgstr "Update Title Cards"
 msgid "VCARD Import Result"
 msgstr "Import"
 
-msgid "enumerate input not found"
-msgstr ""
-
-#, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
-
-msgid "NOT Clear"
-msgstr ""
-
-#, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
-
-#, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
-msgstr ""
-
-#, fuzzy
-msgid "View selection"
-msgstr "Edit"
-
-msgid "clear inputs"
-msgstr ""
-
 #, fuzzy
 msgid "fromdate"
 msgstr "Edit"
@@ -2978,6 +2938,9 @@ msgstr "Edit"
 #, fuzzy
 msgid "Add new entry"
 msgstr "Category"
+
+msgid "clear inputs"
+msgstr ""
 
 msgid ""
 "Master document has been closed.\n"
@@ -3279,7 +3242,40 @@ msgstr "Category"
 msgid "primary folder"
 msgstr "Modify"
 
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "NOT Clear"
+msgstr ""
+
 msgid "Item cannot be empty"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
 msgstr ""
 
 msgid "Click to view menu"
@@ -3337,6 +3333,10 @@ msgstr ""
 #, fuzzy
 msgid "save"
 msgstr "Identity"
+
+#, fuzzy
+msgid "View selection"
+msgstr "Edit"
 
 #, fuzzy
 msgid "Conditions"
@@ -3819,6 +3819,10 @@ msgid "edition to affect user"
 msgstr "Create"
 
 #, fuzzy
+msgid "add enum html input attribute"
+msgstr "Update Title Cards"
+
+#, fuzzy
 msgid "affect user to a document"
 msgstr "Delete"
 
@@ -3876,26 +3880,6 @@ msgstr ""
 #, fuzzy
 msgid "retrieve task status"
 msgstr "Modify"
-
-#, fuzzy, c-format
-msgid "file %d"
-msgstr "Update Title Cards"
-
-#, fuzzy
-msgid "revdate"
-msgstr "Create"
-
-#, fuzzy
-msgid "owner"
-msgstr "my"
-
-#, fuzzy
-msgid "short_name"
-msgstr "Delete"
-
-#, fuzzy
-msgid "add enum html input attribute"
-msgstr "Update Title Cards"
 
 #, fuzzy
 msgid "freedom database"
@@ -3977,6 +3961,22 @@ msgstr ""
 
 msgid "fulltext index mode"
 msgstr ""
+
+#, fuzzy, c-format
+msgid "file %d"
+msgstr "Update Title Cards"
+
+#, fuzzy
+msgid "revdate"
+msgstr "Create"
+
+#, fuzzy
+msgid "owner"
+msgstr "my"
+
+#, fuzzy
+msgid "short_name"
+msgstr "Delete"
 
 #, fuzzy
 msgid "root folder id"
@@ -4640,6 +4640,140 @@ msgstr "Start search"
 msgid "main view columns"
 msgstr "Start search"
 
+#, c-format
+msgid "parameters for %s state"
+msgstr ""
+
+#, c-format
+msgid "id %s profile"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s profile"
+msgstr "Category"
+
+#, c-format
+msgid "id %s mask"
+msgstr ""
+
+#, c-format
+msgid "%s mask"
+msgstr ""
+
+#, c-format
+msgid "%s color"
+msgstr ""
+
+#, c-format
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr ""
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr ""
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "change state : %s to %s"
+msgstr "Category"
+
+#, c-format
+msgid "%s new state %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr "Category"
+
+#, fuzzy
+msgid "locked document of "
+msgstr "Import"
+
+#, fuzzy
+msgid "Document basket"
+msgstr "Import"
+
+#, c-format
+msgid "basket of %s"
+msgstr ""
+
+msgid "folder is locked. Cannot containt modification"
+msgstr ""
+
+#, fuzzy
+msgid "Folder cleared"
+msgstr "Delete"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr ""
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Document %s inserted"
+msgstr "Import"
+
+#, fuzzy, c-format
+msgid "Change profil to default document profil : %d"
+msgstr "Category"
+
+#, fuzzy, c-format
+msgid "Change profil to default subfolder profil : %d"
+msgstr "Delete"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr ""
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Document %s umounted"
+msgstr "Import"
+
 #, fuzzy
 msgid "document creation"
 msgstr "Organisation"
@@ -4929,142 +5063,8 @@ msgid "confidential document"
 msgstr "Delete"
 
 #, c-format
-msgid "parameters for %s state"
-msgstr ""
-
-#, c-format
-msgid "id %s profile"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "%s profile"
-msgstr "Category"
-
-#, c-format
-msgid "id %s mask"
-msgstr ""
-
-#, c-format
-msgid "%s mask"
-msgstr ""
-
-#, c-format
-msgid "%s color"
-msgstr ""
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr ""
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "change state : %s to %s"
-msgstr "Category"
-
-#, c-format
-msgid "%s new state %s"
-msgstr ""
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr "Category"
-
-#, c-format
 msgid "invalid syntax for [%s] for enum attribute"
 msgstr ""
-
-#, fuzzy
-msgid "locked document of "
-msgstr "Import"
-
-#, fuzzy
-msgid "Document basket"
-msgstr "Import"
-
-#, c-format
-msgid "basket of %s"
-msgstr ""
-
-msgid "folder is locked. Cannot containt modification"
-msgstr ""
-
-#, fuzzy
-msgid "Folder cleared"
-msgstr "Delete"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr ""
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s inserted"
-msgstr "Import"
-
-#, fuzzy, c-format
-msgid "Change profil to default document profil : %d"
-msgstr "Category"
-
-#, fuzzy, c-format
-msgid "Change profil to default subfolder profil : %d"
-msgstr "Delete"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr ""
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr ""
-
-#, fuzzy, c-format
-msgid "Document %s umounted"
-msgstr "Import"
 
 #, fuzzy, c-format
 msgid "unknow attribute %s (family %s)"
@@ -5508,6 +5508,10 @@ msgstr ""
 msgid "elinkEncode::attribute not found %s"
 msgstr ""
 
+#, fuzzy
+msgid "Others..."
+msgstr "Delete"
+
 #, fuzzy, c-format
 msgid "create new %s"
 msgstr "Edit"
@@ -5526,6 +5530,10 @@ msgstr ""
 
 msgid "submenu"
 msgstr ""
+
+#, fuzzy
+msgid "Other..."
+msgstr "Delete"
 
 #, c-format
 msgid ""

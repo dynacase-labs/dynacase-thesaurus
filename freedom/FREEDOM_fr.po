@@ -6,36 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-13 16:02+0200\n"
-"PO-Revision-Date: 2008-06-13 16:09+0200\n"
+"POT-Creation-Date: 2008-06-13 18:32+0200\n"
+"PO-Revision-Date: 2008-06-13 18:32+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-msgid "no label"
-msgstr "pas de désignation"
-
-#, c-format
-msgid "unknown attribute %s"
-msgstr "attribut inconnu : %s"
-
-#, c-format
-msgid ""
-"error in calling function %s\n"
-"%s"
-msgstr ""
-"erreur dans l'appel de la fonction %s\n"
-"%s"
-
-#, c-format
-msgid "no match for %s"
-msgstr "pas de choix possible pour %s"
-
-#, c-format
-msgid "new item %s"
-msgstr "nouvelle entrée %s"
 
 #, c-format
 msgid "you cannot create this kind [%s] of document"
@@ -60,19 +37,6 @@ msgstr "nouvel ordre des colonnes %s"
 
 msgid "action"
 msgstr "action"
-
-#, c-format
-msgid "error in calling function %s"
-msgstr "erreur dans l'appel de la fonction %s"
-
-#, c-format
-msgid "the external pluggin file %s cannot be read"
-msgstr "le fichier externe %s ne peut être lu"
-
-#, c-format
-msgid "the pluggins function description '%s' is not conform for %s attribut"
-msgstr ""
-"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
 
 #, c-format
 msgid "the document %s has been sended"
@@ -107,25 +71,6 @@ msgstr "envoi de %s à %s"
 #, c-format
 msgid "%s cannot be sent"
 msgstr "%s n'a pas pu être envoyé"
-
-#, c-format
-msgid "Document %s is not alive"
-msgstr "Le document [%s] n'est pas vivant"
-
-#, c-format
-msgid "to the %s state"
-msgstr "vers l'état %s"
-
-msgid "To"
-msgstr "Vers"
-
-#, c-format
-msgid "to %s"
-msgstr "vers %s"
-
-#, c-format
-msgid "Change state to %s"
-msgstr "Changement d'état vers %s"
 
 msgid "no document reference"
 msgstr "pas de référence au document"
@@ -214,6 +159,30 @@ msgstr "pas de famille"
 
 msgid "click to change option"
 msgstr "Cliquez pour changer les options"
+
+msgid "no label"
+msgstr "pas de désignation"
+
+#, c-format
+msgid "unknown attribute %s"
+msgstr "attribut inconnu : %s"
+
+#, c-format
+msgid "error in calling function %s"
+msgstr "erreur dans l'appel de la fonction %s"
+
+#, c-format
+msgid "no match for %s"
+msgstr "pas de choix possible pour %s"
+
+#, c-format
+msgid "the external pluggin file %s cannot be read"
+msgstr "le fichier externe %s ne peut être lu"
+
+#, c-format
+msgid "the pluggins function description '%s' is not conform for %s attribut"
+msgstr ""
+"La description de la fonction externe '%s' est incorrect pour l'attribut %s"
 
 #, c-format
 msgid "Document %s in %s state not found"
@@ -724,6 +693,25 @@ msgid "disable forum"
 msgstr "Interdire les forums"
 
 #, c-format
+msgid "Document %s is not alive"
+msgstr "Le document [%s] n'est pas vivant"
+
+#, c-format
+msgid "to the %s state"
+msgstr "vers l'état %s"
+
+msgid "To"
+msgstr "Vers"
+
+#, c-format
+msgid "to %s"
+msgstr "vers %s"
+
+#, c-format
+msgid "Change state to %s"
+msgstr "Changement d'état vers %s"
+
+#, c-format
 msgid "Add %d document(s)"
 msgstr "Ajout de %d document(s)"
 
@@ -753,6 +741,18 @@ msgstr "erreur de conversion"
 #, c-format
 msgid "vid %d stored"
 msgstr "vid %d enregistré"
+
+#, c-format
+msgid ""
+"error in calling function %s\n"
+"%s"
+msgstr ""
+"erreur dans l'appel de la fonction %s\n"
+"%s"
+
+#, c-format
+msgid "new item %s"
+msgstr "nouvelle entrée %s"
 
 msgid "(new item)"
 msgstr "(nouvelle entrée)"
@@ -2573,42 +2573,6 @@ msgstr "fichier VCS"
 msgid "VCARD Import Result"
 msgstr "Résultat de l'importation VCARD"
 
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
-
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
-
-msgid "NOT Clear"
-msgstr "Non effacé"
-
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
-
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
-
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
-
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
-
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
-
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
-
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
-
-msgid "View selection"
-msgstr "Voir la sélection"
-
-msgid "clear inputs"
-msgstr "effacer entrée(s)"
-
 msgid "fromdate"
 msgstr "date de début"
 
@@ -2641,6 +2605,9 @@ msgstr "Saisissez une nouvelle entrée"
 
 msgid "Add new entry"
 msgstr "Ajouter la nouvelle entrée"
+
+msgid "clear inputs"
+msgstr "effacer entrée(s)"
 
 msgid ""
 "Master document has been closed.\n"
@@ -2895,8 +2862,38 @@ msgstr "contrôle de vues"
 msgid "primary folder"
 msgstr "Dossier principal"
 
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
 msgid "Item cannot be empty"
 msgstr "L\\'entrée ne peut être vide"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
 
 msgid "Click to view menu"
 msgstr "Cliquer pour voir le menu"
@@ -2945,6 +2942,9 @@ msgstr "ajouter une entrée"
 
 msgid "save"
 msgstr "Sauver"
+
+msgid "View selection"
+msgstr "Voir la sélection"
 
 msgid "Conditions"
 msgstr "Conditions"
@@ -3358,6 +3358,9 @@ msgstr "Modifier les attributs en ligne"
 msgid "edition to affect user"
 msgstr "édition pour affecter un utilisateur"
 
+msgid "add enum html input attribute"
+msgstr "Ajout entrée dans un énuméré"
+
 msgid "affect user to a document"
 msgstr "affecter un utilisateur à un document"
 
@@ -3405,22 +3408,6 @@ msgstr "récupération d'un fichier converti"
 
 msgid "retrieve task status"
 msgstr "récupération des status de tâches"
-
-#, c-format
-msgid "file %d"
-msgstr "fichier %d"
-
-msgid "revdate"
-msgstr "date de modification"
-
-msgid "owner"
-msgstr "identifiant propriétaire"
-
-msgid "short_name"
-msgstr "nom court"
-
-msgid "add enum html input attribute"
-msgstr "Ajout entrée dans un énuméré"
 
 msgid "freedom database"
 msgstr "base de donnée Freedom"
@@ -3499,6 +3486,19 @@ msgstr "URL pour les callback du serveur de transformation"
 
 msgid "fulltext index mode"
 msgstr "mode d'indexation fulltext"
+
+#, c-format
+msgid "file %d"
+msgstr "fichier %d"
+
+msgid "revdate"
+msgstr "date de modification"
+
+msgid "owner"
+msgstr "identifiant propriétaire"
+
+msgid "short_name"
+msgstr "nom court"
 
 msgid "root folder id"
 msgstr "Identificateur du dossier racine"
@@ -4096,6 +4096,153 @@ msgstr "Préférés"
 msgid "main view columns"
 msgstr "Vue principale"
 
+#, c-format
+msgid "parameters for %s state"
+msgstr "paramètres pour l'état %s"
+
+#, c-format
+msgid "id %s profile"
+msgstr "profil id %s "
+
+#, c-format
+msgid "%s profile"
+msgstr "Profil %s"
+
+#, c-format
+msgid "id %s mask"
+msgstr "identificateur du masque %s"
+
+#, c-format
+msgid "%s mask"
+msgstr "masque %s"
+
+#, c-format
+msgid "%s color"
+msgstr "couleur %s"
+
+#, c-format
+msgid ""
+"ChangeState :: the new state '%s' is not known or is not allowed from %s"
+msgstr ""
+"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé "
+"depuis %s"
+
+#, c-format
+msgid "ChangeState :: the initial state '%s' is not known"
+msgstr "Changement d'état: l'état initial '%s' est inconnu"
+
+#, c-format
+msgid "the method '%s' is not known for the object class %s"
+msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been aborted.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s n'a pas pu être réalisé.\n"
+"%s"
+
+#, c-format
+msgid "change state : %s to %s"
+msgstr "changement d'état de %s vers %s"
+
+#, c-format
+msgid "%s new state %s"
+msgstr "%s changement d'état vers %s"
+
+#, c-format
+msgid ""
+"The change state to %s has been realized. But the following warning is "
+"appeared.\n"
+"%s"
+msgstr ""
+"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
+"%s "
+
+#, c-format
+msgid "cannot change state of document #%d to %s"
+msgstr "ne peux pas changer l'état du document n°%d vers %s"
+
+#, c-format
+msgid ""
+"automaticaly by change state of %s\n"
+"%s"
+msgstr ""
+"changement d'état automatique issu du document %s\n"
+"%s"
+
+msgid "locked document of "
+msgstr "documents verrouillés par "
+
+msgid "Document basket"
+msgstr "Porte-document"
+
+#, c-format
+msgid "basket of %s"
+msgstr "porte-documents de %s"
+
+msgid "folder is locked. Cannot containt modification"
+msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
+
+msgid "Folder cleared"
+msgstr "Dossier vidé"
+
+#, c-format
+msgid "Cannot add in %s folder, doc id (%d) unknown"
+msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
+
+#, c-format
+msgid ""
+"Cannot add %s in %s folder, restriction set to add this kind of document"
+msgstr ""
+"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
+"ce type de document"
+
+#, c-format
+msgid "Add %s in %s folder"
+msgstr "Ajout %s dans dossier %s"
+
+#, c-format
+msgid "Document %s inserted"
+msgstr "Insertion document %s "
+
+#, c-format
+msgid "Change profil to default document profil : %d"
+msgstr ""
+"Changement du profil avec le profil par défaut du document famille : %d"
+
+#, c-format
+msgid "Change profil to default subfolder profil : %d"
+msgstr "Changement du profil avec le profil par défaut du dossier: %d"
+
+#, c-format
+msgid "Dir::insertFolder identificator [%s] must be numeric"
+msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
+
+#, c-format
+msgid "cannot delete link : initial query not found for doc %d in folder %d"
+msgstr ""
+"le document %d n'existe plus dans le dossier %d.\n"
+"mettre à jour la vue."
+
+#, c-format
+msgid ""
+"cannot delete link for doc %d in folder %d : the document comes from a user "
+"query. Delete initial query if you want delete this document"
+msgstr ""
+"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
+"le document provient d'une recherche utilisateur. Supprimer la requête "
+"initiale si vous voulez delier le document"
+
+#, c-format
+msgid "Delete %d in %s folder"
+msgstr "Suppression n°%d du dossier %s"
+
+#, c-format
+msgid "Document %s umounted"
+msgstr "Document %s enlevé"
+
 msgid "document creation"
 msgstr "Création du document"
 
@@ -4374,154 +4521,8 @@ msgid "confidential document"
 msgstr "document confidentiel"
 
 #, c-format
-msgid "parameters for %s state"
-msgstr "paramètres pour l'état %s"
-
-#, c-format
-msgid "id %s profile"
-msgstr "profil id %s "
-
-#, c-format
-msgid "%s profile"
-msgstr "Profil %s"
-
-#, c-format
-msgid "id %s mask"
-msgstr "identificateur du masque %s"
-
-#, c-format
-msgid "%s mask"
-msgstr "masque %s"
-
-#, c-format
-msgid "%s color"
-msgstr "couleur %s"
-
-#, c-format
-msgid ""
-"ChangeState :: the new state '%s' is not known or is not allowed from %s"
-msgstr ""
-"Changement d'état: le nouvel état '%s' n'est pas connu ou n'est pas autorisé "
-"depuis %s"
-
-#, c-format
-msgid "ChangeState :: the initial state '%s' is not known"
-msgstr "Changement d'état: l'état initial '%s' est inconnu"
-
-#, c-format
-msgid "the method '%s' is not known for the object class %s"
-msgstr "La méthode '%s' n'est pas connu de la classe d'objet %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been aborted.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s n'a pas pu être réalisé.\n"
-"%s"
-
-#, c-format
-msgid "change state : %s to %s"
-msgstr "changement d'état de %s vers %s"
-
-#, c-format
-msgid "%s new state %s"
-msgstr "%s changement d'état vers %s"
-
-#, c-format
-msgid ""
-"The change state to %s has been realized. But the following warning is "
-"appeared.\n"
-"%s"
-msgstr ""
-"Le changement d'état vers %s a réussi avec l'avertissement suivant.\n"
-"%s "
-
-#, c-format
-msgid "cannot change state of document #%d to %s"
-msgstr "ne peux pas changer l'état du document n°%d vers %s"
-
-#, c-format
-msgid ""
-"automaticaly by change state of %s\n"
-"%s"
-msgstr ""
-"changement d'état automatique issu du document %s\n"
-"%s"
-
-#, c-format
 msgid "invalid syntax for [%s] for enum attribute"
 msgstr "erreur de syntaxe pour l'attribut énuméré [%s]"
-
-msgid "locked document of "
-msgstr "documents verrouillés par "
-
-msgid "Document basket"
-msgstr "Porte-document"
-
-#, c-format
-msgid "basket of %s"
-msgstr "porte-documents de %s"
-
-msgid "folder is locked. Cannot containt modification"
-msgstr "le dossier est verrouillé : son contenu ne peut pas être modifié"
-
-msgid "Folder cleared"
-msgstr "Dossier vidé"
-
-#, c-format
-msgid "Cannot add in %s folder, doc id (%d) unknown"
-msgstr "Ne peut ajouter dans le dossier %s, identificateur %d inconnu"
-
-#, c-format
-msgid ""
-"Cannot add %s in %s folder, restriction set to add this kind of document"
-msgstr ""
-"Ne peut ajouter %s dans le dossier %s, restrictions activées pour l'ajout de "
-"ce type de document"
-
-#, c-format
-msgid "Add %s in %s folder"
-msgstr "Ajout %s dans dossier %s"
-
-#, c-format
-msgid "Document %s inserted"
-msgstr "Insertion document %s "
-
-#, c-format
-msgid "Change profil to default document profil : %d"
-msgstr "Changement du profil avec le profil par défaut du document famille : %d"
-
-#, c-format
-msgid "Change profil to default subfolder profil : %d"
-msgstr "Changement du profil avec le profil par défaut du dossier: %d"
-
-#, c-format
-msgid "Dir::insertFolder identificator [%s] must be numeric"
-msgstr "Dir::insertFolder l'identificateur [%s] doit être numérique"
-
-#, c-format
-msgid "cannot delete link : initial query not found for doc %d in folder %d"
-msgstr ""
-"le document %d n'existe plus dans le dossier %d.\n"
-"mettre à jour la vue."
-
-#, c-format
-msgid ""
-"cannot delete link for doc %d in folder %d : the document comes from a user "
-"query. Delete initial query if you want delete this document"
-msgstr ""
-"le lien pour le document %d dans le dossier %d ne peut pas être détruit : \n"
-"le document provient d'une recherche utilisateur. Supprimer la requête "
-"initiale si vous voulez delier le document"
-
-#, c-format
-msgid "Delete %d in %s folder"
-msgstr "Suppression n°%d du dossier %s"
-
-#, c-format
-msgid "Document %s umounted"
-msgstr "Document %s enlevé"
 
 #, c-format
 msgid "unknow attribute %s (family %s)"
@@ -4928,6 +4929,9 @@ msgstr "ajouter entrée"
 msgid "elinkEncode::attribute not found %s"
 msgstr "elinkEncode :  attribut non trouvé %s"
 
+msgid "Others..."
+msgstr "Autres..."
+
 #, c-format
 msgid "create new %s"
 msgstr "créé par %s"
@@ -4946,6 +4950,9 @@ msgstr "Spécification incorrecte du menu spécial %s"
 
 msgid "submenu"
 msgstr "sous-menu"
+
+msgid "Other..."
+msgstr "Autre..."
 
 #, c-format
 msgid ""
