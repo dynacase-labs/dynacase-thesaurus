@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.144 2008/06/13 14:21:24 eric Exp $
+ * @version $Id: editutil.php,v 1.145 2008/06/13 16:30:43 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -969,28 +969,42 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   if (true ||(!$etype) || ($etype=="close")) $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
 
   $lay->set("isopen",($etype=="open"));
+    $lay->set("isfree",false);
+  //  $lay->set("isfree",($etype=="free"));
   $tvalue=$doc->_val2array($value);
 
   $lay->set("lvalue",$value);
   $enuml = $oattr->getenumlabel();
+  if ($etype=="free") {
+    $enuml['...']=_("Others...");
+  }
+
   $ki=0;
+  $noselect=true;
   foreach($enuml as $k=>$v) {
 
     if (in_array($k,$tvalue)) {
       $topt[$k]["selected"] = "selected";
       $topt[$k]["checked"] = "checked";
       $lay->set("lvalue",$v);
+      $noselect=false;
     } else {
       $topt[$k]["selected"]="";
       $topt[$k]["checked"] = "nochecked";
     }
 	  
-    $topt[$k]["optid"] = "$idx$ki";
+    $topt[$k]["optid"] = $idx.'_'.$ki;
     $topt[$k]["fvalue"]=$v;
     $topt[$k]["kvalue"]=$k;
     $topt[$k]["ki"]=$ki;
     $ki++;
   }
+  if ($noselect && ($etype=="free")) {    
+    $topt['...']["selected"] = "selected";
+    $topt['...']["checked"] = "checked";
+    $lay->set("isfree",true);
+  }
+
   $lay->setBlockData("OPTIONS",$topt);
   $lay->set("value",$value);
   $lay->set("docid",($doc->doctype=='C')?$doc->id:$doc->fromid);

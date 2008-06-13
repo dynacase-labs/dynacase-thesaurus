@@ -966,14 +966,51 @@ function changeCheckClasses(th,iin) {
     }
     icheck[icheck.length-1].checked=(!needuncheck);
     if (iin) {      
+      var oi=document.getElementById(iin);
       for (var i=0;i<icheck.length;i++) {
 	if (icheck[i].checked) {
-	  var oi=document.getElementById(iin);
 	  oi.value=icheck[i].value;
 	}
       }
+
+      createOtherEnumInput(th,oi);
+
+	
+    }    
+  }
+}
+
+function createOtherEnumInput(radio,ireal,initvalue) {
+  var v;
+  if (radio) v=radio.value;
+  if (initvalue) {
+    v='...';
+    
+  }
+  
+  var oid='other_'+ireal.id;
+  var o=document.getElementById(oid);
+  if (v=='...') {
+    if (! o) {
+      var o=document.createElement("input");
+      o.id=oid;
+      o.type='text';
+      if (initvalue) o.value=ireal.value;
+      var cibleid=ireal.id+'...';
+      var cible=document.getElementById(cibleid);
+      if (cible) cible.parentNode.appendChild(o);
+      else alert('label cible : '+cibleid);
+      addEvent(o,"change", function() {ireal.value=this.value});
+    }
+    o.style.display='';
+    o.focus();
+  } else {
+    if (o) {
+      o.style.display='none';
+      o.value='';
     }
   }
+
 }
 
 // change style classes for check bool input

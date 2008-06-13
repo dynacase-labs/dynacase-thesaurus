@@ -1,8 +1,8 @@
 <span id="sp_[id]">
 [BLOCK OPTIONS]
-<span class="[checked]"><span><input [disabled] id="[optid]" onclick="changeCheckClasses(this,'[id]')" type="radio" name="[id][name]" value="[kvalue]" [checked]>&nbsp;<label onclick="checkinput('[optid]',true,'[id]')">[fvalue]</label></span></span>[ENDBLOCK OPTIONS]
+<span class="[checked]"><span><input [disabled] id="[optid]" onclick="changeCheckClasses(this,'[id]')" type="radio" name="[id][name]" value="[kvalue]" [checked]>&nbsp;<label id="[id][kvalue]" onclick="checkinput('[optid]',true,'[id]')">[fvalue]</label></span></span>[ENDBLOCK OPTIONS]
 <input type="hidden" id="[id]" name="[name]" value="[value]">
 [IF isopen]
 <input style="display:none" title="[TEXT:Set new entry]" onkeypress="if (trackCR(event))return false" type="text" id="keysp_[id]">
-<input type="button" onclick="addEnum(this,document.getElementById('sp_[id]'),'[docid]','[idi]',document.getElementById('keysp_[id]'));return false" title="[TEXT:Add new entry]" value="+">[ENDIF isopen]
+<input type="button" onclick="addEnum(this,document.getElementById('sp_[id]'),'[docid]','[idi]',document.getElementById('keysp_[id]'));return false" title="[TEXT:Add new entry]" value="+">[ENDIF isopen][IF isfree]<script>createOtherEnumInput(false,document.getElementById('[id]'),true);</script>[ENDIF isfree]
 </span>
