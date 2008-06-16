@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.39 2008/06/13 14:21:24 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.40 2008/06/16 16:32:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -193,20 +193,22 @@ Class NormalAttribute extends BasicAttribute {
     $a=new DocAttr($dbaccess, array($this->docid,$this->id));
     if ($a->isAffected()) {
       $tenum=$this->getEnum();
-      $key=str_replace(array(',','|'),array('-','_'),$key);
-      $label=str_replace(array(',','|'),array('-','_'),$label);
+      $key=str_replace(array('|'),array('_'),$key);
+      $label=str_replace(array('|'),array('_'),$label);
       $tkey=array_keys($tenum);
       if (! in_array($key,$tkey)) {
 
 
       $tenum[$key]=$label;
-	global $__tenum; // modify cache 
-	global $__tlenum;
-	$__tenum[$this->id][$key]=$label;
-	$__tlenum[$this->id][$key]=$label;
+      global $__tenum; // modify cache 
+      global $__tlenum;
+      $__tenum[$this->id][$key]=$label;
+      $__tlenum[$this->id][$key]=$label;
       // convert array to string
       $tsenum=array();
       foreach ($tenum as $k=>$v) {
+	$v=str_replace(array(',','|'),array('\,','_'),$v);
+	$k=str_replace(array(',','|'),array('\,','_'),$k);
 	$tsenum[]="$k|$v";
       }
       $senum=implode($tsenum,',');
