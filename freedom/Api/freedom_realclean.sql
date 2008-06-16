@@ -12,9 +12,13 @@ delete from fld where dirid not in (select initid from doc2 where locked != -1) 
 update doc set locked=0 where locked < -1;
 update doc set postitid=0 where postitid > 0 and postitid not in (select id from doc27 where doctype != 'Z');
 delete from only doc;
+begin;
 delete from docfrom;
 insert INTO docfrom (id, fromid) select id, fromid from doc;
+update docfrom set fromid=-1 where id in (select id from docfam);
+end;
+begin;
 delete from docname;
 insert INTO docname (name, id, fromid) select name,id, fromid from doc where name is not null and name != '' and locked != -1;
-update docfrom set fromid=-1 where id in (select id from docfam);
+end;
 vacuum full analyze;
