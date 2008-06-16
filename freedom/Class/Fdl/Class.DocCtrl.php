@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.50 2008/05/30 07:33:34 eric Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.51 2008/06/16 13:28:27 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -442,7 +442,7 @@ Class DocCtrl extends DocLDAP {
       if ($Email[0] == "<") {
 	$sug[]=_("<it's a message>");
       } else {      
-	if (ereg("^[_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) {      
+        if (!ereg("^[+_\.0-9a-zA-Z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,6}$", $Email)) { 
 	  return true;
 	}
 	$err= _("the email syntax  is like : john.doe@anywhere.org");
