@@ -3,7 +3,7 @@
  * Import documents
  *
  * @author Anakeen 2000 
- * @version $Id: import_file.php,v 1.140 2008/06/06 14:22:51 eric Exp $
+ * @version $Id: import_file.php,v 1.141 2008/06/16 15:33:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -67,7 +67,7 @@ function add_import_file(&$action, $fimport) {
     case "BEGIN":
       $err="";	
       // search from name or from id
-      if ($data[3]=="") $doc=new DocFam($dbaccess,getFamIdFromName($dbaccess,$data[5]) );
+      if (($data[3]=="") || ($data[3]=="-"))$doc=new DocFam($dbaccess,getFamIdFromName($dbaccess,$data[5]) );
       else $doc=new DocFam($dbaccess, $data[3]);
       $famicon="";
      
@@ -83,21 +83,21 @@ function add_import_file(&$action, $fimport) {
 	  $err = $doc->Add();
 
 	}
-	$tcr[$nline]["msg"]=sprintf(_("create %s family"),$data[2]);
+	$tcr[$nline]["msg"]=sprintf(_("create %s family %s"),$data[2],$data[5]);
 	$tcr[$nline]["action"]="added";
       } else {
 	$tcr[$nline]["action"]="updated";
-	$tcr[$nline]["msg"]=sprintf(_("update %s family"),$data[2]);
+	$tcr[$nline]["msg"]=sprintf(_("update %s family %s"),$data[2],$data[5]);
       }
-      
-      if (is_numeric($data[1]))   $doc->fromid = $data[1];
-      else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
-
-      $doc->title =  $data[2];  
+      if ($data[1]!='-') {
+	if (is_numeric($data[1]))   $doc->fromid = $data[1];
+	else $doc->fromid = getFamIdFromName($dbaccess,$data[1]);
+      }
+      if ($data[2] && ($data[2]!='-')) $doc->title =  $data[2];  
      
       
-      if (isset($data[4])) $doc->classname = $data[4]; // new classname for familly
-      if (isset($data[5])) $doc->name = $data[5]; // internal name
+      if (isset($data[4]) && ($data[4]!='-')) $doc->classname = $data[4]; // new classname for familly
+      if (isset($data[5]) && ($data[5]!='-')) $doc->name = $data[5]; // internal name
 
 
       $tcr[$nline]["err"].=$err;
