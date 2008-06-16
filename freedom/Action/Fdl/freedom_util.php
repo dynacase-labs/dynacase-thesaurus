@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.105 2008/05/27 13:47:17 eric Exp $
+ * @version $Id: freedom_util.php,v 1.106 2008/06/16 15:31:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -465,15 +465,48 @@ function getFamIdFromName($dbaccess, $name) {
  * @return int 0 if not found, return negative first id found if multiple (name must be unique)
  */
 function getIdFromName($dbaccess, $name, $famid="") {
+  static $first=true;
   $dbid=getDbid($dbaccess);   
   $id=false;
-  $result = pg_query($dbid,"select id from docname where name='$name';");
+
+  if ($first) {
+    pg_prepare($dbid, "getidfromname", 'select id from docname where name=$1');
+    $first=false;
+  }
+  //  $result = pg_query($dbid,"select id from docname where name='$name';");
+  $result = pg_execute($dbid, "getidfromname", array($name));
   $n=pg_numrows ($result);
   if ($n > 0) {
     $arr = pg_fetch_array ($result,($n-1),PGSQL_ASSOC);
     $id= $arr["id"];
   }    
   return $id;  
+}
+
+/**
+ * return the logical name of a document from its initial identificator
+ *
+ * @param string $dbaccess database specification
+ * @param string $id initial identificator
+ *
+ * @return string empty if not found
+ */
+function getNameFromId($dbaccess, $id) {
+  static $first=true;
+  $dbid=getDbid($dbaccess);   
+  $id=intval($id);
+  //  $result = pg_query($dbid,"select name from docname where id=$id;"); 
+  if ($first) {
+    pg_prepare($dbid, "getNameFromId", 'select name from docname where id=$1');
+    $first=false;
+  }
+  $result = pg_execute($dbid, "getNameFromId", array($id));
+  $n=pg_numrows ($result);
+  if ($n > 0) {
+    $arr = pg_fetch_array ($result,($n-1),PGSQL_ASSOC);
+    $name= $arr["name"];
+  }    
+  return $name;  
 }
 function setFamidInLayout(&$action) {
   
