@@ -3,7 +3,7 @@
  * Modify item os enumerate attributes
  *
  * @author Anakeen 2000 
- * @version $Id: generic_modkind.php,v 1.6 2007/07/31 14:13:39 eric Exp $
+ * @version $Id: generic_modkind.php,v 1.7 2008/06/16 16:42:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -48,7 +48,7 @@ function generic_modkind(&$action) {
       $ple = $le;
    
 
-      $tsenum[$k] = $ref.$v."|".$tlabel[$k];
+      $tsenum[$k] = stripslashes($ref.$v."|".$tlabel[$k]);
     }
   }
   $attr = new DocAttr($dbaccess, array($famid,$aid));
@@ -59,7 +59,7 @@ function generic_modkind(&$action) {
     } else {	  
       $funcformat="";
     }
-    $attr->phpfunc = stripslashes(implode(",",$tsenum));
+    $attr->phpfunc = implode(",",str_replace(',','\,',($tsenum)));
     if ($funcformat != "") $attr->phpfunc="[$funcformat]".$attr->phpfunc;
     $attr->modify();
 
