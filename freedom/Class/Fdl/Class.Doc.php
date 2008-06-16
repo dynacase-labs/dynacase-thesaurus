@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.502 2008/06/13 14:21:24 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.503 2008/06/16 15:34:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4309,6 +4309,22 @@ final public function PostInsert()  {
 	}             
       }
     }
+  }  
+
+  /**
+   * set default name reference 
+   * if no name a new name will ne computed from its initid and family name
+   * the new name is set to name attribute
+   * @return string error messahe (empty means OK).
+   */
+  final public function setNameAuto() {
+    if (($this->name=="")&&($this->initid>0)) {
+      $dfam=$this->getFamDoc();
+      if ($dfam->name=="") return sprintf("no family name %s",$dfam->id);
+      $this->name=$dfam->name.'_'.$this->initid;
+      $err=$this->modify(true,array("name"),true);
+    }
+    return $err;
   }
 
    /**
