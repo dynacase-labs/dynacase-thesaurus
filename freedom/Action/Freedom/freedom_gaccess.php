@@ -3,7 +3,7 @@
  * View/Edit ACLs for a document
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_gaccess.php,v 1.13 2008/06/10 07:43:07 eric Exp $
+ * @version $Id: freedom_gaccess.php,v 1.14 2008/06/17 12:03:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -82,10 +82,6 @@ function freedom_gaccess(&$action) {
       if ($tusers) {       
 	foreach($tusers as $k=>$v) {
 	  if (in_array($v["id"],$lu)) {
-	    if ($k > 100) {
-	      $action->AddWarningMsg(sprintf(_("Not all users can be vieved.\nlimit %d has been reached"),$k));
-	      break;
-	    }
 	    $title[$v["id"]]=$v["firstname"]." ".$v["lastname"];
 	    $tg[]=array("level"=>10,
 			"gid"=>$v["id"],
