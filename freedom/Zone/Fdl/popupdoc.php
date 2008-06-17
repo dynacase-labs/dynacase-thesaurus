@@ -3,7 +3,7 @@
  * Specific menu for family
  *
  * @author Anakeen 2000 
- * @version $Id: popupdoc.php,v 1.21 2008/05/13 15:02:27 eric Exp $
+ * @version $Id: popupdoc.php,v 1.22 2008/06/17 09:28:12 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -57,7 +57,7 @@ function popupdoc(&$action,$tlink,$tsubmenu=array()) {
       $v["issubmenu"]=false;
       $v["descr"]=ucfirst(utf8_encode($v["descr"]));
       $v["title"]=ucfirst(utf8_encode($v["title"]));
-      $v["tconfirm"]=str_replace("\n","\\n",utf8_encode($v["tconfirm"]));
+      $v["tconfirm"]=str_replace(array("\n","\r"),array("\\n",''),utf8_encode($v["tconfirm"]));
       if (! isset($v["visibility"])) $v["visibility"]="";
       if (! isset($v["confirm"])) $v["confirm"]="";
       if (! isset($v["color"])) $v["color"]=false;
