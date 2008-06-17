@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.146 2008/06/13 16:49:16 eric Exp $
+ * @version $Id: editutil.php,v 1.147 2008/06/17 12:03:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -274,7 +274,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $enuml = $oattr->getenumlabel();
       $lunset=current($enuml);
       if ($value=="") {
-	if (($doc->id==0)||($oattr->eformat=='bool')) $value=key($enuml);
+	if (($oattr->eformat=='bool') || ($oattr->getOption("eunset")!="yes")) $value=key($enuml);
 	else $value=" ";
 	
       } 
@@ -963,13 +963,15 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $idocid=$oattr->format.$index;
   $lay->set("name",$aname);
   $idx=$oattr->id.$index;
+
   $lay->set("id",$idx);
   $lay->set("idi",$oattr->id);
   $etype=$oattr->getOption("etype");
+  $eformat=$oattr->getOption("eformat");
   if (true ||(!$etype) || ($etype=="close")) $doc->addParamRefresh($oattr->id,"li_".$oattr->id);
 
   $lay->set("isopen",($etype=="open"));
-    $lay->set("isfree",false);
+  $lay->set("isfree",false);
   //  $lay->set("isfree",($etype=="free"));
   $tvalue=$doc->_val2array($value);
 
@@ -977,6 +979,10 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $enuml = $oattr->getenumlabel();
   if ($etype=="free") {
     $enuml['...']=_("Other...");
+  }
+
+  if (($eformat=="") && ($value==" ")&& ($oattr->getOption("eunset")=="yes")) {
+    $enuml[' ']=_("Nothing");
   }
 
   $ki=0;
