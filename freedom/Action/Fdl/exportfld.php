@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.27 2008/06/16 15:33:35 eric Exp $
+ * @version $Id: exportfld.php,v 1.28 2008/06/17 12:03:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -114,7 +114,7 @@ function exportfld(&$action, $aflid="0", $famid="")
 	  }
 	  if ($cvname || $wname) {
 	    $send.="BEGIN;-;-;-;-;".$doc->name."\n";
-	    if ($cvname) $send.="CCVID;".$cvname."\n";
+	    if ($cvname) $send.="CVID;".$cvname."\n";
 	    if ($wname) $send.="WID;".$wname."\n";
 	    $send.="END;\n";
 	  }
