@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-13 18:32+0200\n"
-"PO-Revision-Date: 2008-06-13 18:32+0200\n"
+"PO-Revision-Date: 2008-06-16 15:35+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -759,10 +759,10 @@ msgstr "(nouvelle entrée)"
 
 #, c-format
 msgid "free item %s"
-msgstr "entrée libre %s"
+msgstr "insérer [%s]"
 
 msgid "(free item)"
-msgstr "(entrée libre)"
+msgstr "(inséré)"
 
 #, c-format
 msgid "unknow item %s"
