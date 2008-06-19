@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.503 2008/06/16 15:34:14 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.504 2008/06/19 09:32:09 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3305,7 +3305,7 @@ final public function PostInsert()  {
     if (($this->doctype == 'C') || ($this->doctype == 'Z') ) return; // no refresh for family  and zombie document   
     $changed=$this->hasChanged;
     if (!$changed)  $this->disableEditControl();// disabled control just to refresh
-
+    //var_dump(xdebug_get_function_stack());
     $err=$this->SpecRefresh();
     // if ($this->id == 0) return; // no refresh for no created document
     $err.=$this->SpecRefreshGen();
