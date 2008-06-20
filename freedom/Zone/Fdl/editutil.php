@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.147 2008/06/17 12:03:01 eric Exp $
+ * @version $Id: editutil.php,v 1.148 2008/06/20 08:00:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -637,7 +637,7 @@ function elinkEncode(&$doc, $link,$index,&$ititle,&$isymbol) {
       } else {
 	  
 	$sattrid="";
-	while ($link[$i] != "%" ) {
+	while (($link[$i] != "%")&&($i<=strlen($link))) {
 	  $sattrid.= $link[$i];
 	  $i++;
 	}
@@ -982,7 +982,7 @@ function getLayOptions(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   }
 
   if (($eformat=="") && ($value==" ")&& ($oattr->getOption("eunset")=="yes")) {
-    $enuml[' ']=_("Nothing");
+    $enuml[' ']=_("Do choice");
   }
 
   $ki=0;
