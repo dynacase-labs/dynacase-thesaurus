@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.504 2008/06/19 09:32:09 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.505 2008/06/20 14:33:56 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4684,7 +4684,7 @@ final public function PostInsert()  {
    * write layout for thumb view
    */
   function viewproperties($target="finfo",$ulink=true,$abstract=true) {
-
+    global $action;
     $this->viewprop($target,$ulink,$abstract);
     $this->lay->set("iconsrc",$this->getIcon());
     $fdoc=$this->getFamDoc();
@@ -4704,7 +4704,7 @@ final public function PostInsert()  {
       $this->lay->set("freestate",$this->state);
     }
     else $this->lay->set("freestate",false);
-
+    $this->lay->set("setname",($this->name=="")&& $action->parent->Haspermission("FREEDOM_MASTER","FREEDOM"));
     $this->lay->set("hasrevision",($this->revision > 0));
     $this->lay->Set("moddate", strftime ("%d/%m/%Y %H:%M:%S",$this->revdate));
     $this->lay->set("moddatelabel",_("last modification date"));
