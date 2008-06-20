@@ -203,7 +203,7 @@ function callSuggestions(valeur){
 	  } 
 	} else if (_xmlHttp.responseText) {
 	  if (_xmlHttp.responseText.substring(0,5) != '<?xml')
-	    alert(_xmlHttp.responseText);
+	    alert('['+_xmlHttp.responseText+']');
 	}
       }
     
@@ -239,7 +239,7 @@ function traiteXmlSuggestions(xmlDoc) {
       if (_autodebug) msg = msg+' ('+( _timeend - _timebegin ).toString()+'ms)';
       displayWarning(msg);
     } else {
-      alert(_xmlHttp.responseText);
+      if (_xmlHttp.responseText) alert('traiteXmlSuggestions'+_xmlHttp.responseText);
     }
   } else {
      if (_autodebug) optionsListe[0]=optionsListe[0]+' ('+( _timeend - _timebegin ).toString()+'ms)';
