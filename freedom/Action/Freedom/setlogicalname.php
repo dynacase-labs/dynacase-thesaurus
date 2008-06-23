@@ -3,7 +3,7 @@
  * Enable/disable forum for documents
  *
  * @author Anakeen 2000 
- * @version $Id: setlogicalname.php,v 1.1 2008/06/20 14:33:56 eric Exp $
+ * @version $Id: setlogicalname.php,v 1.2 2008/06/23 10:21:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -21,12 +21,15 @@ function setlogicalname(&$action)  {
   $docid = GetHttpVars("id");
   $name =GetHttpVars("name");
   if ($docid && $name) {    
-    $doc = new_Doc($dbaccess, $docid, true);
-    if (! $doc->isAffected()) $action->addWarningMsg(sprintf(_("cannot see unknow reference %s"),$docid));
-    else {
-      if ($doc->name != "") {
-	$action->addWarningMsg(sprintf(_("Logical name %s already set for %s"),$name,$doc->title));
-      } else {
+    if (! eregi("^[A-Z][[0-9A-Z\-_]*$",$name)) {
+      $action->addWarningMsg(sprintf(_("name must containt only alphanumeric characters: invalid  [%s]"),$name));
+    } else {
+      $doc = new_Doc($dbaccess, $docid, true);
+      if (! $doc->isAffected()) $action->addWarningMsg(sprintf(_("cannot see unknow reference %s"),$docid));
+      else {
+	if ($doc->name != "") {
+	  $action->addWarningMsg(sprintf(_("Logical name %s already set for %s"),$name,$doc->title));
+	} else {
 	  // verify not use yet
 	  $q=$doc->exec_query("select id from doc where name='".pg_escape_string($name)."'");
 	  if ($doc->numrows()==0) {
@@ -36,6 +39,7 @@ function setlogicalname(&$action)  {
 	  } else {	    
 	    $action->addWarningMsg(sprintf(_("Logical name %s already use other document"),$name,$doc->title));	    
 	  }
+	}
       }
     }
   }
