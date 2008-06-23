@@ -3,7 +3,7 @@
  * Search Document
  *
  * @author Anakeen 2008
- * @version $Id: Class.SearchDoc.php,v 1.3 2008/05/21 12:38:57 eric Exp $
+ * @version $Id: Class.SearchDoc.php,v 1.4 2008/06/23 09:37:36 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -127,11 +127,19 @@ Class SearchDoc {
       }
     }
     $this->index=0;
+    $this->searchmode=$this->mode;
+    if ($this->mode=="ITEM") {
+      // change search mode because ITEM mode not supported for Specailized searches
+      $fld = new_Doc($this->dbaccess, $this->dirid);
+      if ($fld->fromid == getFamIdFromName($this->dbaccess,"SSEARCH")) $this->searchmode="TABLE";
+    }
     $this->result = getChildDoc($this->dbaccess, 
 				$this->dirid,
 				$this->start,
-				$this->slice, $this->filters,$this->userid,$this->mode,
+				$this->slice, $this->filters,$this->userid,$this->searchmode,
 				$this->fromid,$this->distinct,$this->orderby, $this->latest, $this->trash);
+    if ((is_array($this->result)) && ($this->mode=="ITEM")) $this->mode="TABLEITEM";
+
     return $this->result;
   }  
 
@@ -144,9 +152,12 @@ Class SearchDoc {
   public function nextDoc() {
     if ($this->mode=="ITEM") {
       return getNextDoc($this->dbaccess,$this->result);
-    } else {
-      return $this->result[$this->index++];
-    }   
+    } elseif ($this->mode=="TABLEITEM") {
+      $t=array_shift($this->result);
+      if (! is_array($t)) return false;
+      return getDocObject($this->dbaccess,$t);
+    } else return array_shift($this->result);
+     
   }  
 
   /**
