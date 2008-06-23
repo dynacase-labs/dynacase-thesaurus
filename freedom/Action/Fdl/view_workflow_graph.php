@@ -3,7 +3,7 @@
  * Edition to affect document
  *
  * @author Anakeen 2000 
- * @version $Id: view_workflow_graph.php,v 1.5 2008/03/11 11:25:04 eric Exp $
+ * @version $Id: view_workflow_graph.php,v 1.6 2008/06/23 09:21:03 marc Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -26,7 +26,11 @@ include_once("FDL/Class.WDoc.php");
 function view_workflow_graph(&$action) {
   $docid = GetHttpVars("id"); 
   $type = GetHttpVars("type","simple"); // type of graph
-  $format = GetHttpVars("format","svg"); // type of graph
+  $format = GetHttpVars("format","");
+  if ($format=="") {
+    $format="svg";
+    if ($action->Read("navigator","")=="EXPLORER") $format="png";
+  }
   $orient = GetHttpVars("orient","LR"); // type of graph
   $size = GetHttpVars("size","10"); // size of graph
   $ratio = GetHttpVars("ratio","auto"); // ratio of graph
