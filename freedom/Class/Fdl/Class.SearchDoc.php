@@ -3,7 +3,7 @@
  * Search Document
  *
  * @author Anakeen 2008
- * @version $Id: Class.SearchDoc.php,v 1.4 2008/06/23 09:37:36 eric Exp $
+ * @version $Id: Class.SearchDoc.php,v 1.5 2008/06/23 16:32:29 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -138,7 +138,7 @@ Class SearchDoc {
 				$this->start,
 				$this->slice, $this->filters,$this->userid,$this->searchmode,
 				$this->fromid,$this->distinct,$this->orderby, $this->latest, $this->trash);
-    if ((is_array($this->result)) && ($this->mode=="ITEM")) $this->mode="TABLEITEM";
+    if (($this->searchmode=="TABLE") && ($this->mode=="ITEM")) $this->mode="TABLEITEM";
 
     return $this->result;
   }  
