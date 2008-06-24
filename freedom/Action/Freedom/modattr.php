@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: modattr.php,v 1.30 2007/11/13 08:41:35 eric Exp $
+ * @version $Id: modattr.php,v 1.31 2008/06/24 07:57:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -125,8 +125,8 @@ function modattr(&$action) {
 	    $oattr->phpfile=$phpfiles[$k];
 	    $oattr->phpfunc=stripslashes($phpfuncs[$k]);
 	    $oattr->elink=stripslashes($elinks[$k]);
-	    $oattr->phpconstraint=$phpconstraint[$k];
-	    $oattr->options=$options[$k];
+	    $oattr->phpconstraint=stripslashes($phpconstraint[$k]);
+	    $oattr->options=stripslashes($options[$k]);
 	    $oattr->usefor='N';
 	    if (!$oattr->isAffected()) {
 	      // print "add $names[$k]<BR>";
