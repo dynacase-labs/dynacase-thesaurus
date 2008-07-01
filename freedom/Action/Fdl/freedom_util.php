@@ -3,7 +3,7 @@
  * Function Utilities for freedom
  *
  * @author Anakeen 2000 
- * @version $Id: freedom_util.php,v 1.106 2008/06/16 15:31:09 eric Exp $
+ * @version $Id: freedom_util.php,v 1.107 2008/07/01 07:50:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -470,7 +470,7 @@ function getIdFromName($dbaccess, $name, $famid="") {
   $id=false;
 
   if ($first) {
-    pg_prepare($dbid, "getidfromname", 'select id from docname where name=$1');
+    @pg_prepare($dbid, "getidfromname", 'select id from docname where name=$1');
     $first=false;
   }
   //  $result = pg_query($dbid,"select id from docname where name='$name';");
@@ -497,7 +497,7 @@ function getNameFromId($dbaccess, $id) {
   $id=intval($id);
   //  $result = pg_query($dbid,"select name from docname where id=$id;"); 
   if ($first) {
-    pg_prepare($dbid, "getNameFromId", 'select name from docname where id=$1');
+    @pg_prepare($dbid, "getNameFromId", 'select name from docname where id=$1');
     $first=false;
   }
   $result = pg_execute($dbid, "getNameFromId", array($id));
