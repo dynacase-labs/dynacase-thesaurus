@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.9 2008/06/13 14:21:24 eric Exp $
+ * @version $Id: autocompletion.php,v 1.10 2008/07/01 07:51:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -95,7 +95,7 @@ function autocompletion(&$action) {
     if ($enum != "") {
       $eval=$oattr->phpfunc;
       $oattr->phpfile="fdl.php";
-
+      $eval=str_replace(array('\,','\.'),array('&comma;','&point;'),$eval);
       $oattr->phpfunc=sprintf("lenumvalues(%s,'%s):%s,li_%s",
 			      str_replace(',','---',$eval),
 			      str_replace(array(')','('),array('\)','\('),$skey),
