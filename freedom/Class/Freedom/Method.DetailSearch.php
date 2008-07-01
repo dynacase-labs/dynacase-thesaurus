@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.64 2008/06/03 10:12:21 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.65 2008/07/01 07:50:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -31,13 +31,13 @@ var $top=array(
 	       "!~*" => array("label"=>"not include",
 			      "type"=>array("text","longtext","htmltext")),       
 	       ">" => array("label"=>"&gt;",
-			    "type"=>array("int","float","date","time","timestamp","money")),       
+			    "type"=>array("int","integer","float","date","time","timestamp","money")),       
 	       "<" => array("label"=>"&lt;",
-			    "type"=>array("int","float","date","time","timestamp","money")),       
+			    "type"=>array("int","integer","float","date","time","timestamp","money")),       
 	       ">=" => array("label"=>"&gt; or equal",
-			     "type"=>array("int","float","date","time","timestamp","money")),       
+			     "type"=>array("int","integer","float","date","time","timestamp","money")),       
 	       "<=" => array("label"=>"&lt; or equal",
-			     "type"=>array("int","float","date","time","timestamp","money")),   
+			     "type"=>array("int","integer","float","date","time","timestamp","money")),   
 	       "is null" => array("label"=>"is empty"),   
 	       "is not null" => array("label"=>"is not empty"),   
 	       "~y" => array("label"=>"one word equal",
