@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.148 2008/06/20 08:00:45 eric Exp $
+ * @version $Id: editutil.php,v 1.149 2008/07/04 09:31:48 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -705,6 +705,27 @@ function getLayArray(&$lay,&$doc,&$oattr) {
       $tad = $ddoc->attributes->getArrayElements($attrid);
       $tval=array();
       $nbcolattr=0; // number of column
+      $max=-1;
+      $max0=-1;
+
+      foreach($ta as $k=>$v) { // detect uncompleted rows
+	$c=count($doc->getTValue($k));	
+	 if ($c > $max) {
+	   if ($max0 < 0) $max0=$c;
+	   $max=$c;
+	 }
+      }
+
+      if ($max > $max0) {	
+	foreach($ta as $k=>$v) { // fill uncompleted rows
+	  $c=count($doc->getTValue($k));	
+	  if ($c < $max) {
+	    $t=$doc->getTValue($k);
+	    $t=array_pad($t,$max,"");	  
+	    $doc->setValue($k,$t);
+	  }
+	}
+      }
       foreach($ta as $k=>$v) {
 	if ($v->mvisibility=="R") {
 	  $v->mvisibility="H"; // don't see read attribute
