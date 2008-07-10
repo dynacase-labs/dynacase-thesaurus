@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: viewframe.php,v 1.23 2008/05/06 09:25:11 eric Exp $
+ * @version $Id: viewframe.php,v 1.24 2008/07/10 14:51:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -12,7 +12,7 @@
  */
 
 // ---------------------------------------------------------------
-// $Id: viewframe.php,v 1.23 2008/05/06 09:25:11 eric Exp $
+// $Id: viewframe.php,v 1.24 2008/07/10 14:51:07 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/freedom/Zone/Fdl/viewframe.php,v $
 // ---------------------------------------------------------------
 //  O   Anakeen - 2001
@@ -102,7 +102,7 @@ function viewframe(&$action) {
     if ($v->inArray() ) continue;
     //------------------------------
       // Set the table value elements
-	if ($v->mvisibility != "H")	{
+    if (($v->mvisibility != "H")&&($v->mvisibility != "I"))	{
    	
 	  // don't see  non abstract if not
 	    if (( !$abstract) || ($v->isInAbstract)) {
