@@ -3,7 +3,7 @@
  * View folder containt
  *
  * @author Anakeen 2003
- * @version $Id: viewfolder.php,v 1.90 2008/03/14 13:58:03 eric Exp $
+ * @version $Id: viewfolder.php,v 1.91 2008/07/10 14:50:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -202,7 +202,7 @@ function viewfolder(&$action, $with_abstract=false, $with_popup=true,
       $tdoc[$k]["icontitle"] = $tdoc[$k]["highlight"];
 
       $tdoc[$k]["profid"] = $doc->profid;
-      $tdoc[$k]["revdate"] = strftime ($fdate, $doc->revdate);
+      $tdoc[$k]["revdate"] = strftime ($fdate, intval($doc->revdate));
 
       $tdoc[$k]["iconsrc"]= $doc->geticon();
   
