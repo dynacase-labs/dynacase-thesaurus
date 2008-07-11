@@ -3,7 +3,7 @@
  * generate interface for the rdition of document
  *
  * @author Anakeen 2003
- * @version $Id: editcard.php,v 1.72 2008/06/19 09:07:27 eric Exp $
+ * @version $Id: editcard.php,v 1.73 2008/07/11 17:33:00 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -173,8 +173,9 @@ function editcard(&$action) {
     if ($doc->id == 0) {
       if (fdl_setHttpVars($doc))  $doc->refresh();
     }
-    setNeededAttributes($action,$doc);
+    setRefreshAttributes($action,$doc);
     $action->lay->Set("ZONEBODYCARD", $doc->viewDoc($zonebodycard));
+    setNeededAttributes($action,$doc);
   }
   $action->lay->Set("NOFORM", (ereg("[A-Z]+:[^:]+:U", $zonebodycard, $reg)));
   // compute modify condition js
@@ -200,12 +201,13 @@ function setNeededAttributes(&$action,&$doc) {
   //compute constraint for enable/disable input
   $tjsa=array();
   if ($usefor != "D") {
+    /*
     if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
     else {
       $err=$doc->SpecRefresh(); // to use addParamRefresh
       $err.=$doc->SpecRefreshGen(true);      
     }
-    
+    */
     $ka=0;  
     foreach ($doc->paramRefresh as $k=>$v) {
       $tjsa[]=array("jstain" => "['".implode("','", $v["in"])."']",
@@ -224,7 +226,16 @@ function setNeededAttributes(&$action,&$doc) {
   $action->parent->AddJsCode($jslay->gen());
   
 }
-
+function setRefreshAttributes(&$action,&$doc) {  
+ 
+  if ($usefor != "D") {
+    if (GetHttpVars("viewconstraint")!="Y") $doc->Refresh();
+    else {
+      $err=$doc->SpecRefresh(); // to use addParamRefresh
+      $err.=$doc->SpecRefreshGen(true);      
+    }       
+  }  
+}
 function moreone($v) {
   return (strlen($v) > 1);
 }
