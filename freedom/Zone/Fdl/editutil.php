@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.149 2008/07/04 09:31:48 eric Exp $
+ * @version $Id: editutil.php,v 1.150 2008/07/11 17:32:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -39,7 +39,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 
   $usephpfunc=true;
   $alone=$oattr->isAlone; // set by method caller in special case to display alone
-
+  
 
   $attrid=$oattr->id;
   $attrin='_'.$oattr->id; // for js name => for return values from client
@@ -74,7 +74,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     // case of specific interface
     $iopt='&phpfile='.$oattr->phpfile.'&phpfunc='.$oattr->phpfunc.'&label='.($oattr->labelText);
   } else $iopt="";
-  if (($oattr->type != "array") && ($oattr->type != "htmltext")) {
+  if (($oattr->type != "array") && ($oattr->type != "htmltext")&& ($oattr->type != "docid")) {
     if  ($visibility != "S") {
       if ($usephpfunc && ($oattr->phpfunc != "") && ($oattr->phpfile  != "") && ($oattr->type != "enum") && ($oattr->type != "enumlist") ) {
 	if ($oattr->getOption("autosuggest","yes")!="no") {
@@ -127,8 +127,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       
     if (($visibility == "R")||($visibility == "S")) $input .=$idisabled;
     $input .= " > "; 
-    break;
-		      
+    break;		      
     //----------------------------------------
   case "file": 
     if (ereg (REGEXPFILE, $value, $reg)) {
@@ -256,6 +255,39 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     break;		
     //----------------------------------------
  
+  case "docid": 
+    $famid=$oattr->format;
+    if ($famid) {
+      // edit document relation 
+      $multi=$oattr->getOption("multiple");
+      if ($multi=="yes") {
+      } else {
+	$lay = new Layout("FDL/Layout/editadoc.xml", $action);
+	getLayAdoc($lay,$doc,$oattr,$value,$attrin,$index);
+		      
+	$famid=$oattr->format;
+	$input="<input type=\"hidden\"  name=\"".$attrin."\"" ;     
+	$input .= " id=\"".$attridk."\" value=\"$value\">"; 
+	$autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this,'$iopt','$attrid')\" ";
+	$oc.=$autocomplete;
+	$textvalue=$doc->getTitle(trim($value));
+    
+	$linkprefix="ilink";
+	$input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".$attrin."\"" ;     
+	$input .= " id=\"${linkprefix}_".$attridk."\" value=\"".$textvalue."\">"; 
+	if (! $oattr->phpfile) {
+	  $oattr->phpfile="fdl.php";
+	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${attrid}):$attrid,${linkprefix}_${attrid}";
+	}
+	$doc->addparamrefresh($attrid,$linkprefix.'_'.$attrid);
+      }
+    } else {
+      $input="<input $oc $classname  type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
+      $input .= " id=\"".$attridk."\" "; 
+      if (($visibility == "R")||($visibility == "S")) $input .= $idisabled;		      
+      $input .= " > "; 
+    }
+    break;		
      
   case "enum": 
     if ($oattr->eformat=="") $oattr->eformat=$oattr->getOption("eformat");

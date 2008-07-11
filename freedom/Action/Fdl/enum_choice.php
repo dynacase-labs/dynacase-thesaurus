@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.48 2008/06/13 14:21:24 eric Exp $
+ * @version $Id: enum_choice.php,v 1.49 2008/07/11 17:32:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -129,8 +129,7 @@ function enumjschoice(&$action) {
   $action->lay->set("notalone",$notalone);
 }
 
-function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {
-   
+function getFuncVar($n,$def="",$whttpvars,&$doc,&$oa) {   
     if ($whttpvars) return GetHttpVars("_".strtolower($n),$def);
     else {
       $h=GetHttpVars(strtolower($n));
@@ -212,8 +211,10 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
 	} else {
 	  $ta= getFuncVar($v,$v,$whttpvars,$doc,$a); 
 	  if ($ta === false) return false;
-	  if (is_array($ta))$arg[$k]= $ta;
-	  else $arg[$k]= trim($ta);
+	  if (is_array($ta)) {
+	    if ($index !== "") $arg[$k]= trim($ta[$index]);
+	    else $arg[$k]= $ta;
+	  } else $arg[$k]= trim($ta);
 	}
       }
       if ($a && ($a->usefor=="Q")) {
@@ -222,7 +223,6 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
     }
   }
 
-  
   $res = call_user_func_array($reg[1], $arg);
 
 

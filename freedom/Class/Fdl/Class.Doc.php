@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.505 2008/06/20 14:33:56 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.506 2008/07/11 17:34:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -3352,7 +3352,6 @@ final public function PostInsert()  {
   }
   
   final public function urlWhatEncode( $link, $k=-1) {
-    // -----------------------------------
     global $action;
     $dbaccess = $action->GetParam("FREEDOM_DB");
     $urllink="";
@@ -3398,7 +3397,7 @@ final public function PostInsert()  {
 	      $i++;
 	    }
 	    $oa=$this->GetAttribute($sattrid);
-	    if (($k >= 0)&&($oa && $oa->inArray())) {
+	    if (($k >= 0)&&($oa && $oa->repeat)) {
 	      $tval= $this->GetTValue($sattrid);
 	      $ovalue = chop($tval[$k]);
 	    } else {
@@ -3509,15 +3508,11 @@ final public function PostInsert()  {
     $idocfamid=$oattr->format;
 
     $attrid=$oattr->id;
-    while (list($kvalue, $avalue) = each($tvalues)) {
+    foreach($tvalues as $kvalue=>$avalue) {
       $htmlval="";
-      switch ($atype)
-	{
-
+      switch ($atype) {
 	case "idoc":
-	  $aformat=""; 
-	   
-
+	  $aformat=""; 	   
 	  $value=$avalue;
 	  if($value!=""){
 	    // printf("la ");
@@ -3807,6 +3802,16 @@ final public function PostInsert()  {
 	      //$htmlval =$lay->gen(); 
 	    }
 	  }
+	  break;
+ 
+	case "docid":
+	  if ($aformat != "") {
+	    $aformat="";
+	    $oattr->link="%S%app=FDL&action=FDL_CARD&latest=Y&id=%".$oattr->id."%";
+	    $htmlval = $this->getTitle(trim($avalue))."-[$avalue]-";
+	  } else 
+	    $htmlval=$avalue;
+
 	  break;
 	case "option": 
 	  $lay = new Layout("FDL/Layout/viewdocoption.xml", $action);

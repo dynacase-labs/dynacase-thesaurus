@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.10 2008/07/01 07:51:14 eric Exp $
+ * @version $Id: autocompletion.php,v 1.11 2008/07/11 17:32:34 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -100,6 +100,15 @@ function autocompletion(&$action) {
 			      str_replace(',','---',$eval),
 			      str_replace(array(')','('),array('\)','\('),$skey),
 			      $oattr->id,$oattr->id);
+    } elseif ($oattr->type=="docid") {
+      $aname=$oattr->id;
+      $famid=$oattr->format;
+      
+      $linkprefix="ilink"; // in coherence with editutil.php
+      if (!$oattr->phpfile) {
+	$oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${aname}):$aname,${linkprefix}_${aname}";
+	$oattr->phpfile="fdl.php";
+      }
     }
     $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 

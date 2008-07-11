@@ -39,7 +39,7 @@ function sendAutoChoice(event,docid,  choiceButton,attrid, iopt ) {
     callSuggestions(inp.value);
   }
 }
-function activeAutoInit(event,docid,  inp,iopt ) {
+function activeAutoInit(event,docid,  inp,iopt,expnameid ) {
   var CORE_STANDURL='?sole=Y'; 
   var index='';
   var domindex=''; // needed to set values in arrays
@@ -66,13 +66,14 @@ function activeAutoInit(event,docid,  inp,iopt ) {
   } else {
     attrid=inp.name.substr(1,inp.name.length-1);;
   }
+  if (expnameid) attrid=expnameid;
   if (!iopt) iopt=''; 
   _adresseRecherche = CORE_STANDURL+'&app=FDL&action=AUTOCOMPLETION&docid='+docid+'&attrid='+attrid+'&index='+index+'&domindex='+domindex+iopt;
   
 }
 
-function activeAuto(event,docid,  inp, iopt ) {
-  activeAutoInit(event,docid,  inp, iopt );
+function activeAuto(event,docid,  inp, iopt,expname ) {
+  activeAutoInit(event,docid,  inp, iopt,expname );
   if (! _autoisinit) _mainLoopId=setTimeout("mainLoop()",_mainLoopDelay);
   _autoisinit=true;
 }
