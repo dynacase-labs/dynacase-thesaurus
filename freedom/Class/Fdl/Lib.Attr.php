@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.75 2008/06/02 09:53:45 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.76 2008/07/11 17:34:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -154,6 +154,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $repeat="true";	  
 	} else {
 	  if ($tnormal[strtolower($v->frameid)]["type"]=="array") $repeat="true";
+	  elseif ($v->options =="multiple=yes") $repeat="true";
 	  else $repeat="false";
 	}
 	$atype=strtolower(trim($atype));
