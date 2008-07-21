@@ -3,7 +3,7 @@
  * Detailled search
  *
  * @author Anakeen 2000 
- * @version $Id: Method.DetailSearch.php,v 1.65 2008/07/01 07:50:48 eric Exp $
+ * @version $Id: Method.DetailSearch.php,v 1.66 2008/07/21 07:20:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage GED
@@ -149,7 +149,7 @@ function getSqlCond($col,$op,$val="") {
 	} else {
 	  $cond1 = " $col !='". implode("' and $col != '",$tkids)."'";    
 	}
-	$cond= "($cond1) or ($col is null)";
+	$cond= " (($cond1) or ($col is null))";
       }
 
       break;
