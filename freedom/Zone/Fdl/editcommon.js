@@ -10,6 +10,7 @@ var colorPick ;
 if (window.pickColor)  colorPick = new ColorPicker();
 if (window.initDHTMLAPI) initDHTMLAPI();
 var THESTATUS=new Array();
+var MDOCSCRUCT=new Array();
 
 document.isCancelled=false;
 document.isSubmitted=false;
@@ -21,7 +22,104 @@ function scruteadocs() {
     updateOfr(ofr,true);
   }
 }
+Array.prototype.getUnique = function () {
+  var o = new Object();
+  var i, e;
+  for (i = 0; e = this[i]; i++) {o[e] = 1};
+  var a = new Array();
+  for (e in o) {a.push (e)};
+  return a;
+} 
+function scrutemdocs() { 
+  var n,iid,tiid;
+  var inpid,inptext,inpsel,inptitle;
+  var itext,isel,ititle;
+  var ti;
+  var nid,ntitle,nval;
+  
+  if (MDOCSCRUCT.length > 0) {
+    MDOCSCRUCT=MDOCSCRUCT.getUnique();
+    for (var i=0; i < MDOCSCRUCT.length; i++) { 
+      n=MDOCSCRUCT[i];
+      
+      tiid=[];
+      if (n.substr(n.length-2,2) == '[]') {
+	n=n.substr(0,n.length-2);
+	if (isNetscape) tiid=document.getElementsByName('mdocid_work'+n+'[]');
+	else  tiid = getInputsByName('_'+n);
 
+      } else {	
+	
+	tiid.push(document.getElementById('mdocid_work'+n.substr(1)));
+	
+      }
+      
+      //	alert(n);
+      for (var j=0; j < tiid.length; j++) { 
+	inpid=tiid[j];
+	if (inpid) {
+	  if (inpid.value != '') {
+	   iid=inpid.id;
+	   itext=iid.substr(11);
+	   ititle='ilink_'+itext;
+	   isel='mdocid_isel_'+itext;
+	   inptext=document.getElementById(itext);
+	   inptitle=document.getElementById(ititle);
+	   inpsel=document.getElementById(isel);
+
+	   if (inptext) {
+	     inptext.style.backgroundColor='orange';
+	   }
+	   if (inptitle) {
+	     inptitle.style.backgroundColor='salmon';
+	   }
+	   if (inpsel) {
+	     inpsel.style.backgroundColor='green';
+	   }
+	   inpid.style.backgroundColor='yellow';
+
+	   if (inpsel && inptitle && inptext) {
+	     nid=inpid.value;
+	     ntitle=inptitle.value;
+	     addinlist(inpsel,ntitle,nid,true);
+	     inpid.value='';
+	     inptitle.value='';
+	     inptitle.focus();
+	     nval='';
+	     for (var k=0;k<inpsel.options.length;k++) {
+	       nval=nval+inpsel.options[k].value+"\n";
+	     }
+	     inptext.value=nval.substr(0,nval.length - 1);
+	   }
+	   }
+	}
+      }
+    }
+    setTimeout('scrutemdocs()',1000); 
+  }
+  
+}
+
+function clearDocIdInputs(attrid,th) {
+  var iinput='mdocid_isel_'+attrid;
+  var inpsel=document.getElementById(iinput);
+  if (inpsel) {
+    for (var k=0;k<inpsel.options.length;k++) {
+      if (inpsel.options[k].selected) inpsel.remove(k--);
+    }
+    th.disabled=true;
+  }
+}
+function disableClearDocIdInputs(attrid, inpsel) {
+  var iinput=document.getElementById('ix_'+attrid);
+  var needdisable=true;
+  if (iinput) {
+    for (var k=0;k<inpsel.options.length;k++) {
+      if (inpsel.options[k].selected) needdisable=false;
+    }
+    iinput.disabled=needdisable;
+  }
+}
 function updateIfr(ifr) { 
   var ofr=document.getElementById(ifr);
   if (ofr) updateOfr(ofr,false);
@@ -1049,11 +1147,13 @@ function changeCheckBoxCheck(oboolid,idx,th) {
 
 }
 
-function addinlist(sel,value) {
+function addinlist(sel,value,key,notselected) {
 
   if (isNetscape) pos=null;
   else pos=sel.options.length+1;
-  sel.add(new Option(value, value, false, true),pos);
+  if (! key) key=value;
+  if (! notselected) notselected=false;
+  sel.add(new Option(value,key, false, (! notselected)),pos);
 }
 
 function  nodereplacestr(n,s1,s2) {
@@ -1574,7 +1674,7 @@ function focusFirst() {
   }
 }
 if (isNetscape) addEvent(window,"load",fixedPosition);
-
+addEvent(window,"load",scrutemdocs);
 // move inputs buttons from node to node
 function mvbuttons(idnode1, idnode2) {
   var node1=document.getElementById(idnode1);

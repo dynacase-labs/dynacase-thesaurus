@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.150 2008/07/11 17:32:34 eric Exp $
+ * @version $Id: editutil.php,v 1.151 2008/07/21 16:19:06 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -260,27 +260,51 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
     if ($famid) {
       // edit document relation 
       $multi=$oattr->getOption("multiple");
+      $input="";
       if ($multi=="yes") {
+	$lay = new Layout("FDL/Layout/editmdoc.xml", $action);
+	getLayMultiDoc($lay,$doc,$oattr,$value,$attrin,$index);
+	
+	$cible="work";
+	if (($visibility == "R")||($visibility == "S")) $lay->set("disabled",$idisabled);
+	else $lay->set("disabled","");
+	$lay->set("cible",$cible);
+	
+	$input2 =$lay->gen();
+	$autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this,'$iopt','$attrid')\" ";
+	$oc.=$autocomplete;
+	if (! $oattr->phpfile) {
+	  $oattr->phpfile="fdl.php";
+	  $oattr->phpfunc="zou";	
+	}
       } else {
+	$input2="";
 	$lay = new Layout("FDL/Layout/editadoc.xml", $action);
 	getLayAdoc($lay,$doc,$oattr,$value,$attrin,$index);
 		      
-	$famid=$oattr->format;
 	$input="<input type=\"hidden\"  name=\"".$attrin."\"" ;     
 	$input .= " id=\"".$attridk."\" value=\"$value\">"; 
 	$autocomplete=" autocomplete=\"off\" onfocus=\"activeAuto(event,".$docid.",this,'$iopt','$attrid')\" ";
 	$oc.=$autocomplete;
 	$textvalue=$doc->getTitle(trim($value));
-    
-	$linkprefix="ilink";
-	$input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".$attrin."\"" ;     
-	$input .= " id=\"${linkprefix}_".$attridk."\" value=\"".$textvalue."\">"; 
+	$cible="";
 	if (! $oattr->phpfile) {
 	  $oattr->phpfile="fdl.php";
-	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${attrid}):$attrid,${linkprefix}_${attrid}";
+	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${attrid}):${cible}$attrid,${linkprefix}_${attrid}";	
 	}
-	$doc->addparamrefresh($attrid,$linkprefix.'_'.$attrid);
       }
+      
+      $famid=$oattr->format;
+      $linkprefix="ilink";
+      $input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".$attrin."\"" ;     
+      $input .= " id=\"${linkprefix}_".$attridk."\" value=\"".$textvalue."\">"; 
+      
+      if (! $cible ) {
+	$doc->addparamrefresh($attrid,$linkprefix.'_'.$attrid);
+      } else {
+	$input.=$input2;
+      }
+      
     } else {
       $input="<input $oc $classname  type=\"text\" name=\"".$attrin."\" value=\"".$hvalue."\"";     
       $input .= " id=\"".$attridk."\" "; 
@@ -538,8 +562,13 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	      " title=\""._("clear inputs")."\"".
 	      " onclick=\"clearInputs([$jarg],'$index','$attridk')\">";
 	  }
-	} 
-      }  else if (($oattr->type == "date") || ($oattr->type == "timestamp")){
+	} else if ($oattr->type == "docid") {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear selected inputs")."\" disabled ".
+	  " onclick=\"clearDocIdInputs('$attridk',this)\">";  
+	//$input.="</td><td>";    
+      }
+      }  else if (($oattr->type == "date") || ($oattr->type == "timestamp")) {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
 	  " onclick=\"clearInputs(['$attrid'],'$index')\">";
@@ -982,7 +1011,34 @@ function getLayAdoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("value",$value);
 
 }
+/**
+ * generate HTML for multiple docid
+ *
+ * @param Layout $lay template of html input
+ * @param Doc $doc current document in edition
+ * @param DocAttribute $oattr current attribute for input
+ * @param string $value value of the attribute to display (generaly the value comes from current document)
+ * @param string $aname input HTML name (generaly it is '_'+$oattr->id)
+ * @param int $index current row number if it is in array ("" if it is not in array)
+ */
+function getLayMultiDoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
+  $idocid=$oattr->format.$index;
+  $lay->set("name",$aname);
+  $lay->set("aid",$oattr->id.$index);
+  $lay->set("value",$value);
+  $lay->set("docid",($doc->id==0)?$doc->id:$doc->fromid);
+  $value=str_replace("\n","<BR>",$value);
+  $topt=array();
+  if ($value!="") {
+    $tval=explode("<BR>",$value);
+    foreach ($tval as $k=>$v) {
+      $topt[]=array("ltitle"=>$doc->getTitle($v),
+		    "ldocid"=>$v);
+    }
+  }
+  $lay->setBlockData("options",$topt);
 
+}
 /**
  * generate HTML for date attribute
  *
