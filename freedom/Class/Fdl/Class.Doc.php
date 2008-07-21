@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.506 2008/07/11 17:34:35 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.507 2008/07/21 16:19:42 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -1980,13 +1980,13 @@ final public function PostInsert()  {
 	  } else {
 	    $tvalues[]=$value;
 	  }
-    
+
 	  foreach($tvalues as $kvalue=>$avalue) {
 	    if ($avalue != "") {
 	      if ($oattr) {
 		switch($oattr->type) {
 		case 'docid':
-		  if  (!is_numeric($avalue)) {		  
+		  if  ((! strstr($avalue,"<BR>")) && (! strstr($avalue,"\n"))&& (!is_numeric($avalue))) {		  
 		    $tvalues[$kvalue]=getIdFromName($this->dbaccess,$avalue);
 		  }
 		  break;
@@ -3805,10 +3805,23 @@ final public function PostInsert()  {
 	  break;
  
 	case "docid":
-	  if ($aformat != "") {
+	  if ($oattr->format != "") {
+	    
 	    $aformat="";
-	    $oattr->link="%S%app=FDL&action=FDL_CARD&latest=Y&id=%".$oattr->id."%";
-	    $htmlval = $this->getTitle(trim($avalue))."-[$avalue]-";
+	    $multiple=($oattr->getOption("multiple")=="yes");
+	    if ($multiple) {
+	      $avalue=str_replace("\n","<BR>",$avalue);
+	      $tval=explode("<BR>",$avalue);
+	      $thval=array();
+	      foreach ($tval as $kv=>$vv) {
+		if (trim($vv) =="")  $thval[] = $vv;
+		else $thval[]=$this->getDocAnchor(trim($vv),$target,$htmllink);
+	      }
+	      $htmlval=implode("<br/>",$thval);
+	    } else {
+	      if ($avalue=="") $htmlval = $avalue;
+	      else $htmlval = $this->getDocAnchor(trim($avalue),$target,$htmllink);
+	    }
 	  } else 
 	    $htmlval=$avalue;
 
