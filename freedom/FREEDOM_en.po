@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-19 15:44+0200\n"
+"POT-Creation-Date: 2008-07-22 12:07+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -1188,12 +1188,28 @@ msgid "Family %s not exist"
 msgstr ""
 
 #, c-format
+msgid "name must containt only alphanumeric characters: invalid  [%s]"
+msgstr ""
+
+#, c-format
+msgid "Logical name %s already set for %s"
+msgstr ""
+
+#, c-format
+msgid "Logical name %s already use other document"
+msgstr ""
+
+#, c-format
 msgid "<b>%d group(s) to refresh</b>"
 msgstr ""
 
 #, fuzzy
 msgid "No need to refresh group"
 msgstr "Delete"
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
+msgstr ""
 
 msgid "Creation aborded : no family specified"
 msgstr ""
@@ -1223,10 +1239,6 @@ msgstr "Create"
 
 #, c-format
 msgid "current (<i>%s</i>)"
-msgstr ""
-
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
 msgstr ""
 
 #, c-format
@@ -2080,6 +2092,9 @@ msgstr ""
 #, fuzzy
 msgid "disable/enable forum on documents"
 msgstr "Category"
+
+msgid "set logical name identificator"
+msgstr ""
 
 msgid "Users"
 msgstr ""
@@ -3292,6 +3307,25 @@ msgstr ""
 msgid "direct"
 msgstr "Edit"
 
+#, c-format
+msgid "period from %s to %s"
+msgstr ""
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr ""
+
+msgid "this kind of document cannot be duplicate"
+msgstr ""
+
+#, fuzzy
+msgid "duplication of"
+msgstr "Edit"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr ""
+
 #, fuzzy
 msgid "error in filename"
 msgstr "Firstname"
@@ -3318,6 +3352,10 @@ msgid "clear inputs"
 msgstr ""
 
 #, fuzzy
+msgid "clear selected inputs"
+msgstr "Delete"
+
+#, fuzzy
 msgid "clear file"
 msgstr "Update Title Cards"
 
@@ -3336,34 +3374,12 @@ msgstr ""
 msgid "Other..."
 msgstr "Delete"
 
-msgid "Nothing"
+msgid "Do choice"
 msgstr ""
 
 #, fuzzy, c-format
 msgid "create new %s"
 msgstr "Edit"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr ""
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr ""
-
-msgid "this kind of document cannot be duplicate"
-msgstr ""
-
-#, fuzzy
-msgid "duplication of"
-msgstr "Edit"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr ""
-
-msgid "Do choice"
-msgstr ""
 
 #, c-format
 msgid ""
@@ -4988,6 +5004,46 @@ msgstr "Modify"
 msgid "addstate"
 msgstr "Identity"
 
+msgid "enumerate input not found"
+msgstr ""
+
+#, fuzzy
+msgid "these needed attributes are empty"
+msgstr "Update Title Cards"
+
+msgid "NOT Clear"
+msgstr ""
+
+#, fuzzy
+msgid "Add new entry"
+msgstr "Category"
+
+msgid "Item cannot be empty"
+msgstr ""
+
+#, fuzzy
+msgid "Save changes ?"
+msgstr "Start search"
+
+msgid "Data cannot be saved"
+msgstr ""
+
+msgid "changeCheckBoolClasses Error"
+msgstr ""
+
+#, fuzzy
+msgid "no trash image"
+msgstr "Firstname"
+
+msgid "vconstraint input not found id="
+msgstr ""
+
+msgid "Choose document before set options"
+msgstr ""
+
+msgid "quick save not possible"
+msgstr ""
+
 #, fuzzy
 msgid "fromdate"
 msgstr "Edit"
@@ -4999,10 +5055,6 @@ msgstr "Identity"
 #, fuzzy
 msgid "today"
 msgstr "Identity"
-
-#, fuzzy
-msgid "view abstract card"
-msgstr "Start search"
 
 #, fuzzy
 msgid "delete selected"
@@ -5026,10 +5078,6 @@ msgstr "Edit"
 #, fuzzy
 msgid "Set new entry"
 msgstr "Edit"
-
-#, fuzzy
-msgid "Add new entry"
-msgstr "Category"
 
 msgid ""
 "Master document has been closed.\n"
@@ -5257,41 +5305,9 @@ msgstr ""
 msgid "PubliPreview"
 msgstr ""
 
-msgid "enumerate input not found"
-msgstr ""
-
 #, fuzzy
-msgid "these needed attributes are empty"
-msgstr "Update Title Cards"
-
-msgid "NOT Clear"
-msgstr ""
-
-msgid "Item cannot be empty"
-msgstr ""
-
-#, fuzzy
-msgid "Save changes ?"
-msgstr "Start search"
-
-msgid "Data cannot be saved"
-msgstr ""
-
-msgid "changeCheckBoolClasses Error"
-msgstr ""
-
-#, fuzzy
-msgid "no trash image"
-msgstr "Firstname"
-
-msgid "vconstraint input not found id="
-msgstr ""
-
-msgid "Choose document before set options"
-msgstr ""
-
-msgid "quick save not possible"
-msgstr ""
+msgid "item already set"
+msgstr "Delete"
 
 #, fuzzy
 msgid "Print"
@@ -5335,6 +5351,14 @@ msgstr "Delete"
 #, fuzzy
 msgid "reference for this revision"
 msgstr "Organisation"
+
+#, fuzzy
+msgid "set logical name"
+msgstr "Lastname"
+
+#, fuzzy
+msgid "Apply name"
+msgstr "Print this page"
 
 msgid "allocated to"
 msgstr ""
@@ -5639,6 +5663,10 @@ msgid ""
 "Too many members to display there here. Use Open context menu to display "
 "them."
 msgstr ""
+
+#, fuzzy
+#~ msgid "view abstract card"
+#~ msgstr "Start search"
 
 #, fuzzy
 #~ msgid "the document %s has been sended"

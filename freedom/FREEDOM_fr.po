@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-19 15:44+0200\n"
-"PO-Revision-Date: 2008-06-19 15:45+0200\n"
+"POT-Creation-Date: 2008-07-22 12:07+0200\n"
+"PO-Revision-Date: 2008-07-22 12:07+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -1137,11 +1137,30 @@ msgid "Family %s not exist"
 msgstr "La famille (%s) n'existe pas"
 
 #, c-format
+msgid "name must containt only alphanumeric characters: invalid  [%s]"
+msgstr ""
+"le nom ne doit contenir que des caractères alpha-numérique: invalide [%s]"
+
+#, c-format
+msgid "Logical name %s already set for %s"
+msgstr "Nom logique %s déjà utilisé pour %s"
+
+#, c-format
+msgid "Logical name %s already use other document"
+msgstr "Le nom logique %s déjà utilisé pour un autre document"
+
+#, c-format
 msgid "<b>%d group(s) to refresh</b>"
 msgstr "<b>%d groupe(s) à actualiser"
 
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
+
+#, c-format
+msgid "%s document it is not a folder and cannot support recursive deletion"
+msgstr ""
+"le document %s n'est pas un dossier et ne supporte pas le suppression en "
+"cascade"
 
 msgid "Creation aborded : no family specified"
 msgstr "Création abandonnée : pas de famille spécifiée"
@@ -1171,12 +1190,6 @@ msgstr "Créer"
 #, c-format
 msgid "current (<i>%s</i>)"
 msgstr "courant (<i>%s</i>)"
-
-#, c-format
-msgid "%s document it is not a folder and cannot support recursive deletion"
-msgstr ""
-"le document %s n'est pas un dossier et ne supporte pas le suppression en "
-"cascade"
 
 #, c-format
 msgid "definition of enumerate attribute %s of %s family"
@@ -1943,6 +1956,9 @@ msgstr "navigation entre relations suivantes"
 
 msgid "disable/enable forum on documents"
 msgstr "Autoriser/interdire les forums sur les documents"
+
+msgid "set logical name identificator"
+msgstr "Affecter un identifiant logique"
 
 msgid "Users"
 msgstr "Utilisateurs"
@@ -3083,6 +3099,24 @@ msgstr "ce type de document ne peut être dupliqué"
 msgid "direct"
 msgstr "direct"
 
+#, c-format
+msgid "period from %s to %s"
+msgstr "période du %s au %s"
+
+#, c-format
+msgid "the end date (%s) is before the begin date (%s)"
+msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
+
+msgid "this kind of document cannot be duplicate"
+msgstr "ce type de document ne peut être dupliqué"
+
+msgid "duplication of"
+msgstr "duplication de"
+
+#, c-format
+msgid "new duplicate document is named : %s"
+msgstr "la duplication est nommée : %s"
+
 msgid "error in filename"
 msgstr "erreur dans le nom de fichier"
 
@@ -3106,6 +3140,9 @@ msgstr "choisir une valeur pour %s"
 msgid "clear inputs"
 msgstr "effacer entrée(s)"
 
+msgid "clear selected inputs"
+msgstr "effacer les entrées sélectionnées"
+
 msgid "clear file"
 msgstr "Effacer le fichier"
 
@@ -3122,33 +3159,12 @@ msgstr "elinkEncode :  attribut non trouvé %s"
 msgid "Other..."
 msgstr "Autre..."
 
-msgid "Nothing"
-msgstr "Rien"
+msgid "Do choice"
+msgstr "Choisissez"
 
 #, c-format
 msgid "create new %s"
 msgstr "créé par %s"
-
-#, c-format
-msgid "period from %s to %s"
-msgstr "période du %s au %s"
-
-#, c-format
-msgid "the end date (%s) is before the begin date (%s)"
-msgstr "La date de fin (%s) est antérieure à la date de début (%s)"
-
-msgid "this kind of document cannot be duplicate"
-msgstr "ce type de document ne peut être dupliqué"
-
-msgid "duplication of"
-msgstr "duplication de"
-
-#, c-format
-msgid "new duplicate document is named : %s"
-msgstr "la duplication est nommée : %s"
-
-msgid "Do choice"
-msgstr "Choisissez"
 
 #, c-format
 msgid ""
@@ -4513,6 +4529,42 @@ msgstr "Ajouter une condition"
 msgid "addstate"
 msgstr "État"
 
+msgid "enumerate input not found"
+msgstr "entrée énumérée non trouvé"
+
+msgid "these needed attributes are empty"
+msgstr "Ces attributs obligatoires sont vides :"
+
+msgid "NOT Clear"
+msgstr "Non effacé"
+
+msgid "Add new entry"
+msgstr "Ajouter la nouvelle entrée"
+
+msgid "Item cannot be empty"
+msgstr "L\\'entrée ne peut être vide"
+
+msgid "Save changes ?"
+msgstr "Sauver les changements ?"
+
+msgid "Data cannot be saved"
+msgstr "Les données ne peuvent être sauvées"
+
+msgid "changeCheckBoolClasses Error"
+msgstr "Erreur changeCheckBoolClasses"
+
+msgid "no trash image"
+msgstr "image de la poubelle non trouvée"
+
+msgid "vconstraint input not found id="
+msgstr "entrée vconstraint non trouvé id="
+
+msgid "Choose document before set options"
+msgstr "Choisissez un document avant de choisir les options"
+
+msgid "quick save not possible"
+msgstr "Sauvegarde rapide impossible"
+
 msgid "fromdate"
 msgstr "date de début"
 
@@ -4521,9 +4573,6 @@ msgstr "date de fin"
 
 msgid "today"
 msgstr "aujourd'hui"
-
-msgid "view abstract card"
-msgstr "Carte résumé"
 
 msgid "delete selected"
 msgstr "supprimer la sélection"
@@ -4542,9 +4591,6 @@ msgstr "Date manuelle"
 
 msgid "Set new entry"
 msgstr "Saisissez une nouvelle entrée"
-
-msgid "Add new entry"
-msgstr "Ajouter la nouvelle entrée"
 
 msgid ""
 "Master document has been closed.\n"
@@ -4742,38 +4788,8 @@ msgstr "premier"
 msgid "PubliPreview"
 msgstr "prévisualisation"
 
-msgid "enumerate input not found"
-msgstr "entrée énumérée non trouvé"
-
-msgid "these needed attributes are empty"
-msgstr "Ces attributs obligatoires sont vides :"
-
-msgid "NOT Clear"
-msgstr "Non effacé"
-
-msgid "Item cannot be empty"
-msgstr "L\\'entrée ne peut être vide"
-
-msgid "Save changes ?"
-msgstr "Sauver les changements ?"
-
-msgid "Data cannot be saved"
-msgstr "Les données ne peuvent être sauvées"
-
-msgid "changeCheckBoolClasses Error"
-msgstr "Erreur changeCheckBoolClasses"
-
-msgid "no trash image"
-msgstr "image de la poubelle non trouvée"
-
-msgid "vconstraint input not found id="
-msgstr "entrée vconstraint non trouvé id="
-
-msgid "Choose document before set options"
-msgstr "Choisissez un document avant de choisir les options"
-
-msgid "quick save not possible"
-msgstr "Sauvegarde rapide impossible"
+msgid "item already set"
+msgstr "élément déjà présent"
 
 msgid "Print"
 msgstr "Imprimer"
@@ -4807,6 +4823,12 @@ msgstr "référence initiale"
 
 msgid "reference for this revision"
 msgstr "référence de la dernière révision"
+
+msgid "set logical name"
+msgstr "affecter un nom logique"
+
+msgid "Apply name"
+msgstr "Nom à appliquer"
 
 msgid "allocated to"
 msgstr "Affecté à"
@@ -5060,6 +5082,12 @@ msgid ""
 msgstr ""
 "Il y a trop de membres dans le groupe pour afficher la liste ici. Utiliser "
 "le menu \"Ouvrir\" à partir du menu contextuel."
+
+#~ msgid "Nothing"
+#~ msgstr "Rien"
+
+#~ msgid "view abstract card"
+#~ msgstr "Carte résumé"
 
 #~ msgid "the document %s has been sended"
 #~ msgstr "Le document %s a été envoyé"
@@ -5663,9 +5691,6 @@ msgstr ""
 
 #~ msgid "designation"
 #~ msgstr "désignation"
-
-#~ msgid "serial number"
-#~ msgstr "n°série"
 
 #~ msgid "double title %s <B>ignored</B> "
 #~ msgstr "titre en double %s <B>ignoré</B> "

@@ -70,7 +70,13 @@ function scrutemdocs() {
 	   if (inpsel && inptitle && inptext) {
 	     nid=inpid.value;
 	     ntitle=inptitle.value;
-	     addinlist(inpsel,ntitle,nid,false);
+	     // verify if no double
+	     find=false;
+	     for (var k=0;k<inpsel.options.length;k++) {
+	       if (inpsel.options[k].value==nid) find=true;
+	     }
+	     if (! find)  addinlist(inpsel,ntitle,nid,false);
+	     else alert('[TEXT:item already set]');
 	     inpid.value='';
 	     inptitle.value='';
 	     inptitle.focus();
@@ -94,11 +100,11 @@ function clearDocIdInputs(attrid,th) {
     var itext=inpsel.id.substr(12);
     var inptext=document.getElementById(itext);
     if (inptext) {
-    for (var k=0;k<inpsel.options.length;k++) {
-      if (inpsel.options[k].selected) inpsel.remove(k--);
-    }
-    th.disabled=true;
-    transfertDocIdInputs(inpsel,inptext);
+      for (var k=0;k<inpsel.options.length;k++) {
+	if (inpsel.options[k].selected) inpsel.remove(k--);
+      }
+      th.disabled=true;
+      transfertDocIdInputs(inpsel,inptext);
     }
   }
 }
