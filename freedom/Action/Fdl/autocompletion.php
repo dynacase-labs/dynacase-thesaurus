@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.12 2008/07/21 16:18:44 eric Exp $
+ * @version $Id: autocompletion.php,v 1.13 2008/07/22 09:47:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -105,9 +105,9 @@ function autocompletion(&$action) {
       $famid=$oattr->format;
       $multi=$oattr->getOption("multiple");
       $cible=($multi=="yes")?"mdocid_work":"";
-      $linkprefix="ilink"; // in coherence with editutil.php
+      $linkprefix="ilink_"; // in coherence with editutil.php
       if (!$oattr->phpfile) {
-	$oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${aname}):${cible}${aname},${linkprefix}_${aname}";
+	$oattr->phpfunc="lfamily(D,$famid,${linkprefix}${aname}):${cible}${aname},${linkprefix}${aname}";
 	$oattr->phpfile="fdl.php";
       }
     }

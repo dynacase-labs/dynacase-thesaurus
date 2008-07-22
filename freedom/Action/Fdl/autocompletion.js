@@ -27,15 +27,15 @@ var _timebegin;
 var _timeend;
 var _wdate=new Date();
 
-function sendAutoChoice(event,docid,  choiceButton,attrid, iopt ) {
+function sendAutoChoice(event,docid,  choiceButton,attrid, iopt,expnameid ) {
   inp=document.getElementById(attrid);
 
   if ((! inp)||(inp==null)) {
     alert('[TEXT: input not found]'+attrid);
   } else {    
-    activeAutoInit(event,docid,  inp,iopt );    
-    _forceone=true;
     inp.focus();
+    activeAutoInit(event,docid,  inp,iopt,expnameid );    
+    _forceone=true;
     callSuggestions(inp.value);
   }
 }
@@ -43,7 +43,9 @@ function activeAutoInit(event,docid,  inp,iopt,expnameid ) {
   var CORE_STANDURL='?sole=Y'; 
   var index='';
   var domindex=''; // needed to set values in arrays
-  var iskey=inp.id
+  var iskey=inp.id;
+  var attrid;
+    
   addEvent(document,"keydown",onKeyDownHandler);
   _inputField=inp;
   _buttonField=document.getElementById('ic_'+inp.id);
@@ -269,7 +271,7 @@ function insereCSS(nom,regle){
 
 
 function setStylePourElement(c,name){
-  c.className=name;
+  if (c) c.className=name;
 }
 
 // calcule le décalage à gauche

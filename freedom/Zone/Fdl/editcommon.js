@@ -46,7 +46,7 @@ function scrutemdocs() {
       if (n.substr(n.length-2,2) == '[]') {
 	n=n.substr(0,n.length-2);
 	if (isNetscape) tiid=document.getElementsByName('mdocid_work'+n+'[]');
-	else  tiid = getInputsByName('_'+n);
+	else  tiid = getInputsByName('mdocid_work'+n);
 
       } else {	
 	
@@ -65,31 +65,17 @@ function scrutemdocs() {
 	   isel='mdocid_isel_'+itext;
 	   inptext=document.getElementById(itext);
 	   inptitle=document.getElementById(ititle);
-	   inpsel=document.getElementById(isel);
-
-	   if (inptext) {
-	     inptext.style.backgroundColor='orange';
-	   }
-	   if (inptitle) {
-	     inptitle.style.backgroundColor='salmon';
-	   }
-	   if (inpsel) {
-	     inpsel.style.backgroundColor='green';
-	   }
-	   inpid.style.backgroundColor='yellow';
+	   inpsel=document.getElementById(isel);	   
 
 	   if (inpsel && inptitle && inptext) {
 	     nid=inpid.value;
 	     ntitle=inptitle.value;
-	     addinlist(inpsel,ntitle,nid,true);
+	     addinlist(inpsel,ntitle,nid,false);
 	     inpid.value='';
 	     inptitle.value='';
 	     inptitle.focus();
-	     nval='';
-	     for (var k=0;k<inpsel.options.length;k++) {
-	       nval=nval+inpsel.options[k].value+"\n";
-	     }
-	     inptext.value=nval.substr(0,nval.length - 1);
+	     transfertDocIdInputs(inpsel,inptext);
+
 	   }
 	   }
 	}
@@ -103,12 +89,32 @@ function scrutemdocs() {
 function clearDocIdInputs(attrid,th) {
   var iinput='mdocid_isel_'+attrid;
   var inpsel=document.getElementById(iinput);
+  
   if (inpsel) {
+    var itext=inpsel.id.substr(12);
+    var inptext=document.getElementById(itext);
+    if (inptext) {
     for (var k=0;k<inpsel.options.length;k++) {
       if (inpsel.options[k].selected) inpsel.remove(k--);
     }
     th.disabled=true;
+    transfertDocIdInputs(inpsel,inptext);
+    }
   }
+}
+
+function transfertDocIdInputs(inpsel,inptext) {
+  var maxsize=6;
+  var nval='';
+  for (var k=0;k<inpsel.options.length;k++) {
+    nval=nval+inpsel.options[k].value+"\n";
+    inpsel.options[k].selected=false;
+  }
+  if (inpsel.options.length == 0) inpsel.size=1;
+  else if (inpsel.options.length < maxsize) inpsel.size=inpsel.options.length;
+  else inpsel.size=maxsize;
+
+  inptext.value=nval.substr(0,nval.length - 1);
 }
 function disableClearDocIdInputs(attrid, inpsel) {
   var iinput=document.getElementById('ix_'+attrid);
@@ -1152,8 +1158,10 @@ function addinlist(sel,value,key,notselected) {
   if (isNetscape) pos=null;
   else pos=sel.options.length+1;
   if (! key) key=value;
-  if (! notselected) notselected=false;
-  sel.add(new Option(value,key, false, (! notselected)),pos);
+  sel.add(new Option(value,key, false, true),pos);
+  if (notselected) {
+    sel.options[sel.options.length - 1].selected=false;
+  }
 }
 
 function  nodereplacestr(n,s1,s2) {

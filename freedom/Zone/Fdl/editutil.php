@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.151 2008/07/21 16:19:06 eric Exp $
+ * @version $Id: editutil.php,v 1.152 2008/07/22 09:47:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -40,7 +40,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
   $usephpfunc=true;
   $alone=$oattr->isAlone; // set by method caller in special case to display alone
   
-
+  $linkprefix="";
   $attrid=$oattr->id;
   $attrin='_'.$oattr->id; // for js name => for return values from client
   $attridk=$oattr->id.$index;
@@ -295,9 +295,9 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       }
       
       $famid=$oattr->format;
-      $linkprefix="ilink";
-      $input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".$attrin."\"" ;     
-      $input .= " id=\"${linkprefix}_".$attridk."\" value=\"".$textvalue."\">"; 
+      $linkprefix="ilink_";
+      $input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".substr($attrin,1)."\"" ;     
+      $input .= " id=\"${linkprefix}".$attridk."\" value=\"".$textvalue."\">"; 
       
       if (! $cible ) {
 	$doc->addparamrefresh($attrid,$linkprefix.'_'.$attrid);
@@ -542,7 +542,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendAutoChoice(event,".$docid.
-	  ",this,'$attridk','$iopt')\">";
+	  ",this,'${linkprefix}${attridk}','$iopt','$attrid')\">";
 
 	// clear button
 	
@@ -1029,12 +1029,14 @@ function getLayMultiDoc(&$lay,&$doc, &$oattr,$value, $aname,$index) {
   $lay->set("docid",($doc->id==0)?$doc->id:$doc->fromid);
   $value=str_replace("\n","<BR>",$value);
   $topt=array();
+  $lay->set("size",1);
   if ($value!="") {
     $tval=explode("<BR>",$value);
     foreach ($tval as $k=>$v) {
       $topt[]=array("ltitle"=>$doc->getTitle($v),
 		    "ldocid"=>$v);
     }
+    $lay->set("size",min(count($topt),6));
   }
   $lay->setBlockData("options",$topt);
 
