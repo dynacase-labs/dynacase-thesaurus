@@ -415,9 +415,10 @@ var onKeyUpHandler=function(event){
   }
   _eventKeycode=event.keyCode;
   // Dans les cas touches touche haute(38) ou touche basse (40)
+
   if(_eventKeycode==40||_eventKeycode==38) {
     // on autorise le blur du champ (traitement dans onblur)
-    blurThenGetFocus();
+    // blurThenGetFocus();
   }
   // taille de la selection
   var N=rangeSize(_inputField);
