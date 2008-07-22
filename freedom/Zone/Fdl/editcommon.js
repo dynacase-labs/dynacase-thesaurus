@@ -2041,8 +2041,8 @@ function viewwait(view) {
   var wimgo = document.getElementById('WIMG');
   if (wimgo) {
     if (view) {
-      wimgo.style.display='inline';
       CenterDiv(wimgo.id);
+      wimgo.style.display='inline';
     } else {
       wimgo.style.display='none';
     }
@@ -2068,4 +2068,22 @@ function trim(aString) {
   var regExpBeginning = /^\s+/;
   var regExpEnd       = /\s+$/;
   return aString.replace(regExpBeginning, '').replace(regExpEnd, '');
+}
+
+function documentsubmit(f) {
+  if (document.isSubmitted) return false;
+  if (!canmodify()) return false;
+  document.isSubmitted=true;
+  enableall();
+  if (parent) if (parent.flist) f.catgid.value=parent.flist.catgid;
+  f.iSubmit.disabled=true;
+  var asub=document.getElementById('aSubmit');
+  if (asub) {
+    asub.innerHTML='[TEXT:Save in progress]';
+    asub.style.cursor='default';
+    asub.title='';
+    document.getElementById('iCancel').style.display='none';
+  }
+  viewwait(true);
+  return true
 }

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WHAT 1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-22 12:07+0200\n"
+"POT-Creation-Date: 2008-07-22 14:58+0200\n"
 "PO-Revision-Date: 2001-03-14 00:54-0500\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: english-anakeen <distrib@anakeen.com>\n"
@@ -5004,6 +5004,10 @@ msgstr "Modify"
 msgid "addstate"
 msgstr "Identity"
 
+#, fuzzy
+msgid "item already set"
+msgstr "Delete"
+
 msgid "enumerate input not found"
 msgstr ""
 
@@ -5306,8 +5310,8 @@ msgid "PubliPreview"
 msgstr ""
 
 #, fuzzy
-msgid "item already set"
-msgstr "Delete"
+msgid "Save in progress"
+msgstr "Organisation"
 
 #, fuzzy
 msgid "Print"
