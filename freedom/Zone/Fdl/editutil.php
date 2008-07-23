@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.152 2008/07/22 09:47:37 eric Exp $
+ * @version $Id: editutil.php,v 1.153 2008/07/23 10:00:16 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -300,7 +300,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       $input .= " id=\"${linkprefix}".$attridk."\" value=\"".$textvalue."\">"; 
       
       if (! $cible ) {
-	$doc->addparamrefresh($attrid,$linkprefix.'_'.$attrid);
+	$doc->addparamrefresh($attrid,$linkprefix.$attrid);
       } else {
 	$input.=$input2;
       }
