@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.13 2008/07/22 09:47:37 eric Exp $
+ * @version $Id: autocompletion.php,v 1.14 2008/07/24 10:35:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -109,8 +109,15 @@ function autocompletion(&$action) {
       if (!$oattr->phpfile) {
 	$oattr->phpfunc="lfamily(D,$famid,${linkprefix}${aname}):${cible}${aname},${linkprefix}${aname}";
 	$oattr->phpfile="fdl.php";
+      } else {
+	//getDeclaration(D,ACOM_ENT_ID,ILINK_ACOM_DEPOTDECL):ACOM_DEPOTDECL,ILINK_ACOM_DEPOTDECL
+	$phpfunc=str_replace("CT",$linkprefix.$aname,$oattr->phpfunc);
+	$phpfunc=str_replace("):$aname,","):${cible}${aname},",$phpfunc);
+	$phpfunc=str_replace("):".strtoupper($aname).",","):${cible}${aname},",$phpfunc);
+	$oattr->phpfunc=$phpfunc;
       }
     }
+    
     $res=getResPhpFunc($doc,$oattr,$rargids,$tselect,$tval,true,$index);
 
     if (! is_array($res)) {

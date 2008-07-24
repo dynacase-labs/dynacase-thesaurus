@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.153 2008/07/23 10:00:16 eric Exp $
+ * @version $Id: editutil.php,v 1.154 2008/07/24 10:35:25 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -291,6 +291,11 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	if (! $oattr->phpfile) {
 	  $oattr->phpfile="fdl.php";
 	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${attrid}):${cible}$attrid,${linkprefix}_${attrid}";	
+	} else {
+	  $phpfunc=str_replace("CT","${linkprefix}_${attrid}",$oattr->phpfunc);
+	  $phpfunc=str_replace("):$attrid,","):${cible}${attrid},",$phpfunc);
+	  $phpfunc=str_replace("):".strtoupper($attrid).",","):${cible}${attrid},",$phpfunc);
+	  $oattr->phpfunc=$phpfunc;
 	}
       }
       
@@ -545,8 +550,12 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	  ",this,'${linkprefix}${attridk}','$iopt','$attrid')\">";
 
 	// clear button
-	
-	if (ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {
+	 if ($oattr->type == "docid") {
+	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	  " title=\""._("clear selected inputs")."\" disabled ".
+	  " onclick=\"clearDocIdInputs('$attridk',this)\">";  
+	//$input.="</td><td>";    
+      } else  if (ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {
 	  if ($alone) {
 	    $arg = array($oattr->id);
 	  } else {
@@ -562,12 +571,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	      " title=\""._("clear inputs")."\"".
 	      " onclick=\"clearInputs([$jarg],'$index','$attridk')\">";
 	  }
-	} else if ($oattr->type == "docid") {
-	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	  " title=\""._("clear selected inputs")."\" disabled ".
-	  " onclick=\"clearDocIdInputs('$attridk',this)\">";  
-	//$input.="</td><td>";    
-      }
+	} 
       }  else if (($oattr->type == "date") || ($oattr->type == "timestamp")) {
 	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
 	  " title=\""._("clear inputs")."\"".
