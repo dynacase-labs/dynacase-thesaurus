@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.76 2008/07/11 17:34:20 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.77 2008/07/24 10:34:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -41,8 +41,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     $phpAdoc->Set("AParent", "ADoc");
     $phpAdoc->Set("fromid", "");
     $phpAdoc->Set("pinit", "DocCtrl");
-
-  }  else  {
+  } else {
     $phpAdoc->Set("fromid", $tdoc["fromid"]);
     if ($tdoc["classname"] != "Doc".$tdoc["fromid"] ) {
       $phpAdoc->Set("DocParent", $tdoc["classname"]);
@@ -56,9 +55,7 @@ function AttrToPhp($dbaccess, $tdoc) {
     }
     $phpAdoc->Set("AParent", "ADoc".$tdoc["fromid"]);
   }
-
-   $phpAdoc->Set("title", $tdoc["title"]);
-
+  $phpAdoc->Set("title", $tdoc["title"]);
   $query = new QueryDb($dbaccess,"DocAttr");
   $query->AddQuery("docid=".$tdoc["id"]);
   $query->order_by="ordered";
@@ -68,6 +65,8 @@ function AttrToPhp($dbaccess, $tdoc) {
   $phpAdoc->Set("sattr","");
     
   $phpAdoc->set("hasattr",false);
+  $pa=getParentAttributes($dbaccess,$tdoc["fromid"]);
+
   if ($query->nb > 0)	{
 
     $tmenu=array();
@@ -154,7 +153,8 @@ function AttrToPhp($dbaccess, $tdoc) {
 	  $repeat="true";	  
 	} else {
 	  if ($tnormal[strtolower($v->frameid)]["type"]=="array") $repeat="true";
-	  elseif ($v->options =="multiple=yes") $repeat="true";
+	  else if ($v->options =="multiple=yes") $repeat="true";
+	  else if ($pa[strtolower($v->frameid)]["type"]=="array") $repeat="true";
 	  else $repeat="false";
 	}
 	$atype=strtolower(trim($atype));
@@ -512,5 +512,27 @@ function completeAttribute($dbaccess,$ta) {
     return $tw;
   }
 
+}
+
+
+/**
+ * get parent attributes
+ */
+function getParentAttributes($dbaccess,$fromid) {
+  if ($fromid > 0) {    
+    $query = new QueryDb($dbaccess,"DocAttr");
+    $query->AddQuery("docid=".$fromid);
+    
+    $pa = $query->Query(0,0,"TABLE");
+    if (is_array($pa)) {
+
+    $nextfromid=getFamFromId($dbaccess,$fromid);
+    if ($nextfromid>0) $pa = array_merge($pa,getParentAttributes($dbaccess,$nextfromid));
+    $paf=array();
+    foreach ($pa as $v) $paf[$v["id"]]=$v;
+    return $paf;
+    }
+  }
+  return array();
 }
 ?>
