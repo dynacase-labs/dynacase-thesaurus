@@ -3,7 +3,7 @@
  * Export Document from Folder
  *
  * @author Anakeen 2003
- * @version $Id: exportfld.php,v 1.29 2008/07/02 09:15:34 eric Exp $
+ * @version $Id: exportfld.php,v 1.30 2008/07/24 16:38:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -75,11 +75,15 @@ function exportfld(&$action, $aflid="0", $famid="")
 	$wname="";
 	$cvname="";
 	$cpname="";
+	$fpname="";
 	$doc->Affect($zdoc,true);
 	// it is a family
 	if ($wprof) {
 	  if ($doc->profid != $doc->id) {
-	    $tdoc[]=getTDoc($dbaccess,$doc->profid);
+	    $fp=getTDoc($dbaccess,$doc->profid);
+	    $tdoc[]=$fp;
+	    if ($fp["name"]!="") $fpname=$fp["name"];
+	    else $fpname=$fp["id"];
 	  } else {
 	    exportProfil($fout,$dbaccess,$doc->profid);
 	  }
@@ -119,8 +123,9 @@ function exportfld(&$action, $aflid="0", $famid="")
 	    }
 	    $tdoc[]=getTDoc($dbaccess,$doc->wid);
 	  }
-	  if ($cvname || $wname || $cpname) {
+	  if ($cvname || $wname || $cpname || $fpname) {
 	    $send.="BEGIN;-;-;-;-;".$doc->name."\n";
+	    if ($fpname) $send.="PROFID;".$fpname."\n";
 	    if ($cvname) $send.="CVID;".$cvname."\n";
 	    if ($wname) $send.="WID;".$wname."\n";
 	    if ($doc->cprofid) $send.="CPROFID;".$cpname."\n";
