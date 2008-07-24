@@ -3,7 +3,7 @@
  * Utilities functions for manipulate files from VAULT
  *
  * @author Anakeen 2007
- * @version $Id: Lib.Vault.php,v 1.22 2008/05/06 07:05:20 eric Exp $
+ * @version $Id: Lib.Vault.php,v 1.23 2008/07/24 16:03:15 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -56,8 +56,10 @@ function vault_generate($dbaccess,$engine,$vidin,$vidout,$isimage=false) {
 	  else $urlindex=getParam("CORE_ABSURL");
 	}
       }
-
-      $callback=$urlindex."?sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout&isimage=$isimage";
+      
+      if (strstr($urlindex,'?')) $beg='&';
+      else $beg='?';
+      $callback=$urlindex.$beg."sole=Y&app=FDL&action=INSERTFILE&engine=$engine&vidin=$vidin&vidout=$vidout&isimage=$isimage";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation($engine,$vid,$filename,$callback,$info);
       if ($err=="") {
@@ -162,7 +164,9 @@ function sendLatinTransformation($dbaccess,$docid,$attrid,$index,$vid) {
 	}
       }
 
-      $callback=$urlindex."?sole=Y&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
+      if (strstr($urlindex,'?')) $beg='&';
+      else $beg='?';
+      $callback=$urlindex.$beg."sole=Y&app=FDL&action=SETTXTFILE&docid=$docid&attrid=".$attrid."&index=$index";
       $ot=new TransformationEngine(getParam("TE_HOST"),getParam("TE_PORT"));
       $err=$ot->sendTransformation('latin',$vid,$filename,$callback,$info);
       if ($err=="") {
