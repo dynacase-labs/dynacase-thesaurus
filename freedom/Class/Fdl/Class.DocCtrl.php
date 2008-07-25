@@ -3,7 +3,7 @@
  * Control Access Document
  *
  * @author Anakeen 2002
- * @version $Id: Class.DocCtrl.php,v 1.52 2008/06/16 13:32:35 marc Exp $
+ * @version $Id: Class.DocCtrl.php,v 1.53 2008/07/25 08:01:02 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -223,7 +223,6 @@ Class DocCtrl extends DocLDAP {
 	}
       }
       $this->exec_query("delete from docperm where docid=".$this->id);
-
       if ($fromdocidvalues==0) $fromdocidvalues=&$this;
       foreach ($tacl as $v) {
 	
@@ -235,6 +234,7 @@ Class DocCtrl extends DocLDAP {
 	  $duid=$fromdocidvalues->getValue($aid);
 	  if ($duid == "") $duid=$fromdocidvalues->getParamValue($aid);
 	  if ($duid != "") {
+	    $duid=str_replace("<BR>","\n",$duid); // docid multiple
 	    $tuid=$this->_val2array($duid);
 	    foreach ($tuid as $duid) {
 	      if ($duid > 0) {
