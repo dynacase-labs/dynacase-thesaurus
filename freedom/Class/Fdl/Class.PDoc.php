@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: Class.PDoc.php,v 1.13 2007/10/11 12:35:10 eric Exp $
+ * @version $Id: Class.PDoc.php,v 1.14 2008/07/25 09:52:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -33,6 +33,12 @@ Class PDoc extends Doc
      DocCtrl::__construct($dbaccess, $id, $res, $dbid);
   }
 
+
+  function controlActifProfil() {
+    $m=$this->controlAclAccess('modifyacl');
+    if ($m == MENU_ACTIVE) $m=$this->profilIsActivate("true");
+    return $m;
+  }
 
 }
 
