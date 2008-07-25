@@ -3,7 +3,7 @@
  * Edition functions utilities
  *
  * @author Anakeen 2000 
- * @version $Id: editutil.php,v 1.154 2008/07/24 10:35:25 eric Exp $
+ * @version $Id: editutil.php,v 1.155 2008/07/25 09:20:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -261,6 +261,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       // edit document relation 
       $multi=$oattr->getOption("multiple");
       $input="";
+      $linkprefix="ilink_";
       if ($multi=="yes") {
 	$lay = new Layout("FDL/Layout/editmdoc.xml", $action);
 	getLayMultiDoc($lay,$doc,$oattr,$value,$attrin,$index);
@@ -290,7 +291,7 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	$cible="";
 	if (! $oattr->phpfile) {
 	  $oattr->phpfile="fdl.php";
-	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}_${attrid}):${cible}$attrid,${linkprefix}_${attrid}";	
+	  $oattr->phpfunc="lfamily(D,$famid,${linkprefix}${attrid}):${cible}$attrid,${linkprefix}${attrid}";	
 	} else {
 	  $phpfunc=str_replace("CT","${linkprefix}_${attrid}",$oattr->phpfunc);
 	  $phpfunc=str_replace("):$attrid,","):${cible}${attrid},",$phpfunc);
@@ -300,7 +301,6 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
       }
       
       $famid=$oattr->format;
-      $linkprefix="ilink_";
       $input.="<input $classname $oc type=\"text\" name=\"_${linkprefix}".substr($attrin,1)."\"" ;     
       $input .= " id=\"${linkprefix}".$attridk."\" value=\"".$textvalue."\">"; 
       
@@ -544,16 +544,16 @@ function getHtmlInput(&$doc, &$oattr, $value, $index="",$jsevent="",$notd=false)
 	 " title=\"".$ititle."\"".
 	 " onclick=\"sendEnumChoice(event,".$docid.
 	 ",this,'$attridk','$ctype','$iopt')\">";*/
-	$input.="<input id=\"ic_$attridk\" type=\"button\" value=\"&#133;\"".
+	$input.="<input id=\"ic_${linkprefix}$attridk\" type=\"button\" value=\"&#133;\"".
 	  " title=\"".$ititle."\"".
 	  " onclick=\"sendAutoChoice(event,".$docid.
 	  ",this,'${linkprefix}${attridk}','$iopt','$attrid')\">";
 
 	// clear button
-	 if ($oattr->type == "docid") {
-	$input.="<input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
-	  " title=\""._("clear selected inputs")."\" disabled ".
-	  " onclick=\"clearDocIdInputs('$attridk',this)\">";  
+	if (($oattr->type == "docid")&& ($oattr->getOption("multiple")=="yes")) {
+	   $input.="<br/><input id=\"ix_$attridk\" type=\"button\" value=\"&times;\"".
+	     " title=\""._("clear selected inputs")."\" disabled ".
+	     " onclick=\"clearDocIdInputs('$attridk',this)\">";  
 	//$input.="</td><td>";    
       } else  if (ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {
 	  if ($alone) {
