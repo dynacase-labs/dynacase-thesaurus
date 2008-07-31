@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.507 2008/07/21 16:19:42 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.508 2008/07/31 16:37:54 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -416,7 +416,7 @@ create unique index i_docir on doc(initid, revision);";
    * 
    * @return void
    */
-final public function PostInsert()  {
+  final public function PostInsert()  {
       // controlled will be set explicitly
       //$this->SetControl();
       if (($this->revision == 0) && ($this->doctype != "T")) {
@@ -1749,7 +1749,7 @@ final public function PostInsert()  {
     reset($nattr);
 
     while (list($k,$a) = each($nattr)) {
-      if ($a->repeat || ($a->visibility == "H")|| ($a->visibility == "O") || ($a->type == "longtext") || 
+      if ($a->repeat || ($a->visibility == "H")||  ($a->visibility == "I") || ($a->visibility == "O") || ($a->type == "longtext") || 
 	  ($a->type == "docid") ||  ($a->type == "htmltext") ||
 	  ($a->type == "image") || ($a->type == "file" ) || ($a->fieldSet->visibility == "H" )) continue;
       $tsa[$a->id]=$a;
@@ -2571,7 +2571,9 @@ final public function PostInsert()  {
 	  
 	  $value=call_user_method_array($reg[1],$this,$args);
 	}
-      } 
+      } else {
+	addWarningMsg(sprintf(_("Method [%s] not exists"),$reg[1]));
+      }
 	
     }
     return $value;
@@ -3738,7 +3740,7 @@ final public function PostInsert()  {
 	    $emptyarray=true;
 	    $nbitem=0;
 	    while (list($k, $v) = each($ta)) {
-	      if (($v->mvisibility=="H")||($v->mvisibility=="O")) continue;
+	      if (($v->mvisibility=="H")||($v->mvisibility=="I")||($v->mvisibility=="O")) continue;
 	      $talabel[] = array("alabel"=>ucfirst($v->labelText),
 				 "astyle"=>$v->getOption("cellheadstyle"),
 				 "cwidth"=>$v->getOption("cwidth","auto"));	
@@ -3759,7 +3761,7 @@ final public function PostInsert()  {
 		reset($ta);
 		$tivalue=array();
 		while (list($ka, $va) = each($ta)) {	  
-		  if ($va->mvisibility=="H") continue;
+		  if (($va->mvisibility=="H")||($va->mvisibility=="I")) continue;
 		  $hval = $this->getHtmlValue($va,$tval[$ka][$k],$target,$htmllink,$k);
 		  if ($va->type=="image" ) {
 		    $iwidth=$va->getOption("iwidth","80px");
@@ -4355,7 +4357,7 @@ final public function PostInsert()  {
    
     $listattr = $this->GetAttributes();
     while (list($i,$attr) = each($listattr)) {
-	if (($attr->mvisibility == "H") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
+	if (($attr->mvisibility == "H") || ($attr->mvisibility == "I") || ($attr->mvisibility == "R") || ($attr->mvisibility == "S")) {
 	  $this->attributes->attr[$i]->mvisibility="W";
 	}
     }
@@ -4534,7 +4536,7 @@ final public function PostInsert()  {
       $value = chop($this->GetValue($i));
 
       $goodvalue=((($value != "") || ( $attr->type=="array") || $attr->getOption("showempty") ) && 
-		  ($attr->mvisibility != "H") && ($attr->mvisibility != "O") && (! $attr->inArray()));
+		  ($attr->mvisibility != "H") && ($attr->mvisibility != "I") && ($attr->mvisibility != "O") && (! $attr->inArray()));
       if ($goodvalue)   {
 	if (($value == "")&&($attr->type!="array")) $htmlvalue=$attr->getOption("showempty");
 	else $htmlvalue=$this->GetHtmlValue($attr,$value,$target,$ulink);
@@ -4813,7 +4815,7 @@ final public function PostInsert()  {
     
 
 
-      if (($value != "") && ($attr->mvisibility != "H"))   {
+      if (($value != "") && ($attr->mvisibility != "H") && ($attr->mvisibility != "I"))   {
 		
 	switch ($attr->type)
 	  {
@@ -4865,7 +4867,7 @@ final public function PostInsert()  {
      	
 	$this->lay->Set("S_".strtoupper($v->id),($value!=""));
 	// don't see  non abstract if not
-      if (($v->mvisibility == "H") || (($abstract) && (! $v->isInAbstract ))) {
+      if (($v->mvisibility == "H") || ($v->mvisibility == "I")|| (($abstract) && (! $v->isInAbstract ))) {
 	$this->lay->Set("V_".strtoupper($v->id),"");
 	$this->lay->Set("L_".strtoupper($v->id),"");
       } else {	
