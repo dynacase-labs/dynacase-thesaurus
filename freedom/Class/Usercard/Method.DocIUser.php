@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.44 2007/11/08 15:53:59 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.45 2008/07/31 16:39:17 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -12,8 +12,8 @@
  */
 var $cviews=array("FUSERS:FUSERS_IUSER");
 var $eviews=array("USERCARD:CHOOSEGROUP");
-var $defaultview="FUSERS:FUSERS_IUSER:V";
-var $defaultedit="FUSERS:FUSERS_EIUSER:T";
+var $defaultview="FDL:VIEWBODYCARD";
+var $defaultedit="FDL:EDITBODYCARD";
  
 
 function SpecRefresh() {
@@ -33,6 +33,10 @@ function SpecRefresh() {
       if (! $user->isAffected()) return sprintf(_("user #%d does not exist"), $iduser);
     } else {
       if ($this->getValue("us_login")!='-') $err= _("user has not identificator");
+      $oa=$this->getAttribute("us_passwd1");
+      if ($oa) $oa->needed=true;
+      $oa=$this->getAttribute("us_passwd2");
+      if ($oa) $oa->needed=true;
     }
     return $err;
 }
@@ -282,7 +286,9 @@ function editlikeperson($target="finfo",$ulink=true,$abstract="Y") {
   global $action;
   
   $this->lay = new Layout(getLayoutFile("FDL","editbodycard.xml"), $action);
-  $this->attributes->attr['us_fr_intranet']->visibility='R';
+  
+  $this->attributes->attr['us_tab_system']->visibility='R';
+  $this->attributes->attr['us_fr_userchange']->visibility='R';
   $this->ApplyMask();
   if ($this->getValue("us_iddomain") == 0) {
     $this->attributes->attr['us_extmail']->mvisibility='W';
@@ -290,7 +296,7 @@ function editlikeperson($target="finfo",$ulink=true,$abstract="Y") {
     $this->attributes->attr['us_extmail']->ordered=$this->attributes->attr['us_pphone']->ordered - 1;
     uasort($this->attributes->attr,"tordered"); 
   }
-    
+  
   $this->editbodycard($target,$ulink,$abstract);
   
 }
