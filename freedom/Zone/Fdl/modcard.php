@@ -3,7 +3,7 @@
  * Modification of document
  *
  * @author Anakeen 2000 
- * @version $Id: modcard.php,v 1.104 2008/05/06 08:45:49 eric Exp $
+ * @version $Id: modcard.php,v 1.105 2008/07/31 16:38:14 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -283,7 +283,6 @@ function insert_file(&$doc, $attrid,$strict=false) {
 
  
   while(list($k,$userfile) = each($tuserfiles) )    {
-
     $rt[$k]="";
     if ($userfile['name'] == " ")  {
       $rt[$k]=" "; // delete reference file
@@ -312,13 +311,13 @@ function insert_file(&$doc, $attrid,$strict=false) {
 	// reuse old value
 	
 	if (substr($attrid,0,3) == "UPL") {
-	  $oldfile = getHttpVars(substr($attrid,3));	  
+	  $oldfile = getHttpVars(substr($attrid,3));
 	  if (! is_array($oldfile)) { 
 	      $vid1=0;$vid2=0;
 	      if (ereg (REGEXPFILE, $rtold[0], $reg)) $vid1=$reg[2];
 	      if (ereg (REGEXPFILE, $oldfile, $reg)) $vid2=$reg[2];
 	       
-	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[0];
+	      if (($vid1>0) && ($vid2>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[0];
 	      else $rt[$k]=$oldfile;
 	     
 
@@ -328,9 +327,9 @@ function insert_file(&$doc, $attrid,$strict=false) {
 	      $vid1=0;$vid2=0;
 	      if (ereg (REGEXPFILE, $rtold[$k], $reg)) $vid1=$reg[2];
 	      if (ereg (REGEXPFILE, $oldfile[$k], $reg)) $vid2=$reg[2];
-	     
-	      if (($vid1>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[$k];
+	      if (($vid1>0) && ($vid2>0) && ($vid1 > $vid2)) $rt[$k]=$rtold[$k];
 	      else $rt[$k]=$oldfile[$k];
+
 	    }
 	  }
 
@@ -370,6 +369,7 @@ function insert_file(&$doc, $attrid,$strict=false) {
   
   if ((count($rt) == 0) || ((count($rt) == 1) && ($rt[0]==""))) return "";
   // return file type and upload file name
+
   return implode("\n",$rt);
 }
 // -----------------------------------
