@@ -3,7 +3,7 @@
  * Generation of PHP Document classes
  *
  * @author Anakeen 2000 
- * @version $Id: Lib.Attr.php,v 1.77 2008/07/24 10:34:35 eric Exp $
+ * @version $Id: Lib.Attr.php,v 1.78 2008/08/01 15:08:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -116,6 +116,7 @@ function AttrToPhp($dbaccess, $tdoc) {
 					    "label"=>str_replace("\"","\\\"",$v->labeltext),
 					    "usefor"=>$v->usefor,
 					    "type"=>$v->type,
+					    "options"=>str_replace("\"","\\\"",$v->options),
 					    "frame"=>($v->frameid=="")?"FIELD_HIDDENS":strtolower($v->frameid));
 	break;
       case "action": // action

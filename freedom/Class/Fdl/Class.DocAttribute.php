@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.40 2008/06/16 16:32:35 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.41 2008/08/01 15:08:18 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -231,7 +231,7 @@ Class NormalAttribute extends BasicAttribute {
 Class FieldSetAttribute extends BasicAttribute {
 
   public $fieldSet; // field set object
-  function __construct($id, $docid, $label, $visibility="",$usefor="",$type="frame", &$fieldSet=null ) {
+  function __construct($id, $docid, $label, $visibility="",$usefor="",$type="frame", &$fieldSet=null,$options="" ) {
     $this->id=$id;
     $this->docid=$docid;
     $this->labelText=$label;
@@ -239,6 +239,7 @@ Class FieldSetAttribute extends BasicAttribute {
     $this->usefor=$usefor;
     $this->type=$type;
     $this->fieldSet=&$fieldSet;
+    $this->options=$options;
   }
 }
 
