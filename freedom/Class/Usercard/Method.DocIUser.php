@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.46 2008/08/01 14:59:01 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.47 2008/08/01 16:30:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -37,6 +37,8 @@ function SpecRefresh() {
       if ($oa) $oa->needed=true;
       $oa=$this->getAttribute("us_passwd2");
       if ($oa) $oa->needed=true;
+      $oa=$this->getAttribute("us_tab_system");
+      $oa->setOption("firstopen", "yes");
     }
     return $err;
 }

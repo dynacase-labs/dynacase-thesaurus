@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.508 2008/07/31 16:37:54 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.509 2008/08/01 16:30:20 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -4685,7 +4685,14 @@ create unique index i_docir on doc(initid, revision);";
     $this->lay->Set("ONETAB",count($ttabs)>0);
     $this->lay->Set("NOTAB",($target=="mail"));
 
-    if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
+    if (count($ttabs)>0)   {
+      $this->lay->Set("firsttab",false);
+      foreach ($ttabs as $k=>$v) {
+	$oa=$this->getAttribute($k);
+	if ($oa->getOption("firstopen")=="yes")  $this->lay->Set("firsttab",$k);
+      }
+      
+    }
   
   }
   
@@ -5095,7 +5102,13 @@ create unique index i_docir on doc(initid, revision);";
     $this->lay->SetBlockData("TABLEBODY",$frames);    
     $this->lay->SetBlockData("TABS",$ttabs);
     $this->lay->Set("ONETAB",count($ttabs)>0);
-    if (count($ttabs)>0)     $this->lay->Set("firsttab",$ttabs[0]["tabid"]);
+    if (count($ttabs)>0)   {
+      $this->lay->Set("firsttab",false);
+      foreach ($ttabs as $k=>$v) {
+	$oa=$this->getAttribute($k);
+	if ($oa->getOption("firstopen")=="yes")  $this->lay->Set("firsttab",$k);
+      }
+    }
     
   
   }

@@ -473,7 +473,16 @@ function showFirstFieldset(event) {
       ltr[0].className='tabsel';
     }
   }
-  
+}
+
+function showThisFieldset(event,tabid) {  
+  var ltr;
+ 
+  ltr=document.getElementById(tabid);    
+  if (ltr) {  
+    ltr.onmousedown.apply(ltr,[event]);
+    ltr.className='tabsel';    
+  }
 }
 // display element fieldset with this name
 function showFieldset(event,o,n) {
