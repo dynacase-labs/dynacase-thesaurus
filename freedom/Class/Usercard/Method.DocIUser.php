@@ -3,7 +3,7 @@
  * User manipulation
  *
  * @author Anakeen 2004
- * @version $Id: Method.DocIUser.php,v 1.45 2008/07/31 16:39:17 eric Exp $
+ * @version $Id: Method.DocIUser.php,v 1.46 2008/08/01 14:59:01 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage USERCARD
@@ -145,7 +145,19 @@ function RefreshDocUser() {
   return $err;
 }
 
-
+/**
+ * affect to default group
+ */
+function setToDefaultGroup() {
+  $grpid=$this->getParamValue("us_defaultgroup");
+  if ($grpid) {
+    $grp=new_doc($this->dbaccess,$grpid);
+    if ($grp->isAlive()) {
+      $err=$grp->addFile($this->initid);
+    }
+  }
+  return $err;
+}
 
 /**
  * Modify IUSER via Freedom    
@@ -189,10 +201,12 @@ function PostModify() {
     $domain=$this->GetValue("US_DOMAIN");
 
     $fid=$this->id;        
+    $newuser=false;
     $user=$this->getWUser();
     if (!$user) {
       $user=new User(""); // create new user
       $this->wuser=&$user;
+      $newuser=true;
     }
     $err.=$user->SetUsers($fid,$lname,$fname,$expires,$passdelay,
 			  $login,$status,$pwd1,$pwd2,
@@ -202,6 +216,7 @@ function PostModify() {
 	$this->setValue("US_WHATID",$user->id);
 	$this->modify(false,array("us_whatid"));
 	$err=$this->setGroups(); // set groups (add and suppress) may be long
+	if ($newuser) $err.=$this->setToDefaultGroup();
       }
       if (($pwd1 == "") && ($pwd1==$pwd2) && ($pwd!="")) {
 	if (($pwd != $user->password) && (strlen($pwd)>12)) {
