@@ -3,7 +3,7 @@
  * Document Attributes
  *
  * @author Anakeen 2000 
- * @version $Id: Class.DocAttribute.php,v 1.41 2008/08/01 15:08:18 eric Exp $
+ * @version $Id: Class.DocAttribute.php,v 1.42 2008/08/01 16:29:52 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -27,6 +27,7 @@ Class BasicAttribute {
   }
   /**
    * return value of option $x
+   * @return string
    */
   function getOption($x,$def="") {
     if (!isset($this->_topt)) {
@@ -42,7 +43,17 @@ Class BasicAttribute {
   
   }
 
-  
+  /**
+   * temporary change option
+   * @return void
+   */
+  function setOption($x,$v) {
+    if (!isset($this->_topt)) {
+      $this->getOption($x);
+    }
+    $this->_topt[$x]=$v;  
+  }
+
   /**
    * to see if an attribute is n item of an array
    */
