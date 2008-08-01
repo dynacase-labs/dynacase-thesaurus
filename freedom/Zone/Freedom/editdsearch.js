@@ -96,8 +96,10 @@ function filterfunc(th) {
   var lc=document.getElementById('lastcell');
 
   // move to tfoot to not be removed
-  ex.style.display='none';
-  lc.appendChild(ex);
+  if (ex)  {
+    ex.style.display='none';
+    lc.appendChild(ex);
+  }
 
   // search brother select input
   pnode=p.nextSibling;
