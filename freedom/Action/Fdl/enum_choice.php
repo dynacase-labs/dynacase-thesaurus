@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: enum_choice.php,v 1.49 2008/07/11 17:32:34 eric Exp $
+ * @version $Id: enum_choice.php,v 1.50 2008/08/01 14:57:38 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -151,7 +151,7 @@ function getResPhpFunc(&$doc,&$oattr,&$rargids,&$tselect,&$tval,$whttpvars=true,
   $phpfunc=$oattr->phpfunc;
   $phpfunc=str_replace(array('\)','\('),
 		       array('&rparenthesis;','&lparenthesis;'),$phpfunc);
-  if (! ereg("(.*)\((.*)\)\:(.*)", $phpfunc, $reg)) {    
+  if (! preg_match("/(.*)\((.*)\)\:(.*)/", $phpfunc, $reg)) {    
     return sprintf(_("the pluggins function description '%s' is not conform for %s attribut"), $phpfunc,$oattr->id);
   }
   $rargids = split(",",$reg[3]); // return args
