@@ -3,7 +3,7 @@
  * Generated Header (not documented yet)
  *
  * @author Anakeen 2000 
- * @version $Id: autocompletion.php,v 1.14 2008/07/24 10:35:26 eric Exp $
+ * @version $Id: autocompletion.php,v 1.15 2008/08/01 14:56:26 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage 
@@ -96,8 +96,8 @@ function autocompletion(&$action) {
       $eval=$oattr->phpfunc;
       $oattr->phpfile="fdl.php";
       $eval=str_replace(array('\,','\.'),array('&comma;','&point;'),$eval);
-      $oattr->phpfunc=sprintf("lenumvalues(%s,'%s):%s,li_%s",
-			      str_replace(',','---',$eval),
+      $oattr->phpfunc=sprintf("lenumvalues('%s,'%s):%s,li_%s",
+			      str_replace(array(',','(',')'),array('---','-','-'),$eval),
 			      str_replace(array(')','('),array('\)','\('),$skey),
 			      $oattr->id,$oattr->id);
     } elseif ($oattr->type=="docid") {
