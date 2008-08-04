@@ -3,7 +3,7 @@
  * Document Object Definition
  *
  * @author Anakeen 2002
- * @version $Id: Class.Doc.php,v 1.509 2008/08/01 16:30:20 eric Exp $
+ * @version $Id: Class.Doc.php,v 1.510 2008/08/04 09:10:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  */
@@ -5047,7 +5047,7 @@ create unique index i_docir on doc(initid, revision);";
 	  
 	$thidden[$ih]["inputtype"]=getHtmlInput($this,
 						$listattr[$i],
-						$value);
+						$value,"","",true);
 	$ih++;
 
       } else {
