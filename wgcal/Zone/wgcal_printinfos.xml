@@ -1,4 +1,0 @@
-<table style="width:100%; border:0px none"><tr>
-<td style="color:[COLOR_A3]; font-size:80%; width:50%">[ZONE WGCAL:WGCAL_INFOS]</td>
-<td style="color:[COLOR_A3]; font-size:80%; width:50%; text-align:right">[TEXT:print date] [printdate] [server]</td>
-</tr></table>

@@ -1,9 +1,0 @@
-[IFNOT LightMode][ZONE WGCAL:WGCAL_HTMLHEAD][ENDIF LightMode]
-[IF LightMode]<html><head></head><body>[ENDIF LightMode]
-<div  [IFNOT LightMode]class="wToolButtonSelect"[ENDIF LightMode] style="vertical-align:top; width:100%"><a target="_blanck" href="[CORE_STANDURL]&app=WGCAL&action=WGCAL_MAIN"><img style="vertical-align:top; border:0px" src="[IMG:wm-gotocalendar.gif]"></a> <a href="#" onclick="document.location.reload(false)">[TEXT: portal for Agenda de Groupe]</a></div>
-
-<div  width="100%" style="padding:2px;">[ZONE WGCAL:WGCAL_WAITRV[IF LightMode]?mo=L[ENDIF LightMode]]</div>
-<div  width="100%" style="padding:2px;">
-<div [IFNOT LightMode]class="wToolButtonUnselect"[ENDIF LightMode] width="100%">[TEXT:planned event] [TEXT:from date] [tds] [TEXT:to date] [tde]</div>
-<div style="padding:4px;">[ZONE WGCAL:WGCAL_GVIEW[IF LightMode]?mo=L[ENDIF LightMode]]</div>
-</body></html>

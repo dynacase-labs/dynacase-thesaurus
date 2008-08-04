@@ -1,1 +1,0 @@
-[BLOCK CELLS]<td width="[colsize]%" id="[cellref]"  name="[cellref]"  title="[rtime]" class="[cclass]" onclick="ClickCalendarCell(event,[nh],[times],[timee]);" onmouseover="OverCalendarCell(event, this, '[lref]', '[cref]')" onmouseout="OutCalendarCell(event, this, '[lref]', '[cref]', '[cclass]', '[hourclass]', '[dayclass]') ">[cellcontent]</td>[ENDBLOCK CELLS]

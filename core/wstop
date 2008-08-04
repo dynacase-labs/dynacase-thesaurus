@@ -1,8 +1,0 @@
-#!/bin/bash
-if [ "$freedom_context" == "" ]; then
-  . /etc/freedom.conf
-   wchoose -b
-fi
-
-touch $wpub/maintenance.lock
-echo "check update needed ($wpub/wcheck)"

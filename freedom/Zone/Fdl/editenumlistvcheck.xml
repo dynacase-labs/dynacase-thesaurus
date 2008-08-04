@@ -1,4 +1,0 @@
-<table cellspacing=0>[BLOCK OPTIONS]
-<tr class="[checked]"><td><input [disabled] id="[optid]" onclick="changeCheckClasses(this)" type="checkbox" name="[name][]" value="[kvalue]" [checked]>&nbsp;</td><td onclick="checkinput('[optid]',false)"><label>[fvalue]</label></td></tr>[ENDBLOCK OPTIONS]
-</table>
-<span style="display:none"><span><input  type="checkbox" name="[name][]" value=" " ></span></span>

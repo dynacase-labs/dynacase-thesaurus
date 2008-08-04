@@ -1,9 +1,0 @@
-<span id="sp_[id]"><select  name="[name]" id="[id]"  onchange="disableReadAttribute()" [disabled]>
-[BLOCK OPTIONS]
-<option [selected] value="[kvalue]">[fvalue]</option>
-[ENDBLOCK OPTIONS]
-</select>
-[IF isopen]
-<input style="display:none" title="[TEXT:Set new entry]" onkeypress="if (trackCR(event))return false" type="text" id="keysp_[id]">
-<input type="button" onclick="addEnum(this,document.getElementById('sp_[id]'),'[docid]','[idi]',document.getElementById('keysp_[id]'));return false" title="[TEXT:Add new entry]" value="+">[ENDIF isopen]
-</span>

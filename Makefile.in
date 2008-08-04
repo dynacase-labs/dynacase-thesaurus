@@ -1,0 +1,36 @@
+# ============================================
+# $Id: Makefile.in,v 1.1 2008/08/04 09:49:02 eric Exp $
+# ============================================
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir=@PUBRULE@
+appname = @APPNAME@
+pubdir = @prefix@
+srcdir = @srcdir@
+applib = FDL
+rootprefix=$(RPM_BUILD_ROOT)
+export pubdir utildir appname applib
+
+TAR = gtar
+GZIP_ENV = --best
+
+export targetdir PACKAGE
+
+SUBDIR=  Class Zone Images debian
+
+include $(utildir)/PubRule
+
+DISTFILES += $(SUBDIR)  $(wildcard *.ods) \
+            VERSION RELEASE 
+
+pages_ods = $(patsubst %.ods,$(pubdir)/$(style)/$(appname)/%.ods,$(wildcard *.ods))
+
+
+$(pubdir)/$(applib) : $(pubdir)/$(appname)
+	mkdir -p $@
+
+
+$(pubdir)/$(style)/$(appname)/%.ods: %.ods $(pubdir)/$(appname)
+	cp $< $@
+
+publish: $(pubdir)/$(applib) $(pages_ods) $(pubdir)/$(appname)

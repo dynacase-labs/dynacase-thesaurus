@@ -1,7 +1,0 @@
-<div class="wMonthTextTitle">[title], [owner]</div>
-<table margin="3" cellpadding="2px" cellspacing="5" border="0">
-[BLOCK HISTO]
-<tr><td>[date]</td><td>[uname]</td><td>[comment]</td></tr>
-[ENDBLOCK HISTO]
-</table>
-<div class="wMonthTextTitle">[title], [owner]</div>

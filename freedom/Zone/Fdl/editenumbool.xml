@@ -1,3 +1,0 @@
-[BLOCK OPTIONS]
-<input style="display:none"  onclick="changeCheckBoxCheck('[id]','[ki]',this)" [disabled] id="[optid]" type="checkbox" name="[name]" value="[kvalue]" [checked]>[ENDBLOCK OPTIONS]
-<input id="[id]" type="checkbox" [disabled] onclick="changeCheckBoolClasses(this,'[name]')" [checkedyesno] title="[tyesno]"> 

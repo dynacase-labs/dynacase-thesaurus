@@ -1,8 +1,0 @@
-<select multiple size=3 name="[name][]" onchange="disableReadAttribute()" id="[id]" [disabled]>
-[BLOCK OPTIONS]
-<option [selected] value="[kvalue]">[fvalue]</option>
-[ENDBLOCK OPTIONS]<option  style="display:none"  value=" "></option>
-</select>
-<input [disabled] id="ix_[id]" type="button" value="&times;"
-	  title="[TEXT:clear inputs]"
-	  onclick="unselectInput('[id]')">
