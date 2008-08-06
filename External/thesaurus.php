@@ -1,0 +1,33 @@
+<?php
+  // $Id: thesaurus.php,v 1.1 2008/08/06 15:11:52 eric Exp $
+
+function getThConcept($dbaccess,$thesid,$name='' ) {
+  $s1=microtime(true);
+  include_once("FDL/Class.SearchDoc.php");
+
+   $s2=microtime(true);
+  $s=new SearchDoc($dbaccess,"THCONCEPT");
+  $s->addFilter("thc_thesaurus=".intval($thesid));
+  //  $s->setObjectReturn();
+  if ($name)  $s->addFilter("title ~* '".pg_escape_string($name)."'");;
+  $t = $s->search();
+  $s3=sprintf("%.03f",microtime(true) - $s2);
+  $tr=array();
+  foreach ($t as $k=>$v) {
+    if ($v) {                   
+	$tr[] = array($v["title"], $v["id"], $v["title"]);      
+      
+    }
+    }
+
+  /*
+  while ($doc = $s->nextDoc()) {      
+    $tr[] = array($doc->title, $doc->initid, $doc->title);      
+  }
+  */
+  
+  $tr[]= array(microtime(true) - $s1 . "[$s3]", "-" ,"-");
+  return $tr;  
+}
+
+?>

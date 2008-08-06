@@ -1,0 +1,12 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:SKOS Importation]]
+
+<form  action="[CORE_STANDURL]&app=THESAURUS&action=TH_SKOSIMPORT"
+       style="display:inline"                   
+       method="POST" ENCTYPE="multipart/form-data" >
+
+
+<input type="file" name="skos">
+<input type="submit">
+
+</form>
+[ZONE FDL:HTMLFOOT]

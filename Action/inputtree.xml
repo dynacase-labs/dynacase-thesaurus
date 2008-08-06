@@ -1,0 +1,3 @@
+<ul [IF first]id="thtree" [ENDIF first]class="mktree">
+[BLOCK LIs]<li><a onclick="selectth(this,'[thid]','[aid]')"><b>[title]</b>:[desc]</a>[child]</li>[ENDBLOCK LIs]</ul>
+[IF first]<script>processList(document.getElementById('thtree'))</script>[ENDIF first]
