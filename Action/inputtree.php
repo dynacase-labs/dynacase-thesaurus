@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.1 2008/08/06 15:11:52 eric Exp $
+ * @version $Id: inputtree.php,v 1.2 2008/08/07 06:09:21 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -30,10 +30,12 @@ function inputtree(&$action) {
     foreach ($t as $k=>$v) {
       if ($v["thc_level"]==0) {
 
-	$t0[]=array("title"=>$v["title"],
+	if (($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg))) {
+	  $t0[]=array("title"=>$v["title"],
 		    "desc"=>$v["thc_langlabel"],
 		    "thid"=>$v["initid"],
 		    "child"=>getUltree($t,$v["initid"]));
+	}
       }
     }
   }
