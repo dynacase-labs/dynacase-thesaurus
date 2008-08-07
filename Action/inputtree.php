@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.2 2008/08/07 06:09:21 eric Exp $
+ * @version $Id: inputtree.php,v 1.3 2008/08/07 11:22:40 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -29,13 +29,18 @@ function inputtree(&$action) {
     $t=getConceptsLevel($dbaccess, $doc->initid, $level);
     foreach ($t as $k=>$v) {
       if ($v["thc_level"]==0) {
-
-	if (($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg))) {
+	$isgood=(($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg)));
+	$oneisgood |= $isgood;
+	$child=getUltree($t,$v["initid"],$filter,$childgood);
+	$oneisgood |= $childgood;
 	  $t0[]=array("title"=>$v["title"],
-		    "desc"=>$v["thc_langlabel"],
-		    "thid"=>$v["initid"],
-		    "child"=>getUltree($t,$v["initid"]));
-	}
+		      "desc"=>$v["thc_langlabel"],
+		      "isfiltergood"=>$isgood,
+		      "ischildgood"=>$childgood,
+		      "nosee"=>(!$childgood) &&(!$isgood),
+		      "openit"=>($childgood) &&(!$isgood),
+		      "thid"=>$v["initid"],
+		      "child"=>$child);	  
       }
     }
   }
@@ -45,19 +50,31 @@ function inputtree(&$action) {
 }
 
 
-function getUltree(&$t, $initid) {
+function getUltree(&$t, $initid,$filter,&$oneisgood) {
   $lay=new Layout(getLayoutFile("THESAURUS","inputtree.xml"));
   $b=array();
+  $oneisgood=false;
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
+      $isgood=(($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg)));
+      $oneisgood |= $isgood;
+      $child=getUltree($t,$v["initid"],$filter,$childgood);
+      $oneisgood |= $childgood;
       $b[]=array("title"=>$v["title"],
 		 "desc"=>$v["thc_langlabel"],
 		 "thid"=>$v["initid"],
-		 "child"=>getUltree($t,$v["initid"]));
+		 "isfiltergood"=>$isgood,
+		 "ischildgoodnos"=>$childgood,
+		 "nosee"=>(!$childgood) &&(!$isgood),
+		 "openit"=>($childgood) &&(!$isgood),
+		 "child"=>$child);
       
     }
   }
-  if (count($b)==0) return "";
+  if (count($b)==0) {    
+    //$oneisgood=true; // for leaf
+    return "";
+  }
   $lay->set("first",false);
   $lay->setBlockData("LIs",$b);
   return $lay->gen();

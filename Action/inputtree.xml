@@ -1,3 +1,3 @@
 <ul [IF first]id="thtree" [ENDIF first]class="mktree">
-[BLOCK LIs]<li><a onclick="selectth(this,'[thid]','[aid]')"><b>[title]</b>:[desc]</a>[child]</li>[ENDBLOCK LIs]</ul>
+[BLOCK LIs][IFNOT nosee]<li [IF openit]class="liOpen"[ENDIF openit]>[IF isfiltergood]<a  onclick="selectth(this,'[thid]','[aid]')"[ENDIF isfiltergood][IFNOT isfiltergood]<span style="color:[COLOR_A5]"[ENDIF isfiltergood]<b>[title]</b>:[desc][IF isfiltergood]</a>[ENDIF isfiltergood][IFNOT isfiltergood]</span>[ENDIF isfiltergood][child]</li>[ENDIF nosee][ENDBLOCK LIs]</ul>
 [IF first]<script>processList(document.getElementById('thtree'))</script>[ENDIF first]
