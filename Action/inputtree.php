@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.3 2008/08/07 11:22:40 eric Exp $
+ * @version $Id: inputtree.php,v 1.4 2008/08/07 16:42:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -21,20 +21,27 @@ function inputtree(&$action) {
   $filter=getHttpVars("filter"); 
   $aid=getHttpVars("aid"); 
   $level=2;
-  
+  $b1=microtime(true);
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $lang='fr';
   
+  //   header("Pragma: cache "); // HTTP 1.0
   $doc=new_doc($dbaccess,$id);
   if ($doc->isAlive()) {
-    $t=getConceptsLevel($dbaccess, $doc->initid, $level);
+    $t=$action->read("conceptlevel");
+    if (! $t) {
+      $t=getConceptsLevel($dbaccess, $doc->initid, $level);
+    }
+  $b2=microtime(true);
     foreach ($t as $k=>$v) {
       if ($v["thc_level"]==0) {
-	$isgood=(($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg)));
+	$label=getLabelLang($v,$lang);
+	$isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
 	$oneisgood |= $isgood;
-	$child=getUltree($t,$v["initid"],$filter,$childgood);
+	$child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
 	$oneisgood |= $childgood;
 	  $t0[]=array("title"=>$v["title"],
-		      "desc"=>$v["thc_langlabel"],
+		      "desc"=>$label,
 		      "isfiltergood"=>$isgood,
 		      "ischildgood"=>$childgood,
 		      "nosee"=>(!$childgood) &&(!$isgood),
@@ -47,21 +54,42 @@ function inputtree(&$action) {
   $action->lay->set("first",true);
   $action->lay->set("aid",$aid);
   $action->lay->setBlockData("LIs",$t0);
+  $action->lay->set("time",sprintf("%0.3f [%.03f][%.03f]", $b2-$b1,
+				   microtime(true) - $b1,
+				   microtime(true) - $action->b1));
+
+
+
+}
+function getLabelLang($v,$lang) {
+  $tlang=Doc::_val2array($v["thc_lang"]);
+  $tll=Doc::_val2array($v["thc_langlabel"]);
+
+  $kgood=-1;
+
+  foreach ($tlang as $k=>$v) {
+    if ($tlang[$k] == $lang) {
+      $kgood=$k;
+      break;
+    }
+  }
+
+  return (isset($tll[$kgood]))?$tll[$kgood]:$tll[0];
 }
 
-
-function getUltree(&$t, $initid,$filter,&$oneisgood) {
+function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
   $lay=new Layout(getLayoutFile("THESAURUS","inputtree.xml"));
   $b=array();
   $oneisgood=false;
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
-      $isgood=(($filter == "") || (eregi($filter, $v["title"].$v["thc_langlabel"], $reg)));
+	$label=getLabelLang($v,$lang);
+      $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
       $oneisgood |= $isgood;
-      $child=getUltree($t,$v["initid"],$filter,$childgood);
+      $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
       $oneisgood |= $childgood;
       $b[]=array("title"=>$v["title"],
-		 "desc"=>$v["thc_langlabel"],
+		 "desc"=>$label,
 		 "thid"=>$v["initid"],
 		 "isfiltergood"=>$isgood,
 		 "ischildgoodnos"=>$childgood,

@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.1 2008/08/06 15:11:52 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.2 2008/08/07 16:42:53 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -25,6 +25,7 @@ function getConceptFromURI($dbaccess,$uri) {
   //  $s->addFilter("thc_thesaurus=".$this->getValue("thc_thesaurus"));
   $s->addFilter("thc_uri='".pg_escape_string($uri)."'"); 
   $s->setObjectReturn();
+  $s->noViewControl();
   $t=$s->search();
   if ($s->count() == 1) return $s->nextDoc();
   return false;    
@@ -40,6 +41,7 @@ function getConceptIdFromURI($dbaccess,$uri) {
   //  $s->addFilter("thc_thesaurus=".$this->getValue("thc_thesaurus"));
   $s->addFilter("thc_uri='".pg_escape_string($uri)."'"); 
   
+  $s->noViewControl();
   $t=$s->search();
   if ($s->count() == 1) return $t[0]["initid"];
   return false;    
@@ -56,6 +58,7 @@ function getThesaurusFromURI($dbaccess,$uri) {
   //  $s->addFilter("thc_thesaurus=".$this->getValue("thc_thesaurus"));
   $s->addFilter("thes_uri='".pg_escape_string($uri)."'"); 
   $s->setObjectReturn();
+  $s->noViewControl();
   $t=$s->search();
   if ($s->count() == 1) return $s->nextDoc();
   return false;    
@@ -76,6 +79,7 @@ function getLangConcept($dbaccess,$idc,$lang) {
   $s->addFilter("thcl_lang='".pg_escape_string($lang)."'"); 
  
   $s->setObjectReturn();
+  $s->noViewControl();
   $t=$s->search();
 
   if ($s->count() == 1) return $s->nextDoc();
@@ -91,8 +95,8 @@ function getLangConcept($dbaccess,$idc,$lang) {
 function getLangConcepts($dbaccess,$idc) {
   $s=new SearchDoc($dbaccess, "THLANGCONCEPT");
   //  $s->addFilter("thc_thesaurus=".$this->getValue("thc_thesaurus"));
-  $s->addFilter("thcl_thconcept='".pg_escape_string($idc)."'"); 
- 
+  $s->addFilter("thcl_thconcept='".pg_escape_string($idc)."'");  
+  $s->noViewControl();
  
   $t=$s->search();
   return $t;   
@@ -109,7 +113,7 @@ function getConceptsLevel($dbaccess,$idt,$level) {
   $s=new SearchDoc($dbaccess, "THCONCEPT");
   $s->addFilter("thc_thesaurus=".intval($idt));
   $s->addFilter("thc_level <=".intval($level)); 
- 
+  $s->noViewControl();
 
   $t=$s->search();
   return $t;   
