@@ -89,4 +89,33 @@ function getLevel() {
   }
   return $level;
 }
+
+
+/**
+ * return localized label
+ * @param string $lang languqge : simple notation like en,fr,ru,es
+ */
+function getLabelLang($lang=false) {
+  if ($lang===false) $lang=strtolower(strtok(getParam("CORE_LANG"),'_'));
+  $tlang=$this->getTValue("thc_lang");
+  $tll=$this->getTValue("thc_langlabel");
+
+  $kgood=-1;
+
+  foreach ($tlang as $k=>$v) {
+    if ($tlang[$k] == $lang) {
+      $kgood=$k;
+      break;
+    }
+  }
+
+  return (isset($tll[$kgood]))?$tll[$kgood]:$tll[0];
+}
+
+/**
+ * return localized title
+ */
+function getLangTitle($lang=false) {
+  return $this->getValue("thc_uri").' '.$this->getLabelLang($lang);
+}
 ?>
