@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.4 2008/08/07 16:42:53 eric Exp $
+ * @version $Id: inputtree.php,v 1.5 2008/08/08 15:20:45 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -20,6 +20,7 @@ function inputtree(&$action) {
   $id=getHttpVars("id"); 
   $filter=getHttpVars("filter"); 
   $aid=getHttpVars("aid"); 
+  $multi=(getHttpVars("multi")=="yes")?'multi':false; 
   $level=2;
   $b1=microtime(true);
   $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -53,11 +54,14 @@ function inputtree(&$action) {
   }
   $action->lay->set("first",true);
   $action->lay->set("aid",$aid);
+  $action->lay->set("multi",$multi);
   $action->lay->setBlockData("LIs",$t0);
   $action->lay->set("time",sprintf("%0.3f [%.03f][%.03f]", $b2-$b1,
 				   microtime(true) - $b1,
 				   microtime(true) - $action->b1));
 
+  if (! $oneisgood) $action->lay->set("error",sprintf(_("no result matching %s"),$filter));
+  else $action->lay->set("error","");
 
 
 }
