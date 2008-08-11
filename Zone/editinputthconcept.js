@@ -1,32 +1,53 @@
 function displayconcepttree(event,aid,multi) {
   var corestandurl=window.location.pathname+'?sole=Y';
   var cible=document.getElementById('tree_'+aid);
-  if (cible) {
+  if (cible) {   
+    var idtree=document.getElementById(aid).getAttribute('thesaurus');
+    var filter=document.getElementById('label_'+aid).value;
+    var itdelta=document.getElementById('it_'+aid);
+    var oldv=itdelta.value;
+    itdelta.setAttribute("oldvalue",itdelta.value);
+    itdelta.value='O';
+    cible.style.visibility='visible';
+    cible.style.display='';
+    clipboardWait(cible);
+
+    setTimeout(function() {sendconcepttree(event,aid,multi);},10); // force event loop to view waiting effects         
+  }
+}
+
+function sendconcepttree(event,aid,multi) {
+  var corestandurl=window.location.pathname+'?sole=Y';
+  var cible=document.getElementById('tree_'+aid);
+  if (cible) {   
+    var idtree=document.getElementById(aid).getAttribute('thesaurus');
+    var filter=document.getElementById('label_'+aid).value;
+    var itdelta=document.getElementById('it_'+aid);
    
-  var idtree=document.getElementById(aid).getAttribute('thesaurus');
-  var filter=document.getElementById('label_'+aid).value;
-  cible.style.visibility='visible';
-  cible.style.display='';clipboardWait(cible);
-  var url=corestandurl+'&app=THESAURUS&action=INPUTTREE&id='+idtree+'&filter='+filter+'&aid='+aid;
-  enableSynchro();
-  if (multi) url = url + '&multi=yes';
-  var ret=requestUrlSend(cible,url);
-  var h=0;
-  disableSynchro();
-  cible.style.visibility='visible';
-  cible.style.display='';
-  
-  resizeme(event,cible.id);
-    
+
+    var url=corestandurl+'&app=THESAURUS&action=INPUTTREE&id='+idtree+'&filter='+filter+'&aid='+aid;
+    enableSynchro();
+    if (multi) url = url + '&multi=yes';
+    var ret=requestUrlSend(cible,url); 
+    disableSynchro();
+    cible.style.visibility='visible';
+    cible.style.display='';
+
+    itdelta.value=itdelta.getAttribute('oldvalue');
+    resizeme(event,cible.id);        
   }
 }
 function selectth(th,thid,aid) {
   var filter=document.getElementById('label_'+aid);
   var thb=document.getElementById('it_'+aid);
   var realid=document.getElementById(aid);
+  var w=getObjectWidth(filter);
   realid.value=thid;
+
+
   if (th.textContent)  filter.value=th.textContent;
   else filter.value=th.innerText;
+  if (isIE && w) filter.style.width=w+'px';
   filter.disabled=true;;
   if (thb) thb.disabled=true;
   undisplaytree(aid);
@@ -47,7 +68,7 @@ function selectmultith(th,thid,aid) {
   var realid=document.getElementById(aid);
   var valuetext;
   var selected=th.getAttribute("selected");
- 
+  var w=getObjectWidth(opto);
   if (selected == "1") {
     
     removeinlist(opto, thid);
@@ -55,7 +76,12 @@ function selectmultith(th,thid,aid) {
   } else {
     if (th.textContent)  valuetext=th.textContent;
     else valuetext=th.innerText;
+
+    
+    //    if (valuetext.length > 40) valuetext=valuetext.substr(0,40);
+
     addinlist(opto,valuetext, thid,true);
+    if (w) opto.style.width=w+'px'; // force to not change width
     th.setAttribute("selected","1");
   }
 
@@ -117,6 +143,7 @@ function resizeme(event,divid) {
       th.style.width=w+'px';
     }
     if (h > 0) th.style.height=h+'px';
+    if (th.scrollHeight > th.clientHeight) th.style.paddingRight='10px';
 }
 
 function clearconcept(event,aid) {
