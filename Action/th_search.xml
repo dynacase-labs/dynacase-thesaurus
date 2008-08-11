@@ -1,0 +1,24 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:Search from thesaurus]]
+
+
+<form id="thf"
+      name="th" style="display:inline"
+      method="POST" ENCTYPE="multipart/form-data"
+      target="_blank"
+      action="[CORE_STANDURL]&app=THESAURUS&action=TH_EXECSEARCH">
+
+<input type="hidden" name="famid" value="[famid]">
+<input type="hidden" name="thid" value="[thid]">
+<input type="hidden" name="aid" value="[aid]">
+
+<input type="text" name="filter" onkeypress="if (trackCR(event)) {filtertreesearch(event,this.value, document.getElementById('thtop'));return false}" >
+
+<div id="thtop" style="border:blue solid 1px;width:50%;height:300px;overflow:auto">
+[ZONE THESAURUS:EDITTREESEARCH?id=[thid]]
+</div>
+<input type="submit" >
+
+</form>
+
+
+[ZONE FDL:HTMLFOOT]

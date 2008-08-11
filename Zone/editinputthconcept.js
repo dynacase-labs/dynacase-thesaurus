@@ -161,3 +161,114 @@ function clearconcept(event,aid) {
   if (thb) thb.disabled=false;
   if (cid) cid.value="";
 }
+
+function addmultiselectth(th,thid,aid) {;
+  var opto=document.getElementById('thopt_'+aid);
+  var valuetext;
+  var selected=th.getAttribute("selected");
+  
+  if (selected == "1") {
+    
+    removethinlist(opto, thid);
+    th.setAttribute("selected","0");
+  } else {
+    if (th.textContent)  valuetext=th.textContent;
+    else valuetext=th.innerText;    
+
+    addthinlist(opto,valuetext, thid,false);
+    
+    th.setAttribute("selected","1");
+  }
+
+
+  inversecolor(th);
+
+}
+function addselectth(th,thid,aid) {;
+  var opto=document.getElementById('thopt_'+aid);
+  var tree=document.getElementById('thtree'+aid);
+  var valuetext;
+  var selected=th.getAttribute("selected");
+  opto.options.length=0;
+  unselecttree(tree);
+  if (selected == "1") {        
+    th.setAttribute("selected","0");
+  } else {
+    if (th.textContent)  valuetext=th.textContent;
+    else valuetext=th.innerText;    
+
+    addthinlist(opto,valuetext, thid,false);
+    
+    th.setAttribute("selected","1");
+    inversecolor(th);
+  }
+
+}
+
+function unselecttree(tree) {  
+
+  var as=tree.getElementsByTagName('a');
+
+  for (var i=0;i<as.length;i++) {
+    asel=as[i].getAttribute('selected');
+    
+    if (asel=='1') {
+	inversecolor(as[i]);      
+	as[i].setAttribute("selected","0");
+      }
+  }
+    
+
+}
+
+function addthinlist(sel,value,key,notselected) {
+
+  if (isNetscape) pos=null;
+  else pos=sel.options.length+1;
+  if (! key) key=value;
+  sel.add(new Option(value,key, false, true),pos);
+  if (notselected) {
+    sel.options[sel.options.length - 1].selected=false;
+  }
+}
+
+function removethinlist(inpsel,key) {
+  if (inpsel) {
+    for (var k=0;k<inpsel.options.length;k++) {
+      if (inpsel.options[k].value==key) inpsel.remove(k--);
+    }    
+  }
+}
+function filtertreesearch(event,filter,cible) {
+
+  if (cible) {   
+    var sels=cible.getElementsByTagName('select');
+    var thid,multi;
+    for (var i=0;i<sels.length;i++) {
+      thid=sels[i].getAttribute('thesaurus');
+      multi=sels[i].getAttribute('multiple');
+    }
+   
+    cible.style.visibility='visible';
+    cible.style.display='';
+    clipboardWait(cible);
+
+    setTimeout(function() {sendfiltertreesearch(event,cible,thid,filter,multi);},10); // force event loop to view waiting effects         
+  }
+}
+
+function sendfiltertreesearch(event,cible,thid,filter,multi) {
+  var corestandurl=window.location.pathname+'?sole=Y';
+
+  if (cible) {          
+    var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&thid='+thid+'&filter='+filter;
+    enableSynchro();
+    if (multi) url = url + '&multi=yes';
+    var ret=requestUrlSend(cible,url); 
+    disableSynchro();
+    cible.style.visibility='visible';
+    cible.style.display='';
+
+    //    resizeme(event,cible.id);        
+  }
+}

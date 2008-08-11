@@ -1,9 +1,9 @@
 <?php
 /**
- * Import SKOS thesaurus
+ * View interface to search document from thesaurus
  *
- * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.6 2008/08/11 16:31:22 eric Exp $
+ * @author Anakeen 2008
+ * @version $Id: edittreesearch.php,v 1.1 2008/08/11 16:31:22 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -15,62 +15,62 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("THESAURUS/Lib.Thesaurus.php");
-
 /**
- * Display thesaurus tree
+ * View search interface
  * @param Action &$action current action
- * @global filter Http var : search text key
- * @global aid Http var : thesaurus attribute
- * @global id Http var : thesaurus id
+ * @global thid Http var : thesaurus document identificator to use
+ * @global famid Http var : family document to search
  */
-function inputtree(&$action) {
-  $id=getHttpVars("id"); 
+function edittreesearch(&$action) {
+  $dbaccess = $action->GetParam("FREEDOM_DB");
+  $thid = GetHttpVars("thid");
   $filter=getHttpVars("filter"); 
-  $aid=getHttpVars("aid"); 
-  $lang=getHttpVars("lang"); 
-  $level=getHttpVars("level",2); 
+  $fid = GetHttpVars("famid");
   $multi=(getHttpVars("multi")=="yes")?'multi':false; 
+  $level=getHttpVars("level",2); 
+  $iname=getHttpVars("inputname"); 
+
+
 
   $b1=microtime(true);
-  $dbaccess = $action->GetParam("FREEDOM_DB");
-  if (! $lang) $lang=strtolower(strtok(getParam("CORE_LANG"),'_'));
-  
-  $doc=new_doc($dbaccess,$id);
-  if ($doc->isAlive()) {
-
-    $t=getConceptsLevel($dbaccess, $doc->initid, $level);
+  $fdoc=new_doc($dbaccess,$fid);
+  if (! $thid) {
+    if (! $fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive"),$fid));
+    $at=$fdoc->getNormalAttributes();
+    foreach ($at as $k=>$oa) {
+      if ($oa->type=="thesaurus") {
+	$aid=$oa->id;
+	$thid=$oa->format;
+	break;
+      }
+    }    
+  }
+  $th=new_doc($dbaccess,$thid);
+  if (! $th->isAlive()) $action->exitError(sprintf(_("thesaurus %s not alive"),$thid));
+	      
+  $t=getConceptsLevel($dbaccess, $th->initid, $level);
 
     $b2=microtime(true);
-    foreach ($t as $k=>$v) {
-      if ($v["thc_level"]==0) {
-	$label=getLabelLang($v,$lang);
-	$isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
-	$oneisgood |= $isgood;
-	$child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
-	$oneisgood |= $childgood;
-	$t0[]=array("title"=>$v["title"],
-		    "desc"=>$label,
-		    "isfiltergood"=>$isgood,
-		    "ischildgood"=>$childgood,
-		    "nosee"=>(!$childgood) &&(!$isgood),
-		    "openit"=>($childgood) &&(!$isgood),
-		    "thid"=>$v["initid"],
-		    "child"=>$child);	  
-      }
-    }
-  }
-  $action->lay->set("first",true);
+  $child=getUltree($t,"",$filter,$childgood,$lang);
+
+
+  
+    $action->lay->set("first",true);
+    $action->lay->set("child",$child);
   $action->lay->set("aid",$aid);
   $action->lay->set("multi",$multi);
   $action->lay->setBlockData("LIs",$t0);
   $action->lay->set("time",sprintf("%0.3f [%.03f]", $b2-$b1,
 				   microtime(true) - $b1));
 
-  if (! $oneisgood) $action->lay->set("error",sprintf(_("no result matching %s"),$filter));
-  else $action->lay->set("error","");
 
-
+  $action->lay->set("aid",$aid);
+  $action->lay->set("thid",$thid);
+  $action->lay->set("famid",$fid);
+  $action->lay->set("iname",$iname);
+  
 }
+
 function getLabelLang($v,$lang) {
   $tlang=Doc::_val2array($v["thc_lang"]);
   $tll=Doc::_val2array($v["thc_langlabel"]);
@@ -88,7 +88,7 @@ function getLabelLang($v,$lang) {
 }
 
 function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
-  $lay=new Layout(getLayoutFile("THESAURUS","inputtree.xml"));
+  $lay=new Layout(getLayoutFile("THESAURUS","editsubtreesearch.xml"));
   $b=array();
   $oneisgood=false;
   foreach ($t as $k=>$v) {
@@ -97,6 +97,9 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
       $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
       $oneisgood |= $isgood;
       $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
+      if ($child!="") $child='<ul>'.$child.'</ul>';
+
+
       $oneisgood |= $childgood;
       $b[]=array("title"=>$v["title"],
 		 "desc"=>$label,
@@ -112,14 +115,8 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
   if (count($b)==0) {    
     return "";
   }
-  $lay->set("first",false);
   $lay->setBlockData("LIs",$b);
   return $lay->gen();
 }
-
-
-
-
-
 
 ?>

@@ -1,0 +1,12 @@
+<select thesaurus="[thid]" style="display:none" tabindex="-1" id="thopt_[aid]" name="[iname][IF multi][][ENDIF multi]"  onchange="disableClearDocIdInputs('[aid]',this)"  [IF multi] multiple="yes"[ENDIF multi] ></select>
+[error]
+<div style="border:green 1px solid;">
+<ul id="thtree[aid]" class="mktree" style="margin-left:0px" >
+[child]
+</ul></div>
+[time]
+<script>include_js('THESAURUS/Layout/editinputthconcept.js');
+include_js('FDL/Layout/mktree.js');
+include_js('FDL/Layout/common.js');
+include_js('FDC/Layout/inserthtml.js');
+</script><script>processList(document.getElementById('thtree[aid]'));</script>
