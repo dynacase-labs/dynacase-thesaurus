@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: th_search.php,v 1.1 2008/08/11 16:31:22 eric Exp $
+ * @version $Id: th_search.php,v 1.2 2008/08/13 10:09:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -23,26 +23,31 @@ include_once("THESAURUS/Lib.Thesaurus.php");
  */
 function th_search(&$action) {
   $dbaccess = $action->GetParam("FREEDOM_DB");
-  $thid = GetHttpVars("thid");
+  //  $thid = GetHttpVars("thid");
   $fid = GetHttpVars("famid");
+  $aid = GetHttpVars("aid");
+  $multi = GetHttpVars("multi");
 
   $fdoc=new_doc($dbaccess,$fid);
   if (! $fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive"),$fid));
   if (! $thid) {
     $at=$fdoc->getNormalAttributes();
     foreach ($at as $k=>$oa) {
-      if ($oa->type=="thesaurus") {
-	$aid=$oa->id;
-	$thid=$oa->format;
-	break;
+      if (($aid == "") || ($aid==$oa->id)) {
+	if ($oa->type=="thesaurus") {
+	  $aid=$oa->id;
+	  $thid=$oa->format;
+	  break;
+	}
       }
     }    
   }
-  $th=new_doc($dbaccess,$thid);
-  if (! $th->isAlive()) $action->exitError(sprintf(_("thesaurus %s not alive"),$thid));
 	      
+  
+ 
 
 
+  $action->lay->set("multi",$multi);
   $action->lay->set("aid",$aid);
   $action->lay->set("thid",$thid);
   $action->lay->set("famid",$fid);

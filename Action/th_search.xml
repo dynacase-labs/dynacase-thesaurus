@@ -4,7 +4,7 @@
 <form id="thf"
       name="th" style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
-      target="_blank"
+      target="thresult"
       action="[CORE_STANDURL]&app=THESAURUS&action=TH_EXECSEARCH">
 
 <input type="hidden" name="famid" value="[famid]">
@@ -12,13 +12,14 @@
 <input type="hidden" name="aid" value="[aid]">
 
 <input type="text" name="filter" onkeypress="if (trackCR(event)) {filtertreesearch(event,this.value, document.getElementById('thtop'));return false}" >
-
+ZONE THESAURUS:EDITTREESEARCH?id=[thid]&multi=[multi]
 <div id="thtop" style="border:blue solid 1px;width:50%;height:300px;overflow:auto">
-[ZONE THESAURUS:EDITTREESEARCH?id=[thid]]
+[ZONE THESAURUS:EDITTREESEARCH?id=[thid]&multi=[multi]&aid=[aid]]
 </div>
 <input type="submit" >
 
 </form>
 
+<iframe name="thresult" style="width:100%">
 
 [ZONE FDL:HTMLFOOT]

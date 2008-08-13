@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: edittreesearch.php,v 1.1 2008/08/11 16:31:22 eric Exp $
+ * @version $Id: edittreesearch.php,v 1.2 2008/08/13 10:09:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -26,11 +26,12 @@ function edittreesearch(&$action) {
   $thid = GetHttpVars("thid");
   $filter=getHttpVars("filter"); 
   $fid = GetHttpVars("famid");
+  $aid = GetHttpVars("aid");
   $multi=(getHttpVars("multi")=="yes")?'multi':false; 
   $level=getHttpVars("level",2); 
-  $iname=getHttpVars("inputname"); 
+  $iname=getHttpVars("inputname","thvalue"); 
 
-
+  $error="";
 
   $b1=microtime(true);
   $fdoc=new_doc($dbaccess,$fid);
@@ -52,11 +53,9 @@ function edittreesearch(&$action) {
 
     $b2=microtime(true);
   $child=getUltree($t,"",$filter,$childgood,$lang);
-
-
   
-    $action->lay->set("first",true);
-    $action->lay->set("child",$child);
+  $action->lay->set("first",true);
+  $action->lay->set("child",$child);
   $action->lay->set("aid",$aid);
   $action->lay->set("multi",$multi);
   $action->lay->setBlockData("LIs",$t0);
@@ -68,10 +67,11 @@ function edittreesearch(&$action) {
   $action->lay->set("thid",$thid);
   $action->lay->set("famid",$fid);
   $action->lay->set("iname",$iname);
+  $action->lay->set("error",$error);
   
 }
 
-function getLabelLang($v,$lang) {
+function getThLabelLang($v,$lang) {
   $tlang=Doc::_val2array($v["thc_lang"]);
   $tll=Doc::_val2array($v["thc_langlabel"]);
 
@@ -87,18 +87,25 @@ function getLabelLang($v,$lang) {
   return (isset($tll[$kgood]))?$tll[$kgood]:$tll[0];
 }
 
+
 function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
+
+  $dbaccess = GetParam("FREEDOM_DB");
+  $fid = GetHttpVars("famid");
+  $aid = GetHttpVars("aid");
+
   $lay=new Layout(getLayoutFile("THESAURUS","editsubtreesearch.xml"));
   $b=array();
   $oneisgood=false;
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
-	$label=getLabelLang($v,$lang);
+	$label=getThLabelLang($v,$lang);
       $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
       $oneisgood |= $isgood;
       $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
       if ($child!="") $child='<ul>'.$child.'</ul>';
-
+      $cardinal=getThCardinal($dbaccess,$fid,$v["initid"],$aid);
+      
 
       $oneisgood |= $childgood;
       $b[]=array("title"=>$v["title"],
@@ -108,7 +115,8 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
 		 "ischildgoodnos"=>$childgood,
 		 "nosee"=>(!$childgood) &&(!$isgood),
 		 "openit"=>($childgood) &&(!$isgood),
-		 "child"=>$child);
+		 "child"=>$child,
+		 "cardinal"=>$cardinal);
       
     }
   }

@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.2 2008/08/07 16:42:53 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.3 2008/08/13 10:09:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -118,6 +118,51 @@ function getConceptsLevel($dbaccess,$idt,$level) {
   $t=$s->search();
   return $t;   
 }
+/**
+ * return number of document matching concept
+ */
+function getThCardinal($dbaccess,$famid,$thvalue,$aid="") {
+  static $fid="";
+  static $thoa=false;
+  static $amulti="";
+  static $th=false;
+  $cardinal="$dbaccess $famid,$thid";
 
+  if ($fid != $famid) {
+    $fdoc=new_doc($dbaccess,$famid);
+    if (! $fdoc->isAlive()) return (sprintf(_("document %s not alive"),$famid));
+    $at=$fdoc->getNormalAttributes();
+    foreach ($at as $k=>$oa) {
+      if (($aid == "") || ($aid==$oa->id)) {
+	if ($oa->type=="thesaurus") {
+	  $aid=$oa->id;
+	  $thid=$oa->format;
+	  $fid=$famid;
+	  $thoa=$oa;
+	  $tho=new_doc($dbaccess,$thid);
+	  if ($tho->isAlive()) $th=$tho;
+	  else return (sprintf(_("thesaurus %s not alive"),$thid));
+	  break;
+	}
+      }
+    }    
+    include_once("FDL/Class.SearchDoc.php");  
+  }
+  if ($th) {
+    
+ 
+ 
+    $s=new SearchDoc($dbaccess,$fid);
+    $thsql=$th->getSqlFilter($thoa,$thvalue);
+
+    $s->addFilter($thsql);
+    //$s->slice=$slice;
+    $s->orderby='';
+
+
+    $cardinal=$s->onlyCount();
+  }
+  return $cardinal;
+}
 ?>
 

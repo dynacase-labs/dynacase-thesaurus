@@ -20,7 +20,7 @@ function getSqlFilter($oa,$thv) {
 	  $thnr[]=$thid;
 	}
       }
-      if (count($thnr) == 1) $sql=sprintf("%s ~ '\\\\m%s\\\\M'",$oa->id,intval($thv));
+      if (count($thnr) == 1) $sql=sprintf("%s ~ '\\\\m%s\\\\M'",$oa->id,intval($thnr[0]));
       else $sql=$oa->id." ~ '\\\\m(".pg_escape_string(implode('|',$thnr)).")\\\\M'";
     } else {
 	
@@ -44,8 +44,8 @@ function getSqlFilter($oa,$thv) {
 	  $thnr[]=$thid;
 	}	
       }
-      if (count($thnr) == 1) $sql=sprintf("%s = '%s'",$oa->id,intval($thv));
-      else $sql=GetSqlCond($thnr,$oa->id,true);
+      if (count($thnr) == 1) $sql=sprintf("%s = '%s'",$oa->id,$thnr[0]);
+      else $sql=GetSqlCond($thnr,$oa->id);
     } else {	
       $sql="single atom";
       $th=new_doc($this->dbaccess, $thv);
@@ -53,7 +53,7 @@ function getSqlFilter($oa,$thv) {
 	$thnr=$th->getRNarrowers();
 	$thnr[]=$thv;
 	if (count($thnr) == 1) $sql=sprintf("%s = '%s'",$oa->id,intval($thv));
-	else $sql=GetSqlCond($thnr,$oa->id,true);
+	else $sql=GetSqlCond($thnr,$oa->id);
       }
     }
   }
