@@ -93,10 +93,9 @@ function selectmultith(th,thid,aid) {
 function inversecolor(o) {
   var bgcolor=getCssStyle(o,'backgroundColor');
   var po;
-
-  if (bgcolor=='transparent') {
+  if ((bgcolor=='transparent')||(bgcolor=='rgba(0, 0, 0, 0)')) {
     po=o.parentNode;
-    while (po && bgcolor=='transparent') {
+    while (po && ((bgcolor=='transparent')||(bgcolor=='rgba(0, 0, 0, 0)'))) {
       bgcolor=getCssStyle(po,'backgroundColor');
       po=po.parentNode;
     }
@@ -129,21 +128,28 @@ function preselectMultiTree(treeid,aid) {
 function resizeme(event,divid) {
   var th=document.getElementById(divid);
   var h=0,w;
-    for (var i=0; i < th.childNodes.length ; i++) {
-      if (th.childNodes[i].nodeType == 1) {
-	h=getObjectHeight(th.childNodes[i]);
+  for (var i=0; i < th.childNodes.length ; i++) {
+    if (th.childNodes[i].nodeType == 1) {
+      h=getObjectHeight(th.childNodes[i]);
 
-	break;
-      }
+      break;
     }
-    if (h > 150) h=150;
-    if (isIE) {
-      h+=10;
-      w=getObjectWidth(th); // force width to workaround scrollbar effect
-      th.style.width=w+'px';
-    }
-    if (h > 0) th.style.height=h+'px';
-    if (th.scrollHeight > th.clientHeight) th.style.paddingRight='10px';
+  }
+  var otop=getCssStyle(th,'top');//getObjectTop(th);  
+  if (h > 150) h=150;
+  if (isIE) {
+    h+=10;
+    w=getObjectWidth(th); // force width to workaround scrollbar effect
+    th.style.width=w+'px';
+  }
+  if (isSafari) {
+    var xy=getAnchorPosition(divid);    
+    th.style.top=xy.y;    
+  }
+
+  if (h > 0) th.style.height=h+'px';
+  return;
+  if (th.scrollHeight > th.clientHeight) th.style.paddingRight='10px';
 }
 
 function clearconcept(event,aid) {
