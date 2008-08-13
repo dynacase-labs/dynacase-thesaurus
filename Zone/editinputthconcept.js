@@ -148,7 +148,6 @@ function resizeme(event,divid) {
   }
 
   if (h > 0) th.style.height=h+'px';
-  return;
   if (th.scrollHeight > th.clientHeight) th.style.paddingRight='10px';
 }
 
@@ -249,25 +248,27 @@ function filtertreesearch(event,filter,cible) {
 
   if (cible) {   
     var sels=cible.getElementsByTagName('select');
-    var thid,multi;
+    var thid,multi,aid,famid;
     for (var i=0;i<sels.length;i++) {
       thid=sels[i].getAttribute('thesaurus');
       multi=sels[i].getAttribute('multiple');
+      famid=sels[i].getAttribute('famid');
+      aid=sels[i].getAttribute('aid');
     }
    
     cible.style.visibility='visible';
     cible.style.display='';
     clipboardWait(cible);
 
-    setTimeout(function() {sendfiltertreesearch(event,cible,thid,filter,multi);},10); // force event loop to view waiting effects         
+    setTimeout(function() {sendfiltertreesearch(event,cible,thid,filter,multi,famid,aid);},10); // force event loop to view waiting effects         
   }
 }
 
-function sendfiltertreesearch(event,cible,thid,filter,multi) {
+function sendfiltertreesearch(event,cible,thid,filter,multi,famid,aid) {
   var corestandurl=window.location.pathname+'?sole=Y';
 
   if (cible) {          
-    var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&thid='+thid+'&filter='+filter;
+    var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&thid='+thid+'&filter='+filter+'&famid='+famid+'&aid='+aid;
     enableSynchro();
     if (multi) url = url + '&multi=yes';
     var ret=requestUrlSend(cible,url); 

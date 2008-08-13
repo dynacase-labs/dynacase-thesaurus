@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: edittreesearch.php,v 1.2 2008/08/13 10:09:32 eric Exp $
+ * @version $Id: edittreesearch.php,v 1.3 2008/08/13 15:17:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -31,6 +31,7 @@ function edittreesearch(&$action) {
   $level=getHttpVars("level",2); 
   $iname=getHttpVars("inputname","thvalue"); 
 
+  if (! $lang) $lang=strtolower(strtok(getParam("CORE_LANG"),'_'));
   $error="";
 
   $b1=microtime(true);
@@ -46,13 +47,14 @@ function edittreesearch(&$action) {
       }
     }    
   }
+
   $th=new_doc($dbaccess,$thid);
   if (! $th->isAlive()) $action->exitError(sprintf(_("thesaurus %s not alive"),$thid));
 	      
   $t=getConceptsLevel($dbaccess, $th->initid, $level);
 
-    $b2=microtime(true);
-  $child=getUltree($t,"",$filter,$childgood,$lang);
+  $b2=microtime(true);
+  $child=getUltree($t,"",$filter,$childgood,$lang,$fdoc->id,$aid,$dbaccess);
   
   $action->lay->set("first",true);
   $action->lay->set("child",$child);
@@ -88,24 +90,22 @@ function getThLabelLang($v,$lang) {
 }
 
 
-function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
+function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess) {
 
-  $dbaccess = GetParam("FREEDOM_DB");
-  $fid = GetHttpVars("famid");
-  $aid = GetHttpVars("aid");
 
   $lay=new Layout(getLayoutFile("THESAURUS","editsubtreesearch.xml"));
   $b=array();
   $oneisgood=false;
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
-	$label=getThLabelLang($v,$lang);
+      $label=getThLabelLang($v,$lang);
       $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
       $oneisgood |= $isgood;
-      $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
+      $child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
       if ($child!="") $child='<ul>'.$child.'</ul>';
-      $cardinal=getThCardinal($dbaccess,$fid,$v["initid"],$aid);
       
+      if ($childgood || $isgood) $cardinal=getThCardinal($dbaccess,$famid,$v["initid"],$aid);
+      else $cardinal="nc";
 
       $oneisgood |= $childgood;
       $b[]=array("title"=>$v["title"],

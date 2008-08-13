@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.3 2008/08/13 10:09:32 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.4 2008/08/13 15:17:37 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -13,6 +13,7 @@
  */
 
 include_once("FDL/Class.SearchDoc.php");
+include_once("FDL/Class.DocCount.php");
 
 /**
  * return concept document from URI reference
@@ -126,22 +127,34 @@ function getThCardinal($dbaccess,$famid,$thvalue,$aid="") {
   static $thoa=false;
   static $amulti="";
   static $th=false;
-  $cardinal="$dbaccess $famid,$thid";
+  static $dcs=false;
+  $cardinal="$dbaccess $famid,$thid,$aid";
 
-  if ($fid != $famid) {
+  if (($fid != $famid) || (($aid!="") && ($aid != $thoa->id))) {
+    // optimize for future use in loop
     $fdoc=new_doc($dbaccess,$famid);
     if (! $fdoc->isAlive()) return (sprintf(_("document %s not alive"),$famid));
     $at=$fdoc->getNormalAttributes();
     foreach ($at as $k=>$oa) {
       if (($aid == "") || ($aid==$oa->id)) {
-	if ($oa->type=="thesaurus") {
-	  $aid=$oa->id;
+	if ($oa->type=="thesaurus") {	 
 	  $thid=$oa->format;
 	  $fid=$famid;
 	  $thoa=$oa;
 	  $tho=new_doc($dbaccess,$thid);
 	  if ($tho->isAlive()) $th=$tho;
 	  else return (sprintf(_("thesaurus %s not alive"),$thid));
+
+	  $q=new QueryDb($dbaccess,"Doccount");
+	  $q->addQuery("famid=".intval($famid));
+	  $q->addQuery("aid='".pg_escape_string($oa->id)."'");
+	  $rdc=$q->Query(0,0,"TABLE");
+	  $dcs=array();
+	  if ($q->nb > 0) {
+	    foreach ($rdc as $v) {
+	      $dcs[$v["filter"]]=$v["c"];
+	    }
+	  } 
 	  break;
 	}
       }
@@ -149,18 +162,26 @@ function getThCardinal($dbaccess,$famid,$thvalue,$aid="") {
     include_once("FDL/Class.SearchDoc.php");  
   }
   if ($th) {
-    
  
- 
-    $s=new SearchDoc($dbaccess,$fid);
-    $thsql=$th->getSqlFilter($thoa,$thvalue);
+    if (isset($dcs[$thvalue])) {
+      $cardinal=$dcs[$thvalue];
+    } else {
+      $dc=new docCount($dbaccess, array($fid,$thoa->id,$thvalue));
+      $s=new SearchDoc($dbaccess,$fid);
+      $thsql=$th->getSqlFilter($thoa,$thvalue);
+      
+      $s->addFilter($thsql);
+      //$s->slice=$slice;
+      $s->orderby='';      
+      $cardinal=$s->onlyCount();
+      $dc->famid=$famid;
+      $dc->aid=$thoa->id;
+      $dc->filter=$thvalue;
+      $dc->c=$cardinal;
+      $err=$dc->Add();
 
-    $s->addFilter($thsql);
-    //$s->slice=$slice;
-    $s->orderby='';
 
-
-    $cardinal=$s->onlyCount();
+    }
   }
   return $cardinal;
 }
