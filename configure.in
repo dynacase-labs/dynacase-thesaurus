@@ -7,7 +7,7 @@
 #   as published by the Free Software Foundation; either version
 #   2 of the License, or (at your option) any later version.
 #
-AC_REVISION($Id: configure.in,v 1.1 2008/08/06 15:11:52 eric Exp $)
+AC_REVISION($Id: configure.in,v 1.2 2008/08/13 12:03:47 marc Exp $)
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -24,7 +24,7 @@ APPNAME=THESAURUS
 AC_SUBST(PACKAGELIB)
 PACKAGELIB=FDL
 
-ac_default_prefix=/home/httpd/what
+ac_default_prefix=/usr/share/what
 
 AC_SUBST(PUBRULE)
 PUBRULE=`dirname ~/anakeen/what/.`
