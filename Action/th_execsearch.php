@@ -3,7 +3,7 @@
  * Execute search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: th_execsearch.php,v 1.3 2008/08/14 12:20:15 eric Exp $
+ * @version $Id: th_execsearch.php,v 1.4 2008/08/14 14:19:44 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -42,11 +42,21 @@ function th_execsearch(&$action) {
   $s->addFilter($thsql);
   $s->slice=$slice;
   $s->orderby='title';
+
+  /*
   $s->setDebugMode();
   $t=$s->Search();
   
+  $di=$s->getDebugInfo();
   print_r2( $s->getDebugInfo());
-  
-  
+  print $s->getOriginalQuery();
+  */
+  $se=createTmpDoc($dbaccess,"SEARCH");  
+  $se->setValue("ba_title",sprintf(_("Thesaurus results")));
+  $se->add();
+  $se->addQuery($s->getOriginalQuery());
+
+
+  redirect($action,"FREEDOM",  "FREEDOM_VIEW&dirid=".$se->id);
 }
 ?>

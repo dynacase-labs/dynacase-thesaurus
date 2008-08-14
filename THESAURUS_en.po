@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 10:38+0200\n"
+"POT-Creation-Date: 2008-08-14 15:10+0200\n"
 "PO-Revision-Date: 2008-08-14 14:11+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
@@ -15,7 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
-msgid "family %s not alive"
+msgid "no result matching %s"
+msgstr ""
+
+#, c-format
+msgid "document %s not alive"
 msgstr ""
 
 #, c-format
@@ -23,11 +27,7 @@ msgid "thesaurus %s not alive"
 msgstr ""
 
 #, c-format
-msgid "no result matching %s"
-msgstr ""
-
-#, c-format
-msgid "document %s not alive"
+msgid "family %s not alive"
 msgstr ""
 
 msgid "Thesaurus"
@@ -92,9 +92,6 @@ msgstr "French"
 
 msgid "THESAURUS#thes_lang#en"
 msgstr "English"
-
-msgid "THESAURUS#thes_lang#fr.br"
-msgstr "Gothic"
 
 msgid "THESAURUS#thes_import"
 msgstr "SKOS mportation"
@@ -241,6 +238,9 @@ msgstr ""
 
 msgid "THLANGCONCEPT#thcl_lang#thes_lang)"
 msgstr ""
+
+#~ msgid "THESAURUS#thes_lang#fr.br"
+#~ msgstr "Gothic"
 
 #, fuzzy
 #~ msgid "thesaurus#title"

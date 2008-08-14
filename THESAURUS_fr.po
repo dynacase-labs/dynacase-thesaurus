@@ -6,21 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM-BOOK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 10:38+0200\n"
-"PO-Revision-Date: 2008-08-14 08:39+0200\n"
+"POT-Creation-Date: 2008-08-14 15:10+0200\n"
+"PO-Revision-Date: 2008-08-14 15:14+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "family %s not alive"
-msgstr "famille %s non trouvée"
-
-#, c-format
-msgid "thesaurus %s not alive"
-msgstr "thésaurus %s non trouvé"
 
 #, c-format
 msgid "no result matching %s"
@@ -30,41 +22,49 @@ msgstr "pas de résultat pour %s"
 msgid "document %s not alive"
 msgstr ""
 
+#, c-format
+msgid "thesaurus %s not alive"
+msgstr "thésaurus %s non trouvé"
+
+#, c-format
+msgid "family %s not alive"
+msgstr "famille %s non trouvée"
+
 msgid "Thesaurus"
-msgstr ""
+msgstr "Thésaurus"
 
 msgid "Manage thesaurus"
-msgstr ""
+msgstr "Gestion du thésaurus"
 
 msgid "interface import SKOS format"
-msgstr ""
+msgstr "interface d'importation pour les formats SKOS"
 
 msgid "import SKOS format"
-msgstr ""
+msgstr "importation au format SKOS"
 
 msgid "display tree of thesaurus"
-msgstr ""
+msgstr "affichage de l'arbre du thésaurus"
 
 msgid "display interface to search from thesaurus"
-msgstr ""
+msgstr "affichage de l'interface de recherche du thésaurus"
 
 msgid "exec search from thesaurus"
-msgstr ""
+msgstr "execution de la recherche depuis un thésaurus"
 
 msgid "Search from thesaurus"
-msgstr ""
+msgstr "Recherche depuis le thésaurus"
 
 msgid "Close tree"
-msgstr ""
+msgstr "Fermer"
 
 msgid "SKOS Importation"
-msgstr ""
+msgstr "Importation SKOS"
 
 msgid "Clear selected inputs"
-msgstr ""
+msgstr "Effaces les entrées séletionnées"
 
 msgid "View tree thesaurus"
-msgstr ""
+msgstr "Voir l'arbre du thésaurus"
 
 msgid "Clear inputs"
 msgstr "Effacer les champs de saisie"
@@ -99,10 +99,6 @@ msgstr "Français"
 #, fuzzy
 msgid "THESAURUS#thes_lang#en"
 msgstr "Anglais"
-
-#, fuzzy
-msgid "THESAURUS#thes_lang#fr.br"
-msgstr "Français"
 
 #, fuzzy
 msgid "THESAURUS#thes_import"
@@ -297,6 +293,10 @@ msgstr ""
 
 msgid "THLANGCONCEPT#thcl_lang#thes_lang)"
 msgstr ""
+
+#, fuzzy
+#~ msgid "THESAURUS#thes_lang#fr.br"
+#~ msgstr "Français"
 
 #, fuzzy
 #~ msgid "thesaurus#title"

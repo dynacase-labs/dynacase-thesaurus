@@ -1,6 +1,8 @@
 [ZONE FDL:HTMLHEAD?title=[TEXT:Search from thesaurus]]
 
 
+<table><tr><td style="width:40%;">
+
 <form id="thf"
       name="th" style="display:inline"
       method="POST" ENCTYPE="multipart/form-data"
@@ -14,16 +16,16 @@
 
 <input type="text" name="filter" onkeypress="if (trackCR(event)) {filtertreesearch(event,this.value, document.getElementById('thtop'));return false}" >
 
-<div id="thtop" style="border:blue solid 1px;width:50%;height:300px;overflow:auto">
+<div id="thtop" style="border:blue solid 1px;width:100%;overflow:auto">
 [ZONE THESAURUS:EDITTREESEARCH?thid=[thid]&multi=[multi]&famid=[famid]&aid=[aid]]
-</div>
 
+</div>
 
 
 <input type="submit" >
 
 </form>
-
-<iframe name="thresult" style="width:100%">
-
+</td>
+<td><iframe name="thresult" style="width:100%;height:100%;border:none">
+</td></tr></table>
 [ZONE FDL:HTMLFOOT]
