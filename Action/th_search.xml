@@ -10,6 +10,7 @@
 <input type="hidden" name="famid" value="[famid]">
 <input type="hidden" name="thid" value="[thid]">
 <input type="hidden" name="aid" value="[aid]">
+<input type="hidden" name="slice" value="ALL">
 
 <input type="text" name="filter" onkeypress="if (trackCR(event)) {filtertreesearch(event,this.value, document.getElementById('thtop'));return false}" >
 
@@ -17,9 +18,7 @@
 [ZONE THESAURUS:EDITTREESEARCH?thid=[thid]&multi=[multi]&famid=[famid]&aid=[aid]]
 </div>
 
-<div id="thtop" style="border:blue solid 1px;width:50%;height:300px;overflow:auto">
-[ZONE THESAURUS:EDITTREESEARCH?thid=[thid]&multi=[multi]&famid=[famid]&aid=txt_th2]
-</div>
+
 
 <input type="submit" >
 

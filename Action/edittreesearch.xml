@@ -1,7 +1,6 @@
 <select thesaurus="[thid]" famid="[famid]" aid="[aid]" style="display:none" tabindex="-1" id="thopt_[aid]" name="[iname][IF multi][][ENDIF multi]"  onchange="disableClearDocIdInputs('[aid]',this)"  [IF multi] multiple="yes"[ENDIF multi] ></select>
 [error]
-<div>
-<ul id="thtree[aid]" class="mktree" style="margin-left:0px;display:none" >
+<div class="mktreetop"><ul id="thtree[aid]" class="mktree" style="margin-left:0px;display:none" >
 [child]
 </ul></div>
 [time]
