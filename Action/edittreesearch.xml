@@ -8,7 +8,6 @@
 include_js('FDL/Layout/mktree.js');
 include_js('FDL/Layout/common.js');
 include_js('FDC/Layout/inserthtml.js');
-</script>
-<!-- <script>setTimeout(function () {processList(document.getElementById('thtree[aid]'));document.getElementById('thtree[aid]').style.display=''},1)</script> -->
+</script><script>setTimeout(function () {processList(document.getElementById('thtree[aid]'));document.getElementById('thtree[aid]').style.display=''},1)</script>
 
 
