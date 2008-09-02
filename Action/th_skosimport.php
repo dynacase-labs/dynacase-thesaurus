@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.1 2008/08/06 15:11:52 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.2 2008/09/02 15:13:35 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -19,6 +19,7 @@ include_once("THESAURUS/Lib.Thesaurus.php");
 function th_skosimport(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
+  $uri = getHttpVars("thuri");
 
   global $_FILES;
   if (ini_get("max_execution_time") < 180) ini_set("max_execution_time",180); // 3 minutes
@@ -38,7 +39,7 @@ function th_skosimport(&$action) {
   $doc->load($skosfile);
   
   $desc=$doc->childNodes->item(0);
-  $uri=$desc->getAttribute("rdf:about");
+  if (! $uri) $uri=$desc->getAttribute("rdf:about");
   if (! $uri) $uri="test";
   $th=getThesaurusFromURI($dbaccess,$uri);
   if (! $th) {
@@ -89,6 +90,9 @@ function importSkosConcept($dbaccess,$thid,&$node) {
     $nodevalue=utf8_decode($a->nodeValue);
 
     switch ($nodename) {
+    case "rdfs:label":      
+      $co->setValue("thc_label",$nodevalue);
+      break;
     case "skos:broader":
       $refuri=$a->getAttribute("rdf:resource");
       // $ref=getConceptIdsFromURI($dbaccess,$refuri);

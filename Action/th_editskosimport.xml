@@ -5,6 +5,7 @@
        method="POST" ENCTYPE="multipart/form-data" >
 
 
+<input type="text" name="thuri">
 <input type="file" name="skos">
 <input type="submit">
 
