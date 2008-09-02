@@ -1,6 +1,6 @@
 
 <input type="hidden" thesaurus="[thesaurus]" name="[aname]" id="[aid]" value="[value]">
-<input type="text"  class="fullresize" onkeypress="if (trackCR(event)) {displayconcepttree(event,'[aid]');return false}" [IF atitle]disabled [ENDIF atitle]id="label_[aid]" value="[atitle]"><br/><div onmouseup="setTimeout(function () {resizeme(event,'tree_[aid]')},100)" id="tree_[aid]" style="position:absolute;height:5em;overflow-y:auto;background-color:[COLOR_WHITE];display:none;border:inset 1px"></div></td><td class="nowrap"><input type="button" id="it_[aid]" title="[TEXT:View tree thesaurus]" value="&Delta;" onclick="displayconcepttree(event,'[aid]')"><input  title="[TEXT:Clear inputs]" type="button" value="&times;" onclick="clearconcept(event,'[aid]')">
+<input type="text"  class="fullresize" onkeypress="if (trackCR(event)) {displayconcepttree(event,'[aid]');return false}" [IF atitle]disabled [ENDIF atitle]id="label_[aid]" value="[atitle]"><br/><div onmouseup="setTimeout(function () {resizeme(event,'tree_[aid]')},100)" id="tree_[aid]" style="position:absolute;height:5em;overflow-y:auto;background-color:[COLOR_WHITE];display:none;border:inset 1px"></div></td><td class="nowrap"><input type="button" id="it_[aid]" title="[TEXT:View tree thesaurus]" value="&darr;" onclick="displayconcepttree(event,'[aid]')"><input  title="[TEXT:Clear inputs]" type="button" value="&times;" onclick="clearconcept(event,'[aid]')">
 
 <script>include_js('THESAURUS/Layout/editinputthconcept.js');
 include_js('FDL/Layout/mktree.js');

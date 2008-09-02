@@ -1,6 +1,7 @@
 function displayconcepttree(event,aid,multi) {
   var corestandurl=window.location.pathname+'?sole=Y';
   var cible=document.getElementById('tree_'+aid);
+  var ix=document.getElementById('ix_'+aid);
   if (cible) {   
     var idtree=document.getElementById(aid).getAttribute('thesaurus');
     var filter=document.getElementById('label_'+aid).value;
@@ -12,6 +13,7 @@ function displayconcepttree(event,aid,multi) {
     cible.style.display='';
     clipboardWait(cible);
 
+    if (ix) ix.disabled=false;
     setTimeout(function() {sendconcepttree(event,aid,multi);},10); // force event loop to view waiting effects         
   }
 }
@@ -81,6 +83,7 @@ function selectmultith(th,thid,aid) {
     //    if (valuetext.length > 40) valuetext=valuetext.substr(0,40);
 
     addinlist(opto,valuetext, thid,true);
+    opto.style.visibility='visible';
     if (w) opto.style.width=w+'px'; // force to not change width
     th.setAttribute("selected","1");
   }
@@ -107,6 +110,7 @@ function inversecolor(o) {
 // select in tree values already set from aid input
 function preselectMultiTree(treeid,aid) {
   var tree=document.getElementById(treeid);
+  if (! tree) return;
   var as=tree.getElementsByTagName('a');
   var aids=document.getElementById(aid).value;
 
@@ -181,6 +185,7 @@ function addmultiselectth(th,thid,aid) {;
     else valuetext=th.innerText;    
 
     addthinlist(opto,valuetext, thid,false);
+    opto.style.visibility='visible';
     
     th.setAttribute("selected","1");
   }
@@ -221,11 +226,23 @@ function unselecttree(tree) {
 	inversecolor(as[i]);      
 	as[i].setAttribute("selected","0");
       }
+  }    
+}
+function hidethtree(idsel,idtree,oix) {
+  var inpsel=document.getElementById(idsel); 
+  var tree=document.getElementById(idtree); 
+  var hasel=false;
+  if (inpsel) {
+    for (var k=0;k<inpsel.options.length;k++) {
+      if (inpsel.options[k].selected) hasel=true;
+    }
   }
-    
+  if (tree && (!hasel)) {
+    tree.style.display='none';
+  }
+  if (oix) oix.disabled=true;
 
 }
-
 function addthinlist(sel,value,key,notselected) {
 
   if (isNetscape) pos=null;
@@ -278,4 +295,36 @@ function sendfiltertreesearch(event,cible,thid,filter,multi,famid,aid) {
 
     //    resizeme(event,cible.id);        
   }
+}
+
+function changeCharTHHide(attrid, inpsel) {
+  var iinput=document.getElementById('ix_'+attrid);
+  var filter=document.getElementById('ifilter_'+attrid);
+  var needdisable=true;
+  if (iinput) {
+    for (var k=0;k<inpsel.options.length;k++) {
+      if (inpsel.options[k].selected) needdisable=false;
+    }
+    if (needdisable) {
+      iinput.value=iinput.getAttribute('uvalue');
+      iinput.title=iinput.getAttribute('utitle');
+      
+      if (filter && filter.style.display=='none')  iinput.disabled=true;
+    } else {
+      iinput.value=iinput.getAttribute('svalue');
+      iinput.title=iinput.getAttribute('stitle');
+      iinput.disabled=false;
+    }
+		       
+  }
+}
+
+
+function closeOrUnselectTH(aid) {
+  
+
+  hidethtree('thopt_'+aid,'ifilter_'+aid,this);
+  clearDocIdInputs(aid,'thopt_'+aid,false);
+  preselectMultiTree('thtree'+aid,aid);
+  changeCharTHHide(aid,document.getElementById('thopt_'+aid));
 }

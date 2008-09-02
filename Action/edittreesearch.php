@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: edittreesearch.php,v 1.3 2008/08/13 15:17:37 eric Exp $
+ * @version $Id: edittreesearch.php,v 1.4 2008/09/02 15:14:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -26,7 +26,7 @@ function edittreesearch(&$action) {
   $thid = GetHttpVars("thid");
   $filter=getHttpVars("filter"); 
   $fid = GetHttpVars("famid");
-  $aid = GetHttpVars("aid");
+  $aid = strtolower(GetHttpVars("aid"));
   $multi=(getHttpVars("multi")=="yes")?'multi':false; 
   $level=getHttpVars("level",2); 
   $iname=getHttpVars("inputname","thvalue"); 
@@ -99,7 +99,7 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
       $label=getThLabelLang($v,$lang);
-      $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
+      $isgood=(($filter == "") || (eregi($filter, $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
       $child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
       if ($child!="") $child='<ul>'.$child.'</ul>';
@@ -108,7 +108,7 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
       else $cardinal="nc";
 
       $oneisgood |= $childgood;
-      $b[]=array("title"=>$v["title"],
+      $b[]=array("title"=>$v["thc_label"],
 		 "desc"=>$label,
 		 "thid"=>$v["initid"],
 		 "isfiltergood"=>$isgood,

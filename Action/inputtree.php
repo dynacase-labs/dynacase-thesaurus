@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: inputtree.php,v 1.6 2008/08/11 16:31:22 eric Exp $
+ * @version $Id: inputtree.php,v 1.7 2008/09/02 15:14:07 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -44,11 +44,11 @@ function inputtree(&$action) {
     foreach ($t as $k=>$v) {
       if ($v["thc_level"]==0) {
 	$label=getLabelLang($v,$lang);
-	$isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
+	$isgood=(($filter == "") || (eregi($filter, $v["thc_label"].$label, $reg)));
 	$oneisgood |= $isgood;
 	$child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
 	$oneisgood |= $childgood;
-	$t0[]=array("title"=>$v["title"],
+	$t0[]=array("title"=>$v["thc_label"],
 		    "desc"=>$label,
 		    "isfiltergood"=>$isgood,
 		    "ischildgood"=>$childgood,
@@ -94,11 +94,11 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
 	$label=getLabelLang($v,$lang);
-      $isgood=(($filter == "") || (eregi($filter, $v["title"].$label, $reg)));
+      $isgood=(($filter == "") || (eregi($filter, $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
       $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
       $oneisgood |= $childgood;
-      $b[]=array("title"=>$v["title"],
+      $b[]=array("title"=>$v["thc_label"],
 		 "desc"=>$label,
 		 "thid"=>$v["initid"],
 		 "isfiltergood"=>$isgood,
