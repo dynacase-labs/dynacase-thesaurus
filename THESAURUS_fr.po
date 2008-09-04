@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM-BOOK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 15:10+0200\n"
-"PO-Revision-Date: 2008-08-14 15:14+0200\n"
+"POT-Creation-Date: 2008-09-04 16:07+0200\n"
+"PO-Revision-Date: 2008-09-04 16:08+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr "pas de résultat pour %s"
 
 #, c-format
 msgid "document %s not alive"
-msgstr ""
+msgstr "Le document %s n'est pas vivant"
 
 #, c-format
 msgid "thesaurus %s not alive"
@@ -29,6 +29,9 @@ msgstr "thésaurus %s non trouvé"
 #, c-format
 msgid "family %s not alive"
 msgstr "famille %s non trouvée"
+
+msgid "Thesaurus results"
+msgstr "Résultat du thésaurus"
 
 msgid "Thesaurus"
 msgstr "Thésaurus"
@@ -60,67 +63,60 @@ msgstr "Fermer"
 msgid "SKOS Importation"
 msgstr "Importation SKOS"
 
-msgid "Clear selected inputs"
-msgstr "Effaces les entrées séletionnées"
-
 msgid "View tree thesaurus"
 msgstr "Voir l'arbre du thésaurus"
+
+msgid "Clear selected inputs"
+msgstr "Effaces les entrées séletionnées"
 
 msgid "Clear inputs"
 msgstr "Effacer les champs de saisie"
 
-#, fuzzy
+msgid "Display available choices"
+msgstr "Afficher les choix possibles"
+
+msgid "Word to search"
+msgstr "Mot à rechercher"
+
 msgid "THESAURUS#title"
 msgstr "Thésaurus"
 
-#, fuzzy
 msgid "THESAURUS#thes_fr_info"
 msgstr "Identification"
 
 msgid "THESAURUS#thes_uri"
 msgstr "Référence"
 
-#, fuzzy
 msgid "THESAURUS#thes_title"
 msgstr "Titre"
 
-#, fuzzy
 msgid "THESAURUS#thes_desc"
 msgstr "Description"
 
-#, fuzzy
 msgid "THESAURUS#thes_lang"
 msgstr "Langues supportées"
 
-#, fuzzy
 msgid "THESAURUS#thes_lang#fr"
 msgstr "Français"
 
-#, fuzzy
 msgid "THESAURUS#thes_lang#en"
 msgstr "Anglais"
 
-#, fuzzy
 msgid "THESAURUS#thes_import"
 msgstr "Importation SKOS"
 
-#, fuzzy
 msgid "THCONCEPT#title"
 msgstr "Descripteur"
 
-#, fuzzy
 msgid "THCONCEPT#thc_fr_ident"
 msgstr "Identification"
 
-#, fuzzy
 msgid "THCONCEPT#thc_uri"
 msgstr "Identifiant"
 
-#, fuzzy
 msgid "THCONCEPT#thc_thesaurus"
 msgstr "Thésaurus"
 
-#, fuzzy
 msgid "THCONCEPT#thc_level"
 msgstr "Niveau"
 
@@ -135,6 +131,17 @@ msgstr "Libellé"
 #, fuzzy
 msgid "THCONCEPT#thc_preflabel#elabel"
 msgstr "La forme lexicale utilisée pour désigner un concept"
+
+#, fuzzy
+msgid "THCONCEPT#thc_label"
+msgstr "Libellés alternatifs"
+
+#, fuzzy
+msgid "THCONCEPT#thc_label#elabel"
+msgstr ""
+"Les acronymes, abréviations, variantes orthographiques, formes irrégulières "
+"du pluriel ou du singulier, peuvent être incluses dans les formes lexicales "
+"alternatives"
 
 #, fuzzy
 msgid "THCONCEPT#thc_t_label"
@@ -226,11 +233,13 @@ msgstr "Localisation (ID)"
 msgid "THCONCEPT#thc_lang"
 msgstr "Langue"
 
-msgid "THCONCEPT#thc_lang#linkenum(thesaurus"
-msgstr ""
+#, fuzzy
+msgid "THCONCEPT#thc_lang#linkenum(THESAURUS"
+msgstr "Libellé"
 
-msgid "THCONCEPT#thc_lang#thes_lang)"
-msgstr ""
+#, fuzzy
+msgid "THCONCEPT#thc_lang#THES_LANG)"
+msgstr "Langue"
 
 #, fuzzy
 msgid "THCONCEPT#thc_langlabel"
@@ -288,189 +297,10 @@ msgstr "Descripteur"
 msgid "THLANGCONCEPT#thcl_lang"
 msgstr "Langue"
 
-msgid "THLANGCONCEPT#thcl_lang#linkenum(thesaurus"
-msgstr ""
-
-msgid "THLANGCONCEPT#thcl_lang#thes_lang)"
-msgstr ""
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#linkenum(THESAURUS"
+msgstr "Langue"
 
 #, fuzzy
-#~ msgid "THESAURUS#thes_lang#fr.br"
-#~ msgstr "Français"
-
-#, fuzzy
-#~ msgid "thesaurus#title"
-#~ msgstr "Titre"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_fr_info"
-#~ msgstr "Identification"
-
-#~ msgid "thesaurus#thes_uri"
-#~ msgstr "Référence URI"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_title"
-#~ msgstr "Titre"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_desc"
-#~ msgstr "Description"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_lang"
-#~ msgstr "Langues supportées"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_lang#fr"
-#~ msgstr "Français"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_lang#en"
-#~ msgstr "Anglais"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_import"
-#~ msgstr "Importation SKOS"
-
-#, fuzzy
-#~ msgid "thconcept#title"
-#~ msgstr "Note générale"
-
-#, fuzzy
-#~ msgid "thconcept#thc_fr_ident"
-#~ msgstr "Identification"
-
-#, fuzzy
-#~ msgid "thconcept#thc_uri"
-#~ msgstr "Identifiant"
-
-#, fuzzy
-#~ msgid "thconcept#thc_level"
-#~ msgstr "Niveau"
-
-#, fuzzy
-#~ msgid "thconcept#thc_fr_desc"
-#~ msgstr "Description"
-
-#, fuzzy
-#~ msgid "thconcept#thc_t_label"
-#~ msgstr "Libellés alternatifs"
-
-#, fuzzy
-#~ msgid "thconcept#thc_altlabel"
-#~ msgstr "Employé pour"
-
-#, fuzzy
-#~ msgid "thconcept#thc_example"
-#~ msgstr "Exemple"
-
-#, fuzzy
-#~ msgid "thconcept#thc_symbol"
-#~ msgstr "Symbole"
-
-#, fuzzy
-#~ msgid "thconcept#thc_note"
-#~ msgstr "Note générale"
-
-#, fuzzy
-#~ msgid "thconcept#thc_fr_lang"
-#~ msgstr "Traductions"
-
-#, fuzzy
-#~ msgid "thconcept#thc_t_lang"
-#~ msgstr "Internationalisation"
-
-#, fuzzy
-#~ msgid "thconcept#thc_idlang"
-#~ msgstr "Localisation (ID)"
-
-#, fuzzy
-#~ msgid "thconcept#thc_lang"
-#~ msgstr "Langue"
-
-#, fuzzy
-#~ msgid "thconcept#thc_broader"
-#~ msgstr "Terme générique"
-
-#, fuzzy
-#~ msgid "thconcept#thc_narrower"
-#~ msgstr "Termes spécifiques"
-
-#, fuzzy
-#~ msgid "thconcept#thc_related"
-#~ msgstr "Termes associés"
-
-#, fuzzy
-#~ msgid "thlangconcept#title"
-#~ msgstr "Langue"
-
-#, fuzzy
-#~ msgid "thlangconcept#thcl_fr_ident"
-#~ msgstr "Identification"
-
-#, fuzzy
-#~ msgid "thlangconcept#thcl_thesaurus"
-#~ msgstr "Thésaurus"
-
-#, fuzzy
-#~ msgid "thlangconcept#thcl_thconcept"
-#~ msgstr "Descripteur"
-
-#, fuzzy
-#~ msgid "thlangconcept#thcl_lang"
-#~ msgstr "Langue"
-
-# fuzzy 
-#~ msgid "thesaurus#--TITLE--"
-#~ msgstr "Thésaurus"
-
-# fuzzy 
-#~ msgid "thconcept#--TITLE--"
-#~ msgstr "Descripteur"
-
-# fuzzy 
-#~ msgid "thlangconcept#--TITLE--"
-#~ msgstr "Descripteur localisé"
-
-#~ msgid "Open book"
-#~ msgstr "Ouvrir le livre"
-
-#~ msgid "edit chapter"
-#~ msgstr "Éditer le chapitre"
-
-#~ msgid "PDF file being processed"
-#~ msgstr "Production du PDF en cours"
-
-#~ msgid "Table of content"
-#~ msgstr "Table des matières"
-
-#~ msgid "affected"
-#~ msgstr "affecté"
-
-#~ msgid "recorded"
-#~ msgstr "enregistré"
-
-#~ msgid "resolved"
-#~ msgstr "résolu"
-
-#~ msgid "rejected"
-#~ msgstr "rejeté"
-
-#~ msgid "synonyme"
-#~ msgstr "synonyme"
-
-#~ msgid "draft"
-#~ msgstr "brouillon"
-
-#~ msgid "TChanged"
-#~ msgstr "autres transitions"
-
-#~ msgid "Trecorded"
-#~ msgstr "vers enregistré"
-
-#~ msgid "fft %s"
-#~ msgstr "fft %s"
-
-#~ msgid "Proposition:"
-#~ msgstr "Proposition:"
+msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
+msgstr "Langue"

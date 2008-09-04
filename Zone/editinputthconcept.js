@@ -18,6 +18,13 @@ function displayconcepttree(event,aid,multi) {
   }
 }
 
+
+function displayfiltertree(event,aid) {
+  document.getElementById('ifilter_'+aid).style.display='';
+  document.getElementById('expli_'+aid).style.display='none';
+  document.getElementById('label_'+aid).focus();
+  displayconcepttree(event,aid,true)
+}
 function sendconcepttree(event,aid,multi) {
   var corestandurl=window.location.pathname+'?sole=Y';
   var cible=document.getElementById('tree_'+aid);
@@ -300,6 +307,7 @@ function sendfiltertreesearch(event,cible,thid,filter,multi,famid,aid) {
 function changeCharTHHide(attrid, inpsel) {
   var iinput=document.getElementById('ix_'+attrid);
   var filter=document.getElementById('ifilter_'+attrid);
+  var expli=document.getElementById('expli_'+attrid);
   var needdisable=true;
   if (iinput) {
     for (var k=0;k<inpsel.options.length;k++) {
@@ -309,20 +317,22 @@ function changeCharTHHide(attrid, inpsel) {
       iinput.value=iinput.getAttribute('uvalue');
       iinput.title=iinput.getAttribute('utitle');
       
-      if (filter && filter.style.display=='none')  iinput.disabled=true;
+      if (filter && filter.style.display=='none') {
+	iinput.disabled=true;
+	expli.style.display='';
+      }
     } else {
       iinput.value=iinput.getAttribute('svalue');
       iinput.title=iinput.getAttribute('stitle');
       iinput.disabled=false;
+      expli.style.display='none';
     }
 		       
   }
 }
 
 
-function closeOrUnselectTH(aid) {
-  
-
+function closeOrUnselectTH(aid) {  
   hidethtree('thopt_'+aid,'ifilter_'+aid,this);
   clearDocIdInputs(aid,'thopt_'+aid,false);
   preselectMultiTree('thtree'+aid,aid);

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-14 15:10+0200\n"
-"PO-Revision-Date: 2008-08-14 14:11+0200\n"
+"POT-Creation-Date: 2008-09-04 16:07+0200\n"
+"PO-Revision-Date: 2008-09-04 16:09+0200\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: English <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,6 +29,10 @@ msgstr ""
 #, c-format
 msgid "family %s not alive"
 msgstr ""
+
+#, fuzzy
+msgid "Thesaurus results"
+msgstr "Référence"
 
 msgid "Thesaurus"
 msgstr ""
@@ -60,13 +64,19 @@ msgstr ""
 msgid "SKOS Importation"
 msgstr ""
 
-msgid "Clear selected inputs"
-msgstr ""
-
 msgid "View tree thesaurus"
 msgstr ""
 
+msgid "Clear selected inputs"
+msgstr ""
+
 msgid "Clear inputs"
+msgstr ""
+
+msgid "Display available choices"
+msgstr ""
+
+msgid "Word to search"
 msgstr ""
 
 msgid "THESAURUS#title"
@@ -119,6 +129,15 @@ msgstr "Label"
 
 msgid "THCONCEPT#thc_preflabel#elabel"
 msgstr "Lexical form used to describe a concept"
+
+msgid "THCONCEPT#thc_label"
+msgstr "label"
+
+#, fuzzy
+msgid "THCONCEPT#thc_label#elabel"
+msgstr ""
+"The acronyms, abbreviations, spelling, irregular shapes plural or singular, "
+"may be included in alternative lexical forms "
 
 msgid "THCONCEPT#thc_t_label"
 msgstr "Alternative labels"
@@ -185,11 +204,13 @@ msgstr "Localisation (ID)"
 msgid "THCONCEPT#thc_lang"
 msgstr "Language"
 
-msgid "THCONCEPT#thc_lang#linkenum(thesaurus"
-msgstr ""
+#, fuzzy
+msgid "THCONCEPT#thc_lang#linkenum(THESAURUS"
+msgstr "Label"
 
-msgid "THCONCEPT#thc_lang#thes_lang)"
-msgstr ""
+#, fuzzy
+msgid "THCONCEPT#thc_lang#THES_LANG)"
+msgstr "Language"
 
 msgid "THCONCEPT#thc_langlabel"
 msgstr "Label"
@@ -233,11 +254,13 @@ msgstr "Descriptor"
 msgid "THLANGCONCEPT#thcl_lang"
 msgstr "Language"
 
-msgid "THLANGCONCEPT#thcl_lang#linkenum(thesaurus"
-msgstr ""
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#linkenum(THESAURUS"
+msgstr "Language"
 
-msgid "THLANGCONCEPT#thcl_lang#thes_lang)"
-msgstr ""
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
+msgstr "Language"
 
 #~ msgid "THESAURUS#thes_lang#fr.br"
 #~ msgstr "Gothic"
@@ -249,10 +272,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "thesaurus#thes_fr_info"
 #~ msgstr "Identification"
-
-#, fuzzy
-#~ msgid "thesaurus#thes_uri"
-#~ msgstr "Référence"
 
 #, fuzzy
 #~ msgid "thesaurus#thes_title"

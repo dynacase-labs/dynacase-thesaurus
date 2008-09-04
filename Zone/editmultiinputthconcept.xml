@@ -1,12 +1,12 @@
 
 <textarea style="display:none" thesaurus="[thesaurus]" name="[aname]" id="[aid]" >[value]</textarea>
 <select tabindex="-1" id="thopt_[aid]"   onchange="changeCharTHHide('[aid]',this)" size="[size]" style="width:100%;overflow:hidden;border:none[IF empty];visibility:hidden[ENDIF empty]" multiple="yes">[BLOCK options]<option style="overflow:hidden;" value="[ldocid]">[ltitle]</option>[ENDBLOCK options]</select>
-
+<a id="expli_[aid]" onclick="displayfiltertree(event,'[aid]')" >[TEXT:Display available choices]</a>
 <span id="ifilter_[aid]" style="display:none">
-<input type="text" class="fullresize" onkeypress="if (trackCR(event)) {displayconcepttree(event,'[aid]',true);return false}" id="label_[aid]" value="[atitle]">[IF ISIE]<br/>[ENDIF ISIE]
+<label>[TEXT:Word to search] : </label><input type="text"  onkeypress="if (trackCR(event)) {displayconcepttree(event,'[aid]',true);return false}" id="label_[aid]" value="[atitle]">[IF ISIE]<br/>[ENDIF ISIE]
 <div onmouseup="setTimeout(function () {resizeme(event,'tree_[aid]')},100)" id="tree_[aid]" style="position:absolute;height:5em;overflow-y:auto;overflow-x:hidden;background-color:[COLOR_WHITE];display:none;border:inset 1px"></div>
 </span></td><td class="nowrap" style="vertical-align:top;width:30px">
-<input type="button" id="it_[aid]" title="[TEXT:View tree thesaurus]" value="&darr;" onclick="document.getElementById('ifilter_[aid]').style.display='';document.getElementById('label_[aid]').focus();displayconcepttree(event,'[aid]',true)"><input disabled title="[TEXT:Close tree]"  utitle="[TEXT:Close tree]" stitle="[TEXT:Clear selected inputs]" type="button" value="&uarr;" svalue="&times;" uvalue="&uarr;" id="ix_[aid]" onclick="closeOrUnselectTH('[aid]')">
+<input type="button" id="it_[aid]" title="[TEXT:View tree thesaurus]" value="&darr;" onclick="displayfiltertree(event,'[aid]')"><input disabled title="[TEXT:Close tree]"  utitle="[TEXT:Close tree]" stitle="[TEXT:Clear selected inputs]" type="button" value="&uarr;" svalue="&times;" uvalue="&uarr;" id="ix_[aid]" onclick="closeOrUnselectTH('[aid]')">
 <script>include_js('THESAURUS/Layout/editinputthconcept.js');
 include_js('FDL/Layout/mktree.js');
 </script>
