@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.2 2008/09/02 15:13:35 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.3 2008/09/04 14:02:31 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -40,14 +40,15 @@ function th_skosimport(&$action) {
   
   $desc=$doc->childNodes->item(0);
   if (! $uri) $uri=$desc->getAttribute("rdf:about");
-  if (! $uri) $uri="test";
+  if (! $uri) $uri="th_test";
   $th=getThesaurusFromURI($dbaccess,$uri);
   if (! $th) {
     // create it
     $th=createDoc($dbaccess,"THESAURUS");
     $th->setValue("thes_uri",$uri);
+    $th->name=$uri;
     $err=$th->Add();
-    print "CREATE THEASURUS $uri<br>\n";
+    print "CREATE THESAURUS $uri<br>\n";
   }
   $thid=$th->id;
   
@@ -61,7 +62,7 @@ function th_skosimport(&$action) {
       $nodename=strtolower($nod->nodeName);
       if ($nodename=="rdf:description") importSkosConcept($dbaccess,$thid,$nod);
       //      $nodevalue=$nod->nodeValue;
-        print "$j ) $nodemane<br/>\n";
+       // print "$j ) $nodemane<br/>\n";
         
     }
 }
@@ -70,7 +71,7 @@ function th_skosimport(&$action) {
 function importSkosConcept($dbaccess,$thid,&$node) {
   $tcol=array();
   $uri=$node->getAttribute("rdf:about");
-  print "URI:$uri<br/>\n";
+  print "URI:$uri\n";
 
   $co=getConceptFromURI($dbaccess,$uri);
   if (! $co) {
@@ -81,7 +82,7 @@ function importSkosConcept($dbaccess,$thid,&$node) {
     $err=$co->Add();
   }
   $ats=$node->childNodes;
-  print "Attr#:".$ats->length;
+
   for( $j=0 ;  $j < $ats->length; $j++ )  {   
     $a=$ats->item($j);
     if ($a->nodeType == XML_TEXT_NODE) continue;
