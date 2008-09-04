@@ -12,6 +12,11 @@ function postModify() {
   }
 
 
+function getSpecTitle() {
+  return $this->getLangTitle();
+  
+}
+
 /**
  * recompute narrower of father
  */
@@ -144,6 +149,6 @@ function getLabelLang($lang=false) {
  * return localized title
  */
 function getLangTitle($lang=false) {
-  return $this->getValue("thc_uri").' '.$this->getLabelLang($lang);
+  return $this->getValue("thc_label").' '.$this->getLabelLang($lang);
 }
 ?>
