@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.4 2008/08/13 15:17:37 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.5 2008/09/15 16:08:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -186,4 +186,3 @@ function getThCardinal($dbaccess,$famid,$thvalue,$aid="") {
   return $cardinal;
 }
 ?>
-

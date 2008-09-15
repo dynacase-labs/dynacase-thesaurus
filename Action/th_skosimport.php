@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.3 2008/09/04 14:02:31 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.4 2008/09/15 16:08:49 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -15,14 +15,15 @@
 
 include_once("FDL/Class.Doc.php");
 include_once("THESAURUS/Lib.Thesaurus.php");
-
+define("MAXIMPORTTIME",600); // 10 minutes
 function th_skosimport(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $uri = getHttpVars("thuri");
+  $newuri = getHttpVars("newthuri");
 
   global $_FILES;
-  if (ini_get("max_execution_time") < 180) ini_set("max_execution_time",180); // 3 minutes
+  if (ini_get("max_execution_time") < MAXIMPORTTIME) ini_set("max_execution_time",MAXIMPORTTIME);
   
   if (isset($_FILES["skos"])) {
     $filename=$_FILES["skos"]['name'];
@@ -32,42 +33,46 @@ function th_skosimport(&$action) {
     $skosfile=$filename;
   }
 
-  print_r2($_FILES);
-
-
   $doc= new DOMDocument();
   $doc->load($skosfile);
   
   $desc=$doc->childNodes->item(0);
-  if (! $uri) $uri=$desc->getAttribute("rdf:about");
-  if (! $uri) $uri="th_test";
-  $th=getThesaurusFromURI($dbaccess,$uri);
-  if (! $th) {
-    // create it
-    $th=createDoc($dbaccess,"THESAURUS");
-    $th->setValue("thes_uri",$uri);
-    $th->name=$uri;
-    $err=$th->Add();
-    print "CREATE THESAURUS $uri<br>\n";
+
+  if ($uri) {
+    $th=new_doc($dbaccess,$uri);
+  } else {
+    if (! $newuri) $newuri=$desc->getAttribute("rdf:about");
+    if (! $newuri) $newuri="th_test";
+    $th=getThesaurusFromURI($dbaccess,$newuri);
+    if (! $th) {
+      // create it
+      $th=createDoc($dbaccess,"THESAURUS");
+      $th->setValue("thes_uri",$newuri);
+      $th->name=$uri;
+      $err=$th->Add();
+      print "CREATE THESAURUS $uri<br>\n";
+    }
   }
   $thid=$th->id;
   
 
   $concepts=$desc->childNodes;
 
-  print $concepts->length;
+  print sprintf("%d concepts to imports\n",$concepts->length);
 
   for( $j=0 ;  $j < $concepts->length; $j++ )  {       
       $nod=$concepts->item($j);//Node j
       $nodename=strtolower($nod->nodeName);
-      if ($nodename=="rdf:description") importSkosConcept($dbaccess,$thid,$nod);
-      //      $nodevalue=$nod->nodeValue;
-       // print "$j ) $nodemane<br/>\n";
-        
+      if ($nodename=="rdf:description") importSkosConcept($dbaccess,$thid,$nod);        
     }
+
+  // postImport Refreshing
+  refreshThConcept($dbaccess,$thid);
 }
 
-
+/**
+ * import a concept
+ */
 function importSkosConcept($dbaccess,$thid,&$node) {
   $tcol=array();
   $uri=$node->getAttribute("rdf:about");
@@ -119,7 +124,7 @@ function importSkosConcept($dbaccess,$thid,&$node) {
 	    $cl=getLangConcept($dbaccess,$co->initid,$lang);
 	    if (!$cl) {	      
 	      // create it
-	      print "CERATE THLANGCONCEPT <br>\n";
+	     // print "CERATE THLANGCONCEPT <br>\n";
 	      $cl=createDoc($dbaccess,"THLANGCONCEPT");
 	      $cl->setValue("thcl_lang",$lang);
 	      $cl->setValue("thcl_thconcept",$co->initid);
@@ -146,8 +151,22 @@ function importSkosConcept($dbaccess,$thid,&$node) {
   //  $co->postModify();
   foreach ($tcol as $k=>$v) {
     $v->modify();
+  }  
+}
+
+function refreshThConcept($dbaccess, $thid) {
+  
+  $s=new SearchDoc($dbaccess,"THCONCEPT");
+  $s->addFilter("thc_thesaurus=$thid");
+  $s->setObjectReturn();
+  $s->search();
+
+  while ($doc=$s->nextDoc()) {
+    $doc->refreshFromURI();
+    $doc->recomputeNarrower();
+    $doc->postModify();    
+    $doc->refresh();
   }
 
-  
 }
 ?>

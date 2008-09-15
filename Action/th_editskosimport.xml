@@ -1,13 +1,18 @@
 [ZONE FDL:HTMLHEAD?title=[TEXT:SKOS Importation]]
-
+<h2>[TEXT:Import SKOS thesaurus]</h2>
 <form  action="[CORE_STANDURL]&app=THESAURUS&action=TH_SKOSIMPORT"
-       style="display:inline"                   
+       style="display:inline" onsubmit="this.sub.value='[TEXT:Import in progress]';viewwait(true);this.sub.disabled=true;"             
        method="POST" ENCTYPE="multipart/form-data" >
 
-
-<input type="text" name="thuri">
-<input type="file" name="skos">
-<input type="submit">
+<table>
+<tr><td>
+[TEXT: Update thesaurus] : </td><td>
+[ZONE FDL:INPUTATTRIBUTE?type=doclink&id=thuri&label=[TEXT:Thesaurus to affect]&famid=THESAURUS&esize=30]</td></tr>
+<tr><td>[TEXT: or create new thesaurus] : </td><td><input type="newthuri" name="skos"></td>
+<tr><td>
+[TEXT:Thesaurus SKOS file] : </td><td><input type="file" name="skos"></td></tr>
+</table>
+<input name="sub" type="submit"  value="[TEXT:Import thesaurus]">
 
 </form>
 [ZONE FDL:HTMLFOOT]

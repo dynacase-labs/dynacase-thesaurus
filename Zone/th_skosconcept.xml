@@ -1,0 +1,9 @@
+<rdf:Description rdf:about="[uri]">
+  <rdfs:label>[code]</rdfs:label>
+[BLOCK broaders]  <skos:broader rdf:resource="[broader]"/>
+[ENDBLOCK broaders]
+[BLOCK sa]  <skos:[satag] >[saval]</skos:[satag]>
+[ENDBLOCK sa]
+[BLOCK sal]  <skos:[saltag] xml:lang="[sallang]">[salval]</skos:[saltag]>
+[ENDBLOCK sal]
+</rdf:Description>
