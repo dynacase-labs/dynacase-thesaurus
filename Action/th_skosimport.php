@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.4 2008/09/15 16:08:49 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.5 2008/09/26 10:14:28 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -20,6 +20,7 @@ function th_skosimport(&$action) {
   
   $dbaccess = $action->GetParam("FREEDOM_DB");
   $uri = getHttpVars("thuri");
+  $iduri = getHttpVars("id_thuri");
   $newuri = getHttpVars("newthuri");
 
   global $_FILES;
@@ -38,8 +39,8 @@ function th_skosimport(&$action) {
   
   $desc=$doc->childNodes->item(0);
 
-  if ($uri) {
-    $th=new_doc($dbaccess,$uri);
+  if ($iduri) {
+    $th=new_doc($dbaccess,$iduri);
   } else {
     if (! $newuri) $newuri=$desc->getAttribute("rdf:about");
     if (! $newuri) $newuri="th_test";
@@ -48,7 +49,7 @@ function th_skosimport(&$action) {
       // create it
       $th=createDoc($dbaccess,"THESAURUS");
       $th->setValue("thes_uri",$newuri);
-      $th->name=$uri;
+      $th->name=$newuri;
       $err=$th->Add();
       print "CREATE THESAURUS $uri<br>\n";
     }

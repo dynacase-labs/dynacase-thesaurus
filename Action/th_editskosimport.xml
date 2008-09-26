@@ -8,7 +8,7 @@
 <tr><td>
 [TEXT: Update thesaurus] : </td><td>
 [ZONE FDL:INPUTATTRIBUTE?type=doclink&id=thuri&label=[TEXT:Thesaurus to affect]&famid=THESAURUS&esize=30]</td></tr>
-<tr><td>[TEXT: or create new thesaurus] : </td><td><input type="newthuri" name="skos"></td>
+<tr><td>[TEXT: or create new thesaurus] : </td><td><input type="text" name="newthuri"></td>
 <tr><td>
 [TEXT:Thesaurus SKOS file] : </td><td><input type="file" name="skos"></td></tr>
 </table>
