@@ -1,6 +1,6 @@
 <?php
 // ---------------------------------------------------------------
-// $Id: THESAURUS.app,v 1.2 2008/08/11 16:31:22 eric Exp $
+// $Id: THESAURUS.app,v 1.3 2008/09/29 14:42:32 eric Exp $
 // $Source: /home/cvsroot/anakeen/freedom/thesaurus/THESAURUS.app,v $
 
 
@@ -26,6 +26,10 @@ $action_desc = array (
   array( 
    "name"		=>"TH_SKOSIMPORT",
    "short_name"		=>N_("import SKOS format"),
+   "acl"		=>"ONEFAM_MASTER"),
+  array( 
+   "name"		=>"TH_SKOSEXPORT",
+   "short_name"		=>N_("export in SKOS format"),
    "acl"		=>"ONEFAM_MASTER"),
   array( 
    "name"		=>"INPUTTREE",
