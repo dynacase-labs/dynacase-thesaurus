@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: edittreesearch.php,v 1.4 2008/09/02 15:14:07 eric Exp $
+ * @version $Id: edittreesearch.php,v 1.5 2008/10/10 16:07:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -28,13 +28,20 @@ function edittreesearch(&$action) {
   $fid = GetHttpVars("famid");
   $aid = strtolower(GetHttpVars("aid"));
   $multi=(getHttpVars("multi")=="yes")?'multi':false; 
-  $level=getHttpVars("level",2); 
+  $level=getHttpVars("level",1); 
   $iname=getHttpVars("inputname","thvalue"); 
+  $conid=getHttpVars("conid"); 
 
   if (! $lang) $lang=strtolower(strtok(getParam("CORE_LANG"),'_'));
   $error="";
-
   $b1=microtime(true);
+
+  if ($conid) {
+    $con=new_doc($dbaccess,$conid);
+    if (! $con->isAlive()) $action->exitError(sprintf(_("document %s not alive"),$conid));
+    $thid=$con->getValue("thc_thesaurus");
+  }
+
   $fdoc=new_doc($dbaccess,$fid);
   if (! $thid) {
     if (! $fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive"),$fid));
@@ -51,25 +58,34 @@ function edittreesearch(&$action) {
   $th=new_doc($dbaccess,$thid);
   if (! $th->isAlive()) $action->exitError(sprintf(_("thesaurus %s not alive"),$thid));
 	      
-  $t=getConceptsLevel($dbaccess, $th->initid, $level);
+  if ($conid) $t=getChildConcepts($dbaccess, $conid);
+  else $t=getConceptsLevel($dbaccess, $th->initid, $level);
 
   $b2=microtime(true);
+
+  if ($conid) {
+    $child=getUltree($t,$conid,$filter,$childgood,$lang,$fdoc->id,$aid,$dbaccess);
+    $action->lay->template='[child]';
+
+  } else {
   $child=getUltree($t,"",$filter,$childgood,$lang,$fdoc->id,$aid,$dbaccess);
-  
+  }
   $action->lay->set("first",true);
   $action->lay->set("child",$child);
   $action->lay->set("aid",$aid);
   $action->lay->set("multi",$multi);
+  $action->lay->set("ymulti",$multi?"yes":"no");
   $action->lay->setBlockData("LIs",$t0);
   $action->lay->set("time",sprintf("%0.3f [%.03f]", $b2-$b1,
 				   microtime(true) - $b1));
 
 
-  $action->lay->set("aid",$aid);
+
   $action->lay->set("thid",$thid);
   $action->lay->set("famid",$fid);
   $action->lay->set("iname",$iname);
   $action->lay->set("error",$error);
+  
   
 }
 
@@ -101,7 +117,8 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
       $label=getThLabelLang($v,$lang);
       $isgood=(($filter == "") || (eregi($filter, $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
-      $child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
+      //$child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
+      $child="CH:".$v["initid"];
       if ($child!="") $child='<ul>'.$child.'</ul>';
       
       if ($childgood || $isgood) $cardinal=getThCardinal($dbaccess,$famid,$v["initid"],$aid);
@@ -110,7 +127,7 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
       $oneisgood |= $childgood;
       $b[]=array("title"=>$v["thc_label"],
 		 "desc"=>$label,
-		 "thid"=>$v["initid"],
+		 "conid"=>$v["initid"],
 		 "isfiltergood"=>$isgood,
 		 "ischildgoodnos"=>$childgood,
 		 "nosee"=>(!$childgood) &&(!$isgood),

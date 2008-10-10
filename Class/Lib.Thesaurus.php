@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.5 2008/09/15 16:08:49 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.6 2008/10/10 16:07:24 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -114,6 +114,22 @@ function getConceptsLevel($dbaccess,$idt,$level) {
   $s=new SearchDoc($dbaccess, "THCONCEPT");
   $s->addFilter("thc_thesaurus=".intval($idt));
   $s->addFilter("thc_level <=".intval($level)); 
+  $s->noViewControl();
+
+  $t=$s->search();
+  return $t;   
+}
+
+/**
+ * return all  concept of thesaurus <= level
+ * @param string $dbaccess database coordinates
+ * @param int $idt thesaurus identificator of concept
+ * @param int $level level : 0 is top level
+ * @return array of document values
+ */
+function getChildConcepts($dbaccess,$conid) {
+  $s=new SearchDoc($dbaccess, "THCONCEPT");
+  $s->addFilter("thc_broader=".intval($conid));
   $s->noViewControl();
 
   $t=$s->search();

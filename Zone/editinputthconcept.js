@@ -338,3 +338,13 @@ function closeOrUnselectTH(aid) {
   preselectMultiTree('thtree'+aid,aid);
   changeCharTHHide(aid,document.getElementById('thopt_'+aid));
 }
+
+
+function expandThTree(event,conid,famid,multi,aid) {
+  var corestandurl=window.location.pathname+'?sole=Y';
+    var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&conid='+conid+'&famid='+famid+'&multi='+multi+'&aid='+aid;
+    var cible=document.getElementById('sub'+conid);
+    enableSynchro();
+    var ret=requestUrlSend(cible,url); 
+    disableSynchro();
+}
