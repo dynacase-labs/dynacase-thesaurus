@@ -4,7 +4,7 @@
  * thesaurus Library
  *
  * @author Anakeen 2008
- * @version $Id: Lib.Thesaurus.php,v 1.6 2008/10/10 16:07:24 eric Exp $
+ * @version $Id: Lib.Thesaurus.php,v 1.7 2008/10/23 13:41:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -134,6 +134,22 @@ function getChildConcepts($dbaccess,$conid) {
 
   $t=$s->search();
   return $t;   
+}
+/**
+ * return true if has narrowers
+ * @param string $dbaccess database coordinates
+ * @param int $idt thesaurus identificator of concept
+ * @param int $level level : 0 is top level
+ * @return bool
+ */
+function hasChildConcepts($dbaccess,$conid) {
+  $s=new SearchDoc($dbaccess, "THCONCEPT");
+  $s->addFilter("thc_broader=".intval($conid));
+  $s->slice=1;
+  $s->orderby='';
+  $s->noViewControl();
+  $s->search();
+  return ($s->count() > 0);   
 }
 /**
  * return number of document matching concept

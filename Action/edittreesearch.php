@@ -3,7 +3,7 @@
  * View interface to search document from thesaurus
  *
  * @author Anakeen 2008
- * @version $Id: edittreesearch.php,v 1.5 2008/10/10 16:07:24 eric Exp $
+ * @version $Id: edittreesearch.php,v 1.6 2008/10/23 13:41:59 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -28,7 +28,7 @@ function edittreesearch(&$action) {
   $fid = GetHttpVars("famid");
   $aid = strtolower(GetHttpVars("aid"));
   $multi=(getHttpVars("multi")=="yes")?'multi':false; 
-  $level=getHttpVars("level",1); 
+  $level=getHttpVars("level",2); 
   $iname=getHttpVars("inputname","thvalue"); 
   $conid=getHttpVars("conid"); 
 
@@ -68,7 +68,7 @@ function edittreesearch(&$action) {
     $action->lay->template='[child]';
 
   } else {
-  $child=getUltree($t,"",$filter,$childgood,$lang,$fdoc->id,$aid,$dbaccess);
+    $child=getUltree($t,"",$filter,$childgood,$lang,$fdoc->id,$aid,$dbaccess);
   }
   $action->lay->set("first",true);
   $action->lay->set("child",$child);
@@ -117,9 +117,14 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
       $label=getThLabelLang($v,$lang);
       $isgood=(($filter == "") || (eregi($filter, $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
-      //$child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
-      $child="CH:".$v["initid"];
-      if ($child!="") $child='<ul>'.$child.'</ul>';
+      if ($filter) {
+	$child=getUltree($t,$v["initid"],$filter,$childgood,$lang,$famid,$aid,$dbaccess);
+	if ($child!="") $child='<ul>'.$child.'</ul>';
+      } else {
+	$child="";
+	$childgood=hasChildConcepts($dbaccess, $v["initid"]);
+	$isgood=true;
+      }
       
       if ($childgood || $isgood) $cardinal=getThCardinal($dbaccess,$famid,$v["initid"],$aid);
       else $cardinal="nc";
@@ -133,6 +138,7 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
 		 "nosee"=>(!$childgood) &&(!$isgood),
 		 "openit"=>($childgood) &&(!$isgood),
 		 "child"=>$child,
+		 "filter"=>($filter != ""),
 		 "cardinal"=>$cardinal);
       
     }
