@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.6 2008/10/10 07:28:55 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.7 2008/10/24 17:30:32 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -167,6 +167,7 @@ function refreshThConcept($dbaccess, $thid) {
     $doc->refreshFromURI();
     $doc->recomputeNarrower();
     $doc->postModify(); 
+    $doc->modify();
   }
 
   $s->search();
