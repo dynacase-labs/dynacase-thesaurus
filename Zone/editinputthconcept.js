@@ -340,37 +340,43 @@ function closeOrUnselectTH(aid) {
 }
 
 
-function expandThTree(event,conid,famid,multi,aid) {
+function expandThTree(o,event,conid,famid,multi,aid) {
   var corestandurl=window.location.pathname+'?sole=Y';
-    var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&conid='+conid+'&famid='+famid+'&multi='+multi+'&aid='+aid;
-    alert(this);
-    var cible=document.getElementById('sub'+conid);
-    enableSynchro();
-    var ret=requestUrlSend(cible,url); 
-    disableSynchro();
+  var url=corestandurl+'&app=THESAURUS&action=EDITTREESEARCH&conid='+conid+'&famid='+famid+'&multi='+multi+'&aid='+aid;
 
-    processList(cible);
+  var cible=document.getElementById('sub'+conid);
+  enableSynchro();
+  var ret=requestUrlSend(cible,url); 
+  disableSynchro();
+  
+  processList(cible);
     //  cible.parentNode.className='liOpen';
     
-    transfertOnFly(cible);
+  transfertOnFly(cible);
+  if (o) {
+    // o.style.border='solid 2px orange';
+    o.onmouseup=''; // disable load on fly
+  }
+    
       
 }
 
 function transfertOnFly(cible) {
-  return;
-  alert(cible);
   var imgs;
     var img;
     var buls=cible.getElementsByTagName('span');
+
     for (var i=0;i<buls.length;i++) {
       if (buls[i].className=='bullet') {
 	imgs=buls[i].parentNode.getElementsByTagName('img');
 	if (imgs.length > 0) {
 	  img=imgs[0];
-	  img.style.border='solid blue 1px';
-	  buls[i].style.border='solid green 1px';
+	  // img.style.border='solid blue 1px';	 
+	  //buls[i].style.border='solid green 1px';	  
 	  buls[i].onmouseup=img.onclick;
 	}
       }
     }
+    //    cible.parentNode.className='liOpen';
+    //    cible.style.border='solid 2px yellow';
 }
