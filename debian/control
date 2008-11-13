@@ -1,12 +1,11 @@
-Source: freedom-book
+Source: freedom-thesaurus
 Section: web
 Priority: extra
 Maintainer: yannick <yannick.lebriquer@anakeen.com>
 Build-Depends: debhelper (>= 5), autoconf
 Standards-Version: 3.7.2
 
-Package: freedom-book
+Package: freedom-thesaurus
 Architecture: all
-Depends: freedom-fckeditor, freedom-lib (>= 2.9.5)
-Description: Family Book and Chapter 
- Use It to write document with chapters. This book can produce HTML or PDF (if freedom-te installed) composition.
+Depends: freedom-lib (>= 2.9.5)
+Description: Thesaurus application to manage and use thesaurus functionnalities in freedom

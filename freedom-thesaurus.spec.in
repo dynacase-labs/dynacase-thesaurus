@@ -1,7 +1,7 @@
 #! /bin/rpm
 #
 #  File: libwhat.spec
-#  $Id: freedom-thesaurus.spec.in,v 1.2 2008/08/25 09:49:58 marc Exp $
+#  $Id: freedom-thesaurus.spec.in,v 1.3 2008/11/13 13:07:45 jerome Exp $
 #
 #  This is the SPEC file for the What Users Module
 #  Anakeen What Application
@@ -101,8 +101,7 @@ make  pubdir=$RPM_BUILD_ROOT%{destdir}
 %{destdir}/EXTERNALS/thesaurus.php
 
 %dir %{destdir}/FDL
-%{destdir}/FDL/Method.THConcept.php
-%{destdir}/FDL/Method.Thesaurus.php
+%{destdir}/FDL/*
 
 %{destdir}/locale/*
 
