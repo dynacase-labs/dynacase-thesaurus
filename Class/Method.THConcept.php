@@ -8,13 +8,13 @@ function postModify() {
   $err= $this->recomputeRelations();
 
   $this->setValue("thc_level",$this->getLevel());
+  $this->setValue("thc_title",$this->getLangTitle());
   $this->modify();
   }
 
 
 function getSpecTitle() {
-  return $this->getLangTitle();
-  
+  return $this->getLangTitle();  
 }
 
 /**
