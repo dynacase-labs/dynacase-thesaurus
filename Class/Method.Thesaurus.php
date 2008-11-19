@@ -63,4 +63,29 @@ function getSqlFilter($oa,$thv) {
   return $sql;
   }
 
+/**
+ * refresh relations from uri
+ */
+function refreshConcepts() {
+  include_once("FDL/Class.SearchDoc.php");
+  define("MAXIMPORTTIME",600); // 10 minutes
+  if (ini_get("max_execution_time") < MAXIMPORTTIME) ini_set("max_execution_time",MAXIMPORTTIME);
+  $s=new SearchDoc($this->dbaccess,"THCONCEPT");
+  $s->addFilter("thc_thesaurus=".$this->initid);
+  $s->setObjectReturn();
+  $s->search();
+  while ($doc=$s->nextDoc()) {
+    $doc->recomputeNarrower();
+    $doc->setValue("thc_title",$doc->getLangTitle());
+    $doc->refresh();
+    $doc->modify();
+  }
+
+  $s->search();
+  while ($doc=$s->nextDoc()) {
+    $doc->setValue("thc_level",$doc->getLevel());   
+    $doc->modify();
+  }
+}
+
 ?>
