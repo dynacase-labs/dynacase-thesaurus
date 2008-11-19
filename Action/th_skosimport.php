@@ -3,7 +3,7 @@
  * Import SKOS thesaurus
  *
  * @author Anakeen 2000 
- * @version $Id: th_skosimport.php,v 1.7 2008/10/24 17:30:32 eric Exp $
+ * @version $Id: th_skosimport.php,v 1.8 2008/11/19 14:39:55 eric Exp $
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package FREEDOM
  * @subpackage THESAURUS
@@ -69,7 +69,8 @@ function th_skosimport(&$action) {
     }
 
   // postImport Refreshing
-  refreshThConcept($dbaccess,$thid);
+  refreshThConceptFromURI($dbaccess,$thid);
+  $th->refreshConcepts();
 }
 
 /**
@@ -156,7 +157,7 @@ function importSkosConcept($dbaccess,$thid,&$node) {
   }  
 }
 
-function refreshThConcept($dbaccess, $thid) {
+function refreshThConceptFromURI($dbaccess, $thid) {
   
   $s=new SearchDoc($dbaccess,"THCONCEPT");
   $s->addFilter("thc_thesaurus=$thid");
@@ -165,16 +166,7 @@ function refreshThConcept($dbaccess, $thid) {
 
   while ($doc=$s->nextDoc()) {
     $doc->refreshFromURI();
-    $doc->recomputeNarrower();
-    $doc->postModify(); 
     $doc->modify();
   }
-
-  $s->search();
-  while ($doc=$s->nextDoc()) {
-    $doc->refresh();
-  }
-  
-
 }
 ?>
