@@ -1,5 +1,5 @@
 <?php
-
+public $cviews=array("THESAURUS:CONCEPTTREE");
   /**
    * return sql filter to search document
    * @param DocAttribute $oa attribute identificator where do the search
@@ -87,5 +87,39 @@ function refreshConcepts() {
     $doc->modify();
   }
 }
+/**
+ * view to see concept tree
+ */
+function concepttree($target="_self",$ulink=true,$abstract=false) {
+  include_once("FDL/Class.SearchDoc.php");
+  
+  $s=new SearchDoc($this->dbaccess,"THCONCEPT");
+  $s->addFilter("thc_thesaurus=".$this->initid);
+  $s->setObjectReturn();
+  $s->orderby="thc_level";
+  $s->search();
+  $brs=array();
+  while ($doc=$s->nextDoc()) {
+    $br=$doc->getValue("thc_broader");
+    $id=$doc->id;
+    $brs[$id]=$brs[$br].'-'.$id;
+    
+    $tout[]=array("levelcolor"=>5+($doc->getValue("thc_level"))%5,
+		  "level20"=>$doc->getValue("thc_level")*20,
+		  "uri"=>$doc->getValue("thc_uri"),
+		  "id"=>$id,
+		  "broader"=>$doc->getValue("thc_broader"),
+		  "order"=>$brs[$id],
+		  "title"=>$this->getDocAnchor($id,"_blank",true,$doc->getTitle()));
+  }
+  usort($tout, array (get_class($this), "_cmpthorder"));
+  $this->lay->setBlockData("CONCEPTS",$tout);
+}
 
+/**
+ * to sort concept
+ */
+static private function _cmpthorder($a,$b) {
+  return strcmp($a['order'],$b['order']);
+}
 ?>

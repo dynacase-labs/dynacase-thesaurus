@@ -6,17 +6,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: FREEDOM-BOOK\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-04 16:07+0200\n"
-"PO-Revision-Date: 2008-09-04 16:08+0200\n"
+"POT-Creation-Date: 2008-11-20 14:47+0100\n"
+"PO-Revision-Date: 2008-11-20 14:52+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
 "Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#, c-format
-msgid "no result matching %s"
-msgstr "pas de résultat pour %s"
 
 #, c-format
 msgid "document %s not alive"
@@ -26,12 +22,56 @@ msgstr "Le document %s n'est pas vivant"
 msgid "thesaurus %s not alive"
 msgstr "thésaurus %s non trouvé"
 
-#, c-format
-msgid "family %s not alive"
-msgstr "famille %s non trouvée"
+msgid "Word to search"
+msgstr "Mot à rechercher"
 
-msgid "Thesaurus results"
-msgstr "Résultat du thésaurus"
+msgid "View tree thesaurus"
+msgstr "Voir l'arbre du thésaurus"
+
+msgid "Close tree"
+msgstr "Fermer"
+
+msgid "Clear selected inputs"
+msgstr "Effaces les entrées séletionnées"
+
+msgid "Clear inputs"
+msgstr "Effacer les champs de saisie"
+
+msgid "Search from thesaurus"
+msgstr "Recherche depuis le thésaurus"
+
+msgid "SKOS Analyzis"
+msgstr "Analyse SKOS"
+
+msgid "SKOS Importation"
+msgstr "Importation SKOS"
+
+msgid "Import SKOS thesaurus"
+msgstr "Importation du thésaurus SKOS"
+
+msgid "SKOS file is not set"
+msgstr "Fichier SKOS non renseigné"
+
+msgid "Import in progress"
+msgstr "Importation en cours"
+
+msgid " Update thesaurus"
+msgstr "Mise à jour du thésaurus"
+
+msgid "Thesaurus to affect"
+msgstr "Thésaurus à mettre à jour"
+
+msgid " or create new thesaurus"
+msgstr "ou création d'un nouveau thésaurus"
+
+msgid "Thesaurus SKOS file"
+msgstr "Fichier SKOS"
+
+msgid "Analyze thesaurus"
+msgstr "Analyse du thésaurus"
+
+msgid "Import thesaurus"
+msgstr "Importation du thésaurus"
 
 msgid "Thesaurus"
 msgstr "Thésaurus"
@@ -45,6 +85,9 @@ msgstr "interface d'importation pour les formats SKOS"
 msgid "import SKOS format"
 msgstr "importation au format SKOS"
 
+msgid "export in SKOS format"
+msgstr "exportation au format SKOS"
+
 msgid "display tree of thesaurus"
 msgstr "affichage de l'arbre du thésaurus"
 
@@ -54,29 +97,22 @@ msgstr "affichage de l'interface de recherche du thésaurus"
 msgid "exec search from thesaurus"
 msgstr "execution de la recherche depuis un thésaurus"
 
-msgid "Search from thesaurus"
-msgstr "Recherche depuis le thésaurus"
+msgid "UPDATE THESAURUS"
+msgstr "MISE A JOUR DU THÉSAURUS"
 
-msgid "Close tree"
-msgstr "Fermer"
+msgid "CREATE THESAURUS"
+msgstr "CRÉATION DU THÉSAURUS"
 
-msgid "SKOS Importation"
-msgstr "Importation SKOS"
+#, c-format
+msgid "no result matching %s"
+msgstr "pas de résultat pour %s"
 
-msgid "View tree thesaurus"
-msgstr "Voir l'arbre du thésaurus"
+#, c-format
+msgid "family %s not alive"
+msgstr "famille %s non trouvée"
 
-msgid "Clear selected inputs"
-msgstr "Effaces les entrées séletionnées"
-
-msgid "Clear inputs"
-msgstr "Effacer les champs de saisie"
-
-msgid "Display available choices"
-msgstr "Afficher les choix possibles"
-
-msgid "Word to search"
-msgstr "Mot à rechercher"
+msgid "Thesaurus results"
+msgstr "Résultat du thésaurus"
 
 msgid "THESAURUS#title"
 msgstr "Thésaurus"
@@ -102,8 +138,14 @@ msgstr "Français"
 msgid "THESAURUS#thes_lang#en"
 msgstr "Anglais"
 
+msgid "THESAURUS#thes_refresh"
+msgstr "Recalcul des relations"
+
 msgid "THESAURUS#thes_import"
 msgstr "Importation SKOS"
+
+msgid "THESAURUS#thes_export"
+msgstr "Exportation SKOS"
 
 msgid "THCONCEPT#title"
 msgstr "Descripteur"
@@ -117,18 +159,21 @@ msgstr "Identifiant"
 msgid "THCONCEPT#thc_thesaurus"
 msgstr "Thésaurus"
 
+msgid "THCONCEPT#thc_thestitle"
+msgstr "Nom du thésaurus"
+
 msgid "THCONCEPT#thc_level"
 msgstr "Niveau"
 
-#, fuzzy
 msgid "THCONCEPT#thc_fr_desc"
 msgstr "Description"
 
-#, fuzzy
+msgid "THCONCEPT#thc_title"
+msgstr "Titre"
+
 msgid "THCONCEPT#thc_preflabel"
 msgstr "Libellé"
 
-#, fuzzy
 msgid "THCONCEPT#thc_preflabel#elabel"
 msgstr "La forme lexicale utilisée pour désigner un concept"
 
@@ -278,22 +323,22 @@ msgid "THCONCEPT#thc_related"
 msgstr "Termes associés"
 
 #, fuzzy
+msgid "THCONCEPT#thc_addlang"
+msgstr "Ajouter une traduction"
+
+#, fuzzy
 msgid "THLANGCONCEPT#title"
 msgstr "Descripteur localisé"
 
-#, fuzzy
 msgid "THLANGCONCEPT#thcl_fr_ident"
 msgstr "Identification"
 
-#, fuzzy
 msgid "THLANGCONCEPT#thcl_thesaurus"
 msgstr "Thésaurus"
 
-#, fuzzy
 msgid "THLANGCONCEPT#thcl_thconcept"
 msgstr "Descripteur"
 
-#, fuzzy
 msgid "THLANGCONCEPT#thcl_lang"
 msgstr "Langue"
 
@@ -304,3 +349,9 @@ msgstr "Langue"
 #, fuzzy
 msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
 msgstr "Langue"
+
+msgid "THLANGCONCEPT#thc_label"
+msgstr ""
+
+msgid "THLANGCONCEPT#thc_preflabel"
+msgstr ""
