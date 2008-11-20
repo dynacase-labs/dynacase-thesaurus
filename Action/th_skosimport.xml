@@ -1,0 +1,7 @@
+[ZONE FDL:HTMLHEAD?title=[TEXT:SKOS Analyzis]]
+
+<h1>[msg]</h1>
+<h2>[msg2]</h2>
+[BLOCK TDESC]
+<li style="margin-left:[level20]px;background-color:[COLOR_B[level]]" title="[id]">[title]</li>[ENDBLOCK TDESC]</ul>
+[ZONE FDL:HTMLFOOT]

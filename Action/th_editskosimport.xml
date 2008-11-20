@@ -1,7 +1,8 @@
 [ZONE FDL:HTMLHEAD?title=[TEXT:SKOS Importation]]
 <h2>[TEXT:Import SKOS thesaurus]</h2>
 <form  action="[CORE_STANDURL]&app=THESAURUS&action=TH_SKOSIMPORT"
-       style="display:inline" onsubmit="this.sub.value='[TEXT:Import in progress]';viewwait(true);this.sub.disabled=true;"             
+       style="display:inline" onsubmit="if (this.skos.value=='') {alert('[TEXT:SKOS file is not set]');return false;}if (this.analyze.value=='no') {this.sub.value='[TEXT:Import in progress]';viewwait(true);this.sub.disabled=true;}"
+       target="thanalysis"
        method="POST" ENCTYPE="multipart/form-data" >
 
 <table>
@@ -12,7 +13,9 @@
 <tr><td>
 [TEXT:Thesaurus SKOS file] : </td><td><input type="file" name="skos"></td></tr>
 </table>
-<input name="sub" type="submit"  value="[TEXT:Import thesaurus]">
+<input name="analyze" type="hidden"  value="yes">
+<input onclick="this.form.analyze.value='yes'" type="submit"  value="[TEXT:Analyze thesaurus]">
+<input name="sub" onclick="this.form.target='_self';this.form.analyze.value='no'" type="submit"  value="[TEXT:Import thesaurus]">
 
 </form>
 [ZONE FDL:HTMLFOOT]
