@@ -184,7 +184,7 @@ function importSkosConcept($dbaccess,$thid,&$node,$analyze=false) {
     if ($a->nodeType == XML_TEXT_NODE) continue;
     $lang=$a->getAttribute("xml:lang");
     $nodename=strtolower($a->nodeName);
-    $nodevalue=utf8_decode($a->nodeValue);
+    $nodevalue=$a->nodeValue;
 
     switch ($nodename) {
     case "rdfs:label":      
@@ -264,7 +264,7 @@ function analyzeSkosConcept($dbaccess,$thid,&$node,&$tcon) {
     if ($a->nodeType == XML_TEXT_NODE) continue;
     $lang=$a->getAttribute("xml:lang");
     $nodename=strtolower($a->nodeName);
-    $nodevalue=utf8_decode($a->nodeValue);
+    $nodevalue=$a->nodeValue;
 
     switch ($nodename) {
     case "rdfs:label":      
