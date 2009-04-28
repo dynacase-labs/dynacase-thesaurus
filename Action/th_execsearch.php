@@ -54,7 +54,7 @@ function th_execsearch(&$action) {
   $se=createTmpDoc($dbaccess,"SEARCH");  
   $se->setValue("ba_title",sprintf(_("Thesaurus results")));
   $se->add();
-  $se->addQuery($s->getOriginalQuery());
+  $se->addStaticQuery($s->getOriginalQuery());
 
 
   redirect($action,"FREEDOM",  "FREEDOM_VIEW&dirid=".$se->id);
