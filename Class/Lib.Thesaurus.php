@@ -112,7 +112,7 @@ function getLangConcepts($dbaccess,$idc) {
  */
 function getConceptsLevel($dbaccess,$idt,$level) {
   $s=new SearchDoc($dbaccess, "THCONCEPT");
-  $s->addFilter("thc_thesaurus=".intval($idt));
+  $s->addFilter("thc_thesaurus='".intval($idt)."'");
   $s->addFilter("thc_level <=".intval($level)); 
   $s->noViewControl();
 
@@ -129,7 +129,7 @@ function getConceptsLevel($dbaccess,$idt,$level) {
  */
 function getChildConcepts($dbaccess,$conid) {
   $s=new SearchDoc($dbaccess, "THCONCEPT");
-  $s->addFilter("thc_broader=".intval($conid));
+  $s->addFilter("thc_broader='".intval($conid)."'");
   $s->noViewControl();
 
   $t=$s->search();
@@ -144,7 +144,7 @@ function getChildConcepts($dbaccess,$conid) {
  */
 function hasChildConcepts($dbaccess,$conid) {
   $s=new SearchDoc($dbaccess, "THCONCEPT");
-  $s->addFilter("thc_broader=".intval($conid));
+  $s->addFilter("thc_broader='".intval($conid)."'");
   $s->slice=1;
   $s->orderby='';
   $s->noViewControl();
