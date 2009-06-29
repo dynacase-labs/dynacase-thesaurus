@@ -239,7 +239,7 @@ function importSkosConcept($dbaccess,$thid,&$node,$analyze=false) {
 function refreshThConceptFromURI($dbaccess, $thid) {
   
   $s=new SearchDoc($dbaccess,"THCONCEPT");
-  $s->addFilter("thc_thesaurus=$thid");
+  $s->addFilter("thc_thesaurus='".$thid."'");
   $s->setObjectReturn();
   $s->search();
 

@@ -34,7 +34,7 @@ function th_skosexport(&$action) {
 
 
     $s=new SearchDoc($dbaccess,"THCONCEPT");
-    $s->addFilter("thc_thesaurus=$docid");
+    $s->addFilter("thc_thesaurus='".$docid."'");
     $t=$s->search();
     $tsa=array();
     foreach ($t as $k=>$th) {

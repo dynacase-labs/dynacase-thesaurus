@@ -7,7 +7,7 @@ function getThConcept($dbaccess,$thesid,$name='' ) {
 
    $s2=microtime(true);
   $s=new SearchDoc($dbaccess,"THCONCEPT");
-  $s->addFilter("thc_thesaurus=".intval($thesid));
+  $s->addFilter("thc_thesaurus='".intval($thesid)."'");
   //  $s->setObjectReturn();
   if ($name)  $s->addFilter("title ~* '".pg_escape_string($name)."'");;
   $t = $s->search();

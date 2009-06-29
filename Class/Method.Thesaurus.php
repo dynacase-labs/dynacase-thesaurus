@@ -71,7 +71,7 @@ function refreshConcepts() {
   define("MAXIMPORTTIME",600); // 10 minutes
   if (ini_get("max_execution_time") < MAXIMPORTTIME) ini_set("max_execution_time",MAXIMPORTTIME);
   $s=new SearchDoc($this->dbaccess,"THCONCEPT");
-  $s->addFilter("thc_thesaurus=".$this->initid);
+  $s->addFilter("thc_thesaurus='".$this->initid."'");
   $s->setObjectReturn();
   $s->search();
   while ($doc=$s->nextDoc()) {
@@ -94,7 +94,7 @@ function concepttree($target="_self",$ulink=true,$abstract=false) {
   include_once("FDL/Class.SearchDoc.php");
   
   $s=new SearchDoc($this->dbaccess,"THCONCEPT");
-  $s->addFilter("thc_thesaurus=".$this->initid);
+  $s->addFilter("thc_thesaurus='".$this->initid."'");
   $s->setObjectReturn();
   $s->orderby="thc_level";
   $s->search();

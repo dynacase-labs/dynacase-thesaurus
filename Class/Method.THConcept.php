@@ -23,8 +23,8 @@ function getSpecTitle() {
 function recomputeNarrower() {
   include_once("FDL/Class.SearchDoc.php");
   $s=new SearchDoc($this->dbaccess, "THCONCEPT");
-  $s->addFilter("thc_thesaurus=".$this->getValue("thc_thesaurus"));
-  $s->addFilter("thc_broader=".$this->id); // $s->addFilter("thc_broader ~ '\\\\y$id\\\\y'); // if many
+  $s->addFilter("thc_thesaurus='".intval($this->getValue("thc_thesaurus"))."'");
+  $s->addFilter("thc_broader='".$this->id."'"); // $s->addFilter("thc_broader ~ '\\\\y$id\\\\y'); // if many
   $t=$s->search();
   $tid=array();
   foreach ($t as $k=>$v) {
