@@ -17,6 +17,8 @@ GZIP_ENV = --best
 export targetdir PACKAGE
 SUBDIR=  Class Zone Action External Images debian
 
+pages_not_xml = info.xml
+
 include $(utildir)/PubRule
 TRANSODS=thesaurus.ods
 
