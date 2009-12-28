@@ -115,7 +115,6 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang,$famid,$aid,$dbaccess)
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
       $label=getThLabelLang($v,$lang);
-      // HERE HERE HERE Should I preg_quote($filter) ?
       $isgood=(($filter == "") || (preg_match("/$filter/i", $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
       if ($filter) {

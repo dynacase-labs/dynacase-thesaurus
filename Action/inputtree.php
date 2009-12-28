@@ -44,7 +44,6 @@ function inputtree(&$action) {
     foreach ($t as $k=>$v) {
       if ($v["thc_level"]==0) {
 	$label=getLabelLang($v,$lang);
-	// HERE HERE HERE Should I preg_quote($filter) ?
 	$isgood=(($filter == "") || (preg_match("/$filter/i", $v["thc_label"].$label, $reg)));
 	$oneisgood |= $isgood;
 	$child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
@@ -95,7 +94,6 @@ function getUltree(&$t, $initid,$filter,&$oneisgood,$lang) {
   foreach ($t as $k=>$v) {
     if ($v["thc_broader"]==$initid) {
 	$label=getLabelLang($v,$lang);
-	// HERE HERE HERE Should I preg_quote($filter) ?
       $isgood=(($filter == "") || (preg_match("/$filter/i", $v["thc_label"].$label, $reg)));
       $oneisgood |= $isgood;
       $child=getUltree($t,$v["initid"],$filter,$childgood,$lang);
