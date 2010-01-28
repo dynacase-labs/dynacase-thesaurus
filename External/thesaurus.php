@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @author Anakeen
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
+ */
+
   // $Id: thesaurus.php,v 1.1 2008/08/06 15:11:52 eric Exp $
 
 function getThConcept($dbaccess,$thesid,$name='' ) {

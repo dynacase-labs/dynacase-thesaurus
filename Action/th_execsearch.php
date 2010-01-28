@@ -4,7 +4,7 @@
  *
  * @author Anakeen 2008
  * @version $Id: th_execsearch.php,v 1.4 2008/08/14 14:19:44 eric Exp $
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FREEDOM
  * @subpackage THESAURUS
  */

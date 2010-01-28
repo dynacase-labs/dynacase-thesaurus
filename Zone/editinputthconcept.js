@@ -1,3 +1,9 @@
+
+/**
+ * @author Anakeen
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
+ */
+
 function displayconcepttree(event,aid,multi) {
   var corestandurl=window.location.pathname+'?sole=Y';
   var cible=document.getElementById('tree_'+aid);

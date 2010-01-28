@@ -4,7 +4,7 @@
  *
  * @author Anakeen 2000 
  * @version $Id: inputtree.php,v 1.7 2008/09/02 15:14:07 eric Exp $
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FREEDOM
  * @subpackage THESAURUS
  */
