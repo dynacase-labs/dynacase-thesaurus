@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<module name="freedom-thesaurus" version="@VERSION@" release="@RELEASE@" infopath="http://www.freedom-ecm.org/modules/freedom-thesaurus/freedom-thesaurus">
+<module name="dynacase-thesaurus" version="@VERSION@" release="@RELEASE@" infopath="http://www.dynacase.org/modules/dynacase-thesaurus/dynacase-thesaurus">
 
-  <description lang="en">Thesaurus application to manage and use thesaurus functionnalities in freedom</description>
-  <description lang="fr">L'application Thesaurus permet de fournir et gérer les fonctionnalités de thesaurus de Freedom</description>
+  <description lang="en">Thesaurus application to manage and use thesaurus functionnalities in dynacase</description>
+  <description lang="fr">L'application Thesaurus permet de fournir et gérer les fonctionnalités de thesaurus de Dynacase</description>
+
+  <replaces>
+        <module name="freedom-thesaurus" />
+  </replaces>
 
   <requires>
-    <module name="freedom" />
+    <module name="dynacase-platform" />
   </requires>
 
   <post-install>

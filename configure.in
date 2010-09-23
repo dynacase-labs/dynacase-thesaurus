@@ -18,7 +18,7 @@ VERSION=`cat VERSION`
 AC_SUBST(RELEASE)
 RELEASE=`cat RELEASE`
 AC_SUBST(PACKAGE)
-PACKAGE=freedom-thesaurus
+PACKAGE=dynacase-thesaurus
 AC_SUBST(APPNAME)
 APPNAME=THESAURUS
 AC_SUBST(PACKAGELIB)
@@ -71,5 +71,4 @@ AC_ARG_WITH(dbport,
 [  --with-dbport=port number  the database port (default 5432)], DBPORT=$withval)
 
 
-AC_OUTPUT(Makefile \
-        freedom-thesaurus.spec THESAURUS_init.php debian/changelog info.xml)
+AC_OUTPUT(Makefile THESAURUS_init.php info.xml)
