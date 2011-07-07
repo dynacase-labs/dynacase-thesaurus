@@ -4,7 +4,14 @@
  * @author Anakeen
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  */
-
+/*
+ * @begin-method-ignore
+ * this part will be deleted when construct document class until end-method-ignore
+ */
+Class _THESAURUS extends Doc {
+        /*
+         * @end-method-ignore
+         */
 public $cviews=array("THESAURUS:CONCEPTTREE");
   /**
    * return sql filter to search document
@@ -14,7 +21,7 @@ public $cviews=array("THESAURUS:CONCEPTTREE");
    */
 function getSqlFilter($oa,$thv) {
   $sql="no $thv";
-  $multi=($oa->getOption("multiple")=="yes");
+  $multi=($oa->getOption("multiple")=="yes" || $oa->inArray());
   if ($multi) {
     if (is_array($thv)) {
       $sql="multi array";
@@ -121,11 +128,21 @@ function concepttree($target="_self",$ulink=true,$abstract=false) {
   usort($tout, array (get_class($this), "_cmpthorder"));
   $this->lay->setBlockData("CONCEPTS",$tout);
 }
-
-/**
- * to sort concept
+    
+    /**
+     * to sort concept
+     */
+    static private function _cmpthorder($a, $b)
+    {
+        return strcmp($a['order'], $b['order']);
+    }
+/*
+ * @begin-method-ignore
+ * this part will be deleted when construct document class until end-method-ignore
  */
-static private function _cmpthorder($a,$b) {
-  return strcmp($a['order'],$b['order']);
 }
+
+/*
+ * @end-method-ignore
+ */
 ?>
