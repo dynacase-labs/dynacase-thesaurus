@@ -9,7 +9,6 @@
   </replaces>
 
   <requires>
-    <module name="dynacase-platform" />
   </requires>
 
   <post-install>
