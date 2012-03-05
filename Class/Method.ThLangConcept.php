@@ -1,19 +1,18 @@
 <?php
-
-/**
+/*
  * @author Anakeen
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
- */
-
+ * @package THESAURUS
+*/
 /*
  * @begin-method-ignore
  * this part will be deleted when construct document class until end-method-ignore
- */
+*/
 class _THLANGCONCEPT extends Doc
 {
     /*
      * @end-method-ignore
-     */
+    */
     function postModify()
     {
         $this->refreshConcept();
@@ -22,7 +21,6 @@ class _THLANGCONCEPT extends Doc
     {
         $this->refreshConcept();
     }
-    
     /**
      * refresh parent tu recompute translation array
      */
@@ -36,13 +34,12 @@ class _THLANGCONCEPT extends Doc
             }
         }
     }
-/*
- * @begin-method-ignore
- * this part will be deleted when construct document class until end-method-ignore
- */
+    /*
+     * @begin-method-ignore
+     * this part will be deleted when construct document class until end-method-ignore
+    */
 }
-
 /*
  * @end-method-ignore
- */
+*/
 ?>

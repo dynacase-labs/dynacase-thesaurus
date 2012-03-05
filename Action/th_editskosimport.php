@@ -1,4 +1,9 @@
 <?php
+/*
+ * @author Anakeen
+ * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
+ * @package FDL
+*/
 /**
  * Edition to import thesaurus
  *
@@ -8,17 +13,16 @@
  * @package FREEDOM
  * @subpackage THESAURUS
  */
- /**
+/**
  */
 
-include_once("FDL/editutil.php");
-
-
+include_once ("FDL/editutil.php");
 /**
  * Edition to import thesaurus
  * @param Action &$action current action
  */
-function th_editskosimport(&$action) {
-  editmode($action);    
+function th_editskosimport(&$action)
+{
+    editmode($action);
 }
 ?>

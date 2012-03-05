@@ -1,19 +1,18 @@
 <?php
-
-/**
+/*
  * @author Anakeen
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
- */
-
+ * @package THESAURUS
+*/
 /*
  * @begin-method-ignore
  * this part will be deleted when construct document class until end-method-ignore
- */
+*/
 class _THCONCEPT extends Doc
 {
     /*
      * @end-method-ignore
-     */
+    */
     function specRefresh()
     {
         // $err= $this->recomputeNarrower();
@@ -32,7 +31,6 @@ class _THCONCEPT extends Doc
     {
         return $this->getLangTitle();
     }
-    
     /**
      * recompute narrower of father
      */
@@ -44,7 +42,7 @@ class _THCONCEPT extends Doc
         $s->addFilter("thc_broader='" . $this->id . "'"); // $s->addFilter("thc_broader ~ '\\\\y$id\\\\y'); // if many
         $t = $s->search();
         $tid = array();
-        foreach ( $t as $k => $v ) {
+        foreach ($t as $k => $v) {
             $tid[] = $v["initid"];
         }
         $this->setValue("thc_narrower", $tid);
@@ -60,7 +58,8 @@ class _THCONCEPT extends Doc
             $d = new_doc($this->dbaccess, $oldtg);
             if ($d->isAlive()) $d->recomputeNarrower(); // update old
             $d = new_doc($this->dbaccess, $tg);
-            if ($d->isAlive()) $d->recomputeNarrower(); // update new    
+            if ($d->isAlive()) $d->recomputeNarrower(); // update new
+            
         }
     }
     
@@ -70,7 +69,7 @@ class _THCONCEPT extends Doc
         $broaduri = $this->getTValue("thc_uribroader");
         $broad = $this->getTValue("thc_broader");
         
-        foreach ( $broaduri as $k => $v ) {
+        foreach ($broaduri as $k => $v) {
             if (!$broad[$k]) {
                 $broad[$k] = getConceptIdFromURI($this->dbaccess, $v);
             }
@@ -83,7 +82,7 @@ class _THCONCEPT extends Doc
         include_once ("THESAURUS/Lib.Thesaurus.php");
         $langs = getLangConcepts($this->dbaccess, $this->initid);
         
-        foreach ( $langs as $k => $v ) {
+        foreach ($langs as $k => $v) {
             $tlang[] = $v["thcl_lang"];
             $tlangid[] = $v["initid"];
             $tlanglabel[] = $v["thc_preflabel"];
@@ -107,7 +106,7 @@ class _THCONCEPT extends Doc
     {
         $level = 0;
         $father = $this->getParentConcept();
-        while ( $father ) {
+        while ($father) {
             $level++;
             $father = $father->getParentConcept();
             if ($level > 100) break;
@@ -123,9 +122,8 @@ class _THCONCEPT extends Doc
         $nrs = $this->getTValue("thc_narrower");
         $nrsdoc = getDocsFromIds($this->dbaccess, $nrs, 1);
         
-        foreach ( $nrsdoc as $k => $nr ) {
+        foreach ($nrsdoc as $k => $nr) {
             $nrs = array_merge($nrs, $this->_getRNarrowers(Doc::_val2array($nr['thc_narrower'])));
-        
         }
         return $nrs;
     }
@@ -136,7 +134,7 @@ class _THCONCEPT extends Doc
     {
         $_nrs = $nrs;
         
-        foreach ( $nrs as $k => $nr ) {
+        foreach ($nrs as $k => $nr) {
             $t = getTDoc($this->dbaccess, $nr);
             $_nrs1 = Doc::_val2array($t['thc_narrower']);
             $_nrs2 = $this->_getRNarrowers($_nrs1);
@@ -144,20 +142,19 @@ class _THCONCEPT extends Doc
         }
         return $_nrs;
     }
-    
     /**
      * return localized label
      * @param string $lang languqge : simple notation like en,fr,ru,es
      */
     function getLabelLang($lang = false)
     {
-        if ($lang === false) $lang = strtolower(strtok(getParam("CORE_LANG"), '_'));
+        if ($lang === false) $lang = strtolower(strtok(getParam("CORE_LANG") , '_'));
         $tlang = $this->getTValue("thc_lang");
         $tll = $this->getTValue("thc_langlabel");
         
-        $kgood = -1;
+        $kgood = - 1;
         
-        foreach ( $tlang as $k => $v ) {
+        foreach ($tlang as $k => $v) {
             if ($tlang[$k] == $lang) {
                 $kgood = $k;
                 break;
@@ -166,7 +163,6 @@ class _THCONCEPT extends Doc
         
         return (isset($tll[$kgood])) ? $tll[$kgood] : $tll[0];
     }
-    
     /**
      * return localized title
      */
@@ -174,13 +170,12 @@ class _THCONCEPT extends Doc
     {
         return $this->getValue("thc_label") . ' ' . $this->getLabelLang($lang);
     }
-/*
- * @begin-method-ignore
- * this part will be deleted when construct document class until end-method-ignore
- */
+    /*
+     * @begin-method-ignore
+     * this part will be deleted when construct document class until end-method-ignore
+    */
 }
-
 /*
  * @end-method-ignore
- */
+*/
 ?>
