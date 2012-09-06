@@ -79,6 +79,7 @@ Class _THESAURUS extends Doc
     }
     /**
      * refresh relations from uri
+     * @apiExpose
      */
     function refreshConcepts()
     {
