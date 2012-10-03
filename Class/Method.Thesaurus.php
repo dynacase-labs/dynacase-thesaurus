@@ -18,7 +18,7 @@ Class _THESAURUS extends Doc
     );
     /**
      * return sql filter to search document
-     * @param DocAttribute $oa attribute identificator where do the search
+     * @param NormalAttribute $oa attribute identificator where do the search
      * @param int $thv value of concept to search
      * @return string sql filter
      */
@@ -31,6 +31,9 @@ Class _THESAURUS extends Doc
                 $sql = "multi array";
                 $thnr = array();
                 foreach ($thv as $k => $thid) {
+                    /**
+                     * @var _THCONCEPT $th
+                     */
                     $th = new_doc($this->dbaccess, $thid);
                     if ($th->isAlive()) {
                         $thnr = array_merge($thnr, $th->getRNarrowers());
@@ -42,6 +45,9 @@ Class _THESAURUS extends Doc
             } else {
                 
                 $sql = "multi atom";
+                /**
+                 * @var _THCONCEPT $th
+                 */
                 $th = new_doc($this->dbaccess, $thv);
                 if ($th->isAlive()) {
                     $thnr = $th->getRNarrowers();
@@ -55,6 +61,9 @@ Class _THESAURUS extends Doc
                 $sql = "single array";
                 $thnr = array();
                 foreach ($thv as $k => $thid) {
+                    /**
+                     * @var _THCONCEPT $th
+                     */
                     $th = new_doc($this->dbaccess, $thid);
                     if ($th->isAlive()) {
                         $thnr = array_merge($thnr, $th->getRNarrowers());
@@ -65,6 +74,9 @@ Class _THESAURUS extends Doc
                 else $sql = GetSqlCond($thnr, $oa->id);
             } else {
                 $sql = "single atom";
+                /**
+                 * @var _THCONCEPT $th
+                 */
                 $th = new_doc($this->dbaccess, $thv);
                 if ($th->isAlive()) {
                     $thnr = $th->getRNarrowers();
@@ -90,6 +102,9 @@ Class _THESAURUS extends Doc
         $s->addFilter("thc_thesaurus='" . $this->initid . "'");
         $s->setObjectReturn();
         $s->search();
+        /**
+         * @var _THCONCEPT $doc
+         */
         while ($doc = $s->nextDoc()) {
             $doc->recomputeNarrower();
             $doc->setValue("thc_title", $doc->getLangTitle());
@@ -105,6 +120,7 @@ Class _THESAURUS extends Doc
     }
     /**
      * view to see concept tree
+     * @templateController
      */
     function concepttree($target = "_self", $ulink = true, $abstract = false)
     {
