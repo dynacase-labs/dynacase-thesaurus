@@ -20,7 +20,7 @@ class _THCONCEPT extends Doc
     }
     function postModify()
     {
-        $err = $this->recomputeRelations();
+        $this->recomputeRelations();
         
         $this->setValue("thc_level", $this->getLevel());
         $this->setValue("thc_title", $this->getLangTitle());
@@ -55,6 +55,9 @@ class _THCONCEPT extends Doc
         $oldtg = $this->getOldValue("thc_broader");
         $tg = $this->getValue("thc_broader");
         if ($oldtg != $tg) {
+            /**
+             * @var _THCONCEPT $d
+             */
             $d = new_doc($this->dbaccess, $oldtg);
             if ($d->isAlive()) $d->recomputeNarrower(); // update old
             $d = new_doc($this->dbaccess, $tg);
@@ -81,7 +84,7 @@ class _THCONCEPT extends Doc
     {
         include_once ("THESAURUS/Lib.Thesaurus.php");
         $langs = getLangConcepts($this->dbaccess, $this->initid);
-        
+        $tlang = $tlangid = $tlanglabel = array();
         foreach ($langs as $k => $v) {
             $tlang[] = $v["thcl_lang"];
             $tlangid[] = $v["initid"];
@@ -91,7 +94,9 @@ class _THCONCEPT extends Doc
         $this->setValue("thc_idlang", $tlangid);
         $this->setValue("thc_langlabel", $tlanglabel);
     }
-    
+    /**
+     * @return bool|_THCONCEPT
+     */
     function getParentConcept()
     {
         $gen = $this->getValue("thc_broader");
