@@ -12,16 +12,16 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
 /**
  * View search interface
  * @param Action &$action current action
- * @global thid Http var : thesaurus document identificator to use
- * @global famid Http var : family document to search
+ * @global string $thid Http var : thesaurus document identificator to use
+ * @global string $famid Http var : family document to search
  */
 function th_search(&$action)
 {
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    //  $thid = GetHttpVars("thid");
-    $fid = GetHttpVars("famid");
-    $aid = GetHttpVars("aid");
-    $multi = GetHttpVars("multi");
+    $thid = null; //  $thid = $action->getArgument("thid");
+    $fid = $action->getArgument("famid");
+    $aid = $action->getArgument("aid");
+    $multi = $action->getArgument("multi");
     
     $fdoc = new_doc($dbaccess, $fid);
     if (!$fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive") , $fid));

@@ -16,6 +16,7 @@ Class _THESAURUS extends Doc
     public $cviews = array(
         "THESAURUS:CONCEPTTREE"
     );
+    const maxRefreshTime = 600;
     /**
      * return sql filter to search document
      * @param NormalAttribute $oa attribute identificator where do the search
@@ -96,8 +97,8 @@ Class _THESAURUS extends Doc
     function refreshConcepts()
     {
         include_once ("FDL/Class.SearchDoc.php");
-        define("MAXIMPORTTIME", 600); // 10 minutes
-        if (ini_get("max_execution_time") < MAXIMPORTTIME) ini_set("max_execution_time", MAXIMPORTTIME);
+        
+        setMaxExecutionTimeTo(self::maxRefreshTime);
         $s = new SearchDoc($this->dbaccess, "THCONCEPT");
         $s->addFilter("thc_thesaurus='" . $this->initid . "'");
         $s->setObjectReturn();
@@ -105,7 +106,7 @@ Class _THESAURUS extends Doc
         /**
          * @var _THCONCEPT $doc
          */
-        while ($doc = $s->nextDoc()) {
+        while ($doc = $s->getNextDoc()) {
             $doc->recomputeNarrower();
             $doc->setValue("thc_title", $doc->getLangTitle());
             $doc->refresh();
@@ -113,7 +114,7 @@ Class _THESAURUS extends Doc
         }
         
         $s->search();
-        while ($doc = $s->nextDoc()) {
+        while ($doc = $s->getNextDoc()) {
             $doc->setValue("thc_level", $doc->getLevel());
             $doc->modify();
         }
@@ -132,17 +133,17 @@ Class _THESAURUS extends Doc
         $s->orderby = "thc_level";
         $s->search();
         $brs = array();
-        while ($doc = $s->nextDoc()) {
-            $br = $doc->getValue("thc_broader");
+        while ($doc = $s->getNextDoc()) {
+            $br = $doc->getRawValue("thc_broader");
             $id = $doc->id;
-            $brs[$id] = $brs[$br] . '-' . $id;
+            $brs[$id] = (isset($brs[$br]) ? $brs[$br] : '') . '-' . $id;
             
             $tout[] = array(
-                "levelcolor" => 5 + ($doc->getValue("thc_level")) % 5,
-                "level20" => $doc->getValue("thc_level") * 20,
-                "uri" => $doc->getValue("thc_uri") ,
+                "levelcolor" => 5 + ($doc->getRawValue("thc_level")) % 5,
+                "level20" => $doc->getRawValue("thc_level") * 20,
+                "uri" => $doc->getRawValue("thc_uri") ,
                 "id" => $id,
-                "broader" => $doc->getValue("thc_broader") ,
+                "broader" => $doc->getRawValue("thc_broader") ,
                 "order" => $brs[$id],
                 "title" => $this->getDocAnchor($id, "_blank", true, $doc->getTitle())
             );

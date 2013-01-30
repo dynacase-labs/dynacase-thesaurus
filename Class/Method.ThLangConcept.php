@@ -13,7 +13,7 @@ class _THLANGCONCEPT extends Doc
     /*
      * @end-method-ignore
     */
-    function postModify()
+    function postStore()
     {
         $this->refreshConcept();
     }
@@ -26,7 +26,7 @@ class _THLANGCONCEPT extends Doc
      */
     function refreshConcept()
     {
-        $thc = $this->getValue("thcl_thconcept");
+        $thc = $this->getRawValue("thcl_thconcept");
         if ($thc) {
             $th = new_doc($this->dbaccess, $thc);
             if ($th->isAlive()) {

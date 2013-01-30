@@ -10,7 +10,7 @@
 include_once ("FDL/Class.Doc.php");
 include_once ("THESAURUS/Lib.Thesaurus.php");
 define("MAXIMPORTTIME", 600); // 10 minutes
-function th_skosimport(&$action)
+function th_skosimport(Action & $action)
 {
     
     $dbaccess = $action->GetParam("FREEDOM_DB");
@@ -20,7 +20,7 @@ function th_skosimport(&$action)
     $analyze = (getHttpVars("analyze", "yes") == "yes");
     
     global $_FILES;
-    if (ini_get("max_execution_time") < MAXIMPORTTIME) ini_set("max_execution_time", MAXIMPORTTIME);
+    setMaxExecutionTimeTo(MAXIMPORTTIME);
     $action->lay->set("msg2", "");
     if (isset($_FILES["skos"])) {
         $filename = $_FILES["skos"]['name'];
@@ -32,7 +32,9 @@ function th_skosimport(&$action)
     
     $doc = new DOMDocument();
     $doc->load($skosfile);
-    
+    /**
+     * @var DOMElement $desc
+     */
     $desc = $doc->childNodes->item(0);
     
     if ($analyze) {
@@ -43,11 +45,13 @@ function th_skosimport(&$action)
         for ($j = 0; $j < $concepts->length; $j++) {
             $nod = $concepts->item($j); //Node j
             $nodename = strtolower($nod->nodeName);
-            if ($nodename == "rdf:description") analyzeSkosConcept($dbaccess, $thid, $nod, $tr);
+            if ($nodename == "rdf:description") analyzeSkosConcept($dbaccess, null, $nod, $tr);
         }
         $tul = array();
         foreach ($tr as $k => $v) {
-            $tul[$v['skos:broader']][] = $k;
+            if (!empty($v['skos:broader'])) {
+                $tul[$v['skos:broader']][] = $k;
+            }
         }
         //  print_r2($tul);
         $tt = array();
@@ -72,6 +76,7 @@ function th_skosimport(&$action)
         usort($tt, "th_order");
         // print_r2($tr);
         //print '<hr>';
+        $tout = array();
         foreach ($tt as $k => $v) {
             $id = array_pop($v);
             $tlabel = $tr[$id]['skos:preflabel'];
@@ -90,6 +95,9 @@ function th_skosimport(&$action)
         
     } else {
         if ($iduri) {
+            /**
+             * @var _THESAURUS $th
+             */
             $th = new_doc($dbaccess, $iduri);
             $action->lay->set("msg2", _("UPDATE THESAURUS") . ' ' . $th->title);
         } else {
@@ -171,9 +179,17 @@ function th_order($a, $b)
 }
 /**
  * Import a concept
+ * @param string $dbaccess
+ * @param string $thid
+ * @param DOMElement $node
+ * @param bool $analyze
+ * @return string
  */
 function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
 {
+    /**
+     * @var Doc[] $tcol
+     */
     $tcol = array();
     $uri = $node->getAttribute("rdf:about");
     
@@ -188,6 +204,9 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
     $ats = $node->childNodes;
     
     for ($j = 0; $j < $ats->length; $j++) {
+        /**
+         * @var DOMElement $a
+         */
         $a = $ats->item($j);
         if ($a->nodeType == XML_TEXT_NODE) continue;
         $lang = $a->getAttribute("xml:lang");
@@ -217,7 +236,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
                 if (preg_match("/skos:(.*)$/", $nodename, $reg)) {
                     $aname = "thc_" . $reg[1];
                     if ($lang) {
-                        if (!$tcol[$lang]) {
+                        if (empty($tcol[$lang])) {
                             $cl = getLangConcept($dbaccess, $co->initid, $lang);
                             if (!$cl) {
                                 // create it
@@ -258,18 +277,25 @@ function refreshThConceptFromURI($dbaccess, $thid)
     $s->addFilter("thc_thesaurus='" . $thid . "'");
     $s->setObjectReturn();
     $s->search();
-    
-    while ($doc = $s->nextDoc()) {
+    /**
+     * @var _THCONCEPT $doc
+     */
+    while ($doc = $s->getNextDoc()) {
         $doc->refreshFromURI();
         $doc->modify();
     }
 }
 /**
  * analyze a concept
+ * @param string $dbaccess
+ * @param string $thid
+ * @param DomElement $node
+ * @param array $tcon
+ * @return string
  */
 function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
 {
-    $tcol = array();
+    $err = '';
     $uri = $node->getAttribute("rdf:about");
     
     $tcon[$uri] = array();
@@ -277,6 +303,9 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
     $ats = $node->childNodes;
     
     for ($j = 0; $j < $ats->length; $j++) {
+        /**
+         * @var DomElement $a
+         */
         $a = $ats->item($j);
         if ($a->nodeType == XML_TEXT_NODE) continue;
         $lang = $a->getAttribute("xml:lang");
