@@ -21,7 +21,7 @@ include_once ("FDL/editutil.php");
  * Edition to import thesaurus
  * @param Action &$action current action
  */
-function th_editskosimport(&$action)
+function th_editskosimport(Action & $action)
 {
     editmode($action);
 }

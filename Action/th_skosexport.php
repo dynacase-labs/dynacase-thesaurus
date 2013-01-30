@@ -11,7 +11,7 @@ include_once ("FDL/Class.Doc.php");
 include_once ("FDL/Class.SearchDoc.php");
 include_once ("THESAURUS/Lib.Thesaurus.php");
 
-function th_skosexport(&$action)
+function th_skosexport(Action & $action)
 {
     $dbaccess = $action->GetParam("FREEDOM_DB");
     $uri = getHttpVars("thuri");
@@ -19,12 +19,12 @@ function th_skosexport(&$action)
     
     if (ini_get("max_execution_time") < 180) ini_set("max_execution_time", 180); // 3 minutes
     header('Content-type: text/xml; charset=utf-8');
-    $action->lay->setEncoding("utf-8");
+    
     $action->lay->set("thuri", "none");
     $doc = new_doc($dbaccess, $docid);
     $concepts = '';
     if ($doc->isAlive()) {
-        $action->lay->set("thuri", $doc->getValue("thes_uri"));
+        $action->lay->set("thuri", $doc->getRawValue("thes_uri"));
         $docid = $doc->id;
         
         $s = new SearchDoc($dbaccess, "THCONCEPT");
@@ -49,7 +49,7 @@ function exportSkosConcept($dbaccess, $th)
         $multiple = false;;
         if ($satag == 'altLabel') $multiple = true;
         if ($multiple) {
-            $vs = Doc::_val2array($vl);
+            $vs = Doc::rawValueToArray($v);
             foreach ($vs as $vvs) $tsal[] = array(
                 "satag" => $satag,
                 "saval" => xml_entity_encode($vvs)
@@ -67,13 +67,13 @@ function exportSkosConcept($dbaccess, $th)
     
     $tbroaders = array();
     if ($th["thc_uribroader"]) {
-        $tbr = Doc::_val2array($th["thc_uribroader"]);
+        $tbr = Doc::rawValueToArray($th["thc_uribroader"]);
         foreach ($tbr as $br) $tbroaders[] = array(
             "broader" => $br
         );
     }
     if ($th["thc_idlang"]) {
-        $tl = Doc::_val2array($th["thc_idlang"]);
+        $tl = Doc::rawValueToArray($th["thc_idlang"]);
         
         foreach ($tl as $l) {
             $dl = getTDoc($dbaccess, $l);
@@ -86,7 +86,7 @@ function exportSkosConcept($dbaccess, $th)
                         $multiple = false;;
                         if ($satag == 'altLabel') $multiple = true;
                         if ($multiple) {
-                            $vs = Doc::_val2array($vl);
+                            $vs = Doc::rawValueToArray($vl);
                             foreach ($vs as $vvs) $tsal[] = array(
                                 "saltag" => $satag,
                                 "sallang" => $lang,

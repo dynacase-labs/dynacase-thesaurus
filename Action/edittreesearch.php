@@ -12,29 +12,29 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
 /**
  * View search interface
  * @param Action &$action current action
- * @global thid Http var : thesaurus document identificator to use
- * @global famid Http var : family document to search
+ * @global string $thid Http var : thesaurus document identificator to use
+ * @global string $famid Http var : family document to search
  */
-function edittreesearch(&$action)
+function edittreesearch(Action & $action)
 {
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    $thid = GetHttpVars("thid");
-    $filter = getHttpVars("filter");
-    $fid = GetHttpVars("famid");
-    $aid = strtolower(GetHttpVars("aid"));
-    $multi = (getHttpVars("multi") == "yes") ? 'multi' : false;
-    $level = getHttpVars("level", 2);
-    $iname = getHttpVars("inputname", "thvalue");
-    $conid = getHttpVars("conid");
+    $thid = $action->getArgument("thid");
+    $filter = $action->getArgument("filter");
+    $fid = $action->getArgument("famid");
+    $aid = strtolower($action->getArgument("aid"));
+    $multi = ($action->getArgument("multi") == "yes") ? 'multi' : false;
+    $level = $action->getArgument("level", 2);
+    $iname = $action->getArgument("inputname", "thvalue");
+    $conid = $action->getArgument("conid");
     
-    if (!$lang) $lang = strtolower(strtok(getParam("CORE_LANG") , '_'));
+    $lang = strtolower(strtok(getParam("CORE_LANG") , '_'));
     $error = "";
     $b1 = microtime(true);
     
     if ($conid) {
         $con = new_doc($dbaccess, $conid);
         if (!$con->isAlive()) $action->exitError(sprintf(_("document %s not alive") , $conid));
-        $thid = $con->getValue("thc_thesaurus");
+        $thid = $con->getrawValue("thc_thesaurus");
     }
     
     $fdoc = new_doc($dbaccess, $fid);
@@ -69,7 +69,7 @@ function edittreesearch(&$action)
     $action->lay->set("aid", $aid);
     $action->lay->set("multi", $multi);
     $action->lay->set("ymulti", $multi ? "yes" : "no");
-    $action->lay->setBlockData("LIs", $t0);
+    
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
     $action->lay->set("thid", $thid);
@@ -80,8 +80,8 @@ function edittreesearch(&$action)
 
 function getThLabelLang($v, $lang)
 {
-    $tlang = Doc::_val2array($v["thc_lang"]);
-    $tll = Doc::_val2array($v["thc_langlabel"]);
+    $tlang = Doc::rawValueToArray($v["thc_lang"]);
+    $tll = Doc::rawValueToArray($v["thc_langlabel"]);
     
     $kgood = - 1;
     

@@ -13,12 +13,12 @@ class _THCONCEPT extends Doc
     /*
      * @end-method-ignore
     */
-    function specRefresh()
+    function preRefresh()
     {
         // $err= $this->recomputeNarrower();
         $this->retrieveLangLabel();
     }
-    function postModify()
+    function postStore()
     {
         $this->recomputeRelations();
         
@@ -27,7 +27,7 @@ class _THCONCEPT extends Doc
         $this->modify();
     }
     
-    function getSpecTitle()
+    function getCustomTitle()
     {
         return $this->getLangTitle();
     }
@@ -38,7 +38,7 @@ class _THCONCEPT extends Doc
     {
         include_once ("FDL/Class.SearchDoc.php");
         $s = new SearchDoc($this->dbaccess, "THCONCEPT");
-        $s->addFilter("thc_thesaurus='" . intval($this->getValue("thc_thesaurus")) . "'");
+        $s->addFilter("thc_thesaurus='" . intval($this->getRawValue("thc_thesaurus")) . "'");
         $s->addFilter("thc_broader='" . $this->id . "'"); // $s->addFilter("thc_broader ~ '\\\\y$id\\\\y'); // if many
         $t = $s->search();
         $tid = array();
@@ -52,8 +52,8 @@ class _THCONCEPT extends Doc
     
     function recomputeRelations()
     {
-        $oldtg = $this->getOldValue("thc_broader");
-        $tg = $this->getValue("thc_broader");
+        $oldtg = $this->getOldRawValue("thc_broader");
+        $tg = $this->getRawValue("thc_broader");
         if ($oldtg != $tg) {
             /**
              * @var _THCONCEPT $d
@@ -69,8 +69,8 @@ class _THCONCEPT extends Doc
     function refreshFromURI()
     {
         include_once ("THESAURUS/Lib.Thesaurus.php");
-        $broaduri = $this->getTValue("thc_uribroader");
-        $broad = $this->getTValue("thc_broader");
+        $broaduri = $this->getMultipleRawValues("thc_uribroader");
+        $broad = $this->getMultipleRawValues("thc_broader");
         
         foreach ($broaduri as $k => $v) {
             if (!$broad[$k]) {
@@ -99,7 +99,7 @@ class _THCONCEPT extends Doc
      */
     function getParentConcept()
     {
-        $gen = $this->getValue("thc_broader");
+        $gen = $this->getRawValue("thc_broader");
         if ($gen) {
             $d = new_doc($this->dbaccess, $gen);
             if ($d->isAlive()) return $d;
@@ -124,11 +124,11 @@ class _THCONCEPT extends Doc
     function getRNarrowers()
     {
         $pid = array();
-        $nrs = $this->getTValue("thc_narrower");
+        $nrs = $this->getMultipleRawValues("thc_narrower");
         $nrsdoc = getDocsFromIds($this->dbaccess, $nrs, 1);
         
         foreach ($nrsdoc as $k => $nr) {
-            $nrs = array_merge($nrs, $this->_getRNarrowers(Doc::_val2array($nr['thc_narrower'])));
+            $nrs = array_merge($nrs, $this->_getRNarrowers(Doc::rawValueToArray($nr['thc_narrower'])));
         }
         return $nrs;
     }
@@ -141,7 +141,7 @@ class _THCONCEPT extends Doc
         
         foreach ($nrs as $k => $nr) {
             $t = getTDoc($this->dbaccess, $nr);
-            $_nrs1 = Doc::_val2array($t['thc_narrower']);
+            $_nrs1 = Doc::rawValueToArray($t['thc_narrower']);
             $_nrs2 = $this->_getRNarrowers($_nrs1);
             $_nrs = array_merge($_nrs, $_nrs1, $_nrs2);
         }
@@ -154,8 +154,8 @@ class _THCONCEPT extends Doc
     function getLabelLang($lang = false)
     {
         if ($lang === false) $lang = strtolower(strtok(getParam("CORE_LANG") , '_'));
-        $tlang = $this->getTValue("thc_lang");
-        $tll = $this->getTValue("thc_langlabel");
+        $tlang = $this->getMultipleRawValues("thc_lang");
+        $tll = $this->getMultipleRawValues("thc_langlabel");
         
         $kgood = - 1;
         
@@ -173,7 +173,7 @@ class _THCONCEPT extends Doc
      */
     function getLangTitle($lang = false)
     {
-        return $this->getValue("thc_label") . ' ' . $this->getLabelLang($lang);
+        return $this->getRawValue("thc_label") . ' ' . $this->getLabelLang($lang);
     }
     /*
      * @begin-method-ignore
