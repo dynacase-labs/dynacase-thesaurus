@@ -80,7 +80,7 @@ function getLabelLang($v, $lang)
         }
     }
     
-    return (isset($tll[$kgood])) ? $tll[$kgood] : $tll[0];
+    return (isset($tll[$kgood])) ? $tll[$kgood] : (isset($tll[0]) ? $tll[0] : '');
 }
 
 function getUltree(&$t, $initid, $filter, &$oneisgood, $lang)

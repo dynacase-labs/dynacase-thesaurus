@@ -61,8 +61,16 @@ class _THCONCEPT extends Doc
             $d = new_doc($this->dbaccess, $oldtg);
             if ($d->isAlive()) $d->recomputeNarrower(); // update old
             $d = new_doc($this->dbaccess, $tg);
-            if ($d->isAlive()) $d->recomputeNarrower(); // update new
+            if ($d->isAlive()) {
+                $d->recomputeNarrower();
+                $this->setValue("thc_uribroader", $d->getRawValue("thc_uri"));
+            } // update new
             
+        } else {
+            $d = new_doc($this->dbaccess, $tg);
+            if ($d->isAlive()) {
+                $this->setValue("thc_uribroader", $d->getRawValue("thc_uri"));
+            }
         }
     }
     
@@ -166,7 +174,7 @@ class _THCONCEPT extends Doc
             }
         }
         
-        return (isset($tll[$kgood])) ? $tll[$kgood] : $tll[0];
+        return (isset($tll[$kgood])) ? $tll[$kgood] : (isset($tll[0]) ? $tll[0] : '');
     }
     /**
      * return localized title
