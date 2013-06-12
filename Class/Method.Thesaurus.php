@@ -128,7 +128,7 @@ Class _THESAURUS extends Doc
         include_once ("FDL/Class.SearchDoc.php");
         
         $s = new SearchDoc($this->dbaccess, "THCONCEPT");
-        $s->addFilter("thc_thesaurus='" . $this->initid . "'");
+        $s->addFilter("thc_thesaurus='%d'", $this->initid);
         $s->setObjectReturn();
         $s->orderby = "thc_level";
         $s->search();
@@ -136,18 +136,44 @@ Class _THESAURUS extends Doc
         while ($doc = $s->getNextDoc()) {
             $br = $doc->getRawValue("thc_broader");
             $id = $doc->id;
-            $brs[$id] = (isset($brs[$br]) ? $brs[$br] : '') . '-' . $id;
+            $brs[$id] = (isset($brs[$br]) ? $brs[$br] : '') . '.' . $id;
             
-            $tout[] = array(
+            $tout[$id] = array(
                 "levelcolor" => 5 + ($doc->getRawValue("thc_level")) % 5,
                 "level20" => $doc->getRawValue("thc_level") * 20,
                 "uri" => $doc->getRawValue("thc_uri") ,
                 "id" => $id,
                 "broader" => $doc->getRawValue("thc_broader") ,
-                "order" => $brs[$id],
+                //  "order" => substr($brs[$id], 1,strrpos($brs[$id],".")),
+                "order" => substr($brs[$id], 1) ,
+                "rawTitle" => $doc->getTitle() ,
                 "title" => $this->getDocAnchor($id, "_blank", true, $doc->getTitle())
             );
         }
+        // need to sort by level and title
+        $collator = new Collator(getParam('CORE_LANG', 'fr_FR'));
+        uasort($tout, function ($a, $b) use ($collator)
+        {
+            /**
+             * @var Collator $collator
+             */
+            return $collator->compare($a['rawTitle'], $b['rawTitle']);
+        });
+        
+        $o = 1;
+        foreach ($tout as $k => $v) {
+            $tout[$k]["titleorder"] = $o++;
+        }
+        
+        foreach ($tout as $k => $v) {
+            $torder = explode('.', $v["order"]);
+            $tTitleOrder = array();
+            foreach ($torder as $idOrder) {
+                $tTitleOrder[] = $tout[$idOrder]["titleorder"];
+            }
+            $tout[$k]["newOrder"] = implode(".", $tTitleOrder);
+        }
+        
         usort($tout, array(
             get_class($this) ,
             "_cmpthorder"
@@ -157,9 +183,13 @@ Class _THESAURUS extends Doc
     /**
      * to sort concept
      */
+    static private function _cmptitle($a, $b)
+    {
+        return strcmp($a['rawTitle'], $b['rawTitle']);
+    }
     static private function _cmpthorder($a, $b)
     {
-        return strcmp($a['order'], $b['order']);
+        return version_compare($a['newOrder'], $b['newOrder']);
     }
     /*
      * @begin-method-ignore
