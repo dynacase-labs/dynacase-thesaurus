@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FREEDOM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-20 14:47+0100\n"
+"PO-Revision-Date: 2008-09-04 16:09+0200\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: English <distrib@anakeen.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THCONCEPT#thc_addlang"
+msgstr "Ajouter une traduction"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_altlabel"
+msgstr "Use as"
+
+msgid "THCONCEPT#thc_altlabel#elabel"
+msgstr ""
+"The acronyms, abbreviations, spelling, irregular shapes plural or singular, "
+"may be included in alternative lexical forms "
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_broader"
+msgstr "Generic concept"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_definition"
+msgstr "Definition"
+
+msgid "THCONCEPT#thc_definition#elabel"
+msgstr "Formal explanation of the concept meaning"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_editorialnote"
+msgstr "Editorial note"
+
+msgid "THCONCEPT#thc_editorialnote#elabel"
+msgstr "A note for editors, translators and other managers vocabulary"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_example"
+msgstr "Example"
+
+msgid "THCONCEPT#thc_example#elabel"
+msgstr "Use case of the concept"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_fr_desc"
+msgstr "Description"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_fr_ident"
+msgstr "Identification"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_fr_lang"
+msgstr "Translations"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_fr_relation"
+msgstr "Relations"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_historynote"
+msgstr "History note"
+
+msgid "THCONCEPT#thc_historynote#elabel"
+msgstr "A note for a meaning or past use of concept"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_idlang"
+msgstr "Localisation (ID)"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_label"
+msgstr "label"
+
+#, fuzzy
+msgid "THCONCEPT#thc_label#elabel"
+msgstr ""
+"The acronyms, abbreviations, spelling, irregular shapes plural or singular, "
+"may be included in alternative lexical forms "
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_lang"
+msgstr "Language"
+
+#, fuzzy
+msgid "THCONCEPT#thc_lang#THES_LANG)"
+msgstr "Language"
+
+#, fuzzy
+msgid "THCONCEPT#thc_lang#linkenum(THESAURUS"
+msgstr "Label"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_langlabel"
+msgstr "Label"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_level"
+msgstr "Level Bis"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_narrower"
+msgstr "Narrowers"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_note"
+msgstr "General note"
+
+msgid "THCONCEPT#thc_note#elabel"
+msgstr "A general note, use any"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_preflabel"
+msgstr "Label"
+
+msgid "THCONCEPT#thc_preflabel#elabel"
+msgstr "Lexical form used to describe a concept"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_related"
+msgstr "Related concept"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_scopenote"
+msgstr "Application note"
+
+msgid "THCONCEPT#thc_scopenote#elabel"
+msgstr "A application note, use any"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_symbol"
+msgstr "Symbol"
+
+msgid "THCONCEPT#thc_symbol#elabel"
+msgstr "An image that is a symbolic representation of the resource"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_t_broader"
+msgstr "Generic"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_t_label"
+msgstr "Alternative labels"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_t_lang"
+msgstr "Internationalisation"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_t_related"
+msgstr "Related"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_thesaurus"
+msgstr "Thesaurus"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THCONCEPT#thc_thestitle"
+msgstr "Nom du thésaurus"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THCONCEPT#thc_title"
+msgstr "Titre"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_uri"
+msgstr "Identificator"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_uribroader"
+msgstr "Generic URI"
+
+#: thesaurus.ods.csv
+msgid "THCONCEPT#thc_urirelated"
+msgstr "Related URI"
+
+msgid "THCONCEPT#title"
+msgstr "Descriptor"

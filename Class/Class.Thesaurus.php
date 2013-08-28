@@ -4,22 +4,22 @@
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package THESAURUS
 */
-/*
- * @begin-method-ignore
- * this part will be deleted when construct document class until end-method-ignore
-*/
-Class _THESAURUS extends Doc
+
+namespace Dcp\Thesaurus;
+use \Dcp\AttributeIdentifiers as Attributes;
+use \Dcp\AttributeIdentifiers\Thesaurus as MyAttributes;
+use \Dcp\Family as Family;
+
+
+class Thesaurus extends Family\Document
 {
-    /*
-     * @end-method-ignore
-    */
     public $cviews = array(
         "THESAURUS:CONCEPTTREE"
     );
     const maxRefreshTime = 600;
     /**
      * return sql filter to search document
-     * @param NormalAttribute $oa attribute identificator where do the search
+     * @param \NormalAttribute $oa attribute identificator where do the search
      * @param int $thv value of concept to search
      * @return string sql filter
      */
@@ -33,7 +33,7 @@ Class _THESAURUS extends Doc
                 $thnr = array();
                 foreach ($thv as $k => $thid) {
                     /**
-                     * @var _THCONCEPT $th
+                     * @var Family\THCONCEPT $th
                      */
                     $th = new_doc($this->dbaccess, $thid);
                     if ($th->isAlive()) {
@@ -47,7 +47,7 @@ Class _THESAURUS extends Doc
                 
                 $sql = "multi atom";
                 /**
-                 * @var _THCONCEPT $th
+                 * @var Family\THCONCEPT $th
                  */
                 $th = new_doc($this->dbaccess, $thv);
                 if ($th->isAlive()) {
@@ -63,7 +63,7 @@ Class _THESAURUS extends Doc
                 $thnr = array();
                 foreach ($thv as $k => $thid) {
                     /**
-                     * @var _THCONCEPT $th
+                     * @var Family\THCONCEPT $th
                      */
                     $th = new_doc($this->dbaccess, $thid);
                     if ($th->isAlive()) {
@@ -76,7 +76,7 @@ Class _THESAURUS extends Doc
             } else {
                 $sql = "single atom";
                 /**
-                 * @var _THCONCEPT $th
+                 * @var Family\THCONCEPT $th
                  */
                 $th = new_doc($this->dbaccess, $thv);
                 if ($th->isAlive()) {
@@ -96,26 +96,24 @@ Class _THESAURUS extends Doc
      */
     function refreshConcepts()
     {
-        include_once ("FDL/Class.SearchDoc.php");
-        
         setMaxExecutionTimeTo(self::maxRefreshTime);
-        $s = new SearchDoc($this->dbaccess, "THCONCEPT");
+        $s = new \SearchDoc($this->dbaccess, Family\Thconcept::familyName);
         $s->addFilter("thc_thesaurus='" . $this->initid . "'");
         $s->setObjectReturn();
         $s->search();
         /**
-         * @var _THCONCEPT $doc
+         * @var Family\THCONCEPT $doc
          */
         while ($doc = $s->getNextDoc()) {
             $doc->recomputeNarrower();
-            $doc->setValue("thc_title", $doc->getLangTitle());
+            $doc->setValue(Attributes\Thconcept::thc_title, $doc->getLangTitle());
             $doc->refresh();
             $doc->modify();
         }
         
         $s->search();
         while ($doc = $s->getNextDoc()) {
-            $doc->setValue("thc_level", $doc->getLevel());
+            $doc->setValue(Attributes\Thconcept::thc_level, $doc->getLevel());
             $doc->modify();
         }
     }
@@ -125,12 +123,10 @@ Class _THESAURUS extends Doc
      */
     function concepttree($target = "_self", $ulink = true, $abstract = false)
     {
-        include_once ("FDL/Class.SearchDoc.php");
-        
-        $s = new SearchDoc($this->dbaccess, "THCONCEPT");
+        $s = new \SearchDoc($this->dbaccess, Family\Thconcept::familyName);
         $s->addFilter("thc_thesaurus='%d'", $this->initid);
         $s->setObjectReturn();
-        $s->orderby = "thc_level";
+        $s->orderby = Attributes\Thconcept::thc_level;
         $s->search();
         $brs = array();
         while ($doc = $s->getNextDoc()) {
@@ -139,11 +135,11 @@ Class _THESAURUS extends Doc
             $brs[$id] = (isset($brs[$br]) ? $brs[$br] : '') . '.' . $id;
             
             $tout[$id] = array(
-                "levelcolor" => 5 + ($doc->getRawValue("thc_level")) % 5,
-                "level20" => $doc->getRawValue("thc_level") * 20,
-                "uri" => $doc->getRawValue("thc_uri") ,
+                "levelcolor" => 5 + ($doc->getRawValue(Attributes\Thconcept::thc_level)) % 5,
+                "level20" => $doc->getRawValue(Attributes\Thconcept::thc_level) * 20,
+                "uri" => $doc->getRawValue(Attributes\Thconcept::thc_uri) ,
                 "id" => $id,
-                "broader" => $doc->getRawValue("thc_broader") ,
+                "broader" => $doc->getRawValue(Attributes\Thconcept::thc_broader) ,
                 //  "order" => substr($brs[$id], 1,strrpos($brs[$id],".")),
                 "order" => substr($brs[$id], 1) ,
                 "rawTitle" => $doc->getTitle() ,
@@ -151,11 +147,11 @@ Class _THESAURUS extends Doc
             );
         }
         // need to sort by level and title
-        $collator = new Collator(getParam('CORE_LANG', 'fr_FR'));
+        $collator = new \Collator(getParam('CORE_LANG', 'fr_FR'));
         uasort($tout, function ($a, $b) use ($collator)
         {
             /**
-             * @var Collator $collator
+             * @var \Collator $collator
              */
             return $collator->compare($a['rawTitle'], $b['rawTitle']);
         });
@@ -196,7 +192,3 @@ Class _THESAURUS extends Doc
      * this part will be deleted when construct document class until end-method-ignore
     */
 }
-/*
- * @end-method-ignore
-*/
-?>

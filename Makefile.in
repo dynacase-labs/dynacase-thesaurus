@@ -36,3 +36,10 @@ $(pubdir)/$(style)/$(appname)/%.ods: %.ods $(pubdir)/$(appname)
 	cp $< $@
 
 publish: $(pubdir)/$(applib) $(pages_ods) $(pubdir)/$(appname)
+
+clean:
+	rm -f *.*~ config.* Makefile configure info.xml Services/info.xml *webinst $(appname)_init.php 
+	rm -fr autom4te.cache
+
+stub:
+	php  $(utildir)/genStubFamilyClass.php thesaurus.ods > Class/stubThesaurusFamilies.php

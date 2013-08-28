@@ -1,0 +1,52 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FREEDOM-BOOK\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-20 14:47+0100\n"
+"PO-Revision-Date: 2008-11-20 14:52+0100\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: French <distrib@anakeen.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thc_label"
+msgstr ""
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thc_preflabel"
+msgstr ""
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thcl_fr_ident"
+msgstr "Identification"
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thcl_lang"
+msgstr "Langue"
+
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
+msgstr "Langue"
+
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#linkenum(THESAURUS"
+msgstr "Langue"
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thcl_thconcept"
+msgstr "Descripteur"
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thcl_thesaurus"
+msgstr "Thésaurus"
+
+#, fuzzy
+msgid "THLANGCONCEPT#title"
+msgstr "Descripteur localisé"

@@ -1,0 +1,460 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FREEDOM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-20 14:47+0100\n"
+"PO-Revision-Date: 2008-09-04 16:09+0200\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: English <distrib@anakeen.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, c-format
+msgid "document %s not alive"
+msgstr ""
+
+#, c-format
+msgid "thesaurus %s not alive"
+msgstr ""
+
+msgid "Word to search"
+msgstr ""
+
+msgid "View tree thesaurus"
+msgstr ""
+
+msgid "Close tree"
+msgstr ""
+
+msgid "Clear selected inputs"
+msgstr ""
+
+msgid "Clear inputs"
+msgstr ""
+
+msgid "Search from thesaurus"
+msgstr ""
+
+msgid "SKOS Analyzis"
+msgstr ""
+
+msgid "SKOS Importation"
+msgstr ""
+
+msgid "Import SKOS thesaurus"
+msgstr ""
+
+msgid "SKOS file is not set"
+msgstr ""
+
+msgid "Import in progress"
+msgstr ""
+
+msgid " Update thesaurus"
+msgstr ""
+
+msgid "Thesaurus to affect"
+msgstr ""
+
+msgid " or create new thesaurus"
+msgstr ""
+
+msgid "Thesaurus SKOS file"
+msgstr ""
+
+msgid "Analyze thesaurus"
+msgstr ""
+
+msgid "Import thesaurus"
+msgstr ""
+
+msgid "Thesaurus"
+msgstr ""
+
+msgid "Manage thesaurus"
+msgstr ""
+
+msgid "interface import SKOS format"
+msgstr ""
+
+msgid "import SKOS format"
+msgstr ""
+
+msgid "export in SKOS format"
+msgstr ""
+
+msgid "display tree of thesaurus"
+msgstr ""
+
+msgid "display interface to search from thesaurus"
+msgstr ""
+
+msgid "exec search from thesaurus"
+msgstr ""
+
+msgid "UPDATE THESAURUS"
+msgstr ""
+
+msgid "CREATE THESAURUS"
+msgstr ""
+
+#, c-format
+msgid "no result matching %s"
+msgstr ""
+
+#, c-format
+msgid "family %s not alive"
+msgstr ""
+
+#, fuzzy
+msgid "Thesaurus results"
+msgstr "Référence"
+
+msgid "THESAURUS#title"
+msgstr "Thesaurus"
+
+msgid "THESAURUS#thes_fr_info"
+msgstr "Identification"
+
+msgid "THESAURUS#thes_uri"
+msgstr "Reference"
+
+msgid "THESAURUS#thes_title"
+msgstr "Title"
+
+msgid "THESAURUS#thes_desc"
+msgstr "Description"
+
+msgid "THESAURUS#thes_lang"
+msgstr "Supported languages"
+
+msgid "THESAURUS#thes_lang#fr"
+msgstr "French"
+
+msgid "THESAURUS#thes_lang#en"
+msgstr "English"
+
+#, fuzzy
+msgid "THESAURUS#thes_refresh"
+msgstr "Recalcul des relations"
+
+msgid "THESAURUS#thes_import"
+msgstr "SKOS mportation"
+
+#, fuzzy
+msgid "THESAURUS#thes_export"
+msgstr "Exportation SKOS"
+
+msgid "THCONCEPT#title"
+msgstr "Descriptor"
+
+msgid "THCONCEPT#thc_fr_ident"
+msgstr "Identification"
+
+msgid "THCONCEPT#thc_uri"
+msgstr "Identificator"
+
+msgid "THCONCEPT#thc_thesaurus"
+msgstr "Thesaurus"
+
+#, fuzzy
+msgid "THCONCEPT#thc_thestitle"
+msgstr "Nom du thésaurus"
+
+msgid "THCONCEPT#thc_level"
+msgstr "Level Bis"
+
+msgid "THCONCEPT#thc_fr_desc"
+msgstr "Description"
+
+#, fuzzy
+msgid "THCONCEPT#thc_title"
+msgstr "Titre"
+
+msgid "THCONCEPT#thc_preflabel"
+msgstr "Label"
+
+msgid "THCONCEPT#thc_preflabel#elabel"
+msgstr "Lexical form used to describe a concept"
+
+msgid "THCONCEPT#thc_label"
+msgstr "label"
+
+#, fuzzy
+msgid "THCONCEPT#thc_label#elabel"
+msgstr ""
+"The acronyms, abbreviations, spelling, irregular shapes plural or singular, "
+"may be included in alternative lexical forms "
+
+msgid "THCONCEPT#thc_t_label"
+msgstr "Alternative labels"
+
+msgid "THCONCEPT#thc_altlabel"
+msgstr "Use as"
+
+msgid "THCONCEPT#thc_altlabel#elabel"
+msgstr ""
+"The acronyms, abbreviations, spelling, irregular shapes plural or singular, "
+"may be included in alternative lexical forms "
+
+msgid "THCONCEPT#thc_definition"
+msgstr "Definition"
+
+msgid "THCONCEPT#thc_definition#elabel"
+msgstr "Formal explanation of the concept meaning"
+
+msgid "THCONCEPT#thc_editorialnote"
+msgstr "Editorial note"
+
+msgid "THCONCEPT#thc_editorialnote#elabel"
+msgstr "A note for editors, translators and other managers vocabulary"
+
+msgid "THCONCEPT#thc_example"
+msgstr "Example"
+
+msgid "THCONCEPT#thc_example#elabel"
+msgstr "Use case of the concept"
+
+msgid "THCONCEPT#thc_historynote"
+msgstr "History note"
+
+msgid "THCONCEPT#thc_historynote#elabel"
+msgstr "A note for a meaning or past use of concept"
+
+msgid "THCONCEPT#thc_symbol"
+msgstr "Symbol"
+
+msgid "THCONCEPT#thc_symbol#elabel"
+msgstr "An image that is a symbolic representation of the resource"
+
+msgid "THCONCEPT#thc_scopenote"
+msgstr "Application note"
+
+msgid "THCONCEPT#thc_scopenote#elabel"
+msgstr "A application note, use any"
+
+msgid "THCONCEPT#thc_note"
+msgstr "General note"
+
+msgid "THCONCEPT#thc_note#elabel"
+msgstr "A general note, use any"
+
+msgid "THCONCEPT#thc_fr_lang"
+msgstr "Translations"
+
+msgid "THCONCEPT#thc_t_lang"
+msgstr "Internationalisation"
+
+msgid "THCONCEPT#thc_idlang"
+msgstr "Localisation (ID)"
+
+msgid "THCONCEPT#thc_lang"
+msgstr "Language"
+
+#, fuzzy
+msgid "THCONCEPT#thc_lang#linkenum(THESAURUS"
+msgstr "Label"
+
+#, fuzzy
+msgid "THCONCEPT#thc_lang#THES_LANG)"
+msgstr "Language"
+
+msgid "THCONCEPT#thc_langlabel"
+msgstr "Label"
+
+msgid "THCONCEPT#thc_fr_relation"
+msgstr "Relations"
+
+msgid "THCONCEPT#thc_t_broader"
+msgstr "Generic"
+
+msgid "THCONCEPT#thc_uribroader"
+msgstr "Generic URI"
+
+msgid "THCONCEPT#thc_broader"
+msgstr "Generic concept"
+
+msgid "THCONCEPT#thc_narrower"
+msgstr "Narrowers"
+
+msgid "THCONCEPT#thc_t_related"
+msgstr "Related"
+
+msgid "THCONCEPT#thc_urirelated"
+msgstr "Related URI"
+
+msgid "THCONCEPT#thc_related"
+msgstr "Related concept"
+
+#, fuzzy
+msgid "THCONCEPT#thc_addlang"
+msgstr "Ajouter une traduction"
+
+msgid "THLANGCONCEPT#title"
+msgstr "Localized descriptor"
+
+msgid "THLANGCONCEPT#thcl_fr_ident"
+msgstr "Identification"
+
+msgid "THLANGCONCEPT#thcl_thesaurus"
+msgstr "Thesaurus"
+
+msgid "THLANGCONCEPT#thcl_thconcept"
+msgstr "Descriptor"
+
+msgid "THLANGCONCEPT#thcl_lang"
+msgstr "Language"
+
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#linkenum(THESAURUS"
+msgstr "Language"
+
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
+msgstr "Language"
+
+msgid "THLANGCONCEPT#thc_label"
+msgstr ""
+
+msgid "THLANGCONCEPT#thc_preflabel"
+msgstr ""
+
+#~ msgid "THESAURUS#thes_lang#fr.br"
+#~ msgstr "Gothic"
+
+#, fuzzy
+#~ msgid "thesaurus#title"
+#~ msgstr "Titre"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_fr_info"
+#~ msgstr "Identification"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_title"
+#~ msgstr "Titre"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_desc"
+#~ msgstr "Description"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_lang"
+#~ msgstr "Langues supportées"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_lang#fr"
+#~ msgstr "Français"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_lang#en"
+#~ msgstr "Anglais"
+
+#, fuzzy
+#~ msgid "thesaurus#thes_import"
+#~ msgstr "Importation SKOS"
+
+#, fuzzy
+#~ msgid "thconcept#title"
+#~ msgstr "Note générale"
+
+#, fuzzy
+#~ msgid "thconcept#thc_fr_ident"
+#~ msgstr "Identification"
+
+#, fuzzy
+#~ msgid "thconcept#thc_uri"
+#~ msgstr "Identifiant"
+
+#, fuzzy
+#~ msgid "thconcept#thc_level"
+#~ msgstr "Niveau"
+
+#, fuzzy
+#~ msgid "thconcept#thc_fr_desc"
+#~ msgstr "Description"
+
+#, fuzzy
+#~ msgid "thconcept#thc_t_label"
+#~ msgstr "Libellés alternatifs"
+
+#, fuzzy
+#~ msgid "thconcept#thc_altlabel"
+#~ msgstr "Employé pour"
+
+#, fuzzy
+#~ msgid "thconcept#thc_example"
+#~ msgstr "Exemple"
+
+#, fuzzy
+#~ msgid "thconcept#thc_symbol"
+#~ msgstr "Symbole"
+
+#, fuzzy
+#~ msgid "thconcept#thc_note"
+#~ msgstr "Note générale"
+
+#, fuzzy
+#~ msgid "thconcept#thc_fr_lang"
+#~ msgstr "Traductions"
+
+#, fuzzy
+#~ msgid "thconcept#thc_t_lang"
+#~ msgstr "Internationalisation"
+
+#, fuzzy
+#~ msgid "thconcept#thc_idlang"
+#~ msgstr "Localisation (ID)"
+
+#, fuzzy
+#~ msgid "thconcept#thc_lang"
+#~ msgstr "Langue"
+
+#, fuzzy
+#~ msgid "thconcept#thc_broader"
+#~ msgstr "Terme générique"
+
+#, fuzzy
+#~ msgid "thconcept#thc_narrower"
+#~ msgstr "Termes spécifiques"
+
+#, fuzzy
+#~ msgid "thconcept#thc_related"
+#~ msgstr "Termes associés"
+
+#, fuzzy
+#~ msgid "thlangconcept#title"
+#~ msgstr "Langue"
+
+#, fuzzy
+#~ msgid "thlangconcept#thcl_fr_ident"
+#~ msgstr "Identification"
+
+#, fuzzy
+#~ msgid "thlangconcept#thcl_thesaurus"
+#~ msgstr "Thésaurus"
+
+#, fuzzy
+#~ msgid "thlangconcept#thcl_thconcept"
+#~ msgstr "Descripteur"
+
+#, fuzzy
+#~ msgid "thlangconcept#thcl_lang"
+#~ msgstr "Langue"
+
+# fuzzy 
+#~ msgid "thesaurus#--TITLE--"
+#~ msgstr "Thésaurus"
+
+# fuzzy 
+#~ msgid "thconcept#--TITLE--"
+#~ msgstr "Descripteur"
+
+# fuzzy 
+#~ msgid "thlangconcept#--TITLE--"
+#~ msgstr "Descripteur localisé"

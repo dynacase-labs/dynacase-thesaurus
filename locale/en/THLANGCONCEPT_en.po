@@ -1,0 +1,50 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: THLANGCONCEPT \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2013-08-28T13:19:48+02:00\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thc_label"
+msgstr ""
+
+#: thesaurus.ods.csv
+msgid "THLANGCONCEPT#thc_preflabel"
+msgstr ""
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_fr_ident"
+msgstr "Identification"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_lang"
+msgstr "Langue"
+
+msgid "THLANGCONCEPT#thcl_lang#THES_LANG)"
+msgstr ""
+
+msgid "THLANGCONCEPT#thcl_lang#linkenum(THESAURUS"
+msgstr ""
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_thconcept"
+msgstr "Descripteur"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THLANGCONCEPT#thcl_thesaurus"
+msgstr "Thésaurus"
+
+#, fuzzy
+msgid "THLANGCONCEPT#title"
+msgstr "Descripteur localisé"
