@@ -180,6 +180,13 @@ class Thconcept extends Family\Document
      */
     function getLangTitle($lang = false)
     {
-        return $this->getRawValue(MyAttributes::thc_label) . ' ' . $this->getLabelLang($lang);
+        $label=trim($this->getRawValue(MyAttributes::thc_label) . ' ' . $this->getLabelLang($lang));
+        if ($label == '') {
+            $label = $this->getRawValue(MyAttributes::thc_preflabel);
+        } 
+        if ($label == '') {
+            $label= $this->getRawValue(MyAttributes::thc_uri);
+        }
+        return $label;
     }
 }
