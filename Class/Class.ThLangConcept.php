@@ -4,15 +4,13 @@
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package THESAURUS
 */
-/*
- * @begin-method-ignore
- * this part will be deleted when construct document class until end-method-ignore
-*/
-class _THLANGCONCEPT extends Doc
+namespace Dcp\Thesaurus;
+use \Dcp\AttributeIdentifiers as Attributes;
+use \Dcp\AttributeIdentifiers\Thlangconcept as MyAttributes;
+use \Dcp\Family as Family;
+class Thlangconcept extends Family\Document
 {
-    /*
-     * @end-method-ignore
-    */
+
     function postStore()
     {
         $this->refreshConcept();
@@ -26,7 +24,7 @@ class _THLANGCONCEPT extends Doc
      */
     function refreshConcept()
     {
-        $thc = $this->getRawValue("thcl_thconcept");
+        $thc = $this->getRawValue(MyAttributes::thcl_thconcept);
         if ($thc) {
             $th = new_doc($this->dbaccess, $thc);
             if ($th->isAlive()) {
@@ -34,12 +32,5 @@ class _THLANGCONCEPT extends Doc
             }
         }
     }
-    /*
-     * @begin-method-ignore
-     * this part will be deleted when construct document class until end-method-ignore
-    */
+
 }
-/*
- * @end-method-ignore
-*/
-?>

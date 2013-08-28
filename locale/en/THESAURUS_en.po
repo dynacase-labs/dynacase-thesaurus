@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: FREEDOM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-11-20 14:47+0100\n"
+"PO-Revision-Date: 2008-09-04 16:09+0200\n"
+"Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
+"Language-Team: English <distrib@anakeen.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid " Update thesaurus"
+msgstr ""
+
+msgid " or create new thesaurus"
+msgstr ""
+
+msgid "Analyze thesaurus"
+msgstr ""
+
+msgid "CREATE THESAURUS"
+msgstr ""
+
+msgid "Clear inputs"
+msgstr ""
+
+msgid "Clear selected inputs"
+msgstr ""
+
+msgid "Close tree"
+msgstr ""
+
+msgid "Import SKOS thesaurus"
+msgstr ""
+
+msgid "Import in progress"
+msgstr ""
+
+msgid "Import thesaurus"
+msgstr ""
+
+msgid "Manage thesaurus"
+msgstr ""
+
+msgid "SKOS Analyzis"
+msgstr ""
+
+msgid "SKOS Importation"
+msgstr ""
+
+msgid "SKOS file is not set"
+msgstr ""
+
+msgid "Search from thesaurus"
+msgstr ""
+
+msgid "Thesaurus"
+msgstr ""
+
+msgid "Thesaurus SKOS file"
+msgstr ""
+
+#, fuzzy
+msgid "Thesaurus results"
+msgstr "Référence"
+
+msgid "Thesaurus to affect"
+msgstr ""
+
+msgid "UPDATE THESAURUS"
+msgstr ""
+
+msgid "View tree thesaurus"
+msgstr ""
+
+msgid "Word to search"
+msgstr ""
+
+msgid "display interface to search from thesaurus"
+msgstr ""
+
+msgid "display tree of thesaurus"
+msgstr ""
+
+#, c-format
+msgid "document %s not alive"
+msgstr ""
+
+msgid "exec search from thesaurus"
+msgstr ""
+
+msgid "export in SKOS format"
+msgstr ""
+
+#, c-format
+msgid "family %s not alive"
+msgstr ""
+
+msgid "import SKOS format"
+msgstr ""
+
+msgid "interface import SKOS format"
+msgstr ""
+
+#, c-format
+msgid "no result matching %s"
+msgstr ""
+
+#, c-format
+msgid "thesaurus %s not alive"
+msgstr ""
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_desc"
+msgstr "Description"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THESAURUS#thes_export"
+msgstr "Exportation SKOS"
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_fr_info"
+msgstr "Identification"
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_import"
+msgstr "SKOS mportation"
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_lang"
+msgstr "Supported languages"
+
+msgid "THESAURUS#thes_lang#en"
+msgstr "English"
+
+msgid "THESAURUS#thes_lang#fr"
+msgstr "French"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THESAURUS#thes_refresh"
+msgstr "Recalcul des relations"
+
+#: thesaurus.ods.csv
+#, fuzzy
+msgid "THESAURUS#thes_thtree"
+msgstr "Arbres des concepts"
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_title"
+msgstr "Title"
+
+#: thesaurus.ods.csv
+msgid "THESAURUS#thes_uri"
+msgstr "Reference"
+
+msgid "THESAURUS#title"
+msgstr "Thesaurus"
