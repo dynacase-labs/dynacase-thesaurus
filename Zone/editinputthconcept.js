@@ -45,8 +45,8 @@ function sendconcepttree(event,aid,multi) {
     if (multi) url = url + '&multi=yes';
     var ret=requestUrlSend(cible,url); 
     disableSynchro();
-    cible.style.visibility='visible';
-    cible.style.display='';
+
+      $(cible).show();
 
     itdelta.value=itdelta.getAttribute('oldvalue');
     resizeme(event,cible.id);        
@@ -70,8 +70,8 @@ function selectth(th,thid,aid) {
 }
 
 function undisplaytree(aid) {
-  var treediv=document.getElementById('tree_'+aid);
-  treediv.style.display='none';
+
+    $('#tree_'+aid).hide();
   
 }
 
@@ -160,8 +160,10 @@ function resizeme(event,divid) {
     th.style.width=w+'px';
   }
   if (isSafari) {
-    var xy=getAnchorPosition(divid);    
-    th.style.top=xy.y;    
+    var xy=getAnchorPosition(divid);
+      if (xy.y > 0) {
+    th.style.top=xy.y;
+      }
   }
 
   if (h > 0) th.style.height=h+'px';
