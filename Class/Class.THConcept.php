@@ -11,7 +11,7 @@ use \Dcp\AttributeIdentifiers\Thconcept as MyAttributes;
 use \Dcp\Family as Family;
 class Thconcept extends Family\Document
 {
-
+    
     function preRefresh()
     {
         // $err= $this->recomputeNarrower();
@@ -85,6 +85,15 @@ class Thconcept extends Family\Document
             }
         }
         $this->setValue(MyAttributes::thc_broader, $broad);
+        
+        $relateduri = $this->getMultipleRawValues(MyAttributes::thc_urirelated);
+        $related = $this->getMultipleRawValues(MyAttributes::thc_related);
+        foreach ($relateduri as $k => $v) {
+            if (!$related[$k]) {
+                $related[$k] = getConceptIdFromURI($this->dbaccess, $v);
+            }
+        }
+        $this->setValue(MyAttributes::thc_related, $related);
     }
     
     function retrieveLangLabel()
@@ -173,19 +182,19 @@ class Thconcept extends Family\Document
             }
         }
         
-        return (isset($tll[$kgood])) ? $tll[$kgood] : (isset($tll[0]) ? $tll[0] : '');
+        return (isset($tll[$kgood])) ? $tll[$kgood] : '';
     }
     /**
      * return localized title
      */
     function getLangTitle($lang = false)
     {
-        $label=trim($this->getRawValue(MyAttributes::thc_label) . ' ' . $this->getLabelLang($lang));
+        $label = trim($this->getRawValue(MyAttributes::thc_label) . ' ' . $this->getLabelLang($lang));
         if ($label == '') {
             $label = $this->getRawValue(MyAttributes::thc_preflabel);
-        } 
+        }
         if ($label == '') {
-            $label= $this->getRawValue(MyAttributes::thc_uri);
+            $label = $this->getRawValue(MyAttributes::thc_uri);
         }
         return $label;
     }
