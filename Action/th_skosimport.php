@@ -45,7 +45,9 @@ function th_skosimport(Action & $action)
         for ($j = 0; $j < $concepts->length; $j++) {
             $nod = $concepts->item($j); //Node j
             $nodename = strtolower($nod->nodeName);
-            if ($nodename == "rdf:description") analyzeSkosConcept($dbaccess, null, $nod, $tr);
+            if (($nodename == "rdf:description") || ($nodename == "skos:concept")) {
+                analyzeSkosConcept($dbaccess, null, $nod, $tr);
+            }
         }
         $tul = array();
         foreach ($tr as $k => $v) {
@@ -96,7 +98,7 @@ function th_skosimport(Action & $action)
     } else {
         if ($iduri) {
             /**
-             * @var _THESAURUS $th
+             * @var \Dcp\Family\THESAURUS $th
              */
             $th = new_doc($dbaccess, $iduri);
             $action->lay->set("msg2", _("UPDATE THESAURUS") . ' ' . $th->title);
@@ -121,7 +123,10 @@ function th_skosimport(Action & $action)
         for ($j = 0; $j < $concepts->length; $j++) {
             $nod = $concepts->item($j); //Node j
             $nodename = strtolower($nod->nodeName);
-            if ($nodename == "rdf:description") importSkosConcept($dbaccess, $thid, $nod);
+            
+            if (($nodename == "rdf:description") || ($nodename == "skos:concept")) {
+                importSkosConcept($dbaccess, $thid, $nod);
+            }
         }
         // postImport Refreshing
         refreshThConceptFromURI($dbaccess, $thid);
@@ -191,8 +196,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
      * @var Doc[] $tcol
      */
     $tcol = array();
-    $uri = $node->getAttribute("rdf:about");
-    
+    $uri = decodeRef($node->getAttribute("rdf:about"));
     $co = getConceptFromURI($dbaccess, $uri);
     if (!$co) {
         // create it
@@ -219,7 +223,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
                 break;
 
             case "skos:broader":
-                $refuri = $a->getAttribute("rdf:resource");
+                $refuri = decodeRef($a->getAttribute("rdf:resource"));
                 $co->setValue("thc_uribroader", $refuri);
                 break;
 
@@ -227,7 +231,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
                 break;
 
             case "skos:related":
-                $refuri = $a->getAttribute("rdf:resource");
+                $refuri = decodeRef($a->getAttribute("rdf:resource"));
                 $trel[] = $refuri;
                 $co->setValue("thc_urirelated", $trel);
                 break;
@@ -278,12 +282,21 @@ function refreshThConceptFromURI($dbaccess, $thid)
     $s->setObjectReturn();
     $s->search();
     /**
-     * @var _THCONCEPT $doc
+     * @var \Dcp\Family\THCONCEPT $doc
      */
     while ($doc = $s->getNextDoc()) {
         $doc->refreshFromURI();
         $doc->modify();
     }
+}
+
+function decodeRef($s)
+{
+    $s = urldecode($s);
+    if (!seems_utf8($s)) {
+        $s = utf8_encode($s);
+    }
+    return $s;
 }
 /**
  * analyze a concept
@@ -298,6 +311,7 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
     $err = '';
     $uri = $node->getAttribute("rdf:about");
     
+    $uri = decodeRef($uri);
     $tcon[$uri] = array();
     
     $ats = $node->childNodes;
@@ -319,6 +333,7 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
 
             case "skos:broader":
                 $refuri = $a->getAttribute("rdf:resource");
+                $refuri = decodeRef($refuri);
                 $tcon[$uri][$nodename] = $refuri;
                 break;
 
@@ -327,6 +342,7 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
 
             case "skos:related":
                 $refuri = $a->getAttribute("rdf:resource");
+                $refuri = decodeRef($refuri);
                 $tcon[$uri][$nodename][] = $refuri;
                 break;
 

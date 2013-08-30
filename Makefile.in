@@ -15,7 +15,7 @@ TAR = gtar
 GZIP_ENV = --best
 
 export targetdir PACKAGE
-SUBDIR=  Class Zone Action External Images
+SUBDIR=  Class Zone Action External Images locale
 
 pages_not_xml = info.xml
 
