@@ -37,7 +37,7 @@ function inputtree(Action & $action)
         $t = getConceptsLevel($dbaccess, $doc->initid, $level);
         
         $b2 = microtime(true);
-        foreach ($t as $k => $v) {
+        foreach ($t as $v) {
             if ($v["thc_level"] == 0) {
                 $label = getLabelLang($v, $lang);
                 $isgood = (($filter == "") || (preg_match("/$filter/i", $v["thc_label"] . $label, $reg)));
@@ -45,8 +45,8 @@ function inputtree(Action & $action)
                 $child = getUltree($t, $v["initid"], $filter, $childgood, $lang);
                 $oneisgood|= $childgood;
                 $t0[] = array(
-                    "title" => $v["thc_label"],
-                    "desc" => $label,
+                    "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
+                    "desc" => htmlspecialchars($label, ENT_QUOTES),
                     "isfiltergood" => $isgood,
                     "ischildgood" => $childgood,
                     "nosee" => (!$childgood) && (!$isgood) ,
@@ -58,12 +58,12 @@ function inputtree(Action & $action)
         }
     }
     $action->lay->set("first", true);
-    $action->lay->set("aid", $aid);
-    $action->lay->set("multi", $multi);
+    $action->lay->eSet("aid", $aid);
+    $action->lay->set("multi", (bool)$multi);
     $action->lay->setBlockData("LIs", $t0);
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
-    if (!$oneisgood) $action->lay->set("error", sprintf(_("no result matching %s") , $filter));
+    if (!$oneisgood) $action->lay->set("error", htmlspecialchars(sprintf(_("no result matching %s") , $filter), ENT_QUOTES));
     else $action->lay->set("error", "");
 }
 function getLabelLang($v, $lang)
@@ -88,7 +88,7 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang)
     $lay = new Layout(getLayoutFile("THESAURUS", "inputtree.xml"));
     $b = array();
     $oneisgood = false;
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if ($v["thc_broader"] == $initid) {
             $label = getLabelLang($v, $lang);
             $isgood = (($filter == "") || (preg_match("/$filter/i", $v["thc_label"] . $label, $reg)));
@@ -96,8 +96,8 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang)
             $child = getUltree($t, $v["initid"], $filter, $childgood, $lang);
             $oneisgood|= $childgood;
             $b[] = array(
-                "title" => $v["thc_label"],
-                "desc" => $label,
+                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
+                "desc" => htmlspecialchars($label, ENT_QUOTES),
                 "thid" => $v["initid"],
                 "isfiltergood" => $isgood,
                 "ischildgoodnos" => $childgood,
@@ -114,4 +114,3 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang)
     $lay->setBlockData("LIs", $b);
     return $lay->gen();
 }
-?>

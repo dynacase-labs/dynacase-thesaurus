@@ -25,4 +25,3 @@ function th_editskosimport(Action & $action)
 {
     editmode($action);
 }
-?>

@@ -27,7 +27,7 @@ function th_search(&$action)
     if (!$fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive") , $fid));
     if (!$thid) {
         $at = $fdoc->getNormalAttributes();
-        foreach ($at as $k => $oa) {
+        foreach ($at as $oa) {
             if (($aid == "") || ($aid == $oa->id)) {
                 if ($oa->type == "thesaurus") {
                     $aid = $oa->id;
@@ -38,9 +38,8 @@ function th_search(&$action)
         }
     }
     
-    $action->lay->set("multi", $multi);
-    $action->lay->set("aid", $aid);
-    $action->lay->set("thid", $thid);
-    $action->lay->set("famid", $fid);
+    $action->lay->eSet("multi", $multi);
+    $action->lay->eSet("aid", $aid);
+    $action->lay->eSet("thid", $thid);
+    $action->lay->eSet("famid", $fid);
 }
-?>
