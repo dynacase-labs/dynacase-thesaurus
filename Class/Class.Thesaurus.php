@@ -31,7 +31,7 @@ class Thesaurus extends Family\Document
             if (is_array($thv)) {
                 $sql = "multi array";
                 $thnr = array();
-                foreach ($thv as $k => $thid) {
+                foreach ($thv as $thid) {
                     /**
                      * @var Family\THCONCEPT $th
                      */
@@ -61,7 +61,7 @@ class Thesaurus extends Family\Document
             if (is_array($thv)) {
                 $sql = "single array";
                 $thnr = array();
-                foreach ($thv as $k => $thid) {
+                foreach ($thv as $thid) {
                     /**
                      * @var Family\THCONCEPT $th
                      */
@@ -129,6 +129,7 @@ class Thesaurus extends Family\Document
         $s->orderby = Attributes\Thconcept::thc_level;
         $s->search();
         $brs = array();
+        $tout = array();
         while ($doc = $s->getNextDoc()) {
             $br = $doc->getRawValue("thc_broader");
             $id = $doc->id;
