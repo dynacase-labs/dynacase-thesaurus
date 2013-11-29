@@ -18,10 +18,10 @@ function getThConcept($dbaccess, $thesid, $name = '')
     $t = $s->search();
     $s3 = sprintf("%.03f", microtime(true) - $s2);
     $tr = array();
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if ($v) {
             $tr[] = array(
-                $v["title"],
+                htmlspecialchars($v["title"], ENT_QUOTES),
                 $v["id"],
                 $v["title"]
             );
@@ -40,4 +40,3 @@ function getThConcept($dbaccess, $thesid, $name = '')
     );
     return $tr;
 }
-?>

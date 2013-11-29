@@ -56,4 +56,3 @@ function th_execsearch(&$action)
     
     redirect($action, "FREEDOM", "FREEDOM_VIEW&dirid=" . $se->id);
 }
-?>

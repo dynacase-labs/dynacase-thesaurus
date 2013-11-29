@@ -14,7 +14,6 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
 function th_skosexport(Action & $action)
 {
     $dbaccess = $action->GetParam("FREEDOM_DB");
-    $uri = getHttpVars("thuri");
     $docid = getHttpVars("id");
     
     if (ini_get("max_execution_time") < 180) ini_set("max_execution_time", 180); // 3 minutes
@@ -30,8 +29,7 @@ function th_skosexport(Action & $action)
         $s = new SearchDoc($dbaccess, "THCONCEPT");
         $s->addFilter("thc_thesaurus='" . $docid . "'");
         $t = $s->search();
-        $tsa = array();
-        foreach ($t as $k => $th) {
+        foreach ($t as $th) {
             
             $concepts.= exportSkosConcept($dbaccess, $th);
         }
@@ -155,4 +153,3 @@ function fdl2skos_label($l)
     }
     return $satag;
 }
-?>

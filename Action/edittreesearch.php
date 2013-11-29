@@ -41,7 +41,7 @@ function edittreesearch(Action & $action)
     if (!$thid) {
         if (!$fdoc->isAlive()) $action->exitError(sprintf(_("document %s not alive") , $fid));
         $at = $fdoc->getNormalAttributes();
-        foreach ($at as $k => $oa) {
+        foreach ($at as $oa) {
             if ($oa->type == "thesaurus") {
                 $aid = $oa->id;
                 $thid = $oa->format;
@@ -66,16 +66,16 @@ function edittreesearch(Action & $action)
     }
     $action->lay->set("first", true);
     $action->lay->set("child", $child);
-    $action->lay->set("aid", $aid);
-    $action->lay->set("multi", $multi);
+    $action->lay->eSet("aid", $aid);
+    $action->lay->set("multi", (bool)$multi);
     $action->lay->set("ymulti", $multi ? "yes" : "no");
     
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
-    $action->lay->set("thid", $thid);
-    $action->lay->set("famid", $fid);
-    $action->lay->set("iname", $iname);
-    $action->lay->set("error", $error);
+    $action->lay->eSet("thid", $thid);
+    $action->lay->eSet("famid", $fid);
+    $action->lay->eSet("iname", $iname);
+    $action->lay->eSet("error", $error);
 }
 
 function getThLabelLang($v, $lang)
@@ -101,7 +101,7 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang, $famid, $aid, $dba
     $lay = new Layout(getLayoutFile("THESAURUS", "editsubtreesearch.xml"));
     $b = array();
     $oneisgood = false;
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if ($v["thc_broader"] == $initid) {
             $label = getThLabelLang($v, $lang);
             $isgood = (($filter == "") || (preg_match("/$filter/i", $v["thc_label"] . $label, $reg)));
@@ -120,8 +120,8 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang, $famid, $aid, $dba
             
             $oneisgood|= $childgood;
             $b[] = array(
-                "title" => $v["thc_label"],
-                "desc" => $label,
+                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
+                "desc" => htmlspecialchars($label, ENT_QUOTES),
                 "conid" => $v["initid"],
                 "isfiltergood" => $isgood,
                 "ischildgoodnos" => $childgood,
@@ -129,7 +129,7 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang, $famid, $aid, $dba
                 "openit" => ($childgood) && (!$isgood) ,
                 "child" => $child,
                 "filter" => ($filter != "") ,
-                "cardinal" => $cardinal
+                "cardinal" => htmlspecialchars($cardinal, ENT_QUOTES)
             );
         }
     }
@@ -139,4 +139,3 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang, $famid, $aid, $dba
     $lay->setBlockData("LIs", $b);
     return $lay->gen();
 }
-?>

@@ -23,11 +23,9 @@ function th_skosimport(Action & $action)
     setMaxExecutionTimeTo(MAXIMPORTTIME);
     $action->lay->set("msg2", "");
     if (isset($_FILES["skos"])) {
-        $filename = $_FILES["skos"]['name'];
         $skosfile = $_FILES["skos"]['tmp_name'];
     } else {
-        $filename = GetHttpVars("skos");
-        $skosfile = $filename;
+        $skosfile = GetHttpVars("skos");
     }
     
     $doc = new DOMDocument();
@@ -59,7 +57,7 @@ function th_skosimport(Action & $action)
         $tt = array();
         foreach ($tul as $k => $v) {
             if ($k) {
-                foreach ($v as $kx => $vx) {
+                foreach ($v as $vx) {
                     //      if (! is_array($tt[$k])) $tt[$k]=array();
                     //print "tt[$k][$vx]<br/>";
                     if (notxy($tt, $k, $vx)) {
@@ -79,7 +77,7 @@ function th_skosimport(Action & $action)
         // print_r2($tr);
         //print '<hr>';
         $tout = array();
-        foreach ($tt as $k => $v) {
+        foreach ($tt as $v) {
             $id = array_pop($v);
             $tlabel = $tr[$id]['skos:preflabel'];
             $label = '';
@@ -111,7 +109,7 @@ function th_skosimport(Action & $action)
                 $th = createDoc($dbaccess, "THESAURUS");
                 $th->setValue("thes_uri", $newuri);
                 $th->name = $newuri;
-                $err = $th->Add();
+                $th->Add();
                 $action->lay->set("msg2", _("CREATE THESAURUS") . ' ' . $uri);
             }
         }
@@ -135,7 +133,7 @@ function th_skosimport(Action & $action)
 }
 function notxy($t, $x, $y)
 {
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if (in_array($x, $v)) return false;
         if (in_array($y, $v)) return false;
     }
@@ -143,7 +141,7 @@ function notxy($t, $x, $y)
 }
 function noty($t, $y)
 {
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if (in_array($y, $v)) return false;
     }
     return true;
@@ -162,10 +160,10 @@ function th_insertbefore(&$t, $x, $y)
 } // y after x
 function th_insertafter(&$t, $x, $y)
 {
-    foreach ($t as $k => $v) {
+    foreach ($t as $v) {
         if (in_array($x, $v)) {
             $tt1 = array();
-            foreach ($v as $kv => $vv) {
+            foreach ($v as $vv) {
                 $tt1[] = $vv;
                 if ($vv == $x) break;
             }
@@ -203,7 +201,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
         $co = createDoc($dbaccess, "THCONCEPT");
         $co->setValue("thc_uri", $uri);
         $co->setValue("thc_thesaurus", $thid);
-        $err = $co->Add();
+        $co->Add();
     }
     $ats = $node->childNodes;
     
@@ -248,7 +246,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
                                 $cl = createDoc($dbaccess, "THLANGCONCEPT");
                                 $cl->setValue("thcl_lang", $lang);
                                 $cl->setValue("thcl_thconcept", $co->initid);
-                                $err = $cl->Add();
+                                $cl->Add();
                             }
                             $tcol[$lang] = $cl;
                         } else {
@@ -268,7 +266,7 @@ function importSkosConcept($dbaccess, $thid, &$node, $analyze = false)
     }
     $err = $co->modify();
     //  $co->postModify();
-    foreach ($tcol as $k => $v) {
+    foreach ($tcol as $v) {
         $v->modify();
     }
     return $err;
@@ -348,7 +346,6 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
 
             default:
                 if (preg_match("/skos:(.*)$/", $nodename, $reg)) {
-                    $aname = "thc_" . $reg[1];
                     if ($lang) {
                         $tcon[$uri][$nodename][$lang] = $nodevalue;
                     } else {
@@ -360,4 +357,3 @@ function analyzeSkosConcept($dbaccess, $thid, &$node, &$tcon)
     
     return $err;
 }
-?>
