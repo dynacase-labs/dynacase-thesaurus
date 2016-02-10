@@ -67,9 +67,9 @@ function edittreesearch(Action & $action)
     $action->lay->set("first", true);
     $action->lay->set("child", $child);
     $action->lay->eSet("aid", $aid);
-    $action->lay->set("multi", (bool)$multi);
+    $action->lay->set("multi", $multi);
     $action->lay->set("ymulti", $multi ? "yes" : "no");
-    
+
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
     $action->lay->eSet("thid", $thid);
