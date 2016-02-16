@@ -4,14 +4,15 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: FREEDOM\n"
+"Project-Id-Version: THESAURUS\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-20 14:47+0100\n"
-"PO-Revision-Date: 2008-09-04 16:09+0200\n"
+"PO-Revision-Date: 2016-02-16 10:02+0100\n"
 "Last-Translator: Eric Brison <eric.brison@anakeen.com>\n"
-"Language-Team: English <distrib@anakeen.com>\n"
+"Language: French\n"
+"Language-Team: French <distrib@anakeen.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #, c-format
@@ -113,7 +114,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Thesaurus results"
-msgstr "Référence"
+msgstr "RÃ©fÃ©rence"
 
 msgid "THESAURUS#title"
 msgstr "Thesaurus"
@@ -164,7 +165,7 @@ msgstr "Thesaurus"
 
 #, fuzzy
 msgid "THCONCEPT#thc_thestitle"
-msgstr "Nom du thésaurus"
+msgstr "Nom du thÃ©saurus"
 
 msgid "THCONCEPT#thc_level"
 msgstr "Level Bis"
@@ -345,11 +346,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thesaurus#thes_lang"
-#~ msgstr "Langues supportées"
+#~ msgstr "Langues supportÃ©es"
 
 #, fuzzy
 #~ msgid "thesaurus#thes_lang#fr"
-#~ msgstr "Français"
+#~ msgstr "FranÃ§ais"
 
 #, fuzzy
 #~ msgid "thesaurus#thes_lang#en"
@@ -361,7 +362,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thconcept#title"
-#~ msgstr "Note générale"
+#~ msgstr "Note gÃ©nÃ©rale"
 
 #, fuzzy
 #~ msgid "thconcept#thc_fr_ident"
@@ -381,11 +382,11 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thconcept#thc_t_label"
-#~ msgstr "Libellés alternatifs"
+#~ msgstr "LibellÃ©s alternatifs"
 
 #, fuzzy
 #~ msgid "thconcept#thc_altlabel"
-#~ msgstr "Employé pour"
+#~ msgstr "EmployÃ© pour"
 
 #, fuzzy
 #~ msgid "thconcept#thc_example"
@@ -397,7 +398,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thconcept#thc_note"
-#~ msgstr "Note générale"
+#~ msgstr "Note gÃ©nÃ©rale"
 
 #, fuzzy
 #~ msgid "thconcept#thc_fr_lang"
@@ -417,15 +418,15 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thconcept#thc_broader"
-#~ msgstr "Terme générique"
+#~ msgstr "Terme gÃ©nÃ©rique"
 
 #, fuzzy
 #~ msgid "thconcept#thc_narrower"
-#~ msgstr "Termes spécifiques"
+#~ msgstr "Termes spÃ©cifiques"
 
 #, fuzzy
 #~ msgid "thconcept#thc_related"
-#~ msgstr "Termes associés"
+#~ msgstr "Termes associÃ©s"
 
 #, fuzzy
 #~ msgid "thlangconcept#title"
@@ -437,7 +438,7 @@ msgstr ""
 
 #, fuzzy
 #~ msgid "thlangconcept#thcl_thesaurus"
-#~ msgstr "Thésaurus"
+#~ msgstr "ThÃ©saurus"
 
 #, fuzzy
 #~ msgid "thlangconcept#thcl_thconcept"
@@ -449,7 +450,7 @@ msgstr ""
 
 # fuzzy 
 #~ msgid "thesaurus#--TITLE--"
-#~ msgstr "Thésaurus"
+#~ msgstr "ThÃ©saurus"
 
 # fuzzy 
 #~ msgid "thconcept#--TITLE--"
@@ -457,4 +458,4 @@ msgstr ""
 
 # fuzzy 
 #~ msgid "thlangconcept#--TITLE--"
-#~ msgstr "Descripteur localisé"
+#~ msgstr "Descripteur localisÃ©"
