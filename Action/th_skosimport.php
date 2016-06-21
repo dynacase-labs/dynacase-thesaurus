@@ -13,7 +13,7 @@ define("MAXIMPORTTIME", 600); // 10 minutes
 function th_skosimport(Action & $action)
 {
     
-    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $dbaccess = $action->dbaccess;
     $uri = getHttpVars("thuri");
     $iduri = getHttpVars("_id_thuri");
     $newuri = getHttpVars("newthuri");
@@ -44,6 +44,9 @@ function th_skosimport(Action & $action)
             $nod = $concepts->item($j); //Node j
             $nodename = strtolower($nod->nodeName);
             if (($nodename == "rdf:description") || ($nodename == "skos:concept")) {
+                /**
+                 * @var DOMElement $nod
+                 */
                 analyzeSkosConcept($dbaccess, null, $nod, $tr);
             }
         }
@@ -123,6 +126,9 @@ function th_skosimport(Action & $action)
             $nodename = strtolower($nod->nodeName);
             
             if (($nodename == "rdf:description") || ($nodename == "skos:concept")) {
+                /**
+                 * @var DOMElement $nod
+                 */
                 importSkosConcept($dbaccess, $thid, $nod);
             }
         }

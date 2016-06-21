@@ -17,7 +17,7 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
  */
 function edittreesearch(Action & $action)
 {
-    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $dbaccess = $action->dbaccess;
     $thid = $action->getArgument("thid");
     $filter = $action->getArgument("filter");
     $fid = $action->getArgument("famid");
@@ -69,7 +69,7 @@ function edittreesearch(Action & $action)
     $action->lay->eSet("aid", $aid);
     $action->lay->set("multi", $multi);
     $action->lay->set("ymulti", $multi ? "yes" : "no");
-
+    
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
     $action->lay->eSet("thid", $thid);
@@ -120,8 +120,8 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang, $famid, $aid, $dba
             
             $oneisgood|= $childgood;
             $b[] = array(
-                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
-                "desc" => htmlspecialchars($label, ENT_QUOTES),
+                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES) ,
+                "desc" => htmlspecialchars($label, ENT_QUOTES) ,
                 "conid" => $v["initid"],
                 "isfiltergood" => $isgood,
                 "ischildgoodnos" => $childgood,

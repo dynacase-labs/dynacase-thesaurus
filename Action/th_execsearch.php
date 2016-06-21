@@ -18,7 +18,7 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
  */
 function th_execsearch(&$action)
 {
-    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $dbaccess = $action->dbaccess;
     $thid = $action->getArgument("thid");
     $fid = $action->getArgument("famid");
     $aid = $action->getArgument("aid");
