@@ -13,7 +13,7 @@ include_once ("THESAURUS/Lib.Thesaurus.php");
 
 function th_skosexport(Action & $action)
 {
-    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $dbaccess = $action->dbaccess;
     $docid = getHttpVars("id");
     
     if (ini_get("max_execution_time") < 180) ini_set("max_execution_time", 180); // 3 minutes

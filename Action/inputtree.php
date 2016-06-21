@@ -26,7 +26,7 @@ function inputtree(Action & $action)
     $multi = ($action->getArgument("multi") == "yes") ? 'multi' : false;
     
     $b1 = microtime(true);
-    $dbaccess = $action->GetParam("FREEDOM_DB");
+    $dbaccess = $action->dbaccess;
     if (!$lang) $lang = strtolower(strtok(getParam("CORE_LANG") , '_'));
     $oneisgood = false;
     $doc = new_doc($dbaccess, $id);
@@ -45,8 +45,8 @@ function inputtree(Action & $action)
                 $child = getUltree($t, $v["initid"], $filter, $childgood, $lang);
                 $oneisgood|= $childgood;
                 $t0[] = array(
-                    "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
-                    "desc" => htmlspecialchars($label, ENT_QUOTES),
+                    "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES) ,
+                    "desc" => htmlspecialchars($label, ENT_QUOTES) ,
                     "isfiltergood" => $isgood,
                     "ischildgood" => $childgood,
                     "nosee" => (!$childgood) && (!$isgood) ,
@@ -63,7 +63,7 @@ function inputtree(Action & $action)
     $action->lay->setBlockData("LIs", $t0);
     $action->lay->set("time", sprintf("%0.3f [%.03f]", $b2 - $b1, microtime(true) - $b1));
     
-    if (!$oneisgood) $action->lay->set("error", htmlspecialchars(sprintf(_("no result matching %s") , $filter), ENT_QUOTES));
+    if (!$oneisgood) $action->lay->set("error", htmlspecialchars(sprintf(_("no result matching %s") , $filter) , ENT_QUOTES));
     else $action->lay->set("error", "");
 }
 function getLabelLang($v, $lang)
@@ -96,8 +96,8 @@ function getUltree(&$t, $initid, $filter, &$oneisgood, $lang)
             $child = getUltree($t, $v["initid"], $filter, $childgood, $lang);
             $oneisgood|= $childgood;
             $b[] = array(
-                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES),
-                "desc" => htmlspecialchars($label, ENT_QUOTES),
+                "title" => htmlspecialchars($v["thc_label"], ENT_QUOTES) ,
+                "desc" => htmlspecialchars($label, ENT_QUOTES) ,
                 "thid" => $v["initid"],
                 "isfiltergood" => $isgood,
                 "ischildgoodnos" => $childgood,
