@@ -1,7 +1,6 @@
 <?php
 /*
  * @author Anakeen
- * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FDL
 */
 /**
@@ -9,7 +8,6 @@
  *
  * @author Anakeen 2008
  * @version $Id: th_editskosimport.php,v 1.1 2008/09/15 16:08:49 eric Exp $
- * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
  * @package FREEDOM
  * @subpackage THESAURUS
  */

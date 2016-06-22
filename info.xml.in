@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<module name="dynacase-thesaurus" version="@VERSION@" release="@RELEASE@" license="@LICENSE@" infopath="http://www.dynacase.org/modules/dynacase-thesaurus/dynacase-thesaurus">
+<module name="dynacase-thesaurus" version="@VERSION@" release="@RELEASE@" license="http://www.gnu.org/licenses/lgpl-3.0.txt GNU Lesser General Public License v3.0">
 
-  <description lang="en">Thesaurus application to manage and use thesaurus functionnalities in dynacase</description>
+  <description lang="en">Thesaurus application to manage and use thesaurus functionalities in dynacase</description>
   <description lang="fr">L'application Thesaurus permet de fournir et gérer les fonctionnalités de thesaurus de Dynacase</description>
 
   <replaces>
